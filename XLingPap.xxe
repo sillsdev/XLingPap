@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration
+name="XLingPaper"
+xsi:schemaLocation="../xxe_config_pack/config/xsd/configuration.xsd"
+xmlns="http://www.xmlmind.com/xmleditor/schema/configuration"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration"
+><detect
+><dtdPublicId
+>-//XMLmind//DTD XLingPap//EN</dtdPublicId
+></detect
+><!--
+  <cfg:detect>
+    <or> 
+
+      <dtdPublicId>-//XMLmind//DTD XLingPap//EN</dtdPublicId>
+      <and>
+        <schemaType xsi:nil="true"/>
+        <or>
+          <rootElementLocalName>referencesLayout</rootElementLocalName>
+          <rootElementLocalName>lingPaper</rootElementLocalName>
+          <rootElementLocalName>references</rootElementLocalName>
+          <rootElementLocalName>indexTerms</rootElementLocalName>
+          <rootElementLocalName>publisherStyleSheet</rootElementLocalName>
+        </or>
+      </and>
+    </or>
+  </cfg:detect>
+--><inclusionScheme
+name="XInclude"
+><class
+>com.xmlmind.xml.xinclude.XIncludeScheme</class
+></inclusionScheme
+><!-- DTD-less documents (such as the references one) will be considered to be XLingPap documents 
+  <cfg:dtd publicId="-//XMLmind//DTD XLingPap//EN" systemId="dtds/XLingPap.dtd"/>
+--><css
+location="css/XLingPap.css"
+name="XLingPap"
+></css
+><!--  no longer needed  <cfg:preserveSpace elements="styles"/> --><spellCheckOptions
+languageAttribute="lang"
+skippedElements="langData tree url"
+useAutomaticSpellChecker="true"
+></spellCheckOptions
+><include
+location="configuration/templates.xml"
+></include
+><include
+location="configuration/elementTemplates.xml"
+></include
+><include
+location="configuration/menus.xml"
+></include
+><include
+location="configuration/commands.xml"
+></include
+><validateHook
+><class
+>xlingpaper.xxe.CorrectXLingPaperAttributes</class
+></validateHook
+><schematron
+location="XLingPap.sch"
+></schematron
+><saveOptions
+saveCharsAsEntityRefs="false"
+indent="none"
+></saveOptions
+></configuration
+>

@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ -f "$1" ]; then
+	echo XLingPaper-Yes-XLingPaper
+else
+	echo XLingPaper-No-XLingPaper
+fi
+

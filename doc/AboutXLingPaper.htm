@@ -1,0 +1,708 @@
+<html xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <script language="JavaScript" id="clientEventHandlersJS">
+    function ButtonShowDetails()
+    {
+    if (RevisionHistory.style.display == 'none')
+    {
+      RevisionHistory.style.display = 'block';
+      ShowDetailsButton.value = "Hide Details";
+    }
+    else
+    {
+      RevisionHistory.style.display = 'none';
+      ShowDetailsButton.value = "Show Details";
+    }
+    }
+                    </script><title>About XLingPaper</title>
+   </head>
+   <body>
+      <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
+      <h3 align="center">for use with the XMLmind XML Editor</h3>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.11.0_1</span></p>
+      <p align="center">Date: 2010-05-17</p>
+      <p align="center">A configuration for creating XLingPaper documents.</p>
+      <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
+      <hr>
+      <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
+      <div id="RevisionHistory" style="display:none">
+         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+            <p>This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
+               been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).
+            </p>
+            <hr></hr>
+            <p><b>Revision History</b></p>
+            <ul>
+               <li>2.11.0_1 13 May 2010
+                  <ul>
+                     <li>Fix problem with the XeLaTex way of producing PDF: When an example with several listWord items had more langData and gloss
+                        items in a non-initial listWord element than the initial listWord element has, the PDF failed to be produced.
+                     </li>
+                     <li>When using a publisher style sheet, sometimes a thesis reference did not come out correctly (for both ways of producing PDF).</li>
+                     <li>The GIAL thesis publisher style sheet had single spacing when it should have had double spacing.</li>
+                  </ul>
+               </li>
+               <li>2.11.0 12 May 2010
+                  <ul>
+                     <li>Added figures and numbered tables (i.e. as "floating" objects). Note: this does not work with the Word 2003 output. If a chart
+                        (within a figure) or a table (within a numbered table) contains any footnotes, the resulting item will not be a float.
+                     </li>
+                     <li>Added a listDefinition example</li>
+                     <li>Added mediaObject element so can embed sound and movie files (currently only works with RenderX way of producing PDF)</li>
+                     <li>Changed table caption alignment default from centered to left.</li>
+                     <li>Refine automatically inserted text for sectionRef's textBefore attribute:
+                        <ul>
+                           <li>While editing, have sectionRef elements automatically show any text before per the value of the textBefore attribute of the
+                              sectionRef element and also the related values in the lingPaper element.
+                           </li>
+                           <li>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g.
+                              one does not always want a space when one uses the &sect; symbol).
+                           </li>
+                           <li>Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element
+                              in a publisher style sheet.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>For publisher style sheets:
+                        <ul>
+                           <li>Can control whether footnotes are single-spaced even when the document is space-and-a-half or double spaced (only works for
+                              the RenderX way of producing PDF).
+                           </li>
+                           <li>Can control whether endnotes (i.e. footnotes printed in the back matter instead of on the current page) are single-spaced
+                              even when the document is space-and-a-half or double spaced.
+                           </li>
+                           <li>Can control whether the spacing between references are single-spaced even when the document is space-and-a-half or double
+                              spaced.
+                           </li>
+                           <li>Added a "Use thesis submission style" page layout option. When checked, both odd and even pages will have the same left and
+                              right margins; that is, the document will be single-sided.
+                           </li>
+                           <li>Added check for correct header and footer page information for both books and papers.</li>
+                        </ul>
+                     </li>
+                     <li>Fixed display of chapterBeforePart elements so that they (and embedded sections) use chapter 0 instead of chapter 1.</li>
+                     <li>RenderX way of producing PDF:
+                        <ul>
+                           <li>In a book produced via a publisher style sheet, appendices incorrectly used formating information for chapters (not appendices).</li>
+                           <li>Fix problem that duplicated some listInterlinear items when an interlinearRef element was present.</li>
+                           <li>Fix problem where examples containing either listWord or listSingle elements sometimes repeated an item.</li>
+                        </ul>
+                     </li>
+                     <li>XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>listSingle items now will wrap if they are too long to fit.</li>
+                           <li>The texttransform font attribute can only be applied when there is just text. It will not be applied if there are embedded
+                              elements.
+                           </li>
+                           <li>Added ability to force page break at a section element or at a paragraph.</li>
+                        </ul>
+                     </li>
+                     <li>Fix XeLaTeX way of producing PDF: 
+                        <ul>
+                           <li>Tables in examples did not always indent the proper amount when the example indent was different than the blockquote indent
+                              in a publisher style sheet.
+                           </li>
+                           <li>If an li element contained text, an example, and then a p or pc element, the p or pc elements were not indented correctly
+                              (or may not have appeared at all!).
+                           </li>
+                           <li>A footnote number appeared in a free translation but the content of the footnote did not appear on the page.</li>
+                           <li>Free translations did not always indent the proper amount when the example indent was different than the blockquote indent
+                              in a publisher style sheet.
+                           </li>
+                           <li>When a publisher style sheet used endotes, the content of the endnotes was not correct.</li>
+                           <li>When the font-variant attribute was set to be 'small-caps', the font-size was not correct (it was still full size). Now the
+                              font size is automatically set to 65% unless there is an overt font-size attribute (in which case the overt font size value
+                              is used).
+                           </li>
+                           <li>The PDF failed to be produced when an abbrRef was embedded in an object that used small-caps.</li>
+                           <li>Compensate for characters in image file names that conflict with TeX. Also check for %, $, and ~ in image file names (which
+                              will break TeX) and report these to user before processing the PDF.
+                           </li>
+                           <li>When there were no references, the publisher style sheet method still showed a references section in the table of contents.</li>
+                           <li>An example containing a chart which begins with an ordered or unordered list might not allow enough space for the example
+                              number.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Fixed definitions to properly show and handle types and embedded keyTerm elements.</li>
+                     <li>Table of contents with the Word 2003 output will now be better aligned.</li>
+                     <li>The "produce Word 2003" process can now handle .bmp files (if you use the latest version of the XMLmind XSL-FO Converter program).</li>
+                     <li>Fix Web page output to distinguish links to multiple instances of preface elements.</li>
+                     <li>Fix "Remove (unassociate) a publisher style sheet" to use correct document type info.</li>
+                  </ul>
+               </li>
+               <li>2.10.0 24 March 2010
+                  <ul>
+                     <li>Created full installers for Mac (OS X 10.4+) and Linux (tested on Ubuntu 8.04, 9.04, and 9.10).</li>
+                     <li>Made the "produce Word 2003" process work with the full, GUI-based XMLmind XSL Utility product.</li>
+                     <li>Made XeLaTeX way of producing PDF ignore blank p (paragraph) elements just like the web page and RenderX way of producing
+                        PDF do. Previously, the XeLaTeX way would show a blank line for every empty paragraph.
+                     </li>
+                     <li>For publisher style sheet-based PDF output, if a refWork element does not have a matching pattern in the references layout
+                        portion of the publisher style sheet, we now output a message in the PDF. Previously, the content of the refWork element was
+                        silently left out completely.
+                     </li>
+                     <li>PDF using publisher style sheet: a dissertation with a url element may not have shown in the output. Similarly for a proceedings
+                        element.
+                     </li>
+                     <li>Allow br element in td, th, langData, and gloss for the XeLaTeX way of producing PDF.</li>
+                     <li>Refined use of zero width spaces in URLs for the XeLaTeX way of producing PDF.</li>
+                     <li>Fixed problem with orphaned section title in RenderX way of producing PDF (when using double spacing).</li>
+                     <li>Improved method of changing the default lVernacular and lGloss language IDs. See section 11.27 "Change the lVernacular and
+                        lGloss language IDs" in the user documentation.
+                     </li>
+                     <li>Added warning checks for incomplete href attributes in link elements, src attributes in img elements, and citename and name
+                        attributes in refAuthor elements.
+                     </li>
+                     <li>Producing PDF via XeLaTeX failed when a table cell had the XeLaTeXSpecial attribute containing a valign-fixup value and there
+                        was no rowspan
+                     </li>
+                     <li>Allow zero width spaces in URLs so the PDF formatters can break the URLs at ends of lines.</li>
+                     <li>Fix bug in PDF outputs: a section[1-6] element had a type attribute, but it was being ignored.</li>
+                     <li>Enhance publisher style sheet output to control whether the hundreds digit in the second part of a page range should be output
+                        or not. For example, should 158-183 be output as "158-83" or as "158-183"?
+                     </li>
+                  </ul>
+               </li>
+               <li>2.9.0 29 January 2010
+                  <ul>
+                     <li>Add a section in the user documentation on how to produce a talk handout.</li>
+                     <li>Add section in user documentation on how to insert a sectionN when in a sectionN+1.</li>
+                     <li>Refined the "About XLingPaper" page.</li>
+                     <li>In web page output, add extra space between consecutive examples.</li>
+                     <li>Refined the Choose Font Dialog:
+                        <ul>
+                           <li>It now knows about using default values for font-family, font-size, font-style, and font-weight.</li>
+                           <li>The font-size can now be a percentage.</li>
+                           <li>In fact, the font-size defaults to being a percentage.</li>
+                        </ul>
+                     </li>
+                     <li>Refined the "Associate a publisher style sheet" process to:
+                        <ul>
+                           <li>Use a regular file chooser dialog (instead of the special one used before).</li>
+                           <li>Keep any referenced documents (the old way lost the referencing).</li>
+                           <li>Make the path to the publisher style sheet be relative to the document being edited.</li>
+                           <li>Check to make the sure the file is indeed a publisher style sheet.</li>
+                           <li>Check to make sure the file is actually there.</li>
+                           <li>Removed the Shift-F9 keyboard short-cut (this command is not used enough to warrant a keyboard short-cut).</li>
+                        </ul>
+                     </li>
+                     <li>Added a "Remove (unassociate) a publisher style sheet" command.</li>
+                     <li>Refined the checking for missing fonts and/or image files before trying to produce PDF. It now shows a dialog box you can
+                        use to quickly find the places where the problems are.
+                     </li>
+                     <li>Fixed the 'convert abbreviations in gloss to abbrRefs' commands so 
+                        <ul>
+                           <li>they will find person numbers (1, 2, or 3) before other abbreviations (such as number or gender);</li>
+                           <li>they will also use periods, underscores, semi-colons, colons, backslashes, square brackets and parentheses as delimiters when
+                              looking for abbreviations;
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul>
+                     <li>Fixed 'Convert any abbreviations in gloss to abbrRefs' command so it will apply even when there are other elements within
+                        the gloss (such as object elements or abbrRef elements).
+                     </li>
+                     <li>When you overtly save a file, if any of the endnote elements still have just a simple "n" for their id or if any refWork elements
+                        still have just a simple "r" for their id, a unique id will now automatically be assigned. You can change these at any time
+                        by editing the id attribute in the endnote or refWork element.
+                     </li>
+                     <li>Added new element: interlinearRefCitation. It can occur anywhere other ref items appear. It refers to an interlinear within
+                        an interlinear text included in the document (usually in an appendix). In the output, it displays the short name of the text
+                        and the line number in that text of the referred to interlinear.
+                     </li>
+                     <li>Refine the interlinearRefCitation element to allow control of the presence of the square brackets and the text-name-colon.
+                        Also have the interlinearRefCitation appear in XXE like it will in the output.
+                     </li>
+                     <li>Have the 'Insert and then Set Reference' command include the interlinearRefCitation element.</li>
+                     <li>Fix bug which made the Set Reference chooser dialog show garbage if the material that it was trying to show contained a double
+                        quote.
+                     </li>
+                     <li>Made the installer so that XXE will automatically show the Validity tool upon save if there are any errors/warnings.</li>
+                     <li>Fixed bug which allowed a citation occurring inside a comment element to cause an entry to show in the references.</li>
+                     <li>Add a semantic integrity check for long tables that do not have the makings of a header.</li>
+                     <li>Fix a bug: an example reference to an example within an endnote/footnote did not use the roman numeral for the example it
+                        referred to.
+                     </li>
+                     <li>Fixed some bugs in the XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>Examples in tables would fail to produce the PDF.</li>
+                           <li>free elements did not pay attention to font information (other than font-family).</li>
+                           <li>If a date or presentedAt element ended in a br element, the PDF failed to be produced.</li>
+                           <li>If a table with lines was embedded in another table with lines, the PDF failed to be produced.</li>
+                           <li>If a file name contained spaces, it did not always correctly recognize the first time the file was being processed.</li>
+                           <li>If the file name contained parentheses, the process to produce PDF might hang.</li>
+                           <li>If the file name contained non-ASCII characters, the process to produce PDF might fail.</li>
+                           <li>If a publisher style sheet said an item was to start on an odd page and also that the item should space down from the top,
+                              it did not always space down.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Fixed some bugs with the RenderX way of producing PDF:
+                        <ul>
+                           <li>An empty colspan attribute in a table cell would prevent the PDF from being produced.</li>
+                           <li>An empty rowspan attribute in a table cell would prevent the PDF from being produced.</li>
+                           <li>An initial table row that began with some th elements but also had some td elements would prevent the PDF from being produced.</li>
+                           <li>Showing the list of abbreviations as a table when there were no abbreviations to show would prevent the PDF from being produced.</li>
+                           <li>No longer try to use an xsl-foSpecial attribute that does not have an equal sign in it.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.8.0 18 December 2009
+                  <ul>
+                     <li>Added an "About XLingPaper" page (In XLingPaper menu item).</li>
+                     <li>Added a command to convert text material in a gloss to their corresponding abbreviation (i.e. abbrRef elements).</li>
+                     <li>Enhanced the "Convert interlinear line to wrd elements" command to also automatically convert abbreviations to abbrRef elements
+                        (in gloss elements only, and only when one has abbreviations).
+                     </li>
+                     <li>Added more integrity checks for "semantic" conditions (such as incorrect number of langData elements within a line element).</li>
+                     <li>Made the Produce Word Document work with the newly released version of the XMLmind XSL-FO Converter (version 4.3.2).</li>
+                     <li>Allow an abbreviation reference (abbrRef element) to appear within a genericRef element and also within an object element.</li>
+                     <li>Fix a bug where if you use the mouse to set an exampleRef, sometimes the output would not have the example number. The fix
+                        occurs whenever you save your file.
+                     </li>
+                     <li>Fixed bug in web transform which failed to show a background color in a table cell when the td or th element referred to a
+                        type element that had the background color.
+                     </li>
+                     <li>Added align attribute to the table element. It has values of "left", "center", and "right". The default is "left". This attribute
+                        makes no difference for the RenderX way of producing PDF (because RenderX has no way to implement it). It only works in tables
+                        which are not in examples.
+                     </li>
+                     <li>Added two special attributes for the XeLaTeX way of producing PDF to add a (horizontal) line before and/or after a row in
+                        a table. To use this, in a tr element, add 'linebefore' or 'lineafter' to the XeLaTeXSpecial attribute.
+                     </li>
+                     <li>Fixed some bugs in the XeLaTeX way of producing PDF: 
+                        <ul>
+                           <li>Superscript and subscript type elements were missing the XeLaTeXSpecial attributes (the words superscript and subscript, respectively)
+                              so superscript and subscript did not work.
+                           </li>
+                           <li>Added needed space between listInterlinears and embedded (or continuation) interlinear lines.</li>
+                           <li>There was no way to add an underline via a type element. Fixed it by adding the key word underline to XeLaTeXSpecial).</li>
+                           <li>A table containing a cell with both a rowspan and colspan did not properly align some following cells.</li>
+                           <li>A table containing a cell with both a rowspan and colspan did not properly center the content if valign='middle'.</li>
+                           <li>For table cells (td and th), added ability to set XeLaTeXSpecial attribute valign-fixup to fine-tune the vertical alignment
+                              when needed (e.g. valign-fixup='-1.25ex').
+                           </li>
+                           <li>A table containing a cell with a rowspan and a width attribute did not pay attention to the width attribute.</li>
+                           <li>A table containing multiple cells with a rowspan did not always properly align the columns.</li>
+                           <li>A table containing a cell with both a colspan and a width in the first row produced wrong results.</li>
+                           <li>When using a publisher style sheet where the interlinear source is to appear after the first line, the PDF failed to be produced.</li>
+                           <li>In an interlinear, when a free element was followed by a lineGroup element, it did not always format correctly.</li>
+                           <li>Embedded lists did not always align properly.</li>
+                           <li>An endnote within a list would use the indent of the list instead of starting at the left edge.</li>
+                           <li>When an abbrRef element was within either a wrd element or a gloss element, any font attributes of the wrd or gloss element
+                              were not applying to the content of the abbreviation.
+                           </li>
+                           <li>When using a publisher style sheet and that style sheet did not use special formatting for a section number, there was no
+                              space between the section number and the section title.
+                           </li>
+                           <li>When a line element had multiple gloss elements or multiple langData elements, the processing could fail.</li>
+                           <li>When a table cell (td or th element) had a backgroundcolor attribute set to 0, no PDF would be produced.</li>
+                           <li>An abbrRef element always used the default font even when it was within an object or a gloss element that had a different
+                              font.
+                           </li>
+                           <li>If one has a graphic file name containing an apostrophe and that file was not found, no PDF would be produced (and no warning
+                              message either!).
+                           </li>
+                           <li>When an endnote within a table cell had a paragraph followed by a table, sometimes no PDF would be produced.</li>
+                           <li>A long ordered list might fail to produce the PDF.</li>
+                        </ul>
+                     </li>
+                     <li>Fixed some bugs in the RenderX way of producing PDF output:
+                        <ul>
+                           <li>A short endnote would be incorrectly formatted justified across the width of the page whenever the endnote was within a free
+                              translation that was part of an interlinear that had an interlinearSource element.
+                           </li>
+                           <li>If one was showing abbreviations as a table and there were no abbreviations in the file, the PDF failed to be produced.</li>
+                        </ul>
+                     </li>
+                     <li>Fixed some bugs in both PDF output formats:
+                        <ul>
+                           <li>An endnote element within a langData (or gloss) element would use the font information of the langData element instead of
+                              the default font information.
+                           </li>
+                           <li>When using a publisher style sheet with only one author description and the paper/book had multiple authors, the second and
+                              beyond authors did not format per the author description.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Improved web page output:
+                        <ul>
+                           <li>Increased spacing between an exampleHeader and a table.</li>
+                           <li>Increased spacing between listInterlinears.</li>
+                           <li>Increased spacing between nested interlinears.</li>
+                           <li>Make abbrRef elements use color and font attributes of their enclosing gloss and object elements. No underline is normally
+                              shown, even though it is still a link.
+                           </li>
+                           <li>If a dissertation or thesis reference had an institution, the institution name was not followed by a period. This is fixed.</li>
+                           <li>When viewed in Internet Explorer, sometimes words in small-caps would be raised a bit higher than the rest of the line (in
+                              interlinear). Made a change to try and improve this.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.7.2 12 October 2009
+                  <ul>
+                     <li>Improved vertical spacing around examples in the XeLaTeX way of producing PDF.</li>
+                     <li>Significantly Improved vertical spacing around titles, chapters, and section titles in the XeLaTeX way of producing PDF.</li>
+                     <li>Removed unnecessary message which popped up when changing language font information.</li>
+                     <li>Made SIL International publisher style sheets use correct font size and style in headers and footers.</li>
+                     <li>Fixed bug which failed to show multiple glossaries in both the web page output and also in the "canned" RenderX way of producing
+                        PDF.
+                     </li>
+                     <li>Fixed bugs that made the XeLaTeX way of producing PDF fail whenever a publisher style sheet had
+                        <ul>
+                           <li>sections that began a paragraph<br></br></li>
+                           <li>interlinear source show underneath the free translation (and a given interlinear did not have any interlinear source element)</li>
+                           <li>an abstract (and the abstract was indented)</li>
+                           <li>special font formatting for sectionRef elements</li>
+                        </ul>
+                     </li>
+                     <li>Slightly modified the default IJAL publisher style sheets and the Language publisher style sheet.</li>
+                     <li>Made the XeLaTeX way of producing PDF use "left justified" in table cells where the width attribute was set (it was still
+                        justifying the content which caused gaps to appear).
+                     </li>
+                     <li>Fixed bugs that made the XeLaTeX way of producing PDF via a book publisher style sheet 
+                        <ul>
+                           <li>not always have the hyperlink to frontmatter table of contents items be on the correct page</li>
+                           <li>not have the hyperlink to the references be on the correct page</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.7.1 30-September 2009
+                  <ul>
+                     <li>Improved the listing of possible elements to insert (that is, the list that shows up in the Element Editor). Now short element
+                        names (e.g. "pc") also have a version that includes a fuller description (e.g. "pc(paragraph_continuation)").
+                     </li>
+                     <li>Improved the notification process for when the file you are trying to produce (PDF, Word, or web page) is being used by another
+                        program. It no longer has an odd error message, just a meaningful dialog box.
+                     </li>
+                     <li>Fixed a bug that made the "Produce PDF" process not work if the document was on a drive other than C:.</li>
+                     <li>Fixed a bug that made the "Produce PDF" process not work if the document was located on the root or top directory of a drive.</li>
+                     <li>Fixed the "Produce PDF" process to now work if your computer did not already have certain system files (msvcp71.dll and msvcr71.dll).</li>
+                     <li>Fixed a bug in the XeLaTeX way of producing a PDF file that caused it to fail if an interlinear had two lineGroup elements
+                        in a row.
+                     </li>
+                     <li>Fixed a bug that incorrectly aligned a second free translation within an interlinear if one had a sequence of "lineGroup,
+                        free, lineGroup, free" in that interlinear.
+                     </li>
+                     <li>Made the included IJAL submission publisher style sheet show contents, block quotes, examples, references, and table be single
+                        spaced while the rest is double spaced.
+                     </li>
+                  </ul>
+               </li>
+               <li>2.7.0 18-September 2009
+                  <ul>
+                     <li>Made to work on computers running Unix and Mac (OS X) operating systems (Unix tested only on Ubuntu 8.4.0 and 9.4.0).</li>
+                     <li>Unix and Mac versions do not yet work with the XeLaTeX way of producing PDF output. You will need to use the RenderX way.</li>
+                     <li>When you overtly save a file, if any of the examples still have just a simple "x" for their id, a unique id will now automatically
+                        be assigned. You can change these at any time by editing the id attribute in the example.
+                     </li>
+                     <li>Fixed RenderX PDF to pay attention to singlespace options when the document is double or space-and-half (via a style sheet).</li>
+                     <li>Fixed RenderX PDF to properly format more than one preface in a book.</li>
+                  </ul>
+               </li>
+               <li>2.6.0 13-August-2009
+                  <ul>
+                     <li>Created an installation package to make installation much, much simpler.</li>
+                     <li>This package includes a second, new way to produce PDF output; see section 11.17 'Produce a PDF Version' in the user documentation
+                        file.
+                     </li>
+                     <li>It now will tell you what to do when you try to produce a PDF file (via the RenderX XEP tool) and you do not yet have that
+                        tool installed.
+                     </li>
+                     <li>It will now tell you what to do when you try to produce a Word 2003 document and you do not yet have the XMLmind XSL-FO Converter
+                        tool installed.
+                     </li>
+                     <li>It will now automatically show a PDF or Word file after it has been produced.</li>
+                     <li>Refined the "grammar" for table rows. It used to allow any combination of td (regular cell) elements and th (header) elements.
+                        Now a table row is more restrictive:
+                        <ul>
+                           <li>The entire row must have only th elements or</li>
+                           <li>The entire row must have only td elements or</li>
+                           <li>The beginning (left) of the row can have one or more th elements followed by all td elements.</li>
+                        </ul>
+                     </li>
+                     <li>The reason for this change is that table headers should only be at the top or along the left side. The rows at the top will
+                        get carried over to the next page when a long table is split across page boundaries. To fix a table you may have that is now
+                        considered to be ill-formed, do this:
+                        <ul>
+                           <li>For each bad th element in the table, click on the th element in the XPath Bar, click the Convert icon in the Edit Pane and
+                              choose td. This will keep the content of the cell whle changing it from th to td.
+                           </li>
+                           <li>If you had used a th element in order to make the cell content come out bold, select the cell content and then click on the
+                              Convert icon in the Edit pane and choose object. Then press F11 and choose a type that produces bold.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>There is a new menu item that lets you convert .svg files to .pdf files (since the new way of producing PDF files does not
+                        handle .svg files, but does handle embedded .pdf files).
+                     </li>
+                     <li>Let a glossary element have a type attribute.</li>
+                     <li>Allow type attributes in back matter element titles.</li>
+                     <li>Fix a bug in handling chapters via a publisher style sheet.</li>
+                  </ul>
+               </li>
+               <li>2.5.1 21-May-2009
+                  <ul>
+                     <li>Made the langData, gloss, object, and wrd elements show in XXE as they will appear in the output. This is now possible because
+                        of a bug fix in XXE version 4.3.0.
+                     </li>
+                     <li>Fix bug in "Convert interlinear line to wrd elements" process.</li>
+                     <li>The book element no longer requires location and publisher. These are now optional.</li>
+                     <li>Fix bug in handling an endnote in a section title when producing the table of contents in web page output.</li>
+                     <li>Fix some bugs in handling exampleHeadings in web page output.</li>
+                     <li>Fix some bugs in handling of interlinear text references.</li>
+                     <li>Fix bug in displaying interlinear source in output.</li>
+                     <li>Fix bug so that now the endnote number is shown in a smaller size in the web page output.</li>
+                     <li>Improve PDF "bookmark" formatting in PDF output.</li>
+                     <li>Added "variantTypes" to type attribute of the item element</li>
+                     <li>Added width attribute to both td and th elements.</li>
+                     <li>Added background color attribute to many elements</li>
+                     <li>Added bVol and seriesItem elements to collectionLayout so these can show in output using a stylesheet.</li>
+                  </ul>
+               </li>
+               <li>2.5.0 23-Feb-2009
+                  <ul>
+                     <li>Make work (partly) on a Mac. PDF output does not work yet.</li>
+                     <li>Fix "Convert interlinear line to wrd elements" command to use the lang attribute of the original langData or gloss element
+                        for all the resulting wrd elements (and not just the last one)
+                     </li>
+                     <li>Fix bug which failed to show small caps in Mocrosoft Word output</li>
+                     <li>Fix bug in displaying and formatting bVol element in references.</li>
+                     <li>Fix bug in formatting exampleHeading in list examples.</li>
+                     <li>Fix bug in formatting multiple glossary elements in a paper associated with a stylesheet.</li>
+                     <li>Fix bug in formatting interlinear text reference in a paper associated with a stylesheet</li>
+                     <li>Fix bug in formatting appendix letter in a paper associated with a stylesheet</li>
+                     <li>Fix bug in formatting section number when there is only one section in a paper associated with a stylesheet</li>
+                  </ul>
+               </li>
+               <li>2.4.0 24-January-2009
+                  <ul>
+                     <li>Make work with XMLmind XML Editor (XXE) version 4.2.0 or earlier</li>
+                     <li>Had to stop showing the langData, gloss, and object elements as they will appear in the output. It made XXE load large files
+                        extremely slowly. Plans are to try a different way to achieve this that does not slow down XXE.
+                     </li>
+                     <li>Allow table elements (including rows and cells) to have a background color attribute</li>
+                     <li>Reworked how promote and demote sections was done since sometimes it failed to run</li>
+                     <li>Allow interlinearSource element in a listInterlinear</li>
+                     <li>Added fieldNotes as a new kind of refWork element</li>
+                     <li>In PDF output, if there are no chapters and there is but one section1 (with no subsections), no section number is produced</li>
+                     <li>Fixed bug that incorrectly indented a second free translation line in an interlinear when the second line was for a different
+                        language than the first line
+                     </li>
+                     <li>Fixed bug with interlinearRef that sometimes showed more than one instance of the interlinear</li>
+                     <li>Some improvements to publisher stylesheet information and handling</li>
+                  </ul>
+               </li>
+               <li>2.3.0 7-October-2008
+                  <ul>
+                     <li>The langData, gloss, and object elements now display in the XXE editor as they will appear in the output. They used to show
+                        in a pre-canned color, using a generic font. Now they use the appropriate font, color, size, italic, bold, etc.
+                     </li>
+                     <li>Added the ability to gloss language data using a standard set of abbreviations. Just like one can create and maintain a master
+                        references list, now one can do the same for abbreviations. XLingPaper also creates a hyperlink between the abbreviation in
+                        the gloss and the abbreviation where it is defined. See section 4.6 in the user documentation.
+                     </li>
+                     <li>Added ability for examples to have a heading (or label or description or whatever you want to call it). See section 5.8 iin
+                        the user documentation.
+                     </li>
+                     <li>Added a shorter way to insert reference elements and assign them to their value (e.g. sectionRef, exampleRef, citation, object,
+                        etc.). See section 12.9 in the user documentation.
+                     </li>
+                     <li>Added a genericTarget element so one can use the genericRef element to create a hyperlink to almost any place in the document.
+                        See footnote [37] in section 10.2 in the user documentation.
+                     </li>
+                     <li>Added a book volume number element (bVol) for references. See section 4.5.2 in the user documentation.</li>
+                     <li>Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li>
+                     <li>Added a way to control the text that occurs before a sectionRef (some publications like to use the &sect; symbol while others do
+                        not). See section 3.3.1 in the user documentation.
+                     </li>
+                     <li>The interlinear free translation element can now be associated with a language.</li>
+                     <li>Added the ability to include ISO 639-3 codes to a refWork element to indicate which languages the work is about. See section
+                        4.5 in the user documentation.
+                     </li>
+                     <li>Added a way to have the ISO 639-3 code appear in an interlinear example (this is an undocumented ability: set the showiso639-3codeininterlinear
+                        attribute to 'yes' in the lingPaper element).
+                     </li>
+                     <li>Added start-up documents for languages and for types, so one can maintain a master list of these, if one so wishes.</li>
+                     <li>Improved the way section numbering shows in Appendices within the XMLmind XML Editor.</li>
+                     <li>Fixed "l_free" element templates to show up in embedded places as well as at the example level.</li>
+                     <li>Fixed the webpage transform to better handle list interlinears, especially in endnotes (where the old way would cause all
+                        following endnotes to place the endnote text on a separate line from the number).
+                     </li>
+                     <li>Added a number of improvements for publisher style sheets, including:
+                        <ul>
+                           <li>Added ability to create PDF bookmarks in a styled PDF output.</li>
+                           <li>Improved appendix layout</li>
+                           <li>Better control over table of contents</li>
+                           <li>Added ability to control hyperlink color and underline for individual link elements</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.2.0 12-May-2008
+                  <ul>
+                     <li>Added interlinearRef element. One uses this in an example to refer to a portion of an interlinear text (which is probably
+                        in an appendix). When formatted for output, the interlinear portion is shown in the example along with a link to the portion
+                        in the interlinear-text proper.
+                     </li>
+                     <li>Allow one to put examples in the cells of a (non-example) table. This allows one to put small width examples side-by-side.</li>
+                     <li>Added a menu option to automatically convert space-separated interlinear lines to "wrd" element lines. One can now type or
+                        copy-and-paste interlinear, use this menu option, and then highlight portions of the interlinear as appropriate to the context
+                        of your discussion.
+                     </li>
+                     <li>Added new element templates for tables with both header rows and an initial header column</li>
+                     <li>Added new element templates for interlinear that is just language data and free translation.</li>
+                     <li>Added a type attribute to the appendix element so one may now do special formatting for an appendix like one can do for part,
+                        chapter, section1, section2, etc. elements.
+                     </li>
+                     <li>Added a period after the appendix letter in the standard web page and PDF transforms.</li>
+                     <li>For PDF produced via a publisher style sheet, added a way to insert some vertical space before a main section in the table
+                        of contents.
+                     </li>
+                     <li>Fixed a bug which failed to show (within the XMLmind XML Editor) the textref information in a listInterlinear (it was showing
+                        fine in a regular interlinear).
+                     </li>
+                     <li>Fixed a bug which failed to show (within the XMLmind XML Editor) a header cell's align attribute.</li>
+                     <li>Fixed a bug in the PDF output which failed to properly span rows in a table.</li>
+                     <li>Fixed a bug in the PDF output which failed to properly pay attention to a table cell's valign attribute..</li>
+                     <li>Fixed a bug in the publisher style sheet PDF output which caused the transform to abort if one had glossaryLayout information.
+                        It now formats the glossary properly.
+                     </li>
+                     <li>Fixed a bug in the publisher style sheet PDF output: when using paperAuthor for a header or footer in a style sheet when there
+                        were 2 or more authors, it used to merely place one author after the other without any intervening space or punctuation. Now
+                        it creates a list: it inserts " and " before the last one and inserts ", " between any other two authors.
+                     </li>
+                  </ul>
+               </li>
+               <li>2.1.0 14-Mar-2008
+                  <ul>
+                     <li>Added capability to relatively easily split portions of a section into sub-sections (i.e. demote the portions).</li>
+                     <li>Made a Word macro be available to adjust example spacing problems in the Word 2003 output.</li>
+                  </ul>
+               </li>
+               <li>2.0.1 10-Mar-2008: 
+                  <ul>
+                     <li>Fix bug in web page transform which caused some publisher style sheet information to appear at the bottom of the page</li>
+                     <li>Fix bug in handling of paperAuthor in headers or footers (came out stretched across the header)</li>
+                     <li>Add emphasis type to all new document templates.</li>
+                  </ul>
+               </li>
+               <li>2.0.0 05-Feb-2008: 
+                  <ul>
+                     <li>Added publisher style sheets</li>
+                     <li>Added shortAuthor (shortened version of author(s) for headers)</li>
+                     <li>Allow an endnote in an author element</li>
+                     <li>Allow CSS and XSL-FO special attributes on blockquote, chart, dl, example, ol, p, pc, tree, and ul elements.</li>
+                     <li>Allow a journal article number</li>
+                  </ul>
+               </li>
+               <li>1.12.2 13-Sep-2007: change name to XLingPaper</li>
+               <li>1.12.1 27-Aug-2007
+                  <ul>
+                     <li>Fixed how a copied interlinear example shows within a &lt;listInterlinear&gt; element.</li>
+                     <li>Made a listInterlinear also be able to show where the interlinear example came from</li>
+                  </ul>
+               </li>
+               <li>1.12.0 23-Aug-2007
+                  <ul>
+                     <li>Added a definition type of example, a definition element, and a keyTerm element.</li>
+                     <li>Added interlinear text using word-aligned types of interlinear.</li>
+                     <li>Added a way to indicate where an interlinear example came from</li>
+                     <li>Allow automatic referencing from an interlinear example to an interlinear line within an included interlinear text.</li>
+                     <li>Added a note type for the item element</li>
+                     <li>Added some page control for a table (only applicable for PDF output)</li>
+                     <li>Fixed a bug in HTML output for collPages element after a collTitle element</li>
+                     <li>Improved how examples appear when producing a Word 2003 document</li>
+                     <li>Fixed some font problems with some morpheme-aligned interlinear imported from FieldWorks Language Explorer</li>
+                     <li>For PDF output of a paper (as opposed to a book), ensured that the References title appeared on the same page as the first
+                        reference item.
+                     </li>
+                     <li>Fixed a bug for PDF output for when a font attribute was empty (it would cause the PDF formatter to fail).</li>
+                     <li>Fixed a bug for PDF output for when a table contained two or more rows of header information.</li>
+                     <li>Fixed a bug: when a langData element was followed by a gloss element enclosed within quotes, the HTML output had an extra
+                        space between the first quote and the gloss.
+                     </li>
+                     <li>Added batch file to convert default language ids from "lVernacular" and "lGloss" to user specified values.</li>
+                  </ul>
+               </li>
+               <li>1.11.0 21-Mar-2007:
+                  <ul>
+                     <li>Allow multiple preface elements</li>
+                     <li>Allow indexing, including up to three index types</li>
+                     <li>Allow for a glossary in the back matter</li>
+                     <li>Allow promotion or demotion of sections</li>
+                     <li>Added keyboard short cuts for quote characters ( &#8216; &#8217; &#8220; &#8221; )</li>
+                     <li>Added command to mark selected text within a gloss as &#8220;grammatical gloss&#8221;</li>
+                     <li>Improve references, including consistency in some element names and order:
+                        <ul>
+                           <li>collPage --&gt; collPages</li>
+                           <li>procPage --&gt; procPages</li>
+                           <li>location now consistently precedes publisher or institution</li>
+                           <li>Add author role</li>
+                           <li>Add edition and book total pages to book</li>
+                           <li>Add edition to webpage</li>
+                        </ul>
+                     </li>
+                     <li>Improvements for archiving purposes:
+                        <ul>
+                           <li>Added xml:lang to many elements</li>
+                           <li>The name of a language can now be expressed in more than one language (e.g. national and vernacular)</li>
+                        </ul>
+                     </li>
+                     <li>Improvements for PDF output:
+                        <ul>
+                           <li>Allow a shorter version of the main title (to appear in running headers)</li>
+                           <li>Allow a shorter version of a chapter, section, or appendix title (to appear in running headers)</li>
+                        </ul>
+                     </li>
+                     <li>Added a start-up file for Tom Payne's grammar book outline</li>
+                     <li>Allow having interlinear texts (in morpheme-aligned form), including using a title for the text.</li>
+                  </ul>
+               </li>
+               <li>09 6-Nov-2006: Fix typographical error in documentation</li>
+               <li>08 26-Oct-2006: Improve handling of right-to-left scripts in interlinear</li>
+               <li>07 24-Oct-2006
+                  <ul>
+                     <li>Update documentation for reference chooser dialogs used in v. 3.5 of XXE.</li>
+                     <li>Add documentation on endnoteRef and changing langData and gloss language references.</li>
+                     <li>Fixed potential directory error when loading documentation after updating a configuration.</li>
+                  </ul>
+               </li>
+               <li>06 20-Oct-2006
+                  <ul>
+                     <li>Various fixes for acknowledgements, preface, and some reference items.</li>
+                     <li>Better handling of endnotes in titles.</li>
+                  </ul>
+               </li>
+               <li>05 2-Oct-2006
+                  <ul>
+                     <li>Allow th and td in same row for XSL-FO.</li>
+                     <li>Add xsl-foSpecial and cssSpecial attributes to img element</li>
+                  </ul>
+               </li>
+               <li>04 27-Sep-2006 
+                  <ul>
+                     <li>Fix display of chapter numbers with parts</li>
+                     <li>Fix some problems with footnotes in XSL-FO output</li>
+                  </ul>
+               </li>
+               <li>03 26-Sep-2006 Make paper versions of XSL-FO output use 8.5 x 11 in paper size.</li>
+               <li>02 22-Sep-2006 Fix paper versions of XSL-FO to handle appendices, etc. better.</li>
+               <li>01 18-Sep-2006 Add section numbers to sectionRef chooser</li>
+            </ul>
+         </a:documentation>
+      </div>
+      <hr>
+      <div align="center">
+         <p>For more information, including contact email address, see:  
+            <a href="http://www.sil.org/~blacka/xlingpap/index.htm">http://www.sil.org/~blacka/xlingpap/index.htm</a></p>
+      </div>
+   </body>
+</html>

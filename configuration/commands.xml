@@ -1,0 +1,1899 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+    <cfg:binding>
+        <cfg:keyPressed code="ESCAPE"/>
+        <cfg:charTyped char="C"/>
+        <cfg:command name="insertCharByName" parameter=""/>
+    </cfg:binding>
+    <!-- following are customized cfg:commands written by hab -->
+    <cfg:binding>
+        <cfg:keyPressed code="F10" modifiers="shift"/>
+        <cfg:command name="ConvertToWrds"/>
+    </cfg:binding>
+    <cfg:command name="ConvertAnyAbbreviationsInGlossToAbbrRef">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- need to be abbreviations and currently needs to be in gloss  -->
+                    <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                </cfg:pass>
+                <cfg:command name="ConvertAnyAbbreviationsToAbbrRefsCmd"/>
+                <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertToAbbrRef">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- need to be abbreviations and currently needs to be in gloss  -->
+                    <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                </cfg:pass>
+                <!-- select the word, cut it, find it in abbbreviation list and insert corresponding abbrRef element-->
+                <cfg:get expression="$selectedChars"/>
+                <cfg:set variable="abbrToConvert" expression="%_" plainString="true"/>
+                <!--                    <cfg:get expression="$abbrToConvert"/>
+                    <cfg:command name="alert" parameter="abbrToConvert = |%_|"/>
+                -->
+                <!-- If want to check lang attributes, but the problem is that the abbreviations do not tend to use the same lang as gloss
+                <cfg:set variable="lang" expression="ancestor-or-self::gloss[1]/@lang"/>
+                <cfg:set variable="abbrId" expression="//abbreviation/abbrInLang[@lang=$lang]/abbrTerm[.=$abbrToConvert]/@id"/>
+                -->
+                <cfg:set variable="abbrId" expression="//abbreviation[descendant::abbrTerm[.=$abbrToConvert]]/@id"/>
+                <!--                    <cfg:get expression="$abbrId"/>
+                    <cfg:command name="alert" parameter="abbrId = %_"/>
+-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test context="$abbrId" expression="string-length(.) &gt; 0"/>
+                        <cfg:command name="cut" parameter="[$selectedChars]"/>
+                        <cfg:command name="insert" parameter="into abbrRef"/>
+                        <cfg:get expression="$abbrId"/>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] abbr %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="string-length($abbrToConvert) &gt; 0"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:pass>
+                                    <cfg:test expression="//abbreviations[@usesmallcaps='yes']"/>
+                                </cfg:pass>
+                                <cfg:command name="copy" parameter="[$selectedChars]"/>
+                                <cfg:command name="convertCase" parameter="lower"/>
+                                <cfg:get expression="$clipboard"/>
+                                <cfg:set variable="abbrLowerToConvert" expression="%_" plainString="true"/>
+                                <cfg:get expression="$abbrLowerToConvert"/>
+                                <cfg:command name="alert" parameter="abbrLowerToConvert = |%_|"/>
+                                <cfg:set variable="abbrId" expression="//abbreviation[descendant::abbrTerm[.=$abbrLowerToConvert]]/@id"/>
+                                <cfg:choice>
+                                    <cfg:sequence>
+                                        <cfg:sequence>
+                                            <cfg:test context="$abbrId" expression="string-length(.) &gt; 0"/>
+                                            <cfg:command name="cut" parameter="[$selectedChars]"/>
+                                            <cfg:command name="insert" parameter="into abbrRef"/>
+                                            <cfg:get expression="$abbrId"/>
+                                            <cfg:command name="putAttribute" parameter="[implicitElement] abbr %_"/>
+                                        </cfg:sequence>
+                                    </cfg:sequence>
+                                    <cfg:sequence>
+                                        <cfg:command name="paste"/>
+                                        <cfg:get expression="$abbrToConvert"/>
+                                        <cfg:command name="alert" parameter="Sorry, but I could not find an abbreviation named  '%_'."/>
+                                    </cfg:sequence>
+                                </cfg:choice>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:get expression="$abbrToConvert"/>
+                                <cfg:command name="alert" parameter="Sorry, but I could not find an abbreviation named  '%_'."/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="string-length($abbrToConvert) = 0"/>
+                        <cfg:command name="alert" parameter="You need to select the name of the abbreviation you want to convert.  Currently, nothing is selected."/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertToWrds">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- needs to be in interlinear line and langData or gloss -->
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] line"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
+                    <!-- but not with a wrd element -->
+                    <cfg:fail>
+                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] wrd"/>
+                    </cfg:fail>
+                </cfg:pass>
+                <!-- select the entire langData or gloss element and wrap it inside a wrd element -->
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <!--                    <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] object abbrRef"/>-->
+                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef"/>
+                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded object or abbrRef element.  Please remove the object and/or abbrRef element(s) and try again."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!--                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>-->
+                        <cfg:command name="wrap" parameter="[implicitElement] wrd"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <!-- normal case when have more than one word in the line -->
+                                <cfg:pass>
+                                    <cfg:command name="SelectNextWordToConvert"/>
+                                </cfg:pass>
+                                <cfg:command name="ReplaceNextWordWithWrd"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- exceptional case where have only one word in the line;  
+                                    N.B. This is similar to what we have in  ConvertWordsToSequenceOfLangDataOrGlossInWrd, 
+                                    but it differs in some crucial ways (we're in a wrd here, not a gloss, for one) -->
+                                <cfg:sequence>
+                                    <cfg:choice>
+                                        <cfg:sequence>
+                                            <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+                                            <cfg:command name="moveDotTo" parameter="previousTextNode"/>
+                                            <cfg:pass>
+                                                <!-- need to be abbreviations and currently needs to be in gloss  -->
+                                                <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
+                                                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                                            </cfg:pass>
+                                            <cfg:command name="ConvertAbbreviationsToAbbrRefsCmd"/>
+                                        </cfg:sequence>
+                                        <cfg:sequence>
+                                            <!-- we need some kind of no-op here so processing does not stop -->
+                                            <cfg:fail>
+                                                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                                            </cfg:fail>
+                                            <!--                                                                            <cfg:command name="alert" parameter="Not in gloss"/>-->
+                                        </cfg:sequence>
+                                    </cfg:choice>
+                                    <!-- Could not select the next word; are done.  Move the dot to the next text node in hopes this helps the user -->
+                                    <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+                                </cfg:sequence>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="InsertLangDataOrGloss">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:test context="$selectedElement" expression="name()='langData'"/>
+                    <cfg:command name="insert" parameter="before[implicitElement] langData"/>
+                </cfg:sequence>
+                <cfg:sequence>
+                    <cfg:command name="insert" parameter="before[implicitElement] gloss"/>
+                </cfg:sequence>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertWordsToSequenceOfLangDataOrGlossInWrd">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- needs to be in a langData element within a wrd element -->
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] wrd"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
+                </cfg:pass>
+                <!-- dot is at end of most recently cut/pasted word; move to the next char which should be in the next langData -->
+                <cfg:command name="moveDotTo" parameter="nextChar"/>
+                <!-- make sure what's left starts with a space -->
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
+                <cfg:test expression="starts-with($selected, ' ')"/>
+                <!-- cut this langData/gloss and move it to a new wrd element that follows the previous wrd element -->
+                <!--                        <cfg:command name="alert" parameter="before cut second langData"/>-->
+                <cfg:command name="cut"/>
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] wrd"/>
+                <!-- following command inserts an embedded langData element presumably because langData is the first element in %embedded; in the DTD -->
+                <cfg:command name="insert" parameter="after[implicitElement] wrd"/>
+                <!--                        <cfg:command name="alert" parameter="after creation of next wrd"/>-->
+                <!-- select the embedded langData and replace it with what was just cut -->
+                <cfg:command name="selectNode" parameter="descendant[implicitElement] langData"/>
+                <!--                        <cfg:command name="alert" parameter="after trying to select embedded langData"/>-->
+                <cfg:command name="paste" parameter="to"/>
+                <!--                        <cfg:command name="alert" parameter="after creation of next wrd with embedded (cut) langData"/>-->
+                <!-- select the next word and cut it -->
+                <cfg:choice>
+                    <cfg:command name="ReplaceNextWordWithWrd"/>
+                    <cfg:sequence>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:pass>
+                                    <!-- need to be abbreviations and currently needs to be in gloss  -->
+                                    <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
+                                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                                </cfg:pass>
+                                <!--                                <cfg:command name="alert" parameter="in a gloss"/>-->
+                                <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+                                <cfg:command name="moveDotTo" parameter="previousTextNode"/>
+                                <cfg:command name="ConvertAbbreviationsToAbbrRefsCmd"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- we need some kind of no-op here so processing does not stop when in a langData element-->
+                                <cfg:fail>
+                                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                                </cfg:fail>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- we need some kind of no-op here so processing does not stop when in a gloss, but there are no abbreviations-->
+                                <cfg:pass>
+                                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                                </cfg:pass>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        <!-- Could not select the next word; are done.  Move the dot to the next text node in hopes this helps the user -->
+                        <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ReplaceNextWordWithWrd">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:command name="SelectNextWordToConvert"/>
+                <!--                        <cfg:command name="alert" parameter="before cut of next real word"/>-->
+                <cfg:command name="cut"/>
+                <!-- select what is left -->
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
+                <!--            <cfg:command name="alert" parameter="before set lang attr"/>-->
+                <cfg:set variable="lang" expression="$implicitElement/@lang"/>
+                <!-- insert new langData/gloss and paste the cut word into it; recurse -->
+                <!--            <cfg:command name="alert" parameter="before InsertLangDataOrGloss"/>-->
+                <cfg:command name="InsertLangDataOrGloss"/>
+                <!--            <cfg:command name="alert" parameter="before trying to put lang attr"/>-->
+                <!--            <cfg:get expression="$lang"/>
+                <cfg:command name="alert" parameter="$lang = %_"/>-->
+                <!-- putting the same value fails, so insert a fake one -->
+                <cfg:command name="putAttribute" parameter="lang MeAFakeLanguageAttributexxx"/>
+                <cfg:sequence>
+                    <cfg:pass>
+                        <cfg:get expression="$lang"/>
+                        <cfg:command name="putAttribute" parameter="lang %_"/>
+                    </cfg:pass>
+                    <cfg:get expression="$lang"/>
+                    <cfg:command name="putAttribute" parameter="lang %_"/>
+                </cfg:sequence>
+                <!--            <cfg:command name="alert" parameter="before past into"/>-->
+                <cfg:command name="paste" parameter="into"/>
+                <cfg:command name="ConvertWordsToSequenceOfLangDataOrGlossInWrd"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="SelectNextWordToConvert">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:test expression="contains($selected, ' ')"/>
+                </cfg:pass>
+                <cfg:command name="search" parameter="' '"/>
+                <cfg:command name="moveDotTo" parameter="previousChar"/>
+                <cfg:command name="selectTo" parameter="textNodeBegin"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ChooseFontCmd">
+        <cfg:class>xlingpaper.xxe.ChooseFontCmd</cfg:class>
+    </cfg:command>
+    <!--
+   <cfg:command name="TestDemoteCmd">
+      <cfg:class>xlingpaper.xxe.DemoteCmd</cfg:class>
+   </cfg:command>
+-->
+    <cfg:command name="ChooseColorCmd">
+        <cfg:class>xlingpaper.xxe.ChooseColorCmd</cfg:class>
+    </cfg:command>
+    <cfg:command name="DeleteFileCmd">
+        <cfg:class>xlingpaper.xxe.DeleteFile</cfg:class>
+    </cfg:command>
+    <cfg:command name="AssociatePublisherStylesheetCmd">
+        <cfg:class>xlingpaper.xxe.AssociatePublisherStylesheet</cfg:class>
+    </cfg:command>
+    <cfg:command name="ConvertAbbreviationsToAbbrRefsCmd">
+        <cfg:class>xlingpaper.xxe.ConvertLineGlossAbbreviationsToAbbrRefs</cfg:class>
+    </cfg:command>
+    <cfg:command name="ConvertAnyAbbreviationsToAbbrRefsCmd">
+        <cfg:class>xlingpaper.xxe.ConvertAnyAbbreviationsToAbbrRefs</cfg:class>
+    </cfg:command>
+    <cfg:command name="CheckPresenceOfFontsAndImagesCmd">
+        <cfg:class>xlingpaper.xxe.CheckPresenceOfFontsAndImages</cfg:class>
+    </cfg:command>
+    <cfg:command name="RemovePublisherStylesheetCmd">
+        <cfg:class>xlingpaper.xxe.RemovePublisherStylesheet</cfg:class>
+    </cfg:command>
+    <cfg:command name="GetXIncludesAndImageFilesCmd">
+        <cfg:class>xlingpaper.xxe.GetXIncludesAndImageFiles</cfg:class>
+    </cfg:command>
+    <cfg:command name="ConvertFileNameForXeLaTeXCmd">
+        <cfg:class>xlingpaper.xxe.ConvertFileNameForXeLaTeX</cfg:class>
+    </cfg:command>
+    <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd">
+        <cfg:class>xlingpaper.xxe.RemoveExtraDoubleQuotesFromPickLabels</cfg:class>
+    </cfg:command>
+    <cfg:command name="changeDefaultLangAttributesInTemplatesCmd">
+        <cfg:class>xlingpaper.xxe.ChangeDefaultLangAttributesInTemplates</cfg:class>
+    </cfg:command>
+    <!-- no longer needed because XXE now has Search / Bookmarks
+   <cfg:binding>
+      <cfg:keyPressed code="F6"/>
+      <cfg:command name="SetMarkCmd"/>
+   </cfg:binding>
+   <cfg:binding>
+      <cfg:keyPressed code="F6" modifiers="shift"/>
+      <cfg:command name="MoveToMarkCmd"/>
+   </cfg:binding>
+   <cfg:command name="SetMarkCmd">
+      <cfg:class>xlingpaper.xxe.SetMarkCmd</cfg:class>
+   </cfg:command>
+   <cfg:command name="MoveToMarkCmd">
+      <cfg:class>xlingpaper.xxe.MoveToMarkCmd</cfg:class>
+   </cfg:command>
+-->
+    <cfg:binding>
+        <cfg:keyPressed code="F7" modifiers="shift"/>
+        <cfg:command name="demoteSelectionCmd"/>
+    </cfg:binding>
+    <cfg:command name="demoteSelectionCmd">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] chapter section1"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc blockquote dl table chart tree interlinear-text"/>
+                </cfg:pass>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] section6"/>
+                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything while in a section6 element."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:fail>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] section6"/>
+                        </cfg:fail>
+                        <cfg:command name="cut" parameter="[implicit_selection]"/>
+                        <cfg:choice>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc blockquote dl table chart tree interlinear-text"/>
+                            <cfg:command name="undo"/>
+                        </cfg:choice>
+                        <cfg:command name="selectNode" parameter="lastSibling"/>
+                        <cfg:command name="insertNewSubsectionAndPasteCmd"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="insertNewSubsectionAndPasteCmd">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <!-- first insert appropriate subsection -->
+                <cfg:choice>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section1,p)"/>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section2,p)"/>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section3,p)"/>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section4,p)"/>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section5,p)"/>
+                    <cfg:command name="insert" parameter="after[implicitNode] #template(section6,p)"/>
+                    <!-- probably do not need the following undo since we are rather assured of having selected appropriate element now -->
+                    <cfg:command name="undo"/>
+                </cfg:choice>
+                <!-- now select the p node and replace it with what is in the clipboard -->
+                <cfg:command name="selectNode" parameter="lastChild"/>
+                <cfg:choice>
+                    <cfg:command name="paste" parameter="toOrInto"/>
+                    <cfg:sequence>
+                        <cfg:command name="undo"/>
+                        <cfg:command name="alert" parameter="Sorry, but the selected item(s) cannot be demoted as they have been selected.  If you are trying to demote the last element in the section, you may need to click on its name in the node path bar and then execute this command again."/>
+                        <cfg:command name="alert" parameter="Or you can insert an empty paragraph (element p) after the last element and then do your selection and this command again."/>
+                        <!-- need another undo if this is the final section in the document -->
+                        <cfg:command name="undo"/>
+                    </cfg:sequence>
+                </cfg:choice>
+                <!-- finally, put dot in the secTitle element so user can start typing there and make sure the subsection is expanded -->
+                <cfg:command name="moveDotTo" parameter="previousChar"/>
+                <cfg:command name="toggleCollapsed" parameter="expand"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="demoteCmd">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:match context="$selected" pattern="*[descendant-or-self::section6]"/>
+                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything containing a section6 element. You will need to rework any section6 elements into their respective section5 elements before demoting is possible."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:match context="$selected" pattern="chapter | section1 | section2 | section3  | section4 | section5"/>
+                        <cfg:command name="extractObject" parameter="- XML %T"/>
+                        <cfg:command name="getDemotedSections" parameter="%_"/>
+                        <cfg:set variable="stuff" plainString="true" expression="%_"/>
+                        <cfg:set variable="clipboard" expression="$stuff"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getDemotedSections" parameter="$*">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%*" stylesheet="../transforms/DemoteSection.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="promoteCmd">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test context="$selected" expression="name(.)='section1' and count(//chapter) = 0"/>
+                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:match context="$selected" pattern="section1 | section2 | section3 | section4 | section5 | section6"/>
+                        <cfg:command name="extractObject" parameter="- XML %T"/>
+                        <cfg:command name="getPromotedSections" parameter="%_"/>
+                        <cfg:set variable="stuff" plainString="true" expression="%_"/>
+                        <cfg:set variable="clipboard" expression="$stuff"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getPromotedSections" parameter="$*">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%*" stylesheet="../transforms/PromoteSection.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <!-- 
+========================================
+Borrowed from xhtml 
+========================================
+-->
+    <!-- Inside a p (and only inside a p), XXE attempts to behave 
+       like a word-processor. -->
+    <cfg:binding>
+        <cfg:keyPressed code="ENTER"/>
+        <cfg:command name="xhtml.splitOrInsertNewLine"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="DELETE"/>
+        <cfg:command name="xhtml.joinOrDeleteChar"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="BACK_SPACE"/>
+        <cfg:command name="xhtml.joinOrDeleteChar" parameter="backwards"/>
+    </cfg:binding>
+    <cfg:command name="xhtml.splitOrInsertNewLine">
+        <cfg:macro>
+            <cfg:choice>
+                <cfg:command name="insertControlChar" parameter="\n"/>
+                <cfg:sequence>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p pc li"/>
+                    <cfg:command name="split"/>
+                </cfg:sequence>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="xhtml.joinOrDeleteChar">
+        <cfg:macro>
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:test expression="$dot/ancestor::p and not($selected) and not($mark) or $dot/ancestor::pc and not($selected) and not($mark) or $dot/ancestor::li and not($selected) and not($mark)"/>
+                    <cfg:command name="deleteSelectionOrJoinOrDeleteChar" parameter="%0"/>
+                </cfg:sequence>
+                <cfg:command name="deleteSelectionOrDeleteChar" parameter="%0"/>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <!-- Easy way to add p, li, dt+dd -->
+    <cfg:binding>
+        <cfg:keyPressed code="ENTER" modifiers="mod"/>
+        <cfg:command name="xhtml.appendSame"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="ENTER" modifiers="mod shift"/>
+        <cfg:command name="xhtml.prependSame"/>
+    </cfg:binding>
+    <cfg:command name="xhtml.appendSame">
+        <cfg:macro>
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p"/>
+                    <cfg:command name="insertNode" parameter="sameElementAfter"/>
+                </cfg:sequence>
+                <cfg:command name="xhtml.appendListItem"/>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="xhtml.prependSame">
+        <cfg:macro>
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p"/>
+                    <cfg:command name="insertNode" parameter="sameElementBefore"/>
+                </cfg:sequence>
+                <cfg:command name="xhtml.prependListItem"/>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="xhtml.appendListItem">
+        <cfg:macro label="Add li or dt+dd" undoable="true">
+            <cfg:sequence>
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] li dd dt"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:match context="$selected" pattern="li"/>
+                        <cfg:command name="insertNode" parameter="sameElementAfter"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- Match dd|dt -->
+                        <!-- Assumes that a dt is followed by a dd. -->
+                        <cfg:choice>
+                            <cfg:match context="$selected" pattern="dd"/>
+                            <cfg:command name="selectNode" parameter="nextSibling dd"/>
+                        </cfg:choice>
+                        <cfg:command name="insert" parameter="after dt"/>
+                        <cfg:command name="insert" parameter="after dd"/>
+                        <cfg:command name="selectNode" parameter="previousSibling"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="xhtml.prependListItem">
+        <cfg:macro label="Add li or dt+dd" undoable="true">
+            <cfg:sequence>
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] li dd dt"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:match context="$selected" pattern="li"/>
+                        <cfg:command name="insertNode" parameter="sameElementBefore"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- Match dd|dt -->
+                        <!-- Assumes that a dt is followed by a dd. -->
+                        <cfg:choice>
+                            <cfg:match context="$selected" pattern="dt"/>
+                            <cfg:command name="selectNode" parameter="previousSibling dt"/>
+                        </cfg:choice>
+                        <cfg:command name="insert" parameter="before dd"/>
+                        <cfg:command name="insert" parameter="before dt"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <!-- An easy way to insert a br -->
+    <cfg:binding>
+        <cfg:keyPressed code="ENTER" modifiers="shift"/>
+        <cfg:command name="xhtml.insertLineBreak"/>
+    </cfg:binding>
+    <cfg:command name="xhtml.insertLineBreak">
+        <cfg:macro label="Insert br" undoable="true">
+            <cfg:sequence>
+                <cfg:command name="insert" parameter="into br"/>
+                <!-- harmless if macro fails starting from here -->
+                <cfg:command name="insertNode" parameter="textAfter"/>
+                <cfg:command name="cancelSelection"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <!--
+Other stuff
+-->
+    <cfg:binding>
+        <!--
+  <cfg:keyPressed code="QUOTE" modifiers="shift alt" />
+alt causes menu to be selected
+-->
+        <cfg:keyPressed code="ESCAPE"/>
+        <cfg:charTyped char="&quot;"/>
+        <cfg:command name="insertString" parameter="”"/>
+        <!-- right double quotation mark -->
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="QUOTE" modifiers="shift ctrl"/>
+        <cfg:command name="insertString" parameter="“"/>
+        <!-- left double quotation mark -->
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="ESCAPE"/>
+        <cfg:charTyped char="'"/>
+        <!--
+  <cfg:keyPressed code="QUOTE" modifiers="alt" />
+alt causes menu to be selected
+-->
+        <cfg:command name="insertString" parameter="’"/>
+        <!-- right single quotation mark -->
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="QUOTE" modifiers="ctrl"/>
+        <cfg:command name="insertString" parameter="‘"/>
+        <!-- left single quotation mark -->
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="shift"/>
+        <cfg:command name="insertThenSetReference"/>
+    </cfg:binding>
+    <cfg:command name="insertThenSetReference">
+        <cfg:macro undoable="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="insert" parameter="into abbrRef"/>
+                        </cfg:pass>
+                        <cfg:command name="pick" parameter="'Insert Reference Element' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="insert" parameter="into %_"/>
+                        <cfg:command name="setReference"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="insert" parameter="into sectionRef"/>
+                        </cfg:pass>
+                        <cfg:command name="pick" parameter="'Insert Reference Element' false appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="insert" parameter="into %_"/>
+                        <cfg:command name="setReference"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F11"/>
+        <cfg:command name="setReference"/>
+    </cfg:binding>
+    <cfg:command name="setReference">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:command name="setAbbreviation"/>
+                    <cfg:command name="setAppendix"/>
+                    <cfg:command name="setCitation"/>
+                    <cfg:command name="setExample"/>
+                    <cfg:command name="setLanguage"/>
+                    <cfg:command name="setSection"/>
+                    <cfg:command name="setType"/>
+                    <cfg:command name="setEndnote"/>
+                    <cfg:command name="setIndexSee"/>
+                    <cfg:command name="setIndex"/>
+                    <cfg:command name="setIndexedRangeBegin"/>
+                    <cfg:command name="setGenericRef"/>
+                    <cfg:command name="setImageSource"/>
+                    <cfg:command name="setInterlinearRef"/>
+                    <cfg:command name="setFigureRef"/>
+                    <cfg:command name="setTableNumberedRef"/>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setAbbreviation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] abbrRef"/>
+                </cfg:pass>
+                <cfg:command name="getAbbreviationTermsandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Abbreviation' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] abbr %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getAbbreviationTermsandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAbbreviationTermsAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setAppendix">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] appendixRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] app"/>-->
+                </cfg:pass>
+                <cfg:command name="getAppendixTitlesandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Appendix' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] app %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getAppendixTitlesandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAppendixTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setCitation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] citation"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] ref"/>-->
+                </cfg:pass>
+                <cfg:command name="getRefWorkTitlesandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="Citation true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] ref %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getRefWorkTitlesandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetRefWorkTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setEndnote">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] endnoteRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] note"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//endnote/@id, ' ')"/>
+                <cfg:command name="pick" parameter="Endnote false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] note %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setExample">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] exampleRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] num"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
+                <cfg:command name="pick" parameter="Example false %_"/>
+                <cfg:set expression="%_" plainString="true" variable="chosenId"/>
+                <cfg:get expression="$chosenId"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
+                <cfg:get expression="$chosenId"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] letter %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <!-- Failed attempt to set only @num or only @letter depending on the result of the pick
+  <cfg:command name="setExample">
+      <cfg:macro>
+          <cfg:sequence>
+              <cfg:pass>
+                  <cfg:command name="putAttribute" parameter="[implicitElement] num"/>
+              </cfg:pass>
+              <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //lineSet/@letter, ' ')"/>
+              <cfg:command name="pick" parameter="Example false %_"/>
+              <cfg:set variable="chosenId" expression="%_" plainString="true"/>
+              <cfg:sequence>
+                <cfg:pass>
+                  <cfg:get expression="$chosenId" />
+                  <cfg:match context="$selected" pattern="//example[@num=%-]" /> match: if the node specified by context is in the pattern 
+                  <cfg:test expression="//example[@num=%_]" />
+                </cfg:pass>
+                <cfg:get expression="$chosenId" />
+                <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
+              </cfg:sequence>
+              <cfg:sequence>
+                <cfg:pass>
+                  <cfg:get expression="$chosenId" />
+                  <cfg:command name="selectNode" parameter="//listWord[ @letter = %_ ] | //listSingle[ @letter = %_ ] | //listInterlinear[ @letter = %_ ] | //lineSet[ @letter = %_ ]"/>
+                </cfg:pass>
+                <cfg:get expression="$chosenId" />
+                <cfg:command name="putAttribute" parameter="[implicitElement] letter %_"/>
+              </cfg:sequence>
+          </cfg:sequence>
+      </cfg:macro>
+  </cfg:command>
+-->
+    <cfg:command name="setFigureRef">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] figureRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
+                </cfg:pass>
+                <cfg:command name="getFigureCaptionsAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="Figure true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] figure %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getFigureCaptionsAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetFigureCaptionsAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setGenericRef">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] genericRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] gref"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//*[name()!='language']/@id | //example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //lineSet/@letter | //interlinear/@text[string-length(.) != 0], ' ')"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Generic Reference' false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] gref %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setIndex">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] indexedItem indexedRangeBegin"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] term"/>-->
+                </cfg:pass>
+                <cfg:command name="getIndexTermsAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Index Terms' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] term %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setIndexSee">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] indexTerm"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] see"/>-->
+                </cfg:pass>
+                <cfg:command name="getIndexTermsAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Index Terms' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] see %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getIndexTermsAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetIndexTermsAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setIndexedRangeBegin">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] indexedRangeEnd"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] begin"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//indexedRangeBegin/@id, ' ')"/>
+                <cfg:command name="pick" parameter="'Indexed Range Begin' false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] begin %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setImageSource">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="putAttribute" parameter="[implicitElement] src"/>
+                </cfg:pass>
+                <cfg:command name="selectFile" parameter="[Select Image File]openFile"/>
+                <cfg:get expression="relativize-uri(uri-or-file-name('%_'), '%{d}')"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] src %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setInterlinearRef">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] interlinearRef interlinearRefCitation"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] textref"/>-->
+                </cfg:pass>
+                <cfg:command name="getInterlinearTextAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="Interlinear Text true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] textref %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getInterlinearTextAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="..%{S}transforms%{S}GetInterlinearTextAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setLanguage">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//language/@id, ' ')"/>
+                <cfg:command name="pick" parameter="Language false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] lang %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setSection">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] sectionRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] sec"/>-->
+                </cfg:pass>
+                <cfg:command name="getSectionTitlesandIds"/>
+                <cfg:command name="pick" parameter="'Section, Chapter, or Part' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] sec %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getSectionTitlesandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetSecTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="getFontFamiliesAndImageFiles">
+        <cfg:process showProgress="false">
+            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetFontFamiliesAndImageFiles.xsl" to="out.xml"/>
+            <cfg:copy files="out.xml" quiet="true" to="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.txt"/>
+            <!--            <cfg:read encoding="UTF-8" file="out.xml"/>-->
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setTableNumberedRef">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] tablenumberedRef"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
+                </cfg:pass>
+                <cfg:command name="getTableNumberedCaptionsAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="Table true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] table %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getTableNumberedCaptionsAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetTableNumberedCaptionsAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setType">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="putAttribute" parameter="[implicitElement] type"/>
+                </cfg:pass>
+                <cfg:get expression="join(//type/@id, ' ')"/>
+                <cfg:command name="pick" parameter="Type false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] type %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F5"/>
+        <cfg:command name="markAsGrammaticalGloss"/>
+    </cfg:binding>
+    <cfg:command name="markAsGrammaticalGloss">
+        <cfg:macro repeatable="true" trace="false" undoable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                </cfg:pass>
+                <cfg:command name="wrap" parameter="[implicitElement] object"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] type tGrammaticalGloss"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <!--
+========================================
+ XLingPap-specific 
+========================================
+-->
+    <cfg:command name="produceWebPage">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="status" parameter="Deleting any web page file..."/>
+                <cfg:command name="DeletePDFFile" parameter="1 htm"/>
+                <cfg:command name="status" parameter="Producing the web page output..."/>
+                <cfg:command name="applyXLingPapTransform"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="applyXLingPapTransform">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPap1.xsl" to="%{P}%{S}%{R}.htm">
+                <!--
+          sInterlinearSourceStyle:
+          The default is AfterFirstLine (immediately after the last item in the first line)
+          The other possibilities are AfterFree (immediately after the free translation, on the same line)
+          and UnderFree (on the line immediately after the free translation)
+        -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
+            </cfg:transform>
+            <!--
+Following creates a new instance of IE each time it is invoked.
+What we want is to load IE independently and to do a refresh so it will show the same place in the file.
+           <cfg:shell command='start "C:\Program Files\Internet Explorer\IExplore.exe" "%{P}%{S}%{R}.htm"'/>
+-->
+        </cfg:process>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F7"/>
+        <cfg:command name="produceWebPage"/>
+    </cfg:binding>
+    <cfg:command name="showXLingPapTransformResult">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}%{R}.htm&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+        <!--        <cfg:process>
+            <!-\- following may well work for all platforms -\->
+            <cfg:shell command="helper(defaultViewer) &quot;%{P}%{S}%{R}.htm&quot;"/>
+            <!-\- 
+            <cfg:shell command="start &quot;C:%{S}Program Files%{S}Internet Explorer%{S}IExplore.exe&quot; &quot;%{P}%{S}%{R}.htm&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{P}%{S}%{R}.htm&quot;" platform="Mac"/>
+            -\->
+        </cfg:process>
+-->
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F8"/>
+        <cfg:command name="showXLingPapTransformResult"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="F9" modifiers="shift ctrl"/>
+        <cfg:command name="producePDFViaRenderX"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="F9"/>
+        <cfg:command name="ProducePDFViaXeLaTeX"/>
+    </cfg:binding>
+    <cfg:binding>
+        <cfg:keyPressed code="F10" modifiers="shift ctrl"/>
+        <cfg:command name="ConvertAnyAbbreviationsInGlossToAbbrRef"/>
+    </cfg:binding>
+    <cfg:command name="ProducePDFViaXeLaTeX">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:choice>
+                    <!--                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\RenderX\XEP\xep.bat&quot;"/>-->
+                    <cfg:command name="run" parameter="[Windows] echo hi"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXeLaTeX&quot;"/>
+                </cfg:choice>
+                <cfg:set variable="exists" plainString="true" expression="%_"/>
+                <!--                <cfg:get expression="$exists"/>-->
+                <!--                <cfg:command name="alert" parameter="$exists = %_"/>-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                        <cfg:command name="alert" parameter="It appears you do not have the XeLaTeX program installed.  Please try downloading and installing a complete installer for XLingPaper."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//lingPaper)"/>
+                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:sequence>
+                            <!-- It is potentially possible to produce the PDF.  Do some initial further checks.  -->
+                            <cfg:command name="status" parameter="Look for possible problems..."/>
+                            <cfg:command name="CheckPresenceOfFontsAndImagesCmd" parameter="%{P}"/>
+                            <!--                        <cfg:command name="alert" parameter="After, result = %_"/>-->
+                            <cfg:choice>
+                                <cfg:sequence>
+                                    <cfg:pass>
+                                        <cfg:test expression="'%_' = 'allClear'"/>
+                                    </cfg:pass>
+                                    <cfg:command name="status" parameter="Deleting any PDF file..."/>
+                                    <cfg:command name="DeletePDFFile" parameter="1 pdf"/>
+                                    <cfg:command name="status" parameter="Producing the PDF output..."/>
+                                    <!--                           <cfg:get expression="%{P}%{S}%{R}"/>
+                                <cfg:sequence>
+                                    <cfg:command name="run" parameter="[Windows] echo testing for drive letter only"/>-->
+                                    <!-- Following command converts any characters in the file name that TeX cannot handle into hex codes. -->
+                                    <cfg:command name="ConvertFileNameForXeLaTeXCmd" parameter="%{R}"/>
+                                    <cfg:set variable="safeXeLaTeXFileName" expression="%_" plainString="true"/>
+                                    <!-- <cfg:get expression="$safeXeLaTeXFileName"/>
+                                    <cfg:command name="alert" parameter="safeXeLaTeXFileName = |%_|"/> -->
+                                    <cfg:choice>
+                                        <cfg:sequence>
+                                            <!-- On Windows, we have to do something special if the file name is at the root (e..g C:\) -->
+                                            <cfg:command name="run" parameter="[Windows] echo testing for drive letter only"/>
+                                            <cfg:get expression="substring('%P',1,2)"/>
+                                            <cfg:set variable="driveLetter" plainString="true" expression="%_"/>
+                                            <!--                            <cfg:get expression="$driveLetter"/>
+                                                <cfg:command name="alert" parameter="driveLetter = |%_|"/>
+                                            -->
+                                            <cfg:get expression="concat($driveLetter, ' ', $safeXeLaTeXFileName)"/>
+                                        </cfg:sequence>
+                                        <cfg:sequence>
+                                            <cfg:command name="run" parameter="[Unix] echo no need to test for drive letter"/>
+                                            <cfg:get expression="concat('/ ', $safeXeLaTeXFileName)"/>
+                                        </cfg:sequence>
+                                    </cfg:choice>
+                                    <!--                                </cfg:sequence>-->
+                                    <cfg:set variable="producePDFParameters" expression="%_" plainString="true"/>
+                                    <!--   <cfg:get expression="$producePDFParameters"/>
+                                <cfg:command name="alert" parameter="producePDFParameters = |%_|"/> -->
+                                    <cfg:choice>
+                                        <cfg:sequence>
+                                            <cfg:test expression="//styledPaper"/>
+                                            <cfg:get expression="$safeXeLaTeXFileName"/>
+                                            <cfg:choice>
+                                                <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                            </cfg:choice>
+                                            <cfg:set variable="exists" plainString="true" expression="%_"/>
+                                            <cfg:choice>
+                                                <cfg:sequence>
+                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                                                    <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing"/>
+                                                </cfg:sequence>
+                                                <cfg:sequence>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing"/>
+                                                </cfg:sequence>
+                                            </cfg:choice>
+                                        </cfg:sequence>
+                                        <cfg:sequence>
+                                            <cfg:test expression="//chapter"/>
+                                            <cfg:get expression="$safeXeLaTeXFileName"/>
+                                            <cfg:choice>
+                                                <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                            </cfg:choice>
+                                            <cfg:set variable="exists" plainString="true" expression="%_"/>
+                                            <cfg:choice>
+                                                <cfg:sequence>
+                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                                                    <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing"/>
+                                                </cfg:sequence>
+                                                <cfg:sequence>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing"/>
+                                                </cfg:sequence>
+                                            </cfg:choice>
+                                        </cfg:sequence>
+                                        <cfg:sequence>
+                                            <cfg:get expression="$safeXeLaTeXFileName"/>
+                                            <cfg:choice>
+                                                <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
+                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                            </cfg:choice>
+                                            <cfg:set variable="exists" plainString="true" expression="%_"/>
+                                            <cfg:choice>
+                                                <cfg:sequence>
+                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                                                    <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing"/>
+                                                </cfg:sequence>
+                                                <cfg:sequence>
+                                                    <cfg:get expression="$producePDFParameters"/>
+                                                    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                    <cfg:command name="PDFCompletionProcessing" parameter="%_"/>
+                                                </cfg:sequence>
+                                            </cfg:choice>
+                                        </cfg:sequence>
+                                    </cfg:choice>
+                                </cfg:sequence>
+                                <cfg:sequence>
+                                    <cfg:command name="alert" parameter="Some fonts and/or image files used in the document cannot be found and/or an image file name has some invalid characters.  Please use the 'Missing Fonts and/or Image Files' dialog to fix them.  Close it when you are done."/>
+                                </cfg:sequence>
+                            </cfg:choice>
+                            <cfg:command name="status" parameter="PDF Command has completed."/>
+                        </cfg:sequence>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="AdjustWindowsRootPath">
+        <cfg:macro>
+            <!--  Have to work around the fact that %P includes a final backslash *if* it is the root on a Windows machine;  
+                when we then append %S, we get two backslashes in a row which causes a problem for the del command ('The network path was not found')-->
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:test expression="contains('%{P}%{S}','\\')"/>
+                    <!--                                <cfg:command name="alert" parameter="%P%S has backslash backslash"/>-->
+                    <cfg:get expression="concat(substring-before('%{P}%{S}','\\'),'%{S}')"/>
+                </cfg:sequence>
+                <cfg:sequence>
+                    <cfg:get expression="'%{P}%{S}'"/>
+                </cfg:sequence>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="DeletePDFFile">
+        <!-- 
+            parameter %0 is the nesting level
+            parameter %1 is the file extentsion (pdf or doc)
+        -->
+        <cfg:macro trace="false">
+            <cfg:choice>
+                <cfg:sequence>
+                    <!-- Give them 5 chances and then hope for the best... -->
+                    <cfg:test expression="%0 &gt; 5"/>
+                </cfg:sequence>
+                <cfg:sequence>
+                    <!--                    <cfg:command name="alert" parameter="b4 delete file"></cfg:command>
+                    <cfg:command name="DeleteFile" parameter="&quot;%{P}%{S}%{R}.%1&quot;"/>
+                    -->
+                    <cfg:command name="AdjustWindowsRootPath"/>
+                    <cfg:command name="DeleteFileCmd" parameter="%_%{R}.%1"/>
+                    <!--                    <cfg:choice>
+                        <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile.bat&quot; &quot;%_%{R}.%1&quot;"/>
+                        <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile&quot; &quot;%{P}%{S}%{R}.%1&quot;"/>
+                    </cfg:choice>
+-->
+                    <cfg:set variable="result" plainString="true" expression="%_"/>
+                    <!--<cfg:get expression="$result"/>
+                                        <cfg:command name="alert" parameter="delete file returned %_"/>-->
+                    <cfg:choice>
+                        <cfg:sequence>
+                            <cfg:test expression="contains($result, 'XLingPaper-FileFailedToDelete-XLingPaper')"/>
+                            <!--                            <cfg:test expression="not(contains($result, 'XLingPaper-PdfNotThere-XLingPaper'))"/>-->
+                            <cfg:set variable="pdffile" plainString="true" expression="&quot;%{R}.%1&quot;"/>
+                            <cfg:get expression="$pdffile"/>
+                            <cfg:choice>
+                                <cfg:sequence>
+                                    <cfg:test expression="'%1'='pdf'"/>
+                                    <cfg:command name="alert" parameter="Please close the %_ window in your PDF file viewer or shut down your PDF file viewer.  We cannot successfully produce the new PDF until you do."/>
+                                </cfg:sequence>
+                                <cfg:sequence>
+                                    <cfg:command name="alert" parameter="Please close the %_ window in your Word program or shut down your Word program.  We cannot successfully produce the new file until you do."/>
+                                </cfg:sequence>
+                            </cfg:choice>
+                            <cfg:set variable="level" expression="number(%0) + 1"/>
+                            <cfg:get expression="$level"/>
+                            <cfg:command name="DeletePDFFile" parameter="%_ %1"/>
+                        </cfg:sequence>
+                    </cfg:choice>
+                </cfg:sequence>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="PDFCompletionProcessing">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
+                </cfg:choice>
+                <cfg:set variable="exists" plainString="true" expression="%_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                        <cfg:command name="status" parameter="Showing the PDF output..."/>
+                        <cfg:command name="beep"/>
+                        <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}%{R}.pdf&quot;"/>
+                        <!--<cfg:choice>
+                            <cfg:command name="run" parameter="[Windows] helper(defaultViewer) &quot;%{P}%{S}%{R}.pdf&quot;"/>
+                            <cfg:command name="start" parameter="[Unix] helper(defaultViewer) &quot;%{P}%{S}%{R}.pdf&quot;"/>
+                        </cfg:choice>-->
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="status" parameter="Producing the PDF failed..."/>
+                        <cfg:command name="beep"/>
+                        <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
+                        <cfg:choice>
+                            <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile.bat&quot; &quot;%{P}%{S}%{R}.pdf&quot;"/>
+                            <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile&quot; &quot;%{P}%{S}%{R}.pdf&quot;"/>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="producePDFViaRenderX">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\RenderX\XEP\xep.bat&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasRenderX&quot;"/>
+                </cfg:choice>
+                <cfg:set variable="exists" plainString="true" expression="%_"/>
+                <!--                <cfg:get expression="$exists"/>-->
+                <!--                <cfg:command name="alert" parameter="$exists = %_"/>-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                        <cfg:command name="alert" parameter="It appears you do not have the RenderX XEP program installed.  Please see section 11.17.2 of the user documentation."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//lingPaper)"/>
+                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:choice>
+                            <cfg:command name="run" parameter="[Windows] if exist &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot; del &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
+                            <cfg:command name="run" parameter="[Unix] echo hi"/>
+                        </cfg:choice>
+                        <cfg:command name="producePDF"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="producePDF">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="status" parameter="Deleting any PDF file..."/>
+                <cfg:command name="DeletePDFFile" parameter="1 pdf"/>
+                <cfg:command name="status" parameter="Producing the PDF output..."/>
+                <!--  Either do the embedded version or the canned version-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:choice>
+                            <!--        if either of the pass elements are true, do the embedded version-->
+                            <cfg:pass>
+                                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] styledPaper"/>
+                            </cfg:pass>
+                            <cfg:pass>
+                                <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] styledPaper"/>
+                            </cfg:pass>
+                        </cfg:choice>
+                        <cfg:command name="producePDFFromEmbeddedStylesheet"/>
+                        <cfg:command name="PDFCompletionProcessing"/>
+                    </cfg:sequence>
+                    <!-- if it has chapters, use book-oriented parameters in the canned version -->
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:test expression="//chapter"/>
+                        </cfg:pass>
+                        <cfg:command name="produceBookPDFFromCannedStylesheet"/>
+                        <cfg:command name="PDFCompletionProcessing"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- otherwise use the paper-oriented parameters in the canned version -->
+                        <cfg:command name="producePaperPDFFromCannedStylesheet"/>
+                        <cfg:command name="PDFCompletionProcessing"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="produceBookPDFFromCannedStylesheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+                <cfg:parameter name="sFOProcessor">XEP</cfg:parameter>
+                <!--
+             sInterlinearSourceStyle:
+             The default is AfterFirstLine (immediately after the last item in the first line)
+             The other possibilities are AfterFree (immediately after the free translation, on the same line)
+             and UnderFree (on the line immediately after the free translation)
+          -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
+            </cfg:transform>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="producePaperPDFFromCannedStylesheet">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="producePaperPDFFromCannedStylesheetViaFO"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ProducePDFViaXeLaTeXInitialProcessing">
+        <cfg:process>
+            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginTOC.toc&quot; toc" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginIndex.idx&quot; idx" platform="Windows"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="ProducePDFViaXeLaTeXPostProcessing">
+        <cfg:process>
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot;" platform="Unix"/>
+            <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf" to="%{P}%{S}%{R}.pdf"/>
+            <cfg:delete quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX">
+        <cfg:process>
+            <!--            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%{R}&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginTOC.toc&quot; toc" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%{R}&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginIndex.idx&quot; idx" platform="Windows"/>
+-->
+            <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
+            <cfg:copyDocument to="in.xml"/>
+            <!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}%{R}ParseError.xml"/>-->
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
+                <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
+                <cfg:parameter name="sPageHeight">11in</cfg:parameter>
+                <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
+                <cfg:parameter name="sFootnotePointSize">10</cfg:parameter>
+                <cfg:parameter name="sSection1PointSize">14</cfg:parameter>
+                <cfg:parameter name="sSection2PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection3PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection4PointSize">12</cfg:parameter>
+                <cfg:parameter name="sBackMatterItemTitlePointSize">14</cfg:parameter>
+                <cfg:parameter name="sPageInsideMargin">1.5in</cfg:parameter>
+                <cfg:parameter name="sPageOutsideMargin">1in</cfg:parameter>
+                <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
+                <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
+                <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <!--
+                    sInterlinearSourceStyle:
+                    The default is AfterFirstLine (immediately after the last item in the first line)
+                    The other possibilities are AfterFree (immediately after the free translation, on the same line)
+                    and UnderFree (on the line immediately after the free translation)
+                -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFree</cfg:parameter>
+            </cfg:transform>
+            <!--            <cfg:copy files="TeXML.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML.xml"/>-->
+            <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
+            <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
+<!--                        <cfg:copy files="TeXML2.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.xml"/>-->
+            <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;%{R}.tex&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
+            <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.pdf" to="%{P}%{S}%{R}.pdf"/>
+            <cfg:delete quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.pdf"/>
+-->
+            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX">
+        <cfg:process>
+            <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
+            <cfg:copyDocument to="in.xml"/>
+<!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}in.xml"/>-->
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetXeLaTeX.xsl" to="TeXML.xml">
+                <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
+                <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
+                <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+            </cfg:transform>
+<!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
+            <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
+            <!--            <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
+            <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.pdf" to="%{P}%{S}%{R}.pdf"/>
+            <cfg:delete quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.pdf"/>
+-->
+            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX">
+        <cfg:process>
+            <!--            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%{R}&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginTOC.toc&quot; toc" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%{R}&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginIndex.idx&quot; idx" platform="Windows"/>
+-->
+            <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
+                <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
+                <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
+                <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <!--
+                    sInterlinearSourceStyle:
+                    The default is AfterFirstLine (immediately after the last item in the first line)
+                    The other possibilities are AfterFree (immediately after the free translation, on the same line)
+                    and UnderFree (on the line immediately after the free translation)
+                -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFree</cfg:parameter>
+            </cfg:transform>
+            <!--            <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
+            <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
+            <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
+            <!--            <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
+            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="producePaperPDFFromCannedStylesheetViaFO">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+                <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
+                <cfg:parameter name="sPageHeight">11in</cfg:parameter>
+                <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
+                <cfg:parameter name="sFootnotePointSize">10</cfg:parameter>
+                <cfg:parameter name="sSection1PointSize">14</cfg:parameter>
+                <cfg:parameter name="sSection2PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection3PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection4PointSize">12</cfg:parameter>
+                <cfg:parameter name="sBackMatterItemTitlePointSize">14</cfg:parameter>
+                <cfg:parameter name="sPageInsideMargin">1.5in</cfg:parameter>
+                <cfg:parameter name="sPageOutsideMargin">1in</cfg:parameter>
+                <cfg:parameter name="sFOProcessor">XEP</cfg:parameter>
+                <!--
+                    sInterlinearSourceStyle:
+                    The default is AfterFirstLine (immediately after the last item in the first line)
+                    The other possibilities are AfterFree (immediately after the free translation, on the same line)
+                    and UnderFree (on the line immediately after the free translation)
+                -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
+            </cfg:transform>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="producePDFFromEmbeddedStylesheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="produceWord2003Document">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter.bat&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
+                </cfg:choice>
+                <cfg:set variable="exists" plainString="true" expression="%_"/>
+                              <!--           <cfg:get expression="$exists"/>
+                    <cfg:command name="alert" parameter="Old $exists = %_"/>--> 
+                <cfg:sequence>
+                    <cfg:choice>
+                        <cfg:sequence>
+                            <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                            <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>
+                        </cfg:sequence>
+                        <cfg:sequence>
+                            <!-- java-4_3_1 -->
+                            <cfg:command name="DeleteAndProduceWordFile"/>
+                        </cfg:sequence>
+                    </cfg:choice>
+                </cfg:sequence>
+                <!--            <cfg:choice>
+                    <cfg:sequence>
+                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                    <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\xfc_perso_java-4_3_2\bin\\fo2wml.bat&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
+                    </cfg:choice>
+                    <cfg:set variable="exists" plainString="true" expression="%_"/>
+                    <!-\-                              <cfg:get expression="$exists"/>
+                    <cfg:command name="alert" parameter="New $exists = %_"/> -\->
+                    <cfg:choice>
+                    <cfg:sequence>
+                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                    <cfg:choice>
+                    <cfg:sequence>
+                    <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\xfc_perso_java-4_3_1\bin\\fo2wml.bat&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
+                    </cfg:choice>
+                    <cfg:set variable="exists" plainString="true" expression="%_"/>
+                    <!-\-                                          <cfg:get expression="$exists"/>
+                    <cfg:command name="alert" parameter="New $exists = %_"/> -\->
+                    <cfg:choice>
+                    <cfg:sequence>
+                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                    <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                    <!-\- java-4_3_1 -\->
+                    <cfg:command name="DeleteAndProduceWordFile"/>
+                    </cfg:sequence>
+                    </cfg:choice>
+                    </cfg:sequence>
+                    </cfg:choice>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                    <!-\- java-4_3_2 -\->
+                    <cfg:command name="DeleteAndProduceWordFile"/>
+                    </cfg:sequence>
+                    </cfg:choice>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                    <!-\- Old -\->
+                    <cfg:command name="DeleteAndProduceWordFile"/>
+                    </cfg:sequence>
+                    </cfg:choice>
+                -->            <!--</cfg:sequence>-->
+                </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="DeleteAndProduceWordFile">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="status" parameter="Deleting any Word file..."/>
+                <cfg:command name="DeletePDFFile" parameter="1 doc"/>
+                <cfg:command name="status" parameter="Producing the Word output..."/>
+                <cfg:command name="produceWord2003DocumentViaXFC"/>
+                <cfg:command name="status" parameter="Showing the Word output..."/>
+                <cfg:command name="beep"/>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}%{R}.doc&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="produceWord2003DocumentViaXFC">
+        <cfg:macro>
+            <!--  Either do the embedded version or the canned version-->
+            <cfg:choice>
+                <cfg:sequence>
+                    <cfg:choice>
+                        <!--        if either of the pass elements are true, do the embedded version-->
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] styledPaper"/>
+                        </cfg:pass>
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] styledPaper"/>
+                        </cfg:pass>
+                    </cfg:choice>
+                    <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet"/>
+                </cfg:sequence>
+                <!-- otherwise do the canned version -->
+                <cfg:command name="produceWord2003DocumentFromCannedStylesheet"/>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="produceWord2003DocumentFromCannedStylesheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+                <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
+                <cfg:parameter name="sPageHeight">11in</cfg:parameter>
+                <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
+                <cfg:parameter name="sFootnotePointSize">10</cfg:parameter>
+                <cfg:parameter name="sSection1PointSize">14</cfg:parameter>
+                <cfg:parameter name="sSection2PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection3PointSize">12</cfg:parameter>
+                <cfg:parameter name="sSection4PointSize">12</cfg:parameter>
+                <cfg:parameter name="sBackMatterItemTitlePointSize">14</cfg:parameter>
+                <cfg:parameter name="sPageInsideMargin">1.5in</cfg:parameter>
+                <cfg:parameter name="sPageOutsideMargin">1in</cfg:parameter>
+                <cfg:parameter name="sFOProcessor">XFC</cfg:parameter>
+                <!--
+          sInterlinearSourceStyle:
+          The default is AfterFirstLine (immediately after the last item in the first line)
+          The other possibilities are AfterFree (immediately after the free translation, on the same line)
+          and UnderFree (on the line immediately after the free translation)
+        -->
+                <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
+            </cfg:transform>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo">
+                <cfg:parameter name="sFOProcessor">XFC</cfg:parameter>
+            </cfg:transform>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="showXLingPapUserDocumentation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+        <!--        <cfg:process>
+            <cfg:shell command="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;"/>
+<!-\-            <cfg:shell command="start &quot;c:%{S}Program Files%{S}Internet Explorer%{S}IExplore.exe&quot; &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;" platform="Windows"/>-\->
+<!-\-            <cfg:shell command="&quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;" platform="Mac"/>-\->
+        </cfg:process>
+-->
+    </cfg:command>
+    <cfg:command name="showAboutXLingPaper">
+        <cfg:macro>
+            <cfg:sequence>
+                <!--                <cfg:command name="produceAboutXLingPaperPage"/>-->
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}AboutXLingPaper.htm&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="produceAboutXLingPaperPage">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="%{C}%{S}..%{S}xlingpap.xxe_addon" stylesheet="..%{S}transforms%{S}AboutXLingPaper.xsl" to="%{C}%{S}..%{S}doc%{S}AboutXLingPaper.htm"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F10"/>
+        <cfg:command name="produceWord2003Document"/>
+    </cfg:binding>
+    <cfg:command name="xhtml.tableEdit">
+        <cfg:class>com.xmlmind.xmleditext.xhtml.table.HTMLTableEdit</cfg:class>
+    </cfg:command>
+    <!--    Not that common an operation to deserve a keyboard short-cut
+    <cfg:binding>
+        <cfg:keyPressed code="F9" modifiers="shift"/>
+        <cfg:command name="associatePublisherStylesheet"/>
+    </cfg:binding>
+-->
+    <cfg:command name="removePublisherStylesheet">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:pass>
+                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] xlingpaper"/>
+                    </cfg:pass>
+                    <cfg:pass>
+                        <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] xlingpaper"/>
+                    </cfg:pass>
+                </cfg:choice>
+                <cfg:command name="RemovePublisherStylesheetCmd"/>
+                <cfg:set variable="result" expression="%_" plainString="true"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="string-length($result) &gt; 0"/>
+                        <cfg:get expression="$result"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="XXE.save" parameter="[ifNeeded]"/>
+                        <cfg:command name="XXE.open" parameter="%D"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="associatePublisherStylesheet">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:pass>
+                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] lingPaper xlingpaper"/>
+                    </cfg:pass>
+                    <cfg:pass>
+                        <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] lingPaper  xlingpaper"/>
+                    </cfg:pass>
+                </cfg:choice>
+                <cfg:command name="selectFile" parameter="[Choose Publisher Style Sheet]openFile %{c}/../publisherstylesheets/SILInternationalPaperStylesheet.xml"/>
+                <cfg:set variable="fileName" expression="%_" plainString="true"/>
+                <cfg:get expression="$fileName"/>
+                <cfg:get expression="relativize-uri(uri-or-file-name('%_'), '%{d}')"/>
+                <cfg:set variable="uri" expression="%_" plainString="true"/>
+                <cfg:get expression="concat($fileName, '|', $uri)"/>
+                <cfg:command name="AssociatePublisherStylesheetCmd" parameter="%_"/>
+                <cfg:set variable="result" expression="%_" plainString="true"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="string-length($result) &gt; 0"/>
+                        <cfg:get expression="$result"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="XXE.save" parameter="[ifNeeded]"/>
+                        <cfg:command name="XXE.open" parameter="%D"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="associateHandoutStylesheetTransform">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="..%{S}transforms%{S}AssociatePublisherStylesheet.xsl" to="%{P}%{S}%{R}Handout.%{E}">
+                <cfg:parameter name="sStylesheetURL">%{c}/../publisherstylesheets/HandoutStylesheet.xml</cfg:parameter>
+            </cfg:transform>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="produceHandout">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="produceHandoutTransform"/>
+                <!-- is there a better way to do the following so we don''t have to load it twice? 
+
+NB actually it associates the stylesheet with the original file, not the new handout one-->
+                <cfg:command name="associateHandoutStylesheetTransform"/>
+                <cfg:command name="XXE.open" parameter="%{P}%{S}%{R}Handout.%{E}"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="produceHandoutTransform">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapToHandout.xsl" to="%{P}%{S}%{R}Handout.%{E}"/>
+        </cfg:process>
+    </cfg:command>
+    <!-- Following requires almost 12MB of zipped stuff to actually work...  
+        Since we don't want to force every user to download so much, 
+        maybe we can turn it all into a separate package on the Google Code site that
+        users can download and run as needed...
+    -->
+    <cfg:command name="ConvertSVGFileToPDF">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}HaveBatikRasterrizer.bat&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] &quot;%{C}%{S}..%{S}batchfiles%{S}HaveBatikRasterrizer&quot;"/>
+                </cfg:choice>
+                <cfg:set variable="exists" plainString="true" expression="%_"/>
+                <!--                <cfg:get expression="$exists"/>-->
+                <!--                <cfg:command name="alert" parameter="$exists = %_"/>-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+                        <cfg:command name="alert" parameter="It appears you do not have the .svg to .pdf conversion package installed.  Please see section 11.17.1.1 of the user documentation."/>
+                    </cfg:sequence>
+                    <cfg:command name="ConvertSVGFileToPDFViaBatikRasterizer"/>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertSVGFileToPDFViaBatikRasterizer">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="selectFile" parameter="[Choose SVG File]openFile %{d}"/>
+                <cfg:choice>
+                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DoBatikRasterizer.bat&quot; &quot;%_&quot; &quot;%{C}%{S}..%{S}batchfiles&quot;"/>
+                    <cfg:command name="run" parameter="[Unix] &quot;%{C}%{S}..%{S}batchfiles%{S}DoBatikRasterizer&quot; &quot;%_&quot;"/>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ChangeDefaultLangAttributesInTemplates">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="prompt" parameter="'Old langData default name (no spaces, just letters)' 'lVernacular'"/>
+                <cfg:set variable="oldLangData" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'New langData default name (no spaces, just letters)' 'lVernacular'"/>
+                <cfg:set variable="newLangData" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'Old gloss default name (no spaces, just letters)' 'lGloss'"/>
+                <cfg:set variable="oldGloss" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'New gloss default name (no spaces, just letters)' 'lGloss'"/>
+                <cfg:set variable="newGloss" expression="%_" plainString="true"/>
+                <cfg:get expression="translate('%{C}',' ','*')"/>
+                <cfg:set variable="path" expression="%_" plainString="true"/>
+                <cfg:get expression="concat($path, ' ',$oldLangData, ' ', $newLangData, ' ', $oldGloss, ' ', $newGloss)"/>
+                <cfg:set variable="parameter" expression="%_" plainString="true"/>
+                <!--                <cfg:get expression="$parameter"/>
+                <cfg:command name="alert" parameter="XXE: parameter = %_"/>
+-->
+                <cfg:get expression="$parameter"/>
+                <cfg:command name="changeDefaultLangAttributesInTemplatesCmd" parameter="%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+</cfg:configuration>

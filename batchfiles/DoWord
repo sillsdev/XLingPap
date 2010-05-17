@@ -1,0 +1,5 @@
+#!/bin/sh
+/usr/local/bin/xslutil/bin/xslutil foToWML "$1.fo" "$1.doc"
+exit 0
+
+

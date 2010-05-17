@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ -f "$1" ]; then
+	rm "$1"
+	if [ -f "$1" ]; then
+		rm "$1"
+	else
+		echo XLingPaper-PdfNotThere-XLingPaper
+	fi
+else
+	echo XLingPaper-PdfNotThere-XLingPaper
+fi
+

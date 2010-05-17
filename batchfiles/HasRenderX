@@ -1,0 +1,8 @@
+#!/bin/sh
+# following looks for XEP in the path and encloses the result in vertical bars
+# without the vertical bars, we get a syntax error in the if statement if XEP is not in the path
+if [ "$(which xep)" != "" ]; then
+	echo XLingPaper-Yes-XLingPaper
+else
+	echo XLingPaper-No-XLingPaper
+fi

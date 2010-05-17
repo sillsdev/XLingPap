@@ -1,0 +1,25 @@
+<cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+    <cfg:template location="../templates/XLingPapTemplate.xml" name="Paper (Section-oriented)"/>
+    <cfg:template location="../templates/XLingPapChaptersTemplate.xml" name="Book (Chapter-oriented)"/>
+    <cfg:template location="../templates/XLingPapPartsTemplate.xml" name="Multi-Part Book (Part-oriented)"/>
+    <cfg:template location="../templates/XLingPapReferencesTemplate.xml"
+        name="References (part of a modular document)"/>
+    <cfg:template location="../templates/XLingPapIndexTermsTemplate.xml"
+        name="Index Terms (part of a modular document)"/>
+    <cfg:template location="../templates/XLingPapTomPayneGrammaticalDescription.xml"
+        name="Tom Payne's Grammar Book Outline"/>
+   <cfg:template location="../templates/XLingPapPaperPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Paper"/>
+   <cfg:template location="../templates/XLingPapHandoutPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Handout"/>
+   <cfg:template location="../templates/XLingPapBookPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Book"/>
+   <cfg:template location="../templates/XLingPapPublisherStylesheetReferencesTemplate.xml" name="Publisher stylesheet, references section only"/>
+    <cfg:template location="../templates/XLingPapLanguagesTemplate.xml"
+        name="Languages (part of a modular document)"/>
+    <cfg:template location="../templates/XLingPapTypesTemplate.xml"
+        name="Types (part of a modular document)"/>
+   <cfg:template location="../templates/XLingPapAbbreviationsAllCapsTemplate.xml"
+      name="Abbreviations; all upper case (part of a modular document)"/>
+   <cfg:template location="../templates/XLingPapAbbreviationsLowerCaseTemplate.xml"
+      name="Abbreviations; all lower case; i.e. use small-caps (part of a modular document)"/>
+</cfg:configuration>

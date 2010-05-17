@@ -1,0 +1,2002 @@
+<cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+   <!--
+========================================
+	 Element templates 
+========================================
+-->
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+part, chapter, sections, appendix 
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="p" selectable="override">
+      <appendix id="a" xmlns="">
+         <secTitle/>
+         <p/>
+      </appendix>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <chapter id="c" xmlns="">
+         <secTitle/>
+         <p/>
+      </chapter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <part id="p" xmlns="">
+         <secTitle/>
+         <p/>
+      </part>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section1 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section1>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section2 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section2>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section3 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section3>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section4 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section4>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section5 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section5>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <section6 id="s" xmlns="">
+         <secTitle/>
+         <p/>
+      </section6>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="sec" selectable="override">
+      <sectionRef sec="s" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="app" selectable="override">
+      <appendixRef app="a" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_image">
+      <chart xmlns="">
+         <img src="fileName"/>
+      </chart>
+   </cfg:elementTemplate>
+    <cfg:elementTemplate name="simple" selectable="override">
+        <figure id="f" xmlns="">
+            <chart xmlns="">
+            </chart>
+        </figure>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="with_caption">
+        <figure id="f" xmlns="">
+            <chart xmlns="">
+            </chart>
+            <caption></caption>
+        </figure>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="with_image">
+        <figure id="f" xmlns="">
+            <chart xmlns="">
+                <img src="fileName"/>
+            </chart>
+        </figure>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="with_caption_and_image">
+        <figure id="f" xmlns="">
+            <chart xmlns="">
+                <img src="fileName"/>
+            </chart>
+            <caption></caption>
+        </figure>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="figure" selectable="override">
+        <figureRef figure="f" xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="with_image">
+      <tree xmlns="">
+         <img src="fileName"/>
+      </tree>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="img" selectable="override">
+      <img src="fileName" xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+citations
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="ref" selectable="override">
+      <citation ref="r" xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
+=====================================================================
+     trying separate templates to add an author and a type of work: 
+     it adds the elements, but where it should be #PCDATA, no (text)
+     is included in XMLmind.  One has to manually insert the text.
+     It works fine when inserting a refWork from within a refAuthor, but
+     not from here.  Puzzling...
+   -->
+   <cfg:elementTemplate xmlns="" name="refAuthor" selectable="override">
+      <refAuthor citename="???" name="???">
+         <refWork xmlns="" cfg:template="article"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="article">
+      <refAuthor citename="???" name="???">
+         <refWork xmlns="" cfg:template="article"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="book">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="book"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="collection">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="collection"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="dissertation">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="dissertation"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="fieldNotes">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="fieldNotes"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="ms">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="ms"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="paper">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="paper"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="proceedings">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="proceedings"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="thesis">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="thesis"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="webPage">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="webPage"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+
+==================================
+-->
+   <cfg:elementTemplate name="article" selectable="override">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <article>
+            <jTitle>journal</jTitle>
+            <jVol>volume</jVol>
+            <jPages>pages</jPages>
+         </article>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="article">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <article>
+            <jTitle>journal</jTitle>
+            <jVol>volume</jVol>
+            <jPages>pages</jPages>
+         </article>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="book">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <book>
+            <location>location</location>
+            <publisher>publisher</publisher>
+         </book>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <collection>
+            <collEd>collection_editor</collEd>
+            <collTitle>collection_title </collTitle>
+            <collVol>collection_volume </collVol>
+            <collPages>collection_pages</collPages>
+            <location>location</location>
+            <publisher>publisher</publisher>
+         </collection>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="dissertation">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <dissertation>
+            <location>location</location>
+            <institution>institution</institution>
+         </dissertation>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="fieldNotes">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <fieldNotes>
+            <institution>institution</institution>
+         </fieldNotes>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="ms">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <ms>
+            <institution>institution</institution>
+         </ms>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="paper">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <paper>
+            <conference>conference</conference>
+            <location>location</location>
+         </paper>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <proceedings>
+            <procEd>proceedings_editor</procEd>
+            <procTitle>proceedings_title</procTitle>
+            <procVol>proceedings_volume</procVol>
+            <procPages>proceedings_pages</procPages>
+            <location>location</location>
+            <publisher>publisher</publisher>
+         </proceedings>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="thesis">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <thesis>
+            <location>location</location>
+            <institution>institution</institution>
+         </thesis>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="webPage">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <webPage>
+            <url>url</url>
+            <dateAccessed>date</dateAccessed>
+         </webPage>
+      </refWork>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+examples
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="num" selectable="override">
+      <exampleRef letter="x" num="x" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="chart">
+      <example num="x" xmlns="">
+         <chart/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="chart_with_image">
+      <example num="x" xmlns="">
+         <chart>
+            <img src="fileName"/>
+         </chart>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="definition">
+      <example num="x" xmlns="">
+         <definition/>
+      </example>
+   </cfg:elementTemplate>
+    <cfg:elementTemplate name="listDefinition">
+        <example num="x" xmlns="">
+            <listDefinition letter="x">
+                <definition> </definition>
+            </listDefinition>
+            <listDefinition letter="x">
+                <definition> </definition>
+            </listDefinition>
+        </example>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="listDefinition" selectable="override">
+        <listDefinition letter="x" xmlns="">
+            <definition></definition>
+        </listDefinition>
+    </cfg:elementTemplate>
+    <!-- example / interlinear -->
+   <cfg:elementTemplate name="interlinearSource" selectable="override">
+      <interlinearSource xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinearRef">
+      <example num="x" xmlns="">
+         <interlinearRef textref="T"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_g_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_g_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_l_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_l_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_l_g_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_l_l_g_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="l_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_g_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_g_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_l_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_l_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_l_g_free_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_l_g_free_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_l_g_g">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear_wrd_l_l_g_g_free">
+      <example num="x" xmlns="">
+         <interlinear cfg:template="wrd_l_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <!-- interlinear -->
+   <cfg:elementTemplate name="interlinear" selectable="override">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_g_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_g_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_l_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_l_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_l_g_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="l_l_g_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_g_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_g_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_free_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+         <free lang="lSpanFree"/>
+         <free lang="lFree"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_g">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g_g"/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_g_free">
+      <interlinear xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g_g"/>
+         <free/>
+      </interlinear>
+   </cfg:elementTemplate>
+   <!-- lineGroup -->
+   <cfg:elementTemplate name="lineGroup" selectable="override">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+         <line cfg:template="gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+         <line cfg:template="gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_g">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+         <line cfg:template="gloss"/>
+         <line cfg:template="gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+         <line cfg:template="langData"/>
+         <line cfg:template="gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_g">
+      <lineGroup xmlns="">
+         <line cfg:template="langData"/>
+         <line cfg:template="langData"/>
+         <line cfg:template="gloss"/>
+         <line cfg:template="gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l">
+      <lineGroup xmlns="">
+         <line cfg:template="wrd_langData"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g">
+      <lineGroup xmlns="">
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_g">
+      <lineGroup xmlns="">
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_gloss"/>
+         <line cfg:template="wrd_gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g">
+      <lineGroup xmlns="">
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_g">
+      <lineGroup xmlns="">
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_langData"/>
+         <line cfg:template="wrd_gloss"/>
+         <line cfg:template="wrd_gloss"/>
+      </lineGroup>
+   </cfg:elementTemplate>
+   <!-- line -->
+   <cfg:elementTemplate name="langData">
+      <line xmlns="">
+         <langData lang="lVernacular"/>
+      </line>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="line" selectable="override">
+      <line xmlns="">
+         <langData lang="lVernacular"/>
+      </line>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="gloss">
+      <line xmlns="">
+         <gloss lang="lGloss"/>
+      </line>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_langData">
+      <line xmlns="">
+         <wrd cfg:template="langData"/>
+         <wrd cfg:template="langData"/>
+         <wrd cfg:template="langData"/>
+         <wrd cfg:template="langData"/>
+         <wrd cfg:template="langData"/>
+      </line>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_gloss">
+      <line xmlns="">
+         <wrd cfg:template="gloss"/>
+         <wrd cfg:template="gloss"/>
+         <wrd cfg:template="gloss"/>
+         <wrd cfg:template="gloss"/>
+         <wrd cfg:template="gloss"/>
+      </line>
+   </cfg:elementTemplate>
+   <!-- wrd -->
+   <cfg:elementTemplate name="langData">
+      <wrd xmlns="">
+         <langData lang="lVernacular"/>
+      </wrd>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd" selectable="override">
+      <wrd xmlns="">
+         <langData lang="lVernacular"/>
+      </wrd>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="gloss">
+      <wrd xmlns="">
+         <gloss lang="lGloss"/>
+      </wrd>
+   </cfg:elementTemplate>
+   <!-- example / listInterlinear -->
+   <cfg:elementTemplate name="listInterlinear_interlinearRef">
+      <example num="x" xmlns="">
+         <listInterlinear letter="x" xmlns="">
+            <interlinearRef textref="T"/>
+         </listInterlinear>
+         <listInterlinear letter="x" xmlns="">
+            <interlinearRef textref="T"/>
+         </listInterlinear>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_free"/>
+         <listInterlinear cfg:template="l_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_g"/>
+         <listInterlinear cfg:template="l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_g_free"/>
+         <listInterlinear cfg:template="l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_g_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_g_g"/>
+         <listInterlinear cfg:template="l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_g_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_g_g_free"/>
+         <listInterlinear cfg:template="l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_l_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_l_g"/>
+         <listInterlinear cfg:template="l_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_l_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_l_g_free"/>
+         <listInterlinear cfg:template="l_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_l_g_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_l_g_g"/>
+         <listInterlinear cfg:template="l_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_l_l_g_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="l_l_g_g_free"/>
+         <listInterlinear cfg:template="l_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_free"/>
+         <listInterlinear cfg:template="wrd_l_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_g"/>
+         <listInterlinear cfg:template="wrd_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_g_free"/>
+         <listInterlinear cfg:template="wrd_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_g_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_g_g"/>
+         <listInterlinear cfg:template="wrd_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_g_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_g_g_free"/>
+         <listInterlinear cfg:template="wrd_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_l_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_l_g"/>
+         <listInterlinear cfg:template="wrd_l_l_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_l_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_l_g_free"/>
+         <listInterlinear cfg:template="wrd_l_l_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_l_g_free_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_l_g_free_free"/>
+         <listInterlinear cfg:template="wrd_l_l_g_free_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_l_g_g">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_l_g_g"/>
+         <listInterlinear cfg:template="wrd_l_l_g_g"/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listInterlinear_wrd_l_l_g_g_free">
+      <example num="x" xmlns="">
+         <listInterlinear cfg:template="wrd_l_l_g_g_free"/>
+         <listInterlinear cfg:template="wrd_l_l_g_g_free"/>
+      </example>
+   </cfg:elementTemplate>
+   <!-- listInterlinear -->
+   <cfg:elementTemplate name="listInterlinear" selectable="override">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_g_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_g_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_g_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_l_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_l_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_l_g_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="l_l_g_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="l_l_g_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_free">
+      <listInterlinear letter="x" xmlns="">
+      <lineGroup cfg:template="wrd_l"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_g_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_g_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_g_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_free_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g"/>
+         <free lang="lSpanFree"/>
+         <free lang="lFree"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_g">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g_g"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="wrd_l_l_g_g_free">
+      <listInterlinear letter="x" xmlns="">
+         <lineGroup cfg:template="wrd_l_l_g_g"/>
+         <free/>
+      </listInterlinear>
+   </cfg:elementTemplate>
+   <!-- interlinear_aligned_morphemes -->
+   <cfg:elementTemplate name="interlinear_aligned_morphemes">
+      <example num="x" xmlns="">
+         <interlinear>
+            <phrase>
+               <words>
+                  <iword>
+                     <item lang="lVernacular" type="txt"/>
+                     <morphemes>
+                        <morphset>
+                           <morph type="prefix">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                           <morph type="root">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                           <morph type="suffix">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                        </morphset>
+                     </morphemes>
+                     <item lang="lGloss" type="gls"/>
+                     <item lang="lGloss" type="pos"/>
+                  </iword>
+                  <iword>
+                     <item lang="lVernacular" type="txt"/>
+                     <morphemes>
+                        <morphset>
+                           <morph type="prefix">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                           <morph type="root">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                           <morph type="suffix">
+                              <item lang="lVernacular" type="txt"/>
+                              <item lang="lVernacular" type="cf"/>
+                              <item lang="lGloss" type="gls"/>
+                              <item lang="lGloss" type="msa"/>
+                           </morph>
+                        </morphset>
+                     </morphemes>
+                     <item lang="lGloss" type="gls"/>
+                     <item lang="lGloss" type="pos"/>
+                  </iword>
+                  <iword>
+                     <item lang="lVernacular" type="punct">.</item>
+                  </iword>
+               </words>
+               <item lang="lGloss" type="gls"/>
+            </phrase>
+         </interlinear>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear-text" selectable="override">
+      <interlinear-text xmlns="">
+         <textInfo>
+            <textTitle/>
+            <shortTitle/>
+         </textInfo>
+         <interlinear cfg:template="interlinear"/>
+      </interlinear-text>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="textTitle" selectable="override">
+      <textTitle xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="source" selectable="override">
+      <source xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="genres" selectable="override">
+      <genres xmlns="">
+         <genre cfg:template="genre"/>
+      </genres>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="genre" selectable="override">
+      <genre xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="phrases">
+      <interlinear-text xmlns="">
+         <textInfo>
+            <textTitle/>
+            <shortTitle/>
+         </textInfo>
+         <phrases>
+            <phrase cfg:template="phrase"/>
+         </phrases>
+      </interlinear-text>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="phrase" selectable="override">
+      <phrase>
+         <words>
+            <iword>
+               <item lang="lVernacular" type="txt"/>
+               <morphemes>
+                  <morphset>
+                     <morph type="prefix">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                     <morph type="root">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                     <morph type="suffix">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                  </morphset>
+               </morphemes>
+               <item lang="lGloss" type="gls"/>
+               <item lang="lGloss" type="pos"/>
+            </iword>
+            <iword>
+               <item lang="lVernacular" type="txt"/>
+               <morphemes>
+                  <morphset>
+                     <morph type="prefix">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                     <morph type="root">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                     <morph type="suffix">
+                        <item lang="lVernacular" type="txt"/>
+                        <item lang="lVernacular" type="cf"/>
+                        <item lang="lGloss" type="gls"/>
+                        <item lang="lGloss" type="msa"/>
+                     </morph>
+                  </morphset>
+               </morphemes>
+               <item lang="lGloss" type="gls"/>
+               <item lang="lGloss" type="pos"/>
+            </iword>
+            <iword>
+               <item lang="lVernacular" type="punct">.</item>
+            </iword>
+         </words>
+         <item lang="lGloss" type="gls"/>
+      </phrase>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="title">
+      <interlinear-text xmlns="">
+         <item type="title" lang="lVernacular"/>
+         <phrases>
+            <phrase cfg:template="phrase"/>
+         </phrases>
+      </interlinear-text>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listSingle">
+      <example num="x" xmlns="">
+         <listSingle letter="x">
+            <langData lang="lVernacular"/>
+         </listSingle>
+         <listSingle letter="x">
+            <langData lang="lVernacular"/>
+         </listSingle>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listWord_with_gloss">
+      <example num="x" xmlns="">
+         <listWord letter="x">
+            <langData lang="lVernacular"/>
+            <gloss lang="lGloss"/>
+         </listWord>
+         <listWord letter="x">
+            <langData lang="lVernacular"/>
+            <gloss lang="lGloss"/>
+         </listWord>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listWord_without_gloss">
+      <example num="x" xmlns="">
+         <listWord letter="x">
+            <langData lang="lVernacular"/>
+         </listWord>
+         <listWord letter="x">
+            <langData lang="lVernacular"/>
+         </listWord>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="single">
+      <example num="x" xmlns="">
+         <single>
+            <langData lang="lVernacular"/>
+         </single>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="example" selectable="override">
+      <example num="x" xmlns="">
+         <table border="1">
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table">
+      <example num="x" xmlns="">
+         <table border="1">
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table_head_row">
+      <example num="x" xmlns="">
+         <table border="1">
+            <tr>
+               <th/>
+               <th/>
+            </tr>
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table_head_row_head_col">
+      <example num="x" xmlns="">
+         <table border="1">
+            <tr>
+               <th/>
+               <th/>
+               <th/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="tree">
+      <example num="x" xmlns="">
+         <tree/>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="tree_with_image">
+      <example num="x" xmlns="">
+         <tree>
+            <img src="fileName"/>
+         </tree>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="word_with_gloss">
+      <example num="x" xmlns="">
+         <word>
+            <langData lang="lVernacular"/>
+            <gloss lang="lGloss"/>
+         </word>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="word_without_gloss">
+      <example num="x" xmlns="">
+         <word>
+            <langData lang="lVernacular"/>
+         </word>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listSingle" selectable="override">
+      <listSingle letter="x" xmlns="">
+         <langData lang="lVernacular"/>
+      </listSingle>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listWord" selectable="override">
+      <listWord letter="x" xmlns="">
+         <langData lang="lVernacular"/>
+         <gloss lang="lGloss"/>
+      </listWord>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_gloss">
+      <listWord letter="x" xmlns="">
+         <langData lang="lVernacular"/>
+         <gloss lang="lGloss"/>
+      </listWord>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="without_gloss">
+      <listWord letter="x" xmlns="">
+         <langData lang="lVernacular"/>
+      </listWord>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="iword" selectable="override">
+      <iword xmlns="">
+         <item lang="lVernacular" type="txt"/>
+         <morphemes>
+            <morphset>
+               <morph type="prefix">
+                  <item lang="lVernacular" type="txt"/>
+                  <item lang="lVernacular" type="cf"/>
+                  <item lang="lGloss" type="gls"/>
+                  <item lang="lGloss" type="msa"/>
+               </morph>
+               <morph type="root">
+                  <item lang="lVernacular" type="txt"/>
+                  <item lang="lVernacular" type="cf"/>
+                  <item lang="lGloss" type="gls"/>
+                  <item lang="lGloss" type="msa"/>
+               </morph>
+               <morph type="suffix">
+                  <item lang="lVernacular" type="txt"/>
+                  <item lang="lVernacular" type="cf"/>
+                  <item lang="lGloss" type="gls"/>
+                  <item lang="lGloss" type="msa"/>
+               </morph>
+            </morphset>
+         </morphemes>
+         <item lang="lGloss" type="gls"/>
+         <item lang="lGloss" type="pos"/>
+      </iword>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="morph_prefix">
+      <morph type="prefix" xmlns="">
+         <item lang="lVernacular" type="txt"/>
+         <item lang="lVernacular" type="cf"/>
+         <item lang="lGloss" type="gls"/>
+         <item lang="lGloss" type="msa"/>
+      </morph>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="morph_root" selectable="override">
+      <morph type="root" xmlns="">
+         <item lang="lVernacular" type="txt"/>
+         <item lang="lVernacular" type="cf"/>
+         <item lang="lGloss" type="gls"/>
+         <item lang="lGloss" type="msa"/>
+      </morph>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="morph_suffix">
+      <morph type="suffix" xmlns="">
+         <item lang="lVernacular" type="txt"/>
+         <item lang="lVernacular" type="cf"/>
+         <item lang="lGloss" type="gls"/>
+         <item lang="lGloss" type="msa"/>
+      </morph>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="note">
+      <item lang="lGloss" type="note"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="punctuation">
+      <item lang="lVernacular" type="punct"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="text-vernacular">
+      <item lang="lVernacular" type="txt"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="text-analysis">
+      <item lang="lGloss" type="txt"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="title-vernacular">
+      <item lang="lVernacular" type="title"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="title-analysis">
+      <item lang="lGloss" type="title"/>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+endnote
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="endnoteRef" selectable="override">
+      <endnoteRef note="n" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <endnote id="n" xmlns="">
+         <p/>
+      </endnote>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+language
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="l" selectable="override">
+      <language id="l" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="langData" selectable="override">
+      <langData lang="lVernacular" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="gloss" selectable="override">
+      <gloss lang="lGloss" xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+type
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="t" selectable="override">
+      <type id="t" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="object" selectable="override">
+      <object type="t" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="genericTarget" selectable="override">
+      <genericTarget id="g" xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+lists
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <cfg:elementTemplate name="dl" selectable="override">
+      <dl xmlns="">
+         <dt/>
+         <dd/>
+         <dt/>
+         <dd/>
+      </dl>
+   </cfg:elementTemplate>
+    <cfg:elementTemplate name="definition_list">
+        <dl xmlns="">
+            <dt/>
+            <dd/>
+            <dt/>
+            <dd/>
+        </dl>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="2" selectable="override">
+      <ol xmlns="">
+         <li/>
+         <li/>
+      </ol>
+   </cfg:elementTemplate>
+    <cfg:elementTemplate name="ordered_list">
+        <ol xmlns="">
+            <li/>
+            <li/>
+        </ol>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="2" selectable="override">
+        <ul xmlns="">
+            <li/>
+            <li/>
+        </ul>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="bulleted_list">
+        <ul xmlns="">
+            <li/>
+            <li/>
+        </ul>
+    </cfg:elementTemplate>
+    <!-- 
+        - - - - - - - - - - - - - - - - - - - - 
+        short named elements that could use a fuller explanation
+        - - - - - - - - - - - - - - - - - - - - 
+    -->
+    <cfg:elementTemplate name="break_line">
+        <br xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="book_volume">
+        <bVol xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_editor">
+        <collEd xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_editor_initialis">
+        <collEdInitials xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_pages">
+        <collPages xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_title">
+        <collTitle xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_title_using_lower_case">
+        <collTitleLowerCase xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection_volume">
+        <collVol xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="definition_description">
+        <dd xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="definition_term">
+        <dt xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="image">
+        <img xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="journal_article_number">
+        <jArticleNumber xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="journal_pages">
+        <jPages xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="journal_title">
+        <jTitle xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="journal_volume">
+        <jVol xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="list_item">
+        <li xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="manuscript">
+        <ms xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="paragraph">
+        <p xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="paragraph_continuation">
+        <pc xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_editor">
+        <procEd xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_editor_initialis">
+        <procEdInitials xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_pages">
+        <procPages xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_title">
+        <procTitle xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_title_using_lower_case">
+        <procTitleLowerCase xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings_volume">
+        <procVol xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="publication_date">
+        <pubDate xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="quote">
+        <q xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="table_cell">
+        <td xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="table_header_cell">
+        <th xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="table_row">
+        <tr xmlns=""/>
+    </cfg:elementTemplate>
+    <!-- 
+- - - - - - - - - - - - - - - - - - - - 
+table
+- - - - - - - - - - - - - - - - - - - - 
+-->
+   <!-- just use simple table instead
+  <cfg:elementTemplate xmlns="" name="2_2">
+     <table border="1">
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td></td>
+        </tr>
+      </table>
+  </cfg:elementTemplate>
+-->
+   <cfg:elementTemplate name="simple" selectable="override">
+      <table border="1" xmlns="">
+         <tr>
+            <td/>
+            <td/>
+         </tr>
+         <tr>
+            <td/>
+            <td/>
+         </tr>
+      </table>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="head_row">
+      <table border="1" xmlns="">
+         <tr>
+            <th/>
+            <th/>
+         </tr>
+         <tr>
+            <td/>
+            <td/>
+         </tr>
+         <tr>
+            <td/>
+            <td/>
+         </tr>
+      </table>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="head_row_head_col">
+      <table border="1" xmlns="">
+         <tr>
+            <th/>
+            <th/>
+            <th/>
+         </tr>
+         <tr>
+            <th/>
+            <td/>
+            <td/>
+         </tr>
+         <tr>
+            <th/>
+            <td/>
+            <td/>
+         </tr>
+      </table>
+   </cfg:elementTemplate>
+    <cfg:elementTemplate name="simple" selectable="override">
+        <tablenumbered id="nt" xmlns="" >
+            <table border="1" xmlns="">
+                <tr>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td/>
+                <td/>
+            </tr>
+                </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="caption">
+        <tablenumbered id="nt" xmlns="" >
+            <table border="1" xmlns="">
+                <caption></caption>
+                <tr>
+                    <td/>
+                    <td/>
+                </tr>
+                <tr>
+                    <td/>
+                    <td/>
+                </tr>
+            </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="caption_head_row">
+        <tablenumbered id="nt" xmlns="">
+            <table border="1" xmlns="">
+                <caption></caption>
+                <tr>
+                    <th/>
+                    <th/>
+                </tr>
+                <tr>
+                    <td/>
+                    <td/>
+                </tr>
+                <tr>
+                    <td/>
+                    <td/>
+                </tr>
+            </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="head_row">
+        <tablenumbered id="nt" xmlns="">
+            <table border="1" xmlns="">
+                <tr>
+                <th/>
+                <th/>
+            </tr>
+            <tr>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <td/>
+                <td/>
+            </tr>
+                </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="caption_head_row_head_col">
+        <tablenumbered id="nt" xmlns="">
+            <table border="1" xmlns="">
+                <caption></caption>
+                <tr>
+                    <th/>
+                    <th/>
+                    <th/>
+                </tr>
+                <tr>
+                    <th/>
+                    <td/>
+                    <td/>
+                </tr>
+                <tr>
+                    <th/>
+                    <td/>
+                    <td/>
+                </tr>
+            </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="head_row_head_col">
+        <tablenumbered id="nt" xmlns="">
+            <table border="1" xmlns="">
+                <tr>
+                <th/>
+                <th/>
+                <th/>
+            </tr>
+            <tr>
+                <th/>
+                <td/>
+                <td/>
+            </tr>
+            <tr>
+                <th/>
+                <td/>
+                <td/>
+            </tr>
+                </table>
+        </tablenumbered>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="table" selectable="override">
+        <tablenumberedRef table="nt" xmlns=""/>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="b" selectable="override">
+      <indexedItem term="i" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="b" selectable="override">
+      <indexedRangeBegin id="b" term="i" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="b" selectable="override">
+      <indexedRangeEnd begin="b" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="indexTerm" selectable="override">
+      <indexTerm id="i" xmlns="">
+         <term/>
+      </indexTerm>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="indexTerms" selectable="override">
+      <indexTerms xmlns="">
+         <indexTerm cfg:template="indexTerm"/>
+         <indexTerm cfg:template="indexTerm"/>
+      </indexTerms>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="index" selectable="override">
+      <index xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p">
+      <index xmlns="">
+         <p/>
+      </index>
+   </cfg:elementTemplate>
+   <!--  abbreviation -->
+   <cfg:elementTemplate name="abbreviation" selectable="override">
+      <abbreviation id="v" xmlns="">
+         <abbrInLang lang="en">
+            <abbrTerm></abbrTerm>
+            <abbrDefinition></abbrDefinition>
+         </abbrInLang>
+      </abbreviation>
+   </cfg:elementTemplate>
+   <!-- These are HTML 4 table -->
+   <!-- not set up for these yet
+  <cfg:elementTemplate name="head_row">
+    <table xmlns="" frame="box" rules="all">
+      <thead align="center">
+	<tr>
+	  <th></th><th></th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr>
+	  <td></td><td></td>
+	</tr>
+	<tr>
+	  <td></td><td></td>
+	</tr>
+      </tbody>
+    </table>
+  </cfg:elementTemplate>
+
+  <cfg:elementTemplate name="head_column">
+    <table xmlns="" frame="box" rules="all">
+      <col align="center" span="1" />
+      <tbody>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+      </tbody>
+    </table>
+  </cfg:elementTemplate>
+
+  <cfg:elementTemplate name="head_row_column">
+    <table xmlns="" frame="box" rules="all">
+      <col align="center" span="1" />
+      <thead align="center">
+	<tr>
+	  <th></th><th></th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+	<tr>
+	  <th></th><td></td>
+	</tr>
+      </tbody>
+    </table>
+  </cfg:elementTemplate>
+-->
+   <cfg:elementTemplate name="titleHeaderFooterPageStyles" selectable="override">
+      <titleHeaderFooterPageStyles>
+         <headerFooterFirstPage cfg:template="first_blank"/>
+         <headerFooterPage cfg:template="regular"/>
+      </titleHeaderFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first_odd_even">
+      <titleHeaderFooterPageStyles>
+         <headerFooterFirstPage cfg:template="first_blank"/>
+         <headerFooterOddEvenPages cfg:template="odd_even_blank"/>
+      </titleHeaderFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first_regular">
+      <titleHeaderFooterPageStyles>
+         <headerFooterFirstPage cfg:template="first_blank"/>
+         <headerFooterPage cfg:template="regular"/>
+      </titleHeaderFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="headerFooterPageStyles" selectable="override">
+      <headerFooterPageStyles font-family="Times New Roman" font-size="9pt" font-style="italic">
+         <headerFooterFirstPage cfg:template="first"/>
+         <headerFooterOddEvenPages cfg:template="odd_even"/>
+      </headerFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first_odd_even">
+      <headerFooterPageStyles font-family="Times New Roman" font-size="9pt" font-style="italic">
+         <headerFooterFirstPage cfg:template="first"/>
+         <headerFooterOddEvenPages cfg:template="odd_even"/>
+      </headerFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first_regular">
+      <headerFooterPageStyles font-family="Times New Roman" font-size="9pt" font-style="italic">
+         <headerFooterFirstPage cfg:template="first"/>
+         <headerFooterPage cfg:template="regular"/>
+      </headerFooterPageStyles>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first">
+      <headerFooterFirstPage>
+         <header>
+            <leftHeaderFooterItem>
+               <nothing/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <nothing/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <nothing/>
+            </rightHeaderFooterItem>
+         </header>
+         <footer>
+            <leftHeaderFooterItem>
+               <nothing/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <pageNumber/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <nothing/>
+            </rightHeaderFooterItem>
+         </footer>
+      </headerFooterFirstPage>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="first_blank">
+      <headerFooterFirstPage>
+         <header>
+            <leftHeaderFooterItem>
+               <nothing/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <nothing/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <nothing/>
+            </rightHeaderFooterItem>
+         </header>
+         <footer>
+            <leftHeaderFooterItem>
+               <nothing/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <nothing/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <nothing/>
+            </rightHeaderFooterItem>
+         </footer>
+      </headerFooterFirstPage>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="regular">
+      <headerFooterPage>
+         <header>
+            <leftHeaderFooterItem>
+               <paperAuthor/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <nothing/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <paperTitle/>
+            </rightHeaderFooterItem>
+         </header>
+         <footer>
+            <leftHeaderFooterItem>
+               <nothing/>
+            </leftHeaderFooterItem>
+            <centerHeaderFooterItem>
+               <pageNumber/>
+            </centerHeaderFooterItem>
+            <rightHeaderFooterItem>
+               <nothing/>
+            </rightHeaderFooterItem>
+         </footer>
+      </headerFooterPage>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="odd_even">
+      <headerFooterOddEvenPages>
+         <headerFooterEvenPage>
+            <header>
+               <leftHeaderFooterItem>
+                  <pageNumber/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <chapterTitle/>
+               </rightHeaderFooterItem>
+            </header>
+            <footer>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </footer>
+         </headerFooterEvenPage>
+         <headerFooterOddPage>
+            <header>
+               <leftHeaderFooterItem>
+                  <chapterTitle/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <pageNumber/>
+               </rightHeaderFooterItem>
+            </header>
+            <footer>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </footer>
+         </headerFooterOddPage>
+      </headerFooterOddEvenPages>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="odd_even_blank">
+      <headerFooterOddEvenPages>
+         <headerFooterEvenPage>
+            <header>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </header>
+            <footer>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </footer>
+         </headerFooterEvenPage>
+         <headerFooterOddPage>
+            <header>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </header>
+            <footer>
+               <leftHeaderFooterItem>
+                  <nothing/>
+               </leftHeaderFooterItem>
+               <centerHeaderFooterItem>
+                  <nothing/>
+               </centerHeaderFooterItem>
+               <rightHeaderFooterItem>
+                  <nothing/>
+               </rightHeaderFooterItem>
+            </footer>
+         </headerFooterOddPage>
+      </headerFooterOddEvenPages>
+   </cfg:elementTemplate>
+</cfg:configuration>

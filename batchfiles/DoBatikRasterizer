@@ -1,0 +1,4 @@
+#!/bin/sh
+batik-rasterizer "$1"
+exit 0
+

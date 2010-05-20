@@ -271,6 +271,7 @@
         <tex:group>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
+                <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:variable name="contentForThisElement">
@@ -282,6 +283,7 @@
             <xsl:call-template name="DoTitleFormatInfoEnd">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>

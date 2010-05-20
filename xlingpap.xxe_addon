@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.11.0_1</a:version
+>2.11.0_2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-05-17</a:date
+>2010-05-20</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.11.0_2 20 May 2010<ul
+><li
+>Produce PDF via XeLaTeX:<ul
+><li
+>When using a publisher style sheet, the title of the paper did not pay attention to any text-transform attributes.</li
+></ul
+></li
+><li
+>Correct inaccuracies in IJAL and IJAL Submission publisher style sheets.</li
+><li
+>Correct inaccuracies in Language publisher style sheets.</li
+></ul
+></li
 ><li
 >2.11.0_1 13 May 2010<ul
 ><li

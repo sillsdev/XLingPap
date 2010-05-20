@@ -176,7 +176,6 @@ font-size="8pt"
 ></pageLayout
 ><frontMatterLayout
 ><titleLayout
-font-size="12pt"
 pagebreakbefore="yes"
 spacebefore="20pt"
 startonoddpage="yes"
@@ -189,7 +188,8 @@ spacebefore=".25in"
 textalign="center"
 ></subtitleLayout
 ><authorLayout
-font-size="12pt"
+font-family="Charis SIL Small Caps"
+font-size="9pt"
 spacebefore="10pt"
 textalign="center"
 ></authorLayout
@@ -256,7 +256,7 @@ font-weight="bold"
 spacebefore="10pt"
 ></numberLayout
 ><sectionTitleLayout
-font-variant="small-caps"
+font-family="Charis SIL Small Caps"
 textafter=". "
 ></sectionTitleLayout
 ></section1Layout
@@ -267,7 +267,7 @@ font-weight="bold"
 spacebefore="10pt"
 ></numberLayout
 ><sectionTitleLayout
-font-variant="small-caps"
+font-family="Charis SIL Small Caps"
 textafter=". "
 ></sectionTitleLayout
 ></section2Layout
@@ -278,7 +278,7 @@ font-weight="bold"
 spacebefore="10pt"
 ></numberLayout
 ><sectionTitleLayout
-font-variant="small-caps"
+font-family="Charis SIL Small Caps"
 textafter=". "
 ></sectionTitleLayout
 ></section3Layout
@@ -288,7 +288,7 @@ font-weight="bold"
 spacebefore=""
 ></numberLayout
 ><sectionTitleLayout
-font-variant="small-caps"
+font-family="Charis SIL Small Caps"
 ></sectionTitleLayout
 ></section4Layout
 ><section5Layout

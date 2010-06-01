@@ -2207,13 +2207,13 @@
                             </xsl:when>
                             <xsl:when test="not(th) and preceding-sibling::tr[1][th]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and count(ancestor::table[@border &gt; 0])=1">
+                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1">
                                     <tex:cmd name="endhead" gr="0" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
                             <xsl:when test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]])">
+                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]])">
                                     <tex:cmd name="endhead" gr="0" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
@@ -3001,59 +3001,61 @@
         <tex:spec cat="bg"/>
         <!--        <xsl:value-of select="$sInterlinearMaxNumberOfColumns"/>-->
         <xsl:variable name="iColCount">
-     <!--       <xsl:choose>
-         -->   <!--          <xsl:when test="line">-->
-                    <xsl:variable name="iTempCount">
-                        <xsl:for-each select="line | ../listWord">
-                            <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
-                            <xsl:if test="position()=1">
-                                <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
-                            <!-- have space-delimited langData and/or gloss line(s) -->
-                            <!-- We need to figure out the maximum number of items in the line elements.
+            <!--       <xsl:choose>
+         -->
+            <!--          <xsl:when test="line">-->
+            <xsl:variable name="iTempCount">
+                <xsl:for-each select="line | ../listWord">
+                    <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
+                    <xsl:if test="position()=1">
+                        <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
+                    <!-- have space-delimited langData and/or gloss line(s) -->
+                    <!-- We need to figure out the maximum number of items in the line elements.
                                    The maximum could be in any line since the user just keys data in them.
                                    We use a bit of a trick.  We put XML into a variable, with a root of <lines> and each line as <line>.
                                    Each line contains one x for each item in the line.  We then sort these and get the longest one.
                                    We use the longest one to figure out how many columns we will need.
                                    Note that with XSLT version 1.0, we have to use something like the Saxon extension function node-set().
                             -->
-                            <xsl:variable name="lines">
-                                <lines>
-                                    <xsl:for-each select="line | ../listWord">
-                                        <line>
-                                            <xsl:call-template name="CalculateColumnsInInterlinearLine">
-                                                <xsl:with-param name="sList" select="langData | gloss"/>
-                                            </xsl:call-template>
-                                        </line>
-                                    </xsl:for-each>
-                                </lines>
-                            </xsl:variable>
-                            <xsl:variable name="sMaxColCount">
-                                <xsl:for-each select="saxon:node-set($lines)/descendant::*">
-                                    <xsl:for-each select="line">
-                                        <xsl:sort select="." order="descending"/>
-                                        <xsl:if test="position()=1">
-                                            <xsl:value-of select="."/>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:for-each>
-                            </xsl:variable>
-                            <xsl:value-of select="string-length($sMaxColCount)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$iTempCount"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-<!--                </xsl:when>-->
-<!--                <xsl:otherwise>
+                    <xsl:variable name="lines">
+                        <lines>
+                            <xsl:for-each select="line | ../listWord">
+                                <line>
+                                    <xsl:call-template name="CalculateColumnsInInterlinearLine">
+                                        <xsl:with-param name="sList" select="langData | gloss"/>
+                                    </xsl:call-template>
+                                </line>
+                            </xsl:for-each>
+                        </lines>
+                    </xsl:variable>
+                    <xsl:variable name="sMaxColCount">
+                        <xsl:for-each select="saxon:node-set($lines)/descendant::*">
+                            <xsl:for-each select="line">
+                                <xsl:sort select="." order="descending"/>
+                                <xsl:if test="position()=1">
+                                    <xsl:value-of select="."/>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:for-each>
+                    </xsl:variable>
+                    <xsl:value-of select="string-length($sMaxColCount)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$iTempCount"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <!--                </xsl:when>-->
+            <!--                <xsl:otherwise>
                     <xsl:value-of select="count(langData) + count(gloss)"/>
                 </xsl:otherwise>
             </xsl:choose>
--->        </xsl:variable>
+-->
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="$sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>

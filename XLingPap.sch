@@ -108,4 +108,12 @@
             <report test="count(langData) + count(gloss) &gt; 2">Warning: There is a word element with more than two langData and gloss elements.  This is not the intended use of listWord so it may not come out as you want.  Please consider splitting this into multiple example(listWord) items with only a single pair of langData and gloss in each or consider making it be an example(table).</report>
         </rule>
     </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for poorly formed word and listWord elements</dir>
+        </title>
+        <rule context="interlinear">
+            <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
+        </rule>
+    </pattern>
 </schema>

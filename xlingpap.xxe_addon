@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.11.0_2</a:version
+>2.11.0_3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-05-20</a:date
+>2010-05-27</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,17 +32,33 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.11.0_2 20 May 2010<ul
+>2.11.0_3 27 May 2010<ul
+><li
+>Added warning checks for interlinears that are not in an example and appear within a table cell and also have an endnote: most outputs do not produce correct results and the XeLaTeX way of producing PDF fails to produce PDF.  We suggest you use some other way of showing the data.</li
+></ul
+></li
+><li
+>2.11.0_2 26 May 2010<ul
 ><li
 >Produce PDF via XeLaTeX:<ul
 ><li
 >When using a publisher style sheet, the title of the paper did not pay attention to any text-transform attributes.</li
+><li
+>When a table with headers was embedded within another table, the PDF failed to be produced.</li
+></ul
+></li
+><li
+>Produce PDF via RenderX:<ul
+><li
+>When using a publisher style sheet, the header and footer information in the style sheet was not used for front matter items (abstract, acknowledgements, contents).</li
 ></ul
 ></li
 ><li
 >Correct inaccuracies in IJAL and IJAL Submission publisher style sheets.</li
 ><li
 >Correct inaccuracies in Language publisher style sheets.</li
+><li
+>Correct inaccuracies in GIAL thesis publisher style sheets.</li
 ></ul
 ></li
 ><li

@@ -465,43 +465,37 @@
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
+        <xsl:variable name="layoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
         <fo:page-sequence master-reference="FrontMatterTOC" format="i">
             <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@startonoddpage='yes'">
                 <xsl:attribute name="initial-page-number">
                     <xsl:text>auto-odd</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            <fo:static-content flow-name="FrontMatterTOCFirstPage-after" display-align="after">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align">center</xsl:attribute>
-                    <xsl:attribute name="margin-top">6pt</xsl:attribute>
-                    <fo:page-number/>
-                </xsl:element>
-            </fo:static-content>
-            <fo:static-content flow-name="FrontMatterTOCEvenPage-before" display-align="before">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align-last">justify</xsl:attribute>
-                    <fo:inline>
-                        <fo:page-number/>
-                    </fo:inline>
-                    <fo:leader/>
-                    <fo:inline>
-                        <fo:retrieve-marker retrieve-class-name="contents-title"/>
-                    </fo:inline>
-                </xsl:element>
-            </fo:static-content>
-            <fo:static-content flow-name="FrontMatterTOCOddPage-before" display-align="before">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align-last">justify</xsl:attribute>
-                    <fo:inline>
-                        <fo:retrieve-marker retrieve-class-name="contents-title"/>
-                    </fo:inline>
-                    <fo:leader/>
-                    <fo:inline>
-                        <fo:page-number/>
-                    </fo:inline>
-                </xsl:element>
-            </fo:static-content>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterFirstPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCFirstPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCRegularPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+            </xsl:call-template>
             <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
             <fo:flow flow-name="xsl-region-body">
                 <xsl:attribute name="font-family">
@@ -2522,7 +2516,7 @@ not using
         =========================================================== -->
     <xsl:template match="keyTerm">
         <fo:inline>
-            <xsl:call-template name="DoType"/>           
+            <xsl:call-template name="DoType"/>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="."/>
             </xsl:call-template>
@@ -3507,6 +3501,33 @@ not using
             <xsl:call-template name="DoInitialPageNumberAttribute">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
+            <xsl:variable name="pageLayoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
+            <!-- $sHeaderTitleClassName -->
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterFirstPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCFirstPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCRegularPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoHeaderAndFooter">
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
+                <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
+            </xsl:call-template>
+            <!--            
             <fo:static-content flow-name="FrontMatterTOCFirstPage-after" display-align="after">
                 <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
                     <xsl:attribute name="text-align">center</xsl:attribute>
@@ -3546,6 +3567,7 @@ not using
                     </fo:inline>
                 </xsl:element>
             </fo:static-content>
+-->
             <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
             <fo:flow flow-name="xsl-region-body">
                 <xsl:attribute name="font-family">
@@ -3632,6 +3654,7 @@ not using
         <xsl:param name="layoutInfo"/>
         <xsl:param name="layoutInfoParentWithFontInfo"/>
         <xsl:param name="sFlowName"/>
+        <xsl:param name="sRetrieveClassName"/>
         <xsl:variable name="header" select="$layoutInfo/header"/>
         <xsl:if test="$header/*/*[name()!='nothing']">
             <xsl:call-template name="DoHeaderOrFooter">
@@ -3640,6 +3663,7 @@ not using
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfoParentWithFontInfo"/>
                 <xsl:with-param name="headerOrFooter" select="$header"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:variable name="footer" select="$layoutInfo/footer"/>
@@ -3650,6 +3674,7 @@ not using
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfoParentWithFontInfo"/>
                 <xsl:with-param name="headerOrFooter" select="$footer"/>
+                <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -3658,6 +3683,7 @@ not using
    -->
     <xsl:template name="DoHeaderFooterItem">
         <xsl:param name="item"/>
+        <xsl:param name="sRetrieveClassName"/>
         <xsl:for-each select="$item/*">
             <xsl:choose>
                 <xsl:when test="name()='nothing'">
@@ -3680,7 +3706,14 @@ not using
                             <xsl:when test="name()='chapterTitle'">
                                 <fo:retrieve-marker>
                                     <xsl:attribute name="retrieve-class-name">
-                                        <xsl:text>chap-title</xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length($sRetrieveClassName) &gt; 0">
+                                                <xsl:value-of select="$sRetrieveClassName"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>chap-title</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:attribute>
                                 </fo:retrieve-marker>
                             </xsl:when>
@@ -3711,7 +3744,14 @@ not using
                             <xsl:when test="name()='sectionTitle'">
                                 <fo:retrieve-marker>
                                     <xsl:attribute name="retrieve-class-name">
-                                        <xsl:text>section-title</xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length($sRetrieveClassName) &gt; 0">
+                                                <xsl:value-of select="$sRetrieveClassName"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>section-title</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:attribute>
                                 </fo:retrieve-marker>
                             </xsl:when>
@@ -3757,6 +3797,7 @@ not using
         <xsl:param name="layoutInfoParentWithFontInfo"/>
         <xsl:param name="headerOrFooter"/>
         <xsl:param name="sFlowDisplayAlign"/>
+        <xsl:param name="sRetrieveClassName"/>
         <fo:static-content display-align="{$sFlowDisplayAlign}">
             <xsl:attribute name="flow-name">
                 <xsl:value-of select="$sFlowName"/>
@@ -3777,12 +3818,15 @@ not using
                 </xsl:call-template>
                 <xsl:call-template name="DoHeaderFooterItem">
                     <xsl:with-param name="item" select="$headerOrFooter/leftHeaderFooterItem"/>
+                    <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
                 </xsl:call-template>
                 <xsl:call-template name="DoHeaderFooterItem">
                     <xsl:with-param name="item" select="$headerOrFooter/centerHeaderFooterItem"/>
+                    <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
                 </xsl:call-template>
                 <xsl:call-template name="DoHeaderFooterItem">
                     <xsl:with-param name="item" select="$headerOrFooter/rightHeaderFooterItem"/>
+                    <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
                 </xsl:call-template>
             </fo:block>
         </fo:static-content>

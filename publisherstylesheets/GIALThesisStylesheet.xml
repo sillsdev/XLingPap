@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Graduate Institute of Applied Linguistics Thesis Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.2.1</publisherStyleSheetVersion
+>0.2.2</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -23,11 +23,11 @@
 singlesided="yes"
 ></useThesisSubmissionStyle
 ><headerMargin
->.25in</headerMargin
+>.375in</headerMargin
 ><footerMargin
 >.25in</footerMargin
 ><paragraphIndent
->1em</paragraphIndent
+>.5in</paragraphIndent
 ><blockQuoteIndent
 >.125in</blockQuoteIndent
 ><lineSpacing
@@ -39,7 +39,7 @@ singlespacereferences="yes"
 singlespacereferencesbetween="no"
 ></lineSpacing
 ><defaultFontFamily
->Charis SIL</defaultFontFamily
+>Times New Roman</defaultFontFamily
 ><basicPointSize
 >12</basicPointSize
 ><footnotePointSize
@@ -108,8 +108,7 @@ decoration="underline"
 ></rightHeaderFooterItem
 ></footer
 ></headerFooterFirstPage
-><headerFooterOddEvenPages
-><headerFooterEvenPage
+><headerFooterPage
 ><header
 ><leftHeaderFooterItem
 ><nothing
@@ -120,8 +119,8 @@ decoration="underline"
 ></nothing
 ></centerHeaderFooterItem
 ><rightHeaderFooterItem
-><pageNumber
-></pageNumber
+><nothing
+></nothing
 ></rightHeaderFooterItem
 ></header
 ><footer
@@ -138,45 +137,14 @@ decoration="underline"
 ></nothing
 ></rightHeaderFooterItem
 ></footer
-></headerFooterEvenPage
-><headerFooterOddPage
-><header
-><leftHeaderFooterItem
-><nothing
-></nothing
-></leftHeaderFooterItem
-><centerHeaderFooterItem
-><nothing
-></nothing
-></centerHeaderFooterItem
-><rightHeaderFooterItem
-><pageNumber
-></pageNumber
-></rightHeaderFooterItem
-></header
-><footer
-><leftHeaderFooterItem
-><nothing
-></nothing
-></leftHeaderFooterItem
-><centerHeaderFooterItem
-><nothing
-></nothing
-></centerHeaderFooterItem
-><rightHeaderFooterItem
-><nothing
-></nothing
-></rightHeaderFooterItem
-></footer
-></headerFooterOddPage
-></headerFooterOddEvenPages
+></headerFooterPage
 ></titleHeaderFooterPageStyles
 ><titleLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spacebefore="1.25in"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 ></titleLayout
 ><subtitleLayout
@@ -221,7 +189,8 @@ font-style="italic"
 ></rightHeaderFooterItem
 ></footer
 ></headerFooterFirstPage
-><headerFooterPage
+><headerFooterOddEvenPages
+><headerFooterEvenPage
 ><header
 ><leftHeaderFooterItem
 ><nothing
@@ -233,6 +202,8 @@ font-style="italic"
 ></centerHeaderFooterItem
 ><rightHeaderFooterItem
 ><pageNumber
+font-size="9pt"
+font-style="italic"
 ></pageNumber
 ></rightHeaderFooterItem
 ></header
@@ -250,7 +221,40 @@ font-style="italic"
 ></nothing
 ></rightHeaderFooterItem
 ></footer
-></headerFooterPage
+></headerFooterEvenPage
+><headerFooterOddPage
+><header
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><pageNumber
+font-size="9pt"
+font-style="italic"
+></pageNumber
+></rightHeaderFooterItem
+></header
+><footer
+><leftHeaderFooterItem
+><nothing
+></nothing
+></leftHeaderFooterItem
+><centerHeaderFooterItem
+><nothing
+></nothing
+></centerHeaderFooterItem
+><rightHeaderFooterItem
+><nothing
+></nothing
+></rightHeaderFooterItem
+></footer
+></headerFooterOddPage
+></headerFooterOddEvenPages
 ></headerFooterPageStyles
 ><authorLayout
 font-style="italic"
@@ -274,38 +278,39 @@ font-size="10pt"
 textalign="center"
 textbefore="Version: "
 ></versionLayout
-><contentsLayout
-font-size="18pt"
-font-weight="bold"
-pagebreakbefore="yes"
-spaceafter="10.8pt"
-spacebefore="40pt"
-startonoddpage="yes"
-textalign="center"
-></contentsLayout
 ><abstractLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
 spacebefore="40pt"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 ></abstractLayout
 ><acknowledgementsLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 spaceafter="10.8pt"
 spacebefore="40pt"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 ></acknowledgementsLayout
+><contentsLayout
+betweentitleandnumber="dots"
+font-size="14pt"
+font-weight="bold"
+pagebreakbefore="yes"
+spaceafter="10.8pt"
+spacebefore="40pt"
+startonoddpage="no"
+textalign="center"
+></contentsLayout
 ><prefaceLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 spaceafter="10.8pt"
 spacebefore="172.2pt"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 ></prefaceLayout
 ></frontMatterLayout
@@ -336,8 +341,6 @@ font-style="italic"
 ></leftHeaderFooterItem
 ><centerHeaderFooterItem
 ><pageNumber
-font-size="9pt"
-font-style="italic"
 ></pageNumber
 ></centerHeaderFooterItem
 ><rightHeaderFooterItem
@@ -411,16 +414,16 @@ font-style="italic"
 ></headerFooterPageStyles
 ><partLayout
 ><numberLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
 spacebefore="144pt"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 ></numberLayout
 ><partTitleLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 spaceafter="21.6pt"
 textalign="center"
@@ -428,17 +431,17 @@ textalign="center"
 ></partLayout
 ><chapterLayout
 ><numberLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
 spacebefore="44pt"
-startonoddpage="yes"
+startonoddpage="no"
 textalign="center"
 textbefore="Chapter "
 ></numberLayout
 ><chapterTitleLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 spaceafter="21.6pt"
 textalign="center"
@@ -500,45 +503,47 @@ textalign="start"
 ><backMatterLayout
 ><appendixLayout
 ><numberLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
-spacebefore="144pt"
-startonoddpage="yes"
+spacebefore=".25in"
+startonoddpage="no"
 textalign="center"
+textbefore="Appendix "
 ></numberLayout
 ><appendixTitleLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 spaceafter="21.6pt"
+spacebefore=" 10pt"
 textalign="center"
 ></appendixTitleLayout
 ></appendixLayout
 ><acknowledgementsLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
-spacebefore="176pt"
-startonoddpage="yes"
+spacebefore="40pt"
+startonoddpage="no"
 textalign="center"
 ></acknowledgementsLayout
 ><glossaryLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
-spacebefore="176pt"
+spacebefore="40pt"
 textalign="center"
 ></glossaryLayout
 ><referencesTitleLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
-spacebefore="176pt"
-startonoddpage="yes"
+spacebefore="40pt"
+startonoddpage="no"
 textalign="center"
 ></referencesTitleLayout
 ><referencesLayout
@@ -571,13 +576,13 @@ textafter=".  "
 ><articleLayouts
 ><articleLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
-font-style="normal"
-textafter=".) "
-textbefore="("
+font-style="italic"
+textafter=" "
+textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -592,13 +597,13 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
-font-style="normal"
-textafter=".) "
-textbefore="("
+font-style="italic"
+textafter=" "
+textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -613,13 +618,13 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
-font-style="normal"
-textafter=".) "
-textbefore="("
+font-style="italic"
+textafter=" "
+textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -632,13 +637,13 @@ textafter="."
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><jTitleItem
-font-style="normal"
-textafter=".) "
-textbefore="("
+font-style="italic"
+textafter=" "
+textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -1572,12 +1577,12 @@ textafter="."
 ></locationPublisherLayouts
 ></referencesLayout
 ><indexLayout
-font-size="18pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
-spacebefore="176pt"
-startonoddpage="yes"
+spacebefore="40pt"
+startonoddpage="no"
 textalign="center"
 ></indexLayout
 ></backMatterLayout

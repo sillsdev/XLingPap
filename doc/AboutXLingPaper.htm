@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.11.0_3</span></p>
-      <p align="center">Date: 2010-05-27</p>
+      <p align="center">Date: 2010-06-09</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,19 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.11.0_3 27 May 2010
+               <li>2.11.0_3 9 June 2010
                   <ul>
-                     <li>Added warning checks for interlinears that are not in an example and appear within a table cell and also have an endnote:
-                        most outputs do not produce correct results and the XeLaTeX way of producing PDF fails to produce PDF.  We suggest you use
-                        some other way of showing the data.
+                     <li>Always have XeLaTeX way of producing PDF run twice (to make sure tables and contents and bookmarks are correct). This also
+                        removed the message about running it for the first time taking longer.
+                     </li>
+                     <li>Added warning checks for:
+                        <ul>
+                           <li>Interlinears that are not in an example and appear within a table cell and also have an endnote: most outputs do not produce
+                              correct results and the XeLaTeX way of producing PDF fails to produce PDF. We suggest you use some other way of showing the
+                              data.
+                           </li>
+                           <li>Interlinear line elements without either langData or gloss elements that have embedded elements.</li>
+                        </ul>
                      </li>
                   </ul>
                </li>

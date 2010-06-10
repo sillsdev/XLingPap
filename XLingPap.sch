@@ -8,8 +8,10 @@
             <assert test="count(langData) &lt;= 1">Too many langData elements in this line element.  Use only one langData in order to produce properly aligned output.</assert>
             <assert test="count(gloss) &lt;= 1">Too many gloss elements in this line element.  Use only one gloss in order to produce properly aligned output.</assert>
             <report test="langData/object">Using an object element within a langData element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
+            <report test="langData/endnote">Using an endnote element within a langData element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
             <report test="gloss/object">Using an object element within a gloss element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
             <report test="gloss/abbrRef">Using an abbrRef element within a gloss element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
+            <report test="gloss/endnote">Using an endnote element within a gloss element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
         </rule>
     </pattern>
     <pattern>
@@ -114,6 +116,17 @@
         </title>
         <rule context="interlinear">
             <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for embedded elemets in  line/langData or line/gloss</dir>
+        </title>
+        <rule context="langData">
+            <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a langData element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
+        </rule>
+        <rule context="gloss">
+            <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
     </pattern>
 </schema>

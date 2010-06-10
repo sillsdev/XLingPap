@@ -115,8 +115,10 @@
                 <cfg:choice>
                     <cfg:sequence>
                         <!--                    <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] object abbrRef"/>-->
-                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef"/>
-                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded object or abbrRef element.  Please remove the object and/or abbrRef element(s) and try again."/>
+                        <!--  -->
+<!--                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef or descendant::endnote or descendant::endnoteRef or descendant::endnote"/>-->
+                        <cfg:test context="$selectedElement" expression="descendant::*[name()='object' or name()='abbrRef' or name()='endnote' or name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"/>
+                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded element (e.g. object, endnote or abbrRef).  Please remove the embedded element(s) and try again."/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <!--                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>-->
@@ -1140,80 +1142,80 @@ What we want is to load IE independently and to do a refresh so it will show the
                                         <cfg:sequence>
                                             <cfg:test expression="//styledPaper"/>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-                                            <cfg:choice>
+<!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
-                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                                <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
-                                                <cfg:sequence>
-                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->                                                <cfg:sequence>
+<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
-                                                    <cfg:get expression="$producePDFParameters"/>
+-->                                                    <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
-                                                <cfg:sequence>
+<!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
-                                        </cfg:sequence>
+-->                                        </cfg:sequence>
                                         <cfg:sequence>
                                             <cfg:test expression="//chapter"/>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-                                            <cfg:choice>
+<!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
-                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                                <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
-                                                <cfg:sequence>
-                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->                                                <cfg:sequence>
+<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
-                                                    <cfg:get expression="$producePDFParameters"/>
+-->                                                    <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
-                                                <cfg:sequence>
+<!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
-                                        </cfg:sequence>
+-->                                        </cfg:sequence>
                                         <cfg:sequence>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-                                            <cfg:choice>
+<!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
-                                                <!--                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-->
+                                                <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
-                                                <cfg:sequence>
-                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->                                                <cfg:sequence>
+<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
-                                                    <cfg:get expression="$producePDFParameters"/>
+-->                                                    <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
-                                                <cfg:sequence>
+<!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing" parameter="%_"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
-                                        </cfg:sequence>
+-->                                        </cfg:sequence>
                                     </cfg:choice>
                                 </cfg:sequence>
                                 <cfg:sequence>

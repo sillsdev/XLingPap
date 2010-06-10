@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-05-27</a:date
+>2010-06-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.11.0_3 27 May 2010<ul
+>2.11.0_3 9 June 2010<ul
 ><li
->Added warning checks for interlinears that are not in an example and appear within a table cell and also have an endnote: most outputs do not produce correct results and the XeLaTeX way of producing PDF fails to produce PDF.  We suggest you use some other way of showing the data.</li
+>Always have XeLaTeX way of producing PDF run twice (to make sure tables and contents and bookmarks are correct). This also removed the message about running it for the first time taking longer.</li
+><li
+>Added warning checks for:<ul
+><li
+>Interlinears that are not in an example and appear within a table cell and also have an endnote: most outputs do not produce correct results and the XeLaTeX way of producing PDF fails to produce PDF. We suggest you use some other way of showing the data.</li
+><li
+>Interlinear line elements without either langData or gloss elements that have embedded elements.</li
+></ul
+></li
 ></ul
 ></li
 ><li

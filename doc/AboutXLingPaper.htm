@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.11.0_3</span></p>
-      <p align="center">Date: 2010-06-09</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.12.0</span></p>
+      <p align="center">Date: 2010-06-26</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,8 +34,29 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.11.0_3 9 June 2010
+               <li>2.12.0 26 June 2010
                   <ul>
+                     <li>Add prose-text element (this is used to enclose paragraphs of vernacular text)</li>
+                     <li>Add font information to abbreviations element so can specify an overt small caps font, etc. when formatting abbreviations.
+                        The usesmallcaps attribute is now no longer needed but we're keeping it but marking it as deprecated.
+                     </li>
+                     <li>The part label was not used in PDF output when a publisher style sheet was present.</li>
+                     <li>XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>Contents indentation was not always correct.</li>
+                           <li>Contents for parts were not shown correctly.</li>
+                           <li>chapterBeforePart was not being handled correctly with a publisher style sheet.</li>
+                           <li>When abbreviations were shown in a table, the table did not break across pages.</li>
+                           <li>With a publisher style sheet, left-aligned section headers were indented like a paragraph when they should be on the left
+                              margin.
+                           </li>
+                           <li>When using a publisher style sheet, the title of the paper did not pay attention to any text-transform attributes.</li>
+                           <li>When a table with headers was embedded within another table, the PDF failed to be produced.</li>
+                           <li>When an example with several listWord items had more langData and gloss items in a non-initial listWord element than the initial
+                              listWord element has, the PDF failed to be produced.
+                           </li>
+                        </ul>
+                     </li>
                      <li>Always have XeLaTeX way of producing PDF run twice (to make sure tables and contents and bookmarks are correct). This also
                         removed the message about running it for the first time taking longer.
                      </li>
@@ -48,35 +69,18 @@
                            <li>Interlinear line elements without either langData or gloss elements that have embedded elements.</li>
                         </ul>
                      </li>
-                  </ul>
-               </li>
-               <li>2.11.0_2 26 May 2010
-                  <ul>
-                     <li>Produce PDF via XeLaTeX:
-                        <ul>
-                           <li>When using a publisher style sheet, the title of the paper did not pay attention to any text-transform attributes.</li>
-                           <li>When a table with headers was embedded within another table, the PDF failed to be produced.</li>
-                        </ul>
-                     </li>
-                     <li>Produce PDF via RenderX:
+                     <li>RenderX way of producing PDF:
                         <ul>
                            <li>When using a publisher style sheet, the header and footer information in the style sheet was not used for front matter items
                               (abstract, acknowledgements, contents).
                            </li>
                         </ul>
                      </li>
-                     <li>Correct inaccuracies in IJAL and IJAL Submission publisher style sheets.</li>
-                     <li>Correct inaccuracies in Language publisher style sheets.</li>
-                     <li>Correct inaccuracies in GIAL thesis publisher style sheets.</li>
-                  </ul>
-               </li>
-               <li>2.11.0_1 13 May 2010
-                  <ul>
-                     <li>Fix problem with the XeLaTex way of producing PDF: When an example with several listWord items had more langData and gloss
-                        items in a non-initial listWord element than the initial listWord element has, the PDF failed to be produced.
-                     </li>
-                     <li>When using a publisher style sheet, sometimes a thesis reference did not come out correctly (for both ways of producing PDF).</li>
+                     <li>Correct some inaccuracies in IJAL and IJAL Submission publisher style sheets.</li>
+                     <li>Correct some inaccuracies in Language publisher style sheets.</li>
                      <li>The GIAL thesis publisher style sheet had single spacing when it should have had double spacing.</li>
+                     <li>Correct some inaccuracies in GIAL thesis publisher style sheets.</li>
+                     <li>When using a publisher style sheet, sometimes a thesis reference did not come out correctly (for both ways of producing PDF).</li>
                   </ul>
                </li>
                <li>2.11.0 12 May 2010

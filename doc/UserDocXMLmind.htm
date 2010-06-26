@@ -7,8 +7,8 @@
    <body>
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></big></big></b></center>
-      <center><i>H. Andrew Black</i></center><br><center><small>11 May 2010</small></center>
-      <center><small>Version: 2.11.0</small></center>
+      <center><i>H. Andrew Black</i></center><br><center><small>26 June 2010</small></center>
+      <center><small>Version: 2.12.0</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -115,7 +115,7 @@
                      <li><a href="#sExInterlinearMorph">5.3.1.3&nbsp;Morpheme-aligned</a></li>
                   </ul>
                   <li><a href="#secExInterlinearList">5.3.2&nbsp;List of interlinear examples</a></li>
-                  <li><a href="#secExInterlinearContinuation">5.3.3&nbsp;Handling long interlinear examples</a></li>
+                  <li><a href="#secExInterlinearContinuation">5.3.3&nbsp;Handling wide interlinear examples</a></li>
                   <li><a href="#sExInterlinearSource">5.3.4&nbsp;Citing the source of the interlinear</a></li>
                   <ul>
                      <li><a href="#sExInterlinearSourceIncluded">5.3.4.1&nbsp;Interlinear text included in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document</a></li>
@@ -1390,13 +1390,20 @@
       <p>Notice that each abbreviation has an ID that begins with the letter &#8220;v&#8221;,<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">13</a>]</span> then comes the abbreviation, an equals sign, and the definition. You can insert new abbreviations by clicking on an <span style="font-family:Courier New; color:maroon; ">abbreviation</span> element (e.g. by clicking on the ID) and using the usual insert before or insert after commands.<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> Note that you need to maintain the alphabetical order by hand. That is, the list of abbreviations will be shown in the order
          you have them here.
       </p>
-      <p><a name="gSmallCapsInAbbreviations"></a>If you want to have your abbreviations appear as small caps, then you need to two things:
+      <p><a name="gSmallCapsInAbbreviations"></a>If you want to have your abbreviations appear as small caps, then you need to do two things:
       </p>
       <ol style="list-style-type:decimal; ">
          <li>Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you
             apply small caps to an upper case letter, it remains unchanged).
          </li>
-         <li>Set the <span style="font-family:Courier New; color:purple; ">usesmallcaps</span> attribute of the <span style="font-family:Courier New; color:maroon; ">abbreviations</span> element to &#8220;yes&#8221;. You can do this by clicking on &#8220;abbreviations&#8221; in the node path bar<span style="font-size:65%; vertical-align:super">[<a href="#nNodePathBarReminder">29</a>]</span> and then setting the <span style="font-family:Courier New; color:purple; ">usesmallcaps</span> attribute using the Attributes Tool.<span style="font-size:65%; vertical-align:super">[<a href="#nAttributesToolReminder">10</a>]</span></li>
+         <li>The next step depends on whether or not you have a true small caps font. 
+            <ul>
+               <li>If you have a true small caps font, set the <span style="font-family:Courier New; color:purple; ">font-family</span> attribute of the <span style="font-family:Courier New; color:maroon; ">abbreviations</span> element to the name of that font (e.g. <span style="font-family:Courier New; font-style:italic; color:steelblue; ">Charis SIL Small Caps</span>). You can do this by clicking on &#8220;abbreviations&#8221; in the node path bar<span style="font-size:65%; vertical-align:super">[<a href="#nNodePathBarReminder">29</a>]</span> and then setting the <span style="font-family:Courier New; color:purple; ">font-variant</span> attribute using the Attributes Tool.
+               </li>
+               <li>If you do not have a true small caps font, set the <span style="font-family:Courier New; color:purple; ">font-variant</span> attribute of the <span style="font-family:Courier New; color:maroon; ">abbreviations</span> element to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">small-caps</span>. You can do this by clicking on &#8220;abbreviations&#8221; in the node path bar<span style="font-size:65%; vertical-align:super">[<a href="#nNodePathBarReminder">29</a>]</span> and then setting the <span style="font-family:Courier New; color:purple; ">font-variant</span> attribute using the Attributes Tool.
+               </li>
+            </ul>
+         </li>
       </ol>
       <p>You can save the file to a location that is convenient for you. Next, click on the word &#8220;Endnotes&#8221; in the back-matter section,
          do an insert-before operation,<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> and choose &#8220;abbreviations". Then follow the instructions in <a href="#sFAQReferences">11.8</a>, (except use &#8220;abbreviations&#8221; and your abbreviations master file instead of the references ones mentioned there).
@@ -2243,7 +2250,7 @@
          </table>
       </div>
       <p>Notice what happens here for Dixon. While there are actually three works for Dixon for 1977, only two are actually cited in
-         the paper: the second and third ones. Notice how <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> automatically assigns the correct letter for these as they occur in this paper.<a name="rXLingPapIndexedItem.bBackMatter.d0e4203"></a></p>
+         the paper: the second and third ones. Notice how <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> automatically assigns the correct letter for these as they occur in this paper.<a name="rXLingPapIndexedItem.bBackMatter.d0e4224"></a></p>
       <h1 style=""><a name="sExamples">5&nbsp;Examples</a></h1>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has several types of examples. All types will be automatically numbered. If you are going to refer to an example, then you
          will need to specify the <span style="font-family:Courier New; color:purple; ">num</span> attribute of the <span style="font-family:Courier New; color:maroon; ">example</span> element tag and also give it a unique value.
@@ -2586,8 +2593,10 @@
       </p>
       <h4 style=""><a name="sExInterlinearSpace">5.3.1.1&nbsp;Word-aligned, using a space between words</a></h4>
       <p>The easiest way to key an interlinear example is to merely type a space between each of the words in the interlinear. You
-         do this for both the language data itself and also for the glosses. Note, however, that if you want to emphasize or highlight
-         some portion of the interlinear line and/or if you want to use the special abbreviation capability of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>,<span style="font-size:65%; vertical-align:super">[<a href="#nSeeAbbreviations">25</a>]</span> then you will need to use the method outlined in section <a href="#sExInterlinearWrd">5.3.1.2</a>.
+         do this for both the language data itself and also for the glosses.
+      </p>
+      <p>Note, however, that this only works for plain text data within a single <span style="font-family:Courier New; color:maroon; ">langData</span> element or a single <span style="font-family:Courier New; color:maroon; ">gloss</span> element on each line. If you insert any other field (e.g. to emphasize or highlight some portion of the interlinear line
+         and/or if you want to use the special abbreviation capability of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span><span style="font-size:65%; vertical-align:super">[<a href="#nSeeAbbreviations">25</a>]</span>), then you will need to use the method outlined in section <a href="#sExInterlinearWrd">5.3.1.2</a>.
       </p>
       <p>If you choose the <span style="font-family:Courier New; font-weight:bold; ">interlinear_l_l_g_free</span> template, you should see something like what is shown in <a href="#xExInterlinearLGF">(71)</a> (as indicted by the large black arrow).
       </p>
@@ -2726,8 +2735,9 @@
          </table>
       </div>
       <h4 style=""><a name="sExInterlinearWrd">5.3.1.2&nbsp;Word-aligned, marking certain words or morphemes</a></h4>
-      <p>If you want the words to align, but you also want to, say, emphasize a certain word or some morpheme or if you want a gloss
-         to show in small caps or if you want to use the abbreviation capability of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>,<span style="font-size:65%; vertical-align:super">[<a href="#nSeeAbbreviations">25</a>]</span> then you need to use this second method for keying interlinear examples.
+      <p>The method given in section <a href="#sExInterlinearSpace">5.3.1.1</a> only works on plain text in a single field, with words separated only by spaces. If you want the words to align, but you
+         also want to, say, emphasize a certain word or some morpheme or if you want a gloss to show in small caps or if you want to
+         use the abbreviation capability of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>,<span style="font-size:65%; vertical-align:super">[<a href="#nSeeAbbreviations">25</a>]</span> or even if you want to insert an <span style="font-family:Courier New; color:maroon; ">endnote</span> element, then you need to use this second method for keying interlinear examples.
       </p>
       <p>Note, however, that there is a special command that will let you convert interlinear created using spaces to this "wrd" format.
          Put the cursor at the beginning of the first line of the interlinear you want to convert and then use menu item <span style="color:maroon; ">XLingPaper / <span style="">Convert interlinear line to wrd elements Shift+F10</span></span>.<span style="font-size:65%; vertical-align:super">[<a href="#nShift-F10">26</a>]</span> You will need to do this for each interlinear line you wish to convert. To be more specific, here are the recommended steps
@@ -3174,11 +3184,11 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="secExInterlinearContinuation">5.3.3&nbsp;Handling long interlinear examples</a></h3>
-      <p>As mentioned in sections <a href="#sExInterlinearSpace">5.3.1.1</a>, <a href="#sExInterlinearWrd">5.3.1.2</a>, and <a href="#sExInterlinearMorph">5.3.1.3</a> above, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does not automatically break lengthy interlinear examples (except for the morpheme-aligned ones when the output is a webpage).
-         You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand,
-         you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a
-         phrase boundary.
+      <h3 style=""><a name="secExInterlinearContinuation">5.3.3&nbsp;Handling wide interlinear examples</a></h3>
+      <p>As mentioned in sections <a href="#sExInterlinearSpace">5.3.1.1</a>, <a href="#sExInterlinearWrd">5.3.1.2</a>, and <a href="#sExInterlinearMorph">5.3.1.3</a> above, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does not automatically break lengthy (i.e. wide) interlinear examples (except for the morpheme-aligned ones when the output
+         is a webpage). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear
+         examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear
+         example break at a phrase boundary.
       </p>
       <p>You insert these manual breaks by embedding an <span style="font-family:Courier New; color:maroon; ">interlinear</span> element within either another <span style="font-family:Courier New; color:maroon; ">interlinear</span> element or within a <span style="font-family:Courier New; color:maroon; ">listInterlinear</span> element.
       </p>
@@ -5427,8 +5437,10 @@
          <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows you to include such texts. The form of the interlinear within the interlinear text may be the same as any of those
          described for interlinear examples (see section <a href="#sExInterlinear">5.3</a>).
       </p>
+      <p>Occasionally, such interlinear text is preceded by the same text in paragraph form.<span style="font-size:65%; vertical-align:super">[<a href="#nProseText">50</a>]</span> In such cases, use a <span style="font-family:Courier New; color:maroon; ">prose-text</span> element to key the text. Set the <span style="font-family:Courier New; color:purple; ">lang</span> attribute of the <span style="font-family:Courier New; color:maroon; ">prose-text</span> element to the <span style="font-family:Courier New; color:purple; ">id</span> attribute value of the <span style="font-family:Courier New; color:maroon; ">language</span> element the text is written in. The text will then be formatted in the output per the information contained in that <span style="font-family:Courier New; color:maroon; ">language</span> element.
+      </p>
       <h2 style=""><a name="sInterlinearTextFLEx">9.1&nbsp;Importing a text from <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span></a></h2>
-      <p>One possible way to include an interlinear text is to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program to interlinearize a text and then export the text in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> format.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExTextExport">50</a>]</span> One can then merely copy and paste the resulting text into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a> for more on the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program.
+      <p>One possible way to include an interlinear text is to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program to interlinearize a text and then export the text in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> format.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExTextExport">51</a>]</span> One can then merely copy and paste the resulting text into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a> for more on the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program.
       </p>
       <p>Note that if you use this option, then most of what is described in the next section has already been done for you.</p>
       <h2 style=""><a name="sInterlinearTextManually">9.2&nbsp;Entering an interlinear text by hand</a></h2>
@@ -5449,7 +5461,7 @@
             </tr>
          </table>
       </div>
-      <p>The first option<span style="font-size:65%; vertical-align:super">[<a href="#nInterlinearTextOptionsMorphAligned">51</a>]</span> results in the following:
+      <p>The first option<span style="font-size:65%; vertical-align:super">[<a href="#nInterlinearTextOptionsMorphAligned">52</a>]</span> results in the following:
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -5469,7 +5481,7 @@
          and also for when an example within the document refers to this text (see section <a href="#sExInterlinearSourceIncluded">5.3.4.1</a>).
       </p>
       <p>After this, you can create the interlinear portions which constitute the text. You can use methods similar to those outlined
-         in sections <a href="#sExInterlinearSpace">5.3.1.1</a>-<a href="#sExInterlinearWrd">5.3.1.2</a>, including using abbreviations. For example, it might look something like this:<span style="font-size:65%; vertical-align:super">[<a href="#nLifeInQSource">52</a>]</span></p>
+         in sections <a href="#sExInterlinearSpace">5.3.1.1</a>-<a href="#sExInterlinearWrd">5.3.1.2</a>, including using abbreviations. For example, it might look something like this:<span style="font-size:65%; vertical-align:super">[<a href="#nLifeInQSource">53</a>]</span></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
             <tr>
@@ -5606,7 +5618,7 @@
       <p>Within a paragraph or other text, you may want to create some special effects (such as I do here for the word <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> and for element and attribute names). Normally you will use an <span style="font-family:Courier New; color:maroon; ">object</span> element for these, although there is also the <span style="font-family:Courier New; color:maroon; ">langData</span> element. The latter is to be used for all language data in order to provide a consistent rendering for language data. It
          also tags all instances of such language data within the document. This is important for archiving purposes.
       </p>
-      <p>When you create an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document, a pre-defined set of <span style="font-family:Courier New; color:maroon; ">type</span> elements are included. You can see them by opening the very last item as shown in <a href="#xTypes">(175)</a>.<a name="rXLingPapIndexedItem.iBold.d0e9482"></a><a name="rXLingPapIndexedItem.iItalic.d0e9483"></a><a name="rXLingPapIndexedItem.iSubscript.d0e9484"></a><a name="rXLingPapIndexedItem.iSuperscript.d0e9485"></a></p>
+      <p>When you create an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document, a pre-defined set of <span style="font-family:Courier New; color:maroon; ">type</span> elements are included. You can see them by opening the very last item as shown in <a href="#xTypes">(175)</a>.<a name="rXLingPapIndexedItem.iBold.d0e9539"></a><a name="rXLingPapIndexedItem.iItalic.d0e9540"></a><a name="rXLingPapIndexedItem.iSubscript.d0e9541"></a><a name="rXLingPapIndexedItem.iSuperscript.d0e9542"></a></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
             <tr>
@@ -5671,7 +5683,7 @@
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:Courier New; color:purple; ">after</span> </span></td>
                            <td align="left" valign="top" style="padding-left:.2em"><span style="">(user control)</span></td>
-                           <td align="left" valign="top" style="padding-left:.2em"><span style="">Text that is to appear after the <span style="font-family:Courier New; color:maroon; "></span> element. This is what I do here for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> object: I never have to type &#8220;XLingPap&#8221;. I just create an instance of an object whose type has the <span style="font-family:Courier New; color:purple; ">after</span> attribute set to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">XLingPap</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nTypeBeforeAfterAsEntity">53</a>]</span></span></td>
+                           <td align="left" valign="top" style="padding-left:.2em"><span style="">Text that is to appear after the <span style="font-family:Courier New; color:maroon; "></span> element. This is what I do here for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> object: I never have to type &#8220;XLingPap&#8221;. I just create an instance of an object whose type has the <span style="font-family:Courier New; color:purple; ">after</span> attribute set to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">XLingPap</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nTypeBeforeAfterAsEntity">54</a>]</span></span></td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:Courier New; color:purple; ">before</span> </span></td>
@@ -5734,7 +5746,7 @@
       <p>You can also add highlights or other effects to a language data item by embedding an <span style="font-family:Courier New; color:maroon; ">object</span> element within a <span style="font-family:Courier New; color:maroon; ">langData</span> element.
       </p>
       <h2 style=""><a name="sSpecialEffectsLinks">10.2&nbsp;Hypertext Links</a></h2>
-      <p>It is also possible to create a special hyperlink by inserting<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> a <span style="font-family:Courier New; color:maroon; ">genericRef</span> element within text. The <span style="font-family:Courier New; color:maroon; ">genericRef</span> element has one attribute: <span style="font-family:Courier New; color:purple; ">gref</span> which should be the <span style="font-family:Courier New; color:purple; ">id</span> attribute of some section, appendix, example, endnote, or other element that has an <span style="font-family:Courier New; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nGenericTarget">54</a>]</span> You can also type some text that will show up as a hyperlink on that text to the appropriate section, appendix, example,
+      <p>It is also possible to create a special hyperlink by inserting<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> a <span style="font-family:Courier New; color:maroon; ">genericRef</span> element within text. The <span style="font-family:Courier New; color:maroon; ">genericRef</span> element has one attribute: <span style="font-family:Courier New; color:purple; ">gref</span> which should be the <span style="font-family:Courier New; color:purple; ">id</span> attribute of some section, appendix, example, endnote, or other element that has an <span style="font-family:Courier New; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nGenericTarget">55</a>]</span> You can also type some text that will show up as a hyperlink on that text to the appropriate section, appendix, example,
          endnote, etc.
       </p>
       <p>For example, suppose you want to create a generic reference to a <span style="font-family:Courier New; color:maroon; ">section1</span> element with an <span style="font-family:Courier New; color:purple; ">id</span> attribute of <span style="font-family:Courier New; font-style:italic; color:steelblue; ">sIntroduction</span>. After you insert the <span style="font-family:Courier New; color:maroon; ">genericRef</span> element, it might look like this:
@@ -5842,7 +5854,7 @@
          elsewhere.
       </p>
       <h2 style=""><a name="sFAQBoldOrItalic">11.1&nbsp;Make some text bold or italic?</a></h2>
-      <p>If it is language data that you want to come out in <a name="rXLingPapIndexedItem.iBold.d0e10072"></a>bold or <a name="rXLingPapIndexedItem.iItalic.d0e10074"></a>italic, then set the <span style="font-family:Courier New; color:purple; ">font-weight</span> attribute of the appropriate <span style="font-family:Courier New; color:maroon; ">language</span> element to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">bold</span> for bold or set the <span style="font-family:Courier New; color:purple; ">font-style attribute to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">italic</span></span> for italic. See section <a href="#sIntroLang">1.3</a>.
+      <p>If it is language data that you want to come out in <a name="rXLingPapIndexedItem.iBold.d0e10129"></a>bold or <a name="rXLingPapIndexedItem.iItalic.d0e10131"></a>italic, then set the <span style="font-family:Courier New; color:purple; ">font-weight</span> attribute of the appropriate <span style="font-family:Courier New; color:maroon; ">language</span> element to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">bold</span> for bold or set the <span style="font-family:Courier New; color:purple; ">font-style attribute to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">italic</span></span> for italic. See section <a href="#sIntroLang">1.3</a>.
       </p>
       <p>If it is just some text that you want to make bold or italic, insert<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> an <span style="font-family:Courier New; color:maroon; ">object</span> element and set its <span style="font-family:Courier New; color:purple; ">type</span> to bold or italic. See section <a href="#sSpecialEffectsText">10.1</a>.
       </p>
@@ -5854,7 +5866,7 @@
          figure out which ones to change.
       </p>
       <h2 style=""><a name="sFAQSubscriptOrSuperscript">11.2&nbsp;Make some text be superscript or subscript?</a></h2>
-      <p>To make some text be <a name="rXLingPapIndexedItem.iSuperscript.d0e10120"></a>superscript or <a name="rXLingPapIndexedItem.iSubscript.d0e10122"></a>subscript (whether that text is in language data or not), insert<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> an <span style="font-family:Courier New; color:maroon; ">object</span> element and set its <span style="font-family:Courier New; color:purple; ">type</span> to superscript or subscript. See section <a href="#sSpecialEffectsText">10.1</a>.
+      <p>To make some text be <a name="rXLingPapIndexedItem.iSuperscript.d0e10177"></a>superscript or <a name="rXLingPapIndexedItem.iSubscript.d0e10179"></a>subscript (whether that text is in language data or not), insert<span style="font-size:65%; vertical-align:super">[<a href="#nInsertElementReminder">15</a>]</span> an <span style="font-family:Courier New; color:maroon; ">object</span> element and set its <span style="font-family:Courier New; color:purple; ">type</span> to superscript or subscript. See section <a href="#sSpecialEffectsText">10.1</a>.
       </p>
       <p>One important, but easy to forget, issue is that you are actually tagging your data with these <span style="font-family:Courier New; color:maroon; ">object</span> elements. Thus, it is actually wiser in the long run to create an <span style="font-family:Courier New; color:maroon; ">object</span> element that is for the kind of thing it is as opposed to how you want it to format. This is especially challenging for those
          of us who have been using programs that show what we are keying in the way it is to appear on paper; we become conditioned
@@ -5885,9 +5897,9 @@
       <h2 style=""><a name="sFAQSILFonts">11.5&nbsp;Get fonts like <span style="font-style:italic; ">Charis SIL</span> and <span style="font-style:italic; ">Doulos SIL</span> to work well?</a></h2>
       <p>If you, like many of us, use the <span style="font-style:italic; ">Charis SIL</span> and/or <span style="font-style:italic; ">Doulos SIL</span> font in your document, you may notice some unpleasant formatting issues when producing either a webpage or PDF output.
       </p>
-      <p>I'm told that these fonts have different ascender and descender values than fonts like <span style="font-style:italic; ">Times New Roman</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nSILFonts">55</a>]</span> So when you try and mix these fonts in a paragraph or in an interlinear example, sometimes the spacing between lines in a
+      <p>I'm told that these fonts have different ascender and descender values than fonts like <span style="font-style:italic; ">Times New Roman</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nSILFonts">56</a>]</span> So when you try and mix these fonts in a paragraph or in an interlinear example, sometimes the spacing between lines in a
          paragraph (in a webpage, say) or the horizontal alignment of interlinear lines (in the PDF output) do not come out as one
-         would like. For example, the webpage problem might be something like what is in <a href="#xCharisSILFontProblemInHtml">(182)</a><span style="font-size:65%; vertical-align:super">[<a href="#nCharisSILFontProblemInHtmlSource">56</a>]</span> where there is extra vertical space between the lines containing one of these fonts.
+         would like. For example, the webpage problem might be something like what is in <a href="#xCharisSILFontProblemInHtml">(182)</a><span style="font-size:65%; vertical-align:super">[<a href="#nCharisSILFontProblemInHtmlSource">57</a>]</span> where there is extra vertical space between the lines containing one of these fonts.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -5964,7 +5976,7 @@
          caps to be distinct fonts. Many of us are used to how programs like Microsoft Word and Internet Explorer will approximate
          small caps for us. The typesetting tools used to produce PDF versions of a <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document, however, will only produce true small caps when you have a real small caps font. If you do not have a true small
          caps font, then <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will attempt to approximate small caps for you. Be aware, however, that this approximation will not be of the same quality
-         as a true small caps font. If you are using Charis SIL fonts, it is possible to create true small caps versions of these.<span style="font-size:65%; vertical-align:super">[<a href="#nCharisSILSmallCaps">57</a>]</span></p>
+         as a true small caps font. If you are using Charis SIL fonts, it is possible to create true small caps versions of these.<span style="font-size:65%; vertical-align:super">[<a href="#nCharisSILSmallCaps">58</a>]</span></p>
       <h2 style=""><a name="sFAQListOfAbbreviations">11.7&nbsp;Make a List of Abbreviations?</a></h2>
       <p>While <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does not have an overt element for adding a list of abbreviations in the front matter, one can use a <span style="font-family:Courier New; color:maroon; ">preface</span> element to make a list of abbreviations. Here's one way:
       </p>
@@ -5989,7 +6001,7 @@
          following:
       </p>
       <ol style="list-style-type:decimal; ">
-         <li>Load your main <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document<span style="font-size:65%; vertical-align:super">[<a href="#nMakeNewOne">58</a>]</span> into the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> along with your master references document.
+         <li>Load your main <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document<span style="font-size:65%; vertical-align:super">[<a href="#nMakeNewOne">59</a>]</span> into the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> along with your master references document.
          </li>
          <li>Go to your master references document (i.e. click on its file name tab above the text).</li>
          <li>Select the entire document (i.e. click on the bolded References at the top).</li>
@@ -6151,7 +6163,7 @@
          in the following screen shot by the large black arrow.
       </p>
       <div style=""><img src="resources/ValidityIconLocation.png"></div>
-      <p>If the document has a validity problem, this icon will turn yellow like this <img src="resources/ValidityIconYellow.png"> or it will be red like this <img src="resources/ValidityIconSchematron.png">.<span style="font-size:65%; vertical-align:super">[<a href="#nRedValidityIcon">59</a>]</span></p>
+      <p>If the document has a validity problem, this icon will turn yellow like this <img src="resources/ValidityIconYellow.png"> or it will be red like this <img src="resources/ValidityIconSchematron.png">.<span style="font-size:65%; vertical-align:super">[<a href="#nRedValidityIcon">60</a>]</span></p>
       <p>When your file is saved and there is some such problem, you may also see the Validity tab open up on the right, in the same
          area where the Attributes tool is. For example, it might look like this:
       </p>
@@ -6190,11 +6202,11 @@
       <p>After you fix the errors (and do a save), the Validity tool area should become blank. You will probably then want to click
          on the Attributes Tool tab.<span style="font-size:65%; vertical-align:super">[<a href="#nAttributesToolReminder">10</a>]</span></p>
       <h2 style=""><a name="sFAQProduceWebpage">11.16&nbsp;Produce a Webpage?</a></h2>
-      <p><a name="rXLingPapIndexedItem.iWebpage.d0e10728"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce webpages. How does one do that?
+      <p><a name="rXLingPapIndexedItem.iWebpage.d0e10785"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce webpages. How does one do that?
       </p>
-      <p>Use the menu items <span style="color:maroon; ">XLingPaper / Produce Webpage F7</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF7">60</a>]</span> This invokes a transform on your document and produces a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">htm</span> (which is often used for webpages). This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document.
+      <p>Use the menu items <span style="color:maroon; ">XLingPaper / Produce Webpage F7</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF7">61</a>]</span> This invokes a transform on your document and produces a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">htm</span> (which is often used for webpages). This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document.
       </p>
-      <p>To see what the webpage looks like, you can use the menu items <span style="color:maroon; ">XLingPaper / Show Webpage F8</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF8">61</a>]</span> This starts up your web browser showing your processed file.
+      <p>To see what the webpage looks like, you can use the menu items <span style="color:maroon; ">XLingPaper / Show Webpage F8</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF8">62</a>]</span> This starts up your web browser showing your processed file.
       </p>
       <p>Note that once you have an instance of your processed file opened in your web browser, you can do the following steps repeatedly:</p>
       <ol style="list-style-type:decimal; ">
@@ -6206,7 +6218,7 @@
       </ol>
       <p>By following these three steps, you can incrementally write and check the output of your document.</p>
       <h2 style=""><a name="sFAQProducePDF">11.17&nbsp;Produce a PDF Version?</a></h2>
-      <p><a name="rXLingPapIndexedItem.iPDF.d0e10786"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce a PDF file version of your document. How does one do that?
+      <p><a name="rXLingPapIndexedItem.iPDF.d0e10843"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce a PDF file version of your document. How does one do that?
       </p>
       <p>Beginning with version 2.6.0 of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>, I am trying to provide an automatic way to produce a PDF file. The freely available programs required to do this are included
          in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration installation package (see section <a href="#sIntroUsingXLingPapConfig">1.2.2.2</a>). At the time of writing, this method has not been thoroughly tested. If you note any odd results or errors in the PDF output
@@ -6223,7 +6235,7 @@
       </p>
       <h3 style=""><a name="sXeTeX2PDF">11.17.1&nbsp;Using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> to produce PDF</a></h3>
       <p>Note: This has not yet been implemented on computers running Unix or Mac. It does work on computers running Windows.</p>
-      <p>The first way to produce PDF (and the way that I plan to become the normal way<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXNormalPDFNotRenderX">62</a>]</span>) is to use the menu item <span style="color:maroon; ">XLingPaper / Produce PDF F9</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF9">63</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool to produce a PDF file. It will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">pdf</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Since it needs to have some working files, it also produces a new sub-directory (<span style="color:navy; ">XLingPaperPDFTemp</span>) for these files. Please note that it can take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool to complete its task. <span style="font-style:italic; ">This is especially true the first time you run a document that has fonts the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool has not seen before.</span> If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email
+      <p>The first way to produce PDF (and the way that I plan to become the normal way<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXNormalPDFNotRenderX">63</a>]</span>) is to use the menu item <span style="color:maroon; ">XLingPaper / Produce PDF F9</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF9">64</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool to produce a PDF file. It will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">pdf</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Since it needs to have some working files, it also produces a new sub-directory (<span style="color:navy; ">XLingPaperPDFTemp</span>) for these files. Please note that it can take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool to complete its task. <span style="font-style:italic; ">This is especially true the first time you run a document that has fonts the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool has not seen before.</span> If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email
          message to <a href="mailto:andy_black@sil.org">andy_black@sil.org</a>.
       </p>
       <p>See the <a href="#gPDFReading">note on reading PDF files above</a>, too.
@@ -6234,7 +6246,7 @@
       <ul>
          <li>Table column widths may well need to be adjusted by hand. The default is for each column to be as wide as the material in
             the column. For tables with more horizontal content, this often means that the table is too wide to fit the page. To fix this,
-            you will need to set the <span style="font-family:Courier New; color:purple; ">width</span> attribute of any cells that are too wide to fit in the space you want them to take.<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXTableColumnWidths">64</a>]</span> You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). Given how <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> works, however, you may have to play with the values some to get things to come out just the way you want.<br>One thing you can do to help with figuring out what the column widths should be is to 
+            you will need to set the <span style="font-family:Courier New; color:purple; ">width</span> attribute of any cells that are too wide to fit in the space you want them to take.<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXTableColumnWidths">65</a>]</span> You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). Given how <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> works, however, you may have to play with the values some to get things to come out just the way you want.<br>One thing you can do to help with figuring out what the column widths should be is to 
             <ul>
                <li>open the PDF in your PDF Reader program and make sure that it is displaying at 100%;</li>
                <li>then use a screen-oriented ruler program to measure how wide something should be.</li>
@@ -6283,7 +6295,7 @@
          <li>As mentioned above, the first time you try to produce a PDF file for a document, it may take quite a long time. This is especially
             so when a document has fonts that the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> tool has not seen before. Subsequent processing should be much faster.
          </li>
-         <li>Some of the formatting process needs to be run more than once.<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXMultiPass">65</a>]</span> This means that you may well need to perform the process that produces PDF two or three times before the result is just right.
+         <li>Some of the formatting process needs to be run more than once.<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXMultiPass">66</a>]</span> This means that you may well need to perform the process that produces PDF two or three times before the result is just right.
             This is especially the case for things like
             <ul>
                <li>the PDF bookmarks to appear correctly;</li>
@@ -6296,7 +6308,7 @@
             .jpg. Some versions of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">Paint</span> program can do this conversion.
          </li>
          <li>It does not handle graphic files with an .svg extension. You have to convert them to PDF first. There is a free downloadable
-            package<span style="font-size:65%; vertical-align:super">[<a href="#nBatikRasterizerOnLine">66</a>]</span> that will enable you to make this conversion. Go to <a href="http://code.google.com/p/xlingpap/downloads/list">http://code.google.com/p/xlingpap/downloads/list</a> and download the appropriate installer for your operating system:
+            package<span style="font-size:65%; vertical-align:super">[<a href="#nBatikRasterizerOnLine">67</a>]</span> that will enable you to make this conversion. Go to <a href="http://code.google.com/p/xlingpap/downloads/list">http://code.google.com/p/xlingpap/downloads/list</a> and download the appropriate installer for your operating system:
             <div align="left">
                <table style="" border="1">
                   <tr style="">
@@ -6350,17 +6362,17 @@
       <p>If you did not use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration installation package, please do so. See section <a href="#sIntroUsingXLingPapConfig">1.2.2.2</a>.
       </p>
       <h3 style=""><a name="sRenderX2PDF">11.17.2&nbsp;Using <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> to produce PDF</a></h3>
-      <p>The second way to produce PDF is to use the menu item <span style="color:maroon; ">XLingPaper / Produce PDF (RenderX) Ctrl+Shift+F9</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nCtrlShiftF9">67</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool to produce a PDF file. If you have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool installed on your computer,<span style="font-size:65%; vertical-align:super">[<a href="#nRendexXEPLocation">68</a>]</span> it will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">pdf</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Please note that it can take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool to complete its task. If you note any odd results or errors in the PDF output, please send an email message to <a href="mailto:andy_black@sil.org">andy_black@sil.org</a>.
+      <p>The second way to produce PDF is to use the menu item <span style="color:maroon; ">XLingPaper / Produce PDF (RenderX) Ctrl+Shift+F9</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nCtrlShiftF9">68</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool to produce a PDF file. If you have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool installed on your computer,<span style="font-size:65%; vertical-align:super">[<a href="#nRendexXEPLocation">69</a>]</span> it will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">pdf</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Please note that it can take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool to complete its task. If you note any odd results or errors in the PDF output, please send an email message to <a href="mailto:andy_black@sil.org">andy_black@sil.org</a>.
       </p>
       <p>See the <a href="#gPDFReading">note on reading PDF files above</a>, too.
       </p>
       <p>If you do not have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool installed, you will see a message saying that apparently you do not have this tool installed on your machine.
       </p>
-      <p>To obtain the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool, you can download a free, personal use version from <a href="http://www.renderx.com/download/personal.html">http://www.renderx.com/download/personal.html</a>. They also have a free academic version available at <a href="http://www.renderx.com/download/academic.html">http://www.renderx.com/download/academic.html</a>.<span style="font-size:65%; vertical-align:super">[<a href="#nXEPAcademic">69</a>]</span><span style="font-size:65%; vertical-align:super">[<a href="#nApacheFOPBeta0.92">70</a>]</span></p>
+      <p>To obtain the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool, you can download a free, personal use version from <a href="http://www.renderx.com/download/personal.html">http://www.renderx.com/download/personal.html</a>. They also have a free academic version available at <a href="http://www.renderx.com/download/academic.html">http://www.renderx.com/download/academic.html</a>.<span style="font-size:65%; vertical-align:super">[<a href="#nXEPAcademic">70</a>]</span><span style="font-size:65%; vertical-align:super">[<a href="#nApacheFOPBeta0.92">71</a>]</span></p>
       <h4 style=""><a name="sRenderXLimitations">11.17.2.1&nbsp;Known limitations of using <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span></a></h4>
-      <p>There are some known limitations with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> approach:<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXVsRenderX">71</a>]</span></p>
+      <p>There are some known limitations with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> approach:<span style="font-size:65%; vertical-align:super">[<a href="#nXeTeXVsRenderX">72</a>]</span></p>
       <ul>
-         <li>It is extremely hard to install.<span style="font-size:65%; vertical-align:super">[<a href="#nRenderXBetterInstaller">72</a>]</span> See section <a href="#sInstallingRenderXXep">11.17.2.2</a>.
+         <li>It is extremely hard to install.<span style="font-size:65%; vertical-align:super">[<a href="#nRenderXBetterInstaller">73</a>]</span> See section <a href="#sInstallingRenderXXep">11.17.2.2</a>.
          </li>
          <li>It is hard to install new fonts (even if those fonts are already on your machine).</li>
          <li>It does not handle stacked diacritics (and they have not responded to my requests to fix this.)</li>
@@ -6380,7 +6392,7 @@
          hand-editing for each example.
       </p>
       <p>The steps to follow are below. You may want to have someone help you with these steps since they are so complicated. (These
-         steps are for installing on a Windows machine. For Unix or Mac, see the footnote.)<span style="font-size:65%; vertical-align:super">[<a href="#nRenderXOnUnixOrMac">73</a>]</span></p>
+         steps are for installing on a Windows machine. For Unix or Mac, see the footnote.)<span style="font-size:65%; vertical-align:super">[<a href="#nRenderXOnUnixOrMac">74</a>]</span></p>
       <ol style="list-style-type:decimal; ">
          <li>Go to RenderX's webpage (<a href="http://www.renderx.com/download/personal.html">http://www.renderx.com/download/personal.html</a>) and ask for a personal license.
          </li>
@@ -6437,9 +6449,9 @@
          <li>You're done (whew!)</li>
       </ol>
       <h2 style=""><a name="sFAQProduceWord">11.18&nbsp;Produce a Word 2003 Version?</a></h2>
-      <p><a name="rXLingPapIndexedItem.iMSWord2003.d0e11404"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce a file in <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> format for your document. How does one do that?
+      <p><a name="rXLingPapIndexedItem.iMSWord2003.d0e11461"></a>In section <a href="#sIntroUsing">1.2</a>, I mentioned that you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; "> XMLmind XML Editor</span> to produce a file in <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> format for your document. How does one do that?
       </p>
-      <p>Use the menu items <span style="color:maroon; ">XLingPaper / Produce Word 2003 Document F10</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF10">74</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool to produce a Word 2003 document file. If you have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool installed on your computer, it will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">doc</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Please note that it may take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool to complete its task.
+      <p>Use the menu items <span style="color:maroon; ">XLingPaper / Produce Word 2003 Document F10</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nF10">75</a>]</span> This invokes a transform on your document and then tries to run the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool to produce a Word 2003 document file. If you have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool installed on your computer, it will produce a file with the same name as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document file, but with an extension of <span style="font-family:Courier New; font-weight:bold; ">doc</span>. This new file is in the same directory as your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. Please note that it may take a while for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool to complete its task.
       </p>
       <p>If you do not have the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool installed, you will see a message saying that apparently you do not have this tool installed on your machine.
       </p>
@@ -6501,10 +6513,10 @@
          format you wish. Ones that make the most sense are to map from FO to .docx, .odt, or .rtf.
       </p>
       <p>Please note that this process of producing a Word 2003 document is not as mature and stable as the process to produce a webpage
-         is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCNoFontMetics">75</a>]</span> This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's
+         is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCNoFontMetics">76</a>]</span> This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's
          "auto-fit" table capability to all the tables in the document. You can obtain the macro by downloading <a href="http://www.sil.org/~blacka/xlingpap/XLingPaperToWord2003Adjust.zip">http://www.sil.org/~blacka/xlingpap/XLingPaperToWord2003Adjust.zip</a>, unzipping the Word file in it and following the instructions in that Word file.
       </p>
-      <p>Another known problem is that tables and interlinear examples may be split across page boundaries.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCWidowOrphan">76</a>]</span> You will have to correct these by hand.
+      <p>Another known problem is that tables and interlinear examples may be split across page boundaries.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCWidowOrphan">77</a>]</span> You will have to correct these by hand.
       </p>
       <p>Another known problem is that it does not handle tables and examples in footnotes and, from what I can tell, they do not plan
          to add this capability.
@@ -6755,7 +6767,7 @@
       <p>The first thing many of us try is to go to the top of what needs to become that <span style="font-family:Courier New; color:maroon; ">section3</span> element and try to insert a <span style="font-family:Courier New; color:maroon; ">section3</span> element. After all, this is how we would have done it in our favorite text editor. But, the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> is a structured editor and not a text editor. Therefore, when we try this in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, we discover that no <span style="font-family:Courier New; color:maroon; ">section3</span> elements show up at this point. Why? Because we are trying to insert a <span style="font-family:Courier New; color:maroon; ">section3</span> element in the middle of a <span style="font-family:Courier New; color:maroon; ">section2</span> element and that does not make sense structurally: a section does not consist of some paragraphs, one or more sub-sections,
          and then more paragraphs (back at the section level). You see, rather than being a pain, the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> is actually helping us maintain proper structure - we were trying to create structural junk and it will not let us.
       </p>
-      <p>What one has to do is the following:<span style="font-size:65%; vertical-align:super">[<a href="#nConvertTextToSubsection">77</a>]</span></p>
+      <p>What one has to do is the following:<span style="font-size:65%; vertical-align:super">[<a href="#nConvertTextToSubsection">78</a>]</span></p>
       <ol style="list-style-type:decimal; ">
          <li>Go to the last element in the section (most likely a paragraph, but not necessarily).</li>
          <li>Select that last element (e.g. by clicking on the element name in the node path bar<span style="font-size:65%; vertical-align:super">[<a href="#nNodePathBarReminder">29</a>]</span>).
@@ -6783,7 +6795,7 @@
       <p>Beginning with version 2.0 of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>, this problem is alleviated by the use of publisher style sheets. The idea is that you can write your document using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> and then associate it with a particular publisher style sheet. Once your document has been associated with such a style sheet,
          whenever you produce PDF or <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> output, the formatting will now conform to the associated style sheet. One implication of this is that as you write your
          document, you do not have to be thinking about the target format. Just use the normal <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> elements and, when it is time to produce the output, associate the style sheet you need and produce the PDF (or <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> output). If you change your mind about where you want to submit your document, in theory all you have to do is associate
-         (or re-associate) the document to the new style sheet.<span style="font-size:65%; vertical-align:super">[<a href="#nPublisherDifferences">78</a>]</span></p>
+         (or re-associate) the document to the new style sheet.<span style="font-size:65%; vertical-align:super">[<a href="#nPublisherDifferences">79</a>]</span></p>
       <p>To associate your document to a publisher style sheet, do this:</p>
       <ol style="list-style-type:decimal; ">
          <li>
@@ -6830,7 +6842,7 @@
             </div>
          </li>
       </ol>
-      <p>The publisher style sheets themselves can be created and/or customized, but how to do that is outside the scope of this documentation.<span style="font-size:65%; vertical-align:super">[<a href="#nPubStyleSheetCreation">79</a>]</span></p>
+      <p>The publisher style sheets themselves can be created and/or customized, but how to do that is outside the scope of this documentation.<span style="font-size:65%; vertical-align:super">[<a href="#nPubStyleSheetCreation">80</a>]</span></p>
       <h2 style=""><a name="sFAQRemoveAssociatedPublisherStyleSheet">11.25&nbsp;Remove an associated publisher style sheet from my document</a></h2>
       <p>If you have associated a publisher style sheet with your document (see section <a href="#sFAQAssociatePublisherStyleSheet">11.24</a>), how can you remove or "un-associate" it from a style sheet?
       </p>
@@ -6838,7 +6850,7 @@
          of that publisher style sheet to your current document.
       </p>
       <h2 style=""><a name="sFAQLangFont">11.26&nbsp;Get my language data to use a particular font in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>?</a></h2>
-      <p>If you are using version 4.0.0 or higher of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, then all font information should show properly in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. Whenever you change the font information, however, you will either need to reload your file into the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> or you will need to do a &#8220;Redraw&#8221; command before the changes will show in the<span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. To do a &#8220;Redraw&#8221; command, use <span style="color:maroon; ">View menu item / Redraw Ctrl+L</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nCtrl-L">80</a>]</span> Please be aware that the "Redraw&#8221; command will close all opened sections (i.e. when the "Redraw&#8221; command finishes, the window
+      <p>If you are using version 4.0.0 or higher of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, then all font information should show properly in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. Whenever you change the font information, however, you will either need to reload your file into the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> or you will need to do a &#8220;Redraw&#8221; command before the changes will show in the<span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. To do a &#8220;Redraw&#8221; command, use <span style="color:maroon; ">View menu item / Redraw Ctrl+L</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nCtrl-L">81</a>]</span> Please be aware that the "Redraw&#8221; command will close all opened sections (i.e. when the "Redraw&#8221; command finishes, the window
          iin the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> will look just like it does when you first open the file).
       </p>
       <p>If you are using an earlier version of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, then while setting the font information for a <span style="font-family:Courier New; color:maroon; ">language</span> element will cause the output to correctly show your language data, sometimes the default font used for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> does not show your language data well. This is one of the few &#8220;down&#8221; sides of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. Unfortunately, there is no work-around for this. The developers of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> tell me that this is a result of the particular programming language they happened to use and that they have no control over
@@ -6846,7 +6858,7 @@
       </p>
       <h2 style=""><a name="sFAQChangeDefaultLangIDs">11.27&nbsp;Change the <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lVernacular</span> and <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lGloss</span> language IDs?</a></h2>
       <p>Some users have complained about the default language identifiers that come with <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>. These users almost always work in one vernacular language and one gloss language. They would like to use identifiers that
-         reflect the names of these languages rather than the default generic ones of <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lVernacular</span> and <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lGloss</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nXXEElementTemplates">81</a>]</span></p>
+         reflect the names of these languages rather than the default generic ones of <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lVernacular</span> and <span style="font-family:Courier New; font-style:italic; color:steelblue; ">lGloss</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nXXEElementTemplates">82</a>]</span></p>
       <p>There is a way to do this, but it comes with a warning and therefore this is not a suggested thing that every user should
          do. The main warning is that the change is only temporary. The next time you install an updated set of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration files, you will have to make the change again.
       </p>
@@ -6902,7 +6914,7 @@
          <li>Copy your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document .xml file and rename it so it ends with the word "Handout".
          </li>
          <li>Work your way through the copy, cutting out anything that you do not want to appear in the handout.</li>
-         <li>Be sure to include <span style="font-family:Courier New; color:maroon; ">citation</span> elements for any references you want to show up in the references section. Remember that only those works cited in your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document show up in the references section.<span style="font-size:65%; vertical-align:super">[<a href="#nCitations">82</a>]</span></li>
+         <li>Be sure to include <span style="font-family:Courier New; color:maroon; ">citation</span> elements for any references you want to show up in the references section. Remember that only those works cited in your <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document show up in the references section.<span style="font-size:65%; vertical-align:super">[<a href="#nCitations">83</a>]</span></li>
          <li>Associate the handout document with the <span style="color:navy; ">HandoutStylesheet.xml</span> file provided with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration files. See section <a href="#sFAQAssociatePublisherStyleSheet">11.24</a> for more on how to do this.
          </li>
          <li>Produce a PDF output for this document. See section <a href="#sFAQProducePDF">11.17</a> for details on how to do this.
@@ -6925,7 +6937,7 @@
       </p>
       <ol style="list-style-type:decimal; ">
          <li>Put the cursor where you want the character to go (perhaps after some regular punctuation character in the url).</li>
-         <li>Using the Character Tool of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>,<span style="font-size:65%; vertical-align:super">[<a href="#nCharacterTool">83</a>]</span> click on the drop-down box and select the &#8220;0x2000 (General Punctuation)&#8221; section.
+         <li>Using the Character Tool of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>,<span style="font-size:65%; vertical-align:super">[<a href="#nCharacterTool">84</a>]</span> click on the drop-down box and select the &#8220;0x2000 (General Punctuation)&#8221; section.
          </li>
          <li>Hover your mouse over the twelfth blank box from the top. The tool hint message should be blank but at the bottom, it should
             begin with &#8220;0x200b&#8221;. Click.
@@ -6980,7 +6992,7 @@
       </ul>
       <h2 style=""><a name="sF12AsRightClick">12.6&nbsp;The <span style="font-family:Courier New; ">F12</span> Key Does a Right-click</a></h2>
       <p>Sometimes you want to perform a right-click operation. You can do this either by moving the mouse or just by pressing the
-         <span style="font-family:Courier New; ">F12</span> key at the point where you are. Sometimes using this key can be more efficient.<span style="font-size:65%; vertical-align:super">[<a href="#nF12NotWindowsRightClick">84</a>]</span></p>
+         <span style="font-family:Courier New; ">F12</span> key at the point where you are. Sometimes using this key can be more efficient.<span style="font-size:65%; vertical-align:super">[<a href="#nF12NotWindowsRightClick">85</a>]</span></p>
       <h2 style=""><a name="sRedFlashingTriangle">12.7&nbsp;Little Red Flashing Triangle</a></h2>
       <p>When you see a little red flashing triangle on the left edge of some section, it indicates that the cursor is inside. It might
          look like this (where the big black arrow points to it):
@@ -7072,7 +7084,7 @@
          <dt><span style="font-family:Courier New; color:maroon; ">citation</span></dt>
          <dd>A citation to a reference</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">col</span></dt>
-         <dd>A column entry within a table</dd>
+         <dd>A column entry within a table. Deprecated. Use <span style="font-family:Courier New; color:maroon; ">td</span></dd>
          <dt><span style="font-family:Courier New; color:maroon; ">collEd</span></dt>
          <dd>Reference information for an editor of a collection of papers volume</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">collEdInitials</span></dt>
@@ -7151,9 +7163,9 @@
          <dt><span style="font-family:Courier New; color:maroon; ">glossary</span></dt>
          <dd>A glossary section in the back matter</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">headerCol</span></dt>
-         <dd>A heading column within a table</dd>
+         <dd>A heading column within a table. Deprecated. Use <span style="font-family:Courier New; color:maroon; ">th</span></dd>
          <dt><span style="font-family:Courier New; color:maroon; ">headerRow</span></dt>
-         <dd>A heading row within a table</dd>
+         <dd>A heading row within a table. Deprecated. Use <span style="font-family:Courier New; color:maroon; ">tr</span></dd>
          <dt><span style="font-family:Courier New; color:maroon; ">img</span></dt>
          <dd>A simple-minded HTML <span style="font-family:Courier New; color:maroon; ">img</span> element; it only includes the <span style="font-family:Courier New; color:purple; ">src</span> attribute
          </dd>
@@ -7216,7 +7228,7 @@
          <dt><span style="font-family:Courier New; color:maroon; ">jVol</span></dt>
          <dd>Reference information for the volume number of a journal</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">keyTerm</span></dt>
-         <dd>A key term which is being defined within a <span style="font-family:Courier New; color:maroon; ">definition</span> element.
+         <dd>A key term which is being defined within a <span style="font-family:Courier New; color:maroon; ">definition</span> element
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">langData</span></dt>
          <dd>Tags some text as belonging to a particular language</dd>
@@ -7298,6 +7310,8 @@
          <dd>Reference information for the volume number of a proceedings volume</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">proceedings</span></dt>
          <dd>Reference information for a paper included within a conference proceedings volume</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">prose-text</span></dt>
+         <dd>Text which is in a language, but is prose, not interlinear</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">pubDate</span></dt>
          <dd>Reference information for the publication date of a dissertation or thesis</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">published</span></dt>
@@ -7323,7 +7337,7 @@
          <dt><span style="font-family:Courier New; color:maroon; ">references</span></dt>
          <dd>The references section of the back matter</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">row</span></dt>
-         <dd>A row in a table</dd>
+         <dd>A row in a table. Deprecated. Use <span style="font-family:Courier New; color:maroon; ">tr</span></dd>
          <dt><span style="font-family:Courier New; color:maroon; ">section1</span></dt>
          <dd>A level one section of the paper</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">section2</span></dt>
@@ -7346,7 +7360,7 @@
          <dd>A shortened form of an author. This is for aiding in publishing when the real author names are too long to appear in headers
             or footers.
          </dd>
-         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e13439"></a> <a name="rXLingPapIndexedItem.iShortTitleElement.d0e13441"></a> <span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e13509"></a> <a name="rXLingPapIndexedItem.iShortTitleElement.d0e13511"></a> <span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
          <dd>A shortened form of a title. This is for aiding in publishing when the real title is too long to appear in headings. Within
             an interlinear text, it is used as the abbreviated name of the text.
          </dd>
@@ -7363,7 +7377,7 @@
          <dt><span style="font-family:Courier New; color:maroon; ">tablenumberedRef</span></dt>
          <dd>A reference to a numbered table</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">td</span></dt>
-         <dd>A cell in a table. This is the same as <span style="font-family:Courier New; color:maroon; ">col</span>, but is included for use in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
+         <dd>A cell in a table. This replaces the <span style="font-family:Courier New; color:maroon; ">col</span> element in order to show tables well in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">term</span></dt>
          <dd>A term in a particular language for an index in the back matter</dd>
@@ -7372,14 +7386,14 @@
          <dt><span style="font-family:Courier New; color:maroon; ">textTitle</span></dt>
          <dd>The title of an interlinear text.</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">th</span></dt>
-         <dd>A header cell in a table. This is the same as <span style="font-family:Courier New; color:maroon; ">headerCol</span>, but is included for use in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section .
+         <dd>A header cell in a table. This replaces the <span style="font-family:Courier New; color:maroon; ">headerCol</span> in order to show tables well in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">thesis</span></dt>
          <dd>Reference information for an M.A. thesis</dd>
-         <dt><a name="rXLingPapIndexedItem.iTitle.d0e13520"></a> <span style="font-family:Courier New; color:maroon; ">title</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iTitle.d0e13592"></a> <span style="font-family:Courier New; color:maroon; ">title</span></dt>
          <dd>The title of the paper</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">tr</span></dt>
-         <dd>A row in a table. This is the same as <span style="font-family:Courier New; color:maroon; ">headerRow</span> or <span style="font-family:Courier New; color:maroon; ">row</span>, but is included for use in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section .
+         <dd>A row in a table. This replaces both the <span style="font-family:Courier New; color:maroon; ">headerRow</span> and the <span style="font-family:Courier New; color:maroon; ">row</span> elements in order to show tables well in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">translatedBy</span></dt>
          <dd>Reference information for a book that has been translated.</dd>
@@ -8438,7 +8452,15 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nFLExTextExport">[50]</a></td>
+            <td valign="top"><a name="nProseText">[50]</a></td>
+            <td>
+               <p>For example, some practical grammars are targeted at both native speakers of the language as well as linguists. The native
+                  speaker would prefer to read the text as prose rather than as interlinear.
+               </p>
+            </td>
+         </tr>
+         <tr>
+            <td valign="top"><a name="nFLExTextExport">[51]</a></td>
             <td>
                <p>The ability to export an interlinear text as a text (and not only as a series of examples) should be available in the October
                   2007 version. If you need it sooner, please contact <a href="mailto:andy_black@sil.org">Andy Black</a>.
@@ -8446,35 +8468,35 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nInterlinearTextOptionsMorphAligned">[51]</a></td>
+            <td valign="top"><a name="nInterlinearTextOptionsMorphAligned">[52]</a></td>
             <td>
                <p>The other two options use the morpheme-aligned approach to interlinear. See section <a href="#sExInterlinearMorph">5.3.1.3</a>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nLifeInQSource">[52]</a></td>
+            <td valign="top"><a name="nLifeInQSource">[53]</a></td>
             <td>
                <p>This is taken from <a href="#rRegnier">Regnier (1989)</a>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nTypeBeforeAfterAsEntity">[53]</a></td>
+            <td valign="top"><a name="nTypeBeforeAfterAsEntity">[54]</a></td>
             <td>
                <p>This then acts rather like an XML character entity. Some XML editors (like the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>) replace XML character entities with the content of the entity.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nGenericTarget">[54]</a></td>
+            <td valign="top"><a name="nGenericTarget">[55]</a></td>
             <td>
                <p>One such element is <span style="font-family:Courier New; color:maroon; ">genericTarget</span> which you can insert just about anywhere. It allows you to create a hyperlink to almost anything.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nSILFonts">[55]</a></td>
+            <td valign="top"><a name="nSILFonts">[56]</a></td>
             <td>
                <p>I am not a font expert by any stretch of the imagination, so all this is over my head. I do offer a guess, however, that the
                   source of these problems might be that the designers of these fonts chose to do this so that it would be easier to have stacked
@@ -8483,62 +8505,62 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCharisSILFontProblemInHtmlSource">[56]</a></td>
+            <td valign="top"><a name="nCharisSILFontProblemInHtmlSource">[57]</a></td>
             <td>
                <p>This is taken from a draft of a paper written by Colin Suggett.</p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCharisSILSmallCaps">[57]</a></td>
+            <td valign="top"><a name="nCharisSILSmallCaps">[58]</a></td>
             <td>
                <p>See <a href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=ComplexRomanFontFAQ#1d1d13ef">http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=ComplexRomanFontFAQ#1d1d13ef</a> for more on how to do this. (This link was valid on July 10, 2009.)
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nMakeNewOne">[58]</a></td>
+            <td valign="top"><a name="nMakeNewOne">[59]</a></td>
             <td>
                <p>Make a new one if you do not already have one. See section <a href="#sIntroUsingQuickOverview">1.2.3</a>.)
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nRedValidityIcon">[59]</a></td>
+            <td valign="top"><a name="nRedValidityIcon">[60]</a></td>
             <td>
                <p>If you have a serious validation problem, this icon will be red with a white X in it like this: <img src="resources/ValidityIconRed.png">. In theory, that should not happen unless you edit the file outside of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nF7">[60]</a></td>
+            <td valign="top"><a name="nF7">[61]</a></td>
             <td>
                <p>The F7 at the end is a reminder that you can invoke this process merely by pressing the <span style="font-family:Courier New; ">F7</span> key.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nF8">[61]</a></td>
+            <td valign="top"><a name="nF8">[62]</a></td>
             <td>
                <p>The F8 at the end is a reminder that you can invoke this process merely by pressing the <span style="font-family:Courier New; ">F8</span> key.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXeTeXNormalPDFNotRenderX">[62]</a></td>
+            <td valign="top"><a name="nXeTeXNormalPDFNotRenderX">[63]</a></td>
             <td>
                <p>The motivation for making the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> approach become the normal way is due to both the limitations of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> approach and, especially, because it is so hard to install the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> tool. See sections <a href="#sRenderXLimitations">11.17.2.1</a> and <a href="#sInstallingRenderXXep">11.17.2.2</a>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nF9">[63]</a></td>
+            <td valign="top"><a name="nF9">[64]</a></td>
             <td>
                <p>The F9 at the end is a reminder that you can invoke this process merely by pressing the <span style="font-family:Courier New; ">F9</span> key.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXeTeXTableColumnWidths">[64]</a></td>
+            <td valign="top"><a name="nXeTeXTableColumnWidths">[65]</a></td>
             <td>
                <p>Ideally, I'd make it work so you only have to set the width for the top-most <span style="font-family:Courier New; color:maroon; ">th</span> element (if you have column headers) or the top-most <span style="font-family:Courier New; color:maroon; ">td</span> element (if you do not have column headers). Unfortunately, that has not happened yet (obviously, it is non-trivial to do).
                   This is definitely in the plans, but it will be for a future release.
@@ -8546,41 +8568,41 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXeTeXMultiPass">[65]</a></td>
+            <td valign="top"><a name="nXeTeXMultiPass">[66]</a></td>
             <td>
                <p>This is why there is the temporary directory mentioned above. It stores the files <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> needs to record the information needed between passes.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nBatikRasterizerOnLine">[66]</a></td>
+            <td valign="top"><a name="nBatikRasterizerOnLine">[67]</a></td>
             <td>
                <p>This package is based on the free tool available at <a href="http://xmlgraphics.apache.org/batik/tools/rasterizer.html">http://xmlgraphics.apache.org/batik/tools/rasterizer.html</a>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCtrlShiftF9">[67]</a></td>
+            <td valign="top"><a name="nCtrlShiftF9">[68]</a></td>
             <td>
                <p>The Ctrl+Shift+F9 at the end is a reminder that you can invoke this process by pressing the <span style="font-family:Courier New; ">Ctrl</span>, <span style="font-family:Courier New; ">Shift</span>, and <span style="font-family:Courier New; ">F9</span> keys at the same time (one way to do this is to hold both the <span style="font-family:Courier New; ">Ctrl</span> and <span style="font-family:Courier New; ">Shift</span> keys down with one hand and then press the <span style="font-family:Courier New; ">F9</span> key with the other hand).
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nRendexXEPLocation">[68]</a></td>
+            <td valign="top"><a name="nRendexXEPLocation">[69]</a></td>
             <td>
                <p>The current version expects it to be in C:\Program Files\RenderX\XEP.</p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXEPAcademic">[69]</a></td>
+            <td valign="top"><a name="nXEPAcademic">[70]</a></td>
             <td>
                <p>Lars Huttar has obtained a ten-seat academic license for SIL use. Write to <a href="mailto::lars_huttar@sil.org">Lars</a> if you want to have one.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nApacheFOPBeta0.92">[70]</a></td>
+            <td valign="top"><a name="nApacheFOPBeta0.92">[71]</a></td>
             <td>
                <p>I also tried the freely available FO-to-PDF converter tool called <a href="http://xmlgraphics.apache.org/fop/download.html">Apache FOP</a>, Beta version 0.92 to see if it is as capable as the RenderX XEP tool is. Unfortunately, it does not yet handle the XSL-FO
                   table-layout='auto' capability. This means that most tables and no interlinear examples come out correctly, given how I'm
@@ -8589,21 +8611,21 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXeTeXVsRenderX">[71]</a></td>
+            <td valign="top"><a name="nXeTeXVsRenderX">[72]</a></td>
             <td>
                <p>All of the noted limitations of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> approach are not a problem at all for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeTeX</span> approach.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nRenderXBetterInstaller">[72]</a></td>
+            <td valign="top"><a name="nRenderXBetterInstaller">[73]</a></td>
             <td>
                <p>I have asked the makers of <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> to make it easier to install, but so far at least, they have not considered it important enough to make any changes.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nRenderXOnUnixOrMac">[73]</a></td>
+            <td valign="top"><a name="nRenderXOnUnixOrMac">[74]</a></td>
             <td>
                <p>For Unix and Mac operating systems, you can do the following:</p>
                <ol style="list-style-type:decimal; ">
@@ -8664,55 +8686,55 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nF10">[74]</a></td>
+            <td valign="top"><a name="nF10">[75]</a></td>
             <td>
                <p>The F10 at the end is a reminder that you can invoke this process merely by pressing the <span style="font-family:Courier New; ">F10</span> key.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXFCNoFontMetics">[75]</a></td>
+            <td valign="top"><a name="nXFCNoFontMetics">[76]</a></td>
             <td>
                <p>The reason is that the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool does not pay attention to font metric information.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXFCWidowOrphan">[76]</a></td>
+            <td valign="top"><a name="nXFCWidowOrphan">[77]</a></td>
             <td>
                <p>Apparently the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind FO Converter</span> tool does not pay attention to the widow and orphan control information included in the XSL-FO output it processes.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nConvertTextToSubsection">[77]</a></td>
+            <td valign="top"><a name="nConvertTextToSubsection">[78]</a></td>
             <td>
                <p>In a later version of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration files, we may well be able to create a special command to make this process much simpler.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nPublisherDifferences">[78]</a></td>
+            <td valign="top"><a name="nPublisherDifferences">[79]</a></td>
             <td>
                <p>Note that some differences between publishers may also require you to change things like the formating for <span style="font-family:Courier New; color:maroon; ">language</span> items.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nPubStyleSheetCreation">[79]</a></td>
+            <td valign="top"><a name="nPubStyleSheetCreation">[80]</a></td>
             <td>
                <p>Currently, these style sheets are in a &#8220;beta&#8221;mode. When documentation is available, I will indicate how to see it.</p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCtrl-L">[80]</a></td>
+            <td valign="top"><a name="nCtrl-L">[81]</a></td>
             <td>
                <p>The Ctrl+L at the end is a reminder that you can invoke this process merely by pressing the <span style="font-family:Courier New; ">Ctrl</span> and <span style="font-family:Courier New; ">L</span> keys at the same time.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nXXEElementTemplates">[81]</a></td>
+            <td valign="top"><a name="nXXEElementTemplates">[82]</a></td>
             <td>
                <p>In designing <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, I wanted something like this, too, but realized we would have to use generic labels normally. Part of the technical challenge
                   is that the pre-canned element packages need to come with identifiers for things like embedded <span style="font-family:Courier New; color:maroon; ">langData</span> elements. I do not know how to change these dynamically while the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> program is running. All I know to do is to change the content of the files containing these pre-canned element packages (called
@@ -8722,14 +8744,14 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCitations">[82]</a></td>
+            <td valign="top"><a name="nCitations">[83]</a></td>
             <td>
                <p>See section <a href="#sCitations">8</a> for information on making citations.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nCharacterTool">[83]</a></td>
+            <td valign="top"><a name="nCharacterTool">[84]</a></td>
             <td>
                <p>The Character Tool is located in the lower right hand portion of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, near the spelling tool and the validity tool. It may look like this:
                </p>
@@ -8746,7 +8768,7 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nF12NotWindowsRightClick">[84]</a></td>
+            <td valign="top"><a name="nF12NotWindowsRightClick">[85]</a></td>
             <td>
                <p>It would have been better to use the Windows right-click key, but I could not get it to work. Hence, I had to settle for something
                   like the <span style="font-family:Courier New; ">F12</span> key.

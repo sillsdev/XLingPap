@@ -994,7 +994,12 @@ examples
          </interlinear>
       </example>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="interlinear-text" selectable="override">
+    <cfg:elementTemplate name="p" selectable="override">
+        <prose-text lang="l" xmlns="">
+            <p/>
+        </prose-text>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="interlinear-text" selectable="override">
       <interlinear-text xmlns="">
          <textInfo>
             <textTitle/>

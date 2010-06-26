@@ -146,6 +146,7 @@
                 </xsl:choose>
             </xsl:if>
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
+            <xsl:call-template name="CreateClearEmptyDoublePageCommand"/>            
             <tex:env name="document">
                 <xsl:call-template name="CreateAllNumberingLevelIndentAndWidthCommands"/>
                 <tex:spec cat="esc"/>
@@ -209,6 +210,27 @@
                 </xsl:if>
             </tex:env>
         </tex:TeXML>
+    </xsl:template>
+    <xsl:template name="CreateClearEmptyDoublePageCommand">
+        <tex:cmd name="let" gr="0" nl1="1"/>
+        <tex:cmd name="origdoublepage" gr="0"/>
+        <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>
+        <tex:cmd name="newcommand">
+            <tex:parm>
+                <tex:cmd name="clearemptydoublepage" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="clearpage">
+                    <tex:parm>
+                        <tex:cmd name="pagestyle" >
+                            <tex:parm>empty</tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="origdoublepage" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </tex:parm>
+        </tex:cmd>
+        
     </xsl:template>
     <!-- ===========================================================
       FRONTMATTER
@@ -649,6 +671,13 @@
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
             </xsl:call-template>
+            <tex:cmd name="thispagestyle">
+                <tex:parm>empty</tex:parm>
+            </tex:cmd>
+            <xsl:call-template name="DoBookMark"/>
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="@id"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
                     <xsl:call-template name="OutputPartLabel"/>
@@ -675,6 +704,7 @@
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
             </xsl:call-template>
+            <xsl:call-template name="DoInternalTargetEnd"/>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
@@ -731,6 +761,12 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="bUseClearEmptyDoublePage">
+                <xsl:choose>
+                    <xsl:when test="parent::part">Y</xsl:when>
+                    <xsl:otherwise>N</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
@@ -1135,7 +1171,24 @@
                         <xsl:with-param name="type" select="parent::blockquote/@type"/>
                     </xsl:call-template>
                 </xsl:if>
+                <xsl:if test="parent::prose-text">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="key('LanguageID',parent::prose-text/@lang)"/>
+                    </xsl:call-template>
+                    <!-- want to do this in prose-text, but type kinds of things cannot cross paragraph boundaries, so have to do here -->
+                    <xsl:call-template name="DoType">
+                        <xsl:with-param name="type" select="parent::prose-text/@type"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:apply-templates/>
+                <xsl:if test="parent::prose-text">
+                    <xsl:call-template name="DoTypeEnd">
+                        <xsl:with-param name="type" select="parent::prose-text/@type"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributesEnd">
+                        <xsl:with-param name="language" select="key('LanguageID',parent::prose-text/@lang)"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:if test="parent::blockquote">
                     <xsl:call-template name="DoTypeEnd">
                         <xsl:with-param name="type" select="parent::blockquote/@type"/>
@@ -3096,9 +3149,17 @@
     -->
     <xsl:template name="DoPageBreakFormatInfo">
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="bUseClearEmptyDoublePage" select="'N'"/>
         <xsl:choose>
             <xsl:when test="$layoutInfo/descendant-or-self::*/@startonoddpage='yes'">
-                <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>
+                <xsl:choose>
+                    <xsl:when test="$bUseClearEmptyDoublePage='Y'">
+                        <tex:cmd name="clearemptydoublepage" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="$layoutInfo/descendant-or-self::*/@pagebreakbefore='yes'">
                 <tex:cmd name="clearpage" gr="0" nl2="1"/>
@@ -3206,16 +3267,16 @@
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <tex:group>
-            <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
-            </xsl:call-template>
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
+            <xsl:call-template name="DoTitleNeedsSpace"/>
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="@id"/>
             </xsl:call-template>
-            <xsl:call-template name="DoTitleNeedsSpace"/>
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
             </xsl:call-template>
@@ -4766,17 +4827,6 @@
         <xsl:if test="substring($sString, string-length($sString))!='.'">
             <xsl:text>.</xsl:text>
         </xsl:if>
-    </xsl:template>
-    <!--
-                   OutputPartLabel
--->
-    <xsl:template name="OutputPartLabel">
-        <xsl:choose>
-            <xsl:when test="/lingPaper/@partlabel">
-                <xsl:value-of select="/lingPaper/@partlabel"/>
-            </xsl:when>
-            <xsl:otherwise>Part</xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!--
                    OutputPrefaceLabel

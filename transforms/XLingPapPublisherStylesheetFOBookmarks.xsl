@@ -40,7 +40,7 @@
    <!-- 
         chapter (bookmarks) 
     -->
-   <xsl:template match="chapter" mode="bookmarks">
+   <xsl:template match="chapter | chapterBeforePart" mode="bookmarks">
       <xsl:call-template name="OutputBookmark">
          <xsl:with-param name="sLink" select="@id"/>
          <xsl:with-param name="sLabel">

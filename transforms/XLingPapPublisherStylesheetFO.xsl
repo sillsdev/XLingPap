@@ -79,6 +79,7 @@
       =========================================================== -->
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
+    <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="iExampleCount" select="count(//example)"/>
@@ -1060,6 +1061,27 @@
             <xsl:attribute name="space-after">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:call-template name="DoType"/>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    <!-- ===========================================================
+        PROSE TEXT
+        =========================================================== -->
+    <xsl:template match="prose-text">
+        <fo:block>
+            <xsl:attribute name="start-indent">
+                <xsl:value-of select="$sBlockQuoteIndent"/>
+            </xsl:attribute>
+            <xsl:attribute name="end-indent">
+                <xsl:value-of select="$sBlockQuoteIndent"/>
+            </xsl:attribute>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoType"/>
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -4922,9 +4944,12 @@ not using
             </xsl:choose>
         </xsl:variable>
         <fo:inline>
-            <xsl:if test="//abbreviations/@usesmallcaps='yes'">
+            <xsl:if test="$abbreviations/@usesmallcaps='yes'">
                 <xsl:call-template name="HandleSmallCaps"/>
             </xsl:if>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$abbreviations"/>
+            </xsl:call-template>
             <xsl:value-of select="$sAbbrTerm"/>
         </fo:inline>
     </xsl:template>
@@ -6119,8 +6144,8 @@ not using
 -->
     <xsl:template name="OutputPartLabel">
         <xsl:choose>
-            <xsl:when test="/lingPaper/@partlabel">
-                <xsl:value-of select="/lingPaper/@partlabel"/>
+            <xsl:when test="$lingPaper/@partlabel">
+                <xsl:value-of select="$lingPaper/@partlabel"/>
             </xsl:when>
             <xsl:otherwise>Part</xsl:otherwise>
         </xsl:choose>

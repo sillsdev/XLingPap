@@ -119,42 +119,35 @@
     -->
     <xsl:template match="part" mode="contents">
         <!--        <xsl:param name="nLevel"/>-->
-        <xsl:if test="position()=1">
+        <xsl:if test="count(preceding-sibling::part)=0">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select="." mode="contents">
                     <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
-        <xsl:call-template name="OutputTOCLine">
-            <xsl:with-param name="sLink" select="@id"/>
-            <xsl:with-param name="sLabel">
+        <tex:cmd name="vspace">
+            <tex:parm>
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:text>pt</xsl:text>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <tex:cmd name="centering">
+            <tex:parm>
                 <xsl:call-template name="OutputPartLabel"/>
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:apply-templates select="." mode="numberPart"/>
                 <xsl:text>&#xa0;</xsl:text>
                 <xsl:apply-templates select="secTitle"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <!--       <fo:block text-align="center" space-before="{$sBasicPointSize - 4}pt" space-after="{$sBasicPointSize}pt" keep-with-next.within-page="2">
-         <fo:basic-link internal-destination="{@id}">
-            <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-            <xsl:call-template name="OutputTOCTitle">
-               <xsl:with-param name="linkLayout" select="$linkLayout"/>
-               <xsl:with-param name="sLabel">
-                  <xsl:call-template name="OutputPartLabel"/>
-                  <xsl:text>&#x20;</xsl:text>
-                  <xsl:apply-templates select="." mode="numberPart"/>
-                  <xsl:text>&#xa0;</xsl:text>
-                  <xsl:apply-templates select="secTitle"/>
-               </xsl:with-param>
-            </xsl:call-template>
-         </fo:basic-link>
-         <xsl:apply-templates mode="contents">
-            <!-\-                <xsl:with-param name="nLevel" select="$nLevel"/>-\->
-         </xsl:apply-templates>
-      </fo:block>
--->
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:apply-templates select="chapter" mode="contents"/>
     </xsl:template>
     <!--
         preface (contents)
@@ -199,7 +192,7 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix)">
+                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart)">
                         <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -370,7 +363,7 @@
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
                 <tex:parm>
-                    <xsl:value-of select="$sBasicPointSize"/>
+                    <xsl:value-of select="$sSpaceBefore"/>
                     <xsl:text>pt</xsl:text>
                 </tex:parm>
             </tex:cmd>

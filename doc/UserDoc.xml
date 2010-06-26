@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->11 May 2010</date
+>26 June 2010</date
 ><version
->2.11.0</version
+>2.12.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -7929,6 +7929,31 @@ type="tXLingPap"
 sec="sExInterlinear"
 ></sectionRef
 >).</p
+><p
+>Occasionally, such interlinear text is preceded by the same text in paragraph form.<endnote
+id="nProseText"
+><p
+>For example, some practical grammars are targeted at both native speakers of the language as well as linguists. The native speaker would prefer to read the text as prose rather than as interlinear.</p
+></endnote
+> In such cases, use a <object
+type="tElement"
+>prose-text</object
+> element to key the text. Set the <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>prose-text</object
+> element to the <object
+type="tAttribute"
+>id</object
+> attribute value of the <object
+type="tElement"
+>language</object
+> element the text is written in. The text will then be formatted in the output per the information contained in that <object
+type="tElement"
+>language</object
+> element.</p
 ><section2
 id="sInterlinearTextFLEx"
 ><secTitle
@@ -8959,7 +8984,10 @@ type="tElement"
 >col</object
 ></dt
 ><dd
->A column entry within a table</dd
+>A column entry within a table. Deprecated. Use <object
+type="tElement"
+>td</object
+></dd
 ><dt
 ><object
 type="tElement"
@@ -9238,14 +9266,20 @@ type="tElement"
 >headerCol</object
 ></dt
 ><dd
->A heading column within a table</dd
+>A heading column within a table. Deprecated. Use <object
+type="tElement"
+>th</object
+></dd
 ><dt
 ><object
 type="tElement"
 >headerRow</object
 ></dt
 ><dd
->A heading row within a table</dd
+>A heading row within a table. Deprecated. Use <object
+type="tElement"
+>tr</object
+></dd
 ><dt
 ><object
 type="tElement"
@@ -9730,6 +9764,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>prose-text</object
+></dt
+><dd
+>Text which is in a language, but is prose, not interlinear</dd
+><dt
+><object
+type="tElement"
 >pubDate</object
 ></dt
 ><dd
@@ -9810,7 +9851,10 @@ type="tElement"
 >row</object
 ></dt
 ><dd
->A row in a table</dd
+>A row in a table. Deprecated. Use <object
+type="tElement"
+>tr</object
+></dd
 ><dt
 ><object
 type="tElement"

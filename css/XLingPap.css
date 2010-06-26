@@ -2094,6 +2094,16 @@ proceedings
 	display:inline;
 }
 
+prose-text
+{
+	display:block;
+	margin: indented-block();
+	color: concatenate(xpath("id(@lang)/@color"));
+	font-family: concatenate("'",xpath("id(@lang)/@font-family"),"'");
+	font-size: concatenate(xpath("id(@lang)/@font-size"));
+	font-style: concatenate(xpath("id(@lang)/@font-style"));
+	font-weight: concatenate(xpath("id(@lang)/@font-weight")); 
+}
 pubDate
 {
 	display:inline;

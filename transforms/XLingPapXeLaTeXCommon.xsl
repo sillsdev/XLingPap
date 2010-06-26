@@ -9,6 +9,7 @@
         =========================================================== -->
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
+    <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
@@ -213,6 +214,22 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>-->
+    </xsl:template>
+    <!-- ===========================================================
+        PROSE TEXT
+        =========================================================== -->
+    <xsl:template match="prose-text">
+        <tex:env name="quotation">
+            <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:call-template name="OutputTypeAttributesEnd">
+                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+            </xsl:call-template>
+            <!--                    <xsl:call-template name="DoTypeEnd"/>-->
+        </tex:env>
     </xsl:template>
     <!-- ===========================================================
       LISTS
@@ -1900,7 +1917,7 @@
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
-        <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix']">
+        <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart']">
             <xsl:call-template name="OutputSectionNumber"/>
             <tex:spec cat="esc"/>
             <xsl:text>&#x20;</xsl:text>
@@ -3979,8 +3996,8 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <tex:env name="tabular">
-            <tex:opt>t</tex:opt>
+        <tex:env name="longtable">
+            <tex:opt>l</tex:opt>
             <tex:parm>
                 <xsl:text>@</xsl:text>
                 <tex:group>
@@ -4083,7 +4100,7 @@
             </xsl:choose>
         </xsl:variable>
         <tex:group>
-            <xsl:if test="//abbreviations/@usesmallcaps='yes'">
+            <xsl:if test="$abbreviations/@usesmallcaps='yes'">
                 <tex:cmd name="fontspec">
                     <tex:opt>Scale=0.65</tex:opt>
                     <tex:parm>
@@ -4119,8 +4136,14 @@
                 </tex:cmd>
                 <xsl:call-template name="HandleSmallCapsBegin"/>
             </xsl:if>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$abbreviations"/>
+            </xsl:call-template>
             <xsl:value-of select="$sAbbrTerm"/>
-            <xsl:if test="//abbreviations/@usesmallcaps='yes'">
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$abbreviations"/>
+            </xsl:call-template>
+            <xsl:if test="$abbreviations/@usesmallcaps='yes'">
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
         </tex:group>
@@ -4717,6 +4740,17 @@
                     </tex:env>
                 </tex:group>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputPartLabel
+    -->
+    <xsl:template name="OutputPartLabel">
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@partlabel">
+                <xsl:value-of select="$lingPaper/@partlabel"/>
+            </xsl:when>
+            <xsl:otherwise>Part</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  

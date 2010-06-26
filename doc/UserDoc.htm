@@ -8,8 +8,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>11 May 2010</small></center>
-      <center><small>Version: 2.11.0</small></center>
+      <center><i>SIL International</i></center><br><center><small>26 June 2010</small></center>
+      <center><small>Version: 2.12.0</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -2931,13 +2931,15 @@
          <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows you to include such texts. The form of the interlinear within the interlinear text may be the same as any of those
          described for interlinear examples (see section <a href="#sExInterlinear">5.3</a>).
       </p>
+      <p>Occasionally, such interlinear text is preceded by the same text in paragraph form.<span style="font-size:65%; vertical-align:super">[<a href="#nProseText">21</a>]</span> In such cases, use a <span style="font-family:fixed; color:maroon; ">prose-text</span> element to key the text. Set the <span style="font-family:fixed; color:purple; ">lang</span> attribute of the <span style="font-family:fixed; color:maroon; ">prose-text</span> element to the <span style="font-family:fixed; color:purple; ">id</span> attribute value of the <span style="font-family:fixed; color:maroon; ">language</span> element the text is written in. The text will then be formatted in the output per the information contained in that <span style="font-family:fixed; color:maroon; ">language</span> element.
+      </p>
       <h2 style=""><a name="sInterlinearTextFLEx">9.1&nbsp;Importing a text from <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span></a></h2>
-      <p>One possible way to include an interlinear text is to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program to interlinearize a text and then export the text in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> format.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExTextExport">21</a>]</span> One can then merely copy and paste the resulting text into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a> for more on the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program.
+      <p>One possible way to include an interlinear text is to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program to interlinearize a text and then export the text in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> format.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExTextExport">22</a>]</span> One can then merely copy and paste the resulting text into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a> for more on the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program.
       </p>
       <p>Note that if you use this option, then most of what is described in the next section has already been done for you.</p>
       <h2 style=""><a name="sInterlinearTextManually">9.2&nbsp;Entering an interlinear text by hand</a></h2>
       <p>One can also key an entire interlinear text by hand.</p>
-      <p>For example, if you key what is in <a href="#xInterlinear-TextOptionKeyed">(78)</a>,<span style="font-size:65%; vertical-align:super">[<a href="#nLifeInQSource">22</a>]</span> it will look like what is shown in <a href="#xInterlinear-TextOptionKeyedHTML">(79)</a>.
+      <p>For example, if you key what is in <a href="#xInterlinear-TextOptionKeyed">(78)</a>,<span style="font-size:65%; vertical-align:super">[<a href="#nLifeInQSource">23</a>]</span> it will look like what is shown in <a href="#xInterlinear-TextOptionKeyedHTML">(79)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -3010,7 +3012,7 @@
       </p>
       <p>If you wish to produce some special effect for any non-language data item, follow these steps.</p>
       <ol style="list-style-type:decimal; ">
-         <li>Unless you already have one, create a <span style="font-family:fixed; color:maroon; ">types</span> element as the last top-level element in the file (i.e. just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element).<span style="font-size:65%; vertical-align:super">[<a href="#nTypeAsLastElement">23</a>]</span></li>
+         <li>Unless you already have one, create a <span style="font-family:fixed; color:maroon; ">types</span> element as the last top-level element in the file (i.e. just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element).<span style="font-size:65%; vertical-align:super">[<a href="#nTypeAsLastElement">24</a>]</span></li>
          <li>Define a <span style="font-family:fixed; color:maroon; ">type</span> element within this <span style="font-family:fixed; color:maroon; ">types</span> element. Give it a unique <span style="font-family:fixed; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span> Set its attributes to perform the special effects you want.
          </li>
          <li>In your text, use an <span style="font-family:fixed; color:maroon; ">object</span> element.
@@ -3035,7 +3037,7 @@
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:fixed; color:purple; ">after</span> </span></td>
                            <td align="left" valign="top" style="padding-left:.2em"><span style="">(user control)</span></td>
-                           <td align="left" valign="top" style="padding-left:.2em"><span style="">Text that is to appear after the <span style="font-family:fixed; color:maroon; "></span> element. This is what we do here for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> object: we never have to type &#8220;XLingPap&#8221;. We just create an instance of an object whose type has the <span style="font-family:fixed; color:purple; ">after</span> attribute set to <span style="font-family:fixed; font-style:italic; color:steelblue; ">XLingPap</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nTypeBeforeAfterAsEntity">24</a>]</span></span></td>
+                           <td align="left" valign="top" style="padding-left:.2em"><span style="">Text that is to appear after the <span style="font-family:fixed; color:maroon; "></span> element. This is what we do here for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> object: we never have to type &#8220;XLingPap&#8221;. We just create an instance of an object whose type has the <span style="font-family:fixed; color:purple; ">after</span> attribute set to <span style="font-family:fixed; font-style:italic; color:steelblue; ">XLingPap</span>.<span style="font-size:65%; vertical-align:super">[<a href="#nTypeBeforeAfterAsEntity">25</a>]</span></span></td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:fixed; color:purple; ">before</span> </span></td>
@@ -3223,7 +3225,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">citation</span></dt>
          <dd>A citation to a reference</dd>
          <dt><span style="font-family:fixed; color:maroon; ">col</span></dt>
-         <dd>A column entry within a table</dd>
+         <dd>A column entry within a table. Deprecated. Use <span style="font-family:fixed; color:maroon; ">td</span></dd>
          <dt><span style="font-family:fixed; color:maroon; ">collEd</span></dt>
          <dd>Reference information for an editor of a collection of papers volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">collEdInitials</span></dt>
@@ -3302,9 +3304,9 @@
          <dt><span style="font-family:fixed; color:maroon; ">glossary</span></dt>
          <dd>A glossary section in the back matter</dd>
          <dt><span style="font-family:fixed; color:maroon; ">headerCol</span></dt>
-         <dd>A heading column within a table</dd>
+         <dd>A heading column within a table. Deprecated. Use <span style="font-family:fixed; color:maroon; ">th</span></dd>
          <dt><span style="font-family:fixed; color:maroon; ">headerRow</span></dt>
-         <dd>A heading row within a table</dd>
+         <dd>A heading row within a table. Deprecated. Use <span style="font-family:fixed; color:maroon; ">tr</span></dd>
          <dt><span style="font-family:fixed; color:maroon; ">img</span></dt>
          <dd>A simple-minded HTML <span style="font-family:fixed; color:maroon; ">img</span> element; it only includes the <span style="font-family:fixed; color:purple; ">src</span> attribute
          </dd>
@@ -3446,6 +3448,8 @@
          <dd>Reference information for the volume number of a proceedings volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">proceedings</span></dt>
          <dd>Reference information for a paper included within a conference proceedings volume</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">prose-text</span></dt>
+         <dd>Text which is in a language, but is prose, not interlinear</dd>
          <dt><span style="font-family:fixed; color:maroon; ">pubDate</span></dt>
          <dd>Reference information for the publication date of a dissertation or thesis</dd>
          <dt><span style="font-family:fixed; color:maroon; ">published</span></dt>
@@ -3471,7 +3475,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">references</span></dt>
          <dd>The references section of the back matter</dd>
          <dt><span style="font-family:fixed; color:maroon; ">row</span></dt>
-         <dd>A row in a table</dd>
+         <dd>A row in a table. Deprecated. Use <span style="font-family:fixed; color:maroon; ">tr</span></dd>
          <dt><span style="font-family:fixed; color:maroon; ">section1</span></dt>
          <dd>A level one section of the paper</dd>
          <dt><span style="font-family:fixed; color:maroon; ">section2</span></dt>
@@ -4149,7 +4153,15 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nFLExTextExport">[21]</a></td>
+            <td valign="top"><a name="nProseText">[21]</a></td>
+            <td>
+               <p>For example, some practical grammars are targeted at both native speakers of the language as well as linguists. The native
+                  speaker would prefer to read the text as prose rather than as interlinear.
+               </p>
+            </td>
+         </tr>
+         <tr>
+            <td valign="top"><a name="nFLExTextExport">[22]</a></td>
             <td>
                <p>The ability to export an interlinear text as a text (and not only as a series of examples) should be available in the October
                   2007 version. If you need it sooner, please contact <a href="mailto:andy_black@sil.org">Andy Black</a>.
@@ -4157,21 +4169,21 @@
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nLifeInQSource">[22]</a></td>
+            <td valign="top"><a name="nLifeInQSource">[23]</a></td>
             <td>
                <p>This is taken from <a href="#rRegnier">Regnier (1989)</a>.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nTypeAsLastElement">[23]</a></td>
+            <td valign="top"><a name="nTypeAsLastElement">[24]</a></td>
             <td>
                <p>Note that if you also define index terms, then this <span style="font-family:fixed; color:maroon; ">types</span> element comes just before any <span style="font-family:fixed; color:maroon; ">indexTerms</span> elements.
                </p>
             </td>
          </tr>
          <tr>
-            <td valign="top"><a name="nTypeBeforeAfterAsEntity">[24]</a></td>
+            <td valign="top"><a name="nTypeBeforeAfterAsEntity">[25]</a></td>
             <td>
                <p>This then acts rather like an XML character entity. Some XML editors (like the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>) replace XML character entities with the content of the entity.
                </p>

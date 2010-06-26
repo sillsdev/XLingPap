@@ -28,6 +28,7 @@
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
+    <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <!-- ===========================================================
       MAIN BODY
@@ -665,6 +666,23 @@
     <xsl:template match="q">"<xsl:apply-templates/>"</xsl:template>
     <xsl:template match="blockquote">
         <div style="margin-left:.5in;margin-right:.5in">
+            <xsl:call-template name="OutputCssSpecial">
+                <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    <!-- ===========================================================
+        PROSE TEXT
+        =========================================================== -->
+    <xsl:template match="prose-text">
+        <div>
+            <xsl:attribute name="style">
+                <xsl:text>margin-left:.5in;margin-right:.5in;</xsl:text>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                </xsl:call-template>
+            </xsl:attribute>
             <xsl:call-template name="OutputCssSpecial">
                 <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
             </xsl:call-template>
@@ -3045,7 +3063,7 @@
    -->
     <xsl:template name="HandleSmallCaps">
         <xsl:attribute name="style">
-            <xsl:text>font-variant:small-caps</xsl:text>
+            <xsl:text>font-variant:small-caps; </xsl:text>
         </xsl:attribute>
     </xsl:template>
     <!--
@@ -3158,8 +3176,18 @@
             </xsl:choose>
         </xsl:variable>
         <span>
-            <xsl:if test="//abbreviations/@usesmallcaps='yes'">
-                <xsl:call-template name="HandleSmallCaps"/>
+            <xsl:variable name="sFontAttributes">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$abbreviations"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:if test="$abbreviations/@usesmallcaps='yes' or string-length($sFontAttributes) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:if test="$abbreviations/@usesmallcaps='yes'">
+                        <xsl:text>font-variant:small-caps; </xsl:text>
+                    </xsl:if>
+                    <xsl:value-of select="$sFontAttributes"/>
+                </xsl:attribute>
             </xsl:if>
             <xsl:value-of select="$sAbbrTerm"/>
         </span>

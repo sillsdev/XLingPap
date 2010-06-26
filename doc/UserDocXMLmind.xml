@@ -19,9 +19,9 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->11 May 2010</date
+>26 June 2010</date
 ><version
->2.11.0</version
+>2.12.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -4010,26 +4010,47 @@ note="nInsertElementReminder"
 ><genericTarget
 id="gSmallCapsInAbbreviations"
 ></genericTarget
->If you want to have your abbreviations appear as small caps, then you need to two things:</p
+>If you want to have your abbreviations appear as small caps, then you need to do two things:</p
 ><ol
 ><li
 >Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you apply small caps to an upper case letter, it remains unchanged).</li
 ><li
->Set the <object
+>The next step depends on whether or not you have a true small caps font. <ul
+><li
+>If you have a true small caps font, set the <object
 type="tAttribute"
->usesmallcaps</object
+>font-family</object
 > attribute of the <object
 type="tElement"
 >abbreviations</object
-> element to “yes”. You can do this by clicking on “abbreviations” in the node path bar<endnoteRef
+> element to the name of that font (e.g. <object
+type="tAttrValue"
+>Charis SIL Small Caps</object
+>). You can do this by clicking on “abbreviations” in the node path bar<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > and then setting the <object
 type="tAttribute"
->usesmallcaps</object
-> attribute using the Attributes Tool.<endnoteRef
-note="nAttributesToolReminder"
+>font-variant</object
+> attribute using the Attributes Tool.</li
+><li
+>If you do not have a true small caps font, set the <object
+type="tAttribute"
+>font-variant</object
+> attribute of the <object
+type="tElement"
+>abbreviations</object
+> element to <object
+type="tAttrValue"
+>small-caps</object
+>. You can do this by clicking on “abbreviations” in the node path bar<endnoteRef
+note="nNodePathBarReminder"
 ></endnoteRef
+> and then setting the <object
+type="tAttribute"
+>font-variant</object
+> attribute using the Attributes Tool.</li
+></ul
 ></li
 ></ol
 ><p
@@ -6075,10 +6096,18 @@ id="sExInterlinearSpace"
 ><secTitle
 >Word-aligned, using a space between words</secTitle
 ><p
->The easiest way to key an interlinear example is to merely type a space between each of the words in the interlinear. You do this for both the language data itself and also for the glosses. Note, however, that if you want to emphasize or highlight some portion of the interlinear line and/or if you want to use the special abbreviation capability of <object
+>The easiest way to key an interlinear example is to merely type a space between each of the words in the interlinear. You do this for both the language data itself and also for the glosses.</p
+><p
+>Note, however, that this only works for plain text data within a single <object
+type="tElement"
+>langData</object
+> element or a single <object
+type="tElement"
+>gloss</object
+> element on each line. If you insert any other field (e.g. to emphasize or highlight some portion of the interlinear line and/or if you want to use the special abbreviation capability of <object
 type="tXLingPap"
 ></object
->,<endnote
+><endnote
 id="nSeeAbbreviations"
 ><p
 >See section <sectionRef
@@ -6086,7 +6115,7 @@ sec="sBMAbbreviations"
 ></sectionRef
 > for more on using abbreviations.</p
 ></endnote
-> then you will need to use the method outlined in section <sectionRef
+>), then you will need to use the method outlined in section <sectionRef
 sec="sExInterlinearWrd"
 ></sectionRef
 >.</p
@@ -6312,13 +6341,19 @@ id="sExInterlinearWrd"
 ><secTitle
 >Word-aligned, marking certain words or morphemes</secTitle
 ><p
->If you want the words to align, but you also want to, say, emphasize a certain word or some morpheme or if you want a gloss to show in small caps or if you want to use the abbreviation capability of <object
+>The method given in section <sectionRef
+sec="sExInterlinearSpace"
+></sectionRef
+> only works on plain text in a single field, with words separated only by spaces. If you want the words to align, but you also want to, say, emphasize a certain word or some morpheme or if you want a gloss to show in small caps or if you want to use the abbreviation capability of <object
 type="tXLingPap"
 ></object
 >,<endnoteRef
 note="nSeeAbbreviations"
 ></endnoteRef
-> then you need to use this second method for keying interlinear examples.</p
+> or even if you want to insert an <object
+type="tElement"
+>endnote</object
+> element, then you need to use this second method for keying interlinear examples.</p
 ><p
 >Note, however, that there is a special command that will let you convert interlinear created using spaces to this "wrd" format. Put the cursor at the beginning of the first line of the interlinear you want to convert and then use menu item <object
 type="tInstruction"
@@ -7278,7 +7313,7 @@ type="tElement"
 ><section3
 id="secExInterlinearContinuation"
 ><secTitle
->Handling long interlinear examples</secTitle
+>Handling wide interlinear examples</secTitle
 ><p
 >As mentioned in sections <sectionRef
 sec="sExInterlinearSpace"
@@ -7292,7 +7327,7 @@ sec="sExInterlinearMorph"
 > above, <object
 type="tXLingPap"
 ></object
-> does not automatically break lengthy interlinear examples (except for the morpheme-aligned ones when the output is a webpage). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
+> does not automatically break lengthy (i.e. wide) interlinear examples (except for the morpheme-aligned ones when the output is a webpage). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
 ><p
 >You insert these manual breaks by embedding an <object
 type="tElement"
@@ -12267,6 +12302,31 @@ type="tXLingPap"
 sec="sExInterlinear"
 ></sectionRef
 >).</p
+><p
+>Occasionally, such interlinear text is preceded by the same text in paragraph form.<endnote
+id="nProseText"
+><p
+>For example, some practical grammars are targeted at both native speakers of the language as well as linguists. The native speaker would prefer to read the text as prose rather than as interlinear.</p
+></endnote
+> In such cases, use a <object
+type="tElement"
+>prose-text</object
+> element to key the text. Set the <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>prose-text</object
+> element to the <object
+type="tAttribute"
+>id</object
+> attribute value of the <object
+type="tElement"
+>language</object
+> element the text is written in. The text will then be formatted in the output per the information contained in that <object
+type="tElement"
+>language</object
+> element.</p
 ><section2
 id="sInterlinearTextFLEx"
 ><secTitle
@@ -16789,7 +16849,10 @@ type="tElement"
 >col</object
 ></dt
 ><dd
->A column entry within a table</dd
+>A column entry within a table. Deprecated. Use <object
+type="tElement"
+>td</object
+></dd
 ><dt
 ><object
 type="tElement"
@@ -17068,14 +17131,20 @@ type="tElement"
 >headerCol</object
 ></dt
 ><dd
->A heading column within a table</dd
+>A heading column within a table. Deprecated. Use <object
+type="tElement"
+>th</object
+></dd
 ><dt
 ><object
 type="tElement"
 >headerRow</object
 ></dt
 ><dd
->A heading row within a table</dd
+>A heading row within a table. Deprecated. Use <object
+type="tElement"
+>tr</object
+></dd
 ><dt
 ><object
 type="tElement"
@@ -17263,7 +17332,7 @@ type="tElement"
 >A key term which is being defined within a <object
 type="tElement"
 >definition</object
-> element.</dd
+> element</dd
 ><dt
 ><object
 type="tElement"
@@ -17567,6 +17636,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>prose-text</object
+></dt
+><dd
+>Text which is in a language, but is prose, not interlinear</dd
+><dt
+><object
+type="tElement"
 >pubDate</object
 ></dt
 ><dd
@@ -17647,7 +17723,10 @@ type="tElement"
 >row</object
 ></dt
 ><dd
->A row in a table</dd
+>A row in a table. Deprecated. Use <object
+type="tElement"
+>tr</object
+></dd
 ><dt
 ><object
 type="tElement"
@@ -17779,10 +17858,10 @@ type="tElement"
 >td</object
 ></dt
 ><dd
->A cell in a table. This is the same as <object
+>A cell in a table. This replaces the <object
 type="tElement"
 >col</object
->, but is included for use in the <object
+> element in order to show tables well in the <object
 type="tXMLmindXMLEditor"
 ></object
 >. See section <sectionRef
@@ -17816,13 +17895,16 @@ type="tElement"
 >th</object
 ></dt
 ><dd
->A header cell in a table. This is the same as <object
+>A header cell in a table. This replaces the <object
 type="tElement"
 >headerCol</object
->, but is included for use in the <object
+> in order to show tables well in the <object
 type="tXMLmindXMLEditor"
 ></object
->. See section .</dd
+>. See section <sectionRef
+sec="sTCTTables"
+></sectionRef
+>.</dd
 ><dt
 ><object
 type="tElement"
@@ -17846,16 +17928,19 @@ type="tElement"
 >tr</object
 ></dt
 ><dd
->A row in a table. This is the same as <object
+>A row in a table. This replaces both the <object
 type="tElement"
 >headerRow</object
-> or <object
+> and the <object
 type="tElement"
 >row</object
->, but is included for use in the <object
+> elements in order to show tables well in the <object
 type="tXMLmindXMLEditor"
 ></object
->. See section .</dd
+>. See section <sectionRef
+sec="sTCTTables"
+></sectionRef
+>.</dd
 ><dt
 ><object
 type="tElement"

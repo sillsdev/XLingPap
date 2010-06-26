@@ -44,7 +44,7 @@
     <!-- 
         chapter (bookmarks) 
     -->
-    <xsl:template match="chapter" mode="bookmarks">
+    <xsl:template match="chapter | chapterBeforePart" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -113,14 +113,14 @@
     -->
     <xsl:template match="part" mode="bookmarks">
         <!--        <xsl:param name="nLevel"/>-->
-        <xsl:if test="position()=1">
+<!--        <xsl:if test="position()=1">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select=".">
-                    <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
+                    <!-\-                    <xsl:with-param name="nLevel" select="$nLevel"/>-\->
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
-        <tex:cmd name="pdfbookmark" nl2="1">
+-->        <tex:cmd name="pdfbookmark" nl2="1">
             <tex:opt>1</tex:opt>
             <tex:parm>
                 <xsl:call-template name="OutputPartLabel"/>

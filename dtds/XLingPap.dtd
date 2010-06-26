@@ -1,6 +1,6 @@
 <!-- XLingPap.dtd
      XML/XSLT-based Linguistic paper document type definition
-     Version 2.6.0
+     Version 2.12.0
      (Revision history is at the end.)
   -->
 <!-- xlingpaper top element allows for the paper/book itself, a stylesheet, and published document information to be included -->
@@ -15,7 +15,7 @@
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
     indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject">
-<!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | interlinear-text">
+<!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text">
 
 <!ENTITY % XLingPapPublisherStyleSheet SYSTEM  "XLingPapPublisherStylesheet.dtd">
 %XLingPapPublisherStyleSheet;
@@ -313,6 +313,14 @@ For when we get author contacts turned on...
 <!ELEMENT dd (#PCDATA | %embedded; | %chunk;)*>
 <!ATTLIST dd
     xml:lang CDATA #IMPLIED
+>
+<!-- prose text (i.e. text in a language, but is prose, not interlinear -->
+<!ELEMENT prose-text (p)*>
+<!ATTLIST prose-text
+    lang IDREF #REQUIRED
+    type IDREF #IMPLIED
+    xml:lang CDATA #IMPLIED
+    %special;
 >
 <!-- object is a generic way to tag a special kind of object.  The type attribute
      defines any formatting needed to show the object.

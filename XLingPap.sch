@@ -49,6 +49,23 @@
     </pattern>
     <pattern>
         <title>
+            <dir value="ltr">Check for deprecated table elements</dir>
+        </title>
+        <rule context="col">
+            <report test=".">Warning: the col element is deprecated.  Please replace it with a td element. </report>
+        </rule>
+        <rule context="headerCol">
+            <report test=".">Warning: the headerCol element is deprecated.  Please replace it with a th element. </report>
+        </rule>
+        <rule context="headerRow">
+            <report test=".">Warning: the headerRow element is deprecated.  Please replace it with a tr element. </report>
+        </rule>
+        <rule context="row">
+            <report test=".">Warning: the row element is deprecated.  Please replace it with a tr element. </report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
             <dir value="ltr">Check for inconsistent column counts</dir>
         </title>
         <rule context="table">
@@ -112,7 +129,7 @@
     </pattern>
     <pattern>
         <title>
-            <dir value="ltr">Check for poorly formed word and listWord elements</dir>
+            <dir value="ltr">Check for improperly embedded interlinears</dir>
         </title>
         <rule context="interlinear">
             <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
@@ -120,13 +137,21 @@
     </pattern>
     <pattern>
         <title>
-            <dir value="ltr">Check for embedded elemets in  line/langData or line/gloss</dir>
+            <dir value="ltr">Check for embedded elements in  line/langData or line/gloss</dir>
         </title>
         <rule context="langData">
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a langData element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
         <rule context="gloss">
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>
+        </title>
+        <rule context="abbreviations">
+            <report test="@usesmallcaps='yes'">Warning: The 'usesmallcaps' attribute is now deprecated.  Please use font-variant='small-caps' instead (or better yet, use a real, true-blue small-caps font and put its name in the font-family attribute).</report>
         </rule>
     </pattern>
 </schema>

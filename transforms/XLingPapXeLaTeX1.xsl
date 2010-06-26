@@ -561,7 +561,7 @@
             </tex:cmd>
         </xsl:if>
         <tex:cmd name="thispagestyle">
-            <tex:parm>plain</tex:parm>
+            <tex:parm>empty</tex:parm>
         </tex:cmd>
         <tex:cmd name="vspace*" nl1="1" nl2="1">
             <tex:parm>144pt</tex:parm>
@@ -994,7 +994,24 @@
                         <xsl:with-param name="type" select="parent::blockquote/@type"/>
                     </xsl:call-template>
                 </xsl:if>
+                <xsl:if test="parent::prose-text">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="key('LanguageID',parent::prose-text/@lang)"/>
+                    </xsl:call-template>
+                    <!-- want to do this in prose-text, but type kinds of things cannot cross paragraph boundaries, so have to do here -->
+                    <xsl:call-template name="DoType">
+                        <xsl:with-param name="type" select="parent::prose-text/@type"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:apply-templates/>
+                <xsl:if test="parent::prose-text">
+                    <xsl:call-template name="DoTypeEnd">
+                        <xsl:with-param name="type" select="parent::prose-text/@type"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributesEnd">
+                        <xsl:with-param name="language" select="key('LanguageID',parent::prose-text/@lang)"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:if test="parent::blockquote">
                     <xsl:call-template name="DoTypeEnd">
                         <xsl:with-param name="type" select="parent::blockquote/@type"/>
@@ -3824,17 +3841,6 @@
         <xsl:if test="substring($sString, string-length($sString))!='.'">
             <xsl:text>.</xsl:text>
         </xsl:if>
-    </xsl:template>
-    <!--
-                   OutputPartLabel
--->
-    <xsl:template name="OutputPartLabel">
-        <xsl:choose>
-            <xsl:when test="/lingPaper/@partlabel">
-                <xsl:value-of select="/lingPaper/@partlabel"/>
-            </xsl:when>
-            <xsl:otherwise>Part</xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!--
                    OutputPrefaceLabel

@@ -2,8 +2,9 @@
 <!DOCTYPE abbreviations PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <abbreviations
-usesmallcaps="yes"
-version="2.10.0"
+font-family="Charis SIL Small Caps"
+usesmallcaps="no"
+version="2.12.0"
 ><comment
 >The following was taken from the Leipzig Glossing Rules, List of Standard Abbreviations at <link
 href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"

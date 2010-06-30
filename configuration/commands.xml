@@ -1569,8 +1569,15 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="produceOpenOfficeDocument">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:command name="produceWord2003Document" parameter="'odt'"/>
+            </cfg:sequence>
+        </cfg:macro>
+        </cfg:command>
     <cfg:command name="produceWord2003Document">
-        <cfg:macro trace="false">
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter.bat&quot;"/>
@@ -1586,58 +1593,20 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>
                         </cfg:sequence>
                         <cfg:sequence>
-                            <!-- java-4_3_1 -->
-                            <cfg:command name="DeleteAndProduceWordFile"/>
+                            <cfg:choice>
+                                <cfg:sequence>
+                                    <cfg:pass>
+                                    <cfg:test expression="'%0'='odt'"/>
+                                    </cfg:pass>
+                                    <cfg:command name="DeleteAndProduceODTFile"/>
+                                </cfg:sequence>
+                                <cfg:sequence>
+                                    <cfg:command name="DeleteAndProduceWordFile"/>
+                                </cfg:sequence>
+                            </cfg:choice>
                         </cfg:sequence>
                     </cfg:choice>
                 </cfg:sequence>
-                <!--            <cfg:choice>
-                    <cfg:sequence>
-                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-                    <cfg:choice>
-                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\xfc_perso_java-4_3_2\bin\\fo2wml.bat&quot;"/>
-                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
-                    </cfg:choice>
-                    <cfg:set variable="exists" plainString="true" expression="%_"/>
-                    <!-\-                              <cfg:get expression="$exists"/>
-                    <cfg:command name="alert" parameter="New $exists = %_"/> -\->
-                    <cfg:choice>
-                    <cfg:sequence>
-                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-                    <cfg:choice>
-                    <cfg:sequence>
-                    <cfg:choice>
-                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;C:\Program Files\xfc_perso_java-4_3_1\bin\\fo2wml.bat&quot;"/>
-                    <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
-                    </cfg:choice>
-                    <cfg:set variable="exists" plainString="true" expression="%_"/>
-                    <!-\-                                          <cfg:get expression="$exists"/>
-                    <cfg:command name="alert" parameter="New $exists = %_"/> -\->
-                    <cfg:choice>
-                    <cfg:sequence>
-                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-                    <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>
-                    </cfg:sequence>
-                    <cfg:sequence>
-                    <!-\- java-4_3_1 -\->
-                    <cfg:command name="DeleteAndProduceWordFile"/>
-                    </cfg:sequence>
-                    </cfg:choice>
-                    </cfg:sequence>
-                    </cfg:choice>
-                    </cfg:sequence>
-                    <cfg:sequence>
-                    <!-\- java-4_3_2 -\->
-                    <cfg:command name="DeleteAndProduceWordFile"/>
-                    </cfg:sequence>
-                    </cfg:choice>
-                    </cfg:sequence>
-                    <cfg:sequence>
-                    <!-\- Old -\->
-                    <cfg:command name="DeleteAndProduceWordFile"/>
-                    </cfg:sequence>
-                    </cfg:choice>
-                -->            <!--</cfg:sequence>-->
                 </cfg:sequence>
         </cfg:macro>
     </cfg:command>
@@ -1654,8 +1623,21 @@ What we want is to load IE independently and to do a refresh so it will show the
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="DeleteAndProduceODTFile">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:command name="status" parameter="Deleting any Open Office file..."/>
+                <cfg:command name="DeletePDFFile" parameter="1 odt"/>
+                <cfg:command name="status" parameter="Producing the Open Office output..."/>
+                <cfg:command name="produceWord2003DocumentViaXFC" parameter="'odt'"/>
+                <cfg:command name="status" parameter="Showing the Open Office output..."/>
+                <cfg:command name="beep"/>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}%{R}.odt&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="produceWord2003DocumentViaXFC">
-        <cfg:macro>
+        <cfg:macro trace="true">
             <!--  Either do the embedded version or the canned version-->
             <cfg:choice>
                 <cfg:sequence>
@@ -1668,10 +1650,12 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] styledPaper"/>
                         </cfg:pass>
                     </cfg:choice>
-                    <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet"/>
+                    <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet" parameter="%0"/>
                 </cfg:sequence>
                 <!-- otherwise do the canned version -->
-                <cfg:command name="produceWord2003DocumentFromCannedStylesheet"/>
+                <cfg:sequence>
+                <cfg:command name="produceWord2003DocumentFromCannedStylesheet" parameter="%0"/>
+                </cfg:sequence>
             </cfg:choice>
         </cfg:macro>
     </cfg:command>
@@ -1699,8 +1683,8 @@ What we want is to load IE independently and to do a refresh so it will show the
         -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot;" platform="Windows"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot; %0" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot; %0" platform="Unix"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet">
@@ -1709,8 +1693,8 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo">
                 <cfg:parameter name="sFOProcessor">XFC</cfg:parameter>
             </cfg:transform>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot;" platform="Windows"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot; %0" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord&quot; &quot;%{P}%{S}%{R}&quot; %0" platform="Unix"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="showXLingPapUserDocumentation">
@@ -1895,6 +1879,22 @@ NB actually it associates the stylesheet with the original file, not the new han
 -->
                 <cfg:get expression="$parameter"/>
                 <cfg:command name="changeDefaultLangAttributesInTemplatesCmd" parameter="%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="ctrl"/>
+        <cfg:command name="ConvertSelectedTextToObject"/>
+    </cfg:binding>
+    <cfg:command name="ConvertSelectedTextToObject">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- if no text has been selected, we do not do anything -->
+                    <cfg:command name="convert" parameter="object"/>
+                </cfg:pass>
+                <cfg:command name="convert" parameter="object"/>
+                <cfg:command name="setType"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

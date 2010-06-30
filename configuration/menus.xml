@@ -150,7 +150,11 @@
          <cfg:accelerator code="F10"/>
       </cfg:item>
 -->
-      <cfg:separator/>
+       <cfg:item command="produceOpenOfficeDocument"
+           label="Produce Open O_ffice document">
+           <cfg:accelerator code="F10" modifiers="ctrl"/>
+       </cfg:item>
+       <cfg:separator/>
       <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">
          <cfg:accelerator code="F7" modifiers="shift"/>
       </cfg:item>
@@ -162,6 +166,9 @@
       </cfg:item>
        <cfg:item command="ConvertAnyAbbreviationsInGlossToAbbrRef" label="Convert any abbreviations in gloss to abbrRefs">
            <cfg:accelerator code="F10" modifiers="shift ctrl"/>
+       </cfg:item>
+       <cfg:item command="ConvertSelectedTextToObject" label="Convert selected text to object">
+           <cfg:accelerator code="F11" modifiers="ctrl"/>
        </cfg:item>
        <cfg:item command="ConvertSVGFileToPDF" label="Convert .svg file to .pdf">
 <!--  rarely used, so no need for keyboard shortcut          <cfg:accelerator code="F10" modifiers="shift ctrl"/>-->

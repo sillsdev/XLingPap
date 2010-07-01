@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->30 June 2010</date
+>1 July 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -185,8 +185,8 @@ type="tTool"
 term="iOpenOfficeWriter"
 ></indexedItem
 ><object
-type="tTool"
->Open Office Writer</object
+type="tOpenOfficeWriter"
+></object
 > format</li
 ></ul
 ><section3
@@ -9509,7 +9509,10 @@ sec="sFAQProduceWord"
 >).<endnote
 id="nXSLFOConverterNoFloats"
 ><p
->The reason is that the process that produces Word (and Open Office Writer) documents does not implement floats.</p
+>The reason is that the process that produces Word (and <object
+type="tOpenOfficeWriter"
+></object
+>) documents does not implement floats.</p
 ></endnote
 ></p
 ><section3
@@ -15215,11 +15218,11 @@ type="tKey"
 > key.</p
 ></endnote
 > This invokes a transform on your document and then tries to run the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool to produce a Word 2003 document file. If you have the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool installed on your computer, it will produce a file with the same name as your <object
 type="tXLingPap"
 ></object
@@ -15230,18 +15233,18 @@ type="tInTextExample"
 type="tXLingPap"
 ></object
 > document. Please note that it may take a while for the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool to complete its task.</p
 ><p
 >If you do not have the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool installed, you will see a message saying that apparently you do not have this tool installed on your machine.</p
 ><p
 >To obtain the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 >, you can download a personal edition from <link
 href="http://www.xmlmind.com/foconverter/downloadperso.shtml"
 >http://www.xmlmind.com/foconverter/downloadperso.shtml</link
@@ -15353,8 +15356,8 @@ type="tXLingPap"
 id="nXFCNoFontMetics"
 ><p
 >The reason is that the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool does not pay attention to font metric information.</p
 ></endnote
 > This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by downloading <link
@@ -15366,8 +15369,8 @@ href="http://xlingpap.googlecode.com/files/XLingPaperToWord2003Adjust.doc"
 id="nXFCWidowOrphan"
 ><p
 >Apparently the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool does not pay attention to the widow and orphan control information included in the XSL-FO output it processes.</p
 ></endnote
 > You will have to correct these by hand.</p
@@ -15378,11 +15381,11 @@ type="tTool"
 type="tTool"
 >Microsoft Word 2003</object
 > file, unless you are using version 4.4.0 or higher of the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 >. This version handles more kinds of graphic image files.</p
 ><p
->If you output a table of contents, the page numbers will initially come out as zero. The latest version of the macro attempts to fix this as well.  If the page numbers are still not correct, while viewing the Word document in Word, select the table of contents and then press the <object
+>If you output a table of contents, the page numbers will initially come out as zero. The latest version of the macro attempts to fix this as well. If the page numbers are still not correct, while viewing the Word document in Word, select the table of contents and then press the <object
 type="tKey"
 >F9</object
 > key. It should then show the correct page numbers.</p
@@ -15408,8 +15411,8 @@ sec="sIntroUsing"
 type="tXMLmindXMLEditor"
 > </object
 > to produce a file in <object
-type="tTool"
->Open Office Writer</object
+type="tOpenOfficeWriter"
+></object
 > format for your document. How does one do that?</p
 ><p
 >Use the menu items <object
@@ -15427,11 +15430,14 @@ type="tKey"
 > key at the same time.</p
 ></endnote
 > This invokes a transform on your document and then tries to run the <object
-type="tTool"
->XMLmind FO Converter</object
-> tool to produce an Open Office Writer document file. If you have the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
+> tool to produce an <object
+type="tOpenOfficeWriter"
+></object
+> document file. If you have the <object
+type="tXMLmindXSLUtility"
+></object
 > tool installed on your computer, it will produce a file with the same name as your <object
 type="tXLingPap"
 ></object
@@ -15442,18 +15448,18 @@ type="tInTextExample"
 type="tXLingPap"
 ></object
 > document. Please note that it may take a while for the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool to complete its task.</p
 ><p
 >If you do not have the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 > tool installed, you will see a message saying that apparently you do not have this tool installed on your machine.</p
 ><p
 >To obtain the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 >, see the instructions in section <sectionRef
 sec="sFAQProduceWord"
 ></sectionRef
@@ -15466,7 +15472,10 @@ type="tXLingPap"
 ><p
 >By the way, you can also invoke this tool by itself and use it to convert to some other formats, too. You will need to use the .fo version of your file (that this process also produces) as your input file. Then you will need to select the output format you wish. Ones that you will most likely want to use are to map from FO to .docx or .rtf.</p
 ><p
->Please note that this process of producing an Open Office Writer document is not as mature and stable as the process to produce a webpage or PDF is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<endnoteRef
+>Please note that this process of producing an <object
+type="tOpenOfficeWriter"
+></object
+> document is not as mature and stable as the process to produce a webpage or PDF is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<endnoteRef
 note="nXFCNoFontMetics"
 ></endnoteRef
 > This includes many example elements. There is an Open Office Extension package I have written to help with this. The macro attempts to apply the "auto-fit" table capability to all the tables in the document. You can obtain the macro by performing these steps:</p
@@ -15495,18 +15504,18 @@ type="tTool"
 > and restart it.</li
 ><li
 >Now in <object
-type="tTool"
->Open Office Writer</object
->,  there will be an <object
+type="tOpenOfficeWriter"
+></object
+>, there will be an <object
 type="tXLingPap"
 ></object
 > tool bar and also an <object
 type="tXLingPap"
 ></object
-> menu item.  You can use these to invoke the macro.</li
+> menu item. You can use these to invoke the macro.</li
 ></ol
 ><p
->Note that the macro does always not work for each and every example/table.  Sometimes when there is a list interlinear, the widest one will not get reformatted.  You have to manually adjust the width of the table and then apply the macro again.</p
+>Note that the macro does always not work for each and every example/table. Sometimes when there is a list interlinear, the widest one will not get reformatted. You have to manually adjust the width of the table and then apply the macro again.</p
 ><p
 >Another known problem is that tables and interlinear examples may be split across page boundaries.<endnoteRef
 note="nXFCWidowOrphan"
@@ -15516,11 +15525,11 @@ note="nXFCWidowOrphan"
 >Another known problem is that it does not handle tables and examples in footnotes and, from what I can tell, they do not plan to add this capability.</p
 ><p
 >Another known problem is that .bmp files do not come out in the resulting <object
-type="tTool"
->Open Office Writer</object
+type="tOpenOfficeWriter"
+></object
 > file, unless you are using version 4.4.0 or higher of the <object
-type="tTool"
->XMLmind FO Converter</object
+type="tXMLmindXSLUtility"
+></object
 >. This version handles more kinds of graphic image files.</p
 ><p
 >If you output a table of contents, the page numbers will initially come out as zero. The macro will attempt to fix this as well.</p
@@ -19570,6 +19579,11 @@ font-weight="bold"
 id="tKeyTerm"
 ></type
 ><type
+after="Open Office Writer"
+id="tOpenOfficeWriter"
+types="tTool"
+></type
+><type
 after="RenderX XEP"
 id="tRenderX"
 types="tTool"
@@ -19608,6 +19622,11 @@ types="tTool"
 ><type
 after="XMLmind XML Editor"
 id="tXMLmindXMLEditor"
+types="tTool"
+></type
+><type
+after="XMLmind XSL Utility"
+id="tXMLmindXSLUtility"
 types="tTool"
 ></type
 ></types

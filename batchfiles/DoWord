@@ -1,5 +1,12 @@
-#!/bin/sh
-/usr/local/bin/xslutil/bin/xslutil foToWML "$1.fo" "$1.doc"
+#!/bin/bash
+if [ "$2" == "odt" ]; then
+  FOTO=foToODT
+  EXTENSION=odt
+else
+  FOTO=foToWML
+  EXTENSION=doc
+fi
+/usr/local/bin/xslutil/bin/xslutil $FOTO "$1.fo" "$1.$EXTENSION"
 exit 0
 
 

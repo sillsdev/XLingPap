@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-06-30</a:date
+>2010-07-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.12.0_1 30 June 2010<ul
+>2.12.0_1 2 July 2010<ul
 ><li
 >Add command to convert selected text into an object element. It uses a keyboard short-cut of Ctrl-F11.</li
 ><li
 >Add command to produce Open Office Writer format.</li
+><li
+>RenderX way of producing PDF: make books also have bookmarks in the PDF.</li
 ></ul
 ></li
 ><li

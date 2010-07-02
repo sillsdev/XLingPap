@@ -41,7 +41,17 @@
         chapter (bookmarks) 
     -->
    <xsl:template match="chapter | chapterBeforePart" mode="bookmarks">
-      <xsl:call-template name="OutputBookmark">
+
+       <fo:bookmark internal-destination="{@id}">
+           <fo:bookmark-title>
+               <xsl:call-template name="OutputChapterNumber"/>
+               <xsl:text>&#xa0;</xsl:text>
+               <xsl:apply-templates select="secTitle"/>
+           </fo:bookmark-title>
+           <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>
+       </fo:bookmark>
+       
+<!--       <xsl:call-template name="OutputBookmark">
          <xsl:with-param name="sLink" select="@id"/>
          <xsl:with-param name="sLabel">
             <xsl:call-template name="OutputChapterNumber"/>
@@ -50,7 +60,7 @@
          </xsl:with-param>
       </xsl:call-template>
       <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>
-      
+-->      
    </xsl:template>
    <!--
       contents (bookmarks)
@@ -112,21 +122,21 @@
       <!--        <xsl:param name="nLevel"/>-->
       <xsl:if test="position()=1">
          <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
-            <xsl:apply-templates select=".">
+            <xsl:apply-templates select="." mode="bookmarks">
                <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
             </xsl:apply-templates>
          </xsl:for-each>
       </xsl:if>
-      <fo:bookmark internal-destination="{@id}">
-      <fo:blockmark-title>
+       <fo:bookmark internal-destination="{@id}" starting-state="show">
+      <fo:bookmark-title>
             <xsl:call-template name="OutputPartLabel"/>
             <xsl:text>&#x20;</xsl:text>
             <xsl:apply-templates select="." mode="numberPart"/>
             <xsl:text>&#xa0;</xsl:text>
             <xsl:apply-templates select="secTitle"/>
-         </fo:blockmark-title>
+         </fo:bookmark-title>
       </fo:bookmark>
-         <xsl:apply-templates mode="bookmarks">
+       <xsl:apply-templates select="child::node()[name()!='secTitle']" mode="bookmarks">
             <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
          </xsl:apply-templates>
    </xsl:template>

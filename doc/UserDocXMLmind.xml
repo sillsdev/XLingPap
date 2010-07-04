@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->1 July 2010</date
+>2 July 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -6080,6 +6080,10 @@ id="sExInterlinear"
 ><secTitle
 >Interlinear examples</secTitle
 ><p
+><indexedRangeBegin
+id="bInterlinearExamples"
+term="iInterlinearExample"
+></indexedRangeBegin
 >Interlinear examples consist of several lines of aligned text, usually along with one or more lines of an unaligned free translation. Like word and line examples, there are two varieties of interlinear: single and list. In addition, a given interlinear example may be created in one of three ways. Any one of these three may be included in a single interlinear or in any interlinear example included in a list of interlinear examples. These three ways are described in sections <sectionRef
 sec="sExInterlinearSpace"
 ></sectionRef
@@ -6349,6 +6353,12 @@ id="sExInterlinearWrd"
 ><secTitle
 >Word-aligned, marking certain words or morphemes</secTitle
 ><p
+><indexedItem
+term="iInterlinearGloss"
+></indexedItem
+><indexedItem
+term="iInterlinearGloss"
+></indexedItem
 >The method given in section <sectionRef
 sec="sExInterlinearSpace"
 ></sectionRef
@@ -6363,6 +6373,9 @@ type="tElement"
 >endnote</object
 > element, then you need to use this second method for keying interlinear examples.</p
 ><p
+><indexedItem
+term="iConvertToWrd"
+></indexedItem
 >Note, however, that there is a special command that will let you convert interlinear created using spaces to this "wrd" format. Put the cursor at the beginning of the first line of the interlinear you want to convert and then use menu item <object
 type="tInstruction"
 >XLingPaper / <object
@@ -6899,6 +6912,9 @@ id="secExInterlinearList"
 ><secTitle
 >List of interlinear examples</secTitle
 ><p
+><indexedItem
+term="iInterlinearList"
+></indexedItem
 >Besides single interlinear examples, one may also produce a list of interlinear examples. Such a list consists of individual interlinear examples. The key difference between just a single interlinear example and a list of interlinear examples is that the latter are indented and each interlinear unit is prefixed by an alphabetic letter. You may use any of the three kinds of interlinear examples shown in sections <sectionRef
 sec="sExInterlinearSpace"
 ></sectionRef
@@ -7808,6 +7824,9 @@ type="tElement"
 >The default result is to have the source appear to the right at the end of the first line. The transforms that produce the result can optionally be told to put the source information either after the free translation or on a line after the free translation.<endnoteRef
 note="nLocationOfInterlinearSource"
 ></endnoteRef
+><indexedRangeEnd
+begin="bInterlinearExamples"
+></indexedRangeEnd
 ></li
 ></ul
 ><p
@@ -12306,6 +12325,10 @@ id="sInterlinearText"
 ><secTitle
 >Interlinear Text</secTitle
 ><p
+><indexedRangeBegin
+id="bInterlinearText"
+term="iInterlinearText"
+></indexedRangeBegin
 >Some linguistic papers and books include one or more complete interlinear glossed texts, often in one or more appendices. <object
 type="tXLingPap"
 ></object
@@ -12346,6 +12369,9 @@ type="tTool"
 >SIL FieldWorks Language Explorer</object
 ></secTitle
 ><p
+><indexedItem
+term="iFLEx"
+></indexedItem
 >One possible way to include an interlinear text is to use the <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
@@ -12684,7 +12710,10 @@ lang="lEng"
 >If this is set to <object
 type="tAttrValue"
 >yes</object
->, then only the line number will appear, not the text name and the colon.</langData
+>, then only the line number will appear, not the text name and the colon.<indexedRangeEnd
+begin="bInterlinearText"
+></indexedRangeEnd
+></langData
 ></td
 ></tr
 ></table
@@ -13633,6 +13662,9 @@ id="sFAQColor"
 ><secTitle
 >Make some text come out in color?</secTitle
 ><p
+><indexedItem
+term="iColor"
+></indexedItem
 >If it is language data that you want to always show in a particular color, then set the <object
 type="tAttribute"
 >color</object
@@ -13677,6 +13709,12 @@ id="sFAQFontSize"
 ><secTitle
 >Set a font size so it works in titles and endnotes as well as other places?</secTitle
 ><p
+><indexedItem
+term="iLangDataFontSize"
+></indexedItem
+><indexedItem
+term="iFontSize"
+></indexedItem
 >If you have, say, language data that you need to use a large font size for (as often happens with non-roman fonts), if you use a font size set to a particular point size (e.g. 24pt), then your data will always have that size wherever it occurs. This can be problematic for text within elements like <object
 type="tElement"
 >secTitle</object
@@ -13707,6 +13745,15 @@ type="tFont"
 >Doulos SIL</object
 > to work well?</secTitle
 ><p
+><indexedItem
+term="iCharisSILFont"
+></indexedItem
+><indexedItem
+term="iDoulosSILFont"
+></indexedItem
+><indexedItem
+term="iCharisSILFormatProblems"
+></indexedItem
 >If you, like many of us, use the <object
 type="tFont"
 >Charis SIL</object
@@ -13817,6 +13864,12 @@ id="sFAQGrammaticalGloss"
 ><secTitle
 >Use small caps for grammatical glosses?</secTitle
 ><p
+><indexedItem
+term="iAbbreviaitonSmallCaps"
+></indexedItem
+><indexedItem
+term="iSmallCaps"
+></indexedItem
 >Many authors prefer to use small caps for “grammatical” glosses (e.g. inflectional affix glosses). How does one do this?</p
 ><p
 >One can select the portion of a gloss that is the “grammatical gloss” and then press <object
@@ -13856,13 +13909,22 @@ type="tElement"
 ><p
 >As always when using small caps, remember that only lower case letters come out as small caps. Upper case letters will remain capitalized.</p
 ><p
->Another thing to remember is that the packages that produce PDF output are typesetting packages and typesetters consider small caps to be distinct fonts. Many of us are used to how programs like Microsoft Word and Internet Explorer will approximate small caps for us. The typesetting tools used to produce PDF versions of a <object
+>Another thing to remember is that the packages that produce PDF output are typesetting packages and typesetters consider small caps to be distinct fonts. Many of us are used to how programs like <object
+type="tTool"
+>Microsoft Word</object
+> and <object
+type="tTool"
+>Internet Explorer</object
+> will approximate small caps for us. The typesetting tools used to produce PDF versions of a <object
 type="tXLingPap"
 ></object
 > document, however, will only produce true small caps when you have a real small caps font. If you do not have a true small caps font, then <object
 type="tXLingPap"
 ></object
-> will attempt to approximate small caps for you. Be aware, however, that this approximation will not be of the same quality as a true small caps font. If you are using Charis SIL fonts, it is possible to create true small caps versions of these.<endnote
+> will attempt to approximate small caps for you. Be aware, however, that this approximation will not be of the same quality as a true small caps font. <indexedItem
+term="iCharisSILSmallCaps"
+></indexedItem
+>If you are using Charis SIL fonts, it is possible to create true small caps versions of these.<endnote
 id="nCharisSILSmallCaps"
 ><p
 >See <link
@@ -13870,13 +13932,19 @@ href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=Compl
 >http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=ComplexRomanFontFAQ#1d1d13ef</link
 > for more on how to do this. (This link was valid on July 10, 2009.)</p
 ></endnote
-></p
+>  There is also a set of Charis SIL Small Caps fonts at <link
+href="http://code.google.com/p/xlingpap/downloads/list"
+>http://code.google.com/p/xlingpap/downloads/list</link
+>.</p
 ></section2
 ><section2
 id="sFAQListOfAbbreviations"
 ><secTitle
 >Make a List of Abbreviations?</secTitle
 ><p
+><indexedItem
+term="iAbbreviationsList"
+></indexedItem
 >While <object
 type="tXLingPap"
 ></object
@@ -13914,7 +13982,18 @@ id="sFAQReferences"
 ><secTitle
 >Maintain a master list of references?</secTitle
 ><p
->To create a master list of references, use the <object
+><indexedItem
+term="iReferenceMasterList"
+></indexedItem
+>To create a master list of references,<endnote
+id="nMasterList"
+><p
+><indexedItem
+term="iAbbreviationsMasterList"
+></indexedItem
+>To create a master list of abbreviations or other items is similar.</p
+></endnote
+> use the <object
 type="tInstruction"
 >File / New</object
 > menu item. Find the XLingPaper section and select “References (part of a modular document)”.</p
@@ -14003,6 +14082,12 @@ id="sFAQFind"
 ><secTitle
 >Find text in a document?</secTitle
 ><p
+><indexedItem
+term="iFind"
+></indexedItem
+><indexedItem
+term="iSearchTool"
+></indexedItem
 >To find text in a document, use the Search Tool. It is located in the same place that the Attributes Tool is,<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
@@ -14528,8 +14613,10 @@ type="tXeTeX"
 ></object
 > to produce PDF</secTitle
 ><p
->Note: This has not yet been implemented on computers running Unix or Mac. It does work on computers running Windows.</p
-><p
+><indexedRangeBegin
+id="bXeTeX"
+term="iXeTexPDF"
+></indexedRangeBegin
 >The first way to produce PDF (and the way that I plan to become the normal way<endnote
 id="nXeTeXNormalPDFNotRenderX"
 ><p
@@ -14869,7 +14956,10 @@ type="tXLingPap"
 > configuration installation package, please do so. See section <sectionRef
 sec="sIntroUsingXLingPapConfig"
 ></sectionRef
->.</p
+>.<indexedRangeEnd
+begin="bXeTeX"
+></indexedRangeEnd
+></p
 ></section4
 ></section3
 ><section3
@@ -14880,6 +14970,10 @@ type="tRenderX"
 ></object
 > to produce PDF</secTitle
 ><p
+><indexedRangeBegin
+id="bRenderX"
+term="iRenderXPDF"
+></indexedRangeBegin
 >The second way to produce PDF is to use the menu item <object
 type="tInstruction"
 >XLingPaper / Produce PDF (RenderX) Ctrl+Shift+F9</object
@@ -15181,7 +15275,10 @@ type="tInstruction"
 ><li
 >Save the xep.xml file.</li
 ><li
->You're done (whew!)</li
+>You're done (whew!)<indexedRangeEnd
+begin="bRenderX"
+></indexedRangeEnd
+></li
 ></ol
 ></section4
 ></section3
@@ -15544,6 +15641,9 @@ id="sFAQInsertSection2WhleInSection3"
 ><secTitle
 >Insert a section level 2 while in a section level 3?</secTitle
 ><p
+><indexedItem
+term="iSectionInsertHigherLevel"
+></indexedItem
 >A very common issue people run into while using <object
 type="tXLingPap"
 ></object
@@ -15794,6 +15894,15 @@ id="sFAQPromoteDemote"
 ><secTitle
 >Change a section level?</secTitle
 ><p
+><indexedItem
+term="iSectionDemoting"
+></indexedItem
+><indexedItem
+term="iSectionPromoting"
+></indexedItem
+><indexedItem
+term="iSectionChangeLevel"
+></indexedItem
 >Sometimes while writing, one realizes that the material that at first seemed like it should be a <object
 type="tElement"
 >section2</object
@@ -15992,6 +16101,9 @@ id="sFAQConvertTextToSubsection"
 ><secTitle
 >Convert text and other material into a sub-section?</secTitle
 ><p
+><indexedItem
+term="iSectionConvertTextToSubSection"
+></indexedItem
 >Sometimes while writing, one realizes that the paragraphs, examples, etc. one has just written should really be put into a sub-section. For example, one might be working in a <object
 type="tElement"
 >section2</object
@@ -16138,6 +16250,9 @@ id="sFAQAssociatePublisherStyleSheet"
 ><secTitle
 >Associate a publisher style sheet to my document</secTitle
 ><p
+><indexedItem
+term="iPublisherStyleSheetAssociate"
+></indexedItem
 >Sections <sectionRef
 sec="sFAQProducePDF"
 ></sectionRef
@@ -16240,6 +16355,9 @@ id="sFAQRemoveAssociatedPublisherStyleSheet"
 ><secTitle
 >Remove an associated publisher style sheet from my document</secTitle
 ><p
+><indexedItem
+term="iPublisherStyleSheetRemove"
+></indexedItem
 >If you have associated a publisher style sheet with your document (see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
@@ -19469,6 +19587,8 @@ id="rRegnier"
 ></refWork
 ></refAuthor
 ></references
+><index
+></index
 ></backMatter
 ><languages
 ><language
@@ -19637,6 +19757,23 @@ id="iAbbreviation"
 see="iIDPrefix"
 ><term
 >Abbreviation</term
+><indexTerms
+><indexTerm
+id="iAbbreviationsList"
+><term
+>Make a list in front or back matter</term
+></indexTerm
+><indexTerm
+id="iAbbreviationsMasterList"
+><term
+>Make a master list </term
+></indexTerm
+><indexTerm
+id="iAbbreviaitonSmallCaps"
+><term
+>Small caps and</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iAbstract"
@@ -19730,6 +19867,23 @@ id="iCharactersTool"
 >Characters Tool</term
 ></indexTerm
 ><indexTerm
+id="iCharisSILFont"
+><term
+>Charis SIL font</term
+><indexTerms
+><indexTerm
+id="iCharisSILFormatProblems"
+><term
+>Formatting problems with</term
+></indexTerm
+><indexTerm
+id="iCharisSILSmallCaps"
+><term
+>Small caps font</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iChunkElements"
 ><term
 >Chunk elements</term
@@ -19779,6 +19933,11 @@ id="iDateOfCitedWork"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iDoulosSILFont"
+><term
+>Doulos SIL font</term
+></indexTerm
+><indexTerm
 id="iEditTool"
 ><term
 >Edit Tool</term
@@ -19820,6 +19979,11 @@ see="iSearchTool"
 >Find Text</term
 ></indexTerm
 ><indexTerm
+id="iFLEx"
+><term
+>FieldWorks Language Explorer</term
+></indexTerm
+><indexTerm
 id="iFont"
 ><term
 >Font</term
@@ -19840,6 +20004,11 @@ see="iItalic"
 id="iFontLanguage"
 ><term
 >Language</term
+></indexTerm
+><indexTerm
+id="iFontSize"
+><term
+>Size</term
 ></indexTerm
 ><indexTerm
 id="iFontSubscript"
@@ -19933,9 +20102,68 @@ id="iInsertInsert"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iInterlinear"
+><term
+>Interlinear</term
+><indexTerms
+><indexTerm
+id="iConvertToWrd"
+><term
+>Convert plain text to <object
+type="tElement"
+>wrd</object
+> elements</term
+></indexTerm
+><indexTerm
+id="iInterlinearExample"
+><term
+>Examples</term
+><indexTerms
+><indexTerm
+id="iInterlinearList"
+><term
+>List of interlinear</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iInterlinearGloss"
+><term
+>Gloss in</term
+></indexTerm
+><indexTerm
+id="iInterlinearObject"
+><term
+>Object in</term
+></indexTerm
+><indexTerm
+id="iInterlinearText"
+><term
+>Text</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iItalic"
 ><term
 >Italic</term
+></indexTerm
+><indexTerm
+id="iLangData"
+><term
+>langData</term
+><indexTerms
+><indexTerm
+id="iLangDataFontSize"
+><term
+>Font size</term
+></indexTerm
+><indexTerm
+id="iLangDataShowFont"
+><term
+>Show font in editor</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iLanguage"
@@ -19967,7 +20195,10 @@ id="iNewDocument"
 ><indexTerm
 id="iOpenOfficeWriter"
 ><term
->Open Office Writer format</term
+><object
+type="tOpenOfficeWriter"
+></object
+> format</term
 ></indexTerm
 ><indexTerm
 id="iOpenSection"
@@ -19984,6 +20215,24 @@ id="iPart"
 id="iPDF"
 ><term
 >PDF output</term
+><indexTerms
+><indexTerm
+id="iRenderXPDF"
+><term
+><object
+type="tRenderX"
+></object
+> way</term
+></indexTerm
+><indexTerm
+id="iXeTexPDF"
+><term
+><object
+type="tXeTeX"
+></object
+> way</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPreface"
@@ -19996,6 +20245,29 @@ id="iPresentedAt"
 >Presented at</term
 ></indexTerm
 ><indexTerm
+id="iPublisherStyleSheet"
+><term
+>Publisher style sheet</term
+><indexTerms
+><indexTerm
+id="iPublisherStyleSheetAssociate"
+><term
+>Associate a publisher style sheet</term
+></indexTerm
+><indexTerm
+id="iPublisherStyleSheetRemove"
+><term
+>Remove a publisher style sheet</term
+></indexTerm
+><indexTerm
+id="iPublisherStyleSheetUnassociate"
+see="iPublisherStyleSheetRemove"
+><term
+>Unassociate a publisher style sheet</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iReference"
 ><term
 >Reference</term
@@ -20004,6 +20276,11 @@ id="iReference"
 id="iReftoAppendix"
 ><term
 >to appendix</term
+></indexTerm
+><indexTerm
+id="iReferenceMasterList"
+><term
+>make a master list</term
 ></indexTerm
 ><indexTerm
 id="iRefToEndnote"
@@ -20062,6 +20339,38 @@ id="iSectionExample"
 >Example</term
 ></indexTerm
 ><indexTerm
+id="iSectionChanging"
+><term
+>Changing</term
+><indexTerms
+><indexTerm
+id="iSectionConvertTextToSubSection"
+><term
+>Convert text to a sub-section</term
+></indexTerm
+><indexTerm
+id="iSectionDemoting"
+><term
+>Demoting a section</term
+></indexTerm
+><indexTerm
+id="iSectionPromoting"
+><term
+>Promoting a section</term
+></indexTerm
+><indexTerm
+id="iSectionChangeLevel"
+><term
+>Section level</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iSectionInsertHigherLevel"
+><term
+>Insert a section a at higher level than current section level</term
+></indexTerm
+><indexTerm
 id="iSectionLevels"
 ><term
 >Levels</term
@@ -20080,9 +20389,20 @@ see="iTitleSection"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iSmallCaps"
+><term
+>Small caps</term
+></indexTerm
+><indexTerm
 id="iSpellingTool"
 ><term
 >Spelling Tool</term
+></indexTerm
+><indexTerm
+id="iStyleSheet"
+see="iPublisherStyleSheet"
+><term
+>Style sheet</term
 ></indexTerm
 ><indexTerm
 id="iSubscript"

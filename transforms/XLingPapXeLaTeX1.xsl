@@ -61,6 +61,7 @@
     <xsl:variable name="sExampleIndentAfter" select="'0pt'"/>
     <xsl:variable name="lineSpacing" select="/nothere"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
+    <xsl:variable name="sXLingPaperAbbreviation" select="'XLingPaperAbbreviation'"/>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->
@@ -3059,7 +3060,17 @@
         <tex:spec cat="esc"/>
         <xsl:call-template name="FontFamilyNameToUse">
             <xsl:with-param name="language" select="$language"/>
-            <xsl:with-param name="id" select="$language/@id"/>
+            <xsl:with-param name="id">
+                <xsl:choose>
+                    <xsl:when test="name($language)='abbreviations'">
+                        <xsl:value-of select="$sXLingPaperAbbreviation"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$language/@id"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
+            </xsl:with-param>
         </xsl:call-template>
         <tex:spec cat="bg"/>
     </xsl:template>
@@ -4179,6 +4190,17 @@
             <xsl:with-param name="sFontFamilyName" select="'SectionLevelSixFontFamily'"/>
             <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
         </xsl:call-template>
+        <xsl:if test="$abbreviations and string-length($abbreviations/@font-family) &gt; 0">
+            <xsl:call-template name="DefineAFontFamily">
+                <xsl:with-param name="sFontFamilyName">
+                    <xsl:text>Lang</xsl:text>
+                    <xsl:value-of select="$sXLingPaperAbbreviation"/>
+                    <xsl:text>FontFamily</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="sBaseFontName" select="$abbreviations/@font-family"/>
+            </xsl:call-template>
+            
+        </xsl:if>
         <xsl:call-template name="DefineLangaugeAndTypeFonts"/>
     </xsl:template>
     <!--  

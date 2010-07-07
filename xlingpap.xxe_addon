@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-07-04</a:date
+>2010-07-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.12.0_1 4 July 2010<ul
+>2.12.0_1 7 July 2010<ul
 ><li
 >Add command to convert selected text into an object element. It uses a keyboard short-cut of Ctrl-F11.</li
 ><li
@@ -41,6 +41,10 @@ href="mailto::andy_black@sil.org"
 >RenderX way of producing PDF: make books also have bookmarks in the PDF.</li
 ><li
 >XeLaTeX way of producing PDF: fix bug which caused default way of producing PDF fail to produce PDF if a font-family was used in the abbreviations element.</li
+><li
+>A section2 element within a chapterBeforePart element would not correctly display the chapter number.</li
+><li
+>Made inserting a chapterBeforePart element include the secTitle and p elements automatically.</li
 ></ul
 ></li
 ><li

@@ -21,7 +21,13 @@ part, chapter, sections, appendix
          <p/>
       </chapter>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="p" selectable="override">
+    <cfg:elementTemplate name="p" selectable="override">
+        <chapterBeforePart id="c" xmlns="">
+            <secTitle/>
+            <p/>
+        </chapterBeforePart>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="p" selectable="override">
       <part id="p" xmlns="">
          <secTitle/>
          <p/>

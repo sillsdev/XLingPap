@@ -2389,7 +2389,7 @@ appendix > section2:before
 	background-color:appendix-background-color();
 
 }
-chapterBeforePart section2:before
+chapterBeforePart section1 section2:before
 {
 	property-group: chapterBeforePartSectionBefore( nn );
 }

@@ -1357,7 +1357,10 @@
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
         <xsl:apply-templates/>
-        <xsl:call-template name="DoEmbeddedBrEnd">
+<!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
+            <xsl:text>&#xa0;</xsl:text>  Not sure why we have this 2010.07.10; it's not there for td's
+        </xsl:if>
+-->        <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
         <xsl:call-template name="DoTypeEnd"/>
@@ -1368,7 +1371,6 @@
         <xsl:call-template name="DoCellAttributesEnd"/>
         <tex:spec cat="eg"/>
         <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
-            <xsl:text>&#xa0;</xsl:text>
             <tex:spec cat="align"/>
         </xsl:if>
     </xsl:template>

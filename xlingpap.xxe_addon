@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-07-10</a:date
+>2010-07-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.12.0_1 10 July 2010<ul
+>2.12.0_1 26 July 2010<ul
 ><li
 >Add command to convert selected text into an object element. It uses a keyboard short-cut of Ctrl-F11.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug which caused default way of producing PDF fail to produce PDF if a font-family was used in the abbreviations element.</li
 ><li
 >Fix bug which caused background color in table headers to be shorter than in table cells.</li
+><li
+>Fix bug which caused the PDF to fail if a publisher style sheet used the "After First Line" option for Interlinear source style.</li
 ></ul
 ></li
 ><li

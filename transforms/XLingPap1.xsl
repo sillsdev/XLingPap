@@ -2507,18 +2507,28 @@
       IMG
       =========================================================== -->
     <xsl:template match="img">
-        <xsl:element name="img">
-            <xsl:call-template name="OutputCssSpecial"/>
-            <xsl:attribute name="src">
-                <xsl:value-of select="@src"/>
-            </xsl:attribute>
-            <xsl:if test="@description">
-                <xsl:attribute name="alt">
-                    <xsl:value-of select="@description"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:value-of select="."/>
-        </xsl:element>
+        <xsl:variable name="sSrc" select="normalize-space(@src)"/>
+        <xsl:choose>
+            <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.svg'">
+                <embed src="{$sSrc}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
+                    <xsl:call-template name="OutputCssSpecial"/>
+                </embed>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:element name="img">
+                    <xsl:call-template name="OutputCssSpecial"/>
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="@src"/>
+                    </xsl:attribute>
+                    <xsl:if test="@description">
+                        <xsl:attribute name="alt">
+                            <xsl:value-of select="@description"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="."/>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       INTERLINEAR TEXT

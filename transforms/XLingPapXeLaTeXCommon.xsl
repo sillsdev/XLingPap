@@ -1767,7 +1767,15 @@
                 <xsl:if test="not(ancestor::example)">
                     <tex:cmd name="par"/>
                 </xsl:if>
-                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
+<!--                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:variable name="bPDFExists" select="document($sPDFFile)"/>
+                <xsl:choose>
+                    <xsl:when test="$bPDFExists">SPLAT!!!</xsl:when>
+                    <xsl:otherwise>
+                        
+                    </xsl:otherwise>
+                </xsl:choose>
+-->                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
                     <xsl:with-param name="sMessage">
                         <xsl:text>We're sorry, but the graphic file </xsl:text>
                         <xsl:value-of select="$sImgFile"/>
@@ -1781,12 +1789,36 @@
                     </xsl:with-param>
                 </xsl:call-template>
                 <tex:cmd name="par" gr="0" nl2="1"/>
+                
             </xsl:when>
             <xsl:when test="$sExtension='.pdf'">
-                <xsl:call-template name="DoImageFile">
-                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
-                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="ancestor::example">
+                        <tex:cmd name="parbox">
+                            <tex:opt>t</tex:opt>
+                            <tex:parm>
+                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$sBlockQuoteIndent"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$iExampleWidth"/>
+                                <xsl:text>em</xsl:text>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="DoImageFile">
+                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
+                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoImageFile">
+                            <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
+                            <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -3078,7 +3110,7 @@
         <xsl:choose>
             <xsl:when test="$sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>
-                    <xsl:when test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or string-length(normalize-space(descendant-or-self::interlinearSource)) &gt; 0">
+                    <xsl:when test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or string-length(normalize-space(following-sibling::interlinearSource)) &gt; 0">
                         <!-- we have an extra column so include it -->
                         <xsl:value-of select="$iColCount + 1"/>
                     </xsl:when>

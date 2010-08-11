@@ -176,15 +176,15 @@ For when we get author contacts turned on...
 <!ATTLIST version
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT acknowledgements (%chunk;)+>
+<!ELEMENT acknowledgements (%chunk; | landscape)+>
 <!ATTLIST acknowledgements
     label CDATA #IMPLIED
 >
-<!ELEMENT abstract (%chunk;)+>
+<!ELEMENT abstract (%chunk; | landscape)+>
 <!ATTLIST abstract
     label CDATA #IMPLIED
 >
-<!ELEMENT preface (%chunk;| abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT preface (%chunk; | landscape| abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST preface
     label CDATA #IMPLIED
 >
@@ -194,47 +194,47 @@ For when we get author contacts turned on...
     label CDATA #IMPLIED
 >
 <!-- Main content -->
-<!ELEMENT part (secTitle, shortTitle?, (%chunk;)*, chapter*)>
+<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape)*, chapter*)>
 <!ATTLIST part
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT chapter (secTitle, shortTitle?, (%chunk;)*, section1*)>
+<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk;)*, section1*)>
+<!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape)*, section1*)>
 <!ATTLIST chapterBeforePart
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section1 (secTitle, shortTitle?, (%chunk;)*, section2*)>
+<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section2 (secTitle, shortTitle?, (%chunk;)*, section3*)>
+<!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section3 (secTitle, shortTitle?, (%chunk;)*, section4*)>
+<!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section4 (secTitle, shortTitle?, (%chunk;)*, section5*)>
+<!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section5 (secTitle, shortTitle?, (%chunk;)*, section6*)>
+<!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     type IDREF #IMPLIED
 >
-<!ELEMENT section6 (secTitle, shortTitle?, (%chunk;)*)>
+<!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape)*)>
 <!ATTLIST section6
     id ID #REQUIRED
     type IDREF #IMPLIED
@@ -735,18 +735,21 @@ For when we get author contacts turned on...
     note IDREF #REQUIRED
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | abbreviationsShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | abbreviationsShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
     type IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT glossary (%chunk; | landscape | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST glossary
     label CDATA #IMPLIED
     type IDREF #IMPLIED
 >
+<!-- landscape mode: in PDF, output the material in landscape instead of portrait mode; will start a new page in the output -->
+<!ELEMENT landscape (%chunk;)+>
+
 <!-- the tagging of some text or embedded elements as belonging to an index term;
 this is what goes in the content of the document
   the term attribute refers to the indexTerm
@@ -778,7 +781,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        the label attribute provides a way to give it a title 
        the kind attribute indicates which kind of index it is ('common' is used for a single, common index)
        -->
-<!ELEMENT index (%chunk;)*>
+<!ELEMENT index (%chunk; | landscape)*>
 <!ATTLIST index
     label CDATA #IMPLIED
     kind (common | name | language | subject) "common"

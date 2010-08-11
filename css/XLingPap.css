@@ -928,6 +928,13 @@ example > exampleHeading
 	display:block;
 	padding-left:example-indent();
 }
+landscape
+{
+	display:block;
+	border-width:1;
+	border-style:dotted;
+	border-color:black;
+}
 listInterlinear > exampleHeading
 {
 	display:block;
@@ -4913,6 +4920,15 @@ locationPublisherLayouts
 {
 	property-group: referencesLayouts();
 }
+magnificationFactor:before
+{
+	property-group:layoutParameterLabel( "magnification factor" );
+}
+magnificationFactor
+{
+	property-group: layoutParameter(0ex);
+}
+
 msLayout:before
 {
 	property-group: referencesItemLayoutBefore();

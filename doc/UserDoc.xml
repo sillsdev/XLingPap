@@ -10806,6 +10806,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>magnificationFactor</object
+></dt
+><dd
+>The factor by which all text is to be enlarged for the document. The default is 1.</dd
+><dt
+><object
+type="tElement"
 >msLayout</object
 ></dt
 ><dd

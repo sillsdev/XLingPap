@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->2 July 2010</date
+>9 August 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -13932,7 +13932,7 @@ href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=Compl
 >http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=ComplexRomanFontFAQ#1d1d13ef</link
 > for more on how to do this. (This link was valid on July 10, 2009.)</p
 ></endnote
->  There is also a set of Charis SIL Small Caps fonts at <link
+> There is also a set of Charis SIL Small Caps fonts at <link
 href="http://code.google.com/p/xlingpap/downloads/list"
 >http://code.google.com/p/xlingpap/downloads/list</link
 >.</p
@@ -16648,6 +16648,61 @@ sec="sFAQProducePDF"
 >An alternative method is to do the above but at the point of cutting out material, leave what you know you will need as notes to yourself for doing the presentation. You can even add material if need be. After saving this version, make a copy of it and cut out your notes so that all that is left is what you want your listeners to have.</p
 ></section2
 ><section2
+id="sFAQCreatePoster"
+><secTitle
+>Create a poster session presentation from my paper?</secTitle
+><p
+>Sometimes one needs to create a poster session presentation for a paper.</p
+><p
+>Here is one way:</p
+><ol
+><li
+>Copy your <object
+type="tXLingPap"
+></object
+> document .xml file and rename it so it ends with the word "Poster".</li
+><li
+>Work your way through the copy, cutting out anything that you do not want to appear in the poster.</li
+><li
+>Be sure to include <object
+type="tElement"
+>citation</object
+> elements for any references you want to show up in the references section. Remember that only those works cited in your <object
+type="tXLingPap"
+></object
+> document show up in the references section.<endnoteRef
+note="nCitations"
+></endnoteRef
+></li
+><li
+>Associate the handout document with the <object
+type="tDirectory"
+>PosterSessionStylesheet.xml</object
+> file provided with the <object
+type="tXLingPap"
+></object
+> configuration files. See section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> for more on how to do this.</li
+><li
+>Produce a PDF output for this document. See section <sectionRef
+sec="sFAQProducePDF"
+></sectionRef
+> for details on how to do this.</li
+><li
+>Print the PDF to make the handout.</li
+></ol
+><p
+>Note that this produces regular sized pages, but the content will be magnified by a factor of 1.5.  If you need the material to be larger, you can edit the publisher style sheet and change the <object
+type="tInstruction"
+>magnification factor</object
+> item under <object
+type="tInstruction"
+>Document Content Layout</object
+>.  Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.</p
+></section2
+><section2
 id="sFAQCBreakLongURLs"
 ><secTitle
 >Make long web page addresses break into multiple lines?</secTitle
@@ -18977,6 +19032,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>magnificationFactor</object
+></dt
+><dd
+>The factor by which all text is to be enlarged for the document.  The default is 1.</dd
+><dt
+><object
+type="tElement"
 >msLayout</object
 ></dt
 ><dd
@@ -19766,7 +19828,7 @@ id="iAbbreviationsList"
 ><indexTerm
 id="iAbbreviationsMasterList"
 ><term
->Make a master list </term
+>Make a master list</term
 ></indexTerm
 ><indexTerm
 id="iAbbreviaitonSmallCaps"

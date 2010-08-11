@@ -447,7 +447,7 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?) >
+   <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?) >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout
        indent-before CDATA #REQUIRED
@@ -545,7 +545,8 @@ Content Layout
         textBeforeCapitalizedPluralOverride CDATA #IMPLIED
         %fontinfo;
     >
-
+<!ELEMENT magnificationFactor (#PCDATA) >
+   
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

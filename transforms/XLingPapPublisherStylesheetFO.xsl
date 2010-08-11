@@ -17,6 +17,16 @@
       =========================================================== -->
     <xsl:param name="sFOProcessor">XEP</xsl:param>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
+    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+    <xsl:variable name="iMagnificationFactor">
+        <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAdjustedFactor) &gt; 0 and $sAdjustedFactor!='1' and number($sAdjustedFactor)!='NaN'">
+                <xsl:value-of select="$sAdjustedFactor"/>
+            </xsl:when>
+            <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sPageWidth" select="string($pageLayoutInfo/pageWidth)"/>
     <xsl:variable name="sPageHeight" select="string($pageLayoutInfo/pageHeight)"/>
     <xsl:variable name="sPageTopMargin" select="string($pageLayoutInfo/pageTopMargin)"/>
@@ -28,12 +38,11 @@
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
-    <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize)"/>
-    <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize)"/>
+    <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
+    <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
     <xsl:variable name="lineSpacing" select="$pageLayoutInfo/lineSpacing"/>
@@ -2817,7 +2826,7 @@ not using
         <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date]" format="a"/>
     </xsl:template>
     <!--  ignore these -->
-    <xsl:template match="publisherStyleSheetName | publisherStyleSheetReferencesName | publisherStyleSheetVersion | publisherStyleSheetReferencesVersion |   pageWidth | pageHeight | pageTopMargin | pageBottomMargin | pageInsideMargin | pageOutsideMargin | headerMargin | footerMargin | paragraphIndent | blockQuoteIndent | defaultFontFamily | basicPointSize |  footnotePointSize"/>
+    <xsl:template match="publisherStyleSheetName | publisherStyleSheetReferencesName | publisherStyleSheetVersion | publisherStyleSheetReferencesVersion |   pageWidth | pageHeight | pageTopMargin | pageBottomMargin | pageInsideMargin | pageOutsideMargin | headerMargin | footerMargin | paragraphIndent | blockQuoteIndent | defaultFontFamily | basicPointSize |  footnotePointSize | magnificationFactor"/>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -2858,6 +2867,23 @@ not using
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        AdjustFontSizePerMagnification
+    -->
+    <xsl:template name="AdjustFontSizePerMagnification">
+        <xsl:param name="sFontSize"/>
+        <xsl:choose>
+            <xsl:when test="$iMagnificationFactor!=1">
+                <xsl:variable name="iLength" select="string-length(normalize-space($sFontSize))"/>
+                <xsl:variable name="iSize" select="substring($sFontSize,1, $iLength - 2)"/>
+                <xsl:value-of select="$iSize * $iMagnificationFactor"/>
+                <xsl:value-of select="substring($sFontSize, $iLength - 1)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sFontSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       ApplyTemplatesPerTextRefMode
@@ -4410,7 +4436,9 @@ not using
                     <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}" id="{@id}">
                         <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
                             <xsl:attribute name="font-size">
-                                <xsl:value-of select="$referencesLayoutInfo/@defaultfontsize"/>
+                                <xsl:call-template name="AdjustFontSizePerMagnification">
+                                    <xsl:with-param name="sFontSize" select="$referencesLayoutInfo/@defaultfontsize"/>
+                                </xsl:call-template>
                             </xsl:attribute>
                         </xsl:if>
                         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
@@ -5592,7 +5620,9 @@ not using
         </xsl:if>
         <xsl:if test="string-length(normalize-space($language/@font-size)) &gt; 0">
             <xsl:attribute name="font-size">
-                <xsl:value-of select="$language/@font-size"/>
+                <xsl:call-template name="AdjustFontSizePerMagnification">
+                    <xsl:with-param name="sFontSize" select="$language/@font-size"/>
+                </xsl:call-template>
             </xsl:attribute>
         </xsl:if>
         <xsl:if test="string-length(normalize-space($language/@font-style)) &gt; 0">

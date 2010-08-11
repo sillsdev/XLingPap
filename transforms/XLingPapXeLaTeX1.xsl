@@ -62,6 +62,7 @@
     <xsl:variable name="lineSpacing" select="/nothere"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
     <xsl:variable name="sXLingPaperAbbreviation" select="'XLingPaperAbbreviation'"/>
+    <xsl:variable name="iMagnificationFactor">1</xsl:variable>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->

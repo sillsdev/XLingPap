@@ -1357,10 +1357,11 @@
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
         <xsl:apply-templates/>
-<!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
+        <!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
             <xsl:text>&#xa0;</xsl:text>  Not sure why we have this 2010.07.10; it's not there for td's
         </xsl:if>
--->        <xsl:call-template name="DoEmbeddedBrEnd">
+-->
+        <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
         <xsl:call-template name="DoTypeEnd"/>
@@ -1692,6 +1693,14 @@
         </tex:group>
     </xsl:template>
     <!-- ===========================================================
+        LANDSCAPE
+        =========================================================== -->
+    <xsl:template match="landscape">
+        <tex:cmd name="landscape" gr="0" nl2="1"/>
+        <xsl:apply-templates/>
+        <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+    </xsl:template>
+    <!-- ===========================================================
         LANGDATA
         =========================================================== -->
     <xsl:template match="langData" mode="InMarker">
@@ -1767,7 +1776,7 @@
                 <xsl:if test="not(ancestor::example)">
                     <tex:cmd name="par"/>
                 </xsl:if>
-<!--                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <!--                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
                 <xsl:variable name="bPDFExists" select="document($sPDFFile)"/>
                 <xsl:choose>
                     <xsl:when test="$bPDFExists">SPLAT!!!</xsl:when>
@@ -1775,7 +1784,8 @@
                         
                     </xsl:otherwise>
                 </xsl:choose>
--->                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
+-->
+                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
                     <xsl:with-param name="sMessage">
                         <xsl:text>We're sorry, but the graphic file </xsl:text>
                         <xsl:value-of select="$sImgFile"/>
@@ -1789,7 +1799,6 @@
                     </xsl:with-param>
                 </xsl:call-template>
                 <tex:cmd name="par" gr="0" nl2="1"/>
-                
             </xsl:when>
             <xsl:when test="$sExtension='.pdf'">
                 <xsl:choose>
@@ -1931,6 +1940,23 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>
+    </xsl:template>
+    <!--  
+        AdjustLayoutParameterUnitName
+    -->
+    <xsl:template name="AdjustLayoutParameterUnitName">
+        <xsl:param name="sLayoutParam"/>
+        <xsl:choose>
+            <xsl:when test="$iMagnificationFactor!=1">
+                <xsl:variable name="iLength" select="string-length(normalize-space($sLayoutParam))"/>
+                <xsl:value-of select="substring($sLayoutParam,1, $iLength - 2)"/>
+                <xsl:text>true</xsl:text>
+                <xsl:value-of select="substring($sLayoutParam, $iLength - 1)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sLayoutParam"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         CalculateColumnsInInterlinearLine
@@ -2760,7 +2786,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="ancestor::listInterlinear">
+        <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
             <!-- need to compensate for the extra space after the letter -->
             <tex:cmd name="hspace*">
                 <tex:parm>
@@ -2828,7 +2854,7 @@
                 </tex:group>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="ancestor::listInterlinear">
+        <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
             <tex:spec cat="eg"/>
         </xsl:if>
         <xsl:if test="descendant-or-self::endnote">
@@ -5423,7 +5449,9 @@
                 <tex:cmd name="paperheight" gr="0"/>
             </tex:parm>
             <tex:parm>
-                <xsl:value-of select="$sPageHeight"/>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sPageHeight"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <tex:cmd name="setlength" nl2="1">
@@ -5431,7 +5459,9 @@
                 <tex:cmd name="paperwidth" gr="0"/>
             </tex:parm>
             <tex:parm>
-                <xsl:value-of select="$sPageWidth"/>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sPageWidth"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <tex:cmd name="setlength" nl2="1">
@@ -5445,6 +5475,7 @@
                 <tex:cmd name="voffset" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <xsl:variable name="sPageTopMarginToAdjust">
                 <xsl:variable name="iPageTopMargin">
                     <xsl:call-template name="GetMeasure">
                         <xsl:with-param name="sValue" select="$sPageTopMargin"/>
@@ -5455,6 +5486,10 @@
                     <!-- the .15in makes it match what we got with FO - I'm not sure why, though -->
                     <xsl:with-param name="iValue" select="$iPageTopMargin"/>
                 </xsl:call-template>
+                </xsl:variable>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sPageTopMarginToAdjust"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <tex:cmd name="setlength" nl2="1">
@@ -5462,6 +5497,7 @@
                 <tex:cmd name="evensidemargin" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <xsl:variable name="sEvenSideMarginToAdjust">
                 <xsl:choose>
                     <xsl:when test="$pageLayoutInfo/useThesisSubmissionStyle/@singlesided='yes'">
                         <xsl:call-template name="SubtractOneInch">
@@ -5476,6 +5512,10 @@
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
+                </xsl:variable>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sEvenSideMarginToAdjust"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <tex:cmd name="setlength" nl2="1">
@@ -5483,9 +5523,14 @@
                 <tex:cmd name="oddsidemargin" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <xsl:variable name="sOddSideMarginToAdjust">
                 <xsl:call-template name="SubtractOneInch">
                     <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
                     <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
+                </xsl:call-template>
+                </xsl:variable>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sOddSideMarginToAdjust"/>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -5494,9 +5539,14 @@
                 <tex:cmd name="textwidth" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <xsl:variable name="sTextWidthToAdjust">
                 <xsl:value-of select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
                 <xsl:call-template name="GetUnitOfMeasure">
                     <xsl:with-param name="sValue" select="$sPageWidth"/>
+                </xsl:call-template>
+                </xsl:variable>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sTextWidthToAdjust"/>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -5505,9 +5555,14 @@
                 <tex:cmd name="textheight" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <xsl:variable name="sTextHeightToAdjust">
                 <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
                 <xsl:call-template name="GetUnitOfMeasure">
                     <xsl:with-param name="sValue" select="$sPageHeight"/>
+                </xsl:call-template>
+                </xsl:variable>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sTextHeightToAdjust"/>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -5541,7 +5596,9 @@
                 <tex:cmd name="footskip" gr="0"/>
             </tex:parm>
             <tex:parm>
-                <xsl:value-of select="$sFooterMargin"/>
+                <xsl:call-template name="AdjustLayoutParameterUnitName">
+                    <xsl:with-param name="sLayoutParam" select="$sFooterMargin"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
     </xsl:template>
@@ -5650,6 +5707,11 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>longtable</tex:parm>
         </tex:cmd>
+        <xsl:if test="//landscape">
+        <tex:cmd name="usepackage" nl2="1">
+            <tex:parm>lscape</tex:parm>
+        </tex:cmd>
+        </xsl:if>
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>multirow</tex:parm>
         </tex:cmd>

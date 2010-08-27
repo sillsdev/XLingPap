@@ -2451,6 +2451,18 @@
                 <tex:spec cat="esc"/>
                 <xsl:value-of select="$sFontFamilyName"/>
             </tex:parm>
+            <xsl:variable name="bIsGraphite">
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial, 'graphite')">Y</xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, 'graphite')">Y</xsl:when>
+                    <xsl:otherwise>N</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$bIsGraphite='Y'">
+                <tex:opt>
+                    <xsl:text>Renderer=Graphite</xsl:text>
+                </tex:opt>
+            </xsl:if>
             <tex:parm>
                 <xsl:choose>
                     <!-- try to map some "default" fonts to potential real fonts -->

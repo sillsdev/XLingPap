@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->26 August 2010</date
+>27 August 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -1173,6 +1173,19 @@ type="tElement"
 > element. This can be useful when the URL of the link is too long to fit on the line.</td
 ><td
 >break-before</td
+></tr
+><tr
+><td
+>graphite</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Tell XeTeX to use the Graphite renderer for this font.  This only makes sense for elements with font-related attributes.</td
+><td
+>graphite</td
 ></tr
 ><tr
 ><td
@@ -16761,16 +16774,16 @@ id="sFAQLandscapeMode"
 ><indexedItem
 term="iLandscape"
 ></indexedItem
->Sometimes a table or other material will fit better on a page that is in landscape mode instead of the default portrait mode.  One can do this by enclosing the material within a <object
+>Sometimes a table or other material will fit better on a page that is in landscape mode instead of the default portrait mode. One can do this by enclosing the material within a <object
 type="tElement"
 >landscape</object
-> element.  One way to enclose such material is to select it and then use the Convert [wrap] capability of the <object
+> element. One way to enclose such material is to select it and then use the Convert [wrap] capability of the <object
 type="tXMLmindXMLEditor"
 ></object
 > and choose <object
 type="tInstruction"
 >landscape</object
->.  You can do a "Convert [Wrap]" operation via <object
+>. You can do a "Convert [Wrap]" operation via <object
 type="tInstruction"
 >Edit / Convert [wrap]</object
 >, pressing <object
@@ -16781,7 +16794,7 @@ note="nEditTool"
 ></endnoteRef
 ></p
 ><p
->Please note that this material will start a new page in the output.  Also, using the <object
+>Please note that this material will start a new page in the output. Also, using the <object
 type="tElement"
 >landscape</object
 > element within an index does not work with the default <object
@@ -16789,7 +16802,7 @@ type="tXeTeX"
 ></object
 > way of producing PDF.</p
 ><p
->To make an entire document be in landscape mode, create a publisher style sheet that has the page height and width dimensions for landscape and then associate that publisher style sheet to the document.  See section <sectionRef
+>To make an entire document be in landscape mode, create a publisher style sheet that has the page height and width dimensions for landscape and then associate that publisher style sheet to the document. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for more.</p

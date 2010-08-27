@@ -176,11 +176,11 @@ For when we get author contacts turned on...
 <!ATTLIST version
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT acknowledgements (%chunk; | landscape)+>
+<!ELEMENT acknowledgements (%chunk;)+>
 <!ATTLIST acknowledgements
     label CDATA #IMPLIED
 >
-<!ELEMENT abstract (%chunk; | landscape)+>
+<!ELEMENT abstract (%chunk;)+>
 <!ATTLIST abstract
     label CDATA #IMPLIED
 >

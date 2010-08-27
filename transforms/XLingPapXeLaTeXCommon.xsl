@@ -13,8 +13,8 @@
     <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-    <xsl:variable name="sDigits" select="'1234567890 '"/>
-    <xsl:variable name="sLetters" select="'ABCDEFGHIJZ'"/>
+    <xsl:variable name="sDigits" select="'1234567890 _-'"/>
+    <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
     <xsl:variable name="sIDcharsToMap" select="'_'"/>
     <xsl:variable name="sIDcharsMapped" select="';'"/>
     <xsl:variable name="sPercent20" select="'%20'"/>

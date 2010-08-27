@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->9 August 2010</date
+>26 August 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -14778,7 +14778,7 @@ type="tItalic"
 type="tElement"
 >link</object
 > element in a paragraph and the URL it contains is rather long, the URL will end up sticking out into the margin. We suggest you insert zero width spaces at appropriate (e.g. punctuation character) places in the URL. See section <sectionRef
-sec="sFAQCBreakLongURLs"
+sec="sFAQBreakLongURLs"
 ></sectionRef
 > for more on this.</li
 ><li
@@ -16694,16 +16694,16 @@ sec="sFAQProducePDF"
 >Print the PDF to make the handout.</li
 ></ol
 ><p
->Note that this produces regular sized pages, but the content will be magnified by a factor of 1.5.  If you need the material to be larger, you can edit the publisher style sheet and change the <object
+>Note that this produces regular sized pages, but the content will be magnified by a factor of 1.5. If you need the material to be larger, you can edit the publisher style sheet and change the <object
 type="tInstruction"
 >magnification factor</object
 > item under <object
 type="tInstruction"
 >Document Content Layout</object
->.  Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.</p
+>. Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.</p
 ></section2
 ><section2
-id="sFAQCBreakLongURLs"
+id="sFAQBreakLongURLs"
 ><secTitle
 >Make long web page addresses break into multiple lines?</secTitle
 ><p
@@ -16752,6 +16752,47 @@ type="tAttribute"
 type="tElement"
 >link</object
 > element. The resulting hyperlink will not work correctly.</p
+></section2
+><section2
+id="sFAQLandscapeMode"
+><secTitle
+>Make a page in PDF be in landscape mode?</secTitle
+><p
+><indexedItem
+term="iLandscape"
+></indexedItem
+>Sometimes a table or other material will fit better on a page that is in landscape mode instead of the default portrait mode.  One can do this by enclosing the material within a <object
+type="tElement"
+>landscape</object
+> element.  One way to enclose such material is to select it and then use the Convert [wrap] capability of the <object
+type="tXMLmindXMLEditor"
+></object
+> and choose <object
+type="tInstruction"
+>landscape</object
+>.  You can do a "Convert [Wrap]" operation via <object
+type="tInstruction"
+>Edit / Convert [wrap]</object
+>, pressing <object
+type="tKey"
+>Ctrl-Shift-T</object
+>, or by clicking on the convert [wrap] icon in the Edit tool.<endnoteRef
+note="nEditTool"
+></endnoteRef
+></p
+><p
+>Please note that this material will start a new page in the output.  Also, using the <object
+type="tElement"
+>landscape</object
+> element within an index does not work with the default <object
+type="tXeTeX"
+></object
+> way of producing PDF.</p
+><p
+>To make an entire document be in landscape mode, create a publisher style sheet that has the page height and width dimensions for landscape and then associate that publisher style sheet to the document.  See section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> for more.</p
 ></section2
 ></section1
 ><section1
@@ -17685,6 +17726,13 @@ type="tElement"
 type="tElement"
 >definition</object
 > element</dd
+><dt
+><object
+type="tElement"
+>landscape</object
+></dt
+><dd
+>In the PDF output, format the enclosed material in landscape instead of portrait mode; will start a new page in the output</dd
 ><dt
 ><object
 type="tElement"
@@ -19035,7 +19083,7 @@ type="tElement"
 >magnificationFactor</object
 ></dt
 ><dd
->The factor by which all text is to be enlarged for the document.  The default is 1.</dd
+>The factor by which all text is to be enlarged for the document. The default is 1.</dd
 ><dt
 ><object
 type="tElement"
@@ -20209,6 +20257,11 @@ id="iInterlinearText"
 id="iItalic"
 ><term
 >Italic</term
+></indexTerm
+><indexTerm
+id="iLandscape"
+><term
+>Landscape mode</term
 ></indexTerm
 ><indexTerm
 id="iLangData"

@@ -767,7 +767,10 @@
                 </tex:parm>
             </tex:cmd>
 -->
-            <tex:cmd name="markright" nl2="1">
+            <tex:cmd name="markboth" nl2="1">
+                <tex:parm>
+                    <xsl:call-template name="DoSecTitleRunningHeader"/>
+                </tex:parm>
                 <tex:parm>
                     <xsl:call-template name="DoSecTitleRunningHeader"/>
                 </tex:parm>
@@ -2163,7 +2166,7 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
-        <xsl:if test="//references">
+        <xsl:if test="//references and //citation">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="'rXLingPapReferences'"/>
                 <xsl:with-param name="sLabel">
@@ -2372,16 +2375,16 @@
 -->
     <xsl:template name="DoReferences">
         <xsl:param name="bIsBook" select="'N'"/>
-        <xsl:call-template name="OutputFrontOrBackMatterTitle">
-            <xsl:with-param name="id" select="'rXLingPapReferences'"/>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputReferencesLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="bIsBook" select="$bIsBook"/>
-            <xsl:with-param name="bForcePageBreak" select="'N'"/>
-        </xsl:call-template>
         <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
         <xsl:if test="$authors">
+            <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                <xsl:with-param name="id" select="'rXLingPapReferences'"/>
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="bIsBook" select="$bIsBook"/>
+                <xsl:with-param name="bForcePageBreak" select="'N'"/>
+            </xsl:call-template>
             <!--<tex:env name="description" nlb1="0" nle1="1">
                 <xsl:call-template name="SetTeXCommand">
                     <xsl:with-param name="sTeXCommand" select="'setlength'"/>
@@ -3070,7 +3073,6 @@
                         <xsl:value-of select="$language/@id"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                
             </xsl:with-param>
         </xsl:call-template>
         <tex:spec cat="bg"/>
@@ -3461,6 +3463,18 @@
             <xsl:when test="$bIsBook='Y'">
                 <tex:cmd name="cleardoublepage"/>
                 <xsl:if test="$bDoTwoColumns = 'Y'">
+                    <tex:cmd name="markboth" nl2="1">
+                        <tex:parm>
+                            <xsl:call-template name="GetHeaderTitleForFrontOrBackMatter">
+                                <xsl:with-param name="sTitle" select="$sTitle"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:call-template name="GetHeaderTitleForFrontOrBackMatter">
+                                <xsl:with-param name="sTitle" select="$sTitle"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
                     <tex:spec cat="esc" nl1="1"/>
                     <xsl:text>twocolumn</xsl:text>
                     <tex:spec cat="lsb"/>
@@ -3540,16 +3554,36 @@
             <!-- adjust for center environment -->
             <!--            <tex:cmd name="vspace*">
                 <tex:parm>
-                    <xsl:text>-</xsl:text>
-                    <tex:cmd name="parsep" gr="0"/>
+                <xsl:text>-</xsl:text>
+                <tex:cmd name="parsep" gr="0"/>
                 </tex:parm>
-            </tex:cmd>
--->
-            <tex:cmd name="markright" nl2="1">
-                <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader"/>
-                </tex:parm>
-            </tex:cmd>
+                </tex:cmd>
+            -->
+            <xsl:choose>
+                <xsl:when test="$bIsBook='Y' and $bDoTwoColumns='N'">
+                    <tex:cmd name="markboth" nl2="1">
+                        <tex:parm>
+                            <xsl:call-template name="GetHeaderTitleForFrontOrBackMatter">
+                                <xsl:with-param name="sTitle" select="$sTitle"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:call-template name="GetHeaderTitleForFrontOrBackMatter">
+                                <xsl:with-param name="sTitle" select="$sTitle"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="markright" nl2="1">
+                        <tex:parm>
+                            <xsl:call-template name="GetHeaderTitleForFrontOrBackMatter">
+                                <xsl:with-param name="sTitle" select="$sTitle"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
             <tex:cmd name="pdfbookmark" nl2="1">
                 <tex:opt>
                     <xsl:text>1</xsl:text>
@@ -3573,6 +3607,17 @@
         <tex:cmd name="vspace" nl1="1" nl2="1">
             <tex:parm><xsl:value-of select="$sBasicPointSize"/>pt</tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <xsl:template name="GetHeaderTitleForFrontOrBackMatter">
+        <xsl:param name="sTitle"/>
+        <xsl:choose>
+            <xsl:when test="ancestor-or-self::appendix">
+                <xsl:call-template name="DoSecTitleRunningHeader"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sTitle"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
                    OutputGlossaryLabel
@@ -4200,7 +4245,6 @@
                 </xsl:with-param>
                 <xsl:with-param name="sBaseFontName" select="$abbreviations/@font-family"/>
             </xsl:call-template>
-            
         </xsl:if>
         <xsl:call-template name="DefineLangaugeAndTypeFonts"/>
     </xsl:template>

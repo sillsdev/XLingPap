@@ -1397,7 +1397,7 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="produceBookPDFFromCannedStylesheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
                 <cfg:parameter name="sFOProcessor">XEP</cfg:parameter>
                 <!--
              sInterlinearSourceStyle:
@@ -1407,6 +1407,9 @@ What we want is to load IE independently and to do a refresh so it will show the
           -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
+            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>
+            <!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
+            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
         </cfg:process>
@@ -1536,7 +1539,7 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="producePaperPDFFromCannedStylesheetViaFO">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
                 <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
                 <cfg:parameter name="sPageHeight">11in</cfg:parameter>
                 <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
@@ -1557,6 +1560,9 @@ What we want is to load IE independently and to do a refresh so it will show the
                 -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
+            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>
+<!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
+            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
         </cfg:process>

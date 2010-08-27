@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->26 June 2010</date
+>26 August 2010</date
 ><version
->2.12.0</version
+>2.13.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -9468,6 +9468,13 @@ type="tElement"
 type="tElement"
 >definition</object
 > element.</dd
+><dt
+><object
+type="tElement"
+>landscape</object
+></dt
+><dd
+>In the PDF output, format the enclosed material in landscape instead of portrait mode; will start a new page in the output</dd
 ><dt
 ><object
 type="tElement"

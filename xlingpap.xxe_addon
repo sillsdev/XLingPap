@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-08-11</a:date
+>2010-08-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.12.0_3 11 August 2010<ul
+>2.12.0_3 26 August 2010<ul
+><li
+>Add landscape element so can get PDF output to switch to a new page, but in landscape mode; the headers and footers remain as they were, but the page content shows up in landscape mode. This works with both the default XeLaTeX way of producing PDF as well as the RenderX way of producing PDF.</li
 ><li
 >XeLaTeX way of producing PDF: <ul
 ><li
->Add landscape element so can get PDF output to switch to a new page, but in landscape mode; the headers and footers remain as they were, but the page content shows up in landscape mode.</li
+>Fix bug whereby a language ID containing either underscores or hyphens would cause the default PDF to fail.</li
+><li
+>Fix bug whereby a font name containing either underscores or hyphens would cause the publisher style sheet PDF to fail.</li
+><li
+>Fix bug in the default PDF output which still showed a references section when nothing was cited.</li
 ></ul
 ></li
 ></ul

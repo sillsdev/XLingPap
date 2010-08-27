@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi">
     <xsl:output method="xml" version="1.0" encoding="utf-8"/>
     <!-- ===========================================================
       Version of this stylesheet
@@ -53,8 +53,10 @@
       Variables
       =========================================================== -->
     <xsl:variable name="lingPaper" select="//lingPaper"/>
+    <xsl:variable name="chapters" select="//chapter"/>
     <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
     <xsl:variable name="abbreviations" select="//abbreviations"/>
+    <xsl:variable name="landscapes" select="//landscape"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="iExampleCount" select="count(//example)"/>
@@ -247,6 +249,32 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <xsl:if test="$landscapes">
+                    <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
+                        <xsl:attribute name="master-name">FrontMatterTOCLandscapeEvenPage</xsl:attribute>
+                        <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
+                            <xsl:call-template name="DoDebugFrontMatterBody"/>
+                        </fo:region-body>
+                        <fo:region-before region-name="FrontMatterTOCEvenPage-before" extent="{$sHeaderMargin}">
+                            <xsl:call-template name="DoDebugHeader"/>
+                        </fo:region-before>
+                        <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
+                            <xsl:call-template name="DoDebugFooter"/>
+                        </fo:region-after>
+                    </xsl:element>
+                    <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
+                        <xsl:attribute name="master-name">FrontMatterTOCLandscapeOddPage</xsl:attribute>
+                        <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
+                            <xsl:call-template name="DoDebugFrontMatterBody"/>
+                        </fo:region-body>
+                        <fo:region-before region-name="FrontMatterTOCOddPage-before" extent="{$sHeaderMargin}">
+                            <xsl:call-template name="DoDebugHeader"/>
+                        </fo:region-before>
+                        <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
+                            <xsl:call-template name="DoDebugFooter"/>
+                        </fo:region-after>
+                    </xsl:element>
+                </xsl:if>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">FrontMatterBlankEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -308,6 +336,40 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <xsl:if test="$landscapes">
+                    <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
+                        <xsl:attribute name="master-name">ChapterLandscapeEvenPage</xsl:attribute>
+                        <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
+                            <xsl:if test="$bDoDebug='y'">
+                                <xsl:attribute name="border-left">
+                                    <xsl:text>medium gray ridge</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </fo:region-body>
+                        <fo:region-before region-name="ChapterEvenPage-before" extent="{$sHeaderMargin}">
+                            <xsl:call-template name="DoDebugHeader"/>
+                        </fo:region-before>
+                        <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
+                            <xsl:call-template name="DoDebugFooter"/>
+                        </fo:region-after>
+                    </xsl:element>
+                    <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
+                        <xsl:attribute name="master-name">ChapterLandscapeOddPage</xsl:attribute>
+                        <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
+                            <xsl:if test="$bDoDebug='y'">
+                                <xsl:attribute name="border-right">
+                                    <xsl:text>medium gray ridge</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </fo:region-body>
+                        <fo:region-before region-name="ChapterOddPage-before" extent="{$sHeaderMargin}">
+                            <xsl:call-template name="DoDebugHeader"/>
+                        </fo:region-before>
+                        <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
+                            <xsl:call-template name="DoDebugFooter"/>
+                        </fo:region-after>
+                    </xsl:element>
+                </xsl:if>
                 <!-- Indexes -->
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">IndexFirstPage</xsl:attribute>
@@ -373,7 +435,7 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
-                <xsl:if test="//chapter">
+                <xsl:if test="$chapters">
                     <fo:page-sequence-master master-name="FrontMatter">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference page-position="first" master-reference="FrontMatterPage"/>
@@ -390,6 +452,26 @@
                             <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterTOCOddPage"/>
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
+                    <xsl:if test="$landscapes">
+                        <fo:page-sequence-master master-name="FrontMatterTOCLandscape">
+                            <fo:repeatable-page-master-alternatives>
+                                <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterTOCLandscapeEvenPage"/>
+                                <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterTOCLandscapeOddPage"/>
+                            </fo:repeatable-page-master-alternatives>
+                        </fo:page-sequence-master>
+                    </xsl:if>
+                    <fo:page-sequence-master master-name="FrontMatterTOCContinuation">
+                        <fo:repeatable-page-master-alternatives>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterTOCEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterTOCOddPage"/>
+                        </fo:repeatable-page-master-alternatives>
+                    </fo:page-sequence-master>
+                    <fo:page-sequence-master master-name="IndexContinuation">
+                        <fo:repeatable-page-master-alternatives>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="IndexEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="IndexOddPage"/>
+                        </fo:repeatable-page-master-alternatives>
+                    </fo:page-sequence-master>
                 </xsl:if>
                 <fo:page-sequence-master master-name="Chapter">
                     <fo:repeatable-page-master-alternatives>
@@ -399,6 +481,20 @@
                         <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterOddPage"/>
                     </fo:repeatable-page-master-alternatives>
                 </fo:page-sequence-master>
+                <xsl:if test="$landscapes">
+                    <fo:page-sequence-master master-name="ChapterLandscape">
+                        <fo:repeatable-page-master-alternatives>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterLandscapeEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterLandscapeOddPage"/>
+                        </fo:repeatable-page-master-alternatives>
+                    </fo:page-sequence-master>
+                    <fo:page-sequence-master master-name="ChapterContinuation">
+                        <fo:repeatable-page-master-alternatives>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterOddPage"/>
+                        </fo:repeatable-page-master-alternatives>
+                    </fo:page-sequence-master>
+                </xsl:if>
                 <fo:page-sequence-master master-name="Index">
                     <fo:repeatable-page-master-alternatives>
                         <fo:conditional-page-master-reference page-position="first" master-reference="IndexFirstPage"/>
@@ -409,7 +505,7 @@
                 </fo:page-sequence-master>
             </fo:layout-master-set>
             <xsl:choose>
-                <xsl:when test="//chapter">
+                <xsl:when test="$chapters">
                     <xsl:apply-templates/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -423,7 +519,7 @@
       =========================================================== -->
     <xsl:template match="frontMatter">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <fo:page-sequence master-reference="FrontMatter" format="i">
                     <fo:static-content flow-name="xsl-footnote-separator">
                         <fo:block text-align="left">
@@ -479,7 +575,7 @@
       title
       -->
     <xsl:template match="title">
-        <xsl:if test="//chapter">
+        <xsl:if test="$chapters">
             <fo:block font-size="18pt" font-weight="bold" text-align="center" space-before="1.25in" space-before.conditionality="retain">
                 <xsl:apply-templates/>
             </fo:block>
@@ -588,69 +684,19 @@
         </fo:page-sequence>
     </xsl:template>
     <!--
-      contents (for paper)
-      -->
+        contents (for paper)
+    -->
     <xsl:template match="contents" mode="paper">
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'N'"/>
         </xsl:call-template>
     </xsl:template>
     <!--
-      abstract, preface and acknowledgements (for book)
-      -->
+        abstract, preface and acknowledgements (for book)
+    -->
     <xsl:template match="abstract | acknowledgements | preface" mode="book">
         <fo:page-sequence master-reference="FrontMatterTOC" initial-page-number="auto-odd" format="i">
-            <fo:static-content flow-name="FrontMatterTOCFirstPage-after" display-align="after">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align">center</xsl:attribute>
-                    <xsl:attribute name="margin-top">6pt</xsl:attribute>
-                    <fo:page-number/>
-                </xsl:element>
-            </fo:static-content>
-            <xsl:variable name="sHeaderTitleClassName">
-                <xsl:choose>
-                    <xsl:when test="name()='abstract'">abstract-title</xsl:when>
-                    <xsl:when test="name()='acknowledgements'">acknowledgements-title</xsl:when>
-                    <xsl:otherwise>preface-title</xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <fo:static-content flow-name="FrontMatterTOCEvenPage-before" display-align="before">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align-last">justify</xsl:attribute>
-                    <fo:inline>
-                        <fo:page-number/>
-                    </fo:inline>
-                    <fo:leader/>
-                    <fo:inline>
-                        <fo:retrieve-marker>
-                            <xsl:attribute name="retrieve-class-name">
-                                <xsl:value-of select="$sHeaderTitleClassName"/>
-                            </xsl:attribute>
-                        </fo:retrieve-marker>
-                    </fo:inline>
-                </xsl:element>
-            </fo:static-content>
-            <fo:static-content flow-name="FrontMatterTOCOddPage-before" display-align="before">
-                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                    <xsl:attribute name="text-align-last">justify</xsl:attribute>
-                    <fo:inline>
-                        <fo:retrieve-marker>
-                            <xsl:attribute name="retrieve-class-name">
-                                <xsl:value-of select="$sHeaderTitleClassName"/>
-                            </xsl:attribute>
-                        </fo:retrieve-marker>
-                    </fo:inline>
-                    <fo:leader/>
-                    <fo:inline>
-                        <fo:page-number/>
-                    </fo:inline>
-                </xsl:element>
-            </fo:static-content>
-            <fo:static-content flow-name="xsl-footnote-separator">
-                <fo:block text-align="left">
-                    <fo:leader leader-pattern="rule" leader-length="2in"/>
-                </fo:block>
-            </fo:static-content>
+            <xsl:call-template name="OutputFrontMatterStaticContent"/>
             <fo:flow flow-name="xsl-region-body">
                 <xsl:attribute name="font-family">
                     <xsl:value-of select="$sDefaultFontFamily"/>
@@ -662,6 +708,59 @@
                 </xsl:call-template>
             </fo:flow>
         </fo:page-sequence>
+    </xsl:template>
+    <xsl:template name="OutputFrontMatterStaticContent">
+        <fo:static-content flow-name="FrontMatterTOCFirstPage-after" display-align="after">
+            <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
+                <xsl:attribute name="text-align">center</xsl:attribute>
+                <xsl:attribute name="margin-top">6pt</xsl:attribute>
+                <fo:page-number/>
+            </xsl:element>
+        </fo:static-content>
+        <xsl:variable name="sHeaderTitleClassName">
+            <xsl:choose>
+                <xsl:when test="name()='abstract'">abstract-title</xsl:when>
+                <xsl:when test="name()='acknowledgements'">acknowledgements-title</xsl:when>
+                <xsl:otherwise>preface-title</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <fo:static-content flow-name="FrontMatterTOCEvenPage-before" display-align="before">
+            <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
+                <xsl:attribute name="text-align-last">justify</xsl:attribute>
+                <fo:inline>
+                    <fo:page-number/>
+                </fo:inline>
+                <fo:leader/>
+                <fo:inline>
+                    <fo:retrieve-marker>
+                        <xsl:attribute name="retrieve-class-name">
+                            <xsl:value-of select="$sHeaderTitleClassName"/>
+                        </xsl:attribute>
+                    </fo:retrieve-marker>
+                </fo:inline>
+            </xsl:element>
+        </fo:static-content>
+        <fo:static-content flow-name="FrontMatterTOCOddPage-before" display-align="before">
+            <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
+                <xsl:attribute name="text-align-last">justify</xsl:attribute>
+                <fo:inline>
+                    <fo:retrieve-marker>
+                        <xsl:attribute name="retrieve-class-name">
+                            <xsl:value-of select="$sHeaderTitleClassName"/>
+                        </xsl:attribute>
+                    </fo:retrieve-marker>
+                </fo:inline>
+                <fo:leader/>
+                <fo:inline>
+                    <fo:page-number/>
+                </fo:inline>
+            </xsl:element>
+        </fo:static-content>
+        <fo:static-content flow-name="xsl-footnote-separator">
+            <fo:block text-align="left">
+                <fo:leader leader-pattern="rule" leader-length="2in"/>
+            </fo:block>
+        </fo:static-content>
     </xsl:template>
     <!--
       abstract, preface and acknowledgements (paper)
@@ -900,7 +999,7 @@
                     </xsl:attribute>
                     <xsl:for-each select="parent::endnote">
                         <xsl:choose>
-                            <xsl:when test="//chapter">
+                            <xsl:when test="$chapters">
                                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>
                             </xsl:when>
                             <xsl:when test="ancestor::author">
@@ -975,9 +1074,9 @@
             <xsl:attribute name="end-indent">
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </xsl:attribute>
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-                </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            </xsl:call-template>
             <xsl:call-template name="DoType"/>
             <xsl:call-template name="OutputTypeAttributes">
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
@@ -2033,7 +2132,7 @@ not using
         <fo:footnote>
             <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
                 <xsl:choose>
-                    <xsl:when test="//chapter">
+                    <xsl:when test="$chapters">
                         <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>
                     </xsl:when>
                     <xsl:when test="parent::author">
@@ -2069,7 +2168,7 @@ not using
                 <fo:footnote>
                     <xsl:variable name="sFootnoteNumber">
                         <xsl:choose>
-                            <xsl:when test="//chapter">
+                            <xsl:when test="$chapters">
                                 <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
                             </xsl:when>
                             <xsl:otherwise>
@@ -2099,7 +2198,7 @@ not using
                                 <!--
                                 <xsl:for-each select="parent::endnote">
                                     <xsl:choose>
-                                        <xsl:when test="//chapter">
+                                        <xsl:when test="$chapters">
                                             <xsl:number level="any" count="endnote" from="chapter"/>
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -2115,10 +2214,10 @@ not using
                                 <xsl:apply-templates select="id(@note)" mode="endnote"/>
                             </fo:basic-link>
                             <xsl:choose>
-                                <xsl:when test="//chapter">
+                                <xsl:when test="$chapters">
                                     <xsl:text> in chapter </xsl:text>
                                     <xsl:variable name="sNoteId" select="@note"/>
-                                    <xsl:for-each select="//chapter[descendant::endnote[@id=$sNoteId]]">
+                                    <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
                                         <xsl:number level="any" count="chapter" format="1"/>
                                     </xsl:for-each>
                                     <xsl:text>.</xsl:text>
@@ -2175,7 +2274,7 @@ not using
     <xsl:template match="glossary">
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
                     <xsl:call-template name="OutputChapterStaticContent">
                         <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
@@ -2209,7 +2308,7 @@ not using
       -->
     <xsl:template match="index">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <fo:page-sequence master-reference="Index" initial-page-number="auto-odd">
                     <xsl:call-template name="OutputIndexStaticContent">
                         <xsl:with-param name="sIndexTitle" select="'index-title'"/>
@@ -2267,7 +2366,7 @@ not using
       -->
     <xsl:template match="references">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
                     <xsl:call-template name="OutputChapterStaticContent">
                         <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
@@ -2343,7 +2442,7 @@ not using
     <!-- decided to use glossary instead
    <xsl:template match="backMatter/abbreviationsShownHere">
       <xsl:choose>
-         <xsl:when test="//chapter">
+         <xsl:when test="$chapters">
             <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
                <xsl:call-template name="OutputChapterStaticContent">
                   <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
@@ -2404,6 +2503,132 @@ not using
             </xsl:if>
             <xsl:apply-templates/>
         </fo:inline>
+    </xsl:template>
+    <!-- ===========================================================
+        LANDSCAPE
+        =========================================================== -->
+    <xsl:template match="landscape">
+        <xsl:variable name="sMasterMainName">
+            <xsl:choose>
+                <xsl:when test="ancestor::preface">FrontMatterTOC</xsl:when>
+                <xsl:otherwise>Chapter</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <psmi:page-sequence master-reference="{$sMasterMainName}Landscape" initial-page-number="auto">
+            <xsl:choose>
+                <xsl:when test="ancestor::preface">
+                    <xsl:call-template name="OutputFrontMatterStaticContent"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputChapterStaticContent">
+                        <xsl:with-param name="bUseFirstPage" select="'N'"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+            <fo:flow flow-name="xsl-region-body">
+                <xsl:attribute name="font-family">
+                    <xsl:value-of select="$sDefaultFontFamily"/>
+                </xsl:attribute>
+                <xsl:attribute name="font-size">
+                    <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
+                <!-- put title in marker so it can show up in running header -->
+                <xsl:choose>
+                    <xsl:when test="ancestor::preface">
+                        <fo:marker marker-class-name="preface-title">
+                            <xsl:for-each select="ancestor::preface">
+                                <xsl:call-template name="OutputPrefaceLabel"/>
+                            </xsl:for-each>
+                        </fo:marker>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <fo:marker marker-class-name="chap-title">
+                            <xsl:variable name="elementWithSecTitle" select="ancestor::chapter | ancestor::appendix[//chapter] | ancestor::chapterBeforePart |ancestor::part"/>
+                            <xsl:choose>
+                                <xsl:when test="$elementWithSecTitle">
+                                    <xsl:for-each select="$elementWithSecTitle">
+                                        <xsl:call-template name="DoSecTitleRunningHeader"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:choose>
+                                        <xsl:when test="$chapters">
+                                            <xsl:choose>
+                                                <xsl:when test="ancestor::glossary">
+                                                    <xsl:for-each select="ancestor::glossary">
+                                                        <xsl:call-template name="OutputGlossaryLabel">
+                                                            <xsl:with-param name="iPos" select="count(preceding-sibling::glossary) + 1"/>
+                                                        </xsl:call-template>
+                                                    </xsl:for-each>
+                                                </xsl:when>
+                                                <xsl:when test="ancestor::index">
+                                                    <xsl:for-each select="ancestor::index">
+                                                        <xsl:call-template name="OutputIndexLabel"/>
+                                                    </xsl:for-each>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:call-template name="OutputTitleForHeader"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:call-template name="OutputTitleForHeader"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </fo:marker>
+                        <!-- put title in marker so it can show up in running header -->
+                        <fo:marker marker-class-name="section-title">
+                            <xsl:variable name="mySections" select="ancestor::section6 | ancestor::section5 | ancestor::section4 | ancestor::section3 | ancestor::section2 | ancestor::section1 | ancestor::appendix"/>
+                            <xsl:variable name="myClosestSection" select="$mySections[last()]"/>
+                            <xsl:choose>
+                                <xsl:when test="$myClosestSection">
+                                    <xsl:choose>
+                                        <xsl:when test="$myClosestSection/shortTitle">
+                                            <xsl:apply-templates select="$myClosestSection/shortTitle"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:apply-templates select="$myClosestSection/secTitle/child::node()[name()!='endnote']"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="ancestor::preface">
+                                    <xsl:for-each select="ancestor::preface">
+                                        <xsl:call-template name="OutputPrefaceLabel"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:when test="ancestor::glossary">
+                                    <xsl:for-each select="ancestor::glossary">
+                                        <xsl:call-template name="OutputGlossaryLabel">
+                                            <xsl:with-param name="iPos" select="count(preceding-sibling::glossary) + 1"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:when test="ancestor::index">
+                                    <xsl:for-each select="ancestor::index">
+                                        <xsl:call-template name="OutputIndexLabel"/>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <!-- should not happen... -->
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </fo:marker>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:apply-templates/>
+            </fo:flow>
+        </psmi:page-sequence>
+    </xsl:template>
+    <xsl:template name="OutputTitleForHeader">
+        <xsl:choose>
+            <xsl:when test="//frontMatter/shortTitle">
+                <xsl:apply-templates select="//frontMatter/shortTitle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="//title/child::node()[name()!='endnote']"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       LANGDATA
@@ -2526,11 +2751,11 @@ not using
             </xsl:when>
         </xsl:choose>
         <!--
-        <xsl:if test="//chapter">
+        <xsl:if test="$chapters">
             <xsl:apply-templates select="." mode="numberChapter"/>.</xsl:if>
       -->
         <xsl:choose>
-            <xsl:when test="count(//chapter)=0 and count(//section1)=1 and count(//section1/section2)=0">
+            <xsl:when test="count($chapters)=0 and count(//section1)=1 and count(//section1/section2)=0">
                 <!-- if there are no chapters and there is but one section1 (with no subsections), there's no need to have a number so don't  -->
             </xsl:when>
             <xsl:otherwise>
@@ -2598,7 +2823,7 @@ not using
     </xsl:template>
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>
             </xsl:when>
             <xsl:otherwise>
@@ -2623,7 +2848,7 @@ not using
     -->
     <xsl:template mode="figure" match="*">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
@@ -2642,7 +2867,7 @@ not using
     -->
     <xsl:template mode="tablenumbered" match="*">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
@@ -2945,8 +3170,8 @@ not using
             </xsl:for-each>
         </xsl:if>
         <!-- chapter, no parts -->
-        <xsl:if test="not(//part) and //chapter">
-            <xsl:for-each select="//chapter">
+        <xsl:if test="not(//part) and $chapters">
+            <xsl:for-each select="$chapters">
                 <xsl:call-template name="OutputAllChapterTOC">
                     <xsl:with-param name="nLevel">
                         <xsl:value-of select="$nLevel"/>
@@ -2955,7 +3180,7 @@ not using
             </xsl:for-each>
         </xsl:if>
         <!-- section, no chapters -->
-        <xsl:if test="not(//part) and not(//chapter)">
+        <xsl:if test="not(//part) and not($chapters)">
             <xsl:call-template name="OutputAllSectionTOC">
                 <xsl:with-param name="nLevel">
                     <xsl:value-of select="$nLevel"/>
@@ -4228,7 +4453,7 @@ not using
         <xsl:param name="sId"/>
         <xsl:param name="sLabel"/>
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <fo:block id="{$sId}" font-size="18pt" font-weight="bold" break-before="page" margin-top="176pt" margin-bottom="10.8pt" text-align="center" span="all">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle" select="$sLabel"/>
@@ -4275,13 +4500,16 @@ not using
 -->
     <xsl:template name="OutputChapterStaticContent">
         <xsl:param name="sSectionTitle" select="'section-title'"/>
-        <fo:static-content flow-name="ChapterFirstPage-after" display-align="after">
-            <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
-                <xsl:attribute name="text-align">center</xsl:attribute>
-                <xsl:attribute name="margin-top">6pt</xsl:attribute>
-                <fo:page-number/>
-            </xsl:element>
-        </fo:static-content>
+        <xsl:param name="bUseFirstPage" select="'Y'"/>
+        <xsl:if test="$bUseFirstPage='Y'">
+            <fo:static-content flow-name="ChapterFirstPage-after" display-align="after">
+                <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
+                    <xsl:attribute name="text-align">center</xsl:attribute>
+                    <xsl:attribute name="margin-top">6pt</xsl:attribute>
+                    <fo:page-number/>
+                </xsl:element>
+            </fo:static-content>
+        </xsl:if>
         <fo:static-content flow-name="ChapterEvenPage-before" display-align="before">
             <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>

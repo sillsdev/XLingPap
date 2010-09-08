@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.12.0-xxe-4.5.0.zip"
+location="XLingPap-2.13.0-xxe-4.5.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.12.0_3</a:version
+>2.13.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-08-27</a:date
+>2010-09-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.12.0_3 27 August 2010<ul
+>2.13.0 7 September 2010<ul
 ><li
 >Add landscape element so can get PDF output to switch to a new page, but in landscape mode; the headers and footers remain as they were, but the page content shows up in landscape mode. This works with both the default XeLaTeX way of producing PDF as well as the RenderX way of producing PDF.</li
+><li
+>Enable a way to magnify the contents of a document for a poster. Currently only works with a publisher style sheet and the two ways of producing PDF.</li
+><li
+>Add command to convert selected text into an object element. It uses a keyboard short-cut of Ctrl-F11.</li
+><li
+>Add command to produce Open Office Writer format.</li
 ><li
 >XeLaTeX way of producing PDF: <ul
 ><li
@@ -45,32 +51,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug in the default PDF output which still showed a references section when nothing was cited.</li
 ><li
 >Since some (Charis SIL) font features require the Graphite renderer capability of XeTeX, added 'Graphite' as a XeLaTeXSpecial attribute value.</li
-></ul
-></li
-></ul
-></li
-><li
->2.12.0_2 10 August 2010<ul
-><li
->XeLaTeX way of producing PDF: <ul
 ><li
 >Fix bug which caused the free translation of a listInterlinear embedded within a table to insist on using most of the width of the page instead of using the width of the interlinear or free translation itself.</li
-></ul
-></li
-></ul
-></li
-><li
->2.12.0_1 9 August 2010<ul
-><li
->Enable a way to magnify the contents of a document for a poster. Currently only works with a publisher style sheet and the two ways of producing PDF.</li
-><li
->Add command to convert selected text into an object element. It uses a keyboard short-cut of Ctrl-F11.</li
-><li
->Add command to produce Open Office Writer format.</li
-><li
->RenderX way of producing PDF: make books also have bookmarks in the PDF.</li
-><li
->XeLaTeX way of producing PDF: <ul
 ><li
 >Fix bug which caused default way of producing PDF fail to produce PDF if a font-family was used in the abbreviations element.</li
 ><li
@@ -79,6 +61,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug which caused the PDF to fail if a publisher style sheet used the "After First Line" option for Interlinear source style.</li
 ></ul
 ></li
+><li
+>RenderX way of producing PDF: make books also have bookmarks in the PDF.</li
 ><li
 >A section2 element within a chapterBeforePart element would not correctly display the chapter number.</li
 ><li

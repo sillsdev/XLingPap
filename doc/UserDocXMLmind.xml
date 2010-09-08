@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->27 August 2010</date
+>7 September 2010</date
 ><version
 >2.13.0</version
 ><contents
@@ -1183,7 +1183,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font.  This only makes sense for elements with font-related attributes.</td
+>Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.</td
 ><td
 >graphite</td
 ></tr

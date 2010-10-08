@@ -10,7 +10,9 @@
     <xsl:template match="//refWork">
         <xsl:text>"</xsl:text>
         <xsl:value-of select="../@citename"/>
-        <xsl:text>: </xsl:text>
+        <xsl:text> (</xsl:text>
+        <xsl:value-of select="refDate"/>
+        <xsl:text>): </xsl:text>
         <xsl:apply-templates select="refTitle" mode="InTitle"/>
         <xsl:text> {</xsl:text>
         <xsl:value-of select="@id"/>

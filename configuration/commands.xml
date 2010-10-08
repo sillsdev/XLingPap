@@ -1013,6 +1013,28 @@ alt causes menu to be selected
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="shift ctrl"/>
+        <cfg:command name="jumpToWorkInReferences"/>
+    </cfg:binding>
+    <cfg:command name="jumpToWorkInReferences">
+        <cfg:macro>
+            <cfg:sequence>
+<!--                <cfg:pass>
+    allow this anywhere
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] references"/>
+                </cfg:pass>
+-->                <cfg:command name="getRefWorkTitlesandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Jump to reference' true %_"/>
+                <cfg:command name="selectById" parameter="id %_"/>
+            </cfg:sequence>
+            
+        </cfg:macro>
+    </cfg:command>
+    
+    
     <cfg:binding>
         <cfg:keyPressed code="F5"/>
         <cfg:command name="markAsGrammaticalGloss"/>

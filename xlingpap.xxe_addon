@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-10-02</a:date
+>2010-10-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.13.0_1 2 October 2010<ul
+>2.13.0_1 8 October 2010<ul
+><li
+>In chooser for citations, added the date of the work after the author name.</li
+><li
+>Added a "Jump to Work in References" command to make it easier to find entries in the references.</li
 ><li
 >Add emailAddress element to front matter.</li
 ><li
@@ -58,6 +62,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Added two XeLaTeXSpecial commands for table cells: border-left and border-right; these add a vertical line to the left or right of the cell, respectively.</li
 ><li
 >Fixed handling of tables so that if you use a width attribute in the first row, it will apply to all other rows as well unless the table has cells with colspan or rowspan attributes set.</li
+><li
+>Added check for .svg image files that have an equivalent .pdf form. If so, it will automatically use the .pdf file. This lets us see the image file in XXE. (XeLaTeX cannot format .svg, but it can format .pdf; XXE cannot display .pdf, but it can display .svg).</li
 ></ul
 ></li
 ><li

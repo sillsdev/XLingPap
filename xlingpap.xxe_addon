@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.13.0</a:version
+>2.13.0_1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-09-07</a:date
+>2010-10-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,57 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.13.0_1 2 October 2010<ul
+><li
+>Add emailAddress element to front matter.</li
+><li
+>Add jIssueNumber to article references.</li
+><li
+>In an article reference, made the jPages or jArticleNumber be optional (with the advent of posting papers on the web, there are now some that do not use either; e..g see <a
+href="http://www.und.edu/dept/linguistics/wp/2008.htm"
+>http://www.und.edu/dept/linguistics/wp/2008.htm</a
+>).</li
+><li
+>Add seriesEd and seriesEdInitials to book and collection references.</li
+><li
+>Add a way to override default text for dissertation (i.e. 'Ph.D. dissertation').</li
+><li
+>Add a way to override default text for thesis (i.e. 'M.A. thesis').</li
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Front and back matter that are to be right-aligned per a publisher style sheet were still coming out left-aligned. Also improved centering.</li
+><li
+>Added XeLaTeXSpecial command of column-formatting to allow one to override default table column formatting description. Note that this will probably only work well for simple tables.</li
+><li
+>Added two XeLaTeXSpecial commands for table cells: border-left and border-right; these add a vertical line to the left or right of the cell, respectively.</li
+><li
+>Fixed handling of tables so that if you use a width attribute in the first row, it will apply to all other rows as well unless the table has cells with colspan or rowspan attributes set.</li
+></ul
+></li
+><li
+>New publisher style sheets enhancements:<ul
+><li
+>Control whether or not a section number appears.</li
+><li
+>Control whether or not the initial paragraph of a section/chapter is indented.</li
+><li
+>Control where 'Ph.D. dissertation' and 'M.A. thesis' appear for dissertation and thesis reference layouts. (Note one must now add a dissertationLabelItem or thesisLabelItem in each reference 'pattern' or there will be a message that the pattern was not found.)</li
+><li
+>Improved process of matching for patterns in reference layouts (it was a bit sloppy before).</li
+><li
+>Improved notification for when a pattern in references was not found. It now tells you what the elements are that were not found.</li
+></ul
+></li
+><li
+>Fixed publisher style sheet bugs:<ul
+><li
+>In a paper, if there was an acknowledgement element in the back matter, it was formatted per the front matter acknowledgement of the style sheet, not the back matter acknowledgement information.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.13.0 7 September 2010<ul
 ><li

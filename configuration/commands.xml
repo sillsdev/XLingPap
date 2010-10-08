@@ -673,6 +673,7 @@ alt causes menu to be selected
                     <cfg:command name="setInterlinearRef"/>
                     <cfg:command name="setFigureRef"/>
                     <cfg:command name="setTableNumberedRef"/>
+                    <cfg:command name="setCollOrProcCitation"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
@@ -739,6 +740,27 @@ alt causes menu to be selected
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="setCollOrProcCitation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] collCitation procCitation"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] ref"/>-->
+                </cfg:pass>
+                <cfg:command name="getRefBookTitlesandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Book Citation' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] refToBook %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getRefBookTitlesandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetRefBookTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>    
     <cfg:command name="setEndnote">
         <cfg:macro>
             <cfg:sequence>
@@ -1015,7 +1037,9 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:command name="status" parameter="Deleting any web page file..."/>
-                <cfg:command name="DeletePDFFile" parameter="1 htm"/>
+<!-- Not needed because even on Windows, can produce the output file. 
+    <cfg:command name="DeletePDFFile" parameter="1 htm"/>
+-->
                 <cfg:command name="status" parameter="Producing the web page output..."/>
                 <cfg:command name="applyXLingPapTransform"/>
             </cfg:sequence>
@@ -1407,7 +1431,7 @@ What we want is to load IE independently and to do a refresh so it will show the
           -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
-            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>
+<!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
             <!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
             <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
@@ -1498,7 +1522,7 @@ What we want is to load IE independently and to do a refresh so it will show the
 <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
-            <!--            <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+<!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
@@ -1560,7 +1584,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
-            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>
+<!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
 <!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
             <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>

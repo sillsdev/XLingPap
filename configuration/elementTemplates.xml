@@ -225,7 +225,24 @@ citations
          </book>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="collection">
+    <cfg:elementTemplate name="book">
+            <book>
+                <location>location</location>
+                <publisher>publisher</publisher>
+            </book>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="bookCollectionOrProceedingsVolume">
+        <refWork id="r" xmlns="">
+            <authorRole>eds.</authorRole>
+            <refDate>date</refDate>
+            <refTitle>title</refTitle>
+            <book>
+                <location>location</location>
+                <publisher>publisher</publisher>
+            </book>
+        </refWork>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -239,7 +256,31 @@ citations
          </collection>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="dissertation">
+    <cfg:elementTemplate name="collectionCitation">
+        <refWork id="r" xmlns="">
+            <refDate>date</refDate>
+            <refTitle>title</refTitle>
+            <collection>
+                <collCitation refToBook="???"/>
+            </collection>
+        </refWork>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collection">
+            <collection>
+                <collEd>collection_editor</collEd>
+                <collTitle>collection_title </collTitle>
+                <collVol>collection_volume </collVol>
+                <collPages>collection_pages</collPages>
+                <location>location</location>
+                <publisher>publisher</publisher>
+            </collection>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="collectionCitation">
+            <collection>
+                <collCitation refToBook="???"/>
+            </collection>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="dissertation">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -249,7 +290,13 @@ citations
          </dissertation>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="fieldNotes">
+    <cfg:elementTemplate name="dissertation">
+            <dissertation>
+                <location>location</location>
+                <institution>institution</institution>
+            </dissertation>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="fieldNotes">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -258,7 +305,12 @@ citations
          </fieldNotes>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="ms">
+    <cfg:elementTemplate name="fieldNotes">
+            <fieldNotes>
+                <institution>institution</institution>
+            </fieldNotes>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="ms">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -267,7 +319,12 @@ citations
          </ms>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="paper">
+    <cfg:elementTemplate name="ms">
+            <ms>
+                <institution>institution</institution>
+            </ms>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="paper">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -277,7 +334,13 @@ citations
          </paper>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="proceedings">
+    <cfg:elementTemplate name="paper">
+            <paper>
+                <conference>conference</conference>
+                <location>location</location>
+            </paper>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -291,7 +354,31 @@ citations
          </proceedings>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="thesis">
+    <cfg:elementTemplate name="proceedingsCitation">
+        <refWork id="r" xmlns="">
+            <refDate>date</refDate>
+            <refTitle>title</refTitle>
+            <proceedings>
+                <procCitation page="???"/>
+            </proceedings>
+        </refWork>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedings">
+            <proceedings>
+                <procEd>proceedings_editor</procEd>
+                <procTitle>proceedings_title</procTitle>
+                <procVol>proceedings_volume</procVol>
+                <procPages>proceedings_pages</procPages>
+                <location>location</location>
+                <publisher>publisher</publisher>
+            </proceedings>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="proceedingsCitation">
+            <proceedings>
+                <procCitation pages="???"/>
+            </proceedings>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="thesis">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -301,7 +388,13 @@ citations
          </thesis>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="webPage">
+    <cfg:elementTemplate name="thesis">
+            <thesis>
+                <location>location</location>
+                <institution>institution</institution>
+            </thesis>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="webPage">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -311,7 +404,13 @@ citations
          </webPage>
       </refWork>
    </cfg:elementTemplate>
-   <!-- 
+    <cfg:elementTemplate name="webPage">
+            <webPage>
+                <url>url</url>
+                <dateAccessed>date</dateAccessed>
+            </webPage>
+    </cfg:elementTemplate>
+    <!-- 
 - - - - - - - - - - - - - - - - - - - - 
 examples
 - - - - - - - - - - - - - - - - - - - - 

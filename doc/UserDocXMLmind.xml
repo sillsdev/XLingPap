@@ -19,9 +19,9 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->7 September 2010</date
+>10 September 2010</date
 ><version
->2.13.0</version
+>2.14.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -17402,6 +17402,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>emailAddress</object
+></dt
+><dd
+>The email address of an author</dd
+><dt
+><object
+type="tElement"
 >endCaption</object
 ></dt
 ><dd
@@ -17708,6 +17715,13 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for the number of an article in an online journal</dd
+><dt
+><object
+type="tElement"
+>jIssueNumber</object
+></dt
+><dd
+>Reference information for the issue number of a journal</dd
 ><dt
 ><object
 type="tElement"
@@ -18747,6 +18761,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>emailAddressLayout</object
+></dt
+><dd
+>Layout info for the email address of an author</dd
+><dt
+><object
+type="tElement"
 >endnoteRefLayout</object
 ></dt
 ><dd
@@ -19010,6 +19031,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a journal article number within references</dd
+><dt
+><object
+type="tElement"
+>jIssueNumberItem</object
+></dt
+><dd
+>Layout info for a journal issue number (within references)</dd
 ><dt
 ><object
 type="tElement"

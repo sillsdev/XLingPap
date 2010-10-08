@@ -660,6 +660,36 @@ col {
     padding: 2;
 }
 */
+collCitation:before
+{
+	content: " In ";
+}
+collCitation
+{
+	content: set-attribute-button(attribute, refToBook,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+			 label(xpath, "id(@refToBook)/../@citename")
+             ;
+	background-color:citation-background-color();
+}
+collCitation[page]:after
+{
+	content:" ("
+	        label(xpath, "id(@refToBook)/refDate")
+	        ":"
+	        label(attribute, page)
+	        "). "
+	        ;
+}
+collCitation:after
+{
+	content:" ("
+	        label(xpath, "id(@refToBook)/refDate")
+	        "). "
+	        ;
+}
 collEd
 {
 	display:inline;
@@ -855,6 +885,16 @@ edition
 edition:after
 {
 	content:".  ";
+}
+
+emailAddress { 
+    display: block;
+    text-align: center;
+    font-weight: normal;
+    font-size: medium;
+    color: maroon;
+    margin-top: .67ex;
+    margin-bottom: .67ex;
 }
 
 endCaption { 
@@ -1587,6 +1627,19 @@ jArticleNumber:after
 	content: ". ";
 }
 
+jIssueNumber:before
+{
+	content: "(";
+}
+jIssueNumber
+{
+	display:inline;
+}
+jIssueNumber:after
+{
+	content: ")";
+}
+
 jPages:before
 {
 	content: ":";
@@ -1613,6 +1666,11 @@ jTitle:after
 jVol
 {
 	display:inline;
+}
+jVol:after
+{
+ 	content: label(xpath,"if(following-sibling::*[name()='jPages' or name()='jArticleNumber'], '','. ')");
+
 }
 keyTerm
 {
@@ -2032,6 +2090,36 @@ presentedAt
     margin-bottom: .67ex;
 }
 
+procCitation:before
+{
+	content: " In ";
+}
+procCitation
+{
+	content: set-attribute-button(attribute, refToBook,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+			 label(xpath, "id(@refToBook)/../@citename")
+             ;
+	background-color:citation-background-color();
+}
+procCitation[page]:after
+{
+	content:" ("
+	        label(xpath, "id(@refToBook)/refDate")
+	        ":"
+	        label(attribute, page)
+	        ")"
+	        ;
+}
+procCitation:after
+{
+	content:" ("
+	        label(xpath, "id(@refToBook)/refDate")
+	        ")"
+	        ;
+}
 procEd
 {
 	display:inline;
@@ -2689,6 +2777,27 @@ series:after
 	content: ". ";
 }
 
+seriesEd
+{
+	display:inline;
+}
+seriesEd:after
+{
+	content: " ";
+}
+
+seriesEdInitials:before
+{
+	property-group: authorInitialsBefore();
+}
+seriesEdInitials
+{
+	property-group: authorInitials();
+}
+seriesEdInitials:after
+{
+	property-group: authorInitialsAfter();
+}
 shortAuthor:before
 {
 	content:" shortened author(s): ";
@@ -3420,6 +3529,14 @@ authorRoleItem[font-weight]
 {
 	font-weight:concatenate(attr(font-weight));
 }
+collectionLayout authorRoleItem
+{
+	property-group: referencesItem("eds");
+}
+proceedingsLayout authorRoleItem
+{
+	property-group: referencesItem("eds");
+}
 authorRoleItem
 {
 	property-group: referencesItem("Illustrator");
@@ -3632,6 +3749,30 @@ citationLinkLayout
 	property-group:linkLayoutParameter("citation");
 	color: gray;
 	text-decoration:none;
+}
+collCitationItem[color]
+{
+	color:concatenate(attr(color));
+}
+collCitationItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+collCitationItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+collCitationItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+collCitationItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+collCitationItem
+{
+	property-group: referencesItem("Jones and Watson");
 }
 collEdItem[color]
 {
@@ -3926,6 +4067,31 @@ defaultFontFamily
 	property-group: layoutParameter(.67ex);
 }
 
+dissertationLabelItem[color]
+{
+	color:concatenate(attr(color));
+}
+dissertationLabelItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+dissertationLabelItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+dissertationLabelItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+dissertationLabelItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+dissertationLabelItem
+{
+	property-group: referencesItem("Ph.D. dissertation");
+}
+
 dissertationLayout:before
 {
 	property-group: referencesItemLayoutBefore();
@@ -3965,6 +4131,42 @@ editionItem[font-weight]
 editionItem
 {
 	property-group: referencesItem("2nd");
+}
+emailAddressLayout[color]
+{
+	color:concatenate(attr(color));
+}
+emailAddressLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+emailAddressLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+emailAddressLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+emailAddressLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+emailAddressLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+emailAddressLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+emailAddressLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+emailAddressLayout
+{
+	property-group: titledItem("Author's Email Address");
 }
 endnoteRefLayout[color]
 {
@@ -4674,6 +4876,30 @@ jArticleNumberItem
 {
 	property-group: referencesItem("004");
 }
+jIssueNumberItem[color]
+{
+	color:concatenate(attr(color));
+}
+jIssueNumberItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+jIssueNumberItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+jIssueNumberItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+jIssueNumberItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+jIssueNumberItem
+{
+	property-group: referencesItem("2");
+}
 jPagesItem[color]
 {
 	color:concatenate(attr(color));
@@ -5230,6 +5456,30 @@ presentedAtLayout[textalign]
 presentedAtLayout
 {
 	property-group: titledItem("Conference Name");
+}
+procCitationItem[color]
+{
+	color:concatenate(attr(color));
+}
+procCitationItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+procCitationItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+procCitationItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+procCitationItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+procCitationItem
+{
+	property-group: referencesItem("Jones and Watson");
 }
 procEdItem[color]
 {
@@ -6109,6 +6359,30 @@ sectionRefLinkLayout
 	color: gray;
 	text-decoration:none;
 }
+seriesEdItem[color]
+{
+	color:concatenate(attr(color));
+}
+seriesEdItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+seriesEdItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+seriesEdItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+seriesEdItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+seriesEdItem
+{
+	property-group: referencesItem("Patok, Mary Anne and James Verdun, eds. ");
+}
 seriesItem[color]
 {
 	color:concatenate(attr(color));
@@ -6348,6 +6622,30 @@ tablenumberedRefLinkLayout
 	property-group:linkLayoutParameter("tablenumberedRef");
 	color: gray;
 	text-decoration:none;
+}
+thesisLabelItem[color]
+{
+	color:concatenate(attr(color));
+}
+thesisLabelItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+thesisLabelItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+thesisLabelItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+thesisLabelItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+thesisLabelItem
+{
+	property-group: referencesItem("M.A. thesis");
 }
 thesisLayout:before
 {

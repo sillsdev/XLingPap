@@ -60,6 +60,34 @@
             <xsl:text>&#x0a;</xsl:text>
         </xsl:if>
     </xsl:template>
+    <xsl:template name="NormalizeColumnFormatingCharacters">
+        <!-- There are some characters that can occur in a XeLaTeXSpecial/@column-formatting attribute which will make TeX stop if used as they
+            come out of the character conversion process.  So we need to change them back here to the plain
+            character so XeLaTeX/XeTeX will work.
+        -->
+        <xsl:variable name="sLeftBraceChanged">
+            <xsl:call-template name="FindAndReplace">
+                <xsl:with-param name="sStringToMakeChangesIn" select="text()"/>
+                <xsl:with-param name="sFind" select="'\{'"/>
+                <xsl:with-param name="sReplace" select="'{'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="sRightBraceChanged">
+            <xsl:call-template name="FindAndReplace">
+                <xsl:with-param name="sStringToMakeChangesIn" select="$sLeftBraceChanged"/>
+                <xsl:with-param name="sFind" select="'\}'"/>
+                <xsl:with-param name="sReplace" select="'}'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="sVerticalBarChanged">
+            <xsl:call-template name="FindAndReplace">
+                <xsl:with-param name="sStringToMakeChangesIn" select="$sRightBraceChanged"/>
+                <xsl:with-param name="sFind" select="'\textbar{}'"/>
+                <xsl:with-param name="sReplace" select="'|'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="$sVerticalBarChanged"/>
+    </xsl:template>
     <xsl:template name="NormalizeFileNameCharacters">
         <!-- There are some characters that can occur in file names which will make TeX stop if used as they
             come out of the character conversion process.  So we need to change them back here to the plain
@@ -180,7 +208,14 @@
     -->
     <xsl:template match="tex:parm">
         <xsl:text>{</xsl:text>
-        <xsl:apply-templates/>
+        <xsl:choose>
+            <xsl:when test="parent::tex:env[@name='longtable' or @name='tabular'] and preceding-sibling::*[1][name()='tex:opt'] and count(preceding-sibling::*)=1 and contains(.,'\textbar{}') or contains(.,'\{') or contains(.,'\}')">
+                <xsl:call-template name="NormalizeColumnFormatingCharacters"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:text>}</xsl:text>
     </xsl:template>
     <!-- 

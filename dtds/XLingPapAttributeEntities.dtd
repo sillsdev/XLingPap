@@ -74,6 +74,8 @@
        -->
 <!ENTITY % sectionformatinfo "
      beginsparagraph (yes | no) 'no' 
-     ignore (yes | no) 'no' 
+     ignore (yes | no) 'no'
+     showNumber (yes | no) 'yes'
+     firstParagraphHasIndent (yes | no) 'yes' 
      "
      >

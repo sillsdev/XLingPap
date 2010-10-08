@@ -57,31 +57,37 @@ References Layouts
 <!ELEMENT thesisLayouts (thesisLayout)+>
 <!ELEMENT webPageLayouts (webPageLayout)+>
 
-<!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem |  jPagesItem | jArticleNumberItem |  
+<!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
                                                 locationPublisherLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem |  seriesItem |
+<!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem | 
                                                bookTotalPagesItem | locationPublisherLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  collVolItem |  collPagesItem | bVolItem |  seriesItem |  
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem |  collCitationItem | authorRoleItem |
                                                locationPublisherLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT dissertationLayout (refTitleItem | locationItem |  institutionItem |  publishedLayoutRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+<!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | urlItem | iso639-3codeItemRef)+>
 <!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | urlItem | iso639-3codeItemRef)+>
 <!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem |  
+<!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem |  procCitationItem | authorRoleItem |
                                                             locationPublisherLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT thesisLayout (refTitleItem | locationItem |  institutionItem |  publishedLayoutRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+<!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT webPageLayout (refTitleItem | editionItem |  locationItem |  institutionItem |  publisherItem | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 
 <!ELEMENT jTitleItem EMPTY >
 <!ATTLIST jTitleItem %formatinfo;>
 <!ELEMENT jVolItem EMPTY >
 <!ATTLIST jVolItem %formatinfo;>
+<!ELEMENT jIssueNumberItem EMPTY >
+<!ATTLIST jIssueNumberItem %formatinfo;>
 <!ELEMENT jPagesItem EMPTY >
 <!ATTLIST jPagesItem %formatinfo;>
 <!ELEMENT jArticleNumberItem EMPTY >
 <!ATTLIST jArticleNumberItem %formatinfo;>
 <!ELEMENT bVolItem EMPTY >
 <!ATTLIST bVolItem %formatinfo;>
+<!ELEMENT dissertationLabelItem EMPTY >
+<!ATTLIST dissertationLabelItem %formatinfo;>
+<!ELEMENT thesisLabelItem EMPTY >
+<!ATTLIST thesisLabelItem %formatinfo;>
 <!ELEMENT locationItem EMPTY >
 <!ATTLIST locationItem %formatinfo;>
 <!ELEMENT publisherItem EMPTY >
@@ -106,6 +112,8 @@ References Layouts
 <!ATTLIST procVolItem %formatinfo;>
 <!ELEMENT procPagesItem EMPTY >
 <!ATTLIST procPagesItem %formatinfo;>
+<!ELEMENT procCitationItem EMPTY >
+<!ATTLIST procCitationItem %formatinfo;>
 <!ELEMENT conferenceItem EMPTY >
 <!ATTLIST conferenceItem %formatinfo;>
 <!ELEMENT collEdItem EMPTY >
@@ -116,8 +124,12 @@ References Layouts
 <!ATTLIST collVolItem %formatinfo;>
 <!ELEMENT collPagesItem EMPTY >
 <!ATTLIST collPagesItem %formatinfo;>
+<!ELEMENT collCitationItem EMPTY >
+<!ATTLIST collCitationItem %formatinfo;>
 <!ELEMENT translatedByItem EMPTY >
 <!ATTLIST translatedByItem %formatinfo;>
+<!ELEMENT seriesEdItem EMPTY >
+<!ATTLIST seriesEdItem %formatinfo;>
 <!ELEMENT seriesItem EMPTY >
 <!ATTLIST seriesItem %formatinfo;>
 <!ELEMENT bookTotalPagesItem EMPTY >

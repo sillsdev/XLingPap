@@ -291,7 +291,7 @@ Front MatterLayout
   titleHeaderFooterPageStyles is for the title page of a book only
   headerFooterPageStyles is for the other fornt matter items for a book
 -->
-<!ELEMENT frontMatterLayout (titleHeaderFooterPageStyles?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | authorContactInfoLayout |
+<!ELEMENT frontMatterLayout (titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout |
                                                        presentedAtLayout | dateLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
 <!ATTLIST titleLayout
@@ -311,6 +311,10 @@ Front MatterLayout
     >
 <!ELEMENT affiliationLayout EMPTY >
 <!ATTLIST affiliationLayout
+     %frontmatterformatinfo;
+    >
+<!ELEMENT emailAddressLayout EMPTY >
+<!ATTLIST emailAddressLayout
      %frontmatterformatinfo;
     >
 <!-- need to modify authorContactInfoLayout -->
@@ -372,6 +376,9 @@ Body Layout
      %titleformatinfo; 
     >
     <!ELEMENT chapterLayout (chapterTitleLayout | numberLayout)+ >
+    <!ATTLIST chapterLayout
+         firstParagraphHasIndent (yes | no) 'yes' 
+     >
     <!ELEMENT  chapterTitleLayout EMPTY >
     <!ATTLIST chapterTitleLayout 
     %titleformatinfo; 
@@ -447,7 +454,45 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?) >
+   <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?,
+                                                      langDataLayout?, glossLayout?, freeLayout? ) >
+    <!ELEMENT langDataLayout (langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
+   <!ELEMENT langDataInExampleLayout EMPTY >
+    <!ATTLIST langDataInExampleLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT langDataInTableLayout EMPTY >
+    <!ATTLIST langDataInTableLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT langDataInProseLayout EMPTY >
+    <!ATTLIST langDataInProseLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+    <!ELEMENT glossLayout (glossInExampleLayout, glossInTableLayout, glossInProseLayout) >
+   <!ELEMENT glossInExampleLayout EMPTY >
+    <!ATTLIST glossInExampleLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT glossInTableLayout EMPTY >
+    <!ATTLIST glossInTableLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT glossInProseLayout EMPTY >
+    <!ATTLIST glossInProseLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT freeLayout EMPTY >
+    <!ATTLIST freeLayout
+       textbeforeAfterUsesFontInfo (no | yes) 'no'
+       %formatinfo;
+    >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout
        indent-before CDATA #REQUIRED

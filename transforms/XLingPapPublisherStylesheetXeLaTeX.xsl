@@ -11,6 +11,7 @@
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear" use="@text"/>
     <xsl:key name="LanguageID" match="//language" use="@id"/>
+    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
     <!-- ===========================================================
       Parameterized Variables
@@ -43,6 +44,7 @@
     <xsl:variable name="contentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
+    <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="sExampleIndentBefore" select="string($contentLayoutInfo/exampleLayout/@indent-before)"/>
     <xsl:variable name="sExampleIndentAfter" select="string($contentLayoutInfo/exampleLayout/@indent-after)"/>
     <xsl:variable name="lineSpacing" select="$pageLayoutInfo/lineSpacing"/>
@@ -95,9 +97,11 @@
       Variables
       =========================================================== -->
     <xsl:variable name="bIsBook" select="//chapter"/>
-    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXBookmarks.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXContents.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXReferences.xsl"/>
+    <xsl:variable name="references" select="//references"/>
+    <xsl:variable name="refWorks" select="//refWork"/>
+    <xsl:variable name="collOrProcVolumesToInclude">
+        <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
+    </xsl:variable>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -428,6 +432,38 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        emailAddress
+    -->
+    <xsl:template match="emailAddress">
+        <xsl:variable name="iPos" select="count(preceding-sibling::emailAddress) + 1"/>
+        <xsl:variable name="iPosToUse">
+            <xsl:call-template name="GetBestLayout">
+                <xsl:with-param name="iPos" select="$iPos"/>
+                <xsl:with-param name="iLayouts" select="$iEmailAddressLayouts"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <tex:group>
+            <xsl:call-template name="DoFrontMatterFormatInfoBegin">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:variable name="contentForThisElement">
+                <xsl:apply-templates/>
+            </xsl:variable>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFrontMatterFormatInfoEnd">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+            </xsl:call-template>
+        </tex:group>
+        <tex:cmd name="par" nl2="1"/>
+        <xsl:call-template name="DoSpaceAfter">
+            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPos]"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         date
     -->
     <xsl:template match="date">
@@ -563,29 +599,32 @@
                         <xsl:value-of select="normalize-space($abstractTextLayoutInfo/@end-indent)"/>
                         <xsl:text>&#x20;</xsl:text>
                     </xsl:if>
-                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
-                        <xsl:call-template name="DoTextAlign">
-                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
-                        </xsl:call-template>
+                    <xsl:if test="$abstractTextLayoutInfo/@textalign='start' or $abstractTextLayoutInfo/@textalign='left'">
+                        <tex:cmd name="noindent" gr="0" nl2="1"/>
                     </xsl:if>
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
                         <xsl:with-param name="originalContext" select="."/>
                     </xsl:call-template>
+                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
+                        <xsl:call-template name="DoTextAlign">
+                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:apply-templates/>
                     <xsl:variable name="contentForThisElement">
                         <xsl:apply-templates/>
                     </xsl:variable>
-                    <xsl:call-template name="OutputFontAttributesEnd">
-                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
-                        <xsl:with-param name="originalContext" select="."/>
-                    </xsl:call-template>
                     <xsl:if test="$abstractTextLayoutInfo/@textalign">
                         <xsl:call-template name="DoTextAlignEnd">
                             <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
                             <xsl:with-param name="contentForThisElement" select="$contentForThisElement"/>
                         </xsl:call-template>
                     </xsl:if>
+                    <xsl:call-template name="OutputFontAttributesEnd">
+                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
                 </tex:group>
                 <xsl:call-template name="DoSpaceAfter">
                     <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
@@ -624,14 +663,28 @@
         acknowledgements (paper)
     -->
     <xsl:template match="acknowledgements" mode="paper">
-        <xsl:call-template name="OutputFrontOrBackMatterTitle">
-            <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputAcknowledgementsLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="bIsBook" select="'N'"/>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="ancestor::frontMatter">
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'N'"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'N'"/>
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates/>
     </xsl:template>
     <!--
@@ -724,23 +777,25 @@
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
         </xsl:call-template>
-        <xsl:call-template name="DoTitleFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
-        </xsl:call-template>
-        <xsl:apply-templates select="secTitle"/>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
-        </xsl:call-template>
-        <xsl:variable name="contentForThisElement">
+        <tex:group>
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+            </xsl:call-template>
             <xsl:apply-templates select="secTitle"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
             </xsl:call-template>
-        </xsl:variable>
-        <xsl:call-template name="DoTitleFormatInfoEnd">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
-            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-        </xsl:call-template>
+            <xsl:variable name="contentForThisElement">
+                <xsl:apply-templates select="secTitle"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="DoTitleFormatInfoEnd">
+                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+            </xsl:call-template>
+        </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
@@ -816,18 +871,10 @@
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
-        <xsl:call-template name="DoTitleFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-        </xsl:call-template>
-        <xsl:call-template name="OutputChapTitle">
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputChapterNumber"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-        </xsl:call-template>
-        <xsl:variable name="contentForThisElement">
+        <tex:group>
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
                     <xsl:call-template name="OutputChapterNumber"/>
@@ -836,11 +883,21 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
             </xsl:call-template>
-        </xsl:variable>
-        <xsl:call-template name="DoTitleFormatInfoEnd">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-        </xsl:call-template>
+            <xsl:variable name="contentForThisElement">
+                <xsl:call-template name="OutputChapTitle">
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputChapterNumber"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="DoTitleFormatInfoEnd">
+                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+            </xsl:call-template>
+        </tex:group>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
@@ -1173,7 +1230,37 @@
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
-                        <tex:cmd name="indent" gr="0" nl2="0" sp="1"/>
+                        <xsl:choose>
+                            <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
+                                <!-- is the first item -->
+                                <xsl:choose>
+                                    <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::section2 and $bodyLayoutInfo/section2Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::section3 and $bodyLayoutInfo/section3Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::section4 and $bodyLayoutInfo/section4Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::section5 and $bodyLayoutInfo/section5Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <tex:cmd name="indent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <tex:cmd name="indent" gr="0" nl2="0" sp="1"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:call-template name="OutputTypeAttributes">
@@ -2716,15 +2803,18 @@
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:if test="string-length($layoutInfo/@textalign) &gt; 0">
-            <xsl:call-template name="DoTextAlign">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            </xsl:call-template>
+        <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left'">
+            <tex:cmd name="noindent" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$layoutInfo"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
+        <xsl:if test="string-length($layoutInfo/@textalign) &gt; 0">
+            <xsl:call-template name="DoTextAlign">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoFormatLayoutInfoTextBefore">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
@@ -2736,16 +2826,16 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="originalContext"/>
         <xsl:param name="contentOfThisElement"/>
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="$layoutInfo"/>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
         <xsl:if test="string-length($layoutInfo/@textalign) &gt; 0">
             <xsl:call-template name="DoTextAlignEnd">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="contentForThisElement" select="$contentOfThisElement"/>
             </xsl:call-template>
         </xsl:if>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$layoutInfo"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
       DoFrontMatterBookmarksPerLayout
@@ -2814,6 +2904,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='affiliationLayout'">
                     <xsl:apply-templates select="$frontMatter/affiliation"/>
+                </xsl:when>
+                <xsl:when test="name(.)='emailAddressLayout'">
+                    <xsl:apply-templates select="$frontMatter/emailAddress"/>
                 </xsl:when>
                 <xsl:when test="name(.)='presentedAtLayout'">
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
@@ -2927,6 +3020,10 @@
                 <xsl:when test="name(.)='affiliationLayout'">
                     <xsl:variable name="iPos" select="count(preceding-sibling::affiliationLayout) + 1"/>
                     <xsl:apply-templates select="$frontMatter/affiliation[$iPos]"/>
+                </xsl:when>
+                <xsl:when test="name(.)='emailAddressLayout'">
+                    <xsl:variable name="iPos" select="count(preceding-sibling::emailAddressLayout) + 1"/>
+                    <xsl:apply-templates select="$frontMatter/emailAddress[$iPos]"/>
                 </xsl:when>
                 <xsl:when test="name(.)='presentedAtLayout'">
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
@@ -3184,8 +3281,9 @@
                   DoReferences
 -->
     <xsl:template name="DoReferences">
-        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
-        <xsl:if test="$authors">
+        <xsl:variable name="refAuthors" select="//refAuthor"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+        <xsl:if test="$directlyCitedAuthors">
             <xsl:call-template name="OutputBackMatterItemTitle">
                 <xsl:with-param name="sId" select="'rXLingPapReferences'"/>
                 <xsl:with-param name="sLabel">
@@ -3198,8 +3296,14 @@
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
             </xsl:if>
             <tex:cmd name="raggedright" gr="0" nl2="1"/>
-            <xsl:for-each select="$authors">
+            <!--            <xsl:for-each select="$authors">
                 <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
+                <xsl:for-each select="$works">
+-->
+            <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+            <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                <xsl:variable name="thisAuthor" select="."/>
+                <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
                 <xsl:for-each select="$works">
                     <tex:cmd name="hangindent" gr="0"/>
                     <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
@@ -3530,9 +3634,11 @@
         <!-- Note: need to be sure to enclose this in a group or it will become the case from now until the next text align -->
         <xsl:choose>
             <xsl:when test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left'">
+                <tex:spec cat="bg"/>
                 <tex:cmd name="noindent" gr="0" nl2="1"/>
             </xsl:when>
             <xsl:when test="$layoutInfo/@textalign='end' or $layoutInfo/@textalign='right'">
+                <tex:spec cat="bg"/>
                 <tex:cmd name="raggedleft" gr="0" nl2="1"/>
             </xsl:when>
             <xsl:when test="$layoutInfo/@textalign='center'">
@@ -3567,7 +3673,7 @@
         <xsl:param name="contentForThisElement"/>
         <!-- Note: need to be sure to enclose this in a group or it will become the case from now until the next text align -->
         <xsl:choose>
-            <xsl:when test="$layoutInfo/@textalign='center'">
+            <xsl:when test="$layoutInfo/@textalign='center' or $layoutInfo/@textalign='right' or $layoutInfo/@textalign='end'">
                 <!-- must have \\ at end or it will not actually center -->
                 <xsl:if test="string-length($contentForThisElement) &gt; 0">
                     <xsl:if test="child::*[position()=last()][name()='br'][not(following-sibling::text())]">
@@ -3577,10 +3683,10 @@
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
                 </xsl:if>
-                <tex:spec cat="eg"/>
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         DoTextDecoration
@@ -4892,48 +4998,60 @@
     <xsl:template name="OutputSectionNumberProper">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bAppendix"/>
-        <tex:group>
-            <xsl:if test="$layoutInfo">
-                <xsl:call-template name="DoTitleFormatInfo">
-                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                </xsl:call-template>
-            </xsl:if>
+        <xsl:variable name="bUseNumber">
             <xsl:choose>
-                <xsl:when test="$bAppendix='Y'">
-                    <xsl:apply-templates select="." mode="numberAppendix"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="number"/>
-                </xsl:otherwise>
+                <xsl:when test="name()='section1' and $bodyLayoutInfo/section1Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section2' and $bodyLayoutInfo/section2Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section3' and $bodyLayoutInfo/section3Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section4' and $bodyLayoutInfo/section4Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section5' and $bodyLayoutInfo/section5Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section6' and $bodyLayoutInfo/section6Layout/@showNumber='no'">N</xsl:when>
+                <xsl:otherwise>Y</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="$layoutInfo">
-                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+        </xsl:variable>
+        <xsl:if test="$bUseNumber='Y'">
+            <tex:group>
+                <xsl:if test="$layoutInfo">
+                    <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     </xsl:call-template>
-                    <xsl:variable name="contentForThisElement">
+                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="$bAppendix='Y'">
+                        <xsl:apply-templates select="." mode="numberAppendix"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="number"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$layoutInfo">
                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:call-template name="DoTitleFormatInfoEnd">
-                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                        <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-                    </xsl:call-template>
-                    <xsl:if test="$layoutInfo/../@beginsparagraph!='yes'">
-                        <tex:cmd name="par" nl2="1"/>
-                    </xsl:if>
-                    <xsl:call-template name="DoSpaceAfter">
-                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-- make sure there's a (non-breaking) space between the number and the title -->
-                    <xsl:text>&#xa0;</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="$layoutInfo"> </xsl:if>
-        </tex:group>
+                        <xsl:variable name="contentForThisElement">
+                            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:call-template name="DoTitleFormatInfoEnd">
+                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                        </xsl:call-template>
+                        <xsl:if test="$layoutInfo/../@beginsparagraph!='yes'">
+                            <tex:cmd name="par" nl2="1"/>
+                        </xsl:if>
+                        <xsl:call-template name="DoSpaceAfter">
+                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- make sure there's a (non-breaking) space between the number and the title -->
+                        <xsl:text>&#xa0;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:group>
+        </xsl:if>
     </xsl:template>
     <!--  
       OutputSectionNumberAndTitle
@@ -5264,5 +5382,9 @@
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE
         =========================================================== -->
+    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXBookmarks.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXContents.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetXeLaTeXReferences.xsl"/>
+    <xsl:include href="XLingPapCommon.xsl"/>
     <xsl:include href="XLingPapXeLaTeXCommon.xsl"/>
 </xsl:stylesheet>

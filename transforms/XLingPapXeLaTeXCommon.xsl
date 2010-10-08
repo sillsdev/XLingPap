@@ -1776,15 +1776,23 @@
                 <xsl:if test="not(ancestor::example)">
                     <tex:cmd name="par"/>
                 </xsl:if>
-                <!--                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
-                <xsl:variable name="bPDFExists" select="document($sPDFFile)"/>
+       <!--   <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                
+<!-\-                <xsl:variable name="absoluteURI" select="resolve-uri($sPDFFile, base-uri(.))" as="xs:anyURI"/>-\->
+                <xsl:if test="file:exists(file:new($sPDFFile))" xmlns:file="java.io.File">
+                    <xsl:text>SPLAT!!</xsl:text>
+</xsl:if>                    
+                
+                <xsl:variable name="bPDFExists" select="boolean(document($sPDFFile))"/>
+               <!-\-  tries to read the pdf file as if it were XML and still fails.  It also takes a long time. -\->  
                 <xsl:choose>
                     <xsl:when test="$bPDFExists">SPLAT!!!</xsl:when>
                     <xsl:otherwise>
                         
                     </xsl:otherwise>
-                </xsl:choose>
--->
+                </xsl:choose>-->
+
+
                 <xsl:call-template name="ReportTeXCannotHandleThisMessage">
                     <xsl:with-param name="sMessage">
                         <xsl:text>We're sorry, but the graphic file </xsl:text>
@@ -2285,13 +2293,13 @@
                             <xsl:when test="not(th) and preceding-sibling::tr[1][th]">
                                 <tex:cmd name="midrule" gr="0"/>
                                 <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1">
-                                    <tex:cmd name="endhead" gr="0" nl2="0"/>
+                                    <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
                             <xsl:when test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
                                 <tex:cmd name="midrule" gr="0"/>
                                 <xsl:if test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]])">
-                                    <tex:cmd name="endhead" gr="0" nl2="0"/>
+                                    <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
                         </xsl:choose>
@@ -2401,7 +2409,8 @@
     -->
     <xsl:template name="CreateVerticalLine">
         <xsl:param name="iBorder"/>
-        <xsl:if test="$bUseBookTabs!='Y'">
+        <xsl:param name="bDisallowVerticalLines" select="$bUseBookTabs"/>
+        <xsl:if test="$bDisallowVerticalLines!='Y'">
             <xsl:choose>
                 <xsl:when test="$iBorder=1">
                     <tex:spec cat="vert"/>
@@ -2737,22 +2746,34 @@
                 <xsl:with-param name="sImageFile" select="$sImageFileLocationAdjustment"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:if test="ancestor::example">
-            <!-- apparently we normally need to adjust the vertical position of the image when in an example -->
-            <tex:cmd name="vspace*">
-                <tex:parm>
-                    <xsl:variable name="default">
-                        <xsl:text>-</xsl:text>
-                        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                    </xsl:variable>
-                    <xsl:variable name="sPattern" select="'vertical-adjustment='"/>
-                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
-                        <xsl:with-param name="sPattern" select="$sPattern"/>
-                        <xsl:with-param name="default" select="$default"/>
-                    </xsl:call-template>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:if>
+        <xsl:variable name="sPatternVA" select="'vertical-adjustment='"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::example">
+                <!-- apparently we normally need to adjust the vertical position of the image when in an example -->
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:variable name="default">
+                            <xsl:text>-</xsl:text>
+                            <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                        </xsl:variable>
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="$sPatternVA"/>
+                            <xsl:with-param name="default" select="$default"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="$sPatternVA"/>
+                            <xsl:with-param name="default" select="'0pt'"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:otherwise>
+        </xsl:choose>
         <tex:spec cat="bg"/>
         <tex:cmd name="{$sXeTeXGraphicFile}" gr="0" nl2="0">
             <xsl:text> "</xsl:text>
@@ -3881,9 +3902,57 @@
                     <!--                     <xsl:if test="count(preceding-sibling::*) = 0">-->
                     <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
                 </xsl:if>
+                <xsl:if test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-left=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
+                    <xsl:variable name="sValue">
+                        <xsl:choose>
+                            <xsl:when test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
+                                <xsl:for-each select="key('TypeID',@type)">
+                                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                        <xsl:with-param name="sPattern" select="'border-left='"/>
+                                        <xsl:with-param name="default" select="'0'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                    <xsl:with-param name="sPattern" select="'border-left='"/>
+                                    <xsl:with-param name="default" select="'0'"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:call-template name="CreateVerticalLine">
+                        <xsl:with-param name="iBorder" select="number($sValue)"/> 
+                        <xsl:with-param name="bDisallowVerticalLines" select="'N'"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:call-template name="CreateColumnSpec">
                     <xsl:with-param name="iBorder" select="$iBorder"/>
                 </xsl:call-template>
+                <xsl:if test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-right=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
+                    <xsl:variable name="sValue">
+                        <xsl:choose>
+                            <xsl:when test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
+                                <xsl:for-each select="key('TypeID',@type)">
+                                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                        <xsl:with-param name="sPattern" select="'border-right='"/>
+                                        <xsl:with-param name="default" select="'0'"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                    <xsl:with-param name="sPattern" select="'border-right='"/>
+                                    <xsl:with-param name="default" select="'0'"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:call-template name="CreateVerticalLine">
+                        <xsl:with-param name="iBorder" select="number($sValue)"/> 
+                        <xsl:with-param name="bDisallowVerticalLines" select="'N'"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:if test="count(following-sibling::*) = 0">
                     <xsl:call-template name="CreateVerticalLine">
                         <xsl:with-param name="iBorder" select="$iBorder"/>
@@ -4927,32 +4996,42 @@
                 </xsl:choose>
             </tex:opt>
             <tex:parm>
-                <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
-                <xsl:variable name="columns" select="tr[1]/td | tr[1]/th"/>
-                <xsl:for-each select="$columns">
-                    <xsl:choose>
-                        <xsl:when test="number(@colspan) &gt; 0">
-                            <xsl:call-template name="CreateColumnSpec">
-                                <xsl:with-param name="iColspan" select="@colspan - 1"/>
-                                <xsl:with-param name="iBorder" select="$iBorder"/>
-                                <xsl:with-param name="bUseWidth" select="'N'"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="CreateColumnSpec">
-                                <xsl:with-param name="iBorder" select="$iBorder"/>
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <xsl:if test="not($columns)">
-                    <!-- the table is empty!  We still need something, though or TeX will complain. -->
-                    <xsl:text>l</xsl:text>
-                </xsl:if>
-                <xsl:call-template name="CreateVerticalLine">
-                    <xsl:with-param name="iBorder" select="$iBorder"/>
-                </xsl:call-template>
-                <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial,'column-formatting=')">
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="'column-formatting='"/>
+                            <xsl:with-param name="default" select="'@{}l@{}'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
+                        <xsl:variable name="columns" select="tr[1]/td | tr[1]/th"/>
+                        <xsl:for-each select="$columns">
+                            <xsl:choose>
+                                <xsl:when test="number(@colspan) &gt; 0">
+                                    <xsl:call-template name="CreateColumnSpec">
+                                        <xsl:with-param name="iColspan" select="@colspan - 1"/>
+                                        <xsl:with-param name="iBorder" select="$iBorder"/>
+                                        <xsl:with-param name="bUseWidth" select="'N'"/>
+                                    </xsl:call-template>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="CreateColumnSpec">
+                                        <xsl:with-param name="iBorder" select="$iBorder"/>
+                                    </xsl:call-template>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                        <xsl:if test="not($columns)">
+                            <!-- the table is empty!  We still need something, though or TeX will complain. -->
+                            <xsl:text>l</xsl:text>
+                        </xsl:if>
+                        <xsl:call-template name="CreateVerticalLine">
+                            <xsl:with-param name="iBorder" select="$iBorder"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </tex:parm>
             <xsl:apply-templates select="caption">
                 <xsl:with-param name="iNumCols" select="$iNumCols"/>
@@ -5488,16 +5567,16 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sPageTopMarginToAdjust">
-                <xsl:variable name="iPageTopMargin">
-                    <xsl:call-template name="GetMeasure">
+                    <xsl:variable name="iPageTopMargin">
+                        <xsl:call-template name="GetMeasure">
+                            <xsl:with-param name="sValue" select="$sPageTopMargin"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="SubtractOneInch">
                         <xsl:with-param name="sValue" select="$sPageTopMargin"/>
+                        <!-- the .15in makes it match what we got with FO - I'm not sure why, though -->
+                        <xsl:with-param name="iValue" select="$iPageTopMargin"/>
                     </xsl:call-template>
-                </xsl:variable>
-                <xsl:call-template name="SubtractOneInch">
-                    <xsl:with-param name="sValue" select="$sPageTopMargin"/>
-                    <!-- the .15in makes it match what we got with FO - I'm not sure why, though -->
-                    <xsl:with-param name="iValue" select="$iPageTopMargin"/>
-                </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sPageTopMarginToAdjust"/>
@@ -5510,20 +5589,20 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sEvenSideMarginToAdjust">
-                <xsl:choose>
-                    <xsl:when test="$pageLayoutInfo/useThesisSubmissionStyle/@singlesided='yes'">
-                        <xsl:call-template name="SubtractOneInch">
-                            <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
-                            <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="SubtractOneInch">
-                            <xsl:with-param name="sValue" select="$sPageOutsideMargin"/>
-                            <xsl:with-param name="iValue" select="$iPageOutsideMargin"/>
-                        </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="$pageLayoutInfo/useThesisSubmissionStyle/@singlesided='yes'">
+                            <xsl:call-template name="SubtractOneInch">
+                                <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
+                                <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="SubtractOneInch">
+                                <xsl:with-param name="sValue" select="$sPageOutsideMargin"/>
+                                <xsl:with-param name="iValue" select="$iPageOutsideMargin"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sEvenSideMarginToAdjust"/>
@@ -5536,10 +5615,10 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sOddSideMarginToAdjust">
-                <xsl:call-template name="SubtractOneInch">
-                    <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
-                    <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
-                </xsl:call-template>
+                    <xsl:call-template name="SubtractOneInch">
+                        <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
+                        <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sOddSideMarginToAdjust"/>
@@ -5552,10 +5631,10 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sTextWidthToAdjust">
-                <xsl:value-of select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
-                <xsl:call-template name="GetUnitOfMeasure">
-                    <xsl:with-param name="sValue" select="$sPageWidth"/>
-                </xsl:call-template>
+                    <xsl:value-of select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
+                    <xsl:call-template name="GetUnitOfMeasure">
+                        <xsl:with-param name="sValue" select="$sPageWidth"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sTextWidthToAdjust"/>
@@ -5568,10 +5647,10 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sTextHeightToAdjust">
-                <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
-                <xsl:call-template name="GetUnitOfMeasure">
-                    <xsl:with-param name="sValue" select="$sPageHeight"/>
-                </xsl:call-template>
+                    <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                    <xsl:call-template name="GetUnitOfMeasure">
+                        <xsl:with-param name="sValue" select="$sPageHeight"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sTextHeightToAdjust"/>
@@ -5720,9 +5799,9 @@
             <tex:parm>longtable</tex:parm>
         </tex:cmd>
         <xsl:if test="//landscape">
-        <tex:cmd name="usepackage" nl2="1">
-            <tex:parm>lscape</tex:parm>
-        </tex:cmd>
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:parm>lscape</tex:parm>
+            </tex:cmd>
         </xsl:if>
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>multirow</tex:parm>

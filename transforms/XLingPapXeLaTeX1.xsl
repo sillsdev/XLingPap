@@ -11,6 +11,7 @@
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear" use="@text"/>
     <xsl:key name="LanguageID" match="//language" use="@id"/>
+    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
     <!-- ===========================================================
       Parameters
@@ -63,6 +64,7 @@
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
     <xsl:variable name="sXLingPaperAbbreviation" select="'XLingPaperAbbreviation'"/>
     <xsl:variable name="iMagnificationFactor">1</xsl:variable>
+    <xsl:variable name="refWorks" select="//refWork"/>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->
@@ -170,14 +172,14 @@
                 <tex:cmd name="pagenumbering">
                     <tex:parm>roman</tex:parm>
                 </tex:cmd>
-                <xsl:apply-templates select="title | subtitle | author | affiliation | presentedAt | date | version"/>
+                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
                 <tex:cmd name="pagestyle" nl2="1">
                     <tex:parm>empty</tex:parm>
                 </tex:cmd>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="book"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="title | subtitle | author | affiliation | presentedAt | date | version"/>
+                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface"/>
                 <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
                 <xsl:apply-templates select="//backMatter"/>
@@ -402,14 +404,6 @@
       affiliation
       -->
     <xsl:template match="affiliation">
-        <!-- adjust for center environment -->
-        <!--        <tex:cmd name="vspace*">
-            <tex:parm>
-                <xsl:text>-2</xsl:text>
-                <tex:cmd name="topsep" gr="0"/>
-            </tex:parm>
-        </tex:cmd>
--->
         <tex:group>
             <tex:cmd name="centering" nl1="1">
                 <tex:parm>
@@ -432,14 +426,33 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>
-        <!-- adjust for center environment -->
-        <!--   <tex:cmd name="vspace*">
-            <tex:parm>
-                <xsl:text>-</xsl:text>
-                <tex:cmd name="parsep" gr="0"/>
-            </tex:parm>
-        </tex:cmd>
+    </xsl:template>
+    <!--
+        emailAddress
     -->
+    <xsl:template match="emailAddress">
+        <tex:group>
+            <tex:cmd name="centering" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="EmailAddressFontFamily">
+                        <tex:parm>
+                            <tex:cmd name="textit">
+                                <tex:parm>
+                                    <xsl:apply-templates/>
+                                    <xsl:variable name="contentForThisElement">
+                                        <xsl:apply-templates/>
+                                    </xsl:variable>
+                                    <xsl:if test="string-length($contentForThisElement) &gt; 0">
+                                        <tex:spec cat="esc"/>
+                                        <tex:spec cat="esc"/>
+                                    </xsl:if>
+                                </tex:parm>
+                            </tex:cmd>
+                        </tex:parm>
+                    </tex:cmd>
+                </tex:parm>
+            </tex:cmd>
+        </tex:group>
     </xsl:template>
     <!--
       date or presentedAt
@@ -1144,6 +1157,18 @@
             <tex:spec cat="bg"/>
         </xsl:if>
     </xsl:template>
+    <!--  
+        DoEdPlural
+    -->
+    <xsl:template name="DoEdPlural">
+        <xsl:param name="editor"/>
+        <xsl:value-of select="normalize-space($editor)"/>
+        <xsl:text>, ed</xsl:text>
+        <xsl:if test="$editor/@plural='yes'">
+            <xsl:text>s</xsl:text>
+        </xsl:if>
+        <xsl:text>.</xsl:text>
+    </xsl:template>
     <!--
         DoEndnote
     -->
@@ -1544,7 +1569,7 @@
             <xsl:text>&#x20;</xsl:text>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
-        <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:value-of select="$refer/refDate"/>
         </xsl:variable>
@@ -2001,6 +2026,98 @@
         <xsl:apply-templates/>
     </xsl:template>
     <!--
+        DoBook
+    -->
+    <xsl:template name="DoBook">
+        <xsl:param name="book"/>
+        <xsl:param name="pages"/>
+        <xsl:for-each select="$book">
+            <tex:cmd name="textit">
+                <tex:parm>
+                    <xsl:apply-templates select="../refTitle"/>
+                </tex:parm>
+            </tex:cmd>
+            <xsl:text>.  </xsl:text>
+            <xsl:if test="translatedBy">
+                <xsl:text>Translated by </xsl:text>
+                <xsl:value-of select="normalize-space(translatedBy)"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="translatedBy"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+            <xsl:if test="edition">
+                <xsl:value-of select="normalize-space(edition)"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="edition"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+            <xsl:if test="seriesEd">
+                <xsl:value-of select="normalize-space(seriesEd)"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="seriesEd"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+            <xsl:if test="series">
+                <tex:cmd name="textit">
+                    <tex:parm>
+                        <xsl:value-of select="normalize-space(series)"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:if test="not(bVol)">
+                    <xsl:call-template name="OutputPeriodIfNeeded">
+                        <xsl:with-param name="sText" select="series"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+            <xsl:variable name="sPages" select="normalize-space($pages)"/>
+            <xsl:choose>
+                <xsl:when test="bVol">
+                    <xsl:value-of select="normalize-space(bVol)"/>
+                    <xsl:if test="string-length($sPages) &gt; 0">
+                        <xsl:text>:</xsl:text>
+                        <xsl:value-of select="$pages"/>
+                    </xsl:if>
+                    <xsl:call-template name="OutputPeriodIfNeeded">
+                        <xsl:with-param name="sText" select="bVol"/>
+                    </xsl:call-template>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="string-length($sPages) &gt; 0">
+                        <xsl:value-of select="$sPages"/>
+                        <xsl:text>. </xsl:text>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="location and publisher">
+                    <xsl:value-of select="normalize-space(location)"/>
+                    <xsl:text>: </xsl:text>
+                    <xsl:value-of select="normalize-space(publisher)"/>
+                    <xsl:call-template name="OutputPeriodIfNeeded">
+                        <xsl:with-param name="sText" select="publisher"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="location">
+                    <xsl:value-of select="normalize-space(location)"/>
+                    <xsl:call-template name="OutputPeriodIfNeeded">
+                        <xsl:with-param name="sText" select="location"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="publisher">
+                    <xsl:value-of select="normalize-space(publisher)"/>
+                    <xsl:call-template name="OutputPeriodIfNeeded">
+                        <xsl:with-param name="sText" select="publisher"/>
+                    </xsl:call-template>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
                   DoContents
                   -->
     <xsl:template name="DoContents">
@@ -2392,18 +2509,28 @@
                     <xsl:with-param name="sValue" select="'0pt'"/>
                 </xsl:call-template>
                 <xsl:call-template name="SetTeXCommand">
-                    <xsl:with-param name="sTeXCommand" select="'setlength'"/>
-                    <xsl:with-param name="sCommandToSet" select="'parsep'"/>
-                    <xsl:with-param name="sValue" select="'0pt'"/>
+                <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+                <xsl:with-param name="sCommandToSet" select="'parsep'"/>
+                <xsl:with-param name="sValue" select="'0pt'"/>
                 </xsl:call-template>
                 <xsl:call-template name="SetTeXCommand">
-                    <xsl:with-param name="sTeXCommand" select="'setlength'"/>
-                    <xsl:with-param name="sCommandToSet" select="'parskip'"/>
-                    <xsl:with-param name="sValue" select="'0pt'"/>
+                <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+                <xsl:with-param name="sCommandToSet" select="'parskip'"/>
+                <xsl:with-param name="sValue" select="'0pt'"/>
                 </xsl:call-template>-->
             <tex:cmd name="raggedright" gr="0" nl2="1"/>
-            <xsl:for-each select="$authors">
+            <xsl:variable name="collOrProcVolumesToInclude">
+                <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
+            </xsl:variable>
+            <xsl:variable name="refAuthors" select="//refAuthor"/>
+            <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+            <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+            <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                <xsl:variable name="thisAuthor" select="."/>
+                <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+                <!--            <xsl:for-each select="$authors">
                 <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
+-->
                 <xsl:for-each select="$works">
                     <!--                        \hangindent.25in\relax
                         \hangafter1\relax
@@ -2431,6 +2558,10 @@
                     <xsl:if test="substring($author,string-length($author),string-length($author))!='.'">.</xsl:if>
                     <xsl:call-template name="DoInternalTargetEnd"/>
                     <xsl:text>&#x20;  </xsl:text>
+                    <xsl:if test="authorRole">
+                        <xsl:value-of select="authorRole"/>
+                        <xsl:text>.  </xsl:text>
+                    </xsl:if>
                     <xsl:variable name="date">
                         <xsl:value-of select="refDate"/>
                     </xsl:variable>
@@ -2445,39 +2576,8 @@
                                book
  -->
                     <xsl:if test="book">
-                        <tex:cmd name="textit">
-                            <tex:parm>
-                                <xsl:apply-templates select="refTitle"/>
-                            </tex:parm>
-                        </tex:cmd>
-                        <xsl:text>.  </xsl:text>
-                        <xsl:if test="book/translatedBy">
-                            <xsl:text>Translated by </xsl:text>
-                            <xsl:value-of select="normalize-space(book/translatedBy)"/>
-                            <xsl:call-template name="OutputPeriodIfNeeded">
-                                <xsl:with-param name="sText" select="book/translatedBy"/>
-                            </xsl:call-template>
-                            <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="book/edition">
-                            <xsl:value-of select="normalize-space(book/edition)"/>
-                            <xsl:call-template name="OutputPeriodIfNeeded">
-                                <xsl:with-param name="sText" select="book/edition"/>
-                            </xsl:call-template>
-                            <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="book/series">
-                            <xsl:value-of select="normalize-space(book/series)"/>
-                            <xsl:call-template name="OutputPeriodIfNeeded">
-                                <xsl:with-param name="sText" select="book/series"/>
-                            </xsl:call-template>
-                            <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="normalize-space(book/location)"/>
-                        <xsl:text>: </xsl:text>
-                        <xsl:value-of select="normalize-space(book/publisher)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                            <xsl:with-param name="sText" select="book/publisher"/>
+                        <xsl:call-template name="DoBook">
+                            <xsl:with-param name="book" select="book"/>
                         </xsl:call-template>
                     </xsl:if>
                     <!--
@@ -2489,48 +2589,91 @@
                         <xsl:text>.</xsl:text>
                         <xsl:value-of select="$sRdquo"/>
                         <xsl:text> In </xsl:text>
-                        <xsl:value-of select="normalize-space(collection/collEd)"/>
-                        <xsl:text>, ed</xsl:text>
-                        <xsl:if test="collection/collEd/@plural='yes'">
-                            <xsl:text>s</xsl:text>
-                        </xsl:if>
-                        <xsl:text>. </xsl:text>
-                        <tex:cmd name="textit">
-                            <tex:parm>
-                                <xsl:value-of select="normalize-space(collection/collTitle)"/>
-                            </tex:parm>
-                        </tex:cmd>
                         <xsl:choose>
-                            <xsl:when test="collection/collVol">
-                                <xsl:text>&#x20;</xsl:text>
-                                <xsl:value-of select="normalize-space(collection/collVol)"/>
-                                <xsl:text>:</xsl:text>
-                                <xsl:value-of select="normalize-space(collection/collPages)"/>
-                                <xsl:text>. </xsl:text>
-                            </xsl:when>
-                            <xsl:when test="collection/collPages">
-                                <xsl:text>, </xsl:text>
-                                <xsl:value-of select="normalize-space(collection/collPages)"/>
-                                <xsl:text>. </xsl:text>
+                            <xsl:when test="collection/collCitation">
+                                <xsl:variable name="citation" select="collection/collCitation"/>
+                                <xsl:choose>
+                                    <xsl:when test="saxon:node-set($collOrProcVolumesToInclude)/refWork[@id=$citation/@refToBook]">
+                                        <xsl:call-template name="DoRefCitation">
+                                            <xsl:with-param name="citation" select="$citation"/>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="FleshOutRefCitation">
+                                            <xsl:with-param name="citation" select="$citation"/>
+                                        </xsl:call-template>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
+                                <xsl:call-template name="DoEdPlural">
+                                    <xsl:with-param name="editor" select="collection/collEd"/>
+                                </xsl:call-template>
+                                <xsl:text>&#x20;</xsl:text>
+                                <tex:cmd name="textit">
+                                    <tex:parm>
+                                        <xsl:value-of select="normalize-space(collection/collTitle)"/>
+                                    </tex:parm>
+                                </tex:cmd>
                                 <xsl:text>.</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="collection/collVol">
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:value-of select="normalize-space(collection/collVol)"/>
+                                        <xsl:text>:</xsl:text>
+                                        <xsl:value-of select="normalize-space(collection/collPages)"/>
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="collection/collPages">
+                                        <xsl:if test="collection/collVol">
+                                            <xsl:text>,</xsl:text>
+                                        </xsl:if>
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:value-of select="normalize-space(collection/collPages)"/>
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:when>
+                                    <!--                                    <xsl:otherwise>
+                                        <xsl:text>.</xsl:text>
+                                    </xsl:otherwise>
+-->
+                                </xsl:choose>
+                                <xsl:if test="collection/seriesEd">
+                                    <xsl:call-template name="DoEdPlural">
+                                        <xsl:with-param name="editor" select="collection/seriesEd"/>
+                                    </xsl:call-template>
+                                    <xsl:text>&#x20;</xsl:text>
+                                </xsl:if>
+                                <xsl:if test="collection/series">
+                                    <tex:cmd name="textit">
+                                        <tex:parm>
+                                            <xsl:value-of select="normalize-space(collection/series)"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                    <xsl:if test="not(bVol)">
+                                        <xsl:call-template name="OutputPeriodIfNeeded">
+                                            <xsl:with-param name="sText" select="collection/series"/>
+                                        </xsl:call-template>
+                                    </xsl:if>
+                                    <xsl:text>&#x20;</xsl:text>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="collection/location">
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:value-of select="normalize-space(collection/location)"/>
+                                        <xsl:text>: </xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>&#x20;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="collection/publisher">
+                                    <xsl:value-of select="normalize-space(collection/publisher)"/>
+                                    <xsl:call-template name="OutputPeriodIfNeeded">
+                                        <xsl:with-param name="sText" select="collection/publisher"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:choose>
-                            <xsl:when test="collection/location">
-                                <xsl:text>&#x20;</xsl:text>
-                                <xsl:value-of select="normalize-space(collection/location)"/>
-                                <xsl:text>: </xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#x20;</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:value-of select="normalize-space(collection/publisher)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                            <xsl:with-param name="sText" select="collection/publisher"/>
-                        </xsl:call-template>
                     </xsl:if>
                     <!--
                                dissertation
@@ -2542,13 +2685,18 @@
                             </tex:parm>
                         </tex:cmd>
                         <xsl:text>.  </xsl:text>
-                        <xsl:text> Ph.D. dissertation.</xsl:text>
+                        <xsl:call-template name="OutputLabel">
+                            <xsl:with-param name="sDefault">Ph.D. dissertation</xsl:with-param>
+                            <xsl:with-param name="pLabel" select="//references/@labelDissertation"/>
+                        </xsl:call-template>
+                        <xsl:text>. </xsl:text>
                         <xsl:if test="dissertation/location">
                             <xsl:text> (</xsl:text>
                             <xsl:value-of select="normalize-space(dissertation/location)"/>
                             <xsl:text>).  </xsl:text>
                         </xsl:if>
                         <xsl:value-of select="normalize-space(dissertation/institution)"/>
+                        <xsl:text>.</xsl:text>
                         <xsl:if test="dissertation/published">
                             <xsl:text>  Published by </xsl:text>
                             <xsl:value-of select="normalize-space(dissertation/published/location)"/>
@@ -2573,15 +2721,20 @@
                         </tex:cmd>
                         <xsl:text>&#x20;</xsl:text>
                         <xsl:value-of select="normalize-space(article/jVol)"/>
+                        <xsl:if test="article/jIssueNumber">
+                            <xsl:text>(</xsl:text>
+                            <xsl:value-of select="article/jIssueNumber"/>
+                            <xsl:text>)</xsl:text>
+                        </xsl:if>
                         <xsl:choose>
                             <xsl:when test="article/jPages">
                                 <xsl:text>:</xsl:text>
                                 <xsl:value-of select="normalize-space(article/jPages)"/>
                             </xsl:when>
-                            <xsl:otherwise>
+                            <xsl:when test="article/jArticleNumber">
                                 <xsl:text>-</xsl:text>
                                 <xsl:value-of select="normalize-space(article/jArticleNumber)"/>
-                            </xsl:otherwise>
+                            </xsl:when>
                         </xsl:choose>
                         <xsl:text>.</xsl:text>
                     </xsl:if>
@@ -2634,47 +2787,66 @@
                         <xsl:text>.</xsl:text>
                         <xsl:value-of select="$sRdquo"/>
                         <xsl:choose>
-                            <xsl:when test="proceedings/procEd">
+                            <xsl:when test="proceedings/procCitation">
                                 <xsl:text>  In </xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/procEd)"/>
-                                <xsl:text>, ed</xsl:text>
-                                <xsl:if test="proceedings/procEd/@plural='yes'">
-                                    <xsl:text>s</xsl:text>
+                                <xsl:variable name="citation" select="proceedings/procCitation"/>
+                                <xsl:choose>
+                                    <xsl:when test="saxon:node-set($collOrProcVolumesToInclude)/refWork[@id=$citation/@refToBook]">
+                                        <xsl:call-template name="DoRefCitation">
+                                            <xsl:with-param name="citation" select="$citation"/>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="FleshOutRefCitation">
+                                            <xsl:with-param name="citation" select="$citation"/>
+                                        </xsl:call-template>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="proceedings/procEd">
+                                        <xsl:text>  In </xsl:text>
+                                        <xsl:call-template name="DoEdPlural">
+                                            <xsl:with-param name="editor" select="proceedings/procEd"/>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>&#x20;</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <tex:cmd name="textit">
+                                    <tex:parm>
+                                        <xsl:value-of select="normalize-space(proceedings/procTitle)"/>
+                                    </tex:parm>
+                                </tex:cmd>
+                                <xsl:choose>
+                                    <xsl:when test="proceedings/procVol">
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:value-of select="normalize-space(proceedings/procVol)"/>
+                                        <xsl:text>:</xsl:text>
+                                        <xsl:value-of select="normalize-space(proceedings/procPages)"/>
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="proceedings/procPages">
+                                        <xsl:text>, </xsl:text>
+                                        <xsl:value-of select="normalize-space(proceedings/procPages)"/>
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="proceedings/location or proceedings/publisher">
+                                    <xsl:value-of select="normalize-space(proceedings/location)"/>
+                                    <xsl:if test="proceedings/publisher">
+                                        <xsl:text>: </xsl:text>
+                                        <xsl:value-of select="normalize-space(proceedings/publisher)"/>
+                                    </xsl:if>
+                                    <xsl:text>.</xsl:text>
                                 </xsl:if>
-                                <xsl:text>. </xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#x20;</xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <tex:cmd name="textit">
-                            <tex:parm>
-                                <xsl:value-of select="normalize-space(proceedings/procTitle)"/>
-                            </tex:parm>
-                        </tex:cmd>
-                        <xsl:choose>
-                            <xsl:when test="proceedings/procVol">
-                                <xsl:text>&#x20;</xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/procVol)"/>
-                                <xsl:text>:</xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/procPages)"/>
-                                <xsl:text>. </xsl:text>
-                            </xsl:when>
-                            <xsl:when test="proceedings/procPages">
-                                <xsl:text>, </xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/procPages)"/>
-                                <xsl:text>. </xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>. </xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:value-of select="normalize-space(proceedings/location)"/>
-                        <xsl:if test="proceedings/publisher">
-                            <xsl:text>: </xsl:text>
-                            <xsl:value-of select="normalize-space(proceedings/publisher)"/>
-                        </xsl:if>
-                        <xsl:text>.</xsl:text>
                     </xsl:if>
                     <!--
                                thesis
@@ -2686,12 +2858,18 @@
                             </tex:parm>
                         </tex:cmd>
                         <xsl:text>.  </xsl:text>
+                        <xsl:call-template name="OutputLabel">
+                            <xsl:with-param name="sDefault">M.A. thesis</xsl:with-param>
+                            <xsl:with-param name="pLabel" select="//references/@labelThesis"/>
+                        </xsl:call-template>
+                        <xsl:text>. </xsl:text>
                         <xsl:if test="thesis/location">
                             <xsl:text> (</xsl:text>
                             <xsl:value-of select="normalize-space(thesis/location)"/>
                             <xsl:text>).  </xsl:text>
                         </xsl:if>
                         <xsl:value-of select="normalize-space(thesis/institution)"/>
+                        <xsl:text>.</xsl:text>
                         <xsl:if test="thesis/published">
                             <xsl:text>  Published by </xsl:text>
                             <xsl:value-of select="normalize-space(thesis/published/location)"/>
@@ -2737,6 +2915,11 @@
                         <xsl:value-of select="normalize-space(webPage/url)"/>
                         <xsl:call-template name="DoExternalHyperRefEnd"/>
                         <xsl:text>).</xsl:text>
+                        <xsl:if test="webPage/dateAccessed">
+                            <xsl:text>  (accessed </xsl:text>
+                            <xsl:value-of select="normalize-space(webPage/dateAccessed)"/>
+                            <xsl:text>).</xsl:text>
+                        </xsl:if>
                     </xsl:if>
                     <xsl:if test="url">
                         <xsl:call-template name="AddAnyLinkAttributes"/>
@@ -2775,6 +2958,29 @@
             </xsl:for-each>
             <!--</tex:env>-->
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoRefCitation
+    -->
+    <xsl:template name="DoRefCitation">
+        <xsl:param name="citation"/>
+        <xsl:for-each select="$citation">
+            <xsl:variable name="refer" select="id(@refToBook)"/>
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="@refToBook"/>
+            </xsl:call-template>
+            <xsl:value-of select="$refer/../@citename"/>
+            <xsl:text>,&#x20;</xsl:text>
+            <xsl:value-of select="$refer/authorRole"/>
+            <xsl:text>, </xsl:text>
+            <xsl:variable name="sPage" select="normalize-space(@page)"/>
+            <xsl:if test="string-length($sPage) &gt; 0">
+                <xsl:text>&#x20;</xsl:text>
+                <xsl:value-of select="$sPage"/>
+            </xsl:if>
+            <xsl:text>.</xsl:text>
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         DoSectionRefLabel
@@ -3036,6 +3242,33 @@
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        FleshOutRefCitation
+    -->
+    <xsl:template name="FleshOutRefCitation">
+        <xsl:param name="citation"/>
+        <xsl:variable name="citedWork" select="key('RefWorkID',$citation/@refToBook)"/>
+        <xsl:call-template name="ConvertLastNameFirstNameToFirstNameLastName">
+            <xsl:with-param name="sCitedWorkAuthor" select="$citedWork/../@name"/>
+        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$citedWork/authorRole">
+                <xsl:text>, </xsl:text>
+                <xsl:value-of select="$citedWork/authorRole"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="$citedWork/authorRole"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>.  </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoBook">
+            <xsl:with-param name="book" select="$citedWork/book"/>
+            <xsl:with-param name="pages" select="$citation/@page"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         FontFamilyNameToUse
@@ -4205,6 +4438,10 @@
             <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
         </xsl:call-template>
         <xsl:call-template name="DefineAFontFamily">
+            <xsl:with-param name="sFontFamilyName" select="'EmailAddressFontFamily'"/>
+            <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
+        </xsl:call-template>
+        <xsl:call-template name="DefineAFontFamily">
             <xsl:with-param name="sFontFamilyName" select="'DateFontFamily'"/>
             <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
         </xsl:call-template>
@@ -4363,5 +4600,6 @@
     <!-- ===========================================================
           TRANSFORMS TO INCLUDE
         =========================================================== -->
+    <xsl:include href="XLingPapCommon.xsl"/>
     <xsl:include href="XLingPapXeLaTeXCommon.xsl"/>
 </xsl:stylesheet>

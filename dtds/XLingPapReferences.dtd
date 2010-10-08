@@ -8,6 +8,8 @@
 <!ELEMENT references (refAuthor*)>
 <!ATTLIST references
     label CDATA #IMPLIED
+    labelDissertation CDATA #IMPLIED
+    labelThesis CDATA #IMPLIED
     version CDATA #IMPLIED
     authorformtoshowineditor (full | initials | both) "full"
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
@@ -48,13 +50,17 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- journal article -->
-<!ELEMENT article (jTitle, jVol, (jPages | jArticleNumber), location?, publisher?)>
+<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?)>
 <!ELEMENT jTitle (#PCDATA)>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT jVol (#PCDATA)>
 <!ATTLIST jVol
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT jIssueNumber (#PCDATA)>
+<!ATTLIST jIssueNumber
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT jPages (#PCDATA)>
@@ -69,7 +75,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, series?, bVol?, location?, publisher?, bookTotalPages?)>
+<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?, bookTotalPages?)>
 <!ELEMENT translatedBy (#PCDATA)>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
@@ -82,6 +88,13 @@
 <!ATTLIST series
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT seriesEd (#PCDATA)>
+<!ATTLIST seriesEd
+    plural (no | yes) "yes"
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT seriesEdInitials (#PCDATA)>
+
 <!ELEMENT bVol (#PCDATA)>
 <!ATTLIST bVol
     xml:lang CDATA #IMPLIED
@@ -98,8 +111,13 @@
 <!ATTLIST bookTotalPages
     xml:lang CDATA #IMPLIED
 >
-<!-- paper from a collection volume -->
-<!ELEMENT collection (collEd?, collEdInitials?, collTitle, collTitleLowerCase?, collVol?, collPages?, series?, bVol?, location?, publisher?)>
+<!-- paper from a collection volume
+       there are two ways to record the information:
+       a one-off method that includes all the information about the collection volume itself
+       a reference to a book element (for the collection volume) and a possible set of pages for this paper
+-->
+<!ELEMENT collection (((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation)>
+
 <!ELEMENT collEd (#PCDATA)>
 <!ATTLIST collEd
     plural (no | yes) "yes"
@@ -119,6 +137,13 @@
 <!ATTLIST collPages
     xml:lang CDATA #IMPLIED
 >
+<!-- a reference to the collection volume itself (which will be a book element) -->
+<!ELEMENT collCitation EMPTY>
+<!ATTLIST collCitation
+    refToBook IDREF #IMPLIED
+    page CDATA #IMPLIED
+>
+
 <!-- PhD dissertation -->
 <!ELEMENT dissertation (location?, institution, published?)>
 <!ELEMENT institution (#PCDATA)>
@@ -140,8 +165,12 @@
 <!ATTLIST conference
     xml:lang CDATA #IMPLIED
 >
-<!-- proceedings paper from a conference -->
-<!ELEMENT proceedings ((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?)>
+<!-- proceedings paper from a conference
+       there are two ways to record the information:
+       a one-off method that includes all the information about the proceedings volume itself
+       a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
+-->
+<!ELEMENT proceedings (((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation)>
 <!ELEMENT procEd (#PCDATA)>
 <!ATTLIST procEd
     plural (no | yes) "yes"
@@ -160,6 +189,12 @@
 <!ELEMENT procPages (#PCDATA)>
 <!ATTLIST procPages
     xml:lang CDATA #IMPLIED
+>
+<!-- a reference to the proceedings volume itself (which will be a book element) -->
+<!ELEMENT procCitation EMPTY>
+<!ATTLIST procCitation
+    refToBook IDREF #IMPLIED
+    page CDATA #IMPLIED
 >
 <!-- MA thesis -->
 <!ELEMENT thesis (location?, institution, published?)>

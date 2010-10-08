@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="no"/>
     <!-- ===========================================================
       Version of this stylesheet
@@ -11,6 +11,7 @@
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear" use="@text"/>
     <xsl:key name="LanguageID" match="//language" use="@id"/>
+    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
     <!-- ===========================================================
       Parameterized Variables
@@ -44,6 +45,7 @@
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
+    <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
     <xsl:variable name="lineSpacing" select="$pageLayoutInfo/lineSpacing"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
@@ -87,7 +89,9 @@
       Variables
       =========================================================== -->
     <xsl:variable name="lingPaper" select="//lingPaper"/>
+    <xsl:variable name="refWorks" select="//refWork"/>
     <xsl:variable name="contents" select="//contents"/>
+    <xsl:variable name="references" select="//references"/>
     <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
     <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
@@ -138,6 +142,9 @@
     </xsl:variable>
     <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
+    <xsl:variable name="collOrProcVolumesToInclude">
+        <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
+    </xsl:variable>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -293,7 +300,7 @@
             <fo:bookmark-tree>
                 <xsl:call-template name="DoFrontMatterBookmarksPerLayout"/>
                 <!-- chapterBeforePart -->
-<!--                <xsl:apply-templates select="$lingPaper/chapterBeforePart" mode="bookmarks"/>-->
+                <!--                <xsl:apply-templates select="$lingPaper/chapterBeforePart" mode="bookmarks"/>-->
                 <!-- part -->
                 <xsl:apply-templates select="$lingPaper/part" mode="bookmarks"/>
                 <!--                 chapter, no parts -->
@@ -429,6 +436,27 @@
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+            </xsl:call-template>
+        </fo:block>
+    </xsl:template>
+    <!--
+        emailAddress
+    -->
+    <xsl:template match="emailAddress">
+        <xsl:variable name="iPos" select="count(preceding-sibling::emailAddress) + 1"/>
+        <xsl:variable name="iPosToUse">
+            <xsl:call-template name="GetBestLayout">
+                <xsl:with-param name="iPos" select="$iPos"/>
+                <xsl:with-param name="iLayouts" select="$iEmailAddressLayouts"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <fo:block>
+            <xsl:call-template name="DoFrontMatterFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
             </xsl:call-template>
         </fo:block>
     </xsl:template>
@@ -629,15 +657,30 @@
         acknowledgements (paper)
     -->
     <xsl:template match="acknowledgements" mode="paper">
-        <xsl:call-template name="OutputFrontOrBackMatterTitle">
-            <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputAcknowledgementsLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="bIsBook" select="'N'"/>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
-            <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::frontMatter">
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'N'"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'N'"/>
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
+                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates/>
     </xsl:template>
     <!--
@@ -1031,11 +1074,43 @@
             <xsl:call-template name="OutputTypeAttributes">
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
-            <xsl:if test="name(.)='p' and not(parent::blockquote and not(preceding-sibling::*))">
-                <xsl:attribute name="text-indent">
-                    <xsl:value-of select="$sParagraphIndent"/>
-                </xsl:attribute>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
+                    <!-- is the first item -->
+                    <xsl:choose>
+                        <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::section2 and $bodyLayoutInfo/section2Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::section3 and $bodyLayoutInfo/section3Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::section4 and $bodyLayoutInfo/section4Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::section5 and $bodyLayoutInfo/section5Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="text-indent">
+                                <xsl:value-of select="$sParagraphIndent"/>
+                            </xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="name(.)='p' and not(parent::blockquote and not(preceding-sibling::*))">
+                        <xsl:attribute name="text-indent">
+                            <xsl:value-of select="$sParagraphIndent"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -3474,6 +3549,9 @@ not using
                 <xsl:when test="name(.)='affiliationLayout'">
                     <xsl:apply-templates select="$frontMatter/affiliation"/>
                 </xsl:when>
+                <xsl:when test="name(.)='emailAddressLayout'">
+                    <xsl:apply-templates select="$frontMatter/emailAddress"/>
+                </xsl:when>
                 <xsl:when test="name(.)='presentedAtLayout'">
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
                 </xsl:when>
@@ -3657,6 +3735,10 @@ not using
                 <xsl:when test="name(.)='affiliationLayout'">
                     <xsl:variable name="iPos" select="count(preceding-sibling::affiliationLayout) + 1"/>
                     <xsl:apply-templates select="$frontMatter/affiliation[$iPos]"/>
+                </xsl:when>
+                <xsl:when test="name(.)='emailAddressLayout'">
+                    <xsl:variable name="iPos" select="count(preceding-sibling::emailAddressLayout) + 1"/>
+                    <xsl:apply-templates select="$frontMatter/emailAddress[$iPos]"/>
                 </xsl:when>
                 <xsl:when test="name(.)='presentedAtLayout'">
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
@@ -4429,8 +4511,16 @@ not using
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:for-each select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]">
+            <!--            <xsl:for-each select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]">
                 <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
+                <xsl:for-each select="$works">
+-->
+            <xsl:variable name="refAuthors" select="//refAuthor"/>
+            <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+            <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+            <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                <xsl:variable name="thisAuthor" select="."/>
+                <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
                 <xsl:for-each select="$works">
                     <xsl:variable name="work" select="."/>
                     <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}" id="{@id}">
@@ -6483,4 +6573,8 @@ not using
     <xsl:template match="dd"/>
     <xsl:template match="term"/>
     <xsl:template match="type"/>
+    <!-- ===========================================================
+        TRANSFORMS TO INCLUDE
+        =========================================================== -->
+    <xsl:include href="XLingPapCommon.xsl"/>
 </xsl:stylesheet>

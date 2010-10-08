@@ -1773,69 +1773,15 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$sExtension='.svg'">
-                <xsl:if test="not(ancestor::example)">
-                    <tex:cmd name="par"/>
-                </xsl:if>
-       <!--   <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
-                
-<!-\-                <xsl:variable name="absoluteURI" select="resolve-uri($sPDFFile, base-uri(.))" as="xs:anyURI"/>-\->
-                <xsl:if test="file:exists(file:new($sPDFFile))" xmlns:file="java.io.File">
-                    <xsl:text>SPLAT!!</xsl:text>
-</xsl:if>                    
-                
-                <xsl:variable name="bPDFExists" select="boolean(document($sPDFFile))"/>
-               <!-\-  tries to read the pdf file as if it were XML and still fails.  It also takes a long time. -\->  
-                <xsl:choose>
-                    <xsl:when test="$bPDFExists">SPLAT!!!</xsl:when>
-                    <xsl:otherwise>
-                        
-                    </xsl:otherwise>
-                </xsl:choose>-->
-
-
-                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
-                    <xsl:with-param name="sMessage">
-                        <xsl:text>We're sorry, but the graphic file </xsl:text>
-                        <xsl:value-of select="$sImgFile"/>
-                        <xsl:text> is in SVG format and this processor cannot handle SVG format directly.  You, can however, convert this SVG file to PDF format and then use PDF format.  See </xsl:text>
-                        <xsl:call-template name="DoExternalHyperRefBegin">
-                            <xsl:with-param name="sName" select="'http://xmlgraphics.apache.org/batik/tools/rasterizer.html'"/>
-                        </xsl:call-template>
-                        <xsl:text>http://xmlgraphics.apache.org/batik/tools/rasterizer.html</xsl:text>
-                        <xsl:call-template name="DoExternalHyperRefEnd"/>
-                        <xsl:text> for a free tool that does this conversion.  Also see section 11.17.1.1 in the XLingPaper user documentation.</xsl:text>
-                    </xsl:with-param>
+                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
                 </xsl:call-template>
-                <tex:cmd name="par" gr="0" nl2="1"/>
             </xsl:when>
             <xsl:when test="$sExtension='.pdf'">
-                <xsl:choose>
-                    <xsl:when test="ancestor::example">
-                        <tex:cmd name="parbox">
-                            <tex:opt>t</tex:opt>
-                            <tex:parm>
-                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sBlockQuoteIndent"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$iExampleWidth"/>
-                                <xsl:text>em</xsl:text>
-                            </tex:parm>
-                            <tex:parm>
-                                <xsl:call-template name="DoImageFile">
-                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
-                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="DoImageFile">
-                            <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
-                            <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                        </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -3922,7 +3868,7 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:call-template name="CreateVerticalLine">
-                        <xsl:with-param name="iBorder" select="number($sValue)"/> 
+                        <xsl:with-param name="iBorder" select="number($sValue)"/>
                         <xsl:with-param name="bDisallowVerticalLines" select="'N'"/>
                     </xsl:call-template>
                 </xsl:if>
@@ -3949,7 +3895,7 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:call-template name="CreateVerticalLine">
-                        <xsl:with-param name="iBorder" select="number($sValue)"/> 
+                        <xsl:with-param name="iBorder" select="number($sValue)"/>
                         <xsl:with-param name="bDisallowVerticalLines" select="'N'"/>
                     </xsl:call-template>
                 </xsl:if>
@@ -4019,6 +3965,39 @@
             </xsl:if>
         </tex:cmd>
         <tex:spec cat="bg"/>
+    </xsl:template>
+    <!--  
+        HandlePDFImageFile
+    -->
+    <xsl:template name="HandlePDFImageFile">
+        <xsl:param name="sImgFile"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::example">
+                <tex:cmd name="parbox">
+                    <tex:opt>t</tex:opt>
+                    <tex:parm>
+                        <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$iExampleWidth"/>
+                        <xsl:text>em</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="DoImageFile">
+                            <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
+                            <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoImageFile">
+                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpdffile'"/>
+                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleSmallCapsBegin

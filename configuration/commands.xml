@@ -1243,7 +1243,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     </cfg:choice>
                                 </cfg:sequence>
                                 <cfg:sequence>
-                                    <cfg:command name="alert" parameter="Some fonts and/or image files used in the document cannot be found and/or an image file name has some invalid characters.  Please use the 'Missing Fonts and/or Image Files' dialog to fix them.  Close it when you are done."/>
+                                    <cfg:command name="alert" parameter="Some fonts and/or image files used in the document cannot be found and/or an image file name has some invalid characters and/or an SVG file needs to be converted to PDF.  Please use the 'Missing Fonts and/or Image Files' dialog to fix them.  Close it when you are done."/>
                                 </cfg:sequence>
                             </cfg:choice>
                             <cfg:command name="status" parameter="PDF Command has completed."/>

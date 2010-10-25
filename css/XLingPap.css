@@ -351,6 +351,10 @@ abbrInLang:before
 {
 	content: " ";
 }
+abbrInLang + abbrInLang:before
+{
+	content: ";   ";
+}
 abbrInLang
 {
 	display:inline;
@@ -360,7 +364,9 @@ abbrRef
 	content: set-attribute-button(attribute, abbr,
 						 unset-attribute, no,
 						 color, black)
-	         label(xpath, "id(@abbr)/abbrInLang[1]/abbrTerm");
+	label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@abbreviationlang))>0] and id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm,id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm, id(@abbr)/abbrInLang[1]/abbrTerm)");
+
+
 	background-color:abbreviation-background-color();
 }
 abbrTerm
@@ -1174,9 +1180,22 @@ figureRef
 	background-color:figure-background-color();
 }
 
+free:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textbefore, '')");
+}
 free
 {
 	display:block;
+	color: concatenate(xpath("id(@lang)/@color"));
+	font-family: concatenate("'",xpath("id(@lang)/@font-family"),"'");
+	font-size: concatenate(xpath("id(@lang)/@font-size"));
+	font-style: concatenate(xpath("id(@lang)/@font-style"));
+	font-weight: concatenate(xpath("id(@lang)/@font-weight")); 
+}
+free:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textafter, '')");
 }
 
 frontMatter 
@@ -1207,6 +1226,22 @@ genericTarget
 	background-color:generic-background-color();
 }
 
+example gloss:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
+}
+example table gloss:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
+}
+table gloss:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textbefore, '')");
+}
+gloss:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textbefore, '')");
+}
 gloss
 {
 	display:inline;
@@ -1220,7 +1255,21 @@ gloss
 }
 example gloss:after
 {
-	content:" ";
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')")
+	" ";
+}
+example table gloss:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')")
+	" ";
+}
+table gloss:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textafter, '')");
+}
+gloss:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textafter, '')");
 }
 
 genre
@@ -1682,6 +1731,23 @@ keyTerm
 	font-style: concatenate(xpath("if(string-length(normalize-space(@font-style))>0, @font-style, string-length(normalize-space(id(@type)/@font-style))>0, id(@type)/@font-style, 'italic')"));
 	font-weight: concatenate(xpath("if(string-length(normalize-space(@font-weight))>0, @font-weight, string-length(normalize-space(id(@type)/@font-weight))>0, id(@type)/@font-weight, '')"));
 }
+
+example langData:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textbefore, '')");
+}
+example table langData:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textbefore, '')");
+}
+table langData:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textbefore, '')");
+}
+langData:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textbefore, '')");
+}
 langData
 {
 	display:inline;
@@ -1694,7 +1760,21 @@ langData
 }
 example langData:after
 {
-	content:" ";
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textafter, '')")
+	" ";
+}
+example table langData:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textafter, '')")
+	" ";
+}
+table langData:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textafter, '')");
+}
+langData:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textafter, '')");
 }
 
 langName:before
@@ -4497,6 +4577,105 @@ footnotePointSize
 {
 	property-group: layoutParameter(0ex);
 }
+freeLayout:before
+{
+	margin-top:12pt;
+}
+freeLayout:after
+{
+	margin-bottom:12pt;
+}
+
+freeLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+freeLayout[color]
+{
+	color:concatenate(attr(color));
+}
+freeLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+freeLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+freeLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+freeLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+freeLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+freeLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+freeLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+freeLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+freeLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+freeLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+freeLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+freeLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+freeLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+freeLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	margin-top:12pt;
+	content: label(attribute, textbefore)
+	         "free special override"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+	margin-bottom:12pt;
+}
+freeLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+freeLayout
+{
+	margin-top:12pt;
+	display:block;
+	content: "free special override"
+	         ;
+	margin-left:.125in;
+	margin-bottom:12pt;
+}
+freeLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
 frontMatterLayout:before
 {
 	property-group: collasper( " Front Matter Layout: " );
@@ -4537,6 +4716,282 @@ genericRefLinkLayout
 	property-group:linkLayoutParameter("genericRef");
 	color: gray;
 	text-decoration:none;
+}
+glossLayout:before
+{
+	margin-top:12pt;
+	content: "gloss special overrides"
+}
+glossLayout
+{
+	display:block;
+	margin-top:12pt;
+	margin-left:.125in;
+	margin-bottom:12pt;
+}
+glossLayout:after
+{
+	margin-bottom:12pt;
+}
+
+glossInExampleLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+glossInExampleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossInExampleLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+glossInExampleLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+glossInExampleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossInExampleLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+glossInExampleLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+glossInExampleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossInExampleLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+glossInExampleLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+glossInExampleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossInExampleLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+glossInExampleLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+glossInExampleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossInExampleLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+glossInExampleLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "gloss in example"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+glossInExampleLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+glossInExampleLayout
+{
+	display:block;
+	content: "gloss in example"
+	         ;
+	margin-left:.125in;
+}
+glossInExampleLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+
+glossInTableLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+glossInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossInTableLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+glossInTableLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+glossInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossInTableLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+glossInTableLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+glossInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossInTableLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+glossInTableLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+glossInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossInTableLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+glossInTableLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+glossInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossInTableLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+glossInTableLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "gloss in table"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+glossInTableLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+glossInTableLayout
+{
+	display:block;
+	content: "gloss in table"
+	         ;
+	margin-left:.125in;
+}
+glossInTableLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+glossInProseLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+glossInProseLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossInProseLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+glossInProseLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+glossInProseLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossInProseLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+glossInProseLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+glossInProseLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossInProseLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+glossInProseLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+glossInProseLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossInProseLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+glossInProseLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+glossInProseLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossInProseLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+glossInProseLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "gloss in prose"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+glossInProseLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+glossInProseLayout
+{
+	display:block;
+	content: "gloss in prose"
+	         ;
+	margin-left:.125in;
+}
+glossInProseLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
 }
 glossaryLayout[color]
 {
@@ -4756,6 +5211,283 @@ interlinearRefLinkLayout[showmarking='no']
 	color:Gray;
 	text-decoration:none;
 }
+langDataLayout:before
+{
+	margin-top:12pt;
+	content: "langData special overrides"
+}
+langDataLayout
+{
+	display:block;
+	margin-left:.125in;
+}
+langDataLayout:after
+{
+	margin-bottom:12pt;
+}
+
+langDataInExampleLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+langDataInExampleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+langDataInExampleLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+langDataInExampleLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+langDataInExampleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+langDataInExampleLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+langDataInExampleLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+langDataInExampleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+langDataInExampleLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+langDataInExampleLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+langDataInExampleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+langDataInExampleLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+langDataInExampleLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+langDataInExampleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+langDataInExampleLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+langDataInExampleLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "langData in example"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+langDataInExampleLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+langDataInExampleLayout
+{
+	display:block;
+	content: "langData in example"
+	         ;
+	margin-left:.125in;
+}
+langDataInExampleLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+
+langDataInTableLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+langDataInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+langDataInTableLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+langDataInTableLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+langDataInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+langDataInTableLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+langDataInTableLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+langDataInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+langDataInTableLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+langDataInTableLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+langDataInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+langDataInTableLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+langDataInTableLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+langDataInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+langDataInTableLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+langDataInTableLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "langData in table"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+langDataInTableLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+langDataInTableLayout
+{
+	display:block;
+	content: "langData in table"
+	         ;
+	margin-left:.125in;
+}
+langDataInTableLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+langDataInProseLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+langDataInProseLayout[color]
+{
+	color:concatenate(attr(color));
+}
+langDataInProseLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+langDataInProseLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+langDataInProseLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+langDataInProseLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+langDataInProseLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+langDataInProseLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+langDataInProseLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+langDataInProseLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+langDataInProseLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+langDataInProseLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+langDataInProseLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+langDataInProseLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+langDataInProseLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+langDataInProseLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "langData in prose"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+langDataInProseLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+langDataInProseLayout
+{
+	display:block;
+	content: "langData in prose"
+	         ;
+	margin-left:.125in;
+}
+langDataInProseLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+
+
+
 linkLayout[color] interlinearRefLinkLayout[color='default'][showmarking='yes']
 {
 	color:concatenate(xpath("../@color"));

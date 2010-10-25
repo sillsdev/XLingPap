@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->10 September 2010</date
+>13 October 2010</date
 ><version
 >2.14.0</version
 ><contents
@@ -3323,7 +3323,7 @@ type="tElementExample"
 ></br
 >&lt;line&gt;<br
 ></br
->&lt;gloss lang="lGloss"&gt;viene plural ésto llora plural ésto sobre-él&lt;/gloss&gt;<br
+>&lt;gloss lang="lGloss"&gt;viene plural esto llora plural esto sobre-él&lt;/gloss&gt;<br
 ></br
 >&lt;/line&gt;<br
 ></br
@@ -3349,7 +3349,7 @@ type="tElementExample"
 ></br
 >&lt;wrd&gt;<br
 ></br
->&lt;gloss lang="lGloss"&gt;ésto&lt;/gloss&gt;<br
+>&lt;gloss lang="lGloss"&gt;esto&lt;/gloss&gt;<br
 ></br
 >&lt;/wrd&gt;<br
 ></br
@@ -3373,7 +3373,7 @@ type="tElementExample"
 ></br
 >&lt;wrd&gt;<br
 ></br
->&lt;gloss lang="lGloss"&gt;ésto&lt;/gloss&gt;<br
+>&lt;gloss lang="lGloss"&gt;esto&lt;/gloss&gt;<br
 ></br
 >&lt;/wrd&gt;<br
 ></br
@@ -3391,7 +3391,7 @@ type="tElementExample"
 ></br
 >&lt;free&gt;<br
 ></br
->&lt;gloss lang="lExample"&gt;‘Éstos (sus parientes) vienen y lloran sobre él (porque está muerto)’&lt;/gloss&gt;<br
+>&lt;gloss lang="lExample"&gt;‘Estos (sus parientes) vienen y lloran sobre él (porque está muerto)’&lt;/gloss&gt;<br
 ></br
 >&lt;/free&gt;<br
 ></br
@@ -3405,7 +3405,7 @@ type="tElementExample"
 num="xSingleInterHTMLWrd"
 ><chart
 type="tHtmlOutput"
->&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xSustantivos.3"&gt;(4)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;Nze'ta&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;bee&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;runa'&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;(bee)&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;equiella.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;viene&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&amp;eacute;sto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;llora&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&amp;eacute;sto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;sobre-&amp;eacute;l&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;es&lt;/span&gt;-venir&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;eacute;sto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;h&lt;/span&gt;-llorar&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;eacute;sto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;sobre-&lt;span style="font-variant:small-caps; "&gt;3r&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table&gt; &lt;tr style="line-height:125%"&gt; &lt;td colspan="30" style="font-family:Times New Roman; "&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;#8216;&amp;Eacute;stos (sus parientes) vienen y lloran sobre &amp;eacute;l (porque est&amp;aacute; muerto)&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
+>&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xSustantivos.3"&gt;(4)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;Nze'ta&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;bee&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;runa'&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;(bee)&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;equiella.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;viene&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;esto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;llora&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;esto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;sobre-&amp;eacute;l&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;es&lt;/span&gt;-venir&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;esto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;h&lt;/span&gt;-llorar&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;esto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;sobre-&lt;span style="font-variant:small-caps; "&gt;3r&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table&gt; &lt;tr style="line-height:125%"&gt; &lt;td colspan="30" style="font-family:Times New Roman; "&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;#8216;Estos (sus parientes) vienen y lloran sobre &amp;eacute;l (porque est&amp;aacute; muerto)&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
 ><p
 >Notice that one uses the <object

@@ -1718,6 +1718,22 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        GetContextOfItem
+    -->
+    <xsl:template name="GetContextOfItem">
+        <xsl:choose>
+            <xsl:when test="ancestor::example">
+                <xsl:text>example</xsl:text>
+            </xsl:when>
+            <xsl:when test="ancestor::table">
+                <xsl:text>table</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>prose</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetDissertationLayoutToUsePosition
     -->
     <xsl:template name="GetDissertationLayoutToUsePosition">
@@ -2196,6 +2212,248 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        HandleFreeTextAfterInside
+    -->
+    <xsl:template name="HandleFreeTextAfterInside">
+        <xsl:param name="freeLayout"/>
+        <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='yes' and string-length(normalize-space($freeLayout/@textafter)) &gt; 0">
+            <xsl:value-of select="normalize-space($freeLayout/@textafter)"/>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleFreeTextAfterOutside
+    -->
+    <xsl:template name="HandleFreeTextAfterOutside">
+        <xsl:param name="freeLayout"/>
+        <xsl:if test="$freeLayout">
+            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no' and string-length(normalize-space($freeLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($freeLayout/@textafter)"/>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleFreeTextBeforeAndFontOverrides
+    -->
+    <xsl:template name="HandleFreeTextBeforeAndFontOverrides">
+        <xsl:param name="freeLayout"/>
+        <xsl:if test="$freeLayout">
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$freeLayout"/>
+                <xsl:with-param name="originalContext" select="."/>
+            </xsl:call-template>
+            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='yes' and string-length(normalize-space($freeLayout/@textbefore)) &gt; 0">
+                <xsl:value-of select="normalize-space($freeLayout/@textbefore)"/>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleFreeTextBeforeOutside
+    -->
+    <xsl:template name="HandleFreeTextBeforeOutside">
+        <xsl:param name="freeLayout"/>
+        <xsl:if test="$freeLayout">
+            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no' and string-length(normalize-space($freeLayout/@textbefore)) &gt; 0">
+                <xsl:value-of select="normalize-space($freeLayout/@textbefore)"/>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleGlossTextAfterInside
+    -->
+    <xsl:template name="HandleGlossTextAfterInside">
+        <xsl:param name="glossLayout"/>
+        <xsl:param name="sGlossContext"/>
+        <xsl:choose>
+            <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='example' and string-length(normalize-space($glossLayout/glossInExampleLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textafter)"/>
+            </xsl:when>
+            <xsl:when test="$glossLayout/glossInTableLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='table' and string-length(normalize-space($glossLayout/glossInTableLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textafter)"/>
+            </xsl:when>
+            <xsl:when test="$glossLayout/glossInProseLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='prose' and string-length(normalize-space($glossLayout/glossInProseLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textafter)"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        HandleGlossTextAfterOutside
+    -->
+    <xsl:template name="HandleGlossTextAfterOutside">
+        <xsl:param name="glossLayout"/>
+        <xsl:param name="sGlossContext"/>
+        <xsl:if test="$glossLayout">
+            <xsl:choose>
+                <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='example' and string-length(normalize-space($glossLayout/glossInExampleLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textafter)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInTableLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='table' and string-length(normalize-space($glossLayout/glossInTableLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textafter)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInProseLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='prose' and string-length(normalize-space($glossLayout/glossInProseLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textafter)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleGlossTextBeforeAndFontOverrides
+    -->
+    <xsl:template name="HandleGlossTextBeforeAndFontOverrides">
+        <xsl:param name="glossLayout"/>
+        <xsl:param name="sGlossContext"/>
+        <xsl:if test="$glossLayout">
+            <xsl:choose>
+                <xsl:when test="$sGlossContext='example'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$glossLayout/glossInExampleLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$sGlossContext='table'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$glossLayout/glossInTableLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$sGlossContext='prose'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$glossLayout/glossInProseLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='example' and string-length(normalize-space($glossLayout/glossInExampleLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInTableLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='table' and string-length(normalize-space($glossLayout/glossInTableLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInProseLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='prose' and string-length(normalize-space($glossLayout/glossInProseLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleGlossTextBeforeOutside
+    -->
+    <xsl:template name="HandleGlossTextBeforeOutside">
+        <xsl:param name="glossLayout"/>
+        <xsl:param name="sGlossContext"/>
+        <xsl:if test="$glossLayout">
+            <xsl:choose>
+                <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='example' and string-length(normalize-space($glossLayout/glossInExampleLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInTableLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='table' and string-length(normalize-space($glossLayout/glossInTableLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$glossLayout/glossInProseLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='prose' and string-length(normalize-space($glossLayout/glossInProseLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleLangDataTextAfterInside
+    -->
+    <xsl:template name="HandleLangDataTextAfterInside">
+        <xsl:param name="langDataLayout"/>
+        <xsl:param name="sLangDataContext"/>
+        <xsl:choose>
+            <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='example' and string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textafter)"/>
+            </xsl:when>
+            <xsl:when test="$langDataLayout/langDataInTableLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='table' and string-length(normalize-space($langDataLayout/langDataInTableLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>
+            </xsl:when>
+            <xsl:when test="$langDataLayout/langDataInProseLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='prose' and string-length(normalize-space($langDataLayout/langDataInProseLayout/@textafter)) &gt; 0">
+                <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        HandleLangDataTextAfterOutside
+    -->
+    <xsl:template name="HandleLangDataTextAfterOutside">
+        <xsl:param name="langDataLayout"/>
+        <xsl:param name="sLangDataContext"/>
+        <xsl:if test="$langDataLayout">
+            <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='example' and string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textafter)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInTableLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='table' and string-length(normalize-space($langDataLayout/langDataInTableLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInProseLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='prose' and string-length(normalize-space($langDataLayout/langDataInProseLayout/@textafter)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleLangDataTextBeforeAndFontOverrides
+    -->
+    <xsl:template name="HandleLangDataTextBeforeAndFontOverrides">
+        <xsl:param name="langDataLayout"/>
+        <xsl:param name="sLangDataContext"/>
+        <xsl:if test="$langDataLayout">
+            <xsl:choose>
+                <xsl:when test="$sLangDataContext='example'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$langDataLayout/langDataInExampleLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$sLangDataContext='table'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$langDataLayout/langDataInTableLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$sLangDataContext='prose'">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$langDataLayout/langDataInProseLayout"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='example' and string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInTableLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='table' and string-length(normalize-space($langDataLayout/langDataInTableLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInProseLayout/@textbeforeafterusesfontinfo='yes' and $sLangDataContext='prose' and string-length(normalize-space($langDataLayout/langDataInProseLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textbefore)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleLangDataTextBeforeOutside
+    -->
+    <xsl:template name="HandleLangDataTextBeforeOutside">
+        <xsl:param name="langDataLayout"/>
+        <xsl:param name="sLangDataContext"/>
+        <xsl:if test="$langDataLayout">
+            <xsl:choose>
+                <xsl:when test="$langDataLayout/langDataInExampleLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='example' and string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInTableLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='table' and string-length(normalize-space($langDataLayout/langDataInTableLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>
+                </xsl:when>
+                <xsl:when test="$langDataLayout/langDataInProseLayout/@textbeforeafterusesfontinfo='no' and $sLangDataContext='prose' and string-length(normalize-space($langDataLayout/langDataInProseLayout/@textbefore)) &gt; 0">
+                    <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textbefore)"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         OutputCollCitation
     -->
     <xsl:template name="OutputCitationPages">
@@ -2245,7 +2503,7 @@
                 <xsl:text>(it is empty).</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:text>, </xsl:text>-->
+                <!--                <xsl:text>, </xsl:text>-->
             </xsl:otherwise>
         </xsl:choose>
         <xsl:for-each select="./*">

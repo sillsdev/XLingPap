@@ -2114,8 +2114,10 @@ not using
     -->
     <xsl:template match="figure">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or $sFOProcessor='XFC'">
+                <!--  cannot have endnotes in floats... 
+                        and XFC does not handle floats.
+                -->
                 <xsl:call-template name="DoFigure"/>
             </xsl:when>
             <xsl:otherwise>
@@ -2162,8 +2164,10 @@ not using
     -->
     <xsl:template match="tablenumbered">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or $sFOProcessor='XFC'">
+                <!--  cannot have endnotes in floats...
+                        and XFC does not handle floats
+                -->
                 <xsl:call-template name="DoTableNumbered"/>
             </xsl:when>
             <xsl:otherwise>
@@ -2536,12 +2540,43 @@ not using
       GLOSS
       =========================================================== -->
     <xsl:template match="gloss">
-        <fo:inline>
+        <!--        <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             </xsl:call-template>
             <xsl:apply-templates/>
         </fo:inline>
+-->
+        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+        <xsl:variable name="sGlossContext">
+            <xsl:call-template name="GetContextOfItem"/>
+        </xsl:variable>
+        <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
+        <xsl:call-template name="HandleGlossTextBeforeOutside">
+            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+            <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+        </xsl:call-template>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="originalContext" select="."/>
+            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="HandleGlossTextBeforeAndFontOverrides">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+                <xsl:call-template name="HandleGlossTextAfterInside">
+                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                    <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+                </xsl:call-template>
+            </fo:inline>
+        </fo:inline>
+        <xsl:call-template name="HandleGlossTextAfterOutside">
+            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+            <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       ABBREVIATION
@@ -2641,12 +2676,41 @@ not using
       LANGDATA
       =========================================================== -->
     <xsl:template match="langData">
-        <fo:inline>
-            <xsl:call-template name="OutputFontAttributes">
+        <!--            <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             </xsl:call-template>
             <xsl:apply-templates/>
+-->
+        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+        <xsl:variable name="sLangDataContext">
+            <xsl:call-template name="GetContextOfItem"/>
+        </xsl:variable>
+        <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+        <xsl:call-template name="HandleLangDataTextBeforeOutside">
+            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
+        </xsl:call-template>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="originalContext" select="."/>
+            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+                <xsl:call-template name="HandleLangDataTextAfterInside">
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
+                </xsl:call-template>
+            </fo:inline>
         </fo:inline>
+        <xsl:call-template name="HandleLangDataTextAfterOutside">
+            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       OBJECT
@@ -4042,12 +4106,35 @@ not using
                     <xsl:text>0.1in</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            <fo:inline>
+            <!--            <fo:inline>
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                 </xsl:call-template>
                 <xsl:apply-templates/>
             </fo:inline>
+-->
+            <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+            <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+            <xsl:call-template name="HandleFreeTextBeforeOutside">
+                <xsl:with-param name="freeLayout" select="$freeLayout"/>
+            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$language"/>
+                </xsl:call-template>
+                <fo:inline>
+                    <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
+                        <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                    <xsl:call-template name="HandleFreeTextAfterInside">
+                        <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                    </xsl:call-template>
+                </fo:inline>
+            </fo:inline>
+            <xsl:call-template name="HandleFreeTextAfterOutside">
+                <xsl:with-param name="freeLayout" select="$freeLayout"/>
+            </xsl:call-template>
             <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
                 <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear'">
                     <xsl:call-template name="OutputInterlinearTextReference">
@@ -4116,7 +4203,8 @@ not using
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="sContents">
-                        <xsl:apply-templates/>
+<!--                        <xsl:apply-templates/> just want the text content-->
+                        <xsl:value-of select="self::*[not(descendant-or-self::endnote)]"/>
                     </xsl:variable>
                     <xsl:variable name="sOrientedContents">
                         <xsl:choose>
@@ -6470,10 +6558,82 @@ not using
         <fo:table-cell text-align="{$sAlign}" xsl:use-attribute-sets="ExampleCell">
             <xsl:call-template name="DoDebugExamples"/>
             <fo:block>
-                <xsl:call-template name="OutputFontAttributes">
+                <!--                <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
                 </xsl:call-template>
                 <xsl:value-of select="$sFirst"/>
+                
+-->
+                <xsl:variable name="sContext">
+                    <xsl:call-template name="GetContextOfItem"/>
+                </xsl:variable>
+                <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+                <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
+                <xsl:choose>
+                    <xsl:when test="langData">
+                        <xsl:call-template name="HandleLangDataTextBeforeOutside">
+                            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                            <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleGlossTextBeforeOutside">
+                            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                            <xsl:with-param name="sGlossContext" select="$sContext"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <fo:inline>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+                        <xsl:with-param name="originalContext" select="$sFirst"/>
+                    </xsl:call-template>
+                    <fo:inline>
+                        <xsl:choose>
+                            <xsl:when test="langData">
+                                <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
+                                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="HandleGlossTextBeforeAndFontOverrides">
+                                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:value-of select="$sFirst"/>
+                        <xsl:choose>
+                            <xsl:when test="langData">
+                                <xsl:call-template name="HandleLangDataTextAfterInside">
+                                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                    <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="HandleGlossTextAfterInside">
+                                    <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                                    <xsl:with-param name="sGlossContext" select="$sContext"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </fo:inline>
+                </fo:inline>
+                <xsl:choose>
+                    <xsl:when test="langData">
+                        <xsl:call-template name="HandleLangDataTextAfterOutside">
+                            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                            <xsl:with-param name="sLangDataContext" select="$sContext"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleGlossTextAfterOutside">
+                            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                            <xsl:with-param name="sGlossContext" select="$sContext"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </fo:block>
         </fo:table-cell>
         <xsl:if test="$sRest">

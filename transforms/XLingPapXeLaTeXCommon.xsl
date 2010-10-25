@@ -1607,6 +1607,13 @@
                 <tex:spec cat="bg"/>
                 <tex:cmd name="strut"/>
             </xsl:when>
+            <xsl:when test="ancestor::listDefinition">
+                <tex:spec cat="eg"/>
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+                <tex:spec cat="align"/>
+                <tex:spec cat="bg"/>
+            </xsl:when>
             <xsl:when test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
                 <xsl:variable name="previousTextOrBr" select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
                 <xsl:if test="name($previousTextOrBr[2])='br'">
@@ -1622,30 +1629,6 @@
             </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>
-    </xsl:template>
-    <!-- ===========================================================
-        GLOSS
-        =========================================================== -->
-    <xsl:template match="gloss" mode="InMarker">
-        <xsl:apply-templates select="self::*"/>
-    </xsl:template>
-    <xsl:template match="gloss">
-        <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-            <xsl:with-param name="originalContext" select="."/>
-        </xsl:call-template>
-        <xsl:variable name="iCountBr" select="count(child::br)"/>
-        <xsl:call-template name="DoEmbeddedBrBegin">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:apply-templates/>
-        <xsl:call-template name="DoEmbeddedBrEnd">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-            <xsl:with-param name="originalContext" select="."/>
-        </xsl:call-template>
     </xsl:template>
     <xsl:template match="abbreviationsShownHere">
         <xsl:choose>
@@ -1699,33 +1682,6 @@
         <tex:cmd name="landscape" gr="0" nl2="1"/>
         <xsl:apply-templates/>
         <tex:cmd name="endlandscape" gr="0" nl2="1"/>
-    </xsl:template>
-    <!-- ===========================================================
-        LANGDATA
-        =========================================================== -->
-    <xsl:template match="langData" mode="InMarker">
-        <xsl:apply-templates select="self::*"/>
-    </xsl:template>
-    <xsl:template match="langData">
-        <tex:spec cat="bg"/>
-        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
-        <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="$language"/>
-            <xsl:with-param name="originalContext" select="."/>
-        </xsl:call-template>
-        <xsl:variable name="iCountBr" select="count(child::br)"/>
-        <xsl:call-template name="DoEmbeddedBrBegin">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:apply-templates/>
-        <xsl:call-template name="DoEmbeddedBrEnd">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="$language"/>
-            <xsl:with-param name="originalContext" select="."/>
-        </xsl:call-template>
-        <tex:spec cat="eg"/>
     </xsl:template>
     <!-- ===========================================================
         OBJECT
@@ -2236,9 +2192,9 @@
                                     <tex:cmd name="bottomrule" gr="0"/>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:when test="not(th) and preceding-sibling::tr[1][th]">
+                            <xsl:when test="not(th) and preceding-sibling::tr[1][th[not(@rowspan &gt; 1)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1">
+                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1 ">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
@@ -2802,12 +2758,12 @@
         </xsl:if>
         <xsl:choose>
             <xsl:when test="@lang">
-                <xsl:call-template name="HandleFreeFontFamily"/>
+                <xsl:call-template name="HandleFreeLanguageFontInfo"/>
             </xsl:when>
             <xsl:otherwise>
                 <!--                <tex:cmd name="raggedright" gr="0" nl2="0"/>-->
                 <tex:group>
-                    <xsl:apply-templates/>
+                    <xsl:call-template name="HandleFreeNoLanguageFontInfo"/>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>
@@ -4616,35 +4572,6 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <!--  
-        OutputInterlinearLineAsTableCells
-    -->
-    <xsl:template name="OutputInterlinearLineAsTableCells">
-        <xsl:param name="sList"/>
-        <xsl:param name="lang"/>
-        <xsl:param name="sAlign"/>
-        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
-        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
-        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
-        <xsl:call-template name="DoDebugExamples"/>
-        <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
-            <xsl:with-param name="originalContext" select="$sFirst"/>
-        </xsl:call-template>
-        <xsl:value-of select="$sFirst"/>
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
-            <xsl:with-param name="originalContext" select="$sFirst"/>
-        </xsl:call-template>
-        <tex:spec cat="align"/>
-        <xsl:if test="$sRest">
-            <xsl:call-template name="OutputInterlinearLineAsTableCells">
-                <xsl:with-param name="sList" select="$sRest"/>
-                <xsl:with-param name="lang" select="$lang"/>
-                <xsl:with-param name="sAlign" select="$sAlign"/>
-            </xsl:call-template>
-        </xsl:if>
     </xsl:template>
     <!--  
         OutputInterlinearTextReference

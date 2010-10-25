@@ -1777,8 +1777,10 @@
     -->
     <xsl:template match="figure">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or $sFOProcessor='XFC'">
+                <!--  cannot have endnotes in floats... 
+                        and XFC does not handle floats
+                -->
                 <xsl:call-template name="DoFigure"/>
             </xsl:when>
             <xsl:otherwise>
@@ -1824,8 +1826,10 @@
     -->
     <xsl:template match="tablenumbered">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or $sFOProcessor='XFC'">
+                <!--  cannot have endnotes in floats... 
+                        and XFC does not handle floats
+                -->
                 <xsl:call-template name="DoTableNumbered"/>
             </xsl:when>
             <xsl:otherwise>

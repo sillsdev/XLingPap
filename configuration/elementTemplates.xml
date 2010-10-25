@@ -2109,4 +2109,21 @@ table
          </headerFooterOddPage>
       </headerFooterOddEvenPages>
    </cfg:elementTemplate>
+    <cfg:elementTemplate name="langDataLayout" selectable="override">
+        <langDataLayout>
+            <langDataInExampleLayout textbeforeafterusesfontinfo="no"/> 
+            <langDataInTableLayout textbeforeafterusesfontinfo="no"/>
+            <langDataInProseLayout textbeforeafterusesfontinfo="no"/> 
+        </langDataLayout>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="glossLayout" selectable="override">
+        <glossLayout>
+            <glossInExampleLayout textbeforeafterusesfontinfo="no"/> 
+            <glossInTableLayout textbeforeafterusesfontinfo="no"/>
+            <glossInProseLayout textbeforeafterusesfontinfo="no"/> 
+        </glossLayout>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="freeLayout" selectable="override">
+        <freeLayout textbeforeafterusesfontinfo="no"/> 
+    </cfg:elementTemplate>
 </cfg:configuration>

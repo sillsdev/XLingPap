@@ -456,43 +456,6 @@ Content Layout
   -->
    <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?,
                                                       langDataLayout?, glossLayout?, freeLayout? ) >
-    <!ELEMENT langDataLayout (langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
-   <!ELEMENT langDataInExampleLayout EMPTY >
-    <!ATTLIST langDataInExampleLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-   <!ELEMENT langDataInTableLayout EMPTY >
-    <!ATTLIST langDataInTableLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-   <!ELEMENT langDataInProseLayout EMPTY >
-    <!ATTLIST langDataInProseLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-    <!ELEMENT glossLayout (glossInExampleLayout, glossInTableLayout, glossInProseLayout) >
-   <!ELEMENT glossInExampleLayout EMPTY >
-    <!ATTLIST glossInExampleLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-   <!ELEMENT glossInTableLayout EMPTY >
-    <!ATTLIST glossInTableLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-   <!ELEMENT glossInProseLayout EMPTY >
-    <!ATTLIST glossInProseLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
-   <!ELEMENT freeLayout EMPTY >
-    <!ATTLIST freeLayout
-       textbeforeAfterUsesFontInfo (no | yes) 'no'
-       %formatinfo;
-    >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout
        indent-before CDATA #REQUIRED
@@ -592,6 +555,43 @@ Content Layout
     >
 <!ELEMENT magnificationFactor (#PCDATA) >
    
+    <!ELEMENT langDataLayout (langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
+   <!ELEMENT langDataInExampleLayout EMPTY >
+    <!ATTLIST langDataInExampleLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT langDataInTableLayout EMPTY >
+    <!ATTLIST langDataInTableLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT langDataInProseLayout EMPTY >
+    <!ATTLIST langDataInProseLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+    <!ELEMENT glossLayout (glossInExampleLayout, glossInTableLayout, glossInProseLayout) >
+   <!ELEMENT glossInExampleLayout EMPTY >
+    <!ATTLIST glossInExampleLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT glossInTableLayout EMPTY >
+    <!ATTLIST glossInTableLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT glossInProseLayout EMPTY >
+    <!ATTLIST glossInProseLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
+   <!ELEMENT freeLayout EMPTY >
+    <!ATTLIST freeLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

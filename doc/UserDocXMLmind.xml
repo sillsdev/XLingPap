@@ -19,7 +19,7 @@ type="tXMLmindXMLEditor"
 ><author
 >H. Andrew Black</author
 ><date
->10 September 2010</date
+>23 October 2010</date
 ><version
 >2.14.0</version
 ><contents
@@ -3736,6 +3736,7 @@ lang="lAttribute"
 >﻿authorformtoshowineditor</langData
 ></td
 ><td
+type="tAttrValue"
 ><langData
 lang="lValue"
 >both</langData
@@ -3757,6 +3758,7 @@ lang="lAttribute"
 ></langData
 ></td
 ><td
+type="tAttrValue"
 ><langData
 lang="lValue"
 >full</langData
@@ -3778,6 +3780,7 @@ lang="lAttribute"
 ></langData
 ></td
 ><td
+type="tAttrValue"
 ><langData
 lang="lValue"
 >initials</langData
@@ -3812,6 +3815,7 @@ lang="lMeaning"
 ></tr
 ><tr
 ><td
+type="tAttribute"
 ><langData
 lang="lAttribute"
 >titleformtoshowineditor</langData
@@ -3877,8 +3881,9 @@ type="tXMLmindXMLEditor"
 ></tr
 ><tr
 ><td
+type="tAttribute"
 ><langData
-lang="lEng"
+lang="lAttribute"
 >version</langData
 ></td
 ><td
@@ -3890,7 +3895,7 @@ lang="lValue"
 ><td
 ><langData
 lang="lMeaning"
->a versionnumber or comment one can use to describe this particular instantiation of references<indexedRangeEnd
+>a version number or comment one can use to describe this particular instantiation of references<indexedRangeEnd
 begin="bRferences"
 ></indexedRangeEnd
 ></langData
@@ -3899,12 +3904,116 @@ begin="bRferences"
 ></table
 ></example
 ></section3
+><section3
+id="sBMRefZotero"
+><secTitle
+>Converting a <object
+type="tZotero"
+></object
+> Library to <object
+type="tXLingPap"
+></object
+> Format</secTitle
+><p
+><indexedItem
+term="iZotero"
+></indexedItem
+>It is possible to take an existing <object
+type="tZotero"
+></object
+><endnote
+id="nZotero"
+><p
+>See <link
+href="http://www.zotero.org/"
+>http://www.zotero.org/</link
+>.</p
+></endnote
+> library and convert it to an <object
+type="tXLingPap"
+></object
+> reference file. Do the following:</p
+><ol
+><li
+>In <object
+type="tZotero"
+></object
+>, export your library using the MODS format. See your <object
+type="tZotero"
+></object
+> documentation on how to export the library. Remember where you save the MODS file.</li
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open an <object
+type="tXLingPap"
+></object
+> document in the directory where you want the converted <object
+type="tZotero"
+></object
+> reference file to go.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.</li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Z” (it should then fill in “ZoteroMODSToXLingPaperReferences” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will bring up a file chooser that lets you navigate to where you have your exported <object
+type="tZotero"
+></object
+> MODS file. Select your MODS file.</li
+><li
+>Click on <object
+type="tInstruction"
+>Open</object
+> or press the <object
+type="tKey"
+>Enter</object
+> key.</li
+></ol
+><p
+><object
+type="tXLingPap"
+></object
+> will produce a file called “ZoteroMODSReferences.xml” in the same directory where your <object
+type="tXLingPap"
+></object
+> document is and then it will load it into the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><p
+>Note that you will probably need to do some hand editing of the result as this conversion process is not 100% accurate (due to differences of detail used by <object
+type="tZotero"
+></object
+> and <object
+type="tXLingPap"
+></object
+>).</p
+></section3
 ></section2
 ><section2
 id="sBMAbbreviations"
 ><secTitle
 >Abbreviations</secTitle
 ><p
+><indexedItem
+term="iAbbreviation"
+></indexedItem
 >If you wish, you can create a list of abbreviations that are used in glossing text. Just like references and citations, the idea here is that while the list of abbreviations can be large, <object
 type="tXLingPap"
 ></object
@@ -3919,10 +4028,34 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
-> element.<endnoteRef
+> element. To find this attribute, click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> If you do not set this attribute, then the first abbreviation item found will be used. Also, if you inadvertently do not have an abbreviation for the language you selected, but you do have one for another language, then the first abbreviation found will be used, too.</p
+> to find and edit the<object
+type="tAttribute"
+>abbreviationlang</object
+> attribute. You will need to key in the id of one of the <object
+type="tElement"
+>language</object
+> elements in your document (e.g. <object
+type="tAttrValue"
+>en</object
+> for English, <object
+type="tAttrValue"
+>es</object
+> for Spanish, or <object
+type="tAttrValue"
+>fr</object
+> for French). If you do not set this attribute, then the first abbreviation item found will be used. Also, if you inadvertently do not have an abbreviation for the language you selected, but you do have one for another language, then the first abbreviation found will be used, too. See section <sectionRef
+sec="sBMAbbreviationsMasterListMultipleLanguages"
+></sectionRef
+> for more on creating master lists with two or more languages.</p
 ><p
 >One makes a reference to an abbreviation by inserting an <object
 type="tElement"
@@ -4086,7 +4219,161 @@ sec="sFAQReferences"
 >Another thing that you may need to do is to add a <object
 type="tElement"
 >language</object
-> element whose ID is “en” (for English).</p
+> element whose ID is “en” (for English). If you write the prose of your documents in some other language such as Spanish or French, then you will need to also add a<object
+type="tElement"
+>language</object
+> element for each such language.</p
+><section4
+id="sBMAbbreviationsMasterListMultipleLanguages"
+><secTitle
+>Master List in Multiple Languages</secTitle
+><p
+>If you are making a master list that contains two or more languages, you will need to keep a couple of things in mind.</p
+><p
+>First, when a given abbreviation is spelled differently in the various languages, you should insert separate <object
+type="tElement"
+>abbreviation</object
+> elements for each one and place them in the correct alphabetical order in the master list. For example, you could have one (English) abbreviation for FOC (focus) and one (Spanish) abbreviation for ENF (énfasis o enfático):</p
+><example
+num="xAbbreviationsMultiLanguage"
+><chart
+><img
+src="resources/AbbreviationsMultiLanguage.png"
+></img
+></chart
+></example
+><p
+>The <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>abbrInLang</object
+> element of the <object
+type="tAttrValue"
+>vFOC</object
+> <object
+type="tElement"
+>abbreviation</object
+> element will need to be <object
+type="tAttrValue"
+>en</object
+> for English and the <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>abbrInLang</object
+> element of the <object
+type="tAttrValue"
+>vENF</object
+> <object
+type="tElement"
+>abbreviation</object
+> element will need to be <object
+type="tAttrValue"
+>es</object
+> for Spanish.<endnote
+id="nAbbrInLangSetLang"
+><p
+>If you select the <object
+type="tElement"
+>abbrInLang</object
+> element in the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and them immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+>), a dialog box will pop up that lists all the language identifiers in your paper. You can then select the one that is correct for this abbreviation.</p
+></endnote
+> Naturally, when you refer to an abbreviation for focus in your document, you'll want to use 'enf' in Spanish and 'foc' in English. Then, when you mark a given document's <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute (in the <object
+type="tElement"
+>lingPaper</object
+> element) to be <object
+type="tAttrValue"
+>en</object
+> for English, <object
+type="tXLingPap"
+></object
+> will use the English abbreviation for those abbreviations with two or more <object
+type="tElement"
+>abbrInLang</object
+> elements. If you mark the document to be <object
+type="tAttrValue"
+>es</object
+> for Spanish, then <object
+type="tXLingPap"
+></object
+> will use the Spanish <object
+type="tElement"
+>abbrInLang</object
+> information. For those abbreviations that have only one <object
+type="tElement"
+>abbrInLang</object
+> element, that <object
+type="tElement"
+>abbrInLang</object
+> information will be used.</p
+><p
+>Second, when both languages share the same abbreviation, but the definitions are different (since they are in different languages), you will need to add a new <object
+type="tElement"
+>abbrInLang</object
+> element for the new language. For example, suppose you have an abbreviation for “article” in English and want to add a similar abbreviation for “artículo” in Spanish. Here is a way to do this:</p
+><ol
+><li
+>Click in the abbreviation you want to add a new language abbreviation for. For example:<br
+></br
+><chart
+><img
+src="resources/AbbreviationArticle.png"
+></img
+></chart
+></li
+><li
+>In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on abbrInLang:<br
+></br
+><chart
+><img
+src="resources/AbbreviationArticleNodePathBar.png"
+></img
+></chart
+></li
+><li
+>Do an <object
+type="tInstruction"
+>Insert After</object
+> command and choose the one and only option: abbrInLang.</li
+><li
+>If you immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+>), a dialog box will pop up that lists all the language identifiers in your paper. Choose the one that is appropriate for this second language.</li
+><li
+>Now type in the abbreviation and its meaning. It might look like this:<br
+></br
+><chart
+><img
+src="resources/AbbreviationArticle2Languages.png"
+></img
+></chart
+></li
+><li
+>Repeat steps 1-5 for each additional abbreviation.</li
+></ol
+></section4
 ></section3
 ><section3
 id="sBMAbbreviationsReferences"
@@ -6618,7 +6905,7 @@ src="resources/ExInterlinearWrdLGFData.png"
 num="xSingleInterHTMLWrd"
 ><chart
 type="tHtmlOutput"
->&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xSustantivos.3"&gt;(4)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;Nze'ta&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;bee&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;runa'&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;(bee)&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;equiella.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;viene&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&amp;eacute;sto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;llora&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&amp;eacute;sto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;sobre-&amp;eacute;l&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;es&lt;/span&gt;-venir&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;eacute;sto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;h&lt;/span&gt;-llorar&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;eacute;sto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;sobre-&lt;span style="font-variant:small-caps; "&gt;3r&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table&gt; &lt;tr style="line-height:125%"&gt; &lt;td colspan="30" style="font-family:Times New Roman; "&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;#8216;&amp;Eacute;stos (sus parientes) vienen y lloran sobre &amp;eacute;l (porque est&amp;aacute; muerto)&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
+>&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xSustantivos.3"&gt;(4)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;Nze'ta&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;bee&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;runa'&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;(bee)&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;&lt;span style="font-weight:bold; "&gt;nze'e&lt;/span&gt;&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;equiella.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;viene&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;esto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;llora&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;plural&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;esto&lt;/td&gt; &lt;td style="font-family:Times New Roman; padding-left: .25em"&gt;sobre-&amp;eacute;l&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;es&lt;/span&gt;-venir&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;esto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;h&lt;/span&gt;-llorar&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt; &lt;span style="font-variant:small-caps; "&gt;pl&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;esto&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="font-family:Times New Roman; "&gt;sobre-&lt;span style="font-variant:small-caps; "&gt;3r&lt;/span&gt; &lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;table&gt; &lt;tr style="line-height:125%"&gt; &lt;td colspan="30" style="font-family:Times New Roman; "&gt;&lt;span style="font-family:Times New Roman; "&gt;&amp;#8216;Estos (sus parientes) vienen y lloran sobre &amp;eacute;l (porque est&amp;aacute; muerto)&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
 ><p
 >Notice the use of <object
@@ -15358,7 +15645,10 @@ type="tXMLmindXSLUtility"
 >, you can download a personal edition from <link
 href="http://www.xmlmind.com/foconverter/downloadperso.shtml"
 >http://www.xmlmind.com/foconverter/downloadperso.shtml</link
->. Be sure to read the license information on the website to determine which license is appropriate for your situation. (SIL members can use the Personal Edition License.)</p
+> (use the information in the <object
+type="tXMLmindXSLUtility"
+></object
+> section). Be sure to read the license information on the website to determine which license is appropriate for your situation. (SIL members can use the Personal Edition License.)</p
 ><p
 >The following table delineates what to get depending on your operating system:</p
 ><table
@@ -15462,7 +15752,10 @@ type="tXLingPap"
 ><p
 >By the way, you can also invoke this tool by itself and use it to convert to some other formats, too. You will need to use the .fo version of your file (that this process also produces) as your input file. Then you will need to select the output format you wish. Ones that make the most sense are to map from FO to .docx, .odt, or .rtf.</p
 ><p
->Please note that this process of producing a Word 2003 document is not as mature and stable as the process to produce a webpage and PDF is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<endnote
+>Please note that this process of producing a Word 2003 document is not as mature and stable as the process to produce a webpage and PDF is. Here are the known limitations:</p
+><ul
+><li
+>Any display which is rendered as a table may have oddly spaced columns.<endnote
 id="nXFCNoFontMetics"
 ><p
 >The reason is that the <object
@@ -15473,9 +15766,9 @@ type="tXMLmindXSLUtility"
 > This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by downloading <link
 href="http://xlingpap.googlecode.com/files/XLingPaperToWord2003Adjust.doc"
 >http://xlingpap.googlecode.com/files/XLingPaperToWord2003Adjust.doc</link
-> and following the instructions in that Word file.</p
-><p
->Another known problem is that tables and interlinear examples may be split across page boundaries.<endnote
+> and following the instructions in that Word file.</li
+><li
+>Tables and interlinear examples may be split across page boundaries.<endnote
 id="nXFCWidowOrphan"
 ><p
 >Apparently the <object
@@ -15483,22 +15776,30 @@ type="tXMLmindXSLUtility"
 ></object
 > tool does not pay attention to the widow and orphan control information included in the XSL-FO output it processes.</p
 ></endnote
-> You will have to correct these by hand.</p
-><p
->Another known problem is that it does not handle tables and examples in footnotes and, from what I can tell, they do not plan to add this capability.</p
-><p
->Another known problem is that .bmp files do not come out in the resulting <object
+> You will have to correct these by hand.</li
+><li
+>It does not handle tables and examples in footnotes and, from what I can tell, they do not plan to add this capability.</li
+><li
+>Graphic .bmp files do not come out in the resulting <object
 type="tTool"
 >Microsoft Word 2003</object
 > file, unless you are using version 4.4.0 or higher of the <object
 type="tXMLmindXSLUtility"
 ></object
->. This version handles more kinds of graphic image files.</p
-><p
+>. This version handles more kinds of graphic image files.</li
+><li
 >If you output a table of contents, the page numbers will initially come out as zero. The latest version of the macro attempts to fix this as well. If the page numbers are still not correct, while viewing the Word document in Word, select the table of contents and then press the <object
 type="tKey"
 >F9</object
-> key. It should then show the correct page numbers.</p
+> key. It should then show the correct page numbers.</li
+><li
+>Headers and footers with centered page numbers or other items will not come out truly centered. You will have to adjust the header or footer by hand.</li
+><li
+>Floats (see section <sectionRef
+sec="sTCTFloats"
+></sectionRef
+>) are not handled as floats.  They will appear exactly in place.</li
+></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:andy_black@sil.org"
@@ -15585,7 +15886,11 @@ type="tXLingPap"
 >Please note that this process of producing an <object
 type="tOpenOfficeWriter"
 ></object
-> document is not as mature and stable as the process to produce a webpage or PDF is. One known problem is that any display which is rendered as a table may have oddly spaced columns.<endnoteRef
+> document is not as mature and stable as the process to produce a webpage or PDF is. Here are the known issues:</p
+><ul
+><li
+><p
+>Any display which is rendered as a table may have oddly spaced columns.<endnoteRef
 note="nXFCNoFontMetics"
 ></endnoteRef
 > This includes many example elements. There is an Open Office Extension package I have written to help with this. The macro attempts to apply the "auto-fit" table capability to all the tables in the document. You can obtain the macro by performing these steps:</p
@@ -15626,23 +15931,32 @@ type="tXLingPap"
 ></ol
 ><p
 >Note that the macro does always not work for each and every example/table. Sometimes when there is a list interlinear, the widest one will not get reformatted. You have to manually adjust the width of the table and then apply the macro again.</p
-><p
->Another known problem is that tables and interlinear examples may be split across page boundaries.<endnoteRef
+></li
+><li
+>Tables and interlinear examples may be split across page boundaries.<endnoteRef
 note="nXFCWidowOrphan"
 ></endnoteRef
-> You will have to correct these by hand.</p
-><p
->Another known problem is that it does not handle tables and examples in footnotes and, from what I can tell, they do not plan to add this capability.</p
-><p
->Another known problem is that .bmp files do not come out in the resulting <object
+> You will have to correct these by hand.</li
+><li
+>It does not handle tables and examples in footnotes and, from what I can tell, they do not plan to add this capability.</li
+><li
+>Graphic .bmp files do not come out in the resulting <object
 type="tOpenOfficeWriter"
 ></object
 > file, unless you are using version 4.4.0 or higher of the <object
 type="tXMLmindXSLUtility"
 ></object
->. This version handles more kinds of graphic image files.</p
-><p
->If you output a table of contents, the page numbers will initially come out as zero. The macro will attempt to fix this as well.</p
+>. This version handles more kinds of graphic image files.</li
+><li
+>If you output a table of contents, the page numbers will initially come out as zero. The macro will attempt to fix this as well.</li
+><li
+>Headers and footers with centered page numbers or other items will not come out truly centered. You will have to adjust the header or footer by hand.</li
+><li
+>Floats (see section <sectionRef
+sec="sTCTFloats"
+></sectionRef
+>) are not handled as floats. They will appear exactly in place.</li
+></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:andy_black@sil.org"
@@ -17042,6 +17356,79 @@ type="tKey"
 type="tKey"
 >F11</object
 > key.</p
+></section2
+><section2
+id="sJumpToWorkInreferences"
+><secTitle
+>Jumping to the References section</secTitle
+><p
+><indexedItem
+term="iJumpToReferences"
+></indexedItem
+>There is a command that lets you jump from where you are to the references section, including letting you select which work you want to edit or see. Use the <object
+type="tInstruction"
+>XLingPaper / Jump to Work in References</object
+> menu item (or you can press the <object
+type="tKey"
+>Ctrl</object
+>, <object
+type="tKey"
+>Shift</object
+>, and <object
+type="tKey"
+>F11</object
+> keys at the same time). This will bring up the chooser dialog for references as shown in <exampleRef
+letter="xJumpToWorkInReferences"
+num="xJumpToWorkInReferences"
+></exampleRef
+>. (This is the same chooser dialog used for setting <object
+type="tElement"
+>citation</object
+> elements discussed in section <sectionRef
+sec="sCitations"
+></sectionRef
+>).</p
+><example
+num="xJumpToWorkInReferences"
+><chart
+><img
+src="resources/CitationDialog.png"
+></img
+></chart
+></example
+><p
+>Select the work you want to see or edit (or add a new work before or after). <object
+type="tXLingPap"
+></object
+> will remember the location of where you are working right now and then jump you to the <object
+type="tElement"
+>refWork</object
+> that you selected. (Note that sometimes you may have to scroll down a bit in the <object
+type="tXMLmindXMLEditor"
+></object
+> to see the element.)</p
+><p
+>After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
+type="tXMLmindXMLEditor"
+></object
+>'s <object
+type="tInstruction"
+>Search / Boomark / Go to Last Visted or Go Back</object
+> menu item command.<endnote
+id="nEnableBookmarksInXXE"
+><p
+>Some more recent versions of the <object
+type="tXMLmindXMLEditor"
+></object
+> do not automatically show this menu item. If this is the case for you, then please turn it on by using the <object
+type="tInstruction"
+>Options / Preferences</object
+> menu item and then in the <object
+type="tInstruction"
+>General / Features</object
+> portion, make sure that “Enable the Search|Bookmark Submenu” is checked.</p
+></endnote
+></p
 ></section2
 ></section1
 ><backMatter
@@ -19900,6 +20287,11 @@ after="XMLmind XSL Utility"
 id="tXMLmindXSLUtility"
 types="tTool"
 ></type
+><type
+after="Zotero"
+id="tZotero"
+types="tTool"
+></type
 ></types
 ><indexTerms
 version="1.12.0"
@@ -20467,9 +20859,20 @@ id="iReferences"
 >References</term
 ><indexTerms
 ><indexTerm
+id="iJumpToReferences"
+><term
+>Jump to References</term
+></indexTerm
+><indexTerm
 id="iReferencesWorksCited"
 ><term
 >Works cited</term
+></indexTerm
+><indexTerm
+id="iReferencesZotero"
+see="iZotero"
+><term
+>Zotero</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -20715,6 +21118,11 @@ id="iXXEUserPreferences"
 >User Preferences</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iZotero"
+><term
+>Zotero</term
 ></indexTerm
 ></indexTerms
 ></lingPaper

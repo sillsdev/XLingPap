@@ -942,7 +942,7 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text"/>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang" />
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
                 <cfg:get expression="join(//language/@id, ' ')"/>
@@ -1028,9 +1028,11 @@ alt causes menu to be selected
 -->                <cfg:command name="getRefWorkTitlesandIds"/>
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Jump to reference' true %_"/>
+                <cfg:set variable="refWork" expression="%_" plainString="true"/>
+                <cfg:command name="bookmark" parameter="add"/>
+                <cfg:get expression="$refWork"/>
                 <cfg:command name="selectById" parameter="id %_"/>
             </cfg:sequence>
-            
         </cfg:macro>
     </cfg:command>
     
@@ -1817,7 +1819,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="associatePublisherStylesheet">
-        <cfg:macro trace="false">
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:pass>
@@ -1829,12 +1831,22 @@ What we want is to load IE independently and to do a refresh so it will show the
                 </cfg:choice>
                 <cfg:command name="selectFile" parameter="[Choose Publisher Style Sheet]openFile %{c}/../publisherstylesheets/SILInternationalPaperStylesheet.xml"/>
                 <cfg:set variable="fileName" expression="%_" plainString="true"/>
+<!--                <cfg:get expression="$fileName"/>
+                <cfg:command name="alert" parameter="After setting fileName: %_"/>
+-->
+                <cfg:set variable="editedDocURL" expression="%{d}" plainString="true" />
+                <!--<cfg:get expression="$editedDocURL"/>
+                <cfg:command name="alert" parameter="editedDocURL: %_"/>
+                -->
+
                 <cfg:get expression="$fileName"/>
-                <cfg:get expression="relativize-uri(uri-or-file-name('%_'), '%{d}')"/>
+                <cfg:get expression="relativize-uri(uri-or-file-name('%_'), $editedDocURL)"/>
                 <cfg:set variable="uri" expression="%_" plainString="true"/>
+<!--                <cfg:command name="alert" parameter="Before invoking Java command"/>-->
                 <cfg:get expression="concat($fileName, '|', $uri)"/>
                 <cfg:command name="AssociatePublisherStylesheetCmd" parameter="%_"/>
                 <cfg:set variable="result" expression="%_" plainString="true"/>
+<!--                <cfg:command name="alert" parameter="After invoking Java command"/>-->
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="string-length($result) &gt; 0"/>
@@ -1910,6 +1922,22 @@ NB actually it associates the stylesheet with the original file, not the new han
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ZoteroMODSToXLingPaperReferences">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="selectFile" parameter="[Choose Zotero MODS File]openFile %{d}"/>
+                <cfg:command name="applyTransformsToZoteroMODSFile" parameter="&quot;%_&quot;"/>
+                <cfg:command name="XXE.open" parameter="%{P}%{S}ZoteroMODSReferences.xml"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="applyTransformsToZoteroMODSFile">
+        <cfg:process>
+            <cfg:copy files="%0" to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferences.xsl" to="pass1.xml"/>
+            <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}ZoteroMODSReferences.xml"/>
+        </cfg:process>
     </cfg:command>
     <cfg:command name="ChangeDefaultLangAttributesInTemplates">
         <cfg:macro trace="false">

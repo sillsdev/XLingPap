@@ -1479,6 +1479,57 @@
         </xsl:for-each>
     </xsl:template>
     <!-- ===========================================================
+        GLOSS
+        =========================================================== -->
+    <xsl:template match="gloss" mode="InMarker">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <xsl:template match="gloss">
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:variable name="iCountBr" select="count(child::br)"/>
+        <xsl:call-template name="DoEmbeddedBrBegin">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+        <xsl:call-template name="DoEmbeddedBrEnd">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- ===========================================================
+        LANGDATA
+        =========================================================== -->
+    <xsl:template match="langData" mode="InMarker">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <xsl:template match="langData">
+        <tex:spec cat="bg"/>
+        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$language"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:variable name="iCountBr" select="count(child::br)"/>
+        <xsl:call-template name="DoEmbeddedBrBegin">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+        <xsl:call-template name="DoEmbeddedBrEnd">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$language"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!-- ===========================================================
         ENDNOTES and ENDNOTEREFS
         =========================================================== -->
     <!--
@@ -3225,23 +3276,31 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        HandleFreeFontFamily
+        HandleFreeLanguageFontInfo
     -->
-    <xsl:template name="HandleFreeFontFamily">
+    <xsl:template name="HandleFreeLanguageFontInfo">
+        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <tex:cmd name="Lang{@lang}FontFamily">
             <tex:parm>
                 <!--                        <tex:cmd name="raggedright" gr="0" nl2="0"/>-->
                 <tex:group>
                     <xsl:call-template name="OutputFontAttributes">
-                        <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                        <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>
                     <xsl:apply-templates/>
                     <xsl:call-template name="OutputFontAttributesEnd">
-                        <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                        <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        HandleFreeNoLanguageFontInfo
+    -->
+    <xsl:template name="HandleFreeNoLanguageFontInfo">
+        <!-- this is here because the style sheet version has content -->
+        <xsl:apply-templates/>
     </xsl:template>
     <!--  
         FleshOutRefCitation
@@ -4075,6 +4134,35 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputInterlinearLineAsTableCells
+    -->
+    <xsl:template name="OutputInterlinearLineAsTableCells">
+        <xsl:param name="sList"/>
+        <xsl:param name="lang"/>
+        <xsl:param name="sAlign"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:call-template name="DoDebugExamples"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+            <xsl:with-param name="originalContext" select="$sFirst"/>
+        </xsl:call-template>
+        <xsl:value-of select="$sFirst"/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+            <xsl:with-param name="originalContext" select="$sFirst"/>
+        </xsl:call-template>
+        <tex:spec cat="align"/>
+        <xsl:if test="$sRest">
+            <xsl:call-template name="OutputInterlinearLineAsTableCells">
+                <xsl:with-param name="sList" select="$sRest"/>
+                <xsl:with-param name="lang" select="$lang"/>
+                <xsl:with-param name="sAlign" select="$sAlign"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--  

@@ -88,12 +88,8 @@
     <!-- ===========================================================
       Variables
       =========================================================== -->
-    <xsl:variable name="lingPaper" select="//lingPaper"/>
-    <xsl:variable name="refWorks" select="//refWork"/>
     <xsl:variable name="contents" select="//contents"/>
     <xsl:variable name="references" select="//references"/>
-    <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
-    <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="iExampleCount" select="count(//example)"/>
@@ -142,9 +138,6 @@
     </xsl:variable>
     <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
-    <xsl:variable name="collOrProcVolumesToInclude">
-        <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
-    </xsl:variable>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -230,9 +223,6 @@
             <xsl:text>pt</xsl:text>
         </xsl:attribute>
     </xsl:attribute-set>
-    <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOContents.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOReferences.xsl"/>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -4060,7 +4050,7 @@ not using
             </xsl:if>
             <xsl:call-template name="OutputIndexTerms">
                 <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
-                <xsl:with-param name="lang" select="//lingPaper/@indexlang"/>
+                <xsl:with-param name="lang" select="$indexLang"/>
                 <xsl:with-param name="terms" select="//lingPaper/indexTerms"/>
             </xsl:call-template>
         </fo:block>
@@ -4203,7 +4193,7 @@ not using
                         </xsl:if>
                     </xsl:variable>
                     <xsl:variable name="sContents">
-<!--                        <xsl:apply-templates/> just want the text content-->
+                        <!--                        <xsl:apply-templates/> just want the text content-->
                         <xsl:value-of select="self::*[not(descendant-or-self::endnote)]"/>
                     </xsl:variable>
                     <xsl:variable name="sOrientedContents">
@@ -4583,8 +4573,8 @@ not using
         </xsl:if>
     </xsl:template>
     <!--  
-                  DoReferences
--->
+        DoReferences
+    -->
     <xsl:template name="DoReferences">
         <xsl:call-template name="OutputBackMatterItemTitle">
             <xsl:with-param name="sId" select="'rXLingPapReferences'"/>
@@ -4602,50 +4592,51 @@ not using
             <!--            <xsl:for-each select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]">
                 <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
                 <xsl:for-each select="$works">
--->
-            <xsl:variable name="refAuthors" select="//refAuthor"/>
-            <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
-            <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
-            <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
-                <xsl:variable name="thisAuthor" select="."/>
-                <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
-                <xsl:for-each select="$works">
-                    <xsl:variable name="work" select="."/>
-                    <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}" id="{@id}">
-                        <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
-                            <xsl:attribute name="font-size">
-                                <xsl:call-template name="AdjustFontSizePerMagnification">
-                                    <xsl:with-param name="sFontSize" select="$referencesLayoutInfo/@defaultfontsize"/>
-                                </xsl:call-template>
-                            </xsl:attribute>
-                        </xsl:if>
-                        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
-                            <xsl:attribute name="space-after">
-                                <xsl:variable name="sExtraSpace">
-                                    <xsl:choose>
-                                        <xsl:when test="$sLineSpacing='double'">
-                                            <xsl:value-of select="$sBasicPointSize"/>
-                                        </xsl:when>
-                                        <xsl:when test="$sLineSpacing='spaceAndAHalf'">
-                                            <xsl:value-of select=" number($sBasicPointSize div 2)"/>
-                                        </xsl:when>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:value-of select="$sExtraSpace"/>
-                                <xsl:text>pt</xsl:text>
-                            </xsl:attribute>
-                        </xsl:if>
-                        <xsl:call-template name="DoAuthorLayout">
-                            <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
-                            <xsl:with-param name="work" select="$work"/>
-                            <xsl:with-param name="works" select="$works"/>
-                            <xsl:with-param name="iPos" select="position()"/>
-                        </xsl:call-template>
-                        <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
-                    </fo:block>
-                </xsl:for-each>
-            </xsl:for-each>
+            -->
+            <xsl:call-template name="DoRefAuthors"/>
         </fo:block>
+    </xsl:template>
+    <!--  
+        DoRefWorks
+    -->
+    <xsl:template name="DoRefWorks">
+        <xsl:variable name="thisAuthor" select="."/>
+        <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+        <xsl:for-each select="$works">
+            <xsl:variable name="work" select="."/>
+            <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}" id="{@id}">
+                <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
+                    <xsl:attribute name="font-size">
+                        <xsl:call-template name="AdjustFontSizePerMagnification">
+                            <xsl:with-param name="sFontSize" select="$referencesLayoutInfo/@defaultfontsize"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
+                    <xsl:attribute name="space-after">
+                        <xsl:variable name="sExtraSpace">
+                            <xsl:choose>
+                                <xsl:when test="$sLineSpacing='double'">
+                                    <xsl:value-of select="$sBasicPointSize"/>
+                                </xsl:when>
+                                <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                    <xsl:value-of select=" number($sBasicPointSize div 2)"/>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <xsl:value-of select="$sExtraSpace"/>
+                        <xsl:text>pt</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:call-template name="DoAuthorLayout">
+                    <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
+                    <xsl:with-param name="work" select="$work"/>
+                    <xsl:with-param name="works" select="$works"/>
+                    <xsl:with-param name="iPos" select="position()"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
+            </fo:block>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         DoSection
@@ -4949,150 +4940,26 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
-      OutputAbbreviationsInCommaSeparatedList
+      OutputAbbreviationInCommaSeparatedList
    -->
-    <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
-        <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
-            <fo:inline id="{@id}">
-                <xsl:call-template name="OutputAbbrTerm">
-                    <xsl:with-param name="abbr" select="."/>
-                </xsl:call-template>
-                <xsl:text> = </xsl:text>
-                <xsl:call-template name="OutputAbbrDefinition">
-                    <xsl:with-param name="abbr" select="."/>
-                </xsl:call-template>
-            </fo:inline>
-            <xsl:choose>
-                <xsl:when test="position() = last()">
-                    <xsl:text>.</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>, </xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-    </xsl:template>
-    <!--
-      OutputAbbreviationsInTable
-   -->
-    <xsl:template name="OutputAbbreviationsInTable">
-        <fo:block>
-            <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
-            <xsl:if test="count($abbrsUsed) &gt; 0">
-                <fo:table space-before="12pt">
-                    <fo:table-body start-indent="0pt" end-indent="0pt">
-                        <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
-                  The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
-                  corresponding cell in the other column may skip a row (as far as what one would expect).
-                  So I'm going with just a single table here.
-                  <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
-                  <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
-               -->
-                        <xsl:for-each select="$abbrsUsed">
-                            <fo:table-row>
-                                <xsl:if test="position() = last() -1 or position() = 1">
-                                    <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
-                                </xsl:if>
-                                <fo:table-cell border-collapse="collapse" padding=".2em" padding-top=".01em">
-                                    <fo:block>
-                                        <fo:inline id="{@id}">
-                                            <xsl:call-template name="OutputAbbrTerm">
-                                                <xsl:with-param name="abbr" select="."/>
-                                            </xsl:call-template>
-                                        </fo:inline>
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell border-collapse="collapse">
-                                    <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                                    <fo:block>
-                                        <xsl:text> = </xsl:text>
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell border-collapse="collapse">
-                                    <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                                    <fo:block>
-                                        <xsl:call-template name="OutputAbbrDefinition">
-                                            <xsl:with-param name="abbr" select="."/>
-                                        </xsl:call-template>
-                                    </fo:block>
-                                </fo:table-cell>
-                                <!-- 
-                        <fo:table-cell border-collapse="collapse">
-                        <xsl:attribute name="padding-left">2em</xsl:attribute>
-                        <fo:block>
-                        <xsl:text>&#xa0;</xsl:text>
-                        </fo:block>
-                        </fo:table-cell>
-                        <xsl:variable name="iCurrentPosition" select="position()"/>
-                        <xsl:variable name="secondAbbr" select="$abbrsUsed[position() = $iHalfwayPoint + $iCurrentPosition]"/>
-                        <xsl:if test="$secondAbbr">
-                        <fo:table-cell border-collapse="collapse">
-                        <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                        <fo:block>
-                        <fo:inline id="{$secondAbbr/@id}">
-                        <xsl:value-of select="$secondAbbr/abbrInLang[1]/abbrTerm"/>
-                        </fo:inline>
-                        </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell border-collapse="collapse">
-                        <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                        <fo:block>
-                        <xsl:text> = </xsl:text>
-                        </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell border-collapse="collapse">
-                        <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                        <fo:block>
-                        <xsl:value-of select="$secondAbbr/abbrInLang[1]/abbrDefinition"/>
-                        </fo:block>
-                        </fo:table-cell>
-                        </xsl:if>
-                     -->
-                            </fo:table-row>
-                        </xsl:for-each>
-                    </fo:table-body>
-                </fo:table>
-            </xsl:if>
-        </fo:block>
-        <!-- 
-         <table>
-         <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
-         <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
-         <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
-         <tr>
-         <td>
-         <a name="{@id}">
-         <xsl:value-of select="abbrInLang[1]/abbrTerm"/>
-         </a>
-         </td>
-         <td>
-         <xsl:text> = </xsl:text>
-         </td>
-         <td>
-         <xsl:value-of select="abbrInLang[1]/abbrDefinition"/>
-         </td>
-         <td>&#xa0;</td>
-         <td>&#xa0;</td>
-         <td>&#xa0;</td>
-         <xsl:variable name="iCurrentPosition" select="position()"/>
-         <xsl:variable name="secondAbbr" select="$abbrsUsed[position() = $iHalfwayPoint + $iCurrentPosition]"/>
-         <xsl:if test="$secondAbbr">
-         <td>
-         <a name="{$secondAbbr/@id}">
-         <xsl:value-of select="$secondAbbr/abbrInLang[1]/abbrTerm"/>
-         </a>
-         </td>
-         <td>
-         <xsl:text> = </xsl:text>
-         </td>
-         <td>
-         <xsl:value-of select="$secondAbbr/abbrInLang[1]/abbrDefinition"/>
-         </td>
-         </xsl:if>
-         </tr>
-         </xsl:for-each>
-         </table>
-      -->
+    <xsl:template name="OutputAbbreviationInCommaSeparatedList">
+        <fo:inline id="{@id}">
+            <xsl:call-template name="OutputAbbrTerm">
+                <xsl:with-param name="abbr" select="."/>
+            </xsl:call-template>
+            <xsl:text> = </xsl:text>
+            <xsl:call-template name="OutputAbbrDefinition">
+                <xsl:with-param name="abbr" select="."/>
+            </xsl:call-template>
+        </fo:inline>
+        <xsl:choose>
+            <xsl:when test="position() = last()">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       OutputAbbreviationsLabel
@@ -6008,7 +5875,9 @@ not using
                     <xsl:text>in</xsl:text>
                 </xsl:attribute>
                 <xsl:for-each select="$indexTermsToShow">
-                    <xsl:sort select="term[1]"/>
+<!--                    <xsl:sort select="term[1]"/>-->
+                    <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
+                    
                     <xsl:variable name="sTermId" select="@id"/>
                     <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                     <xsl:variable name="bHasCitedDescendant">
@@ -6078,14 +5947,9 @@ not using
                                 </xsl:for-each>
                                 <xsl:if test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                                     <!-- this term also has a @see attribute which refers to a term that is cited or whose descendant is cited -->
-                                    <xsl:choose>
-                                        <xsl:when test="$indexedItems">
-                                            <xsl:text>.  See also </xsl:text>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:text>See </xsl:text>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                    <xsl:call-template name="OutputIndexTermSeeBefore">
+                                        <xsl:with-param name="indexedItems" select="$indexedItems"/>
+                                    </xsl:call-template>
                                     <fo:inline>
                                         <fo:basic-link>
                                             <xsl:attribute name="internal-destination">
@@ -6096,10 +5960,15 @@ not using
                                             <xsl:call-template name="AddAnyLinkAttributes">
                                                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                             </xsl:call-template>
-                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>
+<!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
+                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                            
                                         </fo:basic-link>
                                     </fo:inline>
-                                    <xsl:text>.</xsl:text>
+                                    <xsl:call-template name="OutputIndexTermSeeAfter">
+                                        <xsl:with-param name="indexedItems" select="$indexedItems"/>
+                                    </xsl:call-template>
+                                    
                                 </xsl:if>
                             </fo:block>
                             <xsl:call-template name="OutputIndexTerms">
@@ -6111,8 +5980,11 @@ not using
                         <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                             <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
                             <fo:block>
-                                <xsl:apply-templates select="term[1]" mode="InIndex"/>
-                                <xsl:text>&#x20;&#x20;See </xsl:text>
+                                <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
+                                <xsl:text>&#x20;&#x20;See </xsl:text>-->
+                                <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
+                                
                                 <fo:inline>
                                     <fo:basic-link>
                                         <xsl:attribute name="internal-destination">
@@ -6136,21 +6008,6 @@ not using
                 </xsl:for-each>
             </fo:block>
         </xsl:if>
-    </xsl:template>
-    <!--  
-                  OutputIndexTermsTerm
--->
-    <xsl:template name="OutputIndexTermsTerm">
-        <xsl:param name="lang"/>
-        <xsl:param name="indexTerm"/>
-        <xsl:choose>
-            <xsl:when test="$lang and $indexTerm/term[@lang=$lang]">
-                <xsl:apply-templates select="$indexTerm/term[@lang=$lang]" mode="InIndex"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="$indexTerm/term[1]" mode="InIndex"/>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!--  
         OutputInterlinear
@@ -6737,4 +6594,8 @@ not using
         TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapCommon.xsl"/>
+    <xsl:include href="XLingPapFOCommon.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetFOContents.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetFOReferences.xsl"/>
 </xsl:stylesheet>

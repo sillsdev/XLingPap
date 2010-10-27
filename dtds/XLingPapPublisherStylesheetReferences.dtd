@@ -32,7 +32,7 @@ References Layouts
 <!ELEMENT  publisherStyleSheetReferencesName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetReferencesVersion (#PCDATA)>
 
-<!ELEMENT refAuthorLayouts (refAuthorLayout)+ >                                                         
+<!ELEMENT refAuthorLayouts (comment?, refAuthorLayout)+ >                                                         
 <!ELEMENT refAuthorLayout (authorRoleItem | refAuthorItem | refDateItem)+ >                                                         
 <!ELEMENT  authorRoleItem EMPTY >
 <!ATTLIST authorRoleItem  %formatinfo;>
@@ -46,16 +46,16 @@ References Layouts
    form ( capitals | lowercase) "capitals"
    %formatinfo;>
 
-<!ELEMENT articleLayouts (articleLayout)+>
-<!ELEMENT bookLayouts (bookLayout)+>
-<!ELEMENT collectionLayouts (collectionLayout)+>
-<!ELEMENT dissertationLayouts (dissertationLayout)+>
-<!ELEMENT fieldNotesLayouts (fieldNotesLayout)+>
-<!ELEMENT msLayouts (msLayout)+>
-<!ELEMENT paperLayouts (paperLayout)+>
-<!ELEMENT proceedingsLayouts (proceedingsLayout)+>
-<!ELEMENT thesisLayouts (thesisLayout)+>
-<!ELEMENT webPageLayouts (webPageLayout)+>
+<!ELEMENT articleLayouts (comment?, articleLayout)+>
+<!ELEMENT bookLayouts (comment?, bookLayout)+>
+<!ELEMENT collectionLayouts (comment?, collectionLayout)+>
+<!ELEMENT dissertationLayouts (comment?, dissertationLayout)+>
+<!ELEMENT fieldNotesLayouts (comment?, fieldNotesLayout)+>
+<!ELEMENT msLayouts (comment?, msLayout)+>
+<!ELEMENT paperLayouts (comment?, paperLayout)+>
+<!ELEMENT proceedingsLayouts (comment?, proceedingsLayout)+>
+<!ELEMENT thesisLayouts (comment?, thesisLayout)+>
+<!ELEMENT webPageLayouts (comment?, webPageLayout)+>
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
                                                 locationPublisherLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
@@ -149,7 +149,7 @@ References Layouts
  textafterlast CDATA #IMPLIED
 >
 
-<!ELEMENT locationPublisherLayouts (locationPublisherLayout)+ >
+<!ELEMENT locationPublisherLayouts (comment?, locationPublisherLayout)+ >
 <!ELEMENT  locationPublisherLayout (locationItem | publisherItem)+>
 <!ELEMENT  locationPublisherLayoutsRef EMPTY >
 <!ELEMENT  iso639-3codeItemRef EMPTY >

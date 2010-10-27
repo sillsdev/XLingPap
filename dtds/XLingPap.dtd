@@ -87,6 +87,7 @@
     chapterlabel CDATA #IMPLIED
     includemediaobjects (yes | no) "no"
     xml:lang CDATA #IMPLIED
+    sortRefsAbbrsIndexByDocumentLanguage (yes | no) "no"
     version CDATA #IMPLIED
     sectionRefSingularLabel CDATA #IMPLIED
     sectionRefPluralLabel CDATA #IMPLIED

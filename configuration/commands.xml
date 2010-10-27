@@ -942,7 +942,7 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang" />
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang term seeDefinition" />
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
                 <cfg:get expression="join(//language/@id, ' ')"/>

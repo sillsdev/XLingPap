@@ -176,7 +176,7 @@ Page Layout
     <!ATTLIST titleHeaderFooterPageStyles
     %fontinfo;
     >
-    <!ELEMENT headerFooterPageStyles (headerFooterFirstPage?, (headerFooterPage | headerFooterOddEvenPages)) >
+    <!ELEMENT headerFooterPageStyles (comment?, headerFooterFirstPage?, (headerFooterPage | headerFooterOddEvenPages)) >
     <!ATTLIST headerFooterPageStyles
     %fontinfo;
     >
@@ -291,7 +291,7 @@ Front MatterLayout
   titleHeaderFooterPageStyles is for the title page of a book only
   headerFooterPageStyles is for the other fornt matter items for a book
 -->
-<!ELEMENT frontMatterLayout (titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout |
+<!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout |
                                                        presentedAtLayout | dateLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
 <!ATTLIST titleLayout
@@ -369,7 +369,7 @@ Body Layout
 
   In a book, if headerFooterPageStyles is missing, it uses the frontMatterLayout headerFooterPageStyles info.
 -->
-<!ELEMENT bodyLayout (headerFooterPageStyles?, partLayout?, chapterLayout?, section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout) >    
+<!ELEMENT bodyLayout (comment?, headerFooterPageStyles?, partLayout?, chapterLayout?, section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout) >    
     <!ELEMENT partLayout (partTitleLayout | numberLayout)+ >
 <!ELEMENT partTitleLayout EMPTY >
 <!ATTLIST partTitleLayout
@@ -423,7 +423,7 @@ Back Matter Layout
 
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
-<!ELEMENT backMatterLayout (headerFooterPageStyles?, (acknowledgementsLayout | appendixLayout | glossaryLayout | useEndNotesLayout | 
+<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendixLayout | glossaryLayout | useEndNotesLayout | 
                                                         (referencesTitleLayout, referencesLayout) | indexLayout | authorContactInfoLayout)*) >    
     <!ELEMENT appendixLayout (appendixTitleLayout | numberLayout)+ >
     <!ELEMENT  appendixTitleLayout EMPTY >
@@ -454,7 +454,7 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?,
+   <!ELEMENT contentLayout (comment?, exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?,
                                                       langDataLayout?, glossLayout?, freeLayout? ) >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout

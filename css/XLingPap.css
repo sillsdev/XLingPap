@@ -411,6 +411,11 @@ affiliation {
     margin-bottom: .67ex;
 }
 
+afterTerm
+{
+	display:inline;
+}
+
 appendix:before
 {
     counter-increment: appendix;
@@ -474,6 +479,15 @@ backMatter
 	counter-reset:appendix;
 }
 
+beforeTerm
+{
+	display:inline;
+}
+beforeTerm:after
+{
+	content: " (link to index term) ";
+	font-style:italic;
+}
 blockquote
 {
 	display:block;
@@ -2846,6 +2860,50 @@ secTitle
 {
 	font-weight: bold;
 	font-size:large;
+}
+
+seeAlsoTerm:before
+{
+	content: "'See also' = ";
+	font-style:italic;
+}
+seeAlsoTerm
+{
+	display:block;
+	padding-left: 0.125in;
+}
+seeDefinition:before
+{
+	content: "Lang = '"
+	         label(attribute, lang)
+                 "'";
+}
+seeDefinition
+{
+	display:block;
+	padding-left: 0.125in;
+}
+seeDefinitions:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Definitions for word(s) for 'See' by language:  ";
+}
+seeDefinitions
+{
+	display:block;
+	text-align: left;
+	property-group: isCollapsible( yes, 1);
+	padding-left: 0.125in;
+}
+seeTerm:before
+{
+	content: "'See' = ";
+	font-style:italic;
+}
+seeTerm
+{
+	display:block;
+	padding-left: 0.125in;
 }
 
 series

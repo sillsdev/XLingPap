@@ -2,8 +2,38 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" version="1.0">
     <!-- 
         XLingPapCommon.xsl
-        Contains called templates common to many of the XLingPaper output transforms.
+        Contains common global variables and common templates common to many of the XLingPaper output transforms.
     -->
+    <xsl:variable name="lingPaper" select="//lingPaper"/>
+    <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
+    <xsl:variable name="abbrLang">
+        <xsl:variable name="abbrLangTemp" select="normalize-space($lingPaper/@abbreviationlang) "/>
+        <xsl:choose>
+            <xsl:when test="string-length($abbrLangTemp) &gt; 0">
+                <xsl:value-of select="$abbrLangTemp"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$documentLang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="indexLang">
+        <xsl:variable name="indexLangTemp" select="normalize-space($lingPaper/@indexlang) "/>
+        <xsl:choose>
+            <xsl:when test="string-length($indexLangTemp) &gt; 0">
+                <xsl:value-of select="$indexLangTemp"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$documentLang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="indexSeeDefinition" select="$lingPaper/indexTerms/seeDefinitions/seeDefinition[@lang=$indexLang]"/>
+    <xsl:variable name="abbreviations" select="//abbreviations"/>
+    <xsl:variable name="refWorks" select="//refWork"/>
+    <xsl:variable name="collOrProcVolumesToInclude">
+        <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
+    </xsl:variable>
     <!--
         ConvertLastNameFirstNameToFirstNameLastName
     -->
@@ -72,6 +102,57 @@
         </xsl:if>
     </xsl:template>
     <!--
+        DoRefAuthors
+    -->
+    <xsl:template name="DoRefAuthors">
+        <xsl:variable name="refAuthors" select="//refAuthor"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+        <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:variable name="sLangCode" select="normalize-space($lingPaper/@xml:lang)"/>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sLangCode) &gt; 0">
+                            <xsl:value-of select="$sLangCode"/>
+                        </xsl:when>
+                        <xsl:otherwise>en</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                    <xsl:sort lang="{$sLang}" select="@name"/>
+                    <xsl:call-template name="DoRefWorks"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                    <xsl:call-template name="DoRefWorks"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetAbbreviationLanguageCode
+    -->
+    <xsl:template name="GetAbbreviationLanguageCode">
+        <xsl:variable name="sLangCode">
+            <xsl:choose>
+                <xsl:when test="string-length($abbrLang) &gt; 0">
+                    <xsl:value-of select="$abbrLang"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$documentLang"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="string-length($sLangCode) &gt; 0">
+                <xsl:value-of select="$sLangCode"/>
+            </xsl:when>
+            <xsl:otherwise>en</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetCollOrProcVolumesToInclude
     -->
     <xsl:template name="GetCollOrProcVolumesToInclude">
@@ -91,5 +172,136 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
-    
+    <!--
+        OutputAbbreviationsInCommaSeparatedList
+    -->
+    <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:call-template name="GetAbbreviationLanguageCode"/>
+                </xsl:variable>
+                <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
+                    <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
+                    <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
+                    <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputIndexTermSeeAloneAfter
+    -->
+    <xsl:template name="OutputIndexTermSeeAloneAfter">
+        <xsl:if test="$indexSeeDefinition">
+            <xsl:value-of select="$indexSeeDefinition/seeTerm/afterTerm"/>
+        </xsl:if>
+        <xsl:text>.</xsl:text>
+    </xsl:template>
+    <!--  
+        OutputIndexTermSeeAloneBefore
+    -->
+    <xsl:template name="OutputIndexTermSeeAloneBefore">
+        <xsl:text>&#xa0;&#xa0;</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$indexSeeDefinition">
+                <xsl:value-of select="$indexSeeDefinition/seeTerm/beforeTerm"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>See</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!--  
+        OutputIndexTermSeeAfter
+    -->
+    <xsl:template name="OutputIndexTermSeeAfter">
+        <xsl:param name="indexedItems"/>
+        <xsl:choose>
+            <xsl:when test="$indexedItems">
+                <xsl:if test="$indexSeeDefinition">
+                    <xsl:value-of select="$indexSeeDefinition/seeAlsoTerm/afterTerm"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$indexSeeDefinition">
+                    <xsl:value-of select="$indexSeeDefinition/seeTerm/afterTerm"/>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>.</xsl:text>
+    </xsl:template>
+    <!--  
+        OutputIndexTermSeeBefore
+    -->
+    <xsl:template name="OutputIndexTermSeeBefore">
+        <xsl:param name="indexedItems"/>
+        <xsl:choose>
+            <xsl:when test="$indexedItems">
+                <xsl:text>.  </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$indexSeeDefinition">
+                        <xsl:value-of select="$indexSeeDefinition/seeAlsoTerm/beforeTerm"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>See also</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$indexSeeDefinition">
+                        <xsl:value-of select="$indexSeeDefinition/seeTerm/beforeTerm"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>See</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputIndexTermsTerm
+    -->
+    <xsl:template name="OutputIndexTermsTerm">
+        <xsl:param name="lang"/>
+        <xsl:param name="indexTerm"/>
+        <xsl:choose>
+            <xsl:when test="$lang and $indexTerm/term[@lang=$lang]">
+                <xsl:apply-templates select="$indexTerm/term[@lang=$lang]" mode="InIndex"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$indexTerm/term[1]" mode="InIndex"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        SortAbbreviationsInTable
+    -->
+    <xsl:template name="SortAbbreviationsInTable">
+        <xsl:param name="abbrsUsed"/>
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:call-template name="GetAbbreviationLanguageCode"/>
+                </xsl:variable>
+                <xsl:for-each select="$abbrsUsed">
+                    <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
+                    <xsl:call-template name="OutputAbbreviationInTable"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$abbrsUsed">
+                    <xsl:call-template name="OutputAbbreviationInTable"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

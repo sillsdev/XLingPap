@@ -7,9 +7,6 @@
     <!-- ===========================================================
         Variables
         =========================================================== -->
-    <xsl:variable name="lingPaper" select="//lingPaper"/>
-    <xsl:variable name="abbrLang" select="//lingPaper/@abbreviationlang"/>
-    <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
@@ -4045,77 +4042,83 @@
     <!--
         OutputAbbreviationsInCommaSeparatedList
     -->
-    <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
-        <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
-            <xsl:call-template name="DoInternalTargetBegin">
-                <xsl:with-param name="sName" select="@id"/>
-            </xsl:call-template>
-            <xsl:call-template name="OutputAbbrTerm">
-                <xsl:with-param name="abbr" select="."/>
-            </xsl:call-template>
-            <xsl:text> = </xsl:text>
-            <xsl:call-template name="OutputAbbrDefinition">
-                <xsl:with-param name="abbr" select="."/>
-            </xsl:call-template>
-            <xsl:call-template name="DoInternalTargetEnd"/>
-            <xsl:choose>
-                <xsl:when test="position() = last()">
-                    <xsl:text>.</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>, </xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
+    <xsl:template name="OutputAbbreviationInCommaSeparatedList">
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputAbbrTerm">
+            <xsl:with-param name="abbr" select="."/>
+        </xsl:call-template>
+        <xsl:text> = </xsl:text>
+        <xsl:call-template name="OutputAbbrDefinition">
+            <xsl:with-param name="abbr" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <xsl:choose>
+            <xsl:when test="position() = last()">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputAbbreviationInTable
+    -->
+    <xsl:template name="OutputAbbreviationInTable">
+        <!--  Need to do something here... 
+            <xsl:if test="position() = last() -1 or position() = 1">
+            <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
+            </xsl:if>
+        -->
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputAbbrTerm">
+            <xsl:with-param name="abbr" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <tex:spec cat="align"/>
+        <xsl:text> = </xsl:text>
+        <tex:spec cat="align"/>
+        <xsl:call-template name="OutputAbbrDefinition">
+            <xsl:with-param name="abbr" select="."/>
+        </xsl:call-template>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc" nl2="1"/>
     </xsl:template>
     <!--
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <tex:env name="longtable">
-            <tex:opt>l</tex:opt>
-            <tex:parm>
-                <xsl:text>@</xsl:text>
-                <tex:group>
-                    <tex:cmd name="hspace*">
-                        <tex:parm>
-                            <tex:cmd name="parindent" gr="0" nl2="0"/>
-                        </tex:parm>
-                    </tex:cmd>
-                </tex:group>
-                <xsl:text>lcl</xsl:text>
-            </tex:parm>
-            <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
-            <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
+        <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
+        <xsl:if test="count($abbrsUsed) &gt; 0">
+            <tex:env name="longtable">
+                <tex:opt>l</tex:opt>
+                <tex:parm>
+                    <xsl:text>@</xsl:text>
+                    <tex:group>
+                        <tex:cmd name="hspace*">
+                            <tex:parm>
+                                <tex:cmd name="parindent" gr="0" nl2="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </tex:group>
+                    <xsl:text>lcl</xsl:text>
+                </tex:parm>
+                <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
                 The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
                 corresponding cell in the other column may skip a row (as far as what one would expect).
                 So I'm going with just a single table here.
                 <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
                 <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
             -->
-            <xsl:for-each select="$abbrsUsed">
-                <!--  Need to do something here... 
-                    <xsl:if test="position() = last() -1 or position() = 1">
-                    <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
-                    </xsl:if>
-                -->
-                <xsl:call-template name="DoInternalTargetBegin">
-                    <xsl:with-param name="sName" select="@id"/>
+                <xsl:call-template name="SortAbbreviationsInTable">
+                    <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
                 </xsl:call-template>
-                <xsl:call-template name="OutputAbbrTerm">
-                    <xsl:with-param name="abbr" select="."/>
-                </xsl:call-template>
-                <xsl:call-template name="DoInternalTargetEnd"/>
-                <tex:spec cat="align"/>
-                <xsl:text> = </xsl:text>
-                <tex:spec cat="align"/>
-                <xsl:call-template name="OutputAbbrDefinition">
-                    <xsl:with-param name="abbr" select="."/>
-                </xsl:call-template>
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc" nl2="1"/>
-            </xsl:for-each>
-        </tex:env>
+            </tex:env>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputAbbreviationsLabel
@@ -4539,19 +4542,166 @@
         -->
     </xsl:template>
     <!--  
-        OutputIndexTermsTerm
+        OutputIndexTerms
     -->
-    <xsl:template name="OutputIndexTermsTerm">
+    <xsl:template name="OutputIndexTerms">
+        <xsl:param name="sIndexKind"/>
         <xsl:param name="lang"/>
-        <xsl:param name="indexTerm"/>
-        <xsl:choose>
-            <xsl:when test="$lang and $indexTerm/term[@lang=$lang]">
-                <xsl:apply-templates select="$indexTerm/term[@lang=$lang]" mode="InIndex"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="$indexTerm/term[1]" mode="InIndex"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:param name="terms"/>
+        <xsl:variable name="indexTermsToShow" select="$terms/indexTerm[@kind=$sIndexKind or @kind='subject' and $sIndexKind='common' or count(//index)=1]"/>
+        <xsl:if test="$indexTermsToShow">
+            <xsl:variable name="iIndent" select="count($terms/ancestor::*[name()='indexTerm']) * .125"/>
+            <xsl:for-each select="$indexTermsToShow">
+<!--                <xsl:sort select="term[1]"/>-->
+                <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
+                
+                <xsl:variable name="sTermId" select="@id"/>
+                <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
+                <xsl:variable name="bHasCitedDescendant">
+                    <xsl:for-each select="descendant::indexTerm">
+                        <xsl:variable name="sDescendantTermId" select="@id"/>
+                        <xsl:if test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:if>
+                        <xsl:if test="@see">
+                            <xsl:call-template name="CheckSeeTargetIsCitedOrItsDescendantIsCited"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:variable name="indexedItems" select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
+                <xsl:variable name="bHasSeeAttribute">
+                    <xsl:if test="string-length(@see) &gt; 0">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:if>
+                </xsl:variable>
+                <xsl:variable name="bSeeTargetIsCitedOrItsDescendantIsCited">
+                    <xsl:if test="$bHasSeeAttribute='Y'">
+                        <xsl:call-template name="CheckSeeTargetIsCitedOrItsDescendantIsCited"/>
+                    </xsl:if>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$indexedItems or contains($bHasCitedDescendant,'Y')">
+                        <tex:cmd name="XLingPaperindexitem" nl2="1">
+                            <tex:parm>
+                                <xsl:value-of select="$iIndent"/>
+                                <xsl:text>in</xsl:text>
+                            </tex:parm>
+                            <tex:parm>
+                                <!-- this term or one its descendants is cited; show it -->
+                                <xsl:call-template name="DoInternalTargetBegin">
+                                    <xsl:with-param name="sName">
+                                        <xsl:call-template name="CreateIndexTermID">
+                                            <xsl:with-param name="sTermId" select="$sTermId"/>
+                                        </xsl:call-template>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoInternalTargetEnd"/>
+                                <xsl:call-template name="OutputIndexTermsTerm">
+                                    <xsl:with-param name="lang" select="$lang"/>
+                                    <xsl:with-param name="indexTerm" select="."/>
+                                </xsl:call-template>
+                                <xsl:text>&#x20;&#x20;</xsl:text>
+                                <xsl:for-each select="$indexedItems">
+                                    <!-- show each reference -->
+                                    <xsl:variable name="sIndexedItemID">
+                                        <xsl:call-template name="CreateIndexedItemID">
+                                            <xsl:with-param name="sTermId" select="$sTermId"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:choose>
+                                        <xsl:when test="@main='yes' and count($indexedItems) &gt; 1">
+                                            <tex:cmd name="textbf">
+                                                <tex:parm>
+                                                    <xsl:call-template name="OutputIndexedItemsRange">
+                                                        <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                                    </xsl:call-template>
+                                                </tex:parm>
+                                            </tex:cmd>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:call-template name="OutputIndexedItemsRange">
+                                                <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                            </xsl:call-template>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                    <xsl:if test="position()!=last()">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+                                <xsl:if test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                                    <!-- this term also has a @see attribute which refers to a term that is cited or whose descendant is cited -->
+                                    <xsl:call-template name="OutputIndexTermSeeBefore">
+                                        <xsl:with-param name="indexedItems" select="$indexedItems"/>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="DoInternalHyperlinkBegin">
+                                        <xsl:with-param name="sName">
+                                            <xsl:call-template name="CreateIndexTermID">
+                                                <xsl:with-param name="sTermId" select="@see"/>
+                                            </xsl:call-template>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="LinkAttributesBegin">
+                                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                    </xsl:call-template>
+<!--                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>     -->
+                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                    
+                                    <xsl:call-template name="LinkAttributesEnd">
+                                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                                    <xsl:call-template name="OutputIndexTermSeeAfter">
+                                        <xsl:with-param name="indexedItems" select="$indexedItems"/>
+                                    </xsl:call-template>
+                                    
+                                </xsl:if>
+                                <!--                        <tex:cmd name="par" nl2="1"/>-->
+                                <xsl:call-template name="OutputIndexTerms">
+                                    <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
+                                    <xsl:with-param name="lang" select="$lang"/>
+                                    <xsl:with-param name="terms" select="indexTerms"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                        <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
+                        <tex:cmd name="XLingPaperindexitem" nl2="1">
+                            <tex:parm>
+                                <xsl:value-of select="$iIndent"/>
+                                <xsl:text>in</xsl:text>
+                            </tex:parm>
+                            <tex:parm>
+                                <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
+                                <xsl:text>&#x20;&#x20;See </xsl:text>-->
+                                <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
+                                
+                                <xsl:call-template name="DoInternalHyperlinkBegin">
+                                    <xsl:with-param name="sName">
+                                        <xsl:call-template name="CreateIndexTermID">
+                                            <xsl:with-param name="sTermId" select="@see"/>
+                                        </xsl:call-template>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                                <xsl:call-template name="LinkAttributesBegin">
+                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="OutputIndexTermsTerm">
+                                    <xsl:with-param name="lang" select="$lang"/>
+                                    <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="LinkAttributesEnd">
+                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                                <xsl:text>.</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--  
         OutputInterlinear

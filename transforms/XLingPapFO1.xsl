@@ -3136,6 +3136,9 @@ not using
                     </xsl:call-template>
                 </xsl:when>
             </xsl:choose>
+            <xsl:call-template name="DoRefUrlEtc">
+                <xsl:with-param name="path" select="."/>
+            </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -3768,14 +3771,51 @@ not using
                 <xsl:call-template name="OutputReferencesLabel"/>
             </xsl:with-param>
         </xsl:call-template>
-        <xsl:call-template name="DoRefAuthors"/>
+        <fo:block font-size="10pt">
+            <xsl:call-template name="DoRefAuthors"/>
+        </fo:block>
+    </xsl:template>
+    <!--  
+        DoRefUrlEtc
+    -->
+    <xsl:template name="DoRefUrlEtc">
+        <xsl:param name="path"/>
+        <xsl:if test="$path/url">
+            <xsl:text> (</xsl:text>
+            <fo:basic-link external-destination="url({normalize-space($path/url)})">
+                <xsl:call-template name="AddAnyLinkAttributes"/>
+                <xsl:value-of select="normalize-space($path/url)"/>
+            </fo:basic-link>
+            <xsl:text>)</xsl:text>
+            <xsl:if test="$path/dateAccessed">
+                <xsl:text>  (accessed </xsl:text>
+                <xsl:value-of select="normalize-space($path/dateAccessed)"/>
+                <xsl:text>)</xsl:text>
+            </xsl:if>
+            <xsl:text>.</xsl:text>
+        </xsl:if>
+        <xsl:for-each select="$path/iso639-3code">
+            <xsl:sort/>
+            <fo:inline font-size="smaller">
+                <xsl:if test="position() = 1">
+                    <xsl:text>  [</xsl:text>
+                </xsl:if>
+                <xsl:value-of select="."/>
+                <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
+                <xsl:if test="position() = last()">
+                    <xsl:text>]</xsl:text>
+                </xsl:if>
+            </fo:inline>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         DoRefWorks
     -->
     <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
-        <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+        <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <xsl:for-each select="$works">
             <fo:block text-indent="-.25in" start-indent=".25in" id="{@id}">
                 <xsl:variable name="author">
@@ -3805,48 +3845,6 @@ not using
                     <xsl:call-template name="DoBook">
                         <xsl:with-param name="book" select="book"/>
                     </xsl:call-template>
-                    <!--                        <fo:inline font-style="italic">
-                        <xsl:apply-templates select="refTitle"/>
-                        </fo:inline>
-                        <xsl:text>.  </xsl:text>
-                        <xsl:if test="book/translatedBy">
-                        <xsl:text>Translated by </xsl:text>
-                        <xsl:value-of select="normalize-space(book/translatedBy)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                        <xsl:with-param name="sText" select="book/translatedBy"/>
-                        </xsl:call-template>
-                        <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="book/edition">
-                        <xsl:value-of select="normalize-space(book/edition)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                        <xsl:with-param name="sText" select="book/edition"/>
-                        </xsl:call-template>
-                        <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="book/series">
-                        <xsl:value-of select="normalize-space(book/series)"/>
-                        <xsl:if test="not(book/bVol)">
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                        <xsl:with-param name="sText" select="book/series"/>
-                        </xsl:call-template>
-                        </xsl:if>
-                        <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="book/bVol">
-                        <xsl:value-of select="normalize-space(book/bVol)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                        <xsl:with-param name="sText" select="book/bVol"/>
-                        </xsl:call-template>
-                        <xsl:text>&#x20;</xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="normalize-space(book/location)"/>
-                        <xsl:text>: </xsl:text>
-                        <xsl:value-of select="normalize-space(book/publisher)"/>
-                        <xsl:call-template name="OutputPeriodIfNeeded">
-                        <xsl:with-param name="sText" select="book/publisher"/>
-                        </xsl:call-template>
-                    -->
                 </xsl:if>
                 <!--
                     collection
@@ -3938,6 +3936,9 @@ not using
                             </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="collection"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     dissertation
@@ -3968,6 +3969,9 @@ not using
                         <xsl:value-of select="normalize-space(dissertation/published/pubDate)"/>
                         <xsl:text>.</xsl:text>
                     </xsl:if>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="dissertation"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     journal article
@@ -3997,6 +4001,31 @@ not using
                         </xsl:choose>
                     </fo:inline>
                     <xsl:text>.</xsl:text>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="article"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <!--
+                    field notes
+                -->
+                <xsl:if test="fieldNotes">
+                    <fo:inline>
+                        <xsl:value-of select="$sLdquo"/>
+                        <xsl:apply-templates select="refTitle"/>
+                        <xsl:text>.</xsl:text>
+                        <xsl:value-of select="$sRdquo"/>
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:if test="fieldNotes/location">
+                            <xsl:text> (</xsl:text>
+                            <xsl:value-of select="normalize-space(fieldNotes/location)"/>
+                            <xsl:text>).  </xsl:text>
+                        </xsl:if>
+                        <xsl:value-of select="normalize-space(fieldNotes/institution)"/>
+                        <xsl:text>.</xsl:text>
+                    </fo:inline>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="fieldNotes"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     ms (manuscript)
@@ -4021,6 +4050,9 @@ not using
                             <xsl:text>.</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="ms"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     paper
@@ -4037,6 +4069,9 @@ not using
                         <xsl:value-of select="normalize-space(paper/location)"/>
                     </xsl:if>
                     <xsl:text>.</xsl:text>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="paper"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     proceedings
@@ -4075,19 +4110,6 @@ not using
                                     <xsl:text>&#x20;</xsl:text>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <!--                            <xsl:when test="proceedings/procEd">
-                                <xsl:text>  In </xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/procEd)"/>
-                                <xsl:text>, ed</xsl:text>
-                                <xsl:if test="proceedings/procEd/@plural='yes'">
-                                <xsl:text>s</xsl:text>
-                                </xsl:if>
-                                <xsl:text>. </xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                <xsl:text>&#x20;</xsl:text>
-                                </xsl:otherwise>
-                                </xsl:choose>-->
                             <fo:inline font-style="italic">
                                 <xsl:value-of select="normalize-space(proceedings/procTitle)"/>
                             </fo:inline>
@@ -4118,6 +4140,9 @@ not using
                             </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="proceedings"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     thesis
@@ -4148,6 +4173,9 @@ not using
                         <xsl:value-of select="normalize-space(thesis/published/pubDate)"/>
                         <xsl:text>.</xsl:text>
                     </xsl:if>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="thesis"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!--
                     webPage
@@ -4176,46 +4204,13 @@ not using
                     <xsl:if test="webPage/publisher">
                         <xsl:value-of select="normalize-space(webPage/publisher)"/>
                     </xsl:if>
-                    <xsl:text> (</xsl:text>
-                    <fo:basic-link external-destination="url({normalize-space(webPage/url)})">
-                        <xsl:call-template name="AddAnyLinkAttributes"/>
-                        <xsl:value-of select="normalize-space(webPage/url)"/>
-                    </fo:basic-link>
-                    <xsl:text>).</xsl:text>
-                    <xsl:if test="webPage/dateAccessed">
-                        <xsl:text>  (accessed </xsl:text>
-                        <xsl:value-of select="normalize-space(webPage/dateAccessed)"/>
-                        <xsl:text>).</xsl:text>
-                    </xsl:if>
+                    <xsl:call-template name="DoRefUrlEtc">
+                        <xsl:with-param name="path" select="webPage"/>
+                    </xsl:call-template>
                 </xsl:if>
-                <xsl:if test="url">
-                    <fo:basic-link external-destination="url({normalize-space(url)})">
-                        <xsl:call-template name="AddAnyLinkAttributes"/>
-                        <xsl:text>&#x20;</xsl:text>
-                        <xsl:value-of select="normalize-space(url)"/>
-                    </fo:basic-link>
-                    <xsl:if test="dateAccessed">
-                        <xsl:text>  (accessed </xsl:text>
-                        <xsl:value-of select="normalize-space(dateAccessed)"/>
-                        <xsl:text>)</xsl:text>
-                    </xsl:if>
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
-                <xsl:for-each select="iso639-3code">
-                    <xsl:sort/>
-                    <fo:inline font-size="smaller">
-                        <xsl:if test="position() = 1">
-                            <xsl:text>  [</xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="."/>
-                        <xsl:if test="position() != last()">
-                            <xsl:text>, </xsl:text>
-                        </xsl:if>
-                        <xsl:if test="position() = last()">
-                            <xsl:text>]</xsl:text>
-                        </xsl:if>
-                    </fo:inline>
-                </xsl:for-each>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="."/>
+                </xsl:call-template>
             </fo:block>
         </xsl:for-each>
     </xsl:template>
@@ -5091,9 +5086,8 @@ not using
                     <xsl:text>in</xsl:text>
                 </xsl:attribute>
                 <xsl:for-each select="$indexTermsToShow">
-<!--                    <xsl:sort select="term[1]"/>-->
+                    <!--                    <xsl:sort select="term[1]"/>-->
                     <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
-                    
                     <xsl:variable name="sTermId" select="@id"/>
                     <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                     <xsl:variable name="bHasCitedDescendant">
@@ -5174,15 +5168,13 @@ not using
                                                 </xsl:call-template>
                                             </xsl:attribute>
                                             <xsl:call-template name="AddAnyLinkAttributes"/>
-<!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
+                                            <!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
                                             <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
-                                            
                                         </fo:basic-link>
                                     </fo:inline>
                                     <xsl:call-template name="OutputIndexTermSeeAfter">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
                                     </xsl:call-template>
-                                    
                                 </xsl:if>
                             </fo:block>
                             <xsl:call-template name="OutputIndexTerms">

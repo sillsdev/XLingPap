@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-10-23</a:date
+>2010-11-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.13.0_1 23 October 2010<ul
+>2.13.0_1 03 November 2010<ul
 ><li
 >In chooser for citations, added the date of the work after the author name.</li
 ><li
@@ -56,6 +56,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >For documents with an abbreviations master file that has more than one language, the abbreviation in the display in XXE will now show the abbreviation for the language specified in the abbreviationlang attribute of the lingPaper element.</li
 ><li
 >When one adds a second language for an abbreviation (i.e. one inserts an abbrInLang element after an extant abbrInLang element), one can now use the SetReference command to set the language of the abbrInLang element. One can also use the SetReference command to change the language of any other abbrInLang element.</li
+><li
+>Made it so all reference items (article, book, collection, etc.) can have url, dateAccessed, iso639-3code, and comment elements with the reference item. These were all available before but only at the refWork element.</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li
@@ -104,6 +106,12 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Word and Open Office output: fixed bug which caused floats (tablenumbered and figure elements) to be ignored.</li
 ><li
 >Fixed a bug which failed to associate a publisher style sheet when the file name contained an apostrophe.</li
+><li
+>Fixed a bug where fieldNotes references items were not output in the (non-style sheet) RenderX way of producing PDF.</li
+><li
+>Fixed a bug for the web page output which showed at the end of the file the name and version of a references style sheet embedded within a publisher style sheet.</li
+><li
+>Fixed a bug where a refWork containing a citation element in its refTitle would always appear in the list of references, even when that refWork was never cited in the document.</li
 ></ul
 ></li
 ><li

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:saxon="http://icl.com/saxon">
+    <!-- global variables -->
+    <xsl:variable name="locationPublisherLayouts" select="$referencesLayoutInfo/locationPublisherLayouts"/>
+    <xsl:variable name="urlDateAccessedLayouts" select="$referencesLayoutInfo/urlDateAccessedLayouts"/>
     <!--
         authorRole
     -->
@@ -140,6 +143,52 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DetermineIfDateAccessedMatchesLayoutPattern
+    -->
+    <xsl:template name="DetermineIfDateAccessedMatchesLayoutPattern">
+        <xsl:param name="sOptionsPresent"/>
+        <xsl:param name="dateAccessedPos"/>
+        <xsl:choose>
+            <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='y' and dateAccessedItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='y' and urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/dateAccessedItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='n' and not(dateAccessedItem)">
+                <xsl:choose>
+                    <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
+                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/missingItem">x</xsl:when>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DetermineIfLocationPublisherMatchesLayoutPattern
+    -->
+    <xsl:template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+        <xsl:param name="sOptionsPresent"/>
+        <xsl:param name="locationPublisherPos"/>
+        <xsl:choose>
+            <xsl:when test="substring($sOptionsPresent, $locationPublisherPos, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $locationPublisherPos, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $locationPublisherPos, 1)='n' and $locationPublisherLayouts/locationPublisherLayout/missingItem">x</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DetermineIfUrlMatchesLayoutPattern
+    -->
+    <xsl:template name="DetermineIfUrlMatchesLayoutPattern">
+        <xsl:param name="sOptionsPresent"/>
+        <xsl:param name="urlPos"/>
+        <xsl:choose>
+            <xsl:when test="substring($sOptionsPresent, $urlPos, 1)='y' and urlItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $urlPos, 1)='y' and urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/urlItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $urlPos, 1)='n' and not(urlItem)">
+                <xsl:choose>
+                    <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
+                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/missingItem">x</xsl:when>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoArticleLayout
     -->
     <xsl:template name="DoArticleLayout">
@@ -192,19 +241,38 @@
                                     <xsl:with-param name="item" select="normalize-space($article/jArticleNumber)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$article"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$article"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$article"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$article"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$article"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$article/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -265,19 +333,38 @@
                                     <xsl:with-param name="item" select="normalize-space($book/bookTotalPages)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -380,19 +467,38 @@
                                 </xsl:call-template>
                             </xsl:when>
 -->
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -456,19 +562,38 @@
                                     <xsl:with-param name="citation" select="$citation"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$book/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -592,19 +717,38 @@
                                     <xsl:with-param name="item" select="normalize-space($collection/bVol)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$collection"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$collection"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$collection"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$collection"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$collection"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$collection/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -678,14 +822,33 @@
                                     <xsl:with-param name="reference" select="$dissertation/published"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$dissertation"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$dissertation"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$dissertation"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$dissertation"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$dissertation/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -722,12 +885,12 @@
         <xsl:param name="work"/>
         <xsl:choose>
             <xsl:when test="$iso639-3codeItem/@sort='no'">
-                <xsl:for-each select="$work/iso639-3code">
+                <xsl:for-each select="$work/iso639-3code | $work/descendant::iso639-3code">
                     <xsl:call-template name="OutputISO639-3Code"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="$work/iso639-3code">
+                <xsl:for-each select="$work/iso639-3code | $work/descendant::iso639-3code">
                     <xsl:sort/>
                     <xsl:call-template name="OutputISO639-3Code"/>
                 </xsl:for-each>
@@ -810,14 +973,33 @@
                                     <xsl:with-param name="item" select="normalize-space($fieldNotes/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$fieldNotes"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$fieldNotes"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$fieldNotes"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$fieldNotes"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$fieldNotes/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -863,14 +1045,33 @@
                                     <xsl:with-param name="item" select="normalize-space($ms/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$ms"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$ms"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$ms"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$ms"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$ms/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -916,14 +1117,33 @@
                                     <xsl:with-param name="item" select="normalize-space($paper/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$paper"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$paper"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$paper"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$paper"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$paper/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -1028,19 +1248,38 @@
                                     </xsl:call-template>
                                 </xsl:if>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$proceedings"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="OutputReferenceItemNode">
-                                    <xsl:with-param name="item" select="$work/url"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$proceedings"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$proceedings"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationPublisherLayoutsRef'">
                                 <xsl:call-template name="DoLocationPublisherLayout">
                                     <xsl:with-param name="reference" select="$proceedings"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$proceedings"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$proceedings/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -1078,6 +1317,50 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoUrlDateAccessedLayout
+    -->
+    <xsl:template name="DoUrlDateAccessedLayout">
+        <xsl:param name="reference"/>
+        <xsl:choose>
+            <xsl:when test="$reference/url and $reference/dateAccessed">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and dateAccessedItem]">
+                    <xsl:for-each select="*">
+                        <xsl:choose>
+                            <xsl:when test="name(.)='urlItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/url"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='dateAccessedItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($reference/dateAccessed)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$reference/url and not($reference/dateAccessed)">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and not(dateAccessedItem)]">
+                    <xsl:for-each select="*">
+                        <xsl:call-template name="OutputReferenceItemNode">
+                            <xsl:with-param name="item" select="$reference/url"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="not($reference/url) and $reference/dateAccessed">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[not(urlItem) and dateAccessedItem]">
+                    <xsl:for-each select="*">
+                        <xsl:call-template name="OutputReferenceItem">
+                            <xsl:with-param name="item" select="normalize-space($reference/dateAccessed)"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoWebPageLayout
@@ -1121,19 +1404,33 @@
                                     <xsl:with-param name="item" select="normalize-space($webPage/publisher)"/>
                                 </xsl:call-template>
                             </xsl:when>
-                            <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($webPage/dateAccessed)"/>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$webPage"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[1])='urlItem' and name(.)='dateAccessedItem'">
+                                <!-- do nothing; was handled above -->
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem'">
-                                <xsl:call-template name="DoWebPageUrlItem">
-                                    <xsl:with-param name="webPage" select="$webPage"/>
+                                <xsl:call-template name="HandleUrlLayout">
+                                    <xsl:with-param name="kindOfWork" select="$webPage"/>
+                                    <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
-                                <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/dateAccessed)"/>
+                                <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$webPage"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='urlDateAccessedLayoutsRef'">
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$webPage"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoUrlDateAccessedLayout">
+                                    <xsl:with-param name="reference" select="$webPage/.."/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='iso639-3codeItemRef'">
@@ -1206,18 +1503,7 @@
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/articleLayouts/*">
@@ -1246,18 +1532,18 @@
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and jArticleNumberItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(jArticleNumberItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">7</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">8</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1286,7 +1572,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="$referencesLayoutInfo/refAuthorLayouts/*">
-                        <xsl:if test="not(authorRoleItem)">
+                        <xsl:if test="not(authorRoleItem) and not(name()='comment')">
                             <xsl:call-template name="RecordPosition"/>
                         </xsl:if>
                     </xsl:for-each>
@@ -1331,18 +1617,7 @@
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/bookLayouts/*">
@@ -1375,18 +1650,18 @@
                         <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and bookTotalPagesItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(bookTotalPagesItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,10, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">8</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">9</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">10</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1434,18 +1709,7 @@
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -1475,18 +1739,18 @@
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and seriesItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(seriesItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,  9, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">7</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">8</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1526,18 +1790,7 @@
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -1559,18 +1812,18 @@
                         <xsl:when test="substring($sOptionsPresent, 4, 1)='y' and procPagesItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 4, 1)='n' and not(procPagesItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">5</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">6</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1627,18 +1880,7 @@
                 <xsl:when test="collCitation">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
             <xsl:choose>
                 <xsl:when test="key('RefWorkID',collCitation/@refToBook)/authorRole">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
@@ -1680,10 +1922,10 @@
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and bVolItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(bVolItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">9</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and collCitationItem">
                             <xsl:choose>
@@ -1693,14 +1935,14 @@
                         </xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(collCitationItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,11, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,11, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,12, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,12, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">11</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">12</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1756,18 +1998,7 @@
                 <xsl:when test="published">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$layout/*">
@@ -1792,14 +2023,14 @@
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and publishedLayoutRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(publishedLayoutRef)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">6</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1828,18 +2059,7 @@
                 <xsl:when test="institution">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/fieldNotesLayouts/*">
@@ -1856,14 +2076,14 @@
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='y' and institutionItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='n' and not(institutionItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">4</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1917,18 +2137,7 @@
                 <xsl:when test="institution">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/msLayouts/*">
@@ -1945,14 +2154,14 @@
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='y' and institutionItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='n' and not(institutionItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">4</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -1981,18 +2190,7 @@
                 <xsl:when test="location">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/paperLayouts/*">
@@ -2009,14 +2207,14 @@
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='y' and locationItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='n' and not(locationItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 4, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">4</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -2061,18 +2259,7 @@
                 <xsl:when test="procCitation">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -2098,10 +2285,10 @@
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and procPagesItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(procPagesItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and locationPublisherLayoutsRef">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(locationPublisherLayoutsRef)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="locationPublisherPos">6</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and procCitationItem">
                             <xsl:choose>
@@ -2111,14 +2298,14 @@
                         </xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(procCitationItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">8</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -2130,6 +2317,24 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:value-of select="substring-before($sPosition,';')"/>
+    </xsl:template>
+    <!--  
+        GetUrlEtcLayoutToUseInfo
+    -->
+    <xsl:template name="GetUrlEtcLayoutToUseInfo">
+        <xsl:choose>
+            <xsl:when test="../url or url">y</xsl:when>
+            <xsl:otherwise>n</xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="../dateAccessed or dateAccessed">y</xsl:when>
+            <xsl:otherwise>n</xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
+            <xsl:when test="iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
+            <xsl:otherwise>n</xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         GetWebPageLayoutToUsePosition
@@ -2155,18 +2360,7 @@
                 <xsl:when test="publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="url">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="dateAccessed">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
-                <xsl:otherwise>n</xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/webPageLayouts/*">
@@ -2191,14 +2385,14 @@
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and publisherItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(publisherItem)">x</xsl:when>
                     </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and urlItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(urlItem)">x</xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and dateAccessedItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(dateAccessedItem)">x</xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="urlPos">6</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -2210,6 +2404,22 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:value-of select="substring-before($sPosition,';')"/>
+    </xsl:template>
+    <!--  
+        HandleDateAccessedLayout
+    -->
+    <xsl:template name="HandleDateAccessedLayout">
+        <xsl:param name="kindOfWork"/>
+        <xsl:param name="work"/>
+        <xsl:variable name="currentItem" select="."/>
+        <xsl:for-each select="$kindOfWork/dateAccessed | $work/dateAccessed">
+            <xsl:variable name="item" select="."/>
+            <xsl:for-each select="$currentItem">
+                <xsl:call-template name="OutputReferenceItem">
+                    <xsl:with-param name="item" select="$item"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         HandleFreeTextAfterInside
@@ -2454,6 +2664,53 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        HandleUrlAndDateAccessedLayouts
+    -->
+    <xsl:template name="HandleUrlAndDateAccessedLayouts">
+        <xsl:param name="typeOfWork"/>
+        <xsl:param name="work"/>
+        <xsl:if test="$typeOfWork/url">
+            <xsl:call-template name="OutputReferenceItemNode">
+                <xsl:with-param name="item" select="$typeOfWork/url"/>
+            </xsl:call-template>
+            <xsl:if test="$typeOfWork/dateAccessed">
+                <xsl:for-each select="following-sibling::dateAccessedItem[1]">
+                    <xsl:call-template name="OutputReferenceItem">
+                        <xsl:with-param name="item" select="$typeOfWork/dateAccessed"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="$work/url">
+            <xsl:call-template name="OutputReferenceItemNode">
+                <xsl:with-param name="item" select="$work/url"/>
+            </xsl:call-template>
+            <xsl:if test="$work/dateAccessed">
+                <xsl:for-each select="following-sibling::dateAccessedItem[1]">
+                    <xsl:call-template name="OutputReferenceItem">
+                        <xsl:with-param name="item" select="$work/dateAccessed"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleUrlLayout
+    -->
+    <xsl:template name="HandleUrlLayout">
+        <xsl:param name="kindOfWork"/>
+        <xsl:param name="work"/>
+        <xsl:variable name="currentItem" select="."/>
+        <xsl:for-each select="$kindOfWork/url | $work/url">
+            <xsl:variable name="item" select="."/>
+            <xsl:for-each select="$currentItem">
+                <xsl:call-template name="OutputReferenceItemNode">
+                    <xsl:with-param name="item" select="$item"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         OutputCollCitation
     -->
     <xsl:template name="OutputCitationPages">
@@ -2493,7 +2750,7 @@
         ReportPattern
     -->
     <xsl:template name="ReportPattern">
-        <xsl:variable name="followingSiblings" select="following-sibling::*"/>
+        <xsl:variable name="followingSiblings" select="following-sibling::*[name()!='comment']"/>
         <xsl:variable name="children" select="./*"/>
         <xsl:text>  It is a </xsl:text>
         <xsl:value-of select="name(.)"/>

@@ -1060,12 +1060,20 @@ alt causes menu to be selected
     <cfg:command name="produceWebPage">
         <cfg:macro>
             <cfg:sequence>
-                <cfg:command name="status" parameter="Deleting any web page file..."/>
-<!-- Not needed because even on Windows, can produce the output file. 
-    <cfg:command name="DeletePDFFile" parameter="1 htm"/>
--->
-                <cfg:command name="status" parameter="Producing the web page output..."/>
-                <cfg:command name="applyXLingPapTransform"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//lingPaper)"/>
+                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a web page file."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="status" parameter="Deleting any web page file..."/>
+                        <!-- Not needed because even on Windows, can produce the output file. 
+                            <cfg:command name="DeletePDFFile" parameter="1 htm"/>
+                        -->
+                        <cfg:command name="status" parameter="Producing the web page output..."/>
+                        <cfg:command name="applyXLingPapTransform"/>
+                    </cfg:sequence>
+                </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

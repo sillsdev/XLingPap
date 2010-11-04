@@ -2165,6 +2165,9 @@
                     </xsl:call-template>
                 </xsl:when>
             </xsl:choose>
+            <xsl:call-template name="DoRefUrlEtc">
+                <xsl:with-param name="path" select="."/>
+            </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -2596,11 +2599,50 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        DoRefUrlEtc
+    -->
+    <xsl:template name="DoRefUrlEtc">
+        <xsl:param name="path"/>
+        <xsl:if test="$path/url">
+            <xsl:text> (</xsl:text>
+            <xsl:call-template name="AddAnyLinkAttributes"/>
+            <xsl:call-template name="DoExternalHyperRefBegin">
+                <xsl:with-param name="sName" select="normalize-space($path/url)"/>
+            </xsl:call-template>
+            <xsl:value-of select="normalize-space($path/url)"/>
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+            <xsl:text>)</xsl:text>
+            <xsl:if test="$path/dateAccessed">
+                <xsl:text>  (accessed </xsl:text>
+                <xsl:value-of select="normalize-space($path/dateAccessed)"/>
+                <xsl:text>)</xsl:text>
+            </xsl:if>
+            <xsl:text>.</xsl:text>
+        </xsl:if>
+        <xsl:for-each select="$path/iso639-3code">
+            <xsl:sort/>
+            <tex:cmd name="small">
+                <tex:parm>
+                    <xsl:if test="position() = 1">
+                        <xsl:text>  [</xsl:text>
+                    </xsl:if>
+                    <xsl:value-of select="."/>
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                    <xsl:if test="position() = last()">
+                        <xsl:text>]</xsl:text>
+                    </xsl:if>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         DoRefWorks
     -->
     <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
-        <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+        <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <!--            <xsl:for-each select="$authors">
                 <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
             -->
@@ -2747,6 +2789,9 @@
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="collection"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     dissertation
@@ -2779,6 +2824,9 @@
                     <xsl:value-of select="normalize-space(dissertation/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
                 </xsl:if>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="dissertation"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     journal article
@@ -2810,11 +2858,34 @@
                     </xsl:when>
                 </xsl:choose>
                 <xsl:text>.</xsl:text>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="article"/>
+                </xsl:call-template>
+            </xsl:if>
+            <!--
+                field notes
+            -->
+            <xsl:if test="fieldNotes">
+                <xsl:value-of select="$sLdquo"/>
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+                <xsl:value-of select="$sRdquo"/>
+                <xsl:text>&#x20;</xsl:text>
+                <xsl:if test="fieldNotes/location">
+                    <xsl:text> (</xsl:text>
+                    <xsl:value-of select="normalize-space(fieldNotes/location)"/>
+                    <xsl:text>).  </xsl:text>
+                </xsl:if>
+                <xsl:value-of select="normalize-space(fieldNotes/institution)"/>
+                <xsl:text>.</xsl:text>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="fieldNotes"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     ms (manuscript)
                 -->
-            <xsl:if test="ms or fieldNotes">
+            <xsl:if test="ms">
                 <xsl:value-of select="$sLdquo"/>
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
@@ -2834,6 +2905,9 @@
                         <xsl:text>.</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="ms"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     paper
@@ -2850,6 +2924,9 @@
                     <xsl:value-of select="normalize-space(paper/location)"/>
                 </xsl:if>
                 <xsl:text>.</xsl:text>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="paper"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     proceedings
@@ -2920,6 +2997,9 @@
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="proceedings"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     thesis
@@ -2952,6 +3032,9 @@
                     <xsl:value-of select="normalize-space(thesis/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
                 </xsl:if>
+                <xsl:call-template name="DoRefUrlEtc">
+                    <xsl:with-param name="path" select="thesis"/>
+                </xsl:call-template>
             </xsl:if>
             <!--
                     webPage
@@ -2994,38 +3077,9 @@
                     <xsl:text>).</xsl:text>
                 </xsl:if>
             </xsl:if>
-            <xsl:if test="url">
-                <xsl:call-template name="AddAnyLinkAttributes"/>
-                <xsl:text>&#x20;</xsl:text>
-                <xsl:call-template name="DoExternalHyperRefBegin">
-                    <xsl:with-param name="sName" select="normalize-space(url)"/>
-                </xsl:call-template>
-                <xsl:value-of select="normalize-space(url)"/>
-                <xsl:call-template name="DoExternalHyperRefEnd"/>
-                <xsl:if test="dateAccessed">
-                    <xsl:text>  (accessed </xsl:text>
-                    <xsl:value-of select="normalize-space(dateAccessed)"/>
-                    <xsl:text>)</xsl:text>
-                </xsl:if>
-                <xsl:text>.</xsl:text>
-            </xsl:if>
-            <xsl:for-each select="iso639-3code">
-                <xsl:sort/>
-                <tex:cmd name="small">
-                    <tex:parm>
-                        <xsl:if test="position() = 1">
-                            <xsl:text>  [</xsl:text>
-                        </xsl:if>
-                        <xsl:value-of select="."/>
-                        <xsl:if test="position() != last()">
-                            <xsl:text>, </xsl:text>
-                        </xsl:if>
-                        <xsl:if test="position() = last()">
-                            <xsl:text>]</xsl:text>
-                        </xsl:if>
-                    </tex:parm>
-                </tex:cmd>
-            </xsl:for-each>
+            <xsl:call-template name="DoRefUrlEtc">
+                <xsl:with-param name="path" select="."/>
+            </xsl:call-template>
             <tex:cmd name="par" gr="0" nl2="1"/>
         </xsl:for-each>
     </xsl:template>

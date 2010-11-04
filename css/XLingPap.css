@@ -3910,7 +3910,7 @@ collCitationItem[font-weight]
 }
 collCitationItem
 {
-	property-group: referencesItem("Jones and Watson");
+	property-group: referencesItem("Samson and LeBar");
 }
 collEdItem[color]
 {
@@ -5945,6 +5945,13 @@ magnificationFactor
 	property-group: layoutParameter(0ex);
 }
 
+missingItem
+{
+	display:inline;
+	content: " missing ";
+	font-size:smaller;
+	font-style:italic;
+}
 msLayout:before
 {
 	property-group: referencesItemLayoutBefore();
@@ -6269,7 +6276,7 @@ procCitationItem[font-weight]
 }
 procCitationItem
 {
-	property-group: referencesItem("Jones and Watson");
+	property-group: referencesItem("Samson and LeBar");
 }
 procEdItem[color]
 {
@@ -6395,8 +6402,9 @@ locationPublisherLayouts
 }
 locationPublisherLayoutsRef
 {
-	content:"see location/publisher layouts below for the rest ";
-	font-size:smaller;
+	content:" See location/publisher layouts below for the rest. ";
+	font-size:95%;
+	color:green;
 }
 pubDateItem[color]
 {
@@ -6434,8 +6442,8 @@ publishedLayout
 }
 publishedLayoutRef
 {
-	content:"see published layout below for the rest";
-	font-size:smaller;
+	content:" See published layout below for the rest. ";
+	font-size:95%;
 }
 publisherItem[color]
 {
@@ -7531,6 +7539,31 @@ translatedByItem
 {
 	property-group: referencesItem("Montero, Miguel");
 }
+
+
+urlDateAccessedLayout:before
+{
+	property-group: referencesItemLayoutBefore();
+}
+urlDateAccessedLayout
+{
+	property-group: referencesItemLayout();
+}
+urlDateAccessedLayouts:before
+{
+	property-group: collasper( " url/dateAccessed layouts: " );
+}
+urlDateAccessedLayouts
+{
+	property-group: referencesLayouts();
+}
+urlDateAccessedLayoutsRef
+{
+	content:" See url/dateAccessed layouts below for the rest. ";
+	font-size:95%;
+	color: blue;
+}
+
 urlItem[color]
 {
 	color:concatenate(attr(color));

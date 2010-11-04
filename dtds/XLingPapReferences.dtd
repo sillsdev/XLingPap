@@ -50,7 +50,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- journal article -->
-<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?)>
+<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT jTitle (#PCDATA)>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
@@ -75,7 +75,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?, bookTotalPages?)>
+<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT translatedBy (#PCDATA)>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
@@ -116,7 +116,7 @@
        a one-off method that includes all the information about the collection volume itself
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
-<!ELEMENT collection (((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation)>
+<!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)>
 
 <!ELEMENT collEd (#PCDATA)>
 <!ATTLIST collEd
@@ -145,7 +145,7 @@
 >
 
 <!-- PhD dissertation -->
-<!ELEMENT dissertation (location?, institution, published?)>
+<!ELEMENT dissertation (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT institution (#PCDATA)>
 <!ATTLIST institution
     xml:lang CDATA #IMPLIED
@@ -156,11 +156,11 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- field notes -->
-<!ELEMENT fieldNotes (location?, institution)>
+<!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, iso639-3code*, comment?)>
 <!-- ms (manuscript) -->
-<!ELEMENT ms (location?, institution)>
+<!ELEMENT ms (location?, institution, url?, dateAccessed?, iso639-3code*, comment?)>
 <!-- paper presented at a conference -->
-<!ELEMENT paper (conference, location?)>
+<!ELEMENT paper (conference, location?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT conference (#PCDATA)>
 <!ATTLIST conference
     xml:lang CDATA #IMPLIED
@@ -170,7 +170,7 @@
        a one-off method that includes all the information about the proceedings volume itself
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
-<!ELEMENT proceedings (((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation)>
+<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation), url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT procEd (#PCDATA)>
 <!ATTLIST procEd
     plural (no | yes) "yes"
@@ -197,9 +197,9 @@
     page CDATA #IMPLIED
 >
 <!-- MA thesis -->
-<!ELEMENT thesis (location?, institution, published?)>
+<!ELEMENT thesis (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!-- web page -->
-<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?)>
+<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT url (#PCDATA)>
 <!ATTLIST url
     xml:lang CDATA #IMPLIED

@@ -116,7 +116,7 @@
        a one-off method that includes all the information about the collection volume itself
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
-<!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)>
+<!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)>
 
 <!ELEMENT collEd (#PCDATA)>
 <!ATTLIST collEd

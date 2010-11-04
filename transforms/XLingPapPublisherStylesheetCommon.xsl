@@ -154,7 +154,7 @@
             <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='n' and not(dateAccessedItem)">
                 <xsl:choose>
                     <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
-                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/missingItem">x</xsl:when>
+                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/missingItem">x</xsl:when>
                 </xsl:choose>
             </xsl:when>
         </xsl:choose>
@@ -183,7 +183,7 @@
             <xsl:when test="substring($sOptionsPresent, $urlPos, 1)='n' and not(urlItem)">
                 <xsl:choose>
                     <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
-                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/missingItem">x</xsl:when>
+                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/missingItem">x</xsl:when>
                 </xsl:choose>
             </xsl:when>
         </xsl:choose>
@@ -437,6 +437,11 @@
                                     <xsl:with-param name="item" select="normalize-space($work/refTitle)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='editionItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($book/edition)"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='collVolItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($book/bVol)"/>
@@ -668,6 +673,11 @@
                             <xsl:when test="name(.)='collTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($collection/collTitle)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='editionItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($collection/edition)"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='collVolItem'">
@@ -1710,6 +1720,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="edition">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -1755,8 +1769,12 @@
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(editionItem)">x</xsl:when>
+                    </xsl:choose>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -1885,6 +1903,10 @@
                 <xsl:when test="key('RefWorkID',collCitation/@refToBook)/authorRole">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="edition">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -1951,8 +1973,12 @@
                         <xsl:when test="substring($sOptionsPresent,14, 1)='y' and authorRoleItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,14, 1)='n' and not(authorRoleItem)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 15, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 15, 1)='n' and not(editionItem)">x</xsl:when>
+                    </xsl:choose>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 14">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 15">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2800,12 +2826,15 @@
         <xsl:param name="collCitation"/>
         <xsl:variable name="followingSiblings" select="following-sibling::*"/>
         <xsl:variable name="children" select="./*"/>
-        <xsl:text>  It is a collection pattern that contains these elements:</xsl:text>
+        <xsl:text>  It is a collection pattern that contains these elements: refTitle</xsl:text>
         <xsl:if test="../authorRole">
             <xsl:text>, collEd</xsl:text>
         </xsl:if>
         <xsl:if test="../refTitle">
             <xsl:text>, collTitle</xsl:text>
+        </xsl:if>
+        <xsl:if test="edition">
+            <xsl:text>, edition</xsl:text>
         </xsl:if>
         <xsl:if test="bVol">
             <xsl:text>, collVol</xsl:text>

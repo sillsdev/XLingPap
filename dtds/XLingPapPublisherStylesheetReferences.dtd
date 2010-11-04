@@ -61,7 +61,7 @@ References Layouts
                                                 locationPublisherLayoutsRef | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem | 
                                                bookTotalPagesItem | locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem |  collCitationItem | authorRoleItem |
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem |  collCitationItem | authorRoleItem |
                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>

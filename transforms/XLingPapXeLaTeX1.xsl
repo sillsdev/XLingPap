@@ -2731,6 +2731,7 @@
                             </tex:parm>
                         </tex:cmd>
                         <xsl:text>.</xsl:text>
+                        <xsl:call-template name="DoCollectionEdition"/>
                         <xsl:choose>
                             <xsl:when test="collection/collVol">
                                 <xsl:text>&#x20;</xsl:text>
@@ -4600,5 +4601,6 @@
           TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapCommon.xsl"/>
+    <xsl:include href="XLingPapCannedCommon.xsl"/>
     <xsl:include href="XLingPapXeLaTeXCommon.xsl"/>
 </xsl:stylesheet>

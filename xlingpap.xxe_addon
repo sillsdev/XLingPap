@@ -49,6 +49,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Add seriesEd and seriesEdInitials to book and collection references.</li
 ><li
+>Add edition element to collection references.</li
+><li
 >Add a way to override default text for dissertation (i.e. 'Ph.D. dissertation').</li
 ><li
 >Add a way to override default text for thesis (i.e. 'M.A. thesis').</li

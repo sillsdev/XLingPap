@@ -23,6 +23,7 @@
     -->
     <xsl:param name="sInterlinearSourceStyle">AfterFirstLine</xsl:param>
     <xsl:include href="XLingPapCommon.xsl"/>
+    <xsl:include href="XLingPapCannedCommon.xsl"/>
     <!-- ===========================================================
       Global variables
       =========================================================== -->
@@ -2506,7 +2507,6 @@
             <xsl:call-template name="DoRefUrlEtc">
                 <xsl:with-param name="path" select="."/>
             </xsl:call-template>
-            
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -2816,11 +2816,7 @@
     -->
     <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
-<!--        <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>-->
         <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
-        
-        
-        
         <xsl:for-each select="$works">
             <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in">
                 <xsl:variable name="author">
@@ -2890,6 +2886,7 @@
                                 <xsl:value-of select="normalize-space(collection/collTitle)"/>
                             </i>
                             <xsl:text>.</xsl:text>
+                            <xsl:call-template name="DoCollectionEdition"/>
                             <xsl:choose>
                                 <xsl:when test="collection/collVol">
                                     <xsl:text>&#x20;</xsl:text>
@@ -2949,7 +2946,6 @@
                     <xsl:call-template name="DoRefUrlEtc">
                         <xsl:with-param name="path" select="collection"/>
                     </xsl:call-template>
-                    
                 </xsl:if>
                 <!--
                     dissertation

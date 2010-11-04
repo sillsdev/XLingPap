@@ -3880,6 +3880,7 @@ not using
                                 <xsl:value-of select="normalize-space(collection/collTitle)"/>
                             </fo:inline>
                             <xsl:text>.</xsl:text>
+                            <xsl:call-template name="DoCollectionEdition"/>
                             <xsl:choose>
                                 <xsl:when test="collection/collVol">
                                     <xsl:text>&#x20;</xsl:text>
@@ -5834,5 +5835,6 @@ not using
     <xsl:template match="term"/>
     <xsl:template match="type"/>
     <xsl:include href="XLingPapCommon.xsl"/>
+    <xsl:include href="XLingPapCannedCommon.xsl"/>
     <xsl:include href="XLingPapFOCommon.xsl"/>
 </xsl:stylesheet>

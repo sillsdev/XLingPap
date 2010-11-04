@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Graduate Institute of Applied Linguistics Thesis Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.3.0</publisherStyleSheetVersion
+>0.4.0</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -77,6 +77,8 @@ decoration="underline"
 ></linkLayout
 ></pageLayout
 ><frontMatterLayout
+><comment
+>Front Matter Layout</comment
 ><titleHeaderFooterPageStyles
 ><headerFooterFirstPage
 ><header
@@ -315,6 +317,8 @@ textalign="center"
 ></prefaceLayout
 ></frontMatterLayout
 ><bodyLayout
+><comment
+>Body Layout</comment
 ><headerFooterPageStyles
 font-family="Times New Roman"
 font-size="9pt"
@@ -501,6 +505,8 @@ textalign="start"
 ></section6Layout
 ></bodyLayout
 ><backMatterLayout
+><comment
+>Back Matter Layout</comment
 ><appendixLayout
 ><numberLayout
 font-size="14pt"
@@ -562,6 +568,8 @@ textalign="center"
 ></indexLayout
 ></backMatterLayout
 ><contentLayout
+><comment
+>Document Content Layout</comment
 ><exampleLayout
 indent-after=".125in"
 indent-before=".125in"
@@ -572,6 +580,32 @@ indent-before=".125in"
 ></interlinearSourceStyle
 ><endnoteRefLayout
 ></endnoteRefLayout
+><figureLayout
+captionLocation="after"
+><figureLabelLayout
+textafter=" "
+></figureLabelLayout
+><figureNumberLayout
+></figureNumberLayout
+><figureCaptionLayout
+textbefore=" "
+></figureCaptionLayout
+></figureLayout
+><figureRefLayout
+></figureRefLayout
+><tablenumberedLayout
+captionLocation="after"
+><tablenumberedLabelLayout
+textafter=" "
+></tablenumberedLabelLayout
+><tablenumberedNumberLayout
+></tablenumberedNumberLayout
+><tablenumberedCaptionLayout
+textbefore="  "
+></tablenumberedCaptionLayout
+></tablenumberedLayout
+><tablenumberedRefLayout
+></tablenumberedRefLayout
 ></contentLayout
 ></publisherStyleSheet
 >

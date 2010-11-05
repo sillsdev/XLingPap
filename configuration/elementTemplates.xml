@@ -215,7 +215,14 @@ citations
          </article>
       </refWork>
    </cfg:elementTemplate>
-   <cfg:elementTemplate name="book">
+    <cfg:elementTemplate name="article">
+            <article>
+                <jTitle>journal</jTitle>
+                <jVol>volume</jVol>
+                <jPages>pages</jPages>
+            </article>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="book">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>

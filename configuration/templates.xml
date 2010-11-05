@@ -22,4 +22,6 @@
       name="Abbreviations; all upper case (part of a modular document)"/>
    <cfg:template location="../templates/XLingPapAbbreviationsLowerCaseTemplate.xml"
       name="Abbreviations; all lower case; i.e. use small-caps (part of a modular document)"/>
+    <cfg:template location="../templates/XLingPapJIPAIllustrationSubmissionTemplate.xml"
+        name="Journal of the International Phonetic Association Illustration article, submission format"/>
 </cfg:configuration>

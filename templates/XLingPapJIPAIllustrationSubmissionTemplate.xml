@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xlingpaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<xlingpaper
+version="2.8.0"
+><styledPaper
+><lingPaper
+version="2.10.0"
+><comment
+>Template for producing an illustration article for submission to the Journal of the IPA.</comment
+><frontMatter
+><title
+>Language Name</title
+><author
+>Author</author
+><affiliation
+>Affiliation</affiliation
+><emailAddress
+>name@place.org</emailAddress
+></frontMatter
+><section1
+id="sIntroduction"
+><secTitle
+><comment
+>Introduction goes here, but there's no section title.</comment
+></secTitle
+><p
+></p
+></section1
+><section1
+id="sConsonants"
+><secTitle
+>Consonants</secTitle
+><p
+></p
+><p
+><comment
+>The following table looks odd here in the XMLmind XML Edtior and also in the web page output. The XeLaTeX PDF output is very nice, however. The RenderX PDF has an extra border around the entire table. To fix it for RenderX, remove the border=1 attribute on the outer most table. (The trick here is how to get the voiceless and voiced consonant symbols to line up properly. This is one way that works.) Of course, you will want to edit the table to include the points of articulation and manners of articulation appropriate for your language as well as filling in the IPA symbols in the correct cells. If you need to insert another place of articulation 'column', do this:click in one of the 'columns'; click on the topmost td element in the Node Path Bar; use XLingPaper menu item / Table Column / Copy; then use XLingPaper / Table Column / Paste After (or Before, as needed). To insert another manner of articulation row, you will need to insert a new row in every 'column' (which is a table itself).</comment
+></p
+><table
+XeLaTeXSpecial="column-formatting='@{}l@{}l@{}l@{}l@{}l@{}l@{}'"
+border="1"
+cellpadding="0pt"
+cellspacing="0pt"
+><tr
+><td
+cssSpecial="padding-right:0cm;"
+xsl-foSpecial=" padding-right=ʽ0pt'"
+><table
+border="1"
+><tr
+><td
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+> </td
+></tr
+><tr
+><td
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+>Stop</td
+></tr
+><tr
+><td
+>Affricate</td
+></tr
+><tr
+><td
+>Nasal</td
+></tr
+><tr
+><td
+>Trill and Tap</td
+></tr
+><tr
+><td
+>Fricative</td
+></tr
+><tr
+><td
+>Approximant</td
+></tr
+><tr
+><td
+>Lateral approximant</td
+></tr
+></table
+></td
+><td
+cssSpecial="padding-left:0pt;padding-right:0pt;"
+xsl-foSpecial="padding-left='0pt' padding-right='0pt'"
+><table
+border="1"
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></th
+></tr
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><object
+type="tRegular"
+> Bilabial </object
+></th
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  p</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>b  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>m  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>w  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+></table
+></td
+><td
+cssSpecial="padding-left:0pt;padding-right:0pt;"
+xsl-foSpecial="padding-left='0pt' padding-right='0pt'"
+><table
+border="1"
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></th
+></tr
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><object
+type="tRegular"
+> Alveolar </object
+></th
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  t</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>d  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>n  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>ɾ  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  s</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>z  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>l  </langData
+></td
+></tr
+></table
+></td
+><td
+cssSpecial="padding-left:0pt;padding-right:0pt;"
+xsl-foSpecial="padding-left='0pt' padding-right='0pt'"
+><table
+border="1"
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+><object
+type="tRegular"
+>Post-</object
+></th
+></tr
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><object
+type="tRegular"
+> Alveolar </object
+></th
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  tʃ</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>dʒ  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>ɲ  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  ʃ</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>ʒ  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+></table
+></td
+><td
+cssSpecial="padding-left:0pt;padding-right:0pt;"
+xsl-foSpecial="padding-left='0pt' padding-right='0pt'"
+><table
+border="1"
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></th
+></tr
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><object
+type="tRegular"
+> Palatal </object
+></th
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>j  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+></table
+></td
+><td
+cssSpecial="padding-left:0pt;padding-right:0pt;"
+xsl-foSpecial="padding-left='0pt' padding-right='0pt'"
+><table
+border="1"
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-bottom-width:0pt"
+xsl-foSpecial="border-bottom-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></th
+></tr
+><tr
+><th
+align="center"
+colspan="2"
+cssSpecial="border-top-width:0pt"
+xsl-foSpecial="border-top-width='0pt'"
+><object
+type="tRegular"
+> Velar </object
+></th
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+>  k</langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+>ɡ  </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+><tr
+><td
+cssSpecial="border-right-width:0pt"
+xsl-foSpecial="border-right-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+><td
+align="right"
+cssSpecial="border-left-width:0pt"
+xsl-foSpecial="border-left-width='0pt'"
+><langData
+lang="lVernacular"
+> </langData
+></td
+></tr
+></table
+></td
+></tr
+></table
+></section1
+><section1
+id="sVowels"
+><secTitle
+>Vowels</secTitle
+><p
+><comment
+>The following graphic file is a sample vowel chart.  It is available for download at <link
+href="http://code.google.com/p/xlingpap/downloads/list"
+>http://code.google.com/p/xlingpap/downloads/list</link
+> (it is quite small). We recommend you download it and place it in Ihe same directory where you put this file.  It is an SVG file which you can edit to place the vowels in your language where they belong. You can use the free Inkscape program to edit the SVG file. See <link
+href="http://inkscape.org/"
+>http://inkscape.org/</link
+>. For the XeLaTeX-way of producing PDF, you will also need to convert the file to PDF. You can do this with Inkscape or by using the SVG to PDF conversion process available with XLingPaper. See section 11.17.1.1 "Known limitations of using XeTeX" in the user documentation. The XMLmind XML Editor can show an SVG file if you install the Apache Batik image toolkit plug-in Addon package. See the Options menu item / Install Add-ons... </comment
+></p
+><chart
+><img
+XeLaTeXSpecial="scaled='1025'"
+src="VowelChartTrapezoidForAEIOUViaInkscape.svg"
+></img
+></chart
+></section1
+><section1
+id="sTones"
+><secTitle
+>Tones</secTitle
+><p
+></p
+></section1
+><section1
+id="sStress"
+><secTitle
+>Stress</secTitle
+><p
+></p
+></section1
+><section1
+id="sConventions"
+><secTitle
+>Conventions</secTitle
+><p
+></p
+></section1
+><section1
+id="sTranscription"
+><secTitle
+>Transcription of the recorded passage</secTitle
+><p
+></p
+></section1
+><backMatter
+><acknowledgements
+><p
+></p
+></acknowledgements
+><references
+></references
+></backMatter
+><languages
+><language
+font-family="Charis SIL"
+id="lVernacular"
+name="vernacular"
+xsl-foSpecial="text-altitude=&quot;0.693em&quot; text-depth=&quot;0.215em&quot;"
+></language
+><language
+id="lGloss"
+name="gloss"
+></language
+><language
+id="en"
+></language
+></languages
+><types
+><comment
+>The following types are provided as pre-set examples. You may well want to create your own types that refer to one or more of these. You do that by typing in the names of the types in the types attribute of your type.</comment
+><type
+font-weight="bold"
+id="tBold"
+></type
+><type
+font-style="italic"
+font-weight="bold"
+id="tBoldItalic"
+></type
+><type
+font-weight="bold"
+id="tEmphasis"
+></type
+><type
+id="tGrammaticalGloss"
+types="tSmallCaps"
+></type
+><type
+font-style="italic"
+id="tItalic"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoOverline"
+xsl-foSpecial="text-decoration=&quot;no-overline&quot;"
+></type
+><type
+font-variant="normal"
+id="tNoSmallCaps"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoStrikethrough"
+xsl-foSpecial="text-decoration=&quot;no-line-through&quot;"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoUnderline"
+xsl-foSpecial="text-decoration=&quot;no-underline&quot;"
+></type
+><type
+cssSpecial="text-decoration:overline"
+id="tOverline"
+xsl-foSpecial="text-decoration=&quot;overline&quot;"
+></type
+><type
+font-style="normal"
+font-variant="normal"
+font-weight="normal"
+id="tRegular"
+></type
+><type
+font-variant="small-caps"
+id="tSmallCaps"
+></type
+><type
+cssSpecial="text-decoration:line-through"
+id="tStrikethrough"
+xsl-foSpecial="text-decoration=&quot;line-through&quot;"
+></type
+><type
+XeLaTeXSpecial="subscript"
+cssSpecial="vertical-align:sub;"
+font-size="65%"
+id="tSubscript"
+xsl-foSpecial="baseline-shift='sub'"
+></type
+><type
+XeLaTeXSpecial="superscript"
+cssSpecial="vertical-align:super;"
+font-size="65%"
+id="tSuperscript"
+xsl-foSpecial="baseline-shift='super'"
+></type
+><type
+XeLaTeXSpecial="underline"
+cssSpecial="text-decoration:underline"
+id="tUnderline"
+xsl-foSpecial="text-decoration=&quot;underline&quot;"
+></type
+><comment
+>Add your custom types here.</comment
+></types
+></lingPaper
+><xi:include
+    href="../publisherstylesheets/JIPAIllustrationSubmissionPublisherStylesheet.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
+></styledPaper
+></xlingpaper
+>

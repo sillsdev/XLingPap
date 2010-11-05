@@ -61,6 +61,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Made it so all reference items (article, book, collection, etc.) can have url, dateAccessed, iso639-3code, and comment elements with the reference item. These were all available before but only at the refWork element.</li
 ><li
+>Made reference handling a bit easier in that when one wants to change a book to an article, say, one can now select the book element and then use the replace operation and one will get the usual template content for a new article element.</li
+><li
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Front and back matter that are to be right-aligned per a publisher style sheet were still coming out left-aligned. Also improved centering.</li
@@ -114,6 +116,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed a bug for the web page output which showed at the end of the file the name and version of a references style sheet embedded within a publisher style sheet.</li
 ><li
 >Fixed a bug where a refWork containing a citation element in its refTitle would always appear in the list of references, even when that refWork was never cited in the document.</li
+><li
+>Updated all provided publisher style sheets and XLingPaper "new file" templates to reflect changes in reference handling.</li
 ></ul
 ></li
 ><li

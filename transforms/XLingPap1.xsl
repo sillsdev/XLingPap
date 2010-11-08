@@ -3906,6 +3906,11 @@
             <xsl:value-of select="$language/@color"/>
             <xsl:text>; </xsl:text>
         </xsl:if>
+        <xsl:if test="string-length(normalize-space($language/@backgroundcolor)) &gt; 0">
+            <xsl:text>; background-color:</xsl:text>
+            <xsl:value-of select="$language/@backgroundcolor"/>
+            <xsl:text>; </xsl:text>
+        </xsl:if>
         <xsl:variable name="sCssSpecial" select="normalize-space(@cssSpecial)"/>
         <xsl:if test="string-length($sCssSpecial) &gt; 0">
             <xsl:value-of select="$sCssSpecial"/>

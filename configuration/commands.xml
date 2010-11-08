@@ -324,6 +324,12 @@
     <cfg:command name="changeDefaultLangAttributesInTemplatesCmd">
         <cfg:class>xlingpaper.xxe.ChangeDefaultLangAttributesInTemplates</cfg:class>
     </cfg:command>
+    <cfg:command name="ConvertCollectionToCitationCmd">
+        <cfg:class>xlingpaper.xxe.ConvertCollectionToCitation</cfg:class>
+    </cfg:command>
+    <cfg:command name="ConvertProceedingsToCitationCmd">
+        <cfg:class>xlingpaper.xxe.ConvertProceedingsToCitation</cfg:class>
+    </cfg:command>
     <!-- no longer needed because XXE now has Search / Bookmarks
    <cfg:binding>
       <cfg:keyPressed code="F6"/>
@@ -1983,6 +1989,28 @@ NB actually it associates the stylesheet with the original file, not the new han
                 </cfg:pass>
                 <cfg:command name="convert" parameter="object"/>
                 <cfg:command name="setType"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertCollectionInfoToCollectionCitation">
+        <cfg:macro undoable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>
+                </cfg:pass>
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>
+                <cfg:command name="ConvertCollectionToCitationCmd"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertProceedingsInfoToProceedingsCitation">
+        <cfg:macro undoable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
+                </cfg:pass>
+                <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
+                <cfg:command name="ConvertProceedingsToCitationCmd"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

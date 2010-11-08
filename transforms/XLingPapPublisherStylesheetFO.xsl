@@ -5690,6 +5690,11 @@ not using
                 <xsl:value-of select="$language/@color"/>
             </xsl:attribute>
         </xsl:if>
+        <xsl:if test="string-length(normalize-space($language/@backgroundcolor)) &gt; 0">
+            <xsl:attribute name="background-color">
+                <xsl:value-of select="$language/@backgroundcolor"/>
+            </xsl:attribute>
+        </xsl:if>
         <xsl:if test="string-length(normalize-space($language/@text-transform)) &gt; 0">
             <xsl:attribute name="text-transform">
                 <xsl:value-of select="$language/@text-transform"/>

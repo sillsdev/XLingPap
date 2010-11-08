@@ -118,6 +118,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed a bug where a refWork containing a citation element in its refTitle would always appear in the list of references, even when that refWork was never cited in the document.</li
 ><li
 >Updated all provided publisher style sheets and XLingPaper "new file" templates to reflect changes in reference handling.</li
+><li
+>Fixed a bug which failed to format backgroundcolor attribute of language elements.</li
 ></ul
 ></li
 ><li

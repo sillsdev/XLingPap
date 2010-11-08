@@ -4376,7 +4376,27 @@
                 <xsl:with-param name="sFontColor" select="$sFontColor"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+        <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+            <xsl:for-each select="$language">
+                <tex:spec cat="bg"/>
+        <tex:cmd name="colorbox">
+            <tex:opt>rgb</tex:opt>
+            <tex:parm>
+                <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                    <xsl:with-param name="sColorHexCode">
+                        <xsl:call-template name="GetColorHexCode">
+                            <xsl:with-param name="sColor" select="@backgroundcolor"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </tex:parm>
+            <tex:spec cat="bg"/>
+        </tex:cmd>
+        
+            </xsl:for-each>
+            </xsl:if>
+            <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
         <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
             <xsl:choose>
                 <xsl:when test="$sTextTransform='uppercase'">
@@ -4476,7 +4496,12 @@
                 <!-- we ignore 'captialize' and 'none' -->
             </xsl:choose>
         </xsl:if>
-        <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
+        <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+            <tex:spec cat="eg"/>
+            <tex:spec cat="eg"/>
+            </xsl:if>
+            <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0">
             <tex:spec cat="eg"/>
         </xsl:if>

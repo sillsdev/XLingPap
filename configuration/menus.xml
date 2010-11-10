@@ -49,10 +49,6 @@
           icon="xxe-config:common/icons/link.png">
          <cfg:accelerator code="F11"/>
       </cfg:item>
-       <cfg:item command="jumpToWorkInReferences" 
-           label="_Jump to Work in References" >
-           <cfg:accelerator code="F11" modifiers="shift ctrl"/>
-       </cfg:item>
        <!-- no longer needed because XXE now has Search / Bookmarks
       <cfg:item command="SetMarkCmd" label="Set _Mark">
          <cfg:accelerator code="F6"/>
@@ -188,7 +184,16 @@
        <cfg:item command="removePublisherStylesheet" label="Remove (unassociate) a publisher style sheet ">
        </cfg:item>
        <cfg:separator/>
-      <cfg:item command="showXLingPapUserDocumentation"
+       <cfg:menu label="Reference (Bibliography) Related">
+           <cfg:item command="jumpToWorkInReferences" 
+               label="_Jump to Work in References (Bibliography)" >
+               <cfg:accelerator code="F11" modifiers="shift ctrl"/>
+           </cfg:item>
+           <cfg:item command="ConvertCollectionInfoToCollectionCitation" label="Convert collection information to a collCitation element"/>
+           <cfg:item command="ConvertProceedingsInfoToProceedingsCitation" label="Convert proceedings information to a procCitation element"/>
+       </cfg:menu>
+       <cfg:separator/>
+       <cfg:item command="showXLingPapUserDocumentation"
          label="Show XLingPaper User _Documentation"/>
 <!-- old one with icon
       <cfg:item command="showXLingPapUserDocumentation" icon="xxe-config:common/icons2/table.gif"

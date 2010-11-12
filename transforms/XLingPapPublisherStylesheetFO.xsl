@@ -2,10 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="no"/>
     <!-- ===========================================================
-      Version of this stylesheet
-      =========================================================== -->
-    <xsl:variable name="sVersion">2.11.0</xsl:variable>
-    <!-- ===========================================================
       Keys
       =========================================================== -->
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>

@@ -2,10 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="html" version="4.0" encoding="utf-8"/>
     <!-- ===========================================================
-      Version of this stylesheet
-      =========================================================== -->
-    <xsl:variable name="sVersion">2.11.0</xsl:variable>
-    <!-- ===========================================================
       Keys
       =========================================================== -->
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.13.0-xxe-4.5.0.zip"
+location="XLingPap-2.14.0-xxe-4.5.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.13.0_1</a:version
+>2.14.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-11-03</a:date
+>2010-11-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,17 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.13.0_1 03 November 2010<ul
-><li
->In chooser for citations, added the date of the work after the author name.</li
-><li
->Added a "Jump to Work in References" command to make it easier to find entries in the references.</li
+>2.14.0 15 November 2010<ul
 ><li
 >Add emailAddress element to front matter.</li
 ><li
+>In chooser for citations, added the date of the work after the author name.</li
+><li
+>Improvements to references (bibliography) information:<ul
+><li
+>Added a "Jump to Work in References" command to make it easier to find entries in the references.</li
+><li
 >Add jIssueNumber to article references.</li
 ><li
->In an article reference, made the jPages or jArticleNumber be optional (with the advent of posting papers on the web, there are now some that do not use either; e..g see <a
+>In an article reference, made the jPages or jArticleNumber be optional (with the advent of posting papers on the web, there are now some that do not use either; e.g. see <a
 href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >http://www.und.edu/dept/linguistics/wp/2008.htm</a
 >).</li
@@ -55,13 +57,39 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Add a way to override default text for thesis (i.e. 'M.A. thesis').</li
 ><li
->For documents with an abbreviations master file that has more than one language, the abbreviation in the display in XXE will now show the abbreviation for the language specified in the abbreviationlang attribute of the lingPaper element.</li
-><li
->When one adds a second language for an abbreviation (i.e. one inserts an abbrInLang element after an extant abbrInLang element), one can now use the SetReference command to set the language of the abbrInLang element. One can also use the SetReference command to change the language of any other abbrInLang element.</li
-><li
 >Made it so all reference items (article, book, collection, etc.) can have url, dateAccessed, iso639-3code, and comment elements with the reference item. These were all available before but only at the refWork element.</li
 ><li
 >Made reference handling a bit easier in that when one wants to change a book to an article, say, one can now select the book element and then use the replace operation and one will get the usual template content for a new article element.</li
+></ul
+></li
+><li
+>New publisher style sheets enhancements:<ul
+><li
+>Ability to override langData, gloss, and interlinear free translation formatting per the style sheet. It also allows inserting text before or after each of these items (e.g. inserting quotes before and after the free translation).</li
+><li
+>Control whether or not a section number appears.</li
+><li
+>Control whether or not the initial paragraph of a section/chapter is indented.</li
+><li
+>Control where 'Ph.D. dissertation' and 'M.A. thesis' appear for dissertation and thesis reference layouts. (Note one must now add a dissertationLabelItem or thesisLabelItem in each reference 'pattern' or there will be a message that the pattern was not found.)</li
+><li
+>Improved process of matching for patterns in reference layouts (it was a bit sloppy before).</li
+><li
+>Improved notification for when a pattern in references was not found. It now tells you what the elements are that were not found.</li
+><li
+>Ability in the references layout section to put url and date accessed layout information under a common grouping (similar to what has been available for location and publisher layout information).</li
+><li
+>Added ability in the references layout section for location/publisher grouping and url/date accessed grouping to include a "missing" item. This greatly reduces the number of patterns needed to describe possible combinations.</li
+></ul
+></li
+><li
+>Improvements to abbreviations:<ul
+><li
+>For documents with an abbreviations master file that has more than one language, the abbreviation in the display in XXE will now show the abbreviation for the language specified in the abbreviationlang attribute of the lingPaper element.</li
+><li
+>When one adds a second language for an abbreviation (i.e. one inserts an abbrInLang element after an extant abbrInLang element), one can now use the SetReference command to set the language of the abbrInLang element. One can also use the SetReference command to change the language of any other abbrInLang element.</li
+></ul
+></li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li
@@ -85,25 +113,13 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ></ul
 ></li
 ><li
->New publisher style sheets enhancements:<ul
-><li
->Control whether or not a section number appears.</li
-><li
->Control whether or not the initial paragraph of a section/chapter is indented.</li
-><li
->Control where 'Ph.D. dissertation' and 'M.A. thesis' appear for dissertation and thesis reference layouts. (Note one must now add a dissertationLabelItem or thesisLabelItem in each reference 'pattern' or there will be a message that the pattern was not found.)</li
-><li
->Improved process of matching for patterns in reference layouts (it was a bit sloppy before).</li
-><li
->Improved notification for when a pattern in references was not found. It now tells you what the elements are that were not found.</li
-><li
->Ability to override langData, gloss, and interlinear free translation formatting per the style sheet. It also allows inserting text before or after each of these items (e.g. inserting quotes before and after the free translation).</li
-></ul
-></li
+>Updated all provided publisher style sheets and XLingPaper "new file" templates to reflect changes in reference handling.</li
 ><li
 >Fixed publisher style sheet bugs:<ul
 ><li
 >In a paper, if there was an acknowledgement element in the back matter, it was formatted per the front matter acknowledgement of the style sheet, not the back matter acknowledgement information.</li
+><li
+>Removed link to nowhere for iso639-3code elements in references.</li
 ></ul
 ></li
 ><li
@@ -115,11 +131,15 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Fixed a bug for the web page output which showed at the end of the file the name and version of a references style sheet embedded within a publisher style sheet.</li
 ><li
+>Fixed a bug for the web page output which failed to pay attention to the cssSpecial attribute of a td element.</li
+><li
+>Fixed a bug for the XSL-FO-based outputs which failed to pay attention to the xsl-foSpecial attribute of a td element.</li
+><li
 >Fixed a bug where a refWork containing a citation element in its refTitle would always appear in the list of references, even when that refWork was never cited in the document.</li
 ><li
->Updated all provided publisher style sheets and XLingPaper "new file" templates to reflect changes in reference handling.</li
-><li
 >Fixed a bug which failed to format backgroundcolor attribute of language elements.</li
+><li
+>Added ability for indexes to control the text that occurs when there is a "see" or "see also" entry in the index.</li
 ></ul
 ></li
 ><li

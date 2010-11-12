@@ -18,8 +18,12 @@ type="tXMLmindXMLEditor"
 ></subtitle
 ><author
 >H. Andrew Black</author
+><affiliation
+>SIL International</affiliation
+><emailAddress
+>andy_black@sil.org</emailAddress
 ><date
->23 October 2010</date
+>12 November 2010</date
 ><version
 >2.14.0</version
 ><contents
@@ -802,7 +806,10 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
-> <object
+> <indexedItem
+term="iISOCodes"
+></indexedItem
+><object
 type="tAttribute"
 >ISO639-3Code</object
 > </langData
@@ -1602,6 +1609,19 @@ term="iAffiliation"
 >Each author name may be followed by the affiliation of that author or the preceding authors, using an <object
 type="tElement"
 >affiliation</object
+> element. These are optional elements.</p
+></section2
+><section2
+id="sFMEmailAddress"
+><secTitle
+>Email Address</secTitle
+><p
+><indexedItem
+term="iEmailAddress"
+></indexedItem
+>Each author name may be followed by an email address, using an <object
+type="tElement"
+>emailAddress</object
 > element. These are optional elements.</p
 ></section2
 ><section2
@@ -3157,13 +3177,19 @@ term="iAuthorCited"
 >one creates a sequence of <object
 type="tElement"
 >refAuthor</object
-> elements. The <object
-type="tElement"
->refAuthor</object
-> elements should be ordered alphabetically by the author's last name. Note that <object
+> elements. Note that <object
 type="tXLingPap"
 ></object
-> has you group the references by author, not by work.</p
+> has you group the references by author, not by work. Normally, the <object
+type="tElement"
+>refAuthor</object
+> elements should be ordered alphabetically by the author's last name.  It is possible to have the authors sorted when the output is produced (see section <sectionRef
+sec="sReferencesSort"
+></sectionRef
+>).  In addition, there is a way to quickly find an author/work as described in section <sectionRef
+sec="sReferencesJumpToWork"
+></sectionRef
+>.</p
 ><p
 >Each <object
 type="tElement"
@@ -3351,10 +3377,16 @@ sec="sReferencesAttributes"
 >Any <object
 type="tElement"
 >refWork</object
-> element may optionally contdain a <object
+> element may optionally contain a <object
 type="tElement"
 >url</object
-> element. This allows you to provide the URL where the work is available online. In addition, any <object
+> element and a <object
+type="tElement"
+>dateAccessed</object
+> element. This allows you to provide the URL where the work is available online and the date when you accessed that URL, respectively. <indexedItem
+term="iISOCodes"
+></indexedItem
+>In addition, any <object
 type="tElement"
 >refWork</object
 > element may have one or more <object
@@ -3375,7 +3407,7 @@ id="sBMRefArticle"
 ><object
 type="tElement"
 >article</object
-></secTitle
+> in a journal</secTitle
 ><p
 >This is for an article published in a journal. Besides the date and the title, an article also has <object
 type="tElement"
@@ -3383,10 +3415,16 @@ type="tElement"
 >, <object
 type="tElement"
 >jVol</object
->, and <object
+>, optional <object
+type="tElement"
+>jIssueNumber</object
+>, and either <object
 type="tElement"
 >jPages</object
-> elements (for the journal title, the journal volume number, and the page numbers of the article in the journal). It may also have optional <object
+> or <object
+type="tElement"
+></object
+> elements (for the journal title, the journal volume number, the journal issue number, and either the page numbers of the article in the journal or the article number; the latter two are optional). It may also have optional <object
 type="tElement"
 >location</object
 > and <object
@@ -3410,6 +3448,9 @@ type="tElement"
 >edition</object
 >, <object
 type="tElement"
+>seriesEd</object
+>, <object
+type="tElement"
 >series</object
 >, and <object
 type="tElement"
@@ -3425,11 +3466,15 @@ type="tElement"
 ><section3
 id="sBMRefCollection"
 ><secTitle
-><object
+>Paper in a <object
 type="tElement"
 >collection</object
 ></secTitle
 ><p
+><indexedRangeBegin
+id="bCollection"
+term="iRefCollection"
+></indexedRangeBegin
 >This is for a paper included in a volume or collection of papers. Besides the date and the title, a collection paper also has:</p
 ><ol
 ><li
@@ -3445,6 +3490,11 @@ type="tElement"
 ><li
 >an optional <object
 type="tElement"
+>edition</object
+> (edition number of the collection volume) element,</li
+><li
+>an optional <object
+type="tElement"
 >collVol</object
 > (collection volume number) element,</li
 ><li
@@ -3452,6 +3502,21 @@ type="tElement"
 type="tElement"
 >collPages</object
 > (page numbers in the volume) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEd</object
+> (series editor(s) of the series that the volume is in) element,</li
+><li
+>an optional <object
+type="tElement"
+>series</object
+> (series title that the volume is in) element,</li
+><li
+>an optional <object
+type="tElement"
+>bVol</object
+> (volume number of the series that the volume is in) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -3480,6 +3545,403 @@ type="tAttrValue"
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
+><p
+>Section <sectionRef
+sec="sBMRefCollectionCitation"
+></sectionRef
+> shows an alternative way of handling papers in collections.</p
+><section4
+id="sBMRefCollectionCitation"
+><secTitle
+>Using a <object
+type="tElement"
+>collCitation</object
+></secTitle
+><p
+><indexedRangeBegin
+id="bCollCitation"
+term="iCollCitation"
+></indexedRangeBegin
+>This section describes another way to handle collection information which some publishers prefer to use.</p
+><section5
+id="sBMRefCollectionCitationOverview"
+><secTitle
+>Overview</secTitle
+><p
+>Consider the following portion of a references section (taken from <link
+href="http://assets.cambridge.org/IPA/IPA_ifc.pdf"
+>http://assets.cambridge.org/IPA/IPA_ifc.pdf</link
+> accessed on 10 November 2010). Only those entries which are collections are shown.</p
+><example
+num="xCollectionSamplesJIPA"
+><chart
+><img
+src="resources/CollectionSamplesJIPA.png"
+></img
+></chart
+></example
+><p
+>Notice that for Bauer &amp; Warren (2004) and for Sampson (1987), the reference entry itself contains the information about the collection volume the paper occurs in. For Barry (1992) and Browman &amp; Goldstein (1992), however, the reference entry refers to another reference entry for the collection: Docherty &amp; Ladd (1992).</p
+><p
+>Why should some collection entries have the full information about the collection volume while others merely refer to the collection volume which is a distinct entry itself? The key difference is that when two or more papers from the same collection volume are cited, then for those papers, we need to refer to the collection volume itself instead of spelling out the collection volume information.</p
+><p
+>It is possble within <object
+type="tXLingPap"
+></object
+> to have both of these methods occur automatically. That is, one can add reference entries for the collection volume itself and then use a special <object
+type="tElement"
+>collCitation</object
+> element to refer to the collection volume. If a given <object
+type="tXLingPap"
+></object
+> document has two<endnote
+id="nNumberOfSharedPaperes"
+><p
+>A given <object
+type="tXLingPap"
+></object
+> publisher style sheet contains what the minimal number is. It is in the <object
+type="tElement"
+>referencesLayout</object
+> element, in its <object
+type="tAttribute"
+>usecitationformatwhennumbereofsharedpaperis</object
+> attribute. The default for publisher style sheets is 0 (which means that no collection or proceedings will use the citation format). The default for <object
+type="tXLingPap"
+></object
+> documents that do not have an associated publisher style sheet is 2. For more on publisher style sheets, see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>.</p
+></endnote
+> or more papers cited from the same collection volume, those papers will use the special citation format (like for Barry (1992) and Browman &amp; Goldstein (1992) in example <exampleRef
+letter="xCollectionSamplesJIPA"
+num="xCollectionSamplesJIPA"
+></exampleRef
+> above). In addition, the collection volume entry is also given (Docherty &amp; Ladd (1992) in example <exampleRef
+letter="xCollectionSamplesJIPA"
+num="xCollectionSamplesJIPA"
+></exampleRef
+> above). If only one paper from a given collection volume occurs in the document, then even though the <object
+type="tElement"
+>collection</object
+> element has a <object
+type="tElement"
+>collCitation</object
+> element, <object
+type="tXLingPap"
+></object
+> will put the information for the collection volume within the reference entry (like for Bauer &amp; Warren (2004) and Sampson (1987) in example <exampleRef
+letter="xCollectionSamplesJIPA"
+num="xCollectionSamplesJIPA"
+></exampleRef
+> above).</p
+><p
+>For example, suppose you had reference entries for the items given in <exampleRef
+letter="xCollectionSamplesJIPA"
+num="xCollectionSamplesJIPA"
+></exampleRef
+> keyed as shown in <exampleRef
+letter="xCollectionSamplesJIPAXXE"
+num="xCollectionSamplesJIPAXXE"
+></exampleRef
+>. Notice that the <object
+type="tElement"
+>collCitation</object
+> elements look rather like <object
+type="tElement"
+>citation</object
+> elements (see section <sectionRef
+sec="sCitations"
+></sectionRef
+>). This is because they act quite a bit like a citation.</p
+><example
+num="xCollectionSamplesJIPAXXE"
+><chart
+><img
+src="resources/CollectionSamplesJIPAXXE.png"
+></img
+></chart
+></example
+><p
+>Further suppose that in this document, the following items are cited: Barry (1992), Bauer &amp; Warren (2004), Browman &amp; Goldstein (1992), and Sampson (1987). Then the references section in the web page output might look this:</p
+><example
+num="xCollectionSamplesJIPAHTmL"
+><chart
+type="tHtmlOutput"
+>&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;References&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBarry"&gt;Barry, William J.&lt;/a&gt; 1992. &amp;#8220;Comments on Browmen and Goldstein: &amp;#8216;&amp;#8220;Targetless&amp;#8221; schwa: An articulatory analysis&amp;#8217;.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 65-67.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBauerNW"&gt;Bauer, Laurie &amp;amp; Paul Warren&lt;/a&gt;. 2004. &amp;#8220;New Zealand English Phonology.&amp;#8221; In Bernd Kortmann, Edgar W. Schneider, Kate Burridge, Rajend Mesthrie &amp;amp; Clive Upton, eds. &lt;i&gt;A handbook of varieties of English: A multimedia reference tool&lt;/i&gt;. 1:580-602. Berlin &amp;amp; New York: Mouton de Gruyter. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBrowmanNGoldstein"&gt;Browman, Catherine P. &amp;amp; Louis Goldstein&lt;/a&gt;. 1992. &amp;#8220;&amp;#8216;Targetless&amp;#8217; schwa: An articulatory analysis.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 26-56.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rDochertyNLadd"&gt;Docherty, Gerald J. &amp;amp; D. Robert Ladd&lt;/a&gt;. eds. 1992. &lt;i&gt;Papers in laboratory phonology II: Gesture, segment, prosody&lt;/i&gt;. Cambridge: Cambridge University Press. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rSampson"&gt;Sampson, Geoffrey&lt;/a&gt;. 1987. &amp;#8220;Probabilistic models of analysis.&amp;#8221; In Richard Garside, Geoffrey Leech &amp;amp; Geoffrey Sampson, eds. &lt;i&gt;The computational analysis of English&lt;/i&gt;. London: Longman. &lt;/p&gt; &lt;/div&gt;</chart
+></example
+><p
+>If on the other hand, in a different document only Bauer &amp; Warren (2004), Browman &amp; Goldstein (1992), and Sampson (1987) are cited, then the output would look like this:</p
+><example
+num="xCollectionSamplesJIPAHTmL2"
+><chart
+type="tHtmlOutput"
+>&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;References&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBauerNW"&gt;Bauer, Laurie &amp;amp; Paul Warren&lt;/a&gt;. 2004. &amp;#8220;New Zealand English Phonology.&amp;#8221; In Bernd Kortmann, Edgar W. Schneider, Kate Burridge, Rajend Mesthrie &amp;amp; Clive Upton, eds. &lt;i&gt;A handbook of varieties of English: A multimedia reference tool&lt;/i&gt;. 1:580-602. Berlin &amp;amp; New York: Mouton de Gruyter. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBrowmanNGoldstein"&gt;Browman, Catherine P. &amp;amp; Louis Goldstein&lt;/a&gt;. 1992. &amp;#8220;&amp;#8216;Targetless&amp;#8217; schwa: An articulatory analysis.&amp;#8221; In Gerald J. Docherty &amp;amp; D. Robert Ladd, eds. &lt;i&gt;Papers in laboratory phonology II: Gesture, segment, prosody&lt;/i&gt;. 26-56. Cambridge: Cambridge University Press. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rSampson"&gt;Sampson, Geoffrey&lt;/a&gt;. 1987. &amp;#8220;Probabilistic models of analysis.&amp;#8221; In Richard Garside, Geoffrey Leech &amp;amp; Geoffrey Sampson, eds. &lt;i&gt;The computational analysis of English&lt;/i&gt;. London: Longman. &lt;/p&gt; &lt;/div&gt;</chart
+></example
+><p
+>Notice that while every collection entry in <exampleRef
+letter="xCollectionSamplesJIPAXXE"
+num="xCollectionSamplesJIPAXXE"
+></exampleRef
+> has just a <object
+type="tElement"
+>collCitation</object
+> element in it, whether the collection volume information is included in the collection entry depends on how many other papers are cited for the collection volume. <object
+type="tXLingPap"
+></object
+> figures out what to do in each case.</p
+><p
+>One other thing to observe is that whenever <object
+type="tXLingPap"
+></object
+> inserts the collection volume information into a collection entry output, it assumes that the collection volume editor(s) will be listed with the first editor's last name, comma, and then the first editor's first name. For example, in <exampleRef
+letter="xCollectionSamplesJIPAXXE"
+num="xCollectionSamplesJIPAXXE"
+></exampleRef
+>, the Docherty &amp; Ladd entry has the author name as “Docherty, Gerald J. &amp; D. Robert Ladd.” In example <exampleRef
+letter="xCollectionSamplesJIPAHTmL2"
+num="xCollectionSamplesJIPAHTmL2"
+></exampleRef
+> where <object
+type="tXLingPap"
+></object
+> inserted the collection volume information for Browman &amp; Goldstein (1992), <object
+type="tXLingPap"
+></object
+> converted “Docherty, Gerald J. &amp; D. Robert Ladd” to “Gerald J. Docherty &amp; D. Robert Ladd.”</p
+></section5
+><section5
+id="sBMRefCollectionCitationConversion"
+><secTitle
+>Converting to the citation format</secTitle
+><p
+><indexedItem
+term="iCollCitationConvert"
+></indexedItem
+>Suppose you already have a number of collection entries in your <object
+type="tXLingPap"
+></object
+> references and you wish to use this collection citation method now. Here is what needs to be done:</p
+><ol
+><li
+>For each collection volume, create a <object
+type="tElement"
+>book</object
+> element. That book has all the editor, collection title, etc. information in it (one should be sure to insert an <object
+type="tElement"
+>authorRole</object
+> element at the beginning to indicate that the author(s) is/are the editor(s) of the work). Also see below for a possibly easier way to do this.</li
+><li
+>Then for each paper in that collection included in your references, use a <object
+type="tElement"
+>collCitation</object
+> element instead of the <object
+type="tElement"
+>collEd</object
+> through <object
+type="tElement"
+>publisher</object
+> elements. The <object
+type="tElement"
+>collCitation</object
+> element will look something like this: <img
+src="resources/CollectionCitationCSS.png"
+></img
+> If you immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+> or if you right-click on it and choose <object
+type="tInstruction"
+>Set Reference</object
+>), a dialog box will pop up that lists all the book entries in your references. Select the one that is correct for this paper in a collection. See below for a possibly easier way.</li
+></ol
+><p
+>Since the <object
+type="tElement"
+>collCitation</object
+> element replaces a sequence of elements within a <object
+type="tElement"
+>collection</object
+> element, it is not possible to merely replace the <object
+type="tElement"
+>collEd</object
+>, <object
+type="tElement"
+>coolTitle</object
+>, etc. elements with a <object
+type="tElement"
+>collCitation</object
+> element. There is, however, a menu option that will attempt to both create the needed <object
+type="tElement"
+>book</object
+> element and replace the <object
+type="tElement"
+>collEd</object
+>, <object
+type="tElement"
+>coolTitle</object
+>, etc. elements with a <object
+type="tElement"
+>collCitation</object
+> element. It is not perfect and you will almost certainly need to do some editing by hand.</p
+><p
+>That menu item is <object
+type="tInstruction"
+>XLingPaper / Reference (Bibliography) Related / Convert collection information to a collCitation element</object
+>. You must be within a <object
+type="tElement"
+>collection</object
+> element in order to use this menu item. Here is an example.</p
+><example
+num="xCollectionCitationConvert"
+><chart
+><img
+src="resources/CollectionCitationConvertBefore.png"
+></img
+></chart
+></example
+><p
+>The user has clicked within the <object
+type="tElement"
+>collection</object
+> element of Rensch (1973). When the user uses menu item <object
+type="tInstruction"
+>XLingPaper / Reference (Bibliography) Related / Convert collection information to a collCitation element</object
+>, the conversion process asks for an ID for the new book <object
+type="tElement"
+>refWork</object
+> element it will create. For example <exampleRef
+letter="xCollectionCitationConvert"
+num="xCollectionCitationConvert"
+></exampleRef
+>, it might look like this:</p
+><example
+num="xCollectionCitationConvertIdDialog"
+><chart
+><img
+src="resources/CollectionCitationConvertIdDialog.png"
+></img
+></chart
+></example
+><p
+>After keying in a valid ID, it might then look like this:</p
+><example
+num="xCollectionCitationConvertAfter"
+><chart
+><img
+src="resources/CollectionCitationConvertAfter.png"
+></img
+></chart
+></example
+><p
+>Notice several things:</p
+><ol
+><li
+>There is a new <object
+type="tElement"
+>refAuthor</object
+> element inserted before the <object
+type="tElement"
+>refAuthor</object
+> element for Rensch.</li
+><li
+>The <object
+type="tAttribute"
+>name</object
+> attribute of this <object
+type="tElement"
+>refAuthor</object
+> is correct in this instance. Please be sure to always check the accuracy of the name.</li
+><li
+>The <object
+type="tAttribute"
+>citename</object
+> attribute of this <object
+type="tElement"
+>refAuthor</object
+> is correct in this instance. If there had been multiple authors, you would probably need to edit the cite name.</li
+><li
+>That new <object
+type="tElement"
+>refAuthor</object
+> element is not in its correct alphabetical position. You will have to adjust it yourself by hand (you can select the entire <object
+type="tElement"
+>refAuthor</object
+> element, cut it, find and select the entire <object
+type="tElement"
+>refAuthor</object
+> element after which it should go, then do a <object
+type="tInstruction"
+>Paste After</object
+> command). Alternatively, you can let <object
+type="tXLingPap"
+></object
+> sort the authors for you on output. See section <sectionRef
+sec="sReferencesSort"
+></sectionRef
+>.</li
+><li
+>The new <object
+type="tElement"
+>refAuthor</object
+> element contains a <object
+type="tElement"
+>refWork</object
+> element with an embedded <object
+type="tElement"
+>book</object
+> element within it.</li
+><li
+>This <object
+type="tElement"
+>book</object
+> element has an <object
+type="tElement"
+>authorRole</object
+> of “ed” (for “editor") because the original <object
+type="tElement"
+>collEd</object
+> element had its <object
+type="tAttribute"
+>plural</object
+> attribute set to <object
+type="tAttrValue"
+>no</object
+>; it would be “eds” (for “editors”) otherwise.</li
+><li
+>This <object
+type="tElement"
+>book</object
+> element has the other contents of the collection volume information originally included.</li
+><li
+>The Rensch (1973) entry now just has the paper title and a <object
+type="tElement"
+>collCitation</object
+> element. That <object
+type="tElement"
+>collCitation</object
+> element refers to the <object
+type="tElement"
+>refWork</object
+> element just added.</li
+></ol
+><p
+>As you do this conversion process, you may find duplicate <object
+type="tElement"
+>refAuthor</object
+> elements. You will need to merge the contents of them yourself.<indexedRangeEnd
+begin="bCollCitation"
+></indexedRangeEnd
+><indexedRangeEnd
+begin="bCollection"
+></indexedRangeEnd
+></p
+></section5
+></section4
 ></section3
 ><section3
 id="sBMRefDissertation"
@@ -3489,6 +3951,9 @@ type="tElement"
 >dissertation</object
 ></secTitle
 ><p
+><indexedItem
+term="iDissertation"
+></indexedItem
 >This is for a Ph.D. dissertation. Besides the date and the title, a dissertation also has an optional <object
 type="tElement"
 >location</object
@@ -3511,6 +3976,26 @@ type="tElement"
 type="tElement"
 >pubDate</object
 > element.</p
+><p
+><indexedItem
+term="iDissertationLabel"
+></indexedItem
+>When <object
+type="tXLingPap"
+></object
+> produces output, the default label for a dissertation is ‘Ph.D. dissertation’.  You can override this default by setting the content of the <object
+type="tAttribute"
+>labelDissertation</object
+> attribute of the <object
+type="tElement"
+>references</object
+> element.  To do so, click on the <object
+type="tElement"
+>references</object
+> element and then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to change its value.</p
 ></section3
 ><section3
 id="sBMRefFieldNotes"
@@ -3550,7 +4035,7 @@ id="sBMRefPaper"
 ><object
 type="tElement"
 >paper</object
-></secTitle
+> presented at a conference</secTitle
 ><p
 >This is for a paper presented at a conference. Besides the date and the title, a paper also has a required <object
 type="tElement"
@@ -3563,11 +4048,14 @@ type="tElement"
 ><section3
 id="sBMRefProceedings"
 ><secTitle
-><object
+>Paper in a <object
 type="tElement"
 >proceedings</object
-></secTitle
+> volume</secTitle
 ><p
+><indexedItem
+term="iRefProceedings"
+></indexedItem
 >This is for a paper included in a conference proceedings volume. Besides the date and the title, a proceedings paper also has:</p
 ><ol
 ><li
@@ -3618,6 +4106,38 @@ type="tAttrValue"
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
+><p
+><indexedItem
+term="iProcCitation"
+></indexedItem
+>Recall from section <sectionRef
+sec="sBMRefCollection"
+></sectionRef
+> that collections have another possible way to record and format papers in a collection volume. <object
+type="tXLingPap"
+></object
+> can do the same kind of thing for papers in a proceedings volume. See section <sectionRef
+sec="sBMRefCollectionCitation"
+></sectionRef
+> above, substituting “proceedings” for “collection”. It works the same way for proceedings as for collections, except that rather than using <object
+type="tElement"
+>collCitation</object
+> elements, one uses <object
+type="tElement"
+>procCitation</object
+> elements. <indexedItem
+term="iProcCitationConvert"
+></indexedItem
+>In addition, the menu item mentioned in section <sectionRef
+sec="sBMRefCollectionCitationConversion"
+></sectionRef
+> is <object
+type="tInstruction"
+>XLingPaper / Reference (Bibliography) Related / Convert proceedings information to a procCitation element</object
+>. You must be within a <object
+type="tElement"
+>proceedings</object
+> element in order to use this menu item.</p
 ></section3
 ><section3
 id="sBMRefThesis"
@@ -3627,6 +4147,9 @@ type="tElement"
 >thesis</object
 ></secTitle
 ><p
+><indexedItem
+term="iMAThesis"
+></indexedItem
 >This is for an M.A. thesis. Besides the date and the title, a thesis also has an optional <object
 type="tElement"
 >location</object
@@ -3649,6 +4172,26 @@ type="tElement"
 type="tElement"
 >pubDate</object
 > element.</p
+><p
+><indexedItem
+term="iMAThesisLabel"
+></indexedItem
+>When <object
+type="tXLingPap"
+></object
+> produces output, the default label for a thesis is ‘M.A. Thesis’. You can override this default by setting the content of the <object
+type="tAttribute"
+>labelThesis</object
+> attribute of the <object
+type="tElement"
+>references</object
+> element. To do so, click on the <object
+type="tElement"
+>references</object
+> element and then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to change its value.</p
 ></section3
 ><section3
 id="sBMRefWebPage"
@@ -3905,6 +4448,237 @@ begin="bRferences"
 ></example
 ></section3
 ><section3
+id="sReferencesJumpToWork"
+><secTitle
+>Jump to Work in References Command</secTitle
+><p
+><indexedItem
+term="iJumpToReferences"
+></indexedItem
+>Often while writing a document, you find a need to add a new reference to your list of references.  <object
+type="tXLingPap"
+></object
+> provides a special command that makes this easier.</p
+><p
+>From just about any place in your document, you can invoke menu item <object
+type="tInstruction"
+>XLingPaper / Reference (Bibliography) Related / Jump to Work in References (Bibliography)  Ctrl+Shift+F11</object
+>.<endnote
+id="nCtrlShiftF11"
+><p
+>The <object
+type="tInstruction"
+>Ctrl+Shift+F11</object
+> at the end is a reminder that can invoke this command merely by pressing the <object
+type="tKey"
+>Ctrl</object
+>, <object
+type="tKey"
+>shift</object
+>, and <object
+type="tKey"
+>F11</object
+> keys all at the same time (I do it by first holding down both the <object
+type="tKey"
+>Ctrl</object
+> and <object
+type="tKey"
+>Shift</object
+> keys and then pressing the <object
+type="tKey"
+>F11</object
+> key).</p
+></endnote
+>  This brings up the same basic dialog you see when setting a <object
+type="tElement"
+>citation</object
+> element (see section <sectionRef
+sec="sCitationsExample"
+></sectionRef
+>) which sorts by the <object
+type="tAttribute"
+>citename</object
+> attribute of the <object
+type="tElement"
+>refAuthor</object
+> element, the date of the <object
+type="tElement"
+>refWork</object
+> element, and the <object
+type="tElement"
+>refTitle</object
+> element of the <object
+type="tElement"
+>refWork</object
+> element.  In one <object
+type="tXLingPap"
+></object
+> document, it looks like this:</p
+><example
+num="xJumpToReferenceDialog"
+><chart
+><img
+src="resources/JumpToReferenceDialog.png"
+></img
+></chart
+></example
+><p
+>You type in the author name or you scroll down to find the work you are looking for.  Select the one you want by typing enough so that it is shown in the top text box or by clicking on it.  <object
+type="tXLingPap"
+></object
+> will remember the location of where you are working right now and then jump you to the references section of your document and will select the <object
+type="tElement"
+>refWork</object
+> that you indicated.  In my experience, once in a while the selected work does not show in the window.  You have to scroll up or down a bit before you can see it.</p
+><p
+>In the <object
+type="tXLingPap"
+></object
+> document used to produce example <exampleRef
+letter="xJumpToReferenceDialog"
+num="xJumpToReferenceDialog"
+></exampleRef
+>, if we were to choose Butler (2000), the result would be as shown in <exampleRef
+letter="xJumpToReferenceResult"
+num="xJumpToReferenceResult"
+></exampleRef
+>.</p
+><example
+num="xJumpToReferenceResult"
+><chart
+><img
+src="resources/JumpToReferenceResult.png"
+></img
+></chart
+></example
+><p
+>If you are indeed adding a new reference, you can still use this command to find a work that is close to where you need to add your new reference.</p
+><p
+>One other thing to keep in mind with this particular dialog is that the sort order used is a computerish one.  It may well not be the order that your references will appear in, especially if you set things up to sort per a particular language as discussed in section <sectionRef
+sec="sReferencesSort"
+></sectionRef
+>.</p
+><p
+>Select the work you want to see or edit (or add a new work before or after). </p
+><p
+>After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
+type="tXMLmindXMLEditor"
+></object
+>'s <object
+type="tInstruction"
+>Search / Boomark / Go to Last Visted or Go Back</object
+> menu item command.<endnote
+id="nEnableBookmarksInXXE"
+><p
+>Some more recent versions of the <object
+type="tXMLmindXMLEditor"
+></object
+> do not automatically show this menu item. If this is the case for you, then please turn it on by using the <object
+type="tInstruction"
+>Options / Preferences</object
+> menu item and then in the <object
+type="tInstruction"
+>General / Features</object
+> portion, make sure that “Enable the Search|Bookmark Submenu” is checked.</p
+></endnote
+></p
+></section3
+><section3
+id="sReferencesSort"
+><secTitle
+>Sorting Dynamically by Author name</secTitle
+><p
+><indexedItem
+term="iReferencesSort"
+></indexedItem
+>It is now possible in <object
+type="tXLingPap"
+></object
+> to have the cited authors sorted when you produce any kind of output.  The default situation is to not do this dynamic sorting - the cited authors will appear in the same order they occur in the <object
+type="tElement"
+>references</object
+> element.</p
+><p
+>To use sorting by author names, you must set the <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute of <genericTarget
+id="gSetAttributeInLingPaperElement"
+></genericTarget
+>the main <object
+type="tElement"
+>lingPaper</object
+> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on <object
+type="tInstruction"
+>lingPaper</object
+>.  Then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the  <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.  </p
+><p
+>The sorting algorithm used depends on the language code of the document.  The default is ‘en’ (for English).  You set the language code of the document in the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element (see <genericRef
+gref="gSetAttributeInLingPaperElement"
+>above</genericRef
+> for how to do this).  Some of the known language codes to use are shown in example <exampleRef
+letter="xLanguageCodesForSorting"
+num="xLanguageCodesForSorting"
+></exampleRef
+>.</p
+><example
+num="xLanguageCodesForSorting"
+><table
+border="1"
+><caption
+>Language codes to use for sorting</caption
+><tr
+><th
+>Language code</th
+><th
+>Language</th
+></tr
+><tr
+><td
+>de</td
+><td
+>German</td
+></tr
+><tr
+><td
+>en</td
+><td
+>English</td
+></tr
+><tr
+><td
+>es</td
+><td
+>Spanish</td
+></tr
+><tr
+><td
+>fr</td
+><td
+>French</td
+></tr
+></table
+></example
+></section3
+><section3
 id="sBMRefZotero"
 ><secTitle
 >Converting a <object
@@ -4037,7 +4811,7 @@ note="nNodePathBarReminder"
 > and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to find and edit the<object
+> to find and edit the <object
 type="tAttribute"
 >abbreviationlang</object
 > attribute. You will need to key in the id of one of the <object
@@ -4055,7 +4829,10 @@ type="tAttrValue"
 > for French). If you do not set this attribute, then the first abbreviation item found will be used. Also, if you inadvertently do not have an abbreviation for the language you selected, but you do have one for another language, then the first abbreviation found will be used, too. See section <sectionRef
 sec="sBMAbbreviationsMasterListMultipleLanguages"
 ></sectionRef
-> for more on creating master lists with two or more languages.</p
+> for more on creating master lists with two or more languages.  Also see section <sectionRef
+sec="sBMAbbreviationsSortingTheList"
+></sectionRef
+> for information on sorting the output list of abbreviations.</p
 ><p
 >One makes a reference to an abbreviation by inserting an <object
 type="tElement"
@@ -4775,12 +5552,88 @@ type="tHtmlOutput"
 >&lt;hr&gt;&lt;a name="rXLingPapGlossary"&gt; &lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;Abbreviations&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left: 0.5in; margin-right: 0.5in"&gt; &lt;p&gt;The following table gives the abbreviations used in this paper.&lt;/p&gt; &lt;table&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v1EX"&gt;&lt;span&gt;1EX&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;first person exclusive&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;second person&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;third person general&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vC"&gt;&lt;span&gt;C&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;completive&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vF"&gt;&lt;span&gt;F&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;future&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vH"&gt;&lt;span&gt;H&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;habitual&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vLOC"&gt;&lt;span&gt;LOC&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;locative&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vP"&gt;&lt;span&gt;P&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;potential&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vPOS"&gt;&lt;span&gt;POS&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;possessive prefix used on alienably possessed nouns&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vPR"&gt;&lt;span&gt;PR&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;progressive&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; &lt;hr size="3"&gt;</chart
 ></example
 ></section3
+><section3
+id="sBMAbbreviationsSortingTheList"
+><secTitle
+>Sorting the List of Abbreviations</secTitle
+><p
+><indexedItem
+term="iAbbreviationsSort"
+></indexedItem
+>If your document is not written in English or if your master list of abbreviations contains abbreviations in multiple languages, you may well want to have the list of abbreviations that <object
+type="tXLingPap"
+></object
+> outputs be sorted by a particular language.  Note that the default behavior is for <object
+type="tXLingPap"
+></object
+> to not do any special sorting: the list of abbreviations will occur in the same order they are given within the <object
+type="tElement"
+>abbreviations</object
+> element.</p
+><p
+>To get <object
+type="tXLingPap"
+></object
+> to sort the list of abbreviations in the output, you must set the <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on <object
+type="tInstruction"
+>lingPaper</object
+>.  Then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the  <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.  </p
+><p
+>The sorting algorithm used depends on the language code you have indicated, if any.  The default is ‘en’ (for English).  If you have set the <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element.of the document, then <object
+type="tXLingPap"
+></object
+> will use that code.  If the <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute is not set, <object
+type="tXLingPap"
+></object
+> will use the the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element, if it is set.  Some of the known language codes to use are shown in example <exampleRef
+letter="xLanguageCodesForSorting"
+num="xLanguageCodesForSorting"
+></exampleRef
+>.</p
+></section3
 ></section2
 ><section2
 id="sBMIndex"
 ><secTitle
 >Indexes</secTitle
 ><p
+><indexedRangeBegin
+id="bIndexes"
+term="iIndexes"
+></indexedRangeBegin
 >One may add one or more indexes to an <object
 type="tXLingPap"
 ></object
@@ -4828,7 +5681,7 @@ type="tHtmlOutput"
 >There are hyperlinks to the section of the paper which have been tagged for the term. In the PDF output of an <object
 type="tXLingPap"
 ></object
-> document, the hyperlinks are to pages.<ul
+> document, the hyperlinks are to page numbers.<ul
 ><li
 >Some of the hyperlinks are in bold. These bold ones have been specially marked as being a main instance of the term.</li
 ><li
@@ -5205,12 +6058,36 @@ src="resources/indexTermsNested.png"
 ></example
 ><p
 >You can now fill in the terms, add additional terms, etc.</p
+><p
+>If you have an index for a language other than English or if your index contains terms in multiple languages, then you should also insert a <object
+type="tElement"
+>seeDefinitions</object
+> element as the first element within the <object
+type="tElement"
+>indexTerms</object
+> element. The <object
+type="tElement"
+>seeDefinitions</object
+> element contains one or more definitions of how the ‘See’ and ‘See also’ words should appear for a given language. For example, consider the following possibility.</p
+><example
+num="xIndexSeeDefinitions"
+><chart
+><img
+src="resources/IndexSeeDefinitions.png"
+></img
+></chart
+></example
+><p
+>This has definitions for English (language code ‘en’) and Spanish (language code ‘es’). There are lines for saying how to represent the ‘See’ case as well as the ‘See also` case. It is possible to type in words before the link as well as words after the link. For example, the ‘See also’ case for Spanish in this example uses the word ‘Véase’ before the link and the word ‘también’ after the link.</p
 ></section3
 ><section3
 id="sBMIndexIndexedItems"
 ><secTitle
 >Tagging the Document for Indexed Items</secTitle
 ><p
+><indexedItem
+term="iIndexesTagging"
+></indexedItem
 >After setting up the set of index terms, the second step in producing an index is to tag the places in the document that correspond to index terms. Recall from example <exampleRef
 letter="xIndexHTMLExample"
 num="xIndexHTMLExample"
@@ -5908,6 +6785,37 @@ sec="sBMIndexIndexTerms"
 type="tElement"
 >term</object
 > element.</p
+></section3
+><section3
+id="sBMIndexSorting"
+><secTitle
+>Sorting the Index Terms on Output</secTitle
+><p
+><indexedItem
+term="iIndexesSorting"
+></indexedItem
+>If your document is not written in English or if your index contains terms in multiple languages, you may well want to have the index that <object
+type="tXLingPap"
+></object
+> outputs be sorted by a particular language.</p
+><p
+>The sorting algorithm used depends on the language code you have indicated, if any. The default is ‘en’ (for English). If you have set the <object
+type="tAttribute"
+>indexlang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element.of the document, then <object
+type="tXLingPap"
+></object
+> will use that code.  Some of the known language codes to use are shown in example <exampleRef
+letter="xLanguageCodesForSorting"
+num="xLanguageCodesForSorting"
+></exampleRef
+>.<indexedRangeEnd
+begin="bIndexes"
+></indexedRangeEnd
+></p
 ></section3
 ></section2
 ><section2
@@ -8132,6 +9040,70 @@ begin="bInterlinearExamples"
 ><p
 >.</p
 ></section4
+></section3
+><section3
+id="sExInterlinearISOCode"
+><secTitle
+>Showing the ISO 639-3 Code</secTitle
+><p
+><indexedItem
+term="iISOCodes"
+></indexedItem
+>As noted in section <sectionRef
+sec="sIntroLang"
+></sectionRef
+>, it is possble to tag a given language with an <link
+href="http://www.sil.org/iso639-3/default.asp"
+>ISO 639-3 code</link
+> for that language.   <object
+type="tXLingPap"
+></object
+> makes it possible to show these codes in interlinear examples.  It does so by looking at the ISO 639-3 code of the <object
+type="tElement"
+>language</object
+> element referred to by the first <object
+type="tElement"
+>langData</object
+> element in the interlinear example.  </p
+><p
+>In order for <object
+type="tXLingPap"
+></object
+> to show these codes, you must set the <object
+type="tAttribute"
+>showiso639-3codeininterlinear</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on <object
+type="tInstruction"
+>lingPaper</object
+>.  Then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the  <object
+type="tAttribute"
+>showiso639-3codeininterlinear</object
+> attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.  </p
+><p
+>Here is a sample output from one <object
+type="tXLingPap"
+></object
+> document that had this attribute set and where the ISO 639-3 code was ‘zaw’.</p
+><example
+num="xISO639-3CodeInInterlinear"
+><chart
+><img
+src="resources/ISO639-3CodeInInterlinear.png"
+></img
+></chart
+></example
 ></section3
 ></section2
 ><section2
@@ -12083,10 +13055,25 @@ type="tInstruction"
 > or if you right-click on it and choose <object
 type="tInstruction"
 >Set Reference</object
->), a dialog box will pop up that lists all the reference works in your references. They will be sorted first by the citename for the author (see section <sectionRef
+>), a dialog box will pop up that lists all the reference works in your references. They will be sorted first by the <object
+type="tAttribute"
+>citename</object
+> attribute of the <object
+type="tElement"
+>refAuthor</object
+> element (see section <sectionRef
 sec="sBMReferences"
 ></sectionRef
->) and then by the title of the work. A colon will separate the citename from the title. At the end of the line, the id will be shown within squiggly brackets. For one <object
+>), the date of the <object
+type="tElement"
+>refWork</object
+>, and then by the <object
+type="tElement"
+>refTitle</object
+> element of the <object
+type="tElement"
+>refWork</object
+>. A colon will separate the citename from the title. At the end of the line, the id will be shown within squiggly brackets. For one <object
 type="tXLingPap"
 > </object
 > paper I've worked on, it looked like this:</p
@@ -15798,7 +16785,7 @@ type="tKey"
 >Floats (see section <sectionRef
 sec="sTCTFloats"
 ></sectionRef
->) are not handled as floats.  They will appear exactly in place.</li
+>) are not handled as floats. They will appear exactly in place.</li
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
@@ -16861,6 +17848,9 @@ id="sXmlLang"
 ><secTitle
 >Indicate standard language information?</secTitle
 ><p
+><indexedItem
+term="iISOCodes"
+></indexedItem
 >Most elements (including the top-level <object
 type="tElement"
 >lingPaper</object
@@ -17365,48 +18355,16 @@ id="sJumpToWorkInreferences"
 ><indexedItem
 term="iJumpToReferences"
 ></indexedItem
->There is a command that lets you jump from where you are to the references section, including letting you select which work you want to edit or see. Use the <object
-type="tInstruction"
->XLingPaper / Jump to Work in References</object
-> menu item (or you can press the <object
-type="tKey"
->Ctrl</object
->, <object
-type="tKey"
->Shift</object
->, and <object
-type="tKey"
->F11</object
-> keys at the same time). This will bring up the chooser dialog for references as shown in <exampleRef
-letter="xJumpToWorkInReferences"
-num="xJumpToWorkInReferences"
-></exampleRef
->. (This is the same chooser dialog used for setting <object
-type="tElement"
->citation</object
-> elements discussed in section <sectionRef
-sec="sCitations"
+>As mentioned in section <sectionRef
+sec="sReferencesJumpToWork"
 ></sectionRef
->).</p
-><example
-num="xJumpToWorkInReferences"
-><chart
-><img
-src="resources/CitationDialog.png"
-></img
-></chart
-></example
-><p
->Select the work you want to see or edit (or add a new work before or after). <object
+>, there is a command that lets you jump from where you are to the references section, including letting you select which work you want to edit or see.  <object
 type="tXLingPap"
 ></object
 > will remember the location of where you are working right now and then jump you to the <object
 type="tElement"
 >refWork</object
-> that you selected. (Note that sometimes you may have to scroll down a bit in the <object
-type="tXMLmindXMLEditor"
-></object
-> to see the element.)</p
+> that you selected.</p
 ><p
 >After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
 type="tXMLmindXMLEditor"
@@ -17414,21 +18372,12 @@ type="tXMLmindXMLEditor"
 >'s <object
 type="tInstruction"
 >Search / Boomark / Go to Last Visted or Go Back</object
-> menu item command.<endnote
-id="nEnableBookmarksInXXE"
-><p
->Some more recent versions of the <object
-type="tXMLmindXMLEditor"
-></object
-> do not automatically show this menu item. If this is the case for you, then please turn it on by using the <object
-type="tInstruction"
->Options / Preferences</object
-> menu item and then in the <object
-type="tInstruction"
->General / Features</object
-> portion, make sure that “Enable the Search|Bookmark Submenu” is checked.</p
-></endnote
+> menu item command.<endnoteRef
+note="nEnableBookmarksInXXE"
+></endnoteRef
 ></p
+><p
+>Use this command and the ability to jump back to where you were whenever you discover you need to add new reference information.</p
 ></section2
 ></section1
 ><backMatter
@@ -17527,6 +18476,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>afterTerm</object
+></dt
+><dd
+>Text used after a “see” or “see also“ term in indexes</dd
+><dt
+><object
+type="tElement"
 >appendix</object
 ></dt
 ><dd
@@ -17566,6 +18522,13 @@ type="tElement"
 ></dt
 ><dd
 >The back matter section of the paper (it includes appendices, endnotes, and references)</dd
+><dt
+><object
+type="tElement"
+>beforeTerm</object
+></dt
+><dd
+>Text used before a “see” or “see also“ term in indexes</dd
 ><dt
 ><object
 type="tElement"
@@ -17646,6 +18609,13 @@ type="tElement"
 type="tElement"
 >td</object
 ></dd
+><dt
+><object
+type="tElement"
+>collCitation</object
+></dt
+><dd
+>Reference information for citing a collection volume for a paper that is part of a collection volume</dd
 ><dt
 ><object
 type="tElement"
@@ -18593,10 +19563,52 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seeAlsoTerm</object
+></dt
+><dd
+>A definition for a “see also“ term in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeDefinition</object
+></dt
+><dd
+>A definition for “see” or “see also“ terms in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeDefinitions</object
+></dt
+><dd
+>The set of definition for “see” or “see also“ terms in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeTerm</object
+></dt
+><dd
+>A definition for a “see“ term in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
 >series</object
 ></dt
 ><dd
 >Reference information for a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEd</object
+></dt
+><dd
+>Reference information for the editor(s) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEdInitials</object
+></dt
+><dd
+>Reference information for the editor(s) (using just the initials for editor first names) of a book that is published within a series</dd
 ><dt
 ><object
 type="tElement"
@@ -19026,6 +20038,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>collCitationItem</object
+></dt
+><dd
+>Layout info for the citation to a collection volume (within references)</dd
+><dt
+><object
+type="tElement"
 >collEdItem</object
 ></dt
 ><dd
@@ -19124,6 +20143,13 @@ type="tElement"
 ></dt
 ><dd
 >The default font to use in the document</dd
+><dt
+><object
+type="tElement"
+>dissertationLabelItem</object
+></dt
+><dd
+>Layout info for a dissertation label (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -19276,6 +20302,16 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>freeLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>free</object
+> elements</dd
+><dt
+><object
+type="tElement"
 >frontMatterLayout</object
 ></dt
 ><dd
@@ -19290,6 +20326,58 @@ type="tElement"
 type="tElement"
 >genericRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossInExampleLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInProseLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in prose (i.e. non-<object
+type="tElement"
+>example</object
+> and non-<object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInTableLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements</dd
 ><dt
 ><object
 type="tElement"
@@ -19449,6 +20537,58 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>langDataInExampleLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in <object
+type="tElement"
+>example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataInProseLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in prose (i.e. non-<object
+type="tElement"
+>example</object
+> and non-<object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataInTableLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in <object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements</dd
+><dt
+><object
+type="tElement"
 >leftHeaderFooterItem</object
 ></dt
 ><dd
@@ -19512,6 +20652,19 @@ type="tElement"
 ></dt
 ><dd
 >The factor by which all text is to be enlarged for the document. The default is 1.</dd
+><dt
+><object
+type="tElement"
+>missingItem</object
+></dt
+><dd
+>Used within <object
+type="tElement"
+>locationPublisherLayout</object
+> and/or <object
+type="tElement"
+>urlDateAccessedLayout</object
+> elements to indicate that the pattern does not contain any of the possible items within that layout (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -19662,6 +20815,13 @@ type="tElement"
 type="tElement"
 >presentedAt</object
 > element</dd
+><dt
+><object
+type="tElement"
+>procCitationItem</object
+></dt
+><dd
+>Layout info for the citation to a proceedings volume (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -19917,10 +21077,17 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seriesEdItem</object
+></dt
+><dd
+>Layout info for a series editor item (within references)</dd
+><dt
+><object
+type="tElement"
 >seriesItem</object
 ></dt
 ><dd
->Layout info for a series item with references</dd
+>Layout info for a series item (withiin references)</dd
 ><dt
 ><object
 type="tElement"
@@ -19979,6 +21146,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>thesisLabelItem</object
+></dt
+><dd
+>Layout info for a thesis label (within references)</dd
+><dt
+><object
+type="tElement"
 >thesisLayout</object
 ></dt
 ><dd
@@ -20011,6 +21185,27 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a “translated by” element (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayout</object
+></dt
+><dd
+>Layout info for a combination of url and date accessed items (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayouts</object
+></dt
+><dd
+>Collection of layouts for url/date accessed combinations (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayoutsRef</object
+></dt
+><dd
+>A reference place holder to the collection of url/date accessed combinations (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -20316,6 +21511,11 @@ id="iAbbreviaitonSmallCaps"
 ><term
 >Small caps and</term
 ></indexTerm
+><indexTerm
+id="iAbbreviationsSort"
+><term
+>Sorting the output list</term
+></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
@@ -20332,6 +21532,31 @@ id="iAcknowledgements"
 id="iAffiliation"
 ><term
 >Affiliation</term
+></indexTerm
+><indexTerm
+id="iAlphabetize"
+><term
+>Alphabetize</term
+><indexTerms
+><indexTerm
+id="iAlphabetizeAbbreviations"
+see="iAbbreviationsSort"
+><term
+>Abbreviations</term
+></indexTerm
+><indexTerm
+id="iAlphabetizeIndexEntries"
+see="iIndexesSorting"
+><term
+>Index entries</term
+></indexTerm
+><indexTerm
+id="iAlphabetizeReferences"
+see="iReferencesSort"
+><term
+>References</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iAppendix"
@@ -20432,6 +21657,23 @@ id="iChunkElements"
 >Chunk elements</term
 ></indexTerm
 ><indexTerm
+id="iRefCollection"
+><term
+>Collection reference entry</term
+><indexTerms
+><indexTerm
+id="iCollCitation"
+><term
+>Citation to collection volume</term
+></indexTerm
+><indexTerm
+id="iCollCitationConvert"
+><term
+>Convert from collection to collection citation</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iColor"
 ><term
 >Color</term
@@ -20476,6 +21718,23 @@ id="iDateOfCitedWork"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iDissertation"
+><term
+>Dissertation</term
+><indexTerms
+><indexTerm
+id="iDissertationLabel"
+><term
+>Dissertation label in reference entry</term
+></indexTerm
+><indexTerm
+id="iDissertationReferenceEntry"
+><term
+>Refererence entry</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iDoulosSILFont"
 ><term
 >Doulos SIL font</term
@@ -20484,6 +21743,11 @@ id="iDoulosSILFont"
 id="iEditTool"
 ><term
 >Edit Tool</term
+></indexTerm
+><indexTerm
+id="iEmailAddress"
+><term
+>Email address</term
 ></indexTerm
 ><indexTerm
 id="iEmbeddedElements"
@@ -20610,17 +21874,24 @@ id="iIDPrefix"
 ><term
 >Prefixes to use</term
 ></indexTerm
-><indexTerm
-id="iIDSomething"
-><term
->Something....</term
-></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
 id="iIndexes"
 ><term
 >Indexes</term
+><indexTerms
+><indexTerm
+id="iIndexesSorting"
+><term
+>Sorting the index terms</term
+></indexTerm
+><indexTerm
+id="iIndexesTagging"
+><term
+>Tagging for indexing</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iInsert"
@@ -20687,6 +21958,11 @@ id="iInterlinearText"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iISOCodes"
+><term
+>ISO 639-3 codes</term
+></indexTerm
+><indexTerm
 id="iItalic"
 ><term
 >Italic</term
@@ -20727,6 +22003,23 @@ id="iLanguageNew"
 id="iLanguageAttributes"
 ><term
 >Attributes</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iMAThesis"
+><term
+>M.A. Thesis</term
+><indexTerms
+><indexTerm
+id="iMAThesisLabel"
+><term
+>M.A. Thesis label in reference entry</term
+></indexTerm
+><indexTerm
+id="iMAThesisReferenceEntry"
+><term
+>Refererence entry</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -20783,6 +22076,12 @@ type="tXeTeX"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iPhDDissertation"
+see="iDissertation"
+><term
+>Ph.D. Dissertation</term
+></indexTerm
+><indexTerm
 id="iPreface"
 ><term
 >Preface</term
@@ -20791,6 +22090,23 @@ id="iPreface"
 id="iPresentedAt"
 ><term
 >Presented at</term
+></indexTerm
+><indexTerm
+id="iRefProceedings"
+><term
+>Proceedings reference entry</term
+><indexTerms
+><indexTerm
+id="iProcCitation"
+><term
+>Citation to proceedings volume</term
+></indexTerm
+><indexTerm
+id="iProcCitationConvert"
+><term
+>Convert from proceedings to proceedings citation</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPublisherStyleSheet"
@@ -20862,6 +22178,11 @@ id="iReferences"
 id="iJumpToReferences"
 ><term
 >Jump to References</term
+></indexTerm
+><indexTerm
+id="iReferencesSort"
+><term
+>Sort by author name</term
 ></indexTerm
 ><indexTerm
 id="iReferencesWorksCited"
@@ -20953,6 +22274,31 @@ id="iSmallCaps"
 >Small caps</term
 ></indexTerm
 ><indexTerm
+id="iSort"
+><term
+>Sort</term
+><indexTerms
+><indexTerm
+id="iSortAbbreviations"
+see="iAbbreviationsSort"
+><term
+>Abbreviations</term
+></indexTerm
+><indexTerm
+id="iSortIndexEntries"
+see="iIndexesSorting"
+><term
+>Index entries</term
+></indexTerm
+><indexTerm
+id="iSortReferences"
+see="iReferencesSort"
+><term
+>References</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iSpellingTool"
 ><term
 >Spelling Tool</term
@@ -20983,6 +22329,12 @@ id="iTableOfContents"
 see="iContents"
 ><term
 >Table of contents</term
+></indexTerm
+><indexTerm
+id="iThesis"
+see="iMAThesis"
+><term
+>Thesis</term
 ></indexTerm
 ><indexTerm
 id="iTitle"

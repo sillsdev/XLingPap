@@ -4,6 +4,10 @@
         XLingPapCommon.xsl
         Contains common global variables and common templates common to many of the XLingPaper output transforms.
     -->
+    <!-- ===========================================================
+        Version of this stylesheet
+        =========================================================== -->
+    <xsl:variable name="sVersion">2.14.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">

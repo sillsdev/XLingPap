@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->13 October 2010</date
+>12 November 2010</date
 ><version
 >2.14.0</version
 ><contents
@@ -27,6 +27,20 @@ showLevel="3"
 id="sIntro"
 ><secTitle
 >Introduction</secTitle
+><p
+><object
+type="tBold"
+>NOTE: We highly recommend that you read the companion documentation, <object
+type="tItalic"
+><object
+type="tXLingPap"
+></object
+> User Documentation Using the <object
+type="tXMLmindXMLEditor"
+></object
+></object
+>. It has much more current and relevant information in it. We maintain this documentation for legacy purposes.</object
+></p
 ><p
 >The <object
 type="tXLingPap"
@@ -8869,6 +8883,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>afterTerm</object
+></dt
+><dd
+>Text used after a “see” or “see also“ term in indexes</dd
+><dt
+><object
+type="tElement"
 >appendix</object
 ></dt
 ><dd
@@ -8908,6 +8929,13 @@ type="tElement"
 ></dt
 ><dd
 >The back matter section of the paper (it includes appendices, endnotes, and references)</dd
+><dt
+><object
+type="tElement"
+>beforeTerm</object
+></dt
+><dd
+>Text used before a “see” or “see also“ term in indexes</dd
 ><dt
 ><object
 type="tElement"
@@ -8988,6 +9016,13 @@ type="tElement"
 type="tElement"
 >td</object
 ></dd
+><dt
+><object
+type="tElement"
+>collCitation</object
+></dt
+><dd
+>Reference information for citing a collection volume for a paper that is part of a collection volume</dd
 ><dt
 ><object
 type="tElement"
@@ -9928,10 +9963,52 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seeAlsoTerm</object
+></dt
+><dd
+>A definition for a “see also“ term in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeDefinition</object
+></dt
+><dd
+>A definition for “see” or “see also“ terms in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeDefinitions</object
+></dt
+><dd
+>The set of definition for “see” or “see also“ terms in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>seeTerm</object
+></dt
+><dd
+>A definition for a “see“ term in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
 >series</object
 ></dt
 ><dd
 >Reference information for a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEd</object
+></dt
+><dd
+>Reference information for the editor(s) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEdInitials</object
+></dt
+><dd
+>Reference information for the editor(s) (using just the initials for editor first names) of a book that is published within a series</dd
 ><dt
 ><object
 type="tElement"
@@ -10359,6 +10436,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>collCitationItem</object
+></dt
+><dd
+>Layout info for the citation to a collection volume (within references)</dd
+><dt
+><object
+type="tElement"
 >collEdItem</object
 ></dt
 ><dd
@@ -10457,6 +10541,13 @@ type="tElement"
 ></dt
 ><dd
 >The default font to use in the document</dd
+><dt
+><object
+type="tElement"
+>dissertationLabelItem</object
+></dt
+><dd
+>Layout info for a dissertation label (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -10609,6 +10700,16 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>freeLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>free</object
+> elements</dd
+><dt
+><object
+type="tElement"
 >frontMatterLayout</object
 ></dt
 ><dd
@@ -10623,6 +10724,58 @@ type="tElement"
 type="tElement"
 >genericRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossInExampleLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInProseLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in prose (i.e. non-<object
+type="tElement"
+>example</object
+> and non-<object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInTableLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements</dd
 ><dt
 ><object
 type="tElement"
@@ -10782,6 +10935,58 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>langDataInExampleLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in <object
+type="tElement"
+>example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataInProseLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in prose (i.e. non-<object
+type="tElement"
+>example</object
+> and non-<object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataInTableLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements which are in <object
+type="tElement"
+>table</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>langDataLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>langData</object
+> elements</dd
+><dt
+><object
+type="tElement"
 >leftHeaderFooterItem</object
 ></dt
 ><dd
@@ -10845,6 +11050,19 @@ type="tElement"
 ></dt
 ><dd
 >The factor by which all text is to be enlarged for the document. The default is 1.</dd
+><dt
+><object
+type="tElement"
+>missingItem</object
+></dt
+><dd
+>Used within <object
+type="tElement"
+>locationPublisherLayout</object
+> and/or <object
+type="tElement"
+>urlDateAccessedLayout</object
+> elements to indicate that the pattern does not contain any of the possible items within that layout (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -10995,6 +11213,13 @@ type="tElement"
 type="tElement"
 >presentedAt</object
 > element</dd
+><dt
+><object
+type="tElement"
+>procCitationItem</object
+></dt
+><dd
+>Layout info for the citation to a proceedings volume (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -11250,10 +11475,17 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>seriesEdItem</object
+></dt
+><dd
+>Layout info for a series editor item (within references)</dd
+><dt
+><object
+type="tElement"
 >seriesItem</object
 ></dt
 ><dd
->Layout info for a series item with references</dd
+>Layout info for a series item (withiin references)</dd
 ><dt
 ><object
 type="tElement"
@@ -11312,6 +11544,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>thesisLabelItem</object
+></dt
+><dd
+>Layout info for a thesis label (within references)</dd
+><dt
+><object
+type="tElement"
 >thesisLayout</object
 ></dt
 ><dd
@@ -11344,6 +11583,27 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a “translated by” element (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayout</object
+></dt
+><dd
+>Layout info for a combination of url and date accessed items (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayouts</object
+></dt
+><dd
+>Collection of layouts for url/date accessed combinations (within references)</dd
+><dt
+><object
+type="tElement"
+>urlDateAccessedLayoutsRef</object
+></dt
+><dd
+>A reference place holder to the collection of url/date accessed combinations (within references)</dd
 ><dt
 ><object
 type="tElement"
@@ -11502,6 +11762,7 @@ font-style="italic"
 id="tAttrValue"
 ></type
 ><type
+font-weight="bold"
 id="tBold"
 ></type
 ><type

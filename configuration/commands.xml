@@ -1996,7 +1996,8 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:macro undoable="true">
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>
+                    <cfg:match context="$implicitElement" pattern="*[ancestor-or-self::collection[not(descendant-or-self::collCitation)]]"/>
+<!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>-->
                 </cfg:pass>
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>
                 <cfg:command name="ConvertCollectionToCitationCmd"/>
@@ -2007,7 +2008,8 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:macro undoable="true">
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
+                    <cfg:match context="$implicitElement" pattern="*[ancestor-or-self::proceedings[not(descendant-or-self::procCitation)]]"/>
+<!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>-->
                 </cfg:pass>
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
                 <cfg:command name="ConvertProceedingsToCitationCmd"/>

@@ -3950,7 +3950,7 @@ not using
                     </fo:inline>
                     <xsl:text>.  </xsl:text>
                     <xsl:call-template name="OutputLabel">
-                        <xsl:with-param name="sDefault">Ph.D. dissertation</xsl:with-param>
+                        <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
                         <xsl:with-param name="pLabel" select="//references/@labelDissertation"/>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
@@ -4154,7 +4154,7 @@ not using
                     </fo:inline>
                     <xsl:text>.  </xsl:text>
                     <xsl:call-template name="OutputLabel">
-                        <xsl:with-param name="sDefault">M.A. thesis</xsl:with-param>
+                        <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
                         <xsl:with-param name="pLabel" select="//references/@labelThesis"/>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>

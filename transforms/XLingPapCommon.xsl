@@ -36,6 +36,8 @@
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
     <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
+    <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
+    <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <!--
         ConvertLastNameFirstNameToFirstNameLastName
     -->

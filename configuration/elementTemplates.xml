@@ -155,7 +155,12 @@ citations
          <refWork cfg:template="collection"/>
       </refAuthor>
    </cfg:elementTemplate>
-   <cfg:elementTemplate xmlns="" name="dissertation">
+    <cfg:elementTemplate xmlns="" name="collectionCitation">
+        <refAuthor citename="???" name="???">
+            <refWork cfg:template="collectionCitation"/>
+        </refAuthor>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate xmlns="" name="dissertation">
       <refAuthor citename="???" name="???">
          <refWork cfg:template="dissertation"/>
       </refAuthor>
@@ -180,7 +185,12 @@ citations
          <refWork cfg:template="proceedings"/>
       </refAuthor>
    </cfg:elementTemplate>
-   <cfg:elementTemplate xmlns="" name="thesis">
+    <cfg:elementTemplate xmlns="" name="proceedingsCitation">
+        <refAuthor citename="???" name="???">
+            <refWork cfg:template="proceedingsCitation"/>
+        </refAuthor>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate xmlns="" name="thesis">
       <refAuthor citename="???" name="???">
          <refWork cfg:template="thesis"/>
       </refAuthor>

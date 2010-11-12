@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
-    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="authorForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="titleForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
     <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>

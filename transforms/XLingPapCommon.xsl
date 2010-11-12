@@ -35,6 +35,7 @@
     <xsl:variable name="collOrProcVolumesToInclude">
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
+    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <!--
         ConvertLastNameFirstNameToFirstNameLastName
     -->
@@ -107,15 +108,13 @@
     -->
     <xsl:template name="DoRefAuthors">
         <xsl:variable name="refAuthors" select="//refAuthor"/>
-<!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
-<!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
+        <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
+        <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
         <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
-        
-        
-<!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
+        <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
         <xsl:choose>
-            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
                     <xsl:variable name="sLangCode" select="normalize-space($lingPaper/@xml:lang)"/>
                     <xsl:choose>
@@ -162,28 +161,45 @@
         GetCollOrProcVolumesToInclude
     -->
     <xsl:template name="GetCollOrProcVolumesToInclude">
-        <xsl:variable name="directlyCitedWorks" select="$refWorks[@id=//citation[not(ancestor::comment)]/@ref]"/>
-        <xsl:variable name="citedCollOrProcWithCitation">
-            <xsl:for-each select="$directlyCitedWorks/collection/collCitation | $directlyCitedWorks/proceedings/procCitation">
-                <xsl:sort select="@refToBook"/>
-                <xsl:copy-of select="."/>
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:for-each select="saxon:node-set($citedCollOrProcWithCitation)/collCitation | saxon:node-set($citedCollOrProcWithCitation)/procCitation">
-            <xsl:variable name="thisRefToBook" select="@refToBook"/>
-            <xsl:variable name="precedingSibling" select="preceding-sibling::*"/>
-            <!-- to set the required number, use count of preceding is greater than or equal to threshold minus 1 -->
-            <xsl:if test="preceding-sibling::*/@refToBook=$thisRefToBook">
-                <xsl:copy-of select="$refWorks[@id=$thisRefToBook]"/>
-            </xsl:if>
-        </xsl:for-each>
+        <xsl:choose>
+            <xsl:when test="$referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis=0">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="iSharedPapers">
+                    <xsl:choose>
+                        <xsl:when test="string(number($referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis))='NaN'">
+                            <xsl:text>1</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis - 1"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="directlyCitedWorks" select="$refWorks[@id=//citation[not(ancestor::comment)]/@ref]"/>
+                <xsl:variable name="citedCollOrProcWithCitation">
+                    <xsl:for-each select="$directlyCitedWorks/collection/collCitation | $directlyCitedWorks/proceedings/procCitation">
+                        <xsl:sort select="@refToBook"/>
+                        <xsl:copy-of select="."/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:for-each select="saxon:node-set($citedCollOrProcWithCitation)/collCitation | saxon:node-set($citedCollOrProcWithCitation)/procCitation">
+                    <xsl:variable name="thisRefToBook" select="@refToBook"/>
+                    <xsl:variable name="precedingSiblings" select="preceding-sibling::*[@refToBook=$thisRefToBook]"/>
+                    <!-- to set the required number, use count of preceding is greater than or equal to threshold minus 1 -->
+                    <xsl:if test="$precedingSiblings and count($precedingSiblings) &gt;= $iSharedPapers">
+                        <xsl:copy-of select="$refWorks[@id=$thisRefToBook]"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputAbbreviationsInCommaSeparatedList
     -->
     <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
         <xsl:choose>
-            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
                     <xsl:call-template name="GetAbbreviationLanguageCode"/>
                 </xsl:variable>
@@ -294,7 +310,7 @@
     <xsl:template name="SortAbbreviationsInTable">
         <xsl:param name="abbrsUsed"/>
         <xsl:choose>
-            <xsl:when test="$lingPaper/@sortRefsAbbrsIndexByDocumentLanguage='yes'">
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
                     <xsl:call-template name="GetAbbreviationLanguageCode"/>
                 </xsl:variable>

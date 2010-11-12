@@ -15,6 +15,10 @@
 References Layouts
   ===================================================
 -->
+<!-- 
+    usecitationformatwhennumbereofsharedpaperis = number of shared papers required before using the citation format in 
+         collections and proceedings; a value of 0 means do not use the citation format
+-->
 <!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, publisherStyleSheetReferencesVersion?, refAuthorLayouts,  
                                                          articleLayouts, bookLayouts, collectionLayouts, dissertationLayouts, 
                                                          fieldNotesLayouts, msLayouts, paperLayouts, proceedingsLayouts, thesisLayouts, 
@@ -26,6 +30,7 @@ References Layouts
    titleform (uppercase | lowercase) "uppercase"
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"
+   usecitationformatwhennumbereofsharedpaperis (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "0"
    >
 
 <!-- Name and version of this references stylesheet -->

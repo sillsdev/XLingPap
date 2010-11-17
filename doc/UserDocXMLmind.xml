@@ -1193,10 +1193,10 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.  <indexedItem
+>Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. <indexedItem
 term="iXeLaTeXUpgrade"
 ></indexedItem
->It also requires you to have installed the XeLaTeX Upgrade package.  See <link
+>It also requires you to have installed the XeLaTeX Upgrade package. See <link
 href="http://code.google.com/p/xlingpap/downloads/list"
 >http://code.google.com/p/xlingpap/downloads/list</link
 >.</td
@@ -6087,7 +6087,12 @@ src="resources/IndexSeeDefinitions.png"
 ></chart
 ></example
 ><p
->This has definitions for English (language code ‘en’) and Spanish (language code ‘es’). There are lines for saying how to represent the ‘See’ case as well as the ‘See also` case. It is possible to type in words before the link as well as words after the link. For example, the ‘See also’ case for Spanish in this example uses the word ‘Véase’ before the link and the word ‘también’ after the link.</p
+>This has definitions for English (language code ‘en’) and Spanish (language code ‘es’). There are lines for saying how to represent the ‘See’ case as well as the ‘See also` case. It is possible to type in words before the link as well as words after the link. For example, the ‘See also’ case for Spanish in this example uses the word ‘Véase’ before the link and the word ‘también’ after the link.<endnote
+id="nVeaseTambien"
+><p
+>Please note that this order is not good Spanish.  It is for illustrative purposes only.</p
+></endnote
+></p
 ></section3
 ><section3
 id="sBMIndexIndexedItems"

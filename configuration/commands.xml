@@ -116,7 +116,7 @@
                     <cfg:sequence>
                         <!--                    <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] object abbrRef"/>-->
                         <!--  -->
-<!--                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef or descendant::endnote or descendant::endnoteRef or descendant::endnote"/>-->
+                        <!--                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef or descendant::endnote or descendant::endnoteRef or descendant::endnote"/>-->
                         <cfg:test context="$selectedElement" expression="descendant::*[name()='object' or name()='abbrRef' or name()='endnote' or name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"/>
                         <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded element (e.g. object, endnote or abbrRef).  Please remove the embedded element(s) and try again."/>
                     </cfg:sequence>
@@ -766,7 +766,7 @@ alt causes menu to be selected
             <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetRefBookTitlesAndIds.xsl" to="out.xml"/>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
-    </cfg:command>    
+    </cfg:command>
     <cfg:command name="setEndnote">
         <cfg:macro>
             <cfg:sequence>
@@ -948,7 +948,7 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang term seeDefinition" />
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang term seeDefinition"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
                 <cfg:get expression="join(//language/@id, ' ')"/>
@@ -1019,7 +1019,6 @@ alt causes menu to be selected
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
-
     <cfg:binding>
         <cfg:keyPressed code="F11" modifiers="shift ctrl"/>
         <cfg:command name="jumpToWorkInReferences"/>
@@ -1027,11 +1026,12 @@ alt causes menu to be selected
     <cfg:command name="jumpToWorkInReferences">
         <cfg:macro>
             <cfg:sequence>
-<!--                <cfg:pass>
+                <!--                <cfg:pass>
     allow this anywhere
                     <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] references"/>
                 </cfg:pass>
--->                <cfg:command name="getRefWorkTitlesandIds"/>
+-->
+                <cfg:command name="getRefWorkTitlesandIds"/>
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Jump to reference' true %_"/>
                 <cfg:set variable="refWork" expression="%_" plainString="true"/>
@@ -1041,8 +1041,6 @@ alt causes menu to be selected
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
-    
-    
     <cfg:binding>
         <cfg:keyPressed code="F5"/>
         <cfg:command name="markAsGrammaticalGloss"/>
@@ -1204,80 +1202,89 @@ What we want is to load IE independently and to do a refresh so it will show the
                                         <cfg:sequence>
                                             <cfg:test expression="//styledPaper"/>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-<!--                                            <cfg:choice>
+                                            <!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
--->                                                <cfg:sequence>
-<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->
+                                            <cfg:sequence>
+                                                <!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
--->                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:command name="PDFCompletionProcessing"/>
-                                                </cfg:sequence>
-<!--                                                <cfg:sequence>
+-->
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:command name="PDFCompletionProcessing"/>
+                                            </cfg:sequence>
+                                            <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
--->                                        </cfg:sequence>
+-->
+                                        </cfg:sequence>
                                         <cfg:sequence>
                                             <cfg:test expression="//chapter"/>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-<!--                                            <cfg:choice>
+                                            <!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
--->                                                <cfg:sequence>
-<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->
+                                            <cfg:sequence>
+                                                <!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
--->                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:command name="PDFCompletionProcessing"/>
-                                                </cfg:sequence>
-<!--                                                <cfg:sequence>
+-->
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:command name="PDFCompletionProcessing"/>
+                                            </cfg:sequence>
+                                            <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
--->                                        </cfg:sequence>
+-->
+                                        </cfg:sequence>
                                         <cfg:sequence>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
-<!--                                            <cfg:choice>
+                                            <!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
                                                 <!-\-                                        <cfg:command name="run" parameter="&quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>-\->
                                             </cfg:choice>
                                             <cfg:set variable="exists" plainString="true" expression="%_"/>
                                             <cfg:choice>
--->                                                <cfg:sequence>
-<!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
+-->
+                                            <cfg:sequence>
+                                                <!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
--->                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:get expression="$producePDFParameters"/>
-                                                    <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                    <cfg:command name="PDFCompletionProcessing"/>
-                                                </cfg:sequence>
-<!--                                                <cfg:sequence>
+-->
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
+                                                <cfg:command name="PDFCompletionProcessing"/>
+                                            </cfg:sequence>
+                                            <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
                                                     <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                     <cfg:command name="PDFCompletionProcessing" parameter="%_"/>
                                                 </cfg:sequence>
                                             </cfg:choice>
--->                                        </cfg:sequence>
+-->
+                                        </cfg:sequence>
                                     </cfg:choice>
                                 </cfg:sequence>
                                 <cfg:sequence>
@@ -1378,7 +1385,18 @@ What we want is to load IE independently and to do a refresh so it will show the
                     <cfg:sequence>
                         <cfg:command name="status" parameter="Producing the PDF failed..."/>
                         <cfg:command name="beep"/>
-                        <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:pass>
+<!--                                    <cfg:test context="//language | //type" expression="contains(@XeLaTeXSpecial,'graphite')"/>-->
+                                    <cfg:test context="//@XeLaTeXSpecial" expression="contains(.,'graphite')"/>
+                                </cfg:pass>
+                                <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
+                            </cfg:sequence>
+                        </cfg:choice>
                         <cfg:choice>
                             <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile.bat&quot; &quot;%{P}%{S}%{R}.pdf&quot;"/>
                             <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}DeletePdfFile&quot; &quot;%{P}%{S}%{R}.pdf&quot;"/>
@@ -1469,7 +1487,7 @@ What we want is to load IE independently and to do a refresh so it will show the
           -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
-<!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
+            <!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
             <!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
             <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
@@ -1535,7 +1553,7 @@ What we want is to load IE independently and to do a refresh so it will show the
             <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
-<!--                        <cfg:copy files="TeXML2.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.xml"/>-->
+            <!--                        <cfg:copy files="TeXML2.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.xml"/>-->
             <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;%{R}.tex&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
@@ -1551,16 +1569,16 @@ What we want is to load IE independently and to do a refresh so it will show the
         <cfg:process>
             <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
             <cfg:copyDocument to="in.xml"/>
-<!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}in.xml"/>-->
+            <!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}in.xml"/>-->
             <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetXeLaTeX.xsl" to="TeXML.xml">
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
             </cfg:transform>
-<!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
+            <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
-<!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
+            <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
@@ -1622,8 +1640,8 @@ What we want is to load IE independently and to do a refresh so it will show the
                 -->
                 <cfg:parameter name="sInterlinearSourceStyle">AfterFirstLine</cfg:parameter>
             </cfg:transform>
-<!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
-<!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
+            <!--            <cfg:copy quiet="true" files="in.psmi" to="%{P}%{S}%{R}habby.fo"/>-->
+            <!--            <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}psmi.xsl" to="%{P}%{S}%{R}.fo"/>-->
             <cfg:transform file="in.psmi" stylesheet="..%{S}transforms%{S}XLingPapPSMI.xsl" to="%{P}%{S}%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
@@ -1643,7 +1661,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:command name="produceWord2003Document" parameter="'odt'"/>
             </cfg:sequence>
         </cfg:macro>
-        </cfg:command>
+    </cfg:command>
     <cfg:command name="produceWord2003Document">
         <cfg:macro trace="true">
             <cfg:sequence>
@@ -1652,8 +1670,8 @@ What we want is to load IE independently and to do a refresh so it will show the
                     <cfg:command name="run" parameter="[Unix] sh &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter&quot;"/>
                 </cfg:choice>
                 <cfg:set variable="exists" plainString="true" expression="%_"/>
-                              <!--           <cfg:get expression="$exists"/>
-                    <cfg:command name="alert" parameter="Old $exists = %_"/>--> 
+                <!--           <cfg:get expression="$exists"/>
+                    <cfg:command name="alert" parameter="Old $exists = %_"/>-->
                 <cfg:sequence>
                     <cfg:choice>
                         <cfg:sequence>
@@ -1664,7 +1682,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:choice>
                                 <cfg:sequence>
                                     <cfg:pass>
-                                    <cfg:test expression="'%0'='odt'"/>
+                                        <cfg:test expression="'%0'='odt'"/>
                                     </cfg:pass>
                                     <cfg:command name="DeleteAndProduceODTFile"/>
                                 </cfg:sequence>
@@ -1675,7 +1693,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         </cfg:sequence>
                     </cfg:choice>
                 </cfg:sequence>
-                </cfg:sequence>
+            </cfg:sequence>
         </cfg:macro>
     </cfg:command>
     <cfg:command name="DeleteAndProduceWordFile">
@@ -1722,7 +1740,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 </cfg:sequence>
                 <!-- otherwise do the canned version -->
                 <cfg:sequence>
-                <cfg:command name="produceWord2003DocumentFromCannedStylesheet" parameter="%0"/>
+                    <cfg:command name="produceWord2003DocumentFromCannedStylesheet" parameter="%0"/>
                 </cfg:sequence>
             </cfg:choice>
         </cfg:macro>
@@ -1845,22 +1863,21 @@ What we want is to load IE independently and to do a refresh so it will show the
                 </cfg:choice>
                 <cfg:command name="selectFile" parameter="[Choose Publisher Style Sheet]openFile %{c}/../publisherstylesheets/SILInternationalPaperStylesheet.xml"/>
                 <cfg:set variable="fileName" expression="%_" plainString="true"/>
-<!--                <cfg:get expression="$fileName"/>
+                <!--                <cfg:get expression="$fileName"/>
                 <cfg:command name="alert" parameter="After setting fileName: %_"/>
 -->
-                <cfg:set variable="editedDocURL" expression="%{d}" plainString="true" />
+                <cfg:set variable="editedDocURL" expression="%{d}" plainString="true"/>
                 <!--<cfg:get expression="$editedDocURL"/>
                 <cfg:command name="alert" parameter="editedDocURL: %_"/>
                 -->
-
                 <cfg:get expression="$fileName"/>
                 <cfg:get expression="relativize-uri(uri-or-file-name('%_'), $editedDocURL)"/>
                 <cfg:set variable="uri" expression="%_" plainString="true"/>
-<!--                <cfg:command name="alert" parameter="Before invoking Java command"/>-->
+                <!--                <cfg:command name="alert" parameter="Before invoking Java command"/>-->
                 <cfg:get expression="concat($fileName, '|', $uri)"/>
                 <cfg:command name="AssociatePublisherStylesheetCmd" parameter="%_"/>
                 <cfg:set variable="result" expression="%_" plainString="true"/>
-<!--                <cfg:command name="alert" parameter="After invoking Java command"/>-->
+                <!--                <cfg:command name="alert" parameter="After invoking Java command"/>-->
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="string-length($result) &gt; 0"/>
@@ -1997,7 +2014,7 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:match context="$implicitElement" pattern="*[ancestor-or-self::collection[not(descendant-or-self::collCitation)]]"/>
-<!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>-->
+                    <!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>-->
                 </cfg:pass>
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] collection"/>
                 <cfg:command name="ConvertCollectionToCitationCmd"/>
@@ -2009,7 +2026,7 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:match context="$implicitElement" pattern="*[ancestor-or-self::proceedings[not(descendant-or-self::procCitation)]]"/>
-<!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>-->
+                    <!--                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>-->
                 </cfg:pass>
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
                 <cfg:command name="ConvertProceedingsToCitationCmd"/>

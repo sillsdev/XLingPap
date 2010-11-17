@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->12 November 2010</date
+>17 November 2010</date
 ><version
 >2.14.0</version
 ><contents
@@ -726,7 +726,7 @@ src="resources/ChooseFontInfoDialog.png"
 ><p
 >You can use it to set the font family, the style (i.e. bold and/or italic) and the font size. The “Use default” values indicate to use whatever family, style, or size is currently in effect. You override the default by specifying a particular value.</p
 ><p
->We recommend that you use a percentage for the font size.This way, if the language data item is in a section header, it will show at the correct size. If you use an absolute point size, then it may well be smaller than the surrounding words in the section header.</p
+>We recommend that you use a percentage for the font size. This way, if the language data item is in a section header, it will show at the correct size. If you use an absolute point size, then it may well be smaller than the surrounding words in the section header.</p
 ><p
 ><indexedItem
 term="iColorLanguage"
@@ -1183,6 +1183,9 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iGraphite"
+></indexedItem
 >graphite</td
 ><td
 ><object
@@ -1190,7 +1193,13 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.</td
+>Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.  <indexedItem
+term="iXeLaTeXUpgrade"
+></indexedItem
+>It also requires you to have installed the XeLaTeX Upgrade package.  See <link
+href="http://code.google.com/p/xlingpap/downloads/list"
+>http://code.google.com/p/xlingpap/downloads/list</link
+>.</td
 ><td
 >graphite</td
 ></tr
@@ -2197,12 +2206,12 @@ num="xSectionIdExamples"
 ><chart
 ><object
 type="tInTextExample"
->sExamples</object
+>examples</object
 > <br
 ></br
 > <object
 type="tInTextExample"
->sExWord</object
+>sex word</object
 > <br
 ></br
 > <object
@@ -2217,7 +2226,7 @@ type="tInTextExample"
 ></br
 > <object
 type="tInTextExample"
->sExInterlinear</object
+>sex interlinear</object
 > <br
 ></br
 > <object
@@ -2411,7 +2420,7 @@ type="tXLingPap"
 > provides you with the option of never keying such words, but rather to have them be inserted automatically when the paper (or book) is formatted. That is, if you so choose, you can never key words such as “section” before a <object
 type="tElement"
 >sectionRef</object
-> element. Which word or symbol will appear before them, if any, is controlled by setting various atrributes of the <object
+> element. Which word or symbol will appear before them, if any, is controlled by setting various attributes of the <object
 type="tElement"
 >sectionRef</object
 > element and the <object
@@ -3183,10 +3192,10 @@ type="tXLingPap"
 > has you group the references by author, not by work. Normally, the <object
 type="tElement"
 >refAuthor</object
-> elements should be ordered alphabetically by the author's last name.  It is possible to have the authors sorted when the output is produced (see section <sectionRef
+> elements should be ordered alphabetically by the author's last name. It is possible to have the authors sorted when the output is produced (see section <sectionRef
 sec="sReferencesSort"
 ></sectionRef
->).  In addition, there is a way to quickly find an author/work as described in section <sectionRef
+>). In addition, there is a way to quickly find an author/work as described in section <sectionRef
 sec="sReferencesJumpToWork"
 ></sectionRef
 >.</p
@@ -3223,7 +3232,7 @@ sec="sBMExample"
 >). You may also include a <object
 type="tElement"
 >refAuthorInitials</object
-> element for those cases where you need to use initials for the author(s) first, etc.names. You control which of these two forms of the name(s) of the author(s) shows in the <object
+> element for those cases where you need to use initials for the author(s) first, etc. names. You control which of these two forms of the name(s) of the author(s) shows in the <object
 type="tXMLmindXMLEditor"
 ></object
 > by setting the <object
@@ -3585,7 +3594,7 @@ src="resources/CollectionSamplesJIPA.png"
 ><p
 >Why should some collection entries have the full information about the collection volume while others merely refer to the collection volume which is a distinct entry itself? The key difference is that when two or more papers from the same collection volume are cited, then for those papers, we need to refer to the collection volume itself instead of spelling out the collection volume information.</p
 ><p
->It is possble within <object
+>It is possible within <object
 type="tXLingPap"
 ></object
 > to have both of these methods occur automatically. That is, one can add reference entries for the collection volume itself and then use a special <object
@@ -3669,7 +3678,7 @@ src="resources/CollectionSamplesJIPAXXE.png"
 num="xCollectionSamplesJIPAHTmL"
 ><chart
 type="tHtmlOutput"
->&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;References&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBarry"&gt;Barry, William J.&lt;/a&gt; 1992. &amp;#8220;Comments on Browmen and Goldstein: &amp;#8216;&amp;#8220;Targetless&amp;#8221; schwa: An articulatory analysis&amp;#8217;.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 65-67.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBauerNW"&gt;Bauer, Laurie &amp;amp; Paul Warren&lt;/a&gt;. 2004. &amp;#8220;New Zealand English Phonology.&amp;#8221; In Bernd Kortmann, Edgar W. Schneider, Kate Burridge, Rajend Mesthrie &amp;amp; Clive Upton, eds. &lt;i&gt;A handbook of varieties of English: A multimedia reference tool&lt;/i&gt;. 1:580-602. Berlin &amp;amp; New York: Mouton de Gruyter. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBrowmanNGoldstein"&gt;Browman, Catherine P. &amp;amp; Louis Goldstein&lt;/a&gt;. 1992. &amp;#8220;&amp;#8216;Targetless&amp;#8217; schwa: An articulatory analysis.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 26-56.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rDochertyNLadd"&gt;Docherty, Gerald J. &amp;amp; D. Robert Ladd&lt;/a&gt;. eds. 1992. &lt;i&gt;Papers in laboratory phonology II: Gesture, segment, prosody&lt;/i&gt;. Cambridge: Cambridge University Press. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rSampson"&gt;Sampson, Geoffrey&lt;/a&gt;. 1987. &amp;#8220;Probabilistic models of analysis.&amp;#8221; In Richard Garside, Geoffrey Leech &amp;amp; Geoffrey Sampson, eds. &lt;i&gt;The computational analysis of English&lt;/i&gt;. London: Longman. &lt;/p&gt; &lt;/div&gt;</chart
+>&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;References&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBarry"&gt;Barry, William J.&lt;/a&gt; 1992. &amp;#8220;Comments on Browman and Goldstein: &amp;#8216;&amp;#8220;Targetless&amp;#8221; schwa: An articulatory analysis&amp;#8217;.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 65-67.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBauerNW"&gt;Bauer, Laurie &amp;amp; Paul Warren&lt;/a&gt;. 2004. &amp;#8220;New Zealand English Phonology.&amp;#8221; In Bernd Kortmann, Edgar W. Schneider, Kate Burridge, Rajend Mesthrie &amp;amp; Clive Upton, eds. &lt;i&gt;A handbook of varieties of English: A multimedia reference tool&lt;/i&gt;. 1:580-602. Berlin &amp;amp; New York: Mouton de Gruyter. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rBrowmanNGoldstein"&gt;Browman, Catherine P. &amp;amp; Louis Goldstein&lt;/a&gt;. 1992. &amp;#8220;&amp;#8216;Targetless&amp;#8217; schwa: An articulatory analysis.&amp;#8221; In &lt;a href="#rDochertyNLadd"&gt;Docherty &amp;amp; Ladd, eds, 26-56.&lt;/a&gt;&lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rDochertyNLadd"&gt;Docherty, Gerald J. &amp;amp; D. Robert Ladd&lt;/a&gt;. eds. 1992. &lt;i&gt;Papers in laboratory phonology II: Gesture, segment, prosody&lt;/i&gt;. Cambridge: Cambridge University Press. &lt;/p&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;&lt;a name="rSampson"&gt;Sampson, Geoffrey&lt;/a&gt;. 1987. &amp;#8220;Probabilistic models of analysis.&amp;#8221; In Richard Garside, Geoffrey Leech &amp;amp; Geoffrey Sampson, eds. &lt;i&gt;The computational analysis of English&lt;/i&gt;. London: Longman. &lt;/p&gt; &lt;/div&gt;</chart
 ></example
 ><p
 >If on the other hand, in a different document only Bauer &amp; Warren (2004), Browman &amp; Goldstein (1992), and Sampson (1987) are cited, then the output would look like this:</p
@@ -3771,7 +3780,7 @@ type="tElement"
 >collEd</object
 >, <object
 type="tElement"
->coolTitle</object
+>collTitle</object
 >, etc. elements with a <object
 type="tElement"
 >collCitation</object
@@ -3783,7 +3792,7 @@ type="tElement"
 >collEd</object
 >, <object
 type="tElement"
->coolTitle</object
+>collTitle</object
 >, etc. elements with a <object
 type="tElement"
 >collCitation</object
@@ -3983,13 +3992,13 @@ term="iDissertationLabel"
 >When <object
 type="tXLingPap"
 ></object
-> produces output, the default label for a dissertation is ‘Ph.D. dissertation’.  You can override this default by setting the content of the <object
+> produces output, the default label for a dissertation is ‘Ph.D. dissertation’. You can override this default by setting the content of the <object
 type="tAttribute"
 >labelDissertation</object
 > attribute of the <object
 type="tElement"
 >references</object
-> element.  To do so, click on the <object
+> element. To do so, click on the <object
 type="tElement"
 >references</object
 > element and then use the Attributes Tool<endnoteRef
@@ -4005,7 +4014,7 @@ type="tElement"
 >fieldNotes</object
 ></secTitle
 ><p
->This is for unpublished field note materials. Besides the date and the title, field notes also hav an optional <object
+>This is for unpublished field note materials. Besides the date and the title, field notes also have an optional <object
 type="tElement"
 >location</object
 > element and a required <object
@@ -4455,14 +4464,14 @@ id="sReferencesJumpToWork"
 ><indexedItem
 term="iJumpToReferences"
 ></indexedItem
->Often while writing a document, you find a need to add a new reference to your list of references.  <object
+>Often while writing a document, you find a need to add a new reference to your list of references. <object
 type="tXLingPap"
 ></object
 > provides a special command that makes this easier.</p
 ><p
 >From just about any place in your document, you can invoke menu item <object
 type="tInstruction"
->XLingPaper / Reference (Bibliography) Related / Jump to Work in References (Bibliography)  Ctrl+Shift+F11</object
+>XLingPaper / Reference (Bibliography) Related / Jump to Work in References (Bibliography) Ctrl+Shift+F11</object
 >.<endnote
 id="nCtrlShiftF11"
 ><p
@@ -4489,7 +4498,7 @@ type="tKey"
 >F11</object
 > key).</p
 ></endnote
->  This brings up the same basic dialog you see when setting a <object
+> This brings up the same basic dialog you see when setting a <object
 type="tElement"
 >citation</object
 > element (see section <sectionRef
@@ -4510,7 +4519,7 @@ type="tElement"
 > element of the <object
 type="tElement"
 >refWork</object
-> element.  In one <object
+> element. In one <object
 type="tXLingPap"
 ></object
 > document, it looks like this:</p
@@ -4523,13 +4532,13 @@ src="resources/JumpToReferenceDialog.png"
 ></chart
 ></example
 ><p
->You type in the author name or you scroll down to find the work you are looking for.  Select the one you want by typing enough so that it is shown in the top text box or by clicking on it.  <object
+>You type in the author name or you scroll down to find the work you are looking for. Select the one you want by typing enough so that it is shown in the top text box or by clicking on it. <object
 type="tXLingPap"
 ></object
 > will remember the location of where you are working right now and then jump you to the references section of your document and will select the <object
 type="tElement"
 >refWork</object
-> that you indicated.  In my experience, once in a while the selected work does not show in the window.  You have to scroll up or down a bit before you can see it.</p
+> that you indicated. In my experience, once in a while the selected work does not show in the window. You have to scroll up or down a bit before you can see it.</p
 ><p
 >In the <object
 type="tXLingPap"
@@ -4554,19 +4563,19 @@ src="resources/JumpToReferenceResult.png"
 ><p
 >If you are indeed adding a new reference, you can still use this command to find a work that is close to where you need to add your new reference.</p
 ><p
->One other thing to keep in mind with this particular dialog is that the sort order used is a computerish one.  It may well not be the order that your references will appear in, especially if you set things up to sort per a particular language as discussed in section <sectionRef
+>One other thing to keep in mind with this particular dialog is that the sort order used is a computerish one. It may well not be the order that your references will appear in, especially if you set things up to sort per a particular language as discussed in section <sectionRef
 sec="sReferencesSort"
 ></sectionRef
 >.</p
 ><p
->Select the work you want to see or edit (or add a new work before or after). </p
+>Select the work you want to see or edit (or add a new work before or after).</p
 ><p
 >After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
 type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Boomark / Go to Last Visted or Go Back</object
+>Search / Boomark / Go to Last Visited or Go Back</object
 > menu item command.<endnote
 id="nEnableBookmarksInXXE"
 ><p
@@ -4594,7 +4603,7 @@ term="iReferencesSort"
 >It is now possible in <object
 type="tXLingPap"
 ></object
-> to have the cited authors sorted when you produce any kind of output.  The default situation is to not do this dynamic sorting - the cited authors will appear in the same order they occur in the <object
+> to have the cited authors sorted when you produce any kind of output. The default situation is to not do this dynamic sorting - the cited authors will appear in the same order they occur in the <object
 type="tElement"
 >references</object
 > element.</p
@@ -4608,24 +4617,24 @@ id="gSetAttributeInLingPaperElement"
 >the main <object
 type="tElement"
 >lingPaper</object
-> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+> element. To do so, click anywhere in the document (except in any part of an associated publisher style sheet). In the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > click on <object
 type="tInstruction"
 >lingPaper</object
->.  Then use the Attributes Tool<endnoteRef
+>. Then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to set the  <object
+> to set the <object
 type="tAttribute"
 >sortRefsAbbrsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object
->.  </p
+>.</p
 ><p
->The sorting algorithm used depends on the language code of the document.  The default is ‘en’ (for English).  You set the language code of the document in the <object
+>The sorting algorithm used depends on the language code of the document. The default is ‘en’ (for English). You set the language code of the document in the <object
 type="tAttribute"
 >xml:lang</object
 > attribute of the <object
@@ -4634,7 +4643,7 @@ type="tElement"
 > element (see <genericRef
 gref="gSetAttributeInLingPaperElement"
 >above</genericRef
-> for how to do this).  Some of the known language codes to use are shown in example <exampleRef
+> for how to do this). Some of the known language codes to use are shown in example <exampleRef
 letter="xLanguageCodesForSorting"
 num="xLanguageCodesForSorting"
 ></exampleRef
@@ -4829,7 +4838,7 @@ type="tAttrValue"
 > for French). If you do not set this attribute, then the first abbreviation item found will be used. Also, if you inadvertently do not have an abbreviation for the language you selected, but you do have one for another language, then the first abbreviation found will be used, too. See section <sectionRef
 sec="sBMAbbreviationsMasterListMultipleLanguages"
 ></sectionRef
-> for more on creating master lists with two or more languages.  Also see section <sectionRef
+> for more on creating master lists with two or more languages. Also see section <sectionRef
 sec="sBMAbbreviationsSortingTheList"
 ></sectionRef
 > for information on sorting the output list of abbreviations.</p
@@ -5563,7 +5572,7 @@ term="iAbbreviationsSort"
 >If your document is not written in English or if your master list of abbreviations contains abbreviations in multiple languages, you may well want to have the list of abbreviations that <object
 type="tXLingPap"
 ></object
-> outputs be sorted by a particular language.  Note that the default behavior is for <object
+> outputs be sorted by a particular language. Note that the default behavior is for <object
 type="tXLingPap"
 ></object
 > to not do any special sorting: the list of abbreviations will occur in the same order they are given within the <object
@@ -5580,45 +5589,45 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
-> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+> element. To do so, click anywhere in the document (except in any part of an associated publisher style sheet). In the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > click on <object
 type="tInstruction"
 >lingPaper</object
->.  Then use the Attributes Tool<endnoteRef
+>. Then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to set the  <object
+> to set the <object
 type="tAttribute"
 >sortRefsAbbrsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object
->.  </p
+>.</p
 ><p
->The sorting algorithm used depends on the language code you have indicated, if any.  The default is ‘en’ (for English).  If you have set the <object
+>The sorting algorithm used depends on the language code you have indicated, if any. The default is ‘en’ (for English). If you have set the <object
 type="tAttribute"
 >abbreviationlang</object
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
-> element.of the document, then <object
+> element of the document, then <object
 type="tXLingPap"
 ></object
-> will use that code.  If the <object
+> will use that code. If the <object
 type="tAttribute"
 >abbreviationlang</object
 > attribute is not set, <object
 type="tXLingPap"
 ></object
-> will use the the <object
+> will use the <object
 type="tAttribute"
 >xml:lang</object
 > attribute of the <object
 type="tElement"
 >lingPaper</object
-> element, if it is set.  Some of the known language codes to use are shown in example <exampleRef
+> element, if it is set. Some of the known language codes to use are shown in example <exampleRef
 letter="xLanguageCodesForSorting"
 num="xLanguageCodesForSorting"
 ></exampleRef
@@ -6805,10 +6814,10 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
-> element.of the document, then <object
+> element of the document, then <object
 type="tXLingPap"
 ></object
-> will use that code.  Some of the known language codes to use are shown in example <exampleRef
+> will use that code. Some of the known language codes to use are shown in example <exampleRef
 letter="xLanguageCodesForSorting"
 num="xLanguageCodesForSorting"
 ></exampleRef
@@ -9052,19 +9061,19 @@ term="iISOCodes"
 >As noted in section <sectionRef
 sec="sIntroLang"
 ></sectionRef
->, it is possble to tag a given language with an <link
+>, it is possible to tag a given language with an <link
 href="http://www.sil.org/iso639-3/default.asp"
 >ISO 639-3 code</link
-> for that language.   <object
+> for that language. <object
 type="tXLingPap"
 ></object
-> makes it possible to show these codes in interlinear examples.  It does so by looking at the ISO 639-3 code of the <object
+> makes it possible to show these codes in interlinear examples. It does so by looking at the ISO 639-3 code of the <object
 type="tElement"
 >language</object
 > element referred to by the first <object
 type="tElement"
 >langData</object
-> element in the interlinear example.  </p
+> element in the interlinear example.</p
 ><p
 >In order for <object
 type="tXLingPap"
@@ -9075,22 +9084,22 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
-> element.  To do so, click anywhere in the document (except in any part of an associated publisher style sheet).  In the node path bar,<endnoteRef
+> element. To do so, click anywhere in the document (except in any part of an associated publisher style sheet). In the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > click on <object
 type="tInstruction"
 >lingPaper</object
->.  Then use the Attributes Tool<endnoteRef
+>. Then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to set the  <object
+> to set the <object
 type="tAttribute"
 >showiso639-3codeininterlinear</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object
->.  </p
+>.</p
 ><p
 >Here is a sample output from one <object
 type="tXLingPap"
@@ -18358,7 +18367,7 @@ term="iJumpToReferences"
 >As mentioned in section <sectionRef
 sec="sReferencesJumpToWork"
 ></sectionRef
->, there is a command that lets you jump from where you are to the references section, including letting you select which work you want to edit or see.  <object
+>, there is a command that lets you jump from where you are to the references section, including letting you select which work you want to edit or see. <object
 type="tXLingPap"
 ></object
 > will remember the location of where you are working right now and then jump you to the <object
@@ -18371,7 +18380,7 @@ type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Boomark / Go to Last Visted or Go Back</object
+>Search / Boomark / Go to Last Visited or Go Back</object
 > menu item command.<endnoteRef
 note="nEnableBookmarksInXXE"
 ></endnoteRef
@@ -21802,6 +21811,12 @@ see="iBold"
 >Bold</term
 ></indexTerm
 ><indexTerm
+id="iFontGraphite"
+see="iGraphite"
+><term
+>Graphite</term
+></indexTerm
+><indexTerm
 id="iFontItalic"
 see="iItalic"
 ><term
@@ -21858,6 +21873,11 @@ id="iFrontMatterExample"
 id="iGlossary"
 ><term
 >Glossary</term
+></indexTerm
+><indexTerm
+id="iGraphite"
+><term
+>Graphite font renderer</term
 ></indexTerm
 ><indexTerm
 id="iHTML"
@@ -22369,6 +22389,12 @@ id="iShortTtileHeaderFooter"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iToneLigatures"
+see="iGraphite"
+><term
+>Tone ligatures (require Graphite font renderer with Charis SIL fonts)</term
+></indexTerm
+><indexTerm
 id="iTools"
 ><term
 >Tools</term
@@ -22443,6 +22469,11 @@ id="iWord2003"
 see="iMSWord2003"
 ><term
 >Word 2003 format</term
+></indexTerm
+><indexTerm
+id="iXeLaTeXUpgrade"
+><term
+>XeLaTeX Upgrade package</term
 ></indexTerm
 ><indexTerm
 id="iXLingPaperConfig"

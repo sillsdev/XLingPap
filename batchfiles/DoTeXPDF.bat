@@ -11,6 +11,10 @@ call %3
 set ErrorFile=xelatex.err
 echo %%1 = %1
 path=%XLingPaperXeLaTeXPath%
+if exist "%XLingPaperXeLaTeXPath%\xelatex.exe" goto proceed
+call %3
+path=%XLingPaperXeLaTeXPath%
+:proceed
 %4
 cd %2
 xelatex -halt-on-error %1

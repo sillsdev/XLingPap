@@ -112,6 +112,7 @@
         <xsl:value-of select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
+    <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
@@ -2368,7 +2369,7 @@
             </xsl:variable>
             <xsl:if test="$bIsGraphite='Y'">
                 <tex:opt>
-                    <xsl:text>Renderer=Graphite</xsl:text>
+                    <xsl:value-of select="$sRendererIsGraphite"/>
                 </tex:opt>
             </xsl:if>
             <tex:parm>
@@ -3687,6 +3688,7 @@
     <xsl:template name="HandleFontSize">
         <xsl:param name="sSize"/>
         <xsl:param name="sFontFamily"/>
+        <xsl:param name="language"/>
         <xsl:choose>
             <!-- percentage -->
             <xsl:when test="contains($sSize, '%')">
@@ -3697,6 +3699,10 @@
                     <xsl:otherwise>
                         <tex:cmd name="fontspec">
                             <tex:opt>
+                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial,'graphite')">
+                                    <xsl:value-of select="$sRendererIsGraphite"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
                                 <xsl:text>Scale=</xsl:text>
                                 <xsl:value-of select="number(substring-before($sSize,'%')) div 100"/>
                             </tex:opt>
@@ -4292,6 +4298,7 @@
             <xsl:call-template name="HandleFontSize">
                 <xsl:with-param name="sSize" select="$sFontSize"/>
                 <xsl:with-param name="sFontFamily" select="$language/@font-family"/>
+                <xsl:with-param name="language" select="$language"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
@@ -4324,6 +4331,7 @@
                             <xsl:call-template name="HandleFontSize">
                                 <xsl:with-param name="sSize" select="'65%'"/>
                                 <xsl:with-param name="sFontFamily" select="$sFontFamily"/>
+                                <xsl:with-param name="language" select="$language"/>
                             </xsl:call-template>
                         </xsl:if>
                         <xsl:call-template name="HandleSmallCapsBegin"/>

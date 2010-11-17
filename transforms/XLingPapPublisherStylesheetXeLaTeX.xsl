@@ -3409,7 +3409,6 @@
             <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
                 <xsl:call-template name="HandleFontSize">
                     <xsl:with-param name="sSize" select="$referencesLayoutInfo/@defaultfontsize"/>
-                    <xsl:with-param name="language" select="''"/>
                 </xsl:call-template>
             </xsl:if>
             <xsl:call-template name="DoAuthorLayout">

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-11-15</a:date
+>2010-11-17</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.14.0 15 November 2010<ul
+>2.14.0 17 November 2010<ul
 ><li
 >Add emailAddress element to front matter.</li
 ><li
@@ -110,6 +110,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed bug where a br element within a listDefinition would cause it to fail to produce the PDF.</li
 ><li
 >Fixed a bug where if a style sheet had a numberLayout for a section definition and that section does not begin a paragraph, the PDF would fail to be produced.</li
+><li
+>Fixed a bug where if a user had specified to use Graphite and also used a percentage-based font size, the Graphite processing failed to occur.</li
 ></ul
 ></li
 ><li
@@ -140,6 +142,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed a bug which failed to format backgroundcolor attribute of language elements.</li
 ><li
 >Added ability for indexes to control the text that occurs when there is a "see" or "see also" entry in the index.</li
+><li
+>Improved how the Mac and Linux versions determine if the converter program for Word and Open Office Writer is present.</li
 ></ul
 ></li
 ><li

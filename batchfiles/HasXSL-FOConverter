@@ -1,7 +1,10 @@
 #!/bin/sh
 # following looks for xslutil
-if [ "$(which xslutil)" != "" ]; then
+if [ -e /usr/local/bin/xslutil ]; then
+	echo XLingPaper-Yes-XLingPaper
+else if [ "$(which xslutil)" != "" ]; then
 	echo XLingPaper-Yes-XLingPaper
 else
 	echo XLingPaper-No-XLingPaper
+fi
 fi

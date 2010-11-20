@@ -287,6 +287,60 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoAuthorRelatedElementsPerSingleSetOfLayouts
+    -->
+    <xsl:template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
+        <xsl:param name="authors"/>
+        <xsl:param name="currentAuthors"/>
+        <xsl:param name="thisAffiliationLayout" select="following-sibling::affiliationLayout"/>
+        <xsl:param name="thisEmailAddressLayout" select="following-sibling::emailAddressLayout"/>
+        <xsl:variable name="thisAuthorLayout" select="."/>
+        <xsl:for-each select="$authors">
+            <xsl:variable name="thisAuthor" select="."/>
+            <xsl:if test="$currentAuthors[.=$thisAuthor]">
+                <!-- format the author -->
+                <!--            <xsl:for-each select="$thisAuthorLayout">-->
+                <xsl:apply-templates select="$thisAuthor">
+                    <xsl:with-param name="authorLayoutToUse" select="$thisAuthorLayout"/>
+                </xsl:apply-templates>
+                <!--            </xsl:for-each>-->
+                <!-- figure out how to format any affiliations or emailAddress of this author -->
+                <xsl:variable name="iThisAuthorPos" select="position()"/>
+                <xsl:variable name="myAffiliations" select="following-sibling::*[name()='affiliation' and count(preceding-sibling::author) = $iThisAuthorPos]"/>
+                <xsl:variable name="myEmailAddress" select="following-sibling::*[name()='emailAddress' and count(preceding-sibling::author) = $iThisAuthorPos]"/>
+                <xsl:choose>
+                    <xsl:when test="$thisAuthorLayout/following-sibling::*[1][name()='affiliationLayout']">
+                        <!-- format any affiliations first -->
+<!--                        <xsl:for-each select="$thisAffiliationLayout">-->
+                            <xsl:apply-templates select="$myAffiliations">
+                                <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
+                            </xsl:apply-templates>
+<!--                        </xsl:for-each>-->
+<!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
+                            <xsl:apply-templates select="$myEmailAddress">
+                                <xsl:with-param name="emailAddressLayoutToUse" select="$thisEmailAddressLayout"/>
+                            </xsl:apply-templates>
+<!--                        </xsl:for-each>-->
+                    </xsl:when>
+                    <xsl:when test="$thisAuthorLayout/following-sibling::*[1][name()='emailAddressLayout']">
+                        <!-- format any email addresses first -->
+<!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
+                            <xsl:apply-templates select="$myEmailAddress"/>
+<!--                        </xsl:for-each>-->
+<!--                        <xsl:for-each select="$thisAffiliationLayout">-->
+                            <xsl:apply-templates select="$myAffiliations">
+                                <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
+                            </xsl:apply-templates>
+<!--                        </xsl:for-each>-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- nothing to do -->
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         DoBookLayout
     -->
     <xsl:template name="DoBookLayout">
@@ -2430,6 +2484,121 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:value-of select="substring-before($sPosition,';')"/>
+    </xsl:template>
+    <!--  
+        HandleBasicFrontMatterPerLayout
+    -->
+    <xsl:template name="HandleBasicFrontMatterPerLayout">
+        <xsl:param name="frontMatter"/>
+        <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
+        <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
+        <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
+        <xsl:for-each select="$frontMatterLayoutInfo/*">
+            <xsl:choose>
+                <xsl:when test="name(.)='titleLayout'">
+                    <xsl:apply-templates select="$frontMatter/title"/>
+                </xsl:when>
+                <xsl:when test="name(.)='subtitleLayout'">
+                    <xsl:apply-templates select="$frontMatter/subtitle"/>
+                </xsl:when>
+                <xsl:when test="name(.)='authorLayout'">
+                    <xsl:variable name="iPos" select="count(preceding-sibling::authorLayout) + 1"/>
+                    <xsl:choose>
+                        <xsl:when test="following-sibling::authorLayout ">
+                            <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
+                                <xsl:with-param name="authors" select="$frontMatter/author"/>
+                                <xsl:with-param name="currentAuthors" select="$frontMatter/author[$iPos]"/>
+                                <xsl:with-param name="thisAffiliationLayout" select="following-sibling::*[name()='affiliationLayout' and count(preceding-sibling::authorLayout) = $iPos]"/>
+                                <xsl:with-param name="thisEmailAddressLayout" select="following-sibling::*[name()='emailAddressLayout' and count(preceding-sibling::authorLayout) = $iPos]"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:when test="preceding-sibling::authorLayout and not(following-sibling::authorLayout)">
+                            <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
+                                <xsl:with-param name="authors" select="$frontMatter/author"/>
+                                <xsl:with-param name="currentAuthors" select="$frontMatter/author[position() &gt;= $iPos]"/>
+                                <xsl:with-param name="thisAffiliationLayout" select="following-sibling::*[name()='affiliationLayout' and count(preceding-sibling::authorLayout) = $iPos]"/>
+                                <xsl:with-param name="thisEmailAddressLayout" select="following-sibling::*[name()='emailAddressLayout' and count(preceding-sibling::authorLayout) = $iPos]"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:when test="$iAuthorLayouts = 1 and $iAffiliationLayouts &lt;= 1 and $iEmailAddressLayouts &lt;= 1 ">
+                            <!-- 
+                                only one author layout and at most one affiliation layout and at most one email layout : 
+                                want to try to apply each set of author/affiliation/email elements to this pattern, allowing for
+                                multiple affiliations
+                            -->
+                            <xsl:variable name="thisAffiliationLayout" select="following-sibling::affiliationLayout"/>
+                            <xsl:variable name="thisEmailAddressLayout" select="following-sibling::emailAddressLayout"/>
+                            
+                            <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
+                                <xsl:with-param name="authors" select="$frontMatter/author"/>
+                                <xsl:with-param name="currentAuthors" select="$frontMatter/author"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$frontMatter/author"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="name(.)='affiliationLayout'">
+                    <xsl:choose>
+                        <xsl:when test="following-sibling::affiliationLayout ">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:when test="preceding-sibling::affiliationLayout and not(following-sibling::affiliationLayout)">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:when test="$iAuthorLayouts = 1 and $iAffiliationLayouts &lt;= 1 and $iEmailAddressLayouts &lt;= 1 ">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$frontMatter/affiliation">
+                                <xsl:with-param name="affiliationLayoutToUse" select="."/>
+                            </xsl:apply-templates>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="name(.)='emailAddressLayout'">
+                    <xsl:choose>
+                        <xsl:when test="following-sibling::emailAddressLayout ">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:when test="preceding-sibling::emailAddressLayout and not(following-sibling::emailAddressLayout)">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:when test="$iAuthorLayouts = 1 and $iAffiliationLayouts &lt;= 1 and $iEmailAddressLayouts &lt;= 1 ">
+                            <!-- already handled under the author layout case-->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$frontMatter/emailAddress">
+                                <xsl:with-param name="emailAddressLayoutToUse" select="."/>
+                            </xsl:apply-templates>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="name(.)='presentedAtLayout'">
+                    <xsl:apply-templates select="$frontMatter/presentedAt"/>
+                </xsl:when>
+                <xsl:when test="name(.)='dateLayout'">
+                    <xsl:apply-templates select="$frontMatter/date"/>
+                </xsl:when>
+                <xsl:when test="name(.)='versionLayout'">
+                    <xsl:apply-templates select="$frontMatter/version"/>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$frontMatter/contents" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='acknowledgementsLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='abstractLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='prefaceLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$frontMatter/preface" mode="paper"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+        
     </xsl:template>
     <!--  
         HandleDateAccessedLayout

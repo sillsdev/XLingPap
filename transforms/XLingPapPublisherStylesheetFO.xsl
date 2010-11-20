@@ -376,20 +376,14 @@
       author
       -->
     <xsl:template match="author">
-        <xsl:variable name="iPos" select="count(preceding-sibling::author) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iAuthorLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="authorLayoutToUse"/>
         <fo:block>
             <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[position()=$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[position()=$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
             </xsl:call-template>
         </fo:block>
     </xsl:template>
@@ -408,20 +402,14 @@
       affiliation
       -->
     <xsl:template match="affiliation">
-        <xsl:variable name="iPos" select="count(preceding-sibling::affiliation) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iAffiliationLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="affiliationLayoutToUse"/>
         <fo:block>
             <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
         </fo:block>
     </xsl:template>
@@ -429,20 +417,14 @@
         emailAddress
     -->
     <xsl:template match="emailAddress">
-        <xsl:variable name="iPos" select="count(preceding-sibling::emailAddress) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iEmailAddressLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="emailAddressLayoutToUse"/>
         <fo:block>
             <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
         </fo:block>
     </xsl:template>
@@ -3585,7 +3567,11 @@ not using
     -->
     <xsl:template name="DoBookFrontMatterFirstStuffPerLayout">
         <xsl:param name="frontMatter"/>
-        <xsl:for-each select="$frontMatterLayoutInfo/*">
+        <xsl:call-template name="HandleBasicFrontMatterPerLayout">
+            <xsl:with-param name="frontMatter" select="$frontMatter"/>
+        </xsl:call-template>
+        
+<!--        <xsl:for-each select="$frontMatterLayoutInfo/*">
             <xsl:choose>
                 <xsl:when test="name(.)='titleLayout'">
                     <xsl:apply-templates select="$frontMatter/title"/>
@@ -3613,7 +3599,7 @@ not using
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
-    </xsl:template>
+-->    </xsl:template>
     <!--  
         DoBookFrontMatterPagedStuffPerLayout
     -->
@@ -3770,7 +3756,11 @@ not using
     -->
     <xsl:template name="DoFrontMatterPerLayout">
         <xsl:param name="frontMatter"/>
-        <xsl:for-each select="$frontMatterLayoutInfo/*">
+        <xsl:call-template name="HandleBasicFrontMatterPerLayout">
+            <xsl:with-param name="frontMatter" select="$frontMatter"/>
+        </xsl:call-template>
+        
+        <!--<xsl:for-each select="$frontMatterLayoutInfo/*">
             <xsl:choose>
                 <xsl:when test="name(.)='titleLayout'">
                     <xsl:apply-templates select="$frontMatter/title"/>
@@ -3813,7 +3803,7 @@ not using
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
-    </xsl:template>
+    --></xsl:template>
     <!--  
                   DoGlossary
 -->

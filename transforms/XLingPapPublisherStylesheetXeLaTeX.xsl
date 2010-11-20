@@ -352,32 +352,26 @@
       author
       -->
     <xsl:template match="author">
-        <xsl:variable name="iPos" select="count(preceding-sibling::author) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iAuthorLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="authorLayoutToUse"/>
         <tex:group>
             <xsl:call-template name="DoFrontMatterFormatInfoBegin">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:variable name="contentForThisElement">
                 <xsl:apply-templates/>
             </xsl:variable>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
             </xsl:call-template>
             <xsl:call-template name="DoFrontMatterFormatInfoEnd">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
             </xsl:call-template>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorLayout[$iPosToUse]"/>
+            <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="author" mode="contentOnly">
@@ -395,64 +389,52 @@
       affiliation
       -->
     <xsl:template match="affiliation">
-        <xsl:variable name="iPos" select="count(preceding-sibling::affiliation) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iAffiliationLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="affiliationLayoutToUse"/>
         <tex:group>
             <xsl:call-template name="DoFrontMatterFormatInfoBegin">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:variable name="contentForThisElement">
                 <xsl:apply-templates/>
             </xsl:variable>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
             <xsl:call-template name="DoFrontMatterFormatInfoEnd">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
             </xsl:call-template>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/affiliationLayout[$iPos]"/>
+            <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         emailAddress
     -->
     <xsl:template match="emailAddress">
-        <xsl:variable name="iPos" select="count(preceding-sibling::emailAddress) + 1"/>
-        <xsl:variable name="iPosToUse">
-            <xsl:call-template name="GetBestLayout">
-                <xsl:with-param name="iPos" select="$iPos"/>
-                <xsl:with-param name="iLayouts" select="$iEmailAddressLayouts"/>
-            </xsl:call-template>
-        </xsl:variable>
+        <xsl:param name="emailAddressLayoutToUse"/>
         <tex:group>
             <xsl:call-template name="DoFrontMatterFormatInfoBegin">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:variable name="contentForThisElement">
                 <xsl:apply-templates/>
             </xsl:variable>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
             <xsl:call-template name="DoFrontMatterFormatInfoEnd">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPosToUse]"/>
+                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
             </xsl:call-template>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/emailAddressLayout[$iPos]"/>
+            <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -2977,34 +2959,9 @@
                 <tex:parm>frontmattertitle</tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:for-each select="$frontMatterLayoutInfo/*">
-            <xsl:choose>
-                <xsl:when test="name(.)='titleLayout'">
-                    <xsl:apply-templates select="$frontMatter/title"/>
-                </xsl:when>
-                <xsl:when test="name(.)='subtitleLayout'">
-                    <xsl:apply-templates select="$frontMatter/subtitle"/>
-                </xsl:when>
-                <xsl:when test="name(.)='authorLayout'">
-                    <xsl:apply-templates select="$frontMatter/author"/>
-                </xsl:when>
-                <xsl:when test="name(.)='affiliationLayout'">
-                    <xsl:apply-templates select="$frontMatter/affiliation"/>
-                </xsl:when>
-                <xsl:when test="name(.)='emailAddressLayout'">
-                    <xsl:apply-templates select="$frontMatter/emailAddress"/>
-                </xsl:when>
-                <xsl:when test="name(.)='presentedAtLayout'">
-                    <xsl:apply-templates select="$frontMatter/presentedAt"/>
-                </xsl:when>
-                <xsl:when test="name(.)='dateLayout'">
-                    <xsl:apply-templates select="$frontMatter/date"/>
-                </xsl:when>
-                <xsl:when test="name(.)='versionLayout'">
-                    <xsl:apply-templates select="$frontMatter/version"/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:for-each>
+        <xsl:call-template name="HandleBasicFrontMatterPerLayout">
+            <xsl:with-param name="frontMatter" select="$frontMatter"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         DoBookFrontMatterPagedStuffPerLayout
@@ -3046,8 +3003,8 @@
         </xsl:if>
     </xsl:template>
     <!--  
-      DoBackMatterItemNewPage
-   -->
+        DoBackMatterItemNewPage
+    -->
     <xsl:template name="DoBackMatterItemNewPage">
         <xsl:param name="id"/>
         <xsl:param name="sTitle"/>
@@ -3065,8 +3022,8 @@
         <xsl:apply-templates/>
     </xsl:template>
     <!--  
-      DoFrontMatterItemNewPage
-   -->
+        DoFrontMatterItemNewPage
+    -->
     <xsl:template name="DoFrontMatterItemNewPage">
         <xsl:param name="id"/>
         <xsl:param name="sTitle"/>
@@ -3091,49 +3048,9 @@
         <tex:cmd name="thispagestyle" nl2="1">
             <tex:parm>fancyfirstpage</tex:parm>
         </tex:cmd>
-        <xsl:for-each select="$frontMatterLayoutInfo/*">
-            <xsl:choose>
-                <xsl:when test="name(.)='titleLayout'">
-                    <xsl:apply-templates select="$frontMatter/title"/>
-                </xsl:when>
-                <xsl:when test="name(.)='subtitleLayout'">
-                    <xsl:apply-templates select="$frontMatter/subtitle"/>
-                </xsl:when>
-                <xsl:when test="name(.)='authorLayout'">
-                    <xsl:variable name="iPos" select="count(preceding-sibling::authorLayout) + 1"/>
-                    <xsl:apply-templates select="$frontMatter/author[$iPos]"/>
-                </xsl:when>
-                <xsl:when test="name(.)='affiliationLayout'">
-                    <xsl:variable name="iPos" select="count(preceding-sibling::affiliationLayout) + 1"/>
-                    <xsl:apply-templates select="$frontMatter/affiliation[$iPos]"/>
-                </xsl:when>
-                <xsl:when test="name(.)='emailAddressLayout'">
-                    <xsl:variable name="iPos" select="count(preceding-sibling::emailAddressLayout) + 1"/>
-                    <xsl:apply-templates select="$frontMatter/emailAddress[$iPos]"/>
-                </xsl:when>
-                <xsl:when test="name(.)='presentedAtLayout'">
-                    <xsl:apply-templates select="$frontMatter/presentedAt"/>
-                </xsl:when>
-                <xsl:when test="name(.)='dateLayout'">
-                    <xsl:apply-templates select="$frontMatter/date"/>
-                </xsl:when>
-                <xsl:when test="name(.)='versionLayout'">
-                    <xsl:apply-templates select="$frontMatter/version"/>
-                </xsl:when>
-                <xsl:when test="name(.)='contentsLayout'">
-                    <xsl:apply-templates select="$frontMatter/contents" mode="paper"/>
-                </xsl:when>
-                <xsl:when test="name(.)='acknowledgementsLayout'">
-                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper"/>
-                </xsl:when>
-                <xsl:when test="name(.)='abstractLayout'">
-                    <xsl:apply-templates select="$frontMatter/abstract" mode="paper"/>
-                </xsl:when>
-                <xsl:when test="name(.)='prefaceLayout'">
-                    <xsl:apply-templates select="$frontMatter/preface" mode="paper"/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:for-each>
+        <xsl:call-template name="HandleBasicFrontMatterPerLayout">
+            <xsl:with-param name="frontMatter" select="$frontMatter"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
                   DoGlossary
@@ -5380,13 +5297,38 @@
             <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
             <xsl:with-param name="sPointSize" select="$sBasicPointSize"/>
         </xsl:call-template>
-        <xsl:variable name="fontFamilies" select="//@font-family[string-length(normalize-space(.)) &gt; 0]"/>
-        <xsl:for-each select="$fontFamilies">
+        <xsl:variable name="fontFamiliesWithGraphite" select="//@font-family[string-length(normalize-space(.)) &gt; 0][parent::*[contains(@XeLaTeXSpecial,'graphite')]]"/>
+        <xsl:variable name="fontFamiliesWithoutGraphite" select="//@font-family[string-length(normalize-space(.)) &gt; 0][parent::*[not(contains(@XeLaTeXSpecial,'graphite'))]]"/>
+        <xsl:variable name="fontFamilies" select="$fontFamiliesWithGraphite | $fontFamiliesWithoutGraphite"/>
+        <!-- Need to do graphite ones first because extra information needs to be added to the font family definition.
+       If we wait, then that extra information is missing and the result does not come out correctly.
+       This does imply, however, that every instance of this font family will be rendered via Graphite.  
+       Hopefully this is not an issue.  If it is, then we'll need to rework things so that we use separate 
+       font names for graphite-enabled and non-graphite-enabled fonts.
+-->
+        <xsl:for-each select="$fontFamiliesWithGraphite">
             <xsl:variable name="iPos" select="position()"/>
+            <xsl:variable name="language" select=".."/>
             <xsl:variable name="thisOne">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:variable>
-            <xsl:variable name="seenBefore" select="$fontFamilies[position() &lt; $iPos]/. = $thisOne"/>
+            <xsl:variable name="seenBefore" select="$fontFamiliesWithGraphite[position() &lt; $iPos]/. = $thisOne"/>
+            <xsl:if test="not($seenBefore)">
+                <xsl:call-template name="DefineAFontFamily">
+                    <xsl:with-param name="sFontFamilyName">
+                        <xsl:call-template name="GetFontFamilyName"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="sBaseFontName" select="."/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:for-each>
+        <xsl:for-each select="$fontFamiliesWithoutGraphite">
+            <xsl:variable name="iPos" select="position()"/>
+            <xsl:variable name="language" select=".."/>
+            <xsl:variable name="thisOne">
+                <xsl:value-of select="normalize-space(.)"/>
+            </xsl:variable>
+            <xsl:variable name="seenBefore" select="$fontFamiliesWithoutGraphite[position() &lt; $iPos]/. = $thisOne or $fontFamiliesWithGraphite/. = $thisOne"/>
             <xsl:if test="not($seenBefore)">
                 <xsl:call-template name="DefineAFontFamily">
                     <xsl:with-param name="sFontFamilyName">

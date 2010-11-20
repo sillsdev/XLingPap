@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->17 November 2010</date
+>19 November 2010</date
 ><version
->2.14.0</version
+>2.14.0_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -6090,7 +6090,7 @@ src="resources/IndexSeeDefinitions.png"
 >This has definitions for English (language code ‘en’) and Spanish (language code ‘es’). There are lines for saying how to represent the ‘See’ case as well as the ‘See also` case. It is possible to type in words before the link as well as words after the link. For example, the ‘See also’ case for Spanish in this example uses the word ‘Véase’ before the link and the word ‘también’ after the link.<endnote
 id="nVeaseTambien"
 ><p
->Please note that this order is not good Spanish.  It is for illustrative purposes only.</p
+>Please note that this order is not good Spanish. It is for illustrative purposes only.</p
 ></endnote
 ></p
 ></section3
@@ -18125,6 +18125,144 @@ sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for more.</p
 ></section2
+><section2
+id="sFAQChangeAbbreviations"
+><secTitle
+>Change a set of <object
+type="tElement"
+>abbrRef</object
+> elements to refer to a different abbreviation?</secTitle
+><p
+><indexedItem
+term="iAbbreviationsChange"
+></indexedItem
+>Sometimes while working on a document, you discover that you have glossed a particular item (using <object
+type="tElement"
+>abbrRef</object
+> elements; see section <sectionRef
+sec="sBMAbbreviations"
+></sectionRef
+>) and that you used the wrong abbreviation for the gloss.  How do you go back and change them?</p
+><p
+>Here is one way:</p
+><ol
+><li
+>Place the cursor at the beginning of your document (for example, in the <object
+type="tElement"
+>title</object
+> element).</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Search / Find Element</object
+>. </li
+><li
+>Make it look something like this:<chart
+><img
+src="resources/ChangeAbbreviationFindElementDialog.png"
+></img
+></chart
+></li
+><li
+>You'll want to replace <object
+type="tAttrValue"
+>vAGR</object
+> with the <object
+type="tAttribute"
+>abbr</object
+> ID of the <object
+type="tElement"
+>abbreviation</object
+> element you want.  You may have to check your list of abbreviations to find the exact value you need.</li
+><li
+>Click on OK and the <object
+type="tXMLmindXMLEditor"
+></object
+> will find the first instance of an <object
+type="tElement"
+>abbrRef</object
+> element that has its <object
+type="tAttribute"
+>abbr</object
+> attribute set to <object
+type="tAttrValue"
+>vAGR</object
+> (or whatever value you used).</li
+><li
+>If you immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+> or if you right-click on it and choose <object
+type="tInstruction"
+>Set Reference</object
+>), then you will get the chooser for the abbreviations.  Select the one you want to change to.</li
+><li
+>Exactly how one repeats this command changed in version 4.5.2 of the <object
+type="tXMLmindXMLEditor"
+></object
+>.  Earlier versions used <object
+type="tKey"
+>Ctrl-A</object
+> to repeat.  Beginning with version 4.5.2, one uses <object
+type="tKey"
+>Esc-g</object
+> (which means press the <object
+type="tKey"
+>Esc</object
+> key, release it, and then press the <object
+type="tKey"
+>g</object
+> key).</li
+></ol
+><p
+>If you need to change many of these <object
+type="tElement"
+>abbrRef</object
+> elements, then you can save yourself some time and work by making a keyboard macro.  Do these steps (remember that you need to release the <object
+type="tKey"
+>Esc</object
+> key after pressing it in all of these before you press the next key):</p
+><ol
+><li
+>Type <object
+type="tKey"
+>Esc-m</object
+> to start recording the macro.. </li
+><li
+>Type <object
+type="tKey"
+>Esc-g</object
+> to find the next instance.</li
+><li
+>Type <object
+type="tKey"
+>F11</object
+> to bring up the chooser.</li
+><li
+>Type the new abbreviation you want.</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key.</li
+><li
+>Type <object
+type="tKey"
+>Esc-m</object
+> to end recording the macro.</li
+></ol
+><p
+>To run the macro, type <object
+type="tKey"
+>Esc-p</object
+> (I think the m above is for "macro" and the p here is for "play" - as in "play the macro"). My experience in using macros in the <object
+type="tXMLmindXMLEditor"
+></object
+> says that they only work if you do every step using the keyboard. If you use the mouse for any of it, it will not play back.</p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -21510,6 +21648,11 @@ see="iIDPrefix"
 ><term
 >Abbreviation</term
 ><indexTerms
+><indexTerm
+id="iAbbreviationsChange"
+><term
+>Change a set of abbreviations in text</term
+></indexTerm
 ><indexTerm
 id="iAbbreviationsList"
 ><term

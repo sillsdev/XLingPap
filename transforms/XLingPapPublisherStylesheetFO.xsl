@@ -3393,33 +3393,29 @@ not using
       DoFootnoteNumberInText
    -->
     <xsl:template name="DoFootnoteNumberInText">
-        <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
-            <!--         <fo:inline baseline-shift="super" id="{@id}">-->
-            <!--            <xsl:attribute name="font-size">
-                <xsl:value-of select="$sFootnotePointSize - 2"/>
-                <xsl:text>pt</xsl:text>
-            </xsl:attribute>
--->
-            <xsl:choose>
-                <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
-                    <fo:basic-link>
-                        <xsl:attribute name="internal-destination">
-                            <xsl:value-of select="@id"/>
-                        </xsl:attribute>
-                        <xsl:call-template name="AddAnyLinkAttributes">
-                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
-                        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
+                <fo:basic-link>
+                    <xsl:attribute name="internal-destination">
+                        <xsl:value-of select="@id"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="AddAnyLinkAttributes">
+                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
+                    </xsl:call-template>
+                    <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
                         <xsl:call-template name="DoFootnoteNumberInTextValue"/>
-                    </fo:basic-link>
-                </xsl:when>
-                <xsl:otherwise>
+                    </fo:inline>
+                </fo:basic-link>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
                     <xsl:attribute name="id">
                         <xsl:value-of select="@id"/>
                     </xsl:attribute>
                     <xsl:call-template name="DoFootnoteNumberInTextValue"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </fo:inline>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       DoFootnoteNumberInTextValue
@@ -3570,8 +3566,7 @@ not using
         <xsl:call-template name="HandleBasicFrontMatterPerLayout">
             <xsl:with-param name="frontMatter" select="$frontMatter"/>
         </xsl:call-template>
-        
-<!--        <xsl:for-each select="$frontMatterLayoutInfo/*">
+        <!--        <xsl:for-each select="$frontMatterLayoutInfo/*">
             <xsl:choose>
                 <xsl:when test="name(.)='titleLayout'">
                     <xsl:apply-templates select="$frontMatter/title"/>
@@ -3599,7 +3594,8 @@ not using
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
--->    </xsl:template>
+-->
+    </xsl:template>
     <!--  
         DoBookFrontMatterPagedStuffPerLayout
     -->
@@ -3759,7 +3755,6 @@ not using
         <xsl:call-template name="HandleBasicFrontMatterPerLayout">
             <xsl:with-param name="frontMatter" select="$frontMatter"/>
         </xsl:call-template>
-        
         <!--<xsl:for-each select="$frontMatterLayoutInfo/*">
             <xsl:choose>
                 <xsl:when test="name(.)='titleLayout'">
@@ -3803,7 +3798,8 @@ not using
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
-    --></xsl:template>
+    -->
+    </xsl:template>
     <!--  
                   DoGlossary
 -->
@@ -5866,9 +5862,8 @@ not using
                     <xsl:text>in</xsl:text>
                 </xsl:attribute>
                 <xsl:for-each select="$indexTermsToShow">
-<!--                    <xsl:sort select="term[1]"/>-->
+                    <!--                    <xsl:sort select="term[1]"/>-->
                     <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
-                    
                     <xsl:variable name="sTermId" select="@id"/>
                     <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                     <xsl:variable name="bHasCitedDescendant">
@@ -5951,15 +5946,13 @@ not using
                                             <xsl:call-template name="AddAnyLinkAttributes">
                                                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                             </xsl:call-template>
-<!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
+                                            <!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
                                             <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
-                                            
                                         </fo:basic-link>
                                     </fo:inline>
                                     <xsl:call-template name="OutputIndexTermSeeAfter">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
                                     </xsl:call-template>
-                                    
                                 </xsl:if>
                             </fo:block>
                             <xsl:call-template name="OutputIndexTerms">
@@ -5975,7 +5968,6 @@ not using
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
-                                
                                 <fo:inline>
                                     <fo:basic-link>
                                         <xsl:attribute name="internal-destination">

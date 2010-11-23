@@ -34,6 +34,11 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.14.0_2 22 November 2010
+                  <ul>
+                     <li>Fixed: Word/OO output does not use superscript for an endnote number in text when have endnotes (with a publisher style sheet).</li>
+                  </ul>
+               </li>
                <li>2.14.0_1 20 November 2010
                   <ul>
                      <li>Added documentation on how to change an abbreviation within text. See section 11.35 "Change a set of abbrRef elements to refer
@@ -41,11 +46,15 @@
                      </li>
                      <li>XeLaTeX way of producing PDF:
                         <ul>
-                           <li>For a publisher style sheet, if there were multiple authors, one needed to have at least as many authorLayouts as there were
-                              authors. Fixed this so that one can use either one set of author/affiliation/emailAddress layouts or multiple sets.
-                           </li>
                            <li>For a publisher style sheet, if two or more language elements used the same font family and a non-initial one used Graphite,
                               the Graphite indicator would be ignored.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Publisher style sheets:
+                        <ul>
+                           <li>For a publisher style sheet, if there were multiple authors, one needed to have at least as many authorLayouts as there were
+                              authors. Fixed this so that one can use either one set of author/affiliation/emailAddress layouts or multiple sets.
                            </li>
                         </ul>
                      </li>

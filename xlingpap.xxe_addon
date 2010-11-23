@@ -32,6 +32,12 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.14.0_2 22 November 2010<ul
+><li
+>Fixed: Word/OO output does not use superscript for an endnote number in text when have endnotes (with a publisher style sheet).</li
+></ul
+></li
+><li
 >2.14.0_1 20 November 2010<ul
 ><li
 >Added documentation on how to change an abbreviation within text. See section 11.35 "Change a set of abbrRef elements to refer to a different abbreviation" in the user documentation.</li

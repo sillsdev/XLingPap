@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.14.0_3</span></p>
-      <p align="center">Date: 2010-11-23</p>
+      <p align="center">Date: 2010-11-24</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,14 +34,22 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.14.0_3 23 November 2010
+               <li>2.14.0_3 24 November 2010
                   <ul>
-                     <li>When an interlinear in an interlinear-text had an exampleHeading, the exampleHeading was not always formatted correctly; in
-                        particular, any embedded elements (like object) were ignored.
+                     <li>Interlinear text:
+                        <ul>
+                           <li>Made an interlinear text optionally be a modular document.</li>
+                           <li>In XXE, made an interlinear text initially show up as collapsed (in order to take less screen space).  It tries to show the
+                              short title of the text if there is one; if not, it shows the full title.
+                           </li>
+                           <li>When an interlinear in an interlinear-text had an exampleHeading, the exampleHeading was not always formatted correctly; in
+                              particular, any embedded elements (like object) were ignored.
+                           </li>
+                        </ul>
                      </li>
                      <li>The XeLaTeX way of producing PDF:
                         <ul>
-                           <li>If one specified  'oblique' in a font-style attribute, the PDF failed to be produced.  This is fixed.</li>
+                           <li>If one specified 'oblique' in a font-style attribute, the PDF failed to be produced. This is fixed.</li>
                         </ul>
                      </li>
                   </ul>

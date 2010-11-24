@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->19 November 2010</date
+>24 November 2010</date
 ><version
->2.14.0_1</version
+>2.14.0_3</version
 ><contents
 showLevel="4"
 ></contents
@@ -13673,6 +13673,9 @@ type="tTool"
 ><indexedItem
 term="iFLEx"
 ></indexedItem
+><indexedItem
+term="iInterlinearTextFLEx"
+></indexedItem
 >One possible way to include an interlinear text is to use the <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
@@ -13705,7 +13708,21 @@ id="sInterlinearTextManually"
 ><secTitle
 >Entering an interlinear text by hand</secTitle
 ><p
->One can also key an entire interlinear text by hand. To do this, one can, say, perform an insert after command (e.g. press <object
+>One can also key an entire interlinear text by hand. There are two ways to do this. <indexedItem
+term="iInterlinearTextModularDocument"
+></indexedItem
+>One is to create an interlinear text as a modular document.  You can then make this text be part of more than one <object
+type="tXLingPap"
+></object
+> document.   To do this, use menu items <object
+type="tInstruction"
+>File / New</object
+>.  Scroll down to the <object
+type="tXLingPap"
+></object
+> section and choose “Interlinear text (part of a modular document).”</p
+><p
+>The other way is to merely create the text within your current document.  To do this, one can, say, perform an insert after command (e.g. press <object
 type="tKey"
 >Ctrl+j</object
 > or right-click and choose <object
@@ -18142,7 +18159,7 @@ type="tElement"
 > elements; see section <sectionRef
 sec="sBMAbbreviations"
 ></sectionRef
->) and that you used the wrong abbreviation for the gloss.  How do you go back and change them?</p
+>) and that you used the wrong abbreviation for the gloss. How do you go back and change them?</p
 ><p
 >Here is one way:</p
 ><ol
@@ -18155,7 +18172,7 @@ type="tElement"
 >Use menu items <object
 type="tInstruction"
 >Search / Find Element</object
->. </li
+>.</li
 ><li
 >Make it look something like this:<chart
 ><img
@@ -18173,7 +18190,7 @@ type="tAttribute"
 > ID of the <object
 type="tElement"
 >abbreviation</object
-> element you want.  You may have to check your list of abbreviations to find the exact value you need.</li
+> element you want. You may have to check your list of abbreviations to find the exact value you need.</li
 ><li
 >Click on OK and the <object
 type="tXMLmindXMLEditor"
@@ -18198,15 +18215,15 @@ type="tInstruction"
 > or if you right-click on it and choose <object
 type="tInstruction"
 >Set Reference</object
->), then you will get the chooser for the abbreviations.  Select the one you want to change to.</li
+>), then you will get the chooser for the abbreviations. Select the one you want to change to.</li
 ><li
 >Exactly how one repeats this command changed in version 4.5.2 of the <object
 type="tXMLmindXMLEditor"
 ></object
->.  Earlier versions used <object
+>. Earlier versions used <object
 type="tKey"
 >Ctrl-A</object
-> to repeat.  Beginning with version 4.5.2, one uses <object
+> to repeat. Beginning with version 4.5.2, one uses <object
 type="tKey"
 >Esc-g</object
 > (which means press the <object
@@ -18221,7 +18238,7 @@ type="tKey"
 >If you need to change many of these <object
 type="tElement"
 >abbrRef</object
-> elements, then you can save yourself some time and work by making a keyboard macro.  Do these steps (remember that you need to release the <object
+> elements, then you can save yourself some time and work by making a keyboard macro. Do these steps (remember that you need to release the <object
 type="tKey"
 >Esc</object
 > key after pressing it in all of these before you press the next key):</p
@@ -18230,7 +18247,7 @@ type="tKey"
 >Type <object
 type="tKey"
 >Esc-m</object
-> to start recording the macro.. </li
+> to start recording the macro..</li
 ><li
 >Type <object
 type="tKey"
@@ -22122,6 +22139,18 @@ id="iInterlinearObject"
 id="iInterlinearText"
 ><term
 >Text</term
+><indexTerms
+><indexTerm
+id="iInterlinearTextModularDocument"
+><term
+>As a modular document</term
+></indexTerm
+><indexTerm
+id="iInterlinearTextFLEx"
+><term
+>Get from FLEx</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ></indexTerms
 ></indexTerm

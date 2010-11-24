@@ -1653,11 +1653,25 @@ interlinearSource
 	padding-left:.125in;
 }
 
+interlinear-text:before
+{
+	    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Interlinear text: "
 
+	label(xpath, "if(textInfo[string-length(normalize-space(shortTitle))>0], textInfo/shortTitle, textInfo/textTitle)")
+	;
+}
+lingPaper interlinear-text
+{
+	display:block;
+	padding-left:example-indent();
+	property-group: isCollapsible( yes, 1);
+}
 interlinear-text
 {
 	display:block;
 	padding-left:example-indent();
+	property-group: isCollapsible( no, 1);
 }
 
 

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-11-23</a:date
+>2010-11-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,21 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.14.0_3 23 November 2010<ul
+>2.14.0_3 24 November 2010<ul
+><li
+>Interlinear text:<ul
+><li
+>Made an interlinear text optionally be a modular document.</li
+><li
+>In XXE, made an interlinear text initially show up as collapsed (in order to take less screen space).  It tries to show the short title of the text if there is one; if not, it shows the full title.</li
 ><li
 >When an interlinear in an interlinear-text had an exampleHeading, the exampleHeading was not always formatted correctly; in particular, any embedded elements (like object) were ignored.</li
+></ul
+></li
 ><li
 >The XeLaTeX way of producing PDF:<ul
 ><li
->If one specified  'oblique' in a font-style attribute, the PDF failed to be produced.  This is fixed.</li
+>If one specified 'oblique' in a font-style attribute, the PDF failed to be produced. This is fixed.</li
 ></ul
 ></li
 ></ul

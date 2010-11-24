@@ -6,6 +6,8 @@
     <cfg:template location="../templates/XLingPapPartsTemplate.xml" name="Multi-Part Book (Part-oriented)"/>
     <cfg:template location="../templates/XLingPapReferencesTemplate.xml"
         name="References (part of a modular document)"/>
+    <cfg:template location="../templates/XLingPapInterlinearTextTemplate.xml"
+        name="Interlinear text (part of a modular document)"/>
     <cfg:template location="../templates/XLingPapIndexTermsTemplate.xml"
         name="Index Terms (part of a modular document)"/>
     <cfg:template location="../templates/XLingPapTomPayneGrammaticalDescription.xml"

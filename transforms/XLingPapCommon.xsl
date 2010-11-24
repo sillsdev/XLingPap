@@ -43,6 +43,12 @@
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <!--
+        exampleHeading in NotTextRef mode
+    -->
+    <xsl:template match="exampleHeading" mode="NoTextRef">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <!--
         ConvertLastNameFirstNameToFirstNameLastName
     -->
     <xsl:template name="ConvertLastNameFirstNameToFirstNameLastName">

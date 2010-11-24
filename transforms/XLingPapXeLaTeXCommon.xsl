@@ -4309,6 +4309,11 @@
                     <xsl:text>textit</xsl:text>
                     <tex:spec cat="bg"/>
                 </xsl:when>
+                <xsl:when test="$sFontStyle='oblique'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>textsl</xsl:text>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
                 <xsl:when test="$sFontStyle='normal'">
                     <tex:spec cat="esc"/>
                     <xsl:text>textup</xsl:text>
@@ -4521,9 +4526,7 @@
         -->
         <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
         <xsl:if test="string-length($sFontStyle) &gt; 0">
-            <xsl:if test="$sFontStyle='italic' or $sFontStyle='normal'">
                 <tex:spec cat="eg"/>
-            </xsl:if>
         </xsl:if>
         <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
         <xsl:if test="string-length($sFontVariant) &gt; 0">

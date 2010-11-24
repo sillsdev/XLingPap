@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.14.0_1</a:version
+>2.14.0_3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-11-20</a:date
+>2010-11-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.14.0_3 23 November 2010<ul
+><li
+>When an interlinear in an interlinear-text had an exampleHeading, the exampleHeading was not always formatted correctly; in particular, any embedded elements (like object) were ignored.</li
+><li
+>The XeLaTeX way of producing PDF:<ul
+><li
+>If one specified  'oblique' in a font-style attribute, the PDF failed to be produced.  This is fixed.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.14.0_2 22 November 2010<ul
 ><li

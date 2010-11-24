@@ -2106,7 +2106,10 @@
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="exampleHeading">
+    <!-- ===========================================================
+        exampleHeading
+        =========================================================== -->
+        <xsl:template match="exampleHeading">
         <table cellpadding="0pt" cellspacing="0pt">
             <tr>
                 <td>&#xa0;<xsl:apply-templates/></td>

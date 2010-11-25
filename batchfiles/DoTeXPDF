@@ -1,5 +1,5 @@
 #!/bin/sh
-PATH=$PATH:/usr/texbinxlingpaper
+PATH=/usr/texbinxlingpaper:$PATH
 cd "$2"
 if [ -e xelatex.err ]; then
 	rm xelatex.err

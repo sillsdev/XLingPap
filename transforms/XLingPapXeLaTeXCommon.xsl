@@ -113,6 +113,8 @@
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
+    <xsl:variable name="sGraphite" select="'graphite'"/>
+    <xsl:variable name="sFontFeature" select="'font-feature='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
@@ -2362,14 +2364,35 @@
             </tex:parm>
             <xsl:variable name="bIsGraphite">
                 <xsl:choose>
-                    <xsl:when test="contains(@XeLaTeXSpecial, 'graphite')">Y</xsl:when>
-                    <xsl:when test="contains(../@XeLaTeXSpecial, 'graphite')">Y</xsl:when>
+                    <xsl:when test="contains(@XeLaTeXSpecial, $sGraphite)">Y</xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, $sGraphite)">Y</xsl:when>
                     <xsl:otherwise>N</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:if test="$bIsGraphite='Y'">
+            <xsl:variable name="bHasFontFeature">
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontFeature)">Y</xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontFeature)">Y</xsl:when>
+                    <xsl:otherwise>N</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$bIsGraphite='Y' or $bHasFontFeature='Y'">
                 <tex:opt>
-                    <xsl:value-of select="$sRendererIsGraphite"/>
+                    <xsl:choose>
+                        <xsl:when test="$bIsGraphite='Y'">
+                            <xsl:value-of select="$sRendererIsGraphite"/>
+                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                                <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                                <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </tex:opt>
             </xsl:if>
             <tex:parm>
@@ -3699,10 +3722,23 @@
                     <xsl:otherwise>
                         <tex:cmd name="fontspec">
                             <tex:opt>
-                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial,'graphite')">
-                                    <xsl:value-of select="$sRendererIsGraphite"/>
-                                    <xsl:text>,</xsl:text>
-                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sGraphite)">
+                                        <xsl:value-of select="$sRendererIsGraphite"/>
+                                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                            <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
+                                            <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                                        </xsl:call-template>
+                                        <xsl:text>,</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sFontFeature)">
+                                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                            <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
+                                            <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
+                                        </xsl:call-template>
+                                        <xsl:text>,</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
                                 <xsl:text>Scale=</xsl:text>
                                 <xsl:value-of select="number(substring-before($sSize,'%')) div 100"/>
                             </tex:opt>
@@ -4030,6 +4066,31 @@
                 <xsl:copy-of select="$default"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        HandleXeLaTeXSpecialFontFeature
+    -->
+    <xsl:template name="HandleXeLaTeXSpecialFontFeature">
+        <xsl:param name="sList"/>
+        <xsl:param name="bIsFirstOpt" select="'Y'"/>
+        <xsl:variable name="sCommandBeginning" select="substring-after($sList, $sFontFeature)"/>
+        <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
+        <xsl:variable name="sRest" select="substring-after($sCommandBeginning,' ')"/>
+        <xsl:if test="string-length($sCommandBeginning) &gt; 0">
+            <xsl:if test="$bIsFirstOpt='N'">
+                <xsl:text>,</xsl:text>
+            </xsl:if>
+            <xsl:text>RawFeature=</xsl:text>
+            <tex:spec cat="bg"/>
+            <xsl:value-of select="$sCommand"/>
+            <tex:spec cat="eg"/>
+            <xsl:if test="$sRest">
+                <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                    <xsl:with-param name="sList" select="$sRest"/>
+                    <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--
         OKToBreakHere
@@ -4393,23 +4454,22 @@
         <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
             <xsl:for-each select="$language">
                 <tex:spec cat="bg"/>
-        <tex:cmd name="colorbox">
-            <tex:opt>rgb</tex:opt>
-            <tex:parm>
-                <xsl:call-template name="GetColorDecimalCodesFromHexCode">
-                    <xsl:with-param name="sColorHexCode">
-                        <xsl:call-template name="GetColorHexCode">
-                            <xsl:with-param name="sColor" select="@backgroundcolor"/>
+                <tex:cmd name="colorbox">
+                    <tex:opt>rgb</tex:opt>
+                    <tex:parm>
+                        <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                            <xsl:with-param name="sColorHexCode">
+                                <xsl:call-template name="GetColorHexCode">
+                                    <xsl:with-param name="sColor" select="@backgroundcolor"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
                         </xsl:call-template>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </tex:parm>
-            <tex:spec cat="bg"/>
-        </tex:cmd>
-        
+                    </tex:parm>
+                    <tex:spec cat="bg"/>
+                </tex:cmd>
             </xsl:for-each>
-            </xsl:if>
-            <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+        </xsl:if>
+        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
         <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
             <xsl:choose>
                 <xsl:when test="$sTextTransform='uppercase'">
@@ -4513,8 +4573,8 @@
         <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
             <tex:spec cat="eg"/>
             <tex:spec cat="eg"/>
-            </xsl:if>
-            <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
+        </xsl:if>
+        <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0">
             <tex:spec cat="eg"/>
         </xsl:if>
@@ -4526,7 +4586,7 @@
         -->
         <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
         <xsl:if test="string-length($sFontStyle) &gt; 0">
-                <tex:spec cat="eg"/>
+            <tex:spec cat="eg"/>
         </xsl:if>
         <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
         <xsl:if test="string-length($sFontVariant) &gt; 0">
@@ -4588,9 +4648,8 @@
         <xsl:if test="$indexTermsToShow">
             <xsl:variable name="iIndent" select="count($terms/ancestor::*[name()='indexTerm']) * .125"/>
             <xsl:for-each select="$indexTermsToShow">
-<!--                <xsl:sort select="term[1]"/>-->
+                <!--                <xsl:sort select="term[1]"/>-->
                 <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
-                
                 <xsl:variable name="sTermId" select="@id"/>
                 <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                 <xsl:variable name="bHasCitedDescendant">
@@ -4679,9 +4738,8 @@
                                     <xsl:call-template name="LinkAttributesBegin">
                                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
-<!--                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>     -->
+                                    <!--                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>     -->
                                     <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
-                                    
                                     <xsl:call-template name="LinkAttributesEnd">
                                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
@@ -4689,7 +4747,6 @@
                                     <xsl:call-template name="OutputIndexTermSeeAfter">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
                                     </xsl:call-template>
-                                    
                                 </xsl:if>
                                 <!--                        <tex:cmd name="par" nl2="1"/>-->
                                 <xsl:call-template name="OutputIndexTerms">
@@ -4712,7 +4769,6 @@
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
-                                
                                 <xsl:call-template name="DoInternalHyperlinkBegin">
                                     <xsl:with-param name="sName">
                                         <xsl:call-template name="CreateIndexTermID">

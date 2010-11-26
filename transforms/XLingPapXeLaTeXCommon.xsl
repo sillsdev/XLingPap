@@ -1524,15 +1524,19 @@
         <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
         <!-- need to end any font attributes in effect, do the endnote, and then re-start any font attributes-->
         <xsl:variable name="language" select="key('LanguageID',../@lang)"/>
+        <xsl:if test="$sTeXFootnoteKind='footnote'">
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="$language"/>
         </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
         </xsl:call-template>
-        <xsl:call-template name="OutputFontAttributes">
+        <xsl:if test="$sTeXFootnoteKind='footnote'">
+            <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$language"/>
-        </xsl:call-template>
+            </xsl:call-template>
+            </xsl:if>
     </xsl:template>
     <!--
         endnote in li

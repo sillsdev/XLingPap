@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.14.0_3</a:version
+>2.14.0_4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-11-25</a:date
+>2010-11-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.14.0_4 26 November 2010<ul
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Fix bug which could cause a free translation to take on the font attributes of a langData when the langData had an endnote in it.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.14.0_3 25 November 2010<ul
 ><li
@@ -48,7 +58,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >If one specified 'oblique' in a font-style attribute, the PDF failed to be produced. This is fixed.</li
 ><li
->Enabled one to indicate font features for fonts that have them.  See the "Font special features" link in the index of the user documentation.</li
+>Enabled one to indicate font features for fonts that have them. See the "Font special features" link in the index of the user documentation.</li
 ></ul
 ></li
 ><li

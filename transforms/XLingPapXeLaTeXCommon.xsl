@@ -1525,18 +1525,18 @@
         <!-- need to end any font attributes in effect, do the endnote, and then re-start any font attributes-->
         <xsl:variable name="language" select="key('LanguageID',../@lang)"/>
         <xsl:if test="$sTeXFootnoteKind='footnote'">
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="$language"/>
-        </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$language"/>
+            </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
         </xsl:call-template>
         <xsl:if test="$sTeXFootnoteKind='footnote'">
             <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="language" select="$language"/>
             </xsl:call-template>
-            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--
         endnote in li
@@ -2968,10 +2968,12 @@
                     <xsl:when test="name($previous)='free' or name($previous)='lineGroup' or name($previous)='interlinear' and $previous[parent::interlinear or parent::listInterlinear]">
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
-                        <tex:spec cat="lsb"/>
-                        <!--                        <xsl:text>3pt</xsl:text>-->
-                        <tex:cmd name="baselineskip"/>
-                        <tex:spec cat="rsb"/>
+                        <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
+                            <tex:spec cat="lsb"/>
+                            <!--                        <xsl:text>3pt</xsl:text>-->
+                            <tex:cmd name="baselineskip"/>
+                            <tex:spec cat="rsb"/>
+                        </xsl:if>
                         <tex:cmd name="hspace*" nl1="1">
                             <tex:parm>.1in</tex:parm>
                         </tex:cmd>

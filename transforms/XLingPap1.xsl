@@ -2109,7 +2109,7 @@
     <!-- ===========================================================
         exampleHeading
         =========================================================== -->
-        <xsl:template match="exampleHeading">
+    <xsl:template match="exampleHeading">
         <table cellpadding="0pt" cellspacing="0pt">
             <tr>
                 <td>&#xa0;<xsl:apply-templates/></td>
@@ -2739,9 +2739,11 @@
                 <xsl:attribute name="style">
                     <xsl:text>margin-left: 0.1in</xsl:text>
                 </xsl:attribute>
-                <tr>
-                    <td>&#xa0;</td>
-                </tr>
+                <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
+                    <tr>
+                        <td>&#xa0;</td>
+                    </tr>
+                </xsl:if>
             </xsl:if>
             <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                 <xsl:with-param name="mode" select="$mode"/>

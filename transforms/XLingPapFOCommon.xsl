@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!--  
+        DoInterlinearLineGroup
+    -->
+    <xsl:template name="DoInterlinearLineGroup">
+        <xsl:param name="mode"/>
+        <fo:block>
+            <!-- add extra indent for when have an embedded interlinear; 
+                be sure to allow for the case of when a listInterlinear begins with an interlinear -->
+            <xsl:variable name="parent" select=".."/>
+            <xsl:variable name="iParentPosition">
+                <xsl:for-each select="../../*">
+                    <xsl:if test=".=$parent">
+                        <xsl:value-of select="position()"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:if test="name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                <xsl:attribute name="margin-left">
+                    <xsl:text>0.1in</xsl:text>
+                </xsl:attribute>
+                <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
+                    <xsl:attribute name="space-before">
+                        <xsl:value-of select="$sBasicPointSize div 2"/>
+                        <xsl:text>pt</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:if>
+            <fo:table space-before="0pt">
+                <xsl:call-template name="DoDebugExamples"/>
+                <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1">
+                    <xsl:call-template name="ApplyTemplatesPerTextRefMode">
+                        <xsl:with-param name="mode" select="$mode"/>
+                    </xsl:call-template>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
+    </xsl:template>
     <!--
         OutputAbbreviationInTable
     -->

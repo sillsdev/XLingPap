@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->24 November 2010</date
+>27 November 2010</date
 ><version
->2.14.0_3</version
+>2.14.0_5</version
 ><contents
 showLevel="4"
 ></contents
@@ -1191,7 +1191,7 @@ term="iFontFeatures"
 ><object
 type="tItalic"
 >Font feature=value</object
->.  There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote.  Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
+>. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
 ><td
 >Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes. <indexedItem
 term="iXeLaTeXUpgrade"
@@ -8821,6 +8821,14 @@ type="tInstruction"
 >Set Reference</object
 >), a dialog box will pop up that lists all the interlinear text portions in your paper. Choose the interlinear text portion you want.</li
 ></ol
+><p
+><object
+type="tXLingPap"
+></object
+> will insert the content of the referenced interlinear in the formatted output.  Please note, however, that if there are any <object
+type="tElement"
+>endnote</object
+> elements within the referenced interlinear, the number of the endnote/footnote will probably be incorrect.  (It will be the number that the interlinear will have in its location in the document, not the number you would expect in the referenced location).  The work-around for this situation is to use the second method.</p
 ><p
 >The second way is to make a copy of the portion. The advantage of making a copy is that then you can highlight individual words or morphemes that you are discussing in the context. To make the copy, follow these steps:</p
 ><ol

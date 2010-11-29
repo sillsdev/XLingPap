@@ -574,6 +574,20 @@ citation[author='no']
              ;
 	background-color:citation-background-color();
 }
+
+selectedBibliography > citation
+{
+	display: block;
+	content: set-attribute-button(attribute, ref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+			 label(xpath, "id(@ref)/../@citename")
+             ;
+	background-color:citation-background-color();
+	margin: indented-block();
+}
+
 citation
 {
 	content: set-attribute-button(attribute, ref,
@@ -2057,7 +2071,7 @@ ms
 object:before
 {
 	color: black;
-	font-family: sanserif; 
+	font-family: sans-serif; 
 	font-size: 100%;
 	font-style: normal;
 	font-weight: normal;
@@ -2918,6 +2932,25 @@ seeTerm
 {
 	display:block;
 	padding-left: 0.125in;
+}
+
+selectedBibliography[label]:before
+{
+	property-group: labelIsPresent();
+	font-weight:bold;
+	font-size:larger;
+}
+selectedBibliography:before
+{
+	property-group: labelNotPresent( " Selected Bibliography" );
+	font-weight:bold;
+	font-size:larger;
+}
+selectedBibliography
+{
+	display:block;
+    padding-top: 1ex;
+	property-group: isCollapsible( yes, 1);
 }
 
 series
@@ -4610,6 +4643,35 @@ figureRefLinkLayout
 	property-group:linkLayoutParameter("figureRef");
 	color: gray;
 	text-decoration:none;
+}
+fixedText[backgroundcolor]
+{
+	background-color:concatenate(attr(backgroundcolor));
+}
+fixedText[color]
+{
+	color:concatenate(attr(color));
+}
+fixedText[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+fixedText[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+fixedText[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+fixedText[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+fixedText
+{
+	display:block;
+	margin-left:.125in;
 }
 /*
 footer:before

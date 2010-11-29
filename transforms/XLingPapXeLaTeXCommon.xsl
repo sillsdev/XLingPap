@@ -1785,6 +1785,13 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="preceding-sibling::p[1] or preceding-sibling::pc[1]">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:apply-templates/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
@@ -4194,15 +4201,6 @@
         </xsl:if>
     </xsl:template>
     <!--
-        OutputAbbreviationsLabel
-    -->
-    <xsl:template name="OutputAbbreviationsLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Abbreviations</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//abbreviations/@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
         OutputAbbrDefinition
     -->
     <xsl:template name="OutputAbbrDefinition">
@@ -5035,17 +5033,6 @@
                     </tex:env>
                 </tex:group>
             </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--
-        OutputPartLabel
-    -->
-    <xsl:template name="OutputPartLabel">
-        <xsl:choose>
-            <xsl:when test="$lingPaper/@partlabel">
-                <xsl:value-of select="$lingPaper/@partlabel"/>
-            </xsl:when>
-            <xsl:otherwise>Part</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  

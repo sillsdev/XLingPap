@@ -216,7 +216,7 @@ Page Layout
       ruleabovewidth CDATA #IMPLIED
     >
     <!-- what can go in a header or a footer -->
-<!ENTITY % headerFooterItem "chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | sectionTitle | volumeAuthorRef | volumeTitleRef | img" >
+<!ENTITY % headerFooterItem "chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
 <!ELEMENT leftHeaderFooterItem ( %headerFooterItem;)>
 <!ELEMENT centerHeaderFooterItem ( %headerFooterItem;)>
 <!ELEMENT rightHeaderFooterItem ( %headerFooterItem;)>
@@ -252,7 +252,7 @@ Page Layout
        %formatinfo;
 >
    <!-- 
-   nothing is aplace-holder so display will be more  intuitive in the XMLmind XML Editor
+   nothing is a place-holder so display will be more  intuitive in the XMLmind XML Editor
    -->
 <!ELEMENT nothing EMPTY>
 <!--
@@ -283,6 +283,14 @@ Page Layout
 <!ATTLIST volumeTitleRef
     %formatinfo;
 >
+   <!-- 
+   fixedText is arbitrary text one can use (e.g. entity name, copyright, etc.)
+   -->
+<!ELEMENT fixedText (#PCDATA)>
+<!ATTLIST fixedText
+    %fontinfo;
+    >
+
 <!-- 
   ===================================================
 Front MatterLayout

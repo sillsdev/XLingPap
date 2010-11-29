@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->12 November 2010</date
+>29 November 2010</date
 ><version
->2.14.0</version
+>2.14.0_6</version
 ><contents
 showLevel="3"
 ></contents
@@ -1585,6 +1585,40 @@ type="tElement"
 type="tElement"
 >url</object
 > element is, of course, the address of the page on the World Wide Web. The URL will contain an HTML link to it, so you should be able to click on it within your web browser and link to it.</p
+></section3
+><section3
+id="sReferencesSelectedBibliography"
+><secTitle
+>Using a Selected Bibliography</secTitle
+><p
+>There are certain situations when you may find that you want more than just the cited references to appear. Some possible scenarios include an abstract that is to be submitted for a conference and proposals for theses and dissertations. The references in such situations are often referred to as “Selected References” or "Selected Bibliography.”</p
+><p
+><object
+type="tXLingPap"
+></object
+> allows you to do this via a <object
+type="tElement"
+>selectedBibliography</object
+> element. It can appear immediately after a <object
+type="tElement"
+>references</object
+> element. It contains one or more <object
+type="tElement"
+>citation</object
+> elements which indicate the additional or “selected” references you want to have appear in your references. Any references cited in the document will appear just like they usually do.</p
+><p
+>Whenever you use a <object
+type="tElement"
+>selectedBibliography</object
+> element, the default label for the references section becomes “Selected Bibliography.” To change it to something else, use the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>selectedBibliography</object
+> element.</p
+><p
+>Please note that the output will either have a “References” section or a “Selected Bibliography” section, but not both.</p
 ></section3
 ></section2
 ><section2
@@ -9988,6 +10022,13 @@ type="tElement"
 ></dt
 ><dd
 >A definition for a “see“ term in indexes (language dependent)</dd
+><dt
+><object
+type="tElement"
+>selectedBibliography</object
+></dt
+><dd
+>A selected bibliography section of the back matter; used instead of references</dd
 ><dt
 ><object
 type="tElement"

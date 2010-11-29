@@ -2726,49 +2726,6 @@ not using
         </xsl:if>
     </xsl:template>
     <!-- ===========================================================
-        INTERLINEAR TEXT
-        =========================================================== -->
-    <!--  
-        interlinear-text
-    -->
-    <xsl:template match="interlinear-text">
-        <xsl:choose>
-            <xsl:when test="@xsl-foSpecial">
-                <fo:block>
-                    <xsl:call-template name="OutputTypeAttributes">
-                        <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-                    </xsl:call-template>
-                    <xsl:apply-templates/>
-                </fo:block>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--  
-        textInfo
-    -->
-    <xsl:template match="textInfo">
-        <xsl:apply-templates/>
-    </xsl:template>
-    <!--  
-        textTitle
-    -->
-    <xsl:template match="textTitle">
-        <fo:block text-align="center" font-size="larger" font-weight="bold">
-            <xsl:apply-templates/>
-        </fo:block>
-    </xsl:template>
-    <!--  
-        source
-    -->
-    <xsl:template match="source">
-        <fo:block text-align="center" font-style="italic">
-            <xsl:apply-templates/>
-        </fo:block>
-    </xsl:template>
-    <!-- ===========================================================
       NUMBERING PROCESSING 
       =========================================================== -->
     <!--  
@@ -2932,8 +2889,28 @@ not using
         <xsl:param name="date"/>
         <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date]" format="a"/>
     </xsl:template>
-    <!--  ignore these -->
-    <xsl:template match="publisherStyleSheetName | publisherStyleSheetReferencesName | publisherStyleSheetVersion | publisherStyleSheetReferencesVersion |   pageWidth | pageHeight | pageTopMargin | pageBottomMargin | pageInsideMargin | pageOutsideMargin | headerMargin | footerMargin | paragraphIndent | blockQuoteIndent | defaultFontFamily | basicPointSize |  footnotePointSize | magnificationFactor"/>
+    <!-- ===========================================================
+        ELEMENTS TO IGNORE
+        =========================================================== -->
+    <xsl:template match="basicPointSize"/>
+    <xsl:template match="blockQuoteIndent"/>
+    <xsl:template match="citation[parent::selectedBibliography]"/>
+    <xsl:template match="defaultFontFamily"/>
+    <xsl:template match="footerMargin"/>
+    <xsl:template match="footnotePointSize"/>
+    <xsl:template match="headerMargin"/>
+    <xsl:template match="magnificationFactor"/>
+    <xsl:template match="pageBottomMargin"/>
+    <xsl:template match="pageHeight"/>
+    <xsl:template match="pageInsideMargin"/>
+    <xsl:template match="pageOutsideMargin"/>
+    <xsl:template match="pageTopMargin"/>
+    <xsl:template match="pageWidth"/>
+    <xsl:template match="paragraphIndent"/>
+    <xsl:template match="publisherStyleSheetName"/>
+    <xsl:template match="publisherStyleSheetReferencesName"/>
+    <xsl:template match="publisherStyleSheetReferencesVersion"/>
+    <xsl:template match="publisherStyleSheetVersion"/>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -3885,6 +3862,12 @@ not using
                                         </xsl:choose>
                                     </xsl:attribute>
                                 </fo:retrieve-marker>
+                            </xsl:when>
+                            <xsl:when test="name()='fixedText'">
+                                <xsl:call-template name="OutputFontAttributes">
+                                    <xsl:with-param name="language" select="."/>
+                                </xsl:call-template>
+                                <xsl:apply-templates/>
                             </xsl:when>
                             <xsl:when test="name()='pageNumber'">
                                 <fo:page-number/>
@@ -4909,15 +4892,6 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
-      OutputAbbreviationsLabel
-   -->
-    <xsl:template name="OutputAbbreviationsLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Abbreviations</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//abbreviations/@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
       OutputAbbrDefinition
    -->
     <xsl:template name="OutputAbbrDefinition">
@@ -4975,24 +4949,6 @@ not using
             </xsl:call-template>
             <xsl:value-of select="$sAbbrTerm"/>
         </fo:inline>
-    </xsl:template>
-    <!--
-                   OutputAbstractLabel
--->
-    <xsl:template name="OutputAbstractLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Abstract</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//abstract/@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-                   OutputAcknowledgementsLabel
--->
-    <xsl:template name="OutputAcknowledgementsLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Acknowledgements</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//acknowledgements/@label"/>
-        </xsl:call-template>
     </xsl:template>
     <!--
         OutputAnyTextBeforeFigureRef
@@ -5474,24 +5430,6 @@ not using
             </xsl:if>
         </xsl:if>
     </xsl:template>
-    <!--
-                   OutputContentsLabel
--->
-    <xsl:template name="OutputContentsLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Contents</xsl:with-param>
-            <xsl:with-param name="pLabel" select="$contents/@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-                   OutputEndnotesLabel
--->
-    <xsl:template name="OutputEndnotesLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Endnotes</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//endnotes/@label"/>
-        </xsl:call-template>
-    </xsl:template>
     <!--  
                   OutputExampleNumber
 -->
@@ -5697,41 +5635,6 @@ not using
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </fo:block>
-    </xsl:template>
-    <!--
-                   OutputGlossaryLabel
--->
-    <xsl:template name="OutputGlossaryLabel">
-        <xsl:param name="iPos" select="'1'"/>
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Glossary</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//glossary[$iPos]/@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-                   OutputIndexLabel
--->
-    <xsl:template name="OutputIndexLabel">
-        <xsl:variable name="sDefaultIndexLabel">
-            <xsl:choose>
-                <xsl:when test="@kind='name'">
-                    <xsl:text>Name Index</xsl:text>
-                </xsl:when>
-                <xsl:when test="@kind='language'">
-                    <xsl:text>Language Index</xsl:text>
-                </xsl:when>
-                <xsl:when test="@kind='subject'">
-                    <xsl:text>Subject Index</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>Index</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault" select="$sDefaultIndexLabel"/>
-            <xsl:with-param name="pLabel" select="@label"/>
-        </xsl:call-template>
     </xsl:template>
     <!--
                    OutputIndexedItemsRange
@@ -6024,21 +5927,6 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--  
-                  OutputLabel
--->
-    <xsl:template name="OutputLabel">
-        <xsl:param name="sDefault"/>
-        <xsl:param name="pLabel"/>
-        <xsl:choose>
-            <xsl:when test="$pLabel">
-                <xsl:value-of select="$pLabel"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$sDefault"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--  
                   OutputList
 -->
     <xsl:template name="OutputList">
@@ -6142,47 +6030,6 @@ not using
                 </fo:table-body>
             </fo:table>
         </fo:block>
-    </xsl:template>
-    <!--  
-                  OutputPeriodIfNeeded
--->
-    <xsl:template name="OutputPeriodIfNeeded">
-        <xsl:param name="sText"/>
-        <xsl:variable name="sString">
-            <xsl:value-of select="normalize-space($sText)"/>
-        </xsl:variable>
-        <xsl:if test="substring($sString, string-length($sString))!='.'">
-            <xsl:text>.</xsl:text>
-        </xsl:if>
-    </xsl:template>
-    <!--
-                   OutputPartLabel
--->
-    <xsl:template name="OutputPartLabel">
-        <xsl:choose>
-            <xsl:when test="$lingPaper/@partlabel">
-                <xsl:value-of select="$lingPaper/@partlabel"/>
-            </xsl:when>
-            <xsl:otherwise>Part</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--
-                   OutputPrefaceLabel
--->
-    <xsl:template name="OutputPrefaceLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">Preface</xsl:with-param>
-            <xsl:with-param name="pLabel" select="@label"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-                   OutputReferencesLabel
--->
-    <xsl:template name="OutputReferencesLabel">
-        <xsl:call-template name="OutputLabel">
-            <xsl:with-param name="sDefault">References</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//references/@label"/>
-        </xsl:call-template>
     </xsl:template>
     <!--  
                   OutputSectionNumber
@@ -6523,20 +6370,21 @@ not using
     <!-- ===========================================================
       ELEMENTS TO IGNORE
       =========================================================== -->
-    <xsl:template match="language"/>
-    <xsl:template match="comment"/>
     <xsl:template match="appendix/shortTitle"/>
+    <xsl:template match="comment"/>
+    <xsl:template match="dd"/>
+    <xsl:template match="fixedText"/>
+    <xsl:template match="language"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>
     <xsl:template match="section4/shortTitle"/>
     <xsl:template match="section5/shortTitle"/>
     <xsl:template match="section6/shortTitle"/>
-    <xsl:template match="textInfo/shortTitle"/>
-    <xsl:template match="styles"/>
     <xsl:template match="style"/>
-    <xsl:template match="dd"/>
+    <xsl:template match="styles"/>
     <xsl:template match="term"/>
+    <xsl:template match="textInfo/shortTitle"/>
     <xsl:template match="type"/>
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE

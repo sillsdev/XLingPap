@@ -720,7 +720,7 @@ For when we get author contacts turned on...
 <!--  For when we get author contacts turned on...
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, references?, index*, authorContactInfo*)>
 -->
-<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, references?, index*)>
+<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, (references, selectedBibliography?)?, index*)>
 <!-- endnotes -->
 <!ELEMENT endnotes EMPTY>
 <!ATTLIST endnotes
@@ -748,6 +748,13 @@ For when we get author contacts turned on...
 <!ATTLIST glossary
     label CDATA #IMPLIED
     type IDREF #IMPLIED
+>
+<!-- selected bibliography 
+       This is a place to put citations in the few cases where one wants to have more references than are actually cited in the document body.
+-->
+<!ELEMENT selectedBibliography (citation+)>
+<!ATTLIST selectedBibliography
+    label CDATA #IMPLIED
 >
 <!-- landscape mode: in PDF, output the material in landscape instead of portrait mode; will start a new page in the output -->
 <!ELEMENT landscape (%chunk;)+>

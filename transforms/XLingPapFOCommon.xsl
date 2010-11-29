@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!-- ===========================================================
+        INTERLINEAR TEXT
+        =========================================================== -->
+    <!--  
+        interlinear-text
+    -->
+    <xsl:template match="interlinear-text">
+        <fo:block>
+            <xsl:if test="preceding-sibling::p[1] or preceding-sibling::pc[1]">
+                <xsl:attribute name="space-before">
+                    <xsl:value-of select="$sBasicPointSize"/>
+                    <xsl:text>pt</xsl:text>
+                </xsl:attribute>
+        </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@xsl-foSpecial">
+                    <xsl:call-template name="OutputTypeAttributes">
+                        <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fo:block>
+    </xsl:template>
+    <!--  
+        textInfo
+    -->
+    <xsl:template match="textInfo">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <!--  
+        textTitle
+    -->
+    <xsl:template match="textTitle">
+        <fo:block text-align="center" font-size="larger" font-weight="bold">
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    <!--  
+        source
+    -->
+    <xsl:template match="source">
+        <fo:block text-align="center" font-style="italic">
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
     <!--  
         DoInterlinearLineGroup
     -->

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->27 November 2010</date
+>29 November 2010</date
 ><version
->2.14.0_5</version
+>2.14.0_6</version
 ><contents
 showLevel="4"
 ></contents
@@ -4720,6 +4720,43 @@ border="1"
 ></example
 ></section3
 ><section3
+id="sReferencesSelectedBibliography"
+><secTitle
+>Using a Selected Bibliography</secTitle
+><p
+><indexedItem
+term="iReferencesSelectedReferences"
+></indexedItem
+>There are certain situations when you may find that you want more than just the cited references to appear.  Some possible scenarios include an abstract that is to be submitted for a conference and proposals for theses and dissertations.  The references in such situations are often referred to as “Selected References” or "Selected Bibliography.”</p
+><p
+><object
+type="tXLingPap"
+></object
+> allows you to do this via a <object
+type="tElement"
+>selectedBibliography</object
+> element.  It can appear immediately after a <object
+type="tElement"
+>references</object
+> element.  It contains one or more <object
+type="tElement"
+>citation</object
+> elements which indicate the additional or “selected” references you want to have appear in your references.  Any references cited in the document will appear just like they usually do.</p
+><p
+>Whenever you use a <object
+type="tElement"
+>selectedBibliography</object
+> element, the default label for the references section becomes “Selected Bibliography.”  To change it to something else, use the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>selectedBibliography</object
+> element.</p
+><p
+>Please note that the output will either have a “References” section or a “Selected Bibliography” section, but not both.</p
+></section3
+><section3
 id="sBMRefZotero"
 ><secTitle
 >Converting a <object
@@ -8825,10 +8862,10 @@ type="tInstruction"
 ><object
 type="tXLingPap"
 ></object
-> will insert the content of the referenced interlinear in the formatted output.  Please note, however, that if there are any <object
+> will insert the content of the referenced interlinear in the formatted output. Please note, however, that if there are any <object
 type="tElement"
 >endnote</object
-> elements within the referenced interlinear, the number of the endnote/footnote will probably be incorrect.  (It will be the number that the interlinear will have in its location in the document, not the number you would expect in the referenced location).  The work-around for this situation is to use the second method.</p
+> elements within the referenced interlinear, the number of the endnote/footnote will probably be incorrect. (It will be the number that the interlinear will have in its location in the document, not the number you would expect in the referenced location). The work-around for this situation is to use the second method.</p
 ><p
 >The second way is to make a copy of the portion. The advantage of making a copy is that then you can highlight individual words or morphemes that you are discussing in the context. To make the copy, follow these steps:</p
 ><ol
@@ -16857,6 +16894,20 @@ type="tKey"
 sec="sTCTFloats"
 ></sectionRef
 >) are not handled as floats. They will appear exactly in place.</li
+><li
+>Multiple <object
+type="tElement"
+>endnote</object
+> elements in the same paragraph sometimes will not get formatted at all. If you have one of the newer versions of the <object
+type="tXMLmindXSLUtility"
+></object
+>, you can run it on the resulting .fo file and choose to use the RTF output. It will then handle the footnotes correctly. Alternatively, you can use the <object
+type="tOpenOfficeWriter"
+></object
+> output (see section <sectionRef
+sec="sFAQProduceOOo"
+></sectionRef
+>) and then convert that to Word format.</li
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
@@ -19800,6 +19851,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>selectedBibliography</object
+></dt
+><dd
+>A selected bibliography section of the back matter; used instead of references</dd
+><dt
+><object
+type="tElement"
 >series</object
 ></dt
 ><dd
@@ -22422,6 +22480,11 @@ id="iJumpToReferences"
 >Jump to References</term
 ></indexTerm
 ><indexTerm
+id="iReferencesSelectedReferences"
+><term
+>Selected References</term
+></indexTerm
+><indexTerm
 id="iReferencesSort"
 ><term
 >Sort by author name</term
@@ -22509,6 +22572,18 @@ see="iTitleSection"
 >Title</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iSelectedBibliography"
+see="iReferencesSelectedReferences"
+><term
+>Selected Bibliography</term
+></indexTerm
+><indexTerm
+id="iSelectedReferences"
+see="iReferencesSelectedReferences"
+><term
+>Selected References</term
 ></indexTerm
 ><indexTerm
 id="iSmallCaps"

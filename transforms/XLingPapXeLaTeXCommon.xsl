@@ -2380,26 +2380,29 @@
                     <xsl:otherwise>N</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:variable name="bHasFontFeature">
+            <xsl:variable name="sFontFeatureList">
                 <xsl:choose>
-                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontFeature)">Y</xsl:when>
-                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontFeature)">Y</xsl:when>
-                    <xsl:otherwise>N</xsl:otherwise>
+                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontFeature)">
+                        <xsl:value-of select="@XeLaTeXSpecial"/>
+                    </xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontFeature)">
+                        <xsl:value-of select="../@XeLaTeXSpecial"/>
+                    </xsl:when>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:if test="$bIsGraphite='Y' or $bHasFontFeature='Y'">
+            <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0">
                 <tex:opt>
                     <xsl:choose>
                         <xsl:when test="$bIsGraphite='Y'">
                             <xsl:value-of select="$sRendererIsGraphite"/>
                             <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                                <xsl:with-param name="sList" select="$sFontFeatureList"/>
                                 <xsl:with-param name="bIsFirstOpt" select="'N'"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                                <xsl:with-param name="sList" select="$sFontFeatureList"/>
                                 <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
                             </xsl:call-template>
                         </xsl:otherwise>

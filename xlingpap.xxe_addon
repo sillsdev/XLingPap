@@ -34,13 +34,19 @@ href="mailto::andy_black@sil.org"
 ><li
 >2.14.0_6 30 November 2010<ul
 ><li
->Add a command to enter two consecutive references to examples, sections, figures, numbered tables, interlinear text items, or appendices.  This command inserts the two reference elements, inserts an n-dash between them, and sets the attributes appropriately for both reference elements.</li
+>Add a command to enter two consecutive references to examples, sections, figures, numbered tables, interlinear text items, or appendices. This command inserts the two reference elements, inserts an n-dash between them, and sets the attributes appropriately for both reference elements.</li
 ><li
 >Add selectedBibliography element to allow for the special cases where you want more references to appear than are cited in the body of the document.</li
 ><li
 >Publisher style sheet:<ul
 ><li
 >Added fixedText element for headers and footers so one can add fixed text material (such as an entity name or copyright date).</li
+></ul
+></li
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Fix bug which failed to recognize a special font-feature when using a publisher style sheet.</li
 ></ul
 ></li
 ></ul

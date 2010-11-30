@@ -656,19 +656,66 @@ alt causes menu to be selected
         </cfg:macro>
     </cfg:command>
     <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="alt ctrl shift"/>
+        <cfg:command name="insertThenSetReferenceRange"/>
+    </cfg:binding>
+    <cfg:command name="insertThenSetReferenceRange">
+        <cfg:macro undoable="true" trace="true">
+            <cfg:sequence>
+                <cfg:sequence>
+                    <cfg:pass>
+                        <cfg:command name="insert" parameter="into sectionRef"/>
+                    </cfg:pass>
+                    <cfg:command name="pick" parameter="'Insert Reference Element Range' false appendixRef exampleRef figureRef interlinearRefCitation sectionRef tablenumberedRef"/>
+                    <cfg:set variable="element" expression="%_" plainString="true"/>
+                    <cfg:get expression="$element"/>
+                    <cfg:command name="insert" parameter="into %_"/>
+                    <cfg:command name="setReference" parameter="Initial"/>
+                    <cfg:choice>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] paren initial"/>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] bracket initial"/>
+                        <!-- following is a kind of a no-op to make sure the choice succeeds; is there a better way? -->
+                        <cfg:get expression="$element"/>
+                    </cfg:choice>
+                    <!--                        <cfg:command name="alert" parameter="Before insertNode"/>-->
+                    <cfg:command name="insertTextOrMoveDot" parameter="after"/>
+                    <!--                        <cfg:command name="alert" parameter="Before insertString"/>-->
+                    <cfg:command name="insertString" parameter="–"/>
+                    <!--                        <cfg:command name="alert" parameter="Before get $element"/>-->
+                    <cfg:get expression="$element"/>
+                    <cfg:command name="insert" parameter="into %_"/>
+                    <cfg:command name="setReference" parameter="Final"/>
+                    <cfg:choice>
+                        <cfg:sequence>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] paren final"/>
+                            <cfg:command name="putAttribute" parameter="[implicitElement] letterOnly yes"/>
+                        </cfg:sequence>
+                        <cfg:sequence>
+                            <cfg:command name="putAttribute" parameter="[implicitElement] bracket final"/>
+                            <cfg:command name="putAttribute" parameter="[implicitElement] lineNumberOnly yes"/>
+                        </cfg:sequence>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] textBefore none"/>
+                        <!-- following is a kind of a no-op to make sure the choice succeeds; is there a better way? -->
+                        <cfg:get expression="$element"/>
+                    </cfg:choice>
+                </cfg:sequence>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
         <cfg:keyPressed code="F11"/>
         <cfg:command name="setReference"/>
     </cfg:binding>
     <cfg:command name="setReference">
-        <cfg:macro>
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="setAbbreviation"/>
-                    <cfg:command name="setAppendix"/>
+                    <cfg:command name="setAppendix" parameter="%0"/>
                     <cfg:command name="setCitation"/>
-                    <cfg:command name="setExample"/>
+                    <cfg:command name="setExample" parameter="%0"/>
                     <cfg:command name="setLanguage"/>
-                    <cfg:command name="setSection"/>
+                    <cfg:command name="setSection" parameter="%0"/>
                     <cfg:command name="setType"/>
                     <cfg:command name="setEndnote"/>
                     <cfg:command name="setIndexSee"/>
@@ -676,9 +723,9 @@ alt causes menu to be selected
                     <cfg:command name="setIndexedRangeBegin"/>
                     <cfg:command name="setGenericRef"/>
                     <cfg:command name="setImageSource"/>
-                    <cfg:command name="setInterlinearRef"/>
-                    <cfg:command name="setFigureRef"/>
-                    <cfg:command name="setTableNumberedRef"/>
+                    <cfg:command name="setInterlinearRef" parameter="%0"/>
+                    <cfg:command name="setFigureRef" parameter="%0"/>
+                    <cfg:command name="setTableNumberedRef" parameter="%0"/>
                     <cfg:command name="setCollOrProcCitation"/>
                 </cfg:choice>
             </cfg:sequence>
@@ -711,9 +758,25 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] appendixRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] app"/>-->
                 </cfg:pass>
-                <cfg:command name="getAppendixTitlesandIds"/>
-                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
-                <cfg:command name="pick" parameter="'Appendix' true %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:command name="getAppendixTitlesandIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Initial Appendix' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:command name="getAppendixTitlesandIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Final Appendix' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getAppendixTitlesandIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Appendix' true %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:command name="putAttribute" parameter="[implicitElement] app %_"/>
             </cfg:sequence>
         </cfg:macro>
@@ -781,14 +844,28 @@ alt causes menu to be selected
         </cfg:macro>
     </cfg:command>
     <cfg:command name="setExample">
-        <cfg:macro>
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:command name="selectNode" parameter="self[implicitElement] exampleRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] num"/>-->
                 </cfg:pass>
-                <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
-                <cfg:command name="pick" parameter="Example false %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
+                        <cfg:command name="pick" parameter="'Initial Example' false %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
+                        <cfg:command name="pick" parameter="'Final Example' false %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
+                        <cfg:command name="pick" parameter="Example false %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:set expression="%_" plainString="true" variable="chosenId"/>
                 <cfg:get expression="$chosenId"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
@@ -835,9 +912,25 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] figureRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
-                <cfg:command name="getFigureCaptionsAndIds"/>
-                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
-                <cfg:command name="pick" parameter="Figure true %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:command name="getFigureCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Initial Figure' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:command name="getFigureCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Final Figure' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getFigureCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="Figure true %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:command name="putAttribute" parameter="[implicitElement] figure %_"/>
             </cfg:sequence>
         </cfg:macro>
@@ -930,9 +1023,25 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] interlinearRef interlinearRefCitation"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] textref"/>-->
                 </cfg:pass>
-                <cfg:command name="getInterlinearTextAndIds"/>
-                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
-                <cfg:command name="pick" parameter="Interlinear Text true %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:command name="getInterlinearTextAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Initial Interlinear Text' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:command name="getInterlinearTextAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Final Interlinear Text' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getInterlinearTextAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Interlinear Text' true %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:command name="putAttribute" parameter="[implicitElement] textref %_"/>
             </cfg:sequence>
         </cfg:macro>
@@ -964,8 +1073,22 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] sectionRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] sec"/>-->
                 </cfg:pass>
-                <cfg:command name="getSectionTitlesandIds"/>
-                <cfg:command name="pick" parameter="'Section, Chapter, or Part' true %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:command name="getSectionTitlesandIds"/>
+                        <cfg:command name="pick" parameter="'Initial Section, Chapter, or Part' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:command name="getSectionTitlesandIds"/>
+                        <cfg:command name="pick" parameter="'Final Section, Chapter, or Part' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getSectionTitlesandIds"/>
+                        <cfg:command name="pick" parameter="'Section, Chapter, or Part' true %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:command name="putAttribute" parameter="[implicitElement] sec %_"/>
             </cfg:sequence>
         </cfg:macro>
@@ -993,9 +1116,25 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] tablenumberedRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
-                <cfg:command name="getTableNumberedCaptionsAndIds"/>
-                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
-                <cfg:command name="pick" parameter="Table true %_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Initial'"/>
+                        <cfg:command name="getTableNumberedCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Initial Table' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:test expression="'%0' = 'Final'"/>
+                        <cfg:command name="getTableNumberedCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="'Final Table' true %_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getTableNumberedCaptionsAndIds"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="Table true %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
                 <cfg:command name="putAttribute" parameter="[implicitElement] table %_"/>
             </cfg:sequence>
         </cfg:macro>
@@ -1388,7 +1527,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:pass>
-<!--                                    <cfg:test context="//language | //type" expression="contains(@XeLaTeXSpecial,'graphite')"/>-->
+                                    <!--                                    <cfg:test context="//language | //type" expression="contains(@XeLaTeXSpecial,'graphite')"/>-->
                                     <cfg:test context="//@XeLaTeXSpecial" expression="contains(.,'graphite')"/>
                                 </cfg:pass>
                                 <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
@@ -1656,14 +1795,14 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:process>
     </cfg:command>
     <cfg:command name="produceOpenOfficeDocument">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="produceWord2003Document" parameter="'odt'"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
     <cfg:command name="produceWord2003Document">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}HasXSL-FOConverter.bat&quot;"/>
@@ -1710,7 +1849,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="DeleteAndProduceODTFile">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="status" parameter="Deleting any Open Office file..."/>
                 <cfg:command name="DeletePDFFile" parameter="1 odt"/>
@@ -1723,7 +1862,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="produceWord2003DocumentViaXFC">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <!--  Either do the embedded version or the canned version-->
             <cfg:choice>
                 <cfg:sequence>
@@ -1851,7 +1990,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="associatePublisherStylesheet">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:pass>

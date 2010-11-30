@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->29 November 2010</date
+>30 November 2010</date
 ><version
 >2.14.0_6</version
 ><contents
@@ -4727,7 +4727,7 @@ id="sReferencesSelectedBibliography"
 ><indexedItem
 term="iReferencesSelectedReferences"
 ></indexedItem
->There are certain situations when you may find that you want more than just the cited references to appear.  Some possible scenarios include an abstract that is to be submitted for a conference and proposals for theses and dissertations.  The references in such situations are often referred to as “Selected References” or "Selected Bibliography.”</p
+>There are certain situations when you may find that you want more than just the cited references to appear. Some possible scenarios include an abstract that is to be submitted for a conference and proposals for theses and dissertations. The references in such situations are often referred to as “Selected References” or "Selected Bibliography.”</p
 ><p
 ><object
 type="tXLingPap"
@@ -4735,18 +4735,18 @@ type="tXLingPap"
 > allows you to do this via a <object
 type="tElement"
 >selectedBibliography</object
-> element.  It can appear immediately after a <object
+> element. It can appear immediately after a <object
 type="tElement"
 >references</object
-> element.  It contains one or more <object
+> element. It contains one or more <object
 type="tElement"
 >citation</object
-> elements which indicate the additional or “selected” references you want to have appear in your references.  Any references cited in the document will appear just like they usually do.</p
+> elements which indicate the additional or “selected” references you want to have appear in your references. Any references cited in the document will appear just like they usually do.</p
 ><p
 >Whenever you use a <object
 type="tElement"
 >selectedBibliography</object
-> element, the default label for the references section becomes “Selected Bibliography.”  To change it to something else, use the <object
+> element, the default label for the references section becomes “Selected Bibliography.” To change it to something else, use the <object
 type="tAttribute"
 >label</object
 > attribute of the <object
@@ -18570,6 +18570,9 @@ id="sInsertThenSetReference"
 ><secTitle
 >Insert and then Set Reference</secTitle
 ><p
+><indexedItem
+term="iReference"
+></indexedItem
 >Whenever you want to insert an element that has a reference to some other element, normally you do two steps: insert the element and then press <object
 type="tKey"
 >F11</object
@@ -18606,6 +18609,73 @@ type="tKey"
 type="tKey"
 >F11</object
 > key.</p
+><p
+><indexedItem
+term="iRefRanges"
+></indexedItem
+><object
+type="tXLingPap"
+></object
+> also offers a variation of this command. It allows you to insert and then set the reference for two consecutive reference elements and automatically inserts an n-dash character between the two. It also formats the two items as one might need for such a range. This variation is found in the <object
+type="tInstruction"
+>XLingPaper / Insert and then Set Reference Range</object
+> menu item or by pressing the <object
+type="tKey"
+>Ctrl+Alt+Shift+F11</object
+> keys together, all at the same time. When you do this, it first opens up a dialog box listing the possible elements that have references that can occur in a range as shown in <exampleRef
+letter="xInsertRefRange"
+num="xInsertRefRange"
+></exampleRef
+>. (Note that if it is not possible to insert a reference at the location where you are, no dialog box will show.)</p
+><example
+num="xInsertRefRange"
+><chart
+><img
+src="resources/InsertReferenceElementRange.png"
+></img
+></chart
+></example
+><p
+>You can then type the name of the two consecutive elements you want to insert (or press the <object
+type="tKey"
+>Esc</object
+> key to cancel). As soon as you press the <object
+type="tKey"
+>Enter</object
+> key, the first instance of that element will be inserted and the dialog box for choosing a reference for that element will show. Which dialog box appears depends on which element you chose. This second dialog box is exactly the same one you see when you have inserted that element by hand and then press the <object
+type="tKey"
+>F11</object
+> key.   After you select the item, you will see another instance of that same dialog box.  This is for the second element in the range.  <object
+type="tXLingPap"
+></object
+> will automatically insert an n-dash character between the two elements and will attempt to set all the attribute values of the two elements in the most likely way you want.  For example, if you use this approach to enter two <object
+type="tElement"
+>exampleRef</object
+> elements, the first <object
+type="tElement"
+>exampleRef</object
+> element will have its <object
+type="tAttribute"
+>paren</object
+> attribute set to <object
+type="tAttrValue"
+>initial</object
+>.  The second <object
+type="tElement"
+>exampleRef</object
+> element will have its <object
+type="tAttribute"
+>paren</object
+> attribute set to <object
+type="tAttrValue"
+>final</object
+> and its <object
+type="tAttribute"
+>letterOnly</object
+> attribute set to <object
+type="tAttrValue"
+>yes</object
+>.</p
 ></section2
 ><section2
 id="sJumpToWorkInreferences"
@@ -22047,6 +22117,12 @@ id="iEndnoteReference"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iExampleReference"
+see="iRefToExample"
+><term
+>Example reference</term
+></indexTerm
+><indexTerm
 id="iExpandSection"
 ><term
 >Expand a section</term
@@ -22437,6 +22513,11 @@ id="iReference"
 >Reference</term
 ><indexTerms
 ><indexTerm
+id="iRefRanges"
+><term
+>Ranges</term
+></indexTerm
+><indexTerm
 id="iReftoAppendix"
 ><term
 >to appendix</term
@@ -22444,7 +22525,7 @@ id="iReftoAppendix"
 ><indexTerm
 id="iReferenceMasterList"
 ><term
->make a master list</term
+>Make a master list</term
 ></indexTerm
 ><indexTerm
 id="iRefToEndnote"

@@ -49,6 +49,9 @@
           icon="xxe-config:common/icons/link.png">
          <cfg:accelerator code="F11"/>
       </cfg:item>
+       <cfg:item command="insertThenSetReferenceRange" label="_Insert and then Set Reference Range">
+           <cfg:accelerator code="F11" modifiers="alt ctrl shift"/>
+       </cfg:item>
        <!-- no longer needed because XXE now has Search / Bookmarks
       <cfg:item command="SetMarkCmd" label="Set _Mark">
          <cfg:accelerator code="F6"/>

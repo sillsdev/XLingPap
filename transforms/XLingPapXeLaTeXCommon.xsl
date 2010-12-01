@@ -3738,23 +3738,10 @@
                     <xsl:otherwise>
                         <tex:cmd name="fontspec">
                             <tex:opt>
-                                <xsl:choose>
-                                    <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sGraphite)">
-                                        <xsl:value-of select="$sRendererIsGraphite"/>
-                                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                            <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
-                                            <xsl:with-param name="bIsFirstOpt" select="'N'"/>
-                                        </xsl:call-template>
-                                        <xsl:text>,</xsl:text>
-                                    </xsl:when>
-                                    <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sFontFeature)">
-                                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                            <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
-                                            <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
-                                        </xsl:call-template>
-                                        <xsl:text>,</xsl:text>
-                                    </xsl:when>
-                                </xsl:choose>
+                                <xsl:call-template name="HandleXeLaTeXSpecialGraphiteOrFontFeature">
+                                    <xsl:with-param name="language" select="$language"/>
+                                    <xsl:with-param name="bMoreOptionsWillFollow" select="'Y'"/>
+                                </xsl:call-template>
                                 <xsl:text>Scale=</xsl:text>
                                 <xsl:value-of select="number(substring-before($sSize,'%')) div 100"/>
                             </tex:opt>
@@ -4109,6 +4096,34 @@
         </xsl:if>
     </xsl:template>
     <!--
+        HandleXeLaTeXSpecialGraphiteOrFontFeature
+    -->
+    <xsl:template name="HandleXeLaTeXSpecialGraphiteOrFontFeature">
+        <xsl:param name="language"/>
+        <xsl:param name="bMoreOptionsWillFollow" select="'N'"/>
+        <xsl:choose>
+            <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sGraphite)">
+                <xsl:value-of select="$sRendererIsGraphite"/>
+                <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                    <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
+                    <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                </xsl:call-template>
+                <xsl:if test="$bMoreOptionsWillFollow='Y'">
+                    <xsl:text>,</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="$language and contains($language/@XeLaTeXSpecial,$sFontFeature)">
+                <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                    <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
+                    <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:if test="$bMoreOptionsWillFollow='Y'">
+                    <xsl:text>,</xsl:text>
+                </xsl:if>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         OKToBreakHere
     -->
     <xsl:template name="OKToBreakHere">
@@ -4342,6 +4357,7 @@
     <xsl:template name="OutputFontAttributes">
         <xsl:param name="language"/>
         <xsl:param name="originalContext"/>
+        <xsl:param name="bIsOverride" select="'N'"/>
         <!-- unsuccessful attempt at dealing with "normal" to override inherited values 
             <xsl:param name="bCloseOffParent" select="'Y'"/>
             <xsl:if test="$bCloseOffParent='Y'">
@@ -4359,6 +4375,7 @@
             <xsl:call-template name="HandleFontFamily">
                 <xsl:with-param name="language" select="$language"/>
                 <xsl:with-param name="sFontFamily" select="$sFontFamily"/>
+                <xsl:with-param name="bIsOverride" select="$bIsOverride"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>

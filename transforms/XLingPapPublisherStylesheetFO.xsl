@@ -6391,6 +6391,7 @@ not using
         =========================================================== -->
     <xsl:include href="XLingPapCommon.xsl"/>
     <xsl:include href="XLingPapFOCommon.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetFOContents.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetFOReferences.xsl"/>

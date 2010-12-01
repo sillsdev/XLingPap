@@ -3,7 +3,6 @@
     <xsl:variable name="authorForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="titleForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
     <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>
-    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
     <!--  
         DoAuthorLayout
     -->

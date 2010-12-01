@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->30 November 2010</date
+>1 December 2010</date
 ><version
->2.14.0_6</version
+>2.14.0_7</version
 ><contents
 showLevel="4"
 ></contents
@@ -1193,7 +1193,19 @@ type="tItalic"
 >Font feature=value</object
 >. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
 ><td
->Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes. <indexedItem
+>Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes.  If you use this in a publisher style sheet <object
+type="tElement"
+>langDataLayout</object
+>, <object
+type="tElement"
+>glossLayout</object
+>, or <object
+type="tElement"
+>freeLayout</object
+>, it will only work if you also include the <object
+type="tAttribute"
+>font-family</object
+> attribute.     <indexedItem
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
@@ -1225,7 +1237,19 @@ type="tItalic"
 >one</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. <indexedItem
+>Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.  If you use this in a publisher style sheet <object
+type="tElement"
+>langDataLayout</object
+>, <object
+type="tElement"
+>glossLayout</object
+>, or <object
+type="tElement"
+>freeLayout</object
+>, it will only work if you also include the <object
+type="tAttribute"
+>font-family</object
+> attribute.   <indexedItem
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
@@ -18645,10 +18669,10 @@ type="tKey"
 > key, the first instance of that element will be inserted and the dialog box for choosing a reference for that element will show. Which dialog box appears depends on which element you chose. This second dialog box is exactly the same one you see when you have inserted that element by hand and then press the <object
 type="tKey"
 >F11</object
-> key.   After you select the item, you will see another instance of that same dialog box.  This is for the second element in the range.  <object
+> key. After you select the item, you will see another instance of that same dialog box. This is for the second element in the range. <object
 type="tXLingPap"
 ></object
-> will automatically insert an n-dash character between the two elements and will attempt to set all the attribute values of the two elements in the most likely way you want.  For example, if you use this approach to enter two <object
+> will automatically insert an n-dash character between the two elements and will attempt to set all the attribute values of the two elements in the most likely way you want. For example, if you use this approach to enter two <object
 type="tElement"
 >exampleRef</object
 > elements, the first <object
@@ -18660,7 +18684,7 @@ type="tAttribute"
 > attribute set to <object
 type="tAttrValue"
 >initial</object
->.  The second <object
+>. The second <object
 type="tElement"
 >exampleRef</object
 > element will have its <object

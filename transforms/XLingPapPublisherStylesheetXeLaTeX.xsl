@@ -3133,7 +3133,6 @@
                                     <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
                                     <xsl:with-param name="originalContext" select="."/>
                                 </xsl:call-template>
-                                
                                 <xsl:call-template name="OutputFontAttributes">
                                     <xsl:with-param name="language" select="."/>
                                     <xsl:with-param name="originalContext" select="."/>
@@ -4020,10 +4019,27 @@
     <xsl:template name="HandleFontFamily">
         <xsl:param name="language"/>
         <xsl:param name="sFontFamily"/>
-        <tex:spec cat="esc"/>
-        <xsl:text>XLingPaper</xsl:text>
-        <xsl:value-of select="translate($sFontFamily,$sDigits, $sLetters)"/>
-        <xsl:text>FontFamily</xsl:text>
+        <xsl:param name="bIsOverride" select="'N'"/>
+        <xsl:choose>
+            <xsl:when test="$bIsOverride='Y' and $language and contains($language/@XeLaTeXSpecial,$sGraphite) or $bIsOverride='Y' and $language and contains($language/@XeLaTeXSpecial,$sFontFeature)">
+                <tex:spec cat="esc"/>
+                <xsl:text>fontspec</xsl:text>
+                <tex:opt>
+                    <xsl:call-template name="HandleXeLaTeXSpecialGraphiteOrFontFeature">
+                        <xsl:with-param name="language" select="$language"/>
+                    </xsl:call-template>
+                </tex:opt>
+                <tex:parm>
+                    <xsl:value-of select="$sFontFamily"/>
+                </tex:parm>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>XLingPaper</xsl:text>
+                <xsl:value-of select="translate($sFontFamily,$sDigits, $sLetters)"/>
+                <xsl:text>FontFamily</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <tex:spec cat="bg"/>
     </xsl:template>
     <!--  
@@ -5425,4 +5441,5 @@
     <xsl:include href="XLingPapPublisherStylesheetXeLaTeXReferences.xsl"/>
     <xsl:include href="XLingPapCommon.xsl"/>
     <xsl:include href="XLingPapXeLaTeXCommon.xsl"/>
+    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
 </xsl:stylesheet>

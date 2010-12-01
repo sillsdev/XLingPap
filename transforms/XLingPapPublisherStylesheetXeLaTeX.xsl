@@ -4109,6 +4109,63 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        HandleSectionNumberOutput
+    -->
+    <xsl:template name="HandleSectionNumberOutput">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="bAppendix"/>
+        <tex:group>
+            <xsl:if test="$layoutInfo">
+                <xsl:call-template name="DoTitleFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$bAppendix='Y'">
+                    <xsl:apply-templates select="." mode="numberAppendix"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="number"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$layoutInfo">
+                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    </xsl:call-template>
+                    <xsl:variable name="contentForThisElement">
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoTitleFormatInfoEnd">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$layoutInfo/../@beginsparagraph!='yes' and string-length($layoutInfo/@spaceafter) &gt; 0">
+                            <tex:cmd name="par" nl2="1"/>
+                        </xsl:when>
+                        <xsl:when test="$layoutInfo/../@beginsparagraph='yes'">
+                            <!-- do nothing; all handled by other information -->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- insert a non-breaking space -->
+                            <xsl:text>&#xa0;</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:call-template name="DoSpaceAfter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- make sure there's a (non-breaking) space between the number and the title -->
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </tex:group>
+    </xsl:template>
+    <!--  
       HandleSmallCaps
    -->
     <xsl:template name="HandleSmallCaps">
@@ -4987,8 +5044,8 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-                  OutputSectionNumber
--->
+        OutputSectionNumber
+    -->
     <xsl:template name="OutputSectionNumber">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bIsForBookmark" select="'N'"/>
@@ -5011,76 +5068,6 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <!--  
-        OutputSectionNumberProper
-    -->
-    <xsl:template name="OutputSectionNumberProper">
-        <xsl:param name="layoutInfo"/>
-        <xsl:param name="bAppendix"/>
-        <xsl:variable name="bUseNumber">
-            <xsl:choose>
-                <xsl:when test="name()='section1' and $bodyLayoutInfo/section1Layout/@showNumber='no'">N</xsl:when>
-                <xsl:when test="name()='section2' and $bodyLayoutInfo/section2Layout/@showNumber='no'">N</xsl:when>
-                <xsl:when test="name()='section3' and $bodyLayoutInfo/section3Layout/@showNumber='no'">N</xsl:when>
-                <xsl:when test="name()='section4' and $bodyLayoutInfo/section4Layout/@showNumber='no'">N</xsl:when>
-                <xsl:when test="name()='section5' and $bodyLayoutInfo/section5Layout/@showNumber='no'">N</xsl:when>
-                <xsl:when test="name()='section6' and $bodyLayoutInfo/section6Layout/@showNumber='no'">N</xsl:when>
-                <xsl:otherwise>Y</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:if test="$bUseNumber='Y'">
-            <tex:group>
-                <xsl:if test="$layoutInfo">
-                    <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                    </xsl:call-template>
-                </xsl:if>
-                <xsl:choose>
-                    <xsl:when test="$bAppendix='Y'">
-                        <xsl:apply-templates select="." mode="numberAppendix"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates select="." mode="number"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:choose>
-                    <xsl:when test="$layoutInfo">
-                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                        </xsl:call-template>
-                        <xsl:variable name="contentForThisElement">
-                            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:call-template name="DoTitleFormatInfoEnd">
-                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-                        </xsl:call-template>
-                        <xsl:choose>
-                            <xsl:when test="$layoutInfo/../@beginsparagraph!='yes' and string-length($layoutInfo/@spaceafter) &gt; 0">
-                                <tex:cmd name="par" nl2="1"/>
-                            </xsl:when>
-                            <xsl:when test="$layoutInfo/../@beginsparagraph='yes'">
-                                <!-- do nothing; all handled by other information -->
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <!-- insert a non-breaking space -->
-                                <xsl:text>&#xa0;</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:call-template name="DoSpaceAfter">
-                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <!-- make sure there's a (non-breaking) space between the number and the title -->
-                        <xsl:text>&#xa0;</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </tex:group>
-        </xsl:if>
     </xsl:template>
     <!--  
       OutputSectionNumberAndTitle

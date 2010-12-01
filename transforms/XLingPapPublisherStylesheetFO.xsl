@@ -4848,6 +4848,31 @@ not using
         </xsl:for-each>
     </xsl:template>
     <!--  
+        HandleSmallCaps
+    -->
+    <xsl:template name="HandleSectionNumberOutput">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="bAppendix"/>
+        <xsl:if test="$layoutInfo">
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$bAppendix='Y'">
+                <xsl:apply-templates select="." mode="numberAppendix"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="number"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="$layoutInfo">
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
       HandleSmallCaps
    -->
     <xsl:template name="HandleSmallCaps">
@@ -6058,28 +6083,6 @@ not using
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <xsl:template name="OutputSectionNumberProper">
-        <xsl:param name="layoutInfo"/>
-        <xsl:param name="bAppendix"/>
-        <xsl:if test="$layoutInfo">
-            <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            </xsl:call-template>
-        </xsl:if>
-        <xsl:choose>
-            <xsl:when test="$bAppendix='Y'">
-                <xsl:apply-templates select="." mode="numberAppendix"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="number"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="$layoutInfo">
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            </xsl:call-template>
-        </xsl:if>
     </xsl:template>
     <!--  
       OutputSectionNumberAndTitle

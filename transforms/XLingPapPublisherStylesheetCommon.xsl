@@ -2913,7 +2913,16 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
-        OutputCollCitation
+        OutputCitation
+    -->
+    <xsl:template name="OutputCitation">
+        <xsl:param name="item"/>
+        <xsl:call-template name="OutputReferenceItemNode">
+            <xsl:with-param name="item" select="$item"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputCitationPages
     -->
     <xsl:template name="OutputCitationPages">
         <xsl:param name="citation"/>
@@ -2933,13 +2942,28 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
-        OutputCitation
+        OutputSectionNumberProper
     -->
-    <xsl:template name="OutputCitation">
-        <xsl:param name="item"/>
-        <xsl:call-template name="OutputReferenceItemNode">
-            <xsl:with-param name="item" select="$item"/>
-        </xsl:call-template>
+    <xsl:template name="OutputSectionNumberProper">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="bAppendix"/>
+        <xsl:variable name="bUseNumber">
+            <xsl:choose>
+                <xsl:when test="name()='section1' and $bodyLayoutInfo/section1Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section2' and $bodyLayoutInfo/section2Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section3' and $bodyLayoutInfo/section3Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section4' and $bodyLayoutInfo/section4Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section5' and $bodyLayoutInfo/section5Layout/@showNumber='no'">N</xsl:when>
+                <xsl:when test="name()='section6' and $bodyLayoutInfo/section6Layout/@showNumber='no'">N</xsl:when>
+                <xsl:otherwise>Y</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="$bUseNumber='Y'">
+            <xsl:call-template name="HandleSectionNumberOutput">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                <xsl:with-param name="bAppendix" select="$bAppendix"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--  
         RecordPosition

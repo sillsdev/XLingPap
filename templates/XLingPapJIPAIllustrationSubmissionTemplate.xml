@@ -38,7 +38,6 @@ id="sConsonants"
 >The following table looks odd here in the XMLmind XML Edtior and also in the web page output. The XeLaTeX PDF output is very nice, however. The RenderX PDF has an extra border around the entire table. To fix it for RenderX, remove the border=1 attribute on the outer most table. (The trick here is how to get the voiceless and voiced consonant symbols to line up properly. This is one way that works.) Of course, you will want to edit the table to include the points of articulation and manners of articulation appropriate for your language as well as filling in the IPA symbols in the correct cells. If you need to insert another place of articulation 'column', do this:click in one of the 'columns'; click on the topmost td element in the Node Path Bar; use XLingPaper menu item / Table Column / Copy; then use XLingPaper / Table Column / Paste After (or Before, as needed). To insert another manner of articulation row, you will need to insert a new row in every 'column' (which is a table itself).</comment
 ></p
 ><table
-XeLaTeXSpecial="column-formatting='@{}l@{}l@{}l@{}l@{}l@{}l@{}'"
 border="1"
 cellpadding="0pt"
 cellspacing="0pt"
@@ -842,10 +841,10 @@ id="sVowels"
 >Vowels</secTitle
 ><p
 ><comment
->The following graphic file is a sample vowel chart.  It is available for download at <link
+>The following graphic file is a sample vowel chart. It is available for download at <link
 href="http://code.google.com/p/xlingpap/downloads/list"
 >http://code.google.com/p/xlingpap/downloads/list</link
-> (it is quite small). We recommend you download it and place it in Ihe same directory where you put this file.  It is an SVG file which you can edit to place the vowels in your language where they belong. You can use the free Inkscape program to edit the SVG file. See <link
+> (it is quite small). We recommend you download it and place it in Ihe same directory where you put this file. It is an SVG file which you can edit to place the vowels in your language where they belong. You can use the free Inkscape program to edit the SVG file. See <link
 href="http://inkscape.org/"
 >http://inkscape.org/</link
 >. For the XeLaTeX-way of producing PDF, you will also need to convert the file to PDF. You can do this with Inkscape or by using the SVG to PDF conversion process available with XLingPaper. See section 11.17.1.1 "Known limitations of using XeTeX" in the user documentation. The XMLmind XML Editor can show an SVG file if you install the Apache Batik image toolkit plug-in Addon package. See the Options menu item / Install Add-ons... </comment
@@ -996,7 +995,7 @@ xsl-foSpecial="text-decoration=&quot;underline&quot;"
 ></types
 ></lingPaper
 ><xi:include
-    href="../publisherstylesheets/JIPAIllustrationSubmissionPublisherStylesheet.xml"
+href="../publisherstylesheets/JIPAIllustrationSubmissionPublisherStylesheet.xml"
 xpointer="element(/1)"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 ></xi:include

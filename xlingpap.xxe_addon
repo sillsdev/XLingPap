@@ -34,6 +34,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >2.14.0_5 1 December 2010<ul
 ><li
+>In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added a column to the table.</li
+><li
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Fix bug which failed to recognize a graphite and/or special font-feature when using a publisher style sheet to override gloss, langData, or free.</li

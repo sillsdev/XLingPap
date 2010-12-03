@@ -13,6 +13,11 @@
                     <xsl:value-of select="$sBasicPointSize"/>
                     <xsl:text>pt</xsl:text>
                 </xsl:attribute>
+                <xsl:if test="string-length(@text) &gt; 0">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="@text"/>
+                    </xsl:attribute>
+                </xsl:if>
         </xsl:if>
             <xsl:choose>
                 <xsl:when test="@xsl-foSpecial">

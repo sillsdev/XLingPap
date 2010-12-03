@@ -462,8 +462,9 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (comment?, exampleLayout, sectionRefLayout?, interlinearSourceStyle?, endnoteRefLayout?, figureLayout?, figureRefLayout?, tablenumberedLayout?, tablenumberedRefLayout?, magnificationFactor?,
-                                                      langDataLayout?, glossLayout?, freeLayout? ) >
+   <!ELEMENT contentLayout (comment?, exampleLayout, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, endnoteRefLayout?,  
+                                                      figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout? ) >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout
        indent-before CDATA #REQUIRED
@@ -473,22 +474,29 @@ Content Layout
    >
     <!ELEMENT sectionRefLayout EMPTY >
     <!ATTLIST sectionRefLayout
+       AddPeriodAfterFinalDigit (no | yes) 'no'
         textBeforeSingularOverride CDATA #IMPLIED
         textBeforePluralOverride CDATA #IMPLIED
         textBeforeCapitalizedSingularOverride CDATA #IMPLIED
         textBeforeCapitalizedPluralOverride CDATA #IMPLIED
         %fontinfo;
     >
+    <!ELEMENT sectionRefTitleLayout EMPTY >
+    <!ATTLIST sectionRefTitleLayout
+        %formatinfo;
+    >
    <!ELEMENT interlinearSourceStyle EMPTY  >
    <!ATTLIST interlinearSourceStyle
        interlinearsourcestyle (AfterFirstLine | AfterFree | UnderFree) "AfterFirstLine" 
        %formatinfo;
  >
+   <!ELEMENT interlinearRefCitationTitleLayout EMPTY  >
+   <!ATTLIST interlinearRefCitationTitleLayout
+       %formatinfo;
+ >
     <!ELEMENT endnoteRefLayout EMPTY >
     <!ATTLIST endnoteRefLayout
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT figureLayout (figureLabelLayout, figureNumberLayout, figureCaptionLayout) >
     <!ATTLIST figureLayout
@@ -498,24 +506,18 @@ Content Layout
     <!ELEMENT figureLabelLayout EMPTY >
     <!ATTLIST figureLabelLayout
         label CDATA #IMPLIED
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT figureNumberLayout EMPTY >
     <!ATTLIST figureNumberLayout
         format (1 | a | A | i | I  ) "1"
         showchapternumber (no | yes) "no"
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
         textbetweenchapterandnumber CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT figureCaptionLayout EMPTY >
     <!ATTLIST figureCaptionLayout
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT figureRefLayout EMPTY >
     <!ATTLIST figureRefLayout
@@ -524,6 +526,10 @@ Content Layout
         textBeforeCapitalizedSingularOverride CDATA #IMPLIED
         textBeforeCapitalizedPluralOverride CDATA #IMPLIED
         %fontinfo;
+    >
+    <!ELEMENT figureRefCaptionLayout EMPTY >
+    <!ATTLIST figureRefCaptionLayout
+        %formatinfo;
     >
 
     <!ELEMENT tablenumberedLayout (tablenumberedLabelLayout, tablenumberedNumberLayout, tablenumberedCaptionLayout) >
@@ -534,24 +540,18 @@ Content Layout
     <!ELEMENT tablenumberedLabelLayout EMPTY >
     <!ATTLIST tablenumberedLabelLayout
         label CDATA #IMPLIED
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT tablenumberedNumberLayout EMPTY >
     <!ATTLIST tablenumberedNumberLayout
         format (1 | a | A | i | I  ) "1"
         showchapternumber (no | yes) "no"
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
         textbetweenchapterandnumber CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT tablenumberedCaptionLayout EMPTY >
     <!ATTLIST tablenumberedCaptionLayout
-        textafter CDATA #IMPLIED
-        textbefore CDATA #IMPLIED
-        %fontinfo;
+        %formatinfo;
     >
     <!ELEMENT tablenumberedRefLayout EMPTY >
     <!ATTLIST tablenumberedRefLayout
@@ -560,6 +560,10 @@ Content Layout
         textBeforeCapitalizedSingularOverride CDATA #IMPLIED
         textBeforeCapitalizedPluralOverride CDATA #IMPLIED
         %fontinfo;
+    >
+    <!ELEMENT tablenumberedRefCaptionLayout EMPTY >
+    <!ATTLIST tablenumberedRefCaptionLayout
+        %formatinfo;
     >
 <!ELEMENT magnificationFactor (#PCDATA) >
    

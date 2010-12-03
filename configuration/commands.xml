@@ -687,7 +687,7 @@ alt causes menu to be selected
                     <cfg:command name="setReference" parameter="Final"/>
                     <cfg:choice>
                         <cfg:sequence>
-                        <cfg:command name="putAttribute" parameter="[implicitElement] paren final"/>
+                            <cfg:command name="putAttribute" parameter="[implicitElement] paren final"/>
                             <cfg:command name="putAttribute" parameter="[implicitElement] letterOnly yes"/>
                         </cfg:sequence>
                         <cfg:sequence>

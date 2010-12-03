@@ -10,20 +10,36 @@
    </xsl:template>
    <xsl:template match="//interlinear-text">
       <xsl:variable name="sShortTitle" select="normalize-space(textInfo/shortTitle)"/>
-      <xsl:variable name="sTitle">
+       <xsl:variable name="sTextTitle" select="normalize-space(textInfo/textTitle)"/>
+       <xsl:variable name="sTitle">
          <xsl:choose>
             <xsl:when test="string-length($sShortTitle) &gt; 0">
                <xsl:value-of select="$sShortTitle"/>
             </xsl:when>
-            <xsl:otherwise>
+             <xsl:when test="string-length($sTextTitle) &gt; 0">
+                 <xsl:value-of select="$sTextTitle"/>
+             </xsl:when>
+             <xsl:otherwise>
                <xsl:text>unnamed</xsl:text>
             </xsl:otherwise>
          </xsl:choose>
       </xsl:variable>
-      <xsl:for-each select="interlinear">
+       <xsl:if test="string-length(@text)!=0">
+           <xsl:text>"</xsl:text>
+           <xsl:value-of select="$sTitle"/>
+           <xsl:text> (entire text) </xsl:text>
+           <xsl:text> {</xsl:text>
+           <xsl:value-of select="@text"/>
+           <xsl:text>}"
+</xsl:text>
+           <xsl:value-of select="@text"/>
+           <xsl:text>
+</xsl:text>
+       </xsl:if>
+       <xsl:for-each select="interlinear">
           <xsl:if test="string-length(@text)!=0">
          <xsl:text>"</xsl:text>
-         <xsl:value-of select="$sShortTitle"/>
+         <xsl:value-of select="$sTitle"/>
          <xsl:text>:</xsl:text>
          <xsl:variable name="sNum">
             <xsl:number format="001" value="position()"/>

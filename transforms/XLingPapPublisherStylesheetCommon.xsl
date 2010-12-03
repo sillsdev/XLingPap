@@ -3,6 +3,170 @@
     <!-- global variables -->
     <xsl:variable name="locationPublisherLayouts" select="$referencesLayoutInfo/locationPublisherLayouts"/>
     <xsl:variable name="urlDateAccessedLayouts" select="$referencesLayoutInfo/urlDateAccessedLayouts"/>
+    <!-- ===========================================================
+        NUMBERING PROCESSING 
+        =========================================================== -->
+    <!--  
+        section
+    -->
+    <xsl:template mode="number" match="*">
+        <xsl:choose>
+            <xsl:when test="ancestor-or-self::chapter">
+                <xsl:apply-templates select="." mode="numberChapter"/>
+                <xsl:if test="ancestor::chapter">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="ancestor-or-self::chapterBeforePart">
+                <xsl:text>0</xsl:text>
+                <xsl:if test="ancestor::chapterBeforePart">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$bodyLayoutInfo/section1Layout/@startSection1NumberingAtZero='yes'">
+                <xsl:variable name="numAt1">
+                    <xsl:number level="multiple" count="section1 | section2 | section3 | section4 | section5 | section6" format="1.1"/>
+                </xsl:variable>
+                <!--  adjust section1 number down by one to start with 0 -->
+                <xsl:variable name="num1" select="substring-before($numAt1,'.')"/>
+                <xsl:variable name="numRest" select="substring-after($numAt1,'.')"/>
+                <xsl:variable name="num1At0">
+                    <xsl:choose>
+                        <xsl:when test="$num1">
+                            <xsl:value-of select="number($num1)-1"/>
+                            <xsl:text>.</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="number($numAt1)-1"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:value-of select="$num1At0"/>
+                <xsl:value-of select="$numRest"/>
+            </xsl:when>
+            <xsl:when test="count(//chapter)=0 and count(//section1)=1 and count(//section1/section2)=0">
+                <!-- if there are no chapters and there is but one section1 (with no subsections), there's no need to have a number so don't  -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="multiple" count="section1 | section2 | section3 | section4 | section5 | section6" format="1.1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes' and name()!='sectionRef'">
+            <xsl:text>. </xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        appendix
+    -->
+    <xsl:template mode="numberAppendix" match="*">
+        <xsl:number level="multiple" count="appendix | section1 | section2 | section3 | section4 | section5 | section6" format="A.1"/>
+    </xsl:template>
+    <xsl:template mode="labelNumberAppendix" match="*">
+        <xsl:choose>
+            <xsl:when test="@label">
+                <xsl:value-of select="@label"/>
+            </xsl:when>
+            <xsl:otherwise>Appendix</xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>&#x20;</xsl:text>
+        <xsl:number level="single" count="appendix" format="A"/>
+    </xsl:template>
+    <!--  
+        chapter
+    -->
+    <xsl:template mode="numberChapter" match="*">
+        <xsl:number level="any" count="chapter" format="1"/>
+    </xsl:template>
+    <!--  
+        part
+    -->
+    <xsl:template mode="numberPart" match="*">
+        <xsl:number level="multiple" count="part" format="I"/>
+    </xsl:template>
+    <!--  
+        endnote
+    -->
+    <xsl:template mode="endnote" match="endnote[parent::author]">
+        <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:call-template name="OutputAuthorFootnoteSymbol">
+            <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template mode="endnote" match="*">
+        <xsl:choose>
+            <xsl:when test="$bIsBook">
+                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        example
+    -->
+    <xsl:template mode="example" match="*">
+        <xsl:number level="any" count="example[not(ancestor::endnote)]" format="1"/>
+    </xsl:template>
+    <!--  
+        exampleInEndnote
+    -->
+    <xsl:template mode="exampleInEndnote" match="*">
+        <xsl:number level="single" count="example" format="i"/>
+    </xsl:template>
+    <!--  
+        figure
+    -->
+    <xsl:template mode="figure" match="*">
+        <xsl:choose>
+            <xsl:when test="$bIsBook and $styleSheetFigureNumberLayout/@showchapternumber='yes'">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+                <xsl:value-of select="$styleSheetFigureNumberLayout/@textbetweenchapterandnumber"/>
+                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart" format="{$styleSheetFigureNumberLayout/@format}"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="figure" format="{$styleSheetFigureNumberLayout/@format}"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        tablenumbered
+    -->
+    <xsl:template mode="tablenumbered" match="*">
+        <xsl:choose>
+            <xsl:when test="$bIsBook and $styleSheetTableNumberedNumberLayout/@showchapternumber='yes'">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+                <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbetweenchapterandnumber"/>
+                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="tablenumbered" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        letter
+    -->
+    <xsl:template mode="letter" match="*">
+        <xsl:number level="single" count="listWord | listSingle | listInterlinear | listDefinition | lineSet" format="a"/>
+    </xsl:template>
+    <!--  
+        dateLetter
+    -->
+    <xsl:template match="*" mode="dateLetter">
+        <xsl:param name="date"/>
+        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date]" format="a"/>
+    </xsl:template>
     <!--
         authorRole
     -->
@@ -188,6 +352,42 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
+    <!--
+        DoAppendixRef
+    -->
+    <xsl:template name="DoAppendixRef">
+        <xsl:variable name="appendix" select="id(@app)"/>
+        <xsl:choose>
+            <xsl:when test="@showTitle='short'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$appendix/shortTitle and string-length($appendix/shortTitle) &gt; 0">
+                        <xsl:apply-templates select="$appendix/shortTitle/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$appendix/secTitle/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@showTitle='full'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="$appendix/secTitle/child::node()[name()!='endnote']"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$appendix" mode="numberAppendix"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         DoArticleLayout
     -->
@@ -311,27 +511,27 @@
                 <xsl:choose>
                     <xsl:when test="$thisAuthorLayout/following-sibling::*[1][name()='affiliationLayout']">
                         <!-- format any affiliations first -->
-<!--                        <xsl:for-each select="$thisAffiliationLayout">-->
-                            <xsl:apply-templates select="$myAffiliations">
-                                <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
-                            </xsl:apply-templates>
-<!--                        </xsl:for-each>-->
-<!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
-                            <xsl:apply-templates select="$myEmailAddress">
-                                <xsl:with-param name="emailAddressLayoutToUse" select="$thisEmailAddressLayout"/>
-                            </xsl:apply-templates>
-<!--                        </xsl:for-each>-->
+                        <!--                        <xsl:for-each select="$thisAffiliationLayout">-->
+                        <xsl:apply-templates select="$myAffiliations">
+                            <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
+                        </xsl:apply-templates>
+                        <!--                        </xsl:for-each>-->
+                        <!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
+                        <xsl:apply-templates select="$myEmailAddress">
+                            <xsl:with-param name="emailAddressLayoutToUse" select="$thisEmailAddressLayout"/>
+                        </xsl:apply-templates>
+                        <!--                        </xsl:for-each>-->
                     </xsl:when>
                     <xsl:when test="$thisAuthorLayout/following-sibling::*[1][name()='emailAddressLayout']">
                         <!-- format any email addresses first -->
-<!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
-                            <xsl:apply-templates select="$myEmailAddress"/>
-<!--                        </xsl:for-each>-->
-<!--                        <xsl:for-each select="$thisAffiliationLayout">-->
-                            <xsl:apply-templates select="$myAffiliations">
-                                <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
-                            </xsl:apply-templates>
-<!--                        </xsl:for-each>-->
+                        <!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
+                        <xsl:apply-templates select="$myEmailAddress"/>
+                        <!--                        </xsl:for-each>-->
+                        <!--                        <xsl:for-each select="$thisAffiliationLayout">-->
+                        <xsl:apply-templates select="$myAffiliations">
+                            <xsl:with-param name="affiliationLayoutToUse" select="$thisAffiliationLayout"/>
+                        </xsl:apply-templates>
+                        <!--                        </xsl:for-each>-->
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- nothing to do -->
@@ -943,6 +1143,60 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoFigureRef
+    -->
+    <xsl:template name="DoFigureRef">
+        <xsl:variable name="figure" select="id(@figure)"/>
+        <xsl:choose>
+            <xsl:when test="@showCaption='short'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/figureRefCaptionLayout"/>
+                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$figure/shortCaption and string-length($figure/shortCaption) &gt; 0">
+                        <xsl:apply-templates select="$figure/shortCaption/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$figure/caption/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/figureRefCaptionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@showCaption='full'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/figureRefCaptionLayout"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="$figure/caption/child::node()[name()!='endnote']"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/figureRefCaptionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$figure" mode="figure"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoInterlinearRefCitationShowTitleOnly
+    -->
+    <xsl:template name="DoInterlinearRefCitationShowTitleOnly">
+        <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
+        <xsl:choose>
+            <xsl:when test="@showTitleOnly='short'">
+                <!-- only one of these will work -->
+                <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="$interlinear/../textInfo/shortTitle/child::node()[name()!='endnote']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- only one of these will work -->
+                <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="$interlinear/../textInfo/textTitle/child::node()[name()!='endnote']"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
       DoISO639-3Codes
    -->
     <xsl:template name="DoISO639-3Codes">
@@ -1004,6 +1258,36 @@
                 </xsl:for-each>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoExampleRefContent
+    -->
+    <xsl:template name="DoExampleRefContent">
+        <xsl:if test="$contentLayoutInfo/exampleLayout/@referencesUseParens!='no'">
+            <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
+        </xsl:if>
+        <xsl:if test="@equal='yes'">=</xsl:if>
+        <xsl:choose>
+            <xsl:when test="@letter and name(id(@letter))!='example'">
+                <xsl:if test="not(@letterOnly='yes')">
+                    <xsl:call-template name="GetExampleNumber">
+                        <xsl:with-param name="example" select="id(@letter)"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:apply-templates select="id(@letter)" mode="letter"/>
+            </xsl:when>
+            <xsl:when test="@num">
+                <xsl:call-template name="GetExampleNumber">
+                    <xsl:with-param name="example" select="id(@num)"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:if test="@punct">
+            <xsl:value-of select="@punct"/>
+        </xsl:if>
+        <xsl:if test="$contentLayoutInfo/exampleLayout/@referencesUseParens!='no'">
+            <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--  
       DoFieldNotesLayout
@@ -1381,6 +1665,89 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoSectionRef
+    -->
+    <xsl:template name="DoSectionRef">
+        <xsl:param name="secRefToUse"/>
+        <xsl:variable name="section" select="id($secRefToUse)"/>
+        <xsl:choose>
+            <xsl:when test="@showTitle='short'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$section/shortTitle and string-length($section/shortTitle) &gt; 0">
+                        <xsl:apply-templates select="$section/shortTitle/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@showTitle='full'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sNum">
+                    <xsl:apply-templates select="id($secRefToUse)" mode="number"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes'">
+                        <xsl:value-of select="substring($sNum,1,string-length($sNum)- 2)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sNum"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoTablenumberedRef
+    -->
+    <xsl:template name="DoTablenumberedRef">
+        <xsl:variable name="table" select="id(@table)"/>
+        <xsl:choose>
+            <xsl:when test="@showCaption='short'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
+                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$table/shortCaption and string-length($table/shortCaption) &gt; 0">
+                        <xsl:apply-templates select="$table/shortCaption/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$table/table/caption/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@showCaption='full'">
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="$table/table/caption/child::node()[name()!='endnote']"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$table" mode="tablenumbered"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoUrlDateAccessedLayout
@@ -2399,6 +2766,48 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        GetSectionRefToUse
+    -->
+    <xsl:template name="GetSectionRefToUse">
+        <xsl:param name="section"/>
+        <xsl:choose>
+            <xsl:when test="name($section)='section1' or name($section)='chapter'">
+                <!-- just use section1 and chapter;   if section1 is being ignored, that's the style sheet's problem... -->
+                <xsl:value-of select="$section/@id"/>
+            </xsl:when>
+            <xsl:when test="name($section)='section2'">
+                <xsl:call-template name="TrySectionRef">
+                    <xsl:with-param name="section" select="$section"/>
+                    <xsl:with-param name="sectionLayoutInfo" select="$bodyLayoutInfo/section2Layout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($section)='section3'">
+                <xsl:call-template name="TrySectionRef">
+                    <xsl:with-param name="section" select="$section"/>
+                    <xsl:with-param name="sectionLayoutInfo" select="$bodyLayoutInfo/section3Layout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($section)='section4'">
+                <xsl:call-template name="TrySectionRef">
+                    <xsl:with-param name="section" select="$section"/>
+                    <xsl:with-param name="sectionLayoutInfo" select="$bodyLayoutInfo/section4Layout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($section)='section5'">
+                <xsl:call-template name="TrySectionRef">
+                    <xsl:with-param name="section" select="$section"/>
+                    <xsl:with-param name="sectionLayoutInfo" select="$bodyLayoutInfo/section5Layout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($section)='section6'">
+                <xsl:call-template name="TrySectionRef">
+                    <xsl:with-param name="section" select="$section"/>
+                    <xsl:with-param name="sectionLayoutInfo" select="$bodyLayoutInfo/section6Layout"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetUrlEtcLayoutToUseInfo
     -->
     <xsl:template name="GetUrlEtcLayoutToUseInfo">
@@ -2528,7 +2937,6 @@
                             -->
                             <xsl:variable name="thisAffiliationLayout" select="following-sibling::affiliationLayout"/>
                             <xsl:variable name="thisEmailAddressLayout" select="following-sibling::emailAddressLayout"/>
-                            
                             <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
                                 <xsl:with-param name="authors" select="$frontMatter/author"/>
                                 <xsl:with-param name="currentAuthors" select="$frontMatter/author"/>
@@ -2598,7 +3006,6 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
-        
     </xsl:template>
     <!--  
         HandleDateAccessedLayout
@@ -3095,5 +3502,23 @@
             <xsl:text>, iso639-3code</xsl:text>
         </xsl:if>
         <xsl:text>.</xsl:text>
+    </xsl:template>
+    <!--  
+        TrySectionRef
+    -->
+    <xsl:template name="TrySectionRef">
+        <xsl:param name="section"/>
+        <xsl:param name="sectionLayoutInfo"/>
+        <xsl:choose>
+            <xsl:when test="$sectionLayoutInfo/@ignore!='yes'">
+                <xsl:value-of select="$section/@id"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- recurse on the section's parent -->
+                <xsl:call-template name="GetSectionRefToUse">
+                    <xsl:with-param name="section" select="$section/parent::*"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

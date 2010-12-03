@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->29 November 2010</date
+>3 December 2010</date
 ><version
->2.14.0_6</version
+>2.14.0_7</version
 ><contents
 showLevel="3"
 ></contents
@@ -10696,6 +10696,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>figureRefCaptionLayout</object
+></dt
+><dd
+>Layout info for a figure reference to a figure caption</dd
+><dt
+><object
+type="tElement"
 >figureRefLayout</object
 ></dt
 ><dd
@@ -10914,6 +10921,16 @@ type="tElement"
 type="tElement"
 >interlinearRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>interlinearRefCitationTitleLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>interlinearRef</object
+> hyperlinks when they refer to a title</dd
 ><dt
 ><object
 type="tElement"
@@ -11502,6 +11519,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>sectionRefTitleLayout</object
+></dt
+><dd
+>Layout info for a section reference element that outputs the section title</dd
+><dt
+><object
+type="tElement"
 >sectionTitle</object
 ></dt
 ><dd
@@ -11565,6 +11589,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a numbered table number</dd
+><dt
+><object
+type="tElement"
+>tablenumberedRefCaptionLayout</object
+></dt
+><dd
+>Layout info for a numbered table reference to a numbered table caption</dd
 ><dt
 ><object
 type="tElement"

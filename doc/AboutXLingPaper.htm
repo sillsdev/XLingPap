@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.14.0_7</span></p>
-      <p align="center">Date: 2010-12-01</p>
+      <p align="center">Date: 2010-12-03</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,14 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.14.0_5 1 December 2010
+               <li>2.14.0_5 3 December 2010
                   <ul>
                      <li>In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial
                         attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added
                         a column to the table.
+                     </li>
+                     <li>In the publisher style sheet, added an attribute AddPeriodAfterFinalDigit  to the sectionRefLayout element and changed the
+                        transforms to use this instead of the same attribute in the exampleLayout element.
                      </li>
                      <li>XeLaTeX way of producing PDF:
                         <ul>

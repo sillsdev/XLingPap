@@ -5,6 +5,14 @@
         Contains common global variables and common templates common to many of the XLingPaper output transforms.
     -->
     <!-- ===========================================================
+        Keys
+        =========================================================== -->
+    <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
+    <xsl:key name="InterlinearReferenceID" match="//interlinear | //interlinear-text" use="@text"/>
+    <xsl:key name="LanguageID" match="//language" use="@id"/>
+    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
+    <xsl:key name="TypeID" match="//type" use="@id"/>
+    <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
     <xsl:variable name="sVersion">2.14.0</xsl:variable>
@@ -115,6 +123,25 @@
             <xsl:value-of select="$sSecondAuthorEtc"/>
         </xsl:if>
     </xsl:template>
+    <!--  
+        DoInterlinearRefCitationContent
+    -->
+    <xsl:template name="DoInterlinearRefCitationContent">
+        <xsl:param name="sRef"/>
+        <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
+        <xsl:if test="not(@lineNumberOnly) or @lineNumberOnly!='yes'">
+            <xsl:choose>
+                <xsl:when test="$interlinear/../textInfo/shortTitle and string-length($interlinear/../textInfo/shortTitle) &gt; 0">
+                    <xsl:apply-templates select="$interlinear/../textInfo/shortTitle/child::node()[name()!='endnote']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="$interlinear/../textInfo/textTitle/child::node()[name()!='endnote']"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>:</xsl:text>
+        </xsl:if>
+        <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+    </xsl:template>
     <!--
         DoRefAuthors
     -->
@@ -205,6 +232,22 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        ExampleNumber
+    -->
+    <xsl:template name="GetExampleNumber">
+        <xsl:param name="example"/>
+        <xsl:for-each select="$example">
+            <xsl:choose>
+                <xsl:when test="ancestor::endnote">
+                    <xsl:apply-templates select="." mode="exampleInEndnote"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="example"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
     </xsl:template>
     <!--
         OutputAbbreviationsInCommaSeparatedList

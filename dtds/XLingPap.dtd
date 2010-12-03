@@ -250,10 +250,12 @@ For when we get author contacts turned on...
 <!ATTLIST sectionRef
     sec IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
+    showTitle (short | full | numberOnly) "numberOnly"
 >
 <!ELEMENT appendixRef EMPTY>
 <!ATTLIST appendixRef
     app IDREF #REQUIRED
+    showTitle (short | full | numberOnly) "numberOnly"
 >
 <!-- paragraph -->
 <!ELEMENT p (#PCDATA | %embedded; | definition| abbreviationsShownHere)*>
@@ -421,6 +423,7 @@ For when we get author contacts turned on...
     textref IDREF #REQUIRED
     bracket (none | both | initial | final) #IMPLIED
     lineNumberOnly (no | yes) "no"
+    showTitleOnly (short | full | no) "no"
 >
 <!ELEMENT interlinearSource (#PCDATA | %embedded;)*>
 <!ATTLIST interlinearSource
@@ -474,6 +477,7 @@ For when we get author contacts turned on...
 <!-- N.B. EMELD uses interlinear-text, so we will, too -->
 <!ELEMENT interlinear-text (textInfo?, ((item*, phrases*) | interlinear*))>
 <!ATTLIST interlinear-text
+    text ID #IMPLIED
     %special;
 >
 <!ELEMENT textInfo (textTitle*, shortTitle*, source*, genres?)>
@@ -625,11 +629,13 @@ For when we get author contacts turned on...
 <!ATTLIST figureRef
     figure IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
+    showCaption (short | full | numberOnly) "numberOnly"
 >
 <!ELEMENT tablenumberedRef EMPTY>
 <!ATTLIST tablenumberedRef
     table IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
+    showCaption (short | full | numberOnly) "numberOnly"
 >
 <!-- a listOfFiguresShownHere or a listOfTablesShownHere can be placed in a preface or a glossary.
     The figures or tables will be given as a kind of table of contents, including (short)caption and page number

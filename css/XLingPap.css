@@ -435,6 +435,24 @@ appendix
 	property-group: isCollapsible( yes, 1);
 }
 
+appendixRef[showTitle='short']
+{
+	content: set-attribute-button(attribute, app,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('“',id(@app)/shortTitle,'”'),string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
+	background-color:appendix-background-color();
+}
+appendixRef[showTitle='full']
+{
+	content: set-attribute-button(attribute, app,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
+	background-color:appendix-background-color();
+}
 appendixRef
 {
 	content: set-attribute-button(attribute, app,
@@ -1198,6 +1216,24 @@ figureRef:before
 {
 	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='singular'][string-length(normalize-space(@figureRefSingularLabel))=0], 'figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='plural'][string-length(normalize-space(@figureRefPluralLabel))=0], 'figures ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedSingular'][string-length(normalize-space(@figureRefCapitalizedSingularLabel))=0], 'Figure ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@figureRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@figureRefDefault='capitalizedPlural'][string-length(normalize-space(@figureRefCapitalizedPluralLabel))=0], 'Figures ','')");
 }
+figureRef[showCaption='short']
+{
+	content: set-attribute-button(attribute, figure,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('“',id(@figure)/shortCaption,'”'),string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
+	background-color:figure-background-color();
+}
+figureRef[showCaption='full']
+{
+	content: set-attribute-button(attribute, figure,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
+	background-color:figure-background-color();
+}
 figureRef
 {
 	content: set-attribute-button(attribute, figure,
@@ -1567,9 +1603,7 @@ interlinearRefCitation[bracket='none']:before
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "id(@textref)/../textInfo/shortTitle")
-	":"
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	;
 	background-color:interlinearSource-background-color();
 }
@@ -1580,9 +1614,7 @@ interlinearRefCitation[bracket='initial']:before
 						 icon, icon(pop-down),
 						 color, black)
 	"[" 
-	label(xpath, "id(@textref)/../textInfo/shortTitle")
-	":"
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	;
 	background-color:interlinearSource-background-color();
 }
@@ -1592,9 +1624,7 @@ interlinearRefCitation[bracket='final']:before
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "id(@textref)/../textInfo/shortTitle")
-	":"
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	"]" 
 	;
 	background-color:interlinearSource-background-color();
@@ -1643,6 +1673,26 @@ interlinearRefCitation[bracket='final'][lineNumberOnly='yes']:before
 	;
 	background-color:interlinearSource-background-color();
 }
+interlinearRefCitation[showTitleOnly='short']:before
+{
+	content: set-attribute-button(attribute, textref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('“',id(@textref)/../textInfo/shortTitle,'”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('“',id(@textref)/textInfo/shortTitle,'”'),'“unnamed”')")
+	;
+	background-color:interlinearSource-background-color();
+}
+interlinearRefCitation[showTitleOnly='full']:before
+{
+	content: set-attribute-button(attribute, textref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('“',id(@textref)/../textInfo/textTitle,'”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('“',id(@textref)/textInfo/textTitle,'”'),'“unnamed”')")
+	;
+	background-color:interlinearSource-background-color();
+}
 interlinearRefCitation:before
 {
 	content: set-attribute-button(attribute, textref,
@@ -1650,9 +1700,7 @@ interlinearRefCitation:before
 						 icon, icon(pop-down),
 						 color, black)
 	"[" 
-	label(xpath, "id(@textref)/../textInfo/shortTitle")
-	":"
-	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	"]" 
 	;
 	background-color:interlinearSource-background-color();
@@ -1667,6 +1715,17 @@ interlinearSource
 	padding-left:.125in;
 }
 
+interlinear-text[text]:before
+{
+	content: "(" 
+        collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	text-field(attribute, text, columns, 10, font-size, small) 
+	") " 
+	" Interlinear text: "
+	label(xpath, "if(textInfo[string-length(normalize-space(shortTitle))>0], textInfo/shortTitle, textInfo/textTitle)")
+	;
+	background-color:interlinearSource-background-color();
+}
 interlinear-text:before
 {
 	    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
@@ -2870,6 +2929,24 @@ sectionRef:before
 {
 	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='singular'][string-length(normalize-space(@sectionRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@sectionRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='singular'][string-length(normalize-space(@sectionRefSingularLabel))=0], 'section ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='plural'][string-length(normalize-space(@sectionRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@sectionRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='plural'][string-length(normalize-space(@sectionRefPluralLabel))=0], 'sections ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='capitalizedSingular'][string-length(normalize-space(@sectionRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@sectionRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='capitalizedSingular'][string-length(normalize-space(@sectionRefCapitalizedSingularLabel))=0], 'Section ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='capitalizedPlural'][string-length(normalize-space(@sectionRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@sectionRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@sectionRefDefault='capitalizedPlural'][string-length(normalize-space(@sectionRefCapitalizedPluralLabel))=0], 'Sections ','')");
 }
+sectionRef[showTitle='short']
+{
+	content: set-attribute-button(attribute, sec,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),'“unnamed”')");
+	background-color:section-background-color();
+}
+sectionRef[showTitle='full']
+{
+	content: set-attribute-button(attribute, sec,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),'“unnamed”')");
+	background-color:section-background-color();
+}
 sectionRef
 {
 	content: set-attribute-button(attribute, sec,
@@ -3093,6 +3170,24 @@ tablenumberedRef[textBefore="none"]:before
 tablenumberedRef:before
 {
 	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='singular'][string-length(normalize-space(@tablenumberedRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='singular'][string-length(normalize-space(@tablenumberedRefSingularLabel))=0], 'table ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='plural'][string-length(normalize-space(@tablenumberedRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='plural'][string-length(normalize-space(@tablenumberedRefPluralLabel))=0], 'tables ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='capitalizedSingular'][string-length(normalize-space(@tablenumberedRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='capitalizedSingular'][string-length(normalize-space(@tablenumberedRefCapitalizedSingularLabel))=0], 'Table ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='capitalizedPlural'][string-length(normalize-space(@tablenumberedRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@tablenumberedRefDefault='capitalizedPlural'][string-length(normalize-space(@tablenumberedRefCapitalizedPluralLabel))=0], 'Tables ','')");
+}
+tablenumberedRef[showCaption='short']
+{
+	content: set-attribute-button(attribute, table,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('“',id(@table)/shortCaption,'”'),string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
+	background-color:tablenumbered-background-color();
+}
+tablenumberedRef[showCaption='full']
+{
+	content: set-attribute-button(attribute, table,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
+	background-color:tablenumbered-background-color();
 }
 tablenumberedRef
 {
@@ -4586,6 +4681,32 @@ figureNumberLayout
 	         ;
 }
 
+figureRefCaptionLayout[color]
+{
+	color:concatenate(attr(color));
+}
+figureRefCaptionLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+figureRefCaptionLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+figureRefCaptionLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+figureRefCaptionLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+figureRefCaptionLayout
+{
+	property-group: titledItem("figure reference caption");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 figureRefLayout[color]
 {
 	color:concatenate(attr(color));
@@ -5688,6 +5809,32 @@ iso639-3codeItem
 iso639-3codeItemRef
 {
 	content: "  see iso639-3Item below";
+}
+interlinearRefCitationTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+interlinearRefCitationTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+interlinearRefCitationTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+interlinearRefCitationTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+interlinearRefCitationTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+interlinearRefCitationTitleLayout
+{
+	property-group: titledItem("interlinear reference citation title");
+	margin-bottom:12pt;
+	margin-top:12pt;
 }
 linkLayout[decoration] interlinearRefLinkLayout[decoration='default'][showmarking='yes']
 {
@@ -7233,6 +7380,32 @@ sectionRefLinkLayout
 	color: gray;
 	text-decoration:none;
 }
+sectionRefTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+sectionRefTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+sectionRefTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+sectionRefTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+sectionRefTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+sectionRefTitleLayout
+{
+	property-group: titledItem("section reference title");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 seriesEdItem[color]
 {
 	color:concatenate(attr(color));
@@ -7438,6 +7611,32 @@ tablenumberedNumberLayout
 	         label(xpath, "if(@format='I', 'I', @format='i', 'i', @format='a', 'a', @format='A', 'A', '1')")
 	         label(attribute, textafter)
 	         ;
+}
+tablenumberedRefCaptionLayout[color]
+{
+	color:concatenate(attr(color));
+}
+tablenumberedRefCaptionLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+tablenumberedRefCaptionLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+tablenumberedRefCaptionLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+tablenumberedRefCaptionLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+tablenumberedRefCaptionLayout
+{
+	property-group: titledItem("numbered table reference caption");
+	margin-bottom:12pt;
+	margin-top:12pt;
 }
 tablenumberedRefLayout[color]
 {

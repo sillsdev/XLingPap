@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 December 2010</date
+>3 December 2010</date
 ><version
 >2.14.0_7</version
 ><contents
@@ -1193,7 +1193,7 @@ type="tItalic"
 >Font feature=value</object
 >. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
 ><td
->Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes.  If you use this in a publisher style sheet <object
+>Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
 type="tElement"
 >langDataLayout</object
 >, <object
@@ -1205,7 +1205,7 @@ type="tElement"
 >, it will only work if you also include the <object
 type="tAttribute"
 >font-family</object
-> attribute.     <indexedItem
+> attribute. <indexedItem
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
@@ -1237,7 +1237,7 @@ type="tItalic"
 >one</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes.  If you use this in a publisher style sheet <object
+>Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
 type="tElement"
 >langDataLayout</object
 >, <object
@@ -1249,7 +1249,7 @@ type="tElement"
 >, it will only work if you also include the <object
 type="tAttribute"
 >font-family</object
-> attribute.   <indexedItem
+> attribute. <indexedItem
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
@@ -2468,6 +2468,9 @@ id="sSectionReferenceTextBefore"
 ><secTitle
 >Controlling Text before a Section Reference</secTitle
 ><p
+><indexedItem
+term="iSectionReferenceControlText"
+></indexedItem
 >One can also control what text precedes a section reference, if one so chooses. Some people like to use a word such as “section,” whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that some publishers may want the author to do it one way or the other. In fact, some publications want authors to use a special section symbol: §.</p
 ><p
 >In an effort to minimize an author's effort in dealing with this situation, <object
@@ -2704,10 +2707,10 @@ type="tElement"
 ></table
 ></example
 ><p
->There is only one relevant attribute for the <object
+>The attribute for controlling this text via a <object
 type="tElement"
 >sectionRef</object
-> element. It is given in example <exampleRef
+> element is given in example <exampleRef
 letter="xSectionRefTextBeforeAttribute"
 num="xSectionRefTextBeforeAttribute"
 ></exampleRef
@@ -2905,6 +2908,117 @@ type="tAttribute"
 type="tAttrValue"
 >singular</object
 >.</td
+></tr
+></table
+></td
+></tr
+></table
+></example
+></section3
+><section3
+id="sSectionReferenceTitle"
+><secTitle
+>Showing the Title of a Section</secTitle
+><p
+><indexedItem
+term="iSectionReferenceShowTitle"
+></indexedItem
+>It is also possible to show just the title or the short title of a section. One uses the <object
+type="tAttribute"
+>showTitle</object
+> attribute to control this as explained in example <exampleRef
+letter="xSectionRefShowTitle"
+num="xSectionRefShowTitle"
+></exampleRef
+>.</p
+><example
+num="xSectionRefShowTitle"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>showTitle</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>numberOnly</object
+>, <object
+type="tAttrValue"
+>full</object
+>, <object
+type="tAttrValue"
+>short</object
+>.</langData
+></td
+><td
+><table
+><tr
+><td
+colspan="2"
+><langData
+lang="lEng"
+>This indicates whether the title of the target section should be output or just the number. The normal value for this is <object
+type="tAttrValue"
+>numberOnly</object
+> which means that only the number will be output.. All of the other values override this default. Each one is listed below.</langData
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>numberOnly</object
+></td
+><td
+>The section number will be output. This is the default value.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>full</object
+></td
+><td
+>Instead of the section number, the full title of the section will be output. The full title is in the <object
+type="tElement"
+>secTitle</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>short</object
+></td
+><td
+>Instead of the section number, the short title of the section will be output. The short title is in the <object
+type="tElement"
+>shortTitle</object
+> element. If there is no short title, the full title will be used.</td
 ></tr
 ></table
 ></td
@@ -10031,6 +10145,9 @@ src="resources/TableMenuCell.png"
 ></chart
 ></example
 ><p
+><indexedItem
+term="iTablesSpan"
+></indexedItem
 >You can span a column or a row. That is you can combine adjacent table cells into one cell. If this is not clear, you can always experiment a bit to see how it works.</p
 ><p
 >As an example, if you keyed a table so it looks like what is in <exampleRef
@@ -10061,7 +10178,14 @@ num="xSampleTableHTML"
 type="tHtmlOutput"
 >&lt;table border="1"&gt; &lt;tr&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column1&lt;/span&gt;&lt;/th&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column2&lt;/span&gt;&lt;/th&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column3&lt;/span&gt;&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 1&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 2&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 3&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 1&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 2&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 3&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" colspan="3" valign="top"&gt;This spans all three columns.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" rowspan="2" valign="top"&gt;This spans two rows.&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 4, Col 2&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 4, Col 3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;Row 5, Col 2&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 5, Col 3&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;</chart
 ></example
+><section3
+id="sTCTTablesCaptions"
+><secTitle
+>Captions in Tables</secTitle
 ><p
+><indexedItem
+term="iTablesCaption"
+></indexedItem
 >Tables can also have captions. To add a caption, one needs to do the following:</p
 ><ol
 ><li
@@ -10262,7 +10386,15 @@ num="xSampleTable2HTML"
 type="tHtmlOutput"
 >&lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name=""&gt;(5)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table&gt; &lt;tr&gt; &lt;td colspan="30" align="left" valign="top"&gt;&lt;b&gt;&lt;span class="english"&gt;Orthographic vowel symbols in Carolinian&lt;/span&gt;&lt;/b&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr class="exampleTableHeaderRow"&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt; &lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="english"&gt;Front&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="english"&gt;Central&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="english"&gt;Back&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;High&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;i&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;ú&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;u&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Mid&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;e&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;é&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;o&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Low&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;á&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;a&lt;/span&gt;&lt;/td&gt; &lt;td class="CarolinianVowelChartCol" align="left" valign="top"&gt;&lt;span class="carolinian"&gt;ó&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;</chart
 ></example
+></section3
+><section3
+id="sTCTTablesAttributes"
+><secTitle
+>Attribute Summary</secTitle
 ><p
+><indexedItem
+term="iTablesAttributes"
+></indexedItem
 >The attributes used in the various elements within a table are summarized in the table in <exampleRef
 num="xTableAttributes"
 ></exampleRef
@@ -10615,6 +10747,7 @@ lang="lEng"
 ></tr
 ></table
 ></example
+></section3
 ></section2
 ><section2
 id="sTCTCharts"
@@ -10921,11 +11054,22 @@ type="tOpenOfficeWriter"
 >) documents does not implement floats.</p
 ></endnote
 ></p
+><p
+>Something else to keep in mind is that these floats are intended to occur relatively infrequently. There should be lots of text and/or examples and/or other tables, etc. between them. If you have many of these in a row, the <object
+type="tXeTeX"
+></object
+> way of producing PDF may well fail or the results may be very ugly.</p
 ><section3
 id="sTCTFloatsFigures"
 ><secTitle
 >Figures</secTitle
 ><p
+><indexedItem
+term="iFigureFloat"
+></indexedItem
+><indexedItem
+term="iFigures"
+></indexedItem
 >Figures consist of a required <object
 type="tElement"
 >chart</object
@@ -11370,6 +11514,9 @@ id="sTCTFloatsFigureRef"
 ><secTitle
 >References to Figures</secTitle
 ><p
+><indexedItem
+term="iFigureReferences"
+></indexedItem
 >As noted in section <sectionRef
 sec="sTCTFloatsFigures"
 ></sectionRef
@@ -11413,6 +11560,9 @@ id="sTCTFloatsFigureRefTextBefore"
 ><secTitle
 >Controlling Text before a Reference to a Figure</secTitle
 ><p
+><indexedItem
+term="iFigureReferenceControlText"
+></indexedItem
 >One can also control what text precedes a figure reference, if one so chooses. Some people like to use a word such as “figure,” whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that some publishers may want the author to do it one way or the other. In fact, some publications want authors to use capitalized "Figure" while others want authors to use lower case "figure".</p
 ><p
 >In an effort to minimize an author's effort in dealing with this situation, <object
@@ -11649,10 +11799,10 @@ type="tElement"
 ></table
 ></example
 ><p
->There is only one relevant attribute for the <object
+>The relevant attribute for controlling this text in the <object
 type="tElement"
 >figureRef</object
-> element. It is given in example <exampleRef
+> element is given in example <exampleRef
 letter="xFigureRefTextBeforeAttribute"
 num="xFigureRefTextBeforeAttribute"
 ></exampleRef
@@ -11857,12 +12007,129 @@ type="tAttrValue"
 ></table
 ></example
 ></section4
+><section4
+id="sTCTFloatsFigureRefCaption"
+><secTitle
+>Showing the Caption of a Figure</secTitle
+><p
+><indexedItem
+term="iFigureReferencesShowCaption"
+></indexedItem
+>It is also possible to show just the caption or the short caption of a figure. One uses the <object
+type="tAttribute"
+>showCaption</object
+> attribute to control this as explained in example <exampleRef
+letter="xFigureRefShowCaption"
+num="xFigureRefShowCaption"
+></exampleRef
+>.</p
+><example
+num="xFigureRefShowCaption"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>showCaption</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>numberOnly</object
+>, <object
+type="tAttrValue"
+>full</object
+>, <object
+type="tAttrValue"
+>short</object
+>.</langData
+></td
+><td
+><table
+><tr
+><td
+colspan="2"
+><langData
+lang="lEng"
+>This indicates whether thecaptione of the targeted figure should be output or just the number. The normal value for this is <object
+type="tAttrValue"
+>numberOnly</object
+> which means that only the number will be output.. All of the other values override this default. Each one is listed below.</langData
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>numberOnly</object
+></td
+><td
+>The figure number will be output. This is the default value.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>full</object
+></td
+><td
+>Instead of the figure number, the full caption of the figure will be output. The full caption is in the <object
+type="tElement"
+>caption</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>short</object
+></td
+><td
+>Instead of the figure number, the short caption of the figure will be output. The short caption is in the <object
+type="tElement"
+>shortCaption</object
+> element. If there is no short caption, the full caption will be used.</td
+></tr
+></table
+></td
+></tr
+></table
+></example
+></section4
 ></section3
 ><section3
 id="sTCTFloatsNumberedTables"
 ><secTitle
 >Numbered Tables</secTitle
 ><p
+><indexedItem
+term="iNumberedTables"
+></indexedItem
+><indexedItem
+term="iNumberedTablesFloat"
+></indexedItem
 >Numbered tables consist of a required <object
 type="tElement"
 >tablenumbered</object
@@ -12286,6 +12553,9 @@ id="sTCTFloatsNumberedTableRef"
 ><secTitle
 >References to Numbered Tables</secTitle
 ><p
+><indexedItem
+term="iNumberedTablesReferences"
+></indexedItem
 >As noted in section <sectionRef
 sec="sTCTFloatsNumberedTables"
 ></sectionRef
@@ -12329,6 +12599,9 @@ id="sTCTFloatsTableNumberedRefTextBefore"
 ><secTitle
 >Controlling Text before a Reference to a Numbered Table</secTitle
 ><p
+><indexedItem
+term="iNumberedTableReferenceControlText"
+></indexedItem
 >One can also control what text precedes a numbered table reference, if one so chooses. Some people like to use a word such as “table,” whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that some publishers may want the author to do it one way or the other. In fact, some publications want authors to use capitalized "Table" while others want authors to use lower case "table".</p
 ><p
 >In an effort to minimize an author's effort in dealing with this situation, <object
@@ -12758,6 +13031,117 @@ type="tAttribute"
 type="tAttrValue"
 >singular</object
 >.</td
+></tr
+></table
+></td
+></tr
+></table
+></example
+></section4
+><section4
+id="sTCTFloatsTableNumberedRefCaption"
+><secTitle
+>Showing the Caption of a Numbered Table</secTitle
+><p
+><indexedItem
+term="iNumberedTablesReferencesShowCaption"
+></indexedItem
+>It is also possible to show just the caption or the short caption of a numbered table. One uses the <object
+type="tAttribute"
+>showCaption</object
+> attribute to control this as explained in example <exampleRef
+letter="xNumberedTableRefShowCaption"
+num="xNumberedTableRefShowCaption"
+></exampleRef
+>.</p
+><example
+num="xNumberedTableRefShowCaption"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>showCaption</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>numberOnly</object
+>, <object
+type="tAttrValue"
+>full</object
+>, <object
+type="tAttrValue"
+>short</object
+>.</langData
+></td
+><td
+><table
+><tr
+><td
+colspan="2"
+><langData
+lang="lEng"
+>This indicates whether thecaption of the targeted numbered table should be output or just the number. The normal value for this is <object
+type="tAttrValue"
+>numberOnly</object
+> which means that only the number will be output.. All of the other values override this default. Each one is listed below.</langData
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>numberOnly</object
+></td
+><td
+>The table number will be output. This is the default value.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>full</object
+></td
+><td
+>Instead of the table number, the full caption of the numbered table will be output. The full caption is in the <object
+type="tElement"
+>caption</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>short</object
+></td
+><td
+>Instead of the table number, the short caption of the numbered table will be output. The short caption is in the <object
+type="tElement"
+>shortCaption</object
+> element. If there is no short caption, the full caption will be used.</td
 ></tr
 ></table
 ></td
@@ -13993,6 +14377,11 @@ type="tInterlinearRefCitation"
 ></chart
 ></example
 ><p
+>It is also possible to refer to the <object
+type="tAttribute"
+>text</object
+> ID attribute of the entire interlinear text, if the interlinear text has one. In such cases, only the short title of the text will appear.</p
+><p
 >The attributes of the <object
 type="tElement"
 >interlinearRefCitation</object
@@ -14129,7 +14518,45 @@ lang="lEng"
 >If this is set to <object
 type="tAttrValue"
 >yes</object
->, then only the line number will appear, not the text name and the colon.<indexedRangeEnd
+>, then only the line number will appear, not the text name and the colon.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>showTitleOnly</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>short</object
+>, <object
+type="tAttrValue"
+>full</object
+> or <object
+type="tAttrValue"
+>no</object
+> (the default is <object
+type="tAttrValue"
+>no</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>If this is set to <object
+type="tAttrValue"
+>short</object
+>, then only the short title of the interlinear text will appear. If it is set to <object
+type="tAttrValue"
+>full</object
+>, then only the full title of the interlinear text will appear.<indexedRangeEnd
 begin="bInterlinearText"
 ></indexedRangeEnd
 ></langData
@@ -20618,6 +21045,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>figureRefCaptionLayout</object
+></dt
+><dd
+>Layout info for a figure reference to a figure caption</dd
+><dt
+><object
+type="tElement"
 >figureRefLayout</object
 ></dt
 ><dd
@@ -20836,6 +21270,16 @@ type="tElement"
 type="tElement"
 >interlinearRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>interlinearRefCitationTitleLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>interlinearRef</object
+> hyperlinks when they refer to a title</dd
 ><dt
 ><object
 type="tElement"
@@ -21424,6 +21868,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>sectionRefTitleLayout</object
+></dt
+><dd
+>Layout info for a section reference element that outputs the section title</dd
+><dt
+><object
+type="tElement"
 >sectionTitle</object
 ></dt
 ><dd
@@ -21487,6 +21938,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a numbered table number</dd
+><dt
+><object
+type="tElement"
+>tablenumberedRefCaptionLayout</object
+></dt
+><dd
+>Layout info for a numbered table reference to a numbered table caption</dd
 ><dt
 ><object
 type="tElement"
@@ -21991,6 +22449,12 @@ id="iBold"
 >Bold</term
 ></indexTerm
 ><indexTerm
+id="iCaptionInTable"
+see="iTablesCaption"
+><term
+>Caption (in table)</term
+></indexTerm
+><indexTerm
 id="iChapter"
 ><term
 >Chapter</term
@@ -22161,6 +22625,35 @@ see="iSearchTool"
 id="iFLEx"
 ><term
 >FieldWorks Language Explorer</term
+></indexTerm
+><indexTerm
+id="iFigures"
+><term
+>Figures</term
+><indexTerms
+><indexTerm
+id="iFigureFloat"
+><term
+>As a float</term
+></indexTerm
+><indexTerm
+id="iFigureReferences"
+><term
+>References</term
+><indexTerms
+><indexTerm
+id="iFigureReferenceControlText"
+><term
+>Controlling the text that appears before</term
+></indexTerm
+><indexTerm
+id="iFigureReferencesShowCaption"
+><term
+>Show caption only</term
+></indexTerm
+></indexTerms
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iFont"
@@ -22669,6 +23162,18 @@ id="iSectionLevels"
 id="iSectionReference"
 ><term
 >Reference</term
+><indexTerms
+><indexTerm
+id="iSectionReferenceControlText"
+><term
+>Controlling the text that appears before</term
+></indexTerm
+><indexTerm
+id="iSectionReferenceShowTitle"
+><term
+>Show title instead of number</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSectionTitle"
@@ -22745,6 +23250,57 @@ id="iSubtitle"
 id="iSuperscript"
 ><term
 >Superscript</term
+></indexTerm
+><indexTerm
+id="iTables"
+><term
+>Tables</term
+><indexTerms
+><indexTerm
+id="iTablesAttributes"
+><term
+>Attributes used in tables</term
+></indexTerm
+><indexTerm
+id="iTablesCaption"
+><term
+>Captions in tables</term
+></indexTerm
+><indexTerm
+id="iNumberedTables"
+><term
+>Numbered Tables</term
+><indexTerms
+><indexTerm
+id="iNumberedTablesFloat"
+><term
+>As a float</term
+></indexTerm
+><indexTerm
+id="iNumberedTablesReferences"
+><term
+>References</term
+><indexTerms
+><indexTerm
+id="iNumberedTableReferenceControlText"
+><term
+>Controlling the text that appears before</term
+></indexTerm
+><indexTerm
+id="iNumberedTablesReferencesShowCaption"
+><term
+>Show caption only</term
+></indexTerm
+></indexTerms
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iTablesSpan"
+><term
+>Span column or row</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iTableOfContents"

@@ -2,14 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8"/>
     <!-- ===========================================================
-      Keys
-      =========================================================== -->
-    <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
-    <xsl:key name="InterlinearReferenceID" match="//interlinear" use="@text"/>
-    <xsl:key name="LanguageID" match="//language" use="@id"/>
-    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
-    <xsl:key name="TypeID" match="//type" use="@id"/>
-    <!-- ===========================================================
       Parameters
       =========================================================== -->
     <xsl:param name="sBasicPointSize" select="'10'"/>
@@ -942,24 +934,33 @@
       -->
     <xsl:template match="sectionRef">
         <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
         <fo:inline>
-            <fo:basic-link>
-                <xsl:attribute name="internal-destination">
-                    <xsl:value-of select="@sec"/>
-                </xsl:attribute>
+            <fo:basic-link internal-destination="{@sec}">
                 <xsl:call-template name="AddAnyLinkAttributes"/>
-                <xsl:apply-templates select="id(@sec)" mode="number"/>
+                <xsl:call-template name="DoSectionRef"/>
             </fo:basic-link>
         </fo:inline>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
       appendixRef
       -->
     <xsl:template match="appendixRef">
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
         <fo:basic-link internal-destination="{@app}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:apply-templates select="id(@app)" mode="numberAppendix"/>
+            <xsl:call-template name="DoAppendixRef"/>
         </fo:basic-link>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
       genericRef
@@ -1367,13 +1368,45 @@
     <!--
         interlinearRefCitation
     -->
+    <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
+        <!-- we do not show any brackets when these options are set -->
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitleOnly"/>
+        </xsl:call-template>
+        <fo:inline>
+            <fo:basic-link internal-destination="{@textref}">
+                <xsl:call-template name="AddAnyLinkAttributes"/>
+                <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
+            </fo:basic-link>
+        </fo:inline>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitleOnly"/>
+        </xsl:call-template>
+    </xsl:template>
     <xsl:template match="interlinearRefCitation">
         <xsl:if test="not(@bracket) or @bracket='both' or @bracket='initial'">
             <xsl:text>[</xsl:text>
         </xsl:if>
-        <xsl:call-template name="DoInterlinearRefCitation">
-            <xsl:with-param name="sRef" select="@textref"/>
-        </xsl:call-template>
+        <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
+        <xsl:choose>
+            <xsl:when test="name($interlinear)='interlinear-text'">
+                <fo:basic-link internal-destination="{@textref}">
+                    <xsl:choose>
+                        <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
+                            <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:basic-link>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:with-param name="sRef" select="@textref"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="not(@bracket) or @bracket='both' or @bracket='final'">
             <xsl:text>]</xsl:text>
         </xsl:if>
@@ -1791,11 +1824,17 @@
         figureRef
     -->
     <xsl:template match="figureRef">
+        <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
         <fo:basic-link internal-destination="{@figure}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
-            <xsl:apply-templates select="id(@figure)" mode="figure"/>
+            <xsl:call-template name="DoFigureRef"/>
         </fo:basic-link>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         listOfFiguresShownHere
@@ -1840,11 +1879,17 @@
         tablenumberedRef
     -->
     <xsl:template match="tablenumberedRef">
+        <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
         <fo:basic-link internal-destination="{@table}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
-            <xsl:apply-templates select="id(@table)" mode="tablenumbered"/>
+            <xsl:call-template name="DoTablenumberedRef"/>
         </fo:basic-link>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         listOfTablesShownHere
@@ -2103,29 +2148,7 @@ not using
                 </xsl:choose>
             </xsl:attribute>
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
-            <xsl:if test="@equal='yes'">=</xsl:if>
-            <xsl:choose>
-                <xsl:when test="@letter">
-                    <xsl:if test="not(@letterOnly='yes')">
-                        <!--                        <xsl:apply-templates select="id(@letter)" mode="example"/>-->
-                        <xsl:call-template name="GetExampleNumber">
-                            <xsl:with-param name="example" select="id(@letter)"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <xsl:apply-templates select="id(@letter)" mode="letter"/>
-                </xsl:when>
-                <xsl:when test="@num">
-                    <!--                    <xsl:apply-templates select="id(@num)" mode="example"/>-->
-                    <xsl:call-template name="GetExampleNumber">
-                        <xsl:with-param name="example" select="id(@num)"/>
-                    </xsl:call-template>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:if test="@punct">
-                <xsl:value-of select="@punct"/>
-            </xsl:if>
-            <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>
+            <xsl:call-template name="DoExampleRefContent"/>
         </fo:basic-link>
     </xsl:template>
     <!-- ===========================================================
@@ -2247,7 +2270,7 @@ not using
     <!--
       citation
       -->
-    <xsl:template match="//citation">
+    <xsl:template match="//citation[not(parent::selectedBibliography)]">
         <xsl:variable name="refer" select="id(@ref)"/>
         <fo:basic-link internal-destination="{@ref}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
@@ -3591,12 +3614,9 @@ not using
         <xsl:param name="sRef"/>
         <fo:basic-link internal-destination="{$sRef}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
-            <xsl:if test="not(@lineNumberOnly) or @lineNumberOnly!='yes'">
-                <xsl:value-of select="$interlinear/../textInfo/shortTitle"/>
-                <xsl:text>:</xsl:text>
-            </xsl:if>
-            <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+            <xsl:call-template name="DoInterlinearRefCitationContent">
+                <xsl:with-param name="sRef" select="$sRef"/>
+            </xsl:call-template>
         </fo:basic-link>
     </xsl:template>
     <!--  
@@ -4220,22 +4240,6 @@ not using
             <xsl:with-param name="book" select="$citedWork/book"/>
             <xsl:with-param name="pages" select="$citation/@page"/>
         </xsl:call-template>
-    </xsl:template>
-    <!--  
-      ExampleNumber
-   -->
-    <xsl:template name="GetExampleNumber">
-        <xsl:param name="example"/>
-        <xsl:for-each select="$example">
-            <xsl:choose>
-                <xsl:when test="ancestor::endnote">
-                    <xsl:apply-templates select="." mode="exampleInEndnote"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="example"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
     </xsl:template>
     <!--  
       HandleSmallCaps

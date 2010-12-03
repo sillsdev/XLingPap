@@ -2,14 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8"/>
     <!-- ===========================================================
-      Keys
-      =========================================================== -->
-    <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
-    <xsl:key name="InterlinearReferenceID" match="//interlinear" use="@text"/>
-    <xsl:key name="LanguageID" match="//language" use="@id"/>
-    <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
-    <xsl:key name="TypeID" match="//type" use="@id"/>
-    <!-- ===========================================================
       Parameters
       =========================================================== -->
     <xsl:param name="sBasicPointSize" select="'10'"/>
@@ -883,22 +875,33 @@
       -->
     <xsl:template match="sectionRef">
         <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@sec"/>
         </xsl:call-template>
-        <xsl:apply-templates select="id(@sec)" mode="number"/>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:call-template name="DoSectionRef"/>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
       appendixRef
       -->
     <xsl:template match="appendixRef">
-        <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@app"/>
         </xsl:call-template>
-        <xsl:apply-templates select="id(@app)" mode="numberAppendix"/>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:call-template name="DoAppendixRef"/>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitle"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
       genericRef
@@ -1306,29 +1309,7 @@
             </xsl:with-param>
         </xsl:call-template>
         <xsl:call-template name="AddAnyLinkAttributes"/>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
-        <xsl:if test="@equal='yes'">=</xsl:if>
-        <xsl:choose>
-            <xsl:when test="@letter">
-                <xsl:if test="not(@letterOnly='yes')">
-                    <!--                        <xsl:apply-templates select="id(@letter)" mode="example"/>-->
-                    <xsl:call-template name="GetExampleNumber">
-                        <xsl:with-param name="example" select="id(@letter)"/>
-                    </xsl:call-template>
-                </xsl:if>
-                <xsl:apply-templates select="id(@letter)" mode="letter"/>
-            </xsl:when>
-            <xsl:when test="@num">
-                <!--                    <xsl:apply-templates select="id(@num)" mode="example"/>-->
-                <xsl:call-template name="GetExampleNumber">
-                    <xsl:with-param name="example" select="id(@num)"/>
-                </xsl:call-template>
-            </xsl:when>
-        </xsl:choose>
-        <xsl:if test="@punct">
-            <xsl:value-of select="@punct"/>
-        </xsl:if>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>
+        <xsl:call-template name="DoExampleRefContent"/>
         <xsl:call-template name="DoExternalHyperRefEnd"/>
     </xsl:template>
     <!--
@@ -1378,13 +1359,19 @@
         figureRef
     -->
     <xsl:template match="figureRef">
+        <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
         <xsl:call-template name="AddAnyLinkAttributes"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@figure"/>
         </xsl:call-template>
-        <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
-        <xsl:apply-templates select="id(@figure)" mode="figure"/>
+        <xsl:call-template name="DoFigureRef"/>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         listOfFiguresShownHere
@@ -1449,13 +1436,19 @@
         tablenumberedRef
     -->
     <xsl:template match="tablenumberedRef">
+        <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
         <xsl:call-template name="AddAnyLinkAttributes"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@table"/>
         </xsl:call-template>
-        <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
-        <xsl:apply-templates select="id(@table)" mode="tablenumbered"/>
+        <xsl:call-template name="DoTablenumberedRef"/>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showCaption"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         listOfTablesShownHere
@@ -1604,7 +1597,7 @@
     <!--
       citation
       -->
-    <xsl:template match="//citation">
+    <xsl:template match="//citation[not(parent::selectedBibliography)]">
         <xsl:variable name="refer" select="id(@ref)"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@ref"/>
@@ -1660,13 +1653,48 @@
     <!--
         interlinearRefCitation
     -->
+    <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
+        <!-- we do not show any brackets when these options are set -->
+        <xsl:call-template name="DoReferenceShowTitleBefore">
+            <xsl:with-param name="showTitle" select="@showTitleOnly"/>
+        </xsl:call-template>
+        <xsl:call-template name="AddAnyLinkAttributes"/>
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@textref"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:call-template name="DoReferenceShowTitleAfter">
+            <xsl:with-param name="showTitle" select="@showTitleOnly"/>
+        </xsl:call-template>
+    </xsl:template>
     <xsl:template match="interlinearRefCitation">
         <xsl:if test="not(@bracket) or @bracket='both' or @bracket='initial'">
             <xsl:text>[</xsl:text>
         </xsl:if>
-        <xsl:call-template name="DoInterlinearRefCitation">
-            <xsl:with-param name="sRef" select="@textref"/>
-        </xsl:call-template>
+        <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
+        <xsl:choose>
+            <xsl:when test="name($interlinear)='interlinear-text'">
+                <xsl:call-template name="AddAnyLinkAttributes"/>
+                <xsl:call-template name="DoInternalHyperlinkBegin">
+                    <xsl:with-param name="sName" select="@textref"/>
+                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
+                        <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoInternalHyperlinkEnd"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:with-param name="sRef" select="@textref"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="not(@bracket) or @bracket='both' or @bracket='final'">
             <xsl:text>]</xsl:text>
         </xsl:if>
@@ -2515,12 +2543,16 @@
                 <xsl:with-param name="sName" select="$sRef"/>
             </xsl:call-template>
             <!--            <xsl:call-template name="AddAnyLinkAttributes"/>-->
-            <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
+<!--            <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
             <xsl:if test="not(@lineNumberOnly) or @lineNumberOnly!='yes'">
                 <xsl:value-of select="$interlinear/../textInfo/shortTitle"/>
                 <xsl:text>:</xsl:text>
             </xsl:if>
             <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+-->            <xsl:call-template name="DoInterlinearRefCitationContent">
+                <xsl:with-param name="sRef" select="$sRef"/>
+            </xsl:call-template>
+            
             <xsl:call-template name="DoInternalHyperlinkEnd"/>
         </tex:group>
     </xsl:template>

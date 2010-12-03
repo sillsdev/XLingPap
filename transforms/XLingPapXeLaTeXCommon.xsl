@@ -1796,27 +1796,20 @@
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
         </xsl:if>
-        <!-- 
-            <xsl:choose>
-            <xsl:when test="@xsl-foSpecial">
-            <fo:block>
-            <xsl:call-template name="OutputTypeAttributes">
-            <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            </fo:block>
-            </xsl:when>
-            <xsl:otherwise>
-            <xsl:apply-templates/>
-            </xsl:otherwise>
-            </xsl:choose>
-        -->
     </xsl:template>
     <!--  
         textInfo
     -->
     <xsl:template match="textInfo">
+        <xsl:if test="string-length(../@text) &gt; 0">
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="../@text"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:apply-templates/>
+        <xsl:if test="string-length(../@text) &gt; 0">
+            <xsl:call-template name="DoInternalTargetEnd"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         textTitle
@@ -3557,22 +3550,6 @@
         <xsl:call-template name="GetUnitOfMeasure">
             <xsl:with-param name="sValue" select="$sPageWidth"/>
         </xsl:call-template>
-    </xsl:template>
-    <!--  
-        GetExampleNumber
-    -->
-    <xsl:template name="GetExampleNumber">
-        <xsl:param name="example"/>
-        <xsl:for-each select="$example">
-            <xsl:choose>
-                <xsl:when test="ancestor::endnote">
-                    <xsl:apply-templates select="." mode="exampleInEndnote"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="example"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
     </xsl:template>
     <!--  
         GetISOCode

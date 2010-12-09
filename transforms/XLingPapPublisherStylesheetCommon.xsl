@@ -711,9 +711,11 @@
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($item)"/>
                                 </xsl:call-template>
-                                <xsl:call-template name="DoEditorAbbreviation">
-                                    <xsl:with-param name="item" select="$item"/>
-                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -920,9 +922,11 @@
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($item)"/>
                                 </xsl:call-template>
-                                <xsl:call-template name="DoEditorAbbreviation">
-                                    <xsl:with-param name="item" select="$item"/>
-                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='collTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -967,9 +971,11 @@
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($item)"/>
                                 </xsl:call-template>
-                                <xsl:call-template name="DoEditorAbbreviation">
-                                    <xsl:with-param name="item" select="$item"/>
-                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1559,9 +1565,11 @@
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($item)"/>
                                 </xsl:call-template>
-                                <xsl:call-template name="DoEditorAbbreviation">
-                                    <xsl:with-param name="item" select="$item"/>
-                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='procTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">

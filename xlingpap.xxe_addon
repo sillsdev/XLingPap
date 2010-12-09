@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-12-03</a:date
+>2010-12-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,19 +32,21 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.14.0_5 3 December 2010<ul
+>2.14.0_7 9 December 2010<ul
 ><li
 >In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added a column to the table.</li
 ><li
->In the publisher style sheet, added an attribute AddPeriodAfterFinalDigit  to the sectionRefLayout element and changed the transforms to use this instead of the same attribute in the exampleLayout element.</li
+>Improved editor handling in publisher style sheets and reworked the IJAL publisher style sheets.</li
 ><li
->Added a text ID attribute to the interlinear-text element.  One can now have an interlinearRefCitation element refer to an entire interlinear-text.</li
+>In the publisher style sheet, added an attribute AddPeriodAfterFinalDigit to the sectionRefLayout element and changed the transforms to use this instead of the same attribute in the exampleLayout element.</li
 ><li
->Added a showTitle attribute to the sectionRef element.  One can use this to have either the full or short title of the referred to section/chapter/part be output.  Added the same attribute for the appendixRef element.</li
+>Added a text ID attribute to the interlinear-text element. One can now have an interlinearRefCitation element refer to an entire interlinear-text.</li
 ><li
->Added a showTitleOnly to the interlinearRefCitation element.  It can be used to have the short or full title of the referred to interlinear text be output.</li
+>Added a showTitle attribute to the sectionRef element. One can use this to have either the full or short title of the referred to section/chapter/part be output. Added the same attribute for the appendixRef element.</li
 ><li
->Added a showCaption to the figureRef and tablenumberedRef elements.  It can be used to have the full or short caption of the referred to figure or numbered table be output.</li
+>Added a showTitleOnly to the interlinearRefCitation element. It can be used to have the short or full title of the referred to interlinear text be output.</li
+><li
+>Added a showCaption to the figureRef and tablenumberedRef elements. It can be used to have the full or short caption of the referred to figure or numbered table be output.</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li

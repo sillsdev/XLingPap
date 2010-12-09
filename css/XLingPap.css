@@ -4074,9 +4074,13 @@ collEdItem[font-weight]
 {
 	font-weight:concatenate(attr(font-weight));
 }
-collEdItem
+collEdItem[appendEdAbbreviation=no]
 {
 	property-group: referencesItem("Samson, James and Mary LeBar");
+}
+collEdItem
+{
+	property-group: referencesItem("Samson, James and Mary LeBar, eds. ");
 }
 collPagesItem[color]
 {
@@ -6521,9 +6525,13 @@ procEdItem[font-weight]
 {
 	font-weight:concatenate(attr(font-weight));
 }
-procEdItem
+procEdItem[appendEdAbbreviation=no]
 {
 	property-group: referencesItem("Barack, Hashem and Noel James");
+}
+procEdItem
+{
+	property-group: referencesItem("Barack, Hashem and Noel James, eds. ");
 }
 procPagesItem[color]
 {
@@ -7425,6 +7433,10 @@ seriesEdItem[font-style]
 seriesEdItem[font-weight]
 {
 	font-weight:concatenate(attr(font-weight));
+}
+seriesEdItem[appendEdAbbreviation=no]
+{
+	property-group: referencesItem("Patok, Mary Anne and James Verdun");
 }
 seriesEdItem
 {

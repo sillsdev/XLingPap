@@ -30,7 +30,7 @@ References Layouts
    titleform (uppercase | lowercase) "uppercase"
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"
-   usecitationformatwhennumbereofsharedpaperis (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "0"
+   usecitationformatwhennumberofsharedpaperis (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "0"
    >
 
 <!-- Name and version of this references stylesheet -->
@@ -116,7 +116,10 @@ References Layouts
 <!ELEMENT publishedLayoutRef EMPTY >
 
 <!ELEMENT procEdItem EMPTY >
-<!ATTLIST procEdItem %formatinfo;>
+<!ATTLIST procEdItem 
+   appendEdAbbreviation (yes | no) "yes"
+   %formatinfo;
+>
 <!ELEMENT procTitleItem EMPTY >
 <!ATTLIST procTitleItem %formatinfo;>
 <!ELEMENT procVolItem EMPTY >
@@ -128,7 +131,10 @@ References Layouts
 <!ELEMENT conferenceItem EMPTY >
 <!ATTLIST conferenceItem %formatinfo;>
 <!ELEMENT collEdItem EMPTY >
-<!ATTLIST collEdItem %formatinfo;>
+<!ATTLIST collEdItem
+   appendEdAbbreviation (yes | no) "yes"
+   %formatinfo;
+>
 <!ELEMENT collTitleItem EMPTY >
 <!ATTLIST collTitleItem %formatinfo;>
 <!ELEMENT collVolItem EMPTY >
@@ -140,7 +146,10 @@ References Layouts
 <!ELEMENT translatedByItem EMPTY >
 <!ATTLIST translatedByItem %formatinfo;>
 <!ELEMENT seriesEdItem EMPTY >
-<!ATTLIST seriesEdItem %formatinfo;>
+<!ATTLIST seriesEdItem 
+   appendEdAbbreviation (yes | no) "yes"
+   %formatinfo;
+>
 <!ELEMENT seriesItem EMPTY >
 <!ATTLIST seriesItem %formatinfo;>
 <!ELEMENT bookTotalPagesItem EMPTY >

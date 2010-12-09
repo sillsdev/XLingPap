@@ -941,6 +941,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -963,6 +964,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -982,6 +984,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -1001,7 +1004,8 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
-textafter=".  "
+appendEdAbbreviation="no"
+textafter=", "
 textbefore="ed. by "
 ></collEdItem
 ><locationPublisherLayoutsRef
@@ -1201,6 +1205,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -1226,6 +1231,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -1248,6 +1254,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -1432,6 +1439,7 @@ textafter=".  "
 textafter=", "
 ></procTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></procEdItem
@@ -1472,6 +1480,7 @@ textafter=".  "
 textafter=", "
 ></procTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></procEdItem
@@ -1491,6 +1500,7 @@ textafter=".  "
 textafter=", "
 ></procTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></procEdItem
@@ -1510,6 +1520,7 @@ textafter=".  "
 textafter=", "
 ></procTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></procEdItem

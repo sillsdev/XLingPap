@@ -621,6 +621,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -643,6 +644,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -662,6 +664,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -681,7 +684,8 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
-textafter=".  "
+appendEdAbbreviation="no"
+textafter=", "
 textbefore="ed. by "
 ></collEdItem
 ><locationPublisherLayoutsRef
@@ -881,6 +885,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -906,6 +911,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -928,6 +934,7 @@ textafter=".  "
 textafter=", "
 ></collTitleItem
 ><collEdItem
+appendEdAbbreviation="no"
 textafter=", "
 textbefore="ed. by "
 ></collEdItem
@@ -1109,6 +1116,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem
@@ -1132,6 +1140,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem
@@ -1152,6 +1161,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem
@@ -1172,6 +1182,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem
@@ -1193,6 +1204,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem
@@ -1211,6 +1223,7 @@ textafter=".  "
 textafter=".  "
 ></refTitleItem
 ><procEdItem
+appendEdAbbreviation="no"
 textafter=".  "
 textbefore="ed. by "
 ></procEdItem

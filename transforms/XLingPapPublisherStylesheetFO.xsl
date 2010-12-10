@@ -2849,7 +2849,7 @@ not using
         </xsl:if>
     </xsl:template>
     <!--  
-        AdjustFontSizePerMagnification
+        AdjustFontSizePerMagnification (also in XLingPapPublisherStylesheetXHTMLCSS.xsl)
     -->
     <xsl:template name="AdjustFontSizePerMagnification">
         <xsl:param name="sFontSize"/>

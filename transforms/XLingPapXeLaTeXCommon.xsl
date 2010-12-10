@@ -3148,6 +3148,8 @@
     -->
     <xsl:template name="DoInternalTargetBegin">
         <xsl:param name="sName"/>
+        <!-- in some contexts, \hypertarget needs to be \protected; we do it always since it is not easy to determine such contexts-->
+        <tex:cmd name="protect" gr="0"/>
         <tex:spec cat="esc"/>
         <xsl:text>hypertarget</xsl:text>
         <tex:spec cat="bg"/>

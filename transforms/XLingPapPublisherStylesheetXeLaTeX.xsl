@@ -2579,6 +2579,8 @@
                         </tex:cmd>
                     </xsl:when>
                     <xsl:otherwise>
+                        <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->
+                        <tex:cmd name="protect" gr="0"/>
                         <tex:cmd name="{$sTeXFootnoteKind}">
                             <tex:opt>
                                 <xsl:call-template name="DoFootnoteNumberInText"/>
@@ -3655,7 +3657,7 @@
         <xsl:choose>
             <xsl:when test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left'">
                 <tex:spec cat="bg"/>
-                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0">
+                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0 or $layoutInfo/@font-variant='small-caps'">
                     <!-- \MakeUppercase and \MakeLowercase will break the \centering unless we \protect it.-->
                     <tex:cmd name="protect" gr="0"/>
                 </xsl:if>
@@ -3663,8 +3665,8 @@
             </xsl:when>
             <xsl:when test="$layoutInfo/@textalign='end' or $layoutInfo/@textalign='right'">
                 <tex:spec cat="bg"/>
-                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0">
-                    <!-- \MakeUppercase and \MakeLowercase will break the \centering unless we \protect it.-->
+                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0 or $layoutInfo/@font-variant='small-caps'">
+                    <!-- \MakeUppercase and \MakeLowercase will break the \raggedleft unless we \protect it.-->
                     <tex:cmd name="protect" gr="0"/>
                 </xsl:if>
                 <tex:cmd name="raggedleft" gr="0" nl2="1"/>
@@ -3685,7 +3687,7 @@
                 <tex:spec cat="eg"/>
 -->
                 <tex:spec cat="bg"/>
-                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0">
+                <xsl:if test="string-length($layoutInfo/@text-transform) &gt; 0 or $layoutInfo/@font-variant='small-caps'">
                     <!-- \MakeUppercase and \MakeLowercase will break the \centering unless we \protect it.-->
                     <tex:cmd name="protect" gr="0"/>
                 </xsl:if>

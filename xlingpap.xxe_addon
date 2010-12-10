@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-12-09</a:date
+>2010-12-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.14.0_7 9 December 2010<ul
+>2.14.0_7 10 December 2010<ul
 ><li
 >In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added a column to the table.</li
 ><li
@@ -48,9 +48,15 @@ href="mailto::andy_black@sil.org"
 ><li
 >Added a showCaption to the figureRef and tablenumberedRef elements. It can be used to have the full or short caption of the referred to figure or numbered table be output.</li
 ><li
+>Add a validity check: make sure all line elements within a lineGroup handle wrd elements the same way.</li
+><li
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Fix bug which failed to recognize a graphite and/or special font-feature when using a publisher style sheet to override gloss, langData, or free.</li
+><li
+>Fix bug which could cause the output to fail to produce PDF when for a title, the font-variant attribute was set to small-caps and the title was centered.</li
+><li
+>Fix bug which could cause the output to fail to produce PDF when an endote was embedded in a title, the font-variant attribute was set to small-caps and the title was centered.</li
 ></ul
 ></li
 ><li

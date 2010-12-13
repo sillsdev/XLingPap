@@ -209,8 +209,15 @@
     <xsl:template match="tex:parm">
         <xsl:text>{</xsl:text>
         <xsl:choose>
-            <xsl:when test="parent::tex:env[@name='longtable' or @name='tabular'] and preceding-sibling::*[1][name()='tex:opt'] and count(preceding-sibling::*)=1 and contains(.,'\textbar{}') or contains(.,'\{') or contains(.,'\}')">
-                <xsl:call-template name="NormalizeColumnFormatingCharacters"/>
+            <xsl:when test="parent::tex:env[@name='longtable' or @name='tabular'] and preceding-sibling::*[1][name()='tex:opt'] and count(preceding-sibling::*)=1">
+                <xsl:choose>
+                    <xsl:when test="contains(.,'\textbar{}') or contains(.,'\{') or contains(.,'\}')">
+                        <xsl:call-template name="NormalizeColumnFormatingCharacters"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates/>

@@ -2109,6 +2109,22 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}ZoteroMODSReferences.xml"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="EndnoteXMLToXLingPaperReferences">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="selectFile" parameter="[Choose Endnote XML File]openFile %{d}"/>
+                <cfg:command name="applyTransformsToEndnoteXMLFile" parameter="&quot;%_&quot;"/>
+                <cfg:command name="XXE.open" parameter="%{P}%{S}EndnoteXMLReferences.xml"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="applyTransformsToEndnoteXMLFile">
+        <cfg:process>
+            <cfg:copy files="%0" to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}EndnoteXML2XLingPaperReferences.xsl" to="pass1.xml"/>
+            <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}EndnoteXMLReferences.xml"/>
+        </cfg:process>
+    </cfg:command>
     <cfg:command name="ChangeDefaultLangAttributesInTemplates">
         <cfg:macro trace="false">
             <cfg:sequence>

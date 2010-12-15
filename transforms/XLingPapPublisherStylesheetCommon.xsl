@@ -1983,10 +1983,13 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
                     </xsl:choose>
+-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
                     <xsl:call-template name="RecordPosition"/>
@@ -2101,10 +2104,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">10</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                    </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
                     <xsl:call-template name="RecordPosition"/>
@@ -2194,10 +2199,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and editionItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(editionItem)">x</xsl:when>
@@ -2271,10 +2278,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
                     <xsl:call-template name="RecordPosition"/>
@@ -2394,10 +2403,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">12</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                     <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,14, 1)='y' and authorRoleItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,14, 1)='n' and not(authorRoleItem)">x</xsl:when>
@@ -2486,10 +2497,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
                     <xsl:call-template name="RecordPosition"/>
@@ -2539,10 +2552,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
                     <xsl:call-template name="RecordPosition"/>
@@ -2617,10 +2632,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
                     <xsl:call-template name="RecordPosition"/>
@@ -2670,10 +2687,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
                     <xsl:call-template name="RecordPosition"/>
@@ -2761,10 +2780,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
                     <xsl:call-template name="RecordPosition"/>
@@ -2890,10 +2911,12 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
-                    <xsl:choose>
+                    <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
-                    </xsl:choose>
+                        </xsl:choose>-->
+                    <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
+                    <xsl:text>x</xsl:text>
                 </xsl:variable>
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
                     <xsl:call-template name="RecordPosition"/>
@@ -3404,7 +3427,7 @@
                 <!--                <xsl:text>, </xsl:text>-->
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:for-each select="./*">
+        <xsl:for-each select="$children[name()!='iso639-3code']">
             <xsl:if test="not(contains(name(.), 'LowerCase'))">
                 <xsl:value-of select="name(.)"/>
                 <xsl:if test="name()='collCitation'">

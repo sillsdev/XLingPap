@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 December 2010</date
+>15 December 2010</date
 ><version
 >2.14.0_7</version
 ><contents
@@ -4989,6 +4989,107 @@ type="tXMLmindXMLEditor"
 ><p
 >Note that you will probably need to do some hand editing of the result as this conversion process is not 100% accurate (due to differences of detail used by <object
 type="tZotero"
+></object
+> and <object
+type="tXLingPap"
+></object
+>).</p
+></section3
+><section3
+id="sBMRefEndnoteXML"
+><secTitle
+>Converting a <object
+type="tEndnoteXML"
+></object
+> XML references file to <object
+type="tXLingPap"
+></object
+> Format</secTitle
+><p
+><indexedItem
+term="iEndnoteXML"
+></indexedItem
+>It is possible to take an existing <object
+type="tEndnoteXML"
+></object
+><endnote
+id="nEndnote"
+><p
+>See <link
+href="http://www.endnote.com/"
+>http://www.endnote.com/</link
+>.</p
+></endnote
+> XML file and convert it to an <object
+type="tXLingPap"
+></object
+> reference file. Do the following:</p
+><ol
+><li
+>In <object
+type="tEndnoteXML"
+></object
+>, export your library using the XML format. See your <object
+type="tEndnoteXML"
+></object
+> documentation on how to export the library. Remember where you save the XML file.</li
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open an <object
+type="tXLingPap"
+></object
+> document in the directory where you want the converted <object
+type="tEndnoteXML"
+></object
+> reference file to go.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.</li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “E” (it should then fill in “EndnoteXMLToXLingPaperReferences” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will bring up a file chooser that lets you navigate to where you have your exported <object
+type="tEndnoteXML"
+></object
+> XML file. Select your XML file.</li
+><li
+>Click on <object
+type="tInstruction"
+>Open</object
+> or press the <object
+type="tKey"
+>Enter</object
+> key.</li
+></ol
+><p
+><object
+type="tXLingPap"
+></object
+> will produce a file called “EndnoteXMLReferences.xml” in the same directory where your <object
+type="tXLingPap"
+></object
+> document is and then it will load it into the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><p
+>Note that you will probably need to do some hand editing of the result as this conversion process is not 100% accurate (due to differences of detail used by <object
+type="tEndnoteXML"
 ></object
 > and <object
 type="tXLingPap"
@@ -22216,6 +22317,11 @@ font-family="Courier New"
 id="tElementExample"
 ></type
 ><type
+after="Endnote"
+id="tEndnoteXML"
+types="tTool"
+></type
+><type
 font-style="italic"
 id="tFont"
 ></type
@@ -22583,6 +22689,14 @@ id="iEmailAddress"
 id="iEmbeddedElements"
 ><term
 >Embedded elements</term
+></indexTerm
+><indexTerm
+id="iEndnoteXML"
+><term
+><object
+type="tEndnoteXML"
+></object
+></term
 ></indexTerm
 ><indexTerm
 id="iEndnotes"
@@ -23073,6 +23187,15 @@ id="iReferences"
 >References</term
 ><indexTerms
 ><indexTerm
+id="iReferencesEndnoteXML"
+see="iEndnoteXML"
+><term
+><object
+type="tEndnoteXML"
+></object
+></term
+></indexTerm
+><indexTerm
 id="iJumpToReferences"
 ><term
 >Jump to References</term
@@ -23096,7 +23219,10 @@ id="iReferencesWorksCited"
 id="iReferencesZotero"
 see="iZotero"
 ><term
->Zotero</term
+><object
+type="tZotero"
+></object
+></term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -23463,7 +23589,10 @@ id="iXXEUserPreferences"
 ><indexTerm
 id="iZotero"
 ><term
->Zotero</term
+><object
+type="tZotero"
+></object
+></term
 ></indexTerm
 ></indexTerms
 ></lingPaper

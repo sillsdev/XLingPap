@@ -3,7 +3,7 @@
     <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap.dtd" doctype-public="-//XMLmind//DTD XLingPap//EN"/>
     <xsl:include href="MODS2XLingPaperReferencesCommon.xsl"/>
     <!-- 
-        A transform to convert (Zotero) MODS format to XLingPaper references pass 2 of 2:
+        A transform to convert non-XLingPaper format to XLingPaper references pass 2 of 2:
         merge refworks for common authors.
     -->
     <xsl:template match="/references">

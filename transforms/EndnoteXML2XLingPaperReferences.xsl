@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap" doctype-public="-//XMLmind//DTD XLingPap//EN"/>
+    <xsl:include href="MODS2XLingPaperReferencesCommon.xsl"/>
+    <!-- 
+        A transform to convert Endnote XML format to XLingPaper references pass 1 of 2
+    -->
+    <xsl:template match="//records">
+        <references>
+            <xsl:for-each select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                <xsl:sort lang="en" select="concat(contributors/authors/author[1]/style,contributors/authors/author[2]/style,contributors/authors/author[3]/style,contributors/authors/author[4]/style,contributors/authors/author[5]/style,contributors/authors/author[6]/style,contributors/authors/author[7]/style,contributors/authors/author[8]/style,contributors/authors/author[9]/style,contributors/authors/author[10]/style)"/>
+                <xsl:sort select="dates/year"/>
+                <refAuthor>
+                    <xsl:call-template name="DoAuthorItems"/>
+                    <refWork id="r{generate-id()}">
+                        <xsl:call-template name="DoAuthorRole"/>
+                        <xsl:apply-templates select="dates"/>
+                        <xsl:call-template name="DoRefTitle"/>
+                        <xsl:apply-templates select="ref-type"/>
+                    </refWork>
+                </refAuthor>
+            </xsl:for-each>
+        </references>
+    </xsl:template>
+    <!-- 
+        dates
+    -->
+    <xsl:template match="dates">
+        <refDate>
+            <xsl:choose>
+                <xsl:when test="year">
+                    <xsl:value-of select="year/style"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>n.d.</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </refDate>
+    </xsl:template>
+    <!-- 
+        access-date
+    -->
+    <xsl:template match="access-date">
+        <dateAccessed>
+            <xsl:value-of select="year/style"/>
+        </dateAccessed>
+    </xsl:template>
+    <!-- 
+        publisher
+    -->
+    <xsl:template match="publisher">
+        <publisher>
+            <xsl:value-of select="style"/>
+        </publisher>
+    </xsl:template>
+    <!-- 
+        pub-location
+    -->
+    <xsl:template match="pub-location">
+        <location>
+            <xsl:value-of select="style"/>
+        </location>
+    </xsl:template>
+    <!-- 
+        ref-type default
+    -->
+    <xsl:template match="ref-type">
+        <!-- ignore all others -->
+    </xsl:template>
+    <!-- 
+        ref-type Book
+    -->
+    <xsl:template match="ref-type[@name='Book']">
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
+    <!-- 
+        ref-type Book Section
+    -->
+    <xsl:template match="ref-type[@name='Book Section']">
+        <collection>
+            <!--        ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)-->
+            <xsl:if test="../contributors/secondary-authors">
+                <collEd>
+                    <xsl:for-each select="../contributors/secondary-authors">
+                        <xsl:call-template name="GetAuthorsNames"/>
+                    </xsl:for-each>
+                </collEd>
+            </xsl:if>
+            <collTitle>
+                <xsl:value-of select="../titles/secondary-title/style"/>
+            </collTitle>
+            <xsl:if test="../edition">
+                <collVol>
+                    <xsl:value-of select="../edition/style"/>
+                </collVol>
+            </xsl:if>
+            <xsl:if test="../volume">
+                <collVol>
+                    <xsl:value-of select="../volume/style"/>
+                </collVol>
+            </xsl:if>
+            <xsl:if test="../pages">
+                <collPages>
+                    <xsl:value-of select="../pages/style"/>
+                </collPages>
+            </xsl:if>
+            <xsl:if test="../contributors/tertiary-authors">
+                <seriesEd>
+                    <xsl:for-each select="../contributors/tertiary-authors">
+                        <xsl:call-template name="GetAuthorsNames"/>
+                    </xsl:for-each>
+                </seriesEd>
+            </xsl:if>
+            <xsl:if test="../titles/tertiary-title">
+                <series>
+                    <xsl:value-of select="../titles/tertiary-title/style"/>
+                </series>
+            </xsl:if>
+            <xsl:if test="../number">
+                <bVol>
+                    <xsl:value-of select="../number/style"/>
+                </bVol>
+            </xsl:if>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../publisher"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </collection>
+    </xsl:template>
+    <!-- 
+        ref-type Conference Paper
+    -->
+    <xsl:template match="ref-type[@name='Conference Paper']">
+        <paper>
+            <!-- (conference, location?, url?, dateAccessed?, iso639-3code*, comment?) -->
+            <conference>
+                <xsl:value-of select="../titles/secondary-title/style"/>
+            </conference>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </paper>
+    </xsl:template>
+    <!-- 
+        ref-type Conference Proceedings
+    -->
+    <xsl:template match="ref-type[@name='Conference Proceedings']">
+        <proceedings>
+            <!-- ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation), url?, dateAccessed?, iso639-3code*, comment?) -->
+            <xsl:if test="../contributors/secondary-authors">
+                <procEd>
+                    <xsl:for-each select="../contributors/secondary-authors">
+                        <xsl:call-template name="GetAuthorsNames"/>
+                    </xsl:for-each>
+                </procEd>
+            </xsl:if>
+            <procTitle>
+                <xsl:value-of select="../titles/secondary-title/style"/>
+            </procTitle>
+            <xsl:if test="../volume">
+                <procVol>
+                    <xsl:value-of select="../volume/style"/>
+                </procVol>
+            </xsl:if>
+            <xsl:if test="../pages">
+                <procPages>
+                    <xsl:value-of select="../pages/style"/>
+                </procPages>
+            </xsl:if>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../publisher"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </proceedings>
+    </xsl:template>
+    <!-- 
+        ref-type Edited Book
+    -->
+    <xsl:template match="ref-type[@name='Edited Book']">
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
+    <!-- 
+        ref-type Electronic Article
+    -->
+    <xsl:template match="ref-type[@name='Electronic Article']">
+        <xsl:call-template name="DoArticle"/>
+    </xsl:template>
+    <!-- 
+        ref-type Government Document
+    -->
+    <xsl:template match="ref-type[@name='Government Document']">
+        <!-- at least the one example I saw appeared to be a book element -->
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
+    <!-- 
+        ref-type Journal Article
+    -->
+    <xsl:template match="ref-type[@name='Journal Article']">
+        <xsl:call-template name="DoArticle"/>
+    </xsl:template>
+    <!-- 
+        ref-type Manuscript
+    -->
+    <xsl:template match="ref-type[@name='Manuscript']">
+        <xsl:call-template name="DoMs"/>
+    </xsl:template>
+    <!-- 
+        ref-type Online Multimedia
+    -->
+    <xsl:template match="ref-type[@name='Online Multimedia']">
+        <xsl:call-template name="DoWebPage"/>
+    </xsl:template>
+    <!-- 
+        ref-type Report
+    -->
+    <xsl:template match="ref-type[@name='Report']">
+        <xsl:call-template name="DoArticle"/>
+    </xsl:template>
+    <!-- 
+        ref-type Thesis
+    -->
+    <xsl:template match="ref-type[@name='Thesis']">
+        <xsl:choose>
+            <xsl:when test="contains(../work-type,'M.A.') or contains(../volume,'M.A.')">
+                <thesis>
+                    <xsl:call-template name="DoDissertationOrThesis"/>
+                </thesis>
+            </xsl:when>
+            <xsl:otherwise>
+                <dissertation>
+                    <xsl:call-template name="DoDissertationOrThesis"/>
+                </dissertation>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
+        ref-type Unpublished Work
+    -->
+    <xsl:template match="ref-type[@name='Unpublished Work']">
+        <xsl:call-template name="DoMs"/>
+    </xsl:template>
+    <!-- 
+        ref-type Web Page
+    -->
+    <xsl:template match="ref-type[@name='Web Page']">
+        <xsl:call-template name="DoWebPage"/>
+    </xsl:template>
+    <!-- 
+        related-urls
+    -->
+    <xsl:template match="related-urls">
+        <url>
+            <xsl:value-of select="url/style"/>
+        </url>
+    </xsl:template>
+    <!-- 
+        title
+    -->
+    <xsl:template match="title">
+            <xsl:value-of select="style"/>
+    </xsl:template>
+    <!-- 
+        DoArticle
+    -->
+    <xsl:template name="DoArticle">
+        <article>
+            <!-- (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, url?, dateAccessed?, iso639-3code*, comment?)> -->
+            <xsl:choose>
+                <xsl:when test="../periodical">
+                    <jTitle>
+                        <xsl:value-of select="../periodical/full-title/style"/>
+                    </jTitle>
+                    <jVol>
+                        <xsl:value-of select="../volume/style"/>
+                    </jVol>
+                    <xsl:if test="../number">
+                        <jIssueNumber>
+                            <xsl:value-of select="../number/style"/>
+                            <xsl:value-of select="../issue/style"/>
+                        </jIssueNumber>
+                    </xsl:if>
+                    <xsl:if test="../pages">
+                        <jPages>
+                            <xsl:value-of select="../pages/style"/>
+                        </jPages>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <jTitle>Unknown Journal Title</jTitle>
+                    <jVol>Unkown Journal Volume</jVol>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../publisher"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </article>
+    </xsl:template>
+    <!-- 
+        DoAuthorItems
+    -->
+    <xsl:template name="DoAuthorItems">
+        <xsl:attribute name="name">
+            <xsl:variable name="sAuthorName">
+                <xsl:for-each select="contributors/authors">
+                    <xsl:call-template name="GetAuthorsNames"/>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="string-length($sAuthorName) &gt; 0 and $sAuthorName != ', '">
+                    <xsl:value-of select="$sAuthorName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sMissingAuthorsMessage"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+        <xsl:attribute name="citename">
+            <xsl:variable name="sCiteName">
+                <xsl:call-template name="GetCiteName"/>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="string-length($sCiteName) &gt; 0">
+                    <xsl:value-of select="$sCiteName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sMissingAuthorsMessage"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+    </xsl:template>
+    <!-- 
+        DoAuthorRole
+    -->
+    <xsl:template name="DoAuthorRole">
+        <xsl:if test="ref-type[@name='Edited Book']">
+            <authorRole>
+                <xsl:text>Editor</xsl:text>
+                <xsl:if test="count(contributors/authors/author) &gt; 1">
+                    <xsl:text>s</xsl:text>
+                </xsl:if>
+            </authorRole>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
+        DoBook
+    -->
+    <xsl:template name="DoBook">
+        <book>
+            <!-- translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment? -->
+            <xsl:if test="../contributors/translated-authors">
+                <translatedBy>
+                    <xsl:for-each select="../contributors/translated-authors">
+                        <xsl:call-template name="GetAuthorsNames"/>
+                    </xsl:for-each>
+                </translatedBy>
+            </xsl:if>
+            <xsl:if test="../edition">
+                <edition>
+                    <xsl:value-of select="../edition/style"/>
+                </edition>
+            </xsl:if>
+            <xsl:if test="../contributors/secondary-authors">
+                <seriesEd>
+                    <xsl:for-each select="../contributors/secondary-authors">
+                        <xsl:call-template name="GetAuthorsNames"/>
+                    </xsl:for-each>
+                </seriesEd>
+            </xsl:if>
+            <xsl:if test="../titles/secondary-title">
+                <series>
+                    <xsl:value-of select="../titles/secondary-title/style"/>
+                </series>
+            </xsl:if>
+            <xsl:if test="../volume">
+                <bVol>
+                    <xsl:value-of select="../volume/style"/>
+                </bVol>
+            </xsl:if>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../publisher"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </book>
+    </xsl:template>
+    <!-- 
+        DoDissertationOrThesis
+    -->
+    <xsl:template name="DoDissertationOrThesis">
+        <!-- (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?) -->
+        <xsl:apply-templates select="../pub-location"/>
+        <institution>
+            <xsl:value-of select="../publisher"/>
+        </institution>
+        <xsl:apply-templates select="../urls/related-urls"/>
+        <xsl:apply-templates select="../dates/access-date"/>
+    </xsl:template>
+    <!-- 
+        DoMs
+    -->
+    <xsl:template name="DoMs">
+        <ms>
+            <!-- (location?, institution, url?, dateAccessed?, iso639-3code*, comment?) -->
+            <xsl:apply-templates select="../pub-location"/>
+            <institution>
+                <xsl:text>Unknown institution</xsl:text>
+            </institution>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </ms>
+    </xsl:template>
+    <!-- 
+        DoRefTitle
+    -->
+    <xsl:template name="DoRefTitle">
+        <refTitle>
+            <xsl:choose>
+                <xsl:when test="titles/title">
+                    <xsl:apply-templates select="titles/title"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>** There was no title for this work! **</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </refTitle>
+    </xsl:template>
+    <!-- 
+        DoWebPage
+    -->
+    <xsl:template name="DoWebPage">
+        <webPage>
+            <!-- (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?) -->
+            <xsl:if test="../edition">
+                <collVol>
+                    <xsl:value-of select="../edition/style"/>
+                </collVol>
+            </xsl:if>
+            <xsl:apply-templates select="../pub-location"/>
+            <xsl:apply-templates select="../publisher"/>
+            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:apply-templates select="../dates/access-date"/>
+        </webPage>
+    </xsl:template>
+    <!-- 
+        GetAuthorsNames
+    -->
+    <xsl:template name="GetAuthorsNames">
+        <xsl:for-each select="author/style">
+            <xsl:if test="position()!= 1">
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="."/>
+        </xsl:for-each>
+    </xsl:template>
+    <!-- 
+        GetCiteName
+    -->
+    <xsl:template name="GetCiteName">
+        <xsl:for-each select="contributors/authors/author">
+            <xsl:choose>
+                <xsl:when test="position()=last() and count(preceding-sibling::author) &gt; 0">
+                    <xsl:text> and </xsl:text>
+                </xsl:when>
+                <xsl:when test="count(preceding-sibling::author) &gt; 0">
+                    <xsl:text>, </xsl:text>
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+            <xsl:value-of select="style"/>
+        </xsl:for-each>
+    </xsl:template>
+</xsl:stylesheet>

@@ -3557,7 +3557,7 @@
         GetISOCode
     -->
     <xsl:template name="GetISOCode">
-        <xsl:if test="//lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
             <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
             <xsl:if test="$firstLangData">
                 <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>

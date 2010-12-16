@@ -8,7 +8,7 @@
     <xsl:template match="//records">
         <references>
             <xsl:for-each select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
-                <xsl:sort lang="en" select="concat(contributors/authors/author[1]/style,contributors/authors/author[2]/style,contributors/authors/author[3]/style,contributors/authors/author[4]/style,contributors/authors/author[5]/style,contributors/authors/author[6]/style,contributors/authors/author[7]/style,contributors/authors/author[8]/style,contributors/authors/author[9]/style,contributors/authors/author[10]/style)"/>
+                <xsl:sort lang="en" select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
                 <refAuthor>
                     <xsl:call-template name="DoAuthorItems"/>
@@ -29,7 +29,7 @@
         <refDate>
             <xsl:choose>
                 <xsl:when test="year">
-                    <xsl:value-of select="year/style"/>
+                    <xsl:value-of select="normalize-space(year)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>n.d.</xsl:text>
@@ -42,7 +42,7 @@
     -->
     <xsl:template match="access-date">
         <dateAccessed>
-            <xsl:value-of select="year/style"/>
+            <xsl:value-of select="normalize-space(year)"/>
         </dateAccessed>
     </xsl:template>
     <!-- 
@@ -50,7 +50,7 @@
     -->
     <xsl:template match="publisher">
         <publisher>
-            <xsl:value-of select="style"/>
+            <xsl:value-of select="normalize-space(.)"/>
         </publisher>
     </xsl:template>
     <!-- 
@@ -58,7 +58,7 @@
     -->
     <xsl:template match="pub-location">
         <location>
-            <xsl:value-of select="style"/>
+            <xsl:value-of select="normalize-space(.)"/>
         </location>
     </xsl:template>
     <!-- 
@@ -87,21 +87,21 @@
                 </collEd>
             </xsl:if>
             <collTitle>
-                <xsl:value-of select="../titles/secondary-title/style"/>
+                <xsl:value-of select="normalize-space(../titles/secondary-title)"/>
             </collTitle>
             <xsl:if test="../edition">
                 <collVol>
-                    <xsl:value-of select="../edition/style"/>
+                    <xsl:value-of select="normalize-space(../edition)"/>
                 </collVol>
             </xsl:if>
             <xsl:if test="../volume">
                 <collVol>
-                    <xsl:value-of select="../volume/style"/>
+                    <xsl:value-of select="normalize-space(../volume)"/>
                 </collVol>
             </xsl:if>
             <xsl:if test="../pages">
                 <collPages>
-                    <xsl:value-of select="../pages/style"/>
+                    <xsl:value-of select="normalize-space(../pages)"/>
                 </collPages>
             </xsl:if>
             <xsl:if test="../contributors/tertiary-authors">
@@ -113,12 +113,12 @@
             </xsl:if>
             <xsl:if test="../titles/tertiary-title">
                 <series>
-                    <xsl:value-of select="../titles/tertiary-title/style"/>
+                    <xsl:value-of select="normalize-space(../titles/tertiary-title)"/>
                 </series>
             </xsl:if>
             <xsl:if test="../number">
                 <bVol>
-                    <xsl:value-of select="../number/style"/>
+                    <xsl:value-of select="normalize-space(../number)"/>
                 </bVol>
             </xsl:if>
             <xsl:apply-templates select="../pub-location"/>
@@ -134,7 +134,7 @@
         <paper>
             <!-- (conference, location?, url?, dateAccessed?, iso639-3code*, comment?) -->
             <conference>
-                <xsl:value-of select="../titles/secondary-title/style"/>
+                <xsl:value-of select="normalize-space(../titles/secondary-title)"/>
             </conference>
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../urls/related-urls"/>
@@ -155,16 +155,16 @@
                 </procEd>
             </xsl:if>
             <procTitle>
-                <xsl:value-of select="../titles/secondary-title/style"/>
+                <xsl:value-of select="normalize-space(../titles/secondary-title)"/>
             </procTitle>
             <xsl:if test="../volume">
                 <procVol>
-                    <xsl:value-of select="../volume/style"/>
+                    <xsl:value-of select="normalize-space(../volume)"/>
                 </procVol>
             </xsl:if>
             <xsl:if test="../pages">
                 <procPages>
-                    <xsl:value-of select="../pages/style"/>
+                    <xsl:value-of select="normalize-space(../pages)"/>
                 </procPages>
             </xsl:if>
             <xsl:apply-templates select="../pub-location"/>
@@ -250,14 +250,14 @@
     -->
     <xsl:template match="related-urls">
         <url>
-            <xsl:value-of select="url/style"/>
+            <xsl:value-of select="normalize-space(url)"/>
         </url>
     </xsl:template>
     <!-- 
         title
     -->
     <xsl:template match="title">
-            <xsl:value-of select="style"/>
+        <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
     <!-- 
         DoArticle
@@ -268,20 +268,20 @@
             <xsl:choose>
                 <xsl:when test="../periodical">
                     <jTitle>
-                        <xsl:value-of select="../periodical/full-title/style"/>
+                        <xsl:value-of select="normalize-space(../periodical/full-title)"/>
                     </jTitle>
                     <jVol>
-                        <xsl:value-of select="../volume/style"/>
+                        <xsl:value-of select="normalize-space(../volume)"/>
                     </jVol>
                     <xsl:if test="../number">
                         <jIssueNumber>
-                            <xsl:value-of select="../number/style"/>
-                            <xsl:value-of select="../issue/style"/>
+                            <xsl:value-of select="normalize-space(../number)"/>
+                            <xsl:value-of select="normalize-space(../issue)"/>
                         </jIssueNumber>
                     </xsl:if>
                     <xsl:if test="../pages">
                         <jPages>
-                            <xsl:value-of select="../pages/style"/>
+                            <xsl:value-of select="normalize-space(../pages)"/>
                         </jPages>
                     </xsl:if>
                 </xsl:when>
@@ -308,7 +308,7 @@
             </xsl:variable>
             <xsl:choose>
                 <xsl:when test="string-length($sAuthorName) &gt; 0 and $sAuthorName != ', '">
-                    <xsl:value-of select="$sAuthorName"/>
+                    <xsl:value-of select="normalize-space($sAuthorName)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="$sMissingAuthorsMessage"/>
@@ -321,7 +321,7 @@
             </xsl:variable>
             <xsl:choose>
                 <xsl:when test="string-length($sCiteName) &gt; 0">
-                    <xsl:value-of select="$sCiteName"/>
+                    <xsl:value-of select="normalize-space($sCiteName)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="$sMissingAuthorsMessage"/>
@@ -357,7 +357,7 @@
             </xsl:if>
             <xsl:if test="../edition">
                 <edition>
-                    <xsl:value-of select="../edition/style"/>
+                    <xsl:value-of select="normalize-space(../edition)"/>
                 </edition>
             </xsl:if>
             <xsl:if test="../contributors/secondary-authors">
@@ -369,12 +369,12 @@
             </xsl:if>
             <xsl:if test="../titles/secondary-title">
                 <series>
-                    <xsl:value-of select="../titles/secondary-title/style"/>
+                    <xsl:value-of select="normalize-space(../titles/secondary-title)"/>
                 </series>
             </xsl:if>
             <xsl:if test="../volume">
                 <bVol>
-                    <xsl:value-of select="../volume/style"/>
+                    <xsl:value-of select="normalize-space(../volume)"/>
                 </bVol>
             </xsl:if>
             <xsl:apply-templates select="../pub-location"/>
@@ -390,7 +390,7 @@
         <!-- (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?) -->
         <xsl:apply-templates select="../pub-location"/>
         <institution>
-            <xsl:value-of select="../publisher"/>
+            <xsl:value-of select="normalize-space(../publisher)"/>
         </institution>
         <xsl:apply-templates select="../urls/related-urls"/>
         <xsl:apply-templates select="../dates/access-date"/>
@@ -431,9 +431,9 @@
         <webPage>
             <!-- (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?) -->
             <xsl:if test="../edition">
-                <collVol>
-                    <xsl:value-of select="../edition/style"/>
-                </collVol>
+                <edition>
+                    <xsl:value-of select="normalize-space(../edition)"/>
+                </edition>
             </xsl:if>
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../publisher"/>
@@ -445,11 +445,11 @@
         GetAuthorsNames
     -->
     <xsl:template name="GetAuthorsNames">
-        <xsl:for-each select="author/style">
+        <xsl:for-each select="author">
             <xsl:if test="position()!= 1">
                 <xsl:text>, </xsl:text>
             </xsl:if>
-            <xsl:value-of select="."/>
+            <xsl:value-of select="normalize-space(.)"/>
         </xsl:for-each>
     </xsl:template>
     <!-- 
@@ -466,7 +466,7 @@
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
-            <xsl:value-of select="style"/>
+            <xsl:value-of select="normalize-space(.)"/>
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

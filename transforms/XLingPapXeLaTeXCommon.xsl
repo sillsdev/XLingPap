@@ -654,8 +654,11 @@
         listWord
     -->
     <xsl:template match="listWord">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example and count(preceding-sibling::listWord) = 0">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -668,8 +671,11 @@
         listSingle
     -->
     <xsl:template match="listSingle">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example and count(preceding-sibling::listSingle) = 0">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -757,7 +763,10 @@
         lineGroup
     -->
     <xsl:template match="lineGroup">
-        <xsl:call-template name="DoInterlinearLineGroup"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="DoInterlinearLineGroup">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
     </xsl:template>
     <xsl:template match="lineGroup" mode="NoTextRef">
         <xsl:call-template name="DoInterlinearLineGroup">
@@ -768,11 +777,16 @@
         line
     -->
     <xsl:template match="line">
-        <xsl:call-template name="DoInterlinearLine"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="DoInterlinearLine">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
     </xsl:template>
     <xsl:template match="line" mode="NoTextRef">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:call-template name="DoInterlinearLine">
             <xsl:with-param name="mode" select="'NoTextRef'"/>
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -869,19 +883,27 @@
         free
     -->
     <xsl:template match="free">
-        <xsl:call-template name="DoInterlinearFree"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:call-template name="DoInterlinearFree">
             <xsl:with-param name="mode" select="'NoTextRef'"/>
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         listInterlinear
     -->
     <xsl:template match="listInterlinear">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example and count(preceding-sibling::listInterlinear) = 0">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!-- ================================ -->
@@ -1872,6 +1894,25 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        ApplyTemplatesPerTextRefMode
+    -->
+    <xsl:template name="ApplyTemplatesPerTextRefMode">
+        <xsl:param name="mode"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:choose>
+            <xsl:when test="$mode='NoTextRef'">
+                <xsl:apply-templates mode="NoTextRef">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[name() !='interlinearSource']">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         CalculateColumnsInInterlinearLine
     -->
@@ -2725,6 +2766,7 @@
     -->
     <xsl:template name="DoInterlinearFree">
         <xsl:param name="mode"/>
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="preceding-sibling::*[1][name()='free']">
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
@@ -2756,6 +2798,35 @@
                     <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
                 </tex:parm>
             </tex:cmd>
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <!-- need to compensate for the extra space of the ISO code -->
+                <tex:cmd name="settowidth">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:variable name="sIsoCode">
+                            <xsl:for-each select="parent::listInterlinear">
+                                <xsl:call-template name="GetISOCode"/>
+                            </xsl:for-each>
+                        </xsl:variable>
+                        <xsl:call-template name="OutputISOCodeInExample">
+                            <xsl:with-param name="bOutputBreak" select="'N'"/>
+                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:cmd name="hspace*">
                 <tex:parm>
                     <tex:cmd name="XLingPaperexamplefreeindent" gr="0"/>
@@ -2833,6 +2904,10 @@
     -->
     <xsl:template name="DoInterlinearLine">
         <xsl:param name="mode"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="contains($bListsShareSameCode,'N') and count(preceding-sibling::line) &gt; 0">
+            <tex:spec cat="align"/>
+        </xsl:if>
         <xsl:variable name="bRtl">
             <xsl:choose>
                 <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
@@ -2956,6 +3031,7 @@
         DoInterlinearLineGroup
     -->
     <xsl:template name="DoInterlinearLineGroup">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="mode"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear[preceding-sibling::*]">
@@ -2995,10 +3071,22 @@
         <tex:env name="tabular" nlb1="0" nlb2="0">
             <tex:opt>t</tex:opt>
             <tex:parm>
-                <xsl:call-template name="DoInterlinearTabularMainPattern"/>
+                <xsl:call-template name="DoInterlinearTabularMainPattern">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
             </tex:parm>
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <xsl:variable name="sListIsoCode">
+                    <xsl:call-template name="GetISOCode"/>
+                </xsl:variable>
+                <xsl:call-template name="OutputListLevelISOCode">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                 <xsl:with-param name="mode" select="$mode"/>
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
             </xsl:call-template>
         </tex:env>
         <xsl:choose>
@@ -3028,17 +3116,7 @@
         DoInterlinearTabularMainPattern
     -->
     <xsl:template name="DoInterlinearTabularMainPattern">
-        <!-- apparently \begin{tabular}{@{}...} still adds about 3pt; so we need to backtrack 3pt;
-            no, it was just that there was a newline between the beginning of the argument to XLingPaperexample
-            and the \begin{tabular}; removing that newline made it all align properly
-            <xsl:text>@</xsl:text>
-            <tex:spec cat="bg"/>
-            <tex:cmd name="hspace*">
-            <tex:parm>
-            <xsl:text>-3pt</xsl:text>
-            </tex:parm>
-            </tex:cmd>
-            <tex:spec cat="eg"/> -->
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:text>*</xsl:text>
         <tex:spec cat="bg"/>
         <!--        <xsl:value-of select="$sInterlinearMaxNumberOfColumns"/>-->
@@ -3085,10 +3163,24 @@
                             </xsl:for-each>
                         </xsl:for-each>
                     </xsl:variable>
-                    <xsl:value-of select="string-length($sMaxColCount)"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($bListsShareSameCode,'N')">
+                            <xsl:value-of select="string-length($sMaxColCount)+1"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="string-length($sMaxColCount)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="$iTempCount"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($bListsShareSameCode,'N')">
+                            <xsl:value-of select="number($iTempCount + 1)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$iTempCount"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
             <!--                </xsl:when>-->
@@ -4847,6 +4939,24 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        OutputISOCodeInExample
+    -->
+    <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="sIsoCode"/>
+        <xsl:param name="bOutputBreak" select="'Y'"/>
+        <xsl:if test="$bOutputBreak='Y'">
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+        </xsl:if>
+        <tex:cmd name="small">
+            <tex:parm>
+                <xsl:text>[</xsl:text>
+                <xsl:value-of select="$sIsoCode"/>
+                <xsl:text>]</xsl:text>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
         OutputLetter
     -->
     <xsl:template name="OutputLetter">
@@ -4861,6 +4971,7 @@
         OutputList
     -->
     <xsl:template name="OutputList">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="sLetterWidth">
             <xsl:call-template name="GetLetterWidth">
                 <xsl:with-param name="iLetterCount" select="count(parent::example/listWord | parent::example/listSingle | parent::example/listInterlinear)"/>
@@ -4878,7 +4989,7 @@
                             <tex:cmd name="vspace*" nl2="1">
                                 <tex:parm>
                                     <xsl:text>-</xsl:text>
-                                    <xsl:if test="string-length($sIsoCode) &gt; 0">
+                                    <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                                         <xsl:text>1.9</xsl:text>
                                     </xsl:if>
                                     <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
@@ -4915,7 +5026,9 @@
                             <xsl:call-template name="OutputLetter"/>
                         </tex:parm>
                         <tex:parm>
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:apply-templates>
                         </tex:parm>
                     </tex:cmd>
                     <xsl:if test="position() != last()">
@@ -4949,7 +5062,7 @@
                             <xsl:with-param name="sCommandToSet" select="'LTpre'"/>
                             <xsl:with-param name="sValue">
                                 <xsl:choose>
-                                    <xsl:when test="string-length($sIsoCode) &gt; 0">
+                                    <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                                         <xsl:text>-1.725</xsl:text>
                                     </xsl:when>
                                     <xsl:when test="preceding-sibling::exampleHeading">
@@ -4986,6 +5099,17 @@
                             <tex:spec cat="eg"/>
                             <xsl:choose>
                                 <xsl:when test="name()='listDefinition' or name()='listSingle'">
+                                    <xsl:if test="contains($bListsShareSameCode,'N')">
+                                        <xsl:text>@</xsl:text>
+                                        <tex:spec cat="bg"/>
+                                        <tex:spec cat="eg"/>
+                                        <xsl:text>l</xsl:text>
+                                        <xsl:text>@</xsl:text>
+                                        <tex:spec cat="bg"/>
+                                        <tex:spec cmd="esc"/>
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <tex:spec cat="eg"/>
+                                    </xsl:if>
                                     <xsl:text>@</xsl:text>
                                     <tex:spec cat="bg"/>
                                     <tex:spec cat="eg"/>
@@ -5006,7 +5130,9 @@
                                     <xsl:text>l</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:call-template name="DoInterlinearTabularMainPattern"/>
+                                    <xsl:call-template name="DoInterlinearTabularMainPattern">
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </tex:parm>
@@ -5014,6 +5140,10 @@
                             <xsl:with-param name="sLetterWidth" select="$sLetterWidth"/>
                         </xsl:call-template>
                         <tex:spec cat="align"/>
+                        <xsl:call-template name="OutputListLevelISOCode">
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                        </xsl:call-template>
                         <!-- not sure if the following is the best or even needed...
                             <tex:cmd name="hspace*">
                             <tex:parm>-2.5pt</tex:parm>
@@ -5027,12 +5157,35 @@
                                 <xsl:with-param name="sLetterWidth" select="$sLetterWidth"/>
                             </xsl:call-template>
                             <tex:spec cat="align"/>
+                            <xsl:variable name="sListIsoCode">
+                                <xsl:call-template name="GetISOCode"/>
+                            </xsl:variable>
+                            <xsl:call-template name="OutputListLevelISOCode">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
+                            </xsl:call-template>
                             <xsl:call-template name="OutputWordOrSingle"/>
                         </xsl:for-each>
                     </tex:env>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputListLevelISOCode
+    -->
+    <xsl:template name="OutputListLevelISOCode">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="sIsoCode"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <xsl:call-template name="OutputISOCodeInExample">
+                    <xsl:with-param name="bOutputBreak" select="'N'"/>
+                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                </xsl:call-template>
+                <tex:spec cat="align"/>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--  
         OutputTable
@@ -5495,6 +5648,11 @@
         <tex:cmd name="newlength" nl1="1">
             <tex:parm>
                 <tex:cmd name="XLingPaperlistinexampleindent" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="SetTeXCommand">

@@ -1112,6 +1112,9 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
+            <xsl:variable name="bListsShareSameCode">
+                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+            </xsl:variable>
             <tex:cmd name="{$sXLingPaperExample}" nl1="0" nl2="1">
                 <tex:parm>
                     <xsl:value-of select="$sExampleIndentBefore"/>
@@ -1124,10 +1127,14 @@
                     <xsl:text>em</xsl:text>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:call-template name="DoExampleNumber"/>
+                    <xsl:call-template name="DoExampleNumber">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:call-template>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:apply-templates>
                 </tex:parm>
             </tex:cmd>
             <!-- 
@@ -1236,11 +1243,12 @@
         DoExampleNumber
     -->
     <xsl:template name="DoExampleNumber">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="sIsoCode">
             <xsl:call-template name="GetISOCode"/>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="string-length($sIsoCode) &gt; 0">
+            <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                 <tex:cmd name="raisebox">
                     <tex:parm>
                         <xsl:text>-.9</xsl:text>
@@ -1263,15 +1271,10 @@
                                 </xsl:call-template>
                                 <xsl:text>)</xsl:text>
                                 <xsl:call-template name="DoInternalTargetEnd"/>
-                                <tex:spec cat="esc"/>
-                                <tex:spec cat="esc"/>
-                                <tex:cmd name="small">
-                                    <tex:parm>
-                                        <xsl:text>[</xsl:text>
-                                        <xsl:value-of select="$sIsoCode"/>
-                                        <xsl:text>]</xsl:text>
-                                    </tex:parm>
-                                </tex:cmd>
+                                <xsl:call-template name="OutputExampleLevelISOCode">
+                                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:call-template>
                             </tex:parm>
                         </tex:cmd>
                     </tex:parm>
@@ -1956,20 +1959,6 @@
         </xsl:if>
     </xsl:template>
     <!--
-      ApplyTemplatesPerTextRefMode
-   -->
-    <xsl:template name="ApplyTemplatesPerTextRefMode">
-        <xsl:param name="mode"/>
-        <xsl:choose>
-            <xsl:when test="$mode='NoTextRef'">
-                <xsl:apply-templates mode="NoTextRef"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name() !='interlinearSource']"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--
       CalculateColumnPosition
    -->
     <xsl:template name="CalculateColumnPosition">
@@ -2543,16 +2532,16 @@
                 <xsl:with-param name="sName" select="$sRef"/>
             </xsl:call-template>
             <!--            <xsl:call-template name="AddAnyLinkAttributes"/>-->
-<!--            <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
+            <!--            <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
             <xsl:if test="not(@lineNumberOnly) or @lineNumberOnly!='yes'">
                 <xsl:value-of select="$interlinear/../textInfo/shortTitle"/>
                 <xsl:text>:</xsl:text>
             </xsl:if>
             <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
--->            <xsl:call-template name="DoInterlinearRefCitationContent">
+-->
+            <xsl:call-template name="DoInterlinearRefCitationContent">
                 <xsl:with-param name="sRef" select="$sRef"/>
             </xsl:call-template>
-            
             <xsl:call-template name="DoInternalHyperlinkEnd"/>
         </tex:group>
     </xsl:template>

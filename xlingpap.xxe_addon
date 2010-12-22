@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-12-13</a:date
+>2010-12-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.14.0_7 13 December 2010<ul
+>2.14.0_7 22 December 2010<ul
 ><li
 >In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added a column to the table.</li
 ><li
@@ -51,6 +51,8 @@ href="mailto::andy_black@sil.org"
 >Add a validity check: make sure all line elements within a lineGroup handle wrd elements the same way.</li
 ><li
 >Added a way to convert Endnote XML files to XLingPaper references format.</li
+><li
+>Enabled list examples (listInterlinear, listSingle, and listWord) to show the ISO 639-3 code for each item (if the codes differ) or for the entire example (if the codes are the same).</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li

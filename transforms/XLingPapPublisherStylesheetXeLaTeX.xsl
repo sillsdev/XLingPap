@@ -1498,6 +1498,9 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
+            <xsl:variable name="bListsShareSameCode">
+                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+            </xsl:variable>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes'">
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
@@ -1514,13 +1517,17 @@
                     <xsl:text>em</xsl:text>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:call-template name="DoExampleNumber"/>
+                    <xsl:call-template name="DoExampleNumber">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:call-template>
                 </tex:parm>
                 <tex:parm>
                     <xsl:call-template name="OutputTypeAttributes">
                         <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                     </xsl:call-template>
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:apply-templates>
                     <xsl:call-template name="OutputTypeAttributesEnd">
                         <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                     </xsl:call-template>
@@ -2151,18 +2158,16 @@
             <xsl:call-template name="DoInternalHyperlinkBegin">
                 <xsl:with-param name="sName" select="@textref"/>
             </xsl:call-template>
-            
             <!-- we do not show any brackets when these options are set -->
             <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-            <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
-        </xsl:call-template>
+                <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInternalHyperlinkEnd"/>
         </tex:group>
-        
         <xsl:if test="$contentLayoutInfo/interlinearRefCitationTitleLayout">
             <xsl:call-template name="OutputFontAttributesEnd">
                 <xsl:with-param name="language" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
@@ -2322,20 +2327,6 @@
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
-    <!--
-      ApplyTemplatesPerTextRefMode
-   -->
-    <xsl:template name="ApplyTemplatesPerTextRefMode">
-        <xsl:param name="mode"/>
-        <xsl:choose>
-            <xsl:when test="$mode='NoTextRef'">
-                <xsl:apply-templates mode="NoTextRef"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name() !='interlinearSource']"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
     <!--
                   CheckSeeTargetIsCitedOrItsDescendantIsCited
                                     -->
@@ -2652,11 +2643,12 @@
         DoExampleNumber
     -->
     <xsl:template name="DoExampleNumber">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="sIsoCode">
             <xsl:call-template name="GetISOCode"/>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="string-length($sIsoCode) &gt; 0">
+            <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                 <tex:cmd name="raisebox">
                     <tex:parm>
                         <xsl:text>-.9</xsl:text>
@@ -2679,15 +2671,10 @@
                                 </xsl:call-template>
                                 <xsl:text>)</xsl:text>
                                 <xsl:call-template name="DoInternalTargetEnd"/>
-                                <tex:spec cat="esc"/>
-                                <tex:spec cat="esc"/>
-                                <tex:cmd name="small">
-                                    <tex:parm>
-                                        <xsl:text>[</xsl:text>
-                                        <xsl:value-of select="$sIsoCode"/>
-                                        <xsl:text>]</xsl:text>
-                                    </tex:parm>
-                                </tex:cmd>
+                                <xsl:call-template name="OutputExampleLevelISOCode">
+                                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:call-template>
                             </tex:parm>
                         </tex:cmd>
                     </tex:parm>

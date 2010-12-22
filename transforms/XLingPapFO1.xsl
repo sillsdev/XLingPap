@@ -1273,6 +1273,9 @@
                 </fo:table-column>
                 <fo:table-body start-indent="0pt" end-indent="0pt">
                     <fo:table-row>
+                        <xsl:variable name="bListsShareSameCode">
+                            <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+                        </xsl:variable>
                         <fo:table-cell text-align="start" end-indent=".2em">
                             <xsl:call-template name="DoDebugExamples"/>
                             <!--                 <xsl:call-template name="DoCellAttributes"/> -->
@@ -1282,25 +1285,16 @@
                                     <xsl:with-param name="example" select="."/>
                                 </xsl:call-template>
                                 <xsl:text>)</xsl:text>
-                                <xsl:if test="//lingPaper/@showiso639-3codeininterlinear='yes'">
-                                    <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
-                                    <xsl:if test="$firstLangData">
-                                        <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-                                        <xsl:if test="string-length($sIsoCode) &gt; 0">
-                                            <fo:block/>
-                                            <fo:inline font-size="smaller">
-                                                <xsl:text>[</xsl:text>
-                                                <xsl:value-of select="$sIsoCode"/>
-                                                <xsl:text>]</xsl:text>
-                                            </fo:inline>
-                                        </xsl:if>
-                                    </xsl:if>
-                                </xsl:if>
+                                <xsl:call-template name="OutputExampleLevelISOCode">
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:call-template>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                             <xsl:call-template name="DoDebugExamples"/>
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:apply-templates>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -1317,8 +1311,11 @@
       listWord
       -->
     <xsl:template match="listWord">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example/listWord[1]=.">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -1331,8 +1328,11 @@
       listSingle
       -->
     <xsl:template match="listSingle">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example/listSingle[1]=.">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -1536,8 +1536,11 @@
       listInterlinear
       -->
     <xsl:template match="listInterlinear">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="parent::example and count(preceding-sibling::listInterlinear) = 0">
-            <xsl:call-template name="OutputList"/>
+            <xsl:call-template name="OutputList">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!-- ================================ -->
@@ -5128,6 +5131,7 @@ not using
                   OutputList
 -->
     <xsl:template name="OutputList">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="iLetterCount" select="count(parent::example/listWord | parent::example/listWord)"/>
         <xsl:variable name="sLetterWidth">
             <xsl:choose>
@@ -5162,6 +5166,9 @@ not using
                                 <xsl:text>.</xsl:text>
                             </fo:block>
                         </fo:table-cell>
+                        <xsl:call-template name="OutputListLevelISOCode">
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="name()='listInterlinear'">
                                 <fo:table-cell keep-together.within-page="1">
@@ -5203,6 +5210,9 @@ not using
                                     <xsl:text>.</xsl:text>
                                 </fo:block>
                             </fo:table-cell>
+                            <xsl:call-template name="OutputListLevelISOCode">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:call-template>
                             <xsl:choose>
                                 <xsl:when test="name()='listInterlinear'">
                                     <fo:table-cell>

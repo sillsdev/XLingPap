@@ -796,6 +796,9 @@
             </xsl:call-template>
             <table>
                 <tr>
+                    <xsl:variable name="bListsShareSameCode">
+                        <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+                    </xsl:variable>
                     <td valign="top">
                         <xsl:element name="a">
                             <xsl:attribute name="name">
@@ -806,21 +809,9 @@
                                 <xsl:with-param name="example" select="."/>
                             </xsl:call-template>
                             <xsl:text>)</xsl:text>
-                            <xsl:if test="//lingPaper/@showiso639-3codeininterlinear='yes'">
-                                <xsl:call-template name="OutputISOCodeInExample"/>
-                                <!--  It does not work to use br - we would really need to redo the tables so all list elements are rows in the master table 
-                        <xsl:for-each select="listInterlinear[position() &gt; 1]">
-                           <xsl:for-each select="preceding-sibling::listInterlinear">
-                              <xsl:for-each select="lineGroup/line | free">
-                                 <xsl:if test="position() &gt; 1">
-                                 <br/>
-                                 </xsl:if>
-                              </xsl:for-each>
-                           </xsl:for-each>
-                              <xsl:call-template name="OutputISOCodeInExample"/>
-                        </xsl:for-each>
-                        -->
-                            </xsl:if>
+                            <xsl:call-template name="OutputExampleLevelISOCode">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:call-template>
                         </xsl:element>
                     </td>
                     <td>
@@ -829,7 +820,9 @@
                             <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
                                 <xsl:apply-templates select="exampleHeading" mode="noInitialSpace"/>
                                 <table cellpadding="0pt" cellspacing="0pt">
-                                    <xsl:apply-templates select="listInterlinear | listWord | listSingle"/>
+                                    <xsl:apply-templates select="listInterlinear | listWord | listSingle">
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:apply-templates>
                                 </table>
                             </xsl:when>
                             <xsl:when test="name($myFirstChild) = 'exampleHeading' and name(child::*[position()=2])='table'">
@@ -838,7 +831,9 @@
                             </xsl:when>
                             <xsl:when test="substring(name($myFirstChild), 1, 4)='list'">
                                 <table cellpadding="0pt" cellspacing="0pt">
-                                    <xsl:apply-templates/>
+                                    <xsl:apply-templates>
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:apply-templates>
                                 </table>
                             </xsl:when>
                             <xsl:otherwise>
@@ -851,11 +846,14 @@
         </div>
     </xsl:template>
     <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="bOutputBreak" select="'Y'"/>
         <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
         <xsl:if test="$firstLangData">
             <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
             <xsl:if test="string-length($sIsoCode) &gt; 0">
-                <br/>
+                <xsl:if test="$bOutputBreak='Y'">
+                    <br/>
+                </xsl:if>
                 <span style="font-size:smaller">
                     <xsl:text>[</xsl:text>
                     <xsl:value-of select="$sIsoCode"/>
@@ -882,6 +880,7 @@
       listWord
       -->
     <xsl:template match="listWord">
+        <xsl:param name="bListsShareSameCode"/>
         <!--    <table> -->
         <tr>
             <td>
@@ -891,6 +890,9 @@
                     </xsl:attribute>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
+            <xsl:call-template name="OutputListLevelISOCode">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
             <xsl:for-each select="(langData | gloss)">
                 <td>
                     <xsl:attribute name="style">
@@ -918,6 +920,7 @@
       listSingle
       -->
     <xsl:template match="listSingle">
+        <xsl:param name="bListsShareSameCode"/>
         <!--        <table cellpadding="0pt" cellspacing="0pt"> -->
         <tr>
             <td valign="top">
@@ -927,6 +930,15 @@
                     </xsl:attribute>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
+            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+                <xsl:if test="contains($bListsShareSameCode,'N')">
+                    <td>
+                        <xsl:call-template name="OutputISOCodeInExample">
+                            <xsl:with-param name="bOutputBreak" select="'N'"/>
+                        </xsl:call-template>
+                    </td>
+                </xsl:if>
+            </xsl:if>
             <td>
                 <xsl:attribute name="style">
                     <xsl:value-of select="$sExampleCellPadding"/>
@@ -1149,6 +1161,7 @@
         listInterlinear
     -->
     <xsl:template match="listInterlinear">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="preceding-sibling::listInterlinear">
             <tr>
                 <td>&#xa0;</td>
@@ -1167,6 +1180,15 @@
                                 <xsl:text>.</xsl:text>
                             </xsl:element>
                         </td>
+                        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+                            <xsl:if test="contains($bListsShareSameCode,'N')">
+                                <td>
+                                    <xsl:call-template name="OutputISOCodeInExample">
+                                        <xsl:with-param name="bOutputBreak" select="'N'"/>
+                                    </xsl:call-template>
+                                </td>
+                            </xsl:if>
+                        </xsl:if>
                         <td>
                             <xsl:apply-templates/>
                         </td>
@@ -4145,6 +4167,21 @@
                 </xsl:choose>
                 <xsl:text>]</xsl:text>
             </td>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        OutputListLevelISOCode
+    -->
+    <xsl:template name="OutputListLevelISOCode">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <td>
+                    <xsl:call-template name="OutputISOCodeInExample">
+                        <xsl:with-param name="bOutputBreak" select="'N'"/>
+                    </xsl:call-template>
+                </td>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  

@@ -148,4 +148,41 @@
             </xsl:if>
         </fo:block>
     </xsl:template>
+    <!--
+        OutputISOCodeInExample
+    -->
+    <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="bOutputBreak" select="'Y'"/>
+        <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
+        <xsl:if test="$firstLangData">
+            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+            <xsl:if test="string-length($sIsoCode) &gt; 0">
+                <xsl:if test="$bOutputBreak='Y'">
+                    <fo:block/>
+                </xsl:if>
+                <fo:inline font-size="smaller">
+                    <xsl:text>[</xsl:text>
+                    <xsl:value-of select="$sIsoCode"/>
+                    <xsl:text>]</xsl:text>
+                </fo:inline>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        OutputListLevelISOCode
+    -->
+    <xsl:template name="OutputListLevelISOCode">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <fo:table-cell padding-end=".5em">
+                    <fo:block>
+                    <xsl:call-template name="OutputISOCodeInExample">
+                        <xsl:with-param name="bOutputBreak" select="'N'"/>
+                    </xsl:call-template>
+                    </fo:block>
+                </fo:table-cell>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
 </xsl:stylesheet>

@@ -124,6 +124,32 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DetermineIfListsShareSameISOCode
+    -->
+    <xsl:template name="DetermineIfListsShareSameISOCode">
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+                <xsl:choose>
+                    <xsl:when test="listInterlinear or listWord or listSingle">
+                        <xsl:variable name="sIsoCodeOfFirst" select="key('LanguageID',descendant::langData[1]/@lang)/@ISO639-3Code"/>
+                        <xsl:for-each select="*/following-sibling::*">
+                            <xsl:variable name="sIsoCodeOfFollowingFirst" select="key('LanguageID',descendant::langData[1]/@lang)/@ISO639-3Code"/>
+                            <xsl:if test="$sIsoCodeOfFollowingFirst != $sIsoCodeOfFirst">
+                                <xsl:text>N</xsl:text>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Y</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Y</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoInterlinearRefCitationContent
     -->
     <xsl:template name="DoInterlinearRefCitationContent">
@@ -316,6 +342,29 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        OutputExampleLevelISOCode
+    -->
+    <xsl:template name="OutputExampleLevelISOCode">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="sIsoCode"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:choose>
+                <xsl:when test="listInterlinear or listWord or listSingle">
+                    <xsl:if test="not(contains($bListsShareSameCode,'N'))">
+                        <xsl:call-template name="OutputISOCodeInExample">
+                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputISOCodeInExample">
+                        <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputGlossaryLabel
     -->
     <xsl:template name="OutputGlossaryLabel">
@@ -505,7 +554,6 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-        
     </xsl:template>
     <!--
         SortAbbreviationsInTable

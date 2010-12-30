@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->15 December 2010</date
+>30 December 2010</date
 ><version
 >2.14.0_7</version
 ><contents
@@ -1313,6 +1313,9 @@ type="tItalic"
 >Insert the indicated number of points between each row of the table (this only works on a <object
 type="tElement"
 >table</object
+> or a <object
+type="tElement"
+>tr</object
 > element).</td
 ><td
 ><table
@@ -1322,7 +1325,7 @@ type="tElement"
 ></tr
 ><tr
 ><td
->row-separation='3pt'</td
+>row-separation='30pt'</td
 ></tr
 ></table
 ></td

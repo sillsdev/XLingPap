@@ -180,7 +180,6 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:variable name="sSpaceBefore"> </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">

@@ -1420,15 +1420,26 @@
         </xsl:apply-templates>
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
-        <xsl:if test="contains(ancestor::table/@XeLaTeXSpecial,'row-separation')">
+        <xsl:if test="contains(ancestor::table[1]/@XeLaTeXSpecial,'row-separation') or contains(@XeLaTeXSpecial,'row-separation')">
             <tex:spec cat="lsb"/>
-            <xsl:for-each select="ancestor::table[@XeLaTeXSpecial]">
-                <xsl:call-template name="HandleXeLaTeXSpecialCommand">
-                    <xsl:with-param name="sPattern" select="'row-separation='"/>
-                    <xsl:with-param name="default" select="'0pt'"/>
-                </xsl:call-template>
-                <tex:spec cat="rsb"/>
-            </xsl:for-each>
+            <xsl:choose>
+                <xsl:when test="contains(@XeLaTeXSpecial,'row-separation')">
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="'row-separation='"/>
+                            <xsl:with-param name="default" select="'0pt'"/>
+                        </xsl:call-template>
+                        <tex:spec cat="rsb"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:for-each select="ancestor::table[1][@XeLaTeXSpecial]">
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="'row-separation='"/>
+                            <xsl:with-param name="default" select="'0pt'"/>
+                        </xsl:call-template>
+                        <tex:spec cat="rsb"/>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'line-after')">
             <tex:cmd name="midrule" gr="0"/>

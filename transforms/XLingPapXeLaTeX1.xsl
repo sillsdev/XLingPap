@@ -1161,6 +1161,7 @@
             </xsl:call-template>
             <tex:spec cat="bg"/>
         </xsl:if>
+        <xsl:call-template name="HandleEndnoteTextInExampleInTable"/>
     </xsl:template>
     <!--  
         DoEdPlural
@@ -1203,6 +1204,12 @@
                     </tex:opt>
                 </tex:cmd>
             </xsl:when>
+            <xsl:when test="count(ancestor::table) &gt; 1 and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark" gr="0"/>
+            </xsl:when>
+            <xsl:when test="ancestor::example[ancestor::table] and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark" gr="0"/>
+            </xsl:when>
             <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
                     <tex:opt>
@@ -1218,10 +1225,15 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:otherwise>
+                <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->
+                <tex:cmd name="protect" gr="0"/>
                 <tex:cmd name="{$sTeXFootnoteKind}">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
+                        <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                     <tex:parm>
                         <tex:group>
                             <tex:spec cat="esc"/>
@@ -3651,23 +3663,6 @@
                     <xsl:with-param name="sDefault" select="$sPlural"/>
                 </xsl:call-template>
             </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <!--
-        OutputAuthorFootnoteSymbol
-    -->
-    <xsl:template name="OutputAuthorFootnoteSymbol">
-        <xsl:param name="iAuthorPosition"/>
-        <xsl:choose>
-            <xsl:when test="$iAuthorPosition=1">
-                <xsl:text>*</xsl:text>
-            </xsl:when>
-            <xsl:when test="$iAuthorPosition=2">
-                <xsl:text>†</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>‡</xsl:text>
-            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  

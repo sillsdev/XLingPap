@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.14.0_7</a:version
+>2.14.0_8</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2010-12-30</a:date
+>2011-02-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.14.0_8 14 February 2011<ul
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Fix bug where the number of an endnote at the bottom of the page was given as zero.</li
+><li
+>Fix bug where the text of an endnote at the bottom of the page could be missing (if the endnote was embedded in a table within a table).</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.14.0_7 30 December 2010<ul
 ><li
@@ -60,7 +72,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug which could cause the output to fail to produce PDF when for a title, the font-variant attribute was set to small-caps and the title was centered.</li
 ><li
->Fix bug which could cause the output to fail to produce PDF when an endote was embedded in a title, the font-variant attribute was set to small-caps and the title was centered.</li
+>Fix bug which could cause the output to fail to produce PDF when an endnote was embedded in a title, the font-variant attribute was set to small-caps and the title was centered.</li
 ><li
 >Fix bug which could cause a left brace { or a right brace } to not appear in certain circumstances (e.g. in an example(definition)).</li
 ><li

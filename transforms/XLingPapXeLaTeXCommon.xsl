@@ -8,6 +8,7 @@
         Variables
         =========================================================== -->
     <xsl:variable name="chapters" select="//chapter"/>
+    <xsl:variable name="bIsBook" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
@@ -1304,6 +1305,14 @@
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
+        <!-- Is this the right spot for this? -->
+        <xsl:if test="descendant-or-self::endnote and not(ancestor::table)">
+            <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
+                then one cannot overtly say what the footnote number should be. 
+                Therefore, we must set the footnote counter here.
+            -->
+            <xsl:call-template name="SetLaTeXFootnoteCounter"/>
+        </xsl:if>
         <xsl:call-template name="OutputTable"/>
         <xsl:call-template name="OutputTypeAttributesEnd">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
@@ -1424,11 +1433,11 @@
             <tex:spec cat="lsb"/>
             <xsl:choose>
                 <xsl:when test="contains(@XeLaTeXSpecial,'row-separation')">
-                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
-                            <xsl:with-param name="sPattern" select="'row-separation='"/>
-                            <xsl:with-param name="default" select="'0pt'"/>
-                        </xsl:call-template>
-                        <tex:spec cat="rsb"/>
+                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                        <xsl:with-param name="sPattern" select="'row-separation='"/>
+                        <xsl:with-param name="default" select="'0pt'"/>
+                    </xsl:call-template>
+                    <tex:spec cat="rsb"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="ancestor::table[1][@XeLaTeXSpecial]">
@@ -1505,6 +1514,12 @@
                 <xsl:apply-templates select=".">
                     <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
                 </xsl:apply-templates>
+                <tex:cmd name="addtocounter">
+                    <tex:parm>footnote</tex:parm>
+                    <tex:parm>
+                        <xsl:text>1</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="following-sibling::td | following-sibling::col">
@@ -2707,6 +2722,25 @@
         <xsl:call-template name="DoInternalTargetEnd"/>
     </xsl:template>
     <!--  
+        DoFootnoteNumberInTextValue
+    -->
+    <xsl:template name="DoFootnoteNumberInTextValue">
+        <xsl:choose>
+            <xsl:when test="$bIsBook">
+                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter" format="1"/>
+            </xsl:when>
+            <xsl:when test="parent::author">
+                <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+                <xsl:call-template name="OutputAuthorFootnoteSymbol">
+                    <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoImageFile
     -->
     <xsl:template name="DoImageFile">
@@ -3804,6 +3838,20 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        HandleEndnoteTextInExampleInTable
+    -->
+    <xsl:template name="HandleEndnoteTextInExampleInTable">
+        <xsl:if test="ancestor::table and descendant::endnote">
+            <!-- when have a table with embedded examples and those examples have endnotes in them, 
+                we need to put footnotetext here after the example.-->
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         HandleFontSize
     -->
     <xsl:template name="HandleFontSize">
@@ -4397,6 +4445,23 @@
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
         </tex:group>
+    </xsl:template>
+    <!--
+        OutputAuthorFootnoteSymbol
+    -->
+    <xsl:template name="OutputAuthorFootnoteSymbol">
+        <xsl:param name="iAuthorPosition"/>
+        <xsl:choose>
+            <xsl:when test="$iAuthorPosition=1">
+                <xsl:text>*</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iAuthorPosition=2">
+                <xsl:text>†</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>‡</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputBackgroundColor
@@ -5383,6 +5448,17 @@
                 <xsl:with-param name="iNumCols" select="$iNumCols"/>
             </xsl:apply-templates>
         </tex:env>
+        <xsl:variable name="iTableCount" select="count(ancestor-or-self::table)"/>
+        <xsl:if test="$iTableCount  = 2 and descendant-or-self::endnote">
+            <!-- When have a table within a table - longtable (the outermost table) can handle footnotes; tabular (the inner tables) cannot.
+                   We handle it by putting the text of all footnotes here at the end of the first embedded table 
+                   (doing it for each embedded table does not work - the text of the embedded footnote does not come out). -->
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--  
         OutputTypeAttributes
@@ -6861,6 +6937,25 @@ What might go in a TeX package file
             <xsl:with-param name="sElementName" select="'indexitem'"/>
             <xsl:with-param name="sWriteNumber" select="'write7'"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        SetLaTeXFootnoteCounter
+    -->
+    <xsl:template name="SetLaTeXFootnoteCounter">
+        <tex:cmd name="setcounter">
+            <tex:parm>footnote</tex:parm>
+            <tex:parm>
+                <xsl:variable name="sFootnoteNumber">
+                    <xsl:call-template name="DoFootnoteNumberInTextValue"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="string-length($sFootnoteNumber)=0">0</xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sFootnoteNumber"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!--  
         SetXLingPaperAddElementToTocFile

@@ -103,11 +103,15 @@ Page Layout
       The color and decoration attributes on the other embedded linkLayout elements override the defaults.
       A link will only be colored and/or decorated if the showmarking attrbute of the sub-element is 'yes'. 
       -->
-    <!ELEMENT linkLayout (appendixRefLinkLayout, citationLinkLayout, contentsLinkLayout,  endnoteRefLinkLayout, exampleRefLinkLayout, figureRefLinkLayout?,
+    <!ELEMENT linkLayout (abbrRefLinkLayout?, appendixRefLinkLayout, citationLinkLayout, contentsLinkLayout,  endnoteRefLinkLayout, exampleRefLinkLayout, figureRefLinkLayout?,
                                                genericRefLinkLayout, indexLinkLayout, interlinearRefLinkLayout, linkLinkLayout, sectionRefLinkLayout, tablenumberedRefLinkLayout?, urlLinkLayout) >
     <!ATTLIST  linkLayout
     color CDATA #IMPLIED
     decoration (none | underline | overline |  line-through | blink) "none"  
+    >
+    <!ELEMENT abbrRefLinkLayout EMPTY>
+    <!ATTLIST  abbrRefLinkLayout
+    %linkLayoutCommonNoShow;
     >
     <!ELEMENT appendixRefLinkLayout EMPTY>
     <!ATTLIST  appendixRefLinkLayout

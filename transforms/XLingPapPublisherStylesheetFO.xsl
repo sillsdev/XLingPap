@@ -2626,7 +2626,7 @@ not using
                             <xsl:value-of select="@abbr"/>
                         </xsl:attribute>
                         <xsl:call-template name="AddAnyLinkAttributes">
-                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/abbrRefLinkLayout"/>
                         </xsl:call-template>
                         <xsl:call-template name="OutputAbbrTerm">
                             <xsl:with-param name="abbr" select="id(@abbr)"/>
@@ -4094,7 +4094,7 @@ not using
             <xsl:if test="$mode!='NoTextRef'">
                 <xsl:if test="count(preceding-sibling::line) = 0">
                     <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-                        <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or string-length(normalize-space(../../interlinearSource)) &gt; 0">
+                        <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
                             <fo:table-cell text-align="start" xsl:use-attribute-sets="ExampleCell">
                                 <fo:block>
                                     <xsl:call-template name="DoDebugExamples"/>
@@ -5108,9 +5108,11 @@ not using
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
+                    <fo:inline>
                     <fo:marker marker-class-name="section-title">
                         <xsl:value-of select="$sLabel"/>
                     </fo:marker>
+                        </fo:inline>
                     <fo:inline>
                         <xsl:value-of select="$sLabel"/>
                     </fo:inline>
@@ -5483,10 +5485,12 @@ not using
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
+                    <fo:inline>
                     <!-- put title in marker so it can show up in running header -->
                     <fo:marker marker-class-name="{$sMarkerClassName}">
                         <xsl:value-of select="$sTitle"/>
                     </fo:marker>
+                    </fo:inline>
                     <xsl:if test="not($layoutInfo/@useLabel) or $layoutInfo/@useLabel='yes'">
                         <fo:inline>
                             <xsl:value-of select="$sTitle"/>

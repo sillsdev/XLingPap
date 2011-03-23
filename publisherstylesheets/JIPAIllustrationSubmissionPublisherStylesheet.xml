@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Journal of the IPA Illustration Submission Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.1.0</publisherStyleSheetVersion
+>0.1.1</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -52,6 +52,8 @@ textalign="left"
 ></footnoteLine
 ><linkLayout
 decoration="none"
+><abbrRefLinkLayout
+></abbrRefLinkLayout
 ><appendixRefLinkLayout
 ></appendixRefLinkLayout
 ><citationLinkLayout

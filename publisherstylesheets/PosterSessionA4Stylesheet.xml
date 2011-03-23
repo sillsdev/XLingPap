@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Publisher Stylesheet For Poster Session, Magnified on A4 paper</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.2.0</publisherStyleSheetVersion
+>0.2.1</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >210mm</pageWidth
@@ -45,6 +45,8 @@ textalign="left"
 ><linkLayout
 color="blue"
 decoration="underline"
+><abbrRefLinkLayout
+></abbrRefLinkLayout
 ><appendixRefLinkLayout
 ></appendixRefLinkLayout
 ><citationLinkLayout

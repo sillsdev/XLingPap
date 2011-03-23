@@ -567,7 +567,7 @@
                     <xsl:if test="$abstractTextLayoutInfo/@textalign='start' or $abstractTextLayoutInfo/@textalign='left'">
                         <tex:cmd name="noindent" gr="0" nl2="1"/>
                     </xsl:if>
-                    <xsl:call-template name="OutputFontAttributes">
+                    <xsl:call-template name="OutputFontAttributesInAbstract">
                         <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
                         <xsl:with-param name="originalContext" select="."/>
                     </xsl:call-template>
@@ -586,7 +586,7 @@
                             <xsl:with-param name="contentForThisElement" select="$contentForThisElement"/>
                         </xsl:call-template>
                     </xsl:if>
-                    <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:call-template name="OutputFontAttributesInAbstractEnd">
                         <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
                         <xsl:with-param name="originalContext" select="."/>
                     </xsl:call-template>
@@ -944,6 +944,7 @@
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
         <xsl:call-template name="DoBookMark"/>
+        <tex:group>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -978,6 +979,7 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
+        </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$appLayout"/>
@@ -2274,7 +2276,7 @@
                         <xsl:with-param name="sName" select="@abbr"/>
                     </xsl:call-template>
                     <xsl:call-template name="LinkAttributesBegin">
-                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/abbrRefLinkLayout"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="key('LanguageID',../@lang)"/>
@@ -3472,7 +3474,7 @@
             </xsl:call-template>
         </tex:group>
         <!-- put title in marker so it can show up in running header -->
-        <tex:cmd name="markright" nl2="1">
+        <tex:cmd name="markright">
             <tex:parm>
                 <xsl:call-template name="DoSecTitleRunningHeader"/>
             </tex:parm>
@@ -4685,6 +4687,225 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        OutputFontAttributesInAbstract
+    -->
+    <xsl:template name="OutputFontAttributesInAbstract">
+        <xsl:param name="language"/>
+        <xsl:param name="originalContext"/>
+        <xsl:param name="bIsOverride" select="'N'"/>
+        <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
+        <xsl:if test="string-length($sFontFamily) &gt; 0">
+            <xsl:call-template name="HandleFontFamily">
+                <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="sFontFamily" select="$sFontFamily"/>
+                <xsl:with-param name="bIsOverride" select="$bIsOverride"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
+        <xsl:if test="string-length($sFontSize) &gt; 0">
+            <xsl:call-template name="HandleFontSize">
+                <xsl:with-param name="sSize" select="$sFontSize"/>
+                <xsl:with-param name="sFontFamily" select="$language/@font-family"/>
+                <xsl:with-param name="language" select="$language"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
+        <xsl:if test="string-length($sFontStyle) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$sFontStyle='italic'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>itshape </xsl:text>
+                </xsl:when>
+                <xsl:when test="$sFontStyle='oblique'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>slshape </xsl:text>
+                </xsl:when>
+                <xsl:when test="$sFontStyle='normal'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>upshape </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- use italic as default -->
+                    <tex:spec cat="esc"/>
+                    <xsl:text>itshape </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
+        <xsl:if test="string-length($sFontVariant) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$sFontVariant='small-caps'">
+                    <xsl:if test="not($originalContext and $originalContext[descendant::abbrRef])">
+                        <xsl:if test="string-length($sFontSize)=0">
+                            <xsl:call-template name="HandleFontSize">
+                                <xsl:with-param name="sSize" select="'65%'"/>
+                                <xsl:with-param name="sFontFamily" select="$sFontFamily"/>
+                                <xsl:with-param name="language" select="$language"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <xsl:call-template name="HandleSmallCapsBegin"/>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="$sFontStyle='italic'">
+                    <!-- do nothing; we do not want to turn off the italic by using a normal -->
+                </xsl:when>
+                <xsl:when test="$sFontStyle='normal'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>upshape </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- only allow small caps -->
+                    <!-- following does more than use normal - it also uses the main font
+                        <tex:spec cat="esc"/>
+                        <xsl:text>textnormal</xsl:text>
+                        <tex:spec cat="bg"/> -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:variable name="sFontWeight" select="normalize-space($language/@font-weight)"/>
+        <xsl:if test="string-length($sFontWeight) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$sFontWeight='bold'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>bfseries </xsl:text>
+                </xsl:when>
+                <xsl:when test="$sFontStyle='italic'">
+                    <!-- do nothing - we do *not* want to do a 'normal' or we'll cancel the italic -->
+                </xsl:when>
+                <xsl:when test="$sFontWeight='normal'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>mdseries </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- use bold as default -->
+                    <tex:spec cat="esc"/>
+                    <xsl:text>bfseries </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:variable name="sFontColor" select="normalize-space($language/@color)"/>
+        <xsl:if test="string-length($sFontColor) &gt; 0">
+            <xsl:call-template name="DoColor">
+                <xsl:with-param name="sFontColor" select="$sFontColor"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+            <xsl:for-each select="$language">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="colorbox">
+                    <tex:opt>rgb</tex:opt>
+                    <tex:parm>
+                        <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                            <xsl:with-param name="sColorHexCode">
+                                <xsl:call-template name="GetColorHexCode">
+                                    <xsl:with-param name="sColor" select="@backgroundcolor"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </tex:parm>
+                    <tex:spec cat="bg"/>
+                </tex:cmd>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+        <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
+            <xsl:choose>
+                <xsl:when test="$sTextTransform='uppercase'">
+                    <tex:spec cat="bg"/>
+                    <tex:cmd name="MakeUppercase" gr="0"/>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
+                <xsl:when test="$sTextTransform='lowercase'">
+                    <tex:spec cat="bg"/>
+                    <tex:cmd name="MakeLowercase" gr="0"/>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
+                <!-- we ignore 'captialize' and 'none' -->
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputFontAttributesInAbstractEnd
+    -->
+    <xsl:template name="OutputFontAttributesInAbstractEnd">
+        <xsl:param name="language"/>
+        <xsl:param name="originalContext"/>
+        <!-- unsuccessful attempt at dealing with "normal" to override inherited values 
+            <xsl:param name="bStartParent" select="'Y'"/>
+        -->
+        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+        <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
+            <xsl:choose>
+                <xsl:when test="$sTextTransform='uppercase'">
+                    <tex:spec cat="eg"/>
+                    <tex:spec cat="eg"/>
+                </xsl:when>
+                <xsl:when test="$sTextTransform='lowercase'">
+                    <tex:spec cat="eg"/>
+                    <tex:spec cat="eg"/>
+                </xsl:when>
+                <!-- we ignore 'captialize' and 'none' -->
+            </xsl:choose>
+        </xsl:if>
+        <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+            <tex:spec cat="eg"/>
+            <tex:spec cat="eg"/>
+        </xsl:if>
+        <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
+        <xsl:if test="string-length($sFontFamily) &gt; 0">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+        <!-- font size does not end with an open brace 
+            <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
+            <xsl:if test="string-length($sFontSize) &gt; 0">
+            <tex:spec cat="eg"/>
+            </xsl:if>
+        -->
+<!--        <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
+        <xsl:if test="string-length($sFontStyle) &gt; 0">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+-->        <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
+        <xsl:if test="string-length($sFontVariant) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$sFontVariant='small-caps'">
+                    <xsl:if test="not($originalContext  and $originalContext[descendant::abbrRef])">
+                        <xsl:call-template name="HandleSmallCapsEnd"/>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="$sFontStyle='italic'">
+                    <!-- do nothing; we do not want to turn off the italic by using a normal -->
+                </xsl:when>
+                <xsl:when test="$sFontStyle='normal'">
+                    <tex:spec cat="eg"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- doing nothing currenlty -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+<!--        <xsl:variable name="sFontWeight" select="normalize-space($language/@font-weight)"/>
+        <xsl:if test="string-length($sFontWeight) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$sFontStyle='italic' and $sFontWeight!='bold'">
+                    <!-\- do nothing - we do *not* want to do a 'normal' or we'll cancel the italic -\->
+                </xsl:when>
+                <xsl:when test="$sFontWeight='normal'">
+                    <tex:spec cat="eg"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="eg"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+-->        <xsl:variable name="sFontColor" select="normalize-space($language/@color)"/>
+        <xsl:if test="string-length($sFontColor) &gt; 0">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+    </xsl:template>
+    <!--  
                   OutputFrontOrBackMatterTitle
     -->
     <xsl:template name="OutputFrontOrBackMatterTitle">
@@ -4744,6 +4965,9 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
             <xsl:call-template name="DoTitleFormatInfoEnd">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="originalContext" select="$sTitle"/>
@@ -4766,9 +4990,6 @@
             </xsl:call-template>
             <xsl:call-template name="DoBookMark"/>
         </tex:group>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-        </xsl:call-template>
         <xsl:call-template name="DoNotBreakHere"/>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
@@ -5020,6 +5241,16 @@
     -->
     <xsl:template name="OutputTableNumberedLabelAndCaption">
         <xsl:param name="bDoStyles" select="'Y'"/>
+        <xsl:choose>
+            <xsl:when test="table/@align='center'">
+                <tex:spec cat="esc"/>
+                <xsl:text>centering </xsl:text>
+            </xsl:when>
+            <xsl:when test="table/@align='right'">
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedleft</xsl:text>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetTableNumberedLabelLayout"/>

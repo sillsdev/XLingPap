@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->3 December 2010</date
+>23 March 2011</date
 ><version
->2.14.0_7</version
+>2.15.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -10290,6 +10290,16 @@ type="tXLingPap"
 ></object
 > publisher style sheet and briefly explains their usage. They are listed in alphabetical order.</p
 ><dl
+><dt
+><object
+type="tElement"
+>abbrRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>abbrRef</object
+> hyperlinks</dd
 ><dt
 ><object
 type="tElement"

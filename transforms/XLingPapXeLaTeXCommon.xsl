@@ -3056,7 +3056,7 @@
         <xsl:if test="$mode!='NoTextRef'">
             <xsl:if test="count(preceding-sibling::line) = 0">
                 <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-                    <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or string-length(normalize-space(../../interlinearSource)) &gt; 0">
+                    <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
                         <tex:spec cat="align"/>
                         <xsl:call-template name="DoDebugExamples"/>
                         <xsl:call-template name="OutputInterlinearTextReference">
@@ -3238,7 +3238,7 @@
         <xsl:choose>
             <xsl:when test="$sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>
-                    <xsl:when test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or string-length(normalize-space(following-sibling::interlinearSource)) &gt; 0">
+                    <xsl:when test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or following-sibling::interlinearSource">
                         <!-- we have an extra column so include it -->
                         <xsl:value-of select="$iColCount + 1"/>
                     </xsl:when>

@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >SIL International Monograph Book Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.2</publisherStyleSheetVersion
+>0.4.3</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >6in</pageWidth
@@ -46,6 +46,8 @@ textalign="left"
 ><linkLayout
 color="blue"
 decoration="underline"
+><abbrRefLinkLayout
+></abbrRefLinkLayout
 ><appendixRefLinkLayout
 ></appendixRefLinkLayout
 ><citationLinkLayout

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->30 December 2010</date
+>23 March 2011</date
 ><version
->2.14.0_7</version
+>2.15.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -15221,7 +15221,13 @@ id="sSpecialEffectsLinks"
 ><secTitle
 >Hypertext Links</secTitle
 ><p
->It is also possible to create a special hyperlink by inserting<endnoteRef
+>There are three kinds of special hypertext links available.</p
+><section3
+id="sSpecialEffectsLinksGeneric"
+><secTitle
+>Internal links</secTitle
+><p
+>The first is for linking material within the document. One does this by inserting<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
 > a <object
@@ -15315,8 +15321,13 @@ src="resources/GenericRefData.png"
 ></img
 ></chart
 ></example
+></section3
+><section3
+id="sSpecialEffectsLinksExternal"
+><secTitle
+>External Links</secTitle
 ><p
->One can also use the <object
+>For links to items outside of the document, one can use the <object
 type="tElement"
 >link</object
 > element within text or other constructs to link to a media object (for example, a sound file). The <object
@@ -15325,7 +15336,10 @@ type="tElement"
 > element has one attribute: <object
 type="tAttribute"
 >href</object
-> which should be the URI of the media object you wish to link to. Type some text or embed an image (via the <object
+> which should be the <indexedItem
+term="iURI"
+></indexedItem
+>URI of the media object you wish to link to. Type some text or embed an image (via the <object
 type="tElement"
 >img</object
 > element) between the begin <object
@@ -15352,6 +15366,75 @@ src="resources/SPEAKER.BMP"
 > </link
 ></li
 ></ol
+><p
+>Please note that as a URI, the value of the <object
+type="tAttribute"
+>href</object
+> attribute should have regular English letters and numbers in it. It is possible to use accented letters in the URI file name, but you may well find that the resulting <object
+type="tXLingPap"
+></object
+> output (either web page or PDF) will not find the file. There are technical reasons for this.<endnote
+id="nURIandNFCversusNFD"
+><p
+>The main issue is that when one uses accented letters, the accented letter internally can sometimes be stored and represented in two or more possible ways. For example, it is possible that the file name on the disk uses a <indexedItem
+term="iUnicodeDecomposed"
+></indexedItem
+>“decomposed” form (called NFD) so that an accented vowel, say, would consist of two Unicode characters: the vowel followed by an accent diacritic character. The URI produced via the <object
+type="tXMLmindXMLEditor"
+></object
+>, on the other hand, will use a <indexedItem
+term="iUnicodeComposed"
+></indexedItem
+>“composed” form (called NFC) so that the accented vowel is a single Unicode character. While both of these forms will look the same to the human eye, the computer's internal representation will actually be different. Since computers are such precise and picky machines, the program will not see the two as being the same. It can thus be frustrating to a user when it looks like the names are the same, but the program won't find the file.</p
+></endnote
+> Therefore, we advise you to use basic English letters and numbers whenever possible. When it is not possible, there is a special <object
+type="tXLingPap"
+></object
+> command you can use to convert your file name to a special URI format. To use this command, do the following:</p
+><ol
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.</li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “U” (it should then fill in “URIConvertFileNameToURI” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will bring up a dialog asking you to type or copy in the name of the file. Do so and then press the <object
+type="tKey"
+>Enter</object
+> key</li
+><li
+>You will then see a message telling you that you can paste in the result into the appropriate attribute. For the <object
+type="tElement"
+>link</object
+> element, use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to edit the <object
+type="tAttribute"
+>href</object
+> attribute. Select the portion of the value that is the file name you want and do a paste. Press the <object
+type="tKey"
+>Enter</object
+> key.</li
+></ol
+></section3
+><section3
+id="sSpecialEffectsLinksMediaObject"
+><secTitle
+>Media objects</secTitle
 ><p
 >An alternative way is to embed a sound or movie file into a PDF file via the <object
 type="tElement"
@@ -15503,6 +15586,7 @@ lang="lEng"
 ></example
 ><p
 >Please be aware that including media objects can make the resulting PDF file very large.</p
+></section3
 ></section2
 ></section1
 ><section1
@@ -16450,7 +16534,24 @@ type="tInTextExample"
 > (which is often used for webpages). This new file is in the same directory as your <object
 type="tXLingPap"
 ></object
-> document.</p
+> document.<endnote
+id="nF7Stylesheet"
+><p
+>If you have associated a publisher style sheet with your <object
+type="tXLingPap"
+></object
+> document (see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>), then the web page will reflect the information in that associated publisher style sheet as much as a web page can. For example, it will try to use the page width and margins as well as font layout of the publisher style sheet. It will not have any header or footers, however, since web pages do not have these. It also will produce a second file with the same name as your <object
+type="tXLingPap"
+></object
+> document file, but with an extension of <object
+type="tInTextExample"
+>css</object
+>.</p
+></endnote
+></p
 ><p
 >To see what the webpage looks like, you can use the menu items <object
 type="tInstruction"
@@ -20746,6 +20847,16 @@ type="tXLingPap"
 ><dt
 ><object
 type="tElement"
+>abbrRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>abbrRef</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
 >abstractLayout</object
 ></dt
 ><dd
@@ -22773,6 +22884,26 @@ id="iFigureReferencesShowCaption"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iFileNames"
+see="iURI"
+><term
+>File names (as URI in links)</term
+><indexTerms
+><indexTerm
+id="iFileNameComposed"
+see="iUnicodeComposed"
+><term
+>Unicode “composed” form</term
+></indexTerm
+><indexTerm
+id="iFileNameDecomposed"
+see="iUnicodeDecomposed"
+><term
+>Unicode “decomposed” form</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iFont"
 ><term
 >Font</term
@@ -23517,6 +23648,21 @@ see="iValidityTool"
 >Validity Tool</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iUnicodeComposed"
+><term
+>Unicode “composed” form</term
+></indexTerm
+><indexTerm
+id="iUnicodeDecomposed"
+><term
+>Unicode “decomposed” form</term
+></indexTerm
+><indexTerm
+id="iURI"
+><term
+>URI</term
 ></indexTerm
 ><indexTerm
 id="iURL"

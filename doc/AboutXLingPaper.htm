@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.14.0_8</span></p>
-      <p align="center">Date: 2011-02-14</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0</span></p>
+      <p align="center">Date: 2011-03-23</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,27 +34,20 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.14.0_8 14 February 2011
+               <li>2.15.0 23 March 2011
                   <ul>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>Fix bug where the number of an endnote at the bottom of the page was given as zero.</li>
-                           <li>Fix bug where the text of an endnote at the bottom of the page could be missing (if the endnote was embedded in a table within
-                              a table).
-                           </li>
-                        </ul>
+                     <li>Add a web page output that pays attention to an associated publisher style sheet (as much as it can; e.g. there are no page
+                        headers or footers since web pages do not have multiple pages).
                      </li>
-                  </ul>
-               </li>
-               <li>2.14.0_7 30 December 2010
-                  <ul>
-                     <li>In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial
-                        attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added
-                        a column to the table.
+                     <li>Add a command to enter two consecutive references to examples, sections, figures, numbered tables, interlinear text items,
+                        or appendices. This command inserts the two reference elements, inserts an n-dash between them, and sets the attributes appropriately
+                        for both reference elements.
                      </li>
-                     <li>Improved editor handling in publisher style sheets and reworked the IJAL, Language, and GIAL publisher style sheets.</li>
-                     <li>In the publisher style sheet, added an attribute AddPeriodAfterFinalDigit to the sectionRefLayout element and changed the
-                        transforms to use this instead of the same attribute in the exampleLayout element.
+                     <li>Add selectedBibliography element to allow for the special cases where you want more references to appear than are cited in
+                        the body of the document.
+                     </li>
+                     <li>Add a special command to convert a file name to URI which will maintain NFD form. See section 10.2.2 "External Links" in the
+                        User Documentation.
                      </li>
                      <li>Added a text ID attribute to the interlinear-text element. One can now have an interlinearRefCitation element refer to an
                         entire interlinear-text.
@@ -68,74 +61,14 @@
                      <li>Added a showCaption to the figureRef and tablenumberedRef elements. It can be used to have the full or short caption of the
                         referred to figure or numbered table be output.
                      </li>
-                     <li>Add a validity check: make sure all line elements within a lineGroup handle wrd elements the same way.</li>
                      <li>Added a way to convert Endnote XML files to XLingPaper references format.</li>
+                     <li>Add a check for a link embedded within a link for no apparent reason.</li>
                      <li>Enabled list examples (listInterlinear, listSingle, and listWord) to show the ISO 639-3 code for each item (if the codes differ)
                         or for the entire example (if the codes are the same).
                      </li>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>Fix bug which failed to recognize a graphite and/or special font-feature when using a publisher style sheet to override gloss,
-                              langData, or free.
-                           </li>
-                           <li>Fix bug which could cause the output to fail to produce PDF when for a title, the font-variant attribute was set to small-caps
-                              and the title was centered.
-                           </li>
-                           <li>Fix bug which could cause the output to fail to produce PDF when an endnote was embedded in a title, the font-variant attribute
-                              was set to small-caps and the title was centered.
-                           </li>
-                           <li>Fix bug which could cause a left brace { or a right brace } to not appear in certain circumstances (e.g. in an example(definition)).</li>
-                           <li>Enable the use of the row-separation value of the XeLaTeXSpecial for a tr element as well as for a table element.</li>
-                        </ul>
+                     <li>Added documentation on how to change an abbreviation within text. See section 11.35 "Change a set of abbrRef elements to refer
+                        to a different abbreviation" in the user documentation.
                      </li>
-                     <li>RenderX way of producing PDF:
-                        <ul>
-                           <li>Fix bug which failed to ignore section numbers when using a publisher style sheet that said to ignore the number.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.14.0_6 30 November 2010
-                  <ul>
-                     <li>Add a command to enter two consecutive references to examples, sections, figures, numbered tables, interlinear text items,
-                        or appendices. This command inserts the two reference elements, inserts an n-dash between them, and sets the attributes appropriately
-                        for both reference elements.
-                     </li>
-                     <li>Add selectedBibliography element to allow for the special cases where you want more references to appear than are cited in
-                        the body of the document.
-                     </li>
-                     <li>Publisher style sheet:
-                        <ul>
-                           <li>Added fixedText element for headers and footers so one can add fixed text material (such as an entity name or copyright date).</li>
-                        </ul>
-                     </li>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>Fix bug which failed to recognize a special font-feature when using a publisher style sheet.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.14.0_5 27 November 2010
-                  <ul>
-                     <li>Nested interlinear handling: if an interlinear contains only one line (e.g. of langData), then no extra vertical space is
-                        inserted before the embedded interlinear portion.
-                     </li>
-                  </ul>
-               </li>
-               <li>2.14.0_4 26 November 2010
-                  <ul>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>Fix bug which could cause a free translation to take on the font attributes of a langData when the langData had an endnote
-                              in it.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.14.0_3 25 November 2010
-                  <ul>
                      <li>Interlinear text:
                         <ul>
                            <li>Made an interlinear text optionally be a modular document.</li>
@@ -147,42 +80,80 @@
                            </li>
                         </ul>
                      </li>
-                     <li>The XeLaTeX way of producing PDF:
+                     <li>Publisher style sheet:
                         <ul>
-                           <li>If one specified 'oblique' in a font-style attribute, the PDF failed to be produced. This is fixed.</li>
-                           <li>Enabled one to indicate font features for fonts that have them. See the "Font special features" link in the index of the user
-                              documentation.
-                           </li>
-                        </ul>
-                     </li>
-                     <li>Linux and Mac: XeLaTeX way of producing PDF: modifed the script to first look in XLingPaper's directory for xelatex.</li>
-                  </ul>
-               </li>
-               <li>2.14.0_2 22 November 2010
-                  <ul>
-                     <li>Fixed: Word/OO output does not use superscript for an endnote number in text when have endnotes (with a publisher style sheet).</li>
-                  </ul>
-               </li>
-               <li>2.14.0_1 20 November 2010
-                  <ul>
-                     <li>Added documentation on how to change an abbreviation within text. See section 11.35 "Change a set of abbrRef elements to refer
-                        to a different abbreviation" in the user documentation.
-                     </li>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>For a publisher style sheet, if two or more language elements used the same font family and a non-initial one used Graphite,
-                              the Graphite indicator would be ignored.
-                           </li>
-                        </ul>
-                     </li>
-                     <li>Publisher style sheets:
-                        <ul>
+                           <li>Added fixedText element for headers and footers so one can add fixed text material (such as an entity name or copyright date).</li>
                            <li>For a publisher style sheet, if there were multiple authors, one needed to have at least as many authorLayouts as there were
                               authors. Fixed this so that one can use either one set of author/affiliation/emailAddress layouts or multiple sets.
                            </li>
                         </ul>
                      </li>
+                     <li>RenderX way of producing PDF:
+                        <ul>
+                           <li>Fixed a bug which kept the PDF from being produced if a publisher style sheet had text before the title for an abstract, glossary,
+                              or index.
+                           </li>
+                           <li>Fixed a bug which could cause an interlinearSource to not appear if it only contained a citation element.</li>
+                           <li>Fix bug which failed to ignore section numbers when using a publisher style sheet that said to ignore the number.</li>
+                        </ul>
+                     </li>
+                     <li>XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>Enable the use of the row-separation value of the XeLaTeXSpecial for a tr element as well as for a table element.</li>
+                           <li>Enabled one to indicate font features for fonts that have them. See the "Font special features" link in the index of the user
+                              documentation.
+                           </li>
+                           <li>Fix bug where the font size of an appendix used the font size of the appendix title when using a publisher style sheet.</li>
+                           <li>Fix bug which could cause the PDF to fail to be produced when a publisher style sheet used italic or bold for the text in
+                              an abstract.
+                           </li>
+                           <li>Fix bug which could cause the textafter of an abstract title to not be formatted correctly when using a publisher style sheet.</li>
+                           <li>Fixed a bug which could cause an interlinearSource to not appear if it only contained a citation element.</li>
+                           <li>Fix bug which inadvertently inserted a gratuitous space after a section title when the publisher style sheet indicates that
+                              the section begins a paragraph.
+                           </li>
+                           <li>Fix bug where the number of an endnote at the bottom of the page was given as zero.</li>
+                           <li>Fix bug where the text of an endnote at the bottom of the page could be missing (if the endnote was embedded in a table within
+                              a table).
+                           </li>
+                           <li>Fix bug which failed to recognize a graphite and/or special font-feature when using a publisher style sheet to override gloss,
+                              langData, or free.
+                           </li>
+                           <li>Fix bug which could cause the output to fail to produce PDF when for a title, the font-variant attribute was set to small-caps
+                              and the title was centered.
+                           </li>
+                           <li>Fix bug which could cause the output to fail to produce PDF when an endnote was embedded in a title, the font-variant attribute
+                              was set to small-caps and the title was centered.
+                           </li>
+                           <li>Fix bug which could cause a left brace { or a right brace } to not appear in certain circumstances (e.g. in an example(definition)).</li>
+                           <li>Fix bug which failed to recognize a special font-feature when using a publisher style sheet.</li>
+                           <li>Fix bug which could cause a free translation to take on the font attributes of a langData when the langData had an endnote
+                              in it.
+                           </li>
+                           <li>If one specified 'oblique' in a font-style attribute, the PDF failed to be produced. This is fixed.</li>
+                           <li>For a publisher style sheet, if two or more language elements used the same font family and a non-initial one used Graphite,
+                              the Graphite indicator would be ignored.
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Default web page output: fix bug which could repeat the interlinear source information when there were more than one lineGroup
+                        elements in the interlinear.
+                     </li>
+                     <li>In the 'Journal of the International Phonetic Association Illustration article, submission format' template, removed a XeLaTeXSpecial
+                        attribute for the consonant table; it was not needed and could cause the XeLaTeX way of producing PDF to fail if you added
+                        a column to the table.
+                     </li>
+                     <li>Improved editor handling in publisher style sheets and reworked the IJAL, Language, and GIAL publisher style sheets.</li>
+                     <li>In the publisher style sheet, added an attribute AddPeriodAfterFinalDigit to the sectionRefLayout element and changed the
+                        transforms to use this instead of the same attribute in the exampleLayout element.
+                     </li>
+                     <li>Add a validity check: make sure all line elements within a lineGroup handle wrd elements the same way.</li>
+                     <li>Nested interlinear handling: if an interlinear contains only one line (e.g. of langData), then no extra vertical space is
+                        inserted before the embedded interlinear portion.
+                     </li>
+                     <li>Linux and Mac: XeLaTeX way of producing PDF: modifed the script to first look in XLingPaper's directory for xelatex.</li>
                      <li>Fix broken way of how the Mac and Linux versions determine if the converter program for Word and Open Office Writer is present.</li>
+                     <li>Fixed: Word/OO output does not use superscript for an endnote number in text when have endnotes (with a publisher style sheet).</li>
                   </ul>
                </li>
                <li>2.14.0 17 November 2010

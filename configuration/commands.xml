@@ -330,6 +330,9 @@
     <cfg:command name="ConvertProceedingsToCitationCmd">
         <cfg:class>xlingpaper.xxe.ConvertProceedingsToCitation</cfg:class>
     </cfg:command>
+    <cfg:command name="ConvertFileNameToURICmd">
+        <cfg:class>xlingpaper.xxe.ConvertFileNameToURI</cfg:class>
+    </cfg:command>
     <!-- no longer needed because XXE now has Search / Bookmarks
    <cfg:binding>
       <cfg:keyPressed code="F6"/>
@@ -1214,7 +1217,28 @@ alt causes menu to be selected
                             <cfg:command name="DeletePDFFile" parameter="1 htm"/>
                         -->
                         <cfg:command name="status" parameter="Producing the web page output..."/>
-                        <cfg:command name="applyXLingPapTransform"/>
+                        
+                        <!--  Either do the embedded version or the canned version-->
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:choice>
+                                    <!--        if either of the pass elements are true, do the embedded version-->
+                                    <cfg:pass>
+                                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] styledPaper"/>
+                                    </cfg:pass>
+                                    <cfg:pass>
+                                        <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] styledPaper"/>
+                                    </cfg:pass>
+                                </cfg:choice>
+                                <cfg:command name="applyXLingPapXHTMLTransform"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- otherwise use the default canned version -->
+                                <cfg:command name="applyXLingPapTransform"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        
+                        
                     </cfg:sequence>
                 </cfg:choice>
             </cfg:sequence>
@@ -1237,6 +1261,15 @@ Following creates a new instance of IE each time it is invoked.
 What we want is to load IE independently and to do a refresh so it will show the same place in the file.
            <cfg:shell command='start "C:\Program Files\Internet Explorer\IExplore.exe" "%{P}%{S}%{R}.htm"'/>
 -->
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="applyXLingPapXHTMLTransform">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}.css"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{R}.htm">
+                <cfg:parameter name="sFileName">%{R}</cfg:parameter>
+            </cfg:transform>
         </cfg:process>
     </cfg:command>
     <cfg:binding>
@@ -1533,7 +1566,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                                 <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
                             </cfg:sequence>
                             <cfg:sequence>
-                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
+                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not succeed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>
                             </cfg:sequence>
                         </cfg:choice>
                         <cfg:choice>
@@ -2185,6 +2218,18 @@ NB actually it associates the stylesheet with the original file, not the new han
                 </cfg:pass>
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] proceedings"/>
                 <cfg:command name="ConvertProceedingsToCitationCmd"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="URIConvertFileNameToURI">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="prompt" parameter="'Convert file name to URI' 'Key or copy in the file name'"/>
+<!--                <cfg:set variable="oldLangData" expression="%_" plainString="true"/>-->
+                <cfg:command name="ConvertFileNameToURICmd" parameter="%_"/>
+<!--                <cfg:command name="alert" parameter="%_"/>-->
+                <cfg:set variable="clipboard" expression="%_" plainString="true"/>
+                <cfg:command name="alert" parameter="You can now paste the converted file name into the appropriate attribute."/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

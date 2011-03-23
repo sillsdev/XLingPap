@@ -1127,7 +1127,7 @@ exampleRef[num][paren='final']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	         label(attribute, letter, text-decoration, underline)
+	         label(attribute, num, text-decoration, underline)
 	        ")"
 	        ;
 	background-color:example-background-color();
@@ -1139,7 +1139,7 @@ exampleRef[num][paren='initial']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	         label(attribute, letter, text-decoration, underline)
+	         label(attribute, num, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
@@ -1149,7 +1149,7 @@ exampleRef[num][paren='none']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	         label(attribute, letter, text-decoration, underline)
+	         label(attribute, num, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
@@ -3477,6 +3477,38 @@ tr > td[bgcolor] {
  * Publisher Stylesheet items
  */
 
+abbrRefLinkLayout[showmarking='no']
+{
+	color:Gray;
+	text-decoration:none;
+}
+linkLayout[color] abbrRefLinkLayout[color='default'][showmarking='yes']
+{
+	color:concatenate(xpath("../@color"));
+}
+abbrRefLinkLayout[color][showmarking='yes']
+{
+	color:concatenate(attr(color));
+}
+linkLayout[decoration] abbrRefLinkLayout[decoration='default'][showmarking='yes']
+{
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+abbrRefLinkLayout[decoration][showmarking='yes']
+{
+	text-decoration:concatenate(attr(decoration));
+}
+abbrRefLinkLayout[showmarking='yes']
+{
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+abbrRefLinkLayout
+{
+	property-group:linkLayoutParameter("abbrRef");
+	color: gray;
+	text-decoration:none;
+}
 abstractLayout[color]
 {
 	color:concatenate(attr(color));

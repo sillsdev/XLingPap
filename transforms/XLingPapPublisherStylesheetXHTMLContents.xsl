@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions">
+<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
         part (contents) 
@@ -13,31 +13,31 @@
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
-        <fo:block text-align="center" space-before="{$sBasicPointSize - 4}pt" space-after="{$sBasicPointSize}pt" keep-with-next.within-page="2">
-            <fo:basic-link internal-destination="{@id}">
-                <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-                <xsl:call-template name="OutputTOCTitle">
-                    <xsl:with-param name="linkLayout" select="$linkLayout"/>
-                    <xsl:with-param name="sLabel">
-                        <xsl:call-template name="OutputPartLabel"/>
-                        <xsl:text>&#x20;</xsl:text>
-                        <xsl:apply-templates select="." mode="numberPart"/>
-                        <xsl:text>&#xa0;</xsl:text>
-                        <xsl:apply-templates select="secTitle"/>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </fo:basic-link>
-            <xsl:apply-templates mode="contents">
-                <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
-            </xsl:apply-templates>
-        </fo:block>
+        <div>
+            <div class="partContents">
+                <a href="#{@id}">
+                    <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                    <xsl:call-template name="OutputTOCTitle">
+                        <xsl:with-param name="linkLayout" select="$linkLayout"/>
+                        <xsl:with-param name="sLabel">
+                            <xsl:call-template name="OutputPartLabel"/>
+                            <xsl:text>&#x20;</xsl:text>
+                            <xsl:apply-templates select="." mode="numberPart"/>
+                            <xsl:text>&#xa0;</xsl:text>
+                            <xsl:apply-templates select="secTitle"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </a>
+            </div>
+            <xsl:apply-templates select="child::*[name()!='secTitle']" mode="contents"/>
+        </div>
     </xsl:template>
     <!-- 
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:variable name="sSpaceBefore"> </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
@@ -83,8 +83,8 @@
         <xsl:param name="override"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-        <fo:block>
-            <xsl:attribute name="text-align-last">
+        <div>
+            <!--            <xsl:attribute name="text-align-last">
                 <xsl:choose>
                     <xsl:when test="$layout/@showpagenumber!='no'">
                         <xsl:text>justify</xsl:text>
@@ -94,41 +94,50 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-            <xsl:if test="$sSpaceBefore!='0'">
-                <xsl:attribute name="space-before">
-                    <xsl:value-of select="$sSpaceBefore"/>
+-->
+            <xsl:if test="$sIndent!='0'">
+                <xsl:attribute name="style">
+                    <xsl:if test="$sSpaceBefore!='0'">
+                        <xsl:text>margin-top:</xsl:text>
+                        <xsl:value-of select="$sSpaceBefore"/>
+                        <xsl:text>; </xsl:text>
+                    </xsl:if>
+                    <xsl:text>text-indent:-</xsl:text>
+                    <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                    <xsl:text>em; padding-left:</xsl:text>
+                    <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                    <xsl:text>em;</xsl:text>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="$sIndent!='0'">
-                <xsl:attribute name="text-indent">-<xsl:value-of select="$sIndent div 2 + 1.5"/>em</xsl:attribute>
-                <xsl:attribute name="start-indent">
-                    <xsl:value-of select="1.5 * $sIndent + 1.5"/>em</xsl:attribute>
-            </xsl:if>
-            <fo:basic-link internal-destination="{$sLink}">
-                <fo:inline>
+            <a href="#{$sLink}">
+                <xsl:call-template name="AddAnyLinkAttributes">
+                    <xsl:with-param name="override" select="$linkLayout"/>
+                </xsl:call-template>                
+                <span>
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
                     <xsl:if test="$layout/@showpagenumber!='no'">
-                        <fo:leader leader-pattern="{$layout/@betweentitleandnumber}">
-                            <xsl:if test="$sFOProcessor='XFC'">
+                        <!--                        <fo:leader leader-pattern="{$layout/@betweentitleandnumber}">
+                            <xsl:if test="$sFileName='XFC'">
                                 <xsl:attribute name="xfc:tab-position">-30pt</xsl:attribute>
                                 <xsl:attribute name="xfc:tab-align">right</xsl:attribute>
                             </xsl:if>
                         </fo:leader>
-                        <xsl:text>&#xa0;</xsl:text>
-                        <fo:inline>
+-->
+<!--                        <xsl:text>&#xa0;</xsl:text>
+                        <span>
                             <xsl:call-template name="OutputTOCPageNumber">
                                 <xsl:with-param name="linkLayout" select="$linkLayout"/>
                                 <xsl:with-param name="sLink" select="$sLink"/>
                             </xsl:call-template>
-                        </fo:inline>
-                    </xsl:if>
-                </fo:inline>
-            </fo:basic-link>
-        </fo:block>
+                        </span>
+-->                    </xsl:if>
+                </span>
+            </a>
+        </div>
     </xsl:template>
     <!--  
       OutputTOCPageNumber
@@ -136,14 +145,14 @@
     <xsl:template name="OutputTOCPageNumber">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLink"/>
-        <fo:inline>
+        <span>
             <xsl:if test="$linkLayout/@linkpagenumber!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
             </xsl:if>
-            <fo:page-number-citation ref-id="{$sLink}"/>
-        </fo:inline>
+            <!--            <fo:page-number-citation ref-id="{$sLink}"/>-->
+        </span>
     </xsl:template>
     <!--  
       OutputTOCTitle
@@ -151,13 +160,13 @@
     <xsl:template name="OutputTOCTitle">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
-        <fo:inline>
-            <xsl:if test="$linkLayout/@linktitle!='no'">
+        <span>
+<!--            <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:copy-of select="$sLabel"/>
-        </fo:inline>
+-->            <xsl:copy-of select="$sLabel"/>
+        </span>
     </xsl:template>
 </xsl:stylesheet>

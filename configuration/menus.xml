@@ -111,7 +111,7 @@
          <cfg:accelerator code="F5"/>
       </cfg:item>
       <cfg:separator/>
-      <cfg:item command="applyXLingPapTransform"
+       <cfg:item command="produceWebPage"
          label="_Produce Webpage">
          <cfg:accelerator code="F7"/>
       </cfg:item>

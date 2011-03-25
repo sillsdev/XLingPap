@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0</span></p>
-      <p align="center">Date: 2011-03-23</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_1</span></p>
+      <p align="center">Date: 2011-03-25</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,21 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.15.0_1 25 March 2011
+                  <ul>
+                     <li>Add a special command (ModifyLangAttributesInDocument) which will ask the user for a  current langData identifier, a new value
+                        for that identifier, a current gloss identifier, and a new value for that identifier.  It then changes all langData and gloss
+                        elements with the old value to the new value.  It also changes any language element with the old value to the new value.
+                     </li>
+                     <li>XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>Fixed bug which put an interlinear source too far to the right in a listInterlinear when the source came after the free and
+                              when there were two or more distinct ISO 639-3 codes in the list interlinear example.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.15.0 23 March 2011
                   <ul>
                      <li>Add a web page output that pays attention to an associated publisher style sheet (as much as it can; e.g. there are no page

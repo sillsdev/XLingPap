@@ -2896,6 +2896,12 @@
                     </xsl:call-template>
                     <xsl:text>em - </xsl:text>
                     <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                    <xsl:if test="contains($bListsShareSameCode,'N')">
+                        <xsl:text> - </xsl:text>
+                        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                        <xsl:text> - </xsl:text>
+                        <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
+                    </xsl:if>
                 </tex:parm>
             </tex:cmd>
             <tex:spec cat="bg"/>

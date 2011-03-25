@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 March 2011</date
+>25 March 2011</date
 ><version
->2.15.0</version
+>2.15.0_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -16057,7 +16057,7 @@ id="nMakeNewOne"
 >Make a new one if you do not already have one. See section <sectionRef
 sec="sIntroUsingQuickOverview"
 ></sectionRef
->.)</p
+>.</p
 ></endnote
 > into the <object
 type="tXMLmindXMLEditor"
@@ -18576,7 +18576,7 @@ type="tXMLmindXMLEditor"
 ></object
 >.</li
 ><li
->Use menu tiems <object
+>Use menu items <object
 type="tInstruction"
 >Tools / Execute Command...</object
 >. This opens up the Execute Command dialog box. It will look something like this:<br
@@ -19026,6 +19026,113 @@ type="tKey"
 type="tXMLmindXMLEditor"
 ></object
 > says that they only work if you do every step using the keyboard. If you use the mouse for any of it, it will not play back.</p
+></section2
+><section2
+id="sFAQChangeLanguageDefaultLangIDsAttributesInDocument"
+><secTitle
+>Change some <object
+type="tElement"
+>langData</object
+>, <object
+type="tElement"
+>gloss</object
+> and <object
+type="tElement"
+>language</object
+> IDs in a document?</secTitle
+><p
+>Sometimes one may have an <object
+type="tXLingPap"
+></object
+> document that uses certain language IDs for some <object
+type="tElement"
+>langData</object
+> and/or <object
+type="tElement"
+>gloss</object
+> elements that are not what you want. This might happen in some instances, for example, when exporting text from a program like <object
+type="tTool"
+>FieldWorks Language Explorer</object
+>. The language ID may be similar to what you want, but not precisely the same. Having to go through such a document and change the IDs one-by-one would be a lot of work.</p
+><p
+>If you find that you need to do this, follow these steps while running the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><ol
+><li
+>Open up the <object
+type="tXLingPap"
+></object
+> document you want to change the IDs for in the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Tools / Execute Command...</object
+>. This opens up the Execute Command dialog box. It will look something like this:<br
+></br
+><img
+src="resources/ExecuteCommandDialogBox.png"
+></img
+></li
+><li
+>In the Command box, type <object
+type="tInstruction"
+>ModifyLangAttributesInDocument</object
+> and click on the OK button.</li
+><li
+>You will then be presented with four dialog boxes, one after the other. These are for:<ol
+><li
+>The current (old) <object
+type="tElement"
+>langData</object
+> language ID.</li
+><li
+>The new <object
+type="tElement"
+>langData</object
+> language ID you want to use.</li
+><li
+>The current (old) <object
+type="tElement"
+>gloss</object
+> language ID.</li
+><li
+>The new <object
+type="tElement"
+>gloss</object
+> language ID you want to use.</li
+></ol
+>In each case type the appropriate language identifier and then click on the OK button. If you change your mind at any point or make a mistake, you can click on the Cancel button. It is essential that you use only letters for these identifiers. Do not use any spaces.</li
+></ol
+><p
+>After you click on the OK button for the fourth dialog box, this command will find every <object
+type="tElement"
+>langData</object
+> element whose <object
+type="tAttribute"
+>lang</object
+> is set the old language ID and change it to the new value. Similarly, it will find every <object
+type="tElement"
+>gloss</object
+> element whose <object
+type="tAttribute"
+>lang</object
+> attribute is set the old gloss ID and change it to the new one.</p
+><p
+>Please note that if there any <object
+type="tElement"
+>language</object
+> elements whose <object
+type="tAttribute"
+>id</object
+> attribute has the old value (whether for langData or for gloss), this command will also change that <object
+type="tAttribute"
+>id</object
+> attribute to the new value.</p
 ></section2
 ></section1
 ><section1
@@ -22387,146 +22494,11 @@ id="lMeaning"
 name="Value"
 ></language
 ></languages
-><types
-><type
-color="purple"
-font-family="Courier New"
-id="tAttribute"
-></type
-><type
-color="steelblue"
-font-family="Courier New"
-font-style="italic"
-id="tAttrValue"
-></type
-><type
-id="tBold"
-></type
-><type
-font-family="Courier New"
-font-weight="bold"
-id="tCitationLabel"
-></type
-><type
-before="Convert any abbreviations in gloss to abbrRefs"
-id="tConvertGlossToAbbrRef"
-></type
-><type
-before="Convert interlinear line to wrd elements"
-id="tConvertInterlinearToWrd"
-></type
-><type
-color="navy"
-id="tDirectory"
-></type
-><type
-color="maroon"
-font-family="Courier New"
-id="tElement"
-></type
-><type
-color="black"
-cssSpecial="background-color:wheat;"
-font-family="Courier New"
-id="tElementExample"
-></type
-><type
-after="Endnote"
-id="tEndnoteXML"
-types="tTool"
-></type
-><type
-font-style="italic"
-id="tFont"
-></type
-><type
-cssSpecial="background-color:linen; margin-left:10pt; margin-right:5pt; margin-top:5pt; margin-bottom:5pt; padding-left:10pt; padding-right:10pt; padding-top:10pt; padding-bottom:10pt; border-left-width:1pt; border-right-width:1pt; border-top-width:1pt; border-bottom-width:1pt; border-right-style:dashed; border-left-style:dashed; border-top-style:dashed; border-bottom-style:dashed;"
-id="tHtmlOutput"
-></type
-><type
-color="maroon"
-id="tInstruction"
-></type
-><type
-color="blue"
-cssSpecial="text-decoration:underline"
-id="tInterlinearRefCitation"
-></type
-><type
-font-family="Courier New"
-font-weight="bold"
-id="tInTextExample"
-></type
-><type
-font-style="italic"
-id="tItalic"
-></type
-><type
-font-family="Courier New"
-id="tKey"
-></type
-><type
-font-family="Courier New"
-font-weight="bold"
-id="tKeyTerm"
-></type
-><type
-after="Open Office Writer"
-id="tOpenOfficeWriter"
-types="tTool"
-></type
-><type
-after="RenderX XEP"
-id="tRenderX"
-types="tTool"
-></type
-><type
-cssSpecial="margin-top:0.125in;"
-id="tSpaceBefore"
-xsl-foSpecial="margin-top=&quot;0.125in&quot;"
-></type
-><type
-cssSpecial="vertical-align:sub;"
-font-size="65%"
-id="tSubscript"
-xsl-foSpecial="baseline-shift='sub'"
-></type
-><type
-cssSpecial="margin-left:.5in;"
-id="tTableCSS"
-></type
-><type
-color="navy"
-font-family="Courier New"
-font-weight="bold"
-id="tTool"
-></type
-><type
-after="XeTeX"
-id="tXeTeX"
-types="tTool"
-></type
-><type
-after="XLingPaper"
-id="tXLingPap"
-types="tTool"
-></type
-><type
-after="XMLmind XML Editor"
-id="tXMLmindXMLEditor"
-types="tTool"
-></type
-><type
-after="XMLmind XSL Utility"
-id="tXMLmindXSLUtility"
-types="tTool"
-></type
-><type
-after="Zotero"
-id="tZotero"
-types="tTool"
-></type
-></types
+><xi:include
+href="Types.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><indexTerms
 version="1.12.0"
 ><indexTerm

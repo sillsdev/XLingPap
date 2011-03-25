@@ -321,6 +321,9 @@
     <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd">
         <cfg:class>xlingpaper.xxe.RemoveExtraDoubleQuotesFromPickLabels</cfg:class>
     </cfg:command>
+    <cfg:command name="changeLangAttributesInDocumentCmd">
+        <cfg:class>xlingpaper.xxe.ChangeLangAttributesInDocument</cfg:class>
+    </cfg:command>
     <cfg:command name="changeDefaultLangAttributesInTemplatesCmd">
         <cfg:class>xlingpaper.xxe.ChangeDefaultLangAttributesInTemplates</cfg:class>
     </cfg:command>
@@ -2158,6 +2161,29 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}EndnoteXMLReferences.xml"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="ModifyLangAttributesInDocument">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:command name="prompt" parameter="'Old langData name (no spaces, just letters)' 'lVernacular'"/>
+                <cfg:set variable="oldLangData" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'New langData name (no spaces, just letters)' 'lVernacular'"/>
+                <cfg:set variable="newLangData" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'Old gloss name (no spaces, just letters)' 'lGloss'"/>
+                <cfg:set variable="oldGloss" expression="%_" plainString="true"/>
+                <cfg:command name="prompt" parameter="'New gloss name (no spaces, just letters)' 'lGloss'"/>
+                <cfg:set variable="newGloss" expression="%_" plainString="true"/>
+                <cfg:get expression="translate('%{C}',' ','*')"/>
+                <cfg:set variable="path" expression="%_" plainString="true"/>
+                <cfg:get expression="concat($oldLangData, ' ', $newLangData, ' ', $oldGloss, ' ', $newGloss,' ',$path)"/>
+                <cfg:set variable="parameter" expression="%_" plainString="true"/>
+                <!--                <cfg:get expression="$parameter"/>
+                    <cfg:command name="alert" parameter="XXE: parameter = %_"/>
+                -->
+                <cfg:get expression="$parameter"/>
+                <cfg:command name="changeLangAttributesInDocumentCmd" parameter="%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="ChangeDefaultLangAttributesInTemplates">
         <cfg:macro trace="false">
             <cfg:sequence>
@@ -2171,7 +2197,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                 <cfg:set variable="newGloss" expression="%_" plainString="true"/>
                 <cfg:get expression="translate('%{C}',' ','*')"/>
                 <cfg:set variable="path" expression="%_" plainString="true"/>
-                <cfg:get expression="concat($path, ' ',$oldLangData, ' ', $newLangData, ' ', $oldGloss, ' ', $newGloss)"/>
+                <cfg:get expression="concat($oldLangData, ' ', $newLangData, ' ', $oldGloss, ' ', $newGloss, ' ',$path)"/>
                 <cfg:set variable="parameter" expression="%_" plainString="true"/>
                 <!--                <cfg:get expression="$parameter"/>
                 <cfg:command name="alert" parameter="XXE: parameter = %_"/>

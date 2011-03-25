@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE types PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<types
+><type
+color="purple"
+font-family="Courier New"
+id="tAttribute"
+></type
+><type
+color="steelblue"
+font-family="Courier New"
+font-style="italic"
+id="tAttrValue"
+></type
+><type
+id="tBold"
+></type
+><type
+font-family="Courier New"
+font-weight="bold"
+id="tCitationLabel"
+></type
+><type
+before="Convert any abbreviations in gloss to abbrRefs"
+id="tConvertGlossToAbbrRef"
+></type
+><type
+before="Convert interlinear line to wrd elements"
+id="tConvertInterlinearToWrd"
+></type
+><type
+color="navy"
+id="tDirectory"
+></type
+><type
+color="maroon"
+font-family="Courier New"
+id="tElement"
+></type
+><type
+color="black"
+cssSpecial="background-color:wheat;"
+font-family="Courier New"
+id="tElementExample"
+></type
+><type
+after="Endnote"
+id="tEndnoteXML"
+types="tTool"
+></type
+><type
+font-style="italic"
+id="tFont"
+></type
+><type
+cssSpecial="background-color:linen; margin-left:10pt; margin-right:5pt; margin-top:5pt; margin-bottom:5pt; padding-left:10pt; padding-right:10pt; padding-top:10pt; padding-bottom:10pt; border-left-width:1pt; border-right-width:1pt; border-top-width:1pt; border-bottom-width:1pt; border-right-style:dashed; border-left-style:dashed; border-top-style:dashed; border-bottom-style:dashed;"
+id="tHtmlOutput"
+></type
+><type
+color="maroon"
+id="tInstruction"
+></type
+><type
+color="blue"
+cssSpecial="text-decoration:underline"
+id="tInterlinearRefCitation"
+></type
+><type
+font-family="Courier New"
+font-weight="bold"
+id="tInTextExample"
+></type
+><type
+font-style="italic"
+id="tItalic"
+></type
+><type
+font-family="Courier New"
+id="tKey"
+></type
+><type
+font-family="Courier New"
+font-weight="bold"
+id="tKeyTerm"
+></type
+><type
+after="Open Office Writer"
+id="tOpenOfficeWriter"
+types="tTool"
+></type
+><type
+before="publisher style sheet"
+id="tPublisherStyleSheet"
+></type
+><type
+after="RenderX XEP"
+id="tRenderX"
+types="tTool"
+></type
+><type
+cssSpecial="margin-top:0.125in;"
+id="tSpaceBefore"
+xsl-foSpecial="margin-top=&quot;0.125in&quot;"
+></type
+><type
+cssSpecial="vertical-align:sub;"
+font-size="65%"
+id="tSubscript"
+xsl-foSpecial="baseline-shift='sub'"
+></type
+><type
+cssSpecial="margin-left:.5in;"
+id="tTableCSS"
+></type
+><type
+color="navy"
+font-family="Courier New"
+font-weight="bold"
+id="tTool"
+></type
+><type
+after="XeTeX"
+id="tXeTeX"
+types="tTool"
+></type
+><type
+after="XLingPaper"
+id="tXLingPap"
+types="tTool"
+></type
+><type
+after="XMLmind XML Editor"
+id="tXMLmindXMLEditor"
+types="tTool"
+></type
+><type
+after="XMLmind XSL Utility"
+id="tXMLmindXSLUtility"
+types="tTool"
+></type
+><type
+after="Zotero"
+id="tZotero"
+types="tTool"
+></type
+></types
+>

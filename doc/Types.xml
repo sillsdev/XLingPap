@@ -85,6 +85,11 @@ font-weight="bold"
 id="tKeyTerm"
 ></type
 ><type
+color="green"
+font-size="95%"
+id="tLocationPublisherLayoutsRef"
+></type
+><type
 after="Open Office Writer"
 id="tOpenOfficeWriter"
 types="tTool"
@@ -118,6 +123,11 @@ color="navy"
 font-family="Courier New"
 font-weight="bold"
 id="tTool"
+></type
+><type
+color="blue"
+font-size="95%"
+id="tUrlDateAccessedLayuoutRef"
 ></type
 ><type
 after="XeTeX"

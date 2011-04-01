@@ -223,7 +223,7 @@
       -->
     <xsl:template match="title">
         <xsl:if test="$bIsBook">
-            <div class="title">
+            <p class="title">
                 <xsl:call-template name="DoTitleFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                     <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
@@ -232,10 +232,10 @@
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 </xsl:call-template>
-            </div>
+            </p>
             <xsl:apply-templates select="following-sibling::subtitle"/>
         </xsl:if>
-        <div class="title">
+        <p class="title">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
@@ -244,7 +244,7 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <xsl:template match="title" mode="contentOnly">
         <xsl:apply-templates/>
@@ -253,7 +253,7 @@
       subtitle
       -->
     <xsl:template match="subtitle">
-        <div>
+        <p>
             <xsl:attribute name="class">
                 <xsl:call-template name="CreateSubtitleCSSName"/>
             </xsl:attribute>
@@ -265,7 +265,7 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/subtitleLayout"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
       author
@@ -273,7 +273,7 @@
     <xsl:template match="author">
         <xsl:param name="authorLayoutToUse"/>
         <xsl:if test="string-length(.) &gt; 0">
-            <div class="author">
+            <p class="author">
                 <xsl:call-template name="DoFrontMatterFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
                 </xsl:call-template>
@@ -281,7 +281,7 @@
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
                 </xsl:call-template>
-            </div>
+            </p>
         </xsl:if>
     </xsl:template>
     <xsl:template match="author" mode="contentOnly">
@@ -300,7 +300,7 @@
       -->
     <xsl:template match="affiliation">
         <xsl:param name="affiliationLayoutToUse"/>
-        <div class="affiliation">
+        <p class="affiliation">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
@@ -308,14 +308,14 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
         emailAddress
     -->
     <xsl:template match="emailAddress">
         <xsl:param name="emailAddressLayoutToUse"/>
-        <div class="emailAddress">
+        <p class="emailAddress">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
@@ -323,13 +323,13 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
         date
     -->
     <xsl:template match="date">
-        <div class="date">
+        <p class="date">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
             </xsl:call-template>
@@ -337,13 +337,13 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
         presentedAt
     -->
     <xsl:template match="presentedAt">
-        <div class="presentedAt">
+        <p class="presentedAt">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/presentedAtLayout"/>
             </xsl:call-template>
@@ -351,13 +351,13 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/presentedAtLayout"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
       version
       -->
     <xsl:template match="version">
-        <div class="version">
+        <p class="version">
             <xsl:call-template name="DoFrontMatterFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
             </xsl:call-template>
@@ -365,7 +365,7 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
             </xsl:call-template>
-        </div>
+        </p>
     </xsl:template>
     <!--
       contents (for book)

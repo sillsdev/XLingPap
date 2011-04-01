@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 March 2011</date
+>1 April 2011</date
 ><version
->2.15.0_1</version
+>2.15.0_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -410,10 +410,16 @@ type="tInstruction"
 >, find the <object
 type="tXLingPap"
 ></object
-> section, and then select the kind of document you want to create. There are eight basic types plus four publisher style sheet templates (see <sectionRef
+> section, and then select the kind of document you want to create. There are eight basic types plus <indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
+>four publisher style sheet templates (see <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->), a special one for languages (see section <sectionRef
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the documentation for publisher style sheets), a special one for languages (see section <sectionRef
 sec="sIntroLang"
 ></sectionRef
 >) and another special one for types (see section <sectionRef
@@ -2491,13 +2497,19 @@ type="tElement"
 > element.<endnote
 id="nSectSymbolInStylesheet"
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >An <object
 type="tXLingPap"
 ></object
-> stylesheet for a particular publisher can be set to override any of these settings with the § symbol. So if you find that a publisher requires this symbol, you will only need to use a stylesheet for their requirements. See section <sectionRef
+> style sheet for a particular publisher can be set to override any of these settings with the § symbol. So if you find that a publisher requires this symbol, you will only need to use a stylesheet for their requirements. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->.</p
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the publisher style sheet documentation.</p
 ></endnote
 > Please note that the default situation is for <object
 type="tXLingPap"
@@ -3779,6 +3791,9 @@ type="tXLingPap"
 > document has two<endnote
 id="nNumberOfSharedPaperes"
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >A given <object
 type="tXLingPap"
 ></object
@@ -3794,7 +3809,10 @@ type="tXLingPap"
 > documents that do not have an associated publisher style sheet is 2. For more on publisher style sheets, see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->.</p
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the publisher style sheet documentation.</p
 ></endnote
 > or more papers cited from the same collection volume, those papers will use the special citation format (like for Barry (1992) and Browman &amp; Goldstein (1992) in example <exampleRef
 letter="xCollectionSamplesJIPA"
@@ -11684,13 +11702,19 @@ type="tElement"
 > element.<endnote
 id="nFigureWordInStylesheet"
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >An <object
 type="tXLingPap"
 ></object
-> stylesheet for a particular publisher can be set to override any of these settings with the lower case or capitalized form. So if you find that a publisher requires one or the other, you will only need to use a stylesheet for their requirements. See section <sectionRef
+> style sheet for a particular publisher can be set to override any of these settings with the lower case or capitalized form. So if you find that a publisher requires one or the other, you will only need to use a stylesheet for their requirements. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->.</p
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the publisher style sheet documentation.</p
 ></endnote
 > Please note that the default situation is for <object
 type="tXLingPap"
@@ -16537,13 +16561,19 @@ type="tXLingPap"
 > document.<endnote
 id="nF7Stylesheet"
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >If you have associated a publisher style sheet with your <object
 type="tXLingPap"
 ></object
 > document (see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->), then the web page will reflect the information in that associated publisher style sheet as much as a web page can. For example, it will try to use the page width and margins as well as font layout of the publisher style sheet. It will not have any header or footers, however, since web pages do not have these. It also will produce a second file with the same name as your <object
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the publisher style sheet documentation), then the web page will reflect the information in that associated publisher style sheet as much as a web page can. For example, it will try to use the page width and margins as well as font layout of the publisher style sheet. It will not have any header or footers, however, since web pages do not have these. It also will produce a second file with the same name as your <object
 type="tXLingPap"
 ></object
 > document file, but with an extension of <object
@@ -16979,10 +17009,16 @@ type="tXMLmindXMLEditor"
 ></object
 >.</li
 ><li
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
-> for more on publisher style sheets).</li
+> for more on publisher style sheets or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the documentation on publisher style sheets).</li
 ></ul
 ></section4
 ><section4
@@ -18368,16 +18404,10 @@ type="tXLingPap"
 >, this problem is alleviated by the use of publisher style sheets. The idea is that you can write your document using <object
 type="tXLingPap"
 ></object
-> and then associate it with a particular publisher style sheet. Once your document has been associated with such a style sheet, whenever you produce PDF or <object
-type="tTool"
->Microsoft Word 2003</object
-> output, the formatting will now conform to the associated style sheet. One implication of this is that as you write your document, you do not have to be thinking about the target format. Just use the normal <object
+> and then associate it with a particular publisher style sheet. Once your document has been associated with such a style sheet, whenever you produce output, the formatting will now conform to the associated style sheet. One implication of this is that as you write your document, you do not have to be thinking about the target format. Just use the normal <object
 type="tXLingPap"
 ></object
-> elements and, when it is time to produce the output, associate the style sheet you need and produce the PDF (or <object
-type="tTool"
->Microsoft Word 2003</object
-> output). If you change your mind about where you want to submit your document, in theory all you have to do is associate (or re-associate) the document to the new style sheet.<endnote
+> elements and, when it is time to produce the output, associate the style sheet you need and produce the output). If you change your mind about where you want to submit your document, in theory all you have to do is associate (or re-associate) the document to the new style sheet.<endnote
 id="nPublisherDifferences"
 ><p
 >Note that some differences between publishers may also require you to change things like the formating for <object
@@ -18435,12 +18465,17 @@ src="resources/AssociatePublisherStyleSheetJWALAssociated.png"
 ></li
 ></ol
 ><p
->The publisher style sheets themselves can be created and/or customized, but how to do that is outside the scope of this documentation.<endnote
-id="nPubStyleSheetCreation"
-><p
->Currently, these style sheets are in a “beta”mode. When documentation is available, I will indicate how to see it.</p
-></endnote
-></p
+><indexedItem
+main="yes"
+term="iPublisherStyleSheet"
+></indexedItem
+>The publisher style sheets themselves can be created and/or customized, but how to do that is outside the scope of this documentation. See the <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+><object
+type="tXLingPap"
+></object
+> Publisher Style Sheet User Documentation</link
+> if you need to create or modify a publisher style sheet.</p
 ></section2
 ><section2
 id="sFAQRemoveAssociatedPublisherStyleSheet"
@@ -18789,13 +18824,19 @@ sec="sFAQProducePDF"
 >Print the PDF to make the handout.</li
 ></ol
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >Note that this produces regular sized pages, but the content will be magnified by a factor of 1.5. If you need the material to be larger, you can edit the publisher style sheet and change the <object
 type="tInstruction"
 >magnification factor</object
 > item under <object
 type="tInstruction"
 >Document Content Layout</object
->. Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.</p
+>. Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.  (For more on publisher style sheets, click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the documentation.)</p
 ></section2
 ><section2
 id="sFAQBreakLongURLs"
@@ -18884,10 +18925,16 @@ type="tXeTeX"
 ></object
 > way of producing PDF.</p
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >To make an entire document be in landscape mode, create a publisher style sheet that has the page height and width dimensions for landscape and then associate that publisher style sheet to the document. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
-> for more.</p
+> for more or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the documentation on publisher style sheets.</p
 ></section2
 ><section2
 id="sFAQChangeAbbreviations"
@@ -20946,10 +20993,19 @@ type="tXLingPap"
 ></object
 > Publisher Style Sheet Element Reference Guide</secTitle
 ><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
 >This appendix lists the various elements available for an <object
 type="tXLingPap"
 ></object
-> publisher style sheet and briefly explains their usage. They are listed in alphabetical order.</p
+> publisher style sheet and briefly explains their usage. They are listed in alphabetical order.  See the <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+><object
+type="tXLingPap"
+></object
+> Publisher Style Sheet User Documentation</link
+> for more.</p
 ><dl
 ><dt
 ><object
@@ -22464,36 +22520,11 @@ id="rRegnier"
 ><index
 ></index
 ></backMatter
-><languages
-><language
-id="lEng"
-name="English"
-></language
-><language
-id="lSpn"
-name="Spanish"
-></language
-><language
-id="lCar"
-name="Carolinian"
-></language
-><language
-id="lSET"
-name="Southeastern Tepehuan"
-></language
-><language
-id="lAttribute"
-name="Attribute"
-></language
-><language
-id="lValue"
-name="Value"
-></language
-><language
-id="lMeaning"
-name="Value"
-></language
-></languages
+><xi:include
+href="Languages.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><xi:include
 href="Types.xml"
 xpointer="element(/1)"

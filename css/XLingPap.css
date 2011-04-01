@@ -3819,7 +3819,7 @@ authorLayout[textalign]
 }
 authorLayout
 {
-	property-group: titledItem("Author of the Paper");
+	property-group: titledItem("Author of the Document");
 }
 authorRoleItem[color]
 {
@@ -7541,7 +7541,7 @@ subtitleLayout[textalign]
 }
 subtitleLayout
 {
-	property-group: titledItem("Subtitle of the Paper");
+	property-group: titledItem("Subtitle of the Document");
 }
 tablenumberedCaptionLayout[color]
 {
@@ -7832,7 +7832,7 @@ titleLayout[textalign]
 }
 titleLayout
 {
-	property-group: titledItem("Title of the Paper");
+	property-group: titledItem("Title of the Document");
 }
 translatedByItem[color]
 {

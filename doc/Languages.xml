@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE languages PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<languages
+><language
+id="lEng"
+name="English"
+></language
+><language
+id="lSpn"
+name="Spanish"
+></language
+><language
+id="lCar"
+name="Carolinian"
+></language
+><language
+id="lSET"
+name="Southeastern Tepehuan"
+></language
+><language
+id="lAttribute"
+name="Attribute"
+></language
+><language
+id="lValue"
+name="Value"
+></language
+><language
+id="lMeaning"
+name="Value"
+></language
+></languages
+>

@@ -267,7 +267,7 @@ Page Layout
        %formatinfo;
 >
 <!--
-    (If shortTitle is present, use it; otherwise use the title elment)
+    (If shortTitle is present, use it; otherwise use the title element)
 -->
 <!ELEMENT paperTitle EMPTY >
 <!ATTLIST paperTitle

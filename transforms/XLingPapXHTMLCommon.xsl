@@ -89,7 +89,7 @@
                 <xsl:element name="a">
                     <xsl:attribute name="name">
                         <xsl:value-of select="@id"/>
-                    </xsl:attribute>[<xsl:apply-templates select="." mode="endnote"/>]</xsl:element>
+                    </xsl:attribute>[<xsl:apply-templates select="." mode="endnoteXHTML"/>]</xsl:element>
             </td>
             <td valign="baseline">
                 <xsl:apply-templates/>
@@ -1392,7 +1392,7 @@
                     <xsl:text>#</xsl:text>
                     <xsl:value-of select="$attr"/>
                 </xsl:attribute>
-                <xsl:apply-templates select="$node" mode="endnote"/>
+                <xsl:apply-templates select="$node" mode="endnoteXHTML"/>
             </a>
             <xsl:text>]</xsl:text>
         </span>

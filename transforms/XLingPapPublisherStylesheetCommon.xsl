@@ -97,10 +97,10 @@
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
             <xsl:when test="$bIsBook">
-                <xsl:number level="any" count="endnote[not(parent::author)]" from="chapter" format="1"/>
+                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
+                <xsl:number level="any" count="endnote[not(parent::author)]  | endnoteRef[not(ancestor::endnote)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-04-01</a:date
+>2011-04-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.15.0_2 1 April 2011<ul
+>2.15.0_2 5 April 2011<ul
 ><li
 >Added documentation for publisher style sheets.</li
+><li
+>Fix bug in endnoteRef number calculations in PDF outputs.</li
+><li
+>Remove check for content of listWord elements - the test was too tight.</li
 ><li
 >Publisher style sheet:<ul
 ><li

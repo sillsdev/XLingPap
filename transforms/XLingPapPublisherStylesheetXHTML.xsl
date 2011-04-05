@@ -1278,6 +1278,19 @@
     </xsl:template>
 -->
     <!--
+        endnote
+    -->
+    <xsl:template mode="endnoteXHTML" match="*">
+        <xsl:choose>
+            <xsl:when test="$bIsBook">
+                <xsl:number level="any" count="endnote[not(parent::author)]" from="chapter" format="1"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
       endnoteRef
       -->
     <xsl:template match="endnoteRef">

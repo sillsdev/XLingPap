@@ -127,6 +127,7 @@
             <report test="ancestor::p and descendant::ul or ancestor::p and descendant::ol">Warning: there is a definition in a paragraph that has an embedded list in it.  This will probably not come out very well.  Please consider making it be an example(definition) instead.</report>
         </rule>
     </pattern>
+<!--  This is not the correct semantic check.  One *should* be able to have something like language-date tone-data gloss  
     <pattern>
         <title>
             <dir value="ltr">Check for poorly formed word and listWord elements</dir>
@@ -138,7 +139,7 @@
             <report test="count(langData) + count(gloss) &gt; 2">Warning: There is a word element with more than two langData and gloss elements.  This is not the intended use of listWord so it may not come out as you want.  Please consider splitting this into multiple example(listWord) items with only a single pair of langData and gloss in each or consider making it be an example(table).</report>
         </rule>
     </pattern>
-    <pattern>
+-->    <pattern>
         <title>
             <dir value="ltr">Check for improperly embedded interlinears</dir>
         </title>

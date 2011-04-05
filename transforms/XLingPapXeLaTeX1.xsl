@@ -1576,9 +1576,12 @@
                     </xsl:choose>
                 </xsl:variable>
                 <tex:cmd name="footnote">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="not(ancestor::table)">
+                        <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                     <tex:parm>
                         <xsl:text>See footnote </xsl:text>
                         <xsl:call-template name="DoInternalHyperlinkBegin">

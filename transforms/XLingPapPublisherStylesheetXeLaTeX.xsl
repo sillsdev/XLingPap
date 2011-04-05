@@ -945,40 +945,40 @@
         </xsl:call-template>
         <xsl:call-template name="DoBookMark"/>
         <tex:group>
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTitleNeedsSpace"/>
-        <xsl:call-template name="DoType">
-            <xsl:with-param name="type" select="@type"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTitleFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$appLayout"/>
-            <xsl:with-param name="originalContext" select="secTitle"/>
-        </xsl:call-template>
-        <xsl:if test="$appLayout/@showletter!='no'">
-            <xsl:apply-templates select="." mode="numberAppendix"/>
-            <xsl:value-of select="$appLayout/@textafterletter"/>
-        </xsl:if>
-        <xsl:apply-templates select="secTitle"/>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="$appLayout"/>
-        </xsl:call-template>
-        <xsl:variable name="contentForThisElement">
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="@id"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoTitleNeedsSpace"/>
+            <xsl:call-template name="DoType">
+                <xsl:with-param name="type" select="@type"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$appLayout"/>
+                <xsl:with-param name="originalContext" select="secTitle"/>
+            </xsl:call-template>
+            <xsl:if test="$appLayout/@showletter!='no'">
+                <xsl:apply-templates select="." mode="numberAppendix"/>
+                <xsl:value-of select="$appLayout/@textafterletter"/>
+            </xsl:if>
             <xsl:apply-templates select="secTitle"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$appLayout"/>
             </xsl:call-template>
-        </xsl:variable>
-        <xsl:call-template name="DoTitleFormatInfoEnd">
-            <xsl:with-param name="layoutInfo" select="$appLayout"/>
-            <xsl:with-param name="originalContext" select="secTitle"/>
-            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTypeEnd">
-            <xsl:with-param name="type" select="@type"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInternalTargetEnd"/>
+            <xsl:variable name="contentForThisElement">
+                <xsl:apply-templates select="secTitle"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$appLayout"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="DoTitleFormatInfoEnd">
+                <xsl:with-param name="layoutInfo" select="$appLayout"/>
+                <xsl:with-param name="originalContext" select="secTitle"/>
+                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoTypeEnd">
+                <xsl:with-param name="type" select="@type"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoInternalTargetEnd"/>
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
@@ -1978,9 +1978,12 @@
                     </xsl:choose>
                 </xsl:variable>
                 <tex:cmd name="footnote">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="not(ancestor::table)">
+                        <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                     <tex:parm>
                         <xsl:variable name="endnoteRefLayout" select="$contentLayoutInfo/endnoteRefLayout"/>
                         <tex:group>
@@ -4863,11 +4866,12 @@
             <tex:spec cat="eg"/>
             </xsl:if>
         -->
-<!--        <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
+        <!--        <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
         <xsl:if test="string-length($sFontStyle) &gt; 0">
             <tex:spec cat="eg"/>
         </xsl:if>
--->        <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
+-->
+        <xsl:variable name="sFontVariant" select="normalize-space($language/@font-variant)"/>
         <xsl:if test="string-length($sFontVariant) &gt; 0">
             <xsl:choose>
                 <xsl:when test="$sFontVariant='small-caps'">
@@ -4886,7 +4890,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-<!--        <xsl:variable name="sFontWeight" select="normalize-space($language/@font-weight)"/>
+        <!--        <xsl:variable name="sFontWeight" select="normalize-space($language/@font-weight)"/>
         <xsl:if test="string-length($sFontWeight) &gt; 0">
             <xsl:choose>
                 <xsl:when test="$sFontStyle='italic' and $sFontWeight!='bold'">
@@ -4900,7 +4904,8 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
--->        <xsl:variable name="sFontColor" select="normalize-space($language/@color)"/>
+-->
+        <xsl:variable name="sFontColor" select="normalize-space($language/@color)"/>
         <xsl:if test="string-length($sFontColor) &gt; 0">
             <tex:spec cat="eg"/>
         </xsl:if>

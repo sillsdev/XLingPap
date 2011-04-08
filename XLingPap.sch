@@ -127,7 +127,7 @@
             <report test="ancestor::p and descendant::ul or ancestor::p and descendant::ol">Warning: there is a definition in a paragraph that has an embedded list in it.  This will probably not come out very well.  Please consider making it be an example(definition) instead.</report>
         </rule>
     </pattern>
-<!--  This is not the correct semantic check.  One *should* be able to have something like language-date tone-data gloss  
+    <!--  This is not the correct semantic check.  One *should* be able to have something like language-date tone-data gloss  
     <pattern>
         <title>
             <dir value="ltr">Check for poorly formed word and listWord elements</dir>
@@ -139,7 +139,8 @@
             <report test="count(langData) + count(gloss) &gt; 2">Warning: There is a word element with more than two langData and gloss elements.  This is not the intended use of listWord so it may not come out as you want.  Please consider splitting this into multiple example(listWord) items with only a single pair of langData and gloss in each or consider making it be an example(table).</report>
         </rule>
     </pattern>
--->    <pattern>
+-->
+    <pattern>
         <title>
             <dir value="ltr">Check for improperly embedded interlinears</dir>
         </title>
@@ -152,7 +153,8 @@
             <dir value="ltr">Check for embedded elements in  line/langData or line/gloss</dir>
         </title>
         <rule context="langData">
-            <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a langData element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
+            <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"
+                >Warning: There is an interlinear using the space alignment and there is a langData element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
         <rule context="gloss">
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
@@ -166,4 +168,61 @@
             <report test="@usesmallcaps='yes'">Warning: The 'usesmallcaps' attribute is now deprecated.  Please use font-variant='small-caps' instead (or better yet, use a real, true-blue small-caps font and put its name in the font-family attribute).</report>
         </rule>
     </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for issues related to indexes</dir>
+        </title>
+        <rule context="indexTerm">
+            <report test="@see=@id">The 'see' attribute of this indexTerm is referring to itself.  It should refer to a different indexTerm element.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for issues related to publisher style sheets</dir>
+        </title>
+        <rule context="/publisherStyleSheet/pageLayout/pageWidth">
+            <report test="contains(normalize-space(.),' ')">The page width should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/pageHeight">
+            <report test="contains(normalize-space(.),' ')">The page height should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/pageTopMargin">
+            <report test="contains(normalize-space(.),' ')">The page top margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/pageBottomMargin">
+            <report test="contains(normalize-space(.),' ')">The page bottom margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/pageInsideMargin">
+            <report test="contains(normalize-space(.),' ')">The page inside margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/pageOutsideMargin">
+            <report test="contains(normalize-space(.),' ')">The page outside margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/headerMargin">
+            <report test="contains(normalize-space(.),' ')">The header margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/footerMargin">
+            <report test="contains(normalize-space(.),' ')">The footer margin should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/paragraphIndent">
+            <report test="contains(normalize-space(.),' ')">The paragraph indent should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/blockQuoteIndent">
+            <report test="contains(normalize-space(.),' ')">The block quote indent should not contain a space.  Please remove it.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/basicPointSize">
+            <report test="string(number(.))='NaN'">The basic point size needs to be a number.  It is not.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout/footnotePointSize">
+            <report test="string(number(.))='NaN'">The footnote point size needs to be a number.  It is not.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/pageLayout">
+            <report test="substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageHeight),string-length(normalize-space(pageHeight))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageTopMargin),string-length(normalize-space(pageTopMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageBottomMargin),string-length(normalize-space(pageBottomMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageInsideMargin),string-length(normalize-space(pageInsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageOutsideMargin),string-length(normalize-space(pageOutsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(headerMargin),string-length(normalize-space(headerMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(footerMargin),string-length(normalize-space(footerMargin))-1,2)">The unit of measure for pageWidth, pageHeight, pageTopMargin, pageBottomMargin, pageInsideMargin, pageOutsideMargin, headerMargin, and footerMargin all need to be the same.  Please make them all the same.</report>
+        </rule>
+        <rule context="/publisherStyleSheet/contentLayout/magnificationFactor">
+            <report test="string(number(.))='NaN'">The magnification factor needs to be a number.  It is not.</report>
+        </rule>
+        
+    </pattern>
+    
 </schema>

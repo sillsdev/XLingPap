@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.15.0_3</a:version
+>2.15.0_4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-04-05</a:date
+>2011-04-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,36 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.15.0_4 8 April 2011<ul
+><li
+>Added more checks for well-formedness:<ul
+><li
+>Publisher style sheet:<ul
+><li
+>Make sure there is no space between the number and unit of measure for those that need it.</li
+><li
+>Make sure that the unit of measure is the same for the page layout values that require it.</li
+><li
+>Make sure the basicPointSize element is a number.</li
+><li
+>Make sure the footnotePointSize element is a number.</li
+><li
+>Make sure the magnificationFactor element is a number.</li
+></ul
+></li
+><li
+>In an index, make sure the 'see' attribute of an indexTerm element does not refer to itself</li
+></ul
+></li
+><li
+>Web page output with a publisher style sheet:<ul
+><li
+>Fixed incorrect attributes in the output html element; removed the meta element in the output for now.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.15.0_3 5 April 2011<ul
 ><li

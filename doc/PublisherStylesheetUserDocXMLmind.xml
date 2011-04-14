@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 April 2011</date
+>14 April 2011</date
 ><version
->2.15.0_2</version
+>2.15.0_4</version
 ><contents
 showLevel="6"
 ></contents
@@ -132,7 +132,7 @@ sec="sPageLayout"
 > is given in section <sectionRef
 sec="sDocumentContentLayout"
 ></sectionRef
->.  Finally, common sets of attributes are described in section <sectionRef
+>. Finally, common sets of attributes are described in section <sectionRef
 sec="sCommonSetsOfAttributes"
 ></sectionRef
 >.</p
@@ -6040,10 +6040,10 @@ id="sDocumentContentLayout"
 ><secTitle
 >Document Content Layout</secTitle
 ><p
->This section discusses layout information for various items occurring within the content of a document.  The only element in this section that is required is <object
+>This section discusses layout information for various items occurring within the content of a document. The only element in this section that is required is <object
 type="tElement"
 >exampleLayout</object
->, which always comes first.  All others are optional.  They are described in the order in which they must appear.</p
+>, which always comes first. All others are optional. They are described in the order in which they must appear.</p
 ><section2
 id="sExampleLayout"
 ><secTitle
@@ -6052,7 +6052,7 @@ id="sExampleLayout"
 >The <object
 type="tElement"
 >exampleLayout</object
-> element determines how examples and their numbers are to be displayed.  The attributes involved are given in example <exampleRef
+> element determines how examples and their numbers are to be displayed. The attributes involved are given in example <exampleRef
 letter="xExampleLayoutAttributes"
 num="xExampleLayoutAttributes"
 ></exampleRef
@@ -6198,7 +6198,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not to insert a period after the final digit of the example number.  <object
+>This indicates whether or not to insert a period after the final digit of the example number. <object
 type="tItalic"
 >Currently not implemented.</object
 ></langData
@@ -6384,7 +6384,7 @@ type="tElement"
 > element is set to <object
 type="tAttrValue"
 >singular</object
->.  This overrides any  similar value in the <object
+>. This overrides any similar value in the <object
 type="tAttribute"
 >sectionRefSingularLabel</object
 > attribute of the <object
@@ -6612,7 +6612,7 @@ type="tXLingPap"
 > document) is to be displayed is controlled by the <object
 type="tElement"
 >interlinearSourceStyle</object
-> element.  Its attributes are given in section <sectionRef
+> element. Its attributes are given in section <sectionRef
 sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
@@ -6622,7 +6622,7 @@ type="tXMLmindXMLEditor"
 > for the <object
 type="tElement"
 >interlinearSourceStyle</object
-> element.  What does show is given in example <exampleRef
+> element. What does show is given in example <exampleRef
 letter="xInterlinearSourceStyle"
 num="xInterlinearSourceStyle"
 ></exampleRef
@@ -6640,7 +6640,7 @@ src="resources/InterlinearSourceStyle.png"
 letter="xInterlinearSourceStyleValues"
 num="xInterlinearSourceStyleValues"
 ></exampleRef
->.  Click on the one that you want to use.</p
+>. Click on the one that you want to use.</p
 ><example
 num="xInterlinearSourceStyleValues"
 ><table
@@ -6753,7 +6753,7 @@ type="tElement"
 > dictates how <object
 type="tElement"
 >figure</object
-> elements are to be displayed.  This can look like what is shown in example <exampleRef
+> elements are to be displayed. This can look like what is shown in example <exampleRef
 letter="xFigureLayout"
 num="xFigureLayout"
 ></exampleRef
@@ -6767,7 +6767,7 @@ src="resources/FigureLayout.png"
 ></chart
 ></example
 ><p
->There are actually four parts here.  </p
+>There are actually four parts here.</p
 ><section4
 id="sFiguresCaption"
 ><secTitle
@@ -6903,7 +6903,7 @@ id="sFiguresLabelLayout"
 letter="xFigureLayout"
 num="xFigureLayout"
 ></exampleRef
->, you click on the word “Figure” in the second line, you can control information about how the label of the figure is to be formatted.  The attributes for this <object
+>, you click on the word “Figure” in the second line, you can control information about how the label of the figure is to be formatted. The attributes for this <object
 type="tElement"
 >figureLabelLayout</object
 > element are given in example <exampleRef
@@ -8349,7 +8349,7 @@ type="tAttrValue"
 ><section4
 id="sTableNumberedRefCaptionLayout"
 ><secTitle
->Reference to Numbered Table  Caption Layout</secTitle
+>Reference to Numbered Table Caption Layout</secTitle
 ><p
 ><indexedItem
 term="iTableNumberedRefCaption"
@@ -8379,16 +8379,16 @@ id="sMagnificationFactor"
 ><indexedItem
 term="iMagnificationFactor"
 ></indexedItem
->When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining the same page size.  This is what the <object
+>When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining the same page size. This is what the <object
 type="tElement"
 >magnificationFactor</object
-> element is for.  Enter the factor you want (e.g. <object
+> element is for. Enter the factor you want (e.g. <object
 type="tInTextExample"
 >1.5</object
 > or <object
 type="tInTextExample"
 >2</object
->).  The factor should be a number.</p
+>). The factor should be a number.</p
 ></section2
 ><section2
 id="sLangDataOverrides"
@@ -8401,10 +8401,10 @@ type="tElement"
 ><indexedItem
 term="iLangDataOverrides"
 ></indexedItem
->Sometimes one wants language data to appear one way when it is in prose and another way in examples and/or tables.  The <object
+>Sometimes one wants language data to appear one way when it is in prose and another way in examples and/or tables. The <object
 type="tElement"
 >langDataLayout</object
-> element controls this.  When you add it, you will see what is in example <exampleRef
+> element controls this. When you add it, you will see what is in example <exampleRef
 letter="xLangDataOverrides"
 num="xLangDataOverrides"
 ></exampleRef
@@ -8418,7 +8418,7 @@ src="resources/LangDataSpecialOverrides.png"
 ></chart
 ></example
 ><p
->The top line has no attributes.  The other three use the attributes shown in example <exampleRef
+>The top line has no attributes. The other three use the attributes shown in example <exampleRef
 letter="xLangDataOverrideLayoutAttributes"
 num="xLangDataOverrideLayoutAttributes"
 ></exampleRef
@@ -8504,7 +8504,7 @@ type="tElement"
 > item uses the same font information as the <object
 type="tElement"
 >langData</object
-> item itself will.  For example, if you use openning and closing double quotes before and after the <object
+> item itself will. For example, if you use openning and closing double quotes before and after the <object
 type="tElement"
 >langData</object
 > item, do you want these quotes formatted the same as the <object
@@ -8523,16 +8523,22 @@ type="tAttrValue"
 ></table
 ></example
 ><p
->The formatting in a table is intended for use either with <object
+>For a given <object
 type="tElement"
->table</object
-> elements that are not embedded within an <object
+>langData</object
+> element, the formatting that is used depends on what the closest element to that <object
+type="tElement"
+>langData</object
+> element is.  If an <object
 type="tElement"
 >example</object
-> element or with <object
+> is closest, then the formatting for an example is used.  If a <object
 type="tElement"
->tableNumbered</object
-> elements.</p
+>table</object
+> is closest, then the formatting for a table is used.  If an <object
+type="tElement"
+>endnote</object
+> or any other element is closest, then the formatting for prose is used.</p
 ></section2
 ><section2
 id="sGlossOverrides"
@@ -8667,16 +8673,22 @@ type="tAttrValue"
 ></table
 ></example
 ><p
->The formatting in a table is intended for use either with <object
+>For a given <object
 type="tElement"
->table</object
-> elements that are not embedded within an <object
+>gloss</object
+> element, the formatting that is used depends on what the closest element to that <object
+type="tElement"
+>gloss</object
+> element is. If an <object
 type="tElement"
 >example</object
-> element or with <object
+> is closest, then the formatting for an example is used. If a <object
 type="tElement"
->tableNumbered</object
-> elements.</p
+>table</object
+> is closest, then the formatting for a table is used. If an <object
+type="tElement"
+>endnote</object
+> or any other element is closest, then the formatting for prose is used.</p
 ></section2
 ><section2
 id="sFreeOverrides"
@@ -8692,10 +8704,10 @@ term="iFreeOverrides"
 >Sometimes one wants to override the default formatting for data in free translations (i.e in <object
 type="tElement"
 >free</object
-> elements).  The <object
+> elements). The <object
 type="tElement"
 >freeLayout</object
-> element controls this.   It has the attributes shown in example  <exampleRef
+> element controls this. It has the attributes shown in example <exampleRef
 letter="xGlossOverrideLayoutAttributes"
 num="xGlossOverrideLayoutAttributes"
 ></exampleRef

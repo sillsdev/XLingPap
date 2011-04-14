@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_3</span></p>
-      <p align="center">Date: 2011-04-05</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_4</span></p>
+      <p align="center">Date: 2011-04-14</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,32 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.15.0_4 14 April 2011
+                  <ul>
+                     <li>Fix bug: Publisher style sheet overrides for langData and gloss did not work correctly in endnotes when embedded within and
+                        example or table.
+                     </li>
+                     <li>Added more checks for well-formedness:
+                        <ul>
+                           <li>Publisher style sheet:
+                              <ul>
+                                 <li>Make sure there is no space between the number and unit of measure for those that need it.</li>
+                                 <li>Make sure that the unit of measure is the same for the page layout values that require it.</li>
+                                 <li>Make sure the basicPointSize element is a number.</li>
+                                 <li>Make sure the footnotePointSize element is a number.</li>
+                                 <li>Make sure the magnificationFactor element is a number.</li>
+                              </ul>
+                           </li>
+                           <li>In an index, make sure the 'see' attribute of an indexTerm element does not refer to itself</li>
+                        </ul>
+                     </li>
+                     <li>Web page output with a publisher style sheet:
+                        <ul>
+                           <li>Fixed incorrect attributes in the output html element; removed the meta element in the output for now.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.15.0_3 5 April 2011
                   <ul>
                      <li>XeLaTeX way of producing PDF:

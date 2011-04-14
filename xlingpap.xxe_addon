@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-04-08</a:date
+>2011-04-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.15.0_4 8 April 2011<ul
+>2.15.0_4 14 April 2011<ul
+><li
+>Fix bug: Publisher style sheet overrides for langData and gloss did not work correctly in endnotes when embedded within and example or table.</li
 ><li
 >Added more checks for well-formedness:<ul
 ><li

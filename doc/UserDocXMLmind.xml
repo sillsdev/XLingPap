@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 April 2011</date
+>16 April 2011</date
 ><version
->2.15.0_2</version
+>2.15.0_5</version
 ><contents
 showLevel="4"
 ></contents
@@ -11544,7 +11544,16 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This is a hint to the program that produces PDF output about where you would like the figure to appear. The formatting program makes the final decision. The webpage output process ignores this attribute.</langData
+>This is a hint to the program that produces PDF output about where you would like the figure to appear. The formatting program makes the final decision for <object
+type="tAttrValue"
+>bottomOfPage</object
+> and <object
+type="tAttrValue"
+>topOfPage</object
+>.  For <object
+type="tAttrValue"
+>here</object
+> the figure will appear in its place in the flow of the text. The webpage output process ignores this attribute.</langData
 ></td
 ></tr
 ><tr
@@ -12589,7 +12598,16 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This is a hint to the program that produces PDF output about where you would like the numbered table to appear. The formatting program makes the final decision. The webpage output process ignores this attribute.</langData
+>This is a hint to the program that produces PDF output about where you would like the figure to appear. The formatting program makes the final decision for <object
+type="tAttrValue"
+>bottomOfPage</object
+> and <object
+type="tAttrValue"
+>topOfPage</object
+>. For <object
+type="tAttrValue"
+>here</object
+> the figure will appear in its place in the flow of the text. The webpage output process ignores this attribute.</langData
 ></td
 ></tr
 ><tr
@@ -18833,7 +18851,7 @@ type="tInstruction"
 > item under <object
 type="tInstruction"
 >Document Content Layout</object
->. Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit.  (For more on publisher style sheets, click <link
+>. Since the text size is larger, you may well need to adjust interlinear examples and tables to make them fit. (For more on publisher style sheets, click <link
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
 > to see the documentation.)</p
@@ -20999,7 +21017,7 @@ term="iPublisherStyleSheet"
 >This appendix lists the various elements available for an <object
 type="tXLingPap"
 ></object
-> publisher style sheet and briefly explains their usage. They are listed in alphabetical order.  See the <link
+> publisher style sheet and briefly explains their usage. They are listed in alphabetical order. See the <link
 href="PublisherStylesheetUserDocXMLmind.htm"
 ><object
 type="tXLingPap"

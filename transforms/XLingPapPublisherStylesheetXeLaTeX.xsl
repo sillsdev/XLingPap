@@ -1630,8 +1630,8 @@
     -->
     <xsl:template match="figure">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or @location='here'">
+                <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float -->
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
@@ -1654,6 +1654,7 @@
                 <tex:spec cat="eg"/>
                 <tex:spec cat="lsb"/>
                 <xsl:choose>
+                    <!-- 2011.04.15: no longer using float for the 'here' but actually putting it here -->
                     <xsl:when test="@location='here'">htbp</xsl:when>
                     <xsl:when test="@location='bottomOfPage'">b</xsl:when>
                     <xsl:when test="@location='topOfPage'">t</xsl:when>
@@ -1737,8 +1738,8 @@
     -->
     <xsl:template match="tablenumbered">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or @location='here'">
+                <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float-->
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
@@ -1761,6 +1762,7 @@
                 <tex:spec cat="eg"/>
                 <tex:spec cat="lsb"/>
                 <xsl:choose>
+                    <!-- 2011.04.15: no longer using float for the 'here' but actually putting it here -->
                     <xsl:when test="@location='here'">htbp</xsl:when>
                     <xsl:when test="@location='bottomOfPage'">bhp</xsl:when>
                     <xsl:when test="@location='topOfPage'">thp</xsl:when>
@@ -2783,6 +2785,9 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>protect</xsl:text>
         <xsl:choose>
             <xsl:when test="@align='center'">
                 <tex:spec cat="esc"/>
@@ -2792,13 +2797,33 @@
                 <tex:spec cat="esc"/>
                 <xsl:text>raggedleft</xsl:text>
             </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedright</xsl:text>
+            </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoType">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
+            <tex:cmd name="needspace">
+                <tex:parm>
+                    <xsl:text>3</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
-            <tex:spec cat="esc"/>
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
+                            <xsl:value-of select="$sSpaceBetweenFigureAndCaption"/>
+                        </xsl:when>
+                        <xsl:otherwise>0pt</xsl:otherwise>
+                    </xsl:choose>
+                </tex:parm>
+            </tex:cmd>
+            <!--            <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="lsb"/>
             <xsl:choose>
@@ -2808,9 +2833,16 @@
                 <xsl:otherwise>0pt</xsl:otherwise>
             </xsl:choose>
             <tex:spec cat="rsb"/>
+-->
         </xsl:if>
         <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
+        <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
+            <xsl:if test="chart/*[position()=last()][name()='img']">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </xsl:if>
+        </xsl:if>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
@@ -2830,9 +2862,11 @@
             </xsl:choose>
             <tex:spec cat="rsb"/>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
+            <!--            <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
+-->
         </xsl:if>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
       DoFontVariant
@@ -3655,17 +3689,23 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+            <tex:cmd name="needspace">
+                <tex:parm>
+                    <xsl:text>3</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
-            <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
-            <tex:spec cat="lsb"/>
-            <xsl:choose>
-                <xsl:when test="string-length($sSpaceBetweenTableAndCaption) &gt; 0">
-                    <xsl:value-of select="$sSpaceBetweenTableAndCaption"/>
-                </xsl:when>
-                <xsl:otherwise>0pt</xsl:otherwise>
-            </xsl:choose>
-            <tex:spec cat="rsb"/>
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceBetweenTableAndCaption) &gt; 0">
+                            <xsl:value-of select="$sSpaceBetweenTableAndCaption"/>
+                        </xsl:when>
+                        <xsl:otherwise>0pt</xsl:otherwise>
+                    </xsl:choose>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
@@ -4695,6 +4735,10 @@
     -->
     <xsl:template name="OutputFigureLabelAndCaption">
         <xsl:param name="bDoStyles" select="'Y'"/>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetFigureLabelLayout"/>
@@ -4738,12 +4782,19 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:value-of select="$styleSheetFigureCaptionLayout/@textafter"/>
+        <xsl:if test="$bDoStyles='Y'">
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+        </xsl:if>
         <tex:spec cat="eg"/>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributesEnd">
                 <xsl:with-param name="language" select="$styleSheetFigureCaptionLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <tex:spec cat="eg"/>
         </xsl:if>
     </xsl:template>
     <xsl:template match="caption | endCaption" mode="show">
@@ -5338,6 +5389,9 @@
     -->
     <xsl:template name="OutputTableNumberedLabelAndCaption">
         <xsl:param name="bDoStyles" select="'Y'"/>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>protect</xsl:text>
         <xsl:choose>
             <xsl:when test="table/@align='center'">
                 <tex:spec cat="esc"/>
@@ -5347,7 +5401,15 @@
                 <tex:spec cat="esc"/>
                 <xsl:text>raggedleft</xsl:text>
             </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedright</xsl:text>
+            </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetTableNumberedLabelLayout"/>
@@ -5391,6 +5453,12 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
+        <!--        <xsl:if test="table/@align='center' or table/@align='right'">-->
+        <xsl:if test="$bDoStyles='Y'">
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+        </xsl:if>
+        <!--        </xsl:if>-->
         <tex:spec cat="eg"/>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributesEnd">
@@ -5398,6 +5466,10 @@
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
         </xsl:if>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         SetFootnoteRule

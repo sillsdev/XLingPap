@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_4</span></p>
-      <p align="center">Date: 2011-04-14</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_5</span></p>
+      <p align="center">Date: 2011-04-16</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,21 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.15.0_5 16 April 2011
+                  <ul>
+                     <li>Floats: changed the implementation of the location attribute when it is set to "here": the float will not be implemented as
+                        a true float.  It will appear here in the flow.
+                     </li>
+                     <li>XeLaTeX-way of producing PDF:
+                        <ul>
+                           <li>Fixed a bug where following material could end up being appended to the end of the caption of a tablenumbered or figure element.</li>
+                           <li>Fixed a bug which could cause the PDF not to be produced if a tablenumbered or figure element was centered and a following
+                              title was set to be all capitals.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.15.0_4 14 April 2011
                   <ul>
                      <li>Fix bug: Publisher style sheet overrides for langData and gloss did not work correctly in endnotes when embedded within and

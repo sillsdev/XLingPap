@@ -1332,8 +1332,10 @@
     -->
     <xsl:template match="figure">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or @location='here'">
+                <!--  cannot have endnotes in floats...
+                    If the user says, Put it here, don't treat it like a float                
+                -->
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
@@ -1356,6 +1358,7 @@
                 <tex:spec cat="eg"/>
                 <tex:spec cat="lsb"/>
                 <xsl:choose>
+                    <!-- 2011.04.15: no longer using float for the 'here' but actually putting it here -->
                     <xsl:when test="@location='here'">htbp</xsl:when>
                     <xsl:when test="@location='bottomOfPage'">b</xsl:when>
                     <xsl:when test="@location='topOfPage'">t</xsl:when>
@@ -1409,8 +1412,10 @@
     -->
     <xsl:template match="tablenumbered">
         <xsl:choose>
-            <xsl:when test="descendant::endnote">
-                <!--  cannot have endnotes in floats... -->
+            <xsl:when test="descendant::endnote or @location='here'">
+                <!--  cannot have endnotes in floats... 
+                    If the user says, Put it here, don't treat it like a float                
+                -->
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
@@ -1433,6 +1438,7 @@
                 <tex:spec cat="eg"/>
                 <tex:spec cat="lsb"/>
                 <xsl:choose>
+                    <!-- 2011.04.15: no longer using float for the 'here' but actually putting it here -->
                     <xsl:when test="@location='here'">htbp</xsl:when>
                     <xsl:when test="@location='bottomOfPage'">bhp</xsl:when>
                     <xsl:when test="@location='topOfPage'">thp</xsl:when>
@@ -2456,6 +2462,9 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>protect</xsl:text>
         <xsl:choose>
             <xsl:when test="@align='center'">
                 <tex:spec cat="esc"/>
@@ -2465,11 +2474,21 @@
                 <tex:spec cat="esc"/>
                 <xsl:text>raggedleft</xsl:text>
             </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedright</xsl:text>
+            </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoType">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$lingPaper/@figureLabelAndCaptionLocation='before'">
+            <tex:cmd name="needspace">
+                <tex:parm>
+                    <xsl:text>3</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
@@ -2479,6 +2498,12 @@
         </xsl:if>
         <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
+        <xsl:if test="$lingPaper/@figureLabelAndCaptionLocation='before'">
+            <xsl:if test="chart/*[position()=last()][name()='img']">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </xsl:if>
+        </xsl:if>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
@@ -2496,6 +2521,7 @@
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
         </xsl:if>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         DoGlossary
@@ -3354,6 +3380,12 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+            <tex:cmd name="needspace">
+                <tex:parm>
+                    <xsl:text>3</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
@@ -3378,6 +3410,7 @@
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
+            <tex:cmd name="par"/>
             <tex:cmd name="vspace">
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
@@ -3757,6 +3790,7 @@
     </xsl:template>
     <xsl:template match="caption | endCaption" mode="show">
         <xsl:param name="bDoBold" select="'Y'"/>
+        <xsl:param name="bDoLineBreak" select="'N'"/>
         <xsl:if test="$bDoBold='Y'">
             <tex:spec cat="bg"/>
             <tex:spec cat="esc"/>
@@ -3768,6 +3802,10 @@
         </xsl:call-template>
         <xsl:call-template name="DoType"/>
         <xsl:apply-templates/>
+        <xsl:if test="$bDoLineBreak='Y'">
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+        </xsl:if>
         <xsl:call-template name="DoTypeEnd"/>
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="."/>
@@ -4265,7 +4303,9 @@
         </xsl:if>
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="show"/>
+                <xsl:apply-templates select="table/caption | table/endCaption" mode="show">
+                    <xsl:with-param name="bDoLineBreak" select="'Y'"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>

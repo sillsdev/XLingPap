@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->16 April 2011</date
+>18 April 2011</date
 ><version
->2.15.0_5</version
+>2.15.0_6</version
 ><contents
 showLevel="4"
 ></contents
@@ -11550,7 +11550,7 @@ type="tAttrValue"
 > and <object
 type="tAttrValue"
 >topOfPage</object
->.  For <object
+>. For <object
 type="tAttrValue"
 >here</object
 > the figure will appear in its place in the flow of the text. The webpage output process ignores this attribute.</langData
@@ -16652,46 +16652,34 @@ type="tXMLmindXMLEditor"
 >Beginning with version 2.6.0 of <object
 type="tXLingPap"
 ></object
->, I am trying to provide an automatic way to produce a PDF file. The freely available programs required to do this are included in the <object
+>, there is an automatic way to produce a PDF file. The freely available programs required to do this are included in the <object
 type="tXLingPap"
 ></object
 > configuration installation package (see section <sectionRef
 sec="sIntroUsingXLingPapConfig"
 ></sectionRef
->). At the time of writing, this method has not been thoroughly tested. If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email message to <link
-href="mailto:andy_black@sil.org"
->andy_black@sil.org</link
->.</p
+>).  There also is an older way to produce PDF.</p
 ><p
->Therefore we have two ways to produce PDF. The most tested way is to use <object
+>Therefore we have two ways to produce PDF.The default way uses <object
+type="tTool"
+>XeTeX</object
+> (see section <sectionRef
+sec="sXeTeX2PDF"
+></sectionRef
+>).  The older way is to use <object
 type="tRenderX"
 ></object
 > (see section <sectionRef
 sec="sRenderX2PDF"
 ></sectionRef
->). The other way uses <object
-type="tTool"
->XeTeX</object
->. The <object
-type="tXLingPap"
-></object
->-specific implementation for the <object
-type="tXeTeX"
-></object
-> approach as mentioned above is new and may not yet work properly in all situations. Please send an email message to <link
-href="mailto:andy_black@sil.org"
->andy_black@sil.org</link
-> if you discover any problems. (Also please note that any limitations are most likely not with <object
-type="tTool"
->XeTeX</object
-> but with my implementation.)</p
+>). </p
 ><p
 ><genericTarget
 id="gPDFReading"
 ></genericTarget
->Also beginning with version 2.6.0, we try to automatically load the PDF file into your default PDF viewer program. Because at least some of these programs refuse to allow the PDF file to be changed while they are showing that PDF file, you need to close the file before it can be made again. If you (like me) happen to forget, a message dialog box will be displayed reminding you to do it.</p
+>Also beginning with version 2.6.0, we try to automatically load the PDF file into your default PDF viewer program. On Windows operating systems, because at least some of these programs refuse to allow the PDF file to be changed while they are showing that PDF file, you need to close the file before it can be made again. If you (like me) happen to forget, a message dialog box will be displayed reminding you to do it.</p
 ><p
->By the way, if you use the freely available <object
+>By the way, on Windows operating systems, if you use the freely available <object
 type="tTool"
 >Foxit READER</object
 > program to read your PDF files, then it is possible to enter annotations or comments in the PDF. The <object
@@ -16716,13 +16704,13 @@ type="tXeTeX"
 id="bXeTeX"
 term="iXeTexPDF"
 ></indexedRangeBegin
->The first way to produce PDF (and the way that I plan to become the normal way<endnote
+>The first and default<endnote
 id="nXeTeXNormalPDFNotRenderX"
 ><p
 >The motivation for making the <object
 type="tXeTeX"
 ></object
-> approach become the normal way is due to both the limitations of the <object
+> approach be the default way is due to both the limitations of the <object
 type="tRenderX"
 ></object
 > approach and, especially, because it is so hard to install the <object
@@ -16736,7 +16724,7 @@ sec="sInstallingRenderXXep"
 ></sectionRef
 >.</p
 ></endnote
->) is to use the menu item <object
+> way to produce PDF is to use the menu item <object
 type="tInstruction"
 >XLingPaper / Produce PDF F9</object
 >.<endnote

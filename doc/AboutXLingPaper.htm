@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_5</span></p>
-      <p align="center">Date: 2011-04-16</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.15.0_6</span></p>
+      <p align="center">Date: 2011-04-21</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,10 +34,22 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.15.0_6 21 April 2011
+                  <ul>
+                     <li>Updated user documentation to refer to the XeLaTeX way of producing PDF as the default way to produce PDF.</li>
+                     <li>XeLaTeX-way of producing PDF:
+                        <ul>
+                           <li>Fixed a bug where listWord, listSingle, and listInterlinear did not have the correct spacing between an exampleHeading and
+                              the first item in the list whenever the ISO 639-3 code was also shown.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.15.0_5 16 April 2011
                   <ul>
                      <li>Floats: changed the implementation of the location attribute when it is set to "here": the float will not be implemented as
-                        a true float.  It will appear here in the flow.
+                        a true float. It will appear here in the flow.
                      </li>
                      <li>XeLaTeX-way of producing PDF:
                         <ul>

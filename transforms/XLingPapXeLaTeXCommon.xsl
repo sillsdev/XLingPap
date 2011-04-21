@@ -5045,20 +5045,64 @@
             <xsl:when test="name()='listInterlinear'">
                 <xsl:variable name="toDoList" select=". | following-sibling::listInterlinear"/>
                 <xsl:for-each select=". | following-sibling::listInterlinear">
-                    <xsl:if test="position() = 1 and not(preceding-sibling::exampleHeading)">
+<!--                    <xsl:if test="position() = 1 and not(preceding-sibling::exampleHeading)">
                         <xsl:if test="not(parent::example[parent::td])">
                             <tex:cmd name="vspace*" nl2="1">
                                 <tex:parm>
                                     <xsl:text>-</xsl:text>
                                     <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                        <xsl:text>1.9</xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="preceding-sibling::exampleHeading">
+                                                <xsl:text>.8</xsl:text>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>1.9</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:if>
-                                    <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
+                                    <!-\- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -\->
                                     <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                                 </tex:parm>
                             </tex:cmd>
                         </xsl:if>
                     </xsl:if>
+-->
+                    <xsl:if test="position() = 1">
+                        <xsl:choose>
+                            <xsl:when test="not(preceding-sibling::exampleHeading)">
+                                <xsl:if test="not(parent::example[parent::td])">
+                                    <tex:cmd name="vspace*" nl2="1">
+                                        <tex:parm>
+                                            <xsl:text>-</xsl:text>
+                                            <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                                                        <xsl:text>1.9</xsl:text>
+                                            </xsl:if>
+                                            <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
+                                            <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="preceding-sibling::exampleHeading and string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                                <xsl:if test="not(parent::example[parent::td])">
+                                    <tex:cmd name="vspace*" nl2="1">
+                                        <tex:parm>
+                                            <xsl:text>-</xsl:text>
+                                                        <xsl:text>.8</xsl:text>
+                                            <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                </xsl:if>
+                                
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- do nothing; it comes out fine -->
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        
+                    </xsl:if>
+                    
+                    
                     <xsl:variable name="sXLingPaperListInterlinear">
                         <xsl:choose>
                             <xsl:when test="parent::example[parent::td]">
@@ -5124,7 +5168,14 @@
                             <xsl:with-param name="sValue">
                                 <xsl:choose>
                                     <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                        <xsl:text>-1.725</xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="preceding-sibling::exampleHeading">
+                                                <xsl:text>-.8</xsl:text>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>-1.725</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:when>
                                     <xsl:when test="preceding-sibling::exampleHeading">
                                         <xsl:text>.1</xsl:text>

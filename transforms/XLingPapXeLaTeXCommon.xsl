@@ -4956,6 +4956,7 @@
     -->
     <xsl:template name="OutputInterlinear">
         <xsl:param name="mode"/>
+        <xsl:call-template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode"/>
         <xsl:choose>
             <xsl:when test="lineSet">
                 <xsl:for-each select="lineSet | conflation">
@@ -5045,28 +5046,6 @@
             <xsl:when test="name()='listInterlinear'">
                 <xsl:variable name="toDoList" select=". | following-sibling::listInterlinear"/>
                 <xsl:for-each select=". | following-sibling::listInterlinear">
-<!--                    <xsl:if test="position() = 1 and not(preceding-sibling::exampleHeading)">
-                        <xsl:if test="not(parent::example[parent::td])">
-                            <tex:cmd name="vspace*" nl2="1">
-                                <tex:parm>
-                                    <xsl:text>-</xsl:text>
-                                    <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                        <xsl:choose>
-                                            <xsl:when test="preceding-sibling::exampleHeading">
-                                                <xsl:text>.8</xsl:text>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:text>1.9</xsl:text>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:if>
-                                    <!-\- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -\->
-                                    <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                                </tex:parm>
-                            </tex:cmd>
-                        </xsl:if>
-                    </xsl:if>
--->
                     <xsl:if test="position() = 1">
                         <xsl:choose>
                             <xsl:when test="not(preceding-sibling::exampleHeading)">
@@ -5075,7 +5054,7 @@
                                         <tex:parm>
                                             <xsl:text>-</xsl:text>
                                             <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                                        <xsl:text>1.9</xsl:text>
+                                                <xsl:text>1.9</xsl:text>
                                             </xsl:if>
                                             <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
                                             <tex:cmd name="baselineskip" gr="0" nl2="0"/>
@@ -5087,22 +5066,17 @@
                                 <xsl:if test="not(parent::example[parent::td])">
                                     <tex:cmd name="vspace*" nl2="1">
                                         <tex:parm>
-                                            <xsl:text>-</xsl:text>
-                                                        <xsl:text>.8</xsl:text>
+                                            <xsl:text>-.8</xsl:text>
                                             <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                                         </tex:parm>
                                     </tex:cmd>
                                 </xsl:if>
-                                
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- do nothing; it comes out fine -->
                             </xsl:otherwise>
                         </xsl:choose>
-                        
                     </xsl:if>
-                    
-                    
                     <xsl:variable name="sXLingPaperListInterlinear">
                         <xsl:choose>
                             <xsl:when test="parent::example[parent::td]">
@@ -5578,8 +5552,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <!-- adjust for a single space character; is there a better way? -->
-                <!-- tyring without this                <xsl:call-template name="SingleSpaceAdjust"/>-->
+                <xsl:call-template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode"/>
                 <xsl:for-each select="langData | gloss">
                     <xsl:apply-templates select="self::*"/>
                     <tex:spec cat="esc"/>
@@ -5587,6 +5560,19 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode">
+        <xsl:variable name="sIsoCode">
+            <xsl:call-template name="GetISOCode"/>
+        </xsl:variable>
+        <xsl:if test="string-length($sIsoCode) &gt; 0 and preceding-sibling::exampleHeading">
+            <tex:cmd name="vspace*" nl2="1">
+                <tex:parm>
+                    <xsl:text>-.8</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         ReportTeXCannotHandleThisMessage

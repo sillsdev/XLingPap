@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->18 April 2011</date
+>25 April 2011</date
 ><version
->2.15.0_6</version
+>2.15.0_7</version
 ><contents
 showLevel="4"
 ></contents
@@ -287,7 +287,7 @@ type="tXMLmindXMLEditor"
 > from this website: <link
 href="http://www.xmlmind.com/xmleditor/"
 >http://www.xmlmind.com/xmleditor/</link
->. As of March 19, 2010, you can download a version from <link
+>. As of April 25, 2011, you can download a version from <link
 href="http://www.xmlmind.com/xmleditor/download.shtml"
 >http://www.xmlmind.com/xmleditor/download.shtml</link
 >. Windows users should download the installer that comes with the bundled Java runtime. Use the edition (Personal or Professional) that is appropriate for your situation.<endnote
@@ -315,8 +315,8 @@ term="iXLingPaperConfig"
 type="tXLingPap"
 ></object
 > configuration installation package from this website: <link
-href="http://code.google.com/p/xlingpap/downloads/list"
->http://code.google.com/p/xlingpap/downloads/list</link
+href="http://www.xlingpaper.org/?page_id=51"
+>http://www.xlingpaper.org</link
 >. After you finish running this installer, the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -1215,8 +1215,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://code.google.com/p/xlingpap/downloads/list"
->http://code.google.com/p/xlingpap/downloads/list</link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
 >.</td
 ><td
 ><table
@@ -1259,8 +1259,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://code.google.com/p/xlingpap/downloads/list"
->http://code.google.com/p/xlingpap/downloads/list</link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
 >.</td
 ><td
 >graphite</td
@@ -7648,6 +7648,14 @@ sec="sExInterlinearMorph"
 sec="sExamples"
 ></sectionRef
 > for how to insert an example.)</p
+><p
+>Please note that within the <object
+type="tXMLmindXMLEditor"
+></object
+>, interlinears will often not be aligned properly.  This is fine.  Remember that the <object
+type="tXMLmindXMLEditor"
+></object
+> is not a “What You See Is What You Get” editor.  The output (whether web page, PDF, Word or Open Office) will be aligned.</p
 ><section3
 id="sExInterlinearSingle"
 ><secTitle
@@ -16009,8 +16017,8 @@ href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=Compl
 > for more on how to do this. (This link was valid on July 10, 2009.)</p
 ></endnote
 > There is also a set of Charis SIL Small Caps fonts at <link
-href="http://code.google.com/p/xlingpap/downloads/list"
->http://code.google.com/p/xlingpap/downloads/list</link
+href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
+>http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
 >.</p
 ></section2
 ><section2
@@ -16658,7 +16666,7 @@ type="tXLingPap"
 > configuration installation package (see section <sectionRef
 sec="sIntroUsingXLingPapConfig"
 ></sectionRef
->).  There also is an older way to produce PDF.</p
+>). There also is an older way to produce PDF.</p
 ><p
 >Therefore we have two ways to produce PDF.The default way uses <object
 type="tTool"
@@ -16666,13 +16674,13 @@ type="tTool"
 > (see section <sectionRef
 sec="sXeTeX2PDF"
 ></sectionRef
->).  The older way is to use <object
+>). The older way is to use <object
 type="tRenderX"
 ></object
 > (see section <sectionRef
 sec="sRenderX2PDF"
 ></sectionRef
->). </p
+>).</p
 ><p
 ><genericTarget
 id="gPDFReading"
@@ -16934,8 +16942,8 @@ href="http://xmlgraphics.apache.org/batik/tools/rasterizer.html"
 >.</p
 ></endnote
 > that will enable you to make this conversion. Go to <link
-href="http://code.google.com/p/xlingpap/downloads/list"
->http://code.google.com/p/xlingpap/downloads/list</link
+href="http://www.xlingpaper.org/?page_id=4#SVGtoPDF"
+>http://www.xlingpaper.org/?page_id=4#SVGtoPDF</link
 > and download the appropriate installer for your operating system:<table
 border="1"
 ><tr
@@ -17141,14 +17149,6 @@ href="http://www.renderx.com/download/personal.html"
 href="http://www.renderx.com/download/academic.html"
 >http://www.renderx.com/download/academic.html</link
 >.<endnote
-id="nXEPAcademic"
-><p
->Lars Huttar has obtained a ten-seat academic license for SIL use. Write to <link
-href="mailto::lars_huttar@sil.org"
->Lars</link
-> if you want to have one.</p
-></endnote
-><endnote
 id="nApacheFOPBeta0.92"
 ><p
 >I also tried the freely available FO-to-PDF converter tool called <link
@@ -17556,10 +17556,10 @@ type="tXMLmindXSLUtility"
 ></object
 > tool does not pay attention to font metric information.</p
 ></endnote
-> This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by downloading <link
-href="http://xlingpap.googlecode.com/files/XLingPaperToWord2003Adjust.doc"
->http://xlingpap.googlecode.com/files/XLingPaperToWord2003Adjust.doc</link
-> and following the instructions in that Word file.</li
+> This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by going to <link
+href="http://www.xlingpaper.org/?page_id=4#MSWord"
+>http://www.xlingpaper.org/?page_id=4#MSWord</link
+>, downloading the file and following the instructions in that Word file.</li
 ><li
 >Tables and interlinear examples may be split across page boundaries.<endnote
 id="nXFCWidowOrphan"
@@ -17703,10 +17703,10 @@ note="nXFCNoFontMetics"
 > This includes many example elements. There is an Open Office Extension package I have written to help with this. The macro attempts to apply the "auto-fit" table capability to all the tables in the document. You can obtain the macro by performing these steps:</p
 ><ol
 ><li
->Download the <link
-href="http://xlingpap.googlecode.com/files/XLingPaper.oxt"
->http://xlingpap.googlecode.com/files/XLingPaper.oxt</link
-> file</li
+>Go to <link
+href="http://www.xlingpaper.org/?page_id=4#OOWriter"
+>http://www.xlingpaper.org/?page_id=4#OOWriter</link
+> and download the XLingPaper.oxt file</li
 ><li
 >In Open Office, use <object
 type="tInstruction"

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 April 2011</date
+>26 April 2011</date
 ><version
->2.15.0_7</version
+>2.16.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -7652,10 +7652,10 @@ sec="sExamples"
 >Please note that within the <object
 type="tXMLmindXMLEditor"
 ></object
->, interlinears will often not be aligned properly.  This is fine.  Remember that the <object
+>, interlinears will often not be aligned properly. This is fine. Remember that the <object
 type="tXMLmindXMLEditor"
 ></object
-> is not a “What You See Is What You Get” editor.  The output (whether web page, PDF, Word or Open Office) will be aligned.</p
+> is not a “What You See Is What You Get” editor. The output (whether web page, PDF, Word or Open Office) will be aligned.</p
 ><section3
 id="sExInterlinearSingle"
 ><secTitle

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 April 2011</date
+>26 April 2011</date
 ><version
->2.15.0_4</version
+>2.16.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -8529,13 +8529,13 @@ type="tElement"
 > element, the formatting that is used depends on what the closest element to that <object
 type="tElement"
 >langData</object
-> element is.  If an <object
+> element is. If an <object
 type="tElement"
 >example</object
-> is closest, then the formatting for an example is used.  If a <object
+> is closest, then the formatting for an example is used. If a <object
 type="tElement"
 >table</object
-> is closest, then the formatting for a table is used.  If an <object
+> is closest, then the formatting for a table is used. If an <object
 type="tElement"
 >endnote</object
 > or any other element is closest, then the formatting for prose is used.</p

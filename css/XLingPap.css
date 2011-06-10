@@ -95,8 +95,8 @@
 }
 @property-group fontColor()
 {	
-    content: "  "
-			 command-button(text, "  Click to Set Font Info  ", 
+    content: "  " 
+			 command-button(text, "  Click to Set Font Info  ",  
 							command, "ChooseFontCmd",
 							border-style, solid,
 							border-width, thin,
@@ -326,8 +326,8 @@ abbreviation
 }
 abbreviations[label]:before
 {
-		content: "  "
-		text-field(attribute,label);
+		content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	"  " text-field(attribute,label);
 }
 abbreviations:before
 {

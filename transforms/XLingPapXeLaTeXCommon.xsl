@@ -922,6 +922,17 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="phrase" mode="NoTextRef">
+        <xsl:choose>
+            <xsl:when test="position() != 1">
+                <tex:cmd name="par" gr="0" nl2="1"/>
+                <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--
         phrase/item
     -->
@@ -993,9 +1004,14 @@
         iword
     -->
     <xsl:template match="iword">
-        <xsl:if test="count(preceding-sibling::iword)=0">
-            <tex:cmd name="raggedright" gr="0" nl2="0"/>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="count(preceding-sibling::iword)=0">
+                <tex:cmd name="raggedright" gr="0" nl2="0"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <tex:cmd name="leavevmode" gr="0" nl2="0"/>
         <tex:cmd name="hbox">
             <tex:parm>
@@ -1146,7 +1162,15 @@
     -->
     <xsl:template match="morph/item[@type='cf']">
         <!--      <tex:group>-->
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
         <xsl:variable name="homographNumber" select="following-sibling::item[@type='hn']"/>
         <xsl:if test="$homographNumber">
             <tex:cmd name="textsubscript">

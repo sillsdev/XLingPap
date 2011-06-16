@@ -2782,10 +2782,10 @@
                     collection
                 -->
             <xsl:if test="collection">
-                <xsl:value-of select="$sLdquo"/>
+<!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-                <xsl:value-of select="$sRdquo"/>
+<!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text> In </xsl:text>
                 <xsl:choose>
                     <xsl:when test="collection/collCitation">
@@ -2950,10 +2950,10 @@
                 field notes
             -->
             <xsl:if test="fieldNotes">
-                <xsl:value-of select="$sLdquo"/>
+<!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-                <xsl:value-of select="$sRdquo"/>
+<!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:if test="fieldNotes/location">
                     <xsl:text> (</xsl:text>
@@ -2970,10 +2970,10 @@
                     ms (manuscript)
                 -->
             <xsl:if test="ms">
-                <xsl:value-of select="$sLdquo"/>
+<!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-                <xsl:value-of select="$sRdquo"/>
+<!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:if test="ms/location">
                     <xsl:text> (</xsl:text>
@@ -2983,7 +2983,7 @@
                 <xsl:value-of select="normalize-space(ms/institution)"/>
                 <xsl:choose>
                     <xsl:when test="ms">
-                        <xsl:text> ms.</xsl:text>
+                        <xsl:text> Manuscript.</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>.</xsl:text>
@@ -2997,10 +2997,10 @@
                     paper
                 -->
             <xsl:if test="paper">
-                <xsl:value-of select="$sLdquo"/>
+<!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-                <xsl:value-of select="$sRdquo"/>
+<!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>  Paper presented at the </xsl:text>
                 <xsl:value-of select="normalize-space(paper/conference)"/>
                 <xsl:if test="paper/location">
@@ -3016,10 +3016,10 @@
                     proceedings
                 -->
             <xsl:if test="proceedings">
-                <xsl:value-of select="$sLdquo"/>
+<!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-                <xsl:value-of select="$sRdquo"/>
+<!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:choose>
                     <xsl:when test="proceedings/procCitation">
                         <xsl:text>  In </xsl:text>

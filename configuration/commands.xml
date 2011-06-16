@@ -64,8 +64,8 @@
                                 <cfg:command name="convertCase" parameter="lower"/>
                                 <cfg:get expression="$clipboard"/>
                                 <cfg:set variable="abbrLowerToConvert" expression="%_" plainString="true"/>
-                                <cfg:get expression="$abbrLowerToConvert"/>
-                                <cfg:command name="alert" parameter="abbrLowerToConvert = |%_|"/>
+                                <!--<cfg:get expression="$abbrLowerToConvert"/>
+                                <cfg:command name="alert" parameter="abbrLowerToConvert = |%_|"/>-->
                                 <cfg:set variable="abbrId" expression="//abbreviation[descendant::abbrTerm[.=$abbrLowerToConvert]]/@id"/>
                                 <cfg:choice>
                                     <cfg:sequence>
@@ -336,6 +336,9 @@
     <cfg:command name="ConvertFileNameToURICmd">
         <cfg:class>xlingpaper.xxe.ConvertFileNameToURI</cfg:class>
     </cfg:command>
+    <cfg:command name="LocalizeString">
+        <cfg:class>xlingpaper.xxe.LocalizeString</cfg:class>
+    </cfg:command>
     <!-- no longer needed because XXE now has Search / Bookmarks
    <cfg:binding>
       <cfg:keyPressed code="F6"/>
@@ -447,7 +450,9 @@
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test context="$selected" expression="name(.)='section1' and count(//chapter) = 0"/>
-                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>
+<!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>-->
+                        <cfg:command name="LocalizeString" parameter="command.promote_section1_no_chapter"/>
+                        <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:match context="$selected" pattern="section1 | section2 | section3 | section4 | section5 | section6"/>
@@ -666,7 +671,7 @@ alt causes menu to be selected
         <cfg:command name="insertThenSetReferenceRange"/>
     </cfg:binding>
     <cfg:command name="insertThenSetReferenceRange">
-        <cfg:macro undoable="true" trace="true">
+        <cfg:macro undoable="true" trace="false">
             <cfg:sequence>
                 <cfg:sequence>
                     <cfg:pass>
@@ -713,7 +718,7 @@ alt causes menu to be selected
         <cfg:command name="setReference"/>
     </cfg:binding>
     <cfg:command name="setReference">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="setAbbreviation"/>
@@ -850,7 +855,7 @@ alt causes menu to be selected
         </cfg:macro>
     </cfg:command>
     <cfg:command name="setExample">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:command name="selectNode" parameter="self[implicitElement] exampleRef"/>

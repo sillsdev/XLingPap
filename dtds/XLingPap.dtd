@@ -152,7 +152,7 @@ For when we get author contacts turned on...
 <!ATTLIST author
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT affiliation (#PCDATA)>
+<!ELEMENT affiliation (#PCDATA | %embedded;)*>
 <!ATTLIST affiliation
     xml:lang CDATA #IMPLIED
 >

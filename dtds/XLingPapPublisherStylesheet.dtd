@@ -59,6 +59,9 @@ Page Layout
                         linkLayout?,
                         headerFooterPageStyles?
 )>
+<!ATTLIST pageLayout
+    ignorePageWidthForWebPageOutput (yes | no) 'no'
+>
     <!ELEMENT basicPointSize (#PCDATA) >
     <!ELEMENT blockQuoteIndent (#PCDATA) >
     <!ELEMENT defaultFontFamily (#PCDATA) >

@@ -66,5 +66,6 @@ location="XLingPap.sch"
 saveCharsAsEntityRefs="false"
 indent="none"
 ></saveOptions
-></configuration
+><translation location="localizations/XLingPap_en.properties"/>
+</configuration
 >

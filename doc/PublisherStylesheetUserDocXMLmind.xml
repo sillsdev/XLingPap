@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->26 April 2011</date
+>15 June 2011</date
 ><version
->2.16.0</version
+>2.16.0_2</version
 ><contents
 showLevel="6"
 ></contents
@@ -188,6 +188,26 @@ src="resources/PageLayoutSizeMargins.png"
 ></img
 ></chart
 ></example
+><p
+>Note that for the Web Page output, you can have the output ignore the page width by clicking on the <object
+type="tElement"
+>pageLayout</object
+> element and setting its <object
+type="tAttribute"
+>ignorePageWidthForWebPageOutput</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.  In this case, there will be no fixed page width in the web page output (i.e. it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
+type="tAttribute"
+>ignorePageWidthForWebPageOutput</object
+> attribute is ignored by both the <object
+type="tXeTeX"
+></object
+> and the <object
+type="tRenderX"
+></object
+> ways of producing PDF.</p
 ><p
 >Click in the black text to change a value. <indexedItem
 main="yes"

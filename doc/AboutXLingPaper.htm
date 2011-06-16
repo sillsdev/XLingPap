@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.16.0_1</span></p>
-      <p align="center">Date: 2011-06-10</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.16.0_2</span></p>
+      <p align="center">Date: 2011-06-15</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,31 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.6.0_2 15 June 2011
+                  <ul>
+                     <li>Made SIL publisher style sheets conform more closely to the SIL International Publications Style sheet.</li>
+                     <li>Enable the affiliation element to have embedded elements (like object).</li>
+                     <li>Web page output when there is an associated publisher style sheet:
+                        <ul>
+                           <li>Added an ignorePageWidthForWebPageOutput attribute to the pageLayout element of a publisher style sheet.  If it is set to
+                              'yes', then there is no fixed page width in the web page output (i.e. it "fills" the width like the web page output does when
+                              there is no associated publisher style sheet).
+                           </li>
+                        </ul>
+                     </li>
+                     <li>XeLaTeX way of producing PDF:
+                        <ul>
+                           <li>Fix some bugs with the morpheme-aligned interlinear:
+                              <ul>
+                                 <li>Morpheme-aligned interlinear was incorrectly running off the right edge of the paper.</li>
+                                 <li>item elements with type attribute set to cf were not getting font information.</li>
+                                 <li>Interlinear text in appendices were not being formatted correctly.</li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.6.0_1 10 June 2011
                   <ul>
                      <li>Fix a bug: If a set of abbreviations had a label, it was not possible to see the contents of the abbreviations.</li>

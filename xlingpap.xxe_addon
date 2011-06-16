@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.16.0_2</a:version
+>2.16.0_3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-06-15</a:date
+>2011-06-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,6 +32,12 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.6.0_3 16 June 2011<ul
+><li
+>Make XHTML web page output use UTF-8 so browsers like Internet Explorer will display data correctly.</li
+></ul
+></li
+><li
 >2.6.0_2 15 June 2011<ul
 ><li
 >Made SIL publisher style sheets conform more closely to the SIL International Publications Style sheet.</li
@@ -40,7 +46,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Web page output when there is an associated publisher style sheet:<ul
 ><li
->Added an ignorePageWidthForWebPageOutput attribute to the pageLayout element of a publisher style sheet.  If it is set to 'yes', then there is no fixed page width in the web page output (i.e. it "fills" the width like the web page output does when there is no associated publisher style sheet).</li
+>Added an ignorePageWidthForWebPageOutput attribute to the pageLayout element of a publisher style sheet. If it is set to 'yes', then there is no fixed page width in the web page output (i.e. it "fills" the width like the web page output does when there is no associated publisher style sheet).</li
 ></ul
 ></li
 ><li

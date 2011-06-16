@@ -153,6 +153,7 @@
                     <xsl:value-of select="//title"/>
                 </title>
                 <link rel="stylesheet" href="{$sFileName}.css" type="text/css"/>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!--                <meta name="{$sFileName}" http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     If we decide to get serious about meta data, look at http://dublincore.org/documents/dc-html/ and follow what it says.
 -->

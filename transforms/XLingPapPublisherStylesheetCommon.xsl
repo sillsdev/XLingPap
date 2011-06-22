@@ -1399,6 +1399,11 @@
                                     <xsl:with-param name="item" select="normalize-space($ms/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='emptyItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($ms/empty)"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$ms"/>
@@ -2608,6 +2613,10 @@
                 <xsl:when test="institution">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="empty">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
         </xsl:variable>
         <xsl:variable name="sPosition">
@@ -2625,13 +2634,17 @@
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='y' and institutionItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 3, 1)='n' and not(institutionItem)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 4, 1)='y' and emptyItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 4, 1)='n' and not(emptyItem)">x</xsl:when>
+                    </xsl:choose>
                     <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="urlPos">4</xsl:with-param>
+                        <xsl:with-param name="urlPos">5</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
+                        <xsl:with-param name="dateAccessedPos">6</xsl:with-param>
                     </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -2640,7 +2653,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 7">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>

@@ -158,7 +158,8 @@
 <!-- field notes -->
 <!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, iso639-3code*, comment?)>
 <!-- ms (manuscript) -->
-<!ELEMENT ms (location?, institution, url?, dateAccessed?, iso639-3code*, comment?)>
+<!ELEMENT ms (((location?, institution) | empty), url?, dateAccessed?, iso639-3code*, comment?)>
+<!ELEMENT empty EMPTY>
 <!-- paper presented at a conference -->
 <!ELEMENT paper (conference, location?, url?, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT conference (#PCDATA)>

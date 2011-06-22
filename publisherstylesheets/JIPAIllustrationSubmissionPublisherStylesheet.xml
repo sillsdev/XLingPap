@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Journal of the IPA Illustration Submission Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.1.1</publisherStyleSheetVersion
+>0.1.2</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -1208,7 +1208,7 @@ textafter=".  "
 ></collectionLayouts
 ><dissertationLayouts
 ><comment
->Dissertation Layouts</comment
+>Dissertation Layoutse</comment
 ><dissertationLayout
 ><refTitleItem
 textafter=".  "
@@ -1322,6 +1322,16 @@ textafter=".  "
 ><institutionItem
 textafter=".  ms."
 ></institutionItem
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></msLayout
+><msLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><emptyItem
+textafter="ms."
+></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></msLayout

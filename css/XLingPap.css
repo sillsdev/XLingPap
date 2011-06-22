@@ -973,6 +973,17 @@ emailAddress {
     margin-bottom: .67ex;
 }
 
+empty
+{
+	display:inline;
+}
+empty:after
+{
+	content: "(empty)";
+	font-style:italic;
+	font-size:smaller;
+}
+
 endCaption { 
     display: table-caption;
     font-style: italic;
@@ -4583,6 +4594,30 @@ emailAddressLayout[textalign]
 emailAddressLayout
 {
 	property-group: titledItem("Author's Email Address");
+}
+emptyItem[color]
+{
+	color:concatenate(attr(color));
+}
+emptyItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+emptyItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+emptyItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+emptyItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+emptyItem
+{
+	property-group: referencesItem("");
 }
 endnoteRefLayout[color]
 {

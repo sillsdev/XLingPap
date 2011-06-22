@@ -1672,7 +1672,16 @@
             <xsl:when test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
                 <xsl:variable name="previousTextOrBr" select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
                 <xsl:if test="name($previousTextOrBr[2])='br'">
+<!--                    <xsl:if test="name($previousTextOrBr[2])='br' or name($previousTextOrBr[1])='br'">-->
+                        <!-- two <br/>s in a row need some content; use a non-breaking space -->
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:if>
+                <xsl:if test="name($previousTextOrBr[1])='br' and count($previousTextOrBr)=1">
+                    <!--                    <xsl:if test="name($previousTextOrBr[2])='br' or name($previousTextOrBr[1])='br'">-->
                     <!-- two <br/>s in a row need some content; use a non-breaking space -->
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:if>
+                <xsl:if test="preceding-sibling::*[1][name()='img']">
                     <xsl:text>&#xa0;</xsl:text>
                 </xsl:if>
                 <tex:spec cat="esc"/>
@@ -1741,6 +1750,15 @@
     <!-- ===========================================================
         OBJECT
         =========================================================== -->
+    <xsl:template match="object" mode="bookmarks">
+        <xsl:for-each select="key('TypeID',@type)">
+            <xsl:value-of select="@before"/>
+        </xsl:for-each>
+        <xsl:apply-templates mode="bookmarks"/>
+        <xsl:for-each select="key('TypeID',@type)">
+            <xsl:value-of select="@after"/>
+        </xsl:for-each>
+    </xsl:template>
     <xsl:template match="object" mode="InMarker">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
@@ -4407,7 +4425,7 @@
             </xsl:choose>
         </xsl:variable>
         <tex:group>
-            <xsl:if test="$abbreviations/@usesmallcaps='yes'">
+            <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <tex:cmd name="fontspec">
                     <tex:opt>Scale=0.65</tex:opt>
                     <tex:parm>
@@ -4450,7 +4468,7 @@
             <xsl:call-template name="OutputFontAttributesEnd">
                 <xsl:with-param name="language" select="$abbreviations"/>
             </xsl:call-template>
-            <xsl:if test="$abbreviations/@usesmallcaps='yes'">
+            <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
         </tex:group>

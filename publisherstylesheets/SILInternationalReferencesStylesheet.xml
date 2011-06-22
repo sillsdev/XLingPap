@@ -7,7 +7,7 @@ hangingindentsize=".25in"
 ><publisherStyleSheetReferencesName
 >SIL International References Style Sheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->0.1.0</publisherStyleSheetReferencesVersion
+>0.1.1</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -1070,6 +1070,16 @@ textafter=".  "
 ><institutionItem
 textafter=".  Manuscript."
 ></institutionItem
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></msLayout
+><msLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><emptyItem
+textafter="Manuscript."
+></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></msLayout

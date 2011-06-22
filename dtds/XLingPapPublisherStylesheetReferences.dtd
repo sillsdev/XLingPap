@@ -76,7 +76,7 @@ References Layouts
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | 
                                                urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | 
+<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | 
                                                urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
@@ -87,6 +87,8 @@ References Layouts
 <!ELEMENT webPageLayout (refTitleItem | editionItem |  locationItem |  institutionItem |  publisherItem | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 
+<!ELEMENT emptyItem EMPTY >
+<!ATTLIST emptyItem %formatinfo;>
 <!ELEMENT jTitleItem EMPTY >
 <!ATTLIST jTitleItem %formatinfo;>
 <!ELEMENT jVolItem EMPTY >

@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Language (LSA Journal) Paper Style Sheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.4</publisherStyleSheetVersion
+>0.4.5</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -1397,6 +1397,17 @@ textbefore=""
 ><institutionItem
 textafter=", ms."
 ></institutionItem
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></msLayout
+><msLayout
+><refTitleItem
+textafter=".  "
+textbefore=""
+></refTitleItem
+><emptyItem
+textafter="ms."
+></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></msLayout

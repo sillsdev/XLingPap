@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.16.0_3</a:version
+>2.16.0_4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-06-16</a:date
+>2011-06-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,24 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.6.0_4 22 June 2011<ul
+><li
+>No longer require an institution element within a ms reference work.</li
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Fix bug: if abbreviations had both font-variant set to 'small-caps' and had usesmallcaps set to 'yes', the PDF would fail to be produced.</li
+><li
+>Fix bug: ignore image and break-line elements when using a paper title as a header or footer.</li
+><li
+>Fix bug: if a title element begins with non-text containing elements and one of those is a br element, the PDF would fail to be produced.</li
+><li
+>Fix bug: when a section title used an &lt;object&gt; element that referred to a &lt;type&gt; element with text in either the before or after attributes, that text would not show in the PDF bookmarks.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.6.0_3 16 June 2011<ul
 ><li

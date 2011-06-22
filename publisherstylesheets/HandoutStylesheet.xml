@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Publisher Stylesheet For Handouts</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.1</publisherStyleSheetVersion
+>0.4.2</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -349,8 +349,7 @@ textafter=".  "
 >Article in a Journal Layouts</comment
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -372,8 +371,7 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -392,8 +390,7 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -415,8 +412,7 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -435,8 +431,7 @@ textafter=".  "
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -455,8 +450,7 @@ textbefore="("
 ></articleLayout
 ><articleLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><jTitleItem
 font-style="italic"
@@ -912,8 +906,7 @@ textafter=".  "
 >Paper in a Collection Layouts</comment
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -936,8 +929,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -957,8 +949,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -978,8 +969,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -996,8 +986,7 @@ textbefore="  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1017,8 +1006,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1035,8 +1023,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1053,8 +1040,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1068,8 +1054,7 @@ textbefore="  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1089,8 +1074,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1107,8 +1091,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1125,8 +1108,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1140,8 +1122,7 @@ textbefore=", "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1158,8 +1139,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1173,8 +1153,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1188,8 +1167,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter="."
@@ -1200,8 +1178,7 @@ textbefore="In "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -1227,8 +1204,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -1251,8 +1227,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -1349,8 +1324,7 @@ textafter=".  "
 >Field Note Layouts</comment
 ><fieldNotesLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><locationItem
 textafter=":"
@@ -1363,8 +1337,7 @@ textafter="."
 ></fieldNotesLayout
 ><fieldNotesLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><institutionItem
 textafter="."
@@ -1378,8 +1351,7 @@ textafter="."
 >Manuscript Layouts</comment
 ><msLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><locationItem
 textafter=":"
@@ -1392,12 +1364,21 @@ textafter=".  ms."
 ></msLayout
 ><msLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><institutionItem
 textafter=".  ms."
 ></institutionItem
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></msLayout
+><msLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><emptyItem
+textafter="ms."
+></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></msLayout
@@ -1407,8 +1388,7 @@ textafter=".  ms."
 >Paper Presented at a Conference Layouts</comment
 ><paperLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><conferenceItem
 textafter=".  "
@@ -1421,8 +1401,7 @@ textafter="."
 ></paperLayout
 ><paperLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><conferenceItem
 textafter=".  "
@@ -1436,8 +1415,7 @@ textafter=".  "
 >Paper in a Proceedings Volume Layouts</comment
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1459,8 +1437,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1479,8 +1456,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1499,8 +1475,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1520,8 +1495,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1538,8 +1512,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procEdItem
 textafter=".  "
@@ -1556,8 +1529,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
@@ -1576,8 +1548,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
@@ -1593,8 +1564,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procTitleItem
 font-style="italic"
@@ -1610,8 +1580,7 @@ textafter=".  "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procCitationItem
 textbefore="In "
@@ -1631,8 +1600,7 @@ textafter="."
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procCitationItem
 textbefore="In "
@@ -1649,8 +1617,7 @@ textafter=". "
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procCitationItem
 textbefore="In "
@@ -1667,8 +1634,7 @@ textafter="."
 ></proceedingsLayout
 ><proceedingsLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><procCitationItem
 textbefore="In "
@@ -1756,8 +1722,7 @@ textafter=".  "
 >Web Page Layouts</comment
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><editionItem
 textafter=".  "
@@ -1773,8 +1738,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><editionItem
 textafter=".  "
@@ -1790,8 +1754,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><editionItem
 textafter=".  "
@@ -1804,8 +1767,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><editionItem
 textafter=".  "
@@ -1818,8 +1780,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><editionItem
 textafter=".  "
@@ -1829,8 +1790,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><locationItem
 textafter=": "
@@ -1843,8 +1803,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><locationItem
 textafter=": "
@@ -1857,8 +1816,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><locationItem
 textafter=".  "
@@ -1868,8 +1826,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><institutionItem
 textafter=".  "
@@ -1879,8 +1836,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><publisherItem
 textafter=".  "
@@ -1890,8 +1846,7 @@ textafter=".  "
 ></webPageLayout
 ><webPageLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef

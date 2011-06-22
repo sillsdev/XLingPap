@@ -7,7 +7,7 @@ hangingindentsize=".25in"
 ><publisherStyleSheetReferencesName
 >International Journal of American Linguistics Paper References Stylesheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->0.4.0</publisherStyleSheetReferencesVersion
+>0.4.1</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -768,6 +768,17 @@ textbefore=""
 ><institutionItem
 textafter=", ms."
 ></institutionItem
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></msLayout
+><msLayout
+><refTitleItem
+textafter=".  "
+textbefore=""
+></refTitleItem
+><emptyItem
+textafter="ms."
+></emptyItem
 ><urlDateAccessedLayoutsRef
 ></urlDateAccessedLayoutsRef
 ></msLayout

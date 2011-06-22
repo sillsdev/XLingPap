@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->23 March 2011</date
+>22 June 2011</date
 ><version
->2.15.0</version
+>2.16.0_4</version
 ><contents
 showLevel="3"
 ></contents
@@ -1430,12 +1430,15 @@ type="tElement"
 >ms</object
 ></secTitle
 ><p
->This is for an unpublished manuscript. Besides the date and the title, a manuscript also has an optional <object
+>This is for an unpublished manuscript. Besides the date and the title, a manuscript also has either an optional <object
 type="tElement"
 >location</object
-> element and a required <object
+> element followed by a required <object
 type="tElement"
 >institution</object
+> element or it has a required <object
+type="tElement"
+>empty</object
 > element.</p
 ></section3
 ><section3
@@ -9204,6 +9207,13 @@ type="tElement"
 ></dt
 ><dd
 >The email address of an author</dd
+><dt
+><object
+type="tElement"
+>empty</object
+></dt
+><dd
+>Reference information for a manuscript where there is neither an institution nor a location</dd
 ><dt
 ><object
 type="tElement"

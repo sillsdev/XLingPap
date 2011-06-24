@@ -3136,10 +3136,10 @@
                     proceedings
                 -->
                 <xsl:if test="proceedings">
-                    <xsl:value-of select="$sLdquo"/>
+<!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-                    <xsl:value-of select="$sRdquo"/>
+<!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:choose>
                         <xsl:when test="proceedings/procCitation">
                             <xsl:text>  In </xsl:text>
@@ -3240,10 +3240,10 @@
                     webPage
                 -->
                 <xsl:if test="webPage">
-                    <xsl:value-of select="$sLdquo"/>
+<!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-                    <xsl:value-of select="$sRdquo"/>
+<!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>&#x20;</xsl:text>
                     <xsl:if test="webPage/edition">
                         <xsl:value-of select="normalize-space(webPage/edition)"/>

@@ -3790,7 +3790,7 @@ not using
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <!--                              <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']" mode="contentOnly"/>-->
-                                        <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']"/>
+                                        <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>

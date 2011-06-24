@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.16.0_4</a:version
+>2.16.0_5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-06-22</a:date
+>2011-06-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.6.0_5 24 June 2011<ul
+><li
+>RenderX way of producing PDF (and also Word output and Open Office Writer output): Fix bug: ignore image and break-line elements when using a paper title as a header or footer.</li
+></ul
+></li
 ><li
 >2.6.0_4 22 June 2011<ul
 ><li

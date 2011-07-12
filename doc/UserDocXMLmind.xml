@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->22 June 2011</date
+>8 July 2011</date
 ><version
->2.16.0_4</version
+>2.16.0_5</version
 ><contents
 showLevel="4"
 ></contents
@@ -19190,6 +19190,65 @@ type="tAttribute"
 >id</object
 > attribute to the new value.</p
 ></section2
+><section2
+id="sFAQSpecialSymbol"
+><secTitle
+>Key a special symbol?</secTitle
+><p
+><indexedItem
+term="iSpecialSymbol"
+></indexedItem
+><indexedItem
+term="iCharacterInsertSpecial"
+></indexedItem
+><indexedItem
+term="iSpecialCharacter"
+></indexedItem
+><indexedItem
+term="iSpecialCharacterInsert"
+></indexedItem
+><indexedItem
+term="iSymbolInsertSpecial"
+></indexedItem
+>There are two possible ways to key a special symbol.  Possibly the easiest way is to do this:</p
+><ol
+><li
+>At the point you want to insert a special symbol, type <object
+type="tKey"
+>Esc</object
+>, release it, then immediately type a capital <object
+type="tKey"
+>C</object
+>.</li
+><li
+>You will see a dialog like this:<chart
+> <img
+src="resources/InsertCharacterDialog.png"
+></img
+> </chart
+></li
+><li
+>As you can see, it has some cryptic names for a whole set of characters.  It also shows what the character looks like.</li
+><li
+>Scan down for the character you want or, if you happen to know its abbreviation, start typing the abbreviation. The dialog will show only those abbreviations that begin with what you have typed.</li
+><li
+>When the symbol you want has been selected, press the <object
+type="tKey"
+>Enter</object
+> key.</li
+></ol
+><p
+><indexedItem
+term="iCharactersTool"
+></indexedItem
+>The second way to key such a special symbol is to use the <object
+type="tXMLmindXMLEditor"
+></object
+>'s Character Tool.<endnoteRef
+note="nCharacterTool"
+></endnoteRef
+>  Look for your character in the list and click on it. </p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -22699,6 +22758,12 @@ id="iChapter"
 >Chapter</term
 ></indexTerm
 ><indexTerm
+id="iCharacterInsertSpecial"
+see="iSpecialSymbol"
+><term
+>Character, insert special</term
+></indexTerm
+><indexTerm
 id="iCharactersTool"
 ><term
 >Characters Tool</term
@@ -23050,6 +23115,17 @@ id="iInsert"
 id="iInsertElement"
 ><term
 >Insert Element</term
+></indexTerm
+><indexTerm
+id="iSpecialCharacter"
+see="iSpecialSymbol"
+><term
+>Special character</term
+></indexTerm
+><indexTerm
+id="iSpecialSymbol"
+><term
+>Special symbol</term
 ></indexTerm
 ><indexTerm
 id="iInsertText"
@@ -23505,6 +23581,12 @@ see="iReferencesSort"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iSpecialCharacterInsert"
+see="iSpecialSymbol"
+><term
+>Special character/symbol, insert</term
+></indexTerm
+><indexTerm
 id="iSpellingTool"
 ><term
 >Spelling Tool</term
@@ -23529,6 +23611,12 @@ id="iSubtitle"
 id="iSuperscript"
 ><term
 >Superscript</term
+></indexTerm
+><indexTerm
+id="iSymbolInsertSpecial"
+see="iSpecialSymbol"
+><term
+>Symbol, insert special</term
 ></indexTerm
 ><indexTerm
 id="iTables"

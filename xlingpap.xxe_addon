@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-07-26</a:date
+>2011-07-30</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 26 July 2011<ul
+>2.6.0_5 30 July 2011<ul
 ><li
 >RenderX way of producing PDF (and also Word output and Open Office Writer output): Fix bug: ignore image and break-line elements when using a paper title as a header or footer.</li
 ><li
@@ -41,6 +41,8 @@ href="mailto::andy_black@sil.org"
 >Add section to user documentation on how to insert special symbols.</li
 ><li
 >Make XLingPaper be localizable.</li
+><li
+>If the abbreviations element includes a font-family, use that font when displaying abbrRef elements in XXE.</li
 ><li
 >XXE version 4.9 broke the 'Jump to Work in References (Bibliography)' command. Fixed it so it now works with XXE version 4.9 and earlier.</li
 ><li

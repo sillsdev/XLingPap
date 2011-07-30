@@ -389,7 +389,7 @@ abbrRef
 						 unset-attribute, no,
 						 color, black)
 	label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@abbreviationlang))>0] and id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm,id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm, id(@abbr)/abbrInLang[1]/abbrTerm)");
-
+	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations/@font-family,/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/abbreviations/@font-family,'inherit')"),"'");
 
 	background-color:abbreviation-background-color();
 }

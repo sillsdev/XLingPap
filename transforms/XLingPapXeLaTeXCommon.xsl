@@ -1672,8 +1672,8 @@
             <xsl:when test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
                 <xsl:variable name="previousTextOrBr" select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
                 <xsl:if test="name($previousTextOrBr[2])='br'">
-<!--                    <xsl:if test="name($previousTextOrBr[2])='br' or name($previousTextOrBr[1])='br'">-->
-                        <!-- two <br/>s in a row need some content; use a non-breaking space -->
+                    <!--                    <xsl:if test="name($previousTextOrBr[2])='br' or name($previousTextOrBr[1])='br'">-->
+                    <!-- two <br/>s in a row need some content; use a non-breaking space -->
                     <xsl:text>&#xa0;</xsl:text>
                 </xsl:if>
                 <xsl:if test="name($previousTextOrBr[1])='br' and count($previousTextOrBr)=1">
@@ -1923,6 +1923,21 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>
+    </xsl:template>
+    <!--  
+        AdjustForISOCodeInExampleNumber
+    -->
+    <xsl:template name="AdjustForISOCodeInExampleNumber">
+        <xsl:param name="sIsoCode"/>
+        <xsl:choose>
+            <xsl:when test="contains($sIsoCode,'-')">
+                <xsl:text>-1.88</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>-.9</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
     </xsl:template>
     <!--  
         AdjustLayoutParameterUnitName
@@ -5096,7 +5111,14 @@
                                         <tex:parm>
                                             <xsl:text>-</xsl:text>
                                             <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                                <xsl:text>1.9</xsl:text>
+                                                <xsl:choose>
+                                                    <xsl:when test="contains($sIsoCode,'-')">
+                                                        <xsl:text>2.75</xsl:text>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:text>1.9</xsl:text>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                             </xsl:if>
                                             <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
                                             <tex:cmd name="baselineskip" gr="0" nl2="0"/>
@@ -5307,10 +5329,32 @@
         <xsl:param name="sIsoCode"/>
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
-                <xsl:call-template name="OutputISOCodeInExample">
-                    <xsl:with-param name="bOutputBreak" select="'N'"/>
-                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
-                </xsl:call-template>
+                <xsl:variable name="sISOCodeTeXOutput">
+                    <xsl:call-template name="OutputISOCodeInExample">
+                        <xsl:with-param name="bOutputBreak" select="'N'"/>
+                        <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test=" name()='lineGroup' and count(preceding-sibling::*)!=0 and preceding-sibling::*[1][name()!='exampleHeading']">
+                        <tex:cmd name="settowidth">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:copy-of select="saxon:node-set($sISOCodeTeXOutput)"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="hspace*">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="saxon:node-set($sISOCodeTeXOutput)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <tex:spec cat="align"/>
             </xsl:if>
         </xsl:if>

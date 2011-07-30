@@ -525,7 +525,7 @@
                         </td>
                         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
                             <xsl:if test="contains($bListsShareSameCode,'N')">
-                                <td>
+                                <td valign="top">
                                     <xsl:call-template name="OutputISOCodeInExample">
                                         <xsl:with-param name="bOutputBreak" select="'N'"/>
                                     </xsl:call-template>

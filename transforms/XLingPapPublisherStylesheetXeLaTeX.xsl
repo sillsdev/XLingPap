@@ -2732,8 +2732,9 @@
             <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                 <tex:cmd name="raisebox">
                     <tex:parm>
-                        <xsl:text>-.9</xsl:text>
-                        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                        <xsl:call-template name="AdjustForISOCodeInExampleNumber">
+                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                        </xsl:call-template>
                     </tex:parm>
                     <tex:parm>
                         <tex:cmd name="parbox">

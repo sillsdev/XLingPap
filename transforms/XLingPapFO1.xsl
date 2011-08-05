@@ -2168,6 +2168,7 @@ not using
     <xsl:template match="endnote">
         <fo:footnote>
             <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
+                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                 <xsl:choose>
                     <xsl:when test="$chapters">
                         <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>
@@ -2218,6 +2219,7 @@ not using
                             <xsl:value-of select="$sFootnotePointSize - 2"/>
                             <xsl:text>pt</xsl:text>
                         </xsl:attribute>
+                        <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                         <xsl:value-of select="$sFootnoteNumber"/>
                     </fo:inline>
                     <fo:footnote-body>

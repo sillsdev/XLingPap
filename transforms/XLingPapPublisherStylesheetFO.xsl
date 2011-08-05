@@ -2296,6 +2296,7 @@ not using
                             <xsl:value-of select="$sFootnotePointSize - 2"/>
                             <xsl:text>pt</xsl:text>
                         </xsl:attribute>
+                        <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                         <xsl:value-of select="$sFootnoteNumber"/>
                     </fo:inline>
                     <fo:footnote-body>
@@ -3281,6 +3282,7 @@ not using
                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                     </xsl:call-template>
                     <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
+                        <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                         <xsl:call-template name="DoFootnoteNumberInTextValue"/>
                     </fo:inline>
                 </fo:basic-link>
@@ -3290,6 +3292,7 @@ not using
                     <xsl:attribute name="id">
                         <xsl:value-of select="@id"/>
                     </xsl:attribute>
+                    <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                     <xsl:call-template name="DoFootnoteNumberInTextValue"/>
                 </fo:inline>
             </xsl:otherwise>

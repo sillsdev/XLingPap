@@ -1196,6 +1196,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
         <xsl:choose>
             <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
@@ -1603,6 +1604,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
+                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <tex:cmd name="footnote">
                     <xsl:if test="not(ancestor::table)">
                         <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->

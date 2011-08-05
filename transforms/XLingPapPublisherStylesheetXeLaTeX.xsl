@@ -2049,6 +2049,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
+                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <tex:cmd name="footnote">
                     <xsl:if test="not(ancestor::table)">
                         <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
@@ -2615,9 +2616,11 @@
         <xsl:param name="sTeXFootnoteKind"/>
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
+                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <xsl:call-template name="DoFootnoteNumberInText"/>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <xsl:choose>
                     <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                         <tex:cmd name="footnotemark">
@@ -2897,15 +2900,15 @@
                 <xsl:call-template name="LinkAttributesBegin">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                 </xsl:call-template>
-                <tex:spec cat="esc"/>
+<!--                <tex:spec cat="esc"/>
                 <xsl:text>footnotesize</xsl:text>
                 <tex:spec cat="bg"/>
-                <tex:spec cat="esc"/>
+-->                <tex:spec cat="esc"/>
                 <xsl:text>textsuperscript</xsl:text>
                 <tex:spec cat="bg"/>
                 <xsl:call-template name="DoFootnoteNumberInTextValue"/>
                 <tex:spec cat="eg"/>
-                <tex:spec cat="eg"/>
+<!--                <tex:spec cat="eg"/>-->
                 <xsl:call-template name="LinkAttributesEnd">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                 </xsl:call-template>

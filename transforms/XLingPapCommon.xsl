@@ -276,6 +276,15 @@
         </xsl:for-each>
     </xsl:template>
     <!--
+        InsertCommaBetweenConsecutiveEndnotes
+    -->
+    <xsl:template name="InsertCommaBetweenConsecutiveEndnotes">
+        <xsl:if test="preceding-sibling::node()[1][name()='endnote' or name()='endnoteRef']">
+            <!-- the immediately preceding element is also an endnote; separate the numbers by a comma and non-breaking space -->
+            <xsl:text>,&#xa0;</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputAbbreviationsInCommaSeparatedList
     -->
     <xsl:template name="OutputAbbreviationsInCommaSeparatedList">

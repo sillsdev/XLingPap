@@ -1386,6 +1386,7 @@
         <xsl:param name="attr" select="@id"/>
         <xsl:param name="node" select="."/>
         <span style="font-size:65%; vertical-align:super; color:black">
+            <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
             <xsl:text>[</xsl:text>
             <a>
                 <xsl:attribute name="href">

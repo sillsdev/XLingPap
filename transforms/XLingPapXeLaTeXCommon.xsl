@@ -4296,6 +4296,18 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        InsertCommaBetweenConsecutiveEndnotesUsingSuperscript
+    -->
+    <xsl:template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript">
+        <xsl:if test="preceding-sibling::node()[1][name()='endnote' or name()='endnoteRef']">
+            <tex:spec cat="esc"/>
+            <xsl:text>textsuperscript</xsl:text>
+            <tex:spec cat="bg"/>
+            <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
+            <tex:spec cat="eg"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OKToBreakHere
     -->
     <xsl:template name="OKToBreakHere">

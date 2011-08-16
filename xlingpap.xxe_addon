@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-08-05</a:date
+>2011-08-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 5 August 2011<ul
+>2.6.0_5 16 August 2011<ul
+><li
+>Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
 >RenderX way of producing PDF (and also Word output and Open Office Writer output): Fix bug: ignore image and break-line elements when using a paper title as a header or footer.</li
 ><li
->Re-organized the XLingPaper portion of the File / New dialog.  The XLingPaper items now come out at the top of the list.  (Requires XXE version 4.8.0 or higher.)</li
+>Re-organized the XLingPaper portion of the File / New dialog. The XLingPaper items now come out at the top of the list. (Requires XXE version 4.8.0 or higher.)</li
 ><li
 >Remove quotes around title in references for web page articles in XeLaTeX no-publisher style sheet and default web page output. (Missed these from earlier).</li
 ><li

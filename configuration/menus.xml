@@ -61,7 +61,8 @@
       </cfg:item>
 -->
       <cfg:separator/>
-      <cfg:menu label="Table C_olumn">
+       <cfg:item command="SetTableSize" label="Increase Table Si_ze"/>
+           <cfg:menu label="Table C_olumn">
          <cfg:item command="xhtml.tableEdit"
              label="_Insert Before" parameter="insertColumnBefore"  icon="xxe-config:common/icons/insertColumnBefore.png"/>
          <cfg:item command="xhtml.tableEdit"

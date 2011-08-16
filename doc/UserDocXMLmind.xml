@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 July 2011</date
+>16 August 2011</date
 ><version
 >2.16.0_5</version
 ><contents
@@ -10216,6 +10216,18 @@ type="tInTextExample"
 ><td
 >A blank table with an initial header row and then two regular rows. All three rows have two columns.</td
 ></tr
+><tr
+><td
+><object
+type="tInTextExample"
+>table(head_row_head_col)</object
+></td
+><td
+>A blank table with an initial header row and then two regular rows. All three rows have two columns.  The first column in all rows is a <object
+type="tElement"
+>th</object
+> element.</td
+></tr
 ></table
 ><p
 >Suppose we want to create a plain table with headers. We can insert a table as shown in <exampleRef
@@ -10311,6 +10323,116 @@ num="xSampleTableHTML"
 type="tHtmlOutput"
 >&lt;table border="1"&gt; &lt;tr&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column1&lt;/span&gt;&lt;/th&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column2&lt;/span&gt;&lt;/th&gt; &lt;th align="left" valign="top"&gt;&lt;span class="english"&gt;Column3&lt;/span&gt;&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 1&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 2&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 1, Col 3&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 1&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 2&lt;/span&gt;&lt;/td&gt; &lt;td align="left" valign="top"&gt;&lt;span class="english"&gt;Row 2, Col 3&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" colspan="3" valign="top"&gt;This spans all three columns.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" rowspan="2" valign="top"&gt;This spans two rows.&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 4, Col 2&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 4, Col 3&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td align="left" valign="top"&gt;Row 5, Col 2&lt;/td&gt; &lt;td align="left" valign="top"&gt;Row 5, Col 3&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;</chart
 ></example
+><section3
+id="sIncreaseTableSize"
+><secTitle
+>Increase Table Size</secTitle
+><p
+>Beginning with version 2.17.0 of <object
+type="tXLingPap"
+></object
+>, you can increase the size of a table by using the “Increase Table Size” dialog. You do this by first clicking anywhere within the table and then invoking the <object
+type="tInstruction"
+>XLingPaper / Increase Table Size</object
+> menu option as shown in example <exampleRef
+letter="xMenuForIncreaseTableSize"
+num="xMenuForIncreaseTableSize"
+></exampleRef
+>.</p
+><example
+num="xMenuForIncreaseTableSize"
+><chart
+><img
+src="resources/MenuForIncreaseTableSize.png"
+></img
+></chart
+></example
+><p
+>When you do this, you see the Increase Table Size dialog which might look like what is shown in example <exampleRef
+letter="xIncreaseTableSizeDialog"
+num="xIncreaseTableSizeDialog"
+></exampleRef
+>.</p
+><example
+num="xIncreaseTableSizeDialog"
+><chart
+><img
+src="resources/IncreaseTableSizeDialog.png"
+></img
+></chart
+></example
+><p
+>This shows the current number of header rows, then the current number of non-header rows, and finally the current number of columns. You can use the “spinners” to increase the number for each part of the table. (You can also decrease the numbers, but this command will only increase table sizes, never decrease them.) When you either press the <object
+type="tKey"
+>Enter</object
+> key or click on the “OK” button, <object
+type="tXLingPap"
+></object
+> will increase the header rows, non-header rows, and columns to the amounts you specified.</p
+><p
+>For example, suppose you want a table that has one header row, ten non-header rows and six columns.  You first insert a table in the normal way.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+>  Suppose you had just a table with a header row, so it looks like what is shown in example <exampleRef
+letter="xNewHeaderTable"
+num="xNewHeaderTable"
+></exampleRef
+>.</p
+><example
+num="xNewHeaderTable"
+><chart
+><img
+src="resources/NewHeaderTable.png"
+></img
+></chart
+></example
+><p
+>After clicking somewhere in this table, you invoke the <object
+type="tInstruction"
+>Increase Table Size</object
+> command and change the numbers to be what you want: 1 header row (which it already has), ten non-header rows, and six columns.  The “Increase Table Size” dialog would look like what is shown in example <exampleRef
+letter="xIncreaseTableSize1-10-6"
+num="xIncreaseTableSize1-10-6"
+></exampleRef
+>.</p
+><example
+num="xIncreaseTableSize1-10-6"
+><chart
+><img
+src="resources/IncreaseTableSize1-10-6.png"
+></img
+></chart
+></example
+><p
+>After you press the “OK” button, the table will now look like what is in example <exampleRef
+letter="xHeaderTable1-10-6"
+num="xHeaderTable1-10-6"
+></exampleRef
+>.</p
+><example
+num="xHeaderTable1-10-6"
+><chart
+><img
+src="resources/HeaderTable1-10-6.png"
+></img
+></chart
+></example
+><p
+>The <object
+type="tInstruction"
+>Increase Table Size</object
+> command will work on embedded tables as well as on entire tables.  Because of this, it is important to make sure you click within the table you wish to change sizes for before invoking the command.</p
+><p
+>One other thing to keep in mind while using the <object
+type="tInstruction"
+>Increase Table Size</object
+> command is that it will make use of some of the existing material in the table.  When it increases the number of header rows, it copies the first row in the table and then makes copies of that row until the total number of required header rows are present..  When it increases the number of non-header rows, it copies the last row in the table and then copies that row until the total number of required non-header rows are present.  When it increases the number of columns, it copies the last column in the table and then copies that column until the total number of required columns are present.</p
+><p
+>Finally, please note that if the table you are working on already has row spans or column spans, the <object
+type="tInstruction"
+>Increase Table Size</object
+> command may not work as you might expect or it may not even be able to increase the sizes at all.  Therefore, please try to use this command before you set any row spans or column spans.</p
+></section3
 ><section3
 id="sTCTTablesCaptions"
 ><secTitle
@@ -19210,7 +19332,7 @@ term="iSpecialCharacterInsert"
 ><indexedItem
 term="iSymbolInsertSpecial"
 ></indexedItem
->There are two possible ways to key a special symbol.  Possibly the easiest way is to do this:</p
+>There are two possible ways to key a special symbol. Possibly the easiest way is to do this:</p
 ><ol
 ><li
 >At the point you want to insert a special symbol, type <object
@@ -19228,7 +19350,7 @@ src="resources/InsertCharacterDialog.png"
 > </chart
 ></li
 ><li
->As you can see, it has some cryptic names for a whole set of characters.  It also shows what the character looks like.</li
+>As you can see, it has some cryptic names for a whole set of characters. It also shows what the character looks like.</li
 ><li
 >Scan down for the character you want or, if you happen to know its abbreviation, start typing the abbreviation. The dialog will show only those abbreviations that begin with what you have typed.</li
 ><li
@@ -19247,7 +19369,7 @@ type="tXMLmindXMLEditor"
 >'s Character Tool.<endnoteRef
 note="nCharacterTool"
 ></endnoteRef
->  Look for your character in the list and click on it. </p
+> Look for your character in the list and click on it.</p
 ></section2
 ></section1
 ><section1
@@ -23632,6 +23754,11 @@ id="iTablesAttributes"
 id="iTablesCaption"
 ><term
 >Captions in tables</term
+></indexTerm
+><indexTerm
+id="iIncreaseTableSize"
+><term
+>Increase table size</term
 ></indexTerm
 ><indexTerm
 id="iNumberedTables"

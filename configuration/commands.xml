@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
     <cfg:binding>
         <cfg:keyPressed code="ESCAPE"/>
@@ -43,7 +42,7 @@
                         <!--  -->
                         <!--                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef or descendant::endnote or descendant::endnoteRef or descendant::endnote"/>-->
                         <cfg:test context="$selectedElement" expression="descendant::*[name()='object' or name()='abbrRef' or name()='endnote' or name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded element (e.g. object, endnote or abbrRef).  Please remove the embedded element(s) and try again."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded element (e.g. object, endnote or abbrRef).  Please remove the embedded element(s) and try again."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.convertsToWrds"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -213,6 +212,9 @@
     <cfg:command name="ChooseFontCmd">
         <cfg:class>xlingpaper.xxe.ChooseFontCmd</cfg:class>
     </cfg:command>
+    <cfg:command name="SetTableSizeCmd">
+        <cfg:class>xlingpaper.xxe.SetTableSizeCmd</cfg:class>
+    </cfg:command>
     <!--
    <cfg:command name="TestDemoteCmd">
       <cfg:class>xlingpaper.xxe.DemoteCmd</cfg:class>
@@ -296,7 +298,7 @@
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] section6"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything while in a section6 element."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything while in a section6 element."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.demoteSelection"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -336,10 +338,10 @@
                     <cfg:command name="paste" parameter="toOrInto"/>
                     <cfg:sequence>
                         <cfg:command name="undo"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but the selected item(s) cannot be demoted as they have been selected.  If you are trying to demote the last element in the section, you may need to click on its name in the node path bar and then execute this command again."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but the selected item(s) cannot be demoted as they have been selected.  If you are trying to demote the last element in the section, you may need to click on its name in the node path bar and then execute this command again."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.insertNewSubsectionAndPaste"/>
                         <cfg:command name="alert" parameter="%_"/>
-<!--                        <cfg:command name="alert" parameter="Or you can insert an empty paragraph (element p) after the last element and then do your selection and this command again."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Or you can insert an empty paragraph (element p) after the last element and then do your selection and this command again."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.insertNewSubsectionAndPaste2"/>
                         <cfg:command name="alert" parameter="%_"/>
                         <!-- need another undo if this is the final section in the document -->
@@ -360,7 +362,7 @@
                         <cfg:match context="$selected" pattern="*[descendant-or-self::section6]"/>
                         <cfg:command name="LocalizeString" parameter="msg.demote"/>
                         <cfg:command name="alert" parameter="%_"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything containing a section6 element. You will need to rework any section6 elements into their respective section5 elements before demoting is possible."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to demote anything containing a section6 element. You will need to rework any section6 elements into their respective section5 elements before demoting is possible."/>-->
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:match context="$selected" pattern="chapter | section1 | section2 | section3  | section4 | section5"/>
@@ -385,7 +387,7 @@
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test context="$selected" expression="name(.)='section1' and count(//chapter) = 0"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.promote"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -727,7 +729,8 @@ alt causes menu to be selected
                         <cfg:command name="getAppendixTitlesandIds"/>
                         <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                         <cfg:command name="pick" parameter="'%0 Appendix' true %_"/>
-                    </cfg:sequence>                    <cfg:sequence>
+                    </cfg:sequence>
+                    <cfg:sequence>
                         <cfg:command name="getAppendixTitlesandIds"/>
                         <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                         <cfg:command name="pick" parameter="'Appendix' true %_"/>
@@ -1047,7 +1050,7 @@ alt causes menu to be selected
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] sec"/>-->
                 </cfg:pass>
                 <cfg:choice>
-<!--                    <cfg:sequence>
+                    <!--                    <cfg:sequence>
                         <cfg:test expression="'%0' = 'Initial'"/>
                         <cfg:command name="getSectionTitlesandIds"/>
                         <cfg:command name="pick" parameter="'Initial Section, Chapter, or Part' true %_"/>
@@ -1057,7 +1060,8 @@ alt causes menu to be selected
                         <cfg:command name="getSectionTitlesandIds"/>
                         <cfg:command name="pick" parameter="'Final Section, Chapter, or Part' true %_"/>
                     </cfg:sequence>
--->                    <cfg:sequence>
+-->
+                    <cfg:sequence>
                         <cfg:test expression="'%0' != ''"/>
                         <cfg:command name="getSectionTitlesandIds"/>
                         <cfg:command name="pick" parameter="'%0 Section, Chapter, or Part' true %_"/>
@@ -1160,10 +1164,10 @@ alt causes menu to be selected
                 <cfg:set variable="refWork" expression="%_" plainString="true"/>
                 <cfg:command name="bookmark" parameter="add"/>
                 <cfg:get expression="$refWork"/>
-<!--  beginning with XXE 4.9, selectById is no longer supported.
+                <!--  beginning with XXE 4.9, selectById is no longer supported.
         Hussein suggests using the following which not only works in XXE 4.9, but also in XXE 4.8, 4.7,4.5.2 and probably earlier
         <cfg:command name="selectById" parameter="id %_"/>-->
-                <cfg:command name="xpathSearch" parameter="[implicitNode] id('%_')" /> 
+                <cfg:command name="xpathSearch" parameter="[implicitNode] id('%_')"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
@@ -1193,21 +1197,20 @@ alt causes menu to be selected
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="not(//lingPaper)"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a web page file."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a web page file."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.produceWebPage"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
-<!--                        <cfg:command name="status" parameter="Deleting any web page file..."/>-->
+                        <!--                        <cfg:command name="status" parameter="Deleting any web page file..."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.deleteWebPage"/>
                         <cfg:command name="status" parameter="%_"/>
                         <!-- Not needed because even on Windows, can produce the output file. 
                             <cfg:command name="DeletePDFFile" parameter="1 htm"/>
                         -->
-<!--                        <cfg:command name="status" parameter="Producing the web page output..."/>-->
+                        <!--                        <cfg:command name="status" parameter="Producing the web page output..."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producingWebPage"/>
                         <cfg:command name="status" parameter="%_"/>
-                        
                         <!--  Either do the embedded version or the canned version-->
                         <cfg:choice>
                             <cfg:sequence>
@@ -1227,8 +1230,6 @@ alt causes menu to be selected
                                 <cfg:command name="applyXLingPapTransform"/>
                             </cfg:sequence>
                         </cfg:choice>
-                        
-                        
                     </cfg:sequence>
                 </cfg:choice>
             </cfg:sequence>
@@ -1312,20 +1313,20 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-<!--                        <cfg:command name="alert" parameter="It appears you do not have the XeLaTeX program installed.  Please try downloading and installing a complete installer for XLingPaper."/>-->
+                        <!--                        <cfg:command name="alert" parameter="It appears you do not have the XeLaTeX program installed.  Please try downloading and installing a complete installer for XLingPaper."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXNoXeLaTeX"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:test expression="not(//lingPaper)"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXNotAFullDocument"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:sequence>
                             <!-- It is potentially possible to produce the PDF.  Do some initial further checks.  -->
-<!--                            <cfg:command name="status" parameter="Look for possible problems..."/>-->
+                            <!--                            <cfg:command name="status" parameter="Look for possible problems..."/>-->
                             <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXLookForProblems"/>
                             <cfg:command name="status" parameter="%_"/>
                             <cfg:command name="CheckPresenceOfFontsAndImagesCmd" parameter="%{P}"/>
@@ -1335,11 +1336,11 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     <cfg:pass>
                                         <cfg:test expression="'%_' = 'allClear'"/>
                                     </cfg:pass>
-<!--                                    <cfg:command name="status" parameter="Deleting any PDF file..."/>-->
+                                    <!--                                    <cfg:command name="status" parameter="Deleting any PDF file..."/>-->
                                     <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXdDeletePDF"/>
                                     <cfg:command name="status" parameter="%_"/>
                                     <cfg:command name="DeletePDFFile" parameter="1 pdf"/>
-<!--                                    <cfg:command name="status" parameter="Producing the PDF output..."/>-->
+                                    <!--                                    <cfg:command name="status" parameter="Producing the PDF output..."/>-->
                                     <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXProducing"/>
                                     <cfg:command name="status" parameter="%_"/>
                                     <!--                           <cfg:get expression="%{P}%{S}%{R}"/>
@@ -1460,12 +1461,12 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     </cfg:choice>
                                 </cfg:sequence>
                                 <cfg:sequence>
-<!--                                    <cfg:command name="alert" parameter="Some fonts and/or image files used in the document cannot be found and/or an image file name has some invalid characters and/or an SVG file needs to be converted to PDF.  Please use the 'Missing Fonts and/or Image Files' dialog to fix them.  Close it when you are done."/>-->
+                                    <!--                                    <cfg:command name="alert" parameter="Some fonts and/or image files used in the document cannot be found and/or an image file name has some invalid characters and/or an SVG file needs to be converted to PDF.  Please use the 'Missing Fonts and/or Image Files' dialog to fix them.  Close it when you are done."/>-->
                                     <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXMissingFontsImages"/>
                                     <cfg:command name="alert" parameter="%_"/>
                                 </cfg:sequence>
                             </cfg:choice>
-<!--                            <cfg:command name="status" parameter="PDF Command has completed."/>-->
+                            <!--                            <cfg:command name="status" parameter="PDF Command has completed."/>-->
                             <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXProducedPDF"/>
                             <cfg:command name="status" parameter="%_"/>
                         </cfg:sequence>
@@ -1524,7 +1525,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:choice>
                                 <cfg:sequence>
                                     <cfg:test expression="'%1'='pdf'"/>
-<!--                                    <cfg:command name="alert" parameter="Please close the %_ window in your PDF file viewer or shut down your PDF file viewer.  We cannot successfully produce the new PDF until you do."/>
+                                    <!--                                    <cfg:command name="alert" parameter="Please close the %_ window in your PDF file viewer or shut down your PDF file viewer.  We cannot successfully produce the new PDF until you do."/>
                                     <cfg:command name="LocalizeString" parameter="msg.deletePDFFile"/>
                                     <cfg:command name="alert" parameter="msg string is: %_"/>
 -->
@@ -1534,7 +1535,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     <cfg:command name="alert" parameter="%_"/>
                                 </cfg:sequence>
                                 <cfg:sequence>
-<!--                                    <cfg:command name="alert" parameter="Please close the %_ window in your Word program or shut down your Word program.  We cannot successfully produce the new file until you do."/>-->
+                                    <!--                                    <cfg:command name="alert" parameter="Please close the %_ window in your Word program or shut down your Word program.  We cannot successfully produce the new file until you do."/>-->
                                     <cfg:command name="LocalizeString" parameter="msg.deleteWordFile"/>
                                     <cfg:set variable="msg" plainString="true" expression="%_"/>
                                     <cfg:get expression="replace($msg,'\{0\}',$pdffile)"/>
@@ -1561,7 +1562,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-<!--                        <cfg:command name="status" parameter="Showing the PDF output..."/>-->
+                        <!--                        <cfg:command name="status" parameter="Showing the PDF output..."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.pdfCompletionProcessing"/>
                         <cfg:command name="status" parameter="%_"/>
                         <cfg:command name="beep"/>
@@ -1572,7 +1573,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         </cfg:choice>-->
                     </cfg:sequence>
                     <cfg:sequence>
-<!--                        <cfg:command name="status" parameter="Producing the PDF failed..."/>-->
+                        <!--                        <cfg:command name="status" parameter="Producing the PDF failed..."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.pdfProducingPDFFailed"/>
                         <cfg:command name="status" parameter="%_"/>
                         <cfg:command name="beep"/>
@@ -1582,12 +1583,12 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     <!--                                    <cfg:test context="//language | //type" expression="contains(@XeLaTeXSpecial,'graphite')"/>-->
                                     <cfg:test context="//@XeLaTeXSpecial" expression="contains(.,'graphite')"/>
                                 </cfg:pass>
-<!--                                <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
+                                <!--                                <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
                                 <cfg:command name="LocalizeString" parameter="msg.pdfGraphiteOrBug"/>
                                 <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
                             <cfg:sequence>
-<!--                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not succeed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
+                                <!--                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not succeed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
                                 <cfg:command name="LocalizeString" parameter="msg.pdfBug"/>
                                 <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
@@ -1614,13 +1615,13 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-<!--                        <cfg:command name="alert" parameter="It appears you do not have the RenderX XEP program installed.  Please see section 11.17.2 of the user documentation."/>-->
+                        <!--                        <cfg:command name="alert" parameter="It appears you do not have the RenderX XEP program installed.  Please see section 11.17.2 of the user documentation."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.pdfRenderXNotInstalled"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:test expression="not(//lingPaper)"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a PDF file."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXNotAFullDocument"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -1638,11 +1639,11 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="producePDF">
         <cfg:macro>
             <cfg:sequence>
-<!--                <cfg:command name="status" parameter="Deleting any PDF file..."/>-->
+                <!--                <cfg:command name="status" parameter="Deleting any PDF file..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXdDeletePDF"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="DeletePDFFile" parameter="1 pdf"/>
-<!--                <cfg:command name="status" parameter="Producing the PDF output..."/>-->
+                <!--                <cfg:command name="status" parameter="Producing the PDF output..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXProducing"/>
                 <cfg:command name="status" parameter="%_"/>
                 <!--  Either do the embedded version or the canned version-->
@@ -1879,7 +1880,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                     <cfg:choice>
                         <cfg:sequence>
                             <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-<!--                            <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>-->
+                            <!--                            <cfg:command name="alert" parameter="It appears you do not have the XMLmind XSL-FO Converter program installed.  Please see section 11.18 of the user documentation."/>-->
                             <cfg:command name="LocalizeString" parameter="msg.xslfoConverterMissing"/>
                             <cfg:command name="alert" parameter="%_"/>
                         </cfg:sequence>
@@ -1904,15 +1905,15 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="DeleteAndProduceWordFile">
         <cfg:macro>
             <cfg:sequence>
-<!--                <cfg:command name="status" parameter="Deleting any Word file..."/>-->
+                <!--                <cfg:command name="status" parameter="Deleting any Word file..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.produceWordDeleteWord"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="DeletePDFFile" parameter="1 doc"/>
-<!--                <cfg:command name="status" parameter="Producing the Word output..."/>-->
+                <!--                <cfg:command name="status" parameter="Producing the Word output..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.produceWordProducing"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="produceWord2003DocumentViaXFC"/>
-<!--                <cfg:command name="status" parameter="Showing the Word output..."/>-->
+                <!--                <cfg:command name="status" parameter="Showing the Word output..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.wordCompletionProcessing"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="beep"/>
@@ -1923,15 +1924,15 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="DeleteAndProduceODTFile">
         <cfg:macro trace="false">
             <cfg:sequence>
-<!--                <cfg:command name="status" parameter="Deleting any Open Office file..."/>-->
+                <!--                <cfg:command name="status" parameter="Deleting any Open Office file..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.produceOOWDeleteOOW"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="DeletePDFFile" parameter="1 odt"/>
-<!--                <cfg:command name="status" parameter="Producing the Open Office output..."/>-->
+                <!--                <cfg:command name="status" parameter="Producing the Open Office output..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.produceOOWProducing"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="produceWord2003DocumentViaXFC" parameter="'odt'"/>
-<!--                <cfg:command name="status" parameter="Showing the Open Office output..."/>-->
+                <!--                <cfg:command name="status" parameter="Showing the Open Office output..."/>-->
                 <cfg:command name="LocalizeString" parameter="msg.oowCompletionProcessing"/>
                 <cfg:command name="status" parameter="%_"/>
                 <cfg:command name="beep"/>
@@ -2153,7 +2154,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-<!--                        <cfg:command name="alert" parameter="It appears you do not have the .svg to .pdf conversion package installed.  Please see section 11.17.1.1 of the user documentation."/>-->
+                        <!--                        <cfg:command name="alert" parameter="It appears you do not have the .svg to .pdf conversion package installed.  Please see section 11.17.1.1 of the user documentation."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.svgToPDFMissing"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -2208,19 +2209,19 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="ModifyLangAttributesInDocument">
         <cfg:macro trace="false">
             <cfg:sequence>
-<!--                <cfg:command name="prompt" parameter="'Old langData name (no spaces, just letters)' 'lVernacular'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'Old langData name (no spaces, just letters)' 'lVernacular'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.modifyLangAttributesInDocument1"/>
                 <cfg:command name="prompt" parameter="'%_'  'lVernacular'"/>
                 <cfg:set variable="oldLangData" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'New langData name (no spaces, just letters)' 'lVernacular'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'New langData name (no spaces, just letters)' 'lVernacular'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.modifyLangAttributesInDocument2"/>
                 <cfg:command name="prompt" parameter="'%_' 'lVernacular'"/>
                 <cfg:set variable="newLangData" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'Old gloss name (no spaces, just letters)' 'lGloss'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'Old gloss name (no spaces, just letters)' 'lGloss'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.modifyLangAttributesInDocument3"/>
                 <cfg:command name="prompt" parameter="'%_' 'lGloss'"/>
                 <cfg:set variable="oldGloss" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'New gloss name (no spaces, just letters)' 'lGloss'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'New gloss name (no spaces, just letters)' 'lGloss'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.modifyLangAttributesInDocument4"/>
                 <cfg:command name="prompt" parameter="'%_' 'lGloss'"/>
                 <cfg:set variable="newGloss" expression="%_" plainString="true"/>
@@ -2239,19 +2240,19 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="ChangeDefaultLangAttributesInTemplates">
         <cfg:macro trace="false">
             <cfg:sequence>
-<!--                <cfg:command name="prompt" parameter="'Old langData default name (no spaces, just letters)' 'lVernacular'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'Old langData default name (no spaces, just letters)' 'lVernacular'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.changeDefaultLangAttributesInTemplates1"/>
                 <cfg:command name="prompt" parameter="'%_' 'lVernacular'"/>
                 <cfg:set variable="oldLangData" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'New langData default name (no spaces, just letters)' 'lVernacular'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'New langData default name (no spaces, just letters)' 'lVernacular'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.changeDefaultLangAttributesInTemplates2"/>
                 <cfg:command name="prompt" parameter="'%_' 'lVernacular'"/>
                 <cfg:set variable="newLangData" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'Old gloss default name (no spaces, just letters)' 'lGloss'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'Old gloss default name (no spaces, just letters)' 'lGloss'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.changeDefaultLangAttributesInTemplates3"/>
                 <cfg:command name="prompt" parameter="'%_' 'lGloss'"/>
                 <cfg:set variable="oldGloss" expression="%_" plainString="true"/>
-<!--                <cfg:command name="prompt" parameter="'New gloss default name (no spaces, just letters)' 'lGloss'"/>-->
+                <!--                <cfg:command name="prompt" parameter="'New gloss default name (no spaces, just letters)' 'lGloss'"/>-->
                 <cfg:command name="LocalizeString" parameter="msg.changeDefaultLangAttributesInTemplates4"/>
                 <cfg:command name="prompt" parameter="'%_' 'lGloss'"/>
                 <cfg:set variable="newGloss" expression="%_" plainString="true"/>
@@ -2311,11 +2312,217 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="prompt" parameter="'Convert file name to URI' 'Key or copy in the file name'"/>
-<!--                <cfg:set variable="oldLangData" expression="%_" plainString="true"/>-->
+                <!--                <cfg:set variable="oldLangData" expression="%_" plainString="true"/>-->
                 <cfg:command name="ConvertFileNameToURICmd" parameter="%_"/>
-<!--                <cfg:command name="alert" parameter="%_"/>-->
+                <!--                <cfg:command name="alert" parameter="%_"/>-->
                 <cfg:set variable="clipboard" expression="%_" plainString="true"/>
                 <cfg:command name="alert" parameter="You can now paste the converted file name into the appropriate attribute."/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="SetTableSize">
+        <cfg:macro repeatable="true" undoable="true" trace="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <!--                    <cfg:match context="$implicitElement" pattern="table"/>-->
+                    <cfg:match context="$implicitElement" pattern="*[ancestor-or-self::table]"/>
+                </cfg:pass>
+                <!--                Need to do following twice in case the current node is text-->
+                <cfg:command name="selectNode" parameter="ancestorOrSelfOrNode table"/>
+                <cfg:command name="selectNode" parameter="ancestorOrSelfOrNode table"/>
+                <cfg:set variable="columns" expression="count($implicitElement/tr[position()=last()]/td)"/>
+                <!--                <cfg:get expression="$columns"/>
+                <cfg:command name="alert" parameter="Columns = %_"/>-->
+                <cfg:set variable="headers" expression="count($implicitElement/tr[th][not(td)])"/>
+                <!--<cfg:get expression="$headers"/>
+                <cfg:command name="alert" parameter="Headers = %_"/>-->
+                <cfg:set variable="nonheaders" expression="count($implicitElement/tr[td])"/>
+                <!--<cfg:get expression="$nonheaders"/>
+                <cfg:command name="alert" parameter="Nonheaders = %_"/>-->
+                <cfg:set variable="params" expression="concat($headers,'|', $nonheaders, ':', $columns)"/>
+                <!--<cfg:get expression="$params"/>
+                <cfg:command name="alert" parameter="Params = %_"/>-->
+                <cfg:get expression="$params"/>
+                <cfg:command name="SetTableSizeCmd" parameter="%_"/>
+                <cfg:set variable="result" expression="%_" plainString="true"/>
+                <!--<cfg:get expression="$result"/>
+                <cfg:command name="alert" parameter="Result= %_"/>-->
+                <cfg:get expression="$result"/>
+                <cfg:get expression="substring-before('%_','|')"/>
+                <cfg:set variable="headerRowsToAdd" expression="%_" plainString="true"/>
+                <!--<cfg:get expression="$headerRowsToAdd"/>
+                <cfg:command name="alert" parameter="HeaderRows to add= %_"/>-->
+                <cfg:get expression="$result"/>
+                <cfg:get expression="substring-before(substring-after('%_','|'),':')"/>
+                <cfg:set variable="nonheaderRowsToAdd" expression="%_"/>
+                <!--<cfg:get expression="$nonheaderRowsToAdd"/>
+                <cfg:command name="alert" parameter="NonheaderRows to add= %_"/>-->
+                <cfg:get expression="$result"/>
+                <cfg:get expression="substring-after('%_',':')"/>
+                <cfg:set variable="columnsToAdd" expression="%_" plainString="true"/>
+                <!--<cfg:get expression="$columnsToAdd"/>
+                <cfg:command name="alert" parameter="Columns to add= %_"/>-->
+                <!-- insert any (extra) header rows -->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="firstChild tr"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="firstChild caption"/>
+                        <cfg:command name="selectNode" parameter="nextSibling"/>
+                    </cfg:sequence>
+                </cfg:choice>
+<!--                <cfg:command name="alert" parameter="After select first tr for headers"/>-->
+                <cfg:set variable="headersInFirstRow" expression="count($implicitElement/th[not(following-sibling::td)])"/>
+                <cfg:get expression="$headersInFirstRow"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <!-- existing header -->
+                        <cfg:pass>
+                            <cfg:test expression="number(%_) &gt; 0"/>
+                        </cfg:pass>
+<!--                        <cfg:command name="alert" parameter="Have an existing header"/>-->
+                        <cfg:command name="xhtml.tableEdit" parameter="copyRow"/>
+                        <cfg:get expression="$headerRowsToAdd"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <!-- Have an existing header and need to insert more header rows -->
+                                <cfg:pass>
+                                    <cfg:test expression="number(%_) &gt; 0"/>
+                                </cfg:pass>
+                                <cfg:command name="InsertHeaderRows" parameter="%_"/>
+                                <cfg:command name="selectNode" parameter="parent"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- Have an existing headder, but nothing to insert -->
+                                <cfg:command name="selectNode" parameter="parent"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        <cfg:command name="InsertHeaderRows" parameter="%_"/>
+                        <cfg:command name="selectNode" parameter="parent"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:get expression="$headerRowsToAdd"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <!-- no existing header, but we need to insert some header rows -->
+                                <cfg:pass>
+                                    <cfg:test expression="number(%_) &gt; 0"/>
+                                </cfg:pass>
+                                <!-- NB: this inserts one new header row; what if we need 2 or 3? -->
+<!--                                <cfg:command name="alert" parameter="No existing header; add one"/>-->
+                                <cfg:command name="xhtml.tableEdit" parameter="insertRowBefore"/>
+                                <cfg:set variable="cellsInFirstRow" expression="count($implicitElement/td)"/>
+                                <cfg:command name="selectNode" parameter="child"/>
+                                <cfg:get expression="$cellsInFirstRow"/>
+                                <cfg:command name="convertTdToTh" parameter="%_"/>
+                                <cfg:command name="selectNode" parameter="parent"/>
+<!--                                <cfg:command name="alert" parameter="After inserting new header and changing its tds to ths"/>-->
+                                <cfg:get expression="$headerRowsToAdd"/>
+                                <cfg:choice>
+                                    <cfg:sequence>
+                                        <cfg:pass>
+                                            <cfg:test expression="number(%_) &gt; 1"/>
+                                        </cfg:pass>
+                                        <cfg:command name="xhtml.tableEdit" parameter="copyRow"/>
+                                        <cfg:get expression="$headerRowsToAdd"/>
+                                        <cfg:command name="InsertHeaderRows" parameter="string(number(%_)-1)"/>
+                                        <cfg:command name="selectNode" parameter="parent"/>
+                                    </cfg:sequence>
+                                    <cfg:sequence>
+                                        <cfg:command name="selectNode" parameter="parent"/>
+<!--                                        <cfg:command name="alert" parameter="After selecting parent"/>-->
+                                    </cfg:sequence>
+                                </cfg:choice>
+                                
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- nothing to do; reset selection to the table -->
+<!--                                <cfg:command name="alert" parameter="No existing header and no need to add one"/>-->
+                                <cfg:command name="selectNode" parameter="parent"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+                <!-- insert any extra non-header rows -->
+<!--                <cfg:command name="alert" parameter="After handling any headers"/>-->
+                <cfg:command name="selectNode" parameter="lastChild"/>
+<!--                <cfg:command name="alert" parameter="After last child"/>-->
+                <cfg:command name="xhtml.tableEdit" parameter="copyRow"/>
+                <cfg:get expression="$nonheaderRowsToAdd"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:test expression="number(%_) &gt; 0"/>
+                        </cfg:pass>
+                        <cfg:command name="InsertHeaderRows" parameter="%_"/>
+<!--                        <cfg:command name="alert" parameter="After InsertHeaderRows call"/>-->
+                        <cfg:command name="selectNode" parameter="parent"/>
+<!--                        <cfg:command name="alert" parameter="After select parent"/>-->
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="parent"/>
+<!--                        <cfg:command name="alert" parameter="After select parent one"/>-->
+                    </cfg:sequence>
+                </cfg:choice>
+                <!-- insert any extra columns -->
+<!--                <cfg:command name="alert" parameter="After handling non-headers"/>-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="firstChild tr"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="firstChild caption"/>
+                        <cfg:command name="selectNode" parameter="nextSibling"/>
+                    </cfg:sequence>
+                </cfg:choice>
+<!--                <cfg:command name="alert" parameter="After getting first tr for columns"/>-->
+                <cfg:command name="selectNode" parameter="lastChild"/>
+                <cfg:command name="xhtml.tableEdit" parameter="copyColumn"/>
+                <cfg:get expression="$columnsToAdd"/>
+                <cfg:command name="InsertColumns" parameter="%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="convertTdToTh">
+        <cfg:macro trace="true" undoable="true" repeatable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:test expression="number(%0) &gt; 0"/>
+                </cfg:pass>
+                <cfg:command name="convert" parameter="[implicitElement] th"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="nextSibling"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!--  do nothing -->
+                        <cfg:command name="selectNode" parameter="self"/>
+                    </cfg:sequence>
+                </cfg:choice>
+                <cfg:command name="convertTdToTh" parameter="number(%0)-1"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="InsertHeaderRows">
+        <cfg:macro trace="true" undoable="true" repeatable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:test expression="number(%0) &gt; 0"/>
+                </cfg:pass>
+                <cfg:command name="xhtml.tableEdit" parameter="pasteRowAfter"/>
+                <cfg:command name="InsertHeaderRows" parameter="number(%0)-1"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="InsertColumns">
+        <cfg:macro trace="true" undoable="true" repeatable="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:test expression="number(%0) &gt; 0"/>
+                </cfg:pass>
+                <cfg:command name="xhtml.tableEdit" parameter="pasteColumnAfter"/>
+                <cfg:command name="InsertColumns" parameter="number(%0)-1"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

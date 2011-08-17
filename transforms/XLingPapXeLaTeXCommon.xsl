@@ -5377,7 +5377,7 @@
     <xsl:template name="OutputTable">
         <xsl:variable name="iBorder" select="ancestor-or-self::table/@border"/>
         <xsl:variable name="firstRowColumns" select="tr[1]/th | tr[1]/td"/>
-        <xsl:variable name="iNumCols" select="count($firstRowColumns[not(number(@colspan) &gt; 0)]) + sum($firstRowColumns[number(@colspan) &gt; 0]/@colspan)"/>
+        <!--        <xsl:variable name="iNumCols" select="count($firstRowColumns[not(number(@colspan) &gt; 0)]) + sum($firstRowColumns[number(@colspan) &gt; 0]/@colspan)"/>-->
         <!-- attempt to calculate the number of columns, but we need to also set up colspans, so this won't always work... sigh.
     
     <xsl:variable name="rows">
@@ -5399,7 +5399,50 @@
                 </xsl:for-each>
             </xsl:for-each>
         </xsl:variable>
--->
+        -->
+        <!-- trying to be a bit smarter with the column counting... -->
+        <xsl:variable name="rowsall">
+            <rows>
+                <xsl:for-each select="tr">
+                    <rowcount>
+                        <xsl:value-of select="count(*[not(number(@colspan) &gt; 0)]) + sum(*[number(@colspan) &gt; 0]/@colspan)"/>
+                    </rowcount>
+                </xsl:for-each>
+            </rows>
+        </xsl:variable>
+        <xsl:variable name="elementsWithColspan" select="descendant::*[@colspan]"/>
+        <xsl:variable name="iNumCols">
+            <xsl:choose>
+                <xsl:when test="count($elementsWithColspan) &gt; 0">
+                    <xsl:value-of select="count($firstRowColumns[not(number(@colspan) &gt; 0)]) + sum($firstRowColumns[number(@colspan) &gt; 0]/@colspan)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:for-each select="saxon:node-set($rowsall)/descendant::*">
+                        <xsl:for-each select="rowcount">
+                            <xsl:sort select="." order="descending" data-type="number"/>
+                            <xsl:if test="position()=1">
+                                <xsl:value-of select="."/>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="iRowWithMaxColumns">
+            <xsl:choose>
+                <xsl:when test="count($elementsWithColspan) &gt; 0">
+                    <xsl:text>1</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:variable name="rowHasMaxCount" select="saxon:node-set($rowsall)/rows/rowcount[number(.)=number($iNumCols)]"/>
+                    <xsl:for-each select="$rowHasMaxCount">
+                        <xsl:if test="position()=1">
+                            <xsl:value-of select="count(preceding-sibling::rowcount) + 1"/>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="sEnvName">
             <xsl:choose>
                 <xsl:when test="ancestor::td or ancestor::th">
@@ -5482,7 +5525,8 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
-                        <xsl:variable name="columns" select="tr[1]/td | tr[1]/th"/>
+                        <!--                        <xsl:variable name="columns" select="tr[1]/td | tr[1]/th"/>-->
+                        <xsl:variable name="columns" select="tr[position()=$iRowWithMaxColumns]/td | tr[position()=$iRowWithMaxColumns]/th"/>
                         <xsl:for-each select="$columns">
                             <xsl:choose>
                                 <xsl:when test="number(@colspan) &gt; 0">

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-08-16</a:date
+>2011-08-17</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 16 August 2011<ul
+>2.6.0_5 17 August 2011<ul
 ><li
 >Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
@@ -57,6 +57,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug: when ISO codes were shown with interlinear and listInterlinear, the example number (and letter) were sometimes not horizontally aligned with the first line of the interlinear.</li
 ><li
 >Fix bug: when a listInterlinear had a mix of ISO codes to show, any additional lineGroup elements also were incorrectly showing the ISO code.</li
+><li
+>Fix bug: if a table's first row did not have the maximum number of columns the table has, it would fail ito produce the PDF.</li
 ></ul
 ></li
 ></ul

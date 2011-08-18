@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-08-17</a:date
+>2011-08-18</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 17 August 2011<ul
+>2.6.0_5 18 August 2011<ul
 ><li
 >Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
@@ -53,6 +53,8 @@ href="mailto::andy_black@sil.org"
 >XXE version 4.9 broke the 'Jump to Work in References (Bibliography)' command. Fixed it so it now works with XXE version 4.9 and earlier.</li
 ><li
 >XeLaTeX way of producing PDF:<ul
+><li
+>Improvement:  if a table has no column spans and no row spans, then the width attribute of a cell in the first row will be used for all cells in that column.</li
 ><li
 >Fix bug: when ISO codes were shown with interlinear and listInterlinear, the example number (and letter) were sometimes not horizontally aligned with the first line of the interlinear.</li
 ><li

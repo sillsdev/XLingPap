@@ -2196,22 +2196,50 @@
         <xsl:param name="iBorder" select="0"/>
         <xsl:param name="sAlignDefault" select="'j'"/>
         <xsl:param name="bUseWidth" select="'Y'"/>
+        <xsl:param name="sWidth" select="normalize-space(@width)"/>
         <xsl:call-template name="CreateVerticalLine">
             <xsl:with-param name="iBorder" select="$iBorder"/>
         </xsl:call-template>
         <xsl:call-template name="CreateColumnSpecBackgroundColor"/>
         <xsl:choose>
-            <xsl:when test="string-length(@width) &gt; 0 and $bUseWidth='Y'">
+            <xsl:when test="string-length($sWidth) &gt; 0 and $bUseWidth='Y'">
+                <!--   
+                    not needed, but still here so I can remember this way of setting it
+                    <xsl:choose>
+                    <xsl:when test="@align!='justify'">
+                        <tex:spec cat="gt"/>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="esc"/>
+                        <xsl:choose>
+                            <xsl:when test="@align='right'">
+                                <xsl:text>raggedleft</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="@align='center'">
+                                <xsl:text>centering</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>raggedright</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>arraybackslash</xsl:text>
+                        <tex:spec cat="eg"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-\- justify is the default, so there's nothing to do here -\->
+                    </xsl:otherwise>
+                </xsl:choose>
+-->
                 <xsl:text>p</xsl:text>
                 <tex:spec cat="bg"/>
                 <xsl:choose>
-                    <xsl:when test="contains(@width,'%')">
+                    <xsl:when test="contains($sWidth,'%')">
                         <xsl:call-template name="GetColumnWidthBasedOnPercentage">
-                            <xsl:with-param name="iPercentage" select="substring-before(normalize-space(@width),'%')"/>
+                            <xsl:with-param name="iPercentage" select="substring-before(normalize-space($sWidth),'%')"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="@width"/>
+                        <xsl:value-of select="$sWidth"/>
                     </xsl:otherwise>
                 </xsl:choose>
                 <tex:spec cat="eg"/>
@@ -2609,11 +2637,46 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="@align">
-                <xsl:call-template name="HandleMulticolumnInCell">
-                    <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
-                    <xsl:with-param name="iBorder" select="$iBorder"/>
-                    <xsl:with-param name="iColSpan" select="'1'"/>
-                </xsl:call-template>
+                <xsl:variable name="parentTablesFirstRow" select="ancestor::table[1]/tr[1]"/>
+                <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/tr/td[@colspan] | $parentTablesFirstRow/tr/th[@colspan]"/>
+                <xsl:variable name="widthsInFirstRowOfTable" select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
+                <xsl:choose>
+                    <xsl:when test="count($colSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0">
+                        <!-- there are no widths set or there are some column spans somewhere in this table so figuring out widths is too complicated; punt -->
+                        <xsl:call-template name="HandleMulticolumnInCell">
+                            <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
+                            <xsl:with-param name="iBorder" select="$iBorder"/>
+                            <xsl:with-param name="iColSpan" select="'1'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- table has widths in first row and is simple enough to set widths of all columns -->
+                        <xsl:call-template name="HandleMulticolumnInCell">
+                            <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
+                            <xsl:with-param name="iBorder" select="$iBorder"/>
+                            <xsl:with-param name="iColSpan" select="'1'"/>
+                            <xsl:with-param name="sWidth">
+                                <xsl:choose>
+                                    <xsl:when test="@width">
+                                        <xsl:value-of select="@width"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:variable name="iPosition" select="count(preceding-sibling::td) + count(preceding-sibling::th) + 1"/>
+                                        <xsl:variable name="widthForThisCell" select="$parentTablesFirstRow[position()=$iPosition]/@width"/>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length(normalize-space($widthForThisCell)) &gt; 0">
+                                                <xsl:value-of select="$widthForThisCell"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- do nothing; its missing; use default -->
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
         </xsl:choose>
         <!--  later
@@ -4009,6 +4072,7 @@
         <xsl:param name="bInARowSpan"/>
         <xsl:param name="iBorder"/>
         <xsl:param name="iColSpan" select="'1'"/>
+        <xsl:param name="sWidth" select="normalize-space(@width)"/>
         <tex:cmd name="multicolumn">
             <tex:parm>
                 <xsl:value-of select="$iColSpan"/>
@@ -4044,6 +4108,7 @@
                 </xsl:if>
                 <xsl:call-template name="CreateColumnSpec">
                     <xsl:with-param name="iBorder" select="$iBorder"/>
+                    <xsl:with-param name="sWidth" select="$sWidth"/>
                 </xsl:call-template>
                 <xsl:if test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-right=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
                     <xsl:variable name="sValue">

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->16 August 2011</date
+>18 August 2011</date
 ><version
 >2.16.0_5</version
 ><contents
@@ -10223,7 +10223,7 @@ type="tInTextExample"
 >table(head_row_head_col)</object
 ></td
 ><td
->A blank table with an initial header row and then two regular rows. All three rows have two columns.  The first column in all rows is a <object
+>A blank table with an initial header row and then two regular rows. All three rows have two columns. The first column in all rows is a <object
 type="tElement"
 >th</object
 > element.</td
@@ -10370,10 +10370,10 @@ type="tXLingPap"
 ></object
 > will increase the header rows, non-header rows, and columns to the amounts you specified.</p
 ><p
->For example, suppose you want a table that has one header row, ten non-header rows and six columns.  You first insert a table in the normal way.<endnoteRef
+>For example, suppose you want a table that has one header row, ten non-header rows and six columns. You first insert a table in the normal way.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->  Suppose you had just a table with a header row, so it looks like what is shown in example <exampleRef
+> Suppose you had just a table with a header row, so it looks like what is shown in example <exampleRef
 letter="xNewHeaderTable"
 num="xNewHeaderTable"
 ></exampleRef
@@ -10390,7 +10390,7 @@ src="resources/NewHeaderTable.png"
 >After clicking somewhere in this table, you invoke the <object
 type="tInstruction"
 >Increase Table Size</object
-> command and change the numbers to be what you want: 1 header row (which it already has), ten non-header rows, and six columns.  The “Increase Table Size” dialog would look like what is shown in example <exampleRef
+> command and change the numbers to be what you want: 1 header row (which it already has), ten non-header rows, and six columns. The “Increase Table Size” dialog would look like what is shown in example <exampleRef
 letter="xIncreaseTableSize1-10-6"
 num="xIncreaseTableSize1-10-6"
 ></exampleRef
@@ -10421,17 +10421,17 @@ src="resources/HeaderTable1-10-6.png"
 >The <object
 type="tInstruction"
 >Increase Table Size</object
-> command will work on embedded tables as well as on entire tables.  Because of this, it is important to make sure you click within the table you wish to change sizes for before invoking the command.</p
+> command will work on embedded tables as well as on entire tables. Because of this, it is important to make sure you click within the table you wish to change sizes for before invoking the command.</p
 ><p
 >One other thing to keep in mind while using the <object
 type="tInstruction"
 >Increase Table Size</object
-> command is that it will make use of some of the existing material in the table.  When it increases the number of header rows, it copies the first row in the table and then makes copies of that row until the total number of required header rows are present..  When it increases the number of non-header rows, it copies the last row in the table and then copies that row until the total number of required non-header rows are present.  When it increases the number of columns, it copies the last column in the table and then copies that column until the total number of required columns are present.</p
+> command is that it will make use of some of the existing material in the table. When it increases the number of header rows, it copies the first row in the table and then makes copies of that row until the total number of required header rows are present.. When it increases the number of non-header rows, it copies the last row in the table and then copies that row until the total number of required non-header rows are present. When it increases the number of columns, it copies the last column in the table and then copies that column until the total number of required columns are present.</p
 ><p
 >Finally, please note that if the table you are working on already has row spans or column spans, the <object
 type="tInstruction"
 >Increase Table Size</object
-> command may not work as you might expect or it may not even be able to increase the sizes at all.  Therefore, please try to use this command before you set any row spans or column spans.</p
+> command may not work as you might expect or it may not even be able to increase the sizes at all. Therefore, please try to use this command before you set any row spans or column spans.</p
 ></section3
 ><section3
 id="sTCTTablesCaptions"
@@ -16918,21 +16918,35 @@ type="tXeTeX"
 >Table column widths may well need to be adjusted by hand. The default is for each column to be as wide as the material in the column. For tables with more horizontal content, this often means that the table is too wide to fit the page. To fix this, you will need to set the <object
 type="tAttribute"
 >width</object
-> attribute of any cells that are too wide to fit in the space you want them to take.<endnote
-id="nXeTeXTableColumnWidths"
+> attribute of any cells that are too wide to fit in the space you want them to take. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).<endnote
+id="nXeLaTeXTableWidthPercentage"
 ><p
->Ideally, I'd make it work so you only have to set the width for the top-most <object
+>The percentage works only for a top-most <object
 type="tElement"
->th</object
-> element (if you have column headers) or the top-most <object
+>table</object
+> element.  If you have an embedded <object
 type="tElement"
->td</object
-> element (if you do not have column headers). Unfortunately, that has not happened yet (obviously, it is non-trivial to do). This is definitely in the plans, but it will be for a future release.</p
+>table</object
+> within another table, then you will probably get overlapping material. </p
 ></endnote
-> You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). Given how <object
+> Given how <object
 type="tXeTeX"
 ></object
 > works, however, you may have to play with the values some to get things to come out just the way you want.<br
+></br
+>If you have a “simple” table (one that has neither row spans or column spans), then you can set the width of a column by setting the <object
+type="tAttribute"
+>width</object
+> attribute of the <object
+type="tElement"
+>td</object
+> or the <object
+type="tElement"
+>th</object
+> element of that column in the first row.  If, however, you have either a row span or a column span anywhere in the table, then you will need to overtly set the <object
+type="tAttribute"
+>width</object
+> attribute for each cell in the column that is too wide.<br
 ></br
 >One thing you can do to help with figuring out what the column widths should be is to <ul
 ><li

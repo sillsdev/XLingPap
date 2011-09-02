@@ -52,6 +52,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >XXE version 4.9 broke the 'Jump to Work in References (Bibliography)' command. Fixed it so it now works with XXE version 4.9 and earlier.</li
 ><li
+>Removed type attribute from part, chapter, chapterBeforePart, section1, section2, section3, section4, section5, and section6 elements.</li
+><li
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Improvement: added a way to have any interlinear automatically wrap within the page width, including interlinear texts.</li

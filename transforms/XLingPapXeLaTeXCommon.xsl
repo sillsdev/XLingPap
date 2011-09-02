@@ -113,12 +113,14 @@
         <xsl:value-of select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
+    <xsl:variable name="sTeXInterlinearSourceWidth" select="'XLingPaperinterlinearsourcewidth'"/>
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
+    <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
     <!--
         citation (InMarker)
     -->
@@ -688,7 +690,16 @@
                 <tex:cmd name="needspace" nl2="1">
                     <tex:parm>
                         <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->
-                        <xsl:variable name="iFirstSetOfLines" select="count(lineGroup/line) + count(free) + count(exampleHeading) + 1"/>
+                        <xsl:variable name="iFirstSetOfLines">
+                            <xsl:choose>
+                                <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                                    <xsl:value-of select="count(exampleHeading) + 2"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="count(lineGroup/line) + count(free) + count(exampleHeading) + 1"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
                         <!--                     <xsl:text>3</xsl:text>-->
                         <xsl:value-of select="$iFirstSetOfLines"/>
                         <tex:cmd name="baselineskip" gr="0" nl2="0"/>
@@ -714,20 +725,38 @@
                 <!--                <tex:cmd name="leftskip" gr="0" nl2="0"/>-->
                 <!--                <tex:spec cat="esc"/>-->
                 <!--                <tex:spec cat="esc"/>-->
-                <tex:cmd name="hangindent" gr="0" nl2="0"/>
-                <xsl:value-of select="$sParagraphIndent"/>
-                <tex:cmd name="noindent" gr="0" nl2="0"/>
-                <tex:cmd name="hspace*" nl2="0">
-                    <tex:parm>
+                <xsl:choose>
+                    <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                        <!-- if we enclose every one within a group, then any example headings show properly indented. -->
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>hangindent2em</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="1"/>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>hangafter1</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="hangindent" gr="0" nl2="0"/>
                         <xsl:value-of select="$sParagraphIndent"/>
-                    </tex:parm>
-                </tex:cmd>
+                        <tex:cmd name="noindent" gr="0" nl2="0"/>
+                        <tex:cmd name="hspace*" nl2="0">
+                            <tex:parm>
+                                <xsl:value-of select="$sParagraphIndent"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!-- this keeps the entire interlinear on the same page, even if parts of it could easily fit
                     <tex:cmd name="nopagebreak" gr="0" nl2="0"/>-->
                 <xsl:call-template name="OutputInterlinear">
                     <xsl:with-param name="mode" select="'NoTextRef'"/>
                 </xsl:call-template>
                 <tex:cmd name="par" gr="0" nl2="1"/>
+                <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+                    <!-- this needs to be after the \par or a long final free will not wrap correctly -->
+                    <tex:spec cat="eg"/>
+                </xsl:if>
             </xsl:when>
             <xsl:when test="parent::td">
                 <!-- when we are in a table, any attempt to insert a new row for a free translation 
@@ -747,6 +776,19 @@
                     <xsl:call-template name="OutputInterlinear"/>
                 </tex:env>
             </xsl:when>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:choose>
+                    <xsl:when test="parent::example">
+                        <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine"/>
+                    </xsl:when>
+                    <xsl:when test="parent::listInterlinear and ../parent::example">
+                        <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputInterlinear"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputInterlinear"/>
             </xsl:otherwise>
@@ -756,8 +798,29 @@
         interlinearRef
     -->
     <xsl:template match="interlinearRef">
+        <xsl:variable name="bHasExampleHeading">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::*[1][name()='exampleHeading']">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+                        <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    </xsl:apply-templates>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -765,14 +828,34 @@
     -->
     <xsl:template match="lineGroup">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:call-template name="DoInterlinearLineGroup">
-            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-        </xsl:call-template>
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrapableInterlinearLineGroup">
+                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearLineGroup">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="lineGroup" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearLineGroup">
-            <xsl:with-param name="mode" select="'NoTextRef'"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                <xsl:call-template name="DoWrapableInterlinearLineGroup">
+                    <xsl:with-param name="mode" select="'NoTextRef'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInterlinearLineGroup">
+                    <xsl:with-param name="mode" select="'NoTextRef'"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         line
@@ -1217,8 +1300,7 @@
         <xsl:if test="not(ancestor::figure or ancestor::tablenumbered or ancestor::example)">
             <tex:cmd name="vspace" nl1="1">
                 <tex:parm>
-                    <xsl:value-of select="$sBasicPointSize"/>
-                    <xsl:text>pt</xsl:text>
+                    <xsl:call-template name="GetCurrentPointSize"/>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
@@ -1584,10 +1666,27 @@
         exampleHeading
     -->
     <xsl:template match="exampleHeading">
-        <xsl:apply-templates/>
-        <xsl:call-template name="CreateBreakAfter">
-            <xsl:with-param name="example" select="parent::excample"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='interlinear' or name()='interlinearRef' or name()='listInterlinear']">
+                <xsl:call-template name="DoExampleHeadingWhenWrappable"/>
+            </xsl:when>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and parent::*[name()='interlinear' or name()='listInterlinear']">
+                <xsl:call-template name="DoExampleHeadingWhenWrappable"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+                <xsl:choose>
+                    <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
+                        <tex:cmd name="newline" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="CreateBreakAfter">
+                            <xsl:with-param name="example" select="parent::excample"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         endnote in li
@@ -1850,6 +1949,7 @@
         interlinear-text
     -->
     <xsl:template match="interlinear-text">
+        <tex:spec cat="bg"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
@@ -1865,6 +1965,7 @@
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
         </xsl:if>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         textInfo
@@ -1974,6 +2075,66 @@
                 </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        BoxUpWrdsInAllLinesInLineGroup
+    -->
+    <xsl:template name="BoxUpWrdsInAllLinesInLineGroup">
+        <xsl:variable name="iPos" select="count(preceding-sibling::wrd) + 1"/>
+        <tex:cmd name="hbox">
+            <tex:parm>
+                <!--       cannot use an environment because it inserts a newline which causes alignment issues
+                    <tex:env name="tabular" nl1="0">-->
+                <tex:spec cat="esc"/>
+                <xsl:text>begin</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:text>tabular</xsl:text>
+                <tex:spec cat="eg"/>
+                <tex:opt>t</tex:opt>
+                <tex:parm>
+                    <xsl:text>@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:text>l@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                </tex:parm>
+                <xsl:for-each select="../preceding-sibling::line">
+                    <xsl:for-each select="wrd[position()=$iPos]">
+                        <xsl:call-template name="DoWrd"/>
+                    </xsl:for-each>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:for-each>
+                <xsl:call-template name="DoWrd"/>
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+                <xsl:for-each select="../following-sibling::line">
+                    <xsl:for-each select="wrd[position()=$iPos]">
+                        <xsl:call-template name="DoWrd"/>
+                    </xsl:for-each>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:for-each>
+                <tex:spec cat="lsb"/>
+                <xsl:call-template name="GetCurrentPointSize"/>
+                <tex:spec cat="rsb"/>
+                <tex:spec cat="esc"/>
+                <xsl:text>end</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:text>tabular</xsl:text>
+                <tex:spec cat="eg"/>
+                <!--                            </tex:env>-->
+            </tex:parm>
+        </tex:cmd>
+        <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+        </xsl:for-each>
+        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+        <xsl:for-each select="../following-sibling::line/wrd[position()=$iPos]">
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+        </xsl:for-each>
+        <xsl:text>&#x20;</xsl:text>
     </xsl:template>
     <!--  
         CalculateColumnsInInterlinearLine
@@ -2585,6 +2746,36 @@
         </xsl:if>
     </xsl:template>
     <!--
+        DoAnyInterlinearWrappedWithSourceAfterFirstLine
+    -->
+    <xsl:template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:choose>
+            <xsl:when test="interlinearSource">
+                <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="string-length(normalize-space(@textref)) &gt; 0">
+                <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="name()='listInterlinear'">
+                        <xsl:apply-templates>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputInterlinear"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         DoBreakBeforeLink
     -->
     <xsl:template name="DoBreakBeforeLink">
@@ -2803,6 +2994,65 @@
         </xsl:if>
     </xsl:template>
     <!--
+        DoExampleHeadingWhenWrappable
+    -->
+    <xsl:template name="DoExampleHeadingWhenWrappable">
+        <tex:cmd name="parbox">
+            <tex:opt>t</tex:opt>
+            <tex:parm>
+                <xsl:call-template name="GetWidthForExampleContent"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:spec cat="bg"/>
+        <xsl:apply-templates/>
+        <tex:spec cat="eg"/>
+        <xsl:if test="descendant-or-self::endnote">
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="following-sibling::*[1][name()='interlinear' or name()='interlinearRef']">
+                <!-- I'm not sure why exactly, but using \\ to end the heading causes the following interlinear to come out one pile per row.
+                    Perhaps there is some side effect of LaTeX's \\ that causes this.
+                    The following works, even though I'm not sure why.
+                -->
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="following-sibling::*[1]">
+                        <xsl:call-template name="GetISOCode"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:variable name="sAdjustmentValue" select=".8"/>
+                <xsl:if test="string-length($sIsoCode) &gt; 0 ">
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$sAdjustmentValue"/>
+                            <tex:cmd name="baselineskip" gr="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+                <tex:cmd name="linebreak" gr="0" nl2="1"/>
+                <xsl:if test="string-length($sIsoCode) &gt; 0 ">
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:value-of select="$sAdjustmentValue"/>
+                            <tex:cmd name="baselineskip" gr="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="parent::example">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="newline"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         DoExternalHyperRefBegin
     -->
     <xsl:template name="DoExternalHyperRefBegin">
@@ -2838,6 +3088,18 @@
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoFootnoteTextWithinWrappableWrd
+    -->
+    <xsl:template name="DoFootnoteTextWithinWrappableWrd">
+        <xsl:if test="descendant-or-self::endnote">
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoImageFile
@@ -2927,13 +3189,26 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="sCurrentLanguage" select="@lang"/>
-        <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+        <xsl:if test="preceding-sibling::*[1][name()='free'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='free'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
             <!--            <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::free[not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">-->
-            <tex:cmd name="hspace*">
-                <tex:parm>
-                    <xsl:text>0.1in</xsl:text>
-                </tex:parm>
-            </tex:cmd>
+            <xsl:choose>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ../preceding-sibling::*[1][name()='free']">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 1">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="hspace*">
+                        <tex:parm>
+                            <xsl:text>0.1in</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
             <!-- need to compensate for the extra space after the letter -->
@@ -2942,6 +3217,20 @@
                     <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
                 </tex:parm>
             </tex:cmd>
+            <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
+                        <!-- do nothing; since this interlinear is the first child, there's no need for extra indent-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="hspace*">
+                            <tex:parm>
+                                <xsl:text>1em</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <!-- need to compensate for the extra space of the ISO code -->
                 <tex:cmd name="settowidth">
@@ -3005,6 +3294,50 @@
             </tex:cmd>
             <tex:spec cat="bg"/>
         </xsl:if>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:if test="following-sibling::*[1][name()='lineGroup']">
+                <tex:spec cat="bg"/>
+            </xsl:if>
+            <tex:spec cat="esc"/>
+            <xsl:text>hangindent</xsl:text>
+            <xsl:choose>
+                <xsl:when test="$mode='NoTextRef'">
+                    <xsl:text>2</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>em</xsl:text>
+            <tex:cmd name="relax" gr="0" nl2="1"/>
+            <tex:spec cat="esc"/>
+            <xsl:text>hangafter1</xsl:text>
+            <tex:cmd name="relax" gr="0" nl2="1"/>
+            <xsl:choose>
+                <xsl:when test="$mode='NoTextRef'">
+                    <tex:cmd name="hspace*">
+                        <tex:parm>
+                            <xsl:choose>
+                                <xsl:when test="../preceding-sibling::*[1][name()='free'] or count(ancestor::interlinear) &gt; 1">
+                                    <xsl:text>1.65</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>1</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>em</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="count(ancestor::interlinear) &gt; 1">
+                        <tex:cmd name="hspace*">
+                            <tex:parm>1em</tex:parm>
+                        </tex:cmd>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@lang">
                 <xsl:call-template name="HandleFreeLanguageFontInfo"/>
@@ -3041,6 +3374,9 @@
         <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
             <tex:spec cat="eg"/>
         </xsl:if>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:if test="descendant-or-self::endnote">
             <xsl:for-each select="descendant-or-self::endnote">
                 <xsl:apply-templates select=".">
@@ -3048,6 +3384,66 @@
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:choose>
+                <xsl:when test="following-sibling::*[1][name()='interlinear'] ">
+                    <xsl:call-template name="DoInterlinearFreeEndOfParagraph">
+                        <xsl:with-param name="mode" select="$mode"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="following-sibling::*[1][name()='lineGroup']">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <tex:cmd name="baselineskip"/>
+                        </tex:parm>
+                    </tex:cmd>
+                    <tex:cmd name="newline"/>
+                </xsl:when>
+                <xsl:when test="../following-sibling::*[1][name()='interlinear']">
+                    <xsl:choose>
+                        <xsl:when test="count(ancestor::interlinear) &gt; 1">
+                            <xsl:call-template name="DoInterlinearFreeEndOfParagraph">
+                                <xsl:with-param name="mode" select="$mode"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:when test="ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
+                            <xsl:call-template name="DoInterlinearFreeEndOfParagraph">
+                                <xsl:with-param name="mode" select="$mode"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise/>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:when test="ancestor::td">
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="lsb"/>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoInterlinearFreeEndOfParagraph
+    -->
+    <xsl:template name="DoInterlinearFreeEndOfParagraph">
+        <xsl:param name="mode"/>
+        <xsl:choose>
+            <xsl:when test="$mode='NoTextRef'">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="vspace">
+                    <tex:parm>
+                        <tex:cmd name="baselineskip"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="newline" gr="0"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoInterlinearLine
@@ -3081,23 +3477,7 @@
                     <xsl:if test="position() &gt; 1">
                         <tex:spec cat="align"/>
                     </xsl:if>
-                    <xsl:choose>
-                        <xsl:when test="@lang">
-                            <!-- using cmd and parm outputs an unwanted space when there is an initial object - SIGH - does not do any better.... need to try spec nil -->
-                            <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-                                <xsl:with-param name="originalContext" select="."/>
-                            </xsl:call-template>
-                            <xsl:apply-templates/>
-                            <xsl:call-template name="OutputFontAttributesEnd">
-                                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-                                <xsl:with-param name="originalContext" select="."/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="DoWrd"/>
                     <!--  
                         </fo:block>
                         </fo:table-cell>
@@ -3111,40 +3491,16 @@
                         <xsl:otherwise>N</xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:if test="$bFlip='Y'">
+                <!--<xsl:if test="$bFlip='Y'">
                     <xsl:attribute name="text-align">right</xsl:attribute>
-                </xsl:if>
+                </xsl:if>-->
                 <xsl:variable name="lang">
-                    <xsl:if test="langData">
-                        <xsl:value-of select="langData/@lang"/>
-                    </xsl:if>
-                    <xsl:if test="gloss">
-                        <xsl:value-of select="gloss/@lang"/>
-                    </xsl:if>
-                </xsl:variable>
-                <xsl:variable name="sContents">
-                    <!--               <xsl:apply-templates/>  Why do we want to include all the parameters, etc. when what we really want is the text? -->
-                    <!--                    <xsl:value-of select="."/>-->
-                    <xsl:value-of select="self::*[not(descendant-or-self::endnote)]"/>
+                    <xsl:call-template name="GetLangInNonWrdLine"/>
                 </xsl:variable>
                 <xsl:variable name="sOrientedContents">
-                    <xsl:choose>
-                        <xsl:when test="$bFlip='Y'">
-                            <!-- flip order, left to right -->
-                            <xsl:call-template name="ReverseContents">
-                                <xsl:with-param name="sList" select="$sContents"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:when test="langData and id(langData/@lang)/@rtl='yes'">
-                            <!-- flip order, left to right -->
-                            <xsl:call-template name="ReverseContents">
-                                <xsl:with-param name="sList" select="$sContents"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$sContents"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="GetOrientedContents">
+                        <xsl:with-param name="bFlip" select="$bFlip"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="OutputInterlinearLineAsTableCells">
                     <xsl:with-param name="sList" select="$sOrientedContents"/>
@@ -3269,76 +3625,10 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:text>*</xsl:text>
         <tex:spec cat="bg"/>
-        <!--        <xsl:value-of select="$sInterlinearMaxNumberOfColumns"/>-->
         <xsl:variable name="iColCount">
-            <!--       <xsl:choose>
-         -->
-            <!--          <xsl:when test="line">-->
-            <xsl:variable name="iTempCount">
-                <xsl:for-each select="line | ../listWord">
-                    <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
-                    <xsl:if test="position()=1">
-                        <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
-                    </xsl:if>
-                </xsl:for-each>
-            </xsl:variable>
-            <xsl:choose>
-                <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
-                    <!-- have space-delimited langData and/or gloss line(s) -->
-                    <!-- We need to figure out the maximum number of items in the line elements.
-                                   The maximum could be in any line since the user just keys data in them.
-                                   We use a bit of a trick.  We put XML into a variable, with a root of <lines> and each line as <line>.
-                                   Each line contains one x for each item in the line.  We then sort these and get the longest one.
-                                   We use the longest one to figure out how many columns we will need.
-                                   Note that with XSLT version 1.0, we have to use something like the Saxon extension function node-set().
-                            -->
-                    <xsl:variable name="lines">
-                        <lines>
-                            <xsl:for-each select="line | ../listWord">
-                                <line>
-                                    <xsl:call-template name="CalculateColumnsInInterlinearLine">
-                                        <xsl:with-param name="sList" select="langData | gloss"/>
-                                    </xsl:call-template>
-                                </line>
-                            </xsl:for-each>
-                        </lines>
-                    </xsl:variable>
-                    <xsl:variable name="sMaxColCount">
-                        <xsl:for-each select="saxon:node-set($lines)/descendant::*">
-                            <xsl:for-each select="line">
-                                <xsl:sort select="." order="descending"/>
-                                <xsl:if test="position()=1">
-                                    <xsl:value-of select="."/>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:for-each>
-                    </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when test="contains($bListsShareSameCode,'N')">
-                            <xsl:value-of select="string-length($sMaxColCount)+1"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="string-length($sMaxColCount)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="contains($bListsShareSameCode,'N')">
-                            <xsl:value-of select="number($iTempCount + 1)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$iTempCount"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-            <!--                </xsl:when>-->
-            <!--                <xsl:otherwise>
-                    <xsl:value-of select="count(langData) + count(gloss)"/>
-                </xsl:otherwise>
-            </xsl:choose>
--->
+            <xsl:call-template name="GetMaxColumnCountForLineGroup">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="$sInterlinearSourceStyle='AfterFirstLine'">
@@ -3366,6 +3656,68 @@
         <tex:spec cat="eg"/>
         <tex:spec cat="eg"/>
         <xsl:text>l</xsl:text>
+    </xsl:template>
+    <!--
+        DoInterlinearWrappedWithSourceAfterFirstLine
+    -->
+    <xsl:template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="bHasExampleHeading"/>
+        <tex:cmd name="settowidth">
+            <tex:parm>
+                <tex:spec cat="esc"/>
+                <xsl:value-of select="$sTeXInterlinearSourceWidth"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                    <xsl:with-param name="sSource" select="interlinearSource"/>
+                    <xsl:with-param name="sRef" select="normalize-space(@textref)"/>
+                    <xsl:with-param name="bContentOnly" select="'Y'"/>
+                </xsl:call-template>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="parbox">
+            <tex:opt>
+                <xsl:text>t</xsl:text>
+            </tex:opt>
+            <tex:parm>
+                <xsl:call-template name="GetWidthForExampleContent"/>
+                <xsl:text>-</xsl:text>
+                <tex:spec cat="esc"/>
+                <xsl:value-of select="$sTeXInterlinearSourceWidth"/>
+                <xsl:text>-2em</xsl:text>
+            </tex:parm>
+            <tex:parm>
+                <tex:spec cat="esc"/>
+                <xsl:text>&#x20;</xsl:text>
+                <tex:cmd name="hspace">
+                    <tex:parm>
+                        <xsl:text>-2</xsl:text>
+                        <tex:cmd name="XLingPaperspacewidth"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:choose>
+                    <xsl:when test="name()='listInterlinear'">
+                        <xsl:apply-templates select="*[name()!='interlinearSource']">
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:when test="ancestor::interlinear-text">
+                        <xsl:apply-templates>
+                            <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputInterlinear"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="OutputInterlinearTextReference">
+            <xsl:with-param name="sRef" select="@textref"/>
+            <xsl:with-param name="sSource" select="interlinearSource"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
     </xsl:template>
     <!--
         DoInternalHyperlinkBegin
@@ -3404,6 +3756,38 @@
     -->
     <xsl:template name="DoInternalTargetEnd">
         <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
+        DoIthCellInNonWrdInterlinearLineAsWrappable
+    -->
+    <xsl:template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+        <xsl:param name="sList"/>
+        <xsl:param name="lang"/>
+        <xsl:param name="iPositionToUse"/>
+        <xsl:param name="iCurrentPosition"/>
+        <xsl:param name="iMaxColumns"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:choose>
+            <xsl:when test="$iCurrentPosition = $iPositionToUse">
+                <xsl:call-template name="OutputInterlinearLineTableCellContent">
+                    <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="sFirst" select="$sFirst"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+                <xsl:if test="$sRest or $iCurrentPosition &lt; $iMaxColumns">
+                    <xsl:call-template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+                        <xsl:with-param name="sList" select="$sRest"/>
+                        <xsl:with-param name="lang" select="$lang"/>
+                        <xsl:with-param name="iPositionToUse" select="$iPositionToUse"/>
+                        <xsl:with-param name="iCurrentPosition" select="$iCurrentPosition + 1"/>
+                        <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoListInterlinearEmbeddedTabular
@@ -3482,6 +3866,83 @@
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoNonWrdInterlinearLineAsWrappable
+    -->
+    <xsl:template name="DoNonWrdInterlinearLineAsWrappable">
+        <xsl:param name="sList"/>
+        <xsl:param name="lang"/>
+        <xsl:param name="bFlip"/>
+        <xsl:param name="iPosition"/>
+        <xsl:param name="iMaxColumns"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <tex:cmd name="hbox">
+            <tex:parm>
+                <!--       cannot use an environment because it inserts a newline which causes alignment issues
+                    <tex:env name="tabular" nl1="0">-->
+                <tex:spec cat="esc"/>
+                <xsl:text>begin</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:text>tabular</xsl:text>
+                <tex:spec cat="eg"/>
+                <tex:opt>t</tex:opt>
+                <tex:parm>
+                    <xsl:text>@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:text>l@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                </tex:parm>
+                <xsl:call-template name="OutputInterlinearLineTableCellContent">
+                    <xsl:with-param name="lang" select="$lang"/>
+                    <xsl:with-param name="sFirst" select="$sFirst"/>
+                </xsl:call-template>
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+                <xsl:for-each select="following-sibling::line">
+                    <xsl:variable name="langOfNewLine">
+                        <xsl:call-template name="GetLangInNonWrdLine"/>
+                    </xsl:variable>
+                    <xsl:variable name="sOrientedContents">
+                        <xsl:call-template name="GetOrientedContents">
+                            <xsl:with-param name="bFlip" select="$bFlip"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoIthCellInNonWrdInterlinearLineAsWrappable">
+                        <xsl:with-param name="sList" select="$sOrientedContents"/>
+                        <xsl:with-param name="lang" select="$langOfNewLine"/>
+                        <xsl:with-param name="iPositionToUse" select="$iPosition"/>
+                        <xsl:with-param name="iCurrentPosition" select="1"/>
+                        <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+                    </xsl:call-template>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:for-each>
+                <tex:spec cat="lsb"/>
+                <xsl:call-template name="GetCurrentPointSize"/>
+                <tex:spec cat="rsb"/>
+                <tex:spec cat="esc"/>
+                <xsl:text>end</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:text>tabular</xsl:text>
+                <tex:spec cat="eg"/>
+                <!--                            </tex:env>-->
+            </tex:parm>
+        </tex:cmd>
+        <xsl:text>&#x20;</xsl:text>
+        <xsl:if test="$sRest or $iPosition &lt; $iMaxColumns">
+            <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
+                <xsl:with-param name="sList" select="$sRest"/>
+                <xsl:with-param name="lang" select="$lang"/>
+                <xsl:with-param name="bFlip" select="$bFlip"/>
+                <xsl:with-param name="iPosition" select="$iPosition + 1"/>
+                <xsl:with-param name="iMaxColumns" select="$iMaxColumns"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -3570,6 +4031,232 @@
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoWrapableInterlinearLineGroup
+    -->
+    <xsl:template name="DoWrapableInterlinearLineGroup">
+        <xsl:param name="mode"/>
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
+            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free']">
+                <tex:cmd name="vspace">
+                    <tex:parm>
+                        <tex:cmd name="baselineskip"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="$mode='NoTextRef'">
+            <tex:cmd name="raggedright" gr="0" nl2="0"/>
+            <tex:cmd name="leavevmode" gr="0" nl2="0"/>
+            <tex:cmd name="hspace*" nl2="0">
+                <tex:parm>
+                    <xsl:choose>
+                        <xsl:when test="../preceding-sibling::*[1][name()='free'] or count(ancestor::interlinear) &gt; 1">
+                            <xsl:text>1.65</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>1</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>em</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
+            <tex:spec cat="bg"/>
+        </xsl:if>
+        <tex:spec cat="esc"/>
+        <xsl:text>hangindent</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$mode='NoTextRef'">
+                <xsl:text>2</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>1</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>em</xsl:text>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>hangafter</xsl:text>
+        <xsl:choose>
+            <xsl:when test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
+                <xsl:text>2</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>1</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
+            <xsl:variable name="sListIsoCode">
+                <xsl:call-template name="GetISOCode"/>
+            </xsl:variable>
+            <tex:cmd name="hbox">
+                <tex:parm>
+                    <tex:cmd name="small">
+                        <tex:parm>
+                            <xsl:text>[</xsl:text>
+                            <xsl:value-of select="$sListIsoCode"/>
+                            <xsl:text>]</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </tex:parm>
+            </tex:cmd>
+            <xsl:text>&#x20;</xsl:text>
+        </xsl:if>
+        <xsl:variable name="iColCount">
+            <xsl:call-template name="GetMaxColumnCountForLineGroup">
+                <xsl:with-param name="bListsShareSameCode" select="'Y'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="line/wrd">
+                <xsl:variable name="bRtl">
+                    <xsl:choose>
+                        <xsl:when test="id(line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                        <xsl:otherwise>N</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$bRtl='Y'">
+                        <xsl:for-each select="line[1]/wrd">
+                            <xsl:sort select="position()" data-type="number" order="descending"/>
+                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup"/>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="line[count(wrd)=$iColCount][1]/wrd">
+                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup"/>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- uses langData or gloss with #PCDATA -->
+                <xsl:variable name="bFlip">
+                    <xsl:choose>
+                        <xsl:when test="id(line[1]/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                        <xsl:otherwise>N</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <!--                <xsl:if test="$bFlip='Y'">
+                    <xsl:attribute name="text-align">right</xsl:attribute>
+                    </xsl:if>
+                -->
+                <xsl:for-each select="line[1]">
+                    <xsl:variable name="lang">
+                        <xsl:call-template name="GetLangInNonWrdLine"/>
+                    </xsl:variable>
+                    <xsl:variable name="sOrientedContents">
+                        <xsl:call-template name="GetOrientedContents">
+                            <xsl:with-param name="bFlip" select="$bFlip"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
+                        <xsl:with-param name="sList" select="$sOrientedContents"/>
+                        <xsl:with-param name="lang" select="$lang"/>
+                        <xsl:with-param name="bFlip" select="$bFlip"/>
+                        <xsl:with-param name="iPosition" select="1"/>
+                        <xsl:with-param name="iMaxColumns" select="$iColCount"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$mode!='NoTextRef' and following-sibling::*[1][name()='interlinear' or name()='lineGroup']">
+                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
+                <tex:cmd name="newline" nl2="1"/>
+            </xsl:when>
+            <xsl:when test="ancestor::endnote and ancestor::td">
+                <xsl:variable name="iEndnotePosition" select="count(ancestor::*[name()!='endnote' and ancestor::endnote])"/>
+                <xsl:variable name="iTdPosition" select="count(ancestor::*[name()!='td' and ancestor::td])"/>
+                <xsl:choose>
+                    <xsl:when test="$iEndnotePosition &lt; $iTdPosition">
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="lsb"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:call-template name="GetCurrentPointSize"/>
+                        <tex:spec cat="rsb"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="ancestor::endnote">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </xsl:when>
+            <xsl:when test="ancestor::td">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+                <tex:spec cat="lsb"/>
+                <xsl:text>-</xsl:text>
+                <xsl:call-template name="GetCurrentPointSize"/>
+                <tex:spec cat="rsb"/>
+            </xsl:when>
+            <xsl:when test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
+                <xsl:if test="preceding-sibling::lineGroup">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
+                <tex:cmd name="newline" nl2="1"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="preceding-sibling::lineGroup">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
+                <tex:cmd name="par" nl2="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!--<tex:cmd name="par" nl2="1"/>-->
+        <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
+            <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
+            <tex:cmd name="vspace*">
+                <tex:parm>
+                    <xsl:text>-</xsl:text>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
+        <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">
+            <tex:cmd name="vspace*">
+                <tex:parm>
+                    <xsl:text>-</xsl:text>
+                    <tex:cmd name="baselineskip"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoWrd
+    -->
+    <xsl:template name="DoWrd">
+        <xsl:choose>
+            <xsl:when test="@lang">
+                <!-- using cmd and parm outputs an unwanted space when there is an initial object - SIGH - does not do any better.... need to try spec nil -->
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       GetColorDecimalCodeFromHexCode
@@ -3796,6 +4483,20 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
+        GetCurrentPointSize
+    -->
+    <xsl:template name="GetCurrentPointSize">
+        <xsl:choose>
+            <xsl:when test="ancestor::endnote">
+                <xsl:value-of select="$sFootnotePointSize"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>pt</xsl:text>
+    </xsl:template>
+    <!--  
         GetISOCode
     -->
     <xsl:template name="GetISOCode">
@@ -3820,6 +4521,19 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        GetLangInNonWrdLine
+    -->
+    <xsl:template name="GetLangInNonWrdLine">
+        <xsl:choose>
+            <xsl:when test="langData">
+                <xsl:value-of select="langData/@lang"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="gloss/@lang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetLetterWidth
     -->
     <xsl:template name="GetLetterWidth">
@@ -3829,6 +4543,77 @@
             <xsl:when test="$iLetterCount &lt; 53">2.5</xsl:when>
             <xsl:otherwise>3</xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetMaxColumnCountForLineGroup
+    -->
+    <xsl:template name="GetMaxColumnCountForLineGroup">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:variable name="iTempCount">
+            <xsl:for-each select="line | ../listWord">
+                <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
+                <xsl:if test="position()=1">
+                    <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
+                <!-- have space-delimited langData and/or gloss line(s) -->
+                <xsl:variable name="sMaxColCount">
+                    <xsl:call-template name="GetMaxColumnCountForPCDATALines"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="string-length($sMaxColCount)+1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="string-length($sMaxColCount)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="number($iTempCount + 1)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iTempCount"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetMaxColumnCountForPCDATALines
+    -->
+    <xsl:template name="GetMaxColumnCountForPCDATALines">
+        <!-- We need to figure out the maximum number of items in the line elements.
+            The maximum could be in any line since the user just keys data in them.
+            We use a bit of a trick.  We put XML into a variable, with a root of <lines> and each line as <line>.
+            Each line contains one x for each item in the line.  We then sort these and get the longest one.
+            We use the longest one to figure out how many columns we will need.
+            Note that with XSLT version 1.0, we have to use something like the Saxon extension function node-set().
+        -->
+        <xsl:variable name="lines">
+            <lines>
+                <xsl:for-each select="line | ../listWord">
+                    <line>
+                        <xsl:call-template name="CalculateColumnsInInterlinearLine">
+                            <xsl:with-param name="sList" select="langData | gloss"/>
+                        </xsl:call-template>
+                    </line>
+                </xsl:for-each>
+            </lines>
+        </xsl:variable>
+        <xsl:for-each select="saxon:node-set($lines)/descendant::*">
+            <xsl:for-each select="line">
+                <xsl:sort select="." order="descending"/>
+                <xsl:if test="position()=1">
+                    <xsl:value-of select="."/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         GetMeasure
@@ -3899,6 +4684,34 @@
         </xsl:choose>
     </xsl:template>
     <!-- 
+        GetOrientedContents
+    -->
+    <xsl:template name="GetOrientedContents">
+        <xsl:param name="bFlip"/>
+        <xsl:variable name="sContents">
+            <!--               <xsl:apply-templates/>  Why do we want to include all the parameters, etc. when what we really want is the text? -->
+            <!--                    <xsl:value-of select="."/>-->
+            <xsl:value-of select="self::*[not(descendant-or-self::endnote)]"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$bFlip='Y'">
+                <!-- flip order, left to right -->
+                <xsl:call-template name="ReverseContents">
+                    <xsl:with-param name="sList" select="$sContents"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="langData and id(langData/@lang)/@rtl='yes'">
+                <!-- flip order, left to right -->
+                <xsl:call-template name="ReverseContents">
+                    <xsl:with-param name="sList" select="$sContents"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sContents"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
         GetRealColumnNumberOfCell
     -->
     <xsl:template name="GetRealColumnNumberOfCell">
@@ -3923,6 +4736,23 @@
     <xsl:template name="GetUnitOfMeasure">
         <xsl:param name="sValue"/>
         <xsl:value-of select="substring($sValue, string-length($sValue)-1)"/>
+    </xsl:template>
+    <!--  
+        GetWidthForExampleContent
+    -->
+    <xsl:template name="GetWidthForExampleContent">
+        <tex:cmd name="textwidth" gr="0" nl2="0"/>
+        <xsl:text> - </xsl:text>
+        <xsl:value-of select="$sExampleIndentBefore"/>
+        <xsl:text> - </xsl:text>
+        <xsl:value-of select="$iNumberWidth"/>
+        <xsl:text>em - </xsl:text>
+        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+        <xsl:if test="parent::listInterlinear or self::listInterlinear">
+            <xsl:text>-</xsl:text>
+            <xsl:value-of select="$iNumberWidth"/>
+            <xsl:text>em</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--  
         GetXeLaTeXSpecialCommand
@@ -5228,7 +6058,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
-                    <tex:cmd name="{$sXLingPaperListInterlinear}" nl1="1" nl2="1">
+                    <tex:cmd name="{$sXLingPaperListInterlinear}" nl1="0" nl2="1">
                         <tex:parm>
                             <xsl:value-of select="$sExampleIndentBefore"/>
                         </tex:parm>
@@ -5246,9 +6076,27 @@
                             <xsl:call-template name="OutputLetter"/>
                         </tex:parm>
                         <tex:parm>
-                            <xsl:apply-templates>
-                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                            </xsl:apply-templates>
+                            <xsl:choose>
+                                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                                    <xsl:choose>
+                                        <xsl:when test="parent::example">
+                                            <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
+                                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                            </xsl:call-template>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:apply-templates>
+                                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                            </xsl:apply-templates>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates>
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:apply-templates>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </tex:parm>
                     </tex:cmd>
                     <xsl:if test="position() != last()">
@@ -5906,6 +6754,18 @@
             </tex:parm>
             <tex:parm>0pt</tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetInterlinearSourceLength
+    -->
+    <xsl:template name="SetInterlinearSourceLength">
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+            <tex:cmd name="newlength" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="{$sTeXInterlinearSourceWidth}" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetListLengths

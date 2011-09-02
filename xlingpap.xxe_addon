@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-08-18</a:date
+>2011-09-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 18 August 2011<ul
+>2.6.0_5 02 September 2011<ul
 ><li
 >Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
@@ -54,7 +54,9 @@ href="mailto::andy_black@sil.org"
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li
->Improvement:  if a table has no column spans and no row spans, then the width attribute of a cell in the first row will be used for all cells in that column.</li
+>Improvement: added a way to have any interlinear automatically wrap within the page width, including interlinear texts.</li
+><li
+>Improvement: if a table has no column spans and no row spans, then the width attribute of a cell in the first row will be used for all cells in that column.</li
 ><li
 >Fix bug: when ISO codes were shown with interlinear and listInterlinear, the example number (and letter) were sometimes not horizontally aligned with the first line of the interlinear.</li
 ><li

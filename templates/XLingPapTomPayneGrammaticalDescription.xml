@@ -2,6 +2,7 @@
 <!DOCTYPE lingPaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <lingPaper
+automaticallywrapinterlinears="yes"
 version="2.10.0"
 ><comment
 >This is taken from Thomas E. Payne's 19 March, 2002 "A Possible Outline for a Balanced Formal / Functional Grammatical Description"<br

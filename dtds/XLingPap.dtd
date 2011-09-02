@@ -112,6 +112,7 @@
     tablenumberedRefCapitalizedSingularLabel CDATA #IMPLIED
     tablenumberedRefCapitalizedPluralLabel CDATA #IMPLIED
     tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    automaticallywrapinterlinears (no | yes) "no"
     >
 <!-- Languages groups a set of language definitions.  This is at the end because it looks better in a tool like XMLMind -->
 <!ELEMENT languages (language+)>

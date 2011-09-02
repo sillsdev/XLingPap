@@ -170,6 +170,7 @@
                     <xsl:call-template name="SetXLingPaperEndIndexMacro"/>
                     <tex:cmd name="XLingPaperindex" gr="0" nl2="0"/>
                 </xsl:if>
+                <xsl:call-template name="SetInterlinearSourceLength"/>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
@@ -2624,9 +2625,11 @@
                 <xsl:choose>
                     <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                         <tex:cmd name="footnotemark">
-                            <tex:opt>
-                                <xsl:call-template name="DoFootnoteNumberInText"/>
-                            </tex:opt>
+                            <xsl:if test="not(ancestor::interlinear-text)">
+                                <tex:opt>
+                                    <xsl:call-template name="DoFootnoteNumberInText"/>
+                                </tex:opt>
+                            </xsl:if>
                         </tex:cmd>
                     </xsl:when>
                     <xsl:when test="count(ancestor::table) &gt; 1 and $sTeXFootnoteKind!='footnotetext' ">
@@ -2638,16 +2641,20 @@
                     </xsl:when>
                     <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
                         <tex:cmd name="footnotemark">
-                            <tex:opt>
-                                <xsl:call-template name="DoFootnoteNumberInText"/>
-                            </tex:opt>
+                            <xsl:if test="not(ancestor::interlinear-text)">
+                                <tex:opt>
+                                    <xsl:call-template name="DoFootnoteNumberInText"/>
+                                </tex:opt>
+                            </xsl:if>
                         </tex:cmd>
                     </xsl:when>
                     <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext'">
                         <tex:cmd name="footnotemark">
-                            <tex:opt>
-                                <xsl:call-template name="DoFootnoteNumberInText"/>
-                            </tex:opt>
+                            <xsl:if test="not(ancestor::interlinear-text)">
+                                <tex:opt>
+                                    <xsl:call-template name="DoFootnoteNumberInText"/>
+                                </tex:opt>
+                            </xsl:if>
                         </tex:cmd>
                     </xsl:when>
                     <xsl:otherwise>
@@ -2656,9 +2663,11 @@
                         <tex:cmd name="{$sTeXFootnoteKind}">
                             <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
                                 <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
-                                <tex:opt>
-                                    <xsl:call-template name="DoFootnoteNumberInText"/>
-                                </tex:opt>
+                                <xsl:if test="not(ancestor::interlinear-text)">
+                                    <tex:opt>
+                                        <xsl:call-template name="DoFootnoteNumberInText"/>
+                                    </tex:opt>
+                                </xsl:if>
                             </xsl:if>
                             <tex:parm>
                                 <tex:group>
@@ -2900,15 +2909,16 @@
                 <xsl:call-template name="LinkAttributesBegin">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                 </xsl:call-template>
-<!--                <tex:spec cat="esc"/>
+                <!--                <tex:spec cat="esc"/>
                 <xsl:text>footnotesize</xsl:text>
                 <tex:spec cat="bg"/>
--->                <tex:spec cat="esc"/>
+-->
+                <tex:spec cat="esc"/>
                 <xsl:text>textsuperscript</xsl:text>
                 <tex:spec cat="bg"/>
                 <xsl:call-template name="DoFootnoteNumberInTextValue"/>
                 <tex:spec cat="eg"/>
-<!--                <tex:spec cat="eg"/>-->
+                <!--                <tex:spec cat="eg"/>-->
                 <xsl:call-template name="LinkAttributesEnd">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                 </xsl:call-template>
@@ -5149,8 +5159,8 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-                   OutputIndexedItemsRange
--->
+        OutputIndexedItemsRange
+    -->
     <xsl:template name="OutputIndexedItemsRange">
         <xsl:param name="sIndexedItemID"/>
         <xsl:call-template name="OutputIndexedItemsPageNumber">
@@ -5172,8 +5182,8 @@
         </xsl:if>
     </xsl:template>
     <!--
-                   OutputIndexedItemsPageNumber
--->
+        OutputIndexedItemsPageNumber
+    -->
     <xsl:template name="OutputIndexedItemsPageNumber">
         <xsl:param name="sIndexedItemID"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
@@ -5208,6 +5218,25 @@
         <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:call-template name="DoDebugExamples"/>
+        <xsl:call-template name="OutputInterlinearLineTableCellContent">
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:with-param name="sFirst" select="$sFirst"/>
+        </xsl:call-template>
+        <tex:spec cat="align"/>
+        <xsl:if test="$sRest">
+            <xsl:call-template name="OutputInterlinearLineAsTableCells">
+                <xsl:with-param name="sList" select="$sRest"/>
+                <xsl:with-param name="lang" select="$lang"/>
+                <xsl:with-param name="sAlign" select="$sAlign"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputInterlinearLineAsTableCells
+    -->
+    <xsl:template name="OutputInterlinearLineTableCellContent">
+        <xsl:param name="lang"/>
+        <xsl:param name="sFirst"/>
         <xsl:variable name="sContext">
             <xsl:call-template name="GetContextOfItem"/>
         </xsl:variable>
@@ -5278,14 +5307,6 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-        <tex:spec cat="align"/>
-        <xsl:if test="$sRest">
-            <xsl:call-template name="OutputInterlinearLineAsTableCells">
-                <xsl:with-param name="sList" select="$sRest"/>
-                <xsl:with-param name="lang" select="$lang"/>
-                <xsl:with-param name="sAlign" select="$sAlign"/>
-            </xsl:call-template>
-        </xsl:if>
     </xsl:template>
     <!--  
         OutputInterlinearTextReferenceContent
@@ -5293,7 +5314,10 @@
     <xsl:template name="OutputInterlinearTextReferenceContent">
         <xsl:param name="sSource"/>
         <xsl:param name="sRef"/>
-        <tex:cmd name="hfill" nl2="0"/>
+        <xsl:param name="bContentOnly" select="'N'"/>
+        <xsl:if test="$bContentOnly!='Y'">
+            <tex:cmd name="hfill" nl2="0"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="$sSource">
                 <xsl:apply-templates select="$sSource" mode="contents"/>

@@ -19,7 +19,7 @@
             <dir value="ltr">Consistent line elements within a lineGroup</dir>
         </title>
         <rule context="lineGroup">
-            <report test="line[count(wrd) &gt; 0] and line[count(wrd)=0]">Some of the line elements in this lineGroup have been converted to use wrd elements and some have not.  All line elements within a lineGroup should be the same: either all using wrd or all not using wrd.  Please use the XLingPaper menu item / 'Convert interlinear line to wrd elements' for all lines in this lineGroup.</report>
+            <report test="line[count(wrd) &gt; 0] and line[count(wrd)=0]">Some of the line elements in this lineGroup have been converted to use wrd elements and some have not.  All line elements within a lineGroup should be the same: either all using wrd or all not using wrd.  The formatted output may leave out some lines.  Please use the XLingPaper menu item / 'Convert interlinear line to wrd elements' for all lines in this lineGroup.</report>
         </rule>
     </pattern>
     <pattern>

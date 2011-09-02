@@ -2,6 +2,7 @@
 <!DOCTYPE lingPaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <lingPaper
+automaticallywrapinterlinears="yes"
 version="2.10.0"
 ><frontMatter
 ><title

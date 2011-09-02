@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->18 August 2011</date
+>02 September 2011</date
 ><version
 >2.16.0_5</version
 ><contents
@@ -7659,6 +7659,26 @@ type="tXMLmindXMLEditor"
 type="tXMLmindXMLEditor"
 ></object
 > is not a “What You See Is What You Get” editor. The output (whether web page, PDF, Word or Open Office) will be aligned.</p
+><p
+><indexedItem
+term="iAutoWrapInterlinear"
+></indexedItem
+>Beginning with version 2.17, it is possible to have the <object
+type="tXeTeX"
+></object
+> way of producing PDF automatically wrap long interlinears.  To make this automatic wrapping happen, you click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then set the <object
+type="tAttribute"
+>automaticallywrapinterlinears</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> via the Attributes Tool.</p
 ><section3
 id="sExInterlinearSingle"
 ><secTitle
@@ -7744,10 +7764,36 @@ type="tElement"
 >Also note that <object
 type="tXLingPap"
 ></object
-> does all that is needed to do the aligning (with the exception that it will not be able to automatically break long lines; see <sectionRef
+> does all that is needed to do the aligning.  <indexedItem
+term="iAutoWrapInterlinear"
+></indexedItem
+>It will only automatically wrap long lines for the <object
+type="tXeTeX"
+></object
+> way of producing PDF;<endnote
+id="nXeLaTeXAutoWrap"
+><p
+>To make this automatic wrapping happen, you click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then set the <object
+type="tAttribute"
+>automaticallywrapinterlinears</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> via the Attributes Tool.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></p
+></endnote
+> for the other kinds of output, you will need to break long lines manually; see <sectionRef
 sec="secExInterlinearContinuation"
 ></sectionRef
-> below).</p
+> below.</p
 ><p
 >You have probably noticed that there are many types of interlinear examples listed in the Edit tool.<endnoteRef
 note="nEditTool"
@@ -8181,10 +8227,19 @@ sec="sSpecialEffectsText"
 >Also note that <object
 type="tXLingPap"
 ></object
-> does all that is needed to do the aligning (with the exception that it will not be able to automatically break long lines; see <sectionRef
+> does all that is needed to do the aligning.  <indexedItem
+term="iAutoWrapInterlinear"
+></indexedItem
+>It will only automatically wrap long lines for the <object
+type="tXeTeX"
+></object
+> way of producing PDF;<endnoteRef
+note="nXeLaTeXAutoWrap"
+></endnoteRef
+> for the other kinds of output, you will need to break long lines manually; see <sectionRef
 sec="secExInterlinearContinuation"
 ></sectionRef
-> below).</p
+> below.</p
 ><p
 >You have probably noticed that there are many types of interlinear examples listed in the Edit tool.<endnoteRef
 note="nEditTool"
@@ -8913,7 +8968,16 @@ sec="sExInterlinearMorph"
 > above, <object
 type="tXLingPap"
 ></object
-> does not automatically break lengthy (i.e. wide) interlinear examples (except for the morpheme-aligned ones when the output is a webpage). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
+> does not automatically break lengthy (i.e. wide) interlinear examples (except for the morpheme-aligned ones when the output is a webpage and <indexedItem
+term="iAutoWrapInterlinear"
+></indexedItem
+>for the <object
+type="tXeTeX"
+></object
+> way of producing PDF<endnoteRef
+note="nXeLaTeXAutoWrap"
+></endnoteRef
+>). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
 ><p
 >You insert these manual breaks by embedding an <object
 type="tElement"
@@ -14400,7 +14464,16 @@ type="tXLingPap"
 > allows you to include such texts. The form of the interlinear within the interlinear text may be the same as any of those described for interlinear examples (see section <sectionRef
 sec="sExInterlinear"
 ></sectionRef
->).</p
+>).  <indexedItem
+term="iAutoWrapInterlinear"
+></indexedItem
+>Long interlinears will not automatically wrap except for the <object
+type="tXeTeX"
+></object
+> way of producing PDF.<endnoteRef
+note="nXeLaTeXAutoWrap"
+></endnoteRef
+></p
 ><p
 >Occasionally, such interlinear text is preceded by the same text in paragraph form.<endnote
 id="nProseText"
@@ -16924,10 +16997,10 @@ id="nXeLaTeXTableWidthPercentage"
 >The percentage works only for a top-most <object
 type="tElement"
 >table</object
-> element.  If you have an embedded <object
+> element. If you have an embedded <object
 type="tElement"
 >table</object
-> within another table, then you will probably get overlapping material. </p
+> within another table, then you will probably get overlapping material.</p
 ></endnote
 > Given how <object
 type="tXeTeX"
@@ -16943,7 +17016,7 @@ type="tElement"
 > or the <object
 type="tElement"
 >th</object
-> element of that column in the first row.  If, however, you have either a row span or a column span anywhere in the table, then you will need to overtly set the <object
+> element of that column in the first row. If, however, you have either a row span or a column span anywhere in the table, then you will need to overtly set the <object
 type="tAttribute"
 >width</object
 > attribute for each cell in the column that is too wide.<br
@@ -23280,6 +23353,11 @@ id="iInterlinear"
 ><term
 >Interlinear</term
 ><indexTerms
+><indexTerm
+id="iAutoWrapInterlinear"
+><term
+>Automatically wrap long interlinears</term
+></indexTerm
 ><indexTerm
 id="iConvertToWrd"
 ><term

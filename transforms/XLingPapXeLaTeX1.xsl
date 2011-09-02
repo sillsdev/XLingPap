@@ -119,6 +119,7 @@
                     <xsl:call-template name="SetXLingPaperEndIndexMacro"/>
                     <tex:cmd name="XLingPaperindex" gr="0" nl2="0"/>
                 </xsl:if>
+                <xsl:call-template name="SetInterlinearSourceLength"/>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
@@ -1132,9 +1133,45 @@
                     </xsl:call-template>
                 </tex:parm>
                 <tex:parm>
+                    <!--               <xsl:choose>
+                        <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and interlinear">
+                            <tex:cmd name="parbox">
+                                <tex:opt>t</tex:opt>
+                                <tex:parm>
+                                    <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                                    <xsl:text> - </xsl:text>
+                                    <xsl:value-of select="$sExampleIndentBefore"/>
+                                    <xsl:text> - </xsl:text>
+                                    <xsl:value-of select="$iNumberWidth"/>
+                                    <xsl:text>em - </xsl:text>
+                            <!-\-        <xsl:call-template name="GetLetterWidth">
+                                        <xsl:with-param name="iLetterCount" select="count(ancestor::listInterlinear[1])"/>
+                                    </xsl:call-template>
+                                    <xsl:text>em - </xsl:text>
+                            -\->        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+<!-\-                                    <xsl:if test="contains($bListsShareSameCode,'N')">
+                                        <xsl:text> - </xsl:text>
+                                        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                                        <xsl:text> - </xsl:text>
+                                        <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
+                                    </xsl:if>
+-\->                                </tex:parm>
+                            </tex:cmd>
+                            <tex:spec cat="bg"/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:apply-templates>
+                            <tex:spec cat="eg"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+     -->
                     <xsl:apply-templates>
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:apply-templates>
+                    <!--                            
+                        </xsl:otherwise>
+                    </xsl:choose>
+-->
                 </tex:parm>
             </tex:cmd>
             <!-- 
@@ -1200,9 +1237,11 @@
         <xsl:choose>
             <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="count(ancestor::table) &gt; 1 and $sTeXFootnoteKind!='footnotetext' ">
@@ -1213,16 +1252,20 @@
             </xsl:when>
             <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
-                    <tex:opt>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </tex:opt>
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:value-of select="$sFootnoteNumber"/>
+                        </tex:opt>
+                    </xsl:if>
                 </tex:cmd>
             </xsl:when>
             <xsl:otherwise>
@@ -1231,9 +1274,11 @@
                 <tex:cmd name="{$sTeXFootnoteKind}">
                     <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
                         <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
-                        <tex:opt>
-                            <xsl:value-of select="$sFootnoteNumber"/>
-                        </tex:opt>
+                        <xsl:if test="not(ancestor::interlinear-text)">
+                            <tex:opt>
+                                <xsl:value-of select="$sFootnoteNumber"/>
+                            </tex:opt>
+                        </xsl:if>
                     </xsl:if>
                     <tex:parm>
                         <tex:group>
@@ -2785,10 +2830,10 @@
                     collection
                 -->
             <xsl:if test="collection">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text> In </xsl:text>
                 <xsl:choose>
                     <xsl:when test="collection/collCitation">
@@ -2953,10 +2998,10 @@
                 field notes
             -->
             <xsl:if test="fieldNotes">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:if test="fieldNotes/location">
                     <xsl:text> (</xsl:text>
@@ -2973,10 +3018,10 @@
                     ms (manuscript)
                 -->
             <xsl:if test="ms">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:if test="ms/location">
                     <xsl:text> (</xsl:text>
@@ -3000,10 +3045,10 @@
                     paper
                 -->
             <xsl:if test="paper">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>  Paper presented at the </xsl:text>
                 <xsl:value-of select="normalize-space(paper/conference)"/>
                 <xsl:if test="paper/location">
@@ -3019,10 +3064,10 @@
                     proceedings
                 -->
             <xsl:if test="proceedings">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:choose>
                     <xsl:when test="proceedings/procCitation">
                         <xsl:text>  In </xsl:text>
@@ -3127,10 +3172,10 @@
                     webPage
                 -->
             <xsl:if test="webPage">
-<!--                <xsl:value-of select="$sLdquo"/>-->
+                <!--                <xsl:value-of select="$sLdquo"/>-->
                 <xsl:apply-templates select="refTitle"/>
                 <xsl:text>.</xsl:text>
-<!--                <xsl:value-of select="$sRdquo"/>-->
+                <!--                <xsl:value-of select="$sRdquo"/>-->
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:if test="webPage/edition">
                     <xsl:value-of select="normalize-space(webPage/edition)"/>
@@ -4056,14 +4101,9 @@
         <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:call-template name="DoDebugExamples"/>
-        <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
-            <xsl:with-param name="originalContext" select="$sFirst"/>
-        </xsl:call-template>
-        <xsl:value-of select="$sFirst"/>
-        <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
-            <xsl:with-param name="originalContext" select="$sFirst"/>
+        <xsl:call-template name="OutputInterlinearLineTableCellContent">
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:with-param name="sFirst" select="$sFirst"/>
         </xsl:call-template>
         <tex:spec cat="align"/>
         <xsl:if test="$sRest">
@@ -4075,12 +4115,31 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        OutputInterlinearLineTableCellContent
+    -->
+    <xsl:template name="OutputInterlinearLineTableCellContent">
+        <xsl:param name="lang"/>
+        <xsl:param name="sFirst"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+            <xsl:with-param name="originalContext" select="$sFirst"/>
+        </xsl:call-template>
+        <xsl:value-of select="$sFirst"/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="key('LanguageID',$lang)"/>
+            <xsl:with-param name="originalContext" select="$sFirst"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
         OutputInterlinearTextReferenceContent
     -->
     <xsl:template name="OutputInterlinearTextReferenceContent">
         <xsl:param name="sSource"/>
         <xsl:param name="sRef"/>
-        <tex:cmd name="hfill" gr="0" nl2="0"/>
+        <xsl:param name="bContentOnly" select="'N'"/>
+        <xsl:if test="$bContentOnly!='Y'">
+            <tex:cmd name="hfill" nl2="0"/>
+        </xsl:if>
         <xsl:text>[</xsl:text>
         <xsl:choose>
             <xsl:when test="$sSource">

@@ -36,6 +36,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
+>Added Spanish and French versions of the user interface (where possible).</li
+><li
 >RenderX way of producing PDF (and also Word output and Open Office Writer output): Fix bug: ignore image and break-line elements when using a paper title as a header or footer.</li
 ><li
 >Re-organized the XLingPaper portion of the File / New dialog. The XLingPaper items now come out at the top of the list. (Requires XXE version 4.8.0 or higher.)</li
@@ -52,7 +54,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >XXE version 4.9 broke the 'Jump to Work in References (Bibliography)' command. Fixed it so it now works with XXE version 4.9 and earlier.</li
 ><li
->Removed type attribute from part, chapter, chapterBeforePart, section1, section2, section3, section4, section5, and section6 elements.</li
+>Removed type attribute from part, chapter, chapterBeforePart, section1, section2, section3, section4, section5, and section6 elements. These are not needed and could cause PDF to fail to be produced.</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li

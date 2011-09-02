@@ -7666,7 +7666,7 @@ term="iAutoWrapInterlinear"
 >Beginning with version 2.17, it is possible to have the <object
 type="tXeTeX"
 ></object
-> way of producing PDF automatically wrap long interlinears.  To make this automatic wrapping happen, you click on <object
+> way of producing PDF automatically wrap long interlinears. To make this automatic wrapping happen, you click on <object
 type="tInstruction"
 >lingPaper</object
 > in the node path bar<endnoteRef
@@ -7764,7 +7764,7 @@ type="tElement"
 >Also note that <object
 type="tXLingPap"
 ></object
-> does all that is needed to do the aligning.  <indexedItem
+> does all that is needed to do the aligning. <indexedItem
 term="iAutoWrapInterlinear"
 ></indexedItem
 >It will only automatically wrap long lines for the <object
@@ -8227,7 +8227,7 @@ sec="sSpecialEffectsText"
 >Also note that <object
 type="tXLingPap"
 ></object
-> does all that is needed to do the aligning.  <indexedItem
+> does all that is needed to do the aligning. <indexedItem
 term="iAutoWrapInterlinear"
 ></indexedItem
 >It will only automatically wrap long lines for the <object
@@ -14464,7 +14464,7 @@ type="tXLingPap"
 > allows you to include such texts. The form of the interlinear within the interlinear text may be the same as any of those described for interlinear examples (see section <sectionRef
 sec="sExInterlinear"
 ></sectionRef
->).  <indexedItem
+>). <indexedItem
 term="iAutoWrapInterlinear"
 ></indexedItem
 >Long interlinears will not automatically wrap except for the <object
@@ -19458,6 +19458,72 @@ note="nCharacterTool"
 ></endnoteRef
 > Look for your character in the list and click on it.</p
 ></section2
+><section2
+id="sFAQLocalization"
+><secTitle
+>Use a non-English version of the <object
+type="tXMLmindXMLEditor"
+></object
+> and <object
+type="tXLingPap"
+></object
+>?</secTitle
+><p
+><indexedItem
+term="iFrenchUI"
+></indexedItem
+><indexedItem
+term="iSpanish"
+></indexedItem
+>The default user interface for both the <object
+type="tXMLmindXMLEditor"
+></object
+> and <object
+type="tXLingPap"
+></object
+> is in English.  There also are versions in French and Spanish.  (If you notice any error in these versions, please let us know.)</p
+><p
+>To use one of these non-English versions of the user interface, do the following steps in the <object
+type="tXMLmindXMLEditor"
+></object
+>:</p
+><ol
+><li
+>While you are connected to the Internet, use the <object
+type="tInstruction"
+>Options / Install Add-ons...</object
+> menu item.</li
+><li
+>In the ensuing dialog box, find the Translation for the language you want.</li
+><li
+>Check the box and click on OK.</li
+><li
+>Wait for the translation package to be downloaded and installed.  You will be told you will need to restart the <object
+type="tXMLmindXMLEditor"
+></object
+> for the change to take place.  You can wait to do that until after you have done the next steps.</li
+><li
+>Use the <object
+type="tInstruction"
+>Options / Preferences...</object
+> menu item.</li
+><li
+>In the ensuing dialog box, click on the word “General” in the left hand pane.</li
+><li
+>In the right hand pane, find the word “Locale” and click on the drop-down button.</li
+><li
+>Look for the language you want.</li
+><li
+>Restart the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
+></ol
+><p
+>You should now see the menu items using the language you chose.</p
+><p
+>Please note that these non-English versions are for the user interface only.  The element names, attribute names, and some of the validity messages will still be in English.  Also the user documentation files are only in English.</p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -23260,6 +23326,11 @@ see="iEndnotes"
 >Footnotes</term
 ></indexTerm
 ><indexTerm
+id="iFrenchUI"
+><term
+>French version of user interface</term
+></indexTerm
+><indexTerm
 id="iFrontMatter"
 ><term
 >Front Matter</term
@@ -23768,6 +23839,11 @@ see="iReferencesSelectedReferences"
 id="iSmallCaps"
 ><term
 >Small caps</term
+></indexTerm
+><indexTerm
+id="iSpanish"
+><term
+>Spanish version of the user interface</term
 ></indexTerm
 ><indexTerm
 id="iSort"

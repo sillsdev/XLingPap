@@ -136,7 +136,7 @@
        <cfg:item command="ProducePDFViaXeLaTeX" label="Prod_uce PDF">
            <cfg:accelerator code="F9" />
        </cfg:item>
-       <cfg:item command="producePDFViaRenderX" label="Produce PDF (_RenderX)">
+       <cfg:item command="producePDFViaRenderX" label="P_roduce PDF (RenderX)">
            <cfg:accelerator code="F9" modifiers="shift ctrl"/>
        </cfg:item>
        <!-- old one with icon

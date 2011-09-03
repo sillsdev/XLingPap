@@ -3075,14 +3075,23 @@
     -->
     <xsl:template name="DoFootnoteNumberInTextValue">
         <xsl:choose>
-            <xsl:when test="$bIsBook">
-                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter" format="1"/>
-            </xsl:when>
             <xsl:when test="parent::author">
                 <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
                 <xsl:call-template name="OutputAuthorFootnoteSymbol">
                     <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
                 </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$bIsBook">
+<!--                <xsl:choose>
+                    <xsl:when test="ancestor::appendix">
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter | appendix" format="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+-->                
+                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>

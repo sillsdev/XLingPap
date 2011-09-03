@@ -1003,7 +1003,8 @@
                     <xsl:for-each select="parent::endnote">
                         <xsl:choose>
                             <xsl:when test="$chapters">
-                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>
+                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+<!--                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                             </xsl:when>
                             <xsl:when test="ancestor::author">
                                 <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
@@ -2170,14 +2171,15 @@ not using
             <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                 <xsl:choose>
-                    <xsl:when test="$chapters">
-                        <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>
-                    </xsl:when>
                     <xsl:when test="parent::author">
                         <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
                         <xsl:call-template name="OutputAuthorFootnoteSymbol">
                             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
                         </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$chapters">
+                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+<!--                        <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -2820,7 +2822,8 @@ not using
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
             <xsl:when test="$chapters">
-                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>
+                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+<!--                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>

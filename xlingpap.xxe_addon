@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-09-02</a:date
+>2011-09-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.6.0_5 02 September 2011<ul
+>2.6.0_5 03 September 2011<ul
 ><li
 >Add an "Increase Table Size" command to more conveniently increase the default number of header rows, non-header rows, and columns.</li
 ><li
@@ -55,6 +55,8 @@ href="mailto::andy_black@sil.org"
 >XXE version 4.9 broke the 'Jump to Work in References (Bibliography)' command. Fixed it so it now works with XXE version 4.9 and earlier.</li
 ><li
 >Removed type attribute from part, chapter, chapterBeforePart, section1, section2, section3, section4, section5, and section6 elements. These are not needed and could cause PDF to fail to be produced.</li
+><li
+>Improve footnote numbering in books (documents containing chapters).</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li

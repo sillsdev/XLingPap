@@ -1543,6 +1543,9 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <xsl:template match="gloss">
+        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
+            <tex:spec cat="bg"/>
+        </xsl:if>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             <xsl:with-param name="originalContext" select="."/>
@@ -1559,6 +1562,9 @@
             <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             <xsl:with-param name="originalContext" select="."/>
         </xsl:call-template>
+        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         LANGDATA

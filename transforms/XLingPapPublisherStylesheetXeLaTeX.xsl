@@ -1849,7 +1849,9 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <xsl:template match="gloss">
-        <!--        <tex:spec cat="bg"/>-->
+        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
+            <tex:spec cat="bg"/>
+        </xsl:if>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sGlossContext">
             <xsl:call-template name="GetContextOfItem"/>
@@ -1887,7 +1889,9 @@
             <xsl:with-param name="glossLayout" select="$glossLayout"/>
             <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
         </xsl:call-template>
-        <!--        <tex:spec cat="eg"/>-->
+        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         LANGDATA

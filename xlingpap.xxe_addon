@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.17.0</a:version
+>2.17.0_1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-09-05</a:date
+>2011-09-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.17.0_1 08 September 2011<ul
+><li
+>XeLaTeX way of producing PDF:<ul
+><li
+>Fix bug: using a gloss element in a non-iterlinear environment (such as within a paragraph) could cause following material to use the font-family of the gloss.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.17.0 05 September 2011<ul
 ><li

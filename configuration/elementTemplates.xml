@@ -1908,7 +1908,15 @@ table
     </table>
   </cfg:elementTemplate>
 -->
-   <cfg:elementTemplate name="titleHeaderFooterPageStyles" selectable="override">
+    <cfg:elementTemplate name="authorContact" selectable="override">
+        <authorContact id="z">
+            <contactName></contactName>
+            <contactAddress></contactAddress>
+            <contactAddress></contactAddress>
+            <contactEmail></contactEmail>
+        </authorContact>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="titleHeaderFooterPageStyles" selectable="override">
       <titleHeaderFooterPageStyles>
          <headerFooterFirstPage cfg:template="first_blank"/>
          <headerFooterPage cfg:template="regular"/>

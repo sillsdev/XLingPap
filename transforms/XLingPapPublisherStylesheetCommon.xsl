@@ -487,6 +487,60 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoAuthorContactInfoPerLayout
+    -->
+    <xsl:template name="DoAuthorContactInfoPerLayout">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="authorInfo"/>
+        <xsl:for-each select="$layoutInfo/*">
+            <xsl:variable name="currentLayoutInfo" select="."/>
+            <xsl:choose>
+                <xsl:when test="name()='contactNameLayout'">
+                    <xsl:for-each select="$authorInfo/contactName">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name()='contactAddressLayout'">
+                    <xsl:for-each select="$authorInfo/contactAddress">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name()='contactAffiliationLayout'">
+                    <xsl:for-each select="$authorInfo/contactAffiliation">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name()='contactEmailLayout'">
+                    <xsl:for-each select="$authorInfo/contactEmail">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name()='contactElectronicLayout'">
+                    <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="name()='contactPhoneLayout'">
+                    <xsl:for-each select="$authorInfo/contactPhone">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="currentLayoutInfo" select="$currentLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         DoAuthorRelatedElementsPerSingleSetOfLayouts
     -->
     <xsl:template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
@@ -3028,6 +3082,11 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
+                <xsl:when test="name(.)='authorContactInfoLayout'">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/authorContactInfo">
+                        <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/authorContactInfoLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='presentedAtLayout'">
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
                 </xsl:when>
@@ -3036,6 +3095,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='versionLayout'">
                     <xsl:apply-templates select="$frontMatter/version"/>
+                </xsl:when>
+                <xsl:when test="name(.)='publishingBlurbLayout'">
+                    <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb"/>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/contents" mode="paper"/>

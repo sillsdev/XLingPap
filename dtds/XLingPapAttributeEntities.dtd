@@ -60,6 +60,9 @@
      textalign (start | left | center | end | right) 'start'
      %formatinfo;"
      >
+<!ENTITY % headertextalign "
+     textalign (start | left | center | end | right | justify) 'justify'"
+     >
 <!-- title layout attributes
        usetitleinheader = yes will put the title (or shortTitle) in header
        -->

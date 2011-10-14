@@ -81,6 +81,16 @@
             <xsl:otherwise>1</xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sListInitialHorizontalOffset">
+        <xsl:choose>
+            <xsl:when test="$contentLayoutInfo/listLayout">
+                <xsl:value-of select="$contentLayoutInfo/listLayout/@indent-before"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -150,6 +160,20 @@
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="CreateClearEmptyDoublePageCommand"/>
             <tex:env name="document">
+                <tex:cmd name="renewcommand" nl2="1">
+                    <tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>footnotesize</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="HandleFontSize">
+                            <xsl:with-param name="sSize">
+                                <xsl:value-of select="$pageLayoutInfo/footnotePointSize"/>
+                                <xsl:text>pt</xsl:text>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
                 <xsl:call-template name="CreateAllNumberingLevelIndentAndWidthCommands"/>
                 <tex:spec cat="esc"/>
                 <xsl:text>newdimen</xsl:text>
@@ -505,6 +529,34 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingBlurb">
+        <xsl:param name="bInHeader" select="'N'"/>
+        <tex:group>
+            <xsl:call-template name="DoFrontMatterFormatInfoBegin">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:variable name="contentForThisElement">
+                <xsl:apply-templates/>
+            </xsl:variable>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFrontMatterFormatInfoEnd">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+            </xsl:call-template>
+        </tex:group>
+        <xsl:if test="$bInHeader='N'">
+        <tex:cmd name="par" nl2="1"/>
+        <xsl:call-template name="DoSpaceAfter">
+            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+        </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
@@ -606,7 +658,9 @@
    -->
     <xsl:template match="acknowledgements" mode="frontmatter-book">
         <xsl:call-template name="DoFrontMatterItemNewPage">
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -618,7 +672,9 @@
    -->
     <xsl:template match="acknowledgements" mode="backmatter-book">
         <xsl:call-template name="DoBackMatterItemNewPage">
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -630,28 +686,39 @@
     -->
     <xsl:template match="acknowledgements" mode="paper">
         <xsl:choose>
-            <xsl:when test="ancestor::frontMatter">
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
-                </xsl:call-template>
+            <xsl:when test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="ancestor::frontMatter">
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates/>
     </xsl:template>
     <!--
       preface (book)
@@ -1172,9 +1239,16 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="p | pc">
+        <xsl:call-template name="DoSpaceBefore">
+            <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
+        </xsl:call-template>
         <xsl:choose>
             <xsl:when test="string-length(.)=0 and count(*)=0">
                 <!-- this paragraph is empty; do nothing -->
+            </xsl:when>
+            <xsl:when test="parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <!-- we're in a footnote now -->
+                <xsl:apply-templates/>
             </xsl:when>
             <xsl:when test="parent::endnote and name()='p' and not(preceding-sibling::p)">
                 <!--  and position()='1'" -->
@@ -1316,13 +1390,53 @@
                     <xsl:when test="ancestor::td">
                         <xsl:text>&#xa;</xsl:text>
                     </xsl:when>
-                    <xsl:when test="parent::li and count(preceding-sibling::*)=0"/>
+                    <xsl:when test="parent::li and count(preceding-sibling::*)=0">
+                        <!-- do nothing in this case -->
+                    </xsl:when>
+                    <xsl:when test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                        <tex:cmd name="renewcommand">
+                            <tex:parm>
+                                <tex:spec cat="esc"/>
+                                <xsl:text>thefootnote</xsl:text>
+                            </tex:parm>
+                            <tex:parm>
+                                <tex:cmd name="fnsymbol">
+                                    <tex:parm>footnote</tex:parm>
+                                </tex:cmd>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="protect" gr="0"/>
+                        <tex:cmd name="footnote">
+                            <tex:parm>
+                                <tex:group>
+                                    <!--                                    <tex:spec cat="esc"/>
+                                    <xsl:text>leftskip0pt</xsl:text>
+                                    <tex:spec cat="esc"/>
+                                    <xsl:text>parindent1em</xsl:text>
+-->
+                                    <xsl:call-template name="DoInternalTargetBegin">
+                                        <xsl:with-param name="sName">
+                                            <xsl:value-of select="$sAcknowledgementsID"/>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="DoInternalTargetEnd"/>
+                                    <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
+                                </tex:group>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="par"/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <tex:cmd name="par"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="not(parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes')">
+            <xsl:call-template name="DoSpaceAfter">
+                <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
       LISTS
@@ -2341,6 +2455,46 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo">
+        <xsl:param name="layoutInfo"/>
+        <xsl:choose>
+            <xsl:when test="preceding-sibling::authorContactInfo">
+                <tex:cmd name="hfill"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="firstLayoutItem" select="$layoutInfo/*[position()=1]"/>
+                <xsl:if test="$firstLayoutItem/@pagebreakbefore='yes'">
+                    <tex:cmd name="pagebreak"/>
+                </xsl:if>
+                <xsl:call-template name="DoSpaceBefore">
+                    <xsl:with-param name="layoutInfo" select="$firstLayoutItem"/>
+                </xsl:call-template>
+                <tex:cmd name="noindent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="hbox">
+            <tex:parm>
+                <tex:env name="tabular">
+                    <tex:opt>t</tex:opt>
+                    <tex:spec cat="bg"/>
+                    <xsl:text>@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:text>l@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:call-template name="DoAuthorContactInfoPerLayout">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                    </xsl:call-template>
+                </tex:env>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
     <!-- ===========================================================
       ABBREVIATION
       =========================================================== -->
@@ -2515,6 +2669,11 @@
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix"/>
                 </xsl:when>
+                <xsl:when test="name(.)='authorContactInfoLayout'">
+                    <xsl:apply-templates select="$backMatter/authorContactInfo">
+                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/authorContactInfoLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
                     <xsl:apply-templates select="$backMatter/glossary"/>
                 </xsl:when>
@@ -2531,8 +2690,43 @@
         </xsl:for-each>
     </xsl:template>
     <!--
+        DoContactInfo
+    -->
+    <xsl:template name="DoContactInfo">
+        <xsl:param name="currentLayoutInfo"/>
+        <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
+        <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+            <!-- create a strut (a rule with zero width but height) -->
+            <tex:cmd name="rule">
+                <tex:parm>
+                    <xsl:text>0pt</xsl:text>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sSpaceBefore"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <tex:spec cat="bg"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$currentLayoutInfo"/>
+        </xsl:call-template>
+        <xsl:apply-templates select="."/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$currentLayoutInfo"/>
+        </xsl:call-template>
+        <tex:spec cat="eg"/>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc"/>
+        <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+            <tex:spec cat="lsb"/>
+            <xsl:value-of select="$sSpaceAfter"/>
+            <tex:spec cat="rsb"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
                   DoContents
-                  -->
+    -->
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
@@ -3248,6 +3442,19 @@
                                         <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
+                            </xsl:when>
+                            <xsl:when test="name()='paperPublishingBlurb'">
+                                <xsl:variable name="sVerticalAdjustment" select="normalize-space(@verticalAdjustment)"/>
+                                <xsl:if test="string-length($sVerticalAdjustment) &gt; 0">
+                                    <tex:cmd name="vspace">
+                                        <tex:parm>
+                                            <xsl:value-of select="$sVerticalAdjustment"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                </xsl:if>
+                                <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb">
+                                    <xsl:with-param name="bInHeader" select="'Y'"/>
+                                </xsl:apply-templates>
                             </xsl:when>
                             <xsl:when test="name()='sectionTitle'">
                                 <tex:cmd name="rightmark" gr="0"/>

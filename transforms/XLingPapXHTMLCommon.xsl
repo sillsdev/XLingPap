@@ -1419,6 +1419,7 @@
     <xsl:template name="OutputEndnoteNumber">
         <xsl:param name="attr" select="@id"/>
         <xsl:param name="node" select="."/>
+        <xsl:param name="sFootnoteNumberOverride"/>
         <span style="font-size:65%; vertical-align:super; color:black">
             <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
             <xsl:text>[</xsl:text>
@@ -1427,7 +1428,14 @@
                     <xsl:text>#</xsl:text>
                     <xsl:value-of select="$attr"/>
                 </xsl:attribute>
-                <xsl:apply-templates select="$node" mode="endnoteXHTML"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sFootnoteNumberOverride) &gt; 0">
+                        <xsl:value-of select="$sFootnoteNumberOverride"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$node" mode="endnoteXHTML"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </a>
             <xsl:text>]</xsl:text>
         </span>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE authorContacts PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<authorContacts version="2.18.0">
+    <authorContact id="z1">
+        <contactName></contactName>
+        <contactAddress></contactAddress>
+        <contactAddress></contactAddress>
+        <contactEmail></contactEmail>
+    </authorContact>
+    <authorContact id="z2">
+        <contactName></contactName>
+        <contactAddress></contactAddress>
+        <contactAddress></contactAddress>
+        <contactEmail></contactEmail>
+    </authorContact>
+</authorContacts>

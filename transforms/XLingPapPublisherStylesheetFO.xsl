@@ -126,6 +126,16 @@
     </xsl:variable>
     <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
+    <xsl:variable name="sListInitialHorizontalOffset">
+        <xsl:choose>
+            <xsl:when test="$contentLayoutInfo/listLayout">
+                <xsl:value-of select="$contentLayoutInfo/listLayout/@indent-before"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -242,7 +252,15 @@
                 <xsl:otherwise>
                     <fo:page-sequence master-reference="Chapter">
                         <xsl:attribute name="initial-page-number">
-                            <xsl:text>auto-odd</xsl:text>
+                            <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+                            <xsl:choose>
+                                <xsl:when test="string-length($sStartingPageNumber) &gt; 0">
+                                    <xsl:value-of select="$sStartingPageNumber"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>auto-odd</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:attribute>
                         <xsl:call-template name="OutputChapterStaticContent">
                             <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterPageStyles"/>
@@ -463,6 +481,20 @@
         </fo:block>
     </xsl:template>
     <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingBlurb">
+        <fo:block>
+            <xsl:call-template name="DoFrontMatterFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+        </fo:block>
+    </xsl:template>
+    <!--
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
@@ -591,7 +623,9 @@
     <xsl:template match="acknowledgements" mode="frontmatter-book">
         <xsl:call-template name="DoFrontMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'acknowledgements-title'"/>
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -605,7 +639,9 @@
     <xsl:template match="acknowledgements" mode="backmatter-book">
         <xsl:call-template name="DoBackMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'acknowledgements-title'"/>
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -618,30 +654,41 @@
     -->
     <xsl:template match="acknowledgements" mode="paper">
         <xsl:choose>
-            <xsl:when test="parent::frontMatter">
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
-                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
-                </xsl:call-template>
+            <xsl:when test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
-                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="parent::frontMatter">
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+                            <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
+                            <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates/>
     </xsl:template>
     <!--
       preface (book)
@@ -1024,7 +1071,7 @@
                 <xsl:choose>
                     <xsl:when test="$bIsBook">
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                        <!--                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                     </xsl:when>
                     <xsl:when test="ancestor::author">
                         <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
@@ -1048,6 +1095,18 @@
     </xsl:template>
     <xsl:template match="p | pc">
         <fo:block orphans="2" widows="2">
+            <xsl:variable name="sSpaceBefore" select="normalize-space($contentLayoutInfo/paragraphLayout/@spacebefore)"/>
+            <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                <xsl:attribute name="space-before">
+                    <xsl:value-of select="$sSpaceBefore"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="sSpaceAfter" select="normalize-space($contentLayoutInfo/paragraphLayout/@spaceafter)"/>
+            <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+                <xsl:attribute name="space-after">
+                    <xsl:value-of select="$sSpaceAfter"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:if test="@pagecontrol='keepWithNext'">
                 <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
             </xsl:if>
@@ -1092,6 +1151,25 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates/>
+            <xsl:if test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <fo:footnote>
+                    <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
+                        <xsl:text>*</xsl:text>
+                    </fo:inline>
+                    <fo:footnote-body>
+                        <fo:block xsl:use-attribute-sets="FootnoteBody">
+                            <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
+                                <xsl:attribute name="id">
+                                    <xsl:value-of select="$sAcknowledgementsID"/>
+                                </xsl:attribute>
+                                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
+                                <xsl:text>*</xsl:text>
+                            </fo:inline>
+                            <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*" mode="contentOnly"/>
+                        </fo:block>
+                    </fo:footnote-body>
+                </fo:footnote>
+            </xsl:if>
         </fo:block>
     </xsl:template>
     <!-- ===========================================================
@@ -1153,46 +1231,13 @@
         </fo:block>
     </xsl:template>
     <!-- ===========================================================
-      LISTS
-      =========================================================== -->
+        LISTS
+        =========================================================== -->
     <xsl:template match="ol">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:variable name="NestingLevel">
-                <xsl:choose>
-                    <xsl:when test="ancestor::endnote">
-                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="count(ancestor::ol)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:if test="$NestingLevel = '0'">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">2em</xsl:attribute>
-            </xsl:if>
-            <xsl:if test="ancestor::endnote">
-                <xsl:attribute name="provisional-label-separation">0em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
+        <xsl:call-template name="DoOl"/>
     </xsl:template>
     <xsl:template match="ul">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:if test="not(ancestor::ul)">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">1em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
+        <xsl:call-template name="DoUl"/>
     </xsl:template>
     <xsl:template match="li">
         <fo:list-item relative-align="baseline">
@@ -2286,7 +2331,7 @@ not using
                         <xsl:choose>
                             <xsl:when test="$bIsBook">
                                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                                <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>-->
+                                <!--                                <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>-->
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -2565,6 +2610,31 @@ not using
                 </fo:block>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo">
+        <xsl:param name="layoutInfo"/>
+        <fo:table-cell xsl:use-attribute-sets="ExampleCell">
+            <fo:block>
+                <xsl:choose>
+                    <xsl:when test="preceding-sibling::authorContactInfo">
+                        <!--                do nothing special-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="firstLayoutItem" select="$layoutInfo/*[position()=1]"/>
+                        <xsl:call-template name="DoPageBreakFormatInfo">
+                            <xsl:with-param name="layoutInfo" select="$firstLayoutItem"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="DoAuthorContactInfoPerLayout">
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                </xsl:call-template>
+            </fo:block>
+        </fo:table-cell>
     </xsl:template>
     <!-- ===========================================================
       BR
@@ -3022,6 +3092,27 @@ not using
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references"/>
                 </xsl:when>
+                <xsl:when test="name(.)='authorContactInfoLayout'">
+                    <fo:block keep-together.within-page="1">
+                        <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
+                        <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                        <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                            <xsl:attribute name="space-before">
+                                <xsl:value-of select="$sSpaceBefore"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <fo:table>
+                            <fo:table-column/>
+                            <fo:table-body>
+                                <fo:table-row>
+                                    <xsl:apply-templates select="$backMatter/authorContactInfo">
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/authorContactInfoLayout"/>
+                                    </xsl:apply-templates>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
                     <xsl:apply-templates select="$backMatter/endnotes"/>
                 </xsl:when>
@@ -3075,6 +3166,30 @@ not using
                 <xsl:value-of select="@width"/>
             </xsl:attribute>
         </xsl:if>
+    </xsl:template>
+    <!--
+        DoContactInfo
+    -->
+    <xsl:template name="DoContactInfo">
+        <xsl:param name="currentLayoutInfo"/>
+        <fo:block>
+            <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
+            <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                <xsl:attribute name="space-before">
+                    <xsl:value-of select="$sSpaceBefore"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
+            <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+                <xsl:attribute name="space-after">
+                    <xsl:value-of select="$sSpaceAfter"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$currentLayoutInfo"/>
+            </xsl:call-template>
+            <xsl:apply-templates select="."/>
+        </fo:block>
     </xsl:template>
     <!--
                   DoContents
@@ -3313,7 +3428,7 @@ not using
             </xsl:when>
             <xsl:when test="$bIsBook">
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                <!--                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -3789,6 +3904,9 @@ not using
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>
+                            <xsl:when test="name()='paperPublishingBlurb'">
+                                <xsl:apply-templates select="//publishingBlurb"/>
+                            </xsl:when>
                             <xsl:when test="name()='paperTitle'">
                                 <xsl:choose>
                                     <xsl:when test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
@@ -3863,7 +3981,7 @@ not using
                 <xsl:text>-</xsl:text>
                 <xsl:value-of select="$sFlowDisplayAlign"/>
             </xsl:attribute>
-            <fo:block text-align-last="justify">
+            <fo:block text-align-last="{$layoutInfo/@textalign}">
                 <xsl:if test="$sFlowDisplayAlign='after'">
                     <xsl:attribute name="margin-top">
                         <xsl:text>6pt</xsl:text>
@@ -4269,6 +4387,22 @@ not using
                     <xsl:call-template name="DoDebugFooter"/>
                 </fo:region-after>
             </xsl:element>
+            <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
+                <xsl:attribute name="master-name">ChapterRegularPage</xsl:attribute>
+                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
+                    <xsl:if test="$bDoDebug='y'">
+                        <xsl:attribute name="border-right">
+                            <xsl:text>medium gray ridge</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </fo:region-body>
+                <fo:region-before region-name="ChapterRegularPage-before" extent="{$sHeaderMargin}">
+                    <xsl:call-template name="DoDebugHeader"/>
+                </fo:region-before>
+                <fo:region-after region-name="ChapterRegularPage-after" extent="{$sFooterMargin}">
+                    <xsl:call-template name="DoDebugFooter"/>
+                </fo:region-after>
+            </xsl:element>
             <!-- Indexes -->
             <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                 <xsl:attribute name="master-name">IndexFirstPage</xsl:attribute>
@@ -4356,8 +4490,15 @@ not using
                 <fo:repeatable-page-master-alternatives>
                     <fo:conditional-page-master-reference page-position="first" master-reference="ChapterFirstPage"/>
                     <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="BlankEvenPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterEvenPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterOddPage"/>
+                    <xsl:choose>
+                        <xsl:when test="$pageLayoutInfo/headerFooterPageStyles/headerFooterPage">
+                            <fo:conditional-page-master-reference odd-or-even="any" master-reference="ChapterRegularPage"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterOddPage"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </fo:repeatable-page-master-alternatives>
             </fo:page-sequence-master>
             <fo:page-sequence-master master-name="Index">
@@ -5117,10 +5258,10 @@ not using
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
                     <fo:inline>
-                    <fo:marker marker-class-name="section-title">
-                        <xsl:value-of select="$sLabel"/>
-                    </fo:marker>
-                        </fo:inline>
+                        <fo:marker marker-class-name="section-title">
+                            <xsl:value-of select="$sLabel"/>
+                        </fo:marker>
+                    </fo:inline>
                     <fo:inline>
                         <xsl:value-of select="$sLabel"/>
                     </fo:inline>
@@ -5494,10 +5635,10 @@ not using
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
                     <fo:inline>
-                    <!-- put title in marker so it can show up in running header -->
-                    <fo:marker marker-class-name="{$sMarkerClassName}">
-                        <xsl:value-of select="$sTitle"/>
-                    </fo:marker>
+                        <!-- put title in marker so it can show up in running header -->
+                        <fo:marker marker-class-name="{$sMarkerClassName}">
+                            <xsl:value-of select="$sTitle"/>
+                        </fo:marker>
                     </fo:inline>
                     <xsl:if test="not($layoutInfo/@useLabel) or $layoutInfo/@useLabel='yes'">
                         <fo:inline>

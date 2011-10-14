@@ -2,7 +2,7 @@
      XML/XSLT-based Linguistic paper document type definition
      Stylesheet  information for a particular publisher
        One may reference/link/insert an XLingPap document into this template as a particular instance.
-     Version 1.0.0
+     Version 1.3.0
      (Revision history is at the end.)
   -->
 <!ELEMENT publisherStyleSheet (publisherStyleSheetName?, publisherStyleSheetVersion?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
@@ -190,6 +190,7 @@ Page Layout
     <!ELEMENT headerFooterOddEvenPages (headerFooterEvenPage, headerFooterOddPage)  >
     <!ATTLIST headerFooterOddEvenPages
     %fontinfo;
+    %headertextalign;
     >
     <!--
        all the elements here are required in order to force a reasonable UI in editors like the XMLmind XML Editor
@@ -197,18 +198,22 @@ Page Layout
     <!ELEMENT headerFooterFirstPage (header, footer) >
     <!ATTLIST headerFooterFirstPage
     %fontinfo;
+    %headertextalign;
     >
     <!ELEMENT headerFooterEvenPage (header, footer) >
     <!ATTLIST headerFooterEvenPage
     %fontinfo;
+    %headertextalign;
     >
     <!ELEMENT headerFooterOddPage (header, footer) >
     <!ATTLIST headerFooterOddPage
     %fontinfo;
+    %headertextalign;
     >
     <!ELEMENT headerFooterPage (header, footer) >
     <!ATTLIST headerFooterPage
     %fontinfo;
+    %headertextalign;
     >
     <!ELEMENT header (leftHeaderFooterItem, centerHeaderFooterItem, rightHeaderFooterItem) >
     <!ATTLIST header
@@ -223,10 +228,10 @@ Page Layout
       ruleabovewidth CDATA #IMPLIED
     >
     <!-- what can go in a header or a footer -->
-<!ENTITY % headerFooterItem "chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
-<!ELEMENT leftHeaderFooterItem ( %headerFooterItem;)>
-<!ELEMENT centerHeaderFooterItem ( %headerFooterItem;)>
-<!ELEMENT rightHeaderFooterItem ( %headerFooterItem;)>
+<!ENTITY % headerFooterItem "chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | paperPublishingBlurb | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
+<!ELEMENT leftHeaderFooterItem ( %headerFooterItem;)+>
+<!ELEMENT centerHeaderFooterItem ( %headerFooterItem;)+>
+<!ELEMENT rightHeaderFooterItem ( %headerFooterItem;)+>
    <!-- the title of the chapter 
          (If shortTitle is present, use it; otherwise use the secTitle elment)
           -->
@@ -297,6 +302,14 @@ Page Layout
 <!ATTLIST fixedText
     %fontinfo;
     >
+   <!-- 
+   paperPublishingBlurb is arbitrary text one can use (e.g. entity name, copyright, etc.)
+   -->
+<!ELEMENT paperPublishingBlurb EMPTY>
+<!ATTLIST paperPublishingBlurb
+    %formatinfo;
+    verticalAdjustment CDATA #IMPLIED
+    >
 
 <!-- 
   ===================================================
@@ -306,7 +319,8 @@ Front MatterLayout
   titleHeaderFooterPageStyles is for the title page of a book only
   headerFooterPageStyles is for the other fornt matter items for a book
 -->
-<!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout |
+<!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | 
+                                                       emailAddressLayout  | authorContactInfoLayout | publishingBlurbLayout |
                                                        presentedAtLayout | dateLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
 <!ATTLIST titleLayout
@@ -333,9 +347,31 @@ Front MatterLayout
      %frontmatterformatinfo;
     >
 <!-- need to modify authorContactInfoLayout -->
-<!ELEMENT authorContactInfoLayout EMPTY >
-<!ATTLIST authorContactInfoLayout
-     %titleformatinfo;
+<!ELEMENT authorContactInfoLayout (contactNameLayout | contactAffiliationLayout | contactAddressLayout | contactPhoneLayout | contactEmailLayout | contactElectronicLayout)* >
+<!ELEMENT contactNameLayout EMPTY >
+<!ATTLIST contactNameLayout
+    %frontmatterformatinfo;
+    %pagebreakformatinfo;
+    >
+<!ELEMENT contactAffiliationLayout EMPTY >
+<!ATTLIST contactAffiliationLayout
+    %frontmatterformatinfo;
+    >
+<!ELEMENT contactAddressLayout EMPTY >
+<!ATTLIST contactAddressLayout
+    %frontmatterformatinfo;
+    >
+<!ELEMENT contactPhoneLayout EMPTY >
+<!ATTLIST contactPhoneLayout
+    %frontmatterformatinfo;
+    >
+<!ELEMENT contactEmailLayout EMPTY >
+<!ATTLIST contactEmailLayout
+    %frontmatterformatinfo;
+    >
+<!ELEMENT contactElectronicLayout EMPTY >
+<!ATTLIST contactElectronicLayout
+    %frontmatterformatinfo;
     >
 <!ELEMENT presentedAtLayout EMPTY >
 <!ATTLIST presentedAtLayout
@@ -349,6 +385,10 @@ Front MatterLayout
 <!ATTLIST versionLayout
      %frontmatterformatinfo;
     >
+<!ELEMENT publishingBlurbLayout EMPTY >
+<!ATTLIST publishingBlurbLayout
+     %frontmatterformatinfo;
+    >
 <!ELEMENT contentsLayout EMPTY >
 <!ATTLIST contentsLayout
      %titleformatinfo;
@@ -360,6 +400,7 @@ Front MatterLayout
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
      %titleformatinfo;
+     showAsFootnoteAtEndOfAbstract (yes | no) "no"
     >
 <!ELEMENT prefaceLayout EMPTY >
 <!ATTLIST prefaceLayout
@@ -469,15 +510,24 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (comment?, exampleLayout, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, endnoteRefLayout?,  
+   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, endnoteRefLayout?,  
                                                       figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       magnificationFactor?, langDataLayout?, glossLayout?, freeLayout? ) >
+   <!ELEMENT paragraphLayout EMPTY >
+   <!ATTLIST paragraphLayout
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+   >
    <!ELEMENT exampleLayout EMPTY >
    <!ATTLIST exampleLayout
        indent-before CDATA #REQUIRED
        indent-after CDATA #REQUIRED       
        AddPeriodAfterFinalDigit (no | yes) 'no'
        referencesUseParens (no | yes) 'yes'
+   >
+   <!ELEMENT listLayout EMPTY >
+   <!ATTLIST listLayout
+       indent-before CDATA #REQUIRED
    >
     <!ELEMENT sectionRefLayout EMPTY >
     <!ATTLIST sectionRefLayout

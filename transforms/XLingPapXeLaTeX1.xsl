@@ -52,6 +52,7 @@
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
     <xsl:variable name="sXLingPaperAbbreviation" select="'XLingPaperAbbreviation'"/>
     <xsl:variable name="iMagnificationFactor">1</xsl:variable>
+    <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->
@@ -160,14 +161,14 @@
                 <tex:cmd name="pagenumbering">
                     <tex:parm>roman</tex:parm>
                 </tex:cmd>
-                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
+                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
                 <tex:cmd name="pagestyle" nl2="1">
                     <tex:parm>empty</tex:parm>
                 </tex:cmd>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="book"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
+                <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface"/>
                 <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
                 <xsl:apply-templates select="//backMatter"/>
@@ -491,6 +492,16 @@
     <xsl:template match="version">
         <xsl:text>Version: </xsl:text>
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingInfo/publishingBlurb">
+        <tex:env name="flushleft">
+            <tex:env name="footnotesize">
+                        <xsl:apply-templates/>
+            </tex:env>
+        </tex:env>
     </xsl:template>
     <!--
         contents (for book)
@@ -1228,7 +1239,6 @@
                 <xsl:when test="$chapters">
                     <!--                    <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                     <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-                    
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -1752,6 +1762,61 @@
         <xsl:call-template name="DoIndex"/>
     </xsl:template>
     <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo">
+        <xsl:choose>
+            <xsl:when test="preceding-sibling::authorContactInfo">
+                <tex:cmd name="hfill"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="vspace">
+                    <tex:parm>24pt</tex:parm>
+                </tex:cmd>
+                <tex:cmd name="noindent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="hbox">
+            <tex:parm>
+                <tex:env name="tabular">
+                    <tex:opt>t</tex:opt>
+                    <tex:spec cat="bg"/>
+                    <xsl:text>@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:text>l@</xsl:text>
+                    <tex:spec cat="bg"/>
+                    <tex:spec cat="eg"/>
+                    <tex:spec cat="eg"/>
+                    <xsl:variable name="authorInfo" select="key('AuthorContactID',@author)"/>
+                    <xsl:apply-templates select="$authorInfo/contactName"/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                    <xsl:for-each select="$authorInfo/contactAffiliation">
+                        <xsl:apply-templates select="."/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:for-each>
+                    <xsl:for-each select="$authorInfo/contactAddress">
+                        <xsl:apply-templates select="."/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:for-each>
+                    <xsl:for-each select="$authorInfo/contactEmail">
+                        <xsl:apply-templates select="."/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:for-each>
+                    <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
+                        <xsl:apply-templates select="."/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:for-each>
+                </tex:env>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--
         interlinearRefCitation
     -->
     <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
@@ -2172,7 +2237,9 @@
             </xsl:when>
             <xsl:when test="name(.)='acknowledgements'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="id">
+                        <xsl:value-of select="$sAcknowledgementsID"/>
+                    </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputAcknowledgementsLabel"/>
                     </xsl:with-param>
@@ -2322,7 +2389,9 @@
         <!-- acknowledgements -->
         <xsl:if test="//frontMatter/acknowledgements">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="'rXLingPapAcknowledgements'"/>
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sAcknowledgementsID"/>
+                </xsl:with-param>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAcknowledgementsLabel"/>
                 </xsl:with-param>
@@ -2450,7 +2519,9 @@
         <!-- acknowledgements -->
         <xsl:if test="//backMatter/acknowledgements">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="'rXLingPapAcknowledgements'"/>
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sAcknowledgementsID"/>
+                </xsl:with-param>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAcknowledgementsLabel"/>
                 </xsl:with-param>

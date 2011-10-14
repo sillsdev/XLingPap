@@ -275,12 +275,16 @@
                             <xsl:value-of select="$sThisItemWidth"/>
                         </xsl:with-param>
                         <xsl:with-param name="sListItemIndent">
-                            <tex:spec cat="esc"/>
                             <xsl:choose>
+                                <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                                    <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                                </xsl:when>
                                 <xsl:when test="ancestor::example">
+                                    <tex:spec cat="esc"/>
                                     <xsl:text>XLingPaperlistinexampleindent</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
+                                    <tex:spec cat="esc"/>
                                     <xsl:value-of select="$sThisItemWidth"/>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -337,12 +341,16 @@
                     <xsl:call-template name="GetItemWidth"/>
                     <xsl:text> + </xsl:text>
                     <xsl:if test="position() = last()">
-                        <tex:spec cat="esc" gr="0" nl2="0"/>
                         <xsl:choose>
+                            <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                                <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                            </xsl:when>
                             <xsl:when test="ancestor::example">
+                                <tex:spec cat="esc" gr="0" nl2="0"/>
                                 <xsl:text>XLingPaperlistinexampleindent</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
+                                <tex:spec cat="esc" gr="0" nl2="0"/>
                                 <xsl:call-template name="GetItemWidth"/>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -432,12 +440,16 @@
                     </xsl:if>
                     <xsl:apply-templates>
                         <xsl:with-param name="sListItemIndent">
-                            <tex:spec cat="esc"/>
                             <xsl:choose>
+                                <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                                    <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                                </xsl:when>
                                 <xsl:when test="ancestor::example">
+                                    <tex:spec cat="esc"/>
                                     <xsl:text>XLingPaperlistinexampleindent</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
+                                    <tex:spec cat="esc"/>
                                     <xsl:text>XLingPaperbulletlistitemwidth</xsl:text>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -3082,7 +3094,7 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$bIsBook">
-<!--                <xsl:choose>
+                <!--                <xsl:choose>
                     <xsl:when test="ancestor::appendix">
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
                     </xsl:when>
@@ -3090,7 +3102,7 @@
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter | appendix" format="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
--->                
+-->
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
             </xsl:when>
             <xsl:otherwise>
@@ -7175,6 +7187,17 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
+        <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+        <xsl:if test="string-length($sStartingPageNumber) &gt; 0">
+            <tex:cmd name="setcounter">
+                <tex:parm>
+                    <xsl:text>page</xsl:text>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sStartingPageNumber"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetSpecialTextSymbols

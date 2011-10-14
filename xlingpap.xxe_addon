@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-09-08</a:date
+>2011-10-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,47 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_1 08 September 2011<ul
+>2.17.0_1 12 October 2011<ul
+><li
+>Add author contact information (for contact name, affiliation, address, phone, email, and electronic contact).</li
+><li
+>Added a publishingInfo element (with a starting page number attribute) and also a publishingBlurb element. The latter can be used for including publishing information like copyright, links to online versions of the paper, etc.</li
+><li
+>Added publisher style sheet for SIL UND Work papers</li
+><li
+>Fix Schematron method of fixing embedded langData within LangData, gloss within gloss, link within link.</li
 ><li
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Fix bug: using a gloss element in a non-iterlinear environment (such as within a paragraph) could cause following material to use the font-family of the gloss.</li
+></ul
+></li
+><li
+>RenderX way of producing PDF:<ul
+><li
+>Fix bug: if a publisher style sheet used non-odd/even pages, the pages still came out odd/even.</li
+><li
+>Fix bugs when a publisher style sheet was *not* used, having a section title include an endnote: <ul
+><li
+> could cause the PDF not to be produced;</li
+><li
+>showing the contents would give two copies of the same endnote.</li
+></ul
+></li
+></ul
+></li
+><li
+>Publisher style sheet:<ul
+><li
+>Add ability to control initial indent for lists.</li
+><li
+>Enabled page header/footer slot to have more than one kind of item.</li
+><li
+>Enabled page header/footer page layout to include a horizontal alignment attribute.</li
+><li
+>Added paperPublishingBlurb to kinds of header/footer items.</li
+><li
+>Added authorContactInfo layout elements (for contact name, affiliation, address, phone, email, and electronic contact).</li
 ></ul
 ></li
 ></ul

@@ -18,7 +18,7 @@
                         <xsl:value-of select="@text"/>
                     </xsl:attribute>
                 </xsl:if>
-        </xsl:if>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="@xsl-foSpecial">
                     <xsl:call-template name="OutputTypeAttributes">
@@ -90,6 +90,65 @@
                 </fo:table-body>
             </fo:table>
         </fo:block>
+    </xsl:template>
+    <!--
+        DoOl
+    -->
+    <xsl:template name="DoOl">
+        <fo:list-block>
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
+            <xsl:variable name="NestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::endnote">
+                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="count(ancestor::ol)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$NestingLevel = '0'">
+                <xsl:attribute name="start-indent">
+                    <xsl:choose>
+                        <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                            <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                        </xsl:when>
+                        <xsl:otherwise>1em</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="provisional-distance-between-starts">1em</xsl:attribute>
+            </xsl:if>
+            <xsl:if test="ancestor::endnote">
+                <xsl:attribute name="provisional-label-separation">0em</xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="DoType"/>
+            <xsl:apply-templates/>
+        </fo:list-block>
+    </xsl:template>
+    <!--
+        DoUl
+    -->
+    <xsl:template name="DoUl">
+        <fo:list-block>
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
+            <xsl:if test="not(ancestor::ul)">
+                <xsl:attribute name="start-indent">
+                    <xsl:choose>
+                        <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                            <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                        </xsl:when>
+                        <xsl:otherwise>1em</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="provisional-distance-between-starts">1em</xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="DoType"/>
+            <xsl:apply-templates/>
+        </fo:list-block>
     </xsl:template>
     <!--
         OutputAbbreviationInTable
@@ -177,9 +236,9 @@
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <fo:table-cell padding-end=".5em">
                     <fo:block>
-                    <xsl:call-template name="OutputISOCodeInExample">
-                        <xsl:with-param name="bOutputBreak" select="'N'"/>
-                    </xsl:call-template>
+                        <xsl:call-template name="OutputISOCodeInExample">
+                            <xsl:with-param name="bOutputBreak" select="'N'"/>
+                        </xsl:call-template>
                     </fo:block>
                 </fo:table-cell>
             </xsl:if>

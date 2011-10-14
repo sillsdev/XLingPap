@@ -4,6 +4,7 @@
 
 @property-value abbreviation-background-color() #FFFFBB; /* a light yellow */
 @property-value appendix-background-color() #D8BFD8; /* #D8BFD8 is thistle */
+@property-value authorContact-background-color() #FFD788; /* #FFD700 is gold */
 @property-value chapter-background-color() #D8BFD8; /* #ADD8E6 is lightblue */
 @property-value citation-background-color() #F09FF0; /* #EE82EE is violet */
 @property-value endnote-background-color() #E0E0E0; /* #C0C0C0 is silver */
@@ -502,6 +503,65 @@ author {
     margin-bottom: .67ex;
 }
 
+authorContact:before
+{
+	content: "" 
+	text-field(attribute, id, columns, 10, font-size, small) 
+	" " 
+	;
+	background-color:authorContact-background-color();
+}
+authorContact
+{
+	display:block;
+	padding-left: 0.25in;
+} 
+authorContactInfo:before
+{
+	content: "Author contact info: ";
+	background-color:white;
+}
+authorContactInfo + authorContactInfo:before
+{
+	content: "; ";
+	background-color:white;
+}
+authorContactInfo
+{
+	content: set-attribute-button(attribute, author,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	         label(attribute, author, text-decoration, underline)
+	        ;
+	background-color:authorContact-background-color();
+	display:inline;
+}
+authorContactInfo:after
+{
+	content: " "
+	         label(xpath, "id(@author)/contactName")
+                 ;
+	background-color:white;
+}
+
+authorContacts:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Author Contacts: ";
+}
+authorContacts
+{
+	display:block;
+	property-group: isCollapsible( no, 1);
+	padding-left: 0.25in;
+}
+lingPaper authorContacts
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
+
 authorRole:before
 {
 	content:" ";
@@ -873,6 +933,37 @@ conflatedLine
 conflation
 {
 	display:block;
+}
+
+contactAddress
+{
+	display:block;
+	padding-left: 0.5in;
+}
+contactAffiliation
+{
+	display:block;
+	padding-left: 0.5in;
+}
+contactElectronic
+{
+	display:block;
+	padding-left: 0.5in;
+}
+contactEmail
+{
+	display:block;
+	padding-left: 0.5in;
+}
+contactName
+{
+	display:block;
+	padding-left: 0.5in;
+}
+contactPhone
+{
+	display:block;
+	padding-left: 0.5in;
 }
 
 contents[label]:before
@@ -2513,6 +2604,20 @@ publisher:after
 	content: ". ";
 }
 
+publishingInfo:before
+{
+	content: "Publishing info: ";
+}
+publishingInfo
+{
+	display:block;
+}
+
+publishingBlurb
+{
+	display:block;
+	padding-left: 0.25in;
+}
 q:before
 {
 	content:'"';
@@ -3932,6 +4037,16 @@ authorLayout
 {
 	property-group: titledItem("Author of the Document");
 }
+authorContactInfoLayout:before
+{
+	property-group: collasper( " author contact info layout: " );
+}
+authorContactInfoLayout
+{
+	display:block;
+	property-group: isCollapsible( yes, 1 );
+	margin-left:.25in;
+}
 authorRoleItem[color]
 {
 	color:concatenate(attr(color));
@@ -4337,6 +4452,271 @@ conferenceItem[font-weight]
 conferenceItem
 {
 	property-group: referencesItem("Name of the Conference");
+}
+contactAddressLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactAddressLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactAddressLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactAddressLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactAddressLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactAddressLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactAddressLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactAddressLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactAddressLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactAddressLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactAddressLayout
+{
+	property-group: titledItem("Contact Address");
+}
+contactAffiliationLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactAffiliationLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactAffiliationLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactAffiliationLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactAffiliationLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactAffiliationLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactAffiliationLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactAffiliationLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactAffiliationLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactAffiliationLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactAffiliationLayout
+{
+	property-group: titledItem("Contact Affiliation");
+}
+contactElectronicLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactElectronicLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactElectronicLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactElectronicLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactElectronicLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactElectronicLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactElectronicLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactElectronicLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactElectronicLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactElectronicLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactElectronicLayout
+{
+	property-group: titledItem("Contact Electronic");
+}
+contactEmailLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactEmailLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactEmailLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactEmailLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactEmailLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactEmailLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactEmailLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactEmailLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactEmailLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactEmailLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactEmailLayout
+{
+	property-group: titledItem("Contact Email");
+}
+
+contactNameLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactNameLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactNameLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactNameLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactNameLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactNameLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactNameLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactNameLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactNameLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactNameLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactNameLayout
+{
+	property-group: titledItem("Contact Name");
+}
+contactPhoneLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contactPhoneLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contactPhoneLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contactPhoneLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contactPhoneLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contactPhoneLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+contactPhoneLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+contactPhoneLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contactPhoneLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contactPhoneLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contactPhoneLayout
+{
+	property-group: titledItem("Contact Phone");
 }
 contentLayout:before
 {
@@ -4962,7 +5342,7 @@ fixedText[font-weight]
 }
 fixedText
 {
-	display:block;
+	display:inline;
 	margin-left:.125in;
 }
 /*
@@ -6289,6 +6669,14 @@ linkLinkLayout
 	color: concatenate(xpath("../@color"));
 	text-decoration:concatenate(xpath("../@decoration"));
 }
+listLayout
+{
+	display:block;
+	margin-left:.125in;
+	margin-top:12pt;
+	margin-bottom:12pt;
+	content: "lists";
+}
 locationItem[color]
 {
 	color:concatenate(attr(color));
@@ -6482,6 +6870,7 @@ paperAuthor:before
 }
 paperAuthor
 {
+	display:inline;
 }
 paperLayout:before
 {
@@ -6499,6 +6888,15 @@ paperLayouts
 {
 	property-group: referencesLayouts();
 }
+paperPublishingBlurb:before
+{
+	content:"paper publishing blurb";
+}
+
+paperPublishingBlurb
+{
+	content:"";
+}
 paperTitle:before
 {
 	content:"paper title";
@@ -6507,6 +6905,7 @@ paperTitle:before
 paperTitle
 {
 	content:"";
+	display:inline;
 }
 paragraphIndent:before
 {
@@ -6515,6 +6914,18 @@ paragraphIndent:before
 paragraphIndent
 {
 	property-group: layoutParameter(.67ex);
+}
+paragraphLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+paragraphLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+paragraphLayout
+{
+	property-group: titledItem("paragraph");
 }
 partLayout
 {
@@ -6946,6 +7357,42 @@ publisherStyleSheetReferencesVersion
     color: purple;
     margin-top: .37ex;
     margin-bottom: .37ex;
+}
+publishingBlurbLayout[color]
+{
+	color:concatenate(attr(color));
+}
+publishingBlurbLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+publishingBlurbLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+publishingBlurbLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+publishingBlurbLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+publishingBlurbLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+publishingBlurbLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+publishingBlurbLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+publishingBlurbLayout
+{
+	property-group: titledItem("Publishing Blurb");
 }
 refAuthorItem[color]
 {

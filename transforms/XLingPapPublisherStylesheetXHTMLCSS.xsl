@@ -1019,6 +1019,14 @@ li.lower-roman {
             <xsl:with-param name="name" select="'version'"/>
         </xsl:call-template>
     </xsl:template>
+    <!-- 
+        publishingBlurbLayout
+    -->
+    <xsl:template match="publishingBlurbLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'publishingBlurb'"/>
+        </xsl:call-template>
+    </xsl:template>
     <!-- ===========================================================
         Attribute templates
         =========================================================== -->
@@ -1302,6 +1310,7 @@ li.lower-roman {
     <xsl:template match="@rulebelowlength"/>
     <xsl:template match="@rulebelowpattern"/>
     <xsl:template match="@rulebelowwidth"/>
+    <xsl:template match="@showAsFootnoteAtEndOfAbstract"/>
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
     <xsl:template match="@showletter"/>

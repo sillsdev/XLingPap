@@ -154,7 +154,7 @@
                 </title>
                 <link rel="stylesheet" href="{$sFileName}.css" type="text/css"/>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<!--                <meta name="{$sFileName}" http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                <!--                <meta name="{$sFileName}" http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     If we decide to get serious about meta data, look at http://dublincore.org/documents/dc-html/ and follow what it says.
 -->
                 <style type="text/css">
@@ -381,6 +381,20 @@
         </p>
     </xsl:template>
     <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingBlurb">
+        <p class="publishingBlurb">
+            <xsl:call-template name="DoFrontMatterFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
+        </p>
+    </xsl:template>
+    <!--
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
@@ -448,7 +462,9 @@
     <xsl:template match="acknowledgements" mode="frontmatter-book">
         <xsl:call-template name="DoFrontMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'acknowledgements-title'"/>
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -462,7 +478,9 @@
     <xsl:template match="acknowledgements" mode="backmatter-book">
         <xsl:call-template name="DoBackMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'acknowledgements-title'"/>
-            <xsl:with-param name="id" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="id">
+                <xsl:value-of select="$sAcknowledgementsID"/>
+            </xsl:with-param>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
@@ -475,30 +493,41 @@
     -->
     <xsl:template match="acknowledgements" mode="paper">
         <xsl:choose>
-            <xsl:when test="parent::frontMatter">
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
-                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
-                </xsl:call-template>
+            <xsl:when test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
-                    <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="parent::frontMatter">
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+                            <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                            <xsl:with-param name="id">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                            </xsl:with-param>
+                            <xsl:with-param name="bIsBook" select="'N'"/>
+                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
+                            <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates/>
     </xsl:template>
     <!--
       preface (book)
@@ -835,7 +864,7 @@
                     </xsl:when>
                     <xsl:when test="$bIsBook">
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                        <!--                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -903,6 +932,15 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates/>
+            <xsl:if test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                <xsl:call-template name="OutputEndnoteNumber">
+                    <xsl:with-param name="attr">
+                        <xsl:value-of select="$sAcknowledgementsID"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="sFootnoteNumberOverride" select="'*'"/>
+                </xsl:call-template>
+            </xsl:if>
+            
         </p>
     </xsl:template>
     <!-- ===========================================================
@@ -1298,7 +1336,7 @@
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                <xsl:number level="any" count="endnote[not(parent::author)]" from="chapter" format="1"/>-->
+                <!--                <xsl:number level="any" count="endnote[not(parent::author)]" from="chapter" format="1"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
@@ -1414,7 +1452,7 @@
     <xsl:template match="endnotes">
         <!--  until we get Prince working, always do this
         <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">-->
-        <xsl:if test="//endnote">
+        <xsl:if test="//endnote or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
             <xsl:choose>
                 <xsl:when test="$bIsBook">
                     <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
@@ -1552,6 +1590,18 @@
                 </div>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo">
+        <xsl:param name="layoutInfo"/>
+        <td style="padding-right:.5em;">
+            <xsl:call-template name="DoAuthorContactInfoPerLayout">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+            </xsl:call-template>
+        </td>
     </xsl:template>
     <!-- ===========================================================
       BR
@@ -1937,6 +1987,25 @@
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references"/>
                 </xsl:when>
+                <xsl:when test="name(.)='authorContactInfoLayout'">
+                    <div>
+                        <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
+                        <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                        <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                            <xsl:attribute name="style">
+                                <xsl:text>padding-right:</xsl:text>
+                                <xsl:value-of select="$sSpaceBefore"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <table>
+                            <tr valign="top">
+                                <xsl:apply-templates select="$backMatter/authorContactInfo">
+                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/authorContactInfoLayout"/>
+                                </xsl:apply-templates>
+                            </tr>
+                        </table>
+                    </div>
+                </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
                     <xsl:apply-templates select="$backMatter/endnotes"/>
                 </xsl:when>
@@ -1984,6 +2053,33 @@
             </xsl:attribute>
             </xsl:if>
         -->
+    </xsl:template>
+    <!--
+        DoContactInfo
+    -->
+    <xsl:template name="DoContactInfo">
+        <xsl:param name="currentLayoutInfo"/>
+        <div>
+            <xsl:attribute name="style">
+                <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
+                <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                    <xsl:text>margin-top:</xsl:text>
+                    <xsl:value-of select="$sSpaceBefore"/>
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
+                <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+                    <xsl:text>margin-bottom:</xsl:text>
+                    <xsl:value-of select="$sSpaceAfter"/>
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$currentLayoutInfo"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:apply-templates select="."/>
+        </div>
+        <!--        <br/>-->
     </xsl:template>
     <!--
                   DoContents
@@ -2077,6 +2173,23 @@
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
         </xsl:call-template>
         <table class="footnote">
+            
+            
+
+            <xsl:if test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
+            <tr>
+                <td valign="baseline">
+                    <xsl:element name="a">
+                        <xsl:attribute name="name">
+                            <xsl:value-of select="$sAcknowledgementsID"/>
+                        </xsl:attribute>[*]</xsl:element>
+                </td>
+                <td valign="baseline">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
+                </td>
+            </tr>
+            </xsl:if>            
+            
             <xsl:apply-templates select="//endnote" mode="backMatter"/>
         </table>
         <!-- We may want this if we use Prince
@@ -2218,7 +2331,7 @@
             </xsl:when>
             <xsl:when test="$bIsBook">
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                <!--                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>

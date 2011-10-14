@@ -27,13 +27,13 @@
             <dir value="ltr">Check for nested langData, nested gloss, and nested link elements</dir>
         </title>
         <rule context="langData">
-            <report test="parent::langData and string-length(normalize-space(parent::langData)) = string-length(normalize-space(.))">There is a langData embedded within a langData here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a cut; next click on the enclosing langData element in the Node Path Bar and finally do a paste.</report>
+            <report test="parent::langData and string-length(normalize-space(parent::langData)) = string-length(normalize-space(.))">There is a langData embedded within a langData here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a copy; next click on the enclosing langData element in the Node Path Bar and finally do a paste.</report>
         </rule>
         <rule context="gloss">
-            <report test="parent::gloss and string-length(normalize-space(parent::gloss)) = string-length(normalize-space(.))">There is a gloss embedded within a gloss here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a cut; next click on the enclosing gloss element in the Node Path Bar and finally do a paste.</report>
+            <report test="parent::gloss and string-length(normalize-space(parent::gloss)) = string-length(normalize-space(.))">There is a gloss embedded within a gloss here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a copy; next click on the enclosing gloss element in the Node Path Bar and finally do a paste.</report>
         </rule>
         <rule context="link">
-            <report test="parent::link and string-length(normalize-space(parent::link)) = string-length(normalize-space(.))">There is a link embedded within a link here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a cut; next click on the enclosing link element in the Node Path Bar and finally do a paste.</report>
+            <report test="parent::link and string-length(normalize-space(parent::link)) = string-length(normalize-space(.))">There is a link embedded within a link here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a copy; next click on the enclosing link element in the Node Path Bar and finally do a paste.</report>
         </rule>
     </pattern>
     <pattern>
@@ -174,6 +174,14 @@
         </title>
         <rule context="indexTerm">
             <report test="@see=@id">The 'see' attribute of this indexTerm is referring to itself.  It should refer to a different indexTerm element.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for improper starting page number.</dir>
+        </title>
+        <rule context="publishingInfo/@startingPageNumber">
+            <report test="string-length(normalize-space(.)) &gt; 0 and string(number(.))='NaN'">Warning: The starting page number is not a valid number.  Producing the default PDF may fail.</report>
         </rule>
     </pattern>
     <pattern>

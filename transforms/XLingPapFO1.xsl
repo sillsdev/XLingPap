@@ -89,6 +89,7 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
     </xsl:variable>
+    <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -516,7 +517,7 @@
                         <xsl:attribute name="font-family">
                             <xsl:value-of select="$sDefaultFontFamily"/>
                         </xsl:attribute>
-                        <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
+                        <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
                     </fo:flow>
                 </fo:page-sequence>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="book"/>
@@ -526,7 +527,17 @@
                     <xsl:attribute name="initial-page-number">
                         <xsl:choose>
                             <xsl:when test="name()='chapter' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
-                            <xsl:otherwise>auto-odd</xsl:otherwise>
+                            <xsl:otherwise>
+                                <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sStartingPageNumber) &gt; 0">
+                                        <xsl:value-of select="$sStartingPageNumber"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>auto-odd</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
                     <xsl:call-template name="OutputChapterStaticContent"/>
@@ -547,7 +558,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </fo:marker>
-                        <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version"/>
+                        <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
                         <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="paper"/>
                         <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
                         <xsl:apply-templates select="//backMatter"/>
@@ -617,6 +628,14 @@
     <xsl:template match="version">
         <fo:block font-size="10pt" text-align="center">
             <xsl:text>Version: </xsl:text>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingInfo/publishingBlurb">
+        <fo:block font-size="10pt" text-align="start" space-before="12pt">
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -1004,7 +1023,7 @@
                         <xsl:choose>
                             <xsl:when test="$chapters">
                                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                                <!--                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                             </xsl:when>
                             <xsl:when test="ancestor::author">
                                 <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
@@ -1092,43 +1111,10 @@
       LISTS
       =========================================================== -->
     <xsl:template match="ol">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:variable name="NestingLevel">
-                <xsl:choose>
-                    <xsl:when test="ancestor::endnote">
-                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="count(ancestor::ol)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:if test="$NestingLevel = '0'">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">2em</xsl:attribute>
-            </xsl:if>
-            <xsl:if test="ancestor::endnote">
-                <xsl:attribute name="provisional-label-separation">0em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
+        <xsl:call-template name="DoOl"/>
     </xsl:template>
     <xsl:template match="ul">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:if test="not(ancestor::ul)">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">1em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
+        <xsl:call-template name="DoUl"/>
     </xsl:template>
     <xsl:template match="li">
         <fo:list-item relative-align="baseline">
@@ -2179,7 +2165,7 @@ not using
                     </xsl:when>
                     <xsl:when test="$chapters">
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                        <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                        <!--                        <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -2433,10 +2419,32 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
-      refTitle
-      -->
+        refTitle
+    -->
     <xsl:template match="refTitle">
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo[count(preceding-sibling::authorContactInfo)=0]">
+        <fo:block keep-together.within-page="1" space-before="24pt">
+            <fo:table>
+                <fo:table-column/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                        </xsl:call-template>
+                        <xsl:for-each select="following-sibling::authorContactInfo">
+                            <xsl:call-template name="DoContactInfo">
+                                <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
     </xsl:template>
     <!-- ===========================================================
       BR
@@ -2823,7 +2831,7 @@ not using
         <xsl:choose>
             <xsl:when test="$chapters">
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-<!--                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>-->
+                <!--                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
@@ -3011,7 +3019,9 @@ not using
                     </fo:marker>
                 </xsl:if>
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAcknowledgements</xsl:with-param>
+                    <xsl:with-param name="id">
+                        <xsl:value-of select="$sAcknowledgementsID"/>
+                    </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputAcknowledgementsLabel"/>
                     </xsl:with-param>
@@ -3176,6 +3186,34 @@ not using
         </xsl:if>
     </xsl:template>
     <!--
+        DoContactInfo
+    -->
+    <xsl:template name="DoContactInfo">
+        <xsl:param name="authorInfo"/>
+        <fo:table-cell xsl:use-attribute-sets="ExampleCell">
+            <fo:block>
+                <xsl:apply-templates select="$authorInfo/contactName"/>
+                <fo:block/>
+                <xsl:for-each select="$authorInfo/contactAffiliation">
+                    <xsl:apply-templates select="."/>
+                    <fo:block/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactAddress">
+                    <xsl:apply-templates select="."/>
+                    <fo:block/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactEmail">
+                    <xsl:apply-templates select="."/>
+                    <fo:block/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
+                    <xsl:apply-templates select="."/>
+                    <fo:block/>
+                </xsl:for-each>
+            </fo:block>
+        </fo:table-cell>
+    </xsl:template>
+    <!--
                   DoContents
                   -->
     <xsl:template name="DoContents">
@@ -3202,7 +3240,9 @@ not using
         <!-- acknowledgements -->
         <xsl:if test="//acknowledgements">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="'rXLingPapAcknowledgements'"/>
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sAcknowledgementsID"/>
+                </xsl:with-param>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAcknowledgementsLabel"/>
                 </xsl:with-param>
@@ -3798,10 +3838,10 @@ not using
                     collection
                 -->
                 <xsl:if test="collection">
-<!--                    <xsl:value-of select="$sLdquo"/>-->
+                    <!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-<!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text> In </xsl:text>
                     <xsl:choose>
                         <xsl:when test="collection/collCitation">
@@ -3959,10 +3999,10 @@ not using
                 -->
                 <xsl:if test="fieldNotes">
                     <fo:inline>
-<!--                        <xsl:value-of select="$sLdquo"/>-->
+                        <!--                        <xsl:value-of select="$sLdquo"/>-->
                         <xsl:apply-templates select="refTitle"/>
                         <xsl:text>.</xsl:text>
-<!--                        <xsl:value-of select="$sRdquo"/>-->
+                        <!--                        <xsl:value-of select="$sRdquo"/>-->
                         <xsl:text>&#x20;</xsl:text>
                         <xsl:if test="fieldNotes/location">
                             <xsl:text> (</xsl:text>
@@ -3980,10 +4020,10 @@ not using
                     ms (manuscript)
                 -->
                 <xsl:if test="ms or fieldNotes">
-<!--                    <xsl:value-of select="$sLdquo"/>-->
+                    <!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-<!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>&#x20;</xsl:text>
                     <xsl:if test="ms/location">
                         <xsl:text> (</xsl:text>
@@ -4007,10 +4047,10 @@ not using
                     paper
                 -->
                 <xsl:if test="paper">
-<!--                    <xsl:value-of select="$sLdquo"/>-->
+                    <!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-<!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>  Paper presented at the </xsl:text>
                     <xsl:value-of select="normalize-space(paper/conference)"/>
                     <xsl:if test="paper/location">
@@ -4026,10 +4066,10 @@ not using
                     proceedings
                 -->
                 <xsl:if test="proceedings">
-<!--                    <xsl:value-of select="$sLdquo"/>-->
+                    <!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-<!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:choose>
                         <xsl:when test="proceedings/procCitation">
                             <xsl:text>  In </xsl:text>
@@ -4130,10 +4170,10 @@ not using
                     webPage
                 -->
                 <xsl:if test="webPage">
-<!--                    <xsl:value-of select="$sLdquo"/>-->
+                    <!--                    <xsl:value-of select="$sLdquo"/>-->
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
-<!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>&#x20;</xsl:text>
                     <xsl:if test="webPage/edition">
                         <xsl:value-of select="normalize-space(webPage/edition)"/>
@@ -4172,7 +4212,7 @@ not using
                 <xsl:apply-templates select="following-sibling::shortTitle"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="secTitle"/>
+                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -5261,6 +5301,7 @@ not using
                   OutputSectionNumberAndTitle
 -->
     <xsl:template name="OutputSectionNumberAndTitle">
+        <xsl:param name="bInContents" select="'N'"/>
         <xsl:variable name="bAppendix">
             <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
@@ -5275,7 +5316,14 @@ not using
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
-        <xsl:apply-templates select="secTitle"/>
+        <xsl:choose>
+            <xsl:when test="$bInContents='Y'">
+                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="secTitle"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
                   OutputAllChapterTOC
@@ -5365,7 +5413,9 @@ not using
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputSectionNumberAndTitle"/>
+                <xsl:call-template name="OutputSectionNumberAndTitle">
+                    <xsl:with-param name="bInContents" select="'Y'"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent" select="$sLevel"/>
         </xsl:call-template>

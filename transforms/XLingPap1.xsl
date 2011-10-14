@@ -132,6 +132,16 @@
         </center>
     </xsl:template>
     <!--
+        publishingBlurb
+    -->
+    <xsl:template match="publishingInfo/publishingBlurb">
+        <hr/>
+        <div>
+            <small><xsl:apply-templates/>
+            </small>
+        </div>
+    </xsl:template>
+    <!--
       contents
       -->
     <xsl:template match="contents">
@@ -152,7 +162,7 @@
             <ul>
                 <xsl:if test="//acknowledgements[parent::frontMatter]">
                     <li>
-                        <a href="#rXLingPapAcknowledgements">
+                        <a href="#{$sAcknowledgementsID}">
                             <xsl:call-template name="OutputAcknowledgementsLabel"/>
                         </a>
                     </li>
@@ -276,7 +286,7 @@
                 </xsl:for-each>
                 <xsl:if test="//acknowledgements[parent::backMatter]">
                     <li>
-                        <a href="#rXLingPapAcknowledgements">
+                        <a href="#{$sAcknowledgementsID}">
                             <xsl:call-template name="OutputAcknowledgementsLabel"/>
                         </a>
                     </li>
@@ -347,7 +357,7 @@
                                         </a>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <a name="rXLingPapAcknowledgements">
+                                        <a name="{$sAcknowledgementsID}">
                                             <xsl:call-template name="OutputAcknowledgementsLabel"/>
                                         </a>
                                     </xsl:otherwise>
@@ -371,7 +381,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <!-- assume it is acknowledgments -->
-                <a name="rXLingPapAcknowledgements">
+                <a name="{$sAcknowledgementsID}">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputAcknowledgementsLabel"/>
@@ -2021,6 +2031,25 @@
     <xsl:template match="refTitle">
         <xsl:apply-templates/>
     </xsl:template>
+    <!--
+        authorContactInfo
+    -->
+    <xsl:template match="authorContactInfo[count(preceding-sibling::authorContactInfo)=0]">
+        <div style="padding-top:24pt">
+            <table>
+                    <tr valign="top">
+                        <xsl:call-template name="DoContactInfo">
+                            <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                        </xsl:call-template>
+                        <xsl:for-each select="following-sibling::authorContactInfo">
+                            <xsl:call-template name="DoContactInfo">
+                                <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </tr>
+            </table>
+        </div>
+    </xsl:template>
     <!-- ===========================================================
       BR
       =========================================================== -->
@@ -2394,6 +2423,7 @@
         ELEMENTS TO IGNORE
         =========================================================== -->
     <xsl:template match="afterTerm"/>
+    <xsl:template match="authorContacts"/>
     <xsl:template match="basicPointSize"/>
     <xsl:template match="beforeTerm"/>
     <xsl:template match="blockQuoteIndent"/>
@@ -2414,6 +2444,7 @@
     <xsl:template match="publisherStyleSheetReferencesName"/>
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
+    <xsl:template match="publishingBlurb"/>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -2603,6 +2634,32 @@
          </xsl:attribute>
       </xsl:if>
       -->
+    </xsl:template>
+    <!--
+        DoContactInfo
+    -->
+    <xsl:template name="DoContactInfo">
+        <xsl:param name="authorInfo"/>
+        <td style="{$sExampleCellPadding}">
+                <xsl:apply-templates select="$authorInfo/contactName"/>
+                <br/>
+                <xsl:for-each select="$authorInfo/contactAffiliation">
+                    <xsl:apply-templates select="."/>
+                    <br/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactAddress">
+                    <xsl:apply-templates select="."/>
+                    <br/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactEmail">
+                    <xsl:apply-templates select="."/>
+                    <br/>
+                </xsl:for-each>
+                <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
+                    <xsl:apply-templates select="."/>
+                    <br/>
+                </xsl:for-each>
+        </td>
     </xsl:template>
     <!--  
         DoDefinition

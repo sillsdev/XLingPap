@@ -680,6 +680,7 @@ alt causes menu to be selected
                     <cfg:command name="setFigureRef" parameter="%0"/>
                     <cfg:command name="setTableNumberedRef" parameter="%0"/>
                     <cfg:command name="setCollOrProcCitation"/>
+                    <cfg:command name="setAuthorContactInfo"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
@@ -744,6 +745,26 @@ alt causes menu to be selected
         <cfg:process showProgress="false">
             <cfg:copyDocument to="in.xml"/>
             <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAppendixTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setAuthorContactInfo">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] authorContactInfo"/>
+                </cfg:pass>
+                <cfg:command name="getAuthorContactInfoandIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Author Contact Info' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] author %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getAuthorContactInfoandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAuthorContactInfoAndIds.xsl" to="out.xml"/>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>

@@ -81,7 +81,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, languages?, types?, indexTerms*, comment*)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, languages?, types?, indexTerms*, comment*, publishingInfo?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -131,11 +131,7 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!--
-For when we get author contacts turned on...
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, (preface+ | abstract)?)>
--->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, (author, affiliation*, emailAddress?)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, (preface+ | abstract)?)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress?) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, (preface+ | abstract)?)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -715,10 +711,7 @@ For when we get author contacts turned on...
     XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- backmatter includes appendices, endnotes and references -->
-<!--  For when we get author contacts turned on...
-<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, references?, index*, authorContactInfo*)>
--->
-<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, (references, selectedBibliography?)?, index*)>
+<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, (references, selectedBibliography?)?, index*, authorContactInfo*)>
 <!-- endnotes -->
 <!ELEMENT endnotes EMPTY>
 <!ATTLIST endnotes
@@ -793,6 +786,12 @@ Can have more than one (for names, languages, and subjects, e.g.).
     label CDATA #IMPLIED
     kind (common | name | language | subject) "common"
 >
+<!ELEMENT publishingInfo (publishingBlurb?, authorContacts?) >
+<!ATTLIST publishingInfo
+ startingPageNumber CDATA #IMPLIED
+ version CDATA #IMPLIED
+ >
+<!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >
 <!ENTITY % XLingPapIndexTerms SYSTEM  "XLingPapIndexTerms.dtd">
 %XLingPapIndexTerms;
 <!ENTITY % XLingPapReferences SYSTEM  "XLingPapReferences.dtd">

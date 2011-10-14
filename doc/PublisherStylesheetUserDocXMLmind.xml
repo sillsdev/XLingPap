@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->15 June 2011</date
+>13 October 2011</date
 ><version
->2.16.0_2</version
+>2.18.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -198,7 +198,7 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
->.  In this case, there will be no fixed page width in the web page output (i.e. it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
+>. In this case, there will be no fixed page width in the web page output (i.e. it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
 type="tAttribute"
 >ignorePageWidthForWebPageOutput</object
 > attribute is ignored by both the <object
@@ -875,6 +875,101 @@ num="xHeaderFooterPageCombinationsFirstOddEven"
 ></exampleRef
 >.</p
 ><p
+>Each of the elements shown in <exampleRef
+letter="xHeaderFooterPageCombinations"
+num="xHeaderFooterPageCombinations"
+></exampleRef
+> have the attributes given in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="full"
+></sectionRef
+> as well as a <object
+type="tAttribute"
+>textalign</object
+> attribute which has the values shown in example <exampleRef
+letter="xHeaderTextAlign"
+num="xHeaderTextAlign"
+></exampleRef
+>.</p
+><example
+num="xHeaderTextAlign"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTextAlignAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>textalign</object
+> </langData
+></td
+><td
+><object
+type="tAttrValue"
+>justify</object
+>, <langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>right</object
+>, <object
+type="tAttrValue"
+>start</object
+>, <object
+type="tAttrValue"
+>end</object
+>, or <object
+type="tAttrValue"
+>center</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets how the blurb contents will be aligned horizontally.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>justify</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><p
 >The "regular” page header and footer information is shown in example <exampleRef
 letter="xHeaderFooterRegular"
 num="xHeaderFooterRegular"
@@ -889,7 +984,7 @@ src="resources/HeaderFooterRegular.png"
 ></chart
 ></example
 ><p
->What is to be shown in each of these six places is controlled by putting one of the elements in the appropriate spot in the table. Example <exampleRef
+>What is to be shown in each of these six places is controlled by putting one or more of the elements in the appropriate spot in the table. Example <exampleRef
 letter="xHeaderFooterElements"
 num="xHeaderFooterElements"
 ></exampleRef
@@ -1099,6 +1194,44 @@ sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
 >.</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>paperPublishingBlurb</object
+></td
+><td
+>Uses what is in the <object
+type="tElement"
+>publishingBlurb</object
+>  element</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.  In addition, <object
+type="tAttribute"
+>verticalAdjustment</object
+> can be set to a measurement value (e.g. <object
+type="tAttrValue"
+>-12pt</object
+>, <object
+type="tAttrValue"
+>1ex</object
+>, <object
+type="tAttrValue"
+>.125in</object
+>, etc.) in order to adjust the vertical positioning of the blurb contents.<endnote
+id="nFOVerticalAdjustment"
+><p
+>Currently, this attribute is ignored by the <object
+type="tRenderX"
+></object
+> way of producing PDF.</p
+></endnote
+></td
 ></tr
 ><tr
 ><td
@@ -1359,6 +1492,27 @@ type="tElement"
 type="tElement"
 >emailAddress</object
 > element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iAuthorLayout"
+></indexedItem
+><object
+type="tElement"
+>authorContactInfoLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>authorContactInfo</object
+> elements are to be formatted.</td
 ><td
 >See section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
@@ -1713,6 +1867,177 @@ type="tElement"
 type="tElement"
 >preface</object
 >). If you have only one publisher style sheet layout element for these, then all instances of them will use the same formatting. If you have two or more publisher style sheet layout elements for any of these, then the first will be used for the first instance in the document, the second for the second, etc. If there are more instances in the document than there are corresponding publisher style sheet layout elements, then the last publisher style sheet layout element will be used for all of the extra instances in the document.</p
+><section3
+id="sAuthorContactInfo"
+><secTitle
+>Author Contact Info Layout</secTitle
+><p
+><indexedItem
+term="iContactInformation"
+></indexedItem
+>Each author contact information item will be formatted in a vertical list.  For the default way of producing PDF, each such vertical list is justified horizontally, with any extra ones automatically wrapping (for cases where there are many authors).  For the other outputs, each such vertical list is formatted in a single table and, if there are many authors, it may run off the page.</p
+><p
+>The content of each vertical list is controlled by the set of elements contained within the <object
+type="tElement"
+>authorContactInfoLayout</object
+> element.  The possible elements are shown in example <exampleRef
+letter="xAuthorContactInfoElements"
+num="xAuthorContactInfoElements"
+></exampleRef
+>.</p
+><example
+num="xAuthorContactInfoElements"
+><table
+border="1"
+><caption
+>Author Contact Info elements</caption
+><tr
+><th
+>Element</th
+><th
+>Description</th
+><th
+>Attributes</th
+></tr
+><tr
+><td
+><indexedItem
+term="iContactNameLayout"
+></indexedItem
+><object
+type="tElement"
+>contactNameLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactName</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.  This also has the <object
+type="tAttribute"
+>pagebreakbefore</object
+> and <object
+type="tAttribute"
+>startonoddpage</object
+> attributes described in section <sectionRef
+sec="sTitleFormatInfoAttributes"
+showTitle="full"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactAffiliationLayout"
+></indexedItem
+><object
+type="tElement"
+>contactAffiliationLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactAffiliation</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactAddressLayout"
+></indexedItem
+><object
+type="tElement"
+>contactAddressLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactAddress</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactPhoneLayout"
+></indexedItem
+><object
+type="tElement"
+>contactPhoneLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactPhone</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactEmailLayout"
+></indexedItem
+><object
+type="tElement"
+>contactEmailLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactEmail</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactElectronicLayout"
+></indexedItem
+><object
+type="tElement"
+>contactElectronicLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contactElectronic</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+></table
+></example
+></section3
 ></section2
 ></section1
 ><section1
@@ -2092,7 +2417,22 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  In addition this element has a <object
+type="tAttribute"
+>showAsFootnoteAtEndOfAbstract</object
+> attribute which has two values: <object
+type="tAttrValue"
+>yes</object
+> and <object
+type="tAttrValue"
+>no</object
+>.  The default value is <object
+type="tAttrValue"
+>no</object
+>.  If it is set to <object
+type="tAttrValue"
+>yes</object
+>, then the contents of the acknowledgements will be shown as a footnote at the end of the abstract.  The footnote “number” used will be an asterisk.</td
 ></tr
 ><tr
 ><td
@@ -6065,6 +6405,29 @@ type="tElement"
 >exampleLayout</object
 >, which always comes first. All others are optional. They are described in the order in which they must appear.</p
 ><section2
+id="sParagraphLayout"
+><secTitle
+>Controlling the Display of Paragraphs</secTitle
+><p
+><indexedItem
+term="iParagraphLayout"
+></indexedItem
+>Some style sheets require extra space before and after paragraphs.  One can use the <object
+type="tAttribute"
+>spacebefore</object
+> and <object
+type="tAttribute"
+>spaceafter</object
+> attributes of the <object
+type="tElement"
+>paragraphLayout</object
+> element to set these values.  See these attributes in section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="full"
+></sectionRef
+>.</p
+></section2
+><section2
 id="sExampleLayout"
 ><secTitle
 >Controlling the Display of Examples and Example Numbers</secTitle
@@ -6269,6 +6632,26 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+></section2
+><section2
+id="sListLayout"
+><secTitle
+>Controlling the Display of Lists</secTitle
+><p
+><indexedItem
+term="iListLayout"
+></indexedItem
+>Some style sheets require specific indents for lists. One can use the <object
+type="tAttribute"
+>indent-before</object
+> attribute of the <object
+type="tElement"
+>listLayout</object
+> element to set this indent. See this attribute in section <sectionRef
+sec="sExampleLayout"
+showTitle="full"
+></sectionRef
+>.</p
 ></section2
 ><section2
 id="sSectionRefLayout"
@@ -10045,6 +10428,12 @@ id="iAppendixRefLink"
 >Appendix reference link</term
 ></indexTerm
 ><indexTerm
+id="iAuthorContactInformation"
+see="iContactInformation"
+><term
+>Author contact information</term
+></indexTerm
+><indexTerm
 id="iAuthorFormatting"
 ><term
 >Author formatting</term
@@ -10177,6 +10566,43 @@ id="iColorAttribute"
 id="iConference"
 ><term
 >Conference in a referenced work</term
+></indexTerm
+><indexTerm
+id="iContactInformation"
+><term
+>Contact information</term
+><indexTerms
+><indexTerm
+id="iContactAddressLayout"
+><term
+>Contact address layout</term
+></indexTerm
+><indexTerm
+id="iContactAffiliationLayout"
+><term
+>Contact affiliation layout</term
+></indexTerm
+><indexTerm
+id="iContactElectronicLayout"
+><term
+>Contact electronic layout</term
+></indexTerm
+><indexTerm
+id="iContactEmailLayout"
+><term
+>Contact email layout</term
+></indexTerm
+><indexTerm
+id="iContactNameLayout"
+><term
+>Contact name layout</term
+></indexTerm
+><indexTerm
+id="iContactPhoneLayout"
+><term
+>Contact phone layout</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iContentsLayout"
@@ -10552,6 +10978,11 @@ id="iLinkLink"
 >Link link</term
 ></indexTerm
 ><indexTerm
+id="iListLayout"
+><term
+>List layout</term
+></indexTerm
+><indexTerm
 id="iLocation"
 ><term
 >Location in a referenced work</term
@@ -10692,6 +11123,11 @@ id="iProcPages"
 id="iParagraphIndent"
 ><term
 >Paragraph indent</term
+></indexTerm
+><indexTerm
+id="iParagraphLayout"
+><term
+>Paragraph layout</term
 ></indexTerm
 ><indexTerm
 id="iPartLayout"

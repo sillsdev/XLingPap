@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->02 September 2011</date
+>14 Octobber 2011</date
 ><version
->2.16.0_5</version
+>2.17.0_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -1673,6 +1673,47 @@ type="tElement"
 > elements must be included.</p
 ></section2
 ><section2
+id="sFMAuthorContactInfo"
+><secTitle
+>Author Contact Information</secTitle
+><p
+><indexedItem
+term="iContactInformation"
+></indexedItem
+>One or more <object
+type="tElement"
+>authorContactInfo</object
+> elements may optionally be included.  Each one refers to an <object
+type="tElement"
+>authorContact</object
+> element via its <object
+type="tAttribute"
+>author</object
+> attribute.</p
+><p
+>These are typically only used for some publications.  You probably will only need to insert one when you are about to publish your <object
+type="tXLingPap"
+></object
+> document and your publisher requires it.</p
+><p
+>As soon as you insert an <object
+type="tElement"
+>authorContactInfo</object
+> element, if you immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+> or if you right-click on it and choose <object
+type="tInstruction"
+>Set Reference</object
+>), a dialog box will pop up that lists all the author contacts currently available.  You can then choose the one you want.  See also section <sectionRef
+sec="sAuthorContactInformation"
+></sectionRef
+>.</p
+></section2
+><section2
 id="sFMAffiliation"
 ><secTitle
 >Affiliation</secTitle
@@ -2250,6 +2291,18 @@ lang="lEng"
 ><object
 type="tElement"
 >example</object
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+>z</langData
+></td
+><td
+><object
+type="tElement"
+>authorContact</object
 ></td
 ></tr
 ></table
@@ -3124,7 +3177,7 @@ id="sBackMatter"
 id="bBackMatter"
 term="iBackMatter"
 ></indexedRangeBegin
->Back matter consists of acknowledgements, appendices, glossary, abbreviations, endnotes, references, and indexes. All of these are optional.</p
+>Back matter consists of acknowledgements, appendices, glossary, abbreviations, endnotes, references, author contact information and indexes. All of these are optional.</p
 ><section2
 id="sBMAcknowledgements"
 ><secTitle
@@ -5965,6 +6018,22 @@ num="xLanguageCodesForSorting"
 ></exampleRef
 >.</p
 ></section3
+></section2
+><section2
+id="sBMAuthorContactInfo"
+><secTitle
+>Author Contact Information</secTitle
+><p
+><indexedItem
+term="iContactInformation"
+></indexedItem
+>See section <sectionRef
+sec="sFMAuthorContactInfo"
+></sectionRef
+> for this.  If you insert an <object
+type="tElement"
+>authorContactInfo</object
+> element in the back matter, then the contact information will appear in the back matter of your document.</p
 ></section2
 ><section2
 id="sBMIndex"
@@ -11345,7 +11414,7 @@ id="nFloat"
 ><p
 >My assumption is that the goal is to save paper so they want the float to appear wherever it least affects the total number of pages of the document.</p
 ></endnote
-> Personally, I am not a fan of floats. Whenever I am reading an article or book that has these, it is often the case that when a figure or table is referenced in the text, it is very hard to know where to look for the figure or table. Even though they are numbered, they typically do not appear very often so one does not know whether to look ahead or behind nor how far. It also is often the case that no list of figures or list or tables were provided, making it even more challenging to find the correct float.<endnote
+> Personally, I am not a fan of floats. Whenever I am reading an article or book that has these, it is often the case that when a figure or table is referenced in the text, it is very hard to know where to look for the figure or table. Even though they are numbered, they typically do not appear very often so one does not know whether to look ahead or behind nor how far. It also is often the case that no list of figures or list of tables were provided, making it even more challenging to find the correct float.<endnote
 id="nFloatReference"
 ><p
 >At least with hyper-linked documents, one can follow the reference link to the figure or table. But once it is printed on paper, that advantage goes away.</p
@@ -19481,7 +19550,7 @@ type="tXMLmindXMLEditor"
 > and <object
 type="tXLingPap"
 ></object
-> is in English.  There also are versions in French and Spanish.  (If you notice any error in these versions, please let us know.)</p
+> is in English. There also are versions in French and Spanish. (If you notice any error in these versions, please let us know.)</p
 ><p
 >To use one of these non-English versions of the user interface, do the following steps in the <object
 type="tXMLmindXMLEditor"
@@ -19498,10 +19567,10 @@ type="tInstruction"
 ><li
 >Check the box and click on OK.</li
 ><li
->Wait for the translation package to be downloaded and installed.  You will be told you will need to restart the <object
+>Wait for the translation package to be downloaded and installed. You will be told you will need to restart the <object
 type="tXMLmindXMLEditor"
 ></object
-> for the change to take place.  You can wait to do that until after you have done the next steps.</li
+> for the change to take place. You can wait to do that until after you have done the next steps.</li
 ><li
 >Use the <object
 type="tInstruction"
@@ -19522,7 +19591,7 @@ type="tXMLmindXMLEditor"
 ><p
 >You should now see the menu items using the language you chose.</p
 ><p
->Please note that these non-English versions are for the user interface only.  The element names, attribute names, and some of the validity messages will still be in English.  Also the user documentation files are only in English.</p
+>Please note that these non-English versions are for the user interface only. The element names, attribute names, and some of the validity messages will still be in English. Also the user documentation files are only in English.</p
 ></section2
 ></section1
 ><section1
@@ -19863,6 +19932,203 @@ note="nEnableBookmarksInXXE"
 >Use this command and the ability to jump back to where you were whenever you discover you need to add new reference information.</p
 ></section2
 ></section1
+><section1
+id="sPublishingInfo"
+><secTitle
+>Publishing Information</secTitle
+><p
+><indexedItem
+term="iPublishingInfo"
+></indexedItem
+>When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. One includes this kind of information via the optional <object
+type="tElement"
+>publishingInfo</object
+> element. The <object
+type="tElement"
+>publishingInfo</object
+> element has two optional parts: the blurb and author contacts.</p
+><section2
+id="sPublishingBlurb"
+><secTitle
+>Publishing Blurb</secTitle
+><p
+><indexedItem
+term="iPublishingBlurb"
+></indexedItem
+>The optional <object
+type="tElement"
+>publishingBlurb</object
+> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part of, copyright notice, links to online versions of the paper, etc. The content of a <object
+type="tElement"
+>publishingBlurb</object
+> element is plain text and any of the embedded elements.<endnoteRef
+note="nEmbedded"
+></endnoteRef
+> When you need multiple lines in the blurb, separate each part by a <object
+type="tElement"
+>br</object
+> element.</p
+></section2
+><section2
+id="sAuthorContactInformation"
+><secTitle
+>Author Contact Information</secTitle
+><p
+><indexedItem
+term="iContactInformation"
+></indexedItem
+>Some publications include more than merely an author's name and affiliation. They want to show the author's contact information, including things like full name (perhaps including degree initials, professor title, etc.), mail address, phone number, and/or a web site or other electronic contact information.</p
+><p
+>Like references, the <object
+type="tElement"
+>authorContacts</object
+> element can be used for multiple <object
+type="tXLingPap"
+></object
+> documents.  (See section <sectionRef
+sec="sFAQReferences"
+></sectionRef
+> for how to do this, but use "Author Contacts” instead of "References”.)  It contains one or more <object
+type="tElement"
+>authorContact</object
+> elements. Each <object
+type="tElement"
+>authorContact</object
+> element can contain any combination of one or more of the elements given in <exampleRef
+letter="xContactInfo"
+num="xContactInfo"
+></exampleRef
+>.  In addition, it has a required <object
+type="tAttribute"
+>id</object
+> attribute.<endnoteRef
+note="nInitialIDLetter"
+></endnoteRef
+></p
+><example
+num="xContactInfo"
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Description</th
+></tr
+><tr
+><td
+><indexedItem
+term="iContactName"
+></indexedItem
+><object
+type="tElement"
+>contactName</object
+></td
+><td
+>The full name of the author. This may include Dr., PhD, Associate Professor, etc.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactAffiliation"
+></indexedItem
+><object
+type="tElement"
+>contactAffilation</object
+></td
+><td
+>The full name of the affiliation.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactAddress"
+></indexedItem
+><object
+type="tElement"
+>contactAddress</object
+></td
+><td
+>The full address whereby the author may be contacted. Use separate <object
+type="tElement"
+>contactAddress</object
+> elements for each line.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactPhone"
+></indexedItem
+><object
+type="tElement"
+>contactPhone</object
+></td
+><td
+>The phone number where the author may be reached.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactEmail"
+></indexedItem
+><object
+type="tElement"
+>contactEmail</object
+></td
+><td
+>The email address of the author.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContactElectronic"
+></indexedItem
+><object
+type="tElement"
+>contactElectronic</object
+></td
+><td
+>Any non-email electronic contact such as a web page, Skype name, instant messaging handle, Facebook name, Twitter handle, etc.</td
+></tr
+></table
+></example
+><p
+>All of the elements listed in <exampleRef
+letter="xContactInfo"
+num="xContactInfo"
+></exampleRef
+> contain plain text plus any embedded elements,<endnoteRef
+note="nEmbedded"
+></endnoteRef
+> except <object
+type="tElement"
+>contactEmail</object
+> (which uses just plain text).</p
+><p
+><indexedItem
+term="iContactElectronic"
+></indexedItem
+>The <object
+type="tElement"
+>contactElectronic</object
+> element also has a <object
+type="tAttribute"
+>show</object
+> attribute.  When it is set to <object
+type="tAttrValue"
+>no</object
+>, the content of the <object
+type="tElement"
+>contactElectronic</object
+> element will not be included in the output.  When it is set to <object
+type="tAttrValue"
+>yes</object
+> (which is the default), the content of the  <object
+type="tElement"
+>contactElectronic</object
+> element will be included in the output.</p
+></section2
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -19991,6 +20257,20 @@ type="tElement"
 ></dt
 ><dd
 >An author of the paper</dd
+><dt
+><object
+type="tElement"
+>authorContact</object
+></dt
+><dd
+>Contact information for an author</dd
+><dt
+><object
+type="tElement"
+>authorContacts</object
+></dt
+><dd
+>A list of author contact information</dd
 ><dt
 ><object
 type="tElement"
@@ -20176,6 +20456,48 @@ type="tElement"
 ></dt
 ><dd
 >A conflation of two or more lines within an interlinear "line" (not fully implemented)</dd
+><dt
+><object
+type="tElement"
+>contactAddress</object
+></dt
+><dd
+>Contact address for an author</dd
+><dt
+><object
+type="tElement"
+>contactAffiliation</object
+></dt
+><dd
+>Contact affiliation for an author</dd
+><dt
+><object
+type="tElement"
+>contactElectronic</object
+></dt
+><dd
+>Contact electronic information for an author</dd
+><dt
+><object
+type="tElement"
+>contactEmail</object
+></dt
+><dd
+>Contact email for an author</dd
+><dt
+><object
+type="tElement"
+>contactName</object
+></dt
+><dd
+>Contact name for an author</dd
+><dt
+><object
+type="tElement"
+>contactPhone</object
+></dt
+><dd
+>Contact phone number for an author</dd
 ><dt
 ><object
 type="tElement"
@@ -20938,6 +21260,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>publishingBlurb</object
+></dt
+><dd
+>The publisher's blurb about a published document such as copyright, link to online version, etc.</dd
+><dt
+><object
+type="tElement"
+>publishingInfo</object
+></dt
+><dd
+>Information about a published document such as copyright, link to online version, etc.</dd
+><dt
+><object
+type="tElement"
 >q</object
 ></dt
 ><dd
@@ -21439,10 +21775,7 @@ type="tElement"
 >authorContactInfoLayout</object
 ></dt
 ><dd
->Layout info for author contact information <object
-type="tItalic"
->(not implemented yet)</object
-></dd
+>Layout info for author contact information</dd
 ><dt
 ><object
 type="tElement"
@@ -21607,6 +21940,48 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a conference (within references)</dd
+><dt
+><object
+type="tElement"
+>contactAddressLayout</object
+></dt
+><dd
+>Layout info for a contact address</dd
+><dt
+><object
+type="tElement"
+>contactAffiliationLayout</object
+></dt
+><dd
+>Layout info for a contact affiliation</dd
+><dt
+><object
+type="tElement"
+>contactElectronicLayout</object
+></dt
+><dd
+>Layout info for a contact electronic information</dd
+><dt
+><object
+type="tElement"
+>contactEmailLayout</object
+></dt
+><dd
+>Layout info for a contact email</dd
+><dt
+><object
+type="tElement"
+>contactNameLayout</object
+></dt
+><dd
+>Layout info for a contact name</dd
+><dt
+><object
+type="tElement"
+>contactPhoneLayout</object
+></dt
+><dd
+>Layout info for a contact phone number</dd
 ><dt
 ><object
 type="tElement"
@@ -22153,6 +22528,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>listLayout</object
+></dt
+><dd
+>Layout info for lists</dd
+><dt
+><object
+type="tElement"
 >locationItem</object
 ></dt
 ><dd
@@ -22306,6 +22688,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>paperPublishingBlurb</object
+></dt
+><dd
+>Indicates to use the content of the publishing blurb in a header or footer</dd
+><dt
+><object
+type="tElement"
 >paperTitle</object
 ></dt
 ><dd
@@ -22317,6 +22706,13 @@ type="tElement"
 ></dt
 ><dd
 >Indent to use at the beginning of a paragraph</dd
+><dt
+><object
+type="tElement"
+>paragraphLayout</object
+></dt
+><dd
+>Layout info for paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -22460,6 +22856,13 @@ type="tElement"
 ></dt
 ><dd
 >A version number for the style sheet</dd
+><dt
+><object
+type="tElement"
+>publishingBlurbLayout</object
+></dt
+><dd
+>Layout info for the publishing blurb</dd
 ><dt
 ><object
 type="tElement"
@@ -22990,6 +23393,12 @@ id="iAuthor"
 >Author</term
 ><indexTerms
 ><indexTerm
+id="iAuthorContactInformation"
+see="iContactInformation"
+><term
+>contact information</term
+></indexTerm
+><indexTerm
 id="iAuthorCiteName"
 ><term
 >name used in citations</term
@@ -23079,6 +23488,43 @@ id="iCollCitation"
 id="iCollCitationConvert"
 ><term
 >Convert from collection to collection citation</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iContactInformation"
+><term
+>Contact information</term
+><indexTerms
+><indexTerm
+id="iContactAddress"
+><term
+>Contact address</term
+></indexTerm
+><indexTerm
+id="iContactAffiliation"
+><term
+>Contact affiliation</term
+></indexTerm
+><indexTerm
+id="iContactElectronic"
+><term
+>Contact electronic</term
+></indexTerm
+><indexTerm
+id="iContactEmail"
+><term
+>Contact email</term
+></indexTerm
+><indexTerm
+id="iContactName"
+><term
+>Contact name</term
+></indexTerm
+><indexTerm
+id="iContactPhone"
+><term
+>Contact phone</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -23651,6 +24097,16 @@ see="iPublisherStyleSheetRemove"
 >Unassociate a publisher style sheet</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iPublishingBlurb"
+><term
+>Publishing blurb</term
+></indexTerm
+><indexTerm
+id="iPublishingInfo"
+><term
+>Publishing information</term
 ></indexTerm
 ><indexTerm
 id="iReference"

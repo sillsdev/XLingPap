@@ -12,6 +12,7 @@
     <xsl:key name="LanguageID" match="//language" use="@id"/>
     <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
+    <xsl:key name="AuthorContactID" match="//authorContact" use="@id"/>
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
@@ -50,6 +51,7 @@
     <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
+    <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>
     <!--
         exampleHeading in NotTextRef mode
     -->

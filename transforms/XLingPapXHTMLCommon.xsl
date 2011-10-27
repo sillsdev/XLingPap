@@ -1156,7 +1156,7 @@
                     <xsl:variable name="myFirstChild" select="child::*[position()=1]"/>
                     <xsl:choose>
                         <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
-                            <xsl:apply-templates select="exampleHeading" mode="noInitialSpace"/>
+                            <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
                             <table cellpadding="0pt" cellspacing="0pt">
                                 <xsl:apply-templates select="listInterlinear | listWord | listSingle">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>

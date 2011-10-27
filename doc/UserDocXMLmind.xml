@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 Octobber 2011</date
+>21 Octobber 2011</date
 ><version
 >2.17.0_1</version
 ><contents
@@ -1409,6 +1409,32 @@ type="tElement"
 ></tr
 ><tr
 ><td
+>valign-fixup</td
+><td
+>a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
+><td
+>Adjust the vertical position of the content of a cell in a table by the amount specified (this only works on <object
+type="tElement"
+>td</object
+> and <object
+type="tElement"
+>th</object
+> elements). A negative value makes the content appear lower; a positive value makes it appear higher.</td
+><td
+><table
+><tr
+><td
+>valign-fixup='1pt'</td
+></tr
+><tr
+><td
+>valign-fixup='-1.5ex'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
 >vertical-adjustment</td
 ><td
 >a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
@@ -1683,7 +1709,7 @@ term="iContactInformation"
 >One or more <object
 type="tElement"
 >authorContactInfo</object
-> elements may optionally be included.  Each one refers to an <object
+> elements may optionally be included. Each one refers to an <object
 type="tElement"
 >authorContact</object
 > element via its <object
@@ -1691,7 +1717,7 @@ type="tAttribute"
 >author</object
 > attribute.</p
 ><p
->These are typically only used for some publications.  You probably will only need to insert one when you are about to publish your <object
+>These are typically only used for some publications. You probably will only need to insert one when you are about to publish your <object
 type="tXLingPap"
 ></object
 > document and your publisher requires it.</p
@@ -1708,7 +1734,7 @@ type="tInstruction"
 > or if you right-click on it and choose <object
 type="tInstruction"
 >Set Reference</object
->), a dialog box will pop up that lists all the author contacts currently available.  You can then choose the one you want.  See also section <sectionRef
+>), a dialog box will pop up that lists all the author contacts currently available. You can then choose the one you want. See also section <sectionRef
 sec="sAuthorContactInformation"
 ></sectionRef
 >.</p
@@ -6030,7 +6056,7 @@ term="iContactInformation"
 >See section <sectionRef
 sec="sFMAuthorContactInfo"
 ></sectionRef
-> for this.  If you insert an <object
+> for this. If you insert an <object
 type="tElement"
 >authorContactInfo</object
 > element in the back matter, then the contact information will appear in the back matter of your document.</p
@@ -19985,10 +20011,10 @@ type="tElement"
 > element can be used for multiple <object
 type="tXLingPap"
 ></object
-> documents.  (See section <sectionRef
+> documents. (See section <sectionRef
 sec="sFAQReferences"
 ></sectionRef
-> for how to do this, but use "Author Contacts” instead of "References”.)  It contains one or more <object
+> for how to do this, but use "Author Contacts” instead of "References”.) It contains one or more <object
 type="tElement"
 >authorContact</object
 > elements. Each <object
@@ -19998,7 +20024,7 @@ type="tElement"
 letter="xContactInfo"
 num="xContactInfo"
 ></exampleRef
->.  In addition, it has a required <object
+>. In addition, it has a required <object
 type="tAttribute"
 >id</object
 > attribute.<endnoteRef
@@ -20114,16 +20140,16 @@ type="tElement"
 > element also has a <object
 type="tAttribute"
 >show</object
-> attribute.  When it is set to <object
+> attribute. When it is set to <object
 type="tAttrValue"
 >no</object
 >, the content of the <object
 type="tElement"
 >contactElectronic</object
-> element will not be included in the output.  When it is set to <object
+> element will not be included in the output. When it is set to <object
 type="tAttrValue"
 >yes</object
-> (which is the default), the content of the  <object
+> (which is the default), the content of the <object
 type="tElement"
 >contactElectronic</object
 > element will be included in the output.</p

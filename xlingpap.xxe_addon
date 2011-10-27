@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-10-12</a:date
+>2011-10-27</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_1 12 October 2011<ul
+>2.17.0_1 27 October 2011<ul
 ><li
 >Add author contact information (for contact name, affiliation, address, phone, email, and electronic contact).</li
 ><li
@@ -45,6 +45,10 @@ href="mailto::andy_black@sil.org"
 >XeLaTeX way of producing PDF:<ul
 ><li
 >Fix bug: using a gloss element in a non-iterlinear environment (such as within a paragraph) could cause following material to use the font-family of the gloss.</li
+><li
+>Enable XeLaTeXSpecial attribute value of 'pagebreak' for figure and tablenumbered elements.</li
+><li
+>Add XeLaTeXSpecial attribute value of 'valign-fixup' to user documentation.</li
 ></ul
 ></li
 ><li
@@ -54,11 +58,17 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bugs when a publisher style sheet was *not* used, having a section title include an endnote: <ul
 ><li
-> could cause the PDF not to be produced;</li
+>could cause the PDF not to be produced;</li
 ><li
 >showing the contents would give two copies of the same endnote.</li
 ></ul
 ></li
+></ul
+></li
+><li
+>Web page with publisher style sheet:<ul
+><li
+>Fix bug: exampleHeading elements were not always rendered properly.</li
 ></ul
 ></li
 ><li

@@ -2989,6 +2989,9 @@
         DoFigure
     -->
     <xsl:template name="DoFigure">
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -3046,10 +3049,12 @@
             <tex:spec cat="rsb"/>
 -->
         </xsl:if>
+        <xsl:if test="not(contains(descendant::img/@XeLaTeXSpecial,'vertical-adjustment='))">
         <tex:cmd name="leavevmode" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
-            <xsl:if test="chart/*[position()=last()][name()='img']">
+            <xsl:if test="chart/*[position()=last()][name()='img' and not(contains(@XeLaTeXSpecial,'vertical-adjustment='))]">
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
             </xsl:if>
@@ -3903,6 +3908,9 @@
                 <xsl:text>pt</xsl:text>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>

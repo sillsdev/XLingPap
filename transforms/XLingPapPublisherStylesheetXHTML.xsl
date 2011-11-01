@@ -1032,6 +1032,7 @@
             <a>
                 <xsl:call-template name="DoInterlinearTextReferenceLink">
                     <xsl:with-param name="sRef" select="@textref"/>
+                    <xsl:with-param name="sExtension" select="'htm'"/>
                 </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
@@ -1072,6 +1073,7 @@
                     <a>
                         <xsl:call-template name="DoInterlinearTextReferenceLink">
                             <xsl:with-param name="sRef" select="@textref"/>
+                            <xsl:with-param name="sExtension" select="'htm'"/>
                         </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
@@ -2882,6 +2884,7 @@
             <a>
                 <xsl:call-template name="DoInterlinearTextReferenceLink">
                     <xsl:with-param name="sRef" select="$sRef"/>
+                    <xsl:with-param name="sExtension" select="'htm'"/>
                 </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>

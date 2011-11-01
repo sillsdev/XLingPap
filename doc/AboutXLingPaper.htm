@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_1</span></p>
-      <p align="center">Date: 2011-10-31</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_2</span></p>
+      <p align="center">Date: 2011-11-01</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,12 +34,19 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.17.0_2 01 November 2011
+                  <ul>
+                     <li>Fix a bug for the web page outputs: when there is a referenced interlinear text, the reference link used .pdf as the file
+                        extension instead of .htm.
+                     </li>
+                  </ul>
+               </li>
                <li>2.17.0_1 31 October 2011
                   <ul>
                      <li>When an interlienar text comes from FLEx, fixed the interlinear "segment" numbering to use the same number as in FLEx.</li>
-                     <li>Added referencedInterlinearTexts and referencedInterlinearText elements.  The latter refers to a file containing an interlinear-text
+                     <li>Added referencedInterlinearTexts and referencedInterlinearText elements. The latter refers to a file containing an interlinear-text
                         element so one can copy in referenced interlinear elements from the text and also use interlinearRef and interlinearRefCitatation
-                        elements referring to that text.  The text itself is not printed in the output, but the interlinear source citation is a link
+                        elements referring to that text. The text itself is not printed in the output, but the interlinear source citation is a link
                         to that interlinear element within the file containing its interlinear-text.
                      </li>
                      <li>Made endnotes in author elements use symbols instead of numbers in a consistent way across all output formats.</li>

@@ -176,7 +176,7 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
-        DoInterlinearTextReferenceLink
+        DoInterlinearTextNumber
     -->
     <xsl:template name="DoInterlinearTextNumber">
         <xsl:param name="sRef"/>
@@ -196,12 +196,15 @@
     <xsl:template name="DoInterlinearTextReferenceLink">
         <xsl:param name="sRef" select="@textref"/>
         <xsl:param name="sAttrName" select="'href'"/>
+        <xsl:param name="sExtension" select="'pdf'"/>
         <xsl:attribute name="{$sAttrName}">
             <xsl:variable name="referencedInterlinear" select="key('InterlinearReferenceID',$sRef)"/>
             <xsl:choose>
                 <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
                     <xsl:value-of select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
-                    <xsl:text>.pdf#</xsl:text>
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="$sExtension"/>
+                    <xsl:text>#</xsl:text>
                     <xsl:value-of select="$sRef"/>
                 </xsl:when>
                 <xsl:otherwise>

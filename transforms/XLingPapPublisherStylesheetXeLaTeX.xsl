@@ -370,6 +370,9 @@
     <xsl:template match="author">
         <xsl:param name="authorLayoutToUse"/>
         <tex:group>
+            <xsl:if test="descendant::endnote">
+                <xsl:call-template name="UseFootnoteSymbols"/>
+            </xsl:if>
             <xsl:call-template name="DoFrontMatterFormatInfoBegin">
                 <xsl:with-param name="layoutInfo" select="$authorLayoutToUse"/>
             </xsl:call-template>
@@ -550,10 +553,10 @@
             </xsl:call-template>
         </tex:group>
         <xsl:if test="$bInHeader='N'">
-        <tex:cmd name="par" nl2="1"/>
-        <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
-        </xsl:call-template>
+            <tex:cmd name="par" nl2="1"/>
+            <xsl:call-template name="DoSpaceAfter">
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -2346,9 +2349,7 @@
             </xsl:call-template>
         </xsl:if>
         <tex:group>
-            <xsl:call-template name="DoInternalHyperlinkBegin">
-                <xsl:with-param name="sName" select="@textref"/>
-            </xsl:call-template>
+            <xsl:call-template name="DoInterlinearTextReferenceLinkBegin"/>
             <!-- we do not show any brackets when these options are set -->
             <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                 <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
@@ -2357,6 +2358,7 @@
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
             </xsl:call-template>
+            <!-- whether we used an external ref or an internal link, both end the same way -->
             <xsl:call-template name="DoInternalHyperlinkEnd"/>
         </tex:group>
         <xsl:if test="$contentLayoutInfo/interlinearRefCitationTitleLayout">
@@ -2388,9 +2390,7 @@
         <xsl:choose>
             <xsl:when test="name($interlinear)='interlinear-text'">
                 <tex:group>
-                    <xsl:call-template name="DoInternalHyperlinkBegin">
-                        <xsl:with-param name="sName" select="@textref"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoInterlinearTextReferenceLinkBegin"/>
                     <xsl:call-template name="LinkAttributesBegin">
                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                     </xsl:call-template>
@@ -3050,7 +3050,7 @@
 -->
         </xsl:if>
         <xsl:if test="not(contains(descendant::img/@XeLaTeXSpecial,'vertical-adjustment='))">
-        <tex:cmd name="leavevmode" gr="0" nl2="1"/>
+            <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
@@ -3551,8 +3551,8 @@
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
         <tex:group>
-            <xsl:call-template name="DoInternalHyperlinkBegin">
-                <xsl:with-param name="sName" select="$sRef"/>
+            <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
+                <xsl:with-param name="sRef" select="$sRef"/>
             </xsl:call-template>
             <xsl:call-template name="LinkAttributesBegin">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>

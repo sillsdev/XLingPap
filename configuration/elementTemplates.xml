@@ -2151,4 +2151,13 @@ table
     <cfg:elementTemplate name="freeLayout" selectable="override">
         <freeLayout textbeforeafterusesfontinfo="no"/> 
     </cfg:elementTemplate>
+    <cfg:elementTemplate name="referencedInterlinearTexts" selectable="override">
+        <interlinear-text xmlns="">
+            <textInfo>
+                <textTitle/>
+                <shortTitle/>
+            </textInfo>
+            <interlinear cfg:template="interlinear"/>
+            </interlinear-text>
+    </cfg:elementTemplate>
 </cfg:configuration>

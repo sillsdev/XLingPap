@@ -521,7 +521,10 @@
                     </xsl:if>
                     <xsl:value-of select="../textInfo/shortTitle"/>
                     <xsl:text>:</xsl:text>
-                    <xsl:value-of select="count(preceding-sibling::interlinear) + 1"/>
+                    <xsl:call-template name="DoInterlinearTextNumber">
+                        <xsl:with-param name="interlinear" select="."/>
+                        <xsl:with-param name="sRef" select="@text"/>
+                    </xsl:call-template>
                 </div>
                 <div style="margin-left:0.125in">
                     <xsl:call-template name="OutputInterlinear">
@@ -682,7 +685,9 @@
         <xsl:call-template name="DoInterlinearFree"/>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearFree"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         word

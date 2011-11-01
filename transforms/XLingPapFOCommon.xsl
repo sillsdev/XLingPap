@@ -55,6 +55,21 @@
         </fo:block>
     </xsl:template>
     <!--  
+        DetermineInternalOrExternalDestination
+    -->
+    <xsl:template name="DetermineInternalOrExternalDestination">
+        <xsl:param name="sRef" select="@textref"/>
+        <xsl:variable name="referencedInterlinear" select="key('InterlinearReferenceID',$sRef)"/>
+        <xsl:choose>
+            <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
+                <xsl:text>external-destination</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>internal-destination</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoInterlinearLineGroup
     -->
     <xsl:template name="DoInterlinearLineGroup">
@@ -206,6 +221,35 @@
                 </fo:table>
             </xsl:if>
         </fo:block>
+    </xsl:template>
+    <!--  
+        OutputInterlinearTextReference
+    -->
+    <xsl:template name="OutputInterlinearTextReference">
+        <xsl:param name="sRef"/>
+        <xsl:param name="sSource"/>
+        <xsl:if test="string-length(normalize-space($sRef)) &gt; 0 or $sSource">
+            <xsl:choose>
+                <xsl:when test="$sInterlinearSourceStyle='AfterFree'">
+                    <fo:leader/>
+                    <fo:inline>
+                        <!--                        <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
+                        -->
+                        <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                            <xsl:with-param name="sSource" select="$sSource"/>
+                            <xsl:with-param name="sRef" select="$sRef"/>
+                        </xsl:call-template>
+                    </fo:inline>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
+                    <xsl:call-template name="OutputInterlinearTextReferenceContent">
+                        <xsl:with-param name="sSource" select="$sSource"/>
+                        <xsl:with-param name="sRef" select="$sRef"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputISOCodeInExample

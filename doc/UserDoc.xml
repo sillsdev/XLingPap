@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->14 October 2011</date
+>31 October 2011</date
 ><version
 >2.17.0_1</version
 ><contents
@@ -8743,10 +8743,10 @@ id="sPublishingInfo"
 ><secTitle
 >Publishing Information</secTitle
 ><p
->When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors.  One includes this kind of information via the optional <object
+>When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. One includes this kind of information via the optional <object
 type="tElement"
 >publishingInfo</object
-> element.  The <object
+> element. The <object
 type="tElement"
 >publishingInfo</object
 > element has two optional parts: the blurb and author contacts.</p
@@ -8758,13 +8758,13 @@ id="sPublishingBlurb"
 >The optional <object
 type="tElement"
 >publishingBlurb</object
-> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part of, copyright notice, links to online versions of the paper, etc.  The content of a <object
+> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part of, copyright notice, links to online versions of the paper, etc. The content of a <object
 type="tElement"
 >publishingBlurb</object
 > element is plain text and any of the embedded elements.<endnoteRef
 note="nEmbedded"
 ></endnoteRef
->  When you need multiple lines in the blurb, separate each part by a <object
+> When you need multiple lines in the blurb, separate each part by a <object
 type="tElement"
 >br</object
 > element.</p
@@ -8774,7 +8774,7 @@ id="sAuthorContactInformation"
 ><secTitle
 >Author Contact Information</secTitle
 ><p
->Some publications include more than merely an author's name and affiliation.  They want to show the author's contact information, including things like full name (perhaps including degree initials, professor title, etc.), mail address, phone number, and/or a web site or other electronic contact information.</p
+>Some publications include more than merely an author's name and affiliation. They want to show the author's contact information, including things like full name (perhaps including degree initials, professor title, etc.), mail address, phone number, and/or a web site or other electronic contact information.</p
 ><p
 >Like references, the <object
 type="tElement"
@@ -8782,17 +8782,17 @@ type="tElement"
 > element can be used for multiple <object
 type="tXLingPap"
 ></object
-> documents.  It contains one or more <object
+> documents. It contains one or more <object
 type="tElement"
 >authorContact</object
-> elements.  Each <object
+> elements. Each <object
 type="tElement"
 >authorContact</object
 > element can contain any combination of one or more of the elements given in <exampleRef
 letter="xContactInfo"
 num="xContactInfo"
 ></exampleRef
->.  In addition, it has a required <object
+>. In addition, it has a required <object
 type="tAttribute"
 >id</object
 > attribute.<endnoteRef
@@ -8816,7 +8816,7 @@ type="tElement"
 >contactName</object
 ></td
 ><td
->The full name of the author.  This may include Dr., PhD, Associate Professor, etc.</td
+>The full name of the author. This may include Dr., PhD, Associate Professor, etc.</td
 ></tr
 ><tr
 ><td
@@ -8834,7 +8834,7 @@ type="tElement"
 >contactAddress</object
 ></td
 ><td
->The full address whereby the author may be contacted.  Use separate <object
+>The full address whereby the author may be contacted. Use separate <object
 type="tElement"
 >contactAddress</object
 > elements for each line.</td
@@ -11783,6 +11783,26 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a date (within references)</dd
+><dt
+><object
+type="tElement"
+>referencedInterlinearText</object
+></dt
+><dd
+>A reference to an interlinear text which is in a different <object
+type="tXLingPap"
+></object
+> document</dd
+><dt
+><object
+type="tElement"
+>referencedInterlinearTexts</object
+></dt
+><dd
+>A set of references to interlinear in a different <object
+type="tXLingPap"
+></object
+> document</dd
 ><dt
 ><object
 type="tElement"

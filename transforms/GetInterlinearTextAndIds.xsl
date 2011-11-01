@@ -41,8 +41,19 @@
          <xsl:text>"</xsl:text>
          <xsl:value-of select="$sTitle"/>
          <xsl:text>:</xsl:text>
+              <xsl:variable name="sTextID">
+              <xsl:choose>
+                  <xsl:when test="substring(@text,1,4)='T-ID'">
+                      <xsl:value-of select="substring-after(substring-after(@text,'-'),'-')"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                      <xsl:value-of select="position()"/>
+                  </xsl:otherwise>
+              </xsl:choose>
+              </xsl:variable>
          <xsl:variable name="sNum">
-            <xsl:number format="001" value="position()"/>
+<!--            <xsl:number format="001.001" value="$sTextID"/>-->
+             <xsl:value-of select="format-number($sTextID, '000.###')"/>
          </xsl:variable>
          <xsl:value-of select="$sNum"/>
          <xsl:text> </xsl:text>

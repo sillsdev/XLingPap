@@ -2631,6 +2631,26 @@ q:after
 	content:'"';
 }
 
+referencedInterlinearText:after
+{
+	content: "                url = "
+	text-field(attribute, url, columns, 40);
+}
+referencedInterlinearText
+{
+	display:block;
+	padding-bottom: 1ex;
+}
+referencedInterlinearTexts:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Referenced Interlinear Texts:";
+}
+referencedInterlinearTexts
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
 references[authorformtoshowineditor="full"] refAuthor:before
 {
 	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))

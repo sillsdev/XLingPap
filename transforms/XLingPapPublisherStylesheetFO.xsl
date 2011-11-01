@@ -1459,7 +1459,10 @@
                 <fo:block id="{@text}" font-size="smaller" font-weight="bold" keep-with-next.within-page="2" orphans="2" widows="2">
                     <xsl:value-of select="../textInfo/shortTitle"/>
                     <xsl:text>:</xsl:text>
-                    <xsl:value-of select="count(preceding-sibling::interlinear) + 1"/>
+                    <xsl:call-template name="DoInterlinearTextNumber">
+                        <xsl:with-param name="interlinear" select="."/>
+                        <xsl:with-param name="sRef" select="@text"/>
+                    </xsl:call-template>
                 </fo:block>
                 <fo:block margin-left="0.125in">
                     <xsl:call-template name="OutputInterlinear">
@@ -1486,7 +1489,14 @@
     <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <fo:inline>
-            <fo:basic-link internal-destination="{@textref}">
+            <fo:basic-link>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sAttrName">
+                        <xsl:call-template name="DetermineInternalOrExternalDestination">
+                            <xsl:with-param name="sRef" select="@textref"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
@@ -1521,7 +1531,14 @@
             <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
             <xsl:choose>
                 <xsl:when test="name($interlinear)='interlinear-text'">
-                    <fo:basic-link internal-destination="{@textref}">
+                    <fo:basic-link>
+                        <xsl:call-template name="DoInterlinearTextReferenceLink">
+                            <xsl:with-param name="sAttrName">
+                                <xsl:call-template name="DetermineInternalOrExternalDestination">
+                                    <xsl:with-param name="sRef" select="@textref"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                                 <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -4116,7 +4133,7 @@ not using
                 <xsl:with-param name="freeLayout" select="$freeLayout"/>
             </xsl:call-template>
             <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
-                <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear'">
+                <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
                         <xsl:with-param name="sSource" select="../interlinearSource"/>
@@ -4125,7 +4142,7 @@ not using
             </xsl:if>
         </fo:block>
         <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free)">
-            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear'">
+            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <fo:block keep-with-previous.within-page="1">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
@@ -4242,7 +4259,15 @@ not using
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
         <fo:inline>
-            <fo:basic-link internal-destination="{$sRef}">
+            <fo:basic-link>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sAttrName">
+                        <xsl:call-template name="DetermineInternalOrExternalDestination">
+                            <xsl:with-param name="sRef" select="$sRef"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                    <xsl:with-param name="sRef" select="$sRef"/>
+                </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
@@ -5203,23 +5228,6 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
-        OutputAuthorFootnoteSymbol
-    -->
-    <xsl:template name="OutputAuthorFootnoteSymbol">
-        <xsl:param name="iAuthorPosition"/>
-        <xsl:choose>
-            <xsl:when test="$iAuthorPosition=1">
-                <xsl:text>*</xsl:text>
-            </xsl:when>
-            <xsl:when test="$iAuthorPosition=2">
-                <xsl:text>†</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>‡</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--
       OutputBackgroundColor
    -->
     <xsl:template name="OutputBackgroundColor">
@@ -5895,35 +5903,6 @@ not using
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <!--  
-        OutputInterlinearTextReference
-    -->
-    <xsl:template name="OutputInterlinearTextReference">
-        <xsl:param name="sRef"/>
-        <xsl:param name="sSource"/>
-        <!--      <xsl:if test="string-length(normalize-space($sRef)) &gt; 0 or $sSource and string-length(normalize-space($sSource)) &gt; 0">-->
-        <xsl:if test="string-length(normalize-space($sRef)) &gt; 0 or $sSource">
-            <xsl:choose>
-                <xsl:when test="$sInterlinearSourceStyle='AfterFree'">
-                    <fo:leader/>
-                    <fo:inline>
-                        <!--                  <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>-->
-                        <xsl:call-template name="OutputInterlinearTextReferenceContent">
-                            <xsl:with-param name="sSource" select="$sSource"/>
-                            <xsl:with-param name="sRef" select="$sRef"/>
-                        </xsl:call-template>
-                    </fo:inline>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
-                    <xsl:call-template name="OutputInterlinearTextReferenceContent">
-                        <xsl:with-param name="sSource" select="$sSource"/>
-                        <xsl:with-param name="sRef" select="$sRef"/>
-                    </xsl:call-template>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>
     </xsl:template>
     <!--  
         OutputInterlinearTextReferenceContent

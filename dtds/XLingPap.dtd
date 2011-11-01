@@ -81,7 +81,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, languages?, types?, indexTerms*, comment*, publishingInfo?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, indexTerms*, comment*, publishingInfo?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -322,6 +322,16 @@
     type IDREF #REQUIRED
     xml:lang CDATA #IMPLIED
 >
+
+<!-- a set of one or more interlinear-text elements which will be referenced within the document, but not included in the output of the document -->
+<!ELEMENT referencedInterlinearTexts (referencedInterlinearText+) >
+<!-- a single interlinear-text which will be referenced, but not shown in the document  -->
+<!-- the url attribute is used for citing references to an interlinear within an interlinear-text -->
+<!ELEMENT referencedInterlinearText (interlinear-text) >
+<!ATTLIST  referencedInterlinearText
+    url CDATA #REQUIRED
+>
+
 <!-- types group a set of types -->
 <!ELEMENT types (type | comment)*>
 <!-- a type element allows for customization via either CSS or XSL-FO.

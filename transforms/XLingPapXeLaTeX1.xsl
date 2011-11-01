@@ -342,23 +342,26 @@
             <tex:parm>
                 <xsl:text>-</xsl:text>
                 <tex:cmd name="parsep" gr="0"/>
-            </tex:parm>
-        </tex:cmd>
--->
+                </tex:parm>
+                </tex:cmd>
+        -->
     </xsl:template>
     <!--
-      author
-      -->
+        author
+    -->
     <xsl:template match="author">
         <!-- adjust for center environment -->
         <!--        <tex:cmd name="vspace*">
             <tex:parm>
-                <xsl:text>-2</xsl:text>
-                <tex:cmd name="topsep" gr="0"/>
+            <xsl:text>-2</xsl:text>
+            <tex:cmd name="topsep" gr="0"/>
             </tex:parm>
-        </tex:cmd>
--->
+            </tex:cmd>
+        -->
         <tex:group>
+            <xsl:if test="descendant::endnote">
+                <xsl:call-template name="UseFootnoteSymbols"/>
+            </xsl:if>
             <tex:cmd name="centering">
                 <tex:parm>
                     <tex:cmd name="AuthorFontFamily">
@@ -499,7 +502,7 @@
     <xsl:template match="publishingInfo/publishingBlurb">
         <tex:env name="flushleft">
             <tex:env name="footnotesize">
-                        <xsl:apply-templates/>
+                <xsl:apply-templates/>
             </tex:env>
         </tex:env>
     </xsl:template>
@@ -1231,10 +1234,7 @@
         <xsl:variable name="sFootnoteNumber">
             <xsl:choose>
                 <xsl:when test="parent::author">
-                    <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
-                    <xsl:call-template name="OutputAuthorFootnoteSymbol">
-                        <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoAuthorFootnoteNumber"/>
                 </xsl:when>
                 <xsl:when test="$chapters">
                     <!--                    <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
@@ -1825,9 +1825,7 @@
             <xsl:with-param name="showTitle" select="@showTitleOnly"/>
         </xsl:call-template>
         <xsl:call-template name="AddAnyLinkAttributes"/>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@textref"/>
-        </xsl:call-template>
+        <xsl:call-template name="DoInterlinearTextReferenceLinkBegin"/>
         <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
         <xsl:call-template name="DoReferenceShowTitleAfter">
@@ -1842,9 +1840,7 @@
         <xsl:choose>
             <xsl:when test="name($interlinear)='interlinear-text'">
                 <xsl:call-template name="AddAnyLinkAttributes"/>
-                <xsl:call-template name="DoInternalHyperlinkBegin">
-                    <xsl:with-param name="sName" select="@textref"/>
-                </xsl:call-template>
+                <xsl:call-template name="DoInterlinearTextReferenceLinkBegin"/>
                 <xsl:choose>
                     <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                         <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -2022,9 +2018,11 @@
 -->
     <xsl:template mode="endnote" match="endnote[parent::author]">
         <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
-        <xsl:call-template name="OutputAuthorFootnoteSymbol">
+        <xsl:value-of select="$iAuthorPosition"/>
+        <!--        <xsl:call-template name="OutputAuthorFootnoteSymbol">
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
+-->
     </xsl:template>
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
@@ -2724,7 +2722,7 @@
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
         <tex:group>
-            <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
                 <xsl:with-param name="sName" select="$sRef"/>
             </xsl:call-template>
             <!--            <xsl:call-template name="AddAnyLinkAttributes"/>-->
@@ -4233,14 +4231,17 @@
             </xsl:when>
             <xsl:when test="string-length(normalize-space($sRef)) &gt; 0">
                 <tex:group>
-                    <xsl:call-template name="DoInternalHyperlinkBegin">
-                        <xsl:with-param name="sName" select="$sRef"/>
+                    <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
+                        <xsl:with-param name="sRef" select="$sRef"/>
                     </xsl:call-template>
                     <xsl:call-template name="AddAnyLinkAttributes"/>
                     <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
                     <xsl:value-of select="$interlinear/../textInfo/shortTitle"/>
                     <xsl:text>:</xsl:text>
-                    <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+                    <xsl:call-template name="DoInterlinearTextNumber">
+                        <xsl:with-param name="interlinear" select="$interlinear"/>
+                        <xsl:with-param name="sRef" select="$sRef"/>
+                    </xsl:call-template>
                     <xsl:call-template name="DoInternalHyperlinkEnd"/>
                 </tex:group>
             </xsl:when>

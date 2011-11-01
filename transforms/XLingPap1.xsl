@@ -137,7 +137,8 @@
     <xsl:template match="publishingInfo/publishingBlurb">
         <hr/>
         <div>
-            <small><xsl:apply-templates/>
+            <small>
+                <xsl:apply-templates/>
             </small>
         </div>
     </xsl:template>
@@ -972,7 +973,10 @@
                 <div id="{@text}" style="font-size:smaller;font-weight:bold">
                     <xsl:value-of select="../textInfo/shortTitle"/>
                     <xsl:text>:</xsl:text>
-                    <xsl:value-of select="count(preceding-sibling::interlinear) + 1"/>
+                    <xsl:call-template name="DoInterlinearTextNumber">
+                        <xsl:with-param name="interlinear" select="."/>
+                        <xsl:with-param name="sRef" select="@text"/>
+                    </xsl:call-template>
                 </div>
                 <div style="margin-left:0.125in">
                     <xsl:call-template name="OutputInterlinear">
@@ -1001,7 +1005,10 @@
         <xsl:call-template name="DoReferenceShowTitleBefore">
             <xsl:with-param name="showTitle" select="@showTitleOnly"/>
         </xsl:call-template>
-        <a href="#{@textref}">
+        <a>
+            <xsl:call-template name="DoInterlinearTextReferenceLink">
+                <xsl:with-param name="sRef" select="@textref"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
         </a>
         <xsl:call-template name="DoReferenceShowTitleAfter">
@@ -1015,7 +1022,10 @@
         <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
         <xsl:choose>
             <xsl:when test="name($interlinear)='interlinear-text'">
-                <a href="#{@textref}">
+                <a>
+                    <xsl:call-template name="DoInterlinearTextReferenceLink">
+                        <xsl:with-param name="sRef" select="@textref"/>
+                    </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                             <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -1923,7 +1933,7 @@
         endnotes
     -->
     <xsl:template match="endnotes">
-        <xsl:if test="//endnote">
+        <xsl:if test="$endnotesToShow">
             <hr size="3"/>
             <a name="rXLingPapEndnotes">
                 <xsl:call-template name="OutputChapTitle">
@@ -1933,7 +1943,7 @@
                 </xsl:call-template>
             </a>
             <table>
-                <xsl:apply-templates select="//endnote" mode="backMatter"/>
+                <xsl:apply-templates select="$endnotesToShow" mode="backMatter"/>
             </table>
         </xsl:if>
     </xsl:template>
@@ -2037,16 +2047,16 @@
     <xsl:template match="authorContactInfo[count(preceding-sibling::authorContactInfo)=0]">
         <div style="padding-top:24pt">
             <table>
-                    <tr valign="top">
+                <tr valign="top">
+                    <xsl:call-template name="DoContactInfo">
+                        <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                    </xsl:call-template>
+                    <xsl:for-each select="following-sibling::authorContactInfo">
                         <xsl:call-template name="DoContactInfo">
                             <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
                         </xsl:call-template>
-                        <xsl:for-each select="following-sibling::authorContactInfo">
-                            <xsl:call-template name="DoContactInfo">
-                                <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
-                            </xsl:call-template>
-                        </xsl:for-each>
-                    </tr>
+                    </xsl:for-each>
+                </tr>
             </table>
         </div>
     </xsl:template>
@@ -2445,6 +2455,7 @@
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="publishingBlurb"/>
+    <xsl:template match="referencedInterlinearTexts"/>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -2641,24 +2652,24 @@
     <xsl:template name="DoContactInfo">
         <xsl:param name="authorInfo"/>
         <td style="{$sExampleCellPadding}">
-                <xsl:apply-templates select="$authorInfo/contactName"/>
+            <xsl:apply-templates select="$authorInfo/contactName"/>
+            <br/>
+            <xsl:for-each select="$authorInfo/contactAffiliation">
+                <xsl:apply-templates select="."/>
                 <br/>
-                <xsl:for-each select="$authorInfo/contactAffiliation">
-                    <xsl:apply-templates select="."/>
-                    <br/>
-                </xsl:for-each>
-                <xsl:for-each select="$authorInfo/contactAddress">
-                    <xsl:apply-templates select="."/>
-                    <br/>
-                </xsl:for-each>
-                <xsl:for-each select="$authorInfo/contactEmail">
-                    <xsl:apply-templates select="."/>
-                    <br/>
-                </xsl:for-each>
-                <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
-                    <xsl:apply-templates select="."/>
-                    <br/>
-                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:for-each select="$authorInfo/contactAddress">
+                <xsl:apply-templates select="."/>
+                <br/>
+            </xsl:for-each>
+            <xsl:for-each select="$authorInfo/contactEmail">
+                <xsl:apply-templates select="."/>
+                <br/>
+            </xsl:for-each>
+            <xsl:for-each select="$authorInfo/contactElectronic[@show='yes']">
+                <xsl:apply-templates select="."/>
+                <br/>
+            </xsl:for-each>
         </td>
     </xsl:template>
     <!--  
@@ -3349,7 +3360,10 @@
     -->
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
-        <a href="#{$sRef}">
+        <a>
+            <xsl:call-template name="DoInterlinearTextReferenceLink">
+                <xsl:with-param name="sRef" select="$sRef"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInterlinearRefCitationContent">
                 <xsl:with-param name="sRef" select="$sRef"/>
             </xsl:call-template>
@@ -3766,23 +3780,6 @@
                     <xsl:with-param name="sDefault" select="$sPlural"/>
                 </xsl:call-template>
             </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <!--
-        OutputAuthorFootnoteSymbol
-    -->
-    <xsl:template name="OutputAuthorFootnoteSymbol">
-        <xsl:param name="iAuthorPosition"/>
-        <xsl:choose>
-            <xsl:when test="$iAuthorPosition=1">
-                <xsl:text>*</xsl:text>
-            </xsl:when>
-            <xsl:when test="$iAuthorPosition=2">
-                <xsl:text>†</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>‡</xsl:text>
-            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  

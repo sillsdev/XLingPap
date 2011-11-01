@@ -8,7 +8,7 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>14 October 2011</small></center>
+      <center><i>SIL International</i></center><br><center><small>31 October 2011</small></center>
       <center><small>Version: 2.17.0_1</small></center>
       <hr>
       <div>
@@ -3138,19 +3138,19 @@
       </ol>
       <h1 style=""><a name="sPublishingInfo">11&nbsp;Publishing Information</a></h1>
       <p>When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication
-         and also sometimes one needs to include contact information for the authors.  One includes this kind of information via the
-         optional <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element.  The <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element has two optional parts: the blurb and author contacts.
+         and also sometimes one needs to include contact information for the authors. One includes this kind of information via the
+         optional <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element. The <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element has two optional parts: the blurb and author contacts.
       </p>
       <h2 style=""><a name="sPublishingBlurb">11.1&nbsp;Publishing Blurb</a></h2>
       <p>The optional <span style="font-family:fixed; color:maroon; ">publishingBlurb</span> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part
-         of, copyright notice, links to online versions of the paper, etc.  The content of a <span style="font-family:fixed; color:maroon; ">publishingBlurb</span> element is plain text and any of the embedded elements.<span style="font-size:65%; vertical-align:super">[<a href="#nEmbedded">6</a>]</span>  When you need multiple lines in the blurb, separate each part by a <span style="font-family:fixed; color:maroon; ">br</span> element.
+         of, copyright notice, links to online versions of the paper, etc. The content of a <span style="font-family:fixed; color:maroon; ">publishingBlurb</span> element is plain text and any of the embedded elements.<span style="font-size:65%; vertical-align:super">[<a href="#nEmbedded">6</a>]</span> When you need multiple lines in the blurb, separate each part by a <span style="font-family:fixed; color:maroon; ">br</span> element.
       </p>
       <h2 style=""><a name="sAuthorContactInformation">11.2&nbsp;Author Contact Information</a></h2>
-      <p>Some publications include more than merely an author's name and affiliation.  They want to show the author's contact information,
+      <p>Some publications include more than merely an author's name and affiliation. They want to show the author's contact information,
          including things like full name (perhaps including degree initials, professor title, etc.), mail address, phone number, and/or
          a web site or other electronic contact information.
       </p>
-      <p>Like references, the <span style="font-family:fixed; color:maroon; ">authorContacts</span> element can be used for multiple <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> documents.  It contains one or more <span style="font-family:fixed; color:maroon; ">authorContact</span> elements.  Each <span style="font-family:fixed; color:maroon; ">authorContact</span> element can contain any combination of one or more of the elements given in <a href="#xContactInfo">(81)</a>.  In addition, it has a required <span style="font-family:fixed; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span></p>
+      <p>Like references, the <span style="font-family:fixed; color:maroon; ">authorContacts</span> element can be used for multiple <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> documents. It contains one or more <span style="font-family:fixed; color:maroon; ">authorContact</span> elements. Each <span style="font-family:fixed; color:maroon; ">authorContact</span> element can contain any combination of one or more of the elements given in <a href="#xContactInfo">(81)</a>. In addition, it has a required <span style="font-family:fixed; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
             <tr>
@@ -3164,7 +3164,7 @@
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:fixed; color:maroon; ">contactName</span></td>
-                           <td align="left" valign="top" style="padding-left:.2em">The full name of the author.  This may include Dr., PhD, Associate Professor, etc.</td>
+                           <td align="left" valign="top" style="padding-left:.2em">The full name of the author. This may include Dr., PhD, Associate Professor, etc.</td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:fixed; color:maroon; ">contactAffilation</span></td>
@@ -3172,7 +3172,7 @@
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:fixed; color:maroon; ">contactAddress</span></td>
-                           <td align="left" valign="top" style="padding-left:.2em">The full address whereby the author may be contacted.  Use separate <span style="font-family:fixed; color:maroon; ">contactAddress</span> elements for each line.
+                           <td align="left" valign="top" style="padding-left:.2em">The full address whereby the author may be contacted. Use separate <span style="font-family:fixed; color:maroon; ">contactAddress</span> elements for each line.
                            </td>
                         </tr>
                         <tr style="">
@@ -4045,6 +4045,12 @@
          <dd>Collection of author layouts</dd>
          <dt><span style="font-family:fixed; color:maroon; ">refDateItem</span></dt>
          <dd>Layout info for a date (within references)</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">referencedInterlinearText</span></dt>
+         <dd>A reference to an interlinear text which is in a different <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document
+         </dd>
+         <dt><span style="font-family:fixed; color:maroon; ">referencedInterlinearTexts</span></dt>
+         <dd>A set of references to interlinear in a different <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document
+         </dd>
          <dt><span style="font-family:fixed; color:maroon; ">refTitleItem</span></dt>
          <dd>Layout info for a title within references</dd>
          <dt><span style="font-family:fixed; color:maroon; ">referencesLayout</span></dt>

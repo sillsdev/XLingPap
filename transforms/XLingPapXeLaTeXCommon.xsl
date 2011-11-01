@@ -729,7 +729,10 @@
                 </xsl:call-template>
                 <xsl:value-of select="../textInfo/shortTitle"/>
                 <xsl:text>:</xsl:text>
-                <xsl:value-of select="count(preceding-sibling::interlinear) + 1"/>
+                <xsl:call-template name="DoInterlinearTextNumber">
+                    <xsl:with-param name="interlinear" select="."/>
+                    <xsl:with-param name="sRef" select="@text"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoInternalTargetEnd"/>
                 <tex:spec cat="eg"/>
                 <tex:spec cat="eg"/>
@@ -2788,6 +2791,20 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        DoAuthorFootnoteNumber
+    -->
+    <xsl:template name="DoAuthorFootnoteNumber">
+        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:choose>
+            <xsl:when test="$iAuthorPosition &lt; 10">
+                <xsl:value-of select="$iAuthorPosition"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="floor($iAuthorPosition div 9)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         DoBreakBeforeLink
     -->
     <xsl:template name="DoBreakBeforeLink">
@@ -3088,10 +3105,7 @@
     <xsl:template name="DoFootnoteNumberInTextValue">
         <xsl:choose>
             <xsl:when test="parent::author">
-                <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
-                <xsl:call-template name="OutputAuthorFootnoteSymbol">
-                    <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
-                </xsl:call-template>
+                <xsl:call-template name="DoAuthorFootnoteNumber"/>
             </xsl:when>
             <xsl:when test="$bIsBook">
                 <!--                <xsl:choose>
@@ -3677,6 +3691,29 @@
         <tex:spec cat="eg"/>
         <tex:spec cat="eg"/>
         <xsl:text>l</xsl:text>
+    </xsl:template>
+    <!--
+        DoInterlinearTextReferenceLinkBegin
+    -->
+    <xsl:template name="DoInterlinearTextReferenceLinkBegin">
+        <xsl:param name="sRef" select="@textref"/>
+        <xsl:variable name="referencedInterlinear" select="key('InterlinearReferenceID',$sRef)"/>
+        <xsl:choose>
+            <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
+                <xsl:call-template name="DoExternalHyperRefBegin">
+                    <xsl:with-param name="sName">
+                        <xsl:value-of select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
+                        <xsl:text>.pdf#</xsl:text>
+                        <xsl:value-of select="$sRef"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInternalHyperlinkBegin">
+                    <xsl:with-param name="sName" select="$sRef"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         DoInterlinearWrappedWithSourceAfterFirstLine
@@ -5415,23 +5452,6 @@
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
         </tex:group>
-    </xsl:template>
-    <!--
-        OutputAuthorFootnoteSymbol
-    -->
-    <xsl:template name="OutputAuthorFootnoteSymbol">
-        <xsl:param name="iAuthorPosition"/>
-        <xsl:choose>
-            <xsl:when test="$iAuthorPosition=1">
-                <xsl:text>*</xsl:text>
-            </xsl:when>
-            <xsl:when test="$iAuthorPosition=2">
-                <xsl:text>†</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>‡</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!--
         OutputBackgroundColor
@@ -8155,5 +8175,22 @@ What might go in a TeX package file
         <tex:spec cat="esc"/>
         <xsl:text>hskip0pt</xsl:text>
         <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
+        UseFootnoteSymbols
+    -->
+    <xsl:template name="UseFootnoteSymbols">
+        <tex:cmd name="renewcommand">
+            <tex:parm>
+                <tex:cmd name="thefootnote" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="fnsymbol">
+                    <tex:parm>
+                        <xsl:text>footnote</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
 </xsl:stylesheet>

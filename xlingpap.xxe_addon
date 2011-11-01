@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-10-27</a:date
+>2011-10-31</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_1 27 October 2011<ul
+>2.17.0_1 31 October 2011<ul
 ><li
->Add author contact information (for contact name, affiliation, address, phone, email, and electronic contact).</li
+>When an interlienar text comes from FLEx, fixed the interlinear "segment" numbering to use the same number as in FLEx.</li
+><li
+>Added referencedInterlinearTexts and referencedInterlinearText elements.  The latter refers to a file containing an interlinear-text element so one can copy in referenced interlinear elements from the text and also use interlinearRef and interlinearRefCitatation elements referring to that text.  The text itself is not printed in the output, but the interlinear source citation is a link to that interlinear element within the file containing its interlinear-text.</li
+><li
+>Made endnotes in author elements use symbols instead of numbers in a consistent way across all output formats.</li
+><li
+>Added author contact information (for contact name, affiliation, address, phone, email, and electronic contact).</li
 ><li
 >Added a publishingInfo element (with a starting page number attribute) and also a publishingBlurb element. The latter can be used for including publishing information like copyright, links to online versions of the paper, etc.</li
 ><li

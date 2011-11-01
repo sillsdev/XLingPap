@@ -940,7 +940,6 @@
                     <xsl:with-param name="sFootnoteNumberOverride" select="'*'"/>
                 </xsl:call-template>
             </xsl:if>
-            
         </p>
     </xsl:template>
     <!-- ===========================================================
@@ -1030,7 +1029,10 @@
     <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <span>
-            <a href="#{@textref}">
+            <a>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sRef" select="@textref"/>
+                </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
@@ -1067,7 +1069,10 @@
             <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
             <xsl:choose>
                 <xsl:when test="name($interlinear)='interlinear-text'">
-                    <a href="#{@textref}">
+                    <a>
+                        <xsl:call-template name="DoInterlinearTextReferenceLink">
+                            <xsl:with-param name="sRef" select="@textref"/>
+                        </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                                 <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -1338,6 +1343,12 @@
                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
                 <!--                <xsl:number level="any" count="endnote[not(parent::author)]" from="chapter" format="1"/>-->
             </xsl:when>
+            <xsl:when test="parent::author">
+                    <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+                    <xsl:call-template name="OutputAuthorFootnoteSymbol">
+                        <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
+                    </xsl:call-template>                
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
             </xsl:otherwise>
@@ -1452,7 +1463,7 @@
     <xsl:template match="endnotes">
         <!--  until we get Prince working, always do this
         <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">-->
-        <xsl:if test="//endnote or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
+        <xsl:if test="$endnotesToShow or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
             <xsl:choose>
                 <xsl:when test="$bIsBook">
                     <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
@@ -2173,24 +2184,20 @@
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
         </xsl:call-template>
         <table class="footnote">
-            
-            
-
             <xsl:if test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
-            <tr>
-                <td valign="baseline">
-                    <xsl:element name="a">
-                        <xsl:attribute name="name">
-                            <xsl:value-of select="$sAcknowledgementsID"/>
-                        </xsl:attribute>[*]</xsl:element>
-                </td>
-                <td valign="baseline">
-                    <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
-                </td>
-            </tr>
-            </xsl:if>            
-            
-            <xsl:apply-templates select="//endnote" mode="backMatter"/>
+                <tr>
+                    <td valign="baseline">
+                        <xsl:element name="a">
+                            <xsl:attribute name="name">
+                                <xsl:value-of select="$sAcknowledgementsID"/>
+                            </xsl:attribute>[*]</xsl:element>
+                    </td>
+                    <td valign="baseline">
+                        <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
+                    </td>
+                </tr>
+            </xsl:if>
+            <xsl:apply-templates select="$endnotesToShow" mode="backMatter"/>
         </table>
         <!-- We may want this if we use Prince
             <xsl:for-each select="//endnote">
@@ -2793,6 +2800,7 @@
       DoInterlinearFree
    -->
     <xsl:template name="DoInterlinearFree">
+        <xsl:param name="mode"/>
         <table>
             <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
@@ -2836,18 +2844,20 @@
                         <xsl:with-param name="freeLayout" select="$freeLayout"/>
                     </xsl:call-template>
                 </td>
-                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
-                    <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear'">
+                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free) and $mode!='NoTextRef'">
+                    <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+                        <td>
                         <xsl:call-template name="OutputInterlinearTextReference">
                             <xsl:with-param name="sRef" select="../@textref"/>
                             <xsl:with-param name="sSource" select="../interlinearSource"/>
                         </xsl:call-template>
+                        </td>
                     </xsl:if>
                 </xsl:if>
             </tr>
         </table>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free)">
-            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear'">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free) and $mode!='NoTextRef'">
+            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <xsl:if test="../interlinearSource or string-length(normalize-space(../@textref)) &gt; 0">
                     <table>
                         <tr>
@@ -2869,7 +2879,10 @@
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
         <span>
-            <a href="#{$sRef}">
+            <a>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sRef" select="$sRef"/>
+                </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
@@ -3538,23 +3551,6 @@
                     <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                 </xsl:call-template>
             </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <!--
-        OutputAuthorFootnoteSymbol
-    -->
-    <xsl:template name="OutputAuthorFootnoteSymbol">
-        <xsl:param name="iAuthorPosition"/>
-        <xsl:choose>
-            <xsl:when test="$iAuthorPosition=1">
-                <xsl:text>*</xsl:text>
-            </xsl:when>
-            <xsl:when test="$iAuthorPosition=2">
-                <xsl:text>†</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>‡</xsl:text>
-            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--

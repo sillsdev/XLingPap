@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 Octobber 2011</date
+>31 Octobber 2011</date
 ><version
 >2.17.0_1</version
 ><contents
@@ -15012,6 +15012,77 @@ begin="bInterlinearText"
 ></table
 ></example
 ></section2
+><section2
+id="sInterlinearTextReferencedInterlinearText"
+><secTitle
+>Referring to an interlinear when the interlinear text is in another document</secTitle
+><p
+>Sometimes one has a number of distinct <object
+type="tXLingPap"
+></object
+> documents on a particular language or topic. Some of these documents contain interlinear text. Others are discussions of constructions in the language. In the latter kind of document, one does not want to have to include the entire interlinear text because it is in its own document in the series. And yet, one wants to be able to copy or refer to particular interlinears within the text, including having a hyper-link to the document containing the interlinear text. How does one do this?</p
+><p
+>First, open the <object
+type="tXLingPap"
+></object
+> document containing the interlinear text in the <object
+type="tXMLmindXMLEditor"
+></object
+>.  Make sure that the <object
+type="tElement"
+>interlinear-text</object
+> element itself has the <object
+type="tAttribute"
+>text</object
+> attribute set to a unique value (this is the ID of the entire interlinear text).  Now copy the <object
+type="tElement"
+>interlinear-text</object
+> element as a reference by using menu items <object
+type="tInstruction"
+>Edit / Document Reference / Copy as Reference</object
+>. </p
+><p
+>Second, insert a <object
+type="tElement"
+>referencedInterlinearTexts</object
+> element just before the <object
+type="tElement"
+>languages</object
+> element (near the bottom).  It might look something like what is shown in example <exampleRef
+letter="xReferencedInterlinearTexts"
+num="xReferencedInterlinearTexts"
+></exampleRef
+>.</p
+><example
+num="xReferencedInterlinearTexts"
+><chart
+><img
+src="resources/ReferencedInterlinearTexts.png"
+></img
+></chart
+></example
+><p
+>Open up the "Referenced Interlinear Texts" by clicking on the plus sign.  You will now see what is shown in example <exampleRef
+letter="xReferencedInterlinearTexts2"
+num="xReferencedInterlinearTexts2"
+></exampleRef
+>.</p
+><example
+num="xReferencedInterlinearTexts2"
+><chart
+><img
+src="resources/ReferencedInterlinearTexts2.png"
+></img
+></chart
+></example
+><p
+>Click on "Interlinear text:" and do a paste.  This will link in the interlinear text from your other document.  Now click on where it says "url" and type in the (relative) location of the file containing the interlinear text.  Do not include any file extension.  The extension will be supplied automatically by the output.</p
+><p
+>You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
+sec="sExInterlinearSourceIncluded"
+></sectionRef
+>.  Note, however, that the interlinear text itself will not appear in the output.</p
+></section2
 ></section1
 ><section1
 id="sSpecialEffects"
@@ -21325,6 +21396,26 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for the date of a publication or manuscript</dd
+><dt
+><object
+type="tElement"
+>referencedInterlinearText</object
+></dt
+><dd
+>A reference to an interlinear text which is in a different <object
+type="tXLingPap"
+></object
+> document</dd
+><dt
+><object
+type="tElement"
+>referencedInterlinearTexts</object
+></dt
+><dd
+>A set of references to interlinear in a different <object
+type="tXLingPap"
+></object
+> document</dd
 ><dt
 ><object
 type="tElement"

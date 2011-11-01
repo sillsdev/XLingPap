@@ -9,6 +9,7 @@
         =========================================================== -->
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear | //interlinear-text" use="@text"/>
+    <xsl:key name="InterlinearRef" match="//interlinearRef" use="@textref"/>
     <xsl:key name="LanguageID" match="//language" use="@id"/>
     <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
@@ -52,6 +53,7 @@
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>
+    <xsl:variable name="endnotesToShow" select="//endnote[not(ancestor::referencedInterlinearText)]"/>
     <!--
         exampleHeading in NotTextRef mode
     -->
@@ -168,7 +170,48 @@
             </xsl:choose>
             <xsl:text>:</xsl:text>
         </xsl:if>
-        <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+        <xsl:call-template name="DoInterlinearTextNumber">
+            <xsl:with-param name="sRef" select="$sRef"/>
+            <xsl:with-param name="interlinear" select="$interlinear"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoInterlinearTextReferenceLink
+    -->
+    <xsl:template name="DoInterlinearTextNumber">
+        <xsl:param name="sRef"/>
+        <xsl:param name="interlinear"/>
+        <xsl:choose>
+            <xsl:when test="substring($sRef,1,4)='T-ID'">
+                <xsl:value-of select="substring-after(substring-after($sRef,'-'),'-')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoInterlinearTextReferenceLink
+    -->
+    <xsl:template name="DoInterlinearTextReferenceLink">
+        <xsl:param name="sRef" select="@textref"/>
+        <xsl:param name="sAttrName" select="'href'"/>
+        <xsl:attribute name="{$sAttrName}">
+            <xsl:variable name="referencedInterlinear" select="key('InterlinearReferenceID',$sRef)"/>
+            <xsl:choose>
+                <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
+                    <xsl:value-of select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
+                    <xsl:text>.pdf#</xsl:text>
+                    <xsl:value-of select="$sRef"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$sAttrName='href'">
+                        <xsl:text>#</xsl:text>
+                    </xsl:if>
+                    <xsl:value-of select="$sRef"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
     </xsl:template>
     <!--
         DoRefAuthors
@@ -177,7 +220,7 @@
         <xsl:variable name="refAuthors" select="//refAuthor"/>
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
-        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
         <xsl:choose>
@@ -295,13 +338,13 @@
                 <xsl:variable name="sLang">
                     <xsl:call-template name="GetAbbreviationLanguageCode"/>
                 </xsl:variable>
-                <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
+                <xsl:for-each select="//abbreviation[//abbrRef[not(ancestor::referencedInterlinearText)]/@abbr=@id]">
                     <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
                     <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="//abbreviation[//abbrRef/@abbr=@id]">
+                <xsl:for-each select="//abbreviation[//abbrRef[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]">
                     <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -333,6 +376,60 @@
             <xsl:with-param name="sDefault">Acknowledgements</xsl:with-param>
             <xsl:with-param name="pLabel" select="//acknowledgements/@label"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAuthorFootnoteSymbol
+    -->
+    <xsl:template name="OutputAuthorFootnoteSymbol">
+        <xsl:param name="iAuthorPosition"/>
+        <xsl:choose>
+            <xsl:when test="$iAuthorPosition &lt; 10">
+                <xsl:call-template name="OutputAuthorFootnoteSymbol1-9">
+                    <xsl:with-param name="iPos" select="$iAuthorPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="iPos" select="floor($iAuthorPosition div 9)"/>
+                <xsl:call-template name="OutputAuthorFootnoteSymbol1-9">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputAuthorFootnoteSymbol1-9
+    -->
+    <xsl:template name="OutputAuthorFootnoteSymbol1-9">
+        <xsl:param name="iPos"/>
+        <xsl:choose>
+            <xsl:when test="$iPos=1">
+                <xsl:text>*</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=2">
+                <xsl:text>†</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=3">
+                <xsl:text>‡</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=4">
+                <xsl:text>§</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=5">
+                <xsl:text>¶</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=6">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=7">
+                <xsl:text>**</xsl:text>
+            </xsl:when>
+            <xsl:when test="$iPos=8">
+                <xsl:text>††</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>‡‡</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputContentsLabel

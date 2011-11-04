@@ -2162,14 +2162,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="sFootnoteNumber">
-                    <xsl:choose>
-                        <xsl:when test="$chapters">
-                            <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="GetFootnoteNumber"/>
                 </xsl:variable>
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <tex:cmd name="footnote">
@@ -3551,6 +3544,14 @@
     <xsl:template name="DoInterlinearRefCitation">
         <xsl:param name="sRef"/>
         <tex:group>
+            <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
+                <xsl:with-param name="originalContext" select="."/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
                 <xsl:with-param name="sRef" select="$sRef"/>
             </xsl:call-template>
@@ -3564,6 +3565,13 @@
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
             </xsl:call-template>
             <xsl:call-template name="DoInternalHyperlinkEnd"/>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
+                <xsl:with-param name="originalContext" select="."/>
+            </xsl:call-template>
         </tex:group>
     </xsl:template>
     <!--  

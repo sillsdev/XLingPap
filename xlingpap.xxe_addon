@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-11-01</a:date
+>2011-11-04</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_2 01 November 2011<ul
+>2.17.0_2 04 November 2011<ul
 ><li
->Fix a bug for the web page outputs: when there is a referenced interlinear text, the reference link used .pdf as the file extension instead of .htm.</li
+>Fixed a bug where within an example using an interlinearRef element, the reference to the interlinear within the interlinear-text did not format per the interlinearSourceStyle element of the publisher style sheet.</li
+><li
+>Fixed a bug where ISO codes were not showing in example elements that used an interlinearRef element.</li
+><li
+>Fixed a bug for the web page outputs: when there is a referenced interlinear text, the reference link used .pdf as the file extension instead of .htm.</li
+><li
+>Fixed a bug where the first footnote in a referenced interlinear text would start numbering at one.</li
+><li
+>Fixed an inconsistency where the ISO codes were formatted using a wider width in list elements when the various list elements had different ISO codes.  When all list elements had the same ISO code, the width used for the ISO code was smaller (and the same as a non-list example).  Made them all the same width.</li
 ></ul
 ></li
 ><li

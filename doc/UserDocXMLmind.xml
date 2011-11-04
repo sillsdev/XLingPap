@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->31 Octobber 2011</date
+>2 November 2011</date
 ><version
->2.17.0_1</version
+>2.17.0_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -3411,7 +3411,7 @@ src="resources/EndnoteRefDialog.png"
 >You can type in the name of the endnote or scroll down until you find the one you want. Note that capitalization is significant when typing. When your document is processed, a hyperlink is made between the reference and the endnote.<endnote
 id="nEndnoteRefNumber"
 ><p
->In the webpage output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote referred to will be repeated in this new endnote.</p
+>In the webpage output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote.</p
 ></endnote
 ><indexedRangeEnd
 begin="bEndnotes"
@@ -15028,19 +15028,19 @@ type="tXLingPap"
 > document containing the interlinear text in the <object
 type="tXMLmindXMLEditor"
 ></object
->.  Make sure that the <object
+>. Make sure that the <object
 type="tElement"
 >interlinear-text</object
 > element itself has the <object
 type="tAttribute"
 >text</object
-> attribute set to a unique value (this is the ID of the entire interlinear text).  Now copy the <object
+> attribute set to a unique value (this is the ID of the entire interlinear text). Now copy the <object
 type="tElement"
 >interlinear-text</object
 > element as a reference by using menu items <object
 type="tInstruction"
 >Edit / Document Reference / Copy as Reference</object
->. </p
+>.</p
 ><p
 >Second, insert a <object
 type="tElement"
@@ -15048,7 +15048,7 @@ type="tElement"
 > element just before the <object
 type="tElement"
 >languages</object
-> element (near the bottom).  It might look something like what is shown in example <exampleRef
+> element (near the bottom). It might look something like what is shown in example <exampleRef
 letter="xReferencedInterlinearTexts"
 num="xReferencedInterlinearTexts"
 ></exampleRef
@@ -15062,7 +15062,7 @@ src="resources/ReferencedInterlinearTexts.png"
 ></chart
 ></example
 ><p
->Open up the "Referenced Interlinear Texts" by clicking on the plus sign.  You will now see what is shown in example <exampleRef
+>Open up the "Referenced Interlinear Texts" by clicking on the plus sign. You will now see what is shown in example <exampleRef
 letter="xReferencedInterlinearTexts2"
 num="xReferencedInterlinearTexts2"
 ></exampleRef
@@ -15076,12 +15076,12 @@ src="resources/ReferencedInterlinearTexts2.png"
 ></chart
 ></example
 ><p
->Click on "Interlinear text:" and do a paste.  This will link in the interlinear text from your other document.  Now click on where it says "url" and type in the (relative) location of the file containing the interlinear text.  Do not include any file extension.  The extension will be supplied automatically by the output.</p
+>Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the (relative) location of the file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output.</p
 ><p
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->.  Note, however, that the interlinear text itself will not appear in the output.</p
+>. Note, however, that the interlinear text itself will not appear in the output.</p
 ></section2
 ></section1
 ><section1

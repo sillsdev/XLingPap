@@ -1976,6 +1976,16 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:if test="descendant::endnote">
+            <tex:cmd name="setcounter">
+                <tex:parm>
+                    <xsl:text>footnote</xsl:text>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetFootnoteNumber"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:apply-templates/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
@@ -3268,7 +3278,7 @@
             </xsl:if>
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <!-- need to compensate for the extra space of the ISO code -->
-                <tex:cmd name="settowidth">
+                <!--<tex:cmd name="settowidth">
                     <tex:parm>
                         <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
                     </tex:parm>
@@ -3282,6 +3292,14 @@
                             <xsl:with-param name="bOutputBreak" select="'N'"/>
                             <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
                         </xsl:call-template>
+                    </tex:parm>
+                    </tex:cmd>-->
+                <tex:cmd name="setlength">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>2.75em</xsl:text>
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="hspace*">
@@ -3620,10 +3638,25 @@
                 <xsl:variable name="sListIsoCode">
                     <xsl:call-template name="GetISOCode"/>
                 </xsl:variable>
+                <xsl:variable name="iRowCount" select="count(line)"/>
+                <tex:cmd name="multirow">
+                    <tex:parm>
+                        <xsl:value-of select="$iRowCount"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>2.75em</xsl:text>
+                    </tex:parm>
+                    <tex:opt>
+                        <xsl:text>.88</xsl:text>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:opt>
+                </tex:cmd>
+                <tex:spec cat="bg"/>
                 <xsl:call-template name="OutputListLevelISOCode">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
                 </xsl:call-template>
+                <tex:cat spec="eg"/>
             </xsl:if>
             <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                 <xsl:with-param name="mode" select="$mode"/>
@@ -3658,6 +3691,12 @@
     -->
     <xsl:template name="DoInterlinearTabularMainPattern">
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="contains($bListsShareSameCode,'N')">
+            <xsl:text>p</xsl:text>
+            <tex:spec cat="bg"/>
+            <xsl:text>2.75em</xsl:text>
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:text>*</xsl:text>
         <tex:spec cat="bg"/>
         <xsl:variable name="iColCount">
@@ -4153,7 +4192,24 @@
             <xsl:variable name="sListIsoCode">
                 <xsl:call-template name="GetISOCode"/>
             </xsl:variable>
-            <tex:cmd name="hbox">
+            <!--<tex:cmd name="hbox">
+                <tex:parm>
+                    <tex:cmd name="small">
+                        <tex:parm>
+                            <xsl:text>[</xsl:text>
+                            <xsl:value-of select="$sListIsoCode"/>
+                            <xsl:text>]</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </tex:parm>
+            </tex:cmd>-->
+            <tex:cmd name="parbox">
+                <tex:opt>
+                    <xsl:text>t</xsl:text>
+                </tex:opt>
+                <tex:parm>
+                    <xsl:text>2.75em</xsl:text>
+                    </tex:parm>
                 <tex:parm>
                     <tex:cmd name="small">
                         <tex:parm>
@@ -4559,7 +4615,7 @@
     -->
     <xsl:template name="GetISOCode">
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
-            <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
+            <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
             <xsl:if test="$firstLangData">
                 <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
             </xsl:if>
@@ -4621,24 +4677,26 @@
                 <xsl:variable name="sMaxColCount">
                     <xsl:call-template name="GetMaxColumnCountForPCDATALines"/>
                 </xsl:variable>
-                <xsl:choose>
+                <!--<xsl:choose>
                     <xsl:when test="contains($bListsShareSameCode,'N')">
                         <xsl:value-of select="string-length($sMaxColCount)+1"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="string-length($sMaxColCount)"/>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
+                <xsl:value-of select="string-length($sMaxColCount)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:choose>
+                <!--<xsl:choose>
                     <xsl:when test="contains($bListsShareSameCode,'N')">
                         <xsl:value-of select="number($iTempCount + 1)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$iTempCount"/>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
+                <xsl:value-of select="$iTempCount"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -6321,6 +6379,8 @@
                         <xsl:copy-of select="saxon:node-set($sISOCodeTeXOutput)"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                <!-- following closes off the content of the multirow command -->
+                <tex:spec cat="eg"/>
                 <tex:spec cat="align"/>
             </xsl:if>
         </xsl:if>

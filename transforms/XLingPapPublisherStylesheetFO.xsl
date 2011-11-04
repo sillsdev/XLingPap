@@ -4271,8 +4271,19 @@ not using
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
+                <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoInterlinearRefCitationContent">
                     <xsl:with-param name="sRef" select="$sRef"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
                 </xsl:call-template>
             </fo:basic-link>
         </fo:inline>

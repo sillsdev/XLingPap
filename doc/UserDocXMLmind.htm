@@ -9,8 +9,8 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>andy_black@sil.org</i></center><br><center><small>31 Octobber 2011</small></center>
-      <center><small>Version: 2.17.0_1</small></center>
+      <center><i>andy_black@sil.org</i></center><br><center><small>2 November 2011</small></center>
+      <center><small>Version: 2.17.0_2</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -6428,9 +6428,9 @@
          text because it is in its own document in the series. And yet, one wants to be able to copy or refer to particular interlinears
          within the text, including having a hyper-link to the document containing the interlinear text. How does one do this?
       </p>
-      <p>First, open the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document containing the interlinear text in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>.  Make sure that the <span style="font-family:Courier New; color:maroon; ">interlinear-text</span> element itself has the <span style="font-family:Courier New; color:purple; ">text</span> attribute set to a unique value (this is the ID of the entire interlinear text).  Now copy the <span style="font-family:Courier New; color:maroon; ">interlinear-text</span> element as a reference by using menu items <span style="color:maroon; ">Edit / Document Reference / Copy as Reference</span>. 
+      <p>First, open the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document containing the interlinear text in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. Make sure that the <span style="font-family:Courier New; color:maroon; ">interlinear-text</span> element itself has the <span style="font-family:Courier New; color:purple; ">text</span> attribute set to a unique value (this is the ID of the entire interlinear text). Now copy the <span style="font-family:Courier New; color:maroon; ">interlinear-text</span> element as a reference by using menu items <span style="color:maroon; ">Edit / Document Reference / Copy as Reference</span>.
       </p>
-      <p>Second, insert a <span style="font-family:Courier New; color:maroon; ">referencedInterlinearTexts</span> element just before the <span style="font-family:Courier New; color:maroon; ">languages</span> element (near the bottom).  It might look something like what is shown in example <a href="#xReferencedInterlinearTexts">(196)</a>.
+      <p>Second, insert a <span style="font-family:Courier New; color:maroon; ">referencedInterlinearTexts</span> element just before the <span style="font-family:Courier New; color:maroon; ">languages</span> element (near the bottom). It might look something like what is shown in example <a href="#xReferencedInterlinearTexts">(196)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -6446,7 +6446,7 @@
             </tr>
          </table>
       </div>
-      <p>Open up the "Referenced Interlinear Texts" by clicking on the plus sign.  You will now see what is shown in example <a href="#xReferencedInterlinearTexts2">(197)</a>.
+      <p>Open up the "Referenced Interlinear Texts" by clicking on the plus sign. You will now see what is shown in example <a href="#xReferencedInterlinearTexts2">(197)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -6462,11 +6462,11 @@
             </tr>
          </table>
       </div>
-      <p>Click on "Interlinear text:" and do a paste.  This will link in the interlinear text from your other document.  Now click
-         on where it says "url" and type in the (relative) location of the file containing the interlinear text.  Do not include any
-         file extension.  The extension will be supplied automatically by the output.
+      <p>Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on
+         where it says "url" and type in the (relative) location of the file containing the interlinear text. Do not include any file
+         extension. The extension will be supplied automatically by the output.
       </p>
-      <p>You can now refer to any interlinear within the interlinear text by following the steps outlined in section <a href="#sExInterlinearSourceIncluded">5.3.4.1</a>.  Note, however, that the interlinear text itself will not appear in the output.
+      <p>You can now refer to any interlinear within the interlinear text by following the steps outlined in section <a href="#sExInterlinearSourceIncluded">5.3.4.1</a>. Note, however, that the interlinear text itself will not appear in the output.
       </p>
       <h1 style=""><a name="sSpecialEffects">10&nbsp;Special Effects</a></h1>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows for two types of special effects.
@@ -9564,8 +9564,7 @@
                <p>In the webpage output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number
                   used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within
                   another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number
-                  you would expect for a regular endnote. In this latter case, the text of the endnote referred to will be repeated in this
-                  new endnote.
+                  you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote.
                </p>
             </td>
          </tr>

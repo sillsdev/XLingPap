@@ -858,7 +858,7 @@
     </xsl:template>
     <xsl:template name="OutputISOCodeInExample">
         <xsl:param name="bOutputBreak" select="'Y'"/>
-        <xsl:variable name="firstLangData" select="descendant::langData[1]"/>
+        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
         <xsl:if test="$firstLangData">
             <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
             <xsl:if test="string-length($sIsoCode) &gt; 0">

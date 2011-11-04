@@ -2886,11 +2886,18 @@
                     <xsl:with-param name="sRef" select="$sRef"/>
                     <xsl:with-param name="sExtension" select="'htm'"/>
                 </xsl:call-template>
-                <xsl:call-template name="AddAnyLinkAttributes">
-                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
+                <xsl:attribute name="class">
+                    <xsl:text>interlinearRefLinkLayout interlinearSourceStyle</xsl:text>
+                </xsl:attribute>
+                <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
                 </xsl:call-template>
                 <xsl:call-template name="DoInterlinearRefCitationContent">
                     <xsl:with-param name="sRef" select="$sRef"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
                 </xsl:call-template>
             </a>
         </span>

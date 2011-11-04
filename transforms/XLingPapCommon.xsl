@@ -135,9 +135,9 @@
             <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes'">
                 <xsl:choose>
                     <xsl:when test="listInterlinear or listWord or listSingle">
-                        <xsl:variable name="sIsoCodeOfFirst" select="key('LanguageID',descendant::langData[1]/@lang)/@ISO639-3Code"/>
+                        <xsl:variable name="sIsoCodeOfFirst" select="key('LanguageID',(descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1])/@lang)/@ISO639-3Code"/>
                         <xsl:for-each select="*/following-sibling::*">
-                            <xsl:variable name="sIsoCodeOfFollowingFirst" select="key('LanguageID',descendant::langData[1]/@lang)/@ISO639-3Code"/>
+                            <xsl:variable name="sIsoCodeOfFollowingFirst" select="key('LanguageID',(descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1])/@lang)/@ISO639-3Code"/>
                             <xsl:if test="$sIsoCodeOfFollowingFirst != $sIsoCodeOfFirst">
                                 <xsl:text>N</xsl:text>
                             </xsl:if>
@@ -322,6 +322,20 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--
+        GetFootnoteNumber
+    -->
+    <xsl:template name="GetFootnoteNumber">
+        <xsl:param name="chapters"/>
+        <xsl:choose>
+            <xsl:when test="$chapters">
+                <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         InsertCommaBetweenConsecutiveEndnotes

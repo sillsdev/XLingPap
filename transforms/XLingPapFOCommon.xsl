@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!-- variables -->
+    <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
     <!-- ===========================================================
         INTERLINEAR TEXT
         =========================================================== -->
+    <!--
+        interlinearRef
+    -->
+    <xsl:template match="interlinearRef">
+        <xsl:variable name="originalContext" select="."/>
+        <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
+            <xsl:apply-templates>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
+        interlinearRef with endnote(s) for backmatter
+    -->
+    <xsl:template match="interlinearRef" mode="backMatter">
+        <xsl:variable name="originalContext" select="."/>
+        <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
+            <xsl:apply-templates select="descendant::endnote" mode="backMatter">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
+        </xsl:for-each>
+    </xsl:template>
     <!--  
         interlinear-text
     -->
@@ -54,6 +78,63 @@
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
+    <!--
+        free
+    -->
+    <xsl:template match="free">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="free" mode="NoTextRef">
+        <xsl:call-template name="DoInterlinearFree"/>
+    </xsl:template>
+    <!--
+        lineGroup
+    -->
+    <xsl:template match="lineGroup">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearLineGroup">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="lineGroup" mode="NoTextRef">
+        <xsl:call-template name="DoInterlinearLineGroup">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        line
+    -->
+    <xsl:template match="line">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearLine">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="line" mode="NoTextRef">
+        <xsl:call-template name="DoInterlinearLine">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        ApplyTemplatesPerTextRefMode
+    -->
+    <xsl:template name="ApplyTemplatesPerTextRefMode">
+        <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$mode='NoTextRef'">
+                <xsl:apply-templates mode="NoTextRef"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="*[name() !='interlinearSource']">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         DetermineInternalOrExternalDestination
     -->
@@ -69,11 +150,21 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        DoAuthorFootnoteNumber
+    -->
+    <xsl:template name="DoAuthorFootnoteNumber">
+        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:call-template name="OutputAuthorFootnoteSymbol">
+            <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
+        </xsl:call-template>
+    </xsl:template>
     <!--  
         DoInterlinearLineGroup
     -->
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
         <fo:block>
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->
@@ -101,6 +192,7 @@
                 <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1">
                     <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                         <xsl:with-param name="mode" select="$mode"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </fo:table-body>
             </fo:table>

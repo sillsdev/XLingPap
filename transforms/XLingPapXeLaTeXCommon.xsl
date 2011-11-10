@@ -8,7 +8,6 @@
         Variables
         =========================================================== -->
     <xsl:variable name="chapters" select="//chapter"/>
-    <xsl:variable name="bIsBook" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
@@ -119,8 +118,8 @@
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
-    <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
+    <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
     <!--
         citation (InMarker)
     -->
@@ -677,6 +676,16 @@
         </xsl:if>
     </xsl:template>
     <!--
+        secTitle
+    -->
+    <xsl:template match="secTitle" mode="InMarker">
+        <!--        <xsl:apply-templates select="child::node()[name()!='endnote']"/>-->
+        <xsl:apply-templates mode="InMarker"/>
+    </xsl:template>
+    <xsl:template match="secTitle">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <!--
         single
     -->
     <xsl:template match="single">
@@ -697,6 +706,7 @@
         interlinear
     -->
     <xsl:template match="interlinear">
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
                 <tex:cmd name="needspace" nl2="1">
@@ -766,6 +776,7 @@
                     <tex:cmd name="nopagebreak" gr="0" nl2="0"/>-->
                 <xsl:call-template name="OutputInterlinear">
                     <xsl:with-param name="mode" select="'NoTextRef'"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
                 <tex:cmd name="par" gr="0" nl2="1"/>
                 <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
@@ -788,24 +799,32 @@
                     <tex:spec cat="bg"/>
                     <tex:spec cat="eg"/>
                     <tex:spec cat="eg"/>
-                    <xsl:call-template name="OutputInterlinear"/>
+                    <xsl:call-template name="OutputInterlinear">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                 </tex:env>
             </xsl:when>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>
                     <xsl:when test="parent::example">
-                        <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine"/>
+                        <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="parent::listInterlinear and ../parent::example">
                         <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="OutputInterlinear"/>
+                        <xsl:call-template name="OutputInterlinear">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputInterlinear"/>
+                <xsl:call-template name="OutputInterlinear">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -823,16 +842,19 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <xsl:variable name="originalContext" select="."/>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
             <xsl:choose>
                 <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates>
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
@@ -844,16 +866,19 @@
     <xsl:template match="lineGroup">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
                 <xsl:call-template name="DoWrapableInterlinearLineGroup">
                     <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoInterlinearLineGroup">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -877,8 +902,10 @@
     -->
     <xsl:template match="line">
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:call-template name="DoInterlinearLine">
             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="line" mode="NoTextRef">
@@ -983,8 +1010,10 @@
     -->
     <xsl:template match="free">
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:call-template name="DoInterlinearFree">
             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
@@ -1877,6 +1906,7 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <xsl:template match="object">
+        <xsl:param name="originalContext"/>
         <tex:spec cat="bg"/>
         <xsl:call-template name="DoType">
             <xsl:with-param name="originalContext" select="."/>
@@ -1884,7 +1914,9 @@
         <xsl:for-each select="key('TypeID',@type)">
             <xsl:value-of select="@before"/>
         </xsl:for-each>
-        <xsl:apply-templates/>
+        <xsl:apply-templates>
+            <xsl:with-param name="originalContext"/>
+        </xsl:apply-templates>
         <xsl:for-each select="key('TypeID',@type)">
             <xsl:value-of select="@after"/>
         </xsl:for-each>
@@ -1982,7 +2014,9 @@
                     <xsl:text>footnote</xsl:text>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:call-template name="GetFootnoteNumber"/>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="iAdjust" select="0"/>
+                    </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
@@ -2051,6 +2085,23 @@
         </tex:group>
     </xsl:template>
     <!--  
+        AdjustFootnoteNumberPerInterlinearRefs
+    -->
+    <xsl:template name="AdjustFootnoteNumberPerInterlinearRefs">
+        <xsl:param name="originalContext"/>
+        <tex:cmd name="setcounter">
+            <tex:parm>
+                <xsl:text>footnote</xsl:text>
+            </tex:parm>
+            <tex:parm>
+                <xsl:call-template name="GetFootnoteNumber">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="iAdjust" select="0"/>
+                </xsl:call-template>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
         AdjustForISOCodeInExampleNumber
     -->
     <xsl:template name="AdjustForISOCodeInExampleNumber">
@@ -2088,6 +2139,7 @@
     <xsl:template name="ApplyTemplatesPerTextRefMode">
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="$mode='NoTextRef'">
                 <xsl:apply-templates mode="NoTextRef">
@@ -2097,6 +2149,7 @@
             <xsl:otherwise>
                 <xsl:apply-templates select="*[name() !='interlinearSource']">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
@@ -2105,6 +2158,7 @@
         BoxUpWrdsInAllLinesInLineGroup
     -->
     <xsl:template name="BoxUpWrdsInAllLinesInLineGroup">
+        <xsl:param name="originalContext"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::wrd) + 1"/>
         <tex:cmd name="hbox">
             <tex:parm>
@@ -2126,17 +2180,23 @@
                 </tex:parm>
                 <xsl:for-each select="../preceding-sibling::line">
                     <xsl:for-each select="wrd[position()=$iPos]">
-                        <xsl:call-template name="DoWrd"/>
+                        <xsl:call-template name="DoWrd">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:for-each>
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
                 </xsl:for-each>
-                <xsl:call-template name="DoWrd"/>
+                <xsl:call-template name="DoWrd">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
                 <xsl:for-each select="../following-sibling::line">
                     <xsl:for-each select="wrd[position()=$iPos]">
-                        <xsl:call-template name="DoWrd"/>
+                        <xsl:call-template name="DoWrd">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:for-each>
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
@@ -2153,11 +2213,17 @@
             </tex:parm>
         </tex:cmd>
         <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
-            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
         </xsl:for-each>
-        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
         <xsl:for-each select="../following-sibling::line/wrd[position()=$iPos]">
-            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd"/>
+            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
         </xsl:for-each>
         <xsl:text>&#x20;</xsl:text>
     </xsl:template>
@@ -3110,43 +3176,6 @@
         <xsl:call-template name="DoInternalTargetEnd"/>
     </xsl:template>
     <!--  
-        DoFootnoteNumberInTextValue
-    -->
-    <xsl:template name="DoFootnoteNumberInTextValue">
-        <xsl:choose>
-            <xsl:when test="parent::author">
-                <xsl:call-template name="DoAuthorFootnoteNumber"/>
-            </xsl:when>
-            <xsl:when test="$bIsBook">
-                <!--                <xsl:choose>
-                    <xsl:when test="ancestor::appendix">
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter | appendix" format="1"/>
-                    </xsl:otherwise>
-                </xsl:choose>
--->
-                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--  
-        DoFootnoteTextWithinWrappableWrd
-    -->
-    <xsl:template name="DoFootnoteTextWithinWrappableWrd">
-        <xsl:if test="descendant-or-self::endnote">
-            <xsl:for-each select="descendant-or-self::endnote">
-                <xsl:apply-templates select=".">
-                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
-                </xsl:apply-templates>
-            </xsl:for-each>
-        </xsl:if>
-    </xsl:template>
-    <!--  
         DoImageFile
     -->
     <xsl:template name="DoImageFile">
@@ -3218,6 +3247,7 @@
     <xsl:template name="DoInterlinearFree">
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:if test="preceding-sibling::*[1][name()='free']">
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
@@ -3278,30 +3308,36 @@
             </xsl:if>
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <!-- need to compensate for the extra space of the ISO code -->
-                <!--<tex:cmd name="settowidth">
-                    <tex:parm>
-                        <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
-                    </tex:parm>
-                    <tex:parm>
-                        <xsl:variable name="sIsoCode">
-                            <xsl:for-each select="parent::listInterlinear">
-                                <xsl:call-template name="GetISOCode"/>
-                            </xsl:for-each>
-                        </xsl:variable>
-                        <xsl:call-template name="OutputISOCodeInExample">
-                            <xsl:with-param name="bOutputBreak" select="'N'"/>
-                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
-                        </xsl:call-template>
-                    </tex:parm>
-                    </tex:cmd>-->
-                <tex:cmd name="setlength">
-                    <tex:parm>
-                        <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
-                    </tex:parm>
-                    <tex:parm>
-                        <xsl:text>2.75em</xsl:text>
-                    </tex:parm>
-                </tex:cmd>
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="parent::listInterlinear">
+                        <xsl:call-template name="GetISOCode"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) &gt; 3">
+                        <tex:cmd name="setlength">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:text>2.75em</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="settowidth">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="OutputISOCodeInExample">
+                                    <xsl:with-param name="bOutputBreak" select="'N'"/>
+                                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <tex:cmd name="hspace*">
                     <tex:parm>
                         <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
@@ -3398,7 +3434,9 @@
             <xsl:otherwise>
                 <!--                <tex:cmd name="raggedright" gr="0" nl2="0"/>-->
                 <tex:group>
-                    <xsl:call-template name="HandleFreeNoLanguageFontInfo"/>
+                    <xsl:call-template name="HandleFreeNoLanguageFontInfo">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>
@@ -3430,13 +3468,9 @@
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="eg"/>
         </xsl:if>
-        <xsl:if test="descendant-or-self::endnote">
-            <xsl:for-each select="descendant-or-self::endnote">
-                <xsl:apply-templates select=".">
-                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
-                </xsl:apply-templates>
-            </xsl:for-each>
-        </xsl:if>
+        <xsl:call-template name="DoFootnoteTextAfterFree">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
             <xsl:choose>
                 <xsl:when test="following-sibling::*[1][name()='interlinear'] ">
@@ -3504,6 +3538,7 @@
     <xsl:template name="DoInterlinearLine">
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:if test="contains($bListsShareSameCode,'N') and count(preceding-sibling::line) &gt; 0">
             <tex:spec cat="align"/>
         </xsl:if>
@@ -3530,7 +3565,9 @@
                     <xsl:if test="position() &gt; 1">
                         <tex:spec cat="align"/>
                     </xsl:if>
-                    <xsl:call-template name="DoWrd"/>
+                    <xsl:call-template name="DoWrd">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                     <!--  
                         </fo:block>
                         </fo:table-cell>
@@ -3592,6 +3629,7 @@
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear[preceding-sibling::*]">
                 <xsl:variable name="previous" select="parent::interlinear/preceding-sibling::*[1]"/>
@@ -3638,29 +3676,34 @@
                 <xsl:variable name="sListIsoCode">
                     <xsl:call-template name="GetISOCode"/>
                 </xsl:variable>
-                <xsl:variable name="iRowCount" select="count(line)"/>
-                <tex:cmd name="multirow">
-                    <tex:parm>
-                        <xsl:value-of select="$iRowCount"/>
-                    </tex:parm>
-                    <tex:parm>
-                        <xsl:text>2.75em</xsl:text>
-                    </tex:parm>
-                    <tex:opt>
-                        <xsl:text>.88</xsl:text>
-                        <tex:cmd name="baselineskip" gr="0"/>
-                    </tex:opt>
-                </tex:cmd>
-                <tex:spec cat="bg"/>
+                <xsl:if test="string-length($sListIsoCode) &gt; 3">
+                    <xsl:variable name="iRowCount" select="count(line)"/>
+                    <tex:cmd name="multirow">
+                        <tex:parm>
+                            <xsl:value-of select="$iRowCount"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:text>2.75em</xsl:text>
+                        </tex:parm>
+                        <tex:opt>
+                            <xsl:text>.88</xsl:text>
+                            <tex:cmd name="baselineskip" gr="0"/>
+                        </tex:opt>
+                    </tex:cmd>
+                    <tex:spec cat="bg"/>
+                </xsl:if>
                 <xsl:call-template name="OutputListLevelISOCode">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
                 </xsl:call-template>
-                <tex:cat spec="eg"/>
+                <xsl:if test="string-length($sListIsoCode) &gt; 3">
+                    <tex:cat spec="eg"/>
+                </xsl:if>
             </xsl:if>
             <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                 <xsl:with-param name="mode" select="$mode"/>
                 <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </tex:env>
         <xsl:choose>
@@ -3680,11 +3723,9 @@
                 <!--                <tex:cmd name="par" gr="0" nl2="1"/>-->
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:for-each select="descendant-or-self::endnote">
-            <xsl:apply-templates select=".">
-                <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
-            </xsl:apply-templates>
-        </xsl:for-each>
+        <xsl:call-template name="DoFootnoteTextAtEndOfInLineGroup">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         DoInterlinearTabularMainPattern
@@ -3692,10 +3733,17 @@
     <xsl:template name="DoInterlinearTabularMainPattern">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="contains($bListsShareSameCode,'N')">
-            <xsl:text>p</xsl:text>
-            <tex:spec cat="bg"/>
-            <xsl:text>2.75em</xsl:text>
-            <tex:spec cat="eg"/>
+            <xsl:variable name="sIsoCode">
+                <xsl:for-each select="parent::listInterlinear">
+                    <xsl:call-template name="GetISOCode"/>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:if test="string-length($sIsoCode) &gt; 3">
+                <xsl:text>p</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:text>2.75em</xsl:text>
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:if>
         <xsl:text>*</xsl:text>
         <tex:spec cat="bg"/>
@@ -3760,6 +3808,7 @@
     <xsl:template name="DoInterlinearWrappedWithSourceAfterFirstLine">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="originalContext"/>
         <tex:cmd name="settowidth">
             <tex:parm>
                 <tex:spec cat="esc"/>
@@ -3770,6 +3819,7 @@
                     <xsl:with-param name="sSource" select="interlinearSource"/>
                     <xsl:with-param name="sRef" select="normalize-space(@textref)"/>
                     <xsl:with-param name="bContentOnly" select="'Y'"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -3802,10 +3852,13 @@
                     <xsl:when test="ancestor::interlinear-text">
                         <xsl:apply-templates>
                             <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="OutputInterlinear"/>
+                        <xsl:call-template name="OutputInterlinear">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </tex:parm>
@@ -4136,6 +4189,7 @@
         <xsl:param name="mode"/>
         <xsl:param name="bHasExampleHeading"/>
         <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
         <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
             <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free']">
                 <tex:cmd name="vspace">
@@ -4192,34 +4246,42 @@
             <xsl:variable name="sListIsoCode">
                 <xsl:call-template name="GetISOCode"/>
             </xsl:variable>
-            <!--<tex:cmd name="hbox">
-                <tex:parm>
-                    <tex:cmd name="small">
-                        <tex:parm>
-                            <xsl:text>[</xsl:text>
-                            <xsl:value-of select="$sListIsoCode"/>
-                            <xsl:text>]</xsl:text>
-                        </tex:parm>
-                    </tex:cmd>
-                </tex:parm>
-            </tex:cmd>-->
-            <tex:cmd name="parbox">
-                <tex:opt>
-                    <xsl:text>t</xsl:text>
-                </tex:opt>
-                <tex:parm>
-                    <xsl:text>2.75em</xsl:text>
-                    </tex:parm>
-                <tex:parm>
-                    <tex:cmd name="small">
-                        <tex:parm>
-                            <xsl:text>[</xsl:text>
-                            <xsl:value-of select="$sListIsoCode"/>
-                            <xsl:text>]</xsl:text>
-                        </tex:parm>
-                    </tex:cmd>
-                </tex:parm>
-            </tex:cmd>
+            <xsl:if test="$sListIsoCode!=''">
+                <xsl:choose>
+                    <xsl:when test="string-length($sListIsoCode) &gt; 3">
+                        <tex:cmd name="parbox">
+                            <tex:opt>
+                                <xsl:text>t</xsl:text>
+                            </tex:opt>
+                            <tex:parm>
+                                <xsl:text>2.75em</xsl:text>
+                            </tex:parm>
+                            <tex:parm>
+                                <tex:cmd name="small">
+                                    <tex:parm>
+                                        <xsl:text>[</xsl:text>
+                                        <xsl:value-of select="$sListIsoCode"/>
+                                        <xsl:text>]</xsl:text>
+                                    </tex:parm>
+                                </tex:cmd>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="hbox">
+                            <tex:parm>
+                                <tex:cmd name="small">
+                                    <tex:parm>
+                                        <xsl:text>[</xsl:text>
+                                        <xsl:value-of select="$sListIsoCode"/>
+                                        <xsl:text>]</xsl:text>
+                                    </tex:parm>
+                                </tex:cmd>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
             <xsl:text>&#x20;</xsl:text>
         </xsl:if>
         <xsl:variable name="iColCount">
@@ -4239,12 +4301,16 @@
                     <xsl:when test="$bRtl='Y'">
                         <xsl:for-each select="line[1]/wrd">
                             <xsl:sort select="position()" data-type="number" order="descending"/>
-                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup"/>
+                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:for-each select="line[count(wrd)=$iColCount][1]/wrd">
-                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup"/>
+                            <xsl:call-template name="BoxUpWrdsInAllLinesInLineGroup">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -4354,6 +4420,7 @@
         DoWrd
     -->
     <xsl:template name="DoWrd">
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="@lang">
                 <!-- using cmd and parm outputs an unwanted space when there is an initial object - SIGH - does not do any better.... need to try spec nil -->
@@ -4361,14 +4428,18 @@
                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                     <xsl:with-param name="originalContext" select="."/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
                 <xsl:call-template name="OutputFontAttributesEnd">
                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                     <xsl:with-param name="originalContext" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4677,26 +4748,41 @@
                 <xsl:variable name="sMaxColCount">
                     <xsl:call-template name="GetMaxColumnCountForPCDATALines"/>
                 </xsl:variable>
-                <!--<xsl:choose>
-                    <xsl:when test="contains($bListsShareSameCode,'N')">
-                        <xsl:value-of select="string-length($sMaxColCount)+1"/>
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="parent::listInterlinear">
+                        <xsl:call-template name="GetISOCode"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) = 3">
+                        <xsl:choose>
+                            <xsl:when test="contains($bListsShareSameCode,'N')">
+                                <xsl:value-of select="string-length($sMaxColCount)+1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="string-length($sMaxColCount)"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="string-length($sMaxColCount)"/>
                     </xsl:otherwise>
-                </xsl:choose>-->
-                <xsl:value-of select="string-length($sMaxColCount)"/>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <!--<xsl:choose>
-                    <xsl:when test="contains($bListsShareSameCode,'N')">
-                        <xsl:value-of select="number($iTempCount + 1)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$iTempCount"/>
-                    </xsl:otherwise>
-                </xsl:choose>-->
-                <xsl:value-of select="$iTempCount"/>
+                <xsl:variable name="sIsoCode">
+                    <xsl:for-each select="parent::listInterlinear">
+                        <xsl:call-template name="GetISOCode"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                    <xsl:choose>
+                        <xsl:when test="contains($bListsShareSameCode,'N')">
+                            <xsl:value-of select="number($iTempCount + 1)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$iTempCount"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4999,6 +5085,18 @@
                 </xsl:for-each>
             </xsl:for-each>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleFootnoteTextInLineGroup
+    -->
+    <xsl:template name="HandleFootnoteTextInLineGroup">
+        <xsl:param name="originalContext"/>
+        <xsl:for-each select="descendant-or-self::endnote">
+            <xsl:apply-templates select=".">
+                <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         HandleImmediatelyPrecedingLineGroupOrFree
@@ -6019,18 +6117,21 @@
     -->
     <xsl:template name="OutputInterlinear">
         <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
         <xsl:call-template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode"/>
         <xsl:choose>
             <xsl:when test="lineSet">
                 <xsl:for-each select="lineSet | conflation">
                     <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                         <xsl:with-param name="mode" select="$mode"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                     <xsl:with-param name="mode" select="$mode"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -6379,8 +6480,12 @@
                         <xsl:copy-of select="saxon:node-set($sISOCodeTeXOutput)"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <!-- following closes off the content of the multirow command -->
-                <tex:spec cat="eg"/>
+                <xsl:if test="ancestor::listInterlinear">
+                    <xsl:if test="string-length($sIsoCode) &gt; 3">
+                        <!-- following closes off the content of the multirow command -->
+                        <tex:spec cat="eg"/>
+                    </xsl:if>
+                </xsl:if>
                 <tex:spec cat="align"/>
             </xsl:if>
         </xsl:if>
@@ -8143,11 +8248,15 @@ What might go in a TeX package file
         SetLaTeXFootnoteCounter
     -->
     <xsl:template name="SetLaTeXFootnoteCounter">
+        <xsl:param name="originalContext"/>
         <tex:cmd name="setcounter">
             <tex:parm>footnote</tex:parm>
             <tex:parm>
                 <xsl:variable name="sFootnoteNumber">
-                    <xsl:call-template name="DoFootnoteNumberInTextValue"/>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="iAdjust" select="0"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="string-length($sFootnoteNumber)=0">0</xsl:when>

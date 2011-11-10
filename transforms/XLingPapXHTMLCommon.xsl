@@ -32,103 +32,39 @@
         endnote in flow of text
     -->
     <xsl:template match="endnote">
+        <xsl:param name="originalContext"/>
         <xsl:call-template name="OutputEndnoteNumber">
             <xsl:with-param name="attr" select="@id"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         endnote in back matter
     -->
     <xsl:template match="endnote" mode="backMatter">
+        <xsl:param name="originalContext"/>
         <xsl:if test="$bIsBook">
-            <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
-            <xsl:variable name="firstEndnoteInUnit" select="$chapterOrAppendixUnit/descendant::endnote[1]"/>
-            <xsl:if test="@id = $firstEndnoteInUnit/@id">
-                <tr>
-                    <td colspan="2" style="font-style:italic; font-size:larger; font-weight:bold">
-                        <xsl:choose>
-                            <xsl:when test="name($chapterOrAppendixUnit)='chapter'">
-                                <xsl:call-template name="DoEndnoteSectionLabel">
-                                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-                                    <xsl:with-param name="sDefault" select="'Chapter'"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="name($chapterOrAppendixUnit)='appendix'">
-                                <xsl:call-template name="DoEndnoteSectionLabel">
-                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
-                                    <xsl:with-param name="sDefault" select="'Appendix'"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="name($chapterOrAppendixUnit)='glossary'">
-                                <xsl:call-template name="DoEndnoteSectionLabel">
-                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/glossaryLayout/glossaryTitleLayout"/>
-                                    <xsl:with-param name="sDefault" select="'Glossary'"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="name($chapterOrAppendixUnit)='acknowledgements'">
-                                <xsl:choose>
-                                    <xsl:when test="ancestor::frontMatter">
-                                        <xsl:call-template name="DoEndnoteSectionLabel">
-                                            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
-                                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
-                                        </xsl:call-template>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:call-template name="DoEndnoteSectionLabel">
-                                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
-                                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
-                                        </xsl:call-template>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="name($chapterOrAppendixUnit)='preface'">
-                                <xsl:call-template name="DoEndnoteSectionLabel">
-                                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout/prefaceTitleLayout"/>
-                                    <xsl:with-param name="sDefault" select="'Preface'"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="name($chapterOrAppendixUnit)='abstract'">
-                                <xsl:call-template name="DoEndnoteSectionLabel">
-                                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout/abstractTitleLayout"/>
-                                    <xsl:with-param name="sDefault" select="'Abstract'"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                        </xsl:choose>
-                        <xsl:text>&#x20;</xsl:text>
-                        <xsl:for-each select="$chapterOrAppendixUnit">
-                            <xsl:call-template name="OutputChapterNumber"/>
-                        </xsl:for-each>
-                    </td>
-                </tr>
-            </xsl:if>
+            <xsl:call-template name="DoBookEndnoteSectionLabel">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
         </xsl:if>
         <tr>
             <td valign="baseline">
-                <xsl:element name="a">
+                <a>
                     <xsl:attribute name="name">
                         <xsl:value-of select="@id"/>
-                    </xsl:attribute>[<xsl:apply-templates select="." mode="endnoteXHTML"/>]</xsl:element>
+                    </xsl:attribute>
+                    <xsl:text>[</xsl:text>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                    <xsl:text>]</xsl:text>
+                </a>
             </td>
             <td valign="baseline">
                 <xsl:apply-templates/>
             </td>
         </tr>
-    </xsl:template>
-    <xsl:template name="DoEndnoteSectionLabel">
-        <xsl:param name="layoutInfo"/>
-        <xsl:param name="sDefault"/>
-        <xsl:variable name="sTextBefore" select="normalize-space($layoutInfo/@textbefore)"/>
-        <xsl:choose>
-            <xsl:when test="string-length($sTextBefore) &gt; 0">
-                <xsl:value-of select="$sTextBefore"/>
-            </xsl:when>
-            <xsl:when test="string-length(normalize-space($lingPaper/@chapterlabel)) &gt; 0">
-                <xsl:value-of select="$lingPaper/@chapterlabel"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$sDefault"/>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LISTS
@@ -511,6 +447,7 @@
         interlinear
     -->
     <xsl:template match="interlinear">
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
                 <div class="interlinearLineTitle">
@@ -529,11 +466,14 @@
                 <div style="margin-left:0.125in">
                     <xsl:call-template name="OutputInterlinear">
                         <xsl:with-param name="mode" select="'NoTextRef'"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </div>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputInterlinear"/>
+                <xsl:call-template name="OutputInterlinear">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -581,7 +521,10 @@
         lineGroup
     -->
     <xsl:template match="lineGroup">
-        <xsl:call-template name="DoInterlinearLineGroup"/>
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearLineGroup">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
     </xsl:template>
     <xsl:template match="lineGroup" mode="NoTextRef">
         <xsl:call-template name="DoInterlinearLineGroup">
@@ -682,7 +625,10 @@
         free
     -->
     <xsl:template match="free">
-        <xsl:call-template name="DoInterlinearFree"/>
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
         <xsl:call-template name="DoInterlinearFree">
@@ -1063,6 +1009,31 @@
         </tr>
     </xsl:template>
     <!--  
+        DoBookEndnotesLabeling
+    -->
+    <xsl:template name="DoBookEndnotesLabeling">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="chapterOrAppendixUnit"/>
+        <xsl:variable name="sFootnoteNumber">
+            <xsl:call-template name="GetFootnoteNumber">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:if test="$sFootnoteNumber='1'">
+            <tr>
+                <td colspan="2" style="font-style:italic; font-size:larger; font-weight:bold">
+                    <xsl:call-template name="DoBookEndnotesLabelingContent">
+                        <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                    </xsl:call-template>
+                    <xsl:text>&#x20;</xsl:text>
+                    <xsl:for-each select="$chapterOrAppendixUnit">
+                        <xsl:call-template name="OutputChapterNumber"/>
+                    </xsl:for-each>
+                </td>
+            </tr>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         DoDefinition
     -->
     <xsl:template name="DoDefinition">
@@ -1091,8 +1062,8 @@
                 </xsl:otherwise>
             </xsl:choose>
         </td>
+        <!-- preceding borrowed and modified from work by John Thomson -->
     </xsl:template>
-    <!-- preceding borrowed and modified from work by John Thomson -->
     <!--  
         DoExample
     -->
@@ -1191,6 +1162,7 @@
         DoInterlinearLine
     -->
     <xsl:template name="DoInterlinearLine">
+        <xsl:param name="originalContext"/>
         <xsl:param name="bUseClass" select="'N'"/>
         <xsl:param name="mode"/>
         <xsl:variable name="bRtl">
@@ -1223,7 +1195,9 @@
                         <!-- Internet Explorer has a bug whereby small-caps is not always rendered on the same horizontal line as surrounding cells.
                             If we have space at the beginning and at the end of the <td>, it renders correctly.-->
                         <xsl:text>&#x20;</xsl:text>
-                        <xsl:apply-templates/>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
                         <xsl:text>&#x20;</xsl:text>
                     </xsl:element>
                 </xsl:for-each>
@@ -1287,6 +1261,7 @@
         DoInterlinearLineGroup
     -->
     <xsl:template name="DoInterlinearLineGroup">
+        <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
         <table cellpadding="0pt" cellspacing="0pt">
             <!-- add extra indent for when have an embedded interlinear; 
@@ -1311,6 +1286,7 @@
             </xsl:if>
             <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                 <xsl:with-param name="mode" select="$mode"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </table>
     </xsl:template>
@@ -1425,6 +1401,7 @@
         <xsl:param name="attr" select="@id"/>
         <xsl:param name="node" select="."/>
         <xsl:param name="sFootnoteNumberOverride"/>
+        <xsl:param name="originalContext"/>
         <span style="font-size:65%; vertical-align:super; color:black">
             <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
             <xsl:text>[</xsl:text>
@@ -1438,7 +1415,9 @@
                         <xsl:value-of select="$sFootnoteNumberOverride"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="$node" mode="endnoteXHTML"/>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </a>
@@ -1508,17 +1487,20 @@
     -->
     <xsl:template name="OutputInterlinear">
         <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="lineSet">
                 <xsl:for-each select="lineSet | conflation">
                     <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                         <xsl:with-param name="mode" select="$mode"/>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="ApplyTemplatesPerTextRefMode">
                     <xsl:with-param name="mode" select="$mode"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

@@ -1009,6 +1009,7 @@
       PARAGRAPH
       =========================================================== -->
     <xsl:template match="p | pc">
+        <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="parent::endnote and name()='p' and position()='1'">
                 <xsl:call-template name="OutputTypeAttributes">
@@ -1020,21 +1021,9 @@
                         <xsl:text>pt</xsl:text>
                     </xsl:attribute>
                     <xsl:for-each select="parent::endnote">
-                        <xsl:choose>
-                            <xsl:when test="$chapters">
-                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-                                <!--                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
-                            </xsl:when>
-                            <xsl:when test="ancestor::author">
-                                <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
-                                <xsl:call-template name="OutputAuthorFootnoteSymbol">
-                                    <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
                     </xsl:for-each>
                 </fo:inline>
                 <xsl:apply-templates/>
@@ -1348,14 +1337,6 @@
         </xsl:choose>
     </xsl:template>
     <!--
-      interlinearRef
-   -->
-    <xsl:template match="interlinearRef">
-        <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
-            <xsl:apply-templates/>
-        </xsl:for-each>
-    </xsl:template>
-    <!--
         interlinearRefCitation
     -->
     <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
@@ -1414,28 +1395,6 @@
         <xsl:if test="not(@bracket) or @bracket='both' or @bracket='final'">
             <xsl:text>]</xsl:text>
         </xsl:if>
-    </xsl:template>
-    <!--
-      lineGroup
-      -->
-    <xsl:template match="lineGroup">
-        <xsl:call-template name="DoInterlinearLineGroup"/>
-    </xsl:template>
-    <xsl:template match="lineGroup" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearLineGroup">
-            <xsl:with-param name="mode" select="'NoTextRef'"/>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-      line
-      -->
-    <xsl:template match="line">
-        <xsl:call-template name="DoInterlinearLine"/>
-    </xsl:template>
-    <xsl:template match="line" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearLine">
-            <xsl:with-param name="mode" select="'NoTextRef'"/>
-        </xsl:call-template>
     </xsl:template>
     <!--
       conflatedLine
@@ -1526,15 +1485,6 @@
                 </xsl:element>
             </xsl:for-each>
         </tr>
-    </xsl:template>
-    <!--
-      free
-      -->
-    <xsl:template match="free">
-        <xsl:call-template name="DoInterlinearFree"/>
-    </xsl:template>
-    <xsl:template match="free" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearFree"/>
     </xsl:template>
     <!--
       listInterlinear
@@ -2170,28 +2120,19 @@ not using
       endnote in flow of text
       -->
     <xsl:template match="endnote">
+        <xsl:param name="originalContext"/>
         <fo:footnote>
             <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
-                <xsl:choose>
-                    <xsl:when test="parent::author">
-                        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
-                        <xsl:call-template name="OutputAuthorFootnoteSymbol">
-                            <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:when test="$chapters">
-                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-                        <!--                        <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="GetFootnoteNumber">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
             </fo:inline>
             <fo:footnote-body>
                 <fo:block xsl:use-attribute-sets="FootnoteBody">
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:apply-templates>
                 </fo:block>
             </fo:footnote-body>
         </fo:footnote>
@@ -2202,22 +2143,15 @@ not using
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                <fo:basic-link internal-destination="{@note}">
-                    <xsl:call-template name="AddAnyLinkAttributes"/>
-                    <xsl:apply-templates select="id(@note)" mode="endnote"/>
-                </fo:basic-link>
+                    <xsl:call-template name="DoEndnoteRefNumber"/>
+            </xsl:when>
+            <xsl:when test="@showNumberOnly='yes'">
+                <xsl:call-template name="DoEndnoteRefNumber"/>
             </xsl:when>
             <xsl:otherwise>
                 <fo:footnote>
                     <xsl:variable name="sFootnoteNumber">
-                        <xsl:choose>
-                            <xsl:when test="$chapters">
-                                <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:call-template name="GetFootnoteNumber"/>
                     </xsl:variable>
                     <fo:inline baseline-shift="super" id="{@id}">
                         <xsl:attribute name="font-size">
@@ -2253,10 +2187,7 @@ not using
                                 -->
                             </fo:inline>
                             <xsl:text>See footnote </xsl:text>
-                            <fo:basic-link internal-destination="{@note}">
-                                <xsl:call-template name="AddAnyLinkAttributes"/>
-                                <xsl:apply-templates select="id(@note)" mode="endnote"/>
-                            </fo:basic-link>
+                                <xsl:call-template name="DoEndnoteRefNumber"/>
                             <xsl:choose>
                                 <xsl:when test="$chapters">
                                     <xsl:text> in chapter </xsl:text>
@@ -2473,11 +2404,14 @@ not using
       GLOSS
       =========================================================== -->
     <xsl:template match="gloss">
+        <xsl:param name="originalContext"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             </xsl:call-template>
-            <xsl:apply-templates/>
+            <xsl:apply-templates>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
         </fo:inline>
     </xsl:template>
     <!-- ===========================================================
@@ -2700,11 +2634,14 @@ not using
       LANGDATA
       =========================================================== -->
     <xsl:template match="langData">
+        <xsl:param name="originalContext"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
             </xsl:call-template>
-            <xsl:apply-templates/>
+            <xsl:apply-templates>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
         </fo:inline>
     </xsl:template>
     <!-- ===========================================================
@@ -2935,20 +2872,6 @@ not using
                 <xsl:value-of select="$sLinkTextDecoration"/>
             </xsl:attribute>
         </xsl:if>
-    </xsl:template>
-    <!--
-      ApplyTemplatesPerTextRefMode
-   -->
-    <xsl:template name="ApplyTemplatesPerTextRefMode">
-        <xsl:param name="mode"/>
-        <xsl:choose>
-            <xsl:when test="$mode='NoTextRef'">
-                <xsl:apply-templates mode="NoTextRef"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="*[name() !='interlinearSource']"/>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <!--
                   CheckSeeTargetIsCitedOrItsDescendantIsCited
@@ -3452,6 +3375,19 @@ not using
         <xsl:text>.</xsl:text>
     </xsl:template>
     <!--  
+        DoEndnoteRefNumber
+    -->
+    <xsl:template name="DoEndnoteRefNumber">
+        <fo:basic-link internal-destination="{@note}">
+            <xsl:call-template name="AddAnyLinkAttributes"/>
+            <xsl:for-each select="key('EndnoteID',@note)">
+                <xsl:call-template name="GetFootnoteNumber">
+                    <xsl:with-param name="iAdjust" select="0"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </fo:basic-link>
+    </xsl:template>
+    <!--  
         DoFigure
     -->
     <xsl:template name="DoFigure">
@@ -3529,6 +3465,7 @@ not using
         DoInterlinearFree
     -->
     <xsl:template name="DoInterlinearFree">
+        <xsl:param name="originalContext"/>
         <fo:block keep-with-previous.within-page="1">
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->
@@ -3551,7 +3488,9 @@ not using
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
             </fo:inline>
             <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
                 <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear'">
@@ -3578,6 +3517,7 @@ not using
     -->
     <xsl:template name="DoInterlinearLine">
         <xsl:param name="mode"/>
+        <xsl:param name="originalContext"/>
         <fo:table-row>
             <xsl:variable name="bRtl">
                 <xsl:choose>
@@ -3597,7 +3537,9 @@ not using
                                 <xsl:call-template name="OutputFontAttributes">
                                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                                 </xsl:call-template>
-                                <xsl:apply-templates/>
+                                <xsl:apply-templates>
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                </xsl:apply-templates>
                             </fo:block>
                         </fo:table-cell>
                     </xsl:for-each>
@@ -5664,6 +5606,7 @@ not using
     <xsl:template match="styles"/>
     <xsl:template match="style"/>
     <xsl:template match="dd"/>
+    <xsl:template match="referencedInterlinearTexts"/>
     <xsl:template match="term"/>
     <xsl:template match="type"/>
     <xsl:include href="XLingPapCommon.xsl"/>

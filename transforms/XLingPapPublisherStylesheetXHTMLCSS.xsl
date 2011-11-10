@@ -127,8 +127,8 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
     </xsl:variable>
-    <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
+    <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->

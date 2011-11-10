@@ -7,6 +7,7 @@
     <!-- ===========================================================
         Keys
         =========================================================== -->
+    <xsl:key name="EndnoteID" match="//endnote" use="@id"/>
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear | //interlinear-text" use="@text"/>
     <xsl:key name="InterlinearRef" match="//interlinearRef" use="@textref"/>
@@ -53,7 +54,20 @@
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>
-    <xsl:variable name="endnotesToShow" select="//endnote[not(ancestor::referencedInterlinearText)]"/>
+    <xsl:variable name="endnotesToShow">
+        <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)]">
+            <xsl:text>X</xsl:text>
+        </xsl:for-each>
+        <xsl:for-each select="//interlinearRef">
+            <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
+                <xsl:if test="descendant::endnote">
+                    <xsl:text>X</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="bIsBook" select="//chapter"/>
+    <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <!--
         exampleHeading in NotTextRef mode
     -->
@@ -308,7 +322,104 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-        ExampleNumber
+        GetCountOfEndnotesIncludingAnyInInterlinearRefs
+    -->
+    <xsl:template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
+        <xsl:param name="iAdjust"/>
+        <xsl:param name="iPreviousEndnotesInCurrentInterlinearRef" select="0"/>
+        <xsl:variable name="iPreviousEndnotes">
+            <xsl:variable name="iPreviousEndnotesPass1">
+                <xsl:choose>
+                    <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
+                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="$iPreviousEndnotesPass1!=''">
+                    <xsl:value-of select="$iPreviousEndnotesPass1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="iIncludeCurrentInterlinearRef">
+            <xsl:choose>
+                <xsl:when test="name()='interlinearRef'">
+                    <xsl:value-of select="$iAdjust"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="endnotesInPrecedingInterlinearRefs" select="(descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
+        <xsl:variable name="sCount">
+            <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
+                <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
+                <xsl:value-of select="substring($sYs,1,$iCountOfEndnotes)"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
+
+<!--        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
+<!--        <xsl:variable name="i2CountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef"/>
+    </xsl:template>
+    <!--  
+        GetCountOfEndnotesIncludingAnyInInterlinearRefsBook
+    -->
+    <xsl:template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
+        <xsl:param name="iAdjust"/>
+        <xsl:variable name="iPreviousEndnotes">
+            <xsl:variable name="iPreviousEndnotesPass1">
+                <xsl:choose>
+                    <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
+                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="chapter | appendix | glossary | acknowledgements | preface | abstract"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1" from="chapter | appendix | glossary | acknowledgements | preface | abstract"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="$iPreviousEndnotesPass1!=''">
+                    <xsl:value-of select="$iPreviousEndnotesPass1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="iIncludeCurrentInterlinearRef">
+            <xsl:choose>
+                <xsl:when test="name()='interlinearRef'">
+                    <xsl:value-of select="$iAdjust"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="currentAncestor" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+        <!--        <xsl:variable name="endnotesInPrecedingInterlinearRefs" select="(descendant::interlinearRef | preceding::interlinearRef)[ancestor::*[.=$currentAncestor]]"/>
+        <xsl:variable name="sCount">
+            <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
+                <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
+                <xsl:value-of select="substring($sYs,1,$iCountOfEndnotes)"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
+-->
+        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[ancestor::*[.=$currentAncestor]][key('InterlinearReferenceID',@textref)/descendant::endnote])"/>
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef"/>
+    </xsl:template>
+    <!--  
+        GetExampleNumber
     -->
     <xsl:template name="GetExampleNumber">
         <xsl:param name="example"/>
@@ -327,13 +438,62 @@
         GetFootnoteNumber
     -->
     <xsl:template name="GetFootnoteNumber">
-        <xsl:param name="chapters"/>
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iAdjust" select="1"/>
         <xsl:choose>
-            <xsl:when test="$chapters">
-                <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
+            <xsl:when test="parent::author">
+                <xsl:call-template name="DoAuthorFootnoteNumber"/>
+            </xsl:when>
+            <xsl:when test="$bIsBook">
+                <xsl:choose>
+                    <xsl:when test="$originalContext">
+                        <xsl:for-each select="$originalContext">
+                            <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
+                                <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
+                            <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <!--                <xsl:choose>
+                    <xsl:when test="$originalContext">
+                        <xsl:for-each select="$originalContext">
+                            <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+-->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                <xsl:choose>
+                    <xsl:when test="$originalContext and ancestor::interlinear-text">
+                        <xsl:variable name="iPreviousEndnotesInCurrentInterlinearRef">
+                            <xsl:variable name="iIncludingCurrentEndnote">
+                            <xsl:number level="any" count="endnote" format="1" from="interlinear[string-length(@text) &gt; 0]"/>
+                            </xsl:variable>
+                            <xsl:value-of select="number($iIncludingCurrentEndnote) - 1"/>
+                        </xsl:variable>
+                        <xsl:for-each select="$originalContext">
+                            <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
+                                <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                                <xsl:with-param name="iPreviousEndnotesInCurrentInterlinearRef" select="$iPreviousEndnotesInCurrentInterlinearRef"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!--                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>-->
+                        <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
+                            <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-11-04</a:date
+>2011-11-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_2 04 November 2011<ul
+>2.17.0_2 10 November 2011<ul
+><li
+>Made (XeLaTeX style sheet) output correctly handle endnotes embedded within an interlinear referred to by an example interlinearRef. Therefore, you no longer need to copy interlinears when they have embedded endnotes.</li
 ><li
 >Fixed a bug where within an example using an interlinearRef element, the reference to the interlinear within the interlinear-text did not format per the interlinearSourceStyle element of the publisher style sheet.</li
 ><li
@@ -42,7 +44,9 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fixed a bug where the first footnote in a referenced interlinear text would start numbering at one.</li
 ><li
->Fixed an inconsistency where the ISO codes were formatted using a wider width in list elements when the various list elements had different ISO codes.  When all list elements had the same ISO code, the width used for the ISO code was smaller (and the same as a non-list example).  Made them all the same width.</li
+>Fixed an inconsistency where the ISO codes were formatted using a wider width in list elements when the various list elements had different ISO codes. When all list elements had the same ISO code, the width used for the ISO code was smaller (and the same as a non-list example). Made them all the same width.</li
+><li
+>RenderX way of producing PDF: fixed a bug which failed to record location of footnotes so if one referred to a footnote, the link did not work.</li
 ></ul
 ></li
 ><li

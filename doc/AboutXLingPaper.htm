@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_2</span></p>
-      <p align="center">Date: 2011-11-04</p>
+      <p align="center">Date: 2011-11-10</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,8 +34,11 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.17.0_2 04 November 2011
+               <li>2.17.0_2 10 November 2011
                   <ul>
+                     <li>Made (XeLaTeX style sheet) output correctly handle endnotes embedded within an interlinear referred to by an example interlinearRef.
+                        Therefore, you no longer need to copy interlinears when they have embedded endnotes.
+                     </li>
                      <li>Fixed a bug where within an example using an interlinearRef element, the reference to the interlinear within the interlinear-text
                         did not format per the interlinearSourceStyle element of the publisher style sheet.
                      </li>
@@ -45,8 +48,11 @@
                      </li>
                      <li>Fixed a bug where the first footnote in a referenced interlinear text would start numbering at one.</li>
                      <li>Fixed an inconsistency where the ISO codes were formatted using a wider width in list elements when the various list elements
-                        had different ISO codes.  When all list elements had the same ISO code, the width used for the ISO code was smaller (and the
-                        same as a non-list example).  Made them all the same width.
+                        had different ISO codes. When all list elements had the same ISO code, the width used for the ISO code was smaller (and the
+                        same as a non-list example). Made them all the same width.
+                     </li>
+                     <li>RenderX way of producing PDF: fixed a bug which failed to record location of footnotes so if one referred to a footnote, the
+                        link did not work.
                      </li>
                   </ul>
                </li>

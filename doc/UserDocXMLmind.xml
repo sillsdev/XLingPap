@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 November 2011</date
+>10 November 2011</date
 ><version
 >2.17.0_2</version
 ><contents
@@ -9292,10 +9292,29 @@ type="tInstruction"
 ><object
 type="tXLingPap"
 ></object
-> will insert the content of the referenced interlinear in the formatted output. Please note, however, that if there are any <object
+> will insert the content of the referenced interlinear in the formatted output.<endnote
+id="nEndnotesInInterlinearRef"
+><p
+>With earler versions of <object
+type="tXLingPap"
+></object
+> if there were any <object
 type="tElement"
 >endnote</object
-> elements within the referenced interlinear, the number of the endnote/footnote will probably be incorrect. (It will be the number that the interlinear will have in its location in the document, not the number you would expect in the referenced location). The work-around for this situation is to use the second method.</p
+> elements within the referenced interlinear, the number of the endnote/footnote would probably be incorrect. (It was the number that the interlinear would have had in its location in the document, not the number you would expect in the referenced location). The work-around for this situation was to use the second method.</p
+><p
+>Beginning with version 2.17.0_2, however, the numbers will be correct.  Please note, though, that if you have a large number of <object
+type="tElement"
+>interlinearRef</object
+> elements which refer to <object
+type="tElement"
+>interlinear</object
+> elements containing <object
+type="tElement"
+>endnote</object
+> elements, it may take a very long time to process the output.</p
+></endnote
+></p
 ><p
 >The second way is to make a copy of the portion. The advantage of making a copy is that then you can highlight individual words or morphemes that you are discussing in the context. To make the copy, follow these steps:</p
 ><ol

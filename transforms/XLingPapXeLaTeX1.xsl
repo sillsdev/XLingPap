@@ -876,16 +876,6 @@
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
     </xsl:template>
     <!--
-      secTitle
-      -->
-    <xsl:template match="secTitle" mode="InMarker">
-        <!--        <xsl:apply-templates select="child::node()[name()!='endnote']"/>-->
-        <xsl:apply-templates mode="InMarker"/>
-    </xsl:template>
-    <xsl:template match="secTitle">
-        <xsl:apply-templates/>
-    </xsl:template>
-    <!--
       sectionRef
       -->
     <xsl:template match="sectionRef">
@@ -1231,19 +1221,12 @@
     -->
     <xsl:template name="DoEndnote">
         <xsl:param name="sTeXFootnoteKind"/>
+        <xsl:param name="originalContext"/>
         <xsl:variable name="sFootnoteNumber">
-            <xsl:choose>
-                <xsl:when test="parent::author">
-                    <xsl:call-template name="DoAuthorFootnoteNumber"/>
-                </xsl:when>
-                <xsl:when test="$chapters">
-                    <!--                    <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
-                    <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetFootnoteNumber">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+                <xsl:with-param name="iAdjust" select="0"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
         <xsl:choose>
@@ -1263,6 +1246,11 @@
                 <tex:cmd name="footnotemark" gr="0"/>
             </xsl:when>
             <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
+                <xsl:if test="$originalContext">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <tex:cmd name="footnotemark">
                     <xsl:if test="not(ancestor::interlinear-text)">
                         <tex:opt>
@@ -1272,6 +1260,11 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext'">
+                <xsl:if test="$originalContext">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <tex:cmd name="footnotemark">
                     <xsl:if test="not(ancestor::interlinear-text)">
                         <tex:opt>
@@ -1281,6 +1274,11 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:if test="$originalContext and $sTeXFootnoteKind!='footnotetext'">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->
                 <tex:cmd name="protect" gr="0"/>
                 <tex:cmd name="{$sTeXFootnoteKind}">
@@ -1308,6 +1306,21 @@
                 </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoEndnoteRefNumber
+    -->
+    <xsl:template name="DoEndnoteRefNumber">
+        <xsl:call-template name="DoInternalHyperlinkBegin">
+            <xsl:with-param name="sName" select="@note"/>
+        </xsl:call-template>
+        <xsl:call-template name="AddAnyLinkAttributes"/>
+        <xsl:for-each select="key('EndnoteID',@note)">
+            <xsl:call-template name="GetFootnoteNumber">
+                <xsl:with-param name="iAdjust" select="0"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
     </xsl:template>
     <!--
         DoExampleNumber
@@ -1553,6 +1566,7 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <xsl:template match="gloss">
+        <xsl:param name="originalContext"/>
         <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
             <tex:spec cat="bg"/>
         </xsl:if>
@@ -1564,7 +1578,9 @@
         <xsl:call-template name="DoEmbeddedBrBegin">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
-        <xsl:apply-templates/>
+        <xsl:apply-templates>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
@@ -1583,6 +1599,7 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <xsl:template match="langData">
+        <xsl:param name="originalContext"/>
         <tex:spec cat="bg"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:call-template name="OutputFontAttributes">
@@ -1593,7 +1610,9 @@
         <xsl:call-template name="DoEmbeddedBrBegin">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
-        <xsl:apply-templates/>
+        <xsl:apply-templates>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
@@ -1617,9 +1636,11 @@
         endnote in flow of text
     -->
     <xsl:template match="endnote">
+        <xsl:param name="originalContext"/>
         <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -1627,6 +1648,7 @@
     -->
     <xsl:template match="endnote[parent::langData or parent::gloss]">
         <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
+        <xsl:param name="originalContext"/>
         <!-- need to end any font attributes in effect, do the endnote, and then re-start any font attributes-->
         <xsl:variable name="language" select="key('LanguageID',../@lang)"/>
         <xsl:if test="$sTeXFootnoteKind='footnote'">
@@ -1636,6 +1658,7 @@
         </xsl:if>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
         <xsl:if test="$sTeXFootnoteKind='footnote'">
             <xsl:call-template name="OutputFontAttributes">
@@ -1649,23 +1672,16 @@
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                <xsl:call-template name="DoInternalHyperlinkBegin">
-                    <xsl:with-param name="sName" select="@note"/>
-                </xsl:call-template>
-                <xsl:call-template name="AddAnyLinkAttributes"/>
-                <xsl:apply-templates select="id(@note)" mode="endnote"/>
-                <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                <xsl:call-template name="DoEndnoteRefNumber"/>
+            </xsl:when>
+            <xsl:when test="@showNumberOnly='yes'">
+                <xsl:call-template name="DoEndnoteRefNumber"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="sFootnoteNumber">
-                    <xsl:choose>
-                        <xsl:when test="$chapters">
-                            <xsl:number level="any" count="endnote | endnoteRef" from="chapter"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)]" format="1"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="iAdjust" select="0"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <tex:cmd name="footnote">
@@ -1677,12 +1693,7 @@
                     </xsl:if>
                     <tex:parm>
                         <xsl:text>See footnote </xsl:text>
-                        <xsl:call-template name="DoInternalHyperlinkBegin">
-                            <xsl:with-param name="sName" select="@note"/>
-                        </xsl:call-template>
-                        <xsl:call-template name="AddAnyLinkAttributes"/>
-                        <xsl:apply-templates select="id(@note)" mode="endnote"/>
-                        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                        <xsl:call-template name="DoEndnoteRefNumber"/>
                         <xsl:choose>
                             <xsl:when test="$chapters">
                                 <xsl:text> in chapter </xsl:text>
@@ -2656,6 +2667,39 @@
         <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
+        DoFootnoteTextAfterFree
+    -->
+    <xsl:template name="DoFootnoteTextAfterFree">
+        <xsl:param name="originalContext"/>
+        <xsl:for-each select="descendant-or-self::endnote">
+            <xsl:apply-templates select=".">
+                <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoFootnoteTextAtEndOfInLineGroup
+    -->
+    <xsl:template name="DoFootnoteTextAtEndOfInLineGroup">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="HandleFootnoteTextInLineGroup">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoFootnoteTextWithinWrappableWrd
+    -->
+    <xsl:template name="DoFootnoteTextWithinWrappableWrd">
+        <xsl:param name="originalContext"/>
+        <xsl:for-each select="descendant-or-self::endnote">
+            <xsl:apply-templates select=".">
+                <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:apply-templates>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         DoGlossary
     -->
     <xsl:template name="DoGlossary">
@@ -3572,8 +3616,10 @@
         HandleFreeNoLanguageFontInfo
     -->
     <xsl:template name="HandleFreeNoLanguageFontInfo">
-        <!-- this is here because the style sheet version has content -->
-        <xsl:apply-templates/>
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!--  
         FleshOutRefCitation
@@ -4221,13 +4267,16 @@
         <xsl:param name="sSource"/>
         <xsl:param name="sRef"/>
         <xsl:param name="bContentOnly" select="'N'"/>
+        <xsl:param name="originalContext"/>
         <xsl:if test="$bContentOnly!='Y'">
             <tex:cmd name="hfill" nl2="0"/>
         </xsl:if>
         <xsl:text>[</xsl:text>
         <xsl:choose>
             <xsl:when test="$sSource">
-                <xsl:apply-templates select="$sSource" mode="contents"/>
+                <xsl:apply-templates select="$sSource" mode="contents">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:when test="string-length(normalize-space($sRef)) &gt; 0">
                 <tex:group>
@@ -4696,6 +4745,7 @@
     <xsl:template match="styles"/>
     <xsl:template match="style"/>
     <xsl:template match="dd"/>
+    <xsl:template match="referencedInterlinearTexts"/>
     <xsl:template match="term"/>
     <xsl:template match="type"/>
     <!-- ===========================================================

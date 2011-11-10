@@ -595,6 +595,84 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        DoBookEndnotesLabelingContent
+    -->
+    <xsl:template name="DoBookEndnotesLabelingContent">
+        <xsl:param name="chapterOrAppendixUnit"/>
+        <xsl:choose>
+            <xsl:when test="name($chapterOrAppendixUnit)='chapter'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    <xsl:with-param name="sDefault" select="'Chapter'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='appendix'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+                    <xsl:with-param name="sDefault" select="'Appendix'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='glossary'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/glossaryLayout/glossaryTitleLayout"/>
+                    <xsl:with-param name="sDefault" select="'Glossary'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='acknowledgements'">
+                <xsl:choose>
+                    <xsl:when test="ancestor::frontMatter">
+                        <xsl:call-template name="DoEndnoteSectionLabel">
+                            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
+                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoEndnoteSectionLabel">
+                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
+                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='preface'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout/prefaceTitleLayout"/>
+                    <xsl:with-param name="sDefault" select="'Preface'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='abstract'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout/abstractTitleLayout"/>
+                    <xsl:with-param name="sDefault" select="'Abstract'"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoBookEndnoteSectionLabel
+    -->
+    <xsl:template name="DoBookEndnoteSectionLabel">
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$originalContext">
+                <xsl:for-each select="$originalContext">
+                    <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                    <xsl:call-template name="DoBookEndnotesLabeling">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                <xsl:call-template name="DoBookEndnotesLabeling">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoBookLayout
     -->
     <xsl:template name="DoBookLayout">
@@ -1317,6 +1395,25 @@
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoEndnoteSectionLabel
+    -->
+    <xsl:template name="DoEndnoteSectionLabel">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="sDefault"/>
+        <xsl:variable name="sTextBefore" select="normalize-space($layoutInfo/@textbefore)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sTextBefore) &gt; 0">
+                <xsl:value-of select="$sTextBefore"/>
+            </xsl:when>
+            <xsl:when test="string-length(normalize-space($lingPaper/@chapterlabel)) &gt; 0">
+                <xsl:value-of select="$lingPaper/@chapterlabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefault"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  

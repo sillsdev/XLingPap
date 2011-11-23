@@ -819,6 +819,11 @@ examples
          </listInterlinear>
       </example>
    </cfg:elementTemplate>
+    <cfg:elementTemplate name="interlinearRef">
+        <listInterlinear letter="x" xmlns="">
+            <interlinearRef textref="T"/>
+        </listInterlinear>
+    </cfg:elementTemplate>
    <cfg:elementTemplate name="listInterlinear_l_free">
       <example num="x" xmlns="">
          <listInterlinear cfg:template="l_free"/>
@@ -2159,5 +2164,11 @@ table
             </textInfo>
             <interlinear cfg:template="interlinear"/>
             </interlinear-text>
+    </cfg:elementTemplate>
+    <cfg:elementTemplate name="publishingInfo" selectable="override">
+        <publishingInfo xmlns="">
+            <publishingBlurb>
+            </publishingBlurb>
+        </publishingInfo>
     </cfg:elementTemplate>
 </cfg:configuration>

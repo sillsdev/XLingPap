@@ -407,7 +407,7 @@
     the textref IDREF refers to a text ID when the interlinear is in an example
     interlinearSource is a way to manually indicate where the interlinear came from
 -->
-<!ELEMENT interlinear ((exampleHeading | lineGroup | free | interlinear | phrase)+, interlinearSource?)>
+<!ELEMENT interlinear (exampleHeading?, (lineGroup | free | interlinear | phrase)+, interlinearSource?)>
 <!ATTLIST interlinear
     text ID #IMPLIED
     textref IDREF #IMPLIED
@@ -453,7 +453,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT exampleHeading (#PCDATA | %embedded;)*>
-<!ELEMENT listInterlinear ((exampleHeading | lineGroup | free | interlinear | interlinearRef | phrase)+, interlinearSource?)>
+<!ELEMENT listInterlinear (exampleHeading?, (lineGroup | free | interlinear | interlinearRef | phrase)+, interlinearSource?)>
 <!ATTLIST listInterlinear
     letter ID #REQUIRED
 >

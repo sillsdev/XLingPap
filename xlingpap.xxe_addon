@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.17.0_2</a:version
+>2.17.0_3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-11-10</a:date
+>2011-11-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,32 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.17.0_3 23 Novembr 2011<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Added a way to tell XeLaTeX to hyphenate based on the language of the document (which can be labeled as being something other than English).</li
+><li
+>Fixed alignment of table in an example when there ISO codes were shown.</li
+><li
+>Fixed alignment of some interlinears with example headings when ISO codes were shown.</li
+><li
+>Fixed alignment of some list interlinears with example headings when ISO codes were shown.</li
+></ul
+></li
+><li
+>Previously, one could put an exampleHeading element anywhere within an interlinear. Fixed it so it could only appear at the beginning.</li
+><li
+>Added an element template for inserting a listInterlinear that consists just of an interlinearRef as an option when adding a new listInterlinear to an example containing other kinds of listInterlinears.</li
+><li
+>Fixed the 'Oh, dear!' report so that it will show the file name.</li
+><li
+>Added an integrity check for when a &lt;br/&gt; element is used within a &lt;line&gt; element in an interlinear. Doing this will probably not produce the default PDF. Use a chart or a table instead.</li
+><li
+>Improved how publishingInfo and publishingBlurb are shown in XXE.</li
+></ul
+></li
 ><li
 >2.17.0_2 10 November 2011<ul
 ><li

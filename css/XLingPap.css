@@ -2606,11 +2606,13 @@ publisher:after
 
 publishingInfo:before
 {
-	content: "Publishing info: ";
+	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Publishing info: ";
 }
 publishingInfo
 {
 	display:block;
+	property-group: isCollapsible( yes, 1);
 }
 
 publishingBlurb

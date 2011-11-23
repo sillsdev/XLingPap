@@ -313,6 +313,32 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--  
+        HandleAnyExampleHeadingAdjustWithISOCode
+    -->
+    <xsl:template name="HandleAnyExampleHeadingAdjustWithISOCode">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N'))">
+            <xsl:choose>
+                <xsl:when test="exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear]">
+                    <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
+                    <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- do nothing -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleEmbeddedListItem
+    -->
     <xsl:template name="HandleEmbeddedListItem">
         <xsl:param name="sThisItemWidth"/>
         <xsl:variable name="myEndnote" select="ancestor::endnote"/>
@@ -832,6 +858,7 @@
         interlinearRef
     -->
     <xsl:template match="interlinearRef">
+        <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="bHasExampleHeading">
             <xsl:choose>
                 <xsl:when test="preceding-sibling::*[1][name()='exampleHeading']">
@@ -849,12 +876,14 @@
                     <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates>
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1710,23 +1739,38 @@
         exampleHeading
     -->
     <xsl:template match="exampleHeading">
+        <xsl:param name="bCalculateHeight" select="'N'"/>
         <xsl:choose>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='interlinear' or name()='interlinearRef' or name()='listInterlinear']">
-                <xsl:call-template name="DoExampleHeadingWhenWrappable"/>
+                <xsl:call-template name="DoExampleHeadingWhenWrappable">
+                    <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and parent::*[name()='interlinear' or name()='listInterlinear']">
-                <xsl:call-template name="DoExampleHeadingWhenWrappable"/>
+                <xsl:call-template name="DoExampleHeadingWhenWrappable">
+                    <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <!--      2011.11.15          <xsl:apply-templates/>-->
+                <xsl:call-template name="DoExampleHeadingWhenWrappable">
+                    <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
+                </xsl:call-template>
                 <xsl:choose>
                     <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
                         <tex:cmd name="newline" gr="0" nl2="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="CreateBreakAfter">
+                        <xsl:if test="following-sibling::*[1][name()='single' or name()='word' or name()='chart' or name()='definition' or name()='tree']">
+                            <tex:spec cat="esc"/>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>*
+</xsl:text>
+                        </xsl:if>
+                        <!-- 2011.11.15                        <xsl:call-template name="CreateBreakAfter">
                             <xsl:with-param name="example" select="parent::excample"/>
                         </xsl:call-template>
+-->
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
@@ -2089,6 +2133,7 @@
     -->
     <xsl:template name="AdjustFootnoteNumberPerInterlinearRefs">
         <xsl:param name="originalContext"/>
+        <xsl:param name="iAdjust" select="0"/>
         <tex:cmd name="setcounter">
             <tex:parm>
                 <xsl:text>footnote</xsl:text>
@@ -2096,7 +2141,7 @@
             <tex:parm>
                 <xsl:call-template name="GetFootnoteNumber">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="iAdjust" select="0"/>
+                    <xsl:with-param name="iAdjust" select="$iAdjust"/>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -2162,7 +2207,7 @@
         <xsl:variable name="iPos" select="count(preceding-sibling::wrd) + 1"/>
         <tex:cmd name="hbox">
             <tex:parm>
-                <!--       cannot use an environment because it inserts a newline which causes alignment issues
+                <!--       cannot use a tex:env because it inserts a newline which causes alignment issues
                     <tex:env name="tabular" nl1="0">-->
                 <tex:spec cat="esc"/>
                 <xsl:text>begin</xsl:text>
@@ -2212,6 +2257,7 @@
                 <!--                            </tex:env>-->
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="not($originalContext)">
         <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
             <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
                 <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -2225,6 +2271,7 @@
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </xsl:for-each>
+        </xsl:if>
         <xsl:text>&#x20;</xsl:text>
     </xsl:template>
     <!--  
@@ -2241,6 +2288,46 @@
                 <xsl:with-param name="sList" select="$sRest"/>
             </xsl:call-template>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        CalculateExampleAndExampleHeadingHeights
+    -->
+    <xsl:template name="CalculateExampleAndExampleHeadingHeights">
+        <xsl:param name="bListsShareSameCode"/>
+        <tex:cmd name="setbox0" gr="0"/>
+        <xsl:text>=</xsl:text>
+        <tex:cmd name="vbox">
+            <tex:parm>
+                <xsl:call-template name="DoExampleNumber">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
+        <xsl:text>=</xsl:text>
+        <tex:spec cat="esc"/>
+        <xsl:text>ht0 </xsl:text>
+        <tex:cmd name="advance" gr="0"/>
+        <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
+        <xsl:text> by </xsl:text>
+        <tex:cmd name="dp0" gr="0" nl2="1"/>
+        <tex:cmd name="setbox0" gr="0"/>
+        <xsl:text>=</xsl:text>
+        <tex:cmd name="vbox">
+            <tex:parm>
+                <xsl:apply-templates select="descendant::exampleHeading[1]">
+                    <xsl:with-param name="bCalculateHeight" select="'Y'"/>
+                </xsl:apply-templates>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
+        <xsl:text>=</xsl:text>
+        <tex:spec cat="esc"/>
+        <xsl:text>ht0 </xsl:text>
+        <tex:cmd name="advance" gr="0"/>
+        <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
+        <xsl:text> by </xsl:text>
+        <tex:cmd name="dp0" gr="0" nl2="1"/>
     </xsl:template>
     <!--  
         CalculateSectionNumberIndent
@@ -2421,6 +2508,7 @@
     -->
     <xsl:template name="CreateBreakAfter">
         <xsl:param name="example"/>
+        <xsl:param name="originalContext"/>
         <!--          <xsl:for-each select="$example">
         <xsl:choose>
             <xsl:when test="parent::td">
@@ -2433,12 +2521,81 @@
             <xsl:otherwise> -->
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
-        <xsl:text>*
+        <!-- when we're showing ISO codes in an example/interlinearRef and the depth of the example number and ISO code is more than what's in the lineGroup,
+                 then we need to move any following material up       
+        -->
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes' and  $bAutomaticallyWrapInterlinears!='yes' and $originalContext and parent::interlinear and ancestor::interlinear-text and count(preceding-sibling::*)=0">
+                <xsl:choose>
+                    <xsl:when test="$originalContext[parent::example]">
+                        <xsl:variable name="iLineCount" select="count(line)"/>
+                        <xsl:variable name="sIsoCode">
+                            <xsl:call-template name="GetISOCode"/>
+                        </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sIsoCode) &gt; 3">
+                                <!-- the ISO code takes two extra lines -->
+                                <xsl:choose>
+                                    <xsl:when test="$iLineCount &lt; 3">
+                                        <xsl:choose>
+                                            <xsl:when test="$iLineCount=1">
+                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                                    <xsl:with-param name="iAdjust" select="'1.65'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                                    <xsl:with-param name="iAdjust" select="'.65'"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>*
 </xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- the ISO code takes one extra line -->
+                                <xsl:choose>
+                                    <xsl:when test="$iLineCount=1">
+                                        <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                            <xsl:with-param name="iAdjust" select="'.65'"/>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>*
+</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>*
+</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>*
+</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <!--            </xsl:otherwise>
         </xsl:choose>
         </xsl:for-each>
 -->
+    </xsl:template>
+    <xsl:template name="AdjustForLongerISOCodeInInterlinearRef">
+        <xsl:param name="iAdjust"/>
+        <xsl:text>*</xsl:text>
+        <tex:spec cat="lsb"/>
+        <xsl:text>-</xsl:text>
+        <xsl:value-of select="$iAdjust"/>
+        <tex:cmd name="baselineskip" gr="0"/>
+        <tex:spec cat="rsb" nl2="1"/>
     </xsl:template>
     <!--
         CreateColumnSpec
@@ -3102,6 +3259,7 @@
         DoExampleHeadingWhenWrappable
     -->
     <xsl:template name="DoExampleHeadingWhenWrappable">
+        <xsl:param name="bCalculateHeight" select="'N'"/>
         <tex:cmd name="parbox">
             <tex:opt>t</tex:opt>
             <tex:parm>
@@ -3129,24 +3287,70 @@
                         <xsl:call-template name="GetISOCode"/>
                     </xsl:for-each>
                 </xsl:variable>
-                <xsl:variable name="sAdjustmentValue" select=".8"/>
-                <xsl:if test="string-length($sIsoCode) &gt; 0 ">
-                    <tex:cmd name="vspace*">
+                <!-- 2011.11.17               <xsl:variable name="sAdjustmentValue" select=".8"/>-->
+                <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) &gt; 0 ">
+                        <xsl:if test="$bCalculateHeight='N'">
+                            <xsl:if test="parent::example">
+                                <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes">
+                                    <tex:parm>
+                                        <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
+                                    </tex:parm>
+                                    <tex:parm>
+                                        <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
+                                    </tex:parm>
+                                </tex:cmd>
+                                <!--                            <tex:cmd name="vspace*">
+                                    <tex:parm>
+                                    <xsl:text>-.8</xsl:text>
+                                    <tex:cmd name="baselineskip" gr="0"/>
+                                    </tex:parm>
+                                    </tex:cmd>
+                                -->
+                            </xsl:if>
+                            <tex:cmd name="linebreak" gr="0" nl2="1"/>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="linebreak" gr="0" nl2="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <!-- 2011.11.17                   <tex:cmd name="vspace*">
                         <tex:parm>
                             <xsl:text>-</xsl:text>
                             <xsl:value-of select="$sAdjustmentValue"/>
                             <tex:cmd name="baselineskip" gr="0"/>
                         </tex:parm>
                     </tex:cmd>
-                </xsl:if>
-                <tex:cmd name="linebreak" gr="0" nl2="1"/>
-                <xsl:if test="string-length($sIsoCode) &gt; 0 ">
+-->
+                <!--  2011.11.17         <xsl:if test="string-length($sIsoCode) &gt; 0 ">
                     <tex:cmd name="vspace*">
                         <tex:parm>
                             <xsl:value-of select="$sAdjustmentValue"/>
                             <tex:cmd name="baselineskip" gr="0"/>
                         </tex:parm>
                     </tex:cmd>
+                </xsl:if>
+     -->
+            </xsl:when>
+            <xsl:when test="parent::interlinear[parent::example][count(preceding-sibling::*)=0]">
+                <xsl:if test="$bCalculateHeight='N'">
+                    <xsl:variable name="sIsoCode">
+                        <xsl:for-each select="following-sibling::*[1]">
+                            <xsl:call-template name="GetISOCode"/>
+                        </xsl:for-each>
+                    </xsl:variable>
+                    <xsl:if test="string-length($sIsoCode) &gt; 0">
+                        <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:if>
+                    <tex:cmd name="newline"/>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="parent::example">
@@ -3306,49 +3510,9 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
-            <xsl:if test="contains($bListsShareSameCode,'N')">
-                <!-- need to compensate for the extra space of the ISO code -->
-                <xsl:variable name="sIsoCode">
-                    <xsl:for-each select="parent::listInterlinear">
-                        <xsl:call-template name="GetISOCode"/>
-                    </xsl:for-each>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="string-length($sIsoCode) &gt; 3">
-                        <tex:cmd name="setlength">
-                            <tex:parm>
-                                <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
-                            </tex:parm>
-                            <tex:parm>
-                                <xsl:text>2.75em</xsl:text>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <tex:cmd name="settowidth">
-                            <tex:parm>
-                                <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
-                            </tex:parm>
-                            <tex:parm>
-                                <xsl:call-template name="OutputISOCodeInExample">
-                                    <xsl:with-param name="bOutputBreak" select="'N'"/>
-                                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <tex:cmd name="hspace*">
-                    <tex:parm>
-                        <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
-                    </tex:parm>
-                </tex:cmd>
-                <tex:cmd name="hspace*">
-                    <tex:parm>
-                        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
-                    </tex:parm>
-                </tex:cmd>
-            </xsl:if>
+            <xsl:call-template name="AdjustFreePositionForISOCodeInListInterlinear">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
             <tex:cmd name="hspace*">
                 <tex:parm>
                     <tex:cmd name="XLingPaperexamplefreeindent" gr="0"/>
@@ -3384,6 +3548,11 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:if test="$originalContext">
+                <xsl:call-template name="AdjustFreePositionForISOCodeInListInterlinear">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:if test="following-sibling::*[1][name()='lineGroup']">
                 <tex:spec cat="bg"/>
             </xsl:if>
@@ -3392,6 +3561,10 @@
             <xsl:choose>
                 <xsl:when test="$mode='NoTextRef'">
                     <xsl:text>2</xsl:text>
+                </xsl:when>
+                <xsl:when test="contains($bListsShareSameCode,'N')">
+                    <!-- want 1 plus 2.75 -->
+                    <xsl:text>3.75</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>1</xsl:text>
@@ -3510,6 +3683,62 @@
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template name="AdjustFreePositionForISOCodeInListInterlinear">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="contains($bListsShareSameCode,'N')">
+            <!-- need to compensate for the extra space of the ISO code -->
+            <xsl:variable name="sIsoCode">
+                <xsl:choose>
+                    <xsl:when test="parent::listInterlinear">
+                        <xsl:for-each select="parent::listInterlinear">
+                            <xsl:call-template name="GetISOCode"/>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- assume is from an interlinearRef -->
+                        <xsl:for-each select="parent::interlinear">
+                            <xsl:call-template name="GetISOCode"/>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="string-length($sIsoCode) &gt; 3">
+                    <tex:cmd name="setlength">
+                        <tex:parm>
+                            <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:text>2.75em</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="settowidth">
+                        <tex:parm>
+                            <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:call-template name="OutputISOCodeInExample">
+                                <xsl:with-param name="bOutputBreak" select="'N'"/>
+                                <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
+            <tex:cmd name="hspace*">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperisocodewidth" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="hspace*">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -3680,7 +3909,15 @@
                     <xsl:variable name="iRowCount" select="count(line)"/>
                     <tex:cmd name="multirow">
                         <tex:parm>
-                            <xsl:value-of select="$iRowCount"/>
+                            <!-- 2011.11.16 was just output $iRowCount -->
+                            <xsl:choose>
+                                <xsl:when test="parent::listInterlinear">
+                                    <xsl:text>2</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$iRowCount"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </tex:parm>
                         <tex:parm>
                             <xsl:text>2.75em</xsl:text>
@@ -3695,6 +3932,7 @@
                 <xsl:call-template name="OutputListLevelISOCode">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
+                    <xsl:with-param name="bCloseOffMultirow" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:if test="string-length($sListIsoCode) &gt; 3">
                     <tex:cat spec="eg"/>
@@ -3717,6 +3955,7 @@
             <xsl:when test="following-sibling::*[1][name()='free'] or parent::interlinear/following-sibling::*[1][name()='free']">
                 <xsl:call-template name="CreateBreakAfter">
                     <xsl:with-param name="example" select="ancestor::example[1]"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3732,7 +3971,7 @@
     -->
     <xsl:template name="DoInterlinearTabularMainPattern">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="contains($bListsShareSameCode,'N')">
+        <!-- 2011.11.16        <xsl:if test="contains($bListsShareSameCode,'N')">
             <xsl:variable name="sIsoCode">
                 <xsl:for-each select="parent::listInterlinear">
                     <xsl:call-template name="GetISOCode"/>
@@ -3745,6 +3984,7 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>
+-->
         <xsl:text>*</xsl:text>
         <tex:spec cat="bg"/>
         <xsl:variable name="iColCount">
@@ -4225,6 +4465,10 @@
             <xsl:when test="$mode='NoTextRef'">
                 <xsl:text>2</xsl:text>
             </xsl:when>
+            <xsl:when test="contains($bListsShareSameCode,'N')">
+                <!-- want 1 plus 2.75 -->
+                <xsl:text>3.75</xsl:text>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:text>1</xsl:text>
             </xsl:otherwise>
@@ -4314,6 +4558,13 @@
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:if test="$originalContext">
+                <xsl:for-each select="line">
+                    <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <!-- uses langData or gloss with #PCDATA -->
@@ -4682,11 +4933,141 @@
         <xsl:text>pt</xsl:text>
     </xsl:template>
     <!--  
+        GetHyphenationLanguage
+    -->
+    <xsl:template name="GetHyphenationLanguage">
+        <xsl:choose>
+            <xsl:when test="$documentLang='am'">amharic</xsl:when>
+            <xsl:when test="$documentLang='amh'">amharic</xsl:when>
+            <xsl:when test="$documentLang='ar'">arabic</xsl:when>
+            <xsl:when test="$documentLang='ara'">arabic</xsl:when>
+            <xsl:when test="$documentLang='ast'">asturian</xsl:when>
+            <xsl:when test="$documentLang='ben'">bengali</xsl:when>
+            <xsl:when test="$documentLang='bg'">bulgarian</xsl:when>
+            <xsl:when test="$documentLang='bn'">bengali</xsl:when>
+            <xsl:when test="$documentLang='br'">breton</xsl:when>
+            <xsl:when test="$documentLang='bre'">breton</xsl:when>
+            <xsl:when test="$documentLang='bul'">bulgarian</xsl:when>
+            <xsl:when test="$documentLang='ca'">catalan</xsl:when>
+            <xsl:when test="$documentLang='cat'">catalan</xsl:when>
+            <xsl:when test="$documentLang='ces'">czech</xsl:when>
+            <xsl:when test="$documentLang='cop'">coptic</xsl:when>
+            <xsl:when test="$documentLang='cs'">czech</xsl:when>
+            <xsl:when test="$documentLang='cy'">welsh</xsl:when>
+            <xsl:when test="$documentLang='cym'">welsh</xsl:when>
+            <xsl:when test="$documentLang='da'">danish</xsl:when>
+            <xsl:when test="$documentLang='dan'">danish</xsl:when>
+            <xsl:when test="$documentLang='de'">german</xsl:when>
+            <xsl:when test="$documentLang='deu'">german</xsl:when>
+            <xsl:when test="$documentLang='dsb'">lsorbian</xsl:when>
+            <xsl:when test="$documentLang='el'">greek</xsl:when>
+            <xsl:when test="$documentLang='ell'">greek</xsl:when>
+            <xsl:when test="$documentLang='en'">english</xsl:when>
+            <xsl:when test="$documentLang='eng'">english</xsl:when>
+            <xsl:when test="$documentLang='eo'">esperanto</xsl:when>
+            <xsl:when test="$documentLang='epo'">esperanto</xsl:when>
+            <xsl:when test="$documentLang='es'">spanish</xsl:when>
+            <xsl:when test="$documentLang='est'">estonian</xsl:when>
+            <xsl:when test="$documentLang='et'">estonian</xsl:when>
+            <xsl:when test="$documentLang='eu'">basque</xsl:when>
+            <xsl:when test="$documentLang='eus'">basque</xsl:when>
+            <xsl:when test="$documentLang='fa'">farsi</xsl:when>
+            <xsl:when test="$documentLang='fas'">farsi</xsl:when>
+            <xsl:when test="$documentLang='fi'">finnish</xsl:when>
+            <xsl:when test="$documentLang='fin'">finnish</xsl:when>
+            <xsl:when test="$documentLang='fr'">french</xsl:when>
+            <xsl:when test="$documentLang='fra'">french</xsl:when>
+            <xsl:when test="$documentLang='ga'">irish</xsl:when>
+            <xsl:when test="$documentLang='gd'">scottish</xsl:when>
+            <xsl:when test="$documentLang='gl'">galician</xsl:when>
+            <xsl:when test="$documentLang='gla'">scottish</xsl:when>
+            <xsl:when test="$documentLang='gle'">irish</xsl:when>
+            <xsl:when test="$documentLang='glg'">galician</xsl:when>
+            <xsl:when test="$documentLang='he'">hebrew</xsl:when>
+            <xsl:when test="$documentLang='heb'">hebrew</xsl:when>
+            <xsl:when test="$documentLang='hi'">hindi</xsl:when>
+            <xsl:when test="$documentLang='hin'">hindi</xsl:when>
+            <xsl:when test="$documentLang='hr'">croatian</xsl:when>
+            <xsl:when test="$documentLang='hrv'">croatian</xsl:when>
+            <xsl:when test="$documentLang='hsb'">usorbian</xsl:when>
+            <xsl:when test="$documentLang='hu'">hungarian</xsl:when>
+            <xsl:when test="$documentLang='hun'">hungarian</xsl:when>
+            <xsl:when test="$documentLang='hy'">armenian</xsl:when>
+            <xsl:when test="$documentLang='hye'">armenian</xsl:when>
+            <xsl:when test="$documentLang='ia'">interlingua</xsl:when>
+            <xsl:when test="$documentLang='id'">indonesian</xsl:when>
+            <xsl:when test="$documentLang='ina'">interlingua</xsl:when>
+            <xsl:when test="$documentLang='ind'">indonesian</xsl:when>
+            <xsl:when test="$documentLang='is'">icelandic</xsl:when>
+            <xsl:when test="$documentLang='isl'">icelandic</xsl:when>
+            <xsl:when test="$documentLang='it'">italian</xsl:when>
+            <xsl:when test="$documentLang='ita'">italian</xsl:when>
+            <xsl:when test="$documentLang='la'">latin</xsl:when>
+            <xsl:when test="$documentLang='lao'">lao</xsl:when>
+            <xsl:when test="$documentLang='lat'">latin</xsl:when>
+            <xsl:when test="$documentLang='lav'">latvian</xsl:when>
+            <xsl:when test="$documentLang='lit'">lithuanian</xsl:when>
+            <xsl:when test="$documentLang='lo'">lao</xsl:when>
+            <xsl:when test="$documentLang='lt'">lithuanian</xsl:when>
+            <xsl:when test="$documentLang='lv'">latvian</xsl:when>
+            <xsl:when test="$documentLang='mal'">malayalam</xsl:when>
+            <xsl:when test="$documentLang='mar'">marathi</xsl:when>
+            <xsl:when test="$documentLang='ml'">malayalam</xsl:when>
+            <xsl:when test="$documentLang='mr'">marathi</xsl:when>
+            <xsl:when test="$documentLang='ms'">malay</xsl:when>
+            <xsl:when test="$documentLang='msa'">malay</xsl:when>
+            <xsl:when test="$documentLang='nl'">dutch</xsl:when>
+            <xsl:when test="$documentLang='nld'">dutch</xsl:when>
+            <xsl:when test="$documentLang='nn'">nynorsk</xsl:when>
+            <xsl:when test="$documentLang='nno'">nynorsk</xsl:when>
+            <xsl:when test="$documentLang='oc'">occitan</xsl:when>
+            <xsl:when test="$documentLang='oci'">occitan</xsl:when>
+            <xsl:when test="$documentLang='pl'">polish</xsl:when>
+            <xsl:when test="$documentLang='pol'">polish</xsl:when>
+            <xsl:when test="$documentLang='por'">portuges</xsl:when>
+            <xsl:when test="$documentLang='pt'">portuges</xsl:when>
+            <xsl:when test="$documentLang='ro'">romanian</xsl:when>
+            <xsl:when test="$documentLang='ron'">romanian</xsl:when>
+            <xsl:when test="$documentLang='ru'">russian</xsl:when>
+            <xsl:when test="$documentLang='rus'">russian</xsl:when>
+            <xsl:when test="$documentLang='sa'">sanskrit</xsl:when>
+            <xsl:when test="$documentLang='san'">sanskrit</xsl:when>
+            <xsl:when test="$documentLang='sk'">slovak</xsl:when>
+            <xsl:when test="$documentLang='sl'">slovenian</xsl:when>
+            <xsl:when test="$documentLang='slk'">slovak</xsl:when>
+            <xsl:when test="$documentLang='slv'">slovenian</xsl:when>
+            <xsl:when test="$documentLang='spa'">spanish</xsl:when>
+            <xsl:when test="$documentLang='sq'">albanian</xsl:when>
+            <xsl:when test="$documentLang='sqi'">albanian</xsl:when>
+            <xsl:when test="$documentLang='sr'">serbian</xsl:when>
+            <xsl:when test="$documentLang='srp'">serbian</xsl:when>
+            <xsl:when test="$documentLang='sv'">swedish</xsl:when>
+            <xsl:when test="$documentLang='swe'">swedish</xsl:when>
+            <xsl:when test="$documentLang='syr'">syriac</xsl:when>
+            <xsl:when test="$documentLang='ta'">tamil</xsl:when>
+            <xsl:when test="$documentLang='tam'">tamil</xsl:when>
+            <xsl:when test="$documentLang='te'">telugu</xsl:when>
+            <xsl:when test="$documentLang='tel'">telugu</xsl:when>
+            <xsl:when test="$documentLang='th'">thai</xsl:when>
+            <xsl:when test="$documentLang='tha'">thai</xsl:when>
+            <xsl:when test="$documentLang='tk'">turkmen</xsl:when>
+            <xsl:when test="$documentLang='tr'">turkish</xsl:when>
+            <xsl:when test="$documentLang='tuk'">turkmen</xsl:when>
+            <xsl:when test="$documentLang='tur'">turkish</xsl:when>
+            <xsl:when test="$documentLang='uk'">ukrainian</xsl:when>
+            <xsl:when test="$documentLang='ukr'">ukrainian</xsl:when>
+            <xsl:when test="$documentLang='ur'">urdu</xsl:when>
+            <xsl:when test="$documentLang='urd'">urdu</xsl:when>
+            <xsl:when test="$documentLang='vi'">vietnamese</xsl:when>
+            <xsl:when test="$documentLang='vie'">vietnamese</xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetISOCode
     -->
     <xsl:template name="GetISOCode">
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
-            <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
+            <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
             <xsl:if test="$firstLangData">
                 <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
             </xsl:if>
@@ -4753,21 +5134,22 @@
                         <xsl:call-template name="GetISOCode"/>
                     </xsl:for-each>
                 </xsl:variable>
+                <!--  2011.11.16              <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) = 3">-->
                 <xsl:choose>
-                    <xsl:when test="string-length($sIsoCode) = 3">
-                        <xsl:choose>
-                            <xsl:when test="contains($bListsShareSameCode,'N')">
-                                <xsl:value-of select="string-length($sMaxColCount)+1"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="string-length($sMaxColCount)"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="string-length($sMaxColCount)+1"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="string-length($sMaxColCount)"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                <!-- 2011.11.16                   </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="string-length($sMaxColCount)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="sIsoCode">
@@ -4775,14 +5157,14 @@
                         <xsl:call-template name="GetISOCode"/>
                     </xsl:for-each>
                 </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when test="contains($bListsShareSameCode,'N')">
-                            <xsl:value-of select="number($iTempCount + 1)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$iTempCount"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <xsl:value-of select="number($iTempCount + 1)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iTempCount"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -6118,7 +6500,6 @@
     <xsl:template name="OutputInterlinear">
         <xsl:param name="mode"/>
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode"/>
         <xsl:choose>
             <xsl:when test="lineSet">
                 <xsl:for-each select="lineSet | conflation">
@@ -6235,12 +6616,20 @@
                             </xsl:when>
                             <xsl:when test="preceding-sibling::exampleHeading and string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                                 <xsl:if test="not(parent::example[parent::td])">
-                                    <tex:cmd name="vspace*" nl2="1">
+                                    <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes">
+                                        <tex:parm>
+                                            <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
+                                        </tex:parm>
+                                        <tex:parm>
+                                            <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                    <!--2011.11.15<tex:cmd name="vspace*" nl2="1">
                                         <tex:parm>
                                             <xsl:text>-.8</xsl:text>
                                             <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                                         </tex:parm>
-                                    </tex:cmd>
+                                    </tex:cmd>-->
                                 </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
@@ -6452,6 +6841,7 @@
     <xsl:template name="OutputListLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="sIsoCode"/>
+        <xsl:param name="bCloseOffMultirow" select="'N'"/>
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <xsl:variable name="sISOCodeTeXOutput">
@@ -6480,7 +6870,7 @@
                         <xsl:copy-of select="saxon:node-set($sISOCodeTeXOutput)"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:if test="ancestor::listInterlinear">
+                <xsl:if test="$bCloseOffMultirow='Y'">
                     <xsl:if test="string-length($sIsoCode) &gt; 3">
                         <!-- following closes off the content of the multirow command -->
                         <tex:spec cat="eg"/>
@@ -6575,6 +6965,18 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="parent::example">
+                <xsl:variable name="sIsoCode">
+                    <xsl:call-template name="GetISOCode"/>
+                </xsl:variable>
+                <xsl:if test="string-length($sIsoCode) &gt;0">
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:call-template name="AdjustForISOCodeInExampleNumber">
+                                <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <xsl:call-template name="SetTeXCommand">
                     <xsl:with-param name="sTeXCommand" select="'setlength'"/>
                     <xsl:with-param name="sCommandToSet" select="'LTpre'"/>
@@ -7464,6 +7866,19 @@
         SetUsePackages
     -->
     <xsl:template name="SetUsePackages">
+        <xsl:variable name="sHyphenationLanguage">
+            <xsl:call-template name="GetHyphenationLanguage"/>
+        </xsl:variable>
+        <xsl:if test="string-length($sHyphenationLanguage) &gt; 0">
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:parm>polyglossia</tex:parm>
+            </tex:cmd>
+            <tex:cmd name="setmainlanguage">
+                <tex:parm>
+                    <xsl:value-of select="$sHyphenationLanguage"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>needspace</tex:parm>
         </tex:cmd>
@@ -8152,6 +8567,74 @@ What might go in a TeX package file
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes
+    -->
+    <xsl:template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="//example/exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear] or //example/child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
+                <tex:cmd name="newdimen" gr="0"/>
+                <tex:cmd name="XLingPaperexamplenumberheight" gr="0" nl2="1"/>
+                <tex:cmd name="newdimen" gr="0"/>
+                <tex:cmd name="XLingPaperexampleheadingheight" gr="0" nl2="1"/>
+                <tex:cmd name="newlength" nl1="1" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperAdjust" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <!--  
+                #1 is the height of the example heading
+                #2 is the height of the example number/ISO code complex
+            -->
+                <tex:cmd name="newcommand" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes" gr="0" nl2="0"/>
+                    </tex:parm>
+                    <tex:opt>2</tex:opt>
+                    <tex:parm>
+                        <!-- \newcommand{\XLingPaperAdjustHeaderInListInterlinearWithISOCodes}[2]{
+                    \ifnum#1<#2
+                    \newlength{\XLingPaperAdjust}
+                    \XLingPaperAdjust=\XlingPaperexampleheadingheight
+                    \advance\XLingPaperAdjust by-\XlingPaperexamplenumberheight
+                    \advance\XLingPaperAdjust by-.3\baselineskip
+                    \vspace*{\XLingPaperAdjust}
+                    \fi
+                    }
+-->
+                        <tex:cmd name="ifnum" gr="0" nl1="1" sp="1"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:spec cat="lt"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>XLingPaperAdjust=</xsl:text>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:cmd name="advance" gr="0" nl1="1"/>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>XLingPaperAdjust by -</xsl:text>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                        <!--                    <tex:cmd name="advance" gr="0" nl1="1"/>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>XLingPaperAdjust by -.2</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                    <tex:spec cat="comment"/>
+                    <xsl:text> wish I knew why this was needed, but it seems to be... maybe 5pt will also work</xsl:text>
+-->
+                        <tex:cmd name="vspace*" nl1="1">
+                            <tex:parm>
+                                <tex:cmd name="XLingPaperAdjust" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="fi" gr="0" nl1="1"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetXLingPaperDotFillMacro

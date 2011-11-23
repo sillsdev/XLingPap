@@ -1573,7 +1573,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="PDFCompletionProcessing">
-        <cfg:macro>
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
@@ -1606,11 +1606,15 @@ What we want is to load IE independently and to do a refresh so it will show the
                                 </cfg:pass>
                                 <!--                                <cfg:command name="alert" parameter="It looks like you are trying to use the Graphite capability of the XeLaTeX way of producing PDF, but maybe do not have the XeLaTeX Upgrade installed.  Please install this upgrade and try again.  If you have installed the upgrade, then the produce PDF process did not suceed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
                                 <cfg:command name="LocalizeString" parameter="msg.pdfGraphiteOrBug"/>
+                                <cfg:set variable="msg" plainString="true" expression="%_"/>
+                                <cfg:get expression="replace($msg,'%\{N\}','%{N}')"/>
                                 <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
                             <cfg:sequence>
                                 <!--                                <cfg:command name="alert" parameter="Oh, dear.  The produce PDF process did not succeed.  You must have discovered a bug.  Please zip up your '%{N}' file (and any graphic files it uses) and email them to andy_black@sil.org so we can fix it.  Thanks."/>-->
                                 <cfg:command name="LocalizeString" parameter="msg.pdfBug"/>
+                                <cfg:set variable="msg" plainString="true" expression="%_"/>
+                                <cfg:get expression="replace($msg,'%\{N\}','%{N}')"/>
                                 <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
                         </cfg:choice>

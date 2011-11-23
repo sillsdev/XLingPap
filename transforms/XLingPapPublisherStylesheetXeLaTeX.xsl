@@ -203,6 +203,7 @@
                 <xsl:call-template name="SetXLingPaperListInterlinearMacro"/>
                 <xsl:call-template name="SetXLingPaperListInterlinearInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleFreeIndent"/>
+                <xsl:call-template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes"/>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>
@@ -1594,6 +1595,12 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
+            <xsl:variable name="bListsShareSameCode">
+                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+            </xsl:variable>
+            <xsl:call-template name="HandleAnyExampleHeadingAdjustWithISOCode">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
             <xsl:variable name="sXLingPaperExample">
                 <xsl:choose>
                     <xsl:when test="parent::td">
@@ -1611,9 +1618,6 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:variable name="bListsShareSameCode">
-                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
-            </xsl:variable>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes'">
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
@@ -1623,7 +1627,25 @@
                     <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-before"/>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
+                    <xsl:choose>
+                        <xsl:when test="$lingPaper/@automaticallywrapinterlinears='yes'">
+                            <xsl:choose>
+                                <!-- for some reason, the right offset causes an indent at the left so we do this special check -->
+                                <xsl:when test="child::*[1][name()='exampleHeading'] and child::*[2][name()='interlinear']">
+                                    <xsl:text>0pt</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="child::*[1][name()='interlinear'][child::*[1][name()='exampleHeading']]">
+                                    <xsl:text>0pt</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </tex:parm>
                 <tex:parm>
                     <xsl:value-of select="$iNumberWidth"/>
@@ -3028,9 +3050,16 @@
                         </tex:cmd>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:if test="$originalContext and $sTeXFootnoteKind!='footnotetext'">
+                        <!--                        <xsl:if test="$originalContext and $sTeXFootnoteKind!='footnotetext'">-->
+                        <xsl:if test="$originalContext">
                             <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
                                 <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iAdjust">
+                                    <xsl:choose>
+                                        <xsl:when test="$sTeXFootnoteKind='footnotetext'">1</xsl:when>
+                                        <xsl:otherwise>0</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:with-param>
                             </xsl:call-template>
                         </xsl:if>
                         <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->

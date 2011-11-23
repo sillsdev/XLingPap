@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_2</span></p>
-      <p align="center">Date: 2011-11-10</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_3</span></p>
+      <p align="center">Date: 2011-11-23</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,31 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.17.0_3 23 Novembr 2011
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Added a way to tell XeLaTeX to hyphenate based on the language of the document (which can be labeled as being something other
+                              than English).
+                           </li>
+                           <li>Fixed alignment of table in an example when there ISO codes were shown.</li>
+                           <li>Fixed alignment of some interlinears with example headings when ISO codes were shown.</li>
+                           <li>Fixed alignment of some list interlinears with example headings when ISO codes were shown.</li>
+                        </ul>
+                     </li>
+                     <li>Previously, one could put an exampleHeading element anywhere within an interlinear. Fixed it so it could only appear at the
+                        beginning.
+                     </li>
+                     <li>Added an element template for inserting a listInterlinear that consists just of an interlinearRef as an option when adding
+                        a new listInterlinear to an example containing other kinds of listInterlinears.
+                     </li>
+                     <li>Fixed the 'Oh, dear!' report so that it will show the file name.</li>
+                     <li>Added an integrity check for when a &lt;br/&gt; element is used within a &lt;line&gt; element in an interlinear. Doing this will probably
+                        not produce the default PDF. Use a chart or a table instead.
+                     </li>
+                     <li>Improved how publishingInfo and publishingBlurb are shown in XXE.</li>
+                  </ul>
+               </li>
                <li>2.17.0_2 10 November 2011
                   <ul>
                      <li>Made (XeLaTeX style sheet) output correctly handle endnotes embedded within an interlinear referred to by an example interlinearRef.

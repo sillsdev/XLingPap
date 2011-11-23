@@ -129,6 +129,7 @@
                 <xsl:call-template name="SetXLingPaperListInterlinearMacro"/>
                 <xsl:call-template name="SetXLingPaperListInterlinearInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleFreeIndent"/>
+                <xsl:call-template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes"/>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:env name="MainFont">
                     <xsl:choose>
@@ -1100,6 +1101,12 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
+            <xsl:variable name="bListsShareSameCode">
+                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
+            </xsl:variable>
+            <xsl:call-template name="HandleAnyExampleHeadingAdjustWithISOCode">
+                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            </xsl:call-template>
             <xsl:variable name="sXLingPaperExample">
                 <xsl:choose>
                     <xsl:when test="parent::td">
@@ -1117,9 +1124,6 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:variable name="bListsShareSameCode">
-                <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
-            </xsl:variable>
             <tex:cmd name="{$sXLingPaperExample}" nl1="0" nl2="1">
                 <tex:parm>
                     <xsl:value-of select="$sExampleIndentBefore"/>

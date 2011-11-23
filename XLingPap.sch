@@ -162,6 +162,15 @@
     </pattern>
     <pattern>
         <title>
+            <dir value="ltr">Check for br elements within a line in an interlinear</dir>
+        </title>
+        <rule context="line">
+            <report test="descendant::br"
+                >Warning: There is a br element within an interlinear.  This will not produce PDF output.  Please either use an example(chart) or a table to do what you have in mind. </report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
             <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>
         </title>
         <rule context="abbreviations">

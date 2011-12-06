@@ -158,7 +158,7 @@ body {</xsl:text>
         <xsl:text>pt;
 }
 </xsl:text>
-        <xsl:if test="//landscape">
+        <xsl:if test="//landscape or //appendix[@showinlandscapemode='yes']">
             <xsl:text>.landscape {
        width:8.5in;
        border-top:1.5pt solid gray;

@@ -749,7 +749,9 @@
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
+    showinlandscapemode (yes | no) "no"
     type IDREF #IMPLIED
+    XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- glossary -->
 <!ELEMENT glossary (%chunk; | landscape | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>

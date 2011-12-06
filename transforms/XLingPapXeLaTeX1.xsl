@@ -745,6 +745,9 @@
                 </tex:parm>
             </tex:cmd>
 -->
+            <xsl:if test="@showinlandscapemode='yes'">
+                <tex:cmd name="landscape" gr="0" nl2="1"/>
+            </xsl:if>
             <tex:group>
                 <tex:cmd name="centering" nl2="1">
                     <tex:parm>
@@ -814,6 +817,9 @@
             <tex:parm>21.6pt</tex:parm>
         </tex:cmd>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       Sections
@@ -864,6 +870,9 @@
       Appendix
       -->
     <xsl:template match="appendix[not(//chapter)]">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id" select="@id"/>
             <xsl:with-param name="sTitle">
@@ -875,6 +884,9 @@
             <xsl:with-param name="bForcePageBreak" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       sectionRef
@@ -1118,6 +1130,18 @@
                 </xsl:choose>
             </xsl:variable>
             <xsl:if test="$sXLingPaperExample='XLingPaperexample'">
+                <xsl:if test="contains(@XeLaTeXSpecial,'needspace')">
+                    <!-- the needspace seems to be needed to get page breaking right in some cases -->
+                    <tex:cmd name="needspace">
+                        <tex:parm>
+                            <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                <xsl:with-param name="sPattern" select="'needspace='"/>
+                                <xsl:with-param name="default" select="'1'"/>
+                            </xsl:call-template>
+                            <tex:cmd name="baselineskip"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <tex:cmd name="raggedright"/>
                 <xsl:call-template name="SetExampleKeepWithNext"/>
             </xsl:if>
@@ -1248,6 +1272,9 @@
             </xsl:when>
             <xsl:when test="ancestor::example[ancestor::table] and $sTeXFootnoteKind!='footnotetext' ">
                 <tex:cmd name="footnotemark" gr="0"/>
+            </xsl:when>
+            <xsl:when test="ancestor::caption and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark"/>
             </xsl:when>
             <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
                 <xsl:if test="$originalContext">

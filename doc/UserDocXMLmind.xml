@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 November 2011</date
+>6 December 2011</date
 ><version
->2.17.0_3</version
+>2.17.0_4</version
 ><contents
 showLevel="4"
 ></contents
@@ -1296,6 +1296,29 @@ type="tElement"
 > element within a table. This will output a horizontal line before the content of the row.</td
 ><td
 >line-before</td
+></tr
+><tr
+><td
+>needspace</td
+><td
+>a numerical value</td
+><td
+>Suggest that the example needs at least the specified number of lines (this only works on an <object
+type="tElement"
+>example</object
+> element). For some reason, this helps keep sequences of examples from breaking a page too soon.</td
+><td
+><table
+><tr
+><td
+>needspace='1'</td
+></tr
+><tr
+><td
+>needspace='3'</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -3257,6 +3280,28 @@ term="iAppendixTitle"
 sec="sBMExample"
 ></sectionRef
 >) below.</p
+><p
+><indexedItem
+term="iAppendixLandscapeMode"
+></indexedItem
+><indexedItem
+term="iLandscape"
+></indexedItem
+>It is possible to have the appendix appear in landscape mode by setting the <object
+type="tAttribute"
+>showinlandscapemode</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>. The entire appendix will then show in landscape mode.<endnote
+id="nshowinlandscapemodeNotForFO"
+><p
+>This does not work with the <object
+type="tRenderX"
+></object
+> way of producing PDF.</p
+></endnote
+></p
 ></section2
 ><section2
 id="sBMGlossary"
@@ -24037,6 +24082,11 @@ id="iAppendix"
 ><term
 >Appendix</term
 ><indexTerms
+><indexTerm
+id="iAppendixLandscapeMode"
+><term
+>Landscape mode</term
+></indexTerm
 ><indexTerm
 id="iAppendixReference"
 ><term

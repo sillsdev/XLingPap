@@ -717,6 +717,9 @@
 -->
         </div>
         <div id="{@id}" class="appendixTitle">
+            <xsl:if test="@showinlandscapemode='yes'">
+                <xsl:attribute name="class">landscape appendixTitle</xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="DoType">
                 <xsl:with-param name="type" select="@type"/>
             </xsl:call-template>
@@ -733,7 +736,16 @@
                 <xsl:with-param name="layoutInfo" select="$appLayout"/>
             </xsl:call-template>
         </div>
-        <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:choose>
+            <xsl:when test="@showinlandscapemode='yes'">
+                <div class="landscape">
+                    <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       secTitle

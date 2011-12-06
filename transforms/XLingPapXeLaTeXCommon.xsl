@@ -1657,6 +1657,15 @@
             <xsl:with-param name="iBorder" select="$iBorder"/>
             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
         </xsl:call-template>
+        <xsl:if test="../../caption and count(preceding-sibling::td) = 0 and count(../preceding-sibling::tr[td]) = 0">
+            <xsl:for-each select="../../caption">
+                <xsl:for-each select="descendant-or-self::endnote">
+                    <xsl:apply-templates select=".">
+                        <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
         <xsl:if test="string-length(normalize-space(@width)) &gt; 0">
             <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
                 force ragged right
@@ -2258,19 +2267,19 @@
             </tex:parm>
         </tex:cmd>
         <xsl:if test="not($originalContext)">
-        <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
+            <xsl:for-each select="../preceding-sibling::line/wrd[position()=$iPos]">
+                <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:for-each>
             <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
-        </xsl:for-each>
-        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
-        <xsl:for-each select="../following-sibling::line/wrd[position()=$iPos]">
-            <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-            </xsl:call-template>
-        </xsl:for-each>
+            <xsl:for-each select="../following-sibling::line/wrd[position()=$iPos]">
+                <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:for-each>
         </xsl:if>
         <xsl:text>&#x20;</xsl:text>
     </xsl:template>
@@ -4559,11 +4568,11 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="$originalContext">
-                <xsl:for-each select="line">
-                    <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                    </xsl:call-template>
-                </xsl:for-each>
+                    <xsl:for-each select="line">
+                        <xsl:call-template name="DoFootnoteTextWithinWrappableWrd">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
@@ -7904,7 +7913,7 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>longtable</tex:parm>
         </tex:cmd>
-        <xsl:if test="//landscape">
+        <xsl:if test="//landscape or //appendix[@showinlandscapemode='yes']">
             <tex:cmd name="usepackage" nl2="1">
                 <tex:parm>lscape</tex:parm>
             </tex:cmd>

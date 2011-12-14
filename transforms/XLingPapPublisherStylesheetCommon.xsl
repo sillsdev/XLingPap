@@ -1192,20 +1192,34 @@
                             <xsl:when test="name(.)='dissertationLabelItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item">
-                                        <xsl:call-template name="OutputLabel">
-                                            <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
-                                            <xsl:with-param name="pLabel" select="$references/@labelDissertation"/>
-                                        </xsl:call-template>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length(normalize-space(@label)) &gt; 0">
+                                                <xsl:value-of select="@label"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="OutputLabel">
+                                                    <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
+                                                    <xsl:with-param name="pLabel" select="$references/@labelDissertation"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:with-param>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='thesisLabelItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item">
-                                        <xsl:call-template name="OutputLabel">
-                                            <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
-                                            <xsl:with-param name="pLabel" select="$references/@labelThesis"/>
-                                        </xsl:call-template>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length(normalize-space(@label)) &gt; 0">
+                                                <xsl:value-of select="@label"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="OutputLabel">
+                                                    <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
+                                                    <xsl:with-param name="pLabel" select="$references/@labelThesis"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:with-param>
                                 </xsl:call-template>
                             </xsl:when>
@@ -3651,6 +3665,11 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+        <xsl:if test="name()='dissertation' or name()='thesis'">
+            <xsl:text>  You will also need a </xsl:text>
+            <xsl:value-of select="name()"/>
+            <xsl:text>LabelItem in the pattern.</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--  
         ReportPatternForCollCitation

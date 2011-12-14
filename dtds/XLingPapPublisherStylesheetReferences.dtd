@@ -102,9 +102,13 @@ References Layouts
 <!ELEMENT bVolItem EMPTY >
 <!ATTLIST bVolItem %formatinfo;>
 <!ELEMENT dissertationLabelItem EMPTY >
-<!ATTLIST dissertationLabelItem %formatinfo;>
+<!ATTLIST dissertationLabelItem 
+  label CDATA #IMPLIED
+  %formatinfo;>
 <!ELEMENT thesisLabelItem EMPTY >
-<!ATTLIST thesisLabelItem %formatinfo;>
+<!ATTLIST thesisLabelItem 
+  label CDATA #IMPLIED
+  %formatinfo;>
 <!ELEMENT locationItem EMPTY >
 <!ATTLIST locationItem %formatinfo;>
 <!ELEMENT publisherItem EMPTY >

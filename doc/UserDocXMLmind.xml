@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->6 December 2011</date
+>14 December 2011</date
 ><version
->2.17.0_4</version
+>2.17.0_5</version
 ><contents
 showLevel="4"
 ></contents
@@ -3354,7 +3354,19 @@ type="tElement"
 > element whether or not you plan to have endnotes or footnotes. The process that converts <object
 type="tXLingPap"
 ></object
-> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.</p
+> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.  If you are using a publisher style sheet (see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>), then you can control whether the output uses endnotes or footnotes for non-web page outputs.  See the <object
+type="tElement"
+>useEndNotesLayout</object
+> element in the <link
+href="PublisherStylesheetUserDocXMLmind.htm#sBackMatterLayout"
+> <object
+type="tXLingPap"
+></object
+> Publisher Style Sheet User Documentation</link
+> file.</p
 ><p
 >One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the <q
 >endnote number</q

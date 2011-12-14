@@ -1465,6 +1465,10 @@ What we want is to load IE independently and to do a refresh so it will show the
                                                 <!--                                                    <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
                                                     <cfg:command name="alert" parameter="It appears you are producing a PDF for this file for the first time.  This first time will take longer than normal.  Please be patient."/>
 -->
+                                                <!--                                                <cfg:get expression="$producePDFParameters"/>
+                                                <cfg:command name="alert" parameter="old name = %{P}%{S}XLingPaperPDFTemp%{S}%_.pdf"/>
+                                                <cfg:command name="alert" parameter="new place = %{P}%{S}%{R}.pdf"/>
+-->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
                                                 <cfg:get expression="$producePDFParameters"/>
@@ -2397,7 +2401,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:command name="selectNode" parameter="nextSibling"/>
                     </cfg:sequence>
                 </cfg:choice>
-<!--                <cfg:command name="alert" parameter="After select first tr for headers"/>-->
+                <!--                <cfg:command name="alert" parameter="After select first tr for headers"/>-->
                 <cfg:set variable="headersInFirstRow" expression="count($implicitElement/th[not(following-sibling::td)])"/>
                 <cfg:get expression="$headersInFirstRow"/>
                 <cfg:choice>
@@ -2406,7 +2410,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:pass>
                             <cfg:test expression="number(%_) &gt; 0"/>
                         </cfg:pass>
-<!--                        <cfg:command name="alert" parameter="Have an existing header"/>-->
+                        <!--                        <cfg:command name="alert" parameter="Have an existing header"/>-->
                         <cfg:command name="xhtml.tableEdit" parameter="copyRow"/>
                         <cfg:get expression="$headerRowsToAdd"/>
                         <cfg:choice>
@@ -2435,14 +2439,14 @@ NB actually it associates the stylesheet with the original file, not the new han
                                     <cfg:test expression="number(%_) &gt; 0"/>
                                 </cfg:pass>
                                 <!-- NB: this inserts one new header row; what if we need 2 or 3? -->
-<!--                                <cfg:command name="alert" parameter="No existing header; add one"/>-->
+                                <!--                                <cfg:command name="alert" parameter="No existing header; add one"/>-->
                                 <cfg:command name="xhtml.tableEdit" parameter="insertRowBefore"/>
                                 <cfg:set variable="cellsInFirstRow" expression="count($implicitElement/td)"/>
                                 <cfg:command name="selectNode" parameter="child"/>
                                 <cfg:get expression="$cellsInFirstRow"/>
                                 <cfg:command name="convertTdToTh" parameter="%_"/>
                                 <cfg:command name="selectNode" parameter="parent"/>
-<!--                                <cfg:command name="alert" parameter="After inserting new header and changing its tds to ths"/>-->
+                                <!--                                <cfg:command name="alert" parameter="After inserting new header and changing its tds to ths"/>-->
                                 <cfg:get expression="$headerRowsToAdd"/>
                                 <cfg:choice>
                                     <cfg:sequence>
@@ -2456,23 +2460,23 @@ NB actually it associates the stylesheet with the original file, not the new han
                                     </cfg:sequence>
                                     <cfg:sequence>
                                         <cfg:command name="selectNode" parameter="parent"/>
-<!--                                        <cfg:command name="alert" parameter="After selecting parent"/>-->
+                                        <!--                                        <cfg:command name="alert" parameter="After selecting parent"/>-->
                                     </cfg:sequence>
                                 </cfg:choice>
-                                
+
                             </cfg:sequence>
                             <cfg:sequence>
                                 <!-- nothing to do; reset selection to the table -->
-<!--                                <cfg:command name="alert" parameter="No existing header and no need to add one"/>-->
+                                <!--                                <cfg:command name="alert" parameter="No existing header and no need to add one"/>-->
                                 <cfg:command name="selectNode" parameter="parent"/>
                             </cfg:sequence>
                         </cfg:choice>
                     </cfg:sequence>
                 </cfg:choice>
                 <!-- insert any extra non-header rows -->
-<!--                <cfg:command name="alert" parameter="After handling any headers"/>-->
+                <!--                <cfg:command name="alert" parameter="After handling any headers"/>-->
                 <cfg:command name="selectNode" parameter="lastChild"/>
-<!--                <cfg:command name="alert" parameter="After last child"/>-->
+                <!--                <cfg:command name="alert" parameter="After last child"/>-->
                 <cfg:command name="xhtml.tableEdit" parameter="copyRow"/>
                 <cfg:get expression="$nonheaderRowsToAdd"/>
                 <cfg:choice>
@@ -2481,17 +2485,17 @@ NB actually it associates the stylesheet with the original file, not the new han
                             <cfg:test expression="number(%_) &gt; 0"/>
                         </cfg:pass>
                         <cfg:command name="InsertHeaderRows" parameter="%_"/>
-<!--                        <cfg:command name="alert" parameter="After InsertHeaderRows call"/>-->
+                        <!--                        <cfg:command name="alert" parameter="After InsertHeaderRows call"/>-->
                         <cfg:command name="selectNode" parameter="parent"/>
-<!--                        <cfg:command name="alert" parameter="After select parent"/>-->
+                        <!--                        <cfg:command name="alert" parameter="After select parent"/>-->
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:command name="selectNode" parameter="parent"/>
-<!--                        <cfg:command name="alert" parameter="After select parent one"/>-->
+                        <!--                        <cfg:command name="alert" parameter="After select parent one"/>-->
                     </cfg:sequence>
                 </cfg:choice>
                 <!-- insert any extra columns -->
-<!--                <cfg:command name="alert" parameter="After handling non-headers"/>-->
+                <!--                <cfg:command name="alert" parameter="After handling non-headers"/>-->
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:command name="selectNode" parameter="firstChild tr"/>
@@ -2501,7 +2505,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:command name="selectNode" parameter="nextSibling"/>
                     </cfg:sequence>
                 </cfg:choice>
-<!--                <cfg:command name="alert" parameter="After getting first tr for columns"/>-->
+                <!--                <cfg:command name="alert" parameter="After getting first tr for columns"/>-->
                 <cfg:command name="selectNode" parameter="lastChild"/>
                 <cfg:command name="xhtml.tableEdit" parameter="copyColumn"/>
                 <cfg:get expression="$columnsToAdd"/>

@@ -754,7 +754,11 @@
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="noindent" gr="0"/>
-                <tex:cmd name="small" gr="0"/>
+                <xsl:choose>
+                    <xsl:when test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                        <tex:cmd name="small" gr="0"/>
+                    </xsl:when>
+                </xsl:choose>
                 <tex:spec cat="bg"/>
                 <!-- default formatting is bold -->
                 <tex:spec cat="esc"/>

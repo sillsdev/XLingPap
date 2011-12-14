@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 October 2011</date
+>13 December 2011</date
 ><version
->2.18.0</version
+>2.17.0_4</version
 ><contents
 showLevel="6"
 ></contents
@@ -804,7 +804,16 @@ term="iFooterHeaderLayout"
 >There is a <object
 type="tElement"
 >headerFooterPageStyles</object
-> element. Within this element, one can have any of the combinations of elements shown in example <exampleRef
+> element. The attributes on this element define the default font information for all of the embedded items. See section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="full"
+></sectionRef
+> for what these attributes are. </p
+><p
+>Within this <object
+type="tElement"
+>headerFooterPageStyles</object
+> element, one can have any of the combinations of elements shown in example <exampleRef
 letter="xHeaderFooterPageCombinations"
 num="xHeaderFooterPageCombinations"
 ></exampleRef
@@ -1205,13 +1214,13 @@ type="tElement"
 >Uses what is in the <object
 type="tElement"
 >publishingBlurb</object
->  element</td
+> element</td
 ><td
 >See section <sectionRef
 sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  In addition, <object
+>. In addition, <object
 type="tAttribute"
 >verticalAdjustment</object
 > can be set to a measurement value (e.g. <object
@@ -1875,12 +1884,12 @@ id="sAuthorContactInfo"
 ><indexedItem
 term="iContactInformation"
 ></indexedItem
->Each author contact information item will be formatted in a vertical list.  For the default way of producing PDF, each such vertical list is justified horizontally, with any extra ones automatically wrapping (for cases where there are many authors).  For the other outputs, each such vertical list is formatted in a single table and, if there are many authors, it may run off the page.</p
+>Each author contact information item will be formatted in a vertical list. For the default way of producing PDF, each such vertical list is justified horizontally, with any extra ones automatically wrapping (for cases where there are many authors). For the other outputs, each such vertical list is formatted in a single table and, if there are many authors, it may run off the page.</p
 ><p
 >The content of each vertical list is controlled by the set of elements contained within the <object
 type="tElement"
 >authorContactInfoLayout</object
-> element.  The possible elements are shown in example <exampleRef
+> element. The possible elements are shown in example <exampleRef
 letter="xAuthorContactInfoElements"
 num="xAuthorContactInfoElements"
 ></exampleRef
@@ -1918,7 +1927,7 @@ type="tElement"
 sec="sFrontMatterFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  This also has the <object
+>. This also has the <object
 type="tAttribute"
 >pagebreakbefore</object
 > and <object
@@ -2417,7 +2426,7 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  In addition this element has a <object
+>. In addition this element has a <object
 type="tAttribute"
 >showAsFootnoteAtEndOfAbstract</object
 > attribute which has two values: <object
@@ -2426,13 +2435,13 @@ type="tAttrValue"
 > and <object
 type="tAttrValue"
 >no</object
->.  The default value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
->.  If it is set to <object
+>. If it is set to <object
 type="tAttrValue"
 >yes</object
->, then the contents of the acknowledgements will be shown as a footnote at the end of the abstract.  The footnote “number” used will be an asterisk.</td
+>, then the contents of the acknowledgements will be shown as a footnote at the end of the abstract. The footnote “number” used will be an asterisk.</td
 ></tr
 ><tr
 ><td
@@ -4046,7 +4055,10 @@ type="tElement"
 letter="xDissertationLayoutElements"
 num="xDissertationLayoutElements"
 ></exampleRef
->.</p
+>. Please note that every dissertation pattern is expected to have a <object
+type="tElement"
+>dissertationLabelItem</object
+> element in it.</p
 ><example
 num="xDissertationLayoutElements"
 ><table
@@ -4143,7 +4155,25 @@ type="tElement"
 sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>. It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>label</object
+></td
+><td
+>(User control) What the content of the label should be. If this attribute is missing, then “Ph.D. dissertation” is used.</td
+></tr
+></table
+></td
 ><td
 >Ph.D. dissertation</td
 ></tr
@@ -5348,7 +5378,10 @@ type="tElement"
 letter="xThesisLayoutElements"
 num="xThesisLayoutElements"
 ></exampleRef
->.</p
+>. Please note that every thesis pattern is expected to have a <object
+type="tElement"
+>thesisLabelItem</object
+> element in it.</p
 ><example
 num="xThesisLayoutElements"
 ><table
@@ -5445,7 +5478,25 @@ type="tElement"
 sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>. It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>label</object
+></td
+><td
+>(User control) What the content of the label should be. If this attribute is missing, then “M.A. thesis” is used.</td
+></tr
+></table
+></td
 ><td
 >M.A. thesis</td
 ></tr
@@ -6412,7 +6463,7 @@ id="sParagraphLayout"
 ><indexedItem
 term="iParagraphLayout"
 ></indexedItem
->Some style sheets require extra space before and after paragraphs.  One can use the <object
+>Some style sheets require extra space before and after paragraphs. One can use the <object
 type="tAttribute"
 >spacebefore</object
 > and <object
@@ -6421,7 +6472,7 @@ type="tAttribute"
 > attributes of the <object
 type="tElement"
 >paragraphLayout</object
-> element to set these values.  See these attributes in section <sectionRef
+> element to set these values. See these attributes in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 showTitle="full"
 ></sectionRef

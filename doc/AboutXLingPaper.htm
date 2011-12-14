@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_4</span></p>
-      <p align="center">Date: 2011-12-06</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_5</span></p>
+      <p align="center">Date: 2011-12-14</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,14 +34,27 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.17.0_4 6 December 2011
+               <li>2.17.0_5 14 December 2011
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Refine how handle basic point size that is not 10, 11, or 12pt when using a publisher style sheet.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.17.0_4 13 December 2011
                   <ul>
                      <li>Added an attribute to appendix in order to have the entire appendix be in landscape mode (showinlandscapemode). Does not work
                         for the RenderX way of producing PDF.
                      </li>
+                     <li>Make the dissertationLabelItem and thesisLabelItem elements have a label attribute you can use to set the label (e.g. 'dissertation'
+                        instead of the default 'Ph.D. dissertation'4 and 'master's thesis' instead of the default 'M.A. thesis')
+                     </li>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
                            <li>Fixed a bug where endnotes in table captions would not appear on the page.</li>
+                           <li>Fixed a bug where the font information for the headerFooterPageStyles element was ignored in headers and footers.</li>
                            <li>Allow a way to specify special spacing when have a sequence of many examples in a row.</li>
                         </ul>
                      </li>

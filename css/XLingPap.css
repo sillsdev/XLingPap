@@ -4918,7 +4918,7 @@ dissertationLabelItem[font-weight]
 }
 dissertationLabelItem
 {
-	property-group: referencesItem("Ph.D. dissertation");
+	property-group: referencesItem(label(xpath,"if(string-length(normalize-space(@label))>0,@label,/xlingpaper/lingPaper/backMatter/references[string-length(normalize-space(@labelDissertation))>0],/xlingpaper/lingPaper/backMatter/references/@labelDissertation, 'Ph.D. dissertation')"));
 }
 
 dissertationLayout:before
@@ -8366,8 +8366,7 @@ thesisLabelItem[font-weight]
 }
 thesisLabelItem
 {
-	property-group: referencesItem("M.A. thesis");
-}
+	property-group: referencesItem(label(xpath,"if(string-length(normalize-space(@label))>0,@label,/xlingpaper/lingPaper/backMatter/references[string-length(normalize-space(@labelThesis))>0],/xlingpaper/lingPaper/backMatter/references/@labelThesis, 'M.A. thesis')"));}
 thesisLayout:before
 {
 	property-group: referencesItemLayoutBefore();

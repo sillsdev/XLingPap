@@ -46,6 +46,7 @@
     -->
     <!--       <xsl:param name="sInterlinearSourceStyle">AfterFirstLine</xsl:param>-->
     <xsl:param name="sInterlinearSourceStyle">AfterFree</xsl:param>
+    <xsl:variable name="sLaTeXBasicPointSize" select="$sBasicPointSize"/>
     <xsl:variable name="sExampleIndentBefore" select="$sBlockQuoteIndent"/>
     <xsl:variable name="sExampleIndentAfter" select="'0pt'"/>
     <xsl:variable name="lineSpacing" select="/nothere"/>

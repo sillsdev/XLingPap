@@ -131,6 +131,9 @@
                 <xsl:call-template name="SetXLingPaperListInterlinearInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleFreeIndent"/>
                 <xsl:call-template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes"/>
+                <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
+                    <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
+                </xsl:if>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:env name="MainFont">
                     <xsl:choose>
@@ -1197,7 +1200,8 @@
                             <tex:spec cat="eg"/>
                         </xsl:when>
                         <xsl:otherwise>
-     -->
+                    -->
+                    <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
                     <xsl:apply-templates>
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:apply-templates>

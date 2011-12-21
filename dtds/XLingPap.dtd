@@ -411,6 +411,7 @@
 <!ATTLIST interlinear
     text ID #IMPLIED
     textref IDREF #IMPLIED
+    XeLaTeXSpecial CDATA #IMPLIED
 >
 <!--  
     the textref IDREF refers to a text ID of some interlinear elsewhere in the document; the interlinear content is copied there
@@ -456,6 +457,7 @@
 <!ELEMENT listInterlinear (exampleHeading?, (lineGroup | free | interlinear | interlinearRef | phrase)+, interlinearSource?)>
 <!ATTLIST listInterlinear
     letter ID #REQUIRED
+    XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- EMELD interlinear items 
     Augmented by morphset so we can get XMLmind to show it as a table.

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.17.0_5</a:version
+>2.17.0_6</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-12-14</a:date
+>2011-12-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.17.0_6 21 December 2011<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Provide a way to control the amount of spacing between aligned words in an interlinear.</li
+><li
+>Improve performance of producing the PDF process.</li
+></ul
+></li
+><li
+>Make integrity checking for publisher style sheets work for when the publisher style sheet is within a full document.</li
+></ul
+></li
 ><li
 >2.17.0_5 14 December 2011<ul
 ><li

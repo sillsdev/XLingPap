@@ -8,6 +8,12 @@ xelatex -halt-on-error $1
 if [ $? != "0" ]; then
 	echo found error in TeX
 	echo 'bad news' > xelatex.err
+	exit 0
+fi
+xelatex -halt-on-error $1
+if [ $? != "0" ]; then
+	echo found error in TeX
+	echo 'bad news' > xelatex.err
 fi
 
 

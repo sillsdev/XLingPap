@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 December 2011</date
+>20 December 2011</date
 ><version
->2.17.0_4</version
+>2.17.0_6</version
 ><contents
 showLevel="6"
 ></contents
@@ -808,7 +808,7 @@ type="tElement"
 sec="sFontInfoAttributes"
 showTitle="full"
 ></sectionRef
-> for what these attributes are. </p
+> for what these attributes are.</p
 ><p
 >Within this <object
 type="tElement"
@@ -7162,6 +7162,42 @@ type="tElement"
 > element.</p
 ></section2
 ><section2
+id="sInterlinearAlignedWordSpacing"
+><secTitle
+>Controlling the Spacing between Aligned Words in Interlinears</secTitle
+><p
+><indexedItem
+term="iInterlinearAlignedWordSpacing"
+></indexedItem
+>You can control how much spacing there is between aligned word units in an interlinear via the  <object
+type="tElement"
+>interlinearAlignedWordSpacing</object
+> element. It only has the three “special” attributes although currently only the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute will make a difference and that only with the <object
+type="tAttrValue"
+>interlinear-aligned-word-skip</object
+> attribute value set equal to a TeX ‘glue’ value: a basic point value plus a stretch point factor minus a shrink point factor.  The default ‘glue’ value used by <object
+type="tXLingPap"
+></object
+> is <object
+type="tInstruction"
+>6.66666pt plus 3.33333pt minus 2.22222pt</object
+> (this is what is used by <citation
+page="56"
+paren="none"
+ref="rITF"
+></citation
+>).  If this is too much or too little for the publisher, you can change it.  For example, if you wanted to reduce the default value by one point in all three factors, you would set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> to <object
+type="tAttrValue"
+>interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</object
+>.</p
+></section2
+><section2
 id="sEndnoteRefLayout"
 ><secTitle
 >Controlling the Display of Endnote References</secTitle
@@ -10413,6 +10449,25 @@ id="rXlingPapSFLF"
 ></refWork
 ></refAuthor
 ><refAuthor
+citename="Kew &amp; McConnel"
+name="Kew, Jonathan and Stephen McConnel"
+><refWork
+id="rITF"
+><refDate
+>1990</refDate
+><refTitle
+>Formatting Interlinear Text</refTitle
+><book
+><series
+>Occassional Publications in Academic Computing Number 17</series
+><location
+>Dallas, Texas</location
+><publisher
+>Summer Institute of Linguistics</publisher
+></book
+></refWork
+></refAuthor
+><refAuthor
 citename="Simons and Black"
 name="Simons, Gary F. and H. Andrew Black"
 ><refWork
@@ -10964,6 +11019,11 @@ id="iInterlinearRefCitationLayout"
 id="iInterlinearSourceStyle"
 ><term
 >Interlinear source style</term
+></indexTerm
+><indexTerm
+id="iInterlinearAlignedWordSpacing"
+><term
+>Interlinear spacing between aligned word units</term
 ></indexTerm
 ><indexTerm
 id="iISO639-3Code"

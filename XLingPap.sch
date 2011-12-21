@@ -197,49 +197,51 @@
         <title>
             <dir value="ltr">Check for issues related to publisher style sheets</dir>
         </title>
-        <rule context="/publisherStyleSheet/pageLayout/pageWidth">
+        <rule context="/publisherStyleSheet/pageLayout/pageWidth | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageWidth">
             <report test="contains(normalize-space(.),' ')">The page width should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/pageHeight">
+        <rule context="/publisherStyleSheet/pageLayout/pageHeight | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageHeight">
             <report test="contains(normalize-space(.),' ')">The page height should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/pageTopMargin">
+        <rule context="/publisherStyleSheet/pageLayout/pageTopMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageTopMargin">
             <report test="contains(normalize-space(.),' ')">The page top margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/pageBottomMargin">
+        <rule context="/publisherStyleSheet/pageLayout/pageBottomMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageBottomMargin">
             <report test="contains(normalize-space(.),' ')">The page bottom margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/pageInsideMargin">
+        <rule context="/publisherStyleSheet/pageLayout/pageInsideMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageInsideMargin">
             <report test="contains(normalize-space(.),' ')">The page inside margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/pageOutsideMargin">
+        <rule context="/publisherStyleSheet/pageLayout/pageOutsideMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageOutsideMargin">
             <report test="contains(normalize-space(.),' ')">The page outside margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/headerMargin">
+        <rule context="/publisherStyleSheet/pageLayout/headerMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/headerMargin">
             <report test="contains(normalize-space(.),' ')">The header margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/footerMargin">
+        <rule context="/publisherStyleSheet/pageLayout/footerMargin | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/footerMargin">
             <report test="contains(normalize-space(.),' ')">The footer margin should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/paragraphIndent">
+        <rule context="/publisherStyleSheet/pageLayout/paragraphIndent | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/paragraphIndent">
             <report test="contains(normalize-space(.),' ')">The paragraph indent should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/blockQuoteIndent">
+        <rule context="/publisherStyleSheet/pageLayout/blockQuoteIndent | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/blockQuoteIndent">
             <report test="contains(normalize-space(.),' ')">The block quote indent should not contain a space.  Please remove it.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/basicPointSize">
+        <rule context="/publisherStyleSheet/pageLayout/basicPointSize | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/basicPointSize">
             <report test="string(number(.))='NaN'">The basic point size needs to be a number.  It is not.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout/footnotePointSize">
+        <rule context="/publisherStyleSheet/pageLayout/footnotePointSize | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/footnotePointSize">
             <report test="string(number(.))='NaN'">The footnote point size needs to be a number.  It is not.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout">
+        <rule context="/publisherStyleSheet/pageLayout | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout">
             <report test="substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageHeight),string-length(normalize-space(pageHeight))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageTopMargin),string-length(normalize-space(pageTopMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageBottomMargin),string-length(normalize-space(pageBottomMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageInsideMargin),string-length(normalize-space(pageInsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageOutsideMargin),string-length(normalize-space(pageOutsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(headerMargin),string-length(normalize-space(headerMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(footerMargin),string-length(normalize-space(footerMargin))-1,2)">The unit of measure for pageWidth, pageHeight, pageTopMargin, pageBottomMargin, pageInsideMargin, pageOutsideMargin, headerMargin, and footerMargin all need to be the same.  Please make them all the same.</report>
         </rule>
-        <rule context="/publisherStyleSheet/contentLayout/magnificationFactor">
+        <rule context="/publisherStyleSheet/contentLayout/magnificationFactor | /xlingpaper/styledPaper/publisherStyleSheet/contentLayout/magnificationFactor">
             <report test="string(number(.))='NaN'">The magnification factor needs to be a number.  It is not.</report>
         </rule>
-        
+        <rule context="/publisherStyleSheet/contentLayout/interlinearAlignedWordSpacing/@XeLaTeXSpecial | /xlingpaper/styledPaper/publisherStyleSheet/contentLayout/interlinearAlignedWordSpacing/@XeLaTeXSpecial">
+            <report test="not(contains(.,'pt'))">The spacing for aligned words in interlinears needs to be in term of points.  It is not.  Please pattern this value after the default glue of interlinear-aligned-word-skip='6.66666pt plus 3.33333pt minus 2.22222pt'</report>
+        </rule>
     </pattern>
     
 </schema>

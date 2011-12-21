@@ -9,6 +9,7 @@
         =========================================================== -->
     <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
+    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
@@ -334,6 +335,44 @@
                     <!-- do nothing -->
                 </xsl:otherwise>
             </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleAnyInterlinearAlignedWordSkipOverride
+    -->
+    <xsl:template name="HandleAnyInterlinearAlignedWordSkipOverride">
+        <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'interlinear-aligned-word-skip')">
+                <xsl:variable name="sValue">
+                    <xsl:call-template name="GetXeLaTeXSpecialCommand">
+                        <xsl:with-param name="sAttr" select="'interlinear-aligned-word-skip='"/>
+                        <xsl:with-param name="sDefaultValue" select="''"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:if test="string-length($sValue) &gt; 0">
+                    <tex:cmd name="XLingPaperinterwordskip" gr="0"/>
+                    <xsl:text>=</xsl:text>
+                    <xsl:copy-of select="$sValue"/>
+                </xsl:if>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleAnyInterlinearAlignedWordSkipOverrideEnd
+    -->
+    <xsl:template name="HandleAnyInterlinearAlignedWordSkipOverrideEnd">
+        <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'interlinear-aligned-word-skip')">
+                <xsl:variable name="sValue">
+                    <xsl:call-template name="GetXeLaTeXSpecialCommand">
+                        <xsl:with-param name="sAttr" select="'interlinear-aligned-word-skip='"/>
+                        <xsl:with-param name="sDefaultValue" select="''"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:if test="string-length($sValue) &gt; 0">
+                    <xsl:call-template name="SetDefaultXLingPaperInterWordSkip"/>
+                </xsl:if>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -733,6 +772,7 @@
     -->
     <xsl:template match="interlinear">
         <xsl:param name="originalContext"/>
+        <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
                 <tex:cmd name="needspace" nl2="1">
@@ -2077,6 +2117,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:apply-templates/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
@@ -2285,7 +2326,16 @@
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:if>
-        <xsl:text>&#x20;</xsl:text>
+        <xsl:if test="position()!=last()">
+            <xsl:choose>
+                <xsl:when test="count(../../line) &gt; 1">
+                    <tex:cmd name="XLingPaperintspace"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--  
         CalculateColumnsInInterlinearLine
@@ -4337,8 +4387,15 @@
                 <!--                            </tex:env>-->
             </tex:parm>
         </tex:cmd>
-        <xsl:text>&#x20;</xsl:text>
         <xsl:if test="$sRest or $iPosition &lt; $iMaxColumns">
+            <xsl:choose>
+                <xsl:when test="count(../line) &gt; 1">
+                    <tex:cmd name="XLingPaperintspace"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:call-template name="DoNonWrdInterlinearLineAsWrappable">
                 <xsl:with-param name="sList" select="$sRest"/>
                 <xsl:with-param name="lang" select="$lang"/>
@@ -6637,12 +6694,6 @@
                                             <tex:cmd name="XLingPaperexamplenumberheight" gr="0"/>
                                         </tex:parm>
                                     </tex:cmd>
-                                    <!--2011.11.15<tex:cmd name="vspace*" nl2="1">
-                                        <tex:parm>
-                                            <xsl:text>-.8</xsl:text>
-                                            <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                                        </tex:parm>
-                                    </tex:cmd>-->
                                 </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
@@ -6678,6 +6729,7 @@
                             <xsl:call-template name="OutputLetter"/>
                         </tex:parm>
                         <tex:parm>
+                            <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
                             <xsl:choose>
                                 <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                                     <xsl:choose>
@@ -7288,6 +7340,27 @@
         </xsl:if>
         <xsl:value-of select="$sFirst"/>
         <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!--  
+        SetDefaultXLingPaperInterWordSkip
+    -->
+    <xsl:template name="SetDefaultXLingPaperInterWordSkip">
+        <xsl:variable name="sDefaultGlue" select="'6.66666pt plus 3.33333pt minus 2.22222pt'"/>
+        <tex:cmd name="XLingPaperinterwordskip" gr="0" nl1="1"/>
+        <xsl:text>=</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$documentLayoutInfo/interlinearAlignedWordSpacing/@XeLaTeXSpecial[contains(.,'interlinear-aligned-word-skip')]">
+                <xsl:for-each select="$documentLayoutInfo/interlinearAlignedWordSpacing">
+                    <xsl:call-template name="GetXeLaTeXSpecialCommand">
+                        <xsl:with-param name="sAttr" select="'interlinear-aligned-word-skip='"/>
+                        <xsl:with-param name="sDefaultValue" select="$sDefaultGlue"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefaultGlue"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         SetExampleKeepWithNext
@@ -8648,6 +8721,21 @@ What might go in a TeX package file
                 </tex:cmd>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        SetXLingPaperAlignedWordSpacing
+    -->
+    <xsl:template name="SetXLingPaperAlignedWordSpacing">
+        <tex:cmd name="newskip" gr="0"/>
+        <tex:cmd name="XLingPaperinterwordskip" gr="0"/>
+        <xsl:call-template name="SetDefaultXLingPaperInterWordSkip"/>
+        <tex:cmd name="def" gr="0" nl1="1"/>
+        <tex:cmd name="XLingPaperintspace" nl2="1">
+            <tex:parm>
+                <tex:cmd name="hskip" gr="0"/>
+                <tex:cmd name="XLingPaperinterwordskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!--  
         SetXLingPaperDotFillMacro

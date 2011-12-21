@@ -510,8 +510,8 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, endnoteRefLayout?,  
-                                                      figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
+   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, interlinearAlignedWordSpacing?,
+                                                      endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       magnificationFactor?, langDataLayout?, glossLayout?, freeLayout? ) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
@@ -550,6 +550,10 @@ Content Layout
    <!ELEMENT interlinearRefCitationTitleLayout EMPTY  >
    <!ATTLIST interlinearRefCitationTitleLayout
        %formatinfo;
+ >
+   <!ELEMENT interlinearAlignedWordSpacing EMPTY  >
+   <!ATTLIST interlinearAlignedWordSpacing
+       %special;
  >
     <!ELEMENT endnoteRefLayout EMPTY >
     <!ATTLIST endnoteRefLayout

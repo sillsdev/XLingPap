@@ -1410,9 +1410,9 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:get expression="$producePDFParameters"/>
+<!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:command name="PDFCompletionProcessing"/>
+-->                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
@@ -1439,9 +1439,9 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:get expression="$producePDFParameters"/>
+<!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:command name="PDFCompletionProcessing"/>
+-->                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
@@ -1471,9 +1471,9 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:get expression="$producePDFParameters"/>
+<!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-                                                <cfg:command name="PDFCompletionProcessing"/>
+-->                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>

@@ -207,6 +207,9 @@
                 <xsl:call-template name="SetXLingPaperListInterlinearInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleFreeIndent"/>
                 <xsl:call-template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes"/>
+                <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
+                    <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
+                </xsl:if>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>
@@ -1692,6 +1695,7 @@
                     </xsl:call-template>
                 </tex:parm>
                 <tex:parm>
+                    <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
                     <xsl:call-template name="OutputTypeAttributes">
                         <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                     </xsl:call-template>

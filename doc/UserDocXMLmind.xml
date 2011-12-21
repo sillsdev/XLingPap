@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 December 2011</date
+>20 December 2011</date
 ><version
->2.17.0_5</version
+>2.17.0_6</version
 ><contents
 showLevel="4"
 ></contents
@@ -1264,6 +1264,46 @@ href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
 >.</td
 ><td
 >graphite</td
+></tr
+><tr
+><td
+>interlinear-aligned-word-skip</td
+><td
+>a TeX ‘glue’ value</td
+><td
+>Provides the ‘glue’ value to use as the space between aligned interlinear word units (when the automatically wrap long interlinear option is set; see <sectionRef
+sec="sExInterlinear"
+></sectionRef
+>). This only works on <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>interlinear-text</object
+>, and <object
+type="tElement"
+>listInterlinear</object
+> elements. The default amount of ‘glue’ is <object
+type="tInstruction"
+>6.66666pt plus 3.33333pt minus 2.22222pt</object
+> (this is what is used by <citation
+page="56"
+paren="none"
+ref="rITF"
+></citation
+>).</td
+><td
+><table
+><tr
+><td
+>interlinear-aligned-word-skip='7.66666pt plus 4.33333pt minus 3.22222pt'</td
+></tr
+><tr
+><td
+>interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -3354,10 +3394,10 @@ type="tElement"
 > element whether or not you plan to have endnotes or footnotes. The process that converts <object
 type="tXLingPap"
 ></object
-> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.  If you are using a publisher style sheet (see section <sectionRef
+> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes. If you are using a publisher style sheet (see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
->), then you can control whether the output uses endnotes or footnotes for non-web page outputs.  See the <object
+>), then you can control whether the output uses endnotes or footnotes for non-web page outputs. See the <object
 type="tElement"
 >useEndNotesLayout</object
 > element in the <link
@@ -23983,6 +24023,25 @@ plural="yes"
 ><publisher
 >University of Melbourne</publisher
 ></proceedings
+></refWork
+></refAuthor
+><refAuthor
+citename="Kew &amp; McConnel"
+name="Kew, Jonathan and Stephen McConnel"
+><refWork
+id="rITF"
+><refDate
+>1990</refDate
+><refTitle
+>Formatting Interlinear Text</refTitle
+><book
+><series
+>Occassional Publications in Academic Computing Number 17</series
+><location
+>Dallas, Texas</location
+><publisher
+>Summer Institute of Linguistics</publisher
+></book
 ></refWork
 ></refAuthor
 ><refAuthor

@@ -19,6 +19,8 @@ path=%XLingPaperXeLaTeXPath%
 cd %2
 xelatex -halt-on-error %1
 if errorlevel 1 goto recorderror
+xelatex -halt-on-error %1
+if errorlevel 1 goto recorderror
 if exist %ErrorFile% del %ErrorFile%
 REM del %ErrorFile%
 goto quit

@@ -6383,6 +6383,12 @@ iso639-3codeItemRef
 {
 	content: "  see iso639-3Item below";
 }
+interlinearAlignedWordSpacing
+{
+	property-group: titledItem("interlinear aligned word spacing");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 interlinearRefCitationTitleLayout[color]
 {
 	color:concatenate(attr(color));

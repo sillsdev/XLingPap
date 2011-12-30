@@ -28,7 +28,7 @@
     <xsl:param name="sLinkColor"/>
     <xsl:param name="sLinkTextDecoration"/>
     <!-- the following is actually  the main source file path and name without extension -->
-    <xsl:param name="sMainSourcePath" select="'C:/Documents and Settings/Andy Black/My Documents/XLingPap/XeTeX'"/>
+    <xsl:param name="sMainSourcePath" select="'C:/Users/Andy%20Black/Documents/XLingPap/HabPlay'"/>
     <xsl:param name="sMainSourceFile" select="'TestTeXPaperTeXML'"/>
     <xsl:param name="sDirectorySlash" select="'/'"/>
     <xsl:param name="sTableOfContentsFile" select="concat($sMainSourcePath, $sDirectorySlash, 'XLingPaperPDFTemp', $sDirectorySlash, $sMainSourceFile,'.toc')"/>
@@ -134,6 +134,7 @@
                 <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
                     <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
                 </xsl:if>
+                <xsl:call-template name="HandleHyphenationExceptionsFile"/>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:env name="MainFont">
                     <xsl:choose>
@@ -933,7 +934,7 @@
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@gref"/>
         </xsl:call-template>
-        <xsl:apply-templates/>
+        <xsl:call-template name="OutputGenericRef"/>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
     </xsl:template>
     <!--

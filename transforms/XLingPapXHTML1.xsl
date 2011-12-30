@@ -618,7 +618,7 @@
                 <xsl:text>#</xsl:text>
                 <xsl:value-of select="@gref"/>
             </xsl:attribute>
-            <xsl:apply-templates/>
+            <xsl:call-template name="OutputGenericRef"/>
         </xsl:element>
     </xsl:template>
     <!--

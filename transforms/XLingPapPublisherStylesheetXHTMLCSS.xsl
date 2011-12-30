@@ -1290,6 +1290,7 @@ li.lower-roman {
     <xsl:template match="@captionLocation"/>
     <xsl:template match="@ethnCode"/>
     <xsl:template match="@firstParagraphHasIndent"/>
+    <xsl:template match="@fontissmallcaps"/>
     <xsl:template match="@format"/>
     <xsl:template match="@id"/>
     <xsl:template match="@ignore"/>

@@ -2,7 +2,7 @@
      XML/XSLT-based Linguistic paper document type definition
      Stylesheet  information for a particular publisher
        One may reference/link/insert an XLingPap document into this template as a particular instance.
-     Version 1.3.0
+     Version 2.18.0
      (Revision history is at the end.)
   -->
 <!ELEMENT publisherStyleSheet (publisherStyleSheetName?, publisherStyleSheetVersion?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >

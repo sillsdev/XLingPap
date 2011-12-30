@@ -4,7 +4,8 @@
 <abbreviations
 font-family="Charis SIL Small Caps"
 usesmallcaps="no"
-version="2.12.0"
+version="2.18.0"
+fontissmallcaps="yes"
 ><comment
 >The following was taken from the Leipzig Glossing Rules, List of Standard Abbreviations at <link
 href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"

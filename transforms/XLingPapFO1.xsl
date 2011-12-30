@@ -987,7 +987,7 @@
     <xsl:template match="genericRef">
         <fo:basic-link internal-destination="{@gref}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:apply-templates/>
+            <xsl:call-template name="OutputGenericRef"/>
         </fo:basic-link>
     </xsl:template>
     <!--

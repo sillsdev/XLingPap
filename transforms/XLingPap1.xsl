@@ -608,8 +608,8 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-      appendixRef
-      -->
+        appendixRef
+    -->
     <xsl:template match="appendixRef">
         <xsl:call-template name="DoReferenceShowTitleBefore">
             <xsl:with-param name="showTitle" select="@showTitle"/>
@@ -622,15 +622,15 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-      genericRef
-      -->
+        genericRef
+    -->
     <xsl:template match="genericRef">
         <xsl:element name="a">
             <xsl:attribute name="href">
                 <xsl:text>#</xsl:text>
                 <xsl:value-of select="@gref"/>
             </xsl:attribute>
-            <xsl:apply-templates/>
+            <xsl:call-template name="OutputGenericRef"/>
         </xsl:element>
     </xsl:template>
     <!--
@@ -1716,7 +1716,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!--
+        <!--
         exampleRef
     -->
     <xsl:template match="exampleRef">
@@ -2040,7 +2040,7 @@
             <xsl:otherwise>
                 <span style="font-size:65%; vertical-align:super">
                     <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
-                        <xsl:call-template name="DoEndnoteRefNumber"/>
+                    <xsl:call-template name="DoEndnoteRefNumber"/>
                 </span>
             </xsl:otherwise>
         </xsl:choose>

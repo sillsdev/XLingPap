@@ -834,7 +834,7 @@
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
             </xsl:call-template>
-            <xsl:apply-templates/>
+            <xsl:call-template name="OutputGenericRef"/>
         </a>
     </xsl:template>
     <!--

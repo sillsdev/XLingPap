@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->31 October 2011</date
+>23 December 2011</date
 ><version
->2.17.0_1</version
+>2.17.0_6</version
 ><contents
 showLevel="3"
 ></contents
@@ -9415,6 +9415,13 @@ type="tElement"
 ></dt
 ><dd
 >Includes a table of contents</dd
+><dt
+><object
+type="tElement"
+>counter</object
+></dt
+><dd
+>When placed in a td element, it counts the number of counter elements in this table; useful for automatically numbering table rows for class handouts, poster sessions, etc.</dd
 ><dt
 ><object
 type="tElement"

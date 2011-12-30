@@ -15,10 +15,11 @@
     <xsl:key name="RefWorkID" match="//refWork" use="@id"/>
     <xsl:key name="TypeID" match="//type" use="@id"/>
     <xsl:key name="AuthorContactID" match="//authorContact" use="@id"/>
+    <xsl:key name="LiInOlID" match="//li[parent::ol]" use="@id"/>
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">2.14.0</xsl:variable>
+    <xsl:variable name="sVersion">2.18.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">
@@ -68,6 +69,13 @@
     </xsl:variable>
     <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
+    <!--
+        counter
+    -->
+    <xsl:template match="counter">
+        <xsl:number from="table"  level="any"/>
+        <xsl:text>.</xsl:text>
+    </xsl:template>
     <!--
         exampleHeading in NotTextRef mode
     -->
@@ -496,6 +504,35 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        GetLiInOlNumberOrLetter
+    -->
+    <xsl:template name="GetLiInOlNumberOrLetter">
+        <xsl:param name="li"/>
+        <xsl:for-each select="$li">
+            <xsl:variable name="NestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::endnote">
+                        <xsl:value-of select="count(../ancestor::ol[not(descendant::endnote)])"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="count(../ancestor::ol)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:choose>
+                <xsl:when test="($NestingLevel mod 3)=0">
+                    <xsl:number format="1"/>
+                </xsl:when>
+                <xsl:when test="($NestingLevel mod 3)=1">
+                    <xsl:number format="a"/>
+                </xsl:when>
+                <xsl:when test="($NestingLevel mod 3)=2">
+                    <xsl:number format="i"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
         InsertCommaBetweenConsecutiveEndnotes
     -->
     <xsl:template name="InsertCommaBetweenConsecutiveEndnotes">
@@ -646,6 +683,41 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+    </xsl:template>
+    <!--
+        OutputGenericRef
+    -->
+    <xsl:template name="OutputGenericRef">
+        <xsl:variable name="targetIsLiInOl" select="key('LiInOlID',@gref)"/>
+        <xsl:choose>
+            <xsl:when test="$targetIsLiInOl">
+                <xsl:choose>
+                    <xsl:when test="@showlivalue='before'">
+                        <xsl:call-template name="GetLiInOlNumberOrLetter">
+                            <xsl:with-param name="li" select="$targetIsLiInOl"/>
+                        </xsl:call-template>
+                        <xsl:apply-templates/>
+                    </xsl:when>
+                    <xsl:when test="@showlivalue='after'">
+                        <xsl:apply-templates/>
+                        <xsl:call-template name="GetLiInOlNumberOrLetter">
+                            <xsl:with-param name="li" select="$targetIsLiInOl"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="@showlivalue='only'">
+                        <xsl:call-template name="GetLiInOlNumberOrLetter">
+                            <xsl:with-param name="li" select="$targetIsLiInOl"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="@showlivalue='no'">
+                        <xsl:apply-templates/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputGlossaryLabel

@@ -102,6 +102,7 @@ font-variant="small-caps"
 id="tSmallCaps"
 ></type
 ><type
+XeLaTeXSpecial="line-through"
 cssSpecial="text-decoration:line-through"
 id="tStrikethrough"
 xsl-foSpecial="text-decoration=&quot;line-through&quot;"

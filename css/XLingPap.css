@@ -985,6 +985,14 @@ contents
 	color:Silver;
 }
 
+counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, decimal)
+	"."
+	;
+}
+
 date { 
     display: block;
     text-align: center;
@@ -3369,6 +3377,7 @@ table {
     border-width: concatenate(attr(border));
     margin-top: 1.33ex;
     margin-bottom: 1.33ex;
+    counter-reset:row-counter;
 }
 
 tablenumbered:before

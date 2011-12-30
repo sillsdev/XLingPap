@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2011-12-21</a:date
+>2011-12-30</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,17 +32,37 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.17.0_6 21 December 2011<ul
+>2.17.0_6 30 December 2011<ul
+><li
+>Made the 'Convert any abbreviations in gloss to abbrRefs' command work when an abbreviation in the gloss element is ended by a space or a non-breaking space character.</li
+><li
+>Added fontissmallcaps attribute to the abbreviations element to control whether or not the 'Convert any abbreviations in gloss to abbrRefs' command will find upper-case abbreviations in a gloss when the abbreviation themselves are all lower-case.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Provide a way to control the amount of spacing between aligned words in an interlinear.</li
 ><li
+>Fix bug: sometimes numbered tables would be single spaced even when the document was double spaced.</li
+><li
 >Improve performance of producing the PDF process.</li
+><li
+>Add a way to produce strike-through (aka line-through).</li
+><li
+>Add an ability to link to a hyphenation exceptions file so the hyphenation process will pay attention to the exceptions in that file.</li
+><li
+>Fix a bug which made the width of the content of a long listSingle be too narrow.</li
+><li
+>Fix a bug which made the width of an image in an example be wrong.</li
 ></ul
 ></li
 ><li
 >Make integrity checking for publisher style sheets work for when the publisher style sheet is within a full document.</li
+><li
+>Add showlivalue attribute to genericRef element. It provides a way to show and control a reference to an li element within an ol element.</li
+><li
+>Have the 'Convert any abbreviations in gloss to abbrRefs' command not be available when one should really use the 'Convert interlinear line to wrd elements' command.</li
+><li
+>Added a counter element that can go in a td element so one can automatically number rows in a data display table (such as for an in-class handout, a poster session, or a textbook).</li
 ></ul
 ></li
 ><li
@@ -120,7 +140,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >2.17.0_1 31 October 2011<ul
 ><li
->When an interlienar text comes from FLEx, fixed the interlinear "segment" numbering to use the same number as in FLEx.</li
+>When an interlinear text comes from FLEx, fixed the interlinear "segment" numbering to use the same number as in FLEx.</li
 ><li
 >Added referencedInterlinearTexts and referencedInterlinearText elements. The latter refers to a file containing an interlinear-text element so one can copy in referenced interlinear elements from the text and also use interlinearRef and interlinearRefCitatation elements referring to that text. The text itself is not printed in the output, but the interlinear source citation is a link to that interlinear element within the file containing its interlinear-text.</li
 ><li

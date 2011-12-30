@@ -1,7 +1,6 @@
  <!-- XLingPap.dtd
      XML/XSLT-based Linguistic paper document type definition
-     Version 2.12.0
-     (Revision history is at the end.)
+     Version 2.18.0
   -->
 <!-- xlingpaper top element allows for the paper/book itself, a stylesheet, and published document information to be included -->
 <!ELEMENT  xlingpaper (lingPaper | styledPaper | publishedPaper | publishedCollection)>
@@ -119,6 +118,7 @@
 <!ELEMENT language (langName*)>
 <!ATTLIST language
     id ID #REQUIRED
+    hyphenationExceptionsFile CDATA #IMPLIED
     name CDATA #IMPLIED
     ethnCode CDATA #IMPLIED
     ISO639-3Code CDATA #IMPLIED
@@ -604,7 +604,7 @@
     direction (ltr | rtl | inherit) #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | example)*>
+<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | example | counter)*>
 <!ATTLIST td
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED
@@ -617,6 +617,7 @@
     xml:lang CDATA #IMPLIED
     %special;
 >
+<!ELEMENT counter EMPTY >
 <!ELEMENT chart (#PCDATA | %embedded; | ol | ul | dl)*>
 <!ATTLIST chart
     type IDREF #IMPLIED
@@ -710,10 +711,18 @@
     paren (none | both | initial | final) #IMPLIED
     letterOnly (no | yes) "no"
 >
-<!-- generic references (to sections, examples, endnotes, etc.) -->
+<!-- generic references (to sections, examples, endnotes, etc.) 
+        gref is the link
+        showlivalue is used only when the link is to an li within an ol
+           no is the default and means do not show the li number/letter
+           before means show the li number/letter before the content of the genricRef
+           after means show the li number/letter after the content of the genricRef
+           only means show the li number/letter but do not show the content of the genericRef
+-->
 <!ELEMENT genericRef (#PCDATA | %embedded; | abbrRef)*>
 <!ATTLIST genericRef
     gref IDREF #REQUIRED
+    showlivalue (no | before | after | only) "no"
     xml:lang CDATA #IMPLIED
 >
 <!-- generic target: an ID that can be embedded almost anywhere and then linked to via a genericRef -->

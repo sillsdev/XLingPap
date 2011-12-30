@@ -91,7 +91,8 @@
         <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
     </xsl:variable>
     <xsl:variable name="iExampleWidth">
-        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
+<!--        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>-->
+        <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
     </xsl:variable>
     <xsl:variable name="sExampleWidth">
         <xsl:value-of select="$iExampleWidth"/>
@@ -152,7 +153,7 @@
         genericRef (InMarker)
     -->
     <xsl:template match="genericRef" mode="InMarker">
-        <xsl:apply-templates/>
+        <xsl:call-template name="OutputGenericRef"/>
     </xsl:template>
     <!--
         genericTarget
@@ -2063,10 +2064,9 @@
                             <tex:parm>
                                 <tex:cmd name="textwidth" gr="0" nl2="0"/>
                                 <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sBlockQuoteIndent"/>
+                                <xsl:value-of select="$sExampleIndentBefore"/>
                                 <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$iExampleWidth"/>
-                                <xsl:text>em</xsl:text>
+                                <xsl:value-of select="$sExampleIndentAfter"/>
                             </tex:parm>
                             <tex:parm>
                                 <xsl:call-template name="DoImageFile">
@@ -5551,6 +5551,29 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        HandleHyphenationExceptionsFile
+    -->
+    <xsl:template name="HandleHyphenationExceptionsFile">
+        <xsl:for-each select="//language[@id=$documentLang]">
+            <xsl:variable name="sHyphenationExceptionsFile" select="normalize-space(@hyphenationExceptionsFile)"/>
+            <xsl:if test="string-length($sHyphenationExceptionsFile) &gt; 0">
+                <tex:cmd name="hyphenation" nl2="1">
+                    <tex:parm>
+                        <xsl:variable name="sPathToExceptionsFile" select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
+<!--                        <xsl:value-of select="$sPathToExceptionsFile"/>
+                        <xsl:variable name="exceptions" select="document($sPathToExceptionsFile)"/>-->
+                        <xsl:for-each select="document($sPathToExceptionsFile)/exceptions/word">
+                            <xsl:value-of select="."/>
+                            <xsl:if test="position()!=last()">
+                                <xsl:text>&#x20;</xsl:text>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         HandleImmediatelyPrecedingLineGroupOrFree
     -->
     <xsl:template name="HandleImmediatelyPrecedingLineGroupOrFree">
@@ -7223,6 +7246,11 @@
                     <xsl:text>uline</xsl:text>
                     <tex:spec cat="bg"/>
                 </xsl:when>
+                <xsl:when test="$sFirst='line-through'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>sout</xsl:text>
+                    <tex:spec cat="bg"/>
+                </xsl:when>
             </xsl:choose>
             <xsl:if test="$sRest">
                 <xsl:call-template name="OutputTypeAttributes">
@@ -7248,6 +7276,9 @@
                     <tex:spec cat="eg"/>
                 </xsl:when>
                 <xsl:when test="$sFirst='underline'">
+                    <tex:spec cat="eg"/>
+                </xsl:when>
+                <xsl:when test="$sFirst='line-through'">
                     <tex:spec cat="eg"/>
                 </xsl:when>
             </xsl:choose>

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->20 December 2011</date
+>29 December 2011</date
 ><version
 >2.17.0_6</version
 ><contents
@@ -1069,6 +1069,29 @@ type="tAttrValue"
 lang="lEng"
 > <object
 type="tAttribute"
+>hyphenationExceptionsFile</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is a URI to the XML file containing exceptions to the normal hyphenation algorithm for this language.  See section <sectionRef
+sec="sFAQHyphenation"
+></sectionRef
+>.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
 >id</object
 > </langData
 ></td
@@ -1336,6 +1359,22 @@ type="tElement"
 > element within a table. This will output a horizontal line before the content of the row.</td
 ><td
 >line-before</td
+></tr
+><tr
+><td
+>line-through</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render with a line through the characters</td
+><td
+>line-through</td
 ></tr
 ><tr
 ><td
@@ -5484,7 +5523,7 @@ note="nNodePathBarReminder"
 ></endnoteRef
 > and then setting the <object
 type="tAttribute"
->font-variant</object
+>font-family</object
 > attribute using the Attributes Tool.</li
 ><li
 >If you do not have a true small caps font, set the <object
@@ -5505,6 +5544,23 @@ type="tAttribute"
 > attribute using the Attributes Tool.</li
 ></ul
 ></li
+><li
+>Finally, set the <object
+type="tAttribute"
+>fontissmallcaps</object
+> attribute of the <object
+type="tElement"
+>abbreviations</object
+> element to <object
+type="tAttrValue"
+>yes</object
+>. This will enable the easier method for setting <object
+type="tElement"
+>abbrRef</object
+> elements described below in section <sectionRef
+sec="sBMAbbreviationsReferences"
+></sectionRef
+> to be smart enough to recognize abbreviations even when you type them using upper-case letters (perhaps because you are used to using upper-case letters in other editing programs).</li
 ></ol
 ><p
 >You can save the file to a location that is convenient for you. Next, click on the word “Endnotes” in the back-matter section, do an insert-before operation,<endnoteRef
@@ -5679,7 +5735,13 @@ id="sBMAbbreviationsReferences"
 ><secTitle
 >References to an Abbreviation</secTitle
 ><p
->To actually create references to abbreviations, in an example with glosses, perform an insert operation<endnoteRef
+>There are two ways to create references to abbreviations: by hand and automated.</p
+><section4
+id="sBMAbbreviationsReferencesManual"
+><secTitle
+>Manual Method</secTitle
+><p
+>The first way to create references to abbreviations is to do it by hand. In an example with glosses, perform an insert operation<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
 > within a <object
@@ -5719,8 +5781,13 @@ src="resources/AbbrRef.png"
 ></img
 ></chart
 ></example
+></section4
+><section4
+id="sBMAbbreviationsReferencesAutomatic"
+><secTitle
+>Automated Method</secTitle
 ><p
->When you are entering abbreviations in a <object
+>The second way to create references to abbreviations is probably much more convenient. When you are entering abbreviations in a <object
 type="tElement"
 >gloss</object
 > element, there is a potentially easier way to insert these <object
@@ -5767,7 +5834,7 @@ href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"
 >http://www.eva.mpg.de/lingua/resources/glossing-rules.php</link
 >.</p
 ></endnote
-> Note that the abbreviation labels need to be identical to what they are in the abbreviation element, including lower or upper case (unless you are using smallcaps for your abbreviations<endnoteRef
+> (It also uses the space and non-breaking space characters.) Note that the abbreviation labels need to be identical to what they are in the abbreviation element, including lower or upper case (unless you are using smallcaps for your abbreviations<endnoteRef
 note="nSeeHowToUseSmallcaps"
 ></endnoteRef
 > in which case either lower case or upper case will do). There is an exception to this: if you have abbreviations for person using 1, 2, or 3 to indicate the person, then it will also find combinations such as 3sg or 2pl (as long as you also have sg and pl as abbreviations).</p
@@ -5910,10 +5977,36 @@ type="tKey"
 ></table
 ></example
 ><p
->Please be aware that it is important to make use of the <object
+>Please note that since this method uses the punctuation symbols listed in example <exampleRef
+letter="xLeipzigPunctuationDelimiters"
+num="xLeipzigPunctuationDelimiters"
+></exampleRef
+> to separate potential abbreviation labels, if you have any abbreviations which contain any of these symbols, this method will not find those abbreviations. That is, this method (and from what I can tell, the <link
+href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"
+>Leipzig glossing conventions</link
+>) assume that your list of abbreviations will not have combinations like this. Rather, you list just the component pieces. For example, rather than having a single abbreviation entry like “dat.pl”, you will have two entries: one for “dat” and one for “pl”. You can, of course, still have a combination abbreviation, but you will need to create the <object
+type="tElement"
+>abbrRef</object
+> element for it by hand (as mentioned in section <sectionRef
+sec="sBMAbbreviationsReferencesManual"
+></sectionRef
+>). You cannot use this short-cut method.</p
+><p
+>Further, note that if your master list of abbreviations include abbreviations for more than one language and if you have set the <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to a particular language code (see section <sectionRef
+sec="sBMAbbreviationsMasterListMultipleLanguages"
+></sectionRef
+>), then this easier method will only find abbreviations which are overtly marked to be for that language code.</p
+><p
+>In addition, please be aware that it is important to make use of the <object
 type="tElement"
 >wrd</object
-> elements when using this with interlinear examples (see section <sectionRef
+> elements when using this short-cut method with interlinear examples (see section <sectionRef
 sec="sExInterlinearWrd"
 ></sectionRef
 >). If you just use the plain text approach as described in section <sectionRef
@@ -5958,6 +6051,7 @@ letter="xAbbrRefsExampleInterlinearPDF"
 num="xAbbrRefsExampleInterlinearPDF"
 ></exampleRef
 >, the abbreviated items are actually hyperlinks. They just are not underlined.</p
+></section4
 ></section3
 ><section3
 id="sBMAbbreviationsShowingList"
@@ -10690,6 +10784,51 @@ type="tInstruction"
 type="tInstruction"
 >Increase Table Size</object
 > command may not work as you might expect or it may not even be able to increase the sizes at all. Therefore, please try to use this command before you set any row spans or column spans.</p
+></section3
+><section3
+id="sTCTCouner"
+><secTitle
+>Row Counter In Data Displays</secTitle
+><p
+>There are times, such as in class handouts, poster sessions, and even in textbooks, where one may want to use a table to display a set of data. To facilitate locating data items in class or poster session discussions, one would like to have a line number for the data in a particular table. Rather than having to key such line numbers by hand, <object
+type="tXLingPap"
+></object
+> allows you to use the <object
+type="tElement"
+>counter</object
+> element within a <object
+type="tElement"
+>td</object
+> element. It will automatically keep track of the count of this and all previous <object
+type="tElement"
+>counter</object
+> elements within the current <object
+type="tElement"
+>table</object
+> element. It displays the count as a number with a following period. If you have more than 9 such rows, you may well want to set the <object
+type="tAttribute"
+>align</object
+> attribute of each enclosing <object
+type="tElement"
+>td</object
+> element to <object
+type="tAttrValue"
+>right</object
+> so that the numbers align.</p
+><p
+>Example <exampleRef
+letter="xDataDisplayWithCounterElements"
+num="xDataDisplayWithCounterElements"
+></exampleRef
+> shows how one such data display might look.</p
+><example
+num="xDataDisplayWithCounterElements"
+><chart
+><img
+src="resources/DataDisplayWithCounterElements.png"
+></img
+></chart
+></example
 ></section3
 ><section3
 id="sTCTTablesCaptions"
@@ -15740,6 +15879,9 @@ id="sSpecialEffectsLinksGeneric"
 ><secTitle
 >Internal links</secTitle
 ><p
+><indexedItem
+term="iRefToGeneric"
+></indexedItem
 >The first is for linking material within the document. One does this by inserting<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
@@ -15749,7 +15891,93 @@ type="tElement"
 > element within text. The <object
 type="tElement"
 >genericRef</object
-> element has one attribute: <object
+> element has one attribute:<endnote
+id="nShowLiValue"
+><p
+><indexedItem
+term="iRefToGeneric"
+></indexedItem
+>Actually, it now has another attribute which we think will rarely be used. It is <object
+type="tAttribute"
+>showlivalue</object
+> and has significance only when the target element is an <object
+type="tElement"
+>li</object
+> element whose parent element is an <object
+type="tElement"
+>ol</object
+> element. The intention is to provide a way to refer to a list item and potentially have the number or letter of the list item show up in the output. It is described in <exampleRef
+letter="xLiAttributes"
+num="xLiAttributes"
+></exampleRef
+> below. Please note that unlike all other reference items where the value is produced automatically for you, this one can be ambiguous. All others will be unique, but it is possible to have more than one list with the same list item number/value. So if you choose to use this capability, be aware that it can be ambiguous and be careful not to confuse your reader.</p
+><example
+num="xLiAttributes"
+><table
+><tr
+><th
+>Attribute</th
+><th
+>Value</th
+><th
+>Meaning</th
+></tr
+><tr
+><td
+rowspan="4"
+valign="top"
+><object
+type="tAttribute"
+>showlivalue</object
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>Do not show the list item number/letter. This is the default value.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>before</object
+></td
+><td
+>Output the list item number/letter before the content of the <object
+type="tElement"
+>genericRef</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>after</object
+></td
+><td
+>Output the list item number/letter after the content of the <object
+type="tElement"
+>genericRef</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>only</object
+></td
+><td
+>Only output the list item number/letter. Do not output the content of the <object
+type="tElement"
+>genericRef</object
+> element.</td
+></tr
+></table
+></example
+></endnote
+> <object
 type="tAttribute"
 >gref</object
 > which should be the <object
@@ -19826,6 +20054,57 @@ type="tXLingPap"
 href="http://www.xlingpaper.org/?page_id=4"
 >http://www.xlingpaper.org/?page_id=4</link
 > for more. If you do not have this update, trying to produce the PDF will fail when you also try to use hyphenation for a non-English language.</p
+><p
+>Also, if you find that you need to have <object
+type="tXeTeX"
+></object
+> hyphenate some words differently than what the algorithm does, you can create a custom XML file containing these words. The format of this file should be as shown in example <exampleRef
+letter="xHyphenationExceptions"
+num="xHyphenationExceptions"
+></exampleRef
+>.</p
+><example
+num="xHyphenationExceptions"
+><chart
+>&lt;exceptions&gt;<br
+></br
+> &lt;word&gt;...&lt;/word&gt;<br
+></br
+> &lt;word&gt;...&lt;/word&gt;<br
+></br
+> /exceptions&gt;</chart
+></example
+><p
+>Where example <exampleRef
+letter="xHyphenationExceptions"
+num="xHyphenationExceptions"
+></exampleRef
+> has the ellipsis, put your exceptional words. You can enter a regular hyphen character to indicate where the hyphenation should occur. Be sure to save this file in UTF-8 format.</p
+><p
+>Finally, make sure you have a <object
+type="tElement"
+>language</object
+> element whose <object
+type="tAttribute"
+>id</object
+> attribute is the same as the code you used in the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. Then set the <object
+type="tAttribute"
+>hyphenationExceptionsFile</object
+> attribute of that <object
+type="tElement"
+>language</object
+> element to the location of your hyphenation exceptions file; we suggest you use the “Browse Files...” button of the Attributes tool.<endnote
+id="nHyphenationExceptionFilePath"
+><p
+>On Windows operating systems, be sure and replace any backslash (\) characters with forward slashes (/). The “Browse Files...” button will automatically do this for ypu.</p
+></endnote
+></p
 ></section2
 ></section1
 ><section1
@@ -20739,6 +21018,13 @@ type="tElement"
 ></dt
 ><dd
 >Includes a table of contents</dd
+><dt
+><object
+type="tElement"
+>counter</object
+></dt
+><dd
+>When placed in a td element, it counts the number of counter elements in this table; useful for automatically numbering table rows for class handouts, poster sessions, etc.</dd
 ><dt
 ><object
 type="tElement"

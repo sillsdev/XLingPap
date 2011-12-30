@@ -214,6 +214,7 @@
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>
                 </tex:cmd>
+                <xsl:call-template name="HandleHyphenationExceptionsFile"/>
                 <tex:env name="MainFont">
                     <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
                         <xsl:call-template name="HandleFontSize">
@@ -1201,7 +1202,7 @@
         <xsl:call-template name="LinkAttributesBegin">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
         </xsl:call-template>
-        <xsl:apply-templates/>
+        <xsl:call-template name="OutputGenericRef"/>
         <xsl:call-template name="LinkAttributesEnd">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
         </xsl:call-template>
@@ -4290,6 +4291,7 @@
             </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
+        <xsl:call-template name="HandleTableLineSpacing"/>        
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
@@ -4814,6 +4816,28 @@
                 </xsl:attribute>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        HandleTableLineSpacing
+    -->
+    <xsl:template name="HandleTableLineSpacing">
+        <xsl:param name="bDoBeginGroup" select="'N'"/>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <xsl:if test="$bDoBeginGroup='Y'">
+                <tex:spec cat="bg"/>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$lineSpacing/@singlespacetables='yes'">
+                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                </xsl:when>
+                <xsl:when test="$sLineSpacing='double'">
+                    <tex:cmd name="doublespacing" gr="0" nl2="1"/>
+                </xsl:when>
+                <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                    <tex:cmd name="onehalfspacing" gr="0" nl2="1"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
         LinkAttributesBegin
@@ -6008,10 +6032,9 @@
                 <xsl:text>raggedright</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
-            <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
-        </xsl:if>
+        <xsl:call-template name="HandleTableLineSpacing">
+            <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
+        </xsl:call-template>
         <xsl:if test="$bDoStyles='Y'">
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetTableNumberedLabelLayout"/>

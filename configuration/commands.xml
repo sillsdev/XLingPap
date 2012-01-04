@@ -1748,13 +1748,13 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="ProducePDFViaXeLaTeXPostProcessing">
         <cfg:process>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0" platform="Windows"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot;" platform="Unix"/>
-            <cfg:shell  command="copy &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
+<!-- moved these to the batch file           <cfg:shell  command="copy &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
             <cfg:shell  command="cp &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
             <cfg:shell  command="del &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot;" platform="Windows"/>
             <cfg:shell  command="rm &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot;" platform="Unix"/>
-<!--  these use a glob pattern so if a user chooses to use square brackets in a file name, then messes it up      
+--><!--  these use a glob pattern so if a user chooses to use square brackets in a file name, then messes it up      
     <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf" to="%{P}%{S}%{R}.pdf"/>
             <cfg:delete quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf"/>-->
         </cfg:process>

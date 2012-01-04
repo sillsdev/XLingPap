@@ -22,7 +22,8 @@ if errorlevel 1 goto recorderror
 xelatex -halt-on-error %1
 if errorlevel 1 goto recorderror
 if exist %ErrorFile% del %ErrorFile%
-REM del %ErrorFile%
+copy %5 %6
+del %5
 goto quit
 :recorderror
 echo XLingPaper-ErrorInXeLaTeX-XLingPaper > %ErrorFile%

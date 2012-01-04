@@ -409,6 +409,7 @@
 -->
 <!ELEMENT interlinear (exampleHeading?, (lineGroup | free | interlinear | phrase)+, interlinearSource?)>
 <!ATTLIST interlinear
+    externalID CDATA #IMPLIED
     text ID #IMPLIED
     textref IDREF #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
@@ -450,12 +451,14 @@
 <!ELEMENT conflation (lineSet+)>
 <!ELEMENT free (#PCDATA | %embedded;)*>
 <!ATTLIST free
+    externalID CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT exampleHeading (#PCDATA | %embedded;)*>
 <!ELEMENT listInterlinear (exampleHeading?, (lineGroup | free | interlinear | interlinearRef | phrase)+, interlinearSource?)>
 <!ATTLIST listInterlinear
+    externalID CDATA #IMPLIED
     letter ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
@@ -483,6 +486,7 @@
 <!-- N.B. EMELD uses interlinear-text, so we will, too -->
 <!ELEMENT interlinear-text (textInfo?, ((item*, phrases*) | interlinear*))>
 <!ATTLIST interlinear-text
+    externalID CDATA #IMPLIED
     text ID #IMPLIED
     %special;
 >
@@ -492,15 +496,18 @@
 >
 <!ELEMENT textTitle (#PCDATA | %embedded;)*>
 <!ATTLIST textTitle
+    externalID CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT source (#PCDATA | %embedded;)*>
 <!ATTLIST source
+    externalID CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT genres (genre)*>
 <!ELEMENT genre (#PCDATA | %embedded;)*>
 <!ATTLIST genre
+    externalID CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT phrases (phrase*)>
@@ -688,11 +695,13 @@
 <!-- langData is a way to tag some text as belonging to a particular language. -->
 <!ELEMENT langData (#PCDATA | %embedded;)*>
 <!ATTLIST langData
+    externalID CDATA #IMPLIED
     lang IDREF #REQUIRED
 >
 <!-- gloss is a way to tag some text as being a gloss in a particular language. -->
 <!ELEMENT gloss (#PCDATA | %embedded; | abbrRef)*>
 <!ATTLIST gloss
+    externalID CDATA #IMPLIED
     lang IDREF #REQUIRED
 >
 <!-- references to example numbers or example number/letter.

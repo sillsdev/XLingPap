@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->29 December 2011</date
+>4 January 2012</date
 ><version
->2.17.0_6</version
+>2.18.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -1080,7 +1080,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->This is a URI to the XML file containing exceptions to the normal hyphenation algorithm for this language.  See section <sectionRef
+>This is a URI to the XML file containing exceptions to the normal hyphenation algorithm for this language. See section <sectionRef
 sec="sFAQHyphenation"
 ></sectionRef
 >.</langData
@@ -17124,7 +17124,7 @@ id="sFAQNbhy"
 ><secTitle
 >Key a non-breaking hyphen?</secTitle
 ><p
->To key a non-breaking space, use the insert character dialog discussed in section <sectionRef
+>To key a non-breaking hyphen, use the insert character dialog discussed in section <sectionRef
 sec="sFAQQuotes"
 ></sectionRef
 >, but type in <object

@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.17.0_6</span></p>
-      <p align="center">Date: 2011-12-30</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0</span></p>
+      <p align="center">Date: 2012-01-04</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,94 +34,13 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.17.0_6 30 December 2011
+               <li>2.18.0 4 January 2012
                   <ul>
                      <li>Made the 'Convert any abbreviations in gloss to abbrRefs' command work when an abbreviation in the gloss element is ended
                         by a space or a non-breaking space character.
                      </li>
                      <li>Added fontissmallcaps attribute to the abbreviations element to control whether or not the 'Convert any abbreviations in gloss
                         to abbrRefs' command will find upper-case abbreviations in a gloss when the abbreviation themselves are all lower-case.
-                     </li>
-                     <li>For the default way of producing PDF (via XeLaTeX): 
-                        <ul>
-                           <li>Provide a way to control the amount of spacing between aligned words in an interlinear.</li>
-                           <li>Fix bug: sometimes numbered tables would be single spaced even when the document was double spaced.</li>
-                           <li>Improve performance of producing the PDF process.</li>
-                           <li>Add a way to produce strike-through (aka line-through).</li>
-                           <li>Add an ability to link to a hyphenation exceptions file so the hyphenation process will pay attention to the exceptions in
-                              that file.
-                           </li>
-                           <li>Fix a bug which made the width of the content of a long listSingle be too narrow.</li>
-                           <li>Fix a bug which made the width of an image in an example be wrong.</li>
-                        </ul>
-                     </li>
-                     <li>Make integrity checking for publisher style sheets work for when the publisher style sheet is within a full document.</li>
-                     <li>Add showlivalue attribute to genericRef element. It provides a way to show and control a reference to an li element within
-                        an ol element.
-                     </li>
-                     <li>Have the 'Convert any abbreviations in gloss to abbrRefs' command not be available when one should really use the 'Convert
-                        interlinear line to wrd elements' command.
-                     </li>
-                     <li>Added a counter element that can go in a td element so one can automatically number rows in a data display table (such as
-                        for an in-class handout, a poster session, or a textbook).
-                     </li>
-                  </ul>
-               </li>
-               <li>2.17.0_5 14 December 2011
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX): 
-                        <ul>
-                           <li>Refine how handle basic point size that is not 10, 11, or 12pt when using a publisher style sheet.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.17.0_4 13 December 2011
-                  <ul>
-                     <li>Added an attribute to appendix in order to have the entire appendix be in landscape mode (showinlandscapemode). Does not work
-                        for the RenderX way of producing PDF.
-                     </li>
-                     <li>Make the dissertationLabelItem and thesisLabelItem elements have a label attribute you can use to set the label (e.g. 'dissertation'
-                        instead of the default 'Ph.D. dissertation'4 and 'master's thesis' instead of the default 'M.A. thesis')
-                     </li>
-                     <li>For the default way of producing PDF (via XeLaTeX): 
-                        <ul>
-                           <li>Fixed a bug where endnotes in table captions would not appear on the page.</li>
-                           <li>Fixed a bug where the font information for the headerFooterPageStyles element was ignored in headers and footers.</li>
-                           <li>Allow a way to specify special spacing when have a sequence of many examples in a row.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.17.0_3 23 Novembr 2011
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX): 
-                        <ul>
-                           <li>Added a way to tell XeLaTeX to hyphenate based on the language of the document (which can be labeled as being something other
-                              than English).
-                           </li>
-                           <li>Fixed alignment of table in an example when there ISO codes were shown.</li>
-                           <li>Fixed alignment of some interlinears with example headings when ISO codes were shown.</li>
-                           <li>Fixed alignment of some list interlinears with example headings when ISO codes were shown.</li>
-                        </ul>
-                     </li>
-                     <li>Previously, one could put an exampleHeading element anywhere within an interlinear. Fixed it so it could only appear at the
-                        beginning.
-                     </li>
-                     <li>Added an element template for inserting a listInterlinear that consists just of an interlinearRef as an option when adding
-                        a new listInterlinear to an example containing other kinds of listInterlinears.
-                     </li>
-                     <li>Fixed the 'Oh, dear!' report so that it will show the file name.</li>
-                     <li>Added an integrity check for when a &lt;br/&gt; element is used within a &lt;line&gt; element in an interlinear. Doing this will probably
-                        not produce the default PDF. Use a chart or a table instead.
-                     </li>
-                     <li>Improved how publishingInfo and publishingBlurb are shown in XXE.</li>
-                  </ul>
-               </li>
-               <li>2.17.0_2 10 November 2011
-                  <ul>
-                     <li>Made (XeLaTeX style sheet) output correctly handle endnotes embedded within an interlinear referred to by an example interlinearRef.
-                        Therefore, you no longer need to copy interlinears when they have embedded endnotes.
                      </li>
                      <li>Fixed a bug where within an example using an interlinearRef element, the reference to the interlinear within the interlinear-text
                         did not format per the interlinearSourceStyle element of the publisher style sheet.
@@ -135,13 +54,81 @@
                         had different ISO codes. When all list elements had the same ISO code, the width used for the ISO code was smaller (and the
                         same as a non-list example). Made them all the same width.
                      </li>
-                     <li>RenderX way of producing PDF: fixed a bug which failed to record location of footnotes so if one referred to a footnote, the
-                        link did not work.
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Added a way to tell XeLaTeX to hyphenate based on the language of the document (which can be labeled as being something other
+                              than English).
+                           </li>
+                           <li>Refine how handle basic point size that is not 10, 11, or 12pt when using a publisher style sheet.</li>
+                           <li>Fixed alignment of table in an example when there ISO codes were shown.</li>
+                           <li>Fixed alignment of some interlinears with example headings when ISO codes were shown.</li>
+                           <li>Fixed alignment of some list interlinears with example headings when ISO codes were shown.</li>
+                           <li>Made (XeLaTeX style sheet) output correctly handle endnotes embedded within an interlinear referred to by an example interlinearRef.
+                              Therefore, you no longer need to copy interlinears when they have embedded endnotes.
+                           </li>
+                           <li>Provide a way to control the amount of spacing between aligned words in an interlinear.</li>
+                           <li>Enable XeLaTeXSpecial attribute value of 'pagebreak' for figure and tablenumbered elements.</li>
+                           <li>Fix bug: using a gloss element in a non-iterlinear environment (such as within a paragraph) could cause following material
+                              to use the font-family of the gloss.
+                           </li>
+                           <li>Fix bug: sometimes numbered tables would be single spaced even when the document was double spaced.</li>
+                           <li>Improve performance of producing the PDF process.</li>
+                           <li>Add a way to produce strike-through (aka line-through).</li>
+                           <li>Add an ability to link to a hyphenation exceptions file so the hyphenation process will pay attention to the exceptions in
+                              that file.
+                           </li>
+                           <li>Fix a bug which made the width of the content of a long listSingle be too narrow.</li>
+                           <li>Fix a bug which made the width of an image in an example be wrong.</li>
+                           <li>Fix a bug where the PDF file would be produced but would not show in the PDF viewer when the file name contained square brackets.</li>
+                           <li>Add XeLaTeXSpecial attribute value of 'valign-fixup' to user documentation.</li>
+                           <li>Fixed a bug where endnotes in table captions would not appear on the page.</li>
+                           <li>Fixed a bug where the font information for the headerFooterPageStyles element was ignored in headers and footers.</li>
+                           <li>Allow a way to specify special spacing when have a sequence of many examples in a row.</li>
+                        </ul>
                      </li>
-                  </ul>
-               </li>
-               <li>2.17.0_1 31 October 2011
-                  <ul>
+                     <li>RenderX way of producing PDF:
+                        <ul>
+                           <li>Fix bug: if a publisher style sheet used non-odd/even pages, the pages still came out odd/even.</li>
+                           <li>Fix a bug which failed to record location of footnotes so if one referred to a footnote, the link did not work.</li>
+                           <li>Fix bugs when a publisher style sheet was *not* used, having a section title include an endnote: 
+                              <ul>
+                                 <li>could cause the PDF not to be produced;</li>
+                                 <li>showing the contents would give two copies of the same endnote.</li>
+                              </ul>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>Publisher style sheet:
+                        <ul>
+                           <li>Add ability to control initial indent for lists.</li>
+                           <li>Enabled page header/footer slot to have more than one kind of item.</li>
+                           <li>Enabled page header/footer page layout to include a horizontal alignment attribute.</li>
+                           <li>Added paperPublishingBlurb to kinds of header/footer items.</li>
+                           <li>Added authorContactInfo layout elements (for contact name, affiliation, address, phone, email, and electronic contact).</li>
+                        </ul>
+                     </li>
+                     <li>Web page with publisher style sheet:
+                        <ul>
+                           <li>Fix bug: exampleHeading elements were not always rendered properly.</li>
+                        </ul>
+                     </li>
+                     <li>Added an attribute to appendix in order to have the entire appendix be in landscape mode (showinlandscapemode). Does not work
+                        for the RenderX way of producing PDF.
+                     </li>
+                     <li>Make the dissertationLabelItem and thesisLabelItem elements have a label attribute you can use to set the label (e.g. 'dissertation'
+                        instead of the default 'Ph.D. dissertation' and 'master's thesis' instead of the default 'M.A. thesis')
+                     </li>
+                     <li>Previously, one could put an exampleHeading element anywhere within an interlinear. Fixed it so it could only appear at the
+                        beginning.
+                     </li>
+                     <li>Added an element template for inserting a listInterlinear that consists just of an interlinearRef as an option when adding
+                        a new listInterlinear to an example containing other kinds of listInterlinears.
+                     </li>
+                     <li>Fixed the 'Oh, dear!' report so that it will show the file name.</li>
+                     <li>Added an integrity check for when a &lt;br/&gt; element is used within a &lt;line&gt; element in an interlinear. Doing this will probably
+                        not produce the default PDF. Use a chart or a table instead.
+                     </li>
+                     <li>Improved how publishingInfo and publishingBlurb are shown in XXE.</li>
                      <li>When an interlinear text comes from FLEx, fixed the interlinear "segment" numbering to use the same number as in FLEx.</li>
                      <li>Added referencedInterlinearTexts and referencedInterlinearText elements. The latter refers to a file containing an interlinear-text
                         element so one can copy in referenced interlinear elements from the text and also use interlinearRef and interlinearRefCitatation
@@ -155,39 +142,19 @@
                      </li>
                      <li>Added publisher style sheet for SIL UND Work papers</li>
                      <li>Fix Schematron method of fixing embedded langData within LangData, gloss within gloss, link within link.</li>
-                     <li>XeLaTeX way of producing PDF:
-                        <ul>
-                           <li>Fix bug: using a gloss element in a non-iterlinear environment (such as within a paragraph) could cause following material
-                              to use the font-family of the gloss.
-                           </li>
-                           <li>Enable XeLaTeXSpecial attribute value of 'pagebreak' for figure and tablenumbered elements.</li>
-                           <li>Add XeLaTeXSpecial attribute value of 'valign-fixup' to user documentation.</li>
-                        </ul>
+                     <li>Make integrity checking for publisher style sheets work for when the publisher style sheet is within a full document.</li>
+                     <li>Add showlivalue attribute to genericRef element. It provides a way to show and control a reference to an li element within
+                        an ol element.
                      </li>
-                     <li>RenderX way of producing PDF:
-                        <ul>
-                           <li>Fix bug: if a publisher style sheet used non-odd/even pages, the pages still came out odd/even.</li>
-                           <li>Fix bugs when a publisher style sheet was *not* used, having a section title include an endnote: 
-                              <ul>
-                                 <li>could cause the PDF not to be produced;</li>
-                                 <li>showing the contents would give two copies of the same endnote.</li>
-                              </ul>
-                           </li>
-                        </ul>
+                     <li>Have the 'Convert any abbreviations in gloss to abbrRefs' command not be available when one should really use the 'Convert
+                        interlinear line to wrd elements' command.
                      </li>
-                     <li>Web page with publisher style sheet:
-                        <ul>
-                           <li>Fix bug: exampleHeading elements were not always rendered properly.</li>
-                        </ul>
+                     <li>Added a counter element that can go in a td element so one can automatically number rows in a data display table (such as
+                        for an in-class handout, a poster session, or a textbook).
                      </li>
-                     <li>Publisher style sheet:
-                        <ul>
-                           <li>Add ability to control initial indent for lists.</li>
-                           <li>Enabled page header/footer slot to have more than one kind of item.</li>
-                           <li>Enabled page header/footer page layout to include a horizontal alignment attribute.</li>
-                           <li>Added paperPublishingBlurb to kinds of header/footer items.</li>
-                           <li>Added authorContactInfo layout elements (for contact name, affiliation, address, phone, email, and electronic contact).</li>
-                        </ul>
+                     <li>Add externalID attribute to langData, gloss, interlinear, listInterlinear, free, interlinear-text, textTitle, source, and
+                        genre elements. It provides a place to indicate one or more external identifiers which can be used to indicate where a particular
+                        piece of data comes from (and to process it potentially).
                      </li>
                   </ul>
                </li>

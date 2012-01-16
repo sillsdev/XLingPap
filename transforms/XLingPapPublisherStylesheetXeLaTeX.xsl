@@ -1026,6 +1026,9 @@
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
+        </xsl:if>
         <xsl:variable name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
         <!-- put title in marker so it can show up in running header -->
         <tex:cmd name="markboth" nl2="1">

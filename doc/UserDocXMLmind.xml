@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->4 January 2012</date
+>25 January 2012</date
 ><version
->2.18.0</version
+>2.18.0_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -11577,6 +11577,9 @@ src="resources/TreeInsert.png"
 ></chart
 ></example
 ><p
+><indexedItem
+term="iImageFiles"
+></indexedItem
 >When you select <object
 type="tInTextExample"
 >tree(with_image)</object
@@ -11666,6 +11669,96 @@ num="xSampleTreeHTML"
 ><chart
 type="tHtmlOutput"
 >&lt;div&gt;&lt;img src="resources/rikaykaamaanaykipaq.png"&gt; &lt;/div&gt;</chart
+></example
+><p
+><indexedItem
+term="iScaleGraphic"
+></indexedItem
+>If you want to make an image file larger or smaller, you can do so by using one of the special attributes on the <object
+type="tElement"
+>image</object
+> element, depending on which output format you are using.  See example <exampleRef
+letter="xImageScaling"
+num="xImageScaling"
+></exampleRef
+>.  You may need to play with these values to get the output to look the way you want.  Note that none of these will make any difference to how the image file shows within the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><example
+num="xImageScaling"
+><table
+border="1"
+><tr
+><th
+>Output Format</th
+><th
+>What to do</th
+></tr
+><tr
+><td
+>Web page</td
+><td
+>Set the <object
+type="tAttribute"
+>cssSpecial</object
+> attribute to be something like this: <object
+type="tAttrValue"
+>height:50%;</object
+> or <object
+type="tAttrValue"
+>height:1in;</object
+> or <object
+type="tAttrValue"
+>height:3cm;</object
+>.  Notice the pattern?  Always begin with <object
+type="tAttrValue"
+>height:</object
+> and end with a semicolon.  In between either use a percentage or a number followed by a unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tXeTeX"
+></object
+> way of producing PDF (the default method)</td
+><td
+>Set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute to use the <object
+type="tAttrValue"
+>scaled</object
+> parameter.  See footnote <endnoteRef
+note="nXeLaTeXAttributes"
+></endnoteRef
+> for more.</td
+></tr
+><tr
+><td
+><object
+type="tRenderX"
+></object
+> way of producing PDF.</td
+><td
+>Set the <object
+type="tAttribute"
+>xsl-foSpecial</object
+> attribute to be something like this: <object
+type="tAttrValue"
+>content-height='50%' </object
+> or <object
+type="tAttrValue"
+>content-height='1in' </object
+> or <object
+type="tAttrValue"
+>content-height='3cm' </object
+>.  The pattern is to use <object
+type="tAttrValue"
+>contetnt-height='</object
+> followed by a percentage or a number followed by a unit of measure.  To be safe, add an extra space at the end.</td
+></tr
+></table
 ></example
 ></section2
 ><section2
@@ -24507,6 +24600,12 @@ id="iBackMatter"
 >Back Matter</term
 ></indexTerm
 ><indexTerm
+id="iBMP"
+see="iImageFiles"
+><term
+>.bmp files</term
+></indexTerm
+><indexTerm
 id="iBold"
 ><term
 >Bold</term
@@ -24902,6 +25001,18 @@ id="iIDPrefix"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iImageFiles"
+><term
+>Image files</term
+><indexTerms
+><indexTerm
+id="iScaleGraphic"
+><term
+>Scale an image file (make it bigger or smaller)</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iIndexes"
 ><term
 >Indexes</term
@@ -25021,6 +25132,12 @@ id="iItalic"
 >Italic</term
 ></indexTerm
 ><indexTerm
+id="iJPG"
+see="iImageFiles"
+><term
+>.jpg (.jpeg) files</term
+></indexTerm
+><indexTerm
 id="iLandscape"
 ><term
 >Landscape mode</term
@@ -25133,6 +25250,12 @@ id="iPhDDissertation"
 see="iDissertation"
 ><term
 >Ph.D. Dissertation</term
+></indexTerm
+><indexTerm
+id="iPNG"
+see="iImageFiles"
+><term
+>.png files</term
 ></indexTerm
 ><indexTerm
 id="iPreface"

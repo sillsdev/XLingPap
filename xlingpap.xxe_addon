@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-01-16</a:date
+>2012-01-25</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_1 16 January 2012<ul
+>2.18.0_1 25 January 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >For Appendices in a paper, enable the XeLaTexSpecial attribute to use 'pagebreak' to force a page break before the appendix begins.</li
 ></ul
 ></li
+><li
+>Add information in the user documentation on how to make an image file larger or smaller in the output.</li
 ></ul
 ></li
 ><li

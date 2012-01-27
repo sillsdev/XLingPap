@@ -1094,13 +1094,13 @@
                 </xsl:call-template>
             </xsl:if>
             <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
-            <xsl:choose>
+            <a>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sRef" select="@textref"/>
+                    <xsl:with-param name="sExtension" select="'htm'"/>
+                </xsl:call-template>
+                <xsl:choose>
                 <xsl:when test="name($interlinear)='interlinear-text'">
-                    <a>
-                        <xsl:call-template name="DoInterlinearTextReferenceLink">
-                            <xsl:with-param name="sRef" select="@textref"/>
-                            <xsl:with-param name="sExtension" select="'htm'"/>
-                        </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                                 <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -1109,14 +1109,18 @@
                                 <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </a>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:call-template name="DoInterlinearRefCitationContent">
                         <xsl:with-param name="sRef" select="@textref"/>
                     </xsl:call-template>
+                    
+                    <!--<xsl:call-template name="DoInterlinearRefCitation">
+                        <xsl:with-param name="sRef" select="@textref"/>
+                    </xsl:call-template>-->
                 </xsl:otherwise>
             </xsl:choose>
+            </a>
             <xsl:if test="not(@bracket) or @bracket='both' or @bracket='final'">
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>

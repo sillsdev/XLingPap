@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-01-25</a:date
+>2012-01-27</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_1 25 January 2012<ul
+>2.18.0_1 27 January 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >For Appendices in a paper, enable the XeLaTexSpecial attribute to use 'pagebreak' to force a page break before the appendix begins.</li
+><li
+>Fix a bug: In list interlinear examples that had example headings, the horizontal alignment could differ between such examples that used an interlinearRef element from those that did not.</li
 ></ul
 ></li
+><li
+>Fix a bug where interlinearRefCitations in style sheet outputs could include extra square brackets.</li
 ><li
 >Add information in the user documentation on how to make an image file larger or smaller in the output.</li
 ></ul

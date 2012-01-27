@@ -1292,6 +1292,7 @@ li.lower-roman {
     <xsl:template match="@firstParagraphHasIndent"/>
     <xsl:template match="@fontissmallcaps"/>
     <xsl:template match="@format"/>
+    <xsl:template match="@hyphenationExceptionsFile"/>
     <xsl:template match="@id"/>
     <xsl:template match="@ignore"/>
     <xsl:template match="@interlinearsourcestyle"/>

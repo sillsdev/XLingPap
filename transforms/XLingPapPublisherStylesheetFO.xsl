@@ -311,6 +311,8 @@
       =========================================================== -->
     <xsl:template match="frontMatter">
         <xsl:variable name="frontMatter" select="."/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <fo:page-sequence master-reference="FrontMatter" format="i">
@@ -923,6 +925,8 @@
       -->
     <xsl:template match="appendix[not(//chapter)]">
         <xsl:variable name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:block>
             <!-- put title in marker so it can show up in running header -->
             <fo:marker marker-class-name="section-title">
@@ -1509,16 +1513,16 @@
                 </xsl:call-template>
             </xsl:if>
             <xsl:variable name="interlinear" select="key('InterlinearReferenceID',@textref)"/>
-            <xsl:choose>
-                <xsl:when test="name($interlinear)='interlinear-text'">
-                    <fo:basic-link>
-                        <xsl:call-template name="DoInterlinearTextReferenceLink">
-                            <xsl:with-param name="sAttrName">
-                                <xsl:call-template name="DetermineInternalOrExternalDestination">
-                                    <xsl:with-param name="sRef" select="@textref"/>
-                                </xsl:call-template>
-                            </xsl:with-param>
+            <fo:basic-link>
+                <xsl:call-template name="DoInterlinearTextReferenceLink">
+                    <xsl:with-param name="sAttrName">
+                        <xsl:call-template name="DetermineInternalOrExternalDestination">
+                            <xsl:with-param name="sRef" select="@textref"/>
                         </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <xsl:choose>
+                <xsl:when test="name($interlinear)='interlinear-text'">
                         <xsl:choose>
                             <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
                                 <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
@@ -1527,14 +1531,18 @@
                                 <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </fo:basic-link>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:call-template name="DoInterlinearRefCitationContent">
                         <xsl:with-param name="sRef" select="@textref"/>
                     </xsl:call-template>
-                </xsl:otherwise>
+                    
+<!--                    <xsl:call-template name="DoInterlinearRefCitation">
+                        <xsl:with-param name="sRef" select="@textref"/>
+                    </xsl:call-template>
+-->                </xsl:otherwise>
             </xsl:choose>
+            </fo:basic-link>
             <xsl:if test="not(@bracket) or @bracket='both' or @bracket='final'">
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
@@ -2404,6 +2412,8 @@ not using
    -->
     <xsl:template match="endnotes">
         <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">
+            <!-- insert a new line so we don't get everything all on one line -->
+            <xsl:text>&#xa;</xsl:text>
             <xsl:choose>
                 <xsl:when test="$bIsBook">
                     <fo:page-sequence master-reference="Chapter">
@@ -2474,6 +2484,8 @@ not using
       glossary
       -->
     <xsl:template match="glossary">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:choose>
             <xsl:when test="$bIsBook">
@@ -2508,6 +2520,8 @@ not using
       index
       -->
     <xsl:template match="index">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <fo:page-sequence master-reference="Index">
@@ -2569,6 +2583,8 @@ not using
         backMatter
     -->
     <xsl:template match="backMatter">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:call-template name="DoBackMatterPerLayout">
             <xsl:with-param name="backMatter" select="."/>
         </xsl:call-template>
@@ -2577,6 +2593,8 @@ not using
       references
       -->
     <xsl:template match="references">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <fo:page-sequence master-reference="Chapter">
@@ -4648,6 +4666,8 @@ not using
     -->
     <xsl:template name="DoSection">
         <xsl:param name="layoutInfo"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:variable name="formatTitleLayoutInfo" select="$layoutInfo/*[name()!='numberLayout'][1]"/>
         <xsl:variable name="numberLayoutInfo" select="$layoutInfo/numberLayout"/>
         <xsl:choose>
@@ -6106,6 +6126,8 @@ not using
     <xsl:template name="OutputTable">
         <!--                <fo:table space-before="0pt" keep-together.within-page="1"> -->
         <!--        <fo:table space-before="0pt" keep-together.within-page="auto">-->
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:table space-before="0pt">
             <xsl:if test="@pagecontrol='keepAllOnSamePage'">
                 <xsl:attribute name="keep-together.within-page">
@@ -6192,6 +6214,8 @@ not using
         <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
         <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:table-cell text-align="{$sAlign}" xsl:use-attribute-sets="ExampleCell">
             <xsl:call-template name="DoDebugExamples"/>
             <fo:block>

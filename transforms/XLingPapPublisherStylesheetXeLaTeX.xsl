@@ -2579,9 +2579,14 @@
                 </tex:group>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="DoInterlinearRefCitation">
+                <xsl:call-template name="DoInterlinearRefCitationHyperlinkAndContent">
                     <xsl:with-param name="sRef" select="@textref"/>
                 </xsl:call-template>
+
+                <!--                <xsl:call-template name="DoInterlinearRefCitation">
+                    <xsl:with-param name="sRef" select="@textref"/>
+                </xsl:call-template>
+-->
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="LinkAttributesEnd">
@@ -3888,19 +3893,9 @@
             <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                 <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
             </xsl:call-template>
-            <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
+            <xsl:call-template name="DoInterlinearRefCitationHyperlinkAndContent">
                 <xsl:with-param name="sRef" select="$sRef"/>
             </xsl:call-template>
-            <xsl:call-template name="LinkAttributesBegin">
-                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoInterlinearRefCitationContent">
-                <xsl:with-param name="sRef" select="$sRef"/>
-            </xsl:call-template>
-            <xsl:call-template name="LinkAttributesEnd">
-                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoInternalHyperlinkEnd"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$interlinearSourceStyleLayout"/>
             </xsl:call-template>
@@ -3908,6 +3903,26 @@
                 <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
             </xsl:call-template>
         </tex:group>
+    </xsl:template>
+    <!--  
+        DoInterlinearRefCitationHyperlinkAndContent
+    -->
+    <xsl:template name="DoInterlinearRefCitationHyperlinkAndContent">
+        <xsl:param name="sRef"/>
+        <xsl:call-template name="DoInterlinearTextReferenceLinkBegin">
+            <xsl:with-param name="sRef" select="$sRef"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInterlinearRefCitationContent">
+            <xsl:with-param name="sRef" select="$sRef"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesEnd">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+
     </xsl:template>
     <!--  
         DoItemRefLabel
@@ -4294,7 +4309,7 @@
             </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
-        <xsl:call-template name="HandleTableLineSpacing"/>        
+        <xsl:call-template name="HandleTableLineSpacing"/>
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>

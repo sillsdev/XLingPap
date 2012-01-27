@@ -3371,11 +3371,11 @@
                                     </tex:cmd>
                                 -->
                             </xsl:if>
-                            <tex:cmd name="linebreak" gr="0" nl2="1"/>
+                            <tex:cmd name="newline" gr="0" nl2="1"/>
                         </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
-                        <tex:cmd name="linebreak" gr="0" nl2="1"/>
+                        <tex:cmd name="newline" gr="0" nl2="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- 2011.11.17                   <tex:cmd name="vspace*">

@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0_1</span></p>
-      <p align="center">Date: 2012-01-16</p>
+      <p align="center">Date: 2012-01-27</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,15 +34,20 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.18.0_1 16 January 2012
+               <li>2.18.0_1 27 January 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
                            <li>For Appendices in a paper, enable the XeLaTexSpecial attribute to use 'pagebreak' to force a page break before the appendix
                               begins.
                            </li>
+                           <li>Fix a bug: In list interlinear examples that had example headings, the horizontal alignment could differ between such examples
+                              that used an interlinearRef element from those that did not.
+                           </li>
                         </ul>
                      </li>
+                     <li>Fix a bug where interlinearRefCitations in style sheet outputs could include extra square brackets.</li>
+                     <li>Add information in the user documentation on how to make an image file larger or smaller in the output.</li>
                   </ul>
                </li>
                <li>2.18.0 4 January 2012

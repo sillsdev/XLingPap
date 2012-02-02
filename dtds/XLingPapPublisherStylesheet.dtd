@@ -438,6 +438,7 @@ Body Layout
     <!ELEMENT  chapterTitleLayout EMPTY >
     <!ATTLIST chapterTitleLayout 
     %titleformatinfo; 
+    textafternumber CDATA #IMPLIED
     >
     <!ELEMENT section1Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section1Layout

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-01-27</a:date
+>2012-02-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,25 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_1 27 January 2012<ul
+>2.18.0_1 1 February 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >For Appendices in a paper, enable the XeLaTexSpecial attribute to use 'pagebreak' to force a page break before the appendix begins.</li
 ><li
 >Fix a bug: In list interlinear examples that had example headings, the horizontal alignment could differ between such examples that used an interlinearRef element from those that did not.</li
+><li
+>Fix a bug: In a book, if the body header and footer layout did not have a first page layout, the PDF would fail to be produced.</li
+><li
+>Improve how the headheight value was handled.</li
+><li
+>If an interlinear lineGroup has but one line in it and one is using the automatic wrapping method, there was still an extra space output when lines wrapped. This extra space is now removed.</li
+><li
+>Fix bug: if a listInterlinear contained an interlinearRef and one was using the interlinear source style of "Show after first line" and one was using the auto-wrap capability, the reference would not show in the correct position.</li
+><li
+>Fix a bug: if a publisher style sheet said to have the first paragraph of a chapter not be indented, it still did a regular indent.</li
+><li
+>Fix some bugs for showing interlinear with a text reference in a footnote when using automatic wrapping.</li
 ></ul
 ></li
 ><li

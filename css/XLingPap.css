@@ -4285,7 +4285,15 @@ numberLayout + chapterTitleLayout
 }
 chapterTitleLayout
 {
-	property-group: titledItem("1 Chapter");
+	display:block;
+	content: label(attribute, textbefore)
+	         "1"
+                 label(attribute, textafternumber)
+                 "Chapter"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+/*	property-group: titledItem("1 Chapter"); */
 }
 citationLinkLayout[showmarking='no']
 {

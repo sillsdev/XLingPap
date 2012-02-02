@@ -902,7 +902,7 @@
                 <tex:parm>arabic</tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
+        <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
             <tex:cmd name="thispagestyle">
                 <tex:parm>bodyfirstpage</tex:parm>
             </tex:cmd>
@@ -923,60 +923,94 @@
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
         <xsl:call-template name="DoBookMark"/>
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-        </xsl:call-template>
-        <tex:group>
-            <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-            </xsl:call-template>
-            <xsl:call-template name="OutputChapTitle">
-                <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputChapterNumber"/>
-                </xsl:with-param>
-            </xsl:call-template>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-            </xsl:call-template>
-            <xsl:variable name="contentForThisElement">
-                <xsl:call-template name="OutputChapTitle">
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputChapterNumber"/>
-                    </xsl:with-param>
+        <xsl:choose>
+            <xsl:when test="$bodyLayoutInfo/chapterLayout/numberLayout">
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
-                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <tex:group>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputChapTitle">
+                        <xsl:with-param name="sTitle">
+                            <xsl:call-template name="OutputChapterNumber"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="contentForThisElement">
+                        <xsl:call-template name="OutputChapTitle">
+                            <xsl:with-param name="sTitle">
+                                <xsl:call-template name="OutputChapterNumber"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoTitleFormatInfoEnd">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                    </xsl:call-template>
+                </tex:group>
+                <xsl:call-template name="DoInternalTargetEnd"/>
+                <tex:cmd name="par" nl2="1"/>
+                <xsl:call-template name="DoSpaceAfter">
                     <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
                 </xsl:call-template>
-            </xsl:variable>
-            <xsl:call-template name="DoTitleFormatInfoEnd">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
-            </xsl:call-template>
-        </tex:group>
-        <xsl:call-template name="DoInternalTargetEnd"/>
-        <tex:cmd name="par" nl2="1"/>
-        <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
-        </xsl:call-template>
-        <tex:group>
-            <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-            </xsl:call-template>
-            <xsl:apply-templates select="secTitle"/>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-            </xsl:call-template>
-            <xsl:variable name="contentForThisElement2">
-                <xsl:apply-templates select="secTitle"/>
-                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-                </xsl:call-template>
-            </xsl:variable>
-            <xsl:call-template name="DoTitleFormatInfoEnd">
-                <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-                <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
-            </xsl:call-template>
-        </tex:group>
+                <tex:group>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates select="secTitle"/>
+                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="contentForThisElement2">
+                        <xsl:apply-templates select="secTitle"/>
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoTitleFormatInfoEnd">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
+                    </xsl:call-template>
+                </tex:group>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:group>
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="@id"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputChapTitle">
+                        <xsl:with-param name="sTitle">
+                            <xsl:call-template name="OutputChapterNumber"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoInternalTargetEnd"/>
+                    <xsl:apply-templates select="secTitle"/>
+                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="contentForThisElement2">
+                        <xsl:apply-templates select="secTitle"/>
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="DoTitleFormatInfoEnd">
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
+                    </xsl:call-template>
+                </tex:group>
+            </xsl:otherwise>
+        </xsl:choose>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
@@ -1350,6 +1384,9 @@
                             <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
                                 <!-- is the first item -->
                                 <xsl:choose>
+                                    <xsl:when test="parent::chapter and $bodyLayoutInfo/chapterLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
                                     <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
                                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                                     </xsl:when>
@@ -4628,9 +4665,56 @@
         <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
-        <xsl:apply-templates>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:apply-templates>
+        <xsl:choose>
+            <xsl:when test="ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0] and $bAutomaticallyWrapInterlinears='yes'">
+                <tex:cmd name="hspace">
+                    <tex:parm>-1em</tex:parm>
+                </tex:cmd>
+                <xsl:choose>
+                    <xsl:when test="ancestor::td">
+                        <tex:cmd name="parbox">
+                            <tex:opt>t</tex:opt>
+                            <tex:parm>
+                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$sExampleIndentBefore"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$sExampleIndentAfter"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$iNumberWidth"/>
+                                <xsl:text>em</xsl:text>
+                                <xsl:if test="parent::listInterlinear or self::listInterlinear">
+                                    <xsl:text>-</xsl:text>
+                                    <xsl:value-of select="$iNumberWidth"/>
+                                    <xsl:text>em</xsl:text>
+                                </xsl:if>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:apply-templates>
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                </xsl:apply-templates>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                        <tex:cmd name="vspace">
+                            <tex:parm>
+                                <xsl:value-of select="$sFootnotePointSize"/>
+                                <xsl:text>pt</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="HandleFreeTextAfterAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
@@ -5185,7 +5269,8 @@
                         <tex:parm>
                             <xsl:choose>
                                 <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles">backmatterfirstpage</xsl:when>
-                                <xsl:otherwise>bodyfirstpage</xsl:otherwise>
+                                <xsl:when test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">bodyfirstpage</xsl:when>
+                                <xsl:otherwise>body</xsl:otherwise>
                             </xsl:choose>
                         </tex:parm>
                     </tex:cmd>
@@ -5289,6 +5374,9 @@
         <xsl:choose>
             <xsl:when test="name()='chapter'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
+                <xsl:if test="not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                    <xsl:value-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
+                </xsl:if>
             </xsl:when>
             <xsl:when test="name()='chapterBeforePart'">
                 <xsl:text>0</xsl:text>

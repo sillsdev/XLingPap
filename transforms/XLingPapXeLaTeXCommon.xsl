@@ -91,7 +91,7 @@
         <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
     </xsl:variable>
     <xsl:variable name="iExampleWidth">
-<!--        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>-->
+        <!--        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>-->
         <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
     </xsl:variable>
     <xsl:variable name="sExampleWidth">
@@ -4131,7 +4131,9 @@
                 <xsl:text>t</xsl:text>
             </tex:opt>
             <tex:parm>
-                <xsl:call-template name="GetWidthForExampleContent"/>
+                <xsl:call-template name="GetWidthForExampleContent">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
                 <xsl:text>-</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:value-of select="$sTeXInterlinearSourceWidth"/>
@@ -4333,6 +4335,7 @@
         <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
         <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:variable name="iLineCountInLineGroup" select="count(../line)"/>
         <tex:cmd name="hbox">
             <tex:parm>
                 <!--       cannot use an environment because it inserts a newline which causes alignment issues
@@ -4376,9 +4379,15 @@
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
                 </xsl:for-each>
-                <tex:spec cat="lsb"/>
-                <xsl:call-template name="GetCurrentPointSize"/>
-                <tex:spec cat="rsb"/>
+                    <xsl:if test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
+                        <!-- need extra space between aligned units when there are two or more lines or if it's the last one -->
+                        <xsl:if test="not(ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0])">
+                            <!-- except in footnotes -->
+                    <tex:spec cat="lsb"/>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <tex:spec cat="rsb"/>
+                        </xsl:if>
+                    </xsl:if>
                 <tex:spec cat="esc"/>
                 <xsl:text>end</xsl:text>
                 <tex:spec cat="bg"/>
@@ -4389,10 +4398,11 @@
         </tex:cmd>
         <xsl:if test="$sRest or $iPosition &lt; $iMaxColumns">
             <xsl:choose>
-                <xsl:when test="count(../line) &gt; 1">
+                <xsl:when test="$iLineCountInLineGroup &gt; 1">
                     <tex:cmd name="XLingPaperintspace"/>
                 </xsl:when>
                 <xsl:otherwise>
+                    <!--  if there is only one line we might as well just use spaces -->
                     <xsl:text>&#x20;</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
@@ -4720,12 +4730,12 @@
         <!--<tex:cmd name="par" nl2="1"/>-->
         <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
-            <tex:cmd name="vspace*">
-                <tex:parm>
-                    <xsl:text>-</xsl:text>
-                    <xsl:call-template name="GetCurrentPointSize"/>
-                </tex:parm>
-            </tex:cmd>
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:text>-</xsl:text>
+                        <xsl:call-template name="GetCurrentPointSize"/>
+                    </tex:parm>
+                </tex:cmd>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
         <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">
@@ -5395,6 +5405,7 @@
         GetWidthForExampleContent
     -->
     <xsl:template name="GetWidthForExampleContent">
+        <xsl:param name="originalContext"/>
         <tex:cmd name="textwidth" gr="0" nl2="0"/>
         <xsl:text> - </xsl:text>
         <xsl:value-of select="$sExampleIndentBefore"/>
@@ -5402,7 +5413,7 @@
         <xsl:value-of select="$iNumberWidth"/>
         <xsl:text>em - </xsl:text>
         <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
-        <xsl:if test="parent::listInterlinear or self::listInterlinear">
+        <xsl:if test="parent::listInterlinear or self::listInterlinear or $originalContext and $originalContext[parent::*[name()='listInterlinear']]">
             <xsl:text>-</xsl:text>
             <xsl:value-of select="$iNumberWidth"/>
             <xsl:text>em</xsl:text>
@@ -5560,7 +5571,7 @@
                 <tex:cmd name="hyphenation" nl2="1">
                     <tex:parm>
                         <xsl:variable name="sPathToExceptionsFile" select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
-<!--                        <xsl:value-of select="$sPathToExceptionsFile"/>
+                        <!--                        <xsl:value-of select="$sPathToExceptionsFile"/>
                         <xsl:variable name="exceptions" select="document($sPathToExceptionsFile)"/>-->
                         <xsl:for-each select="document($sPathToExceptionsFile)/exceptions/word">
                             <xsl:value-of select="."/>
@@ -7861,6 +7872,17 @@
                 <tex:cmd name="headheight" gr="0"/>
             </tex:parm>
             <tex:parm>
+                <!-- head height needs to be about 2 points larger -->
+                <!--                <xsl:variable name="iDefault" select="$sBasicPointSize + 2.5"/>
+                <xsl:choose>
+                    <xsl:when test="$iDefault &gt;= 13.59999">
+                        <xsl:value-of select="$iDefault"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>13.59999</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+-->
                 <!-- head height needs to be about 2 points larger -->
                 <xsl:value-of select="$sBasicPointSize + 2.5"/>
                 <xsl:text>pt</xsl:text>

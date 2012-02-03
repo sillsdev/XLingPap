@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->4 January 2012</date
+>2 February 2012</date
 ><version
->2.18.0</version
+>2.18.0_2</version
 ><contents
 showLevel="3"
 ></contents
@@ -10762,6 +10762,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>chapterNumber</object
+></dt
+><dd
+>Indicates to use the last chapter number in a header or footer</dd
+><dt
+><object
+type="tElement"
 >chapterTitle</object
 ></dt
 ><dd
@@ -11898,6 +11905,13 @@ type="tElement"
 type="tElement"
 >section6</object
 > element</dd
+><dt
+><object
+type="tElement"
+>sectionNumber</object
+></dt
+><dd
+>Indicates to use the last section number in a header or footer</dd
 ><dt
 ><object
 type="tElement"

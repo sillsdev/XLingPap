@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_1</a:version
+>2.18.0_2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-02-01</a:date
+>2012-02-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.18.0_2 3 February 2012<ul
+><li
+>Add chapterNumber and sectionNumber to header and footer information in a publisher style sheet.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>When interlinear reference is set to show after the first line and one is using auto wrap and referring to a text within the document, could get incorrect alignment of the beginning of the interlinear.  Also, sometimes in an endnote the free translation would appear on top of the interlinear.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.18.0_1 1 February 2012<ul
 ><li

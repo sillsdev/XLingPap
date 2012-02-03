@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->4 January 2012</date
+>2 February 2012</date
 ><version
->2.18.0</version
+>2.18.0_2</version
 ><contents
 showLevel="6"
 ></contents
@@ -1014,6 +1014,27 @@ border="1"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iChapterNumber"
+></indexedItem
+><object
+type="tElement"
+>chapterNumber</object
+></td
+><td
+>The number of the current chapter.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iChapterTitle"
+></indexedItem
 ><object
 type="tElement"
 >chapterTitle</object
@@ -1035,6 +1056,9 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iFixedText"
+></indexedItem
 ><object
 type="tElement"
 >fixedText</object
@@ -1050,6 +1074,9 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iImg"
+></indexedItem
 ><object
 type="tElement"
 >img</object
@@ -1070,6 +1097,9 @@ type="tXLingPap"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iNothing"
+></indexedItem
 ><object
 type="tElement"
 >nothing</object
@@ -1081,6 +1111,9 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iPageNumber"
+></indexedItem
 ><object
 type="tElement"
 >pageNumber</object
@@ -1185,6 +1218,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iPaperAuthor"
+></indexedItem
 ><object
 type="tElement"
 >paperAuthor</object
@@ -1206,6 +1242,9 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iPaperPublishingBlurb"
+></indexedItem
 ><object
 type="tElement"
 >paperPublishingBlurb</object
@@ -1244,6 +1283,9 @@ type="tRenderX"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iPaperTitle"
+></indexedItem
 ><object
 type="tElement"
 >paperTitle</object
@@ -1265,6 +1307,27 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iSectionNumber"
+></indexedItem
+><object
+type="tElement"
+>sectionNumber</object
+></td
+><td
+>The number of the current section.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iSectionTitle"
+></indexedItem
 ><object
 type="tElement"
 >sectionTitle</object
@@ -1286,6 +1349,9 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iVolumeAuthorRef"
+></indexedItem
 ><object
 type="tElement"
 >volumeAuthorRef</object
@@ -1304,6 +1370,9 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iVolumeTitleRef"
+></indexedItem
 ><object
 type="tElement"
 >volumeTitleRef</object
@@ -6702,7 +6771,13 @@ type="tElement"
 sec="sExampleLayout"
 showTitle="full"
 ></sectionRef
->.</p
+>. If you need a list indent of 0pt, please use something slightly different such as <object
+type="tAttrValue"
+>0.0pt</object
+> or <object
+type="tAttrValue"
+>0in</object
+>. This will guarantee that it comes out with no indent.</p
 ></section2
 ><section2
 id="sSectionRefLayout"
@@ -10606,6 +10681,16 @@ id="iChapterLayout"
 >Chapter layout</term
 ></indexTerm
 ><indexTerm
+id="iChapterNumber"
+><term
+>Chapter number</term
+></indexTerm
+><indexTerm
+id="iChapterTitle"
+><term
+>Chapter title</term
+></indexTerm
+><indexTerm
 id="iChapterTitleLayout"
 ><term
 >Chapter title layout</term
@@ -10889,6 +10974,11 @@ id="iFigureRefTextBefore"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iFixedText"
+><term
+>Fixed text</term
+></indexTerm
+><indexTerm
 id="iFontFamilyAttribute"
 ><term
 >Font family attribute</term
@@ -10970,6 +11060,11 @@ id="iHeaderFooterLayout"
 id="iHeaderMargin"
 ><term
 >Header margin</term
+></indexTerm
+><indexTerm
+id="iImg"
+><term
+>img</term
 ></indexTerm
 ><indexTerm
 id="iIndent"
@@ -11157,6 +11252,11 @@ id="iMissing"
 >Missing (used in some patterns to indicate the lack of a match)</term
 ></indexTerm
 ><indexTerm
+id="iNothing"
+><term
+>Nothing</term
+></indexTerm
+><indexTerm
 id="iNumberFigures"
 see="iFigureNumber"
 ><term
@@ -11187,6 +11287,11 @@ id="iPageBottomMargin"
 id="iPageInsideMargin"
 ><term
 >Page inside margin</term
+></indexTerm
+><indexTerm
+id="iPageNumber"
+><term
+>Page number</term
 ></indexTerm
 ><indexTerm
 id="iPageOutsideMargin"
@@ -11229,6 +11334,21 @@ id="iProcPages"
 >Proceedings volume</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iPaperAuthor"
+><term
+>Paper author</term
+></indexTerm
+><indexTerm
+id="iPaperPublishingBlurb"
+><term
+>Paper publishing blurb</term
+></indexTerm
+><indexTerm
+id="iPaperTitle"
+><term
+>Paper title</term
 ></indexTerm
 ><indexTerm
 id="iParagraphIndent"
@@ -11581,6 +11701,16 @@ id="iSection6Layout"
 >Section level 6 layout</term
 ></indexTerm
 ><indexTerm
+id="iSectionNumber"
+><term
+>Section number</term
+></indexTerm
+><indexTerm
+id="iSectionTitle"
+><term
+>Section title</term
+></indexTerm
+><indexTerm
 id="iSectionRefLayout"
 ><term
 >Section reference layout</term
@@ -11841,6 +11971,11 @@ id="iVerticalFillBeforeAttribute"
 >Vertical fill before attribute</term
 ></indexTerm
 ><indexTerm
+id="iVolumeAuthorRef"
+><term
+>Volume author ref</term
+></indexTerm
+><indexTerm
 id="iVolumeNumber"
 ><term
 >Volume number of a book in a referenced work</term
@@ -11854,6 +11989,11 @@ id="iCollVolumeNumber"
 id="iProcVolumeNumber"
 ><term
 >Volume number of a proceedings volume in a referenced work</term
+></indexTerm
+><indexTerm
+id="iVolumeTitleRef"
+><term
+>Volume title ref</term
 ></indexTerm
 ><indexTerm
 id="iXeLaTeXSpecialAttribute"

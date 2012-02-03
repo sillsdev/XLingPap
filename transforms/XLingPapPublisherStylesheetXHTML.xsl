@@ -2401,7 +2401,7 @@
                                 </xsl:attribute>
                             </xsl:if>
                             <xsl:if test="$layoutInfo/@leaderwidth">
-                                <xsl:attribute name="leader-width">
+                                <xsl:attribute name="leader-pattern-width">
                                     <xsl:value-of select="$layoutInfo/@leaderwidth"/>
                                 </xsl:attribute>
                             </xsl:if>

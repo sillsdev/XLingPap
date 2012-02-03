@@ -83,6 +83,8 @@
         <xsl:param name="override"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:block>
             <xsl:attribute name="text-align-last">
                 <xsl:choose>

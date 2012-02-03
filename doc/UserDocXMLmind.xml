@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 January 2012</date
+>2 February 2012</date
 ><version
->2.18.0_1</version
+>2.18.0_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -11677,11 +11677,11 @@ term="iScaleGraphic"
 >If you want to make an image file larger or smaller, you can do so by using one of the special attributes on the <object
 type="tElement"
 >image</object
-> element, depending on which output format you are using.  See example <exampleRef
+> element, depending on which output format you are using. See example <exampleRef
 letter="xImageScaling"
 num="xImageScaling"
 ></exampleRef
->.  You may need to play with these values to get the output to look the way you want.  Note that none of these will make any difference to how the image file shows within the <object
+>. You may need to play with these values to get the output to look the way you want. Note that none of these will make any difference to how the image file shows within the <object
 type="tXMLmindXMLEditor"
 ></object
 >.</p
@@ -11711,10 +11711,10 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >height:3cm;</object
->.  Notice the pattern?  Always begin with <object
+>. Notice the pattern? Always begin with <object
 type="tAttrValue"
 >height:</object
-> and end with a semicolon.  In between either use a percentage or a number followed by a unit of measure.</td
+> and end with a semicolon. In between either use a percentage or a number followed by a unit of measure.</td
 ></tr
 ><tr
 ><td
@@ -11729,7 +11729,7 @@ type="tAttribute"
 > attribute to use the <object
 type="tAttrValue"
 >scaled</object
-> parameter.  See footnote <endnoteRef
+> parameter. See footnote <endnoteRef
 note="nXeLaTeXAttributes"
 ></endnoteRef
 > for more.</td
@@ -11753,10 +11753,10 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >content-height='3cm' </object
->.  The pattern is to use <object
+>. The pattern is to use <object
 type="tAttrValue"
 >contetnt-height='</object
-> followed by a percentage or a number followed by a unit of measure.  To be safe, add an extra space at the end.</td
+> followed by a percentage or a number followed by a unit of measure. To be safe, add an extra space at the end.</td
 ></tr
 ></table
 ></example
@@ -22489,6 +22489,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>chapterNumber</object
+></dt
+><dd
+>Indicates to use the last chapter number in a header or footer</dd
+><dt
+><object
+type="tElement"
 >chapterLayout</object
 ></dt
 ><dd
@@ -23612,6 +23619,13 @@ type="tElement"
 type="tElement"
 >section6</object
 > element</dd
+><dt
+><object
+type="tElement"
+>sectionNumber</object
+></dt
+><dd
+>Indicates to use the last section number in a header or footer</dd
 ><dt
 ><object
 type="tElement"

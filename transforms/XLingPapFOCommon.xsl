@@ -165,6 +165,8 @@
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="mode"/>
         <xsl:param name="originalContext"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:block>
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->

@@ -548,6 +548,36 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        volumeAuthorRef
+    -->
+    <xsl:template match="volumeAuthorRef" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <xsl:choose>
+            <xsl:when test="string-length(//volumeAuthor) &gt;0">
+                <xsl:apply-templates select="//volumeAuthor"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Volume Author Will Show Here</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
+        volumeTitleRef
+    -->
+    <xsl:template match="volumeTitleRef" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <xsl:choose>
+            <xsl:when test="string-length(//volumeAuthor) &gt;0">
+                <xsl:apply-templates select="//volumeTitle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Volume Title Will Show Here</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
         publishingBlurb
     -->
     <xsl:template match="publishingBlurb">
@@ -913,10 +943,17 @@
         <!-- put title in marker so it can show up in running header -->
         <tex:cmd name="markboth" nl2="1">
             <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader"/>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
+                </xsl:call-template>
             </tex:parm>
             <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader"/>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
+                    </xsl:with-param>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="CreateAddToContents">
@@ -1021,6 +1058,25 @@
         </xsl:if>
     </xsl:template>
     <!--
+        chapterNumber
+    -->
+    <xsl:template match="chapterNumber[not(following-sibling::chapterTitle) and not(preceding-sibling::chapterTitle)]" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <tex:cmd name="leftmark" gr="0"/>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <xsl:template match="chapterNumber" mode="header-footer">
+        <!-- there is also a chapterTitle so we do nothing here.  The formatting of the chapterNumber is handled in the first part of the \markboth command -->
+    </xsl:template>
+    <!--
+        chapterTitle
+    -->
+    <xsl:template match="chapterTitle" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <tex:cmd name="leftmark" gr="0"/>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
       Sections
       -->
     <xsl:template match="section1">
@@ -1067,10 +1123,18 @@
         <!-- put title in marker so it can show up in running header -->
         <tex:cmd name="markboth" nl2="1">
             <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader"/>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
+                    </xsl:with-param>
+                </xsl:call-template>
             </tex:parm>
             <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader"/>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
+                    </xsl:with-param>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="CreateAddToContents">
@@ -1121,6 +1185,26 @@
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        sectionNumber
+    -->
+    <xsl:template match="sectionNumber[not(following-sibling::sectionTitle) and not(preceding-sibling::sectionTitle)]" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <tex:cmd name="rightmark" gr="0"/>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <xsl:template match="sectionNumber" mode="header-footer">
+        <!-- there is also a sectionTitle so we do nothing here.  
+            The formatting of the sectionNumber is handled in the \markright command and the second part of the \markboth command.-->
+    </xsl:template>
+    <!--
+        sectionTitle
+    -->
+    <xsl:template match="sectionTitle" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <tex:cmd name="rightmark" gr="0"/>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
     </xsl:template>
     <!--
       sectionRef
@@ -1502,6 +1586,63 @@
                 <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
             </xsl:call-template>
         </xsl:if>
+    </xsl:template>
+    <!--
+        pageNumber
+    -->
+    <xsl:template match="pageNumber" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <tex:cmd name="thepage" gr="0"/>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
+        paperAuthor
+    -->
+    <xsl:template match="paperAuthor" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
+                <xsl:apply-templates select="."/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="//author" mode="contentOnly"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
+        paperTitle
+    -->
+    <xsl:template match="paperTitle" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
+                <xsl:apply-templates select="//frontMatter/shortTitle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--                              <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']" mode="contentOnly"/>-->
+                <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
+    </xsl:template>
+    <!--
+        paperPublishingBlurb
+    -->
+    <xsl:template match="paperPublishingBlurb" mode="header-footer">
+        <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+        <xsl:variable name="sVerticalAdjustment" select="normalize-space(@verticalAdjustment)"/>
+        <xsl:if test="string-length($sVerticalAdjustment) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sVerticalAdjustment"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb">
+            <xsl:with-param name="bInHeader" select="'Y'"/>
+        </xsl:apply-templates>
+        <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
     </xsl:template>
     <!-- ===========================================================
       LISTS
@@ -1930,6 +2071,28 @@
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
         <xsl:call-template name="LinkAttributesEnd">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        fixedText
+    -->
+    <xsl:template match="fixedText" mode="header-footer">
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
+            <xsl:with-param name="originalContext" select="."/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -3757,121 +3920,42 @@
             <tex:parm>
                 <!-- the content of this part of the header/footer -->
                 <tex:parm>
-                    <xsl:for-each select="*">
-                        <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
-                            <xsl:with-param name="originalContext" select="."/>
-                        </xsl:call-template>
-                        <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language" select="."/>
-                            <xsl:with-param name="originalContext" select="."/>
-                        </xsl:call-template>
-                        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                            <xsl:with-param name="layoutInfo" select="."/>
-                        </xsl:call-template>
-                        <xsl:choose>
-                            <xsl:when test="name()='chapterTitle'">
-                                <tex:cmd name="leftmark" gr="0"/>
-                            </xsl:when>
-                            <xsl:when test="name()='fixedText'">
-                                <xsl:call-template name="OutputFontAttributes">
-                                    <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
-                                    <xsl:with-param name="originalContext" select="."/>
-                                </xsl:call-template>
-                                <xsl:call-template name="OutputFontAttributes">
-                                    <xsl:with-param name="language" select="."/>
-                                    <xsl:with-param name="originalContext" select="."/>
-                                </xsl:call-template>
-                                <xsl:apply-templates/>
-                                <xsl:call-template name="OutputFontAttributesEnd">
-                                    <xsl:with-param name="language" select="."/>
-                                    <xsl:with-param name="originalContext" select="."/>
-                                </xsl:call-template>
-                                <xsl:call-template name="OutputFontAttributesEnd">
-                                    <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
-                                    <xsl:with-param name="originalContext" select="."/>
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="name()='pageNumber'">
-                                <tex:cmd name="thepage" gr="0"/>
-                            </xsl:when>
-                            <xsl:when test="name()='paperAuthor'">
-                                <xsl:choose>
-                                    <xsl:when test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
-                                        <xsl:apply-templates select="."/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="//author" mode="contentOnly"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="name()='paperTitle'">
-                                <xsl:choose>
-                                    <xsl:when test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
-                                        <xsl:apply-templates select="//frontMatter/shortTitle"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <!--                              <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']" mode="contentOnly"/>-->
-                                        <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="name()='paperPublishingBlurb'">
-                                <xsl:variable name="sVerticalAdjustment" select="normalize-space(@verticalAdjustment)"/>
-                                <xsl:if test="string-length($sVerticalAdjustment) &gt; 0">
-                                    <tex:cmd name="vspace">
-                                        <tex:parm>
-                                            <xsl:value-of select="$sVerticalAdjustment"/>
-                                        </tex:parm>
-                                    </tex:cmd>
-                                </xsl:if>
-                                <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb">
-                                    <xsl:with-param name="bInHeader" select="'Y'"/>
-                                </xsl:apply-templates>
-                            </xsl:when>
-                            <xsl:when test="name()='sectionTitle'">
-                                <tex:cmd name="rightmark" gr="0"/>
-                            </xsl:when>
-                            <xsl:when test="name()='volumeAuthorRef'">
-                                <xsl:choose>
-                                    <xsl:when test="string-length(//volumeAuthor) &gt;0">
-                                        <xsl:apply-templates select="//volumeAuthor"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>Volume Author Will Show Here</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="name()='volumeTitleRef'">
-                                <xsl:choose>
-                                    <xsl:when test="string-length(//volumeAuthor) &gt;0">
-                                        <xsl:apply-templates select="//volumeTitle"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>Volume Title Will Show Here</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:when test="name()='img'">
-                                <xsl:apply-templates select="."/>
-                            </xsl:when>
-                            <!--  we ignore the 'nothing' case -->
-                        </xsl:choose>
-                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                            <xsl:with-param name="layoutInfo" select="."/>
-                        </xsl:call-template>
-                        <xsl:call-template name="OutputFontAttributesEnd">
-                            <xsl:with-param name="language" select="."/>
-                            <xsl:with-param name="originalContext" select="."/>
-                        </xsl:call-template>
-                        <xsl:call-template name="OutputFontAttributesEnd">
-                            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
-                            <xsl:with-param name="originalContext" select="."/>
-                        </xsl:call-template>
-                    </xsl:for-each>
+                    <xsl:apply-templates select="*" mode="header-footer"/>
                 </tex:parm>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        DoHeaderFooterItemFontInfo
+    -->
+    <xsl:template name="DoHeaderFooterItemFontInfo">
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+            <xsl:with-param name="layoutInfo" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoHeaderFooterItemFontInfoEnd
+    -->
+    <xsl:template name="DoHeaderFooterItemFontInfoEnd">
+        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+            <xsl:with-param name="layoutInfo" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="ancestor::headerFooterPageStyles"/>
+            <xsl:with-param name="originalContext" select="."/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
                   DoIndex
@@ -4150,7 +4234,10 @@
             <!-- put title in marker so it can show up in running header -->
             <tex:cmd name="markright" nl2="1">
                 <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader"/>
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                    </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
@@ -4218,7 +4305,10 @@
         <!-- put title in marker so it can show up in running header -->
         <tex:cmd name="markright">
             <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader"/>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="CreateAddToContents">
@@ -4240,10 +4330,48 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-                  DoSecTitleRunningHeader
--->
+        DoSecNumberRunningHeader
+    -->
+    <xsl:template name="DoSecNumberRunningHeader">
+        <xsl:param name="number"/>
+        <xsl:if test="$number">
+            <!-- format and output number -->
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$number"/>
+                <xsl:with-param name="originalContext" select="$number"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                <xsl:with-param name="layoutInfo" select="$number"/>
+            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="name($number)='sectionNumber'">
+                    <xsl:call-template name="OutputSectionNumber"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputChapterNumber"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$number"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$number"/>
+                <xsl:with-param name="originalContext" select="$number"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoSecTitleRunningHeader
+    -->
     <xsl:template name="DoSecTitleRunningHeader">
+        <xsl:param name="number"/>
+        <xsl:param name="bNumberIsBeforeTitle" select="'Y'"/>
         <xsl:variable name="shortTitle" select="shortTitle"/>
+        <xsl:if test="$bNumberIsBeforeTitle='Y'">
+            <xsl:call-template name="DoSecNumberRunningHeader">
+                <xsl:with-param name="number" select="$number"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="string-length($shortTitle) &gt; 0">
                 <xsl:apply-templates select="$shortTitle" mode="InMarker"/>
@@ -4252,6 +4380,11 @@
                 <xsl:apply-templates select="secTitle" mode="InMarker"/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="$bNumberIsBeforeTitle!='Y'">
+            <xsl:call-template name="DoSecNumberRunningHeader">
+                <xsl:with-param name="number" select="$number"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--  
       DoSpaceAfter
@@ -4666,7 +4799,7 @@
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
         <xsl:choose>
-            <xsl:when test="ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0] and $bAutomaticallyWrapInterlinears='yes'">
+            <xsl:when test="ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0] and $bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                 <tex:cmd name="hspace">
                     <tex:parm>-1em</tex:parm>
                 </tex:cmd>
@@ -6224,7 +6357,7 @@
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:if test="$layoutInfo/@leaderwidth">
-                    <xsl:attribute name="leader-width">
+                    <xsl:attribute name="leader-pattern-width">
                         <xsl:value-of select="$layoutInfo/@leaderwidth"/>
                     </xsl:attribute>
                 </xsl:if>
@@ -6410,6 +6543,7 @@
     <xsl:template match="language"/>
     <xsl:template match="comment"/>
     <xsl:template match="appendix/shortTitle"/>
+    <xsl:template match="chapter/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>

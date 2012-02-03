@@ -3,6 +3,28 @@
     <!-- global variables -->
     <xsl:variable name="locationPublisherLayouts" select="$referencesLayoutInfo/locationPublisherLayouts"/>
     <xsl:variable name="urlDateAccessedLayouts" select="$referencesLayoutInfo/urlDateAccessedLayouts"/>
+    <xsl:variable name="chapterNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::chapterNumber"/>
+    <xsl:variable name="bChapterNumberIsBeforeTitle">
+        <xsl:choose>
+            <xsl:when test="$chapterNumberInHeaderLayout[following-sibling::chapterTitle]">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="sectionNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::sectionNumber"/>
+    <xsl:variable name="bSectionNumberIsBeforeTitle">
+        <xsl:choose>
+            <xsl:when test="$sectionNumberInHeaderLayout[following-sibling::sectionTitle]">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->

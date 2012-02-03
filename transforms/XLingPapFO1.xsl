@@ -5596,6 +5596,7 @@ not using
     <xsl:template match="comment"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="appendix/shortTitle"/>
+    <xsl:template match="chapter/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>

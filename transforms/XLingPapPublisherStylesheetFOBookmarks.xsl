@@ -231,6 +231,8 @@
    <xsl:template name="OutputBookmark">
       <xsl:param name="sLink"/>
       <xsl:param name="sLabel"/>
+      <!-- insert a new line so we don't get everything all on one line -->
+      <xsl:text>&#xa;</xsl:text>
       <fo:bookmark internal-destination="{$sLink}">
          <fo:bookmark-title>
             <xsl:value-of select="$sLabel"/>
@@ -241,6 +243,8 @@
         OutputSectionBookmark
     -->
    <xsl:template name="OutputSectionBookmark">
+      <!-- insert a new line so we don't get everything all on one line -->
+      <xsl:text>&#xa;</xsl:text>
       <fo:bookmark-title>
          <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="bIsForBookmark" select="'Y'"/>

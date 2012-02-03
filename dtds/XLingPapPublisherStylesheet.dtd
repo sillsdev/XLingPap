@@ -228,15 +228,27 @@ Page Layout
       ruleabovewidth CDATA #IMPLIED
     >
     <!-- what can go in a header or a footer -->
-<!ENTITY % headerFooterItem "chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | paperPublishingBlurb | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
+<!ENTITY % headerFooterItem "chapterNumber | chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | paperPublishingBlurb | sectionNumber | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
 <!ELEMENT leftHeaderFooterItem ( %headerFooterItem;)+>
 <!ELEMENT centerHeaderFooterItem ( %headerFooterItem;)+>
 <!ELEMENT rightHeaderFooterItem ( %headerFooterItem;)+>
    <!-- the title of the chapter 
          (If shortTitle is present, use it; otherwise use the secTitle elment)
           -->
+   <!-- the number of the chapter 
+          -->
+<!ELEMENT chapterNumber EMPTY >
+<!ATTLIST chapterNumber 
+    %formatinfo;
+>
 <!ELEMENT chapterTitle EMPTY >
 <!ATTLIST chapterTitle 
+    %formatinfo;
+>
+   <!-- the number of the section 
+          -->
+<!ELEMENT sectionNumber EMPTY >
+<!ATTLIST sectionNumber 
     %formatinfo;
 >
    <!-- the title of the section 

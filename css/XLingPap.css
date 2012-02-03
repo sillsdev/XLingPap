@@ -4211,10 +4211,63 @@ bVolItem
 {
 	property-group: referencesItem("Volume II");
 }
-
+chapterNumber[color]
+{
+	color:concatenate(attr(color));
+}
+chapterNumber[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+chapterNumber[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+chapterNumber[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+chapterNumber[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+chapterNumber:before
+{
+	content:label(attribute, textbefore)
+	         "1"
+	         label(attribute, textafter)
+	         ;
+}
+chapterNumber
+{
+	content:"";
+}
+chapterTitle[color]
+{
+	color:concatenate(attr(color));
+}
+chapterTitle[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+chapterTitle[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+chapterTitle[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+chapterTitle[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
 chapterTitle:before
 {
-	content:"chapter title";
+	content:label(attribute, textbefore)
+	         "chapter title"
+	         label(attribute, textafter)
+	        ;
 }
 chapterTitle
 {
@@ -7981,9 +8034,63 @@ section6TitleLayout
 {
 	property-group: titledItem("1.1.1.1.1.1 Level Six Section");
 }
+sectionNumber[color]
+{
+	color:concatenate(attr(color));
+}
+sectionNumber[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+sectionNumber[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+sectionNumber[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+sectionNumber[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+sectionNumber:before
+{
+	content:label(attribute, textbefore)
+	         "1.2.3"
+	         label(attribute, textafter)
+	         ;
+}
+sectionNumber
+{
+	content:"";
+}
+sectionTitle[color]
+{
+	color:concatenate(attr(color));
+}
+sectionTitle[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+sectionTitle[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+sectionTitle[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+sectionTitle[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
 sectionTitle:before
 {
-	content:"section title";
+	content:label(attribute, textbefore)
+	         "section title"
+	         label(attribute, textafter)
+	        ;
 }
 sectionTitle
 {

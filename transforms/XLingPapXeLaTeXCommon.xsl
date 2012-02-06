@@ -3564,6 +3564,9 @@
                     <xsl:when test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
                         <!-- do nothing; since this interlinear is the first child, there's no need for extra indent-->
                     </xsl:when>
+                    <xsl:when test="name(ancestor::*[name()='endnote' or name()='listInterlinear'][1])='endnote'">
+                        <!-- is in an interlinear within an endnote (and this endnote is in a listInterlinear); do nothing -->
+                    </xsl:when>
                     <xsl:otherwise>
                         <tex:cmd name="hspace*">
                             <tex:parm>
@@ -4381,13 +4384,10 @@
                 </xsl:for-each>
                 <xsl:if test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
                     <!-- need extra space between aligned units when there are two or more lines or if it's the last one -->
-                    <xsl:if test="not(ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0])">
-                        <!-- except in footnotes -->
                         <tex:spec cat="lsb"/>
                         <xsl:call-template name="GetCurrentPointSize"/>
                         <tex:spec cat="rsb"/>
                     </xsl:if>
-                </xsl:if>
                 <tex:spec cat="esc"/>
                 <xsl:text>end</xsl:text>
                 <tex:spec cat="bg"/>
@@ -4734,15 +4734,12 @@
         <!--<tex:cmd name="par" nl2="1"/>-->
         <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
-            <xsl:if test="not(ancestor::endnote and parent::interlinear[string-length(@textref) &gt; 0] and $sInterlinearSourceStyle='AfterFree')">
-                <!-- another odd exception - what's really going on?? Something with difference between \par and \\ because endnote requires \\?? -->
                 <tex:cmd name="vspace*">
                     <tex:parm>
                         <xsl:text>-</xsl:text>
                         <xsl:call-template name="GetCurrentPointSize"/>
                     </tex:parm>
                 </tex:cmd>
-            </xsl:if>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
         <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">

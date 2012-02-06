@@ -951,8 +951,7 @@
             <tex:parm>
                 <xsl:call-template name="DoSecTitleRunningHeader">
                     <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
-                    </xsl:with-param>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -1125,15 +1124,13 @@
             <tex:parm>
                 <xsl:call-template name="DoSecTitleRunningHeader">
                     <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
-                    </xsl:with-param>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
                 </xsl:call-template>
             </tex:parm>
             <tex:parm>
                 <xsl:call-template name="DoSecTitleRunningHeader">
                     <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle">
-                    </xsl:with-param>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
@@ -4798,56 +4795,9 @@
         <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
-        <xsl:choose>
-            <xsl:when test="ancestor::endnote and ancestor::interlinear[string-length(@textref) &gt; 0] and $bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
-                <tex:cmd name="hspace">
-                    <tex:parm>-1em</tex:parm>
-                </tex:cmd>
-                <xsl:choose>
-                    <xsl:when test="ancestor::td">
-                        <tex:cmd name="parbox">
-                            <tex:opt>t</tex:opt>
-                            <tex:parm>
-                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sExampleIndentBefore"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sExampleIndentAfter"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$iNumberWidth"/>
-                                <xsl:text>em</xsl:text>
-                                <xsl:if test="parent::listInterlinear or self::listInterlinear">
-                                    <xsl:text>-</xsl:text>
-                                    <xsl:value-of select="$iNumberWidth"/>
-                                    <xsl:text>em</xsl:text>
-                                </xsl:if>
-                            </tex:parm>
-                            <tex:parm>
-                                <xsl:apply-templates>
-                                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                                </xsl:apply-templates>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates>
-                            <xsl:with-param name="originalContext" select="$originalContext"/>
-                        </xsl:apply-templates>
-                        <tex:cmd name="vspace">
-                            <tex:parm>
-                                <xsl:value-of select="$sFootnotePointSize"/>
-                                <xsl:text>pt</xsl:text>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates>
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                </xsl:apply-templates>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
         <xsl:call-template name="HandleFreeTextAfterAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>

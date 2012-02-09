@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 February 2012</date
+>7 February 2012</date
 ><version
->2.18.0_2</version
+>2.18.0_3</version
 ><contents
 showLevel="4"
 ></contents
@@ -1181,7 +1181,10 @@ type="tElement"
 > element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnote
 id="nXeLaTeXAttributes"
 ><p
->My experience is that one does not usually need to use these very often. Currenlty there is a limited set of these attributes.</p
+>My experience in using the default <object
+type="tXeTeX"
+></object
+> way of producing PDF is that one does not usually need to use these very often. Currenlty there is a limited set of these attributes.</p
 ><table
 border="1"
 ><tr
@@ -1408,7 +1411,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a break after this point</td
+>Force a break before this point</td
 ><td
 >pagebreak</td
 ></tr
@@ -1589,7 +1592,10 @@ type="tTool"
 > output. Each one needs to be followed by a space.<endnote
 id="nXsl-FoAttributes"
 ><p
->My experience is that one does not usually need to use these very often. Since these are actually part of a typesetting package, the list of attributes is long and a bit complicated, given that not every attribute is appropriate for every situation. Nonetheless, here are some that may prove useful to you in certain situations.</p
+>My experience in using the <object
+type="tRenderX"
+></object
+> way of producing PDF is that one does not usually need to use these very often. Since these are actually part of a typesetting package, the list of attributes is long and a bit complicated, given that not every attribute is appropriate for every situation. Nonetheless, here are some that may prove useful to you in certain situations.</p
 ><table
 border="1"
 ><tr

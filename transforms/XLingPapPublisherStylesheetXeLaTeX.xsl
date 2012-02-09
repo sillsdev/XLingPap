@@ -1424,20 +1424,11 @@
                 <tex:cmd name="par"/>
                 <xsl:apply-templates/>
             </xsl:when>
-            <xsl:when test="parent::endnote and name()='p' and preceding-sibling::p">
-                <xsl:choose>
-                    <xsl:when test="ancestor::table">
-                        <xsl:text>&#xa;</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="ancestor::secTitle or ancestor::title">
-                        <tex:spec cat="esc"/>
-                        <tex:spec cat="esc"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <tex:cmd name="par"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:apply-templates/>
+            <xsl:when test="parent::endnote and name()='p' and preceding-sibling::*[name()='p' or name()='pc']">
+                <xsl:call-template name="HandlePreviousPInEndnote"/>
+            </xsl:when>
+            <xsl:when test="parent::endnote and name()='pc' and preceding-sibling::*[name()='p' or name()='pc']">
+                <xsl:call-template name="HandlePreviousPInEndnote"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
@@ -1584,6 +1575,7 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
+   
     <!--
         pageNumber
     -->

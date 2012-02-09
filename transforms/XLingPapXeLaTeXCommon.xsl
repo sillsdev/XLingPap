@@ -5769,6 +5769,28 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        HandlePreviousPInEndnote
+    -->
+    <xsl:template name="HandlePreviousPInEndnote">
+        <xsl:choose>
+            <xsl:when test="ancestor::table">
+                <xsl:text>&#xa;</xsl:text>
+            </xsl:when>
+            <xsl:when test="ancestor::secTitle or ancestor::title">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="par"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="name()='pc'">
+            <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+        </xsl:if>
+        <xsl:apply-templates/>
+        
+    </xsl:template>
+    <!--  
         HandleSmallCapsBegin
     -->
     <xsl:template name="HandleSmallCapsBegin">

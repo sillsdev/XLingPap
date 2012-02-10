@@ -73,7 +73,10 @@
         counter
     -->
     <xsl:template match="counter">
-        <xsl:number from="table"  level="any"/>
+        <!-- First tried setting the from attrbute to just table, but then if there was a table embedded within a sister td of
+            a td containing a counter, the numbering started over at one.  Using 'table[descendant::counter]' seemed to work, too.
+        -->
+        <xsl:number from="table[descendant::counter]" level="any"/>
         <xsl:text>.</xsl:text>
     </xsl:template>
     <!--

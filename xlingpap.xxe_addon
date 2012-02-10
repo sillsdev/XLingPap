@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-02-08</a:date
+>2012-02-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_3 8 February 2012<ul
+>2.18.0_3 10 February 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug: when a pc element was not the first item in an endnote, it could cause extra space to appear before the next footnote on the same page.</li
 ></ul
 ></li
+><li
+>Fix a bug: the row counter element would start over at 1 if a table contained an embedded table between counter elements.</li
 ></ul
 ></li
 ><li

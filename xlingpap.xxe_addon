@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-02-10</a:date
+>2012-02-13</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_3 10 February 2012<ul
+>2.18.0_3 13 February 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
@@ -41,6 +41,8 @@ href="mailto::andy_black@sil.org"
 ></li
 ><li
 >Fix a bug: the row counter element would start over at 1 if a table contained an embedded table between counter elements.</li
+><li
+>Fix a bug: If a header in a publisher style sheet used paperAuthor and the document had a shortAuthor element, no author information was included in the header.</li
 ></ul
 ></li
 ><li

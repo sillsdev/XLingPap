@@ -4041,7 +4041,7 @@ not using
                             <xsl:when test="name()='paperAuthor'">
                                 <xsl:choose>
                                     <xsl:when test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
-                                        <xsl:apply-templates select="."/>
+                                        <xsl:apply-templates select="//frontMatter/shortAuthor"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:apply-templates select="//author" mode="contentOnly"/>

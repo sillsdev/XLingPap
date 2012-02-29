@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_3</a:version
+>2.18.0_4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-02-13</a:date
+>2012-02-29</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_3 13 February 2012<ul
+>2.18.0_4 29 February 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Enable one to specify script and language special values for an Open Type font.  See script and language in the footnote for XeLaTeXSpecial attributes in the user documentation.</li
+></ul
+></li
+><li
+>Added a note to user documentation that the XeLaTeX way of producing PDF does not handle .odg graphic files. Also added a validity test to indicate that .odg files are not supported.</li
+></ul
+></li
+><li
+>2.18.0_3 16 February 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
@@ -43,6 +55,8 @@ href="mailto::andy_black@sil.org"
 >Fix a bug: the row counter element would start over at 1 if a table contained an embedded table between counter elements.</li
 ><li
 >Fix a bug: If a header in a publisher style sheet used paperAuthor and the document had a shortAuthor element, no author information was included in the header.</li
+><li
+>Add externalID attribute to single, listSIngle, word, and listWord elements. It provides a place to indicate one or more external identifiers which can be used to indicate where a particular piece of data comes from (and to process it potentially).</li
 ></ul
 ></li
 ><li

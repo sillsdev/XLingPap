@@ -394,13 +394,21 @@
     %special;
 >
 <!ELEMENT word (langData | gloss)+>
+<!ATTLIST word
+    externalID CDATA #IMPLIED
+>
 <!ELEMENT listWord (langData | gloss)+>
 <!ATTLIST listWord
+    externalID CDATA #IMPLIED
     letter ID #REQUIRED
 >
 <!ELEMENT single (langData | gloss)+>
+<!ATTLIST single
+    externalID CDATA #IMPLIED
+>
 <!ELEMENT listSingle (langData | gloss)+>
 <!ATTLIST listSingle
+    externalID CDATA #IMPLIED
     letter ID #REQUIRED
 >
 <!-- the text ID is a reference number for an interlinear within an interlinear text 

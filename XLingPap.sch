@@ -195,6 +195,14 @@
     </pattern>
     <pattern>
         <title>
+            <dir value="ltr">Check for graphic formats that will not work.</dir>
+        </title>
+        <rule context="img/@src">
+            <report test="substring(.,string-length(.)-3)='.odg'">Sorry, but .odg graphic files are not supported.  Producing the default PDF will fail.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
             <dir value="ltr">Check for issues related to publisher style sheets</dir>
         </title>
         <rule context="/publisherStyleSheet/pageLayout/pageWidth | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/pageWidth">

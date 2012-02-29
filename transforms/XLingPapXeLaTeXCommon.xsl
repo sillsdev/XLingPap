@@ -118,6 +118,8 @@
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
+    <xsl:variable name="sFontScript" select="'script='"/>
+    <xsl:variable name="sFontLanguage" select="'language='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
@@ -3015,6 +3017,39 @@
                         <xsl:value-of select="$sBaseFontName"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                <!-- some open type fonts also need a special script or a special language; handle them here -->
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontScript)">
+                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                            <xsl:with-param name="sDefault" select="'arab'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontScript)">
+                        <xsl:for-each select="..">
+                            <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                <xsl:with-param name="sDefault" select="'arab'"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontLanguage)">
+                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                            <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
+                            <xsl:with-param name="sDefault" select="'ARA'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontLanguage)">
+                        <xsl:for-each select="..">
+                            <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
+                                <xsl:with-param name="sDefault" select="'ARA'"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                </xsl:choose>
             </tex:parm>
         </tex:cmd>
     </xsl:template>
@@ -4384,10 +4419,10 @@
                 </xsl:for-each>
                 <xsl:if test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
                     <!-- need extra space between aligned units when there are two or more lines or if it's the last one -->
-                        <tex:spec cat="lsb"/>
-                        <xsl:call-template name="GetCurrentPointSize"/>
-                        <tex:spec cat="rsb"/>
-                    </xsl:if>
+                    <tex:spec cat="lsb"/>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:if>
                 <tex:spec cat="esc"/>
                 <xsl:text>end</xsl:text>
                 <tex:spec cat="bg"/>
@@ -4734,12 +4769,12 @@
         <!--<tex:cmd name="par" nl2="1"/>-->
         <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
-                <tex:cmd name="vspace*">
-                    <tex:parm>
-                        <xsl:text>-</xsl:text>
-                        <xsl:call-template name="GetCurrentPointSize"/>
-                    </tex:parm>
-                </tex:cmd>
+            <tex:cmd name="vspace*">
+                <tex:parm>
+                    <xsl:text>-</xsl:text>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
         <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">
@@ -5456,6 +5491,19 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        HandleFontScriptOrLanguageXeLaTeXSpecial
+    -->
+    <xsl:template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+        <xsl:param name="sFontSpecial"/>
+        <xsl:param name="sDefault"/>
+        <xsl:text>:</xsl:text>
+        <xsl:value-of select="$sFontSpecial"/>
+        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+            <xsl:with-param name="sPattern" select="$sFontSpecial"/>
+            <xsl:with-param name="default" select="$sDefault"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
         HandleFontSize
     -->
     <xsl:template name="HandleFontSize">
@@ -5788,7 +5836,7 @@
             <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
         </xsl:if>
         <xsl:apply-templates/>
-        
+
     </xsl:template>
     <!--  
         HandleSmallCapsBegin

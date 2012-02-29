@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->7 February 2012</date
+>29 February 2012</date
 ><version
->2.18.0_3</version
+>2.18.0_4</version
 ><contents
 showLevel="4"
 ></contents
@@ -1333,6 +1333,32 @@ ref="rITF"
 ></tr
 ><tr
 ><td
+>language</td
+><td
+>a three letter code</td
+><td
+>For Open Type fonts, it sets the font language system tag to be the three letter code. See <link
+href="http://www.microsoft.com/typography/otspec/languagetags.htm"
+>http://www.microsoft.com/typography/otspec/languagetags.htm</link
+>.  This only works on elements that have a <object
+type="tAttribute"
+>font-family</object
+> attribute.</td
+><td
+><table
+><tr
+><td
+>language='ARA'</td
+></tr
+><tr
+><td
+>language='BEN'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
 >line-after</td
 ><td
 ><object
@@ -1460,6 +1486,32 @@ type="tElement"
 ><tr
 ><td
 >scaled='1250'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>script</td
+><td
+>a four letter code</td
+><td
+>For Open Type fonts, it sets the font script tag to be the four letter code.  See <link
+href="http://www.microsoft.com/typography/otspec/scripttags.htm"
+>http://www.microsoft.com/typography/otspec/scripttags.htm</link
+>.  This only works on elements that have a <object
+type="tAttribute"
+>font-family</object
+> attribute.</td
+><td
+><table
+><tr
+><td
+>script='arab'</td
+></tr
+><tr
+><td
+>script='beng'</td
 ></tr
 ></table
 ></td
@@ -17732,7 +17784,7 @@ type="tXeTeX"
 ></ul
 ></li
 ><li
->It does not handle graphic files with a .gif extension. You have to convert such .gif files to something else like .png or .jpg. Some versions of the <object
+>It does not handle graphic files with a .gif extension nor with an .odg extension. You have to convert such .gif files to something else like .png or .jpg. Some versions of the <object
 type="tTool"
 >Paint</object
 > program can do this conversion.</li

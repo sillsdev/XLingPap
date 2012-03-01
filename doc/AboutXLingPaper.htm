@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0_4</span></p>
-      <p align="center">Date: 2012-02-29</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0_5</span></p>
+      <p align="center">Date: 2012-03-01</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,23 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.18.0_5 1 March 2012
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Fix bug: endnotes in listDefinition and listSingle did not use the correct number in the footnote itself.</li>
+                           <li>Fix bug: if an endnote in a listDefinition contained a langData element and one was showing ISO codes in examples, the example
+                              for the listDefinition gave the ISO code.  It should not have.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.18.0_4 29 February 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
-                           <li>Enable one to specify script and language special values for an Open Type font.  See script and language in the footnote for
+                           <li>Enable one to specify script and language special values for an Open Type font. See script and language in the footnote for
                               XeLaTeXSpecial attributes in the user documentation.
                            </li>
                         </ul>

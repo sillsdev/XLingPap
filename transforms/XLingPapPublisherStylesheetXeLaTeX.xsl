@@ -1575,7 +1575,7 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-   
+
     <!--
         pageNumber
     -->
@@ -3307,7 +3307,7 @@
                         <tex:cmd name="{$sTeXFootnoteKind}">
                             <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
                                 <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
-                                <xsl:if test="not(ancestor::interlinear-text)">
+                                <xsl:if test="not(ancestor::interlinear-text) and not(ancestor::listDefinition) and not(ancestor::listSingle)">
                                     <tex:opt>
                                         <xsl:call-template name="DoFootnoteNumberInText">
                                             <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -3406,7 +3406,9 @@
     <xsl:template name="DoExampleNumber">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="sIsoCode">
-            <xsl:call-template name="GetISOCode"/>
+            <xsl:if test="not(listDefinition) and not(definition)">
+                <xsl:call-template name="GetISOCode"/>
+            </xsl:if>
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">

@@ -1261,9 +1261,11 @@
                                     <xsl:with-param name="example" select="."/>
                                 </xsl:call-template>
                                 <xsl:text>)</xsl:text>
-                                <xsl:call-template name="OutputExampleLevelISOCode">
-                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                                </xsl:call-template>
+                                <xsl:if test="not(listDefinition) and not(definition)">
+                                    <xsl:call-template name="OutputExampleLevelISOCode">
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -2143,7 +2145,7 @@ not using
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                    <xsl:call-template name="DoEndnoteRefNumber"/>
+                <xsl:call-template name="DoEndnoteRefNumber"/>
             </xsl:when>
             <xsl:when test="@showNumberOnly='yes'">
                 <xsl:call-template name="DoEndnoteRefNumber"/>
@@ -2187,7 +2189,7 @@ not using
                                 -->
                             </fo:inline>
                             <xsl:text>See footnote </xsl:text>
-                                <xsl:call-template name="DoEndnoteRefNumber"/>
+                            <xsl:call-template name="DoEndnoteRefNumber"/>
                             <xsl:choose>
                                 <xsl:when test="$chapters">
                                     <xsl:text> in chapter </xsl:text>

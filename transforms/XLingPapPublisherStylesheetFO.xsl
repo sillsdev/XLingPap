@@ -952,9 +952,9 @@
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            
-                            </fo:block>
-                        </xsl:otherwise>
+
+                        </fo:block>
+                    </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
             </fo:flow>
@@ -1474,9 +1474,11 @@
                                     <xsl:with-param name="example" select="."/>
                                 </xsl:call-template>
                                 <xsl:text>)</xsl:text>
-                                <xsl:call-template name="OutputExampleLevelISOCode">
-                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                                </xsl:call-template>
+                                <xsl:if test="not(listDefinition) and not(definition)">
+                                    <xsl:call-template name="OutputExampleLevelISOCode">
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -2994,7 +2996,7 @@ not using
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="referencedInterlinearTexts"/>
-<!--    <xsl:template match="shortTitle"/>-->
+    <!--    <xsl:template match="shortTitle"/>-->
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->

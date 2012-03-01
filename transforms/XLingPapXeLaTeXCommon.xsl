@@ -6887,6 +6887,13 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:if test="$sTableType='longtable'">
+                        <xsl:if test="../descendant-or-self::endnote">
+                            <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
+                                then one cannot overtly say what the footnote number should be. 
+                                Therefore, we must set the footnote counter here.
+                            -->
+                            <xsl:call-template name="SetLaTeXFootnoteCounter"/>
+                        </xsl:if>
                         <xsl:call-template name="SetTeXCommand">
                             <xsl:with-param name="sTeXCommand" select="'setlength'"/>
                             <xsl:with-param name="sCommandToSet" select="'LTpre'"/>

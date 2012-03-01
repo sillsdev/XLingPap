@@ -821,9 +821,11 @@
                                 <xsl:with-param name="example" select="."/>
                             </xsl:call-template>
                             <xsl:text>)</xsl:text>
-                            <xsl:call-template name="OutputExampleLevelISOCode">
-                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                            </xsl:call-template>
+                            <xsl:if test="not(listDefinition) and not(definition)">
+                                <xsl:call-template name="OutputExampleLevelISOCode">
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:call-template>
+                            </xsl:if>
                         </xsl:element>
                     </td>
                     <td>
@@ -1716,7 +1718,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-        <!--
+    <!--
         exampleRef
     -->
     <xsl:template match="exampleRef">

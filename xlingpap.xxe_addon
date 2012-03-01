@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_4</a:version
+>2.18.0_5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-02-29</a:date
+>2012-03-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,23 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.18.0_5 1 March 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix bug: endnotes in listDefinition and listSingle did not use the correct number in the footnote itself.</li
+><li
+>Fix bug: if an endnote in a listDefinition contained a langData element and one was showing ISO codes in examples, the example for the listDefinition gave the ISO code.  It should not have.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.18.0_4 29 February 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
->Enable one to specify script and language special values for an Open Type font.  See script and language in the footnote for XeLaTeXSpecial attributes in the user documentation.</li
+>Enable one to specify script and language special values for an Open Type font. See script and language in the footnote for XeLaTeXSpecial attributes in the user documentation.</li
 ></ul
 ></li
 ><li

@@ -5537,6 +5537,23 @@
                                         <xsl:value-of select="$sDefaultFontFamily"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
+                                <!-- some open type fonts also need a special script or a special language; handle them here -->
+                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontScript)">
+                                    <xsl:for-each select="$language">
+                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                            <xsl:with-param name="sDefault" select="'arab'"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:if>
+                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontLanguage)">
+                                    <xsl:for-each select="$language">
+                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                            <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
+                                            <xsl:with-param name="sDefault" select="'ARA'"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:if>
                             </tex:parm>
                         </tex:cmd>
                     </xsl:otherwise>

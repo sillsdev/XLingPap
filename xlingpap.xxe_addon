@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_5</a:version
+>2.18.0_6</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
@@ -32,13 +32,23 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.18.0_6 1 March 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Enable one to specify script and language special values for an Open Type font and have it work also for when one uses a percentage font size.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.18.0_5 1 March 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix bug: endnotes in listDefinition and listSingle did not use the correct number in the footnote itself.</li
 ><li
->Fix bug: if an endnote in a listDefinition contained a langData element and one was showing ISO codes in examples, the example for the listDefinition gave the ISO code.  It should not have.</li
+>Fix bug: if an endnote in a listDefinition contained a langData element and one was showing ISO codes in examples, the example for the listDefinition gave the ISO code. It should not have.</li
 ></ul
 ></li
 ></ul

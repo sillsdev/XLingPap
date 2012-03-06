@@ -1602,30 +1602,46 @@
     </xsl:template>
     <xsl:template match="gloss">
         <xsl:param name="originalContext"/>
-        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
-            <tex:spec cat="bg"/>
-        </xsl:if>
+        <xsl:param name="bReversing" select="'N'"/>
+        <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+        <xsl:choose>
+            <xsl:when test="$language/@rtl='yes'">
+                <tex:spec cat="bg"/>
+            </xsl:when>
+            <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
+                <!-- 2012.03.05 I'm not sure why using this is a problem... -->
+                <tex:spec cat="bg"/>    
+            </xsl:when>
+        </xsl:choose>
         <xsl:call-template name="OutputFontAttributes">
-            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="language" select="$language"/>
             <xsl:with-param name="originalContext" select="."/>
         </xsl:call-template>
         <xsl:variable name="iCountBr" select="count(child::br)"/>
         <xsl:call-template name="DoEmbeddedBrBegin">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
-        <xsl:apply-templates>
+        <xsl:call-template name="HandleLanguageContent">
+            <xsl:with-param name="language" select="$language"/>
+            <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:apply-templates>
+        </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
         <xsl:call-template name="OutputFontAttributesEnd">
-            <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+            <xsl:with-param name="language" select="$language"/>
             <xsl:with-param name="originalContext" select="."/>
         </xsl:call-template>
-        <xsl:if test="not(ancestor::example) and not(ancestor::interlinear-text)">
-            <tex:spec cat="eg"/>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$language/@rtl='yes'">
+                <tex:spec cat="eg"/>
+            </xsl:when>
+            <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
+                <!-- 2012.03.05 I'm not sure why using this is a problem... -->
+                <tex:spec cat="eg"/>    
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LANGDATA
@@ -1635,6 +1651,7 @@
     </xsl:template>
     <xsl:template match="langData">
         <xsl:param name="originalContext"/>
+        <xsl:param name="bReversing" select="'N'"/>
         <tex:spec cat="bg"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:call-template name="OutputFontAttributes">
@@ -1645,9 +1662,11 @@
         <xsl:call-template name="DoEmbeddedBrBegin">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>
-        <xsl:apply-templates>
+        <xsl:call-template name="HandleLanguageContent">
+            <xsl:with-param name="language" select="$language"/>
+            <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:apply-templates>
+        </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
         </xsl:call-template>

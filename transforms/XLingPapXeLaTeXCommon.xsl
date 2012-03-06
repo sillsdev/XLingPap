@@ -1993,31 +1993,47 @@
     <!-- ===========================================================
         OBJECT
         =========================================================== -->
+    <!-- bookmarks -->
     <xsl:template match="object" mode="bookmarks">
-        <xsl:for-each select="key('TypeID',@type)">
+        <xsl:variable name="type" select="key('TypeID',@type)"/>
+        <xsl:for-each select="$type">
             <xsl:value-of select="@before"/>
         </xsl:for-each>
         <xsl:apply-templates mode="bookmarks"/>
-        <xsl:for-each select="key('TypeID',@type)">
+        <xsl:for-each select="$type">
             <xsl:value-of select="@after"/>
         </xsl:for-each>
     </xsl:template>
+    <!-- InMarker -->
     <xsl:template match="object" mode="InMarker">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
+    <!-- no mode -->
     <xsl:template match="object">
         <xsl:param name="originalContext"/>
+        <xsl:param name="bReversing" select="'N'"/>
+        <xsl:variable name="type" select="key('TypeID',@type)"/>
         <tex:spec cat="bg"/>
         <xsl:call-template name="DoType">
             <xsl:with-param name="originalContext" select="."/>
         </xsl:call-template>
-        <xsl:for-each select="key('TypeID',@type)">
+        <xsl:for-each select="$type">
             <xsl:value-of select="@before"/>
         </xsl:for-each>
-        <xsl:apply-templates>
-            <xsl:with-param name="originalContext"/>
-        </xsl:apply-templates>
-        <xsl:for-each select="key('TypeID',@type)">
+        <xsl:choose>
+            <xsl:when test="$bReversing = 'Y'">
+                <xsl:apply-templates select="node()" mode="reverse">
+                    <xsl:sort select="position()" order="descending"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:for-each select="$type">
             <xsl:value-of select="@after"/>
         </xsl:for-each>
         <xsl:call-template name="DoTypeEnd">
@@ -2025,6 +2041,7 @@
         </xsl:call-template>
         <tex:spec cat="eg"/>
     </xsl:template>
+
     <!-- ===========================================================
         IMG
         =========================================================== -->
@@ -5665,6 +5682,65 @@
         <xsl:text>&#x0a;</xsl:text>
     </xsl:template>
     <!--  
+        HandleLanguageContent
+    -->
+    <xsl:template name="HandleLanguageContent">
+        <xsl:param name="language"/>
+        <xsl:param name="bReversing"/>
+        <xsl:param name="originalContext"/>
+        <xsl:variable name="bReverseWrdContent">
+            <xsl:choose>
+                <xsl:when test="$language/@rtl='yes' and $bReversing='N' and ancestor-or-self::wrd">
+                    <!-- only need to reverse if the wrd contains a space (but that space is not in an endnote) -->
+                    <xsl:choose>
+                        <xsl:when test="descendant::endnote">
+                            <xsl:variable name="sNonEndnote" select="node()[name()!='endnote']"/>
+                            <xsl:choose>
+                                <xsl:when test="contains($sNonEndnote,' ')">
+                                    <xsl:text>Y</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>N</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="contains(.,' ')">
+                                    <xsl:text>Y</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>N</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$language/@rtl='yes' and $bReversing='N' and $bReverseWrdContent='Y'">
+                <xsl:call-template name="ReverseContentsInNodes">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$bReversing = 'Y'">
+                <xsl:apply-templates select="node()" mode="reverse">
+                    <xsl:sort select="position()" order="descending"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         HandleMulticolumnInCell
     -->
     <xsl:template name="HandleMulticolumnInCell">
@@ -7470,16 +7546,73 @@
     -->
     <xsl:template name="ReverseContents">
         <xsl:param name="sList"/>
+        <xsl:param name="bInsertSpaceAfterLast" select="'Y'"/>
+        <xsl:param name="bIsTopLevel" select="'Y'"/>
         <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
         <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:if test="$sRest">
             <xsl:call-template name="ReverseContents">
                 <xsl:with-param name="sList" select="$sRest"/>
+                <xsl:with-param name="bIsTopLevel" select="'N'"/>
+                <xsl:with-param name="bInsertSpaceAfterLast" select="$bInsertSpaceAfterLast"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:value-of select="$sFirst"/>
-        <xsl:text>&#x20;</xsl:text>
+        <xsl:if test="$bIsTopLevel='N' or $bInsertSpaceAfterLast='Y'">
+            <xsl:text>&#x20;</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        ReverseContentsInNodes
+    -->
+    <xsl:template name="ReverseContentsInNodes">
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates select="node()" mode="reverse">
+            <xsl:sort select="position()" order="descending"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="text()" mode="reverse">
+        <xsl:variable name="sTrimmed" select="normalize-space(.)"/>
+        <xsl:value-of select="substring-after(.,$sTrimmed)"/>
+        <xsl:call-template name="ReverseContents">
+            <xsl:with-param name="sList" select="."/>
+            <xsl:with-param name="bInsertSpaceAfterLast" select="'N'"/>
+        </xsl:call-template>
+        <xsl:value-of select="substring-before(.,$sTrimmed)"/>
+    </xsl:template>
+    <!-- reverse -->
+    <xsl:template match="object" mode="reverse">
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="bReversing" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="langData" mode="reverse">
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="bReversing" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="gloss" mode="reverse">
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="bReversing" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="endnote | endnoteRef" mode="reverse">
+        <xsl:param name="originalContext"/>
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="exampleRef | sectionRef | appendixRef | citation | br | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
+        indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject" mode="reverse">
+        <xsl:apply-templates select="."/>
     </xsl:template>
     <!--  
         SetDefaultXLingPaperInterWordSkip

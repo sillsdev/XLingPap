@@ -5690,34 +5690,42 @@
         <xsl:param name="originalContext"/>
         <xsl:variable name="bReverseWrdContent">
             <xsl:choose>
-                <xsl:when test="$language/@rtl='yes' and $bReversing='N' and ancestor-or-self::wrd">
-                    <!-- only need to reverse if the wrd contains a space (but that space is not in an endnote) -->
+                <xsl:when test="ancestor-or-self::wrd">
                     <xsl:choose>
-                        <xsl:when test="descendant::endnote">
-                            <xsl:variable name="sNonEndnote" select="node()[name()!='endnote']"/>
+                        <xsl:when test="$language/@rtl='yes' and $bReversing='N'">
+                            <!-- only need to reverse if the wrd contains a space (but that space is not in an endnote) -->
                             <xsl:choose>
-                                <xsl:when test="contains($sNonEndnote,' ')">
-                                    <xsl:text>Y</xsl:text>
+                                <xsl:when test="descendant::endnote">
+                                    <xsl:variable name="sNonEndnote" select="node()[name()!='endnote']"/>
+                                    <xsl:choose>
+                                        <xsl:when test="contains($sNonEndnote,' ')">
+                                            <xsl:text>Y</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>N</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:text>N</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="contains(.,' ')">
+                                            <xsl:text>Y</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>N</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:choose>
-                                <xsl:when test="contains(.,' ')">
-                                    <xsl:text>Y</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>N</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:text>N</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>N</xsl:text>
+                    <!-- Not in a wrd but make this be 'Y' so choose below works properly -->
+                    <xsl:text>Y</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>

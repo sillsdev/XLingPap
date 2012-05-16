@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->29 February 2012</date
+>15 May 2012</date
 ><version
->2.18.0_4</version
+>2.18.0_8</version
 ><contents
 showLevel="4"
 ></contents
@@ -1340,7 +1340,7 @@ ref="rITF"
 >For Open Type fonts, it sets the font language system tag to be the three letter code. See <link
 href="http://www.microsoft.com/typography/otspec/languagetags.htm"
 >http://www.microsoft.com/typography/otspec/languagetags.htm</link
->.  This only works on elements that have a <object
+>. This only works on elements that have a <object
 type="tAttribute"
 >font-family</object
 > attribute.</td
@@ -1496,10 +1496,10 @@ type="tElement"
 ><td
 >a four letter code</td
 ><td
->For Open Type fonts, it sets the font script tag to be the four letter code.  See <link
+>For Open Type fonts, it sets the font script tag to be the four letter code. See <link
 href="http://www.microsoft.com/typography/otspec/scripttags.htm"
 >http://www.microsoft.com/typography/otspec/scripttags.htm</link
->.  This only works on elements that have a <object
+>. This only works on elements that have a <object
 type="tAttribute"
 >font-family</object
 > attribute.</td
@@ -20223,7 +20223,7 @@ num="xHyphenationExceptions"
 ></br
 > &lt;word&gt;...&lt;/word&gt;<br
 ></br
-> /exceptions&gt;</chart
+> &lt;/exceptions&gt;</chart
 ></example
 ><p
 >Where example <exampleRef
@@ -20232,13 +20232,32 @@ num="xHyphenationExceptions"
 ></exampleRef
 > has the ellipsis, put your exceptional words. You can enter a regular hyphen character to indicate where the hyphenation should occur. Be sure to save this file in UTF-8 format.</p
 ><p
+>If any of your words have a character that is normally considered to be punctuation (such as an apostrophe or closing single quote), then add these in this file as shown in example <exampleRef
+letter="xHyphenationExceptionsWFC"
+num="xHyphenationExceptionsWFC"
+></exampleRef
+>.</p
+><example
+num="xHyphenationExceptionsWFC"
+><chart
+>&lt;exceptions&gt;<br
+></br
+>&lt;wordformingcharacter&gt;’&lt;/wordformingcharacter&gt;<br
+></br
+> &lt;word&gt;...&lt;/word&gt;<br
+></br
+> &lt;word&gt;...&lt;/word&gt;<br
+></br
+> &lt;/exceptions&gt;</chart
+></example
+><p
 >Finally, make sure you have a <object
 type="tElement"
 >language</object
 > element whose <object
 type="tAttribute"
 >id</object
-> attribute is the same as the code you used in the <object
+> attribute is the same as the two or three letter code you used in the <object
 type="tAttribute"
 >xml:lang</object
 > attribute of the <object

@@ -3352,7 +3352,15 @@
                 <xsl:value-of select="$iCountBr"/> -->
             <!--            <tex:cmd name="baselineskip" gr="0"/>-->
             <tex:spec cat="esc"/>
-            <xsl:text>vbox</xsl:text>
+            <xsl:choose>
+                <xsl:when test="ancestor-or-self::listWord and ancestor-or-self::gloss">
+                    <!-- need to align the resulting box at the top -->
+                    <xsl:text>vtop</xsl:text>        
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>vbox</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
             <tex:spec cat="bg"/>
             <tex:spec cat="esc"/>
             <xsl:text>hbox</xsl:text>
@@ -5654,11 +5662,16 @@
         <xsl:for-each select="//language[@id=$documentLang]">
             <xsl:variable name="sHyphenationExceptionsFile" select="normalize-space(@hyphenationExceptionsFile)"/>
             <xsl:if test="string-length($sHyphenationExceptionsFile) &gt; 0">
+                <xsl:variable name="sPathToExceptionsFile" select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
+                <xsl:for-each select="document($sPathToExceptionsFile)/exceptions/wordformingcharacter">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>lccode`</xsl:text>
+                    <xsl:value-of select="."/>
+                    <xsl:text>=47
+</xsl:text>
+                </xsl:for-each>
                 <tex:cmd name="hyphenation" nl2="1">
                     <tex:parm>
-                        <xsl:variable name="sPathToExceptionsFile" select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
-                        <!--                        <xsl:value-of select="$sPathToExceptionsFile"/>
-                        <xsl:variable name="exceptions" select="document($sPathToExceptionsFile)"/>-->
                         <xsl:for-each select="document($sPathToExceptionsFile)/exceptions/word">
                             <xsl:value-of select="."/>
                             <xsl:if test="position()!=last()">

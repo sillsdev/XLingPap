@@ -23,7 +23,14 @@
                         </refAuthor>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!-- do nothing -->
+                        <xsl:choose>
+                            <xsl:when test="position()=1">
+                                <xsl:copy-of select="."/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- do nothing -->
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:for-each>

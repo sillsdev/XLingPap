@@ -1414,9 +1414,10 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
-<!--                                                <cfg:get expression="$producePDFParameters"/>
+                                                <!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePDFFromEmbeddedStylesheetViaXeLaTeX" parameter="%_"/>
--->                                                <cfg:command name="PDFCompletionProcessing"/>
+-->
+                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
@@ -1443,9 +1444,10 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-<!--                                                <cfg:get expression="$producePDFParameters"/>
+                                                <!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
--->                                                <cfg:command name="PDFCompletionProcessing"/>
+-->
+                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
@@ -1475,9 +1477,10 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                                 <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
-<!--                                                <cfg:get expression="$producePDFParameters"/>
+                                                <!--                                                <cfg:get expression="$producePDFParameters"/>
                                                 <cfg:command name="producePaperPDFFromCannedStylesheetViaXeLaTeX" parameter="%_"/>
--->                                                <cfg:command name="PDFCompletionProcessing"/>
+-->
+                                                <cfg:command name="PDFCompletionProcessing"/>
                                             </cfg:sequence>
                                             <!--                                                <cfg:sequence>
                                                     <cfg:get expression="$producePDFParameters"/>
@@ -1750,11 +1753,12 @@ What we want is to load IE independently and to do a refresh so it will show the
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
-<!-- moved these to the batch file           <cfg:shell  command="copy &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
+            <!-- moved these to the batch file           <cfg:shell  command="copy &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
             <cfg:shell  command="cp &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
             <cfg:shell  command="del &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot;" platform="Windows"/>
             <cfg:shell  command="rm &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot;" platform="Unix"/>
---><!--  these use a glob pattern so if a user chooses to use square brackets in a file name, then messes it up      
+-->
+            <!--  these use a glob pattern so if a user chooses to use square brackets in a file name, then messes it up      
     <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf" to="%{P}%{S}%{R}.pdf"/>
             <cfg:delete quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf"/>-->
         </cfg:process>
@@ -1923,6 +1927,22 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:command name="alert" parameter="%_"/>
                         </cfg:sequence>
                         <cfg:sequence>
+                            <cfg:sequence>
+                                <!-- test to see if any material might be lost in the process and let user know -->
+                                <cfg:choice>
+                                    <cfg:sequence>
+                                        <cfg:pass>
+                                            <cfg:test expression="//endnote[descendant::table or descendant::example]"/>
+                                        </cfg:pass>
+<!--                                        <cfg:command name="alert" parameter="Please note that there is at least one endnote with a table or example in it.  The resulting output will not include this table or example.  You will have to add it by hand."/>-->
+                                        <cfg:command name="LocalizeString" parameter="msg.endnoteTableNotInOutput"/>
+                                        <cfg:command name="alert" parameter="%_"/>
+                                    </cfg:sequence>
+                                    <cfg:sequence>
+                                        <cfg:test expression="contains('x','x')"/>
+                                    </cfg:sequence>
+                                </cfg:choice>
+                            </cfg:sequence>
                             <cfg:choice>
                                 <cfg:sequence>
                                     <cfg:pass>
@@ -2224,8 +2244,8 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="applyTransformsToZoteroMODSFile">
         <cfg:process>
             <!--  need to avoid glob problems           <cfg:copy files="%0" to="in.xml"/>-->
-            <cfg:shell  command="copy &quot;%0&quot; in.xml" platform="Windows"/>
-            <cfg:shell  command="cp &quot;%0&quot; in.xml" platform="Unix"/>
+            <cfg:shell command="copy &quot;%0&quot; in.xml" platform="Windows"/>
+            <cfg:shell command="cp &quot;%0&quot; in.xml" platform="Unix"/>
             <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferences.xsl" to="pass1.xml"/>
             <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}ZoteroMODSReferences.xml"/>
         </cfg:process>
@@ -2242,8 +2262,8 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="applyTransformsToEndnoteXMLFile">
         <cfg:process>
             <!-- need to avoid glob problems <cfg:copy files="%0" to="in.xml"/>-->
-            <cfg:shell  command="copy &quot;%0&quot; in.xml" platform="Windows"/>
-            <cfg:shell  command="cp &quot;%0&quot; in.xml" platform="Unix"/>
+            <cfg:shell command="copy &quot;%0&quot; in.xml" platform="Windows"/>
+            <cfg:shell command="cp &quot;%0&quot; in.xml" platform="Unix"/>
             <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}EndnoteXML2XLingPaperReferences.xsl" to="pass1.xml"/>
             <cfg:transform file="pass1.xml" stylesheet="..%{S}transforms%{S}MODS2XLingPaperReferencesMergeAuthors.xsl" to="%{P}%{S}EndnoteXMLReferences.xml"/>
         </cfg:process>

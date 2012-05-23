@@ -161,10 +161,21 @@
         genericTarget
     -->
     <xsl:template match="genericTarget">
-        <xsl:call-template name="DoInternalTargetBegin">
+<!--        <tex:spec cat="esc"/>
+        <xsl:text>raisebox</xsl:text>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>baselineskip</xsl:text>
+        <tex:spec cat="eg"/>
+        <tex:spec cat="lsb"/>
+        <xsl:text>0pt</xsl:text>
+        <tex:spec cat="rsb"/>
+        <tex:spec cat="bg"/>
+-->        <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
+<!--        <tex:spec cat="eg"/>-->
     </xsl:template>
     <!-- ===========================================================
         QUOTES
@@ -3500,7 +3511,7 @@
         DoExternalHyperRefEnd
     -->
     <xsl:template name="DoExternalHyperRefEnd">
-        <xsl:call-template name="DoInternalTargetEnd"/>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         DoImageFile
@@ -4260,6 +4271,16 @@
     -->
     <xsl:template name="DoInternalTargetBegin">
         <xsl:param name="sName"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>raisebox</xsl:text>
+        <tex:spec cat="bg"/>
+        <tex:spec cat="esc"/>
+        <xsl:text>baselineskip</xsl:text>
+        <tex:spec cat="eg"/>
+        <tex:spec cat="lsb"/>
+        <xsl:text>0pt</xsl:text>
+        <tex:spec cat="rsb"/>
+        <tex:spec cat="bg"/>
         <!-- in some contexts, \hypertarget needs to be \protected; we do it always since it is not easy to determine such contexts-->
         <tex:cmd name="protect" gr="0"/>
         <tex:spec cat="esc"/>
@@ -4268,12 +4289,14 @@
         <xsl:value-of select="translate($sName,$sIDcharsToMap, $sIDcharsMapped)"/>
         <tex:spec cat="eg"/>
         <tex:spec cat="bg"/>
+        <tex:spec cat="eg"/>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
         DoInternalTargetEnd
     -->
     <xsl:template name="DoInternalTargetEnd">
-        <tex:spec cat="eg"/>
+<!--        <tex:spec cat="eg"/>-->
     </xsl:template>
     <!--  
         DoIthCellInNonWrdInterlinearLineAsWrappable

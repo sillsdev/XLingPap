@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-05-21</a:date
+>2012-05-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_9 21 May 2012<ul
+>2.18.0_9 23 May 2012<ul
 ><li
 >Fix some bugs in the Zotero (MODS) to XLingPaper references conversion.</li
 ><li
->Add a warning message when producing Word or Open Office Writer output and there is at least one endnote containing a table or an example.  The converter tool throws away tables in footnotes (and they do not plan to fix it; sigh).</li
+>Add a warning message when producing Word or Open Office Writer output and there is at least one endnote containing a table or an example. The converter tool throws away tables in footnotes (and they do not plan to fix it; sigh).</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Make the contents links and PDF book mark links show the section, etc. title (and not show just underneath it).</li
+></ul
+></li
 ></ul
 ></li
 ><li

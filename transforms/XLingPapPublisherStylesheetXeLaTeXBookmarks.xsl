@@ -26,20 +26,28 @@
         appendix (bookmarks)
     -->
     <xsl:template match="appendix" mode="bookmarks">
-        <tex:cmd name="pdfbookmark" nl2="1">
-            <tex:opt>1</tex:opt>
+        <tex:cmd name="raisebox">
             <tex:parm>
-                <xsl:call-template name="OutputChapterNumber">
-                    <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
-                </xsl:call-template>
-                <xsl:apply-templates select="secTitle" mode="bookmarks"/>
-                <!--                <xsl:value-of select="secTitle"/>-->
+                <tex:cmd name="baselineskip" gr="0"/>
             </tex:parm>
+            <tex:opt>0pt</tex:opt>
             <tex:parm>
-                <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                <tex:cmd name="pdfbookmark" nl2="0">
+                    <tex:opt>1</tex:opt>
+                    <tex:parm>
+                        <xsl:call-template name="OutputChapterNumber">
+                            <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
+                        </xsl:call-template>
+                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                        <!--                <xsl:value-of select="secTitle"/>-->
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                    </tex:parm>
+                </tex:cmd>
             </tex:parm>
         </tex:cmd>
-<!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
+        <!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
     </xsl:template>
     <!-- 
         chapter (bookmarks) 
@@ -53,7 +61,7 @@
                 <xsl:apply-templates select="secTitle" mode="bookmarks"/>
             </xsl:with-param>
         </xsl:call-template>
-<!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
+        <!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
     </xsl:template>
     <!--
       contents (bookmarks)
@@ -113,30 +121,39 @@
     -->
     <xsl:template match="part" mode="bookmarks">
         <!--        <xsl:param name="nLevel"/>-->
-<!--        <xsl:if test="position()=1">
+        <!--        <xsl:if test="position()=1">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select=".">
                     <!-\-                    <xsl:with-param name="nLevel" select="$nLevel"/>-\->
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
--->        <tex:cmd name="pdfbookmark" nl2="1">
-            <tex:opt>1</tex:opt>
+-->
+        <tex:cmd name="raisebox">
             <tex:parm>
-                <xsl:call-template name="OutputPartLabel"/>
-                <xsl:text>&#x20;</xsl:text>
-                <xsl:apply-templates select="." mode="numberPart"/>
-                <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle" mode="bookmarks"/>
-                <!--                <xsl:value-of select="secTitle"/>-->
+                <tex:cmd name="baselineskip" gr="0"/>
             </tex:parm>
+            <tex:opt>0pt</tex:opt>
             <tex:parm>
-                <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                <tex:cmd name="pdfbookmark" nl2="0">
+                    <tex:opt>1</tex:opt>
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartLabel"/>
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:apply-templates select="." mode="numberPart"/>
+                        <xsl:text>&#xa0;</xsl:text>
+                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                        <!--                <xsl:value-of select="secTitle"/>-->
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                    </tex:parm>
+                </tex:cmd>
             </tex:parm>
         </tex:cmd>
-<!--        <xsl:apply-templates mode="bookmarks">-->
-            <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
-<!--        </xsl:apply-templates>-->
+        <!--        <xsl:apply-templates mode="bookmarks">-->
+        <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
+        <!--        </xsl:apply-templates>-->
     </xsl:template>
     <!--
         preface (bookmarks)
@@ -164,52 +181,52 @@
         section1 (bookmarks) 
     -->
     <xsl:template match="section1" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
-            <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
-<!--                <xsl:apply-templates select="section2" mode="bookmarks"/>-->
-            </xsl:if>
+        <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
+            <!--                <xsl:apply-templates select="section2" mode="bookmarks"/>-->
+        </xsl:if>
     </xsl:template>
     <!-- 
         section2 (bookmarks) 
     -->
     <xsl:template match="section2" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
-            <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
-<!--                <xsl:apply-templates select="section3" mode="bookmarks"/>-->
-            </xsl:if>
+        <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
+            <!--                <xsl:apply-templates select="section3" mode="bookmarks"/>-->
+        </xsl:if>
     </xsl:template>
     <!-- 
         section3 (bookmarks) 
     -->
     <xsl:template match="section3" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
-            <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
-<!--                <xsl:apply-templates select="section4" mode="bookmarks"/>-->
-            </xsl:if>
+        <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
+            <!--                <xsl:apply-templates select="section4" mode="bookmarks"/>-->
+        </xsl:if>
     </xsl:template>
     <!-- 
         section4 (bookmarks) 
     -->
     <xsl:template match="section4" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
-            <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
-<!--                <xsl:apply-templates select="section5" mode="bookmarks"/>-->
-            </xsl:if>
+        <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
+            <!--                <xsl:apply-templates select="section5" mode="bookmarks"/>-->
+        </xsl:if>
     </xsl:template>
     <!-- 
         section5 (bookmarks) 
     -->
     <xsl:template match="section5" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
-            <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
-<!--                <xsl:apply-templates select="section6" mode="bookmarks"/>-->
-            </xsl:if>
+        <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
+            <!--                <xsl:apply-templates select="section6" mode="bookmarks"/>-->
+        </xsl:if>
     </xsl:template>
     <!-- 
         section6 (bookmarks) 
     -->
     <xsl:template match="section6" mode="bookmarks">
-            <xsl:call-template name="OutputSectionBookmark"/>
+        <xsl:call-template name="OutputSectionBookmark"/>
     </xsl:template>
     <!--  
       OutputBookmark
@@ -218,15 +235,23 @@
         <xsl:param name="sLink"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="sNestingLevel" select="'1'"/>
-        <tex:cmd name="pdfbookmark" nl2="1">
-            <tex:opt>
-                <xsl:value-of select="$sNestingLevel"/>
-            </tex:opt>
+        <tex:cmd name="raisebox">
             <tex:parm>
-                <xsl:value-of select="$sLabel"/>
+                <tex:cmd name="baselineskip" gr="0"/>
             </tex:parm>
+            <tex:opt>0pt</tex:opt>
             <tex:parm>
-                <xsl:value-of select="translate($sLink,$sIDcharsToMap, $sIDcharsMapped)"/>
+                <tex:cmd name="pdfbookmark" nl2="0">
+                    <tex:opt>
+                        <xsl:value-of select="$sNestingLevel"/>
+                    </tex:opt>
+                    <tex:parm>
+                        <xsl:value-of select="$sLabel"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="translate($sLink,$sIDcharsToMap, $sIDcharsMapped)"/>
+                    </tex:parm>
+                </tex:cmd>
             </tex:parm>
         </tex:cmd>
     </xsl:template>
@@ -234,28 +259,38 @@
         OutputSectionBookmark
     -->
     <xsl:template name="OutputSectionBookmark">
-        <tex:cmd name="pdfbookmark" nl2="1">
-            <xsl:variable name="iLevel" select="substring-after(name(),'section')"/>
-            <tex:opt>
-                <xsl:choose>
-                    <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart"><xsl:value-of select="$iLevel + 1"/></xsl:when>
-                    <xsl:when test="name()='section1' and ancestor::appendix">2</xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$iLevel"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </tex:opt>
+        <tex:cmd name="raisebox">
             <tex:parm>
-                <xsl:call-template name="OutputSectionNumber">
-                    <xsl:with-param name="bIsForBookmark" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:if test="not(count(//section1)=1 and count(//section2)=0)">
-                    <xsl:text>&#xa0;</xsl:text>
-                </xsl:if>
-                <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                <tex:cmd name="baselineskip" gr="0"/>
             </tex:parm>
+            <tex:opt>0pt</tex:opt>
             <tex:parm>
-                <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                <tex:cmd name="pdfbookmark" nl2="0">
+                    <xsl:variable name="iLevel" select="substring-after(name(),'section')"/>
+                    <tex:opt>
+                        <xsl:choose>
+                            <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart">
+                                <xsl:value-of select="$iLevel + 1"/>
+                            </xsl:when>
+                            <xsl:when test="name()='section1' and ancestor::appendix">2</xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$iLevel"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tex:opt>
+                    <tex:parm>
+                        <xsl:call-template name="OutputSectionNumber">
+                            <xsl:with-param name="bIsForBookmark" select="'Y'"/>
+                        </xsl:call-template>
+                        <xsl:if test="not(count(//section1)=1 and count(//section2)=0)">
+                            <xsl:text>&#xa0;</xsl:text>
+                        </xsl:if>
+                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                    </tex:parm>
+                </tex:cmd>
             </tex:parm>
         </tex:cmd>
     </xsl:template>

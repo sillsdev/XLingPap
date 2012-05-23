@@ -958,16 +958,24 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
-        <xsl:call-template name="DoBookMark"/>
+        <!--<xsl:call-template name="DoBookMark"/>-->
         <xsl:choose>
             <xsl:when test="$bodyLayoutInfo/chapterLayout/numberLayout">
-                <xsl:call-template name="DoInternalTargetBegin">
+                <!--<xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
-                </xsl:call-template>
+                </xsl:call-template>-->
                 <tex:group>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
+                               content of the hypertarget be empty, we suddenly got an extra page break here.
+                        -->
+                        <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="@id"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoBookMark"/>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputChapterNumber"/>
@@ -1018,12 +1026,26 @@
             </xsl:when>
             <xsl:otherwise>
                 <tex:group>
-                    <xsl:call-template name="DoInternalTargetBegin">
-                        <xsl:with-param name="sName" select="@id"/>
-                    </xsl:call-template>
+                    <xsl:variable name="sTextTransform" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@text-transform"/>
+                    <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                        <xsl:call-template name="DoBookMark"/>
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="@id"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
+                            content of the hypertarget be empty, we suddenly got an extra page break here.
+                        -->
+                        <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
                     </xsl:call-template>
+                    <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="@id"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoBookMark"/>
+                    </xsl:if>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputChapterNumber"/>
@@ -1137,11 +1159,14 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
-        <xsl:call-template name="DoBookMark"/>
         <tex:group>
-            <xsl:call-template name="DoInternalTargetBegin">
-                <xsl:with-param name="sName" select="@id"/>
-            </xsl:call-template>
+            <xsl:variable name="sTextTransform" select="$appLayout/@text-transform"/>
+            <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="DoTitleNeedsSpace"/>
             <xsl:call-template name="DoType">
                 <xsl:with-param name="type" select="@type"/>
@@ -1150,6 +1175,12 @@
                 <xsl:with-param name="layoutInfo" select="$appLayout"/>
                 <xsl:with-param name="originalContext" select="secTitle"/>
             </xsl:call-template>
+            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:if test="$appLayout/@showletter!='no'">
                 <xsl:apply-templates select="." mode="numberAppendix"/>
                 <xsl:value-of select="$appLayout/@textafterletter"/>
@@ -2223,7 +2254,7 @@
             </xsl:when>
             <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
                 <!-- 2012.03.05 I'm not sure why using this is a problem... -->
-                <tex:spec cat="bg"/>    
+                <tex:spec cat="bg"/>
             </xsl:when>
         </xsl:choose>
         <xsl:variable name="sGlossContext">
@@ -2272,7 +2303,7 @@
             </xsl:when>
             <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
                 <!-- 2012.03.05 I'm not sure why using this is a problem... -->
-                <tex:spec cat="eg"/>    
+                <tex:spec cat="eg"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -3168,6 +3199,10 @@
                     <xsl:with-param name="bIsBook" select="'Y'"/>
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/contentsLayout"/>
                     <xsl:with-param name="sFirstPageStyle" select="'frontmatterfirstpage'"/>
+                    <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
+                        content of the hypertarget be empty, we suddenly got an extra page break here.
+                    -->
+                    <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3853,6 +3888,10 @@
             <xsl:with-param name="bIsBook" select="'Y'"/>
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="sFirstPageStyle" select="'backmatterfirstpage'"/>
+            <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
+                content of the hypertarget be empty, we suddenly got an extra page break here.
+            -->
+            <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -3872,6 +3911,10 @@
             <xsl:with-param name="bIsBook" select="'Y'"/>
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="sFirstPageStyle" select="'frontmatterfirstpage'"/>
+            <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
+                content of the hypertarget be empty, we suddenly got an extra page break here.
+            -->
+            <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -4213,12 +4256,22 @@
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
             <xsl:call-template name="DoTitleNeedsSpace"/>
+            <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
+            <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
-            <xsl:call-template name="DoInternalTargetBegin">
-                <xsl:with-param name="sName" select="@id"/>
-            </xsl:call-template>
+            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
             </xsl:call-template>
@@ -4252,7 +4305,7 @@
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="@id"/>
             </xsl:call-template>
-            <xsl:call-template name="DoBookMark"/>
+            <!--<xsl:call-template name="DoBookMark"/>-->
         </tex:group>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoNotBreakHere"/>
@@ -4282,6 +4335,7 @@
                 <tex:cmd name="indent" gr="0"/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:call-template name="DoBookMark"/>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -4323,7 +4377,7 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
-        <xsl:call-template name="DoBookMark"/>
+        <!--<xsl:call-template name="DoBookMark"/>-->
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
         </xsl:call-template>
@@ -4634,9 +4688,12 @@
     <xsl:template name="DoTitleFormatInfo">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="DoPageBreakFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-        </xsl:call-template>
+        <xsl:param name="fDoPageBreakFormatInfo" select="'Y'"/>
+        <xsl:if test="$fDoPageBreakFormatInfo='Y'">
+            <xsl:call-template name="DoPageBreakFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoFrontMatterFormatInfoBegin">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -5356,6 +5413,13 @@
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <tex:group>
+                    <xsl:variable name="sTextTransform" select="$layoutInfo/@text-transform"/>
+                    <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                        <xsl:call-template name="DoBookMark"/>
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="$sId"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         <xsl:with-param name="originalContext" select="$sLabel"/>
@@ -5369,9 +5433,12 @@
                             </xsl:choose>
                         </tex:parm>
                     </tex:cmd>
-                    <xsl:call-template name="DoInternalTargetBegin">
-                        <xsl:with-param name="sName" select="$sId"/>
-                    </xsl:call-template>
+                    <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                        <xsl:call-template name="DoBookMark"/>
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="$sId"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle" select="$sLabel"/>
                     </xsl:call-template>
@@ -5403,7 +5470,7 @@
                     <xsl:call-template name="CreateAddToContents">
                         <xsl:with-param name="id" select="$sId"/>
                     </xsl:call-template>
-                    <xsl:call-template name="DoBookMark"/>
+                    <!--                    <xsl:call-template name="DoBookMark"/>-->
                 </tex:group>
                 <tex:cmd name="par" nl2="1"/>
                 <xsl:call-template name="DoSpaceAfter">
@@ -5413,17 +5480,23 @@
             <xsl:otherwise>
                 <tex:group>
                     <xsl:call-template name="DoTitleNeedsSpace"/>
-                    <xsl:call-template name="DoInternalTargetBegin">
-                        <xsl:with-param name="sName" select="$sId"/>
-                    </xsl:call-template>
+                    <xsl:if test="$layoutInfo/@text-transform='uppercase' or $layoutInfo/@text-transform='lowercase'">
+                        <xsl:call-template name="DoBookMark"/>
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="$sId"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="DoType"/>
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         <xsl:with-param name="originalContext" select="$sLabel"/>
                     </xsl:call-template>
-                    <!--<xsl:call-template name="DoInternalTargetBegin">
-                        <xsl:with-param name="sName" select="$sId"/>
-                    </xsl:call-template>-->
+                    <xsl:if test="$layoutInfo/@text-transform!='uppercase' and $layoutInfo/@text-transform!='lowercase'">
+                        <xsl:call-template name="DoBookMark"/>
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="$sId"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:value-of select="$sLabel"/>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -5452,7 +5525,7 @@
                     <xsl:call-template name="CreateAddToContents">
                         <xsl:with-param name="id" select="$sId"/>
                     </xsl:call-template>
-                    <xsl:call-template name="DoBookMark"/>
+                    <!--                    <xsl:call-template name="DoBookMark"/>-->
                 </tex:group>
                 <tex:cmd name="par" nl2="1"/>
                 <xsl:call-template name="DoSpaceAfter">
@@ -5874,6 +5947,7 @@
         <xsl:param name="bDoTwoColumns" select="'N'"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sFirstPageStyle" select="'fancyfirstpage'"/>
+        <xsl:param name="fDoPageBreakFormatInfo" select="'Y'"/>
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:if test="$bDoTwoColumns = 'Y'">
@@ -5890,13 +5964,24 @@
         </xsl:choose>
         <tex:group nl1="1" nl2="1">
             <xsl:call-template name="DoTitleNeedsSpace"/>
-            <xsl:call-template name="DoInternalTargetBegin">
-                <xsl:with-param name="sName" select="$id"/>
-            </xsl:call-template>
+            <xsl:variable name="sTextTransform" select="$layoutInfo/@text-transform"/>
+            <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="$id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="originalContext" select="$sTitle"/>
+                <xsl:with-param name="fDoPageBreakFormatInfo" select="$fDoPageBreakFormatInfo"/>
             </xsl:call-template>
+            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                <xsl:call-template name="DoBookMark"/>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="$id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="$bIsBook='Y'">
                     <xsl:call-template name="OutputChapTitle">
@@ -5946,7 +6031,6 @@
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="$id"/>
             </xsl:call-template>
-            <xsl:call-template name="DoBookMark"/>
         </tex:group>
         <xsl:call-template name="DoNotBreakHere"/>
         <tex:cmd name="par" nl2="1"/>

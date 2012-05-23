@@ -649,6 +649,27 @@
                             <tex:parm>
                                 <tex:cmd name="LARGE">
                                     <tex:parm>
+                                        <tex:cmd name="raisebox">
+                                            <tex:parm>
+                                                <tex:cmd name="baselineskip" gr="0"/>
+                                            </tex:parm>
+                                            <tex:opt>0pt</tex:opt>
+                                            <tex:parm>
+                                                <tex:cmd name="pdfbookmark" nl2="0">
+                                                    <tex:opt>
+                                                        <xsl:text>1</xsl:text>
+                                                    </tex:opt>
+                                                    <tex:parm>
+                                                        <xsl:call-template name="OutputSectionNumberAndTitle">
+                                                            <xsl:with-param name="bIsBookmark" select="'Y'"/>
+                                                        </xsl:call-template>
+                                                    </tex:parm>
+                                                    <tex:parm>
+                                                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                                                    </tex:parm>
+                                                </tex:cmd>
+                                            </tex:parm>
+                                        </tex:cmd>
                                         <tex:spec cat="esc"/>
                                         <xsl:text>textbf</xsl:text>
                                         <tex:spec cat="bg"/>
@@ -672,19 +693,6 @@
             <tex:cmd name="markright" nl2="1">
                 <tex:parm>
                     <xsl:call-template name="DoSecTitleRunningHeader"/>
-                </tex:parm>
-            </tex:cmd>
-            <tex:cmd name="pdfbookmark" nl2="1">
-                <tex:opt>
-                    <xsl:text>1</xsl:text>
-                </tex:opt>
-                <tex:parm>
-                    <xsl:call-template name="OutputSectionNumberAndTitle">
-                        <xsl:with-param name="bIsBookmark" select="'Y'"/>
-                    </xsl:call-template>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
@@ -760,6 +768,30 @@
                             <tex:parm>
                                 <tex:cmd name="LARGE">
                                     <tex:parm>
+                                        <tex:cmd name="raisebox">
+                                            <tex:parm>
+                                                <tex:cmd name="baselineskip" gr="0"/>
+                                            </tex:parm>
+                                            <tex:opt>0pt</tex:opt>
+                                            <tex:parm>
+                                                <tex:cmd name="pdfbookmark" nl2="0">
+                                                    <tex:opt>
+                                                        <xsl:text>1</xsl:text>
+                                                    </tex:opt>
+                                                    <tex:parm>
+                                                        <xsl:call-template name="OutputSectionNumberAndTitle">
+                                                            <xsl:with-param name="bIsBookmark" select="'Y'"/>
+                                                        </xsl:call-template>
+                                                    </tex:parm>
+                                                    <tex:parm>
+                                                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                                                    </tex:parm>
+                                                </tex:cmd>
+                                            </tex:parm>
+                                        </tex:cmd>
+                                        <xsl:call-template name="CreateAddToContents">
+                                            <xsl:with-param name="id" select="@id"/>
+                                        </xsl:call-template>
                                         <tex:spec cat="esc"/>
                                         <xsl:text>textbf</xsl:text>
                                         <tex:spec cat="bg"/>
@@ -799,22 +831,6 @@
                     <xsl:call-template name="DoSecTitleRunningHeader"/>
                 </tex:parm>
             </tex:cmd>
-            <tex:cmd name="pdfbookmark" nl2="1">
-                <tex:opt>
-                    <xsl:text>1</xsl:text>
-                </tex:opt>
-                <tex:parm>
-                    <xsl:call-template name="OutputSectionNumberAndTitle">
-                        <xsl:with-param name="bIsBookmark" select="'Y'"/>
-                    </xsl:call-template>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
-                </tex:parm>
-            </tex:cmd>
-            <xsl:call-template name="CreateAddToContents">
-                <xsl:with-param name="id" select="@id"/>
-            </xsl:call-template>
         </tex:group>
         <tex:cmd name="par"/>
         <xsl:call-template name="DoNotBreakHere"/>
@@ -1610,7 +1626,7 @@
             </xsl:when>
             <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
                 <!-- 2012.03.05 I'm not sure why using this is a problem... -->
-                <tex:spec cat="bg"/>    
+                <tex:spec cat="bg"/>
             </xsl:when>
         </xsl:choose>
         <xsl:call-template name="OutputFontAttributes">
@@ -1639,7 +1655,7 @@
             </xsl:when>
             <xsl:when test="not(ancestor::example) and not(ancestor::interlinear-text)">
                 <!-- 2012.03.05 I'm not sure why using this is a problem... -->
-                <tex:spec cat="eg"/>    
+                <tex:spec cat="eg"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -3493,28 +3509,6 @@
                     <xsl:call-template name="DoSecTitleRunningHeader"/>
                 </tex:parm>
             </tex:cmd>
-            <tex:cmd name="pdfbookmark" nl2="1">
-                <tex:opt>
-                    <xsl:variable name="iLevel" select="substring-after(name(),'section')"/>
-                    <xsl:choose>
-                        <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart">
-                            <xsl:value-of select="$iLevel + 1"/>
-                        </xsl:when>
-                        <xsl:when test="name()='section1' and ancestor::appendix">2</xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$iLevel"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </tex:opt>
-                <tex:parm>
-                    <xsl:call-template name="OutputSectionNumberAndTitle">
-                        <xsl:with-param name="bIsBookmark" select="'Y'"/>
-                    </xsl:call-template>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
-                </tex:parm>
-            </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="@id"/>
             </xsl:call-template>
@@ -3538,6 +3532,36 @@
             <tex:parm>
                 <tex:cmd name="{$sFontSize}">
                     <tex:parm>
+                        <tex:cmd name="raisebox">
+                            <tex:parm>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                            <tex:opt>0pt</tex:opt>
+                            <tex:parm>
+                                <tex:cmd name="pdfbookmark" nl2="0">
+                                    <tex:opt>
+                                        <xsl:variable name="iLevel" select="substring-after(name(),'section')"/>
+                                        <xsl:choose>
+                                            <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart">
+                                                <xsl:value-of select="$iLevel + 1"/>
+                                            </xsl:when>
+                                            <xsl:when test="name()='section1' and ancestor::appendix">2</xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="$iLevel"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </tex:opt>
+                                    <tex:parm>
+                                        <xsl:call-template name="OutputSectionNumberAndTitle">
+                                            <xsl:with-param name="bIsBookmark" select="'Y'"/>
+                                        </xsl:call-template>
+                                    </tex:parm>
+                                    <tex:parm>
+                                        <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                                    </tex:parm>
+                                </tex:cmd>
+                            </tex:parm>
+                        </tex:cmd>
                         <!-- since we do not have a way to say 'normal' , we have to do the bold this way-->
                         <xsl:if test="$sBold='textbf'">
                             <tex:spec cat="esc"/>
@@ -4134,6 +4158,28 @@
                                 </xsl:choose>
                             </xsl:attribute>
                             <tex:parm>
+                                <tex:cmd name="raisebox">
+                                    <tex:parm>
+                                        <tex:cmd name="baselineskip" gr="0"/>
+                                    </tex:parm>
+                                    <tex:opt>0pt</tex:opt>
+                                    <tex:parm>
+                                        <tex:cmd name="pdfbookmark" nl2="0">
+                                            <tex:opt>
+                                                <xsl:text>1</xsl:text>
+                                            </tex:opt>
+                                            <tex:parm>
+                                                <xsl:value-of select="$sTitle"/>
+                                                <xsl:if test="$titlePart2">
+                                                    <xsl:value-of select="$titlePart2"/>
+                                                </xsl:if>
+                                            </tex:parm>
+                                            <tex:parm>
+                                                <xsl:value-of select="translate($id,$sIDcharsToMap, $sIDcharsMapped)"/>
+                                            </tex:parm>
+                                        </tex:cmd>
+                                    </tex:parm>
+                                </tex:cmd>
                                 <tex:cmd name="textbf">
                                     <tex:parm>
                                         <xsl:call-template name="DoType">
@@ -4195,20 +4241,6 @@
                     </tex:cmd>
                 </xsl:otherwise>
             </xsl:choose>
-            <tex:cmd name="pdfbookmark" nl2="1">
-                <tex:opt>
-                    <xsl:text>1</xsl:text>
-                </tex:opt>
-                <tex:parm>
-                    <xsl:value-of select="$sTitle"/>
-                    <xsl:if test="$titlePart2">
-                        <xsl:value-of select="$titlePart2"/>
-                    </xsl:if>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="translate($id,$sIDcharsToMap, $sIDcharsMapped)"/>
-                </tex:parm>
-            </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="$id"/>
             </xsl:call-template>

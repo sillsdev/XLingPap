@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->15 May 2012</date
+>28 May 2012</date
 ><version
->2.18.0_8</version
+>2.18.0_10</version
 ><contents
 showLevel="4"
 ></contents
@@ -20276,6 +20276,215 @@ id="nHyphenationExceptionFilePath"
 ></endnote
 ></p
 ></section2
+><section2
+id="sFAQSentenceSpacing"
+><secTitle
+>Get the default PDF output to use word-spacing after abbreviations?</secTitle
+><p
+><indexedItem
+term="iSpacing"
+></indexedItem
+><indexedItem
+term="iAbbreviationSpacingAfter"
+></indexedItem
+>The default way of producing PDF, <object
+type="tXeTeX"
+></object
+>, will normally use extra wide spacing (sentence-spacing) after a period followed by a space. This produces the correct output in the vast majority of cases.  Sometimes, however, when there is an abbreviation, you do not want to have this extra wide spacing. You want the normal spacing used between words (word-spacing).</p
+><p
+>There are actually three cases where this can be an issue:</p
+><ol
+><li
+>An abbreviation is used in the middle of a sentence (such as <object
+type="tInTextExample"
+>etc.</object
+>).  The normal output will use sentence-spacing here but you want word-spacing instead.</li
+><li
+>An abbreviation is used in the middle of a sentence and, in addition, you want to make sure that the line does not end after this abbreviation (such as the “Dr.” in <object
+type="tInTextExample"
+>Dr. Potts</object
+>).  The normal output will use sentence-spacing after the period but you want word-spacing instead.</li
+><li
+>An abbreviation is used at the end of a sentence and the letter before the period is a capital (such as in <object
+type="tInTextExample"
+>LSA.</object
+>).  The normal output will use word-spacing after the period but you want sentence-spacing instead.</li
+></ol
+><p
+>For these relatively rare cases, you can make the output do what you want by inserting a special zero width character after the period and before the following space.  Example <exampleRef
+letter="xXeLaTeXSpaceAfterPeriod"
+num="xXeLaTeXSpaceAfterPeriod"
+></exampleRef
+> delineates which special character to use for each case.</p
+><example
+num="xXeLaTeXSpaceAfterPeriod"
+><table
+border="1"
+><tr
+><th
+>Case</th
+><th
+>Solution</th
+></tr
+><tr
+><td
+>Abbreviation in middle of the sentence</td
+><td
+>Insert a zero width space character (0x200b)</td
+></tr
+><tr
+><td
+>Abbreviation in middle of the sentence, do not break a line</td
+><td
+>Insert a zero width joiner character (0x200d)</td
+></tr
+><tr
+><td
+>Abbreviation with final capital letter at the end of the sentence</td
+><td
+>Insert a zero width non-joiner character (0x200c)</td
+></tr
+></table
+></example
+><p
+>Here are the steps needed:</p
+><ol
+><li
+>Put the cursor just after the period.</li
+><li
+>Using the Character Tool of the <object
+type="tXMLmindXMLEditor"
+></object
+>,<endnoteRef
+note="nCharacterTool"
+></endnoteRef
+> click on the drop-down box and select the “0x2000 (General Punctuation)” section.</li
+><li
+>Hover your mouse over the blank boxes near the top until you see the one that is for the zero width character needed as described in example <exampleRef
+letter="xXeLaTeXSpaceAfterPeriod"
+num="xXeLaTeXSpaceAfterPeriod"
+></exampleRef
+>. Click.</li
+><li
+>This inserts a single zero width character at the cursor. Be aware that you will not see anything different!</li
+></ol
+><p
+>Please note that if you inadvertently insert two or more of these zero width characters, the output will come out in its default mode (i.e., it will not have the change you want).  Be sure to only insert one of these zero width characters.  You can always delete the characters there until you can see that no extra ones are present and then insert them again.</p
+><p
+>One final note: many, if not most, manuals of style will say that you should key a comma after the abbreviations <object
+type="tInTextExample"
+>i.e.</object
+> and <object
+type="tInTextExample"
+>e.g.</object
+>.  This makes good sense because if you were to use the English equivalents of these abbreviations, chances are that you would use a comma after them.  This means that for these two common abbreviations, if you use a comma after them, you will not need to do anything special.  The <object
+type="tXeTeX"
+></object
+> output will come out the way it should automatically.</p
+></section2
+><section2
+id="sFAQSelectTextToLangData"
+><secTitle
+>Convert selected text to <object
+type="tElement"
+>langData</object
+>?</secTitle
+><p
+><indexedItem
+term="iLangData"
+></indexedItem
+>Sometimes while typing prose material in a paragraph, say, you want to include some language data. One way to do this is:</p
+><ol
+><li
+>Type the language data text.</li
+><li
+>Select it.</li
+><li
+>Press both the <object
+type="tInstruction"
+>Alt</object
+> and the <object
+type="tInstruction"
+>F11</object
+> keys on your keyboard at the same time (or use menu items <object
+type="tInstruction"
+>XLingPaper / Convert selected text to langData </object
+>). This will immediately convert your selected text into a <object
+type="tElement"
+>langData</object
+> element.</li
+></ol
+><p
+>The <object
+type="tAttribute"
+>lang</object
+> attribute of the newly created <object
+type="tElement"
+>langData</object
+> element will be set to <object
+type="tAttrValue"
+>lVernacular</object
+>. If this is not the language ID you want, you can immediately type the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference</object
+>) and then choose the language ID you want.</p
+></section2
+><section2
+id="sFAQSelectTextToGloss"
+><secTitle
+>Convert selected text to <object
+type="tElement"
+>gloss</object
+>?</secTitle
+><p
+><indexedItem
+term="iGloss"
+></indexedItem
+>Sometimes while typing prose material in a paragraph, say, you want to insert a gloss. One way to do this is:</p
+><ol
+><li
+>Type the gloss text.</li
+><li
+>Select it.</li
+><li
+>Press the <object
+type="tInstruction"
+>Alt</object
+>, the <object
+type="tInstruction"
+>Shift</object
+> and the <object
+type="tInstruction"
+>F11</object
+> keys on your keyboard at the same time (or use menu items <object
+type="tInstruction"
+>XLingPaper / Convert selected text to gloss </object
+>). This will immediately convert your selected text into a <object
+type="tElement"
+>gloss</object
+> element.</li
+></ol
+><p
+>The <object
+type="tAttribute"
+>lang</object
+> attribute of the newly created <object
+type="tElement"
+>gloss</object
+> element will be set to <object
+type="tAttrValue"
+>lGloss</object
+>. If this is not the language ID you want, you can immediately type the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference</object
+>) and then choose the language ID you want.</p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -24576,6 +24785,11 @@ id="iAbbreviationsSort"
 ><term
 >Sorting the output list</term
 ></indexTerm
+><indexTerm
+id="iAbbreviationSpacingAfter"
+><term
+>Spacing after</term
+></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
@@ -25058,6 +25272,11 @@ id="iFrontMatterExample"
 >Example</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iGloss"
+><term
+>Gloss</term
 ></indexTerm
 ><indexTerm
 id="iGlossary"
@@ -25595,6 +25814,11 @@ see="iReferencesSelectedReferences"
 id="iSmallCaps"
 ><term
 >Small caps</term
+></indexTerm
+><indexTerm
+id="iSpacing"
+><term
+>Spacing in output after periods</term
 ></indexTerm
 ><indexTerm
 id="iSpanish"

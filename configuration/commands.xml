@@ -2346,6 +2346,36 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="alt"/>
+        <cfg:command name="ConvertSelectedTextToLangData"/>
+    </cfg:binding>
+    <cfg:command name="ConvertSelectedTextToLangData">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- if no text has been selected, we do not do anything -->
+                    <cfg:command name="convert" parameter="langData"/>
+                </cfg:pass>
+                <cfg:command name="convert" parameter="langData"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="alt shift"/>
+        <cfg:command name="ConvertSelectedTextToGloss"/>
+    </cfg:binding>
+    <cfg:command name="ConvertSelectedTextToGloss">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <!-- if no text has been selected, we do not do anything -->
+                    <cfg:command name="convert" parameter="gloss"/>
+                </cfg:pass>
+                <cfg:command name="convert" parameter="gloss"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="ConvertCollectionInfoToCollectionCitation">
         <cfg:macro undoable="true">
             <cfg:sequence>

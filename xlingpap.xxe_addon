@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_9</a:version
+>2.18.0_10</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-05-23</a:date
+>2012-05-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.18.0_10 28 May 2012<ul
+><li
+>Add command to convert selected text to a langData element.  See section 11.41 "Convert selected text to langData" in the user documentation.</li
+><li
+>Add command to convert selected text to a gloss element.  See section 11.42 "Convert selected text to gloss" in the user documentation.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Add ways to control word- vs. sentence-spacing after periods (for abbreviations primarily). See section 11.40 "Get the default PDF output to use word-spacing after abbreviations" in the user documentation.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.18.0_9 23 May 2012<ul
 ><li

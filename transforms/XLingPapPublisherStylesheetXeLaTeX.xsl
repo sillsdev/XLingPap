@@ -1401,6 +1401,9 @@
         <xsl:call-template name="OutputTypeAttributesEnd">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
+        <xsl:if test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">
+            <xsl:value-of select="$sContentBetweenFootnoteNumberAndFootnoteContent"/>
+        </xsl:if>
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="p | pc" mode="contentOnly">
@@ -1433,6 +1436,9 @@
                     <xsl:call-template name="DoType">
                         <xsl:with-param name="type" select="parent::blockquote/@type"/>
                     </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">
+                    <xsl:value-of select="$sContentBetweenFootnoteNumberAndFootnoteContent"/>
                 </xsl:if>
                 <xsl:apply-templates/>
                 <xsl:if test="parent::blockquote">
@@ -1858,7 +1864,8 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes' and not(parent::td)">
+                <!-- Note that if this example is embedded in a table, whatever line spacing the table has is used, not the line spacing for examples -->
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
             </xsl:if>
@@ -1909,7 +1916,8 @@
                     </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes' and not(parent::td)">
+                <!-- Note that if this example is embedded in a table, whatever line spacing the table has is used, not the line spacing for examples -->
                 <tex:spec cat="eg"/>
             </xsl:if>
             <!--        </tex:env>-->
@@ -4542,8 +4550,13 @@
             </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
-        <xsl:call-template name="HandleTableLineSpacing"/>
+        <xsl:call-template name="HandleTableLineSpacing">
+            <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
+        </xsl:call-template>
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>

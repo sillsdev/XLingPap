@@ -1152,6 +1152,9 @@
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:for-each>
+            <xsl:if test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">
+                    <xsl:value-of select="$sContentBetweenFootnoteNumberAndFootnoteContent"/>
+            </xsl:if>
         </fo:inline>
         <xsl:apply-templates/>
     </xsl:template>

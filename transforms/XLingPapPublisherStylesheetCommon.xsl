@@ -25,6 +25,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->

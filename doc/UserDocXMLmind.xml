@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->28 May 2012</date
+>2 June 2012</date
 ><version
->2.18.0_10</version
+>2.18.0_11</version
 ><contents
 showLevel="4"
 ></contents
@@ -1184,7 +1184,7 @@ id="nXeLaTeXAttributes"
 >My experience in using the default <object
 type="tXeTeX"
 ></object
-> way of producing PDF is that one does not usually need to use these very often. Currenlty there is a limited set of these attributes.</p
+> way of producing PDF is that one does not usually need to use these very often. Currently there is a limited set of these attributes.</p
 ><table
 border="1"
 ><tr
@@ -11239,7 +11239,7 @@ lang="lEng"
 lang="lEng"
 > <object
 type="tAttribute"
->celpadding</object
+>cellpadding</object
 > </langData
 ></td
 ><td
@@ -20290,7 +20290,7 @@ term="iAbbreviationSpacingAfter"
 >The default way of producing PDF, <object
 type="tXeTeX"
 ></object
->, will normally use extra wide spacing (sentence-spacing) after a period followed by a space. This produces the correct output in the vast majority of cases.  Sometimes, however, when there is an abbreviation, you do not want to have this extra wide spacing. You want the normal spacing used between words (word-spacing).</p
+>, will normally use extra wide spacing (sentence-spacing) after a period followed by a space. This produces the correct output in the vast majority of cases. Sometimes, however, when there is an abbreviation, you do not want to have this extra wide spacing. You want the normal spacing used between words (word-spacing).</p
 ><p
 >There are actually three cases where this can be an issue:</p
 ><ol
@@ -20298,20 +20298,20 @@ type="tXeTeX"
 >An abbreviation is used in the middle of a sentence (such as <object
 type="tInTextExample"
 >etc.</object
->).  The normal output will use sentence-spacing here but you want word-spacing instead.</li
+>). The normal output will use sentence-spacing here but you want word-spacing instead.</li
 ><li
 >An abbreviation is used in the middle of a sentence and, in addition, you want to make sure that the line does not end after this abbreviation (such as the “Dr.” in <object
 type="tInTextExample"
 >Dr. Potts</object
->).  The normal output will use sentence-spacing after the period but you want word-spacing instead.</li
+>). The normal output will use sentence-spacing after the period but you want word-spacing instead.</li
 ><li
 >An abbreviation is used at the end of a sentence and the letter before the period is a capital (such as in <object
 type="tInTextExample"
 >LSA.</object
->).  The normal output will use word-spacing after the period but you want sentence-spacing instead.</li
+>). The normal output will use word-spacing after the period but you want sentence-spacing instead.</li
 ></ol
 ><p
->For these relatively rare cases, you can make the output do what you want by inserting a special zero width character after the period and before the following space.  Example <exampleRef
+>For these relatively rare cases, you can make the output do what you want by inserting a special zero width character after the period and before the following space. Example <exampleRef
 letter="xXeLaTeXSpaceAfterPeriod"
 num="xXeLaTeXSpaceAfterPeriod"
 ></exampleRef
@@ -20369,7 +20369,7 @@ num="xXeLaTeXSpaceAfterPeriod"
 >This inserts a single zero width character at the cursor. Be aware that you will not see anything different!</li
 ></ol
 ><p
->Please note that if you inadvertently insert two or more of these zero width characters, the output will come out in its default mode (i.e., it will not have the change you want).  Be sure to only insert one of these zero width characters.  You can always delete the characters there until you can see that no extra ones are present and then insert them again.</p
+>Please note that if you inadvertently insert two or more of these zero width characters, the output will come out in its default mode (i.e., it will not have the change you want). Be sure to only insert one of these zero width characters. You can always delete the characters there until you can see that no extra ones are present and then insert them again.</p
 ><p
 >One final note: many, if not most, manuals of style will say that you should key a comma after the abbreviations <object
 type="tInTextExample"
@@ -20377,7 +20377,7 @@ type="tInTextExample"
 > and <object
 type="tInTextExample"
 >e.g.</object
->.  This makes good sense because if you were to use the English equivalents of these abbreviations, chances are that you would use a comma after them.  This means that for these two common abbreviations, if you use a comma after them, you will not need to do anything special.  The <object
+>. This makes good sense because if you were to use the English equivalents of these abbreviations, chances are that you would use a comma after them. This means that for these two common abbreviations, if you use a comma after them, you will not need to do anything special. The <object
 type="tXeTeX"
 ></object
 > output will come out the way it should automatically.</p

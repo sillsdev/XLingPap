@@ -54,13 +54,14 @@ Page Layout
                         lineSpacing?,
                         defaultFontFamily?,
                         basicPointSize?,
-                        footnotePointSize?, 
+                        footnotePointSize?,
                         footnoteLine?,
                         linkLayout?,
                         headerFooterPageStyles?
 )>
 <!ATTLIST pageLayout
-    ignorePageWidthForWebPageOutput (yes | no) 'no'
+     ignorePageWidthForWebPageOutput (yes | no) 'no'
+    contentBetweenFootnoteNumberAndFootnoteContent CDATA #IMPLIED
 >
     <!ELEMENT basicPointSize (#PCDATA) >
     <!ELEMENT blockQuoteIndent (#PCDATA) >

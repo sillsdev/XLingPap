@@ -161,7 +161,7 @@
         genericTarget
     -->
     <xsl:template match="genericTarget">
-<!--        <tex:spec cat="esc"/>
+        <!--        <tex:spec cat="esc"/>
         <xsl:text>raisebox</xsl:text>
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
@@ -171,11 +171,12 @@
         <xsl:text>0pt</xsl:text>
         <tex:spec cat="rsb"/>
         <tex:spec cat="bg"/>
--->        <xsl:call-template name="DoInternalTargetBegin">
+-->
+        <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
-<!--        <tex:spec cat="eg"/>-->
+        <!--        <tex:spec cat="eg"/>-->
     </xsl:template>
     <!-- ===========================================================
         QUOTES
@@ -3366,7 +3367,7 @@
             <xsl:choose>
                 <xsl:when test="ancestor-or-self::listWord and ancestor-or-self::gloss">
                     <!-- need to align the resulting box at the top -->
-                    <xsl:text>vtop</xsl:text>        
+                    <xsl:text>vtop</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>vbox</xsl:text>
@@ -4296,7 +4297,7 @@
         DoInternalTargetEnd
     -->
     <xsl:template name="DoInternalTargetEnd">
-<!--        <tex:spec cat="eg"/>-->
+        <!--        <tex:spec cat="eg"/>-->
     </xsl:template>
     <!--  
         DoIthCellInNonWrdInterlinearLineAsWrappable
@@ -4817,12 +4818,19 @@
         <!--<tex:cmd name="par" nl2="1"/>-->
         <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
-            <tex:cmd name="vspace*">
-                <tex:parm>
-                    <xsl:text>-</xsl:text>
-                    <xsl:call-template name="GetCurrentPointSize"/>
-                </tex:parm>
-            </tex:cmd>
+            <xsl:choose>
+                <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:text>-</xsl:text>
+                            <xsl:call-template name="GetCurrentPointSize"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
         <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">

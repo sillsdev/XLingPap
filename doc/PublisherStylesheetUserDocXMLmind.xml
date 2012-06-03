@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 February 2012</date
+>2 June 2012</date
 ><version
->2.18.0_2</version
+>2.18.0_11</version
 ><contents
 showLevel="6"
 ></contents
@@ -331,6 +331,8 @@ src="resources/LineSpacing.png"
 ></example
 ><p
 >If you choose single spacing (the default), then the check box items are ignored. If you choose either space and a half or double spacing, then you can have the elements listed with check boxes be single spaced (as long as the check box is checked).</p
+><p
+>Please note that whenever an example is embedded within a table, the line spacing for tables will normally be used, not the line spacing for examples.</p
 ></section2
 ><section2
 id="sDefaultFontInfo"
@@ -357,6 +359,16 @@ id="nNoFontChooser"
 >Sorry, but there is no font chooser for this. You have to type the font name by hand.</p
 ></endnote
 > Note that points are assumed for the basic point size and for the footnote size (i.e. the number must be in terms of points).</p
+></section2
+><section2
+id="sFootnoteNumberAfter"
+><secTitle
+>Space between footnote number and footnote content</secTitle
+><p
+>Some publishers prefer to include extra spacing between the footnote number and its content (at the bottom of the page). If you set the <object
+type="tAttribute"
+>contentBetweenFootnoteNumberAndFootnoteContent</object
+> attribute to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.</p
 ></section2
 ><section2
 id="sFootnoteLineSeparator"

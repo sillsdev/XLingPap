@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_10</a:version
+>2.18.0_11</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-05-28</a:date
+>2012-06-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,31 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.18.0_11 02 June 2012<ul
+><li
+>Added new attribute to the pageLayout element of a publisher style sheet to allow for inserting extra material (such as a space) between a footnote number and its content.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix bug which caused the PDF process to fail when an example was embedded within a table, the text was double-spaced, and tables and examples were not also double-space.</li
+><li
+>Fix a bug in which a document was double-spaced but tables were single-spaced. The text after a numbered table would be single-spaced instead of double-spaced.</li
+></ul
+></li
+><li
+>For the web page output with a publisher style sheet:<ul
+><li
+>Fix a bug: If the title was empty, the output might be blank.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.18.0_10 28 May 2012<ul
 ><li
->Add command to convert selected text to a langData element.  See section 11.41 "Convert selected text to langData" in the user documentation.</li
+>Add command to convert selected text to a langData element. See section 11.41 "Convert selected text to langData" in the user documentation.</li
 ><li
->Add command to convert selected text to a gloss element.  See section 11.42 "Convert selected text to gloss" in the user documentation.</li
+>Add command to convert selected text to a gloss element. See section 11.42 "Convert selected text to gloss" in the user documentation.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li

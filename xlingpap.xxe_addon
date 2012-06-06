@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_11</a:version
+>2.18.0_12</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-06-02</a:date
+>2012-06-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.18.0_12 06 June 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug in which a document was double-spaced but contents were single-spaced and yet the list of tables and list of figures came out double spaced.</li
+><li
+>Improve spacing before numbered tables when a document is double-spaced and the table is to be single-spaced.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.18.0_11 02 June 2012<ul
 ><li

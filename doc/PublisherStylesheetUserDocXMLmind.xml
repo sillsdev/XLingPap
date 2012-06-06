@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 June 2012</date
+>4 June 2012</date
 ><version
 >2.18.0_11</version
 ><contents
@@ -365,6 +365,9 @@ id="sFootnoteNumberAfter"
 ><secTitle
 >Space between footnote number and footnote content</secTitle
 ><p
+><indexedItem
+term="iFootnoteSpaceAfterNumber"
+></indexedItem
 >Some publishers prefer to include extra spacing between the footnote number and its content (at the bottom of the page). If you set the <object
 type="tAttribute"
 >contentBetweenFootnoteNumberAndFootnoteContent</object
@@ -11030,6 +11033,13 @@ id="iFootnotes"
 see="iUseEndnotesLayout"
 ><term
 >Footnotes</term
+><indexTerms
+><indexTerm
+id="iFootnoteSpaceAfterNumber"
+><term
+>Spacing between footnote number and footnote content</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iFormatOfFigureNumber"

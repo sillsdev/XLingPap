@@ -2127,6 +2127,10 @@
         listOfFiguresShownHere
     -->
     <xsl:template match="listOfFiguresShownHere">
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:for-each select="//figure">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
@@ -2137,6 +2141,9 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!--
         tablenumbered
@@ -2145,12 +2152,14 @@
         <xsl:choose>
             <xsl:when test="descendant::endnote or @location='here'">
                 <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float-->
-                <tex:cmd name="vspace">
+                 <!--  why do we do this?? -->
+                    <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>
                     </tex:parm>
                 </tex:cmd>
+
                 <xsl:call-template name="DoTableNumbered"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
@@ -2235,6 +2244,10 @@
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:for-each select="//tablenumbered">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
@@ -2245,6 +2258,9 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         GLOSS
@@ -3527,6 +3543,7 @@
         </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
+            <xsl:with-param name="fDoRaisebox" select="'N'"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <xsl:call-template name="CreateAddToContents">
@@ -4511,7 +4528,8 @@
         DoTableNumbered
     -->
     <xsl:template name="DoTableNumbered">
-        <tex:cmd name="vspace">
+        <!--  why do we do this?? -->
+    <tex:cmd name="vspace">
             <tex:parm>
                 <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>
@@ -4522,6 +4540,7 @@
         </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
+            <xsl:with-param name="fDoRaisebox" select="'N'"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <xsl:call-template name="CreateAddToContents">
@@ -4550,13 +4569,13 @@
             </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
-        <xsl:call-template name="HandleTableLineSpacing">
+        <!--<xsl:call-template name="HandleTableLineSpacing">
             <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
-        </xsl:call-template>
+        </xsl:call-template>-->
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+        <!--<xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
-        </xsl:if>
+        </xsl:if>-->
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
@@ -5631,11 +5650,11 @@
     -->
     <xsl:template name="OutputFigureLabelAndCaption">
         <xsl:param name="bDoStyles" select="'Y'"/>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
-            <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
-        </xsl:if>
         <xsl:if test="$bDoStyles='Y'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetFigureLabelLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
@@ -5688,9 +5707,9 @@
                 <xsl:with-param name="language" select="$styleSheetFigureCaptionLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
-            <tex:spec cat="eg"/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <xsl:template match="caption | endCaption" mode="show">
@@ -6314,26 +6333,26 @@
     <xsl:template name="OutputTableNumberedLabelAndCaption">
         <xsl:param name="bDoStyles" select="'Y'"/>
         <tex:spec cat="bg"/>
-        <tex:spec cat="esc"/>
-        <xsl:text>protect</xsl:text>
-        <xsl:choose>
-            <xsl:when test="table/@align='center'">
-                <tex:spec cat="esc"/>
-                <xsl:text>centering </xsl:text>
-            </xsl:when>
-            <xsl:when test="table/@align='right'">
-                <tex:spec cat="esc"/>
-                <xsl:text>raggedleft</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <tex:spec cat="esc"/>
-                <xsl:text>raggedright</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:call-template name="HandleTableLineSpacing">
-            <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
-        </xsl:call-template>
         <xsl:if test="$bDoStyles='Y'">
+            <tex:spec cat="esc"/>
+            <xsl:text>protect</xsl:text>
+            <xsl:choose>
+                <xsl:when test="table/@align='center'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>centering </xsl:text>
+                </xsl:when>
+                <xsl:when test="table/@align='right'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedleft</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedright</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:call-template name="HandleTableLineSpacing">
+                <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetTableNumberedLabelLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
@@ -6388,9 +6407,9 @@
                 <xsl:with-param name="language" select="$styleSheetTableNumberedCaptionLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
-            <tex:spec cat="eg"/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:if>
         <tex:spec cat="eg"/>
     </xsl:template>

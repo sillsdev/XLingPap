@@ -1484,7 +1484,7 @@
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </tex:parm>
                 </tex:cmd>
-                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                     <tex:spec cat="bg"/>
                     <tex:cmd name="singlespacing" gr="0" nl2="1"/>
                 </xsl:if>
@@ -1566,7 +1566,7 @@
                     <tex:parm><xsl:value-of select="$sBasicPointSize"/>
                     <xsl:text>pt</xsl:text></tex:parm>
                     </tex:cmd> -->
-                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:spec cat="nl"/>
@@ -4272,16 +4272,19 @@
     -->
     <xsl:template name="DoInternalTargetBegin">
         <xsl:param name="sName"/>
-        <tex:spec cat="esc"/>
-        <xsl:text>raisebox</xsl:text>
-        <tex:spec cat="bg"/>
-        <tex:spec cat="esc"/>
-        <xsl:text>baselineskip</xsl:text>
-        <tex:spec cat="eg"/>
-        <tex:spec cat="lsb"/>
-        <xsl:text>0pt</xsl:text>
-        <tex:spec cat="rsb"/>
-        <tex:spec cat="bg"/>
+        <xsl:param name="fDoRaisebox" select="'Y'"/>
+        <xsl:if test="$fDoRaisebox='Y'">
+            <tex:spec cat="esc"/>
+            <xsl:text>raisebox</xsl:text>
+            <tex:spec cat="bg"/>
+            <tex:spec cat="esc"/>
+            <xsl:text>baselineskip</xsl:text>
+            <tex:spec cat="eg"/>
+            <tex:spec cat="lsb"/>
+            <xsl:text>0pt</xsl:text>
+            <tex:spec cat="rsb"/>
+            <tex:spec cat="bg"/>
+        </xsl:if>
         <!-- in some contexts, \hypertarget needs to be \protected; we do it always since it is not easy to determine such contexts-->
         <tex:cmd name="protect" gr="0"/>
         <tex:spec cat="esc"/>
@@ -4291,7 +4294,9 @@
         <tex:spec cat="eg"/>
         <tex:spec cat="bg"/>
         <tex:spec cat="eg"/>
-        <tex:spec cat="eg"/>
+        <xsl:if test="$fDoRaisebox='Y'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoInternalTargetEnd
@@ -7339,6 +7344,10 @@
                         <tex:cmd name="baselineskip" gr="0"/>
                     </tex:parm>
                 </tex:cmd>
+                <xsl:if test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>singlespacing</xsl:text>
+                </xsl:if>
             </xsl:when>
             <!--            <xsl:otherwise> </xsl:otherwise>-->
         </xsl:choose>

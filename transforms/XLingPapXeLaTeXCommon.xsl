@@ -1485,8 +1485,10 @@
                     </tex:parm>
                 </tex:cmd>
                 <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <tex:spec cat="bg"/>
-                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                        <tex:spec cat="bg"/>
+                        <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    </xsl:if>
                 </xsl:if>
                 <!-- Do we want this? 
                     <xsl:attribute name="end-indent">
@@ -1567,7 +1569,9 @@
                     <xsl:text>pt</xsl:text></tex:parm>
                     </tex:cmd> -->
                 <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <tex:spec cat="eg"/>
+                    <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                        <tex:spec cat="eg"/>
+                    </xsl:if>
                 </xsl:if>
                 <tex:spec cat="nl"/>
             </xsl:when>

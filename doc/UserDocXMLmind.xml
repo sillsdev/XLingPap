@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 June 2012</date
+>9 June 2012</date
 ><version
->2.18.0_11</version
+>2.18.0_14</version
 ><contents
 showLevel="4"
 ></contents
@@ -19788,6 +19788,41 @@ type="tXeTeX"
 > way of producing PDF.</p
 ><p
 ><indexedItem
+term="iPortrait"
+></indexedItem
+>If you discover that you want to go back to portrait mode, do the following steps:</p
+><ol
+><li
+>Click on the <object
+type="tElement"
+>landscape</object
+> element in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+></li
+><li
+>Type <object
+type="tKey"
+>Esc</object
+> (let go) and then press the <object
+type="tKey"
+>down-arrow</object
+> key. This should select everything inside the <object
+type="tElement"
+>landscape</object
+> element. </li
+><li
+>Copy. </li
+><li
+>Click again on the <object
+type="tElement"
+>landscape</object
+> element in the node path bar.</li
+><li
+>Paste.</li
+></ol
+><p
+><indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
 >To make an entire document be in landscape mode, create a publisher style sheet that has the page height and width dimensions for landscape and then associate that publisher style sheet to the document. See section <sectionRef
@@ -25566,6 +25601,11 @@ id="iPNG"
 see="iImageFiles"
 ><term
 >.png files</term
+></indexTerm
+><indexTerm
+id="iPortrait"
+><term
+>Portrait mode</term
 ></indexTerm
 ><indexTerm
 id="iPreface"

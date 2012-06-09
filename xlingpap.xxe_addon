@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_13</a:version
+>2.18.0_14</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-06-07</a:date
+>2012-06-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.18.0_14 09 June 2012<ul
+><li
+>In the user documentation, add how to go back to portrait mode after setting a portion to landscape mode.</li
+></ul
+></li
+><li
 >2.18.0_13 07 June 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
->Fix a bug in which a document was double-spaced but footnotes were single-spaced and tables were single-spaced and, in addition, the font size for the document and for footnotes were different.  The result was when a footnote had a table, that table used the document font size, not the footnote font size (in addition, any paragraph in the footnote before the table was double-spaced).</li
+>Fix a bug in which a document was double-spaced but footnotes were single-spaced and tables were single-spaced and, in addition, the font size for the document and for footnotes were different. The result was when a footnote had a table, that table used the document font size, not the footnote font size (in addition, any paragraph in the footnote before the table was double-spaced).</li
 ></ul
 ></li
 ></ul

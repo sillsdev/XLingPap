@@ -2065,12 +2065,13 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;"/>
             </cfg:sequence>
         </cfg:macro>
-        <!--        <cfg:process>
-            <cfg:shell command="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;"/>
-<!-\-            <cfg:shell command="start &quot;c:%{S}Program Files%{S}Internet Explorer%{S}IExplore.exe&quot; &quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;" platform="Windows"/>-\->
-<!-\-            <cfg:shell command="&quot;%{C}%{S}..%{S}doc%{S}UserDocXMLmind.htm&quot;" platform="Mac"/>-\->
-        </cfg:process>
--->
+    </cfg:command>
+    <cfg:command name="showXLingPapPubStyleSheetDocumentation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}PublisherStylesheetUserDocXMLmind.htm&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
     </cfg:command>
     <cfg:command name="showAboutXLingPaper">
         <cfg:macro>

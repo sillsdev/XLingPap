@@ -209,7 +209,9 @@
       <cfg:item command="showXLingPapUserDocumentation" icon="xxe-config:common/icons2/table.gif"
          label="Show XLingPaper User _Documentation"/>
 -->
-       <cfg:item command="showAboutXLingPaper"
+      <cfg:item command="showXLingPapPubStyleSheetDocumentation"
+         label="Show XLingPaper Publisher Style Sheet Documentation"/>
+   <cfg:item command="showAboutXLingPaper"
            label="About XLingPaper"/>
    </cfg:menu>
    </cfg:configuration>

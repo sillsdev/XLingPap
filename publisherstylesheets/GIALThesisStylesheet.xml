@@ -5,8 +5,9 @@
 ><publisherStyleSheetName
 >Graduate Institute of Applied Linguistics Thesis Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.1</publisherStyleSheetVersion
+>0.5.0</publisherStyleSheetVersion
 ><pageLayout
+contentBetweenFootnoteNumberAndFootnoteContent=" "
 ><pageWidth
 >8.5in</pageWidth
 ><pageHeight
@@ -588,6 +589,7 @@ captionLocation="after"
 textafter=" "
 ></figureLabelLayout
 ><figureNumberLayout
+textafter="."
 ></figureNumberLayout
 ><figureCaptionLayout
 textbefore=" "
@@ -596,11 +598,12 @@ textbefore=" "
 ><figureRefLayout
 ></figureRefLayout
 ><tablenumberedLayout
-captionLocation="after"
+captionLocation="before"
 ><tablenumberedLabelLayout
 textafter=" "
 ></tablenumberedLabelLayout
 ><tablenumberedNumberLayout
+textafter="."
 ></tablenumberedNumberLayout
 ><tablenumberedCaptionLayout
 textbefore="  "

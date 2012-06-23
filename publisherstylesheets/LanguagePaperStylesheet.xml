@@ -945,7 +945,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collVolItem
 textafter="."
@@ -968,7 +968,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collVolItem
 textafter=".  "
@@ -988,7 +988,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collPagesItem
 textafter=".  "
@@ -1008,7 +1008,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -1209,7 +1209,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
@@ -1235,7 +1235,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
@@ -1258,7 +1258,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
@@ -1454,7 +1454,7 @@ textafter=", "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procVolItem
 textafter="."
@@ -1495,7 +1495,7 @@ textafter=", "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procPagesItem
 textafter=".  "
@@ -1515,7 +1515,7 @@ textafter=", "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procVolItem
 textafter=".  "
@@ -1535,7 +1535,7 @@ textafter=", "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef

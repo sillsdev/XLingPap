@@ -19,7 +19,7 @@
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">2.18.0</xsl:variable>
+    <xsl:variable name="sVersion">2.19.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">
@@ -48,10 +48,10 @@
     <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="refWorks" select="//refWork"/>
     <xsl:variable name="citations" select="//citation"/>
+    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="collOrProcVolumesToInclude">
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
-    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>
@@ -300,17 +300,17 @@
     -->
     <xsl:template name="GetCollOrProcVolumesToInclude">
         <xsl:choose>
-            <xsl:when test="$referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis=0">
+            <xsl:when test="$referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis=0">
                 <!-- do nothing -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="iSharedPapers">
                     <xsl:choose>
-                        <xsl:when test="string(number($referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis))='NaN'">
+                        <xsl:when test="string(number($referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis))='NaN'">
                             <xsl:text>1</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="$referencesLayoutInfo/@usecitationformatwhennumbereofsharedpaperis - 1"/>
+                            <xsl:value-of select="$referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis - 1"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>

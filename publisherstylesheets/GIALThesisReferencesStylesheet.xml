@@ -8,7 +8,7 @@ removecommonhundredsdigitsinpages="yes"
 ><publisherStyleSheetReferencesName
 >Graduate Institute of Applied Linguistics Thesis References Stylesheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->0.4.2</publisherStyleSheetReferencesVersion
+>0.5.0</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -43,7 +43,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -69,7 +68,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -92,7 +90,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -118,7 +115,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -141,7 +137,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -163,7 +158,6 @@ textafter=".  "
 ><jTitleItem
 font-style="italic"
 textafter=" "
-textbefore=" "
 ></jTitleItem
 ><jVolItem
 font-style="normal"
@@ -641,10 +635,10 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collVolItem
-textafter="."
+textafter=", "
 ></collVolItem
 ><collPagesItem
 textafter=".  "
@@ -665,7 +659,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collVolItem
 textafter=".  "
@@ -681,12 +675,41 @@ textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
-textafter=", "
+textafter=" "
 ></collTitleItem
+><seriesItem
+textafter="), "
+textbefore="("
+></seriesItem
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
+></collEdItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+></collTitleItem
+><seriesItem
+textafter="), "
+textbefore="("
+></seriesItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=", "
+textbefore="ed.‍ by "
 ></collEdItem
 ><collPagesItem
 textafter=".  "
@@ -707,7 +730,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -722,8 +745,29 @@ textafter=".  "
 font-style="italic"
 textafter=", "
 ></collTitleItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=", "
+textbefore="ed.‍ by "
+></collEdItem
+><collPagesItem
+textafter=". "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
+textafter=", "
+></collTitleItem
 ><collVolItem
-textafter="."
+textafter=", "
 ></collVolItem
 ><collPagesItem
 textafter=".  "
@@ -790,7 +834,7 @@ textafter=". "
 textbefore=", "
 ></authorRoleItem
 ><collVolItem
-textafter="."
+textafter=","
 ></collVolItem
 ><collPagesItem
 textafter="."
@@ -855,7 +899,7 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><collVolItem
-textafter="."
+textafter=","
 ></collVolItem
 ><collPagesItem
 textafter="."
@@ -913,13 +957,13 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
 ></editionItem
 ><collVolItem
-textafter="."
+textafter=","
 ></collVolItem
 ><collPagesItem
 textafter=".  "
@@ -940,7 +984,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
@@ -964,7 +1008,7 @@ textafter=", "
 ><collEdItem
 appendEdAbbreviation="no"
 textafter=", "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></collEdItem
 ><editionItem
 textafter=" Edition.  "
@@ -1093,7 +1137,7 @@ textbefore=""
 textafter=":"
 ></locationItem
 ><institutionItem
-textafter=", MS."
+textafter=", ms."
 textbefore=" "
 ></institutionItem
 ><urlDateAccessedLayoutsRef
@@ -1105,7 +1149,7 @@ textafter=".  "
 textbefore=""
 ></refTitleItem
 ><institutionItem
-textafter=", MS."
+textafter=", ms."
 textbefore=" "
 ></institutionItem
 ><urlDateAccessedLayoutsRef
@@ -1162,7 +1206,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1186,7 +1230,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1207,7 +1251,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1228,7 +1272,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1250,7 +1294,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1269,7 +1313,7 @@ textafter=".  "
 ><procEdItem
 appendEdAbbreviation="no"
 textafter=".  "
-textbefore="ed. by "
+textbefore="ed.‍ by "
 ></procEdItem
 ><procTitleItem
 font-style="italic"
@@ -1651,7 +1695,7 @@ textafter="."
 textbefore="  Online: "
 ></urlItem
 ><dateAccessedItem
-textafter=")"
+textafter=".)"
 textbefore="  (Accessed "
 ></dateAccessedItem
 ></urlDateAccessedLayout

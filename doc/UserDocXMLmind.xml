@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 June 2012</date
+>23 June 2012</date
 ><version
->2.18.0_14</version
+>2.19.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -19810,9 +19810,9 @@ type="tKey"
 > key. This should select everything inside the <object
 type="tElement"
 >landscape</object
-> element. </li
+> element.</li
 ><li
->Copy. </li
+>Copy.</li
 ><li
 >Click again on the <object
 type="tElement"

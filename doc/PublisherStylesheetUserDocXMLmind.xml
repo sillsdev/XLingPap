@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->4 June 2012</date
+>23 June 2012</date
 ><version
->2.18.0_11</version
+>2.19.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -2775,6 +2775,14 @@ type="tXLingPap"
 type="tXMLmindXMLEditor"
 ></object
 >.</p
+><p
+>In addition, section <sectionRef
+sec="sRefRefLayoutAttributes"
+></sectionRef
+> delineates the attributes which can be on the <object
+type="tElement"
+>referencesLayout</object
+> element itself.</p
 ><section3
 id="sRefAuthorLayouts"
 ><secTitle
@@ -6523,6 +6531,364 @@ type="tElement"
 ><object
 type="tAttrValue"
 >lowercase</object
+></td
+></tr
+></table
+></example
+></section3
+><section3
+id="sRefRefLayoutAttributes"
+><secTitle
+>Attributes on the <object
+type="tElement"
+>referencesLayout</object
+> element</secTitle
+><p
+>Besides the various reference types discussed in sections <sectionRef
+sec="sRefAuthorLayouts"
+></sectionRef
+>–<sectionRef
+sec="sRefISO639-3CodeItem"
+textBefore="none"
+></sectionRef
+>, there are some special attributes on the <object
+type="tElement"
+>referencesLayout</object
+> element itself.  These control more global characteristics of the reference material.  These attributes are shown in example <exampleRef
+letter="xReferencesLayoutAttributes"
+num="xReferencesLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xReferencesLayoutAttributes"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+><th
+>Meaning</th
+><th
+>Examples</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>authorform</object
+></td
+><td
+><object
+type="tAttrValue"
+>full</object
+> or <object
+type="tAttrValue"
+>initials</object
+>.</td
+><td
+>This indicates whether the author name(s) should use initials or be shown in full. The default is <object
+type="tAttrValue"
+>full</object
+>. Note that if this attribute is set to <object
+type="tAttrValue"
+>initials</object
+>, then <object
+type="tXLingPap"
+></object
+> will use the contents of the <object
+type="tElement"
+>refAuthorInitials</object
+> element in the <object
+type="tElement"
+>refAuthor</object
+> element, if it exists. If it does not exist, it will use the content of the <object
+type="tAttribute"
+>name</object
+> attribute of the <object
+type="tElement"
+>refAuthor</object
+> element.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>full</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>initial</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>defaultfontsize</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the font size for the content of the reference materials.  If it is expressed in points, it should have the value followed immediately by <object
+type="tAttrValue"
+>pt</object
+> (no intervening space). An alternative way to specify a font size is to use a percentage. </td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>95%</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>hangingindentsize</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the size of the hanging indent of a reference item for when it goes longer than a single line. You may use any of the units of measure shown in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>.25in</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>removecommonhundredsdigitsinpages</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>When a referenced item includes a range of page numbers and the first page number is three digits, some publishers do not want the second number to include the hundredths digit.  If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then the hundredths digit will be removed.  The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>titleform</object
+></td
+><td
+><object
+type="tAttrValue"
+>uppercase</object
+> or <object
+type="tAttrValue"
+>lowercase</object
+>.</td
+><td
+>This indicates whether the title of the referenced item should use the content of the optional <object
+type="tElement"
+>refTitleLowerCase</object
+> element or the content of the required <object
+type="tElement"
+>refTitle</object
+> element.  The default is <object
+type="tAttrValue"
+>uppercase</object
+> which means <object
+type="tXLingPap"
+></object
+> will use the content of the <object
+type="tElement"
+>refTitle</object
+> element.. Note that if this attribute is set to <object
+type="tAttrValue"
+>lowercase</object
+>, then <object
+type="tXLingPap"
+></object
+> will use the content of the <object
+type="tElement"
+>refTitleLowerCase</object
+> element, if it exists. If it does not exist, it will use the content of the <object
+type="tElement"
+>refTitle</object
+> element.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>uppercase</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>lowercase</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>usecitationformatwhennumberofsharedpaperis</object
+></td
+><td
+><object
+type="tAttrValue"
+>0</object
+>, <object
+type="tAttrValue"
+>1</object
+>, <object
+type="tAttrValue"
+>2</object
+>, ..., <object
+type="tAttrValue"
+>9</object
+>.</td
+><td
+>For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection or proceedings volume to also be listed among the references.  The reference for the article will refer to the volume reference.  This attribute controls the number of cited articles which will trigger this to happen.  (Some publishers only want this to happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume will not be listed as a separate reference.)  Note that this will work only if you use a <object
+type="tElement"
+>collCitation</object
+> or <object
+type="tElement"
+>procCitation</object
+> element for the reference.  See the documentation for this here: <link
+href="UserDocXMLmind.htm#sBMRefCollectionCitation"
+>Using a collCitation</link
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>0</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>2</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>uselineforrepeatedauthor</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>When two or more works are cited by the same author, some publishers want to use a line for the second and following works.  If this attribute is set to <object
+type="tAttrValue"
+>yes</object
+>, then that will happen.  If it is set to <object
+type="tAttrValue"
+>no</object
+>, then the author's name will be repeated.  The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
 ></td
 ></tr
 ></table

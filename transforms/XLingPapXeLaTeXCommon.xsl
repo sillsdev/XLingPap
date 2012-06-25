@@ -3628,7 +3628,21 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
+<xsl:variable name="fIsListInterlinearButNotInTable">
+    <xsl:choose>
+        <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
+            <xsl:text>Y</xsl:text>
+        </xsl:when>
+        <xsl:when test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+            <xsl:text>Y</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text>N</xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:variable>
+        <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
+            <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
             <!-- need to compensate for the extra space after the letter -->
             <tex:cmd name="hspace*">
                 <tex:parm>
@@ -3665,6 +3679,7 @@
 -->
                 </tex:parm>
             </tex:cmd>
+                </xsl:if>
             <tex:cmd name="parbox">
                 <tex:opt>t</tex:opt>
                 <tex:parm>
@@ -3777,7 +3792,7 @@
                 </tex:group>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
+        <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <tex:spec cat="eg"/>
         </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">

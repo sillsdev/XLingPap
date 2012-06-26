@@ -115,6 +115,7 @@
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
     <xsl:variable name="sTeXInterlinearSourceWidth" select="'XLingPaperinterlinearsourcewidth'"/>
+    <xsl:variable name="sTeXInterlinearSourceGapWidth" select="'XLingPaperinterlinearsourcegapwidth'"/>
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
@@ -3628,64 +3629,72 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-<xsl:variable name="fIsListInterlinearButNotInTable">
-    <xsl:choose>
-        <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
-            <xsl:text>Y</xsl:text>
-        </xsl:when>
-        <xsl:when test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
-            <xsl:text>Y</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:text>N</xsl:text>
-        </xsl:otherwise>
-    </xsl:choose>
-</xsl:variable>
+        <xsl:variable name="fIsListInterlinearButNotInTable">
+            <xsl:choose>
+                <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:when test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $originalContext and $originalContext/ancestor-or-self::interlinearRef and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and not($originalContext) and ancestor::interlinear[string-length(normalize-space(@textref)) &gt; 0 and string-length(normalize-space(@text))=0] and not(ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <xsl:if test="ancestor::listInterlinear and not(ancestor::table)">
-            <!-- need to compensate for the extra space after the letter -->
-            <tex:cmd name="hspace*">
-                <tex:parm>
-                    <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
-                </tex:parm>
-            </tex:cmd>
-            <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 0">
-                <xsl:choose>
-                    <xsl:when test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
-                        <!-- do nothing; since this interlinear is the first child, there's no need for extra indent-->
-                    </xsl:when>
-                    <xsl:when test="name(ancestor::*[name()='endnote' or name()='listInterlinear'][1])='endnote'">
-                        <!-- is in an interlinear within an endnote (and this endnote is in a listInterlinear); do nothing -->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <tex:cmd name="hspace*">
-                            <tex:parm>
-                                <xsl:text>1em</xsl:text>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
-            <xsl:call-template name="AdjustFreePositionForISOCodeInListInterlinear">
-                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-            </xsl:call-template>
-            <tex:cmd name="hspace*">
-                <tex:parm>
-                    <tex:cmd name="XLingPaperexamplefreeindent" gr="0"/>
-                    <!--                    <xsl:text>-.3 em+</xsl:text>
+                <!-- need to compensate for the extra space after the letter -->
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
+                            <!-- do nothing; since this interlinear is the first child, there's no need for extra indent-->
+                        </xsl:when>
+                        <xsl:when test="name(ancestor::*[name()='endnote' or name()='listInterlinear'][1])='endnote'">
+                            <!-- is in an interlinear within an endnote (and this endnote is in a listInterlinear); do nothing -->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:cmd name="hspace*">
+                                <tex:parm>
+                                    <xsl:text>1em</xsl:text>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+                <xsl:call-template name="AdjustFreePositionForISOCodeInListInterlinear">
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperexamplefreeindent" gr="0"/>
+                        <!--                    <xsl:text>-.3 em+</xsl:text>
                     <xsl:value-of select="$sExampleIndentBefore"/>
                     <xsl:text>-</xsl:text>
                     <xsl:value-of select="$sBlockQuoteIndent"/>
 -->
-                </tex:parm>
-            </tex:cmd>
-                </xsl:if>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:cmd name="parbox">
                 <tex:opt>t</tex:opt>
                 <tex:parm>
                     <tex:cmd name="textwidth" gr="0" nl2="0"/>
                     <xsl:text> - </xsl:text>
                     <xsl:value-of select="$sExampleIndentBefore"/>
+                    <xsl:text> - </xsl:text>
+                    <xsl:value-of select="$sExampleIndentAfter"/>
                     <xsl:text> - </xsl:text>
                     <xsl:value-of select="$iNumberWidth"/>
                     <xsl:text>em - </xsl:text>
@@ -4231,7 +4240,9 @@
                 <xsl:text>-</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:value-of select="$sTeXInterlinearSourceWidth"/>
-                <xsl:text>-2em</xsl:text>
+                <xsl:text>-</xsl:text>
+                <tex:spec cat="esc"/>
+                <xsl:value-of select="$sTeXInterlinearSourceGapWidth"/>
             </tex:parm>
             <tex:parm>
                 <tex:spec cat="esc"/>
@@ -5529,12 +5540,36 @@
         <xsl:text> - </xsl:text>
         <xsl:value-of select="$sExampleIndentBefore"/>
         <xsl:text> - </xsl:text>
+        <xsl:value-of select="$sExampleIndentAfter"/>
+        <xsl:text> - </xsl:text>
         <xsl:value-of select="$iNumberWidth"/>
         <xsl:text>em - </xsl:text>
         <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
         <xsl:if test="parent::listInterlinear or self::listInterlinear or $originalContext and $originalContext[parent::*[name()='listInterlinear']]">
+            <xsl:variable name="iLetterCount">
+                <xsl:choose>
+                    <xsl:when test="parent::listInterlinear">
+                        <xsl:for-each select="parent::listInterlinear">
+                        <xsl:value-of select="count(listInterlinear)"/>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="self::listInterlinear">
+                        <xsl:value-of select="count(listInterlinear)"/>
+                    </xsl:when>
+                    <xsl:when test="$originalContext and $originalContext[parent::*[name()='listInterlinear']]">
+                        <xsl:for-each select="$originalContext[parent::*[name()='listInterlinear']]">
+                            <xsl:value-of select="count(listInterlinear)"/>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iNumberWidth"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <xsl:text>-</xsl:text>
-            <xsl:value-of select="$iNumberWidth"/>
+            <xsl:call-template name="GetLetterWidth">
+                <xsl:with-param name="iLetterCount" select="$iLetterCount"/>
+            </xsl:call-template>
             <xsl:text>em</xsl:text>
         </xsl:if>
     </xsl:template>
@@ -7810,6 +7845,19 @@
             <tex:cmd name="newlength" nl1="1">
                 <tex:parm>
                     <tex:cmd name="{$sTeXInterlinearSourceWidth}" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="newlength" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="{$sTeXInterlinearSourceGapWidth}" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="settowidth" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="{$sTeXInterlinearSourceGapWidth}" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:text disable-output-escaping="yes">&#xa0;&#xa0;</xsl:text>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>

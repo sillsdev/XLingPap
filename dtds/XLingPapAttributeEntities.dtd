@@ -37,10 +37,13 @@
 <!-- pagebreak layout attributes
        pagebreakbefore = yes will force a new page before the item
        startonoddpage = yes will force a page break and start on an odd-numbered page
+       useblankextrapage only is in effect when startonoddpage = yes; when it is set to yes and
+           there is an extra (even) page inserted, that extra page will not have any running header or footer.
        -->
 <!ENTITY % pagebreakformatinfo "
      pagebreakbefore (yes | no) 'no'
-     startonoddpage  (yes | no) 'no'"
+     startonoddpage  (yes | no) 'no'
+     useblankextrapage  (yes | no) 'no'"
      >
 <!-- front matter layout attributes
        spaceafter = extra  vertical space after the item

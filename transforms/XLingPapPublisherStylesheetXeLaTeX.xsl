@@ -1345,13 +1345,16 @@
       genericRef
       -->
     <xsl:template match="genericRef">
+        <xsl:param name="originalContext"/>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@gref"/>
         </xsl:call-template>
         <xsl:call-template name="LinkAttributesBegin">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
         </xsl:call-template>
-        <xsl:call-template name="OutputGenericRef"/>
+        <xsl:call-template name="OutputGenericRef">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
         <xsl:call-template name="LinkAttributesEnd">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
         </xsl:call-template>
@@ -4151,7 +4154,7 @@
         <xsl:choose>
             <xsl:when test="$layoutInfo/descendant-or-self::*/@startonoddpage='yes'">
                 <xsl:choose>
-                    <xsl:when test="$bUseClearEmptyDoublePage='Y'">
+                    <xsl:when test="$bUseClearEmptyDoublePage='Y' or $layoutInfo/descendant-or-self::*/@useblankextrapage='yes'">
                         <tex:cmd name="clearemptydoublepage" gr="0" nl2="1"/>
                     </xsl:when>
                     <xsl:otherwise>

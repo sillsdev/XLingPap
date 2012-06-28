@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 June 2012</date
+>28 June 2012</date
 ><version
 >2.19.0</version
 ><contents
@@ -6554,7 +6554,7 @@ textBefore="none"
 >, there are some special attributes on the <object
 type="tElement"
 >referencesLayout</object
-> element itself.  These control more global characteristics of the reference material.  These attributes are shown in example <exampleRef
+> element itself. These control more global characteristics of the reference material. These attributes are shown in example <exampleRef
 letter="xReferencesLayoutAttributes"
 num="xReferencesLayoutAttributes"
 ></exampleRef
@@ -6638,10 +6638,10 @@ type="tAttribute"
 ><td
 >(user control)</td
 ><td
->This sets the font size for the content of the reference materials.  If it is expressed in points, it should have the value followed immediately by <object
+>This sets the font size for the content of the reference materials. If it is expressed in points, it should have the value followed immediately by <object
 type="tAttrValue"
 >pt</object
-> (no intervening space). An alternative way to specify a font size is to use a percentage. </td
+> (no intervening space). An alternative way to specify a font size is to use a percentage.</td
 ><td
 ><table
 ><tr
@@ -6709,10 +6709,10 @@ type="tAttrValue"
 >no</object
 >.</td
 ><td
->When a referenced item includes a range of page numbers and the first page number is three digits, some publishers do not want the second number to include the hundredths digit.  If this is set to <object
+>When a referenced item includes a range of page numbers and the first page number is three digits, some publishers do not want the second number to include the hundredths digit. If this is set to <object
 type="tAttrValue"
 >yes</object
-> , then the hundredths digit will be removed.  The default value is <object
+> , then the hundredths digit will be removed. The default value is <object
 type="tAttrValue"
 >no</object
 >.</td
@@ -6756,7 +6756,7 @@ type="tElement"
 > element or the content of the required <object
 type="tElement"
 >refTitle</object
-> element.  The default is <object
+> element. The default is <object
 type="tAttrValue"
 >uppercase</object
 > which means <object
@@ -6818,13 +6818,13 @@ type="tAttrValue"
 >9</object
 >.</td
 ><td
->For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection or proceedings volume to also be listed among the references.  The reference for the article will refer to the volume reference.  This attribute controls the number of cited articles which will trigger this to happen.  (Some publishers only want this to happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume will not be listed as a separate reference.)  Note that this will work only if you use a <object
+>For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection or proceedings volume to also be listed among the references. The reference for the article will refer to the volume reference. This attribute controls the number of cited articles which will trigger this to happen. (Some publishers only want this to happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume will not be listed as a separate reference.) Note that this will work only if you use a <object
 type="tElement"
 >collCitation</object
 > or <object
 type="tElement"
 >procCitation</object
-> element for the reference.  See the documentation for this here: <link
+> element for the reference. See the documentation for this here: <link
 href="UserDocXMLmind.htm#sBMRefCollectionCitation"
 >Using a collCitation</link
 >.</td
@@ -6862,13 +6862,13 @@ type="tAttrValue"
 >no</object
 >.</td
 ><td
->When two or more works are cited by the same author, some publishers want to use a line for the second and following works.  If this attribute is set to <object
+>When two or more works are cited by the same author, some publishers want to use a line for the second and following works. If this attribute is set to <object
 type="tAttrValue"
 >yes</object
->, then that will happen.  If it is set to <object
+>, then that will happen. If it is set to <object
 type="tAttrValue"
 >no</object
->, then the author's name will be repeated.  The default value is <object
+>, then the author's name will be repeated. The default value is <object
 type="tAttrValue"
 >no</object
 >.</td
@@ -10837,6 +10837,51 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iUseBlankExtraPage"
+></indexedItem
+><object
+type="tAttribute"
+>useblankextrapage</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not any extra (even) page should be blank or should have header and footer contents (this extra page is created to make the next page be on an odd-numbered page).  This attribute is only considered when <object
+type="tAttribute"
+>startonoddpage</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+>.  This only works with the <object
+type="tXeTeX"
+></object
+> way of producing PDF.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iUseTitleInHeaderAttribute"
 ></indexedItem
 ><object
@@ -12337,6 +12382,11 @@ id="iUrlLink"
 id="iUseEndnotesLayout"
 ><term
 >Use endnotes layout</term
+></indexTerm
+><indexTerm
+id="iUseBlankExtraPage"
+><term
+>Use blank extra page attribute</term
 ></indexTerm
 ><indexTerm
 id="iUseTitleInHeaderAttribute"

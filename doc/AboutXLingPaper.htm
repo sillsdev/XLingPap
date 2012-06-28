@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0_17</span></p>
-      <p align="center">Date: 2012-06-26</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.18.0_18</span></p>
+      <p align="center">Date: 2012-06-28</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,25 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.18.0_18 28 June 2012
+                  <ul>
+                     <li>Add an useblankextrapage attribute to publisher style sheets to control whether or not any extra (even) page should be blank
+                        or should have header and footer contents (this extra page is created to make the next page be on an odd-numbered page). This
+                        attribute is only considered when startonoddpage is set to yes. This only works with the XeLaTeX way of producing PDF.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Fix a bug where an interlinearRef referenced an interlinear example in an interlinear text, there was an endnote in the free
+                              and the endnote was within a genericRef.  The footnote number in the text was incorrect (the number in the footnote body was
+                              correct).
+                           </li>
+                           <li>Fix a bug which made interlinear be justified instead of left-aligned when using the auto wrap mode, there was an interlinearSource
+                              element, and showing interlinear source after the first line.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.18.0_17 26 June 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 

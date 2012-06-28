@@ -4732,9 +4732,11 @@
                 <xsl:with-param name="bListsShareSameCode" select="'Y'"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine' and parent::interlinear[string-length(@textref) &gt; 0]">
-            <!-- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -->
-            <tex:cmd name="raggedright" gr="0" nl2="1"/>
+        <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
+            <xsl:if test="parent::interlinear[string-length(@textref) &gt; 0] or following-sibling::interlinearSource">
+                <!-- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -->
+                <tex:cmd name="raggedright" gr="0" nl2="1"/>
+            </xsl:if>
         </xsl:if>
         <xsl:choose>
             <xsl:when test="line/wrd">
@@ -5550,7 +5552,7 @@
                 <xsl:choose>
                     <xsl:when test="parent::listInterlinear">
                         <xsl:for-each select="parent::listInterlinear">
-                        <xsl:value-of select="count(listInterlinear)"/>
+                            <xsl:value-of select="count(listInterlinear)"/>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:when test="self::listInterlinear">

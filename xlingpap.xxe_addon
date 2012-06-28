@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_17</a:version
+>2.18.0_18</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-06-26</a:date
+>2012-06-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.18.0_18 28 June 2012<ul
+><li
+>Add an useblankextrapage attribute to publisher style sheets to control whether or not any extra (even) page should be blank or should have header and footer contents (this extra page is created to make the next page be on an odd-numbered page). This attribute is only considered when startonoddpage is set to yes. This only works with the XeLaTeX way of producing PDF.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug where an interlinearRef referenced an interlinear example in an interlinear text, there was an endnote in the free and the endnote was within a genericRef.  The footnote number in the text was incorrect (the number in the footnote body was correct).</li
+><li
+>Fix a bug which made interlinear be justified instead of left-aligned when using the auto wrap mode, there was an interlinearSource element, and showing interlinear source after the first line.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.18.0_17 26 June 2012<ul
 ><li

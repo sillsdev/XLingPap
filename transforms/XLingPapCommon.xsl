@@ -691,6 +691,7 @@
         OutputGenericRef
     -->
     <xsl:template name="OutputGenericRef">
+        <xsl:param name="originalContext"/>
         <xsl:variable name="targetIsLiInOl" select="key('LiInOlID',@gref)"/>
         <xsl:choose>
             <xsl:when test="$targetIsLiInOl">
@@ -718,7 +719,9 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

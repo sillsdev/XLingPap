@@ -4299,6 +4299,18 @@ not using
             </xsl:if>
             <xsl:variable name="language" select="key('LanguageID',@lang)"/>
             <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+            <xsl:variable name="sSpaceBeforeFree" select="normalize-space($freeLayout/@spacebefore)"/>
+            <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                <xsl:attribute name="space-before">
+                <xsl:value-of select="$sSpaceBeforeFree"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="sSpaceAfterFree" select="normalize-space($freeLayout/@spaceafter)"/>
+            <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
+                <xsl:attribute name="space-after">
+                    <xsl:value-of select="$sSpaceAfterFree"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="HandleFreeTextBeforeOutside">
                 <xsl:with-param name="freeLayout" select="$freeLayout"/>
             </xsl:call-template>

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-07-03</a:date
+>2012-07-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_19 3 July 2012<ul
+>2.18.0_19 5 July 2012<ul
 ><li
 >Add an ability to override the dissertation or thesis label for an individual dissertation or thesis element.</li
 ><li
 >Fix a bug where if a numbered table had a caption, the caption is to appear after the table, and both the table and the caption had endnotes, the endnote numbering was wrong.</li
+><li
+>For publisher style sheet, add an ability to insert extra space before and/or after a free element.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li

@@ -2683,16 +2683,7 @@
     <xsl:template name="CreateBreakAfter">
         <xsl:param name="example"/>
         <xsl:param name="originalContext"/>
-        <!--          <xsl:for-each select="$example">
-        <xsl:choose>
-            <xsl:when test="parent::td">
-                <tex:cmd name="vspace*">
-                    <tex:parm>
-                        <tex:cmd name="baselineskip"/>
-                    </tex:parm>
-                </tex:cmd>
-            </xsl:when>
-            <xsl:otherwise> -->
+        <xsl:param name="sSpaceBeforeFree"/>
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
         <!-- when we're showing ISO codes in an example/interlinearRef and the depth of the example number and ISO code is more than what's in the lineGroup,
@@ -2755,12 +2746,13 @@
             <xsl:otherwise>
                 <xsl:text>*
 </xsl:text>
+                <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                    <tex:spec cat="lsb"/>
+                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <!--            </xsl:otherwise>
-        </xsl:choose>
-        </xsl:for-each>
--->
     </xsl:template>
     <xsl:template name="AdjustForLongerISOCodeInInterlinearRef">
         <xsl:param name="iAdjust"/>
@@ -3797,6 +3789,14 @@
             <xsl:if test="following-sibling::*[1][name()='lineGroup']">
                 <tex:spec cat="bg"/>
             </xsl:if>
+            <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
+            <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:value-of select="$sSpaceBeforeFree"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:spec cat="esc"/>
             <xsl:text>hangindent</xsl:text>
             <xsl:choose>
@@ -3924,6 +3924,14 @@
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
+        </xsl:if>
+        <xsl:variable name="sSpaceAfterFree" select="normalize-space($contentLayoutInfo/freeLayout/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpaceAfterFree"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
     </xsl:template>
     <xsl:template name="AdjustFreePositionForISOCodeInListInterlinear">
@@ -4197,6 +4205,12 @@
                 <xsl:call-template name="CreateBreakAfter">
                     <xsl:with-param name="example" select="ancestor::example[1]"/>
                     <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="sSpaceBeforeFree">
+                        <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
+                        <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                            <xsl:value-of select="$sSpaceBeforeFree"/>
+                        </xsl:if>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>

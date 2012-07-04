@@ -677,6 +677,8 @@ Content Layout
    <!ELEMENT freeLayout EMPTY >
     <!ATTLIST freeLayout
        textbeforeafterusesfontinfo (no | yes) 'no'
+      spaceafter CDATA #IMPLIED
+      spacebefore CDATA #IMPLIED
        %formatinfo;
     >
 <!-- REVISION HISTORY

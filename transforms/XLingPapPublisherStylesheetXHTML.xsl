@@ -2870,6 +2870,22 @@
             <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
             <tr>
                 <td>
+                    <xsl:variable name="sSpaceBeforeFree" select="normalize-space($freeLayout/@spacebefore)"/>
+                    <xsl:variable name="sSpaceAfterFree" select="normalize-space($freeLayout/@spaceafter)"/>
+                    <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0 or string-length($sSpaceAfterFree) &gt; 0">
+                        <xsl:attribute name="style">
+                            <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                                <xsl:text>padding-top:</xsl:text>
+                                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                                <xsl:text>; </xsl:text>
+                            </xsl:if>
+                            <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
+                                <xsl:text>padding-bottom:</xsl:text>
+                                <xsl:value-of select="$sSpaceAfterFree"/>
+                                <xsl:text>; </xsl:text>
+                            </xsl:if>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:call-template name="HandleFreeTextBeforeOutside">
                         <xsl:with-param name="freeLayout" select="$freeLayout"/>
                     </xsl:call-template>

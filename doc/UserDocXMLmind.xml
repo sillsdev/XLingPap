@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 July 2012</date
+>5 July 2012</date
 ><version
 >2.19.0</version
 ><contents
@@ -4468,16 +4468,16 @@ type="tElement"
 > element and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to change its value.  If you have one or more <object
+> to change its value. If you have one or more individual <object
 type="tElement"
 >dissertation</object
 > elements that need to use a different label from the default, you can override the default for these by setting the content of the <object
 type="tAttribute"
 >labelDissertation</object
-> attribute of the <object
+> attribute of the individual  <object
 type="tElement"
 >dissertation</object
-> element.</p
+> elements.</p
 ></section3
 ><section3
 id="sBMRefFieldNotes"
@@ -4676,16 +4676,16 @@ type="tElement"
 > element and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to change its value.  If you have one or more <object
+> to change its value. If you have one or more individual <object
 type="tElement"
 >thesis</object
 > elements that need to use a different label from the default, you can override the default for these by setting the content of the <object
 type="tAttribute"
 >labelDissertation</object
-> attribute of the <object
+> attribute of the individual <object
 type="tElement"
 >thesis</object
-> element.</p
+> elements.</p
 ></section3
 ><section3
 id="sBMRefWebPage"

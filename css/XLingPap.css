@@ -1034,7 +1034,9 @@ definition
 }
 dissertation:before
 {
-	content:" Ph.D.dissertation. ";
+	content: " "
+	label(xpath,"if(string-length(normalize-space(@labelDissertation))>0,@labelDissertation,(/xlingpaper/styledPaper/lingPaper|/lingPaper)/backMatter/references[string-length(normalize-space(@labelDissertation))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/backMatter/references/@labelDissertation, 'Ph.D.dissertation')")
+	". ";
 }
 dissertation
 {
@@ -3479,6 +3481,12 @@ textTitle {
     margin-bottom: .67ex;
 }
 
+thesis:before
+{
+	content: " "
+	label(xpath,"if(string-length(normalize-space(@labelThesis))>0,@labelThesis,(/xlingpaper/styledPaper/lingPaper|/lingPaper)/backMatter/references[string-length(normalize-space(@labelThesis))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/backMatter/references/@labelThesis, 'M.A. thesis')")
+	". ";
+}
 thesis
 {
 	display:inline;

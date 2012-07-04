@@ -43,28 +43,41 @@
     -->
     <xsl:template match="endnote" mode="backMatter">
         <xsl:param name="originalContext"/>
-        <xsl:if test="$bIsBook">
-            <xsl:call-template name="DoBookEndnoteSectionLabel">
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-            </xsl:call-template>
-        </xsl:if>
-        <tr>
-            <td valign="baseline">
-                <a>
-                    <xsl:attribute name="name">
-                        <xsl:value-of select="@id"/>
-                    </xsl:attribute>
-                    <xsl:text>[</xsl:text>
-                    <xsl:call-template name="GetFootnoteNumber">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                    </xsl:call-template>
-                    <xsl:text>]</xsl:text>
-                </a>
-            </td>
-            <td valign="baseline">
-                <xsl:apply-templates/>
-            </td>
-        </tr>
+        <xsl:choose>
+            <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                <xsl:choose>
+                    <xsl:when test="ancestor::tablenumbered/table/descendant::endnote and ancestor::caption">
+                        <!-- skip these for now -->
+                    </xsl:when>
+                    <xsl:when test="ancestor::tablenumbered/table/caption/descendant-or-self::endnote and ancestor::table">
+                        <xsl:call-template name="HandleEndnoteInBackMatter">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="-count(ancestor::tablenumbered/table/caption/descendant-or-self::endnote)"/>
+                        </xsl:call-template>
+                        <xsl:if test="ancestor::tablenumbered/table/descendant::endnote[position()=last()]=.">
+                            <!-- this is the last endnote in the table; now handle all endnotes in the caption -->
+                            <xsl:variable name="iTablenumberedAdjust" select="count(ancestor::tablenumbered/table/tr/descendant::endnote)"/>
+                            <xsl:for-each select="ancestor::tablenumbered/table/caption/descendant-or-self::endnote">
+                                <xsl:call-template name="HandleEndnoteInBackMatter">
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleEndnoteInBackMatter">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleEndnoteInBackMatter">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LISTS
@@ -1328,6 +1341,36 @@
         </xsl:if>
     </xsl:template>
     <!--
+        HandleEndnoteInBackMatter
+    -->
+    <xsl:template name="HandleEndnoteInBackMatter">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
+        <xsl:if test="$bIsBook">
+            <xsl:call-template name="DoBookEndnoteSectionLabel">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+        </xsl:if>
+        <tr>
+            <td valign="baseline">
+                <a>
+                    <xsl:attribute name="name">
+                        <xsl:value-of select="@id"/>
+                    </xsl:attribute>
+                    <xsl:text>[</xsl:text>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                    </xsl:call-template>
+                    <xsl:text>]</xsl:text>
+                </a>
+            </td>
+            <td valign="baseline">
+                <xsl:apply-templates/>
+            </td>
+        </tr>
+    </xsl:template>
+    <!--
         OutputAbbrDefinition
     -->
     <xsl:template name="OutputAbbrDefinition">
@@ -1417,8 +1460,30 @@
                         <xsl:value-of select="$sFootnoteNumberOverride"/>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:variable name="iTablenumberedAdjust">
+                            <xsl:choose>
+                                <xsl:when test="ancestor::tablenumbered ">
+                                    <xsl:choose>
+                                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                                            <xsl:choose>
+                                                <xsl:when test="ancestor::caption">
+                                                    <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
+                                                </xsl:when>
+                                                <xsl:when test="ancestor::table">
+                                                    <xsl:value-of select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>0</xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                        <xsl:otherwise>0</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>0</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
                         <xsl:call-template name="GetFootnoteNumber">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>

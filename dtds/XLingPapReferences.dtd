@@ -146,6 +146,9 @@
 
 <!-- PhD dissertation -->
 <!ELEMENT dissertation (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?)>
+<!ATTLIST dissertation
+    labelDissertation CDATA #IMPLIED
+>
 <!ELEMENT institution (#PCDATA)>
 <!ATTLIST institution
     xml:lang CDATA #IMPLIED
@@ -199,6 +202,9 @@
 >
 <!-- MA thesis -->
 <!ELEMENT thesis (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?)>
+<!ATTLIST thesis
+    labelThesis CDATA #IMPLIED
+>
 <!-- web page -->
 <!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?)>
 <!ELEMENT url (#PCDATA)>

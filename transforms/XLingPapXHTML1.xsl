@@ -1902,7 +1902,16 @@
                     <xsl:text>. </xsl:text>
                     <xsl:call-template name="OutputLabel">
                         <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
-                        <xsl:with-param name="pLabel" select="//references/@labelDissertation"/>
+                        <xsl:with-param name="pLabel">
+                            <xsl:choose>
+                                <xsl:when test="string-length(normalize-space(dissertation/@labelDissertation)) &gt; 0">
+                                    <xsl:value-of select="dissertation/@labelDissertation"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="//references/@labelDissertation"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
                     <xsl:if test="dissertation/location">
@@ -2099,7 +2108,16 @@
                     <xsl:text>. </xsl:text>
                     <xsl:call-template name="OutputLabel">
                         <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
-                        <xsl:with-param name="pLabel" select="//references/@labelThesis"/>
+                        <xsl:with-param name="pLabel">
+                            <xsl:choose>
+                                <xsl:when test="string-length(normalize-space(thesis/@labelThesis)) &gt; 0">
+                                    <xsl:value-of select="thesis/@labelThesis"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="//references/@labelThesis"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
                     <xsl:if test="thesis/location">

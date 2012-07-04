@@ -1010,6 +1010,7 @@
       =========================================================== -->
     <xsl:template match="p | pc">
         <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust" select="'0'"/>
         <xsl:choose>
             <xsl:when test="parent::endnote and name()='p' and position()='1'">
                 <xsl:call-template name="OutputTypeAttributes">
@@ -1023,6 +1024,7 @@
                     <xsl:for-each select="parent::endnote">
                         <xsl:call-template name="GetFootnoteNumber">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </fo:inline>
@@ -2124,16 +2126,34 @@ not using
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
         <fo:footnote>
+            <xsl:variable name="iTablenumberedAdjust">
+                <xsl:choose>
+                    <xsl:when test="ancestor::tablenumbered and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::caption">
+                                <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::table">
+                                <xsl:value-of select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                            </xsl:when>
+                            <xsl:otherwise>0</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                 <xsl:call-template name="GetFootnoteNumber">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                 </xsl:call-template>
             </fo:inline>
             <fo:footnote-body>
                 <fo:block xsl:use-attribute-sets="FootnoteBody">
                     <xsl:apply-templates>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                     </xsl:apply-templates>
                 </fo:block>
             </fo:footnote-body>
@@ -3908,7 +3928,16 @@ not using
                     <xsl:text>.  </xsl:text>
                     <xsl:call-template name="OutputLabel">
                         <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
-                        <xsl:with-param name="pLabel" select="//references/@labelDissertation"/>
+                        <xsl:with-param name="pLabel">
+                            <xsl:choose>
+                                <xsl:when test="string-length(normalize-space(dissertation/@labelDissertation)) &gt; 0">
+                                    <xsl:value-of select="dissertation/@labelDissertation"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="//references/@labelDissertation"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
                     <xsl:if test="dissertation/location">
@@ -4112,7 +4141,16 @@ not using
                     <xsl:text>.  </xsl:text>
                     <xsl:call-template name="OutputLabel">
                         <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
-                        <xsl:with-param name="pLabel" select="//references/@labelThesis"/>
+                        <xsl:with-param name="pLabel">
+                            <xsl:choose>
+                                <xsl:when test="string-length(normalize-space(thesis/@labelThesis)) &gt; 0">
+                                    <xsl:value-of select="thesis/@labelThesis"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="//references/@labelThesis"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
                     <xsl:if test="thesis/location">

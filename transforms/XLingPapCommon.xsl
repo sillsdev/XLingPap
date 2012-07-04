@@ -338,6 +338,7 @@
     <xsl:template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
         <xsl:param name="iAdjust"/>
         <xsl:param name="iPreviousEndnotesInCurrentInterlinearRef" select="0"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:variable name="iPreviousEndnotes">
             <xsl:variable name="iPreviousEndnotesPass1">
                 <xsl:choose>
@@ -378,13 +379,14 @@
         <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
         <!--        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
         <!--        <xsl:variable name="i2CountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
-        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef"/>
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetCountOfEndnotesIncludingAnyInInterlinearRefsBook
     -->
     <xsl:template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
         <xsl:param name="iAdjust"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:variable name="iPreviousEndnotes">
             <xsl:variable name="iPreviousEndnotesPass1">
                 <xsl:choose>
@@ -425,7 +427,7 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
-        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef"/>
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetExampleNumber
@@ -449,6 +451,7 @@
     <xsl:template name="GetFootnoteNumber">
         <xsl:param name="originalContext"/>
         <xsl:param name="iAdjust" select="1"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:choose>
             <xsl:when test="parent::author">
                 <xsl:call-template name="DoAuthorFootnoteNumber"/>
@@ -459,12 +462,14 @@
                         <xsl:for-each select="$originalContext">
                             <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
                                 <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
                             <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -493,6 +498,7 @@
                             <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
                                 <xsl:with-param name="iAdjust" select="$iAdjust"/>
                                 <xsl:with-param name="iPreviousEndnotesInCurrentInterlinearRef" select="$iPreviousEndnotesInCurrentInterlinearRef"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
@@ -500,6 +506,7 @@
                         <!--                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>-->
                         <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
                             <xsl:with-param name="iAdjust" select="$iAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -856,7 +863,7 @@
         <xsl:param name="sDefault"/>
         <xsl:param name="pLabel"/>
         <xsl:choose>
-            <xsl:when test="$pLabel">
+            <xsl:when test="string-length($pLabel) &gt; 0">
                 <xsl:value-of select="$pLabel"/>
             </xsl:when>
             <xsl:otherwise>

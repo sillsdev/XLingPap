@@ -10,6 +10,7 @@
     <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
@@ -1552,7 +1553,18 @@
                 then one cannot overtly say what the footnote number should be. 
                 Therefore, we must set the footnote counter here.
             -->
-            <xsl:call-template name="SetLaTeXFootnoteCounter"/>
+            <xsl:call-template name="SetLaTeXFootnoteCounter">
+                <xsl:with-param name="bInTableNumbered">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::tablenumbered">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="OutputTable"/>
         <xsl:call-template name="OutputTypeAttributesEnd">
@@ -1721,14 +1733,19 @@
             <xsl:with-param name="iBorder" select="$iBorder"/>
             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
         </xsl:call-template>
-        <xsl:if test="../../caption and count(preceding-sibling::td) = 0 and count(../preceding-sibling::tr[td]) = 0">
-            <xsl:for-each select="../../caption">
-                <xsl:for-each select="descendant-or-self::endnote">
-                    <xsl:apply-templates select=".">
-                        <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
-                    </xsl:apply-templates>
+        <xsl:if test="../../caption and count(preceding-sibling::td) = 0 and count(../preceding-sibling::tr[td]) = 0 and not($backMatterLayoutInfo/useEndNotesLayout)">
+            <xsl:variable name="bCaptionIsBeforeTablenumbered">
+                <xsl:call-template name="CaptionIsBeforeTablenumbered"/>
+            </xsl:variable>
+            <xsl:if test="not(ancestor::tablenumbered) or $bCaptionIsBeforeTablenumbered='Y'">
+                <xsl:for-each select="../../caption">
+                    <xsl:for-each select="descendant-or-self::endnote">
+                        <xsl:apply-templates select=".">
+                            <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                        </xsl:apply-templates>
+                    </xsl:for-each>
                 </xsl:for-each>
-            </xsl:for-each>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="string-length(normalize-space(@width)) &gt; 0">
             <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
@@ -2141,18 +2158,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="descendant::endnote">
-            <tex:cmd name="setcounter">
-                <tex:parm>
-                    <xsl:text>footnote</xsl:text>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:call-template name="GetFootnoteNumber">
-                        <xsl:with-param name="iAdjust" select="0"/>
-                    </xsl:call-template>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:if>
+        <xsl:call-template name="SetFootnoteCounterIfNeeded"/>
         <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:apply-templates/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
@@ -2429,6 +2435,47 @@
         <tex:cmd name="dp0" gr="0" nl2="1"/>
     </xsl:template>
     <!--  
+        CalculateFootnoteNumber
+    -->
+    <xsl:template name="CalculateFootnoteNumber">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="bInTableNumbered"/>
+        <xsl:variable name="sFootnoteNumber">
+            <xsl:call-template name="GetFootnoteNumber">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+                <xsl:with-param name="iAdjust" select="0"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="iFootnoteNumber">
+            <xsl:choose>
+                <xsl:when test="string-length($sFootnoteNumber)=0">0</xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sFootnoteNumber"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="iTableCaptionEndnotes">
+            <xsl:choose>
+                <xsl:when test="$bInTableNumbered='N'">0</xsl:when>
+                <xsl:otherwise>
+                    <xsl:variable name="bCaptionIsBeforeTablenumbered">
+                        <xsl:call-template name="CaptionIsBeforeTablenumbered"/>
+                    </xsl:variable>
+                    <xsl:choose>
+                        <xsl:when test="name()='caption' and $bCaptionIsBeforeTablenumbered='N'">
+                            <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
+                        </xsl:when>
+                        <xsl:when test="name()='table' and $bCaptionIsBeforeTablenumbered='Y'">
+                            <xsl:value-of select="count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                        </xsl:when>
+                        <xsl:otherwise>0</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:value-of select="$iFootnoteNumber + $iTableCaptionEndnotes"/>
+    </xsl:template>
+    <!--  
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
@@ -2447,6 +2494,34 @@
         <xsl:text>thinspace</xsl:text>
         <tex:spec cat="esc"/>
         <xsl:text>thinspace</xsl:text>
+    </xsl:template>
+    <!--  
+        CaptionIsBeforeTablenumbered
+    -->
+    <xsl:template name="CaptionIsBeforeTablenumbered">
+        <xsl:choose>
+            <xsl:when test="/xlingpaper">
+                <!-- style sheet takes precedence -->
+                <xsl:choose>
+                    <xsl:when test="$documentLayoutInfo/tablenumberedLayout/@captionLocation='before'">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>N</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>N</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         ConvertHexToDecimal
@@ -5594,6 +5669,41 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        HandleEndnotesInCaptionOfFigure
+    -->
+    <xsl:template name="HandleEndnotesInCaptionOfFigure">
+        <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout)">
+            <xsl:for-each select="caption">
+                <xsl:for-each select="descendant-or-self::endnote">
+                    <xsl:apply-templates select=".">
+                        <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleEndnoteTextInExampleInTable
+    -->
+    <xsl:template name="HandleEndnotesTextInCaptionAfterTablenumbered">
+        <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout)">
+            <xsl:variable name="iEndnotesInTable" select="count(table/tr/descendant-or-self::endnote)"/>
+            <xsl:for-each select="table/caption">
+                <xsl:for-each select="descendant-or-self::endnote">
+                    <xsl:variable name="sFootnoteNumberOffOne">
+                        <xsl:call-template name="CalculateFootnoteNumber">
+                            <xsl:with-param name="bInTableNumbered" select="'Y'"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:apply-templates select=".">
+                        <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                        <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne + $iEndnotesInTable"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         HandleEndnoteTextInExampleInTable
     -->
     <xsl:template name="HandleEndnoteTextInExampleInTable">
@@ -7823,6 +7933,17 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        SetFootnoteCounterIfNeeded
+    -->
+    <xsl:template name="SetFootnoteCounterIfNeeded">
+        <xsl:param name="bInTableNumbered" select="'N'"/>
+        <xsl:if test="descendant::endnote">
+            <xsl:call-template name="SetLaTeXFootnoteCounter">
+                <xsl:with-param name="bInTableNumbered" select="$bInTableNumbered"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         SetHeaderFooterRuleWidths
     -->
     <xsl:template name="SetHeaderFooterRuleWidths">
@@ -9247,21 +9368,14 @@ What might go in a TeX package file
     -->
     <xsl:template name="SetLaTeXFootnoteCounter">
         <xsl:param name="originalContext"/>
+        <xsl:param name="bInTableNumbered" select="'N'"/>
         <tex:cmd name="setcounter">
             <tex:parm>footnote</tex:parm>
             <tex:parm>
-                <xsl:variable name="sFootnoteNumber">
-                    <xsl:call-template name="GetFootnoteNumber">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iAdjust" select="0"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="string-length($sFootnoteNumber)=0">0</xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$sFootnoteNumber"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="CalculateFootnoteNumber">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bInTableNumbered" select="$bInTableNumbered"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
     </xsl:template>

@@ -37,7 +37,6 @@
     <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet"/>
     <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="$publisherStyleSheet/bodyLayout"/>
-    <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="contentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
@@ -1382,6 +1381,7 @@
       =========================================================== -->
     <xsl:template match="p | pc" mode="endnote-content">
         <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
@@ -1397,6 +1397,7 @@
             <xsl:call-template name="GetFootnoteNumber">
                 <xsl:with-param name="iAdjust" select="1"/>
                 <xsl:with-param name="originalContext" select="$originalContext"/>
+                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
             </xsl:call-template>
             <tex:spec cat="eg"/>
             <tex:spec cat="eg"/>
@@ -1485,7 +1486,7 @@
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:if test="preceding-sibling::*[1][name()='example']">
+                        <xsl:if test="preceding-sibling::*[1][name()='example' or name()='blockquote']">
                             <!-- lose paragraph indent unless we do this when an example precedes; adding \par to the example macro does not work -->
                             <tex:cmd name="par" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1566,6 +1567,9 @@
                 <xsl:choose>
                     <xsl:when test="ancestor::td">
                         <xsl:text>&#xa;</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="parent::li and count(preceding-sibling::*)=0 and following-sibling::*[1][name()='p' or name()='pc']">
+                        <tex:cmd name="par"/>
                     </xsl:when>
                     <xsl:when test="parent::li and count(preceding-sibling::*)=0">
                         <!-- do nothing in this case -->
@@ -2155,8 +2159,8 @@
         <xsl:choose>
             <xsl:when test="descendant::endnote or @location='here'">
                 <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float-->
-                 <!--  why do we do this?? -->
-                    <tex:cmd name="vspace">
+                <!--  why do we do this?? -->
+                <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>
@@ -2399,9 +2403,11 @@
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
         <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
+        <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -2409,6 +2415,46 @@
     -->
     <xsl:template match="endnote" mode="backMatter">
         <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                <xsl:choose>
+                    <xsl:when test="ancestor::tablenumbered/table/descendant::endnote and ancestor::caption">
+                        <!-- skip these for now -->
+                    </xsl:when>
+                    <xsl:when test="ancestor::tablenumbered/table/caption/descendant-or-self::endnote and ancestor::table">
+                        <xsl:call-template name="HandleEndnoteInBackMatter">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="-count(ancestor::tablenumbered/table/caption/descendant-or-self::endnote)"/>
+                        </xsl:call-template>
+                        <xsl:if test="ancestor::tablenumbered/table/descendant::endnote[position()=last()]=.">
+                            <!-- this is the last endnote in the table; now handle all endnotes in the caption -->
+                            <xsl:variable name="iTablenumberedAdjust" select="count(ancestor::tablenumbered/table/tr/descendant::endnote)"/>
+                            <xsl:for-each select="ancestor::tablenumbered/table/caption/descendant-or-self::endnote">
+                                <xsl:call-template name="HandleEndnoteInBackMatter">
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleEndnoteInBackMatter">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="HandleEndnoteInBackMatter">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+    <xsl:template name="HandleEndnoteInBackMatter">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:if test="$bIsBook">
             <xsl:call-template name="DoBookEndnoteSectionLabel">
                 <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -2422,10 +2468,12 @@
         <tex:spec cat="bg"/>
         <xsl:apply-templates select="*[1]" mode="endnote-content">
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
         </xsl:apply-templates>
         <tex:spec cat="eg"/>
         <xsl:apply-templates select="*[position() &gt; 1]"/>
         <tex:cmd name="par" nl2="1"/>
+
     </xsl:template>
     <!--
         endnote in langData
@@ -3304,12 +3352,21 @@
     <xsl:template name="DoEndnote">
         <xsl:param name="sTeXFootnoteKind"/>
         <xsl:param name="originalContext"/>
+        <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
-                <xsl:call-template name="DoFootnoteNumberInText">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="ancestor::tablenumbered">
+                        <tex:cmd name="footnotemark"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoFootnoteNumberInText">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
@@ -3391,6 +3448,7 @@
                                     <tex:opt>
                                         <xsl:call-template name="DoFootnoteNumberInText">
                                             <xsl:with-param name="originalContext" select="$originalContext"/>
+                                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
                                         </xsl:call-template>
                                     </tex:opt>
                                 </xsl:if>
@@ -3580,6 +3638,7 @@
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
+            <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
             <tex:cmd name="vspace">
                 <tex:parm>
                     <xsl:choose>
@@ -3631,6 +3690,7 @@
             </xsl:choose>
             <tex:spec cat="rsb"/>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
+            <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
             <!--            <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
 -->
@@ -3658,6 +3718,7 @@
    -->
     <xsl:template name="DoFootnoteNumberInText">
         <xsl:param name="originalContext"/>
+        <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
                 <xsl:call-template name="DoInternalHyperlinkBegin">
@@ -3673,10 +3734,17 @@
                 <tex:spec cat="esc"/>
                 <xsl:text>textsuperscript</xsl:text>
                 <tex:spec cat="bg"/>
-                <xsl:call-template name="GetFootnoteNumber">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="iAdjust" select="1"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="string-length($sPrecalculatedNumber) &gt; 0">
+                        <xsl:value-of select="$sPrecalculatedNumber"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iAdjust" select="1"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <tex:spec cat="eg"/>
                 <!--                <tex:spec cat="eg"/>-->
                 <xsl:call-template name="LinkAttributesEnd">
@@ -3685,10 +3753,17 @@
                 <xsl:call-template name="DoInternalHyperlinkEnd"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="GetFootnoteNumber">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="iAdjust" select="0"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="string-length($sPrecalculatedNumber) &gt; 0">
+                        <xsl:value-of select="$sPrecalculatedNumber"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iAdjust" select="0"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4532,7 +4607,7 @@
     -->
     <xsl:template name="DoTableNumbered">
         <!--  why do we do this?? -->
-    <tex:cmd name="vspace">
+        <tex:cmd name="vspace">
             <tex:parm>
                 <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>
@@ -4600,6 +4675,7 @@
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
+            <xsl:call-template name="HandleEndnotesTextInCaptionAfterTablenumbered"/>
             <tex:cmd name="vspace">
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
@@ -5716,6 +5792,20 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="caption | endCaption" mode="show">
+        <xsl:if test="descendant-or-self::endnote">
+            <xsl:call-template name="SetLaTeXFootnoteCounter">
+                <xsl:with-param name="bInTableNumbered">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::tablenumbered">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:variable name="styleSheetLabelLayout" select="$contentLayoutInfo/figureLabelLayout"/>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="."/>

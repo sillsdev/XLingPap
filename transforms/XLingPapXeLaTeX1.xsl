@@ -1024,7 +1024,7 @@
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:if test="preceding-sibling::*[1][name()='example']">
+                        <xsl:if test="preceding-sibling::*[1][name()='example' or name()='blockquote']">
                             <!-- lose paragraph indent unless we do this when an example precedes; adding \par to the example macro does not work -->
                             <tex:cmd name="par" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1066,6 +1066,9 @@
                 <xsl:choose>
                     <xsl:when test="ancestor::td">
                         <xsl:text>&#xa;</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="parent::li and count(preceding-sibling::*)=0 and following-sibling::*[1][name()='p' or name()='pc']">
+                        <tex:cmd name="par"/>
                     </xsl:when>
                     <xsl:when test="parent::li and count(preceding-sibling::*)=0">
                         <!-- do nothing -->
@@ -1268,11 +1271,19 @@
     <xsl:template name="DoEndnote">
         <xsl:param name="sTeXFootnoteKind"/>
         <xsl:param name="originalContext"/>
+        <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:variable name="sFootnoteNumber">
-            <xsl:call-template name="GetFootnoteNumber">
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-                <xsl:with-param name="iAdjust" select="0"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="string-length($sPrecalculatedNumber) &gt; 0">
+                    <xsl:value-of select="$sPrecalculatedNumber"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="iAdjust" select="0"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
         <xsl:choose>
@@ -1708,9 +1719,11 @@
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
         <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
+        <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:call-template name="DoEndnote">
             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -2708,6 +2721,7 @@
             <tex:spec cat="lsb"/>
             <xsl:text>.3em</xsl:text>
             <tex:spec cat="rsb"/>
+            <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
         </xsl:if>
         <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
@@ -2733,6 +2747,7 @@
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
+            <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
         </xsl:if>
         <tex:spec cat="eg"/>
     </xsl:template>
@@ -3135,7 +3150,16 @@
                 <xsl:text>.  </xsl:text>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
-                    <xsl:with-param name="pLabel" select="//references/@labelDissertation"/>
+                    <xsl:with-param name="pLabel">
+                        <xsl:choose>
+                            <xsl:when test="string-length(normalize-space(dissertation/@labelDissertation)) &gt; 0">
+                                <xsl:value-of select="dissertation/@labelDissertation"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="//references/@labelDissertation"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>. </xsl:text>
                 <xsl:if test="dissertation/location">
@@ -3343,7 +3367,16 @@
                 <xsl:text>.  </xsl:text>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
-                    <xsl:with-param name="pLabel" select="//references/@labelThesis"/>
+                    <xsl:with-param name="pLabel">
+                        <xsl:choose>
+                            <xsl:when test="string-length(normalize-space(thesis/@labelThesis)) &gt; 0">
+                                <xsl:value-of select="thesis/@labelThesis"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="//references/@labelThesis"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>. </xsl:text>
                 <xsl:if test="thesis/location">
@@ -3664,6 +3697,7 @@
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
+            <xsl:call-template name="HandleEndnotesTextInCaptionAfterTablenumbered"/>
             <tex:cmd name="par"/>
             <tex:cmd name="vspace">
                 <tex:parm>.3em</tex:parm>
@@ -4047,6 +4081,20 @@
     <xsl:template match="caption | endCaption" mode="show">
         <xsl:param name="bDoBold" select="'Y'"/>
         <xsl:param name="bDoLineBreak" select="'N'"/>
+        <xsl:if test="descendant-or-self::endnote">
+            <xsl:call-template name="SetLaTeXFootnoteCounter">
+                <xsl:with-param name="bInTableNumbered">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::tablenumbered">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:if test="$bDoBold='Y'">
             <tex:spec cat="bg"/>
             <tex:spec cat="esc"/>

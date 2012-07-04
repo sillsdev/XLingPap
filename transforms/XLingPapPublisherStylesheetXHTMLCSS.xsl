@@ -1330,6 +1330,7 @@ li.lower-roman {
     <xsl:template match="@textbetweenchapterandnumber"/>
     <xsl:template match="@titleform"/>
     <xsl:template match="@types"/>
+    <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>

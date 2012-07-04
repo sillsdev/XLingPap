@@ -1222,7 +1222,16 @@
                                             <xsl:otherwise>
                                                 <xsl:call-template name="OutputLabel">
                                                     <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
-                                                    <xsl:with-param name="pLabel" select="$references/@labelDissertation"/>
+                                                    <xsl:with-param name="pLabel">
+                                                        <xsl:choose>
+                                                            <xsl:when test="string-length(normalize-space($dissertation/@labelDissertation)) &gt; 0">
+                                                                <xsl:value-of select="$dissertation/@labelDissertation"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="//references/@labelDissertation"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:with-param>
                                                 </xsl:call-template>
                                             </xsl:otherwise>
                                         </xsl:choose>
@@ -1239,7 +1248,16 @@
                                             <xsl:otherwise>
                                                 <xsl:call-template name="OutputLabel">
                                                     <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
-                                                    <xsl:with-param name="pLabel" select="$references/@labelThesis"/>
+                                                    <xsl:with-param name="pLabel">
+                                                        <xsl:choose>
+                                                            <xsl:when test="string-length(normalize-space($dissertation/@labelThesis)) &gt; 0">
+                                                                <xsl:value-of select="$dissertation/@labelThesis"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="//references/@labelThesis"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:with-param>
                                                 </xsl:call-template>
                                             </xsl:otherwise>
                                         </xsl:choose>

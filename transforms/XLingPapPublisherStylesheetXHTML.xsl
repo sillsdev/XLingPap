@@ -860,6 +860,8 @@
       PARAGRAPH
       =========================================================== -->
     <xsl:template match="p | pc" mode="endnote-content">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust" select="0"/>
         <span baseline-shift="super">
             <xsl:attribute name="font-size">
                 <xsl:value-of select="$sFootnotePointSize - 2"/>
@@ -869,7 +871,11 @@
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
             <xsl:for-each select="parent::endnote">
-                <xsl:choose>
+                <xsl:call-template name="GetFootnoteNumber">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                </xsl:call-template>
+               <!-- <xsl:choose>
                     <xsl:when test="ancestor::author">
                         <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
                         <xsl:call-template name="OutputAuthorFootnoteSymbol">
@@ -878,12 +884,12 @@
                     </xsl:when>
                     <xsl:when test="$bIsBook">
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
-                        <!--                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-->
+                        <!-\-                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter"/>-\->
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
             </xsl:for-each>
         </span>
         <xsl:if test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">

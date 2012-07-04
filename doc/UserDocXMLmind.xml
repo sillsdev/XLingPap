@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 June 2012</date
+>3 July 2012</date
 ><version
 >2.19.0</version
 ><contents
@@ -4468,7 +4468,16 @@ type="tElement"
 > element and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to change its value.</p
+> to change its value.  If you have one or more <object
+type="tElement"
+>dissertation</object
+> elements that need to use a different label from the default, you can override the default for these by setting the content of the <object
+type="tAttribute"
+>labelDissertation</object
+> attribute of the <object
+type="tElement"
+>dissertation</object
+> element.</p
 ></section3
 ><section3
 id="sBMRefFieldNotes"
@@ -4667,7 +4676,16 @@ type="tElement"
 > element and then use the Attributes Tool<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-> to change its value.</p
+> to change its value.  If you have one or more <object
+type="tElement"
+>thesis</object
+> elements that need to use a different label from the default, you can override the default for these by setting the content of the <object
+type="tAttribute"
+>labelDissertation</object
+> attribute of the <object
+type="tElement"
+>thesis</object
+> element.</p
 ></section3
 ><section3
 id="sBMRefWebPage"
@@ -20285,6 +20303,20 @@ num="xHyphenationExceptionsWFC"
 ></br
 > &lt;/exceptions&gt;</chart
 ></example
+><p
+>One other thing to note about how <object
+type="tXeTeX"
+></object
+> hyphenates: If a word has an orthographic hyphen in the middle of it, <object
+type="tXeTeX"
+></object
+> will not hyphenate the word, no matter how far it goes into the margin. To overcome this, insert a ‘zero-width space’ character between the hyphen and the next letter to make <object
+type="tXeTeX"
+></object
+> hyphenate it. See section <sectionRef
+sec="sFAQSentenceSpacing"
+></sectionRef
+> on how to insert a ‘zero-width space’ character.</p
 ><p
 >Finally, make sure you have a <object
 type="tElement"

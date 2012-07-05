@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.18.0-xxe-4.8.0.zip"
+location="XLingPap-2.19.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -32,13 +32,37 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.18.0_19 5 July 2012<ul
+>2.19.0 5 July 2012<ul
+><li
+>Add command to convert selected text to a langData element. See section 11.41 "Convert selected text to langData" in the user documentation.</li
+><li
+>Add command to convert selected text to a gloss element. See section 11.42 "Convert selected text to gloss" in the user documentation.</li
 ><li
 >Add an ability to override the dissertation or thesis label for an individual dissertation or thesis element.</li
 ><li
 >Fix a bug where if a numbered table had a caption, the caption is to appear after the table, and both the table and the caption had endnotes, the endnote numbering was wrong.</li
 ><li
->For publisher style sheet, add an ability to insert extra space before and/or after a free element.</li
+>For publisher style sheet:<ul
+><li
+>Add Publisher style sheet documentation to menu.</li
+><li
+>Add an ability to insert extra space before and/or after a free element.</li
+><li
+>Add an useblankextrapage attribute to publisher style sheets to control whether or not any extra (even) page should be blank or should have header and footer contents (this extra page is created to make the next page be on an odd-numbered page). This attribute is only considered when startonoddpage is set to yes. This only works with the XeLaTeX way of producing PDF.</li
+><li
+>Added new attribute to the pageLayout element of a publisher style sheet to allow for inserting extra material (such as a space) between a footnote number and its content.</li
+><li
+>Add chapterNumber and sectionNumber to header and footer information in a publisher style sheet.</li
+><li
+>Fix a bug: If a header in a publisher style sheet used paperAuthor and the document had a shortAuthor element, no author information was included in the header.</li
+></ul
+></li
+><li
+>Fix the Font Chooser dialog so it shows well on Mac and reasonably well on Linux (the list of fonts and styles showed only one line before).</li
+><li
+>In the user documentation, add how to go back to portrait mode after setting a portion to landscape mode.</li
+><li
+>Fix error in collection editor formatting in the SIL International References publisher style sheet.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
@@ -47,230 +71,50 @@ href="mailto::andy_black@sil.org"
 >Fix a bug where a li element had two p elements to begin it and the two paragraphs were concatenated.</li
 ><li
 >Fix bug where the text of an endnote at the bottom of the page could be missing (if the endnote was in a caption for a figure).</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_18 28 June 2012<ul
-><li
->Add an useblankextrapage attribute to publisher style sheets to control whether or not any extra (even) page should be blank or should have header and footer contents (this extra page is created to make the next page be on an odd-numbered page). This attribute is only considered when startonoddpage is set to yes. This only works with the XeLaTeX way of producing PDF.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug where an interlinearRef referenced an interlinear example in an interlinear text, there was an endnote in the free and the endnote was within a genericRef. The footnote number in the text was incorrect (the number in the footnote body was correct).</li
 ><li
 >Fix a bug which made interlinear be justified instead of left-aligned when using the auto wrap mode, there was an interlinearSource element, and showing interlinear source after the first line.</li
-></ul
-></li
-></ul
-></li
 ><li
->2.18.0_17 26 June 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->Fix a second bug which made free translations too narrow when using the auto wrap mode, an interlinerRef in a listinterlinear, and showing interlinear source after the first line.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_16 25 June 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->Fix a bug which made free translations too narrow when using the auto wrap mode, an interlinerRef in a listinterlinear, and showing interlinear source after the first line.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_15 20 June 2012<ul
-><li
->Fix the Font Chooser dialog so it shows well on Mac and reasonably well on Linux (the list of fonts and styles showed only one line before).</li
-></ul
-></li
-><li
->2.18.0_14 11 June 2012<ul
-><li
->In the user documentation, add how to go back to portrait mode after setting a portion to landscape mode.</li
-><li
->Add Publisher style sheet documentation to menu.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
+>Fix a bug which made free translations too narrow when using the auto wrap mode, an interlinearRef in a listinterlinear, and showing interlinear source after the first line.</li
 ><li
 >Remove requirement that a Times New Roman font be installed.</li
-></ul
-></li
-><li
->Fix error in collection editor formatting in the SIL International References publisher style sheet.</li
-></ul
-></li
-><li
->2.18.0_13 07 June 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug in which a document was double-spaced but footnotes were single-spaced and tables were single-spaced and, in addition, the font size for the document and for footnotes were different. The result was when a footnote had a table, that table used the document font size, not the footnote font size (in addition, any paragraph in the footnote before the table was double-spaced).</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_12 06 June 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug in which a document was double-spaced but contents were single-spaced and yet the list of tables and list of figures came out double spaced.</li
 ><li
 >Improve spacing before numbered tables when a document is double-spaced and the table is to be single-spaced.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_11 02 June 2012<ul
-><li
->Added new attribute to the pageLayout element of a publisher style sheet to allow for inserting extra material (such as a space) between a footnote number and its content.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix bug which caused the PDF process to fail when an example was embedded within a table, the text was double-spaced, and tables and examples were not also double-space.</li
 ><li
 >Fix a bug in which a document was double-spaced but tables were single-spaced. The text after a numbered table would be single-spaced instead of double-spaced.</li
-></ul
-></li
-><li
->For the web page output with a publisher style sheet:<ul
-><li
->Fix a bug: If the title was empty, the output might be blank.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_10 28 May 2012<ul
-><li
->Add command to convert selected text to a langData element. See section 11.41 "Convert selected text to langData" in the user documentation.</li
-><li
->Add command to convert selected text to a gloss element. See section 11.42 "Convert selected text to gloss" in the user documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Add ways to control word- vs. sentence-spacing after periods (for abbreviations primarily). See section 11.40 "Get the default PDF output to use word-spacing after abbreviations" in the user documentation.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_9 23 May 2012<ul
-><li
->Fix some bugs in the Zotero (MODS) to XLingPaper references conversion.</li
-><li
->Add a warning message when producing Word or Open Office Writer output and there is at least one endnote containing a table or an example. The converter tool throws away tables in footnotes (and they do not plan to fix it; sigh).</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Make the contents links and PDF book mark links show the section, etc. title (and not show just underneath it).</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_8 15 May 2012<ul
-><li
->Update link to web site in About XLingPaper page.</li
-><li
->Fix a typo in section 11.39 "Get the default PDF output to hyphenate for a non-English language" of the user documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Enable a way to include list of word-forming characters for the set of hyphenation exceptions.</li
 ><li
 >Fix a bug where a &lt;br/&gt; element in a &lt;gloss&gt; element in a &lt;listWord&gt; could cause the alignment to be wrong.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_7 6 March 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >For right-to-left scripts, reverse content when needed so the order is correct in the output.</li
-></ul
-></li
-></ul
-></li
 ><li
->2.18.0_6 1 March 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
+>Enable one to specify script and language special values for an Open Type font. See script and language in the footnote for XeLaTeXSpecial attributes in the user documentation.</li
 ><li
 >Enable one to specify script and language special values for an Open Type font and have it work also for when one uses a percentage font size.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_5 1 March 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix bug: endnotes in listDefinition and listSingle did not use the correct number in the footnote itself.</li
 ><li
 >Fix bug: if an endnote in a listDefinition contained a langData element and one was showing ISO codes in examples, the example for the listDefinition gave the ISO code. It should not have.</li
-></ul
-></li
-></ul
-></li
-><li
->2.18.0_4 29 February 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->Enable one to specify script and language special values for an Open Type font. See script and language in the footnote for XeLaTeXSpecial attributes in the user documentation.</li
-></ul
-></li
 ><li
 >Added a note to user documentation that the XeLaTeX way of producing PDF does not handle .odg graphic files. Also added a validity test to indicate that .odg files are not supported.</li
-></ul
-></li
-><li
->2.18.0_3 16 February 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug: when a pc element was not the first item in an endnote, it could cause extra space to appear before the next footnote on the same page.</li
-></ul
-></li
-><li
->Fix a bug: the row counter element would start over at 1 if a table contained an embedded table between counter elements.</li
-><li
->Fix a bug: If a header in a publisher style sheet used paperAuthor and the document had a shortAuthor element, no author information was included in the header.</li
-><li
->Add externalID attribute to single, listSIngle, word, and listWord elements. It provides a place to indicate one or more external identifiers which can be used to indicate where a particular piece of data comes from (and to process it potentially).</li
-></ul
-></li
-><li
->2.18.0_2 6 February 2012<ul
-><li
->Add chapterNumber and sectionNumber to header and footer information in a publisher style sheet.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >When interlinear reference is set to show after the first line and one is using auto wrap and referring to a text within the document, could get incorrect alignment of the beginning of the interlinear. Also, sometimes in an endnote the free translation would appear on top of the interlinear.</li
-></ul
-></li
-></ul
-></li
 ><li
->2.18.0_1 1 February 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->For Appendices in a paper, enable the XeLaTexSpecial attribute to use 'pagebreak' to force a page break before the appendix begins.</li
+>For Appendices in a paper, enable the XeLaTeXSpecial attribute to use 'pagebreak' to force a page break before the appendix begins.</li
 ><li
 >Fix a bug: In list interlinear examples that had example headings, the horizontal alignment could differ between such examples that used an interlinearRef element from those that did not.</li
 ><li
@@ -288,9 +132,27 @@ href="mailto::andy_black@sil.org"
 ></ul
 ></li
 ><li
+>For the web page output with a publisher style sheet:<ul
+><li
+>Fix a bug: If the title was empty, the output might be blank.</li
+></ul
+></li
+><li
 >Fix a bug where interlinearRefCitations in style sheet outputs could include extra square brackets.</li
 ><li
+>Fix a bug: the row counter element would start over at 1 if a table contained an embedded table between counter elements.</li
+><li
+>Add externalID attribute to single, listSingle, word, and listWord elements. It provides a place to indicate one or more external identifiers which can be used to indicate where a particular piece of data comes from (and to process it potentially).</li
+><li
+>Update link to web site in About XLingPaper page.</li
+><li
 >Add information in the user documentation on how to make an image file larger or smaller in the output.</li
+><li
+>Fix a typo in section 11.39 "Get the default PDF output to hyphenate for a non-English language" of the user documentation.</li
+><li
+>Add a warning message when producing Word or Open Office Writer output and there is at least one endnote containing a table or an example. The converter tool throws away tables in footnotes (and they do not plan to fix it; sigh).</li
+><li
+>Fix some bugs in the Zotero (MODS) to XLingPaper references conversion.</li
 ></ul
 ></li
 ><li

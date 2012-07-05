@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.18.0_19</a:version
+>2.19.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"

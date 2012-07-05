@@ -34,10 +34,8 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize)"/>
-    <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet"/>
     <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="$publisherStyleSheet/bodyLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>

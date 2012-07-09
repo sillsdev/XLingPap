@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.0</a:version
+>2.19.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-07-05</a:date
+>2012-07-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.19.1 9 July 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug where a li element started with text and then had a p element after it.  The content of the p element was concatenated onto the end of the initial text material.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.19.0 5 July 2012<ul
 ><li

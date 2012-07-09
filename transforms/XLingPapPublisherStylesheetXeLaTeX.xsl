@@ -1470,6 +1470,9 @@
                 <xsl:call-template name="HandlePreviousPInEndnote"/>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:if test="parent::li and count(preceding-sibling::p) = 0 and count(preceding-sibling::text()) &gt; 0">
+                    <tex:cmd name="par"/>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="name()='pc'">
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">

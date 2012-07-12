@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.1</span></p>
-      <p align="center">Date: 2012-07-09</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.2</span></p>
+      <p align="center">Date: 2012-07-12</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,14 +34,21 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.19.1 9 July 2012
+               <li>2.19.2 12 July 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
-                           <li>Fix a bug where a li element started with text and then had a p element after it.  The content of the p element was concatenated
+                           <li>Fix a bug where a li element started with text and then had a p element after it. The p was not indented correctly.</li>
+                           <li>Fix a bug where a li element started with a p element and had another p after it. The p was not indented correctly in either
+                              case.
+                           </li>
+                           <li>Fix a bug where a li element started with text and then had a p element after it. The content of the p element was concatenated
                               onto the end of the initial text material.
                            </li>
                         </ul>
+                     </li>
+                     <li>On Windows, the Program Start menu items for creating a new paper, book or references document did not work (for XXE version
+                        4.8 or later).  Now it does.
                      </li>
                   </ul>
                </li>

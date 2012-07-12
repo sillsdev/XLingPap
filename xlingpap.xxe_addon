@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.1</a:version
+>2.19.2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-07-09</a:date
+>2012-07-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.19.1 9 July 2012<ul
+>2.19.2 12 July 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
->Fix a bug where a li element started with text and then had a p element after it.  The content of the p element was concatenated onto the end of the initial text material.</li
+>Fix a bug where a li element started with text and then had a p element after it. The p was not indented correctly.</li
+><li
+>Fix a bug where a li element started with a p element and had another p after it. The p was not indented correctly in either case.</li
+><li
+>Fix a bug where a li element started with text and then had a p element after it. The content of the p element was concatenated onto the end of the initial text material.</li
 ></ul
 ></li
+><li
+>On Windows, the Program Start menu items for creating a new paper, book or references document did not work (for XXE version 4.8 or later).  Now it does.</li
 ></ul
 ></li
 ><li

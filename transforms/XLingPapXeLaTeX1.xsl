@@ -1013,6 +1013,19 @@
                 <xsl:if test="parent::li and count(preceding-sibling::p) = 0 and count(preceding-sibling::text()) &gt; 0">
                     <tex:cmd name="par"/>
                 </xsl:if>
+                <xsl:if test="parent::li and name()='p'">
+                    <xsl:if test="count(preceding-sibling::p) = 0 or count(preceding-sibling::p) = 1 or count(preceding-sibling::p) = 0 and count(preceding-sibling::text()) &gt; 0">
+                        <!-- because we are still within the \XLingPaperlistitem command, we need to force the paragraph indent value back -->
+                        <tex:cmd name="setlength">
+                            <tex:parm>
+                                <tex:cmd name="parindent" gr="0"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:value-of select="$sParagraphIndent"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:if>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="name()='pc'">
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">

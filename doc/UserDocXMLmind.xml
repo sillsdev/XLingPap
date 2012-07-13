@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 July 2012</date
+>13 July 2012</date
 ><version
->2.19.0</version
+>2.19.2_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -387,15 +387,21 @@ id="sIntroUsingQuickOverview"
 >Since the <object
 type="tXMLmindXMLEditor"
 ></object
-> is a structured editor, it is probably a bit different than other editors you have used. I recommend following the tutorial included with <object
-type="tXMLmindXMLEditor"
-></object
-> documentation as a way of becoming familiar with this tool. It is in the User's Guide or you may point your web browser to <link
-href="http://www.xmlmind.com/xmleditor/_distrib/doc/user/tutorial_basics.html"
->http://www.xmlmind.com/xmleditor/_distrib/doc/user/tutorial_basics.html. </link
-></p
+> is a structured editor, it is probably a bit different than other editors you have used. <indexedItem
+term="iDemoMovies"
+></indexedItem
+>I recommend if at possible that you go to <link
+href="http://www.xlingpaper.org/?page_id=14"
+>http://www.xlingpaper.org/?page_id=14</link
+> and download two of the movies: <indexedItem
+term="iDemoMovieOverview"
+></indexedItem
+>the second (“A tour of the XMLmind XML Editor that XLingPaper uses”) and <indexedItem
+term="iDemoMovieTypingText"
+></indexedItem
+>the third (“How to type text in XLingPaper”). You can then watch them on your computer whenever needed. These will illustrate the key things that are different about using XLingPaper.</p
 ><p
->Once you have done the tutorial, then you can start creating an <object
+>Once you have seen these two demo movies, then you can start creating an <object
 type="tXLingPap"
 ></object
 > file. <indexedItem
@@ -410,7 +416,7 @@ type="tInstruction"
 >, find the <object
 type="tXLingPap"
 ></object
-> section, and then select the kind of document you want to create. There are eight basic types plus <indexedItem
+> section, and then select the kind of document you want to create. There are five complete document types, eight document component  types, plus <indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
 >four publisher style sheet templates (see <sectionRef
@@ -419,13 +425,7 @@ sec="sFAQAssociatePublisherStyleSheet"
 > or click <link
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
-> to see the documentation for publisher style sheets), a special one for languages (see section <sectionRef
-sec="sIntroLang"
-></sectionRef
->) and another special one for types (see section <sectionRef
-sec="sSpecialEffectsText"
-></sectionRef
->):</p
+> to see the documentation for publisher style sheets).  Here the most basic ones, listed alphabetically:</p
 ><ul
 ><li
 >Abbreviations using small caps (which merely lists glossing abbreviations; you can use this to create a master abbreviations file; see section <sectionRef
@@ -457,7 +457,7 @@ sec="sBMReferences"
 >Tom Payne's Grammar Book Outline (a pre-canned grammar outline developed by Tom Payne)</li
 ></ul
 ><pc
->Choose the type you wish to create.</pc
+>Choose the type of document you wish to create.</pc
 ><p
 >If you selected the Paper one, it will look something like this:</p
 ><example
@@ -623,6 +623,29 @@ src="resources/InsertElements.png"
 ></example
 ><p
 >When you type the name of one of these elements, it will appear within the text you are typing (the section title in this example). See below for more on these elements.</p
+><p
+>Please note that when you have a paragraph (<object
+type="tElement"
+>p</object
+> element), have typed some text in it and then insert after it something like one of the <object
+type="tElement"
+>example</object
+> element packages (see section <sectionRef
+sec="sExamples"
+></sectionRef
+>) and typed in what you need in the example, you have to do something special to continue on with another paragraph.  To get a following paragraph, you will need to select the entire <object
+type="tElement"
+>example</object
+> element and then do an <object
+type="tInstruction"
+>Insert After</object
+> command. You will then see that one of the options is a <object
+type="tElement"
+>p</object
+> element (for paragraph). Choose the <object
+type="tElement"
+>p</object
+> element and then you can start typing in it.  The reason for this is that paragraph elements are allowed only after entire example elements.</p
 ><p
 ><indexedItem
 term="iAttributeTool"
@@ -4474,7 +4497,7 @@ type="tElement"
 > elements that need to use a different label from the default, you can override the default for these by setting the content of the <object
 type="tAttribute"
 >labelDissertation</object
-> attribute of the individual  <object
+> attribute of the individual <object
 type="tElement"
 >dissertation</object
 > elements.</p
@@ -25121,6 +25144,23 @@ id="iDateOfDocument"
 id="iDateOfCitedWork"
 ><term
 >Date of cited work</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iDemoMovies"
+><term
+>Demo movies</term
+><indexTerms
+><indexTerm
+id="iDemoMovieOverview"
+><term
+>A tour of the XMLmind XML Editor that XLingPaper uses</term
+></indexTerm
+><indexTerm
+id="iDemoMovieTypingText"
+><term
+>How to type text in XLingPaper</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

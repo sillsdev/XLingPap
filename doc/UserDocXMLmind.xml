@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 July 2012</date
+>20 July 2012</date
 ><version
->2.19.2_1</version
+>2.19.2_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -416,7 +416,7 @@ type="tInstruction"
 >, find the <object
 type="tXLingPap"
 ></object
-> section, and then select the kind of document you want to create. There are five complete document types, eight document component  types, plus <indexedItem
+> section, and then select the kind of document you want to create. There are five complete document types, eight document component types, plus <indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
 >four publisher style sheet templates (see <sectionRef
@@ -425,7 +425,7 @@ sec="sFAQAssociatePublisherStyleSheet"
 > or click <link
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
-> to see the documentation for publisher style sheets).  Here the most basic ones, listed alphabetically:</p
+> to see the documentation for publisher style sheets). Here the most basic ones, listed alphabetically:</p
 ><ul
 ><li
 >Abbreviations using small caps (which merely lists glossing abbreviations; you can use this to create a master abbreviations file; see section <sectionRef
@@ -633,7 +633,7 @@ type="tElement"
 > element packages (see section <sectionRef
 sec="sExamples"
 ></sectionRef
->) and typed in what you need in the example, you have to do something special to continue on with another paragraph.  To get a following paragraph, you will need to select the entire <object
+>) and typed in what you need in the example, you have to do something special to continue on with another paragraph. To get a following paragraph, you will need to select the entire <object
 type="tElement"
 >example</object
 > element and then do an <object
@@ -645,7 +645,7 @@ type="tElement"
 > element (for paragraph). Choose the <object
 type="tElement"
 >p</object
-> element and then you can start typing in it.  The reason for this is that paragraph elements are allowed only after entire example elements.</p
+> element and then you can start typing in it. The reason for this is that paragraph elements are allowed only after entire example elements.</p
 ><p
 ><indexedItem
 term="iAttributeTool"
@@ -18293,7 +18293,25 @@ type="tTool"
 >Microsoft Word 2003</object
 > format for your document. How does one do that?</p
 ><p
->Use the menu items <object
+>There are actually two ways to do this.</p
+><p
+>The first is to produce a PDF file using the default way of producing PDF.  See section <sectionRef
+sec="sFAQProducePDF"
+></sectionRef
+>.  Then go to <link
+href="http://www.pdftoword.com/"
+>http://www.pdftoword.com/</link
+> and use their free online converter service.  This will produce a Word file that has the exact same formatting as the PDF.  There are three drawbacks as of July 20, 2012:</p
+><ol
+><li
+>If the website is very busy, it may take a while before you receive the converted file.  If it is not, it will not take long.</li
+><li
+>The result removes all internal hyperlinks.  This means that there will not be any links for contents, section references, example references, citations, etc.  (This may get fixed in a future version of their product.)</li
+><li
+>There are no Word styles inserted.</li
+></ol
+><p
+>The second way is to use the menu items <object
 type="tInstruction"
 >XLingPaper / Produce Word 2003 Document F10</object
 >.<endnote
@@ -18332,13 +18350,13 @@ type="tXMLmindXSLUtility"
 >To obtain the <object
 type="tXMLmindXSLUtility"
 ></object
->, you can download a personal edition from <link
-href="http://www.xmlmind.com/foconverter/downloadperso.shtml"
->http://www.xmlmind.com/foconverter/downloadperso.shtml</link
-> (use the information in the <object
-type="tXMLmindXSLUtility"
-></object
-> section). Be sure to read the license information on the website to determine which license is appropriate for your situation. (SIL members can use the Personal Edition License.)</p
+>, you can download the latest personal edition from <link
+href="http://www.xmlmind.com/archive/foconverter/4.6.1/"
+>http://www.xmlmind.com/archive/foconverter/4.6.1/</link
+>. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.)  If the Personal Edition License is not correct for you, please go to <link
+href="http://www.xmlmind.com/foconverter/buy.html"
+>http://www.xmlmind.com/foconverter/buy.html</link
+> and buy a license for the Professional Edition.</p
 ><p
 >The following table delineates what to get depending on your operating system:</p
 ><table
@@ -18353,28 +18371,19 @@ border="1"
 ><td
 >Windows (XP, Vista, Windows 7)</td
 ><td
->xslutil_perso<object
-type="tItalic"
->Version_number</object
->-setup.exe</td
+>xslutil_perso-4.6.1-setup.exe</td
 ></tr
 ><tr
 ><td
 >Mac OS X 10.4+</td
 ><td
->xslutil_perso<object
-type="tItalic"
->Version_number</object
->.zip</td
+>xslutil_perso-4.6.1.zip</td
 ></tr
 ><tr
 ><td
 >Linux</td
 ><td
->xslutil_perso<object
-type="tItalic"
->Version_number</object
->.zip</td
+>xslutil_perso-4.6.1.zip</td
 ></tr
 ></table
 ><p
@@ -18530,7 +18539,27 @@ type="tOpenOfficeWriter"
 ></object
 > format for your document. How does one do that?</p
 ><p
->Use the menu items <object
+>Like for producing a Word version, there are two options.</p
+><p
+>The first is to produce a PDF file using the default way of producing PDF. See section <sectionRef
+sec="sFAQProducePDF"
+></sectionRef
+>. Then go to <link
+href="http://www.pdftoword.com/"
+>http://www.pdftoword.com/</link
+> and use their free online converter service. This will produce a Word file that has the exact same formatting as the PDF. There are three drawbacks as of July 20, 2012:</p
+><ol
+><li
+>If the website is very busy, it may take a while before you receive the converted file. If it is not, it will not take long.</li
+><li
+>The result removes all internal hyperlinks. This means that there will not be any links for contents, section references, example references, citations, etc. (This may get fixed in a future version of their product.)</li
+><li
+>There are no Word styles inserted.</li
+></ol
+><p
+>Finally, open this Word file with Open Office Writer.  Note that it may not be 100% perfect, but it will be close.</p
+><p
+>The second option is to use the menu items <object
 type="tInstruction"
 >XLingPaper / Produce Open Office Document Ctrl+F10</object
 >.<endnote

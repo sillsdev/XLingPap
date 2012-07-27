@@ -1404,6 +1404,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%_4EBook.htm"/>
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%{R}4EBook.css"/>
                         <!--                <cfg:set variable="deleteFileResult" plainString="true" expression="%_"/>
                             <cfg:get expression="$deleteFileResult"/>
                             <cfg:command name="alert" parameter="$deleteFileResult=%_"/>-->
@@ -1451,7 +1452,7 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="eBookPrepPublisherStyleSheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}.css"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}4EBook.css"/>
             <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{0}4EBook.htm">
                 <cfg:parameter name="sFileName">%{R}</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>

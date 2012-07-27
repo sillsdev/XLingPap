@@ -251,5 +251,12 @@
             <report test="not(contains(.,'pt'))">The spacing for aligned words in interlinears needs to be in term of points.  It is not.  Please pattern this value after the default glue of interlinear-aligned-word-skip='6.66666pt plus 3.33333pt minus 2.22222pt'</report>
         </rule>
     </pattern>
-    
+    <pattern>
+        <title>
+            <dir value="ltr">Check for two or more abbreviationsShownHere elements.</dir>
+        </title>
+        <rule context="lingPaper">
+            <report test="count(descendant::abbreviationsShownHere)>1">Sorry, but you can use only one abbreviationsShownHere element.  You have two or more of them.  Please remove the extra ones.</report>
+        </rule>
+    </pattern>
 </schema>

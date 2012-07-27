@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$6" = "paper" ]; then
+	levelone="//h:div[contains(@class,'Titlesection1') and not(preceding-sibling::h:div[@class='appendixTitle']) or contains(@class,'Title') and not(contains(@class, 'section')) or @class='abstract']"
+	leveltwo="//h:body/h:div[contains(@class,'Titlesection1') and preceding-sibling::h:div[@class='appendixTitle'] or contains(@class,'section2')]"
+	levelthree="//h:body/h:div[contains(@class,'section3')]"
+else
+	levelone="//h:div[contains(@class,'Title') and not(contains(@class, 'section')) and not(contains(@class, 'part'))  or @class='preface' or contains(@class,'acknowledgements')]"
+	leveltwo="//h:body/h:div[contains(@class,'Titlesection1')]"
+	levelthree="//h:body/h:div[contains(@class,'section2')]"
+fi
+echo $levelthree
+ebook-convert "$HOME/Calibre Library/Unknown/${1}4EBook ($3)/${1}4EBook - Unknown.zip" "$2.epub" --level1-toc "$levelone" --level2-toc "$leveltwo" --level3-toc "$levelthree" --authors "$4" --publisher "$5"
+

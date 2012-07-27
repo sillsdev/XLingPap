@@ -230,6 +230,12 @@
     <cfg:command name="DeleteFileCmd">
         <cfg:class>xlingpaper.xxe.DeleteFile</cfg:class>
     </cfg:command>
+    <cfg:command name="GetHighestCalibreBookIdCmd">
+        <cfg:class>xlingpaper.xxe.GetHighestCalibreBookId</cfg:class>
+    </cfg:command>
+    <cfg:command name="GetAuthorsForCalibreCmd">
+        <cfg:class>xlingpaper.xxe.GetAuthorsForCalibre</cfg:class>
+    </cfg:command>
     <cfg:command name="AssociatePublisherStylesheetCmd">
         <cfg:class>xlingpaper.xxe.AssociatePublisherStylesheet</cfg:class>
     </cfg:command>
@@ -1288,6 +1294,189 @@ What we want is to load IE independently and to do a refresh so it will show the
             </cfg:transform>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="EBookPrep">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//lingPaper)"/>
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but this is not a complete document.  It cannot be made into a web page file."/>-->
+                        <cfg:command name="LocalizeString" parameter="msg.produceEBook"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!--                        <cfg:command name="status" parameter="Deleting any web page file..."/>-->
+                        <cfg:command name="LocalizeString" parameter="msg.deleteEBook"/>
+                        <cfg:command name="status" parameter="%_"/>
+                        <!-- Not needed because even on Windows, can produce the output file. 
+                            <cfg:command name="DeletePDFFile" parameter="1 htm"/>
+                        -->
+                        <!--  Can only do the embedded version-->
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:choice>
+                                    <!--        if either of the pass elements are true, can convert -->
+                                    <cfg:pass>
+                                        <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] styledPaper"/>
+                                    </cfg:pass>
+                                    <cfg:pass>
+                                        <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] styledPaper"/>
+                                    </cfg:pass>
+                                </cfg:choice>
+                                <!--                        <cfg:command name="status" parameter="Producing the web page output..."/>-->
+                                <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
+                                <cfg:command name="status" parameter="%_ (1/4)"/>
+                                <cfg:command name="ConvertToEPUBEBook"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <!-- we won't allow using the default canned version -->
+                                <!--                                <cfg:command name="alert" parameter="Sorry, but you must use a publisher style sheet to produce an EBook."/>-->
+                                <cfg:command name="LocalizeString" parameter="msg.produceEBookNoStyleSheet"/>
+                                <cfg:command name="alert" parameter="%_"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertToEPUBEBook">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains('%{S}','\')"/>
+                        <cfg:command name="run" parameter="[Windows] path"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:test expression="not(contains('%_','Calibre'))"/>
+<!--                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.43 'Produce an EBook in EPUB Format' in the user documentation."/>-->
+                                <cfg:command name="LocalizeString" parameter="msg.produceEBookNoCalibre"/>
+                                <cfg:command name="alert" parameter="%_"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:command name="ConvertToEPUBEBookProcessing"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="run" parameter="[Unix] which calibredb"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:test expression="string-length('%_')=0"/>
+                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.YY in the user documentation."/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:command name="ConvertToEPUBEBookProcessing"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertToEPUBEBookProcessing">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%{R}.epub"/>
+                <cfg:set variable="result" plainString="true" expression="%_"/>
+                <!--<cfg:get expression="$result"/>
+                    <cfg:command name="alert" parameter="delete file returned %_"/>-->
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="contains($result, 'XLingPaper-FileFailedToDelete-XLingPaper')"/>
+                        <cfg:command name="alert" parameter="Please close the %{R}.epub file in your reader and process again."/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- we're not using XeLaTeX here, but Calibre seems to need a safe file name, too -->
+                        <cfg:command name="ConvertFileNameForXeLaTeXCmd" parameter="%{R}"/>
+                        <cfg:set variable="safeXeLaTeXFileName" expression="%_" plainString="true"/>
+                        <cfg:get expression="$safeXeLaTeXFileName"/>
+                        <cfg:command name="eBookPrepPublisherStyleSheet" parameter="%_"/>
+                        <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
+                        <cfg:command name="status" parameter="%_ (2/4)"/>
+                        <cfg:get expression="$safeXeLaTeXFileName"/>
+                        <cfg:command name="AddFileToCalibreLibrary" parameter="%_"/>
+                        <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
+                        <cfg:command name="status" parameter="%_ (3/4)"/>
+                        <cfg:command name="GetHighestCalibreBookIdCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
+                        <cfg:set variable="CalibreBookId" plainString="true" expression="%_"/>
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
+                        <cfg:get expression="$safeXeLaTeXFileName"/>
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%_4EBook.htm"/>
+                        <!--                <cfg:set variable="deleteFileResult" plainString="true" expression="%_"/>
+                            <cfg:get expression="$deleteFileResult"/>
+                            <cfg:command name="alert" parameter="$deleteFileResult=%_"/>-->
+                        <!--                <cfg:get expression="$CalibreBookId"/>
+                            <cfg:command name="alert" parameter="$CalibreBookId = %_"/>-->
+                        <!--                <cfg:set variable="Authors" plainString="false" expression="//author"/>-->
+                        <cfg:command name="GetAuthorsForCalibreCmd"/>
+                        <cfg:set variable="Authors" plainString="true" expression="%_"/>
+                        <!-- the GetAuthors command also gets the publisher now -->
+                        <!--                <cfg:get expression="$Authors"/>
+                            <cfg:command name="alert" parameter="$Authors = %_"/>-->
+                        <!--                <cfg:set variable="Publisher" plainString="false" expression="//publisherStyleSheetPublisher"/>-->
+                        <!--           <cfg:get expression="$Publisher"/>
+                            <cfg:command name="alert" parameter="$Publisher = %_"/>     -->
+                        <!--                <cfg:get expression="concat($CalibreBookId,' ','&quot;',$Authors,'&quot;')"/>-->
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:test expression="//chapter"/>
+                                <cfg:get expression="concat($safeXeLaTeXFileName, ' ', $CalibreBookId,' ',$Authors)"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:get expression="concat($safeXeLaTeXFileName, ' ', $CalibreBookId,' ',$Authors,' paper')"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        <!--                <cfg:get expression="concat($CalibreBookId,' ',$Authors)"/>-->
+                        <!--<cfg:set variable="commandLine1" plainString="true" expression="%_"/>
+                            <cfg:get expression="$commandLine1"/>
+                            <cfg:command name="alert" parameter="$commandLine1 = %_"/>
+                            <cfg:get expression="$commandLine1"/>-->
+                        <cfg:command name="ConvertToEPUB" parameter="%_"/>
+                        <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
+                        <cfg:command name="status" parameter="%_ (4/4)"/>
+                        <cfg:get expression="$CalibreBookId"/>
+                        <cfg:command name="RemoveFileFromCalibreLibrary" parameter="%_"/>
+                        <cfg:command name="beep"/>
+                        <cfg:choice>
+                            <cfg:command name="start" parameter="[Windows] ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>
+                            <cfg:command name="start" parameter="[Unix] ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>
+                        </cfg:choice>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="eBookPrepPublisherStyleSheet">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}.css"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{0}4EBook.htm">
+                <cfg:parameter name="sFileName">%{R}</cfg:parameter>
+                <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
+                <cfg:parameter name="bEBook">Y</cfg:parameter>
+            </cfg:transform>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="AddFileToCalibreLibrary">
+        <cfg:process>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}AddFileToCalibreLibrary.bat&quot; &quot;%{P}%{S}%{0}4EBook.htm&quot; &quot;%{P}%{S}&quot;" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}AddFileToCalibreLibrary&quot; &quot;%{P}%{S}%{0}4EBook.htm&quot; &quot;%{P}%{S}&quot;" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="ConvertToEPUB">
+        <cfg:process>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}ConvertToEPUB.bat&quot; %0 &quot;%{P}%{S}%{R}&quot; %1 &quot;%2&quot; &quot;%3&quot; %4" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}ConvertToEPUB&quot; %0 &quot;%{P}%{S}%{R}&quot; %1 &quot;%2&quot; &quot;%3&quot; %4" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="RemoveFileFromCalibreLibrary">
+        <cfg:process>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}RemoveFileFromCalibreLibrary.bat&quot; %0" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}RemoveFileFromCalibreLibrary&quot; %0" platform="Unix"/>
+        </cfg:process>
+    </cfg:command>
     <cfg:binding>
         <cfg:keyPressed code="F7"/>
         <cfg:command name="produceWebPage"/>
@@ -1934,7 +2123,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                                         <cfg:pass>
                                             <cfg:test expression="//endnote[descendant::table or descendant::example]"/>
                                         </cfg:pass>
-<!--                                        <cfg:command name="alert" parameter="Please note that there is at least one endnote with a table or example in it.  The resulting output will not include this table or example.  You will have to add it by hand."/>-->
+                                        <!--                                        <cfg:command name="alert" parameter="Please note that there is at least one endnote with a table or example in it.  The resulting output will not include this table or example.  You will have to add it by hand."/>-->
                                         <cfg:command name="LocalizeString" parameter="msg.endnoteTableNotInOutput"/>
                                         <cfg:command name="alert" parameter="%_"/>
                                     </cfg:sequence>
@@ -2414,7 +2603,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="SetTableSize">
-        <cfg:macro repeatable="true" undoable="true" trace="true">
+        <cfg:macro repeatable="true" undoable="true">
             <cfg:sequence>
                 <cfg:pass>
                     <!--                    <cfg:match context="$implicitElement" pattern="table"/>-->

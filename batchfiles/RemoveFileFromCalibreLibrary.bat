@@ -1,0 +1,3 @@
+calibredb remove %1
+
+

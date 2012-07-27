@@ -4,6 +4,20 @@
         Global variables
         =========================================================== -->
     <xsl:variable name="sExampleCellPadding">padding-left: .25em</xsl:variable>
+    <!-- ===========================================================
+        Attribute sets
+        =========================================================== -->
+    <xsl:attribute-set name="TablePaddingSpacing">
+        <xsl:attribute name="style">
+            <xsl:text>border-collapse:collapse</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="cellpadding">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+        <xsl:attribute name="cellspacing">
+            <xsl:call-template name="DefaultCellPaddingSpacing"/>
+        </xsl:attribute>
+    </xsl:attribute-set>
     <!--
         caption for a table
     -->
@@ -158,11 +172,11 @@
         definition
     -->
     <xsl:template match="example/definition">
-        <table cellpadding="0pt" cellspacing="0pt">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
             <tr>
                 <xsl:call-template name="DoDefinition"/>
             </tr>
-        </table>
+        </xsl:element>
     </xsl:template>
     <xsl:template match="definition[not(parent::example)]">
         <!-- the parent is a paragraph -->
@@ -325,11 +339,22 @@
         =========================================================== -->
     <xsl:template match="img">
         <xsl:variable name="sSrc" select="normalize-space(@src)"/>
+        <xsl:variable name="sDescription" select="normalize-space(@description)"/>
         <xsl:choose>
             <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.svg'">
-                <embed src="{$sSrc}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
-                    <xsl:call-template name="OutputCssSpecial"/>
-                </embed>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <xsl:copy-of select="document(concat($sMainSourcePath, '/', $sSrc))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <embed src="{$sSrc}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
+                            <xsl:call-template name="OutputCssSpecial"/>
+                            <xsl:call-template name="DoImgDescription">
+                                <xsl:with-param name="sDescription" select="$sDescription"/>
+                            </xsl:call-template>
+                        </embed>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:element name="img">
@@ -337,15 +362,9 @@
                     <xsl:attribute name="src">
                         <xsl:value-of select="@src"/>
                     </xsl:attribute>
-                    <xsl:attribute name="alt">
-                        <xsl:text>Missing image file: </xsl:text>
-                        <xsl:value-of select="@src"/>
-                    </xsl:attribute>
-                    <xsl:if test="@description">
-                        <xsl:attribute name="alt">
-                            <xsl:value-of select="@description"/>
-                        </xsl:attribute>
-                    </xsl:if>
+                    <xsl:call-template name="DoImgDescription">
+                        <xsl:with-param name="sDescription" select="$sDescription"/>
+                    </xsl:call-template>
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>
@@ -433,7 +452,7 @@
                     <xsl:when test="name(..)='example'">
                         <table>
                             <tr>
-                                <td valign="top">
+                                <td style="vertical-align:top">
                                     <xsl:apply-templates/>
                                 </td>
                             </tr>
@@ -502,9 +521,9 @@
         </xsl:if>
         <tr>
             <td>
-                <table cellpadding="0pt" cellspacing="0pt">
+                <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
                     <tr>
-                        <td valign="top">
+                        <td style="vertical-align:top">
                             <xsl:element name="a">
                                 <xsl:attribute name="name">
                                     <xsl:value-of select="@letter"/>
@@ -515,7 +534,7 @@
                         </td>
                         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
                             <xsl:if test="contains($bListsShareSameCode,'N')">
-                                <td valign="top">
+                                <td style="vertical-align:top">
                                     <xsl:call-template name="OutputISOCodeInExample">
                                         <xsl:with-param name="bOutputBreak" select="'N'"/>
                                     </xsl:call-template>
@@ -526,7 +545,7 @@
                             <xsl:apply-templates/>
                         </td>
                     </tr>
-                </table>
+                </xsl:element>
             </td>
         </tr>
     </xsl:template>
@@ -549,7 +568,7 @@
     -->
     <xsl:template match="conflatedLine">
         <tr style="line-height:87.5%">
-            <td valign="top">
+            <td style="vertical-align:top">
                 <xsl:if test="name(..)='interlinear' and position()=1">
                     <xsl:call-template name="OutputExampleNumber"/>
                 </xsl:if>
@@ -565,7 +584,7 @@
             <xsl:when test="name(..)='conflation'">
                 <tr>
                     <xsl:if test="@letter">
-                        <td valign="top">
+                        <td style="vertical-align:top">
                             <xsl:element name="a">
                                 <xsl:attribute name="name">
                                     <xsl:value-of select="@letter"/>
@@ -652,7 +671,7 @@
         word
     -->
     <xsl:template match="word">
-        <table cellpadding="0pt" cellspacing="0pt">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
             <tr>
                 <xsl:for-each select="(langData | gloss)">
                     <td>
@@ -660,7 +679,7 @@
                     </td>
                 </xsl:for-each>
             </tr>
-        </table>
+        </xsl:element>
     </xsl:template>
     <!--
         listWord
@@ -668,7 +687,7 @@
     <xsl:template match="listWord">
         <xsl:param name="bListsShareSameCode"/>
         <!--    <table> -->
-        <tr valign="top">
+        <tr style="vertical-align:top">
             <td>
                 <xsl:element name="a">
                     <xsl:attribute name="name">
@@ -694,13 +713,13 @@
         single
     -->
     <xsl:template match="single">
-        <table cellpadding="0pt" cellspacing="0pt">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
             <tr>
                 <td>
                     <xsl:apply-templates/>
                 </td>
             </tr>
-        </table>
+        </xsl:element>
     </xsl:template>
     <!--
         listSingle
@@ -709,7 +728,7 @@
         <xsl:param name="bListsShareSameCode"/>
         <!--        <table cellpadding="0pt" cellspacing="0pt"> -->
         <tr>
-            <td valign="top">
+            <td style="vertical-align:top">
                 <xsl:element name="a">
                     <xsl:attribute name="name">
                         <xsl:value-of select="@letter"/>
@@ -883,9 +902,10 @@
     -->
     <xsl:template match="iword">
         <!--        <span class="interblock">-->
-        <table cellpadding="0" cellspacing="0" class="interblock">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+            <xsl:attribute name="class">interblock</xsl:attribute>
             <xsl:apply-templates/>
-        </table>
+        </xsl:element>
         <!--        </span>-->
     </xsl:template>
     <!--
@@ -974,9 +994,10 @@
     -->
     <xsl:template match="morph">
         <!--        <span class="interblock">-->
-        <table cellpadding="0" cellspacing="0" class="interblock">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
+            <xsl:attribute name="class">interblock</xsl:attribute>
             <xsl:apply-templates/>
-        </table>
+        </xsl:element>>
         <!--        </span>-->
     </xsl:template>
     <!--
@@ -1020,6 +1041,16 @@
                 <xsl:text>&#160;</xsl:text>
             </td>
         </tr>
+    </xsl:template>
+    <!--  
+        DefaultCellPaddingSpacing
+    -->
+    <xsl:template name="DefaultCellPaddingSpacing">
+        <xsl:text>0</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$bEBook='Y'">%</xsl:when>
+            <xsl:otherwise>pt</xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoBookEndnotesLabeling
@@ -1126,7 +1157,7 @@
                 <xsl:variable name="bListsShareSameCode">
                     <xsl:call-template name="DetermineIfListsShareSameISOCode"/>
                 </xsl:variable>
-                <td valign="top">
+                <td style="vertical-align:top">
                     <xsl:element name="a">
                         <xsl:attribute name="name">
                             <xsl:value-of select="@num"/>
@@ -1148,22 +1179,22 @@
                     <xsl:choose>
                         <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
                             <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
-                            <table cellpadding="0pt" cellspacing="0pt">
+                            <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
                                 <xsl:apply-templates select="listInterlinear | listWord | listSingle">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                 </xsl:apply-templates>
-                            </table>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:when test="name($myFirstChild) = 'exampleHeading' and name(child::*[position()=2])='table'">
                             <xsl:apply-templates select="exampleHeading"/>
                             <xsl:apply-templates select="table"/>
                         </xsl:when>
                         <xsl:when test="substring(name($myFirstChild), 1, 4)='list'">
-                            <table cellpadding="0pt" cellspacing="0pt">
+                            <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
                                 <xsl:apply-templates>
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                 </xsl:apply-templates>
-                            </table>
+                            </xsl:element>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates/>
@@ -1273,12 +1304,29 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoImgDescription
+    -->
+    <xsl:template name="DoImgDescription">
+        <xsl:param name="sDescription"/>
+        <xsl:attribute name="alt">
+            <xsl:choose>
+                <xsl:when test="string-length($sDescription) &gt; 0">
+                    <xsl:value-of select="$sDescription"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Missing image file: </xsl:text>
+                    <xsl:value-of select="@src"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+    </xsl:template>
+    <!--  
         DoInterlinearLineGroup
     -->
     <xsl:template name="DoInterlinearLineGroup">
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
-        <table cellpadding="0pt" cellspacing="0pt">
+        <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
             <!-- add extra indent for when have an embedded interlinear; 
                 be sure to allow for the case of when a listInterlinear begins with an interlinear -->
             <xsl:variable name="parent" select=".."/>
@@ -1291,7 +1339,7 @@
             </xsl:variable>
             <xsl:if test="name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                 <xsl:attribute name="style">
-                    <xsl:text>margin-left: 0.1in</xsl:text>
+                    <xsl:text>margin-left: 0.1in;border-collapse:collapse</xsl:text>
                 </xsl:attribute>
                 <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                     <tr>
@@ -1303,7 +1351,7 @@
                 <xsl:with-param name="mode" select="$mode"/>
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
-        </table>
+        </xsl:element>
     </xsl:template>
     <!--
         OutputAbbreviationInTable
@@ -1311,7 +1359,7 @@
     <xsl:template name="OutputAbbreviationInTable">
         <tr>
             <td>
-                <a name="{@id}">
+                <a id="{@id}">
                     <xsl:call-template name="OutputAbbrTerm">
                         <xsl:with-param name="abbr" select="."/>
                     </xsl:call-template>
@@ -1352,7 +1400,7 @@
             </xsl:call-template>
         </xsl:if>
         <tr>
-            <td valign="baseline">
+            <td style="vertical-align:baseline">
                 <a>
                     <xsl:attribute name="name">
                         <xsl:value-of select="@id"/>
@@ -1365,7 +1413,7 @@
                     <xsl:text>]</xsl:text>
                 </a>
             </td>
-            <td valign="baseline">
+            <td style="vertical-align:baseline">
                 <xsl:apply-templates/>
             </td>
         </tr>

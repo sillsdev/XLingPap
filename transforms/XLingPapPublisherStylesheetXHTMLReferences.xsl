@@ -118,8 +118,9 @@
     -->
     <xsl:template name="DoUrlLayout">
         <!-- remove any zero width spaces in the hyperlink -->
-        <a href="url({normalize-space(translate(.,'&#x200b;',''))})">
-            <xsl:call-template name="AddAnyLinkAttributes">
+        <a href="{normalize-space(translate(.,'&#x200b;',''))}">
+<!--            <a href="url({normalize-space(translate(.,'&#x200b;',''))})">-->
+                <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/urlLinkLayout"/>
             </xsl:call-template>
             <!--            <xsl:text>&#x20;</xsl:text>-->

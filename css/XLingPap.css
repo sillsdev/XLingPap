@@ -7429,6 +7429,20 @@ publisherStyleSheetName
     margin-top: .37ex;
     margin-bottom: .67ex;
 }
+publisherStyleSheetPublisher:before
+{
+   content:"Publisher: ";
+   font-size:12pt;
+}
+publisherStyleSheetPublisher
+{
+	display:block;
+	text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+    font-size:larger;
+}
 publisherStyleSheetVersion
 {
 	display:block;

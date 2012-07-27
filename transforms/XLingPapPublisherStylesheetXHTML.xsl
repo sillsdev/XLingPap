@@ -5,6 +5,8 @@
       Parameterized Variables
       =========================================================== -->
     <xsl:param name="sFileName">MyFileName</xsl:param>
+    <xsl:param name="sMainSourcePath" select="'file:/C:/Users/Andy%20Black/Documents/XLingPap/SILEWPTrial/'"/>
+    <xsl:param name="bEBook" select="'N'"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iMagnificationFactor">
@@ -628,7 +630,9 @@
             </xsl:choose>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputChapterNumber"/>
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                    </xsl:call-template>
                 </xsl:with-param>
             </xsl:call-template>
             <xsl:choose>
@@ -645,6 +649,19 @@
             </xsl:choose>
         </div>
         <div class="chapterTitle">
+            <xsl:if test="$bEBook='Y'">
+                <span style="display:none">
+                    <xsl:call-template name="OutputChapterNumber"/>
+                    <xsl:choose>
+                        <xsl:when test="name(.)='appendix'">
+                            <xsl:value-of select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout/@textafternumber"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </span>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="name(.)='appendix'">
                     <xsl:call-template name="DoTitleFormatInfo">
@@ -849,7 +866,7 @@
       link
       -->
     <xsl:template match="link">
-        <a href="url({@href})">
+        <a href="{@href}">
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/linkLinkLayout"/>
             </xsl:call-template>
@@ -875,7 +892,7 @@
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                     <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                 </xsl:call-template>
-               <!-- <xsl:choose>
+                <!-- <xsl:choose>
                     <xsl:when test="ancestor::author">
                         <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
                         <xsl:call-template name="OutputAuthorFootnoteSymbol">
@@ -940,9 +957,11 @@
                             <!-- do nothing to force no indent -->
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:attribute name="class">
-                                <xsl:text>paragraph_indent</xsl:text>
-                            </xsl:attribute>
+                            <xsl:if test="name()='p'">
+                                <xsl:attribute name="class">
+                                    <xsl:text>paragraph_indent</xsl:text>
+                                </xsl:attribute>
+                            </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -1028,11 +1047,13 @@
         =========================================================== -->
     <xsl:template match="example">
         <div>
-            <xsl:if test="@num">
+            <!--  do not need this because we do it later in <a> element     
+    <xsl:if test="@num">
                 <xsl:attribute name="id">
                     <xsl:value-of select="@num"/>
                 </xsl:attribute>
             </xsl:if>
+-->
             <xsl:call-template name="DoExample">
                 <xsl:with-param name="bUseClass" select="'Y'"/>
             </xsl:call-template>
@@ -1840,6 +1861,7 @@
     <xsl:template match="pageWidth"/>
     <xsl:template match="paragraphIndent"/>
     <xsl:template match="publisherStyleSheetName"/>
+    <xsl:template match="publisherStyleSheetPublisher"/>
     <xsl:template match="publisherStyleSheetReferencesName"/>
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
@@ -2228,13 +2250,13 @@
             <table class="footnote">
                 <xsl:if test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
                     <tr>
-                        <td valign="baseline">
+                        <td style="vertical-align:top">
                             <xsl:element name="a">
                                 <xsl:attribute name="name">
                                     <xsl:value-of select="$sAcknowledgementsID"/>
                                 </xsl:attribute>[*]</xsl:element>
                         </td>
-                        <td valign="baseline">
+                        <td style="vertical-align:top">
                             <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
                         </td>
                     </tr>
@@ -2876,7 +2898,7 @@
                         <xsl:attribute name="style">
                             <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
                                 <xsl:text>padding-top:</xsl:text>
-                                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                                <xsl:value-of select="$sSpaceBeforeFree"/>
                                 <xsl:text>; </xsl:text>
                             </xsl:if>
                             <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">

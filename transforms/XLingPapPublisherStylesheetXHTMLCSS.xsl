@@ -138,18 +138,19 @@
         <xsl:text> */
 body {</xsl:text>
         <xsl:if test="$pageLayoutInfo/@ignorePageWidthForWebPageOutput != 'yes'">
-        <xsl:text>
+            <xsl:text>
      padding-left:</xsl:text>
-        <xsl:value-of select="$sPageInsideMargin"/>
-        <xsl:text>;
+            <xsl:value-of select="$sPageInsideMargin"/>
+            <xsl:text>;
      padding-right:</xsl:text>
-        <xsl:value-of select="$sPageOutsideMargin"/>
-        <xsl:text>;
+            <xsl:value-of select="$sPageOutsideMargin"/>
+            <xsl:text>;
      width:</xsl:text>
-        <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
-        <xsl:value-of select="normalize-space(substring($sPageWidth,string-length($sPageWidth)-1,2))"/>
-</xsl:if>
-        <xsl:text>;
+            <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
+            <xsl:value-of select="normalize-space(substring($sPageWidth,string-length($sPageWidth)-1,2))"/>
+            <xsl:text>;</xsl:text>
+        </xsl:if>
+        <xsl:text>
      font-family:"</xsl:text>
         <xsl:value-of select="$sDefaultFontFamily"/>
         <xsl:text>";
@@ -165,7 +166,7 @@ body {</xsl:text>
        border-bottom:1.5pt solid gray;
 }
 </xsl:text>
-</xsl:if>
+        </xsl:if>
         <xsl:text>.footnote{
     font-size:</xsl:text>
         <xsl:value-of select="$sFootnotePointSize"/>
@@ -1057,7 +1058,15 @@ li.lower-roman {
     -->
     <xsl:template match="@cssSpecial">
         <xsl:text>        </xsl:text>
-        <xsl:value-of select="."/>
+        <xsl:variable name="sCssSpecial" select="normalize-space(.)"/>
+        <xsl:choose>
+            <xsl:when test="substring($sCssSpecial, string-length($sCssSpecial))=';'">
+                <xsl:value-of select="substring($sCssSpecial, 1, string-length($sCssSpecial)-1)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sCssSpecial"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:text>;
 </xsl:text>
     </xsl:template>
@@ -1322,6 +1331,7 @@ li.lower-roman {
     <xsl:template match="@spacebeforemainsection"/>
     <xsl:template match="@startSection1NumberingAtZero"/>
     <xsl:template match="@textafterletter"/>
+    <xsl:template match="@textafternumber"/>
     <xsl:template match="@textbeforeafterusesfontinfo"/>
     <xsl:template match="@textBeforeCapitalizedPluralOverride"/>
     <xsl:template match="@textBeforeCapitalizedSingularOverride"/>
@@ -1367,7 +1377,7 @@ li.lower-roman {
 </xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                            <xsl:text>        color:inherit;
+                        <xsl:text>        color:inherit;
 </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1379,9 +1389,9 @@ li.lower-roman {
 </xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                            <xsl:text>        text-decoration:</xsl:text>
-                            <xsl:value-of select="$sLinkTextDecoration"/>
-                            <xsl:text>;
+                        <xsl:text>        text-decoration:</xsl:text>
+                        <xsl:value-of select="$sLinkTextDecoration"/>
+                        <xsl:text>;
 </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1509,6 +1519,7 @@ li.lower-roman {
     <xsl:template match="fixedText"/>
     <xsl:template match="magnificationFactor"/>
     <xsl:template match="publisherStyleSheetName"/>
+    <xsl:template match="publisherStyleSheetPublisher"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>

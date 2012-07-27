@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->20 July 2012</date
+>27 July 2012</date
 ><version
->2.19.2_2</version
+>2.19.4_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -191,6 +191,14 @@ term="iOpenOfficeWriter"
 ><object
 type="tOpenOfficeWriter"
 ></object
+> format</li
+><li
+><indexedItem
+term="iEbook"
+></indexedItem
+>EBook in <object
+type="tTool"
+>EPUB</object
 > format</li
 ></ul
 ><section3
@@ -18295,18 +18303,18 @@ type="tTool"
 ><p
 >There are actually two ways to do this.</p
 ><p
->The first is to produce a PDF file using the default way of producing PDF.  See section <sectionRef
+>The first is to produce a PDF file using the default way of producing PDF. See section <sectionRef
 sec="sFAQProducePDF"
 ></sectionRef
->.  Then go to <link
+>. Then go to <link
 href="http://www.pdftoword.com/"
 >http://www.pdftoword.com/</link
-> and use their free online converter service.  This will produce a Word file that has the exact same formatting as the PDF.  There are three drawbacks as of July 20, 2012:</p
+> and use their free online converter service. This will produce a Word file that has the exact same formatting as the PDF. There are three drawbacks as of July 20, 2012:</p
 ><ol
 ><li
->If the website is very busy, it may take a while before you receive the converted file.  If it is not, it will not take long.</li
+>If the website is very busy, it may take a while before you receive the converted file. If it is not, it will not take long.</li
 ><li
->The result removes all internal hyperlinks.  This means that there will not be any links for contents, section references, example references, citations, etc.  (This may get fixed in a future version of their product.)</li
+>The result removes all internal hyperlinks. This means that there will not be any links for contents, section references, example references, citations, etc. (This may get fixed in a future version of their product.)</li
 ><li
 >There are no Word styles inserted.</li
 ></ol
@@ -18353,7 +18361,7 @@ type="tXMLmindXSLUtility"
 >, you can download the latest personal edition from <link
 href="http://www.xmlmind.com/archive/foconverter/4.6.1/"
 >http://www.xmlmind.com/archive/foconverter/4.6.1/</link
->. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.)  If the Personal Edition License is not correct for you, please go to <link
+>. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.) If the Personal Edition License is not correct for you, please go to <link
 href="http://www.xmlmind.com/foconverter/buy.html"
 >http://www.xmlmind.com/foconverter/buy.html</link
 > and buy a license for the Professional Edition.</p
@@ -18557,7 +18565,7 @@ href="http://www.pdftoword.com/"
 >There are no Word styles inserted.</li
 ></ol
 ><p
->Finally, open this Word file with Open Office Writer.  Note that it may not be 100% perfect, but it will be close.</p
+>Finally, open this Word file with Open Office Writer. Note that it may not be 100% perfect, but it will be close.</p
 ><p
 >The second option is to use the menu items <object
 type="tInstruction"
@@ -20603,6 +20611,130 @@ type="tInstruction"
 type="tInstruction"
 >XLingPaper / Set Reference</object
 >) and then choose the language ID you want.</p
+></section2
+><section2
+id="sFAQProduceEPUB"
+><secTitle
+>Produce an EBook in EPUB Format?</secTitle
+><p
+><indexedItem
+main="yes"
+term="iEbook"
+></indexedItem
+>In section <sectionRef
+sec="sIntroUsing"
+></sectionRef
+>, I mentioned that you can use the <object
+type="tXMLmindXMLEditor"
+> </object
+> to produce a file in <object
+type="tTool"
+>EPUB</object
+> format for your document. This can be done for both papers and for books.  How does one do it?</p
+><p
+>First, you need to install the (free)  <object
+type="tTool"
+>Calibre</object
+> program on your computer.  Go to <link
+href="http://calibre-ebook.com/"
+>http://calibre-ebook.com/</link
+> and download the version appropriate for your computer.  When you run the installer or the first time you run <object
+type="tTool"
+>Calibre</object
+>, the welcome wizard will run.  <object
+type="tBold"
+>Very Important</object
+>: You must use the default location for storing your books in the Calibre Library.  If you use some other location, <object
+type="tXLingPap"
+></object
+> will not be able to find it and thus will not succeed in producing the EBook for you.</p
+><p
+>For users of <object
+type="tXLingPap"
+></object
+> on Mac OS X computers, you must also do another step before <object
+type="tXLingPap"
+></object
+> will know that you have installed <object
+type="tTool"
+>Calibre</object
+>.  When you have <object
+type="tTool"
+>Calibre</object
+> running, use <object
+type="tInstruction"
+>Preferences / Advanced / Miscellaneous</object
+> and click on <object
+type="tInstruction"
+>install command line tools</object
+>.</p
+><p
+>Second, this process only works when you have associated a publisher style sheet with your file.  See section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>.</p
+><p
+>Finally, use the menu items <object
+type="tInstruction"
+>XLingPaper / Produce EBook (in EPUB format) Ctrl+Shift+F7</object
+>.<endnote
+id="nCtrlShiftF7"
+><p
+>The Ctrl+Shift+F7 at the end is a reminder that you can invoke this process merely by holding down the <object
+type="tKey"
+>Ctrl</object
+> and <object
+type="tKey"
+>Shift</object
+> keys while also pressing the <object
+type="tKey"
+>F7</object
+> key.</p
+></endnote
+> This first tries to tell if you have installed <object
+type="tTool"
+>Calibre</object
+>. If so, it then starts a four step process to convert your document into an EBook in <object
+type="tTool"
+>EPUB</object
+> format.  It may take quite a while depending on the size of your document. It will produce a file with the same name as your <object
+type="tXLingPap"
+></object
+> document file, but with an extension of <object
+type="tInTextExample"
+>epub</object
+>. This new file is in the same directory as your <object
+type="tXLingPap"
+></object
+> document.   When it is done processing, there should be an audible beep and then <object
+type="tXLingPap"
+></object
+> will try and load the newly created EBook into <object
+type="tTool"
+>Calibre</object
+>'s EBook viewer program.</p
+><p
+>If you wish to try and convert the resulting <object
+type="tTool"
+>EPUB</object
+> file to some other EBook format (such as <object
+type="tTool"
+>MOBI</object
+> for the Kindle), you can use the <object
+type="tInstruction"
+>Convert Books</object
+> capability of <object
+type="tTool"
+>Calibre</object
+>.  Please note, however, that the <object
+type="tTool"
+>MOBI</object
+> format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p
+><p
+>If you note any odd results or errors, please send an email message to <link
+href="mailto:andy_black@sil.org"
+>andy_black@sil.org</link
+>.</p
 ></section2
 ></section1
 ><section1
@@ -23897,6 +24029,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>publisherStyleSheetPublisher</object
+></dt
+><dd
+>The name of the publisher for which this is a style sheet</dd
+><dt
+><object
+type="tElement"
 >publisherStyleSheetVersion</object
 ></dt
 ><dd
@@ -25214,6 +25353,11 @@ id="iDissertationReferenceEntry"
 id="iDoulosSILFont"
 ><term
 >Doulos SIL font</term
+></indexTerm
+><indexTerm
+id="iEbook"
+><term
+>EBook in EPUB format</term
 ></indexTerm
 ><indexTerm
 id="iEditTool"

@@ -132,6 +132,10 @@
          <cfg:accelerator code="F8"/>
       </cfg:item>
 -->
+      <cfg:item command="EBookPrep"
+         label="_Produce EBook (in EPUB format)">
+         <cfg:accelerator code="F7" modifiers="shift ctrl"/>
+      </cfg:item>
       <cfg:separator/>
        <cfg:item command="ProducePDFViaXeLaTeX" label="Prod_uce PDF">
            <cfg:accelerator code="F9" />
@@ -158,7 +162,7 @@
            label="Produce Open O_ffice document">
            <cfg:accelerator code="F10" modifiers="ctrl"/>
        </cfg:item>
-       <cfg:separator/>
+      <cfg:separator/>
       <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">
          <cfg:accelerator code="F7" modifiers="shift"/>
       </cfg:item>

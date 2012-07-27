@@ -5,7 +5,7 @@
      Version 2.18.0
      (Revision history is at the end.)
   -->
-<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, publisherStyleSheetVersion?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
+<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
  >
@@ -31,6 +31,7 @@
 
 <!ELEMENT  publisherStyleSheetName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetVersion (#PCDATA)>
+<!ELEMENT  publisherStyleSheetPublisher  (#PCDATA)>
 
 <!-- 
   ===================================================

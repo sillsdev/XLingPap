@@ -240,7 +240,21 @@ li.lower-roman {
         <!--  We are not using CSS classes for the contents information because there are any number of
          section1, etc. items which can be embeded under appendix/nothing, etc. and it gets complicated quickly.
     <xsl:apply-templates select="styledPaper/lingPaper" mode="contents"/>
--->
+        -->
+<!--        <xsl:variable name="fonts" select="//@font-family"/>
+        Need following to embed a font in EPUB:
+        <xsl:text>
+@font-face {
+    font-family: "Charis SIL", serif;
+    font-weight: bold;
+    font-style:normal;
+    src:url(../../../../../Windows/Fonts/CharisSILB.ttf);
+}
+        </xsl:text>
+        <xsl:for-each select="$fonts">
+            <xsl:sort select="."/>
+            
+        </xsl:for-each>-->
     </xsl:template>
     <!--
         abbrRefLinkLayout

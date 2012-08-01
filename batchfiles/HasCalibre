@@ -1,0 +1,7 @@
+#!/bin/sh
+# following looks for calibreb in the path
+if [ "$(which calibredb)" != "" ]; then
+	echo XLingPaper-Yes-XLingPaper
+else
+	echo XLingPaper-No-XLingPaper
+fi

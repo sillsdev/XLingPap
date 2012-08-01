@@ -1350,7 +1350,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:test expression="not(contains('%_','Calibre'))"/>
-<!--                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.43 'Produce an EBook in EPUB Format' in the user documentation."/>-->
+                                <!--                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.43 'Produce an EBook in EPUB Format' in the user documentation."/>-->
                                 <cfg:command name="LocalizeString" parameter="msg.produceEBookNoCalibre"/>
                                 <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
@@ -1360,11 +1360,13 @@ What we want is to load IE independently and to do a refresh so it will show the
                         </cfg:choice>
                     </cfg:sequence>
                     <cfg:sequence>
-                        <cfg:command name="run" parameter="[Unix] which calibredb"/>
+                        <cfg:command name="run" parameter="[Unix] &quot;%{C}%{S}..%{S}batchfiles%{S}HasCalibre&quot;"/>
                         <cfg:choice>
                             <cfg:sequence>
-                                <cfg:test expression="string-length('%_')=0"/>
-                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.YY in the user documentation."/>
+                                <cfg:test expression="contains('%_', 'XLingPaper-No-XLingPaper')"/>
+                                <!--                                <cfg:command name="alert" parameter="Sorry, but it looks like you do not have Calibre installed.  See section 11.YY in the user documentation."/>-->
+                                <cfg:command name="LocalizeString" parameter="msg.produceEBookNoCalibre"/>
+                                <cfg:command name="alert" parameter="%_"/>
                             </cfg:sequence>
                             <cfg:sequence>
                                 <cfg:command name="ConvertToEPUBEBookProcessing"/>

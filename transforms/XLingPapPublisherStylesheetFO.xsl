@@ -3049,6 +3049,7 @@ not using
     <xsl:template match="pageWidth"/>
     <xsl:template match="paragraphIndent"/>
     <xsl:template match="publisherStyleSheetName"/>
+    <xsl:template match="publisherStyleSheetPublisher"/>
     <xsl:template match="publisherStyleSheetReferencesName"/>
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>

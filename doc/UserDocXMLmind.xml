@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->27 July 2012</date
+>2 August 2012</date
 ><version
->2.19.4_1</version
+>2.19.4_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -2143,7 +2143,7 @@ id="sFMAbstract"
 main="yes"
 term="iAbstract"
 ></indexedItem
->An abstract for the paper may be included by using the <object
+>An abstract for the paper or book may be included by using the <object
 type="tElement"
 >abstract</object
 > element. The content of the abstract may be a sequence of any "chunk" elements. (See endnote <endnoteRef
@@ -2161,17 +2161,6 @@ type="tAttribute"
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
-><p
-><indexedItem
-term="iPreface"
-></indexedItem
->Note that if one has an <object
-type="tElement"
->abstract</object
-> element, then one may not also have a <object
-type="tElement"
->preface</object
-> element.</p
 ></section2
 ><section2
 id="sFMPreface"
@@ -20630,21 +20619,21 @@ type="tXMLmindXMLEditor"
 > to produce a file in <object
 type="tTool"
 >EPUB</object
-> format for your document. This can be done for both papers and for books.  How does one do it?</p
+> format for your document. This can be done for both papers and for books. How does one do it?</p
 ><p
->First, you need to install the (free)  <object
+>First, you need to install the (free) <object
 type="tTool"
 >Calibre</object
-> program on your computer.  Go to <link
+> program on your computer. Go to <link
 href="http://calibre-ebook.com/"
 >http://calibre-ebook.com/</link
-> and download the version appropriate for your computer.  When you run the installer or the first time you run <object
+> and download the version appropriate for your computer. When you run the installer or the first time you run <object
 type="tTool"
 >Calibre</object
->, the welcome wizard will run.  <object
+>, the welcome wizard will run. <object
 type="tBold"
 >Very Important</object
->: You must use the default location for storing your books in the Calibre Library.  If you use some other location, <object
+>: You must use the default location for storing your books in the Calibre Library. If you use some other location, <object
 type="tXLingPap"
 ></object
 > will not be able to find it and thus will not succeed in producing the EBook for you.</p
@@ -20658,7 +20647,7 @@ type="tXLingPap"
 > will know that you have installed <object
 type="tTool"
 >Calibre</object
->.  When you have <object
+>. When you have <object
 type="tTool"
 >Calibre</object
 > running, use <object
@@ -20669,7 +20658,7 @@ type="tInstruction"
 >install command line tools</object
 >.</p
 ><p
->Second, this process only works when you have associated a publisher style sheet with your file.  See section <sectionRef
+>Second, this process only works when you have associated a publisher style sheet with your file. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 >.</p
@@ -20697,7 +20686,7 @@ type="tTool"
 >. If so, it then starts a four step process to convert your document into an EBook in <object
 type="tTool"
 >EPUB</object
-> format.  It may take quite a while depending on the size of your document. It will produce a file with the same name as your <object
+> format. It may take quite a while depending on the size of your document. It will produce a file with the same name as your <object
 type="tXLingPap"
 ></object
 > document file, but with an extension of <object
@@ -20706,7 +20695,7 @@ type="tInTextExample"
 >. This new file is in the same directory as your <object
 type="tXLingPap"
 ></object
-> document.   When it is done processing, there should be an audible beep and then <object
+> document. When it is done processing, there should be an audible beep and then <object
 type="tXLingPap"
 ></object
 > will try and load the newly created EBook into <object
@@ -20726,7 +20715,7 @@ type="tInstruction"
 > capability of <object
 type="tTool"
 >Calibre</object
->.  Please note, however, that the <object
+>. Please note, however, that the <object
 type="tTool"
 >MOBI</object
 > format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p

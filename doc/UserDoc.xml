@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->27 July 2012</date
+>2 August 2012</date
 ><version
->2.19.4_1</version
+>2.19.4_2</version
 ><contents
 showLevel="3"
 ></contents
@@ -492,7 +492,7 @@ id="sFMAbstract"
 ><secTitle
 >Abstract</secTitle
 ><p
->An abstract for the paper may be included by using the <object
+>An abstract for the paper or book may be included by using the <object
 type="tElement"
 >abstract</object
 > element. The content of the abstract may be a sequence of any "chunk" elements. (See endnote <endnoteRef
@@ -507,14 +507,6 @@ type="tXLingPap"
 type="tAttribute"
 >label</object
 > attribute to the title you want to use.</p
-><p
->Note that if one has an <object
-type="tElement"
->abstact</object
-> element, then one may not also have a <object
-type="tElement"
->preface</object
-> element.</p
 ></section2
 ><section2
 id="sFMPreface"

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-07-27</a:date
+>2012-08-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.19.4_1 27 July 2012<ul
+>2.19.4_1 2 August 2012<ul
+><li
+>Allow books to include an abstract in the front matter (e.g., in a thesis or a dissertation).</li
 ><li
 >Add ability to produce an EBook in EPUB format (requires installing Calibre).</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug where multiple endnotes in a free element would not format correctly.</li
+></ul
+></li
 ></ul
 ></li
 ><li

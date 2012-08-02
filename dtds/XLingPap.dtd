@@ -131,7 +131,7 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress?) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, (preface+ | abstract)?)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress?) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, abstract?, preface*)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED

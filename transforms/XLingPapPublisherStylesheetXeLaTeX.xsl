@@ -3384,7 +3384,9 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
+                <xsl:if test="$sTeXFootnoteKind!='footnotetext'">
+                    <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                         <tex:cmd name="footnotemark">
@@ -3460,6 +3462,14 @@
                             <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
                                 <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
                                 <xsl:if test="not(ancestor::interlinear-text) and not(ancestor::listDefinition) and not(ancestor::listSingle)">
+                                    <tex:opt>
+                                        <xsl:call-template name="DoFootnoteNumberInText">
+                                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                                        </xsl:call-template>
+                                    </tex:opt>
+                                </xsl:if>
+                                <xsl:if test="ancestor::interlinear-text and ancestor::free and following-sibling::endnote">
                                     <tex:opt>
                                         <xsl:call-template name="DoFootnoteNumberInText">
                                             <xsl:with-param name="originalContext" select="$originalContext"/>

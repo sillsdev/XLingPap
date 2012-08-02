@@ -21078,7 +21078,67 @@ type="tElement"
 > element. The <object
 type="tElement"
 >publishingInfo</object
-> element has two optional parts: the blurb and author contacts.</p
+> element has the optional attributes shown in example <exampleRef
+letter="xPublishingInfoAttributesForSectionRef"
+num="xPublishingInfoAttributesForSectionRef"
+></exampleRef
+> and two optional parts: the blurb and author contacts.</p
+><example
+num="xPublishingInfoAttributesForSectionRef"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>startingPageNumber</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is to set the starting page number if this document is being processed alone, yet needs to have a certain starting page number.  It should use regular Arabic numerals (0-9).</td
+></tr
+><tr
+><td
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>version</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is to notate what version this paper is in.  It is not output.</td
+></tr
+></table
+></example
 ><section2
 id="sPublishingBlurb"
 ><secTitle

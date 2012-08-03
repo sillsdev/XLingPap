@@ -241,13 +241,15 @@
                     </xsl:choose>
                     <!-- somewhere there's an opening bracket... -->
                     <!--                    <tex:spec cat="eg"/>-->
+                    <xsl:if test="$bHasContents='Y'">
+                        <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
+                    </xsl:if>
+                    <xsl:if test="$bHasIndex='Y'">
+                        <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
+                    </xsl:if>
+                    <!-- every once in a great while, the running headers and footers will be wrong on the last page; this \pagebreak fixes it -->
+                    <tex:cmd name="pagebreak" gr="0"/>
                 </tex:env>
-                <xsl:if test="$bHasContents='Y'">
-                    <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
-                </xsl:if>
-                <xsl:if test="$bHasIndex='Y'">
-                    <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
-                </xsl:if>
             </tex:env>
         </tex:TeXML>
     </xsl:template>

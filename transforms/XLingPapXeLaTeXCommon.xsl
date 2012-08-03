@@ -6377,6 +6377,10 @@
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            </xsl:if>
             <tex:env name="longtable">
                 <tex:opt>l</tex:opt>
                 <tex:parm>
@@ -6401,6 +6405,9 @@
                     <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
                 </xsl:call-template>
             </tex:env>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--

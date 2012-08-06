@@ -1436,7 +1436,9 @@
         <xsl:if test="not(ancestor::figure or ancestor::tablenumbered or ancestor::example)">
             <tex:cmd name="vspace" nl1="1">
                 <tex:parm>
-                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <xsl:call-template name="GetCurrentPointSize">
+                        <xsl:with-param name="bAddGlue" select="'Y'"/>
+                    </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
@@ -3153,6 +3155,33 @@
                         </xsl:for-each>
                     </xsl:when>
                 </xsl:choose>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        DefineBlockQuoteWithIndent
+    -->
+    <xsl:template name="DefineBlockQuoteWithIndent">
+        <tex:cmd name="renewenvironment">
+            <tex:parm>quotation</tex:parm>
+            <tex:parm>
+                <tex:cmd name="list">
+                    <tex:parm/>
+                    <tex:parm>
+                        <tex:cmd name="leftmargin" gr="0"/>
+                        <xsl:text>=</xsl:text>
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <tex:cmd name="rightmargin" gr="0"/>
+                        <xsl:text>=</xsl:text>
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="item">
+                    <tex:opt/>
+                </tex:cmd>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="endlist" gr="0"/>
             </tex:parm>
         </tex:cmd>
     </xsl:template>
@@ -5225,6 +5254,7 @@
         GetCurrentPointSize
     -->
     <xsl:template name="GetCurrentPointSize">
+        <xsl:param name="bAddGlue" select="'N'"/>
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
                 <xsl:value-of select="$sFootnotePointSize"/>
@@ -5234,6 +5264,9 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>pt</xsl:text>
+        <xsl:if test="$bAddGlue='Y'">
+            <xsl:text> plus 2pt minus 1pt</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--  
         GetHyphenationLanguage
@@ -7527,16 +7560,34 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="not(ancestor::endnote)">
-                <tex:cmd name="vspace*">
-                    <tex:parm>
-                        <xsl:text>-</xsl:text>
-                        <tex:cmd name="baselineskip" gr="0"/>
-                    </tex:parm>
-                </tex:cmd>
-                <xsl:if test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <tex:spec cat="esc"/>
-                    <xsl:text>singlespacing</xsl:text>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                        <tex:spec cat="esc"/>
+                        <xsl:text>singlespacing</xsl:text>
+                        <tex:cmd name="vspace*">
+                            <tex:parm>
+                                <xsl:text>-</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="$sLineSpacing='double'">
+                                        <xsl:text>2</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                        <xsl:text>1.5</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="vspace*">
+                            <tex:parm>
+                                <xsl:text>-</xsl:text>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>                
             </xsl:when>
             <!--            <xsl:otherwise> </xsl:otherwise>-->
         </xsl:choose>

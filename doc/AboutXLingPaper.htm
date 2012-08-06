@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.5_1</span></p>
-      <p align="center">Date: 2012-08-03</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.6_1</span></p>
+      <p align="center">Date: 2012-08-06</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,16 +34,32 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.19.6_1 6 August 2012
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>In a book, the appendix was layed out according to the chapter layout, not the appendix layout information.</li>
+                           <li>Improve page breaking (by adding some TeX glue to key items; sorry, I had mistakenly understood that these items already had
+                              some TeX glue, but they did not).
+                           </li>
+                           <li>Do not show a paragraph that consists merely of a comment.</li>
+                           <li>If one is using double spacing or space-and-a-half as well as putting table captions before the table, then there was too
+                              much vertical space between the caption and the table.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.19.5_1 3 August 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
                            <li>When there was an associated publisher style sheet, once in a great while the final page of the document would have the wrong
-                              running header and footer.  This is fixed.
+                              running header and footer. This is fixed.
                            </li>
                            <li>When there was an associated publisher style sheet that used double or space-and-a-half spacing for text but single-spacing
                               for tables, when abbreviations were shown in a preface, appendix, or glossary, the abbreviations used double or space-and-a-half
-                              instead of single spacing.  This is fixed.
+                              instead of single spacing. This is fixed.
                            </li>
                         </ul>
                      </li>

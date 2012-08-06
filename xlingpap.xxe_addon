@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.5_1</a:version
+>2.19.6_1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-08-03</a:date
+>2012-08-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,29 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.19.6_1 6 August 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>In a book, the appendix was layed out according to the chapter layout, not the appendix layout information.</li
+><li
+>Improve page breaking (by adding some TeX glue to key items; sorry, I had mistakenly understood that these items already had some TeX glue, but they did not).</li
+><li
+>Do not show a paragraph that consists merely of a comment.</li
+><li
+>If one is using double spacing or space-and-a-half as well as putting table captions before the table, then there was too much vertical space between the caption and the table.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.19.5_1 3 August 2012<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
->When there was an associated publisher style sheet, once in a great while the final page of the document would have the wrong running header and footer.  This is fixed.</li
+>When there was an associated publisher style sheet, once in a great while the final page of the document would have the wrong running header and footer. This is fixed.</li
 ><li
->When there was an associated publisher style sheet that used double or space-and-a-half spacing for text but single-spacing for tables, when abbreviations were shown in a preface, appendix, or glossary, the abbreviations used double or space-and-a-half instead of single spacing.  This is fixed.</li
+>When there was an associated publisher style sheet that used double or space-and-a-half spacing for text but single-spacing for tables, when abbreviations were shown in a preface, appendix, or glossary, the abbreviations used double or space-and-a-half instead of single spacing. This is fixed.</li
 ></ul
 ></li
 ></ul

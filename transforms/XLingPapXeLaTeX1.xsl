@@ -100,7 +100,21 @@
             </tex:cmd>
             <xsl:call-template name="SetSpecialTextSymbols"/>
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
+            <xsl:call-template name="DefineBlockQuoteWithIndent"/>
+            <tex:cmd name="clubpenalty" gr="0"/>
+            <xsl:text>=10000
+            </xsl:text>
+            <tex:cmd name="widowpenalty" gr="0"/>
+            <xsl:text>=10000
+            </xsl:text>
             <tex:env name="document">
+                <!-- add some glue to baselineskip -->
+                <tex:cmd name="baselineskip" gr="0"/>
+                <xsl:text>=</xsl:text>
+                <tex:cmd name="glueexpr" gr="0"/>
+                <tex:cmd name="baselineskip" gr="0"/>
+                <xsl:text> + 0pt plus 2pt minus 1pt</xsl:text>
+                <tex:cmd name="relax" gr="0" nl2="1"/>
                 <xsl:call-template name="CreateAllNumberingLevelIndentAndWidthCommands"/>
                 <tex:spec cat="esc"/>
                 <xsl:text>newdimen</xsl:text>
@@ -972,6 +986,9 @@
             <xsl:when test="string-length(.)=0 and count(*)=0">
                 <!-- this paragraph is empty; do nothing -->
             </xsl:when>
+            <xsl:when test="count(child::node())=1 and name(child::node())='comment'">
+                <!-- this paragraph is effectively empty since all it has is a comment; do nothing -->
+            </xsl:when>
             <xsl:when test="parent::endnote and name()='p' and not(preceding-sibling::p)">
                 <!--  and position()='1'" -->
                 <xsl:call-template name="OutputTypeAttributes">
@@ -1136,16 +1153,22 @@
             <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text'">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
             <xsl:if test="parent::li and name($precedingSibling)!='example' and name($precedingSibling)!='p' and name($precedingSibling)!='pc' ">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -1252,8 +1275,11 @@
             <xsl:if test="name($followingSibling)='p' or name($followingSibling)='pc' or name($followingSibling)='table' or name($followingSibling)='chart' or name($followingSibling)='tree' or name($followingSibling)='interlinear-text' or parent::li and not(name($followingSibling)='example')">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -1495,15 +1521,21 @@
                 -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoFigure"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
@@ -1575,15 +1607,21 @@
                 -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoTableNumbered"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
@@ -3664,8 +3702,11 @@
     <xsl:template name="DoTableNumbered">
         <tex:cmd name="vspace">
             <tex:parm>
-                <xsl:value-of select="$sBasicPointSize"/>
-                <xsl:text>pt</xsl:text>
+                <!--    <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:text>pt</xsl:text>-->
+                <xsl:call-template name="GetCurrentPointSize">
+                    <xsl:with-param name="bAddGlue" select="'Y'"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalTargetBegin">
@@ -4199,7 +4240,13 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <tex:cmd name="vspace" nl1="1" nl2="1">
-                            <tex:parm><xsl:value-of select="$sBasicPointSize"/>pt</tex:parm>
+                            <tex:parm>
+                                <!--    <xsl:value-of select="$sBasicPointSize"/>
+                                <xsl:text>pt</xsl:text>-->
+                                <xsl:call-template name="GetCurrentPointSize">
+                                    <xsl:with-param name="bAddGlue" select="'Y'"/>
+                                </xsl:call-template>
+                            </tex:parm>
                         </tex:cmd>
                         <xsl:call-template name="OKToBreakHere"/>
                     </xsl:otherwise>
@@ -4319,7 +4366,13 @@
         <tex:cmd name="par"/>
         <xsl:call-template name="DoNotBreakHere"/>
         <tex:cmd name="vspace" nl1="1" nl2="1">
-            <tex:parm><xsl:value-of select="$sBasicPointSize"/>pt</tex:parm>
+            <tex:parm>
+            <!--    <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:text>pt</xsl:text>-->
+                <xsl:call-template name="GetCurrentPointSize">
+                    <xsl:with-param name="bAddGlue" select="'Y'"/>
+                </xsl:call-template>
+            </tex:parm>
         </tex:cmd>
     </xsl:template>
     <xsl:template name="GetHeaderTitleForFrontOrBackMatter">
@@ -4679,8 +4732,11 @@
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
                 <tex:parm>
-                    <xsl:value-of select="$sBasicPointSize"/>
-                    <xsl:text>pt</xsl:text>
+                <!--    <xsl:value-of select="$sBasicPointSize"/>
+                    <xsl:text>pt</xsl:text>-->
+                    <xsl:call-template name="GetCurrentPointSize">
+                        <xsl:with-param name="bAddGlue" select="'Y'"/>
+                    </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>

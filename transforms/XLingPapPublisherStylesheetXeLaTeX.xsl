@@ -159,7 +159,20 @@
             </xsl:if>
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="CreateClearEmptyDoublePageCommand"/>
+            <xsl:call-template name="DefineBlockQuoteWithIndent"/>
+            <tex:cmd name="clubpenalty" gr="0" nl1="1"/>
+            <xsl:text>=10000
+</xsl:text>
+            <tex:cmd name="widowpenalty" gr="0"/>
+            <xsl:text>=10000</xsl:text>
             <tex:env name="document">
+                <!-- add some glue to baselineskip -->
+                <tex:cmd name="baselineskip" gr="0"/>
+                <xsl:text>=</xsl:text>
+                <tex:cmd name="glueexpr" gr="0"/>
+                <tex:cmd name="baselineskip" gr="0"/>
+                <xsl:text> + 0pt plus 2pt minus 1pt</xsl:text>
+                <tex:cmd name="relax" gr="0" nl2="1"/>
                 <tex:cmd name="renewcommand" nl2="1">
                     <tex:parm>
                         <tex:spec cat="esc"/>
@@ -958,14 +971,34 @@
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
         <!--<xsl:call-template name="DoBookMark"/>-->
+        <xsl:variable name="numberLayoutToUse">
+            <xsl:choose>
+                <xsl:when test="name()='appendix'">
+                    <xsl:copy-of select="$backMatterLayoutInfo/appendixLayout/numberLayout"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="titleLayoutToUse">
+            <xsl:choose>
+                <xsl:when test="name()='appendix'">
+                    <xsl:copy-of select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:choose>
-            <xsl:when test="$bodyLayoutInfo/chapterLayout/numberLayout">
+            <xsl:when test="$numberLayoutToUse">
                 <!--<xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>-->
                 <tex:group>
                     <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                         <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
                                content of the hypertarget be empty, we suddenly got an extra page break here.
                         -->
@@ -981,7 +1014,7 @@
                         </xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                     </xsl:call-template>
                     <xsl:variable name="contentForThisElement">
                         <xsl:call-template name="OutputChapTitle">
@@ -990,42 +1023,42 @@
                             </xsl:with-param>
                         </xsl:call-template>
                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:call-template name="DoTitleFormatInfoEnd">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
                     </xsl:call-template>
                 </tex:group>
                 <xsl:call-template name="DoInternalTargetEnd"/>
                 <tex:cmd name="par" nl2="1"/>
                 <xsl:call-template name="DoSpaceAfter">
-                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                 </xsl:call-template>
                 <tex:group>
                     <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                     </xsl:call-template>
                     <xsl:apply-templates select="secTitle"/>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                     </xsl:call-template>
                     <xsl:variable name="contentForThisElement2">
                         <xsl:apply-templates select="secTitle"/>
                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:call-template name="DoTitleFormatInfoEnd">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
                     </xsl:call-template>
                 </tex:group>
             </xsl:when>
             <xsl:otherwise>
                 <tex:group>
-                    <xsl:variable name="sTextTransform" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@text-transform"/>
+                    <xsl:variable name="sTextTransform" select="$titleLayoutToUse/descendant-or-self::*/@text-transform"/>
                     <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                         <xsl:call-template name="DoBookMark"/>
                         <xsl:call-template name="DoInternalTargetBegin">
@@ -1033,7 +1066,7 @@
                         </xsl:call-template>
                     </xsl:if>
                     <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
                             content of the hypertarget be empty, we suddenly got an extra page break here.
                         -->
@@ -1053,16 +1086,16 @@
                     <xsl:call-template name="DoInternalTargetEnd"/>
                     <xsl:apply-templates select="secTitle"/>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                     </xsl:call-template>
                     <xsl:variable name="contentForThisElement2">
                         <xsl:apply-templates select="secTitle"/>
                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:call-template name="DoTitleFormatInfoEnd">
-                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
                     </xsl:call-template>
                 </tex:group>
@@ -1070,7 +1103,7 @@
         </xsl:choose>
         <tex:cmd name="par" nl2="1"/>
         <xsl:call-template name="DoSpaceAfter">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+            <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -1426,6 +1459,9 @@
         <xsl:choose>
             <xsl:when test="string-length(.)=0 and count(*)=0">
                 <!-- this paragraph is empty; do nothing -->
+            </xsl:when>
+            <xsl:when test="count(child::node())=1 and name(child::node())='comment'">
+                <!-- this paragraph is effectively empty since all it has is a comment; do nothing -->
             </xsl:when>
             <xsl:when test="parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                 <!-- we're in a footnote now -->
@@ -1839,16 +1875,22 @@
             <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text'">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--<xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
             <xsl:if test="parent::li and name($precedingSibling)!='example' and name($precedingSibling)!='p' and name($precedingSibling)!='pc' ">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                        <!--<xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -1954,8 +1996,11 @@
             <xsl:if test="name($followingSibling)='p' or name($followingSibling)='pc' or name($followingSibling)='table' or name($followingSibling)='chart' or name($followingSibling)='tree' or name($followingSibling)='interlinear-text' or parent::li and not(name($followingSibling)='example')">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -2040,15 +2085,21 @@
                 <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoFigure"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
@@ -2178,16 +2229,21 @@
                 <!--  why do we do this?? -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
-
                 <xsl:call-template name="DoTableNumbered"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                        <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                        <xsl:call-template name="GetCurrentPointSize">
+                            <xsl:with-param name="bAddGlue" select="'Y'"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
@@ -4339,7 +4395,7 @@
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <xsl:value-of select="$sExtraSpace"/>
-                        <xsl:text>pt</xsl:text>
+                        <xsl:text>pt plus 2pt minus 1pt</xsl:text>
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -4636,8 +4692,11 @@
         <!--  why do we do this?? -->
         <tex:cmd name="vspace">
             <tex:parm>
-                <xsl:value-of select="$sBasicPointSize"/>
-                <xsl:text>pt</xsl:text>
+<!--                <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:text>pt</xsl:text>-->
+                <xsl:call-template name="GetCurrentPointSize">
+                    <xsl:with-param name="bAddGlue" select="'Y'"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">

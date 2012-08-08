@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 July 2012</date
+>8 August 2012</date
 ><version
->2.19.0</version
+>2.19.7_2</version
 ><contents
 showLevel="6"
 ></contents
@@ -1012,7 +1012,19 @@ src="resources/HeaderFooterRegular.png"
 letter="xHeaderFooterElements"
 num="xHeaderFooterElements"
 ></exampleRef
-> shows the possible elements to put in these six places.</p
+> shows the possible elements to put in these six places.  When you are editing a style sheet via the <object
+type="tXMLmindXMLEditor"
+></object
+>, you will need to click on an item and then do a <object
+type="tInstruction"
+>Replace</object
+> or <object
+type="tInstruction"
+>Convert</object
+> operation. Please note that if it is empty (because it is a <object
+type="tElement"
+>nothing</object
+> element, you may have to click to the left (for the left-most cell), the middle (for the middle cell), or to the right (for the right-most cell) in order to select the element.</p
 ><example
 num="xHeaderFooterElements"
 ><table
@@ -10970,6 +10982,48 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iUseEmptyHeaderFooter"
+></indexedItem
+><object
+type="tAttribute"
+>useemptyheaderfooter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not the item should use an empty (i.e., blank) header and footer. This only works with the <object
+type="tXeTeX"
+></object
+> way of producing PDF. The default value is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iUseTitleInHeaderAttribute"
 ></indexedItem
 ><object
@@ -12475,6 +12529,11 @@ id="iUseEndnotesLayout"
 id="iUseBlankExtraPage"
 ><term
 >Use blank extra page attribute</term
+></indexTerm
+><indexTerm
+id="iUseEmptyHeaderFooter"
+><term
+>Use an empty header and footer attribute</term
 ></indexTerm
 ><indexTerm
 id="iUseTitleInHeaderAttribute"

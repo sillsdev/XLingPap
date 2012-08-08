@@ -210,6 +210,7 @@
                 <xsl:call-template name="SetInterlinearSourceLength"/>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
+                <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperFreeMacro"/>
@@ -1531,7 +1532,7 @@
                         </xsl:if>
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
-                    <xsl:when test="parent::blockquote and count(preceding-sibling::p)=0">
+                    <xsl:when test="parent::blockquote and count(preceding-sibling::node())=0">
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1872,7 +1873,7 @@
         </xsl:if>
         <tex:group>
             <xsl:variable name="precedingSibling" select="preceding-sibling::*[1]"/>
-            <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text'">
+            <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text' or parent::blockquote and not($precedingSibling)">
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <!--<xsl:value-of select="$sBasicPointSize"/>
@@ -1996,7 +1997,7 @@
             <xsl:if test="name($followingSibling)='p' or name($followingSibling)='pc' or name($followingSibling)='table' or name($followingSibling)='chart' or name($followingSibling)='tree' or name($followingSibling)='interlinear-text' or parent::li and not(name($followingSibling)='example')">
                 <tex:cmd name="vspace">
                     <tex:parm>
-                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
                         <xsl:call-template name="GetCurrentPointSize">
                             <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -2085,7 +2086,7 @@
                 <!--  cannot have endnotes in floats... If the user says, Put it here, don't treat it like a float -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
                         <xsl:call-template name="GetCurrentPointSize">
                             <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -2095,7 +2096,7 @@
                 <xsl:call-template name="DoFigure"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
                         <xsl:call-template name="GetCurrentPointSize">
                             <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -2229,7 +2230,7 @@
                 <!--  why do we do this?? -->
                 <tex:cmd name="vspace">
                     <tex:parm>
-                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
                         <xsl:call-template name="GetCurrentPointSize">
                             <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -2239,7 +2240,7 @@
                 <xsl:call-template name="DoTableNumbered"/>
                 <tex:cmd name="vspace">
                     <tex:parm>
-                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
                         <xsl:call-template name="GetCurrentPointSize">
                             <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -2841,6 +2842,10 @@
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--
       glossary
@@ -3554,6 +3559,10 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- an endnote ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--  
       DoEndnotes
@@ -3922,12 +3931,13 @@
     <xsl:template name="DoFrontMatterFormatInfoBegin">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="originalContext"/>
-        <xsl:if test="not($layoutInfo/../@beginsparagraph='yes')">
+        <xsl:param name="fSpaceBeforeAlreadyDone" select="'N'"/>
+        <xsl:if test="not($layoutInfo/../@beginsparagraph='yes') and $fSpaceBeforeAlreadyDone='N'">
             <xsl:call-template name="DoSpaceBefore">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left'">
+        <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left' or $layoutInfo/@textalign='center'">
             <tex:cmd name="noindent" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="OutputFontAttributes">
@@ -4010,6 +4020,7 @@
         <tex:cmd name="pagenumbering" nl2="1">
             <tex:parm>roman</tex:parm>
         </tex:cmd>
+        <xsl:call-template name="SetStartingPageNumber"/>
         <xsl:if test="$frontMatterLayoutInfo/headerFooterPageStyles">
             <tex:cmd name="pagestyle">
                 <tex:parm>frontmattertitle</tex:parm>
@@ -4025,7 +4036,14 @@
     <xsl:template name="DoBookFrontMatterPagedStuffPerLayout">
         <xsl:param name="frontMatter"/>
         <xsl:if test="$frontMatterLayoutInfo/headerFooterPageStyles">
-            <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>
+            <xsl:choose>
+                <xsl:when test="$frontMatterLayoutInfo/titleLayout/@startonoddpage='yes'">
+                    <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>        
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="clearpage" gr="0" nl2="1"/>                    
+                </xsl:otherwise>
+            </xsl:choose>
             <tex:cmd name="pagestyle">
                 <tex:parm>frontmatter</tex:parm>
             </tex:cmd>
@@ -4692,7 +4710,7 @@
         <!--  why do we do this?? -->
         <tex:cmd name="vspace">
             <tex:parm>
-<!--                <xsl:value-of select="$sBasicPointSize"/>
+                <!--                <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>-->
                 <xsl:call-template name="GetCurrentPointSize">
                     <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -4886,6 +4904,7 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="originalContext"/>
         <xsl:param name="fDoPageBreakFormatInfo" select="'Y'"/>
+        <xsl:param name="fSpaceBeforeAlreadyDone" select="'N'"/>
         <xsl:if test="$fDoPageBreakFormatInfo='Y'">
             <xsl:call-template name="DoPageBreakFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -4894,6 +4913,7 @@
         <xsl:call-template name="DoFrontMatterFormatInfoBegin">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="fSpaceBeforeAlreadyDone" select="$fSpaceBeforeAlreadyDone"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -6168,7 +6188,14 @@
                 </xsl:if>
                 <tex:cmd name="thispagestyle">
                     <tex:parm>
-                        <xsl:value-of select="$sFirstPageStyle"/>
+                        <xsl:choose>
+                            <xsl:when test="$layoutInfo/@useemptyheaderfooter='yes'">
+                                <xsl:text>empty</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sFirstPageStyle"/>        
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
@@ -6176,7 +6203,38 @@
         <tex:group nl1="1" nl2="1">
             <xsl:call-template name="DoTitleNeedsSpace"/>
             <xsl:variable name="sTextTransform" select="$layoutInfo/@text-transform"/>
+            <xsl:choose>
+                <xsl:when test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                    <xsl:call-template name="DoSpaceBefore">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    </xsl:call-template>
+                    <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left' or $layoutInfo/@textalign='center'">
+                        <tex:cmd name="noindent" gr="0" nl2="1"/>
+                    </xsl:if>
+                    <xsl:call-template name="DoBookMark"/>
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="$id"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="originalContext" select="$sTitle"/>
+                        <xsl:with-param name="fDoPageBreakFormatInfo" select="$fDoPageBreakFormatInfo"/>
+                        <xsl:with-param name="fSpaceBeforeAlreadyDone" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="originalContext" select="$sTitle"/>
+                        <xsl:with-param name="fDoPageBreakFormatInfo" select="$fDoPageBreakFormatInfo"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+<!--            
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                <xsl:call-template name="DoSpaceBefore">
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="$id"/>
@@ -6187,7 +6245,7 @@
                 <xsl:with-param name="originalContext" select="$sTitle"/>
                 <xsl:with-param name="fDoPageBreakFormatInfo" select="$fDoPageBreakFormatInfo"/>
             </xsl:call-template>
-            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+-->            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="$id"/>

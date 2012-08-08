@@ -71,6 +71,7 @@
        -->
 <!ENTITY % titleformatinfo "
      usetitleinheader (yes | no) 'yes'
+     useemptyheaderfooter (yes | no) 'no'
      %pagebreakformatinfo;
      %frontmatterformatinfo;"
      >

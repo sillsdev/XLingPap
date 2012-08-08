@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 August 2012</date
+>8 August 2012</date
 ><version
->2.19.4_2</version
+>2.19.7_2</version
 ><contents
 showLevel="4"
 ></contents
@@ -21105,9 +21105,18 @@ lang="lEng"
 ></tr
 ><tr
 ><td
-> <langData
+><langData
 lang="lEng"
-> <object
+> <indexedItem
+term="iStartingPageNumber"
+></indexedItem
+><indexedItem
+term="iDissertation"
+></indexedItem
+><indexedItem
+term="iThesis"
+></indexedItem
+><object
 type="tAttribute"
 >startingPageNumber</object
 > </langData
@@ -21118,11 +21127,14 @@ lang="lEng"
 >(user control)</langData
 ></td
 ><td
->This is to set the starting page number if this document is being processed alone, yet needs to have a certain starting page number.  It should use regular Arabic numerals (0-9).</td
+>This is to set the starting page number if this document is being processed alone, yet needs to have a certain starting page number. It should use regular Arabic numerals (0-9).  If the document is a book, then this number will be used for the first page of the front matter.  The body will still start at page 1.  (This can be useful for a thesis or a dissertation or other book where some of the front matter needs special formatting outside the purview of <object
+type="tXLingPap"
+></object
+>.)</td
 ></tr
 ><tr
 ><td
-> <langData
+><langData
 lang="lEng"
 > <object
 type="tAttribute"
@@ -21135,7 +21147,7 @@ lang="lEng"
 >(user control)</langData
 ></td
 ><td
->This is to notate what version this paper is in.  It is not output.</td
+>This is to notate what version this paper is in. It is not output.</td
 ></tr
 ></table
 ></example
@@ -26194,6 +26206,11 @@ see="iSpecialSymbol"
 id="iSpellingTool"
 ><term
 >Spelling Tool</term
+></indexTerm
+><indexTerm
+id="iStartingPageNumber"
+><term
+>Starting page number</term
 ></indexTerm
 ><indexTerm
 id="iStyleSheet"

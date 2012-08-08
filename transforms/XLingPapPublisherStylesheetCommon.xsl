@@ -2793,6 +2793,16 @@
                         <xsl:text>-</xsl:text>
                         <xsl:value-of select="substring($endPage,2)"/>
                     </xsl:when>
+                    <xsl:when test="string-length($startPage) = 4 and string-length($endPage) = 4 and substring($startPage,1,2)=substring($endPage,1,2)">
+                        <xsl:value-of select="$startPage"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="substring($endPage,3)"/>
+                    </xsl:when>
+                    <xsl:when test="string-length($startPage) = 5 and string-length($endPage) = 5 and substring($startPage,1,3)=substring($endPage,1,3)">
+                        <xsl:value-of select="$startPage"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="substring($endPage,4)"/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$normalizedPages"/>
                     </xsl:otherwise>

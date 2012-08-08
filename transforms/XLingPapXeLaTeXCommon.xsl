@@ -213,17 +213,24 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
-        <tex:env name="quotation">
-            <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="OutputTypeAttributesEnd">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <!--                    <xsl:call-template name="DoTypeEnd"/>-->
-        </tex:env>
+        <!--        <tex:env name="quotation">-->
+        <tex:cmd name="XLingPaperblockquote">
+            <tex:parm>
+                <xsl:value-of select="$sBlockQuoteIndent"/>
+            </tex:parm>
+            <tex:parm>
+                <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
+                <xsl:call-template name="OutputTypeAttributes">
+                    <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+                <xsl:call-template name="OutputTypeAttributesEnd">
+                    <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                </xsl:call-template>
+            </tex:parm>
+        </tex:cmd>
+        <!--                    <xsl:call-template name="DoTypeEnd"/>-->
+        <!--        </tex:env>-->
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
             <tex:spec cat="eg"/>
         </xsl:if>
@@ -236,6 +243,20 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>-->
+    </xsl:template>
+<!-- 
+       initial text in a block quote
+-->    
+    <xsl:template match="text()[parent::blockquote][string-length(normalize-space(.))&gt;0]">
+        <xsl:value-of select="."/>
+        <xsl:if test="following-sibling::*[1][name()='p'or name()='pc' or name()='example' or name()='table' or name()='tablenumbered' or name()='chart' or name()='figure' or name()='tree' or name()='ol' or name()='ul' or name()='dl']">
+            <!-- any chunk item following requires a \par here -->
+            <tex:cmd name="par"/>
+        </xsl:if>
+        <xsl:if test="count(following-sibling::*)=0">
+            <!-- if all there is is text, still need a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         PROSE TEXT
@@ -7587,7 +7608,7 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:otherwise>
-                </xsl:choose>                
+                </xsl:choose>
             </xsl:when>
             <!--            <xsl:otherwise> </xsl:otherwise>-->
         </xsl:choose>
@@ -8469,17 +8490,7 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
-        <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
-        <xsl:if test="string-length($sStartingPageNumber) &gt; 0">
-            <tex:cmd name="setcounter">
-                <tex:parm>
-                    <xsl:text>page</xsl:text>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="$sStartingPageNumber"/>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:if>
+        <xsl:call-template name="SetStartingPageNumber"/>
     </xsl:template>
     <!--  
         SetSpecialTextSymbols
@@ -8499,6 +8510,22 @@
             <tex:parm>EU1</tex:parm>
             <tex:parm>93</tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetStartingPageNumber
+    -->
+    <xsl:template name="SetStartingPageNumber">
+        <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+        <xsl:if test="string-length($sStartingPageNumber) &gt; 0">
+            <tex:cmd name="setcounter">
+                <tex:parm>
+                    <xsl:text>page</xsl:text>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sStartingPageNumber"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetTeXCommand
@@ -9345,6 +9372,64 @@ What might go in a TeX package file
                 <tex:cmd name="XLingPaperinterwordskip" gr="0"/>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperBlockQuoteMacro
+    -->
+    <xsl:template name="SetXLingPaperBlockQuoteMacro">
+        <!-- based on the borrowed set toc macro from LaTeX's latex.ltx file 
+            #1 is the blockquote indent
+            #2 is the content of the block quote
+        -->
+        <xsl:if test="//blockquote">
+            <!--            \newcommand{\XLingPaperblockquote}[2]{
+            \vskip\baselineskip{
+            \leftskip#1\relax% left glue for indent
+            \rightskip#1\relax% right glue for indent
+            \interlinepenalty10000
+            \leavevmode
+            \hskip-\parindent
+            {#2}\nobreak
+            }\vskip\baselineskip}
+-->
+            <tex:cmd name="newcommand" nl2="1">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperblockquote" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:opt>2</tex:opt>
+                <tex:parm>
+                    <tex:cmd name="vskip" gr="0" nl2="0"/>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                    <tex:group>
+                        <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> left glue for indent</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:cmd name="rightskip" gr="0" nl1="1" nl2="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> right glue for indent</xsl:text>
+                        <tex:cmd name="interlinepenalty10000" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="leavevmode" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="hskip" gr="0" nl2="0"/>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="parindent" gr="0" nl2="0"/>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                        <tex:spec cat="eg"/>
+                        <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                    </tex:group>
+                    <tex:cmd name="vskip" gr="0" nl2="0"/>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetXLingPaperDotFillMacro

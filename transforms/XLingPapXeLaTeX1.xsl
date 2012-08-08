@@ -138,6 +138,7 @@
                 <xsl:call-template name="SetInterlinearSourceLength"/>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
+                <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperFreeMacro"/>
@@ -1015,6 +1016,10 @@
                     <!-- we're in a list, so we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
                     <tex:cmd name="par"/>
                 </xsl:if>
+                <xsl:if test="following-sibling::*[1][name()='blockquote']">
+                    <!-- we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
+                    <tex:cmd name="par"/>
+                </xsl:if>
             </xsl:when>
             <xsl:when test="parent::endnote and name()='p' and preceding-sibling::table[1]">
                 <tex:cmd name="par"/>
@@ -1050,7 +1055,7 @@
                         </xsl:if>
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
-                    <xsl:when test="parent::blockquote and count(preceding-sibling::p)=0">
+                    <xsl:when test="parent::blockquote and count(preceding-sibling::node())=0">
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1150,7 +1155,7 @@
         </xsl:if>
         <tex:group>
             <xsl:variable name="precedingSibling" select="preceding-sibling::*[1]"/>
-            <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text'">
+            <xsl:if test="name($precedingSibling)='p' or name($precedingSibling)='pc' or name($precedingSibling)='example' or name($precedingSibling)='table' or name($precedingSibling)='chart' or name($precedingSibling)='tree' or name($precedingSibling)='interlinear-text' or parent::blockquote and not($precedingSibling)">
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <!--    <xsl:value-of select="$sBasicPointSize"/>
@@ -1415,6 +1420,10 @@
                 </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- an endnote ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoEndnoteRefNumber
@@ -1894,6 +1903,10 @@
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="parent::blockquote and count(following-sibling::text())=0 and not(following-sibling::endnote)">
+            <!-- a citation ends the initial text in a blockquote; need to insert a \par -->
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!--
       glossary

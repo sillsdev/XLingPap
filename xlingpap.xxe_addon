@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.6_1</a:version
+>2.19.7_2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-08-06</a:date
+>2012-08-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,26 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.19.7_2 8 August 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>In a book with a publisher style sheet, in the front matter, any space before values were not correct.</li
+><li
+>With a publisher style sheet, titles were not always properly centered.</li
+><li
+>In a book, the starting page number did not work. This is fixed.</li
+><li
+>Rework how block quotes are done so they work correctly. The initial text/paragraph will never have an indent, while following paragraphs will (unless they are pc elements).</li
+></ul
+></li
+><li
+>For a book using a publisher style sheet, include an option for a given front or back matter item to have empty headers and footers (needed by some institutions for abstracts in theses).</li
+><li
+>Fix a bug: When a publisher style sheet is set to remove common hundreds digits in page numbers and the page numbers are in the thousands, it failed to remove the digits.</li
+></ul
+></li
 ><li
 >2.19.6_1 6 August 2012<ul
 ><li

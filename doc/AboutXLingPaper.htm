@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.6_1</span></p>
-      <p align="center">Date: 2012-08-06</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.19.7_2</span></p>
+      <p align="center">Date: 2012-08-08</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,26 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.19.7_2 8 August 2012
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>In a book with a publisher style sheet, in the front matter, any space before values were not correct.</li>
+                           <li>With a publisher style sheet, titles were not always properly centered.</li>
+                           <li>In a book, the starting page number did not work. This is fixed.</li>
+                           <li>Rework how block quotes are done so they work correctly. The initial text/paragraph will never have an indent, while following
+                              paragraphs will (unless they are pc elements).
+                           </li>
+                        </ul>
+                     </li>
+                     <li>For a book using a publisher style sheet, include an option for a given front or back matter item to have empty headers and
+                        footers (needed by some institutions for abstracts in theses).
+                     </li>
+                     <li>Fix a bug: When a publisher style sheet is set to remove common hundreds digits in page numbers and the page numbers are in
+                        the thousands, it failed to remove the digits.
+                     </li>
+                  </ul>
+               </li>
                <li>2.19.6_1 6 August 2012
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX): 

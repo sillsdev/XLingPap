@@ -4788,6 +4788,9 @@
                         <xsl:when test="../preceding-sibling::*[1][name()='free'] or count(ancestor::interlinear) &gt; 1">
                             <xsl:text>1.65</xsl:text>
                         </xsl:when>
+                        <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
+                            <xsl:text>2</xsl:text>
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>1</xsl:text>
                         </xsl:otherwise>
@@ -4802,6 +4805,9 @@
         <tex:spec cat="esc"/>
         <xsl:text>hangindent</xsl:text>
         <xsl:choose>
+            <xsl:when test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
+                <xsl:text>0</xsl:text>
+            </xsl:when>
             <xsl:when test="$mode='NoTextRef'">
                 <xsl:text>2</xsl:text>
             </xsl:when>
@@ -4981,13 +4987,13 @@
                 <tex:spec cat="rsb"/>
             </xsl:when>
             <xsl:when test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
-                <xsl:if test="preceding-sibling::lineGroup">
+                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:cmd name="newline" nl2="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:if test="preceding-sibling::lineGroup">
+                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:cmd name="par" nl2="1"/>
@@ -4999,6 +5005,9 @@
             <xsl:choose>
                 <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
                     <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="following-sibling::*[1][name()='lineGroup'] and $mode='NoTextRef'">
+                    <!-- do nothing; we want the normal spacing -->
                 </xsl:when>
                 <xsl:otherwise>
                     <tex:cmd name="vspace*">

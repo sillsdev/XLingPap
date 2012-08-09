@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.7_2</a:version
+>2.19.8_2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-08-08</a:date
+>2012-08-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.19.8_2 9 August 2012<ul
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug which would cause the PDF to fail to be produced when an interlinear text had an interlinear with two consecutive lineGroup elements and the auto wrap interlinear option was selected.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.19.7_2 8 August 2012<ul
 ><li

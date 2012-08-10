@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 August 2012</date
+>10 August 2012</date
 ><version
->2.19.7_2</version
+>2.19.8_3</version
 ><contents
 showLevel="4"
 ></contents
@@ -20725,6 +20725,210 @@ href="mailto:andy_black@sil.org"
 >andy_black@sil.org</link
 >.</p
 ></section2
+><section2
+id="sFAQHandleBookFrontMatter"
+><secTitle
+>Handle the Special Front Matter in a Book?</secTitle
+><p
+><indexedItem
+main="yes"
+term="iFrontMatterThesis"
+></indexedItem
+><indexedItem
+term="iFrontMatterDissertation"
+></indexedItem
+><indexedItem
+term="iFrontMatterOfPublisher"
+></indexedItem
+>When it comes time to actually produce a final PDF of a book or a thesis or a dissertation, how does one deal with the specific, custom pages that a given publisher or school requires to be at the beginning? We're talking about copyright pages, a thesis/dissertation approval page, etc., etc.</p
+><p
+>Since it seems like each publisher and each institution tend to have their own, custom requirements on what needs to go on each page and where, <object
+type="tXLingPap"
+></object
+> does not attempt to model these custom front matter pages.  Rather, I suggest that you create these (custom) pages via a word processing program like <object
+type="tTool"
+><object
+type="tOpenOfficeWriter"
+></object
+></object
+> or <object
+type="tTool"
+>Microsoft Word</object
+>.  Then save or print the output as a PDF file.</p
+><p
+>Next, use a PDF tool that allows you to combine two or more PDF files into one.  Example <exampleRef
+letter="xPDFCombiningTools"
+num="xPDFCombiningTools"
+></exampleRef
+> lists some tools that will do this.</p
+><example
+num="xPDFCombiningTools"
+><table
+border="1"
+><tr
+><th
+>Tool</th
+><th
+>URL</th
+><th
+align="center"
+>Windows</th
+><th
+align="center"
+>Mac</th
+><th
+align="center"
+>Linux</th
+></tr
+><tr
+><td
+colspan="5"
+><object
+type="tItalic"
+>Free</object
+></td
+></tr
+><tr
+><td
+>PDFedit</td
+><td
+><link
+href="http://pdfedit.cz/en/index.html"
+>http://pdfedit.cz/en/index.html</link
+></td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>X</td
+></tr
+><tr
+><td
+>pdfsam</td
+><td
+><link
+href="http://www.pdfsam.org/"
+>http://www.pdfsam.org/</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><td
+>Preview</td
+><td
+><link
+href="http://macintoshhowto.com/leopard/how-to-merge-pdf-files-with-preview-in-leopard.html"
+>http://macintoshhowto.com/leopard/how-​to-​merge-​pdf-​files-​with-​preview-​in-​leopard.html</link
+></td
+><td
+align="center"
+> </td
+><td
+align="center"
+>X</td
+><td
+align="center"
+> </td
+></tr
+><tr
+><td
+colspan="5"
+><object
+type="tItalic"
+>Commercial</object
+></td
+></tr
+><tr
+><td
+>Adobe Acrobat</td
+><td
+><link
+href="http://www.adobe.com/products/acrobat.html"
+>http://www.adobe.com/products/acrobat.html</link
+></td
+><td
+align="center"
+>X</td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+>Corel PDF Fusion</td
+><td
+><link
+href="http://www.corel.com/corel/product/index.jsp?pid=prod4100140"
+>http://www.corel.com/corel/product/index.jsp?pid=prod4100140</link
+></td
+><td
+align="center"
+>X</td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+>Nitro PDF Pro</td
+><td
+><link
+href="http://www.nitropdf.com/pro/"
+>http://www.nitropdf.com/pro/</link
+></td
+><td
+align="center"
+>X</td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+>PDF Studio</td
+><td
+><link
+href="http://www.qoppa.com/pdfstudio/"
+>http://www.qoppa.com/pdfstudio/</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+></tr
+></table
+></example
+><p
+>The basic idea is to merge the two PDF files.  In general, start with the <object
+type="tXLingPap"
+></object
+>-produced PDF file first.  This is most likely to preserve the hyperlinks in the merged PDF document.</p
+><p
+>Some of these allow you to insert one file before or after another.  In those cases, load the <object
+type="tXLingPap"
+></object
+> PDF first and then insert the front matter before it.  This will probably preserve the hyperlinks in the document.  </p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -21127,7 +21331,7 @@ lang="lEng"
 >(user control)</langData
 ></td
 ><td
->This is to set the starting page number if this document is being processed alone, yet needs to have a certain starting page number. It should use regular Arabic numerals (0-9).  If the document is a book, then this number will be used for the first page of the front matter.  The body will still start at page 1.  (This can be useful for a thesis or a dissertation or other book where some of the front matter needs special formatting outside the purview of <object
+>This is to set the starting page number if this document is being processed alone, yet needs to have a certain starting page number. It should use regular Arabic numerals (0-9). If the document is a book, then this number will be used for the first page of the front matter. The body will still start at page 1. (This can be useful for a thesis or a dissertation or other book where some of the front matter needs special formatting outside the purview of <object
 type="tXLingPap"
 ></object
 >.)</td
@@ -25608,9 +25812,24 @@ id="iFrontMatter"
 >Front Matter</term
 ><indexTerms
 ><indexTerm
+id="iFrontMatterDissertation"
+><term
+>Dissertation front matter (institution-specific)</term
+></indexTerm
+><indexTerm
 id="iFrontMatterExample"
 ><term
 >Example</term
+></indexTerm
+><indexTerm
+id="iFrontMatterOfPublisher"
+><term
+>Publisher-specific front matter</term
+></indexTerm
+><indexTerm
+id="iFrontMatterThesis"
+><term
+>Thesis front matter (institution-specific)</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

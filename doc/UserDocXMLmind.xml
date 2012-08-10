@@ -21279,7 +21279,21 @@ term="iPublishingInfo"
 >When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. One includes this kind of information via the optional <object
 type="tElement"
 >publishingInfo</object
-> element. The <object
+> element.  To insert a <object
+type="tElement"
+>publishingInfo</object
+> element, click on the last element before any publisher style sheet (usually the <object
+type="tElement"
+>types</object
+> element) and do an <object
+type="tInstruction"
+>Insert After</object
+> command.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+></p
+><p
+>The <object
 type="tElement"
 >publishingInfo</object
 > element has the optional attributes shown in example <exampleRef

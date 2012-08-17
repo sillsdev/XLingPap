@@ -1356,6 +1356,7 @@ li.lower-roman {
     <xsl:template match="@types"/>
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
+    <xsl:template match="@useemptyheaderfooter"/>
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@usetitleinheader"/>

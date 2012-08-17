@@ -1667,9 +1667,13 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="not(parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes')">
-            <xsl:call-template name="DoSpaceAfter">
-                <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
-            </xsl:call-template>
+            <!-- some chunk items come with space before them already so we do not want to add the extra space after a p/pc -->
+            <xsl:variable name="nextChunkItem" select="following-sibling::*[1]"/>
+            <xsl:if test="$nextChunkItem[name()!='blockquote' and name()!='ol' and name()!='ul' and name()!='dl']">
+                <xsl:call-template name="DoSpaceAfter">
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
+                </xsl:call-template>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
 
@@ -4038,10 +4042,10 @@
         <xsl:if test="$frontMatterLayoutInfo/headerFooterPageStyles">
             <xsl:choose>
                 <xsl:when test="$frontMatterLayoutInfo/titleLayout/@startonoddpage='yes'">
-                    <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>        
+                    <tex:cmd name="cleardoublepage" gr="0" nl2="1"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <tex:cmd name="clearpage" gr="0" nl2="1"/>                    
+                    <tex:cmd name="clearpage" gr="0" nl2="1"/>
                 </xsl:otherwise>
             </xsl:choose>
             <tex:cmd name="pagestyle">
@@ -6193,7 +6197,7 @@
                                 <xsl:text>empty</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$sFirstPageStyle"/>        
+                                <xsl:value-of select="$sFirstPageStyle"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </tex:parm>
@@ -6230,7 +6234,7 @@
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
-<!--            
+            <!--            
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoSpaceBefore">
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -6245,7 +6249,8 @@
                 <xsl:with-param name="originalContext" select="$sTitle"/>
                 <xsl:with-param name="fDoPageBreakFormatInfo" select="$fDoPageBreakFormatInfo"/>
             </xsl:call-template>
--->            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+-->
+            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="$id"/>

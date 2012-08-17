@@ -135,6 +135,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -1321,6 +1322,11 @@
             <xsl:if test="@id">
                 <xsl:attribute name="id">
                     <xsl:value-of select="@id"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
+                <xsl:attribute name="space-after">
+                    <xsl:value-of select="$sListLayoutSpaceBetween"/>
                 </xsl:attribute>
             </xsl:if>
             <fo:list-item-label end-indent="label-end()">

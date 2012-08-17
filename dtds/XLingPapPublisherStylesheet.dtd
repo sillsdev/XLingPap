@@ -542,7 +542,8 @@ Content Layout
    >
    <!ELEMENT listLayout EMPTY >
    <!ATTLIST listLayout
-       indent-before CDATA #REQUIRED
+       indent-before CDATA #IMPLIED
+       spacebetween CDATA #IMPLIED
    >
     <!ELEMENT sectionRefLayout EMPTY >
     <!ATTLIST sectionRefLayout

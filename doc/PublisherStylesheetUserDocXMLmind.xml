@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 August 2012</date
+>16 August 2012</date
 ><version
->2.19.7_2</version
+>2.19.9_3</version
 ><contents
 showLevel="6"
 ></contents
@@ -1012,7 +1012,7 @@ src="resources/HeaderFooterRegular.png"
 letter="xHeaderFooterElements"
 num="xHeaderFooterElements"
 ></exampleRef
-> shows the possible elements to put in these six places.  When you are editing a style sheet via the <object
+> shows the possible elements to put in these six places. When you are editing a style sheet via the <object
 type="tXMLmindXMLEditor"
 ></object
 >, you will need to click on an item and then do a <object
@@ -7171,6 +7171,14 @@ type="tAttrValue"
 type="tAttrValue"
 >0in</object
 >. This will guarantee that it comes out with no indent.</p
+><p
+>Another attribute available for controlling list output is the <object
+type="tAttribute"
+>spacebetween</object
+> attribute.  Enter the amount of extra vertical space needed between list items such as <object
+type="tAttrValue"
+>6pt</object
+>.</p
 ></section2
 ><section2
 id="sSectionRefLayout"

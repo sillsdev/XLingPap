@@ -353,6 +353,7 @@ indent-before=".125in"
 ><sectionRefLayout
 ></sectionRefLayout
 ><interlinearSourceStyle
+interlinearsourcestyle="AfterFirstLine"
 ></interlinearSourceStyle
 ><endnoteRefLayout
 ></endnoteRefLayout

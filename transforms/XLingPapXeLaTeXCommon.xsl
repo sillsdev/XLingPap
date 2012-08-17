@@ -128,6 +128,7 @@
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
     <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
+    <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
     <!--
         citation (InMarker)
     -->
@@ -688,6 +689,13 @@
                 <xsl:call-template name="HandleTypesForLi"/>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sListLayoutSpaceBetween"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <tex:spec cat="eg"/>
     </xsl:template>
     <xsl:template name="HandleTypesForLi">
@@ -7332,6 +7340,13 @@
                                 <xsl:text>em</xsl:text>
                             </xsl:with-param>
                         </xsl:call-template>
+                        <xsl:call-template name="SetTeXCommand">
+                            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+                            <xsl:with-param name="sCommandToSet" select="'LTpost'"/>
+                            <xsl:with-param name="sValue">
+                                <xsl:text>0pt</xsl:text>
+                            </xsl:with-param>
+                        </xsl:call-template>
                     </xsl:if>
                     <tex:env name="{$sTableType}" nl1="1">
                         <xsl:if test="$sTableType='tabular'">
@@ -7586,6 +7601,13 @@
                         <xsl:text> + </xsl:text>
                         <xsl:value-of select="$iNumberWidth"/>
                         <xsl:text>em</xsl:text>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <xsl:call-template name="SetTeXCommand">
+                    <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+                    <xsl:with-param name="sCommandToSet" select="'LTpost'"/>
+                    <xsl:with-param name="sValue">
+                        <xsl:text>0pt</xsl:text>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>

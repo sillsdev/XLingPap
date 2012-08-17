@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.8_2</a:version
+>2.19.9_3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-08-09</a:date
+>2012-08-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.19.9_3 16 August 2012<ul
+><li
+>Add an attribute of spacebetween to the listLayout element in a publisher style sheet.  It allows one to insert extra space between list items.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix a bug which would cause some examples to have too much space after them.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.19.8_2 9 August 2012<ul
 ><li

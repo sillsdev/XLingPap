@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->10 August 2012</date
+>14 August 2012</date
 ><version
 >2.19.8_3</version
 ><contents
@@ -9355,16 +9355,24 @@ sec="sExInterlinearMorph"
 > above, <object
 type="tXLingPap"
 ></object
-> does not automatically break lengthy (i.e. wide) interlinear examples (except for the morpheme-aligned ones when the output is a webpage and <indexedItem
+> does not automatically break lengthy (i.e. wide) interlinear examples with two exceptions:</p
+><ul
+><li
+><indexedItem
 term="iAutoWrapInterlinear"
 ></indexedItem
->for the <object
+>For the <object
 type="tXeTeX"
 ></object
-> way of producing PDF<endnoteRef
+> way of producing PDF when the option for automatically wrapping long interlinears is set.<endnoteRef
 note="nXeLaTeXAutoWrap"
 ></endnoteRef
->). You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
+></li
+><li
+>For the morpheme-aligned ones when the output is a webpage.</li
+></ul
+><p
+>Unless either of these two are the case, you have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
 ><p
 >You insert these manual breaks by embedding an <object
 type="tElement"
@@ -20745,7 +20753,7 @@ term="iFrontMatterOfPublisher"
 >Since it seems like each publisher and each institution tend to have their own, custom requirements on what needs to go on each page and where, <object
 type="tXLingPap"
 ></object
-> does not attempt to model these custom front matter pages.  Rather, I suggest that you create these (custom) pages via a word processing program like <object
+> does not attempt to model these custom front matter pages. Rather, I suggest that you create these (custom) pages via a word processing program like <object
 type="tTool"
 ><object
 type="tOpenOfficeWriter"
@@ -20754,9 +20762,9 @@ type="tOpenOfficeWriter"
 > or <object
 type="tTool"
 >Microsoft Word</object
->.  Then save or print the output as a PDF file.</p
+>. Then save or print the output as a PDF file.</p
 ><p
->Next, use a PDF tool that allows you to combine two or more PDF files into one.  Example <exampleRef
+>Next, use a PDF tool that allows you to combine two or more PDF files into one. Example <exampleRef
 letter="xPDFCombiningTools"
 num="xPDFCombiningTools"
 ></exampleRef
@@ -20919,15 +20927,15 @@ align="center"
 ></table
 ></example
 ><p
->The basic idea is to merge the two PDF files.  In general, start with the <object
+>The basic idea is to merge the two PDF files. In general, start with the <object
 type="tXLingPap"
 ></object
->-produced PDF file first.  This is most likely to preserve the hyperlinks in the merged PDF document.</p
+>-produced PDF file first. This is most likely to preserve the hyperlinks in the merged PDF document.</p
 ><p
->Some of these allow you to insert one file before or after another.  In those cases, load the <object
+>Some of these allow you to insert one file before or after another. In those cases, load the <object
 type="tXLingPap"
 ></object
-> PDF first and then insert the front matter before it.  This will probably preserve the hyperlinks in the document.  </p
+> PDF first and then insert the front matter before it. This will probably preserve the hyperlinks in the document.</p
 ></section2
 ></section1
 ><section1
@@ -21279,7 +21287,7 @@ term="iPublishingInfo"
 >When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. One includes this kind of information via the optional <object
 type="tElement"
 >publishingInfo</object
-> element.  To insert a <object
+> element. To insert a <object
 type="tElement"
 >publishingInfo</object
 > element, click on the last element before any publisher style sheet (usually the <object

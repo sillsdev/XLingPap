@@ -4,6 +4,7 @@
         Global variables
         =========================================================== -->
     <xsl:variable name="sExampleCellPadding">padding-left: .25em</xsl:variable>
+    <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
     <!-- ===========================================================
         Attribute sets
         =========================================================== -->
@@ -146,6 +147,12 @@
         <li>
             <xsl:if test="@id">
                 <a name="{@id}"/>
+            </xsl:if>
+            <xsl:if test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:text>padding-bottom:</xsl:text>
+                    <xsl:value-of select="$sListLayoutSpaceBetween"/>
+                </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates/>
         </li>
@@ -997,7 +1004,7 @@
         <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
             <xsl:attribute name="class">interblock</xsl:attribute>
             <xsl:apply-templates/>
-        </xsl:element>>
+        </xsl:element>
         <!--        </span>-->
     </xsl:template>
     <!--

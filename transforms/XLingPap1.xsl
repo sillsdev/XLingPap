@@ -1411,7 +1411,7 @@
     <xsl:template match="listOfFiguresShownHere">
         <div>
             <ul>
-                <xsl:for-each select="//figure">
+                <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
                     <li>
                         <a href="#{@id}">
                             <xsl:call-template name="OutputFigureLabelAndCaption">
@@ -1469,7 +1469,7 @@
     <xsl:template match="listOfTablesShownHere">
         <div>
             <ul>
-                <xsl:for-each select="//tablenumbered">
+                <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
                     <li>
                         <a href="#{@id}">
                             <xsl:call-template name="OutputTableNumberedLabelAndCaption">
@@ -2293,6 +2293,68 @@
         </xsl:element>
     </xsl:template>
     <!-- ===========================================================
+        FRAMEDUNIT
+        =========================================================== -->
+    <xsl:template match="framedUnit">
+        <div>
+            <xsl:attribute name="style">
+                <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
+                <xsl:text>background-color:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>
+                    <xsl:with-param name="sDefaultValue" select="'white'"/>
+                </xsl:call-template>
+                <xsl:text>;margin-top:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
+                    <xsl:with-param name="sDefaultValue" select="'.125in'"/>
+                </xsl:call-template>
+                <xsl:text>;margin-bottom:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;margin-left:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;margin-right:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;padding-top:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;padding-bottom:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;padding-left:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;padding-right:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;text-align:</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
+                    <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>;border-width:.5pt;border-style:solid;border-color:black;</xsl:text>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    <!-- ===========================================================
       IMG
       =========================================================== -->
     <xsl:template match="img">
@@ -2438,21 +2500,9 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
-                  example
--->
-    <xsl:template mode="example" match="*">
-        <xsl:number level="any" count="example[not(ancestor::endnote)]" format="1"/>
-    </xsl:template>
-    <!--  
-      exampleInEndnote
-   -->
-    <xsl:template mode="exampleInEndnote" match="*">
-        <xsl:number level="single" count="example" format="i"/>
-    </xsl:template>
-    <!--  
         figure
     -->
-    <xsl:template mode="figure" match="*">
+    <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="//chapter">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -2461,17 +2511,17 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="figure" format="1"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  
         tablenumbered
     -->
-    <xsl:template mode="tablenumbered" match="*">
+    <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="//chapter">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -2480,10 +2530,10 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="tablenumbered" format="1"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4175,7 +4225,10 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputFigureLabel"/>
-            <xsl:apply-templates select="." mode="figure"/>
+<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <xsl:call-template name="GetFigureNumber">
+                <xsl:with-param name="figure" select="."/>
+            </xsl:call-template>
             <xsl:text>&#xa0;</xsl:text>
         </span>
         <xsl:choose>
@@ -4737,7 +4790,10 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputTableNumberedLabel"/>
-            <xsl:apply-templates select="." mode="tablenumbered"/>
+<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <xsl:call-template name="GetTableNumberedNumber">
+                <xsl:with-param name="tablenumbered" select="."/>
+            </xsl:call-template>
             <xsl:text>&#xa0;</xsl:text>
         </span>
         <xsl:choose>
@@ -4767,6 +4823,21 @@
     </xsl:template>
     <xsl:template match="interlinearSource" mode="contents">
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--  
+        SetFramedTypeItem
+    -->
+    <xsl:template name="SetFramedTypeItem">
+        <xsl:param name="sAttributeValue"/>
+        <xsl:param name="sDefaultValue"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAttributeValue) &gt; 0">
+                <xsl:value-of select="$sAttributeValue"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefaultValue"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE

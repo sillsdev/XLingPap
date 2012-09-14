@@ -1187,8 +1187,8 @@
         </fo:list-item-body>
     </xsl:template>
     <!-- ===========================================================
-      EXAMPLES
-      =========================================================== -->
+        EXAMPLES
+        =========================================================== -->
     <xsl:template match="example">
         <fo:block>
             <xsl:if test="@num">
@@ -1204,9 +1204,11 @@
             <xsl:attribute name="space-after">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="start-indent">
+                <xsl:call-template name="HandleFramedUnitStartIndent"/>
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </xsl:attribute>
             <xsl:attribute name="end-indent">
+                <xsl:call-template name="HandleFramedUnitEndIndent"/>
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </xsl:attribute>
             <fo:table space-before="0pt">
@@ -1802,7 +1804,7 @@
         listOfFiguresShownHere
     -->
     <xsl:template match="listOfFiguresShownHere">
-        <xsl:for-each select="//figure">
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -1858,7 +1860,7 @@
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
-        <xsl:for-each select="//tablenumbered">
+        <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -1898,9 +1900,11 @@
                     <xsl:attribute name="space-after">
                         <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                     <xsl:attribute name="start-indent">
+                        <xsl:call-template name="HandleFramedUnitStartIndent"/>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </xsl:attribute>
                     <xsl:attribute name="end-indent">
+                        <xsl:call-template name="HandleFramedUnitEndIndent"/>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </xsl:attribute>
                 </xsl:when>
@@ -2815,21 +2819,9 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--  
-      example
-   -->
-    <xsl:template mode="example" match="*">
-        <xsl:number level="any" count="example[not(ancestor::endnote)]" format="1"/>
-    </xsl:template>
-    <!--  
-      exampleInEndnote
-   -->
-    <xsl:template mode="exampleInEndnote" match="*">
-        <xsl:number level="single" count="example" format="i"/>
-    </xsl:template>
-    <!--  
         figure
     -->
-    <xsl:template mode="figure" match="*">
+    <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$chapters">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -2848,7 +2840,7 @@ not using
     <!--  
         tablenumbered
     -->
-    <xsl:template mode="tablenumbered" match="*">
+    <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$chapters">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -4767,7 +4759,10 @@ not using
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputFigureLabel"/>
-            <xsl:apply-templates select="." mode="figure"/>
+<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <xsl:call-template name="GetFigureNumber">
+                <xsl:with-param name="figure" select="."/>
+            </xsl:call-template>
             <xsl:text>&#xa0;</xsl:text>
         </fo:inline>
         <xsl:choose>
@@ -5511,7 +5506,10 @@ not using
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputTableNumberedLabel"/>
-            <xsl:apply-templates select="." mode="tablenumbered"/>
+<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <xsl:call-template name="GetTableNumberedNumber">
+                <xsl:with-param name="tablenumbered" select="."/>
+            </xsl:call-template>
             <xsl:text>&#xa0;</xsl:text>
         </fo:inline>
         <xsl:choose>

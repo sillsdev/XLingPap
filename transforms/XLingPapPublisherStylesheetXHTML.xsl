@@ -1317,7 +1317,7 @@
         listOfFiguresShownHere
     -->
     <xsl:template match="listOfFiguresShownHere">
-        <xsl:for-each select="//figure">
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -1368,7 +1368,7 @@
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
-        <xsl:for-each select="//tablenumbered">
+        <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -1803,6 +1803,14 @@
             <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
+    </xsl:template>
+    <!-- ===========================================================
+        FRAMEDUNIT
+        =========================================================== -->
+    <xsl:template match="framedUnit">
+        <div class="framedType{@framedtype}">
+            <xsl:apply-templates/>
+        </div>
     </xsl:template>
     <!-- ===========================================================
         LANDSCAPE
@@ -3818,7 +3826,10 @@
                 <xsl:attribute name="class">figureNumberLayout</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
-            <xsl:apply-templates select="." mode="tablenumbered"/>
+<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <xsl:call-template name="GetTableNumberedNumber">
+                <xsl:with-param name="tablenumbered" select="."/>
+            </xsl:call-template>
             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
         </span>
         <span>
@@ -3914,7 +3925,10 @@
                 <xsl:attribute name="class">figureNumberLayout</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
-            <xsl:apply-templates select="." mode="figure"/>
+<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <xsl:call-template name="GetFigureNumber">
+                <xsl:with-param name="figure" select="."/>
+            </xsl:call-template>
             <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
         </span>
         <span>

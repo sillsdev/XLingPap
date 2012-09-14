@@ -591,6 +591,8 @@ captionLocation="after"
 textafter=" "
 ></figureLabelLayout
 ><figureNumberLayout
+showchapternumber="yes"
+textbetweenchapterandnumber="."
 ></figureNumberLayout
 ><figureCaptionLayout
 textbefore=" "
@@ -604,6 +606,8 @@ captionLocation="after"
 textafter=" "
 ></tablenumberedLabelLayout
 ><tablenumberedNumberLayout
+showchapternumber="yes"
+textbetweenchapterandnumber="."
 ></tablenumberedNumberLayout
 ><tablenumberedCaptionLayout
 textbefore="  "

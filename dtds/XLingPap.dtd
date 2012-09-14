@@ -80,7 +80,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, indexTerms*, comment*, publishingInfo?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -183,7 +183,7 @@
 <!ATTLIST abstract
     label CDATA #IMPLIED
 >
-<!ELEMENT preface (%chunk; | landscape| abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST preface
     label CDATA #IMPLIED
 >
@@ -193,44 +193,44 @@
     label CDATA #IMPLIED
 >
 <!-- Main content -->
-<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape)*, chapter*)>
+<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, chapter*)>
 <!ATTLIST part
     id ID #REQUIRED
 >
-<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape)*, section1*)>
+<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
 >
-<!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape)*, section1*)>
+<!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
     id ID #REQUIRED
 >
-<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape)*, section2*)>
+<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
-<!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape)*, section3*)>
+<!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
-<!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape)*, section4*)>
+<!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
-<!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape)*, section5*)>
+<!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
-<!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape)*, section6*)>
+<!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
 >
-<!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape)*)>
+<!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST section6
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
@@ -773,7 +773,7 @@
     showNumberOnly (yes | no) "no"
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | abbreviationsShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
@@ -782,7 +782,7 @@
     XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | landscape | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST glossary
     label CDATA #IMPLIED
     type IDREF #IMPLIED
@@ -797,6 +797,30 @@
 <!-- landscape mode: in PDF, output the material in landscape instead of portrait mode; will start a new page in the output -->
 <!ELEMENT landscape (%chunk;)+>
 
+<!-- framedUnit: output the material offset per attributes in the framedType -->
+<!ELEMENT framedUnit (%chunk;)+>
+<!ATTLIST framedUnit
+     framedtype IDREF #REQUIRED
+     initialexamplenumber CDATA #IMPLIED
+     initialfigurenumber CDATA #IMPLIED
+     initialnumberedtablenumber CDATA #IMPLIED
+>
+<!ELEMENT framedTypes (framedType)+>
+<!ELEMENT framedType EMPTY>
+<!ATTLIST framedType 
+     id ID #REQUIRED
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+     indent-before CDATA #IMPLIED
+     indent-after CDATA #IMPLIED
+     backgroundcolor CDATA #IMPLIED
+     align (left | center | right) 'left'
+     innerleftmargin CDATA #IMPLIED
+     innertopmargin CDATA #IMPLIED
+     innerrightmargin CDATA #IMPLIED
+     innerbottommargin CDATA #IMPLIED
+     description CDATA #IMPLIED
+>
 <!-- the tagging of some text or embedded elements as belonging to an index term;
 this is what goes in the content of the document
   the term attribute refers to the indexTerm
@@ -828,7 +852,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        the label attribute provides a way to give it a title 
        the kind attribute indicates which kind of index it is ('common' is used for a single, common index)
        -->
-<!ELEMENT index (%chunk; | landscape)*>
+<!ELEMENT index (%chunk; | landscape | framedUnit)*>
 <!ATTLIST index
     label CDATA #IMPLIED
     kind (common | name | language | subject) "common"

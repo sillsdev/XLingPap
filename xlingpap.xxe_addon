@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-08-16</a:date
+>2012-09-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.19.9_3 16 August 2012<ul
+>2.19.9_3 14 September 2012<ul
 ><li
->Add an attribute of spacebetween to the listLayout element in a publisher style sheet.  It allows one to insert extra space between list items.</li
+>Add capability to "frame" a portion of content, including margins and background color.  (Uses framedUnit and framedType elements.) </li
+><li
+>Add an attribute of spacebetween to the listLayout element in a publisher style sheet. It allows one to insert extra space between list items.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug which would cause some examples to have too much space after them.</li
+><li
+>Fix a bug which could make the bookmark in a PDF link to the first preface element when it should link to a non-first preface element.</li
+><li
+>Fix a bug which would use ?? for page numbers in the table of contents for any front matter items that occur before the table of contents.</li
 ></ul
 ></li
 ></ul

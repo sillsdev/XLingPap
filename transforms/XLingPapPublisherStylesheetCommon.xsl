@@ -128,21 +128,9 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-        example
-    -->
-    <xsl:template mode="example" match="*">
-        <xsl:number level="any" count="example[not(ancestor::endnote)]" format="1"/>
-    </xsl:template>
-    <!--  
-        exampleInEndnote
-    -->
-    <xsl:template mode="exampleInEndnote" match="*">
-        <xsl:number level="single" count="example" format="i"/>
-    </xsl:template>
-    <!--  
         figure
     -->
-    <xsl:template mode="figure" match="*">
+    <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$bIsBook and $styleSheetFigureNumberLayout/@showchapternumber='yes'">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -151,17 +139,17 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetFigureNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart" format="{$styleSheetFigureNumberLayout/@format}"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="{$styleSheetFigureNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="figure" format="{$styleSheetFigureNumberLayout/@format}"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetFigureNumberLayout/@format}"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  
         tablenumbered
     -->
-    <xsl:template mode="tablenumbered" match="*">
+    <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$bIsBook and $styleSheetTableNumberedNumberLayout/@showchapternumber='yes'">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -170,10 +158,10 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="tablenumbered" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1367,7 +1355,10 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$figure" mode="figure"/>
+<!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
+                <xsl:call-template name="GetFigureNumber">
+                    <xsl:with-param name="figure" select="$figure"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1964,7 +1955,11 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$table" mode="tablenumbered"/>
+<!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
+                <xsl:call-template name="GetTableNumberedNumber">
+                    <xsl:with-param name="tablenumbered" select="$table"/>
+                </xsl:call-template>
+                
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

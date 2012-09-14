@@ -160,7 +160,10 @@
     -->
     <xsl:template match="preface" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="concat('rXLingPapPreface',position())"/>
+            <xsl:with-param name="sLink">
+                <xsl:variable name="sPos" select="count(preceding-sibling::preface)+1"/>
+                <xsl:value-of  select="concat('rXLingPapPreface',$sPos)"/>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputPrefaceLabel"/>
             </xsl:with-param>

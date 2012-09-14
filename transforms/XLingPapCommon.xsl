@@ -16,6 +16,7 @@
     <xsl:key name="TypeID" match="//type" use="@id"/>
     <xsl:key name="AuthorContactID" match="//authorContact" use="@id"/>
     <xsl:key name="LiInOlID" match="//li[parent::ol]" use="@id"/>
+    <xsl:key name="FramedTypeID" match="//framedType" use="@id"/>
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
@@ -78,6 +79,60 @@
         -->
         <xsl:number from="table[descendant::counter]" level="any"/>
         <xsl:text>.</xsl:text>
+    </xsl:template>
+    <!--  
+        example
+    -->
+    <xsl:template mode="example" match="*">
+        <xsl:number level="any" count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+    </xsl:template>
+    <!--  
+        exampleInEndnote
+    -->
+    <xsl:template mode="exampleInEndnote" match="*">
+        <xsl:number level="single" count="example" format="i"/>
+    </xsl:template>
+    <!--  
+        exampleInFramedUnit
+    -->
+    <xsl:template mode="exampleInFramedUnit" match="*">
+        <xsl:number level="single" count="example" format="1"/>
+    </xsl:template>
+    <!--  
+        figure
+    -->
+    <xsl:template mode="figure" match="*">
+        <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+    </xsl:template>
+    <!--  
+        figureInEndnote
+    -->
+    <xsl:template mode="figureInEndnote" match="*">
+        <xsl:number level="single" count="figure" format="i"/>
+    </xsl:template>
+    <!--  
+        figureInFramedUnit
+    -->
+    <xsl:template mode="figureInFramedUnit" match="*">
+        <xsl:number level="single" count="figure" format="1"/>
+    </xsl:template>
+    <!--  
+        tablenumbered
+    -->
+    <xsl:template mode="tablenumbered" match="*">
+        <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+    </xsl:template>
+    <!--  
+        tablenumberedInEndnote
+    -->
+    <xsl:template mode="tablenumberedInEndnote" match="*">
+        <xsl:number level="single" count="tablenumbered" format="1"/>
+    </xsl:template>
+    <!--  
+        exampleInFramedUnit
+    -->
+    <xsl:template mode="tablenumberedInFramedUnit" match="*">
+        <xsl:number level="single" count="tablenumbered" format="1"/>
     </xsl:template>
     <!--
         exampleHeading in NotTextRef mode
@@ -439,8 +494,58 @@
                 <xsl:when test="ancestor::endnote">
                     <xsl:apply-templates select="." mode="exampleInEndnote"/>
                 </xsl:when>
+                <xsl:when test="ancestor::framedUnit">
+                    <xsl:variable name="iStartNumber">
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialexamplenumber)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                                <xsl:value-of select="$sStartNumber - 1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>0</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="iRelNumber">
+                    <xsl:apply-templates select="." mode="exampleInFramedUnit"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$iRelNumber + $iStartNumber"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="." mode="example"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
+        GetFigureNumber
+    -->
+    <xsl:template name="GetFigureNumber">
+        <xsl:param name="figure"/>
+        <xsl:for-each select="$figure">
+            <xsl:choose>
+                <xsl:when test="ancestor::endnote">
+                    <xsl:apply-templates select="." mode="figureInEndnote"/>
+                </xsl:when>
+                <xsl:when test="ancestor::framedUnit">
+                    <xsl:variable name="iStartNumber">
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialfigurenumber)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                                <xsl:value-of select="$sStartNumber - 1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>0</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="iRelNumber">
+                        <xsl:apply-templates select="." mode="figureInFramedUnit"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$iRelNumber + $iStartNumber"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="figure"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
@@ -539,6 +644,39 @@
                 <xsl:when test="($NestingLevel mod 3)=2">
                     <xsl:number format="i"/>
                 </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
+        GetExampleNumber
+    -->
+    <xsl:template name="GetTableNumberedNumber">
+        <xsl:param name="tablenumbered"/>
+        <xsl:for-each select="$tablenumbered">
+            <xsl:choose>
+                <xsl:when test="ancestor::endnote">
+                    <xsl:apply-templates select="." mode="tablenumberedInEndnote"/>
+                </xsl:when>
+                <xsl:when test="ancestor::framedUnit">
+                    <xsl:variable name="iStartNumber">
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialnumberedtablenumber)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                                <xsl:value-of select="$sStartNumber - 1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>0</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:variable name="iRelNumber">
+                        <xsl:apply-templates select="." mode="tablenumberedInFramedUnit"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$iRelNumber + $iStartNumber"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="." mode="tablenumbered"/>
+                </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>

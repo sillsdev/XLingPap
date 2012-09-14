@@ -1426,9 +1426,35 @@
             <xsl:attribute name="space-after">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="start-indent">
+                <xsl:if test="ancestor::framedUnit">
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> + </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> + </xsl:text>
+                </xsl:if>
                 <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-before"/>
             </xsl:attribute>
             <xsl:attribute name="end-indent">
+                <xsl:if test="ancestor::framedUnit">
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> + </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> + </xsl:text>
+                </xsl:if>
                 <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
             </xsl:attribute>
             <fo:table space-before="0pt">
@@ -2057,9 +2083,11 @@
                     <xsl:attribute name="space-after">
                         <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                     <xsl:attribute name="start-indent">
+                        <xsl:call-template name="HandleFramedUnitStartIndent"/>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </xsl:attribute>
                     <xsl:attribute name="end-indent">
+                        <xsl:call-template name="HandleFramedUnitEndIndent"/>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </xsl:attribute>
                 </xsl:when>
@@ -2286,7 +2314,7 @@ not using
         listOfFiguresShownHere
     -->
     <xsl:template match="listOfFiguresShownHere">
-        <xsl:for-each select="//figure">
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -2353,7 +2381,7 @@ not using
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
-        <xsl:for-each select="//tablenumbered">
+        <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -5738,7 +5766,10 @@ not using
                 </xsl:call-template>
             </xsl:if>
             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
-            <xsl:apply-templates select="." mode="tablenumbered"/>
+<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <xsl:call-template name="GetTableNumberedNumber">
+                <xsl:with-param name="tablenumbered" select="."/>
+            </xsl:call-template>
             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
         </fo:inline>
         <fo:inline>
@@ -5840,7 +5871,10 @@ not using
                 </xsl:call-template>
             </xsl:if>
             <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
-            <xsl:apply-templates select="." mode="figure"/>
+<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <xsl:call-template name="GetFigureNumber">
+                <xsl:with-param name="figure" select="."/>
+            </xsl:call-template>
             <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
         </fo:inline>
         <fo:inline>

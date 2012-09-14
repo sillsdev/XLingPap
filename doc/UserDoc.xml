@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->2 August 2012</date
+>23 August 2012</date
 ><version
->2.19.4_2</version
+>2.19.9_3</version
 ><contents
 showLevel="3"
 ></contents
@@ -9554,6 +9554,27 @@ type="tElement"
 ></dt
 ><dd
 >A reference to a figure</dd
+><dt
+><object
+type="tElement"
+>framedType</object
+></dt
+><dd
+>Formatting information for framed units of this type</dd
+><dt
+><object
+type="tElement"
+>framedTypes</object
+></dt
+><dd
+>The set of framedType elements</dd
+><dt
+><object
+type="tElement"
+>framedUnit</object
+></dt
+><dd
+>A framed unit such as a sample output or an exercise which is typically framed by a line and offset from the normal text position and may have a special background color</dd
 ><dt
 ><object
 type="tElement"

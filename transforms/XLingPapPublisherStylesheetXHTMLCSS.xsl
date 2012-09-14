@@ -167,6 +167,7 @@ body {</xsl:text>
 }
 </xsl:text>
         </xsl:if>
+        <xsl:apply-templates select="//framedType"/>
         <xsl:text>.footnote{
     font-size:</xsl:text>
         <xsl:value-of select="$sFootnotePointSize"/>
@@ -484,6 +485,86 @@ li.lower-roman {
         <xsl:call-template name="OutputLinkAttributes">
             <xsl:with-param name="override" select="."/>
         </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        framedType
+    -->
+    <xsl:template match="framedType">
+        <xsl:variable name="sCssTypeName">
+            <xsl:text>
+.framedType</xsl:text>
+            <xsl:value-of select="@id"/>
+        </xsl:variable>
+        <xsl:value-of select="$sCssTypeName"/>
+        <xsl:text>{
+        </xsl:text>
+        <xsl:variable name="framedtype" select="."/>
+        <xsl:text>background-color:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>
+            <xsl:with-param name="sDefaultValue" select="'white'"/>
+        </xsl:call-template>
+        <xsl:text>;
+            margin-top:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
+            <xsl:with-param name="sDefaultValue" select="'.125in'"/>
+        </xsl:call-template>
+        <xsl:text>;
+            margin-bottom:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            margin-left:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            margin-right:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            padding-top:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            padding-bottom:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            padding-left:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            padding-right:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            text-align:</xsl:text>
+        <xsl:call-template name="SetFramedTypeItem">
+            <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
+            <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;
+            border-width:1px;
+            border-style:solid;
+            border-color:black;
+</xsl:text>
+        <xsl:text>}
+        </xsl:text>
     </xsl:template>
     <!-- 
         freeLayout

@@ -903,6 +903,12 @@ abbreviations > comment
 	color:Black;
 	padding-bottom: 1ex;
 }
+framedTypes > comment
+{
+	display:block;
+	background-color:Yellow;
+	color:Black;
+}
 types > comment
 {
 	display:block;
@@ -1156,13 +1162,6 @@ example > exampleHeading
 	display:block;
 	padding-left:example-indent();
 }
-landscape
-{
-	display:block;
-	border-width:1;
-	border-style:dotted;
-	border-color:black;
-}
 listInterlinear > exampleHeading
 {
 	display:block;
@@ -1378,6 +1377,54 @@ figureRef
 						 color, black)
 	         label(attribute, figure, text-decoration, underline);
 	background-color:figure-background-color();
+}
+
+framedType:before
+{
+	content:"framedType: " 
+	text-field(attribute, id, columns, 10, font-size, small)
+	" "
+	;
+}
+framedType
+{
+	display:block;
+	padding-left: 0.125in;
+	padding-top: 0.05in;
+	property-group: isCollapsible( yes, 1);
+/*	We do not use the color button tool because it sets the color attribute
+        and we need to set the backgroundcolor attribute. */
+}
+framedTypes:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Framed Types: ";
+}
+lingPaper framedTypes
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
+framedTypes
+{
+	display:block;
+	property-group: isCollapsible( no, 1);
+}
+framedUnit
+{
+	display:block;
+	border-width:1;
+	border-style:solid;
+	border-color:black;
+	padding-left:concatenate(xpath("id(@framedtype)/@innerleftmargin")); 
+	padding-right:concatenate(xpath("id(@framedtype)/@innerrightmargin")); 
+	padding-top:concatenate(xpath("id(@framedtype)/@innertopmargin")); ;
+	padding-bottom:concatenate(xpath("id(@framedtype)/@innerbottommargin")); ;
+	margin-left:concatenate(xpath("id(@framedtype)/@indent-before")); 
+	margin-right:concatenate(xpath("id(@framedtype)/@indent-after")); 
+	margin-top:concatenate(xpath("id(@framedtype)/@spacebefore")); ;
+	margin-bottom:concatenate(xpath("id(@framedtype)/@spaceafter")); ;
+	background-color:concatenate(xpath("id(@framedtype)/@backgroundcolor")); 
 }
 
 free:before
@@ -1725,6 +1772,13 @@ phrase > item {
 	font-weight: concatenate(xpath("id(@lang)/@font-weight"));
 }
 
+landscape
+{
+	display:block;
+	border-width:1;
+	border-style:dotted;
+	border-color:black;
+}
 listInterlinear interlinear
 {
 	display:block;

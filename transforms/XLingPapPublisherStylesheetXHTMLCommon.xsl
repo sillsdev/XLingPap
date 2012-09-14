@@ -36,4 +36,19 @@
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
     </xsl:template>
+    <!--  
+        SetFramedTypeItem
+    -->
+    <xsl:template name="SetFramedTypeItem">
+        <xsl:param name="sAttributeValue"/>
+        <xsl:param name="sDefaultValue"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAttributeValue) &gt; 0">
+                <xsl:value-of select="$sAttributeValue"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefaultValue"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

@@ -245,9 +245,9 @@
             </tex:cmd>
         </tex:group>-->
     </xsl:template>
-<!-- 
+    <!-- 
        initial text in a block quote
--->    
+-->
     <xsl:template match="text()[parent::blockquote][string-length(normalize-space(.))&gt;0]">
         <xsl:value-of select="."/>
         <xsl:if test="following-sibling::*[1][name()='p'or name()='pc' or name()='example' or name()='table' or name()='tablenumbered' or name()='chart' or name()='figure' or name()='tree' or name()='ol' or name()='ul' or name()='dl']">
@@ -1505,7 +1505,7 @@
     <xsl:template match="table">
         <!--  If this is in an example, an embedded table, or within a list, then there's no need to add extra space around it. -->
         <xsl:choose>
-            <xsl:when test="not(parent::example) and not(ancestor::table) and not(ancestor::li)">
+            <xsl:when test="not(parent::example) and not(ancestor::table) and not(ancestor::li) and not(ancestor::framedUnit)">
                 <!-- longtable does this effectively anyway
                     <tex:cmd name="vspace">
                     <tex:parm><xsl:value-of select="$sBasicPointSize"/>
@@ -2048,6 +2048,74 @@
             </xsl:call-template>
             <xsl:call-template name="DoTypeEnd"/>
         </tex:group>
+    </xsl:template>
+    <!-- ===========================================================
+        FRAMEDUNIT
+        =========================================================== -->
+    <xsl:template match="framedUnit">
+        <tex:env name="mdframed">
+            <tex:opt>
+                <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
+                <xsl:text>backgroundcolor=</xsl:text>
+                <xsl:variable name="sColor" select="normalize-space($framedtype/@backgroundcolor)"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sColor) &gt; 0">
+                        <xsl:call-template name="GetFramedTypeBackgroundColorName">
+                            <xsl:with-param name="sId" select="@framedtype"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>white</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>,skipabove=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
+                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:text>,skipbelow=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
+                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:text>,innermargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>,outermargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>,innertopmargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
+                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:text>,innerbottommargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
+                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                </xsl:call-template>
+                <xsl:text>,innerleftmargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>,innerrightmargin=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                </xsl:call-template>
+                <xsl:text>,align=</xsl:text>
+                <xsl:call-template name="SetFramedTypeItem">
+                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
+                    <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+                </xsl:call-template>
+            </tex:opt>
+            <xsl:apply-templates/>
+        </tex:env>
     </xsl:template>
     <!-- ===========================================================
         LANDSCAPE
@@ -2937,13 +3005,13 @@
                             </xsl:when>
                             <xsl:when test="not(th) and preceding-sibling::tr[1][th[not(@rowspan &gt; 1)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1 ">
+                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1 and not(ancestor::framedUnit)">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
                             <xsl:when test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]])">
+                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]]) and not(ancestor::framedUnit)">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
@@ -5309,6 +5377,15 @@
     <!--  
         GetHyphenationLanguage
     -->
+    <xsl:template name="GetFramedTypeBackgroundColorName">
+        <xsl:param name="sId"/>
+        <xsl:variable name="sPosition" select="count(key('FramedTypeID',$sId)/preceding-sibling::*)"/>
+        <xsl:text>FTColor</xsl:text>
+        <xsl:value-of select="translate($sPosition,'0123456789','ABCDEFGHIJ')"/>
+    </xsl:template>
+    <!--  
+        GetHyphenationLanguage
+    -->
     <xsl:template name="GetHyphenationLanguage">
         <xsl:choose>
             <xsl:when test="$documentLang='am'">amharic</xsl:when>
@@ -7551,7 +7628,7 @@
         </xsl:variable>
         <xsl:variable name="sEnvName">
             <xsl:choose>
-                <xsl:when test="ancestor::td or ancestor::th">
+                <xsl:when test="ancestor::td or ancestor::th or ancestor::framedUnit">
                     <!--                    <xsl:when test="parent::example or parent::td">-->
                     <xsl:text>tabular</xsl:text>
                 </xsl:when>
@@ -7630,6 +7707,9 @@
                                 <tex:cmd name="baselineskip" gr="0"/>
                             </tex:parm>
                         </tex:cmd>
+                    </xsl:when>
+                    <xsl:when test="ancestor::framedUnit">
+                        <tex:cmd name="noindent" gr="0"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <tex:cmd name="vspace*">
@@ -7757,6 +7837,14 @@
                     <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
                 </xsl:apply-templates>
             </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="ancestor::framedUnit">
+            <tex:cmd name="par"/>
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <tex:cmd name="baselineskip"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -8068,6 +8156,52 @@
                 <xsl:with-param name="bInTableNumbered" select="$bInTableNumbered"/>
             </xsl:call-template>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        SetFramedTypeItem
+    -->
+    <xsl:template name="SetFramedTypeItem">
+        <xsl:param name="sAttributeValue"/>
+        <xsl:param name="sDefaultValue"/>
+        <xsl:param name="bUseBaselineskipAsDefault" select="'N'"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAttributeValue) &gt; 0">
+                <xsl:value-of select="$sAttributeValue"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$bUseBaselineskipAsDefault='Y'">
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sDefaultValue"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetFramedTypes
+    -->
+    <xsl:template name="SetFramedTypes">
+        <xsl:for-each select="//framedType">
+            <xsl:variable name="sColor" select="normalize-space(@backgroundcolor)"/>
+            <xsl:if test="string-length($sColor) &gt; 0">
+                <tex:cmd name="definecolor" nl2="1">
+                    <tex:parm>
+                        <xsl:call-template name="GetFramedTypeBackgroundColorName">
+                            <xsl:with-param name="sId" select="@id"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                    <tex:parm>HTML</tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="GetColorHexCode">
+                            <xsl:with-param name="sColor" select="$sColor"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         SetHeaderFooterRuleWidths
@@ -8630,6 +8764,12 @@
                 <tex:parm>
                     <xsl:value-of select="$sHyphenationLanguage"/>
                 </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:if test="//framedUnit">
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:opt>framemethod=TikZ</tex:opt>
+                <tex:parm>mdframed</tex:parm>
             </tex:cmd>
         </xsl:if>
         <tex:cmd name="usepackage" nl2="1">

@@ -691,6 +691,7 @@ alt causes menu to be selected
                     <cfg:command name="setTableNumberedRef" parameter="%0"/>
                     <cfg:command name="setCollOrProcCitation"/>
                     <cfg:command name="setAuthorContactInfo"/>
+                    <cfg:command name="setFramedType"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
@@ -942,6 +943,19 @@ alt causes menu to be selected
             <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetFigureCaptionsAndIds.xsl" to="out.xml"/>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
+    </cfg:command>
+    <cfg:command name="setFramedType">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] framedUnit"/>
+                    <!--               <cfg:command name="putAttribute" parameter="[implicitElement] note"/>-->
+                </cfg:pass>
+                <cfg:get expression="join(//framedType/@id, ' ')"/>
+                <cfg:command name="pick" parameter="'Framed Type' false %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] framedtype %_"/>
+            </cfg:sequence>
+        </cfg:macro>
     </cfg:command>
     <cfg:command name="setGenericRef">
         <cfg:macro>

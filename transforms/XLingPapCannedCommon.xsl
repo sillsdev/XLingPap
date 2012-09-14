@@ -88,7 +88,10 @@
                 <xsl:apply-templates select="$figure/caption/child::node()[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$figure" mode="figure"/>
+<!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
+                <xsl:call-template name="GetFigureNumber">
+                    <xsl:with-param name="figure" select="$figure"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -172,7 +175,10 @@
                 <xsl:apply-templates select="$table/table/caption/child::node()[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$table" mode="tablenumbered"/>
+<!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
+                <xsl:call-template name="GetTableNumberedNumber">
+                    <xsl:with-param name="tablenumbered" select="$table"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -137,6 +137,7 @@
             <xsl:call-template name="SetUsePackages"/>
             <xsl:call-template name="SetHeaderFooter"/>
             <xsl:call-template name="SetFonts"/>
+            <xsl:call-template name="SetFramedTypes"/>
             <xsl:call-template name="SetFootnoteRule"/>
             <tex:cmd name="setlength" nl2="1">
                 <tex:parm>
@@ -235,12 +236,15 @@
                             </xsl:with-param>
                         </xsl:call-template>
                     </xsl:if>
+                    <xsl:if test="//contents">
+                        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="$chapters">
                             <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
                                 <xsl:call-template name="DoBookmarksForPaper"/>
                             </xsl:if>
--->
+                            -->
                             <xsl:apply-templates/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -2210,7 +2214,7 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
-        <xsl:for-each select="//figure">
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -2332,7 +2336,7 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
-        <xsl:for-each select="//tablenumbered">
+        <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -3014,10 +3018,13 @@
     <xsl:template match="references">
         <xsl:choose>
             <xsl:when test="$bIsBook">
-                <xsl:call-template name="DoPageBreakFormatInfo">
+<!--  This gets done any way in DoReferences when there are some;
+        If there aren't any, then the cleardoublepage can make it so that the table of contents .toc does not get the final </toc>
+        (I have no idea why...)
+    <xsl:call-template name="DoPageBreakFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/referencesTitleLayout"/>
                 </xsl:call-template>
-                <xsl:call-template name="DoReferences"/>
+-->                <xsl:call-template name="DoReferences"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoReferences"/>
@@ -3345,7 +3352,7 @@
     -->
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
-        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
+<!--        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>-->
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -4711,16 +4718,18 @@
         DoTableNumbered
     -->
     <xsl:template name="DoTableNumbered">
-        <!--  why do we do this?? -->
-        <tex:cmd name="vspace">
-            <tex:parm>
-                <!--                <xsl:value-of select="$sBasicPointSize"/>
+        <xsl:if test="preceding-sibling::*[1][name()!='p' and name()!='pc']">
+            <!-- p and pc insert one of these already -->
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <!--                <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>-->
-                <xsl:call-template name="GetCurrentPointSize">
-                    <xsl:with-param name="bAddGlue" select="'Y'"/>
-                </xsl:call-template>
-            </tex:parm>
-        </tex:cmd>
+                    <xsl:call-template name="GetCurrentPointSize">
+                        <xsl:with-param name="bAddGlue" select="'Y'"/>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -4766,12 +4775,14 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
-            <tex:cmd name="vspace*">
-                <tex:parm>
-                    <xsl:text>-</xsl:text>
-                    <tex:cmd name="baselineskip" gr="0"/>
-                </tex:parm>
-            </tex:cmd>
+            <xsl:if test="not(ancestor::framedUnit)">
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:cmd name="vspace">
                 <tex:parm>
                     <xsl:choose>
@@ -5862,7 +5873,10 @@
         </xsl:if>
         <tex:spec cat="bg"/>
         <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
-        <xsl:apply-templates select="." mode="figure"/>
+        <!--        <xsl:apply-templates select="." mode="figure"/>-->
+        <xsl:call-template name="GetFigureNumber">
+            <xsl:with-param name="figure" select="."/>
+        </xsl:call-template>
         <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
         <tex:spec cat="eg"/>
         <xsl:if test="$bDoStyles='Y'">
@@ -6613,7 +6627,10 @@
         </xsl:if>
         <tex:spec cat="bg"/>
         <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
-        <xsl:apply-templates select="." mode="tablenumbered"/>
+        <!--        <xsl:apply-templates select="." mode="tablenumbered"/>-->
+        <xsl:call-template name="GetTableNumberedNumber">
+            <xsl:with-param name="tablenumbered" select="."/>
+        </xsl:call-template>
         <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
         <tex:spec cat="eg"/>
         <xsl:if test="$bDoStyles='Y'">

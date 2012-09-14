@@ -1500,6 +1500,17 @@ type
       <genericTarget id="g" xmlns=""/>
    </cfg:elementTemplate>
    <!-- 
+      - - - - - - - - - - - - - - - - - - - - 
+      framedType
+      - - - - - - - - - - - - - - - - - - - - 
+   -->
+   <cfg:elementTemplate name="framedType" selectable="override">
+      <framedType id="ftSample" backgroundcolor="#FAF0E6" indent-after=".125in" indent-before=".125in" spaceafter=".125in" spacebefore=".125in" innerleftmargin=".125in" innertopmargin=".125in" innerrightmargin=".125in" innerbottommargin=".125in" description="sample output" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="framedUnit" selectable="override">
+      <framedUnit framedtype="ftSample" xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
 - - - - - - - - - - - - - - - - - - - - 
 lists
 - - - - - - - - - - - - - - - - - - - - 

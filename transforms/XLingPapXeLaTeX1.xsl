@@ -90,6 +90,7 @@
             <xsl:call-template name="SetUsePackages"/>
             <xsl:call-template name="SetHeaderFooter"/>
             <xsl:call-template name="SetFonts"/>
+            <xsl:call-template name="SetFramedTypes"/>
             <tex:cmd name="setlength" nl2="1">
                 <tex:parm>
                     <tex:cmd name="parindent" gr="0"/>
@@ -1593,7 +1594,7 @@
         listOfFiguresShownHere
     -->
     <xsl:template match="listOfFiguresShownHere">
-        <xsl:for-each select="//figure">
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -1610,7 +1611,7 @@
     -->
     <xsl:template match="tablenumbered">
         <xsl:choose>
-            <xsl:when test="descendant::endnote or @location='here'">
+            <xsl:when test="descendant::endnote or @location='here' or ancestor::framedUnit">
                 <!--  cannot have endnotes in floats... 
                     If the user says, Put it here, don't treat it like a float                
                 -->
@@ -1679,7 +1680,7 @@
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
-        <xsl:for-each select="//tablenumbered">
+        <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -2210,21 +2211,9 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-      example
-   -->
-    <xsl:template mode="example" match="*">
-        <xsl:number level="any" count="example[not(ancestor::endnote)]" format="1"/>
-    </xsl:template>
-    <!--  
-      exampleInEndnote
-   -->
-    <xsl:template mode="exampleInEndnote" match="*">
-        <xsl:number level="single" count="example" format="i"/>
-    </xsl:template>
-    <!--  
         figure
     -->
-    <xsl:template mode="figure" match="*">
+    <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="//chapter">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -2233,17 +2222,17 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="figure" format="1"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <!--  
         tablenumbered
     -->
-    <xsl:template mode="tablenumbered" match="*">
+    <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="//chapter">
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
@@ -2252,10 +2241,10 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="tablenumbered" format="1"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -3713,15 +3702,18 @@
         DoTableNumbered
     -->
     <xsl:template name="DoTableNumbered">
-        <tex:cmd name="vspace">
-            <tex:parm>
-                <!--    <xsl:value-of select="$sBasicPointSize"/>
+        <xsl:if test="preceding-sibling::*[1][name()!='p' and name()!='pc']">
+            <!-- p and pc insert one of these already -->
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>-->
-                <xsl:call-template name="GetCurrentPointSize">
-                    <xsl:with-param name="bAddGlue" select="'Y'"/>
-                </xsl:call-template>
-            </tex:parm>
-        </tex:cmd>
+                    <xsl:call-template name="GetCurrentPointSize">
+                        <xsl:with-param name="bAddGlue" select="'Y'"/>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -4140,7 +4132,10 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:call-template name="OutputFigureLabel"/>
-        <xsl:apply-templates select="." mode="figure"/>
+<!--        <xsl:apply-templates select="." mode="figure"/>-->
+        <xsl:call-template name="GetFigureNumber">
+            <xsl:with-param name="figure" select="."/>
+        </xsl:call-template>
         <xsl:text>&#xa0;</xsl:text>
         <xsl:if test="$bDoBold='Y'">
             <tex:spec cat="eg"/>
@@ -4380,7 +4375,7 @@
         <xsl:call-template name="DoNotBreakHere"/>
         <tex:cmd name="vspace" nl1="1" nl2="1">
             <tex:parm>
-            <!--    <xsl:value-of select="$sBasicPointSize"/>
+                <!--    <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>-->
                 <xsl:call-template name="GetCurrentPointSize">
                     <xsl:with-param name="bAddGlue" select="'Y'"/>
@@ -4716,7 +4711,10 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:call-template name="OutputTableNumberedLabel"/>
-        <xsl:apply-templates select="." mode="tablenumbered"/>
+<!--        <xsl:apply-templates select="." mode="tablenumbered"/>-->
+        <xsl:call-template name="GetTableNumberedNumber">
+            <xsl:with-param name="tablenumbered" select="."/>
+        </xsl:call-template>
         <xsl:text>&#xa0;</xsl:text>
         <xsl:if test="$bDoBold='Y'">
             <tex:spec cat="eg"/>
@@ -4745,7 +4743,7 @@
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
                 <tex:parm>
-                <!--    <xsl:value-of select="$sBasicPointSize"/>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
                     <xsl:text>pt</xsl:text>-->
                     <xsl:call-template name="GetCurrentPointSize">
                         <xsl:with-param name="bAddGlue" select="'Y'"/>

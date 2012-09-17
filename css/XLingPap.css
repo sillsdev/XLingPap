@@ -1485,6 +1485,10 @@ table example gloss:before
 {
 	content: glossExampleOverrideBefore();
 }
+interlinear-text gloss:before
+{
+	content: glossExampleOverrideBefore();
+}
 table gloss:before
 {
 	content: glossTableOverrideBefore();
@@ -1529,6 +1533,10 @@ endnote example gloss:after
 	content: glossExampleOverrideAfter();
 }
 table example gloss:after
+{
+	content: glossExampleOverrideAfter();
+}
+interlinear-text gloss:after
 {
 	content: glossExampleOverrideAfter();
 }

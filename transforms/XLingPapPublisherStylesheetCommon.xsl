@@ -2635,9 +2635,9 @@
         GetContextOfItem
     -->
     <xsl:template name="GetContextOfItem">
-        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='example' or name()='table'][1]"/>
+        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='example' or name()='table' or name()='interlinear-text'][1]"/>
         <xsl:choose>
-            <xsl:when test="name($closestRelevantAncestor)='example'">
+            <xsl:when test="name($closestRelevantAncestor)='example' or name($closestRelevantAncestor)='interlinear-text'">
                 <xsl:text>example</xsl:text>
             </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='table'">

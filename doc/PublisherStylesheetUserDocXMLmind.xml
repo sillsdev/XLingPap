@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->16 August 2012</date
+>21 September 2012</date
 ><version
->2.19.9_3</version
+>2.19.10_3</version
 ><contents
 showLevel="6"
 ></contents
@@ -7175,7 +7175,7 @@ type="tAttrValue"
 >Another attribute available for controlling list output is the <object
 type="tAttribute"
 >spacebetween</object
-> attribute.  Enter the amount of extra vertical space needed between list items such as <object
+> attribute. Enter the amount of extra vertical space needed between list items such as <object
 type="tAttrValue"
 >6pt</object
 >.</p
@@ -9674,8 +9674,8 @@ type="tElement"
 type="tElement"
 >freeLayout</object
 > element controls this. It has the attributes shown in example <exampleRef
-letter="xGlossOverrideLayoutAttributes"
-num="xGlossOverrideLayoutAttributes"
+letter="xFreeOverrideLayoutAttributes"
+num="xFreeOverrideLayoutAttributes"
 ></exampleRef
 >.</p
 ><example
@@ -9687,6 +9687,239 @@ border="1"
 type="tElement"
 >free</object
 > Overrides Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert after this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert before this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iOverridesTextBeforeOrAfterUsesFontInfo"
+></indexedItem
+><object
+type="tAttribute"
+>textbeforeafterusesfontinfo</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not any text which comes before or after the <object
+type="tElement"
+>free</object
+> item uses the same font information as the <object
+type="tElement"
+>free</object
+> item itself will. For example, if you use openning and closing double quotes before and after the <object
+type="tElement"
+>free</object
+> item, do you want these quotes formatted the same as the <object
+type="tElement"
+>free</object
+> item or not?</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>Yes</td
+></tr
+></table
+></example
+></section2
+><section2
+id="sLiteralOverrides"
+><secTitle
+>Special Overrides for <object
+type="tElement"
+>literal</object
+> Elements</secTitle
+><p
+><indexedItem
+term="iLiteralOverrides"
+></indexedItem
+>Sometimes one wants to override the default formatting for data in literal translations (i.e in <object
+type="tElement"
+>literal</object
+> elements). The <object
+type="tElement"
+>literalLayout</object
+> element controls this. It contains two elements: <object
+type="tElement"
+>literalLabelLayout</object
+> and <object
+type="tElement"
+>literalContentLayout</object
+>.</p
+><p
+>The <object
+type="tElement"
+>literalLabelLayout</object
+> element allows you to type in a label that will appear at the beginning of every literal translation (e.g., “Lit. ”).  It has the attributes described in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+>.  You can use these attributes to format the label as needed.</p
+><p
+>The second element, <object
+type="tElement"
+>literalContentLayout</object
+>, has the attributes shown in example <exampleRef
+letter="xLiteralOverrideLayoutAttributes"
+num="xLiteralOverrideLayoutAttributes"
+></exampleRef
+>.  You use these to control formatting of the content ot the <object
+type="tElement"
+>literal</object
+> elements.</p
+><example
+num="xLiteralOverrideLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>literal</object
+> Content Overrides Attributes</caption
 ><tr
 ><th
 ><langData
@@ -11770,6 +12003,11 @@ id="iLinkLink"
 id="iListLayout"
 ><term
 >List layout</term
+></indexTerm
+><indexTerm
+id="iLiteralOverrides"
+><term
+>Literal translation special formatting</term
 ></indexTerm
 ><indexTerm
 id="iLocation"

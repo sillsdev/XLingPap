@@ -713,6 +713,14 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        literalLayout
+    -->
+    <xsl:template match="literalContentLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'literalContentLayout'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         numberLayout
     -->
     <xsl:template match="numberLayout">
@@ -1446,6 +1454,7 @@ li.lower-roman {
     <xsl:template match="@verticalfillbefore"/>
     <xsl:template match="@XeLaTeXSpecial"/>
     <xsl:template match="@xsl-foSpecial"/>
+    <xsl:template match="literalLabelLayout"/>
     <!--
         AddAnyLinkAttributes
     -->
@@ -1634,6 +1643,7 @@ li.lower-roman {
         TEMPLATE DUMMIES
         =========================================================== -->
     <xsl:template name="DoRefWorks"/>
+    <xsl:template name="HandleLiteralLabelLayoutInfo"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>
     <xsl:template name="OutputAbbreviationInTable"/>
     <!-- ===========================================================

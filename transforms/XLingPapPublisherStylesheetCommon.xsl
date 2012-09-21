@@ -317,6 +317,10 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        Elements to ignore
+    -->
+    <xsl:template match="literalLabelLayout"/>
     <!--  
         DetermineIfDateAccessedMatchesLayoutPattern
     -->
@@ -1355,7 +1359,7 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
+                <!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
                 <xsl:call-template name="GetFigureNumber">
                     <xsl:with-param name="figure" select="$figure"/>
                 </xsl:call-template>
@@ -1955,11 +1959,11 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
+                <!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
                 <xsl:call-template name="GetTableNumberedNumber">
                     <xsl:with-param name="tablenumbered" select="$table"/>
                 </xsl:call-template>
-                
+
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -3318,8 +3322,10 @@
                 <xsl:with-param name="originalContext" select="."/>
                 <xsl:with-param name="bIsOverride" select="'Y'"/>
             </xsl:call-template>
-            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='yes' and string-length(normalize-space($freeLayout/@textbefore)) &gt; 0">
-                <xsl:value-of select="normalize-space($freeLayout/@textbefore)"/>
+            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='yes'">
+                <xsl:if test="string-length($freeLayout/@textbefore) &gt; 0">
+                    <xsl:value-of select="$freeLayout/@textbefore"/>
+                </xsl:if>
             </xsl:if>
         </xsl:if>
     </xsl:template>
@@ -3328,11 +3334,13 @@
     -->
     <xsl:template name="HandleFreeTextBeforeOutside">
         <xsl:param name="freeLayout"/>
-        <xsl:if test="$freeLayout">
-            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no' and string-length(normalize-space($freeLayout/@textbefore)) &gt; 0">
-                <xsl:value-of select="normalize-space($freeLayout/@textbefore)"/>
-            </xsl:if>
-        </xsl:if>
+                <xsl:if test="$freeLayout">
+                <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no'">
+                        <xsl:if test="string-length($freeLayout/@textbefore) &gt; 0">
+                            <xsl:value-of select="$freeLayout/@textbefore"/>
+                        </xsl:if>
+                </xsl:if>
+                </xsl:if>
     </xsl:template>
     <!--  
         HandleGlossFontOverrides

@@ -91,6 +91,18 @@
         <xsl:call-template name="DoInterlinearFree"/>
     </xsl:template>
     <!--
+        literal
+    -->
+    <xsl:template match="literal">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="literal" mode="NoTextRef">
+        <xsl:call-template name="DoInterlinearFree"/>
+    </xsl:template>
+    <!--
         lineGroup
     -->
     <xsl:template match="lineGroup">

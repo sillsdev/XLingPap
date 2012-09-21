@@ -70,6 +70,8 @@
     </xsl:variable>
     <xsl:variable name="bIsBook" select="//chapter"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
+    <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
+    <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
     <!--
         counter
     -->
@@ -295,6 +297,26 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+    <!--  
+        DoLiteralLabel
+    -->
+    <xsl:template name="DoLiteralLabel">
+        <xsl:if test="name()='literal'">
+            <xsl:choose>
+                <xsl:when test="$literalLabelLayoutInfo">
+                    <xsl:call-template name="HandleLiteralLabelLayoutInfo">
+                        <xsl:with-param name="layoutInfo" select="$literalLabelLayoutInfo"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="string-length($sLiteralLabel) &gt; 0">
+                    <xsl:value-of select="$sLiteralLabel"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Lit. </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
         DoRefAuthors

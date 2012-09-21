@@ -3492,21 +3492,32 @@ not using
                 </xsl:for-each>
             </xsl:variable>
             <xsl:variable name="sCurrentLanguage" select="@lang"/>
-            <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
-                <!--              <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::free[not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">-->
-                <xsl:attribute name="margin-left">
-                    <xsl:text>0.1in</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="name()='literal'">
+                    <xsl:if test="preceding-sibling::literal[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='literal'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                        <xsl:attribute name="margin-left">
+                            <xsl:text>0.1in</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1]or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                        <xsl:attribute name="margin-left">
+                            <xsl:text>0.1in</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
             <fo:inline>
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                 </xsl:call-template>
+                <xsl:call-template name="DoLiteralLabel"/>
                 <xsl:apply-templates>
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:apply-templates>
             </fo:inline>
-            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
                 <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear'">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
@@ -3515,7 +3526,7 @@ not using
                 </xsl:if>
             </xsl:if>
         </fo:block>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free)">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal)">
             <xsl:if test="name(../..)='example' or name(../..)='listInterlinear'">
                 <fo:block keep-with-previous.within-page="1">
                     <xsl:call-template name="OutputInterlinearTextReference">

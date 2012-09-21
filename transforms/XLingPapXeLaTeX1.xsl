@@ -1369,7 +1369,7 @@
                     </xsl:if>
                 </tex:cmd>
             </xsl:when>
-            <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext'">
+            <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext' or ancestor::literal and $sTeXFootnoteKind!='footnotetext'">
                 <xsl:if test="$originalContext">
                     <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -1399,10 +1399,12 @@
                                 <xsl:value-of select="$sFootnoteNumber"/>
                             </tex:opt>
                         </xsl:if>
-                        <xsl:if test="ancestor::interlinear-text and ancestor::free and following-sibling::endnote">
-                            <tex:opt>
-                                <xsl:value-of select="$sFootnoteNumber"/>
-                            </tex:opt>
+                        <xsl:if test="ancestor::interlinear-text and following-sibling::endnote">
+                            <xsl:if test="ancestor::free or ancestor::literal">
+                                <tex:opt>
+                                    <xsl:value-of select="$sFootnoteNumber"/>
+                                </tex:opt>
+                            </xsl:if>
                         </xsl:if>
                     </xsl:if>
                     <tex:parm>
@@ -3785,6 +3787,7 @@
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoLiteralLabel"/>
                     <xsl:apply-templates/>
                     <xsl:call-template name="OutputFontAttributesEnd">
                         <xsl:with-param name="language" select="$language"/>
@@ -3798,6 +3801,7 @@
     -->
     <xsl:template name="HandleFreeNoLanguageFontInfo">
         <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoLiteralLabel"/>
         <xsl:apply-templates>
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:apply-templates>
@@ -4132,7 +4136,7 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:call-template name="OutputFigureLabel"/>
-<!--        <xsl:apply-templates select="." mode="figure"/>-->
+        <!--        <xsl:apply-templates select="." mode="figure"/>-->
         <xsl:call-template name="GetFigureNumber">
             <xsl:with-param name="figure" select="."/>
         </xsl:call-template>
@@ -4711,7 +4715,7 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:call-template name="OutputTableNumberedLabel"/>
-<!--        <xsl:apply-templates select="." mode="tablenumbered"/>-->
+        <!--        <xsl:apply-templates select="." mode="tablenumbered"/>-->
         <xsl:call-template name="GetTableNumberedNumber">
             <xsl:with-param name="tablenumbered" select="."/>
         </xsl:call-template>

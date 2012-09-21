@@ -675,6 +675,20 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        literal
+    -->
+    <xsl:template match="literal">
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="literal" mode="NoTextRef">
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         word
     -->
     <xsl:template match="word">
@@ -1424,6 +1438,20 @@
                 <xsl:apply-templates/>
             </td>
         </tr>
+    </xsl:template>
+    <!--
+        HandleLiteralLabelLayoutInfo
+    -->
+    <xsl:template name="HandleLiteralLabelLayoutInfo">
+        <xsl:param name="layoutInfo"/>
+        <span>
+            <xsl:attribute name="style">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$layoutInfo"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:value-of select="$layoutInfo/../literalLabelLayout"/>
+        </span>
     </xsl:template>
     <!--
         OutputAbbrDefinition

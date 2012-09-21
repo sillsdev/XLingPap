@@ -2881,7 +2881,7 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
         <table>
-            <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free)">
+            <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
             </xsl:if>
             <!-- add extra indent for when have an embedded interlinear; 
@@ -2895,53 +2895,41 @@
                 </xsl:for-each>
             </xsl:variable>
             <xsl:variable name="sCurrentLanguage" select="@lang"/>
-            <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
-                <!--                <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::free[not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">-->
-                <xsl:attribute name="style">
-                    <xsl:text>margin-left:0.1in;</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:variable name="language" select="key('LanguageID',@lang)"/>
-            <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
-            <tr>
-                <td>
-                    <xsl:variable name="sSpaceBeforeFree" select="normalize-space($freeLayout/@spacebefore)"/>
-                    <xsl:variable name="sSpaceAfterFree" select="normalize-space($freeLayout/@spaceafter)"/>
-                    <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0 or string-length($sSpaceAfterFree) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="name()='literal'">
+                    <xsl:if test="preceding-sibling::literal[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::*[1][name()='literal'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                         <xsl:attribute name="style">
-                            <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
-                                <xsl:text>padding-top:</xsl:text>
-                                <xsl:value-of select="$sSpaceBeforeFree"/>
-                                <xsl:text>; </xsl:text>
-                            </xsl:if>
-                            <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
-                                <xsl:text>padding-bottom:</xsl:text>
-                                <xsl:value-of select="$sSpaceAfterFree"/>
-                                <xsl:text>; </xsl:text>
-                            </xsl:if>
+                            <xsl:text>margin-left:0.1in;</xsl:text>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:call-template name="HandleFreeTextBeforeOutside">
-                        <xsl:with-param name="freeLayout" select="$freeLayout"/>
-                    </xsl:call-template>
-                    <span class="language{@lang}">
-                        <span>
-                            <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
-                                <xsl:with-param name="freeLayout" select="$freeLayout"/>
-                            </xsl:call-template>
-                            <xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1]or preceding-sibling::*[1][name()='free'][not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                        <xsl:attribute name="style">
+                            <xsl:text>margin-left:0.1in;</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:variable name="language" select="key('LanguageID',@lang)"/>
+            <tr>
+                <td>
+                    <xsl:choose>
+                        <xsl:when test="name()='free'">
+                            <xsl:call-template name="DoInterlinearFreeContent">
+                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
                                 <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:apply-templates>
-                            <xsl:call-template name="HandleFreeTextAfterInside">
-                                <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                            </xsl:call-template>    </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoLiteralLabel"/>
+                            <xsl:call-template name="DoInterlinearFreeContent">
+                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
                             </xsl:call-template>
-                        </span>
-                    </span>
-                    <xsl:call-template name="HandleFreeTextAfterOutside">
-                        <xsl:with-param name="freeLayout" select="$freeLayout"/>
-                    </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </td>
-                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free) and $mode!='NoTextRef'">
+                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
                     <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                         <td>
                             <xsl:call-template name="OutputInterlinearTextReference">
@@ -2953,7 +2941,7 @@
                 </xsl:if>
             </tr>
         </table>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free) and $mode!='NoTextRef'">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
             <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <xsl:if test="../interlinearSource or string-length(normalize-space(../@textref)) &gt; 0">
                     <table>
@@ -2969,6 +2957,48 @@
                 </xsl:if>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoInterlinearFreeContent
+    -->
+    <xsl:template name="DoInterlinearFreeContent">
+        <xsl:param name="freeLayout"/>
+        <xsl:param name="originalContext"/>
+        <xsl:variable name="sSpaceBeforeFree" select="normalize-space($freeLayout/@spacebefore)"/>
+        <xsl:variable name="sSpaceAfterFree" select="normalize-space($freeLayout/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0 or string-length($sSpaceAfterFree) &gt; 0">
+            <xsl:attribute name="style">
+                <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                    <xsl:text>padding-top:</xsl:text>
+                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+                <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
+                    <xsl:text>padding-bottom:</xsl:text>
+                    <xsl:value-of select="$sSpaceAfterFree"/>
+                    <xsl:text>; </xsl:text>
+                </xsl:if>
+            </xsl:attribute>
+        </xsl:if>
+        <xsl:call-template name="HandleFreeTextBeforeOutside">
+            <xsl:with-param name="freeLayout" select="$freeLayout"/>
+        </xsl:call-template>
+        <span class="language{@lang}">
+            <span>
+                <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
+                    <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                </xsl:call-template>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+                <xsl:call-template name="HandleFreeTextAfterInside">
+                    <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                </xsl:call-template>
+            </span>
+        </span>
+        <xsl:call-template name="HandleFreeTextAfterOutside">
+            <xsl:with-param name="freeLayout" select="$freeLayout"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         DoInterlinearRefCitation
@@ -3826,7 +3856,7 @@
                 <xsl:attribute name="class">figureNumberLayout</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
-<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
             <xsl:call-template name="GetTableNumberedNumber">
                 <xsl:with-param name="tablenumbered" select="."/>
             </xsl:call-template>
@@ -3925,7 +3955,7 @@
                 <xsl:attribute name="class">figureNumberLayout</xsl:attribute>
             </xsl:if>
             <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
-<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <!--            <xsl:apply-templates select="." mode="figure"/>-->
             <xsl:call-template name="GetFigureNumber">
                 <xsl:with-param name="figure" select="."/>
             </xsl:call-template>

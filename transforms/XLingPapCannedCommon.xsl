@@ -182,6 +182,13 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        HandleLiteralLabelLayoutInfo
+    -->
+    <xsl:template name="HandleLiteralLabelLayoutInfo" priority="-1">
+        <xsl:param name="layoutInfo"/>
+        <!-- default is to do nothing -->
+    </xsl:template>
     <!--  
         OutputFigureLabel
     -->

@@ -112,6 +112,7 @@
     tablenumberedRefCapitalizedPluralLabel CDATA #IMPLIED
     tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
     automaticallywrapinterlinears (no | yes) "no"
+    literalLabel CDATA #IMPLIED
     >
 <!-- Languages groups a set of language definitions.  This is at the end because it looks better in a tool like XMLMind -->
 <!ELEMENT languages (language+)>
@@ -415,7 +416,7 @@
     the textref IDREF refers to a text ID when the interlinear is in an example
     interlinearSource is a way to manually indicate where the interlinear came from
 -->
-<!ELEMENT interlinear (exampleHeading?, (lineGroup | free | interlinear | phrase)+, interlinearSource?)>
+<!ELEMENT interlinear (exampleHeading?, (lineGroup | free | literal | interlinear | phrase)+, interlinearSource?)>
 <!ATTLIST interlinear
     externalID CDATA #IMPLIED
     text ID #IMPLIED
@@ -463,8 +464,14 @@
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT literal (#PCDATA | %embedded;)*>
+<!ATTLIST literal
+    externalID CDATA #IMPLIED
+    lang IDREF #IMPLIED
+    xml:lang CDATA #IMPLIED
+>
 <!ELEMENT exampleHeading (#PCDATA | %embedded;)*>
-<!ELEMENT listInterlinear (exampleHeading?, (lineGroup | free | interlinear | interlinearRef | phrase)+, interlinearSource?)>
+<!ELEMENT listInterlinear (exampleHeading?, (lineGroup | free | literal | interlinear | interlinearRef | phrase)+, interlinearSource?)>
 <!ATTLIST listInterlinear
     externalID CDATA #IMPLIED
     letter ID #REQUIRED

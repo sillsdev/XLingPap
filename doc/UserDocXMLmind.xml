@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 August 2012</date
+>20 September 2012</date
 ><version
->2.19.9_3</version
+>2.19.10_3</version
 ><contents
 showLevel="4"
 ></contents
@@ -9922,6 +9922,132 @@ src="resources/ISO639-3CodeInInterlinear.png"
 ></img
 ></chart
 ></example
+></section3
+><section3
+id="sExInterlinearLiteral"
+><secTitle
+>Using a literal translation</secTitle
+><p
+><indexedItem
+term="iInterlinearLiteral"
+></indexedItem
+>As mentioned above, interlinear examples usually include a free translation.  Sometimes they also include a literal translation (and, more rarely, use a literal translation instead of a free translation).  <object
+type="tXLingPap"
+></object
+> provides a <object
+type="tElement"
+>literal</object
+> element you can use for a literal translation.</p
+><p
+>Unlike for free translations, there are no interlinear templates which provide a <object
+type="tElement"
+>literal</object
+> translation element.  There are at least two ways to insert a <object
+type="tElement"
+>literal</object
+> element:</p
+><ol
+><li
+>To insert a <object
+type="tElement"
+>literal</object
+> element after a <object
+type="tElement"
+>free</object
+> element, do this:<ol
+><li
+>Click in the content of the <object
+type="tElement"
+>free</object
+> element;</li
+><li
+>do an <object
+type="tInstruction"
+>Insert After</object
+> command;<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> and</li
+><li
+>select the <object
+type="tElement"
+>literal</object
+> element in the Edit Tool.<endnoteRef
+note="nEditTool"
+></endnoteRef
+> </li
+></ol
+></li
+><li
+>To convert a free element to a literal element, do this:<ol
+><li
+>Click in the content of the <object
+type="tElement"
+>free</object
+> element and</li
+><li
+>do a <object
+type="tInstruction"
+>Convert</object
+> command (via <object
+type="tInstruction"
+>Edit / Convert</object
+>, pressing <object
+type="tKey"
+>Ctrl-T</object
+>, or by clicking on the convert  icon in the Edit tool<endnoteRef
+note="nEditTool"
+></endnoteRef
+>).</li
+></ol
+></li
+></ol
+><p
+>A <object
+type="tElement"
+>literal</object
+> element has the same set of attributes as a <object
+type="tElement"
+>free</object
+> element.  Its output is also the same except that by default, <object
+type="tXLingPap"
+></object
+> inserts “Lit. ” at the beginning of a <object
+type="tElement"
+>literal</object
+> element.  If you wish to use some other label, then you will need to change the <object
+type="tAttribute"
+>literalLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. To set the <object
+type="tAttribute"
+>literalLabel</object
+> attribute, click on “lingPaper” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> Then use the Attribute tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to find and change the <object
+type="tAttribute"
+>literalLabel</object
+> attribute.</p
+><p
+>If you are using a publisher style sheet, that style sheet can provide the label to be used.  If so, what is in the style sheet will be used even if you have set the <object
+type="tAttribute"
+>literalLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element.  (For more on publisher style sheets, see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> or click <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+>here</link
+> to see the documenation on publisher style sheets.)</p
 ></section3
 ></section2
 ><section2
@@ -22508,6 +22634,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>literal</object
+></dt
+><dd
+>A literal translation field within an interlinear example</dd
+><dt
+><object
+type="tElement"
 >location</object
 ></dt
 ><dd
@@ -24017,6 +24150,16 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for lists</dd
+><dt
+><object
+type="tElement"
+>literalLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>literal</object
+> elements</dd
 ><dt
 ><object
 type="tElement"
@@ -26011,6 +26154,11 @@ id="iInterlinearGloss"
 >Gloss in</term
 ></indexTerm
 ><indexTerm
+id="iInterlinearLiteral"
+><term
+>Literal translation in</term
+></indexTerm
+><indexTerm
 id="iInterlinearObject"
 ><term
 >Object in</term
@@ -26088,6 +26236,12 @@ id="iLanguageAttributes"
 >Attributes</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iLiteralTranslation"
+see="iInterlinearLiteral"
+><term
+>Literal translation</term
 ></indexTerm
 ><indexTerm
 id="iMAThesis"

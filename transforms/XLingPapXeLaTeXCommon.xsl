@@ -832,7 +832,7 @@
                                     <xsl:value-of select="count(exampleHeading) + 2"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of select="count(lineGroup/line) + count(free) + count(exampleHeading) + 1"/>
+                                    <xsl:value-of select="count(lineGroup/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
@@ -1138,6 +1138,24 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        literal
+    -->
+    <xsl:template match="literal">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="literal" mode="NoTextRef">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:call-template name="DoInterlinearFree">
             <xsl:with-param name="mode" select="'NoTextRef'"/>
@@ -3651,22 +3669,22 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- 2011.11.17                   <tex:cmd name="vspace*">
-                        <tex:parm>
-                            <xsl:text>-</xsl:text>
-                            <xsl:value-of select="$sAdjustmentValue"/>
-                            <tex:cmd name="baselineskip" gr="0"/>
-                        </tex:parm>
+                    <tex:parm>
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="$sAdjustmentValue"/>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:parm>
                     </tex:cmd>
--->
+                -->
                 <!--  2011.11.17         <xsl:if test="string-length($sIsoCode) &gt; 0 ">
                     <tex:cmd name="vspace*">
-                        <tex:parm>
-                            <xsl:value-of select="$sAdjustmentValue"/>
-                            <tex:cmd name="baselineskip" gr="0"/>
-                        </tex:parm>
+                    <tex:parm>
+                    <xsl:value-of select="$sAdjustmentValue"/>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:parm>
                     </tex:cmd>
-                </xsl:if>
-     -->
+                    </xsl:if>
+                -->
             </xsl:when>
             <xsl:when test="parent::interlinear[parent::example][count(preceding-sibling::*)=0]">
                 <xsl:if test="$bCalculateHeight='N'">
@@ -3787,7 +3805,7 @@
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
-        <xsl:if test="preceding-sibling::*[1][name()='free']">
+        <xsl:if test="preceding-sibling::*[1][name()='free' or name()='literal']">
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
             <xsl:text>*</xsl:text>
@@ -3803,27 +3821,39 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="sCurrentLanguage" select="@lang"/>
-        <xsl:if test="preceding-sibling::*[1][name()='free'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='free'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
-            <!--            <xsl:if test="preceding-sibling::free[@lang=$sCurrentLanguage][position()=1] or preceding-sibling::free[not(@lang)][position()=1] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">-->
-            <xsl:choose>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ../preceding-sibling::*[1][name()='free']">
-                    <!-- do nothing -->
-                </xsl:when>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 1">
-                    <!-- do nothing -->
-                </xsl:when>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
-                    <!-- do nothing -->
-                </xsl:when>
-                <xsl:otherwise>
-                    <tex:cmd name="hspace*">
-                        <tex:parm>
-                            <xsl:text>0.1in</xsl:text>
-                        </tex:parm>
-                    </tex:cmd>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="name()='literal'">
+                <xsl:if test="preceding-sibling::*[1][name()='literal'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='literal'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                    <xsl:call-template name="DoInterlinearFreeIndent"/>
+                </xsl:if>
+                <xsl:call-template name="DoInterlinearFreeContent">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="mode" select="$mode"/>
+                    <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="preceding-sibling::*[1][name()='free'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='free'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                    <xsl:call-template name="DoInterlinearFreeIndent"/>
+                </xsl:if>
+                <xsl:call-template name="DoInterlinearFreeContent">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    <xsl:with-param name="mode" select="$mode"/>
+                    <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoInterlinearFreeContent
+    -->
+    <xsl:template name="DoInterlinearFreeContent">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="mode"/>
+        <xsl:param name="freeLayout"/>
         <xsl:variable name="fIsListInterlinearButNotInTable">
             <xsl:choose>
                 <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
@@ -3875,10 +3905,10 @@
                     <tex:parm>
                         <tex:cmd name="XLingPaperexamplefreeindent" gr="0"/>
                         <!--                    <xsl:text>-.3 em+</xsl:text>
-                    <xsl:value-of select="$sExampleIndentBefore"/>
-                    <xsl:text>-</xsl:text>
-                    <xsl:value-of select="$sBlockQuoteIndent"/>
--->
+                            <xsl:value-of select="$sExampleIndentBefore"/>
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$sBlockQuoteIndent"/>
+                        -->
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
@@ -3917,7 +3947,7 @@
             <xsl:if test="following-sibling::*[1][name()='lineGroup']">
                 <tex:spec cat="bg"/>
             </xsl:if>
-            <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
+            <xsl:variable name="sSpaceBeforeFree" select="normalize-space($freeLayout/@spacebefore)"/>
             <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
                 <tex:cmd name="vspace*">
                     <tex:parm>
@@ -3948,8 +3978,9 @@
                 <xsl:when test="$mode='NoTextRef'">
                     <tex:cmd name="hspace*">
                         <tex:parm>
+                            <xsl:variable name="sThisName" select="name()"/>
                             <xsl:choose>
-                                <xsl:when test="../preceding-sibling::*[1][name()='free'] or count(ancestor::interlinear) &gt; 1">
+                                <xsl:when test="../preceding-sibling::*[1][name()=$sThisName] or count(ancestor::interlinear) &gt; 1">
                                     <xsl:text>1.65</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -3969,21 +4000,25 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+        <xsl:call-template name="DoLiteralLabel"/>
         <xsl:choose>
             <xsl:when test="@lang">
-                <xsl:call-template name="HandleFreeLanguageFontInfo"/>
+                <xsl:call-template name="HandleFreeLanguageFontInfo">
+                    <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <!--                <tex:cmd name="raggedright" gr="0" nl2="0"/>-->
                 <tex:group>
                     <xsl:call-template name="HandleFreeNoLanguageFontInfo">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="freeLayout" select="$freeLayout"/>
                     </xsl:call-template>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$mode!='NoTextRef'">
-            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free) and not(following-sibling::interlinear[descendant::free])">
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
                 <xsl:if test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="ancestor::interlinear[@textref]/@textref"/>
@@ -3992,7 +4027,7 @@
                 </xsl:if>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free) and ../interlinearSource">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
             <xsl:if test="ancestor::example or ancestor::listInterlinear">
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc" nl2="1"/>
@@ -4053,7 +4088,7 @@
                 <xsl:otherwise/>
             </xsl:choose>
         </xsl:if>
-        <xsl:variable name="sSpaceAfterFree" select="normalize-space($contentLayoutInfo/freeLayout/@spaceafter)"/>
+        <xsl:variable name="sSpaceAfterFree" select="normalize-space($freeLayout/@spaceafter)"/>
         <xsl:if test="string-length($sSpaceAfterFree) &gt; 0">
             <tex:cmd name="vspace">
                 <tex:parm>
@@ -4062,6 +4097,32 @@
             </tex:cmd>
         </xsl:if>
     </xsl:template>
+    <!--  
+        DoInterlinearFreeIndent
+    -->
+    <xsl:template name="DoInterlinearFreeIndent">
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ../preceding-sibling::*[1][name()='free' or name()='literal']">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 1">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <xsl:text>0.1in</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        AdjustFreePositionForISOCodeInListInterlinear
+    -->
     <xsl:template name="AdjustFreePositionForISOCodeInListInterlinear">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:if test="contains($bListsShareSameCode,'N')">
@@ -4247,7 +4308,7 @@
                         <xsl:text>*
 </xsl:text>
                     </xsl:when>
-                    <xsl:when test="name($previous)='free' or name($previous)='lineGroup' or name($previous)='interlinear' and $previous[parent::interlinear or parent::listInterlinear]">
+                    <xsl:when test="name($previous)='free' or name($previous)='literal' or name($previous)='lineGroup' or name($previous)='interlinear' and $previous[parent::interlinear or parent::listInterlinear]">
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
                         <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
@@ -4260,13 +4321,13 @@
                             <tex:parm>.1in</tex:parm>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free']">
+                    <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
                         <xsl:call-template name="HandleImmediatelyPrecedingLineGroupOrFree"/>
                     </xsl:when>
                     <xsl:otherwise> </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free']">
+            <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
                 <xsl:call-template name="HandleImmediatelyPrecedingLineGroupOrFree"/>
             </xsl:when>
             <xsl:otherwise/>
@@ -4329,17 +4390,33 @@
             <xsl:when test="following-sibling::*[1][name()='lineGroup']">
                 <!-- do nothing; otherwise we get an error -->
             </xsl:when>
-            <xsl:when test="following-sibling::*[1][name()='free'] or parent::interlinear/following-sibling::*[1][name()='free']">
-                <xsl:call-template name="CreateBreakAfter">
-                    <xsl:with-param name="example" select="ancestor::example[1]"/>
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="sSpaceBeforeFree">
-                        <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
-                        <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
-                            <xsl:value-of select="$sSpaceBeforeFree"/>
-                        </xsl:if>
-                    </xsl:with-param>
-                </xsl:call-template>
+            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] or parent::interlinear/following-sibling::*[1][name()='free' or name()='literal']">
+                <xsl:choose>
+                    <xsl:when test="following-sibling::*[1][name()='free']">
+                        <xsl:call-template name="CreateBreakAfter">
+                            <xsl:with-param name="example" select="ancestor::example[1]"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="sSpaceBeforeFree">
+                                <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
+                                <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                                </xsl:if>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="CreateBreakAfter">
+                            <xsl:with-param name="example" select="ancestor::example[1]"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="sSpaceBeforeFree">
+                                <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/literalLayout/@spacebefore)"/>
+                                <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
+                                    <xsl:value-of select="$sSpaceBeforeFree"/>
+                                </xsl:if>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <!--                <tex:cmd name="par" gr="0" nl2="1"/>-->
@@ -4847,7 +4924,7 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
         <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
-            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free']">
+            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <tex:cmd name="baselineskip"/>
@@ -4861,7 +4938,7 @@
             <tex:cmd name="hspace*" nl2="0">
                 <tex:parm>
                     <xsl:choose>
-                        <xsl:when test="../preceding-sibling::*[1][name()='free'] or count(ancestor::interlinear) &gt; 1">
+                        <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
                             <xsl:text>1.65</xsl:text>
                         </xsl:when>
                         <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
@@ -5076,7 +5153,7 @@
             </xsl:otherwise>
         </xsl:choose>
         <!--<tex:cmd name="par" nl2="1"/>-->
-        <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free'])">
+        <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free' or name()='literal'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
             <xsl:choose>
                 <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
@@ -5096,7 +5173,7 @@
             </xsl:choose>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
-        <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free']">
+        <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free' or name()='literal']">
             <tex:cmd name="vspace*">
                 <tex:parm>
                     <xsl:text>-</xsl:text>
@@ -8115,7 +8192,7 @@
                             </xsl:choose>
                         </xsl:variable>
                         <xsl:variable name="iInterlinearLines" select="count(table/descendant-or-self::tr/td[1]/descendant::line)"/>
-                        <xsl:variable name="iInterlinearFrees" select="count(table/descendant-or-self::tr/td[1]/descendant::free)"/>
+                        <xsl:variable name="iInterlinearFrees" select="count(table/descendant-or-self::tr/td[1]/descendant::free) + count(table/descendant-or-self::tr/td[1]/descendant::literal)"/>
                         <xsl:variable name="iMinLines" select="$iMinRows + $iLines + $iInterlinearLines + $iInterlinearFrees"/>
                         <xsl:choose>
                             <!-- assume if it is greater than 10, then we will get a page break somewhere within the example -->

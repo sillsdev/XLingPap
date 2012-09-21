@@ -2358,6 +2358,24 @@ listWord
 	padding-left:example-indent();
 }
 
+literal:before
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/@textbefore, (/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@literalLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@literalLabel, 'Lit. ')");
+}
+literal
+{
+	display:block;
+	color: concatenate(xpath("id(@lang)/@color"));
+	font-family: concatenate("'",xpath("id(@lang)/@font-family"),"'");
+	font-size: concatenate(xpath("id(@lang)/@font-size"));
+	font-style: concatenate(xpath("id(@lang)/@font-style"));
+	font-weight: concatenate(xpath("id(@lang)/@font-weight")); 
+}
+literal:after
+{
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/@textafter, '')");
+}
+
 location
 {
 	display:inline;
@@ -6844,6 +6862,123 @@ listLayout
 	margin-top:12pt;
 	margin-bottom:12pt;
 	content: "lists";
+}
+literalContentLayout:before
+{
+	margin-top:12pt;
+}
+literalContentLayout:after
+{
+	margin-bottom:12pt;
+}
+
+literalContentLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+literalContentLayout[color]
+{
+	color:concatenate(attr(color));
+}
+literalContentLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+literalContentLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+literalContentLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+literalContentLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+literalContentLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+literalContentLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+literalContentLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+literalContentLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+literalContentLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+literalContentLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+literalContentLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+literalContentLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+literalContentLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+literalContentLayout[textbeforeafterusesfontinfo='yes']
+{
+/*	display:block;
+	margin-top:12pt; */
+        display:inline;
+	content: label(attribute, textbefore)
+	         "literal special override"
+	         label(attribute, textafter)
+	         ;
+/*	margin-left:.125in;
+	margin-bottom:12pt; */
+}
+literalContentLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+literalContentLayout
+{
+/*	margin-top:12pt;
+	display:block; */
+        display:inline;
+	content: "literal special override"
+	         ;
+/*	margin-left:.125in;
+	margin-bottom:12pt; */
+}
+literalContentLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+literalLabelLayout
+{
+	display:inline;
+	color: concatenate(attr(color));
+	font-family: concatenate("'",attr(font-family),"'");
+	font-size: concatenate(attr(font-size));
+	font-style: concatenate(attr(font-style));
+	font-weight: concatenate(attr(font-weight)); 
+}
+literalLayout
+{
+	display:block;
+	margin-top:12pt;
+	margin-left:.125in;
+	margin-bottom:12pt;
 }
 locationItem[color]
 {

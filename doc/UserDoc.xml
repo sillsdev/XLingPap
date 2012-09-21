@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->23 August 2012</date
+>20 September 2012</date
 ><version
->2.19.9_3</version
+>2.19.10_3</version
 ><contents
 showLevel="3"
 ></contents
@@ -9980,6 +9980,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>literal</object
+></dt
+><dd
+>A literal translation field within an interlinear example</dd
+><dt
+><object
+type="tElement"
 >location</object
 ></dt
 ><dd
@@ -11451,6 +11458,16 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for lists</dd
+><dt
+><object
+type="tElement"
+>literalLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>literal</object
+> elements</dd
 ><dt
 ><object
 type="tElement"

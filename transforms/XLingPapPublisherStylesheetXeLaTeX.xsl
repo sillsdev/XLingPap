@@ -3018,13 +3018,14 @@
     <xsl:template match="references">
         <xsl:choose>
             <xsl:when test="$bIsBook">
-<!--  This gets done any way in DoReferences when there are some;
+                <!--  This gets done any way in DoReferences when there are some;
         If there aren't any, then the cleardoublepage can make it so that the table of contents .toc does not get the final </toc>
         (I have no idea why...)
     <xsl:call-template name="DoPageBreakFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/referencesTitleLayout"/>
                 </xsl:call-template>
--->                <xsl:call-template name="DoReferences"/>
+-->
+                <xsl:call-template name="DoReferences"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoReferences"/>
@@ -3352,7 +3353,7 @@
     -->
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
-<!--        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>-->
+        <!--        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>-->
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -3501,7 +3502,7 @@
                             </xsl:if>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext'">
+                    <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext' or ancestor::literal and $sTeXFootnoteKind!='footnotetext'">
                         <xsl:if test="$originalContext">
                             <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
                                 <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -3543,13 +3544,15 @@
                                         </xsl:call-template>
                                     </tex:opt>
                                 </xsl:if>
-                                <xsl:if test="ancestor::interlinear-text and ancestor::free and following-sibling::endnote">
-                                    <tex:opt>
-                                        <xsl:call-template name="DoFootnoteNumberInText">
-                                            <xsl:with-param name="originalContext" select="$originalContext"/>
-                                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
-                                        </xsl:call-template>
-                                    </tex:opt>
+                                <xsl:if test="ancestor::interlinear-text and following-sibling::endnote">
+                                    <xsl:if test="ancestor::free or ancestor::literal">
+                                        <tex:opt>
+                                            <xsl:call-template name="DoFootnoteNumberInText">
+                                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                                <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                                            </xsl:call-template>
+                                        </tex:opt>
+                                    </xsl:if>
                                 </xsl:if>
                             </xsl:if>
                             <tex:parm>
@@ -5029,9 +5032,9 @@
         HandleFreeLanguageFontInfo
     -->
     <xsl:template name="HandleFreeLanguageFontInfo">
+        <xsl:param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
-        <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
         <xsl:choose>
             <xsl:when test="string-length($sFontFamily) &gt; 0">
                 <xsl:call-template name="HandleFreeTextBeforeOutside">
@@ -5088,7 +5091,7 @@
     -->
     <xsl:template name="HandleFreeNoLanguageFontInfo">
         <xsl:param name="originalContext"/>
-        <xsl:variable name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+        <xsl:param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
         <!--        <tex:group>-->
         <xsl:call-template name="HandleFreeTextBeforeOutside">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
@@ -5135,6 +5138,19 @@
             </xsl:otherwise>
         </xsl:choose>
         <tex:spec cat="bg"/>
+    </xsl:template>
+    <!--
+        HandleLiteralLabelLayoutInfo
+    -->
+    <xsl:template name="HandleLiteralLabelLayoutInfo">
+        <xsl:param name="layoutInfo"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$layoutInfo"/>
+        </xsl:call-template>
+        <xsl:value-of select="$layoutInfo/../literalLabelLayout"/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$layoutInfo"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         HandleGlossFontOverridesEnd

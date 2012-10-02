@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 September 2012</date
+>2 October 2012</date
 ><version
->2.19.10_3</version
+>2.20.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -9894,11 +9894,11 @@ type="tElement"
 >The <object
 type="tElement"
 >literalLabelLayout</object
-> element allows you to type in a label that will appear at the beginning of every literal translation (e.g., “Lit. ”).  It has the attributes described in section <sectionRef
+> element allows you to type in a label that will appear at the beginning of every literal translation (e.g., “Lit. ”). It has the attributes described in section <sectionRef
 sec="sFontInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  You can use these attributes to format the label as needed.</p
+>. You can use these attributes to format the label as needed.</p
 ><p
 >The second element, <object
 type="tElement"
@@ -9907,7 +9907,7 @@ type="tElement"
 letter="xLiteralOverrideLayoutAttributes"
 num="xLiteralOverrideLayoutAttributes"
 ></exampleRef
->.  You use these to control formatting of the content ot the <object
+>. You use these to control formatting of the content ot the <object
 type="tElement"
 >literal</object
 > elements.</p

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->20 September 2012</date
+>2 October 2012</date
 ><version
->2.19.10_3</version
+>2.20.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -9931,7 +9931,7 @@ id="sExInterlinearLiteral"
 ><indexedItem
 term="iInterlinearLiteral"
 ></indexedItem
->As mentioned above, interlinear examples usually include a free translation.  Sometimes they also include a literal translation (and, more rarely, use a literal translation instead of a free translation).  <object
+>As mentioned above, interlinear examples usually include a free translation. Sometimes they also include a literal translation (and, more rarely, use a literal translation instead of a free translation). <object
 type="tXLingPap"
 ></object
 > provides a <object
@@ -9942,7 +9942,7 @@ type="tElement"
 >Unlike for free translations, there are no interlinear templates which provide a <object
 type="tElement"
 >literal</object
-> translation element.  There are at least two ways to insert a <object
+> translation element. There are at least two ways to insert a <object
 type="tElement"
 >literal</object
 > element:</p
@@ -9975,7 +9975,7 @@ type="tElement"
 > element in the Edit Tool.<endnoteRef
 note="nEditTool"
 ></endnoteRef
-> </li
+></li
 ></ol
 ></li
 ><li
@@ -9995,7 +9995,7 @@ type="tInstruction"
 >, pressing <object
 type="tKey"
 >Ctrl-T</object
->, or by clicking on the convert  icon in the Edit tool<endnoteRef
+>, or by clicking on the convert icon in the Edit tool<endnoteRef
 note="nEditTool"
 ></endnoteRef
 >).</li
@@ -10009,13 +10009,13 @@ type="tElement"
 > element has the same set of attributes as a <object
 type="tElement"
 >free</object
-> element.  Its output is also the same except that by default, <object
+> element. Its output is also the same except that by default, <object
 type="tXLingPap"
 ></object
 > inserts “Lit. ” at the beginning of a <object
 type="tElement"
 >literal</object
-> element.  If you wish to use some other label, then you will need to change the <object
+> element. If you wish to use some other label, then you will need to change the <object
 type="tAttribute"
 >literalLabel</object
 > attribute of the <object
@@ -10035,13 +10035,13 @@ type="tAttribute"
 >literalLabel</object
 > attribute.</p
 ><p
->If you are using a publisher style sheet, that style sheet can provide the label to be used.  If so, what is in the style sheet will be used even if you have set the <object
+>If you are using a publisher style sheet, that style sheet can provide the label to be used. If so, what is in the style sheet will be used even if you have set the <object
 type="tAttribute"
 >literalLabel</object
 > attribute of the <object
 type="tElement"
 >lingPaper</object
-> element.  (For more on publisher style sheets, see section <sectionRef
+> element. (For more on publisher style sheets, see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > or click <link

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.19.0-xxe-4.8.0.zip"
+location="XLingPap-2.20.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.19.10_3</a:version
+>2.20.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-09-21</a:date
+>2012-10-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.19.10_3 21 September 2012<ul
+>2.20.0 2 October 2012<ul
 ><li
 >Fix bug which would use 'prose' gloss and langData formatting from a publisher style sheet in an interlinear-text element. It should use the same as in an example.</li
 ><li
@@ -42,6 +42,16 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add an attribute of spacebetween to the listLayout element in a publisher style sheet. It allows one to insert extra space between list items.</li
 ><li
+>For a book using a publisher style sheet, include an option for a given front or back matter item to have empty headers and footers (needed by some institutions for abstracts in theses).</li
+><li
+>Fix a bug: When a publisher style sheet is set to remove common hundreds digits in page numbers and the page numbers are in the thousands, it failed to remove the digits.</li
+><li
+>Allow books to include an abstract in the front matter (e.g., in a thesis or a dissertation).</li
+><li
+>Add ability to produce an EBook in EPUB format (requires installing Calibre).</li
+><li
+>On Windows, the Program Start menu items for creating a new paper, book or references document did not work (for XXE version 4.8 or later). Now it does.</li
+><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug which would cause some examples to have too much space after them.</li
@@ -49,24 +59,8 @@ href="mailto::andy_black@sil.org"
 >Fix a bug which could make the bookmark in a PDF link to the first preface element when it should link to a non-first preface element.</li
 ><li
 >Fix a bug which would use ?? for page numbers in the table of contents for any front matter items that occur before the table of contents.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.8_2 9 August 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug which would cause the PDF to fail to be produced when an interlinear text had an interlinear with two consecutive lineGroup elements and the auto wrap interlinear option was selected.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.7_2 8 August 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >In a book with a publisher style sheet, in the front matter, any space before values were not correct.</li
 ><li
@@ -75,18 +69,6 @@ href="mailto::andy_black@sil.org"
 >In a book, the starting page number did not work. This is fixed.</li
 ><li
 >Rework how block quotes are done so they work correctly. The initial text/paragraph will never have an indent, while following paragraphs will (unless they are pc elements).</li
-></ul
-></li
-><li
->For a book using a publisher style sheet, include an option for a given front or back matter item to have empty headers and footers (needed by some institutions for abstracts in theses).</li
-><li
->Fix a bug: When a publisher style sheet is set to remove common hundreds digits in page numbers and the page numbers are in the thousands, it failed to remove the digits.</li
-></ul
-></li
-><li
->2.19.6_1 6 August 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >In a book, the appendix was layed out according to the chapter layout, not the appendix layout information.</li
 ><li
@@ -95,50 +77,12 @@ href="mailto::andy_black@sil.org"
 >Do not show a paragraph that consists merely of a comment.</li
 ><li
 >If one is using double spacing or space-and-a-half as well as putting table captions before the table, then there was too much vertical space between the caption and the table.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.5_1 3 August 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >When there was an associated publisher style sheet, once in a great while the final page of the document would have the wrong running header and footer. This is fixed.</li
 ><li
 >When there was an associated publisher style sheet that used double or space-and-a-half spacing for text but single-spacing for tables, when abbreviations were shown in a preface, appendix, or glossary, the abbreviations used double or space-and-a-half instead of single spacing. This is fixed.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.4_1 2 August 2012<ul
-><li
->Allow books to include an abstract in the front matter (e.g., in a thesis or a dissertation).</li
-><li
->Add ability to produce an EBook in EPUB format (requires installing Calibre).</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug where multiple endnotes in a free element would not format correctly.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.3 20 July 2012<ul
-><li
->For the Web page per publisher style sheet output:<ul
-><li
->Fix bug which caused pc elements to still have an indent.</li
-></ul
-></li
-></ul
-></li
-><li
->2.19.2 12 July 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix a bug where a li element started with text and then had a p element after it. The p was not indented correctly.</li
 ><li
@@ -148,7 +92,11 @@ href="mailto::andy_black@sil.org"
 ></ul
 ></li
 ><li
->On Windows, the Program Start menu items for creating a new paper, book or references document did not work (for XXE version 4.8 or later). Now it does.</li
+>For the Web page per publisher style sheet output:<ul
+><li
+>Fix bug which caused pc elements to still have an indent.</li
+></ul
+></li
 ></ul
 ></li
 ><li

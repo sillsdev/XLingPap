@@ -20,7 +20,7 @@
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">2.19.0</xsl:variable>
+    <xsl:variable name="sVersion">2.20.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">

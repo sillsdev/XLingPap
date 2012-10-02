@@ -2,7 +2,7 @@
      XML/XSLT-based Linguistic paper document type definition
      Stylesheet  information for a particular publisher, references subsection
        One may reference/link/insert an XLingPap document into this template as a particular instance.
-     Version 1.0.0
+     Version 1.20.0
      (Revision history is at the end.)
   -->
 

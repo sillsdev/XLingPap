@@ -1,6 +1,6 @@
  <!-- XLingPap.dtd
      XML/XSLT-based Linguistic paper document type definition
-     Version 2.18.0
+     Version 2.20.0
   -->
 <!-- xlingpaper top element allows for the paper/book itself, a stylesheet, and published document information to be included -->
 <!ELEMENT  xlingpaper (lingPaper | styledPaper | publishedPaper | publishedCollection)>

@@ -1,7 +1,7 @@
 <!-- XLingPapEntities.dtd
      XML/XSLT-based Linguistic paper document type definition
      Entity definitioins used by various DTDs
-     Version 2.6.0
+     Version 2.20.0
        -->
 <!-- fontinfo contains attributes common to elements dealing with font or other special issues.  
        Note that we need to allow for xsl-foSpecial even for langData items in the cases where Charis SIL or Doulos SIL

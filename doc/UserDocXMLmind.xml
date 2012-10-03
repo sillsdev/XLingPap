@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 October 2012</date
+>3 October 2012</date
 ><version
 >2.20.0</version
 ><contents
@@ -2362,6 +2362,18 @@ lang="lEng"
 ><object
 type="tElement"
 >figure</object
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+>ft</langData
+></td
+><td
+><object
+type="tElement"
+>framedType</object
 ></td
 ></tr
 ><tr
@@ -12319,7 +12331,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->Horizontal alignment for the fgure.</langData
+>Horizontal alignment for the figure.</langData
 ></td
 ></tr
 ><tr
@@ -21685,6 +21697,467 @@ type="tElement"
 > element will be included in the output.</p
 ></section2
 ></section1
+><section1
+id="sFramedUnits"
+><secTitle
+>Framed Units</secTitle
+><p
+><indexedItem
+term="iFramedUnit"
+></indexedItem
+>When writing a text book or perhaps when providing certain kinds of documentation, you may want to set off some material within a frame. For example, in a text book you may want to show what a sample write-up for a given topic might look like, including one or more examples along with a prose description. For such things, one wants to have a line around some indented material and maybe even have a special background color to set it off from the rest of the text material.</p
+><p
+>Given that an author may want to have many instances of these kinds of special displays and that the indents and background color should be the same for displays of the same kind, <object
+type="tXLingPap"
+></object
+> provides three elements for handling framed units.</p
+><p
+>The first element, <object
+type="tElement"
+>framedTypes</object
+>, is a container for the second kind of element, <object
+type="tElement"
+>framedType</object
+>.  This is just like the <object
+type="tElement"
+>types</object
+> element is a container for individual <object
+type="tElement"
+>type</object
+> elements (see section <sectionRef
+sec="sSpecialEffectsText"
+></sectionRef
+> for more on <object
+type="tElement"
+>type</object
+> elements).</p
+><p
+>Each <object
+type="tElement"
+>framedType</object
+> element lets you define the indents and background color formatting for a given type of a framed unit.  The attributes you can set for a <object
+type="tElement"
+>framedType</object
+> are given in the table in <exampleRef
+letter="xFramedTypeAttributes"
+num="xFramedTypeAttributes"
+></exampleRef
+>.</p
+><example
+num="xFramedTypeAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>align</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, or <object
+type="tAttrValue"
+>right</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>Horizontal alignment for the placement of the entire framed unit.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>backgroundcolor</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>A color name or code to be used as the background color of the entire framed unit.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>description</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Some descriptive text you can use to help yourself remember what kind of framed unit this framed type is for.  For example, “Sample write-up”, "Program output", etc..</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>id</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type in a unique name for this framed type so you can refer to it elsewhere in your paper.<endnoteRef
+note="nInitialIDLetter"
+></endnoteRef
+> You will actually see this name when you create a framed unit. The idea is to create a unique name that relates to the framed type itself. It could be a short description of what the framed type is illustrating or some key reminder of the type. I strongly recommend that you use letters and numbers, but no spaces.<endnoteRef
+note="nNoSpaceInID"
+></endnoteRef
+> You can use case to distinguish words.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>indent-after</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of indent to use horizontally after the righthand line of the framed unit.  It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>indent-before</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of indent to use horizontally before the lefthand line of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>innerbottommargin</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of space to use vertically between the material of the framed unit and the bottom line. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>innerleftmargin</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of space to use horizontally between the lefthand line and the material of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>innerrightmargin</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of space to use horizontally between the material of the framed unit and the righthand line. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>innertopmargin</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of space to use vertically between the top line and the beginning of the material of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of indent to use vertically after the bottom line of the framed unit.  It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Enter the amount of indent to use vertically before the top line of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+></td
+></tr
+></table
+></example
+><p
+>The third element is <object
+type="tElement"
+>framedUnit</object
+>.  You use this element to surround or embed the set of other elements you need to be in the offset portion.  In addition, you set its <object
+type="tAttribute"
+>framedType</object
+> attribute to refer to the <object
+type="tElement"
+>framedType</object
+> element that has the formatting you need for this framed unit.  If the framed unit contains any <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>figure</object
+>, or <object
+type="tElement"
+>tablenumbered</object
+> elements, these elements will be numbered independently from the other  <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>figure</object
+>, or <object
+type="tElement"
+>tablenumbered</object
+> elements elsewhere in the document that are not within the current <object
+type="tElement"
+>framedUnit</object
+> element.</p
+><p
+>The <object
+type="tElement"
+>framedUnit</object
+> element also has three other attributes as shown in the table in <exampleRef
+letter="xFramedUnitAttributes"
+num="xFramedUnitAttributes"
+></exampleRef
+>.</p
+><example
+num="xFramedUnitAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>initialexamplenumber</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The number to use for the first example in the framed unit.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>initialfigurenumber</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The number to use for the first figure in the framed unit.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>initialnumberedtablenumber</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The number to use for the first numbered table in the framed unit.</langData
+></td
+></tr
+></table
+></example
+><p
+>To create a framed unit, do one of two things:</p
+><ol
+><li
+>At a paragraph or other “top level” element, do an Insert After<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> command and choose “framedUnit”.  Then type, insert or copy in the material you need.</li
+><li
+>If you already have the material and want to embed it within a <object
+type="tElement"
+>framedUnit</object
+> element,  select the material and then do a Convert Wrap command.  Choose “framedUnit”.</li
+></ol
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -25986,6 +26459,11 @@ id="iFootnotes"
 see="iEndnotes"
 ><term
 >Footnotes</term
+></indexTerm
+><indexTerm
+id="iFramedUnit"
+><term
+>Framed units</term
 ></indexTerm
 ><indexTerm
 id="iFrenchUI"

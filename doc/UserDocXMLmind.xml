@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 October 2012</date
+>25 October 2012</date
 ><version
->2.20.0</version
+>2.20.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -15167,6 +15167,17 @@ type="tElement"
 type="tElement"
 >language</object
 > element.</p
+><p
+>It is also possible to insert paragraphs (<object
+type="tElement"
+>p</object
+> elements) or continuation paragraphs (<object
+type="tElement"
+>pc</object
+> elements) between <object
+type="tElement"
+>interlinear</object
+> elements. This can be used to insert commentary on the text.</p
 ><section2
 id="sInterlinearTextFLEx"
 ><secTitle
@@ -21192,7 +21203,7 @@ type="tKey"
 >Ctrl+h</object
 ></li
 ><li
->The letter after i is j and the shortcut to insert before is <object
+>The letter after i is j and the shortcut to insert after is <object
 type="tKey"
 >Ctrl+j</object
 ></li
@@ -21218,7 +21229,7 @@ type="tKey"
 >Ctrl+u</object
 ></li
 ><li
->The letter after u is w and the shortcut to paste before is <object
+>The letter after u is w and the shortcut to paste after is <object
 type="tKey"
 >Ctrl+w</object
 ></li
@@ -21718,7 +21729,7 @@ type="tElement"
 >, is a container for the second kind of element, <object
 type="tElement"
 >framedType</object
->.  This is just like the <object
+>. This is just like the <object
 type="tElement"
 >types</object
 > element is a container for individual <object
@@ -21735,7 +21746,7 @@ type="tElement"
 >Each <object
 type="tElement"
 >framedType</object
-> element lets you define the indents and background color formatting for a given type of a framed unit.  The attributes you can set for a <object
+> element lets you define the indents and background color formatting for a given type of a framed unit. The attributes you can set for a <object
 type="tElement"
 >framedType</object
 > are given in the table in <exampleRef
@@ -21829,7 +21840,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Some descriptive text you can use to help yourself remember what kind of framed unit this framed type is for.  For example, “Sample write-up”, "Program output", etc..</langData
+>Some descriptive text you can use to help yourself remember what kind of framed unit this framed type is for. For example, “Sample write-up”, "Program output", etc..</langData
 ></td
 ></tr
 ><tr
@@ -21875,7 +21886,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Enter the amount of indent to use horizontally after the righthand line of the framed unit.  It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+>Enter the amount of indent to use horizontally after the righthand line of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
 ></td
 ></tr
 ><tr
@@ -21995,7 +22006,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Enter the amount of indent to use vertically after the bottom line of the framed unit.  It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
+>Enter the amount of indent to use vertically after the bottom line of the framed unit. It should be in points (pt) or inches (in) or centimeters (cm) or millimeters (mm), with no space between the digit(s) and the unit abbreviation.</langData
 ></td
 ></tr
 ><tr
@@ -22024,13 +22035,13 @@ lang="lEng"
 >The third element is <object
 type="tElement"
 >framedUnit</object
->.  You use this element to surround or embed the set of other elements you need to be in the offset portion.  In addition, you set its <object
+>. You use this element to surround or embed the set of other elements you need to be in the offset portion. In addition, you set its <object
 type="tAttribute"
 >framedType</object
 > attribute to refer to the <object
 type="tElement"
 >framedType</object
-> element that has the formatting you need for this framed unit.  If the framed unit contains any <object
+> element that has the formatting you need for this framed unit. If the framed unit contains any <object
 type="tElement"
 >example</object
 >, <object
@@ -22039,7 +22050,7 @@ type="tElement"
 >, or <object
 type="tElement"
 >tablenumbered</object
-> elements, these elements will be numbered independently from the other  <object
+> elements, these elements will be numbered independently from the other <object
 type="tElement"
 >example</object
 >, <object
@@ -22150,12 +22161,12 @@ lang="lEng"
 >At a paragraph or other “top level” element, do an Insert After<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
-> command and choose “framedUnit”.  Then type, insert or copy in the material you need.</li
+> command and choose “framedUnit”. Then type, insert or copy in the material you need.</li
 ><li
 >If you already have the material and want to embed it within a <object
 type="tElement"
 >framedUnit</object
-> element,  select the material and then do a Convert Wrap command.  Choose “framedUnit”.</li
+> element, select the material and then do a Convert Wrap command. Choose “framedUnit”.</li
 ></ol
 ></section1
 ><backMatter

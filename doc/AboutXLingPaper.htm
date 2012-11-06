@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.20.0</span></p>
-      <p align="center">Date: 2012-10-03</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.20.2</span></p>
+      <p align="center">Date: 2012-11-06</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,21 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.20.2 6 November 2012
+                  <ul>
+                     <li>Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX): 
+                        <ul>
+                           <li>Fix bug which failed to show output for abbreviation definitions in an endnote.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.20.1 23 October 2012
+                  <ul>
+                     <li>Enable paragraphs and continuation paragraphs between interlinears in an interlinear text.</li>
+                  </ul>
+               </li>
                <li>2.20.0 3 October 2012
                   <ul>
                      <li>Fix bug which would use 'prose' gloss and langData formatting from a publisher style sheet in an interlinear-text element.
@@ -73,7 +88,7 @@
                            <li>Rework how block quotes are done so they work correctly. The initial text/paragraph will never have an indent, while following
                               paragraphs will (unless they are pc elements).
                            </li>
-                           <li>In a book, the appendix was layed out according to the chapter layout, not the appendix layout information.</li>
+                           <li>In a book, the appendix was laid out according to the chapter layout, not the appendix layout information.</li>
                            <li>Improve page breaking (by adding some TeX glue to key items; sorry, I had mistakenly understood that these items already had
                               some TeX glue, but they did not).
                            </li>

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.20.0</a:version
+>2.20.2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-10-03</a:date
+>2012-11-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,24 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.20.2 6 November 2012<ul
+><li
+>Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li
+><li
+>For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix bug which failed to show output for abbreviation definitions in an endnote.</li
+></ul
+></li
+></ul
+></li
+><li
+>2.20.1 23 October 2012<ul
+><li
+>Enable paragraphs and continuation paragraphs between interlinears in an interlinear text.</li
+></ul
+></li
 ><li
 >2.20.0 3 October 2012<ul
 ><li
@@ -70,7 +88,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Rework how block quotes are done so they work correctly. The initial text/paragraph will never have an indent, while following paragraphs will (unless they are pc elements).</li
 ><li
->In a book, the appendix was layed out according to the chapter layout, not the appendix layout information.</li
+>In a book, the appendix was laid out according to the chapter layout, not the appendix layout information.</li
 ><li
 >Improve page breaking (by adding some TeX glue to key items; sorry, I had mistakenly understood that these items already had some TeX glue, but they did not).</li
 ><li

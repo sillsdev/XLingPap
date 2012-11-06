@@ -499,7 +499,7 @@
 <!ELEMENT iword (morphemes | item)+>
 <!ELEMENT words (iword+)>
 <!-- N.B. EMELD uses interlinear-text, so we will, too -->
-<!ELEMENT interlinear-text (textInfo?, ((item*, phrases*) | interlinear*))>
+<!ELEMENT interlinear-text (textInfo?, ((item*, phrases*) | (interlinear | p | pc)*) )>
 <!ATTLIST interlinear-text
     externalID CDATA #IMPLIED
     text ID #IMPLIED

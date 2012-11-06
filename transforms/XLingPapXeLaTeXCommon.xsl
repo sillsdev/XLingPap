@@ -2040,7 +2040,8 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="abbrTerm | abbrDefinition"/>
+<!--    <xsl:template match="abbrTerm | abbrDefinition"/>-->
+    <xsl:template match="abbrTerm"/>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -6644,12 +6645,12 @@
             <xsl:when test="string-length($abbrLang) &gt; 0">
                 <xsl:choose>
                     <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                        <xsl:value-of select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- a language is specified, but this abbreviation does not have anything; try using the default;
                             this assumes that something is better than nothing -->
-                        <xsl:value-of select="$abbr/abbrInLang[1]/abbrDefinition"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

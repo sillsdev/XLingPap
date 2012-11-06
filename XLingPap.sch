@@ -21,6 +21,10 @@
         <rule context="lineGroup">
             <report test="line[count(wrd) &gt; 0] and line[count(wrd)=0]">Some of the line elements in this lineGroup have been converted to use wrd elements and some have not.  All line elements within a lineGroup should be the same: either all using wrd or all not using wrd.  The formatted output may leave out some lines.  Please use the XLingPaper menu item / 'Convert interlinear line to wrd elements' for all lines in this lineGroup.</report>
         </rule>
+        <rule context="line">
+<!--            <report test="count(line) = 3 and line[count(wrd)] != line[count(wrd)]">Not all of the lines in this interlinear lineGroup have the same number of wrd elements.  The alignment will probably be incorrect.</report>-->
+            <report test="preceding-sibling::line[1] and count(preceding-sibling::line[1]/wrd) != count(wrd)">This line has a different number of wrd elements in it than its immediately preceding line.  The alignment will probably be incorrect.</report>
+        </rule>
     </pattern>
     <pattern>
         <title>

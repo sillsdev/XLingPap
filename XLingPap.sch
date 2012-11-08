@@ -64,6 +64,15 @@
     </pattern>
     <pattern>
         <title>
+            <dir value="ltr">Check for invalid table widths (e.g., missing unit of measure)</dir>
+        </title>
+        <rule context="td | th">
+            <report test="string-length(normalize-space(@width)) &gt; 0 and substring(normalize-space(@width),string-length(normalize-space(@width))-1,2)!='in' and substring(normalize-space(@width),string-length(normalize-space(@width))-1,2)!='mm' and substring(normalize-space(@width),string-length(normalize-space(@width))-1,2)!='cm' and substring(normalize-space(@width),string-length(normalize-space(@width))-1,2)!='pt' and substring(normalize-space(@width),string-length(normalize-space(@width)),1)!='%'">Warning: this table cell has a width specified but it does not have a proper unit of measure.   The PDF may fail to be produced.</report>
+            <report test="contains(normalize-space(@width),' ')">Warning: this table cell has a width specified but it contains a space.  There should not be a space between the number and the unit of measure.  The result may not be what you want. </report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
             <dir value="ltr">Check for deprecated table elements</dir>
         </title>
         <rule context="col">

@@ -1416,6 +1416,7 @@ li.lower-roman {
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
     <xsl:template match="@name"/>
+    <xsl:template match="@ORCID"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
     <xsl:template match="@rtl"/>
     <xsl:template match="@ruleabovelength"/>

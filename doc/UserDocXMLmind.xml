@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 October 2012</date
+>8 November 2012</date
 ><version
->2.20.1</version
+>2.20.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -1888,6 +1888,20 @@ term="iAuthorPaper"
 type="tElement"
 >author</object
 > elements must be included.</p
+><p
+><indexedItem
+term="iORCID"
+></indexedItem
+>The <object
+type="tElement"
+>author</object
+> element has an attribute of <object
+type="tAttribute"
+>ORCID</object
+> which can be used to enter the Open Researcher and Contributor ID. See <link
+href="http://about.orcid.org/"
+>http://about.orcid.org/</link
+>.</p
 ></section2
 ><section2
 id="sFMAuthorContactInfo"
@@ -26312,10 +26326,7 @@ id="iEmbeddedElements"
 ><indexTerm
 id="iEndnoteXML"
 ><term
-><object
-type="tEndnoteXML"
-></object
-></term
+>Endnote</term
 ></indexTerm
 ><indexTerm
 id="iEndnotes"
@@ -26762,16 +26773,18 @@ id="iNewDocument"
 ><indexTerm
 id="iOpenOfficeWriter"
 ><term
-><object
-type="tOpenOfficeWriter"
-></object
-> format</term
+>Open Office Writer format</term
 ></indexTerm
 ><indexTerm
 id="iOpenSection"
 see="iExpandSection"
 ><term
 >Open up a section</term
+></indexTerm
+><indexTerm
+id="iORCID"
+><term
+>ORCID</term
 ></indexTerm
 ><indexTerm
 id="iPart"
@@ -27376,10 +27389,7 @@ id="iXXEUserPreferences"
 ><indexTerm
 id="iZotero"
 ><term
-><object
-type="tZotero"
-></object
-></term
+>Zotero</term
 ></indexTerm
 ></indexTerms
 ></lingPaper

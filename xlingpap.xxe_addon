@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-11-06</a:date
+>2012-11-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.20.2 6 November 2012<ul
+>2.20.2 8 November 2012<ul
 ><li
 >Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li
+><li
+>Add Schematron check for valid values for table cell widths.</li
+><li
+>Add ORCID to author element (ORCID = Open Researcher and Contributor ID; http://about.orcid.org/)</li
 ><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li

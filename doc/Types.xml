@@ -151,7 +151,7 @@ id="tXMLmindXSLUtility"
 types="tTool"
 ></type
 ><type
-after="Zotero"
+before="Zotero"
 id="tZotero"
 types="tTool"
 ></type

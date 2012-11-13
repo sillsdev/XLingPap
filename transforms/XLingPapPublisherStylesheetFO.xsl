@@ -2865,7 +2865,7 @@ not using
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
             <!-- insert a new line so we don't get everything all on one line -->
-            <xsl:text>&#xa;</xsl:text>
+<!--            <xsl:text>&#xa;</xsl:text> no, it inserts an extra space-->
             <fo:inline>
                 <xsl:call-template name="HandleGlossTextBeforeAndFontOverrides">
                     <xsl:with-param name="glossLayout" select="$glossLayout"/>
@@ -2999,7 +2999,7 @@ not using
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
             <!-- insert a new line so we don't get everything all on one line -->
-            <xsl:text>&#xa;</xsl:text>
+<!--            <xsl:text>&#xa; no, it inserts and extra space</xsl:text>-->
             <fo:inline>
                 <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
                     <xsl:with-param name="langDataLayout" select="$langDataLayout"/>

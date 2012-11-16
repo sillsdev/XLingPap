@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-11-08</a:date
+>2012-11-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.20.2 8 November 2012<ul
+>2.20.2 16 November 2012<ul
 ><li
 >Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li
 ><li
@@ -40,9 +40,15 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add ORCID to author element (ORCID = Open Researcher and Contributor ID; http://about.orcid.org/)</li
 ><li
+>For web page with a style sheet and for EBook outputs, fix the document title so it does not include the text of any endnote. (In a web page, this title shows at the very top of the browser window; in and EBook, it shows on the cover page.)</li
+><li
+>For EBook output: fix bug which would fail to produce an EBook if the file name contained an underscore character.</li
+><li
 >For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Fix bug which failed to show output for abbreviation definitions in an endnote.</li
+><li
+>Fix bug which failed to produce PDF when there was a framedType element but no framedUnit element.</li
 ></ul
 ></li
 ></ul

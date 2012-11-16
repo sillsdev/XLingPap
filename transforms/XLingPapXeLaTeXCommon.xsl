@@ -8844,7 +8844,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="//framedUnit">
+        <xsl:if test="//framedUnit | //framedType">
             <tex:cmd name="usepackage" nl2="1">
                 <tex:opt>framemethod=TikZ</tex:opt>
                 <tex:parm>mdframed</tex:parm>

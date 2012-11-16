@@ -153,7 +153,11 @@
             <head>
                 <xsl:if test="string-length(//title)!=0">
                     <title>
-                        <xsl:value-of select="//title"/>
+                        <xsl:for-each select="//title/node()">
+                            <xsl:if test="name()!='endnote'">
+                            <xsl:value-of select="."/>
+                            </xsl:if>
+                        </xsl:for-each>
                     </title>
                 </xsl:if>
                 <xsl:variable name="sEBook">

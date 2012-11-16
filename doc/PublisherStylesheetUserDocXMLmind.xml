@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 October 2012</date
+>15 November 2012</date
 ><version
->2.20.0</version
+>2.20.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -1792,11 +1792,7 @@ type="tAttribute"
 >spacebeforemainsection</object
 ></td
 ><td
->(User control) Use a number and a unit of measure (see example <exampleRef
-letter="xUnitsOfMeasure"
-num="xUnitsOfMeasure"
-></exampleRef
->); no space between the number and the unit of measure.</td
+>(User control) Use a number for the amount of points to be inserted before parts and/or chapters.</td
 ></tr
 ></table
 ></td

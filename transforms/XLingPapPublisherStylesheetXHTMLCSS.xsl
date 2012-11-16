@@ -1222,7 +1222,14 @@ li.lower-roman {
     <xsl:template match="@font-style">
         <xsl:if test="string-length(normalize-space(.)) &gt; 0">
             <xsl:text>        font-style:</xsl:text>
-            <xsl:value-of select="."/>
+            <xsl:choose>
+                <xsl:when test=".='backslant' or .='oblique'">
+                    <xsl:text>italic</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>        
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:text>;
 </xsl:text>
         </xsl:if>

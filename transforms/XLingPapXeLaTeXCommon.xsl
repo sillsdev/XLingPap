@@ -214,6 +214,9 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <!--        <tex:env name="quotation">-->
         <tex:cmd name="XLingPaperblockquote">
             <tex:parm>
@@ -2040,8 +2043,8 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-<!--    <xsl:template match="abbrTerm | abbrDefinition"/>-->
-    <xsl:template match="abbrTerm"/>
+    <xsl:template match="abbrTerm | abbrDefinition"/>
+<!--    <xsl:template match="abbrTerm"/>-->
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -6645,12 +6648,12 @@
             <xsl:when test="string-length($abbrLang) &gt; 0">
                 <xsl:choose>
                     <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition" mode="Use"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- a language is specified, but this abbreviation does not have anything; try using the default;
                             this assumes that something is better than nothing -->
-                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition" mode="Use"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

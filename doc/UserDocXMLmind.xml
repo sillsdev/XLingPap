@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 November 2012</date
+>28 November 2012</date
 ><version
->2.20.2</version
+>2.20.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -3803,7 +3803,19 @@ type="tElement"
 > element may also optionally end with a <object
 type="tElement"
 >url</object
-> element (for indicating the address of a page on the World Wide Web if the work happens to be stored on the World Wide Web).</p
+> element (for indicating the address of a page on the World Wide Web if the work happens to be stored on the World Wide Web).  <indexedItem
+term="iReferencesPageBreak"
+></indexedItem
+>In addition, the <object
+type="tElement"
+>refWork</object
+> element has a <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute which you can set to <object
+type="tAttrValue"
+>pagebreak</object
+> when you want to force a page break before this work in the output (and are using the default way of producing PDF).</p
 ><p
 >The <object
 type="tElement"
@@ -26952,6 +26964,11 @@ type="tEndnoteXML"
 id="iJumpToReferences"
 ><term
 >Jump to References</term
+></indexTerm
+><indexTerm
+id="iReferencesPageBreak"
+><term
+>Page break (using default way of producing PDF)</term
 ></indexTerm
 ><indexTerm
 id="iReferencesSelectedReferences"

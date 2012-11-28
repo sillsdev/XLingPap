@@ -4393,6 +4393,9 @@
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <xsl:for-each select="$works">
+            <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+                <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+            </xsl:if>
             <tex:cmd name="hangindent" gr="0"/>
             <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
             <tex:cmd name="relax" gr="0" nl2="1"/>

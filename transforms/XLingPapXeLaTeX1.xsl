@@ -3060,6 +3060,9 @@
                     \hangafter1\relax
                     \fontsize{10}{12}\selectfont
                 -->
+            <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+                <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+            </xsl:if>
             <tex:spec cat="esc"/>
             <xsl:text>hangindent.25in</xsl:text>
             <tex:cmd name="relax" gr="0" nl2="1"/>

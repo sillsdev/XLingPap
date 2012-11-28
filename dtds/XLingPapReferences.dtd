@@ -30,6 +30,7 @@
 <!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?)>
 <!ATTLIST refWork
     id ID #REQUIRED
+    %special;
 >
 <!-- An author's role in the work.  For example, editor, illustrator, author and illustrator, etc. -->
 <!ELEMENT authorRole (#PCDATA)>

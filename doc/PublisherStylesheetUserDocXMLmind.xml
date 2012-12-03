@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->15 November 2012</date
+>3 December 2012</date
 ><version
->2.20.2</version
+>2.20.3_1</version
 ><contents
 showLevel="6"
 ></contents
@@ -1858,7 +1858,31 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useLabel</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> (to show the label) or <object
+type="tAttrValue"
+>no</object
+> (to not show the label)</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td

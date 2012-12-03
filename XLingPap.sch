@@ -23,7 +23,7 @@
         </rule>
         <rule context="line">
 <!--            <report test="count(line) = 3 and line[count(wrd)] != line[count(wrd)]">Not all of the lines in this interlinear lineGroup have the same number of wrd elements.  The alignment will probably be incorrect.</report>-->
-            <report test="preceding-sibling::line[1] and count(preceding-sibling::line[1]/wrd) != count(wrd)">This line has a different number of wrd elements in it than its immediately preceding line.  The alignment will probably be incorrect.</report>
+            <report test="preceding-sibling::line[1] and count(preceding-sibling::line[1]/wrd[not(exampleRef)]) != count(wrd)">This line has a different number of wrd elements in it than its immediately preceding line.  The alignment will probably be incorrect.</report>
         </rule>
     </pattern>
     <pattern>

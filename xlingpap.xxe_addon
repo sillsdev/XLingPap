@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.20.3_1</a:version
+>2.20.4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2012-11-20</a:date
+>2012-12-04</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.20.3_1 3 December 2012<ul
+>2.20.4 4 December 2012<ul
 ><li
 >Modify Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements to make it ignore when a wrd element contains an exampleRef.</li
+><li
+>Add useappendixlabelbeforeappendixletter attribute in contentsLayout element of publisher style sheet to allow insertion of appendix label before the appendix letter in the contents.</li
+><li
+>Add useperiodafterappendixletter attribute in contentsLayout element of publisher style sheet to allow insertion of a period after the appendix letter in the contents and PDF Bookmarks.</li
 ><li
 >Add useLabel for abstract layout in publisher style sheet documentation.</li
 ></ul

@@ -35,6 +35,15 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(@label) &gt; 0">
+                            <xsl:value-of select="@label"/>
+                        </xsl:when>
+                        <xsl:otherwise>Appendix</xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:if>
                 <xsl:call-template name="OutputChapterNumber">
                     <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                 </xsl:call-template>
@@ -121,7 +130,7 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:variable name="sPos" select="count(preceding-sibling::preface)+1"/>
-                <xsl:value-of  select="concat('rXLingPapPreface',$sPos)"/>
+                <xsl:value-of select="concat('rXLingPapPreface',$sPos)"/>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputPrefaceLabel"/>

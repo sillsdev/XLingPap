@@ -5808,6 +5808,9 @@
                         <xsl:when test="$fDoTextAfterLetter='Y'">
                             <xsl:value-of select="$appLayout/@textafterletter"/>
                         </xsl:when>
+                        <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterappendixletter='yes'">
+                            <xsl:text>.&#xa0;</xsl:text>
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>&#xa0;</xsl:text>
                         </xsl:otherwise>

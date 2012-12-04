@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 December 2012</date
+>4 December 2012</date
 ><version
->2.20.3_1</version
+>2.20.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -1794,6 +1794,36 @@ type="tAttribute"
 ><td
 >(User control) Use a number for the amount of points to be inserted before parts and/or chapters.</td
 ></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useappendixlabelbeforeappendixletter</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> (inserts the appendix label before the appendix letter in the contents) or <object
+type="tAttrValue"
+>no</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useperiodafterappendixletter</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> (inserts a period after the appendix letter in the contents and PDF bookmarks) or <object
+type="tAttrValue"
+>no</object
+></td
+></tr
 ></table
 ></td
 ></tr
@@ -1858,7 +1888,7 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  It also has<table
+>. It also has<table
 border="1"
 ><tr
 ><th

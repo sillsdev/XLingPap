@@ -410,6 +410,8 @@ Front MatterLayout
      betweentitleandnumber (rule | space | dots) "dots"
      showbookmarks (yes | no) 'yes'
      showpagenumber (yes | no) 'yes'
+     useappendixlabelbeforeappendixletter (yes | no) 'no'
+     useperiodafterappendixletter (yes | no) 'no'
     >
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout

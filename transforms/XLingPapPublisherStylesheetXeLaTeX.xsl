@@ -3946,6 +3946,7 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="originalContext"/>
         <xsl:param name="fSpaceBeforeAlreadyDone" select="'N'"/>
+        <xsl:param name="sId" select="''"/>
         <xsl:if test="not($layoutInfo/../@beginsparagraph='yes') and $fSpaceBeforeAlreadyDone='N'">
             <xsl:call-template name="DoSpaceBefore">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -3953,6 +3954,13 @@
         </xsl:if>
         <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left' or $layoutInfo/@textalign='center'">
             <tex:cmd name="noindent" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:if test="string-length($sId) &gt; 0">
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="$sId"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoInternalTargetEnd"/>
+            <xsl:call-template name="DoBookMark"/>
         </xsl:if>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$layoutInfo"/>
@@ -4926,6 +4934,7 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="fDoPageBreakFormatInfo" select="'Y'"/>
         <xsl:param name="fSpaceBeforeAlreadyDone" select="'N'"/>
+        <xsl:param name="sId" select="''"/>
         <xsl:if test="$fDoPageBreakFormatInfo='Y'">
             <xsl:call-template name="DoPageBreakFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -4935,6 +4944,7 @@
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
             <xsl:with-param name="fSpaceBeforeAlreadyDone" select="$fSpaceBeforeAlreadyDone"/>
+            <xsl:with-param name="sId" select="$sId"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -5664,16 +5674,8 @@
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <tex:group>
-                    <xsl:variable name="sTextTransform" select="$layoutInfo/@text-transform"/>
-                    <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
-                        <xsl:call-template name="DoBookMark"/>
-                        <xsl:call-template name="DoInternalTargetBegin">
-                            <xsl:with-param name="sName" select="$sId"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <xsl:call-template name="DoTitleFormatInfo">
+                    <xsl:call-template name="DoPageBreakFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                        <xsl:with-param name="originalContext" select="$sLabel"/>
                     </xsl:call-template>
                     <tex:cmd name="thispagestyle">
                         <tex:parm>
@@ -5684,19 +5686,22 @@
                             </xsl:choose>
                         </tex:parm>
                     </tex:cmd>
-                    <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
-                        <xsl:call-template name="DoBookMark"/>
-                        <xsl:call-template name="DoInternalTargetBegin">
-                            <xsl:with-param name="sName" select="$sId"/>
-                        </xsl:call-template>
-                    </xsl:if>
+                    <xsl:call-template name="DoSpaceBefore">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="originalContext" select="$sLabel"/>
+                        <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+                        <xsl:with-param name="fSpaceBeforeAlreadyDone" select="'Y'"/>
+                        <xsl:with-param name="sId" select="$sId"/>
+                    </xsl:call-template>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle" select="$sLabel"/>
                     </xsl:call-template>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     </xsl:call-template>
-                    <xsl:call-template name="DoInternalTargetEnd"/>
                     <xsl:variable name="contentForThisElement">
                         <xsl:call-template name="OutputChapTitle">
                             <xsl:with-param name="sTitle" select="$sLabel"/>
@@ -5710,6 +5715,9 @@
                         <xsl:with-param name="originalContext" select="$sLabel"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
                     </xsl:call-template>
+                    <xsl:call-template name="CreateAddToContents">
+                        <xsl:with-param name="id" select="$sId"/>
+                    </xsl:call-template>
                     <tex:cmd name="markboth">
                         <tex:parm>
                             <xsl:copy-of select="$sLabel"/>
@@ -5718,10 +5726,6 @@
                             <xsl:copy-of select="$sLabel"/>
                         </tex:parm>
                     </tex:cmd>
-                    <xsl:call-template name="CreateAddToContents">
-                        <xsl:with-param name="id" select="$sId"/>
-                    </xsl:call-template>
-                    <!--                    <xsl:call-template name="DoBookMark"/>-->
                 </tex:group>
                 <tex:cmd name="par" nl2="1"/>
                 <xsl:call-template name="DoSpaceAfter">
@@ -5776,7 +5780,6 @@
                     <xsl:call-template name="CreateAddToContents">
                         <xsl:with-param name="id" select="$sId"/>
                     </xsl:call-template>
-                    <!--                    <xsl:call-template name="DoBookMark"/>-->
                 </tex:group>
                 <tex:cmd name="par" nl2="1"/>
                 <xsl:call-template name="DoSpaceAfter">

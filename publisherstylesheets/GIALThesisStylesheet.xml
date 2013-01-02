@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Graduate Institute of Applied Linguistics Thesis Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.6.0</publisherStyleSheetVersion
+>1.0.0</publisherStyleSheetVersion
 ><pageLayout
 contentBetweenFootnoteNumberAndFootnoteContent=" "
 ><pageWidth
@@ -13,9 +13,9 @@ contentBetweenFootnoteNumberAndFootnoteContent=" "
 ><pageHeight
 >11in</pageHeight
 ><pageTopMargin
->1in</pageTopMargin
+>.9in</pageTopMargin
 ><pageBottomMargin
->.75in</pageBottomMargin
+>.6in</pageBottomMargin
 ><pageInsideMargin
 >1.5in</pageInsideMargin
 ><pageOutsideMargin
@@ -26,7 +26,7 @@ singlesided="yes"
 ><headerMargin
 >.375in</headerMargin
 ><footerMargin
->.25in</footerMargin
+>.5in</footerMargin
 ><paragraphIndent
 >.5in</paragraphIndent
 ><blockQuoteIndent
@@ -284,7 +284,7 @@ textalign="center"
 textbefore="Version: "
 ></versionLayout
 ><abstractLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
@@ -295,7 +295,7 @@ textalign="center"
 useemptyheaderfooter="yes"
 ></abstractLayout
 ><acknowledgementsLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
@@ -306,7 +306,7 @@ textalign="center"
 ></acknowledgementsLayout
 ><contentsLayout
 betweentitleandnumber="dots"
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
@@ -316,7 +316,7 @@ text-transform="uppercase"
 textalign="center"
 ></contentsLayout
 ><prefaceLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
@@ -448,7 +448,7 @@ textalign="center"
 ></partLayout
 ><chapterLayout
 ><numberLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="normal"
 pagebreakbefore="yes"
 spacebefore=".25in"
@@ -466,7 +466,7 @@ textalign="center"
 ><section1Layout
 ><sectionTitleLayout
 font-size="14pt"
-font-weight="normal"
+font-weight="bold"
 spaceafter="10pt"
 spacebefore="15pt"
 textalign="left"
@@ -526,7 +526,7 @@ textalign="start"
 >Back Matter Layout</comment
 ><appendixLayout
 ><numberLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="normal"
 pagebreakbefore="yes"
 spacebefore=".25in"
@@ -537,7 +537,8 @@ textbefore="Appendix "
 ><appendixTitleLayout
 font-size="14pt"
 font-weight="bold"
-spaceafter="16pt"
+spaceafter="21.6pt"
+spacebefore="10pt"
 textalign="center"
 ></appendixTitleLayout
 ></appendixLayout
@@ -550,18 +551,8 @@ spacebefore="40pt"
 startonoddpage="no"
 textalign="center"
 ></acknowledgementsLayout
-><glossaryLayout
-font-size="12pt"
-font-weight="bold"
-pagebreakbefore="yes"
-spaceafter="10.8pt"
-spacebefore=".25in"
-startonoddpage="no"
-text-transform="uppercase"
-textalign="center"
-></glossaryLayout
 ><referencesTitleLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"
@@ -574,8 +565,18 @@ href="GIALThesisReferencesStylesheet.xml"
 xpointer="element(/1)"
 xmlns:xi="http://www.w3.org/2001/XInclude"
 ></xi:include
+><glossaryLayout
+font-size="14pt"
+font-weight="bold"
+pagebreakbefore="yes"
+spaceafter="10.8pt"
+spacebefore=".25in"
+startonoddpage="no"
+text-transform="uppercase"
+textalign="center"
+></glossaryLayout
 ><indexLayout
-font-size="12pt"
+font-size="14pt"
 font-weight="bold"
 pagebreakbefore="yes"
 spaceafter="10.8pt"

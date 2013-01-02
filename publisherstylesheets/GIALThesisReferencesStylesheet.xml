@@ -2,13 +2,13 @@
 <!DOCTYPE referencesLayout PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <referencesLayout
-defaultfontsize="10pt"
+defaultfontsize="12pt"
 hangingindentsize=".25in"
 removecommonhundredsdigitsinpages="yes"
 ><publisherStyleSheetReferencesName
 >Graduate Institute of Applied Linguistics Thesis References Stylesheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->0.5.1</publisherStyleSheetReferencesVersion
+>1.0.0</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -1034,7 +1034,7 @@ textafter=".  "
 textafter=" "
 ></institutionItem
 ><dissertationLabelItem
-label="dissertation"
+label="Ph.D. dissertation"
 textafter=".  "
 ></dissertationLabelItem
 ><urlDateAccessedLayoutsRef
@@ -1052,7 +1052,7 @@ textafter=": "
 textafter=" "
 ></institutionItem
 ><dissertationLabelItem
-label="dissertation"
+label="Ph.D. dissertation"
 textafter=".  "
 ></dissertationLabelItem
 ><urlDateAccessedLayoutsRef
@@ -1067,7 +1067,7 @@ textafter=".  "
 textafter=" "
 ></institutionItem
 ><dissertationLabelItem
-label="dissertation"
+label="Ph.D. dissertation"
 textafter=".  "
 ></dissertationLabelItem
 ><publishedLayoutRef
@@ -1087,7 +1087,7 @@ textafter=": "
 textafter=" "
 ></institutionItem
 ><dissertationLabelItem
-label="dissertation"
+label="Ph.D. dissertation"
 textafter=".  "
 ></dissertationLabelItem
 ><publishedLayoutRef
@@ -1450,11 +1450,11 @@ textbefore=" ("
 >Thesis Layouts</comment
 ><thesisLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><locationItem
-textafter=".  "
+textafter=": "
 ></locationItem
 ><institutionItem
 textafter=" "
@@ -1470,7 +1470,7 @@ textafter=".  "
 ></thesisLayout
 ><thesisLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><institutionItem
@@ -1487,11 +1487,11 @@ textafter=".  "
 ></thesisLayout
 ><thesisLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><locationItem
-textafter=".  "
+textafter=": "
 ></locationItem
 ><institutionItem
 textafter=" "
@@ -1505,7 +1505,7 @@ textafter=".  "
 ></thesisLayout
 ><thesisLayout
 ><refTitleItem
-font-style="italic"
+font-style="normal"
 textafter=".  "
 ></refTitleItem
 ><institutionItem

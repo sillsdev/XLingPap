@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-01-02</a:date
+>2013-01-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.20.5 2 January 2013<ul
+>2.20.5 3 January 2013<ul
+><li
+>Let showLevel attribute of contents element have a value of 0 so that one can have a book whose table of contents shows chapters without any sections.</li
 ><li
 >Update GIAL thesis publisher style sheet.</li
 ></ul

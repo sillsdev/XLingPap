@@ -72,9 +72,11 @@
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="$nLevel!=0">
         <xsl:apply-templates select="section1 | section2" mode="contents">
             <!--            <xsl:with-param name="nLevel" select="$nLevel"/>-->
         </xsl:apply-templates>
+        </xsl:if>
     </xsl:template>
     <!--
       endnotes (contents)

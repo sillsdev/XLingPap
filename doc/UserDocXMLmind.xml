@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->28 November 2012</date
+>3 January 2013</date
 ><version
->2.20.3</version
+>2.20.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -2054,7 +2054,7 @@ src="resources/AttributesToolTab.png"
 ></img
 > to see it, though.</p
 ></endnote
-></p
+>  It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters,</p
 ><p
 >The table of contents will also include acknowledgments (if any), the abstract (if present), endnotes (if needed), any indexes and references.</p
 ><p
@@ -3803,7 +3803,7 @@ type="tElement"
 > element may also optionally end with a <object
 type="tElement"
 >url</object
-> element (for indicating the address of a page on the World Wide Web if the work happens to be stored on the World Wide Web).  <indexedItem
+> element (for indicating the address of a page on the World Wide Web if the work happens to be stored on the World Wide Web). <indexedItem
 term="iReferencesPageBreak"
 ></indexedItem
 >In addition, the <object

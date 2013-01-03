@@ -2936,6 +2936,7 @@
     <xsl:template name="OutputAllSectionTOC">
         <xsl:param name="nLevel" select="3"/>
         <xsl:param name="nodesSection1"/>
+        <xsl:if test="$nLevel!=0">
         <xsl:for-each select="$nodesSection1">
             <xsl:call-template name="OutputSectionTOC"/>
             <xsl:if test="section2 and $nLevel>=2">
@@ -2974,6 +2975,7 @@
                 </ul>
             </xsl:if>
         </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--  
                   OutputSectionTOC

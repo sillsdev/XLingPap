@@ -1451,11 +1451,13 @@ li.lower-roman {
     <xsl:template match="@textbetweenchapterandnumber"/>
     <xsl:template match="@titleform"/>
     <xsl:template match="@types"/>
+    <xsl:template match="@useappendixlabelbeforeappendixletter"/>
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
     <xsl:template match="@useemptyheaderfooter"/>
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
+    <xsl:template match="@useperiodafterappendixletter"/>
     <xsl:template match="@usetitleinheader"/>
     <xsl:template match="@version"/>
     <xsl:template match="@verticalfillafter"/>

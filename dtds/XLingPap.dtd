@@ -192,7 +192,7 @@
 >
 <!ELEMENT contents EMPTY>
 <!ATTLIST contents
-    showLevel (1 | 2 | 3 | 4 | 5 | 6) "3"
+    showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
 >
 <!-- Main content -->

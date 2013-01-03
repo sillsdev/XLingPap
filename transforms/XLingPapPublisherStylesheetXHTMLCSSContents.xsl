@@ -40,7 +40,8 @@
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
             </xsl:with-param>
         </xsl:call-template>
-        <xsl:apply-templates select="section1 | section2" mode="contents"> </xsl:apply-templates>
+        <xsl:apply-templates select="section1 | section2" mode="contents"> 
+        </xsl:apply-templates>
     </xsl:template>
     <!--
       endnotes (contents)

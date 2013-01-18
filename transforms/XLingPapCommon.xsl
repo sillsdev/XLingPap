@@ -1088,6 +1088,7 @@
     -->
     <xsl:template name="SortAbbreviationsInTable">
         <xsl:param name="abbrsUsed"/>
+        <xsl:variable name="abbrsShownHere" select="."/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
@@ -1095,12 +1096,16 @@
                 </xsl:variable>
                 <xsl:for-each select="$abbrsUsed">
                     <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
-                    <xsl:call-template name="OutputAbbreviationInTable"/>
+                    <xsl:call-template name="OutputAbbreviationInTable">
+                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                    </xsl:call-template>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="$abbrsUsed">
-                    <xsl:call-template name="OutputAbbreviationInTable"/>
+                    <xsl:call-template name="OutputAbbreviationInTable">
+                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                    </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>

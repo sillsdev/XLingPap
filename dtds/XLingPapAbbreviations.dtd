@@ -45,3 +45,8 @@ It only shows if there is an instance of a referring index element in the docume
     If it is in an endnote, then the abbreviations will be listed one after the other within a paragraph.
 -->
 <!ELEMENT abbreviationsShownHere EMPTY >
+<!ATTLIST abbreviationsShownHere
+   abbrWidth CDATA #IMPLIED
+   equalsWidth CDATA #IMPLIED
+   definitionWidth CDATA #IMPLIED
+>

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 January 2013</date
+>15 January 2013</date
 ><version
 >2.20.5</version
 ><contents
@@ -2054,7 +2054,7 @@ src="resources/AttributesToolTab.png"
 ></img
 > to see it, though.</p
 ></endnote
->  It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters,</p
+> It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters,</p
 ><p
 >The table of contents will also include acknowledgments (if any), the abstract (if present), endnotes (if needed), any indexes and references.</p
 ><p
@@ -6300,6 +6300,100 @@ num="xAbbreviationsInGlossary2Html"
 ><chart
 type="tHtmlOutput"
 >&lt;hr&gt;&lt;a name="rXLingPapGlossary"&gt; &lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;&lt;a name=""&gt;Abbreviations&lt;/a&gt;&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt;&lt;/a&gt;&lt;div style="margin-left: 0.5in; margin-right: 0.5in"&gt; &lt;p&gt;The following table gives the abbreviations used in this paper.&lt;/p&gt; &lt;table&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v1EX"&gt;&lt;span&gt;1EX&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;first person exclusive&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;second person&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="v3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;third person general&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vC"&gt;&lt;span&gt;C&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;completive&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vF"&gt;&lt;span&gt;F&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;future&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vH"&gt;&lt;span&gt;H&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;habitual&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vLOC"&gt;&lt;span&gt;LOC&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;locative&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vP"&gt;&lt;span&gt;P&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;potential&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vPOS"&gt;&lt;span&gt;POS&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;possessive prefix used on alienably possessed nouns&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="vPR"&gt;&lt;span&gt;PR&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td&gt; = &lt;/td&gt; &lt;td&gt;progressive&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; &lt;hr size="3"&gt;</chart
+></example
+><p
+><indexedItem
+term="iAbbreviationsColumnWidths"
+></indexedItem
+>When the list of abbreviations is formatted as a table, you can control the width of the abbreviation column, the equals sign column, and/or the definition column via attributes on the <object
+type="tElement"
+>abbreviationsShownHere</object
+> element.  See example <exampleRef
+letter="xAbbreviationColumnWidthAttributes"
+num="xAbbreviationColumnWidthAttributes"
+></exampleRef
+>.</p
+><example
+num="xAbbreviationColumnWidthAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>abbrWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the abbreviations. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>definitionWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the abbreviation definitions. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>equalsWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column of the equals sign. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+></td
+></tr
+></table
 ></example
 ></section3
 ><section3
@@ -25983,6 +26077,11 @@ see="iIDPrefix"
 id="iAbbreviationsChange"
 ><term
 >Change a set of abbreviations in text</term
+></indexTerm
+><indexTerm
+id="iAbbreviationsColumnWidths"
+><term
+>Column widths in table of abbreviations</term
 ></indexTerm
 ><indexTerm
 id="iAbbreviationsList"

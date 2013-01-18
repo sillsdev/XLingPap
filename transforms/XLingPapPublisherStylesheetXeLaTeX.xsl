@@ -1275,6 +1275,7 @@
       sectionRef
       -->
     <xsl:template match="sectionRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
         <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
         <xsl:variable name="secRefToUse">
             <!-- adjust reference to a section that is actually present per the style sheet -->
@@ -1283,9 +1284,11 @@
                 <xsl:with-param name="bodyLayoutInfo" select="$bodyLayoutInfo"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="$secRefToUse"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="$secRefToUse"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                 <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
@@ -1302,15 +1305,19 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="LinkAttributesBegin">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoSectionRef">
             <xsl:with-param name="secRefToUse" select="$secRefToUse"/>
         </xsl:call-template>
-        <xsl:call-template name="LinkAttributesEnd">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="LinkAttributesEnd">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                 <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
@@ -1327,7 +1334,9 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:if>
     </xsl:template>
     <!--
       appendixRef

@@ -738,6 +738,9 @@
         <tex:cmd name="thispagestyle">
             <tex:parm>plain</tex:parm>
         </tex:cmd>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <tex:cmd name="vspace*" nl1="1" nl2="1">
             <tex:parm>144pt</tex:parm>
         </tex:cmd>
@@ -774,9 +777,6 @@
                 </tex:parm>
             </tex:cmd>
 -->
-            <xsl:if test="@showinlandscapemode='yes'">
-                <tex:cmd name="landscape" gr="0" nl2="1"/>
-            </xsl:if>
             <tex:group>
                 <tex:cmd name="centering" nl2="1">
                     <tex:parm>
@@ -929,15 +929,20 @@
       sectionRef
       -->
     <xsl:template match="sectionRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
         <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
         <xsl:call-template name="DoReferenceShowTitleBefore">
             <xsl:with-param name="showTitle" select="@showTitle"/>
         </xsl:call-template>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@sec"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="@sec"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoSectionRef"/>
-        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        </xsl:if>
         <xsl:call-template name="DoReferenceShowTitleAfter">
             <xsl:with-param name="showTitle" select="@showTitle"/>
         </xsl:call-template>
@@ -4591,46 +4596,46 @@
         <xsl:param name="nLevel" select="3"/>
         <xsl:param name="nodesSection1"/>
         <xsl:if test="$nLevel!=0">
-        <xsl:for-each select="$nodesSection1">
-            <xsl:call-template name="OutputSectionTOC">
-                <xsl:with-param name="sLevel" select="'1'"/>
-            </xsl:call-template>
-            <xsl:if test="section2 and $nLevel>=2">
-                <xsl:for-each select="section2">
-                    <xsl:call-template name="OutputSectionTOC">
-                        <xsl:with-param name="sLevel" select="'2'"/>
-                    </xsl:call-template>
-                    <xsl:if test="section3 and $nLevel>=3">
-                        <xsl:for-each select="section3">
-                            <xsl:call-template name="OutputSectionTOC">
-                                <xsl:with-param name="sLevel" select="'3'"/>
-                            </xsl:call-template>
-                            <xsl:if test="section4 and $nLevel>=4">
-                                <xsl:for-each select="section4">
-                                    <xsl:call-template name="OutputSectionTOC">
-                                        <xsl:with-param name="sLevel" select="'4'"/>
-                                    </xsl:call-template>
-                                    <xsl:if test="section5 and $nLevel>=5">
-                                        <xsl:for-each select="section5">
-                                            <xsl:call-template name="OutputSectionTOC">
-                                                <xsl:with-param name="sLevel" select="'5'"/>
-                                            </xsl:call-template>
-                                            <xsl:if test="section6 and $nLevel>=6">
-                                                <xsl:for-each select="section6">
-                                                    <xsl:call-template name="OutputSectionTOC">
-                                                        <xsl:with-param name="sLevel" select="'6'"/>
-                                                    </xsl:call-template>
-                                                </xsl:for-each>
-                                            </xsl:if>
-                                        </xsl:for-each>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </xsl:if>
-                </xsl:for-each>
-            </xsl:if>
-        </xsl:for-each>
+            <xsl:for-each select="$nodesSection1">
+                <xsl:call-template name="OutputSectionTOC">
+                    <xsl:with-param name="sLevel" select="'1'"/>
+                </xsl:call-template>
+                <xsl:if test="section2 and $nLevel>=2">
+                    <xsl:for-each select="section2">
+                        <xsl:call-template name="OutputSectionTOC">
+                            <xsl:with-param name="sLevel" select="'2'"/>
+                        </xsl:call-template>
+                        <xsl:if test="section3 and $nLevel>=3">
+                            <xsl:for-each select="section3">
+                                <xsl:call-template name="OutputSectionTOC">
+                                    <xsl:with-param name="sLevel" select="'3'"/>
+                                </xsl:call-template>
+                                <xsl:if test="section4 and $nLevel>=4">
+                                    <xsl:for-each select="section4">
+                                        <xsl:call-template name="OutputSectionTOC">
+                                            <xsl:with-param name="sLevel" select="'4'"/>
+                                        </xsl:call-template>
+                                        <xsl:if test="section5 and $nLevel>=5">
+                                            <xsl:for-each select="section5">
+                                                <xsl:call-template name="OutputSectionTOC">
+                                                    <xsl:with-param name="sLevel" select="'5'"/>
+                                                </xsl:call-template>
+                                                <xsl:if test="section6 and $nLevel>=6">
+                                                    <xsl:for-each select="section6">
+                                                        <xsl:call-template name="OutputSectionTOC">
+                                                            <xsl:with-param name="sLevel" select="'6'"/>
+                                                        </xsl:call-template>
+                                                    </xsl:for-each>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <!--  

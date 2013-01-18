@@ -1080,6 +1080,9 @@
             </fo:basic-link>
         </fo:inline>
     </xsl:template>
+    <xsl:template match="sectionRef" mode="bookmarks">
+        <xsl:apply-templates select="id(@sec)" mode="number"/>
+    </xsl:template>
     <!--
       appendixRef
       -->

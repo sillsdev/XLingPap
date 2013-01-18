@@ -3719,6 +3719,18 @@
             <xsl:with-param name="pages" select="$citation/@page"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        HandleColumnWidth
+    -->
+    <xsl:template name="HandleColumnWidth">
+        <xsl:param name="sWidth"/>
+        <xsl:if test="string-length($sWidth) &gt; 0">
+            <xsl:attribute name="style">
+                <xsl:text>width:</xsl:text>
+                <xsl:value-of select="$sWidth"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
     <!--  
         HandleEndnoteInBackMatter
     -->
@@ -3798,18 +3810,28 @@
         OutputAbbreviationInTable
     -->
     <xsl:template name="OutputAbbreviationInTable">
+        <xsl:param name="abbrsShownHere"/>
         <tr>
-            <td>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
+                </xsl:call-template>
                 <a name="{@id}">
                     <xsl:call-template name="OutputAbbrTerm">
                         <xsl:with-param name="abbr" select="."/>
                     </xsl:call-template>
                 </a>
             </td>
-            <td>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@equalsWidth)"/>
+                </xsl:call-template>
                 <xsl:text> = </xsl:text>
             </td>
-            <td>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
+                </xsl:call-template>
                 <xsl:call-template name="OutputAbbrDefinition">
                     <xsl:with-param name="abbr" select="."/>
                 </xsl:call-template>

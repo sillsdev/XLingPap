@@ -344,6 +344,17 @@
         </fo:list-block>
     </xsl:template>
     <!--
+        HandleColumnWidth
+    -->
+    <xsl:template name="HandleColumnWidth">
+        <xsl:param name="sWidth"/>
+        <xsl:if test="string-length($sWidth) &gt; 0">
+            <xsl:attribute name="width">
+                <xsl:value-of select="$sWidth"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!--
         HandleFramedUnitEndIndent
     -->
     <xsl:template name="HandleFramedUnitEndIndent">
@@ -383,11 +394,15 @@
         OutputAbbreviationInTable
     -->
     <xsl:template name="OutputAbbreviationInTable">
+        <xsl:param name="abbrsShownHere"></xsl:param>
         <fo:table-row>
             <xsl:if test="position() = last() -1 or position() = 1">
                 <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
             </xsl:if>
             <fo:table-cell border-collapse="collapse" padding=".2em" padding-top=".01em">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
+                </xsl:call-template>
                 <fo:block>
                     <fo:inline id="{@id}">
                         <xsl:call-template name="OutputAbbrTerm">
@@ -398,12 +413,18 @@
             </fo:table-cell>
             <fo:table-cell border-collapse="collapse">
                 <xsl:attribute name="padding-left">.2em</xsl:attribute>
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@equalsWidth)"/>
+                </xsl:call-template>
                 <fo:block>
                     <xsl:text> = </xsl:text>
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell border-collapse="collapse">
                 <xsl:attribute name="padding-left">.2em</xsl:attribute>
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
+                </xsl:call-template>
                 <fo:block>
                     <xsl:call-template name="OutputAbbrDefinition">
                         <xsl:with-param name="abbr" select="."/>

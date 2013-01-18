@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.20.5</span></p>
-      <p align="center">Date: 2013-01-04</p>
+      <p align="center">Date: 2013-01-18</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,15 +34,26 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.20.5 4 January 2013
+               <li>2.20.5 18 January 2013
                   <ul>
                      <li>Let showLevel attribute of contents element have a value of 0 so that one can have a book whose table of contents shows chapters
                         without any sections.
+                     </li>
+                     <li>Add three attributes to the abbreviationsShownHere element to control the width of the abbreviation column (abbrWidth), the
+                        equals sign column (equalsWidth), and the definition column (definitionWidth). This is only used when the abbreviations are
+                        shown as a table.
+                     </li>
+                     <li>Make sure that if the abbreviations are shown as a table and any take more than a single line, that the information aligns
+                        at the top of the row in the table.
                      </li>
                      <li>Update GIAL thesis publisher style sheet.</li>
                      <li>For the default way of producing PDF (via XeLaTeX): 
                         <ul>
                            <li>Fix bug which caused the PDF to not be produced when a period was immediately followed by a special character such as an underscore.</li>
+                           <li>Fix a bug where using the showinlandscapemode attribute on an appendix element could cause the PDF not to be produced when
+                              not using a style sheet.
+                           </li>
+                           <li>Fix bug which failed to show the content of a sectionRef in a secTitle in the contents and in PDF bookmarks.</li>
                         </ul>
                      </li>
                   </ul>

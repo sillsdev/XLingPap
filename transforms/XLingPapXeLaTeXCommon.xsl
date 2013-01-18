@@ -420,6 +420,33 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        HandleColumnWidth
+    -->
+    <xsl:template name="HandleColumnWidth">
+        <xsl:param name="sWidth"/>
+        <xsl:param name="sDefaultSpec"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sWidth) &gt; 0">
+                <xsl:text>p</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:choose>
+                    <xsl:when test="contains($sWidth,'%')">
+                        <xsl:call-template name="GetColumnWidthBasedOnPercentage">
+                            <xsl:with-param name="iPercentage" select="substring-before(normalize-space($sWidth),'%')"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sWidth"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <tex:spec cat="eg"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefaultSpec"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         HandleEmbeddedListItem
     -->
     <xsl:template name="HandleEmbeddedListItem">
@@ -1949,7 +1976,16 @@
     <xsl:template match="indexedRangeBegin" mode="InMarker"/>
     <xsl:template match="link" mode="InMarker"/>
     <xsl:template match="q" mode="InMarker"/>
-    <xsl:template match="sectionRef" mode="InMarker"/>
+    <xsl:template match="sectionRef" mode="InMarker">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="sectionRef" mode="bookmarks">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
     <!--
         indexedItem or indexedRangeBegin
     -->
@@ -6579,11 +6615,8 @@
         OutputAbbreviationInTable
     -->
     <xsl:template name="OutputAbbreviationInTable">
-        <!--  Need to do something here... 
-            <xsl:if test="position() = last() -1 or position() = 1">
-            <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
-            </xsl:if>
-        -->
+        <xsl:param name="abbrsShownHere"/>
+        <!--  we do not use abbrsShownHere in this instance of OutputAbbreviationInTable  -->
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -6621,7 +6654,18 @@
                             </tex:parm>
                         </tex:cmd>
                     </tex:group>
-                    <xsl:text>lcl</xsl:text>
+                    <xsl:call-template name="HandleColumnWidth">
+                        <xsl:with-param name="sWidth" select="normalize-space(@abbrWidth)"/>
+                        <xsl:with-param name="sDefaultSpec" select="'l'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="HandleColumnWidth">
+                        <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
+                        <xsl:with-param name="sDefaultSpec" select="'c'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="HandleColumnWidth">
+                        <xsl:with-param name="sWidth" select="normalize-space(@definitionWidth)"/>
+                        <xsl:with-param name="sDefaultSpec" select="'l'"/>
+                    </xsl:call-template>
                 </tex:parm>
                 <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
                 The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the

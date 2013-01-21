@@ -1966,11 +1966,29 @@
     <!--
         ...Ref (InMarker)
     -->
-    <xsl:template match="appendixRef" mode="InMarker"/>
+    <xsl:template match="appendixRef" mode="InMarker">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="appendixRef" mode="bookmarks">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="comment" mode="InMarker"/>
     <xsl:template match="endnote" mode="InMarker"/>
     <xsl:template match="endnoteRef" mode="InMarker"/>
-    <xsl:template match="exampleRef" mode="InMarker"/>
+    <xsl:template match="exampleRef" mode="InMarker">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="exampleRef" mode="bookmarks">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="fDoHyperlink" select="'N'"/>
+        </xsl:apply-templates>
+    </xsl:template>
     <xsl:template match="genericTarget" mode="InMarker"/>
     <xsl:template match="indexedItem" mode="InMarker"/>
     <xsl:template match="indexedRangeBegin" mode="InMarker"/>
@@ -2080,7 +2098,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="abbrTerm | abbrDefinition"/>
-<!--    <xsl:template match="abbrTerm"/>-->
+    <!--    <xsl:template match="abbrTerm"/>-->
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -2502,7 +2520,7 @@
                     <tex:spec cat="esc"/>
                 </xsl:for-each>
                 <tex:spec cat="lsb"/>
-                <xsl:call-template name="GetCurrentPointSize"/>
+                <xsl:call-template name="GetSpaceBetweenGroups"/>
                 <tex:spec cat="rsb"/>
                 <tex:spec cat="esc"/>
                 <xsl:text>end</xsl:text>
@@ -4354,11 +4372,27 @@
                         <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                             <tex:spec cat="lsb"/>
                             <!--                        <xsl:text>3pt</xsl:text>-->
-                            <tex:cmd name="baselineskip"/>
+                            <xsl:choose>
+                                <xsl:when test="string-length($sSpaceBetweenGroups) &gt; 0">
+                                    <xsl:value-of select="$sSpaceBetweenGroups"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tex:cmd name="baselineskip"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                             <tex:spec cat="rsb"/>
                         </xsl:if>
                         <tex:cmd name="hspace*" nl1="1">
-                            <tex:parm>.1in</tex:parm>
+                            <tex:parm>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
+                                        <xsl:value-of select="$sIndentOfNonInitialGroup"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>.1in</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </tex:parm>
                         </tex:cmd>
                     </xsl:when>
                     <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
@@ -4972,47 +5006,72 @@
                 </tex:cmd>
             </xsl:if>
         </xsl:if>
+        <xsl:variable name="sLeftIndent">
+            <xsl:choose>
+                <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
+                    <xsl:text>1.65</xsl:text>
+                </xsl:when>
+                <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
+                    <xsl:text>2</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>em</xsl:text>
+        </xsl:variable>
         <xsl:if test="$mode='NoTextRef'">
             <tex:cmd name="raggedright" gr="0" nl2="0"/>
             <tex:cmd name="leavevmode" gr="0" nl2="0"/>
             <tex:cmd name="hspace*" nl2="0">
                 <tex:parm>
-                    <xsl:choose>
-                        <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
-                            <xsl:text>1.65</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
-                            <xsl:text>2</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>1</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:text>em</xsl:text>
+                    <xsl:value-of select="$sLeftIndent"/>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
         <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="bg"/>
         </xsl:if>
-        <tex:spec cat="esc"/>
-        <xsl:text>hangindent</xsl:text>
         <xsl:choose>
-            <xsl:when test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
-                <xsl:text>0</xsl:text>
-            </xsl:when>
-            <xsl:when test="$mode='NoTextRef'">
-                <xsl:text>2</xsl:text>
-            </xsl:when>
-            <xsl:when test="contains($bListsShareSameCode,'N')">
-                <!-- want 1 plus 2.75 -->
-                <xsl:text>3.75</xsl:text>
+            <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
+                <!-- \setlength{\XLingPapertempdim}{1em+0pt} -->
+                <tex:cmd name="setlength">
+                    <tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>XLingPapertempdim</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="$sLeftIndent"/>
+                        <xsl:text>+</xsl:text>
+                        <xsl:value-of select="$sIndentOfNonInitialGroup"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="esc"/>
+                <xsl:text>hangindent</xsl:text>
+                <tex:spec cat="esc"/>
+                <xsl:text>XLingPapertempdim</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>1</xsl:text>
+                <tex:spec cat="esc"/>
+                <xsl:text>hangindent</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
+                        <xsl:text>0</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$mode='NoTextRef'">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="contains($bListsShareSameCode,'N')">
+                        <!-- want 1 plus 2.75 -->
+                        <xsl:text>3.75</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>em</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:text>em</xsl:text>
         <tex:cmd name="relax" gr="0" nl2="1"/>
         <tex:spec cat="esc"/>
         <xsl:text>hangafter</xsl:text>
@@ -5162,7 +5221,8 @@
                         <tex:spec cat="esc"/>
                         <tex:spec cat="lsb"/>
                         <xsl:text>-</xsl:text>
-                        <xsl:call-template name="GetCurrentPointSize"/>
+                        <!--                        <xsl:call-template name="GetCurrentPointSize"/>-->
+                        <xsl:call-template name="GetSpaceBetweenGroups"/>
                         <tex:spec cat="rsb"/>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -5176,7 +5236,8 @@
                 <tex:spec cat="esc"/>
                 <tex:spec cat="lsb"/>
                 <xsl:text>-</xsl:text>
-                <xsl:call-template name="GetCurrentPointSize"/>
+                <!--                <xsl:call-template name="GetCurrentPointSize"/>-->
+                <xsl:call-template name="GetSpaceBetweenGroups"/>
                 <tex:spec cat="rsb"/>
             </xsl:when>
             <xsl:when test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
@@ -5206,7 +5267,8 @@
                     <tex:cmd name="vspace*">
                         <tex:parm>
                             <xsl:text>-</xsl:text>
-                            <xsl:call-template name="GetCurrentPointSize"/>
+                            <!--                            <xsl:call-template name="GetCurrentPointSize"/>-->
+                            <xsl:call-template name="GetSpaceBetweenGroups"/>
                         </tex:parm>
                     </tex:cmd>
                 </xsl:otherwise>
@@ -5881,6 +5943,19 @@
             <xsl:value-of select="string-length($sOneYForEachColumn)"/>
         </xsl:variable>
         <xsl:value-of select="$iInSituColumnNumberOfPreviousCellWithRowspan + $iPreviousRowspansInRowOfCell"/>
+    </xsl:template>
+    <!--  
+        GetSpaceBetweenGroups
+    -->
+    <xsl:template name="GetSpaceBetweenGroups">
+        <xsl:choose>
+            <xsl:when test="string-length($sSpaceBetweenGroups) &gt; 0">
+                <xsl:value-of select="$sSpaceBetweenGroups"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="GetCurrentPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         GetUnitOfMeasure

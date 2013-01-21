@@ -264,12 +264,26 @@
             </xsl:variable>
             <xsl:if test="name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                 <xsl:attribute name="margin-left">
-                    <xsl:text>0.1in</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
+                            <xsl:value-of select="$sIndentOfNonInitialGroup"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0.1in</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:attribute>
                 <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                     <xsl:attribute name="space-before">
-                        <xsl:value-of select="$sBasicPointSize div 2"/>
-                        <xsl:text>pt</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sSpaceBetweenGroups) &gt; 0">
+                                <xsl:value-of select="$sSpaceBetweenGroups"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sBasicPointSize div 2"/>
+                                <xsl:text>pt</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
@@ -394,7 +408,7 @@
         OutputAbbreviationInTable
     -->
     <xsl:template name="OutputAbbreviationInTable">
-        <xsl:param name="abbrsShownHere"></xsl:param>
+        <xsl:param name="abbrsShownHere"/>
         <fo:table-row>
             <xsl:if test="position() = last() -1 or position() = 1">
                 <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>

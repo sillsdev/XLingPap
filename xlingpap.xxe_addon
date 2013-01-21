@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.20.5</a:version
+>2.20.6</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-01-18</a:date
+>2013-01-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.20.6 21 January 2013<ul
+><li
+>To publisher style sheets, add a new interlinearMultipleLineGroupLayout element to the contentLayout section. It has two attributes:<ul
+><li
+>indentOfNonInitialGroup: the indent to use for any second and following interlinear line groups;</li
+><li
+>spaceBetweenGroups: the vertical space to use between any second and following interlinear line groups.</li
+></ul
+></li
+><li
+>Fix bug which failed to show the content of an appendixRef or exampleRef in a secTitle in the contents and in PDF bookmarks.</li
+></ul
+></li
 ><li
 >2.20.5 18 January 2013<ul
 ><li

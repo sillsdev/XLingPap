@@ -951,14 +951,19 @@
       appendixRef
       -->
     <xsl:template match="appendixRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
         <xsl:call-template name="DoReferenceShowTitleBefore">
             <xsl:with-param name="showTitle" select="@showTitle"/>
         </xsl:call-template>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@app"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="@app"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoAppendixRef"/>
-        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        </xsl:if>
         <xsl:call-template name="DoReferenceShowTitleAfter">
             <xsl:with-param name="showTitle" select="@showTitle"/>
         </xsl:call-template>
@@ -1509,23 +1514,28 @@
         exampleRef
     -->
     <xsl:template match="exampleRef">
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName">
-                <xsl:choose>
-                    <xsl:when test="@letter and name(id(@letter))!='example'">
-                        <xsl:value-of select="@letter"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:if test="@num">
-                            <xsl:value-of select="@num"/>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:call-template name="AddAnyLinkAttributes"/>
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName">
+                    <xsl:choose>
+                        <xsl:when test="@letter and name(id(@letter))!='example'">
+                            <xsl:value-of select="@letter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="@num">
+                                <xsl:value-of select="@num"/>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="AddAnyLinkAttributes"/>
+        </xsl:if>
         <xsl:call-template name="DoExampleRefContent"/>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:if>
     </xsl:template>
     <!--
         figure

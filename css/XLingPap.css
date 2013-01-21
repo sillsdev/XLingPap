@@ -6547,6 +6547,12 @@ interlinearAlignedWordSpacing
 	margin-bottom:12pt;
 	margin-top:12pt;
 }
+interlinearMultipleLineGroupLayout
+{
+	property-group: titledItem("interlinear multiple aligned group spacing");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 interlinearRefCitationTitleLayout[color]
 {
 	color:concatenate(attr(color));

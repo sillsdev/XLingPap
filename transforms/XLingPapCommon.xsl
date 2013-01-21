@@ -72,6 +72,8 @@
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
     <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
+    <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
+    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>  
     <!--
         counter
     -->

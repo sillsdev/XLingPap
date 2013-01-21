@@ -1110,6 +1110,9 @@
             <xsl:call-template name="DoAppendixRef"/>
         </fo:basic-link>
     </xsl:template>
+    <xsl:template match="appendixRef" mode="bookmarks">
+        <xsl:apply-templates select="id(@app)" mode="numberAppendix"/>
+    </xsl:template>
     <!--
       genericRef
       -->
@@ -2258,6 +2261,9 @@ not using
             </xsl:call-template>
             <xsl:call-template name="DoExampleRefContent"/>
         </fo:basic-link>
+    </xsl:template>
+    <xsl:template match="exampleRef" mode="bookmarks">
+        <xsl:call-template name="DoExampleRefContent"/>
     </xsl:template>
     <!--
         figure

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->2 October 2012</date
+>19 January 2013</date
 ><version
->2.20.0</version
+>2.20.6</version
 ><contents
 showLevel="3"
 ></contents
@@ -11289,6 +11289,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for an institution within references</dd
+><dt
+><object
+type="tElement"
+>interlinearMultipleLineGroupLayout</object
+></dt
+><dd
+>Layout info for indent for and spacing between non-initial interlinear line groups</dd
 ><dt
 ><object
 type="tElement"

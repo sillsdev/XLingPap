@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->15 January 2013</date
+>19 January 2013</date
 ><version
->2.20.5</version
+>2.20.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -6308,7 +6308,7 @@ term="iAbbreviationsColumnWidths"
 >When the list of abbreviations is formatted as a table, you can control the width of the abbreviation column, the equals sign column, and/or the definition column via attributes on the <object
 type="tElement"
 >abbreviationsShownHere</object
-> element.  See example <exampleRef
+> element. See example <exampleRef
 letter="xAbbreviationColumnWidthAttributes"
 num="xAbbreviationColumnWidthAttributes"
 ></exampleRef
@@ -24585,6 +24585,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for an institution within references</dd
+><dt
+><object
+type="tElement"
+>interlinearMultipleLineGroupLayout</object
+></dt
+><dd
+>Layout info for indent for and spacing between non-initial interlinear line groups</dd
 ><dt
 ><object
 type="tElement"

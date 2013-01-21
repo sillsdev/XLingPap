@@ -527,7 +527,8 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, interlinearAlignedWordSpacing?,
+   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
+                                                      interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout? ) >
    <!ELEMENT paragraphLayout EMPTY >
@@ -572,6 +573,11 @@ Content Layout
    <!ELEMENT interlinearAlignedWordSpacing EMPTY  >
    <!ATTLIST interlinearAlignedWordSpacing
        %special;
+ >
+   <!ELEMENT interlinearMultipleLineGroupLayout EMPTY  >
+   <!ATTLIST interlinearMultipleLineGroupLayout
+       indentOfNonInitialGroup CDATA #IMPLIED
+       spaceBetweenGroups CDATA #IMPLIED
  >
     <!ELEMENT endnoteRefLayout EMPTY >
     <!ATTLIST endnoteRefLayout

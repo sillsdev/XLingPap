@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->4 December 2012</date
+>21 January 2013</date
 ><version
->2.20.4</version
+>2.20.6</version
 ><contents
 showLevel="6"
 ></contents
@@ -7724,6 +7724,40 @@ type="tAttrValue"
 >.</p
 ></section2
 ><section2
+id="sInterlinearMultipleGroup"
+><secTitle
+>Controlling the Indent for and Spacing Between Non-initial Interlinear Line Groups</secTitle
+><p
+><indexedItem
+term="iInterlinearMultipleLineGroupLayoutIndent"
+></indexedItem
+><indexedItem
+term="iInterlinearMultipleLineGroupLayoutSpacing"
+></indexedItem
+>Sometimes one wants to control the indent and/or the vertical spacing between line groups when there is more than one such line group within an interlinear display.</p
+><p
+>Both of these are attributes on the <object
+type="tElement"
+>interlinearMultipleLineGroupLayout</object
+> element.  The <object
+type="tAttribute"
+>indentOfNonInitialGroup</object
+> attribute sets the indent.  Use a number followed immediately by a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>).</p
+><p
+>The vertical spacing between units is controlled by the <object
+type="tAttribute"
+>spaceBetweenGroups</object
+> attribute.  Use a number followed immediately by a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>).  Note that this attribute does not work for web page or EBook outputs.</p
+></section2
+><section2
 id="sEndnoteRefLayout"
 ><secTitle
 >Controlling the Display of Endnote References</secTitle
@@ -11967,6 +12001,11 @@ id="iInstitution"
 >Institution in a referenced work</term
 ></indexTerm
 ><indexTerm
+id="iInterlinearMultipleLineGroupLayoutIndent"
+><term
+>Interlinear indent for non-initial line groups</term
+></indexTerm
+><indexTerm
 id="iInterlinearRefLink"
 ><term
 >Interlinear reference link</term
@@ -11985,6 +12024,11 @@ id="iInterlinearSourceStyle"
 id="iInterlinearAlignedWordSpacing"
 ><term
 >Interlinear spacing between aligned word units</term
+></indexTerm
+><indexTerm
+id="iInterlinearMultipleLineGroupLayoutSpacing"
+><term
+>Interlinear spacing between line groups</term
 ></indexTerm
 ><indexTerm
 id="iISO639-3Code"

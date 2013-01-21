@@ -1360,11 +1360,29 @@
             </xsl:variable>
             <xsl:if test="name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                 <xsl:attribute name="style">
-                    <xsl:text>margin-left: 0.1in;border-collapse:collapse</xsl:text>
+                    <xsl:text>margin-left: </xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
+                            <xsl:value-of select="$sIndentOfNonInitialGroup"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0.1in</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>;border-collapse:collapse</xsl:text>
                 </xsl:attribute>
                 <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                     <tr>
-                        <td>&#xa0;</td>
+                        <td>
+                           <!-- Following does not work 
+                               <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
+                              <xsl:attribute name="style">
+                                  <xsl:text>padding-top:</xsl:text>
+                                  <xsl:value-of select="$sSpaceBetweenGroups"/>
+                              </xsl:attribute>
+                           </xsl:if>-->
+                            <xsl:text>&#xa0;</xsl:text>
+                        </td>
                     </tr>
                 </xsl:if>
             </xsl:if>

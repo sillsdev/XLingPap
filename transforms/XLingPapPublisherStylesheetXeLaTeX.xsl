@@ -1342,10 +1342,13 @@
       appendixRef
       -->
     <xsl:template match="appendixRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
         <xsl:call-template name="OutputAnyTextBeforeSectionRef"/>
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName" select="@app"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="@app"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                 <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
@@ -1362,13 +1365,17 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="LinkAttributesBegin">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoAppendixRef"/>
-        <xsl:call-template name="LinkAttributesEnd">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="LinkAttributesEnd">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                 <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
@@ -1385,7 +1392,9 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:if>
     </xsl:template>
     <!--
       genericRef
@@ -2071,28 +2080,33 @@
         exampleRef
     -->
     <xsl:template match="exampleRef">
-        <xsl:call-template name="DoInternalHyperlinkBegin">
-            <xsl:with-param name="sName">
-                <xsl:choose>
-                    <xsl:when test="@letter and name(id(@letter))!='example'">
-                        <xsl:value-of select="@letter"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:if test="@num">
-                            <xsl:value-of select="@num"/>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
-        </xsl:call-template>
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName">
+                    <xsl:choose>
+                        <xsl:when test="@letter and name(id(@letter))!='example'">
+                            <xsl:value-of select="@letter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="@num">
+                                <xsl:value-of select="@num"/>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="LinkAttributesBegin">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoExampleRefContent"/>
-        <xsl:call-template name="LinkAttributesEnd">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoExternalHyperRefEnd"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="LinkAttributesEnd">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:if>
     </xsl:template>
     <!--
         figure

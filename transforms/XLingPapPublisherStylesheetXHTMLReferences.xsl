@@ -119,8 +119,8 @@
     <xsl:template name="DoUrlLayout">
         <!-- remove any zero width spaces in the hyperlink -->
         <a href="{normalize-space(translate(.,'&#x200b;',''))}">
-<!--            <a href="url({normalize-space(translate(.,'&#x200b;',''))})">-->
-                <xsl:call-template name="AddAnyLinkAttributes">
+            <!--            <a href="url({normalize-space(translate(.,'&#x200b;',''))})">-->
+            <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/urlLinkLayout"/>
             </xsl:call-template>
             <!--            <xsl:text>&#x20;</xsl:text>-->
@@ -204,6 +204,7 @@
     -->
     <xsl:template name="OutputReferenceItemNode">
         <xsl:param name="item"/>
+        <xsl:param name="fDoTextAfter" select="'Y'"/>
         <span>
             <xsl:attribute name="style">
                 <xsl:call-template name="OutputFontAttributes">
@@ -216,10 +217,12 @@
             <xsl:apply-templates select="$item">
                 <xsl:with-param name="layout" select="."/>
             </xsl:apply-templates>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="."/>
-                <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
-            </xsl:call-template>
+            <xsl:if test="$fDoTextAfter='Y'">
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="."/>
+                    <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
+                </xsl:call-template>
+            </xsl:if>
         </span>
     </xsl:template>
     <!--  

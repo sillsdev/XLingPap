@@ -215,6 +215,7 @@
     -->
     <xsl:template name="OutputReferenceItemNode">
         <xsl:param name="item"/>
+        <xsl:param name="fDoTextAfter" select="'Y'"/>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="."/>
             <xsl:with-param name="originalContext" select="$item"/>
@@ -225,10 +226,12 @@
         <xsl:apply-templates select="$item">
             <xsl:with-param name="layout" select="."/>
         </xsl:apply-templates>
-        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-            <xsl:with-param name="layoutInfo" select="."/>
-            <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
-        </xsl:call-template>
+        <xsl:if test="$fDoTextAfter='Y'">
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="."/>
+                <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="."/>
             <xsl:with-param name="originalContext" select="$item"/>
@@ -242,7 +245,7 @@
             <xsl:with-param name="sMessage">
                 <xsl:text>Sorry, but there is no matching layout for this item in the publisher style sheet.  Please add  (or have someone add) the pattern.</xsl:text>
                 <xsl:call-template name="ReportPattern"/>
-                         
+
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>

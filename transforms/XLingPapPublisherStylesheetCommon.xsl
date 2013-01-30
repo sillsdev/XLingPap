@@ -3618,9 +3618,20 @@
     -->
     <xsl:template name="OutputCitation">
         <xsl:param name="item"/>
-        <xsl:call-template name="OutputReferenceItemNode">
-            <xsl:with-param name="item" select="$item"/>
-        </xsl:call-template>
+        <xsl:variable name="sThisRefToBook" select="$item/@refToBook"/>
+        <xsl:choose>
+            <xsl:when test="saxon:node-set($collOrProcVolumesToInclude)/refWork[@id=$sThisRefToBook]">
+                <xsl:call-template name="OutputReferenceItemNode">
+                    <xsl:with-param name="item" select="$item"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputReferenceItemNode">
+                    <xsl:with-param name="item" select="$item"/>
+                    <xsl:with-param name="fDoTextAfter" select="'N'"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         OutputCitationPages

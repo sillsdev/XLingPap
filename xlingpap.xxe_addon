@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.20.6</a:version
+>2.20.7</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-01-21</a:date
+>2013-01-30</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.20.7 30 January 2013<ul
+><li
+>Fix bug which would cause any "textafter" material in a collCitationItem in the reference section of a publisher style sheet to be shown inappropriately when "fleshing out" the citation information.</li
+></ul
+></li
 ><li
 >2.20.6 21 January 2013<ul
 ><li

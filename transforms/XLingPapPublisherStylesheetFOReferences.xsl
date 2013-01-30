@@ -191,6 +191,7 @@
     -->
     <xsl:template name="OutputReferenceItemNode">
         <xsl:param name="item"/>
+        <xsl:param name="fDoTextAfter" select="'Y'"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="."/>
@@ -201,10 +202,12 @@
             <xsl:apply-templates select="$item">
                 <xsl:with-param name="layout" select="."/>
             </xsl:apply-templates>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="."/>
-                <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
-            </xsl:call-template>
+            <xsl:if test="$fDoTextAfter='Y'">
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="."/>
+                    <xsl:with-param name="sPrecedingText" select="normalize-space($item)"/>
+                </xsl:call-template>
+            </xsl:if>
         </fo:inline>
     </xsl:template>
     <!--  

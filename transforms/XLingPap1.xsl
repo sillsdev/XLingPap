@@ -4628,8 +4628,8 @@
             <xsl:attribute name="name">
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
-            <xsl:call-template name="OutputSectionNumberAndTitle"/>
         </xsl:element>
+        <xsl:call-template name="OutputSectionNumberAndTitle"/>
     </xsl:template>
     <!--  
                   OutputSectionNumber

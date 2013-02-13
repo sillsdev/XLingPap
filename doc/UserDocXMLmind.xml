@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->19 January 2013</date
+>13 February 2013</date
 ><version
 >2.20.6</version
 ><contents
@@ -17277,7 +17277,7 @@ type="tXMLmindXMLEditor"
 ><li
 >Use menu items <object
 type="tInstruction"
->Edit / Document Reference / Copy as Reference</object
+>Edit / Reference / Copy as Reference</object
 ></li
 ><li
 >Go to your main document</li

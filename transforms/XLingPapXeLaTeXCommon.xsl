@@ -7570,6 +7570,7 @@
                     <xsl:variable name="sTableType">
                         <xsl:choose>
                             <xsl:when test="parent::example[parent::td]">tabular</xsl:when>
+                            <xsl:when test="parent::example[parent::endnote[parent::td]]">tabular</xsl:when>
                             <xsl:otherwise>longtable</xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>

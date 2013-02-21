@@ -371,7 +371,7 @@
             </xsl:when>
             <xsl:when test="name(.)='glossary'">
                 <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-                <a name="rXLingPapGlossary{$iPos}">
+                <a name="rXLingPapGlossary{$iPos}"/>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputGlossaryLabel">
@@ -379,17 +379,15 @@
                             </xsl:call-template>
                         </xsl:with-param>
                     </xsl:call-template>
-                </a>
             </xsl:when>
             <xsl:otherwise>
                 <!-- assume it is acknowledgments -->
-                <a name="{$sAcknowledgementsID}">
+                <a name="{$sAcknowledgementsID}"/>
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputAcknowledgementsLabel"/>
                         </xsl:with-param>
                     </xsl:call-template>
-                </a>
             </xsl:otherwise>
         </xsl:choose>
         <div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -410,13 +408,13 @@
             <xsl:attribute name="name">
                 <xsl:call-template name="CreateIndexID"/>
             </xsl:attribute>
-            <xsl:apply-templates/>
+        </a>
+        <xsl:apply-templates/>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
                     <xsl:call-template name="OutputIndexLabel"/>
                 </xsl:with-param>
             </xsl:call-template>
-        </a>
         <!-- process any paragraphs, etc. that may be at the beginning -->
         <xsl:apply-templates/>
         <!-- now process the contents of this index -->
@@ -1975,13 +1973,12 @@
     <xsl:template match="endnotes">
         <xsl:if test="contains($endnotesToShow,'X')">
             <hr size="3"/>
-            <a name="rXLingPapEndnotes">
+            <a name="rXLingPapEndnotes"/>
                 <xsl:call-template name="OutputChapTitle">
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputEndnotesLabel"/>
                     </xsl:with-param>
                 </xsl:call-template>
-            </a>
             <table>
                 <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //interlinearRef" mode="backMatter"/>
             </table>
@@ -2101,13 +2098,12 @@
     -->
     <xsl:template match="references">
         <hr size="3"/>
-        <a name="rXLingPapReferences">
+        <a name="rXLingPapReferences"/>
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
                     <xsl:call-template name="OutputReferencesLabel"/>
                 </xsl:with-param>
             </xsl:call-template>
-        </a>
         <div style="margin-left:0.25in">
             <xsl:call-template name="DoRefAuthors"/>
         </div>
@@ -4161,16 +4157,14 @@
                 <big>
                     <big>
                         <b>
-                            <xsl:element name="a">
-                                <xsl:attribute name="name">
-                                    <xsl:value-of select="@id"/>
-                                </xsl:attribute>
-                                <xsl:if test="$sNumber">
+                            <xsl:if test="string-length(@id) &gt; 0">
+                            <a name="{@id}"/>
+                            </xsl:if>
+                            <xsl:if test="$sNumber">
                                     <xsl:value-of select="$sNumber"/>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                 </xsl:if>
                                 <xsl:value-of select="$sTitle"/>
-                            </xsl:element>
                         </b>
                     </big>
                 </big>

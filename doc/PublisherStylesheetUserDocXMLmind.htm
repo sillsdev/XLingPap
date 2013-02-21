@@ -8,8 +8,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>andy_black@sil.org</i></center><br><center><small>21 January 2013</small></center>
-      <center><small>Version: 2.20.6</small></center>
+      <center><i>andy_black@sil.org</i></center><br><center><small>21 February 2013</small></center>
+      <center><small>Version: 2.21.0</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -135,7 +135,8 @@
          </p>
       </div>
       <hr>
-      <h1 style=""><a name="sIntro">1&nbsp;Introduction</a></h1>
+      <h1 style=""><a name="sIntro"></a>1&nbsp;Introduction
+      </h1>
       <p>One of the nice features of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is that since it requires one to mark-up the document data, that data is then &#8220;actionable&#8221; (<a href="#rSimonsAndBlackSFLF">Simons and Black  2009</a>, <a href="#rXlingPapSFLF">Black  2009)</a>. Perhaps the easiest way to see how such data is &#8220;actionable&#8221; is via the use of <span style="">publisher style sheet</span>s. Each <span style="">publisher style sheet</span> dictates how an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material,
          etc., etc. can be determined by a <span style="">publisher style sheet</span>.
       </p>
@@ -149,9 +150,11 @@
       </p>
       <p>This document is organized as follows. The basic page layout information that can be controlled via a <span style="">publisher style sheet</span> is given in section <a href="#sPageLayout">2</a>. How to control front matter is shown in section <a href="#sFrontMatter">3</a>. The layout information for the main body of a document is discussed in section <a href="#sBodyLayout">4</a>. The back matter information is in section <a href="#sBackMatterLayout">5</a>. Information about the document content not already handled in <a href="#sPageLayout">2</a> is given in section <a href="#sDocumentContentLayout">6</a>. Finally, common sets of attributes are described in section <a href="#sCommonSetsOfAttributes">7</a>.
       </p>
-      <h1 style=""><a name="sPageLayout">2&nbsp;Page Layout</a></h1>
+      <h1 style=""><a name="sPageLayout"></a>2&nbsp;Page Layout
+      </h1>
       <p>This section covers the basic layout of pages.</p>
-      <h2 style=""><a name="sPageSizeMargins">2.1&nbsp;Page Size and Margins</a></h2>
+      <h2 style=""><a name="sPageSizeMargins"></a>2.1&nbsp;Page Size and Margins
+      </h2>
       <p><a name="rXLingPapIndexedItem.iFooterMargin.d0e105"></a><a name="rXLingPapIndexedItem.iHeaderMargin.d0e106"></a><a name="rXLingPapIndexedItem.iPageBottomMargin.d0e107"></a><a name="rXLingPapIndexedItem.iPageHeight.d0e108"></a><a name="rXLingPapIndexedItem.iPageInsideMargin.d0e109"></a><a name="rXLingPapIndexedItem.iPageOutsideMargin.d0e110"></a><a name="rXLingPapIndexedItem.iPageTopMargin.d0e111"></a><a name="rXLingPapIndexedItem.iPageWidth.d0e112"></a><a name="rXLingPapIndexedItem.iThesisSubmissionStyle.d0e113"></a>The size of the page and its margins are set by the items shown in <a href="#xPageSizeMargin">(1)</a>. The inside margin value refers to how much space there is on the inside of a page (right-hand side of the left page and
          the left-hand side of the right page). Similarly, the outside margin value refers to how much space there is on the inside
          of a page (left-hand side of the left page and the right-hand side of the right page).
@@ -213,7 +216,8 @@
       </p>
       <p>In addition, there should be no space between the number and the abbreviation.</p>
       <p>If you check the &#8220;Use thesis submission style, &#8221; then the result will be "single-sided" pages (like in theses and dissertations).</p>
-      <h2 style=""><a name="sParagraphIndents">2.2&nbsp;Paragraph Indents</a></h2>
+      <h2 style=""><a name="sParagraphIndents"></a>2.2&nbsp;Paragraph Indents
+      </h2>
       <p><a name="rXLingPapIndexedItem.iParagraphIndent.d0e183"></a><a name="rXLingPapIndexedItem.iBlockQuoteIndent.d0e184"></a>Any indentation on a paragraph and any indentation (at both ends) for a block quote is controlled by the values shown in example
          <a href="#xParagraphIndents">(3)</a>.
       </p>
@@ -234,7 +238,8 @@
       <p><a name="rXLingPapIndexedItem.iUnitsOfMeasure.d0e192"></a>You can use the units of measure shown in <a href="#xUnitsOfMeasure">(2)</a> or ems. The unit of measure used for paragraph indent and for the block quote indent do not have to the be same. Do not put
          any spaces between the number and the unit.
       </p>
-      <h2 style=""><a name="sLineSpacing">2.3&nbsp;Line Spacing</a></h2>
+      <h2 style=""><a name="sLineSpacing"></a>2.3&nbsp;Line Spacing
+      </h2>
       <p><a name="rXLingPapIndexedItem.iDoubleSpace.d0e200"></a><a name="rXLingPapIndexedItem.iLineSpacing.d0e201"></a><a name="rXLingPapIndexedItem.iSingleSpace.d0e202"></a><a name="rXLingPapIndexedItem.iSpaceAndAHalf.d0e203"></a>You control the line spacing via the items shown in example <a href="#xLineSpacing">(4)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -257,7 +262,8 @@
       <p>Please note that whenever an example is embedded within a table, the line spacing for tables will normally be used, not the
          line spacing for examples.
       </p>
-      <h2 style=""><a name="sDefaultFontInfo">2.4&nbsp;Default Font Information</a></h2>
+      <h2 style=""><a name="sDefaultFontInfo"></a>2.4&nbsp;Default Font Information
+      </h2>
       <p>The default font information for the entire document is set via the items shown in example <a href="#xDefaultFontInfo">(5)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -276,11 +282,13 @@
       </div>
       <p>Click in the black portion to change these values. For the font family, type in the font family name.<span style="font-size:65%; vertical-align:super">[<a href="#nNoFontChooser">1</a>]</span> Note that points are assumed for the basic point size and for the footnote size (i.e. the number must be in terms of points).
       </p>
-      <h2 style=""><a name="sFootnoteNumberAfter">2.5&nbsp;Space between footnote number and footnote content</a></h2>
+      <h2 style=""><a name="sFootnoteNumberAfter"></a>2.5&nbsp;Space between footnote number and footnote content
+      </h2>
       <p><a name="rXLingPapIndexedItem.iFootnoteSpaceAfterNumber.d0e234"></a>Some publishers prefer to include extra spacing between the footnote number and its content (at the bottom of the page). If
          you set the <span style="font-family:Courier New; color:purple; ">contentBetweenFootnoteNumberAndFootnoteContent</span> attribute to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.
       </p>
-      <h2 style=""><a name="sFootnoteLineSeparator">2.6&nbsp;Footnote line separator</a></h2>
+      <h2 style=""><a name="sFootnoteLineSeparator"></a>2.6&nbsp;Footnote line separator
+      </h2>
       <p>Many formatted articles and books use a line to separate footnote material from text and other materials on a page. The next
          item that controls this kind of information is given in example <a href="#xFootnoteLineSeparator">(6)</a>.
       </p>
@@ -366,7 +374,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sLinkLayout">2.7&nbsp;Link layout</a></h2>
+      <h2 style=""><a name="sLinkLayout"></a>2.7&nbsp;Link layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iAbbrRefLink.d0e390"></a><a name="rXLingPapIndexedItem.iAppendixRefLink.d0e391"></a><a name="rXLingPapIndexedItem.iCitationLink.d0e392"></a><a name="rXLingPapIndexedItem.iContentsLink.d0e393"></a><a name="rXLingPapIndexedItem.iEndnoteRefLink.d0e394"></a><a name="rXLingPapIndexedItem.iExampleRefLink.d0e395"></a><a name="rXLingPapIndexedItem.iGenericRefLink.d0e396"></a><a name="rXLingPapIndexedItem.iIndexLink.d0e397"></a><a name="rXLingPapIndexedItem.iInterlinearRefLink.d0e398"></a><a name="rXLingPapIndexedItem.iLinkLink.d0e399"></a><a name="rXLingPapIndexedItem.iLinkLayoutDefaults.d0e400"></a><a name="rXLingPapIndexedItem.iSectionRefLink.d0e401"></a><a name="rXLingPapIndexedItem.iUrlLink.d0e402"></a><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has a number of hyper-link elements which can greatly aid a reader in finding material in a document. The link layout portion
          of a publisher style sheet controls whether or not such a hyper-link should be output in a special color and/or with some
          special &#8220;decoration&#8221; (such as an underline). Example <a href="#xLinkLayout">(8)</a> shows where to control these.
@@ -439,7 +448,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sHeaderFooterLayout">2.8&nbsp;Header and Footer Layout</a></h2>
+      <h2 style=""><a name="sHeaderFooterLayout"></a>2.8&nbsp;Header and Footer Layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iHeaderFooterLayout.d0e515"></a><a name="rXLingPapIndexedItem.iFooterHeaderLayout.d0e516"></a>You can control what information goes in running headers and footers. For papers, the header and footer information is usually
          in the page layout section. For books, it is in the front matter layout section as well as in the body layout section, although
          if a different style is needed for back matter, you can also put one in the back matter. The reasoning is that papers either
@@ -701,7 +711,8 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sFrontMatter">3&nbsp;Front Matter Layout</a></h1>
+      <h1 style=""><a name="sFrontMatter"></a>3&nbsp;Front Matter Layout
+      </h1>
       <p>This section discusses layouts for front matter. Typically, front matter is different for papers and books. The publisher
          style sheet for <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> seeks to be flexible enough to handle both situations.
       </p>
@@ -712,13 +723,15 @@
          in the output is given by the order they appear in the front matter section of the publisher style sheet. We therefore describe
          the title first in section <a href="#sTtileLayout">3.1</a>, but you can rearrange the other elements in any order you wish. These elements are discussed in section <a href="#sOtherFrontMatterLayoutElements">3.2</a>.
       </p>
-      <h2 style=""><a name="sTtileLayout">3.1&nbsp;Title Layout</a></h2>
+      <h2 style=""><a name="sTtileLayout"></a>3.1&nbsp;Title Layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iTitleLayout.d0e951"></a><a name="rXLingPapIndexedItem.iSubtitleLayout.d0e952"></a><a name="rXLingPapIndexedItem.iHeaderFooterLayout.d0e953"></a><a name="rXLingPapIndexedItem.iFooterHeaderLayout.d0e954"></a>For books, there is often a separate title page containing just the title, followed by another page that has the title and
          some other information like author. To allow for this, you can begin a front matter layout with a <span style="font-family:Courier New; color:maroon; ">titleHeaderFooterPageStyles</span> element. It determines the headers and footers for the initial title page(s). See section <a href="#sHeaderFooterLayout">2.8</a> for the kinds of elements which can go within the <span style="font-family:Courier New; color:maroon; ">titleHeaderFooterPageStyles</span> element. You can then put the <span style="font-family:Courier New; color:maroon; ">titleLayout</span> element next. If there is a subtitle, you can put a <span style="font-family:Courier New; color:maroon; ">subtitleLayout</span> element either before or after the <span style="font-family:Courier New; color:maroon; ">titleLayout</span> element. After this, you can put the normal front matter header/footer page style information. See section <a href="#sHeaderFooterLayout">2.8</a> for more on these.
       </p>
       <p>For papers, you normally just begin with the <span style="font-family:Courier New; color:maroon; ">titleLayout</span> element. Like for books, you can put a <span style="font-family:Courier New; color:maroon; ">subtitleLayout</span> element either before or after the <span style="font-family:Courier New; color:maroon; ">titleLayout</span> element.
       </p>
-      <h2 style=""><a name="sOtherFrontMatterLayoutElements">3.2&nbsp;Other Front Matter Layout Elements</a></h2>
+      <h2 style=""><a name="sOtherFrontMatterLayoutElements"></a>3.2&nbsp;Other Front Matter Layout Elements
+      </h2>
       <p>The non-title-related elements can be arranged in any order. Example <a href="#xNonTitleFrontMatterElements">(15)</a> lists out these publisher style sheet elements.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -914,7 +927,8 @@
          publisher style sheet layout elements, then the last publisher style sheet layout element will be used for all of the extra
          instances in the document.
       </p>
-      <h3 style=""><a name="sAuthorContactInfo">3.2.1&nbsp;Author Contact Info Layout</a></h3>
+      <h3 style=""><a name="sAuthorContactInfo"></a>3.2.1&nbsp;Author Contact Info Layout
+      </h3>
       <p><a name="rXLingPapIndexedItem.iContactInformation.d0e1336"></a>Each author contact information item will be formatted in a vertical list. For the default way of producing PDF, each such
          vertical list is justified horizontally, with any extra ones automatically wrapping (for cases where there are many authors).
          For the other outputs, each such vertical list is formatted in a single table and, if there are many authors, it may run off
@@ -985,7 +999,8 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sBodyLayout">4&nbsp;Body Layout</a></h1>
+      <h1 style=""><a name="sBodyLayout"></a>4&nbsp;Body Layout
+      </h1>
       <p>This section discusses layouts for the main body of the document. For papers, this is just how the six section level elements
          are to be formatted. <a name="rXLingPapIndexedItem.iHeaderFooterLayout.d0e1453"></a><a name="rXLingPapIndexedItem.iFooterHeaderLayout.d0e1454"></a>For books, you may normally want to first describe the header and footer styles for pages in the body and the back matter
          (unless you overtly give other header and footer style information in the back matter section). Then you can define how to
@@ -995,13 +1010,16 @@
          in a different way than the title. In other cases, one wants the number to be formatted the same way. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows both ways. <a name="rXLingPapIndexedItem.iNumberLayout.d0e1460"></a>If you need to format the number differently, then you use a <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element along with the corresponding title element for the type of element being formatted (part, chapter, section1, ...,
          section6).
       </p>
-      <h2 style=""><a name="sBodyHeaderFooter">4.1&nbsp;Header and Footer Styles for the Body</a></h2>
+      <h2 style=""><a name="sBodyHeaderFooter"></a>4.1&nbsp;Header and Footer Styles for the Body
+      </h2>
       <p><a name="rXLingPapIndexedItem.iHeaderFooterLayout.d0e1469"></a><a name="rXLingPapIndexedItem.iFooterHeaderLayout.d0e1470"></a>To set the header and footer styles for the material in the body of the document, insert a <span style="font-family:Courier New; color:maroon; ">headerFooterPageStyles</span> element at the beginning of the body layout section. See section <a href="#sHeaderFooterLayout">2.8</a> for information on how to set the header and footer content.
       </p>
-      <h2 style=""><a name="sPartLayout">4.2&nbsp;Part Layout</a></h2>
+      <h2 style=""><a name="sPartLayout"></a>4.2&nbsp;Part Layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iPartLayout.d0e1481"></a><a name="rXLingPapIndexedItem.iPartTitleLayout.d0e1482"></a><a name="rXLingPapIndexedItem.iNumberLayout.d0e1483"></a>For books, which can have parts, you can describe how to format the part number and title. The <span style="font-family:Courier New; color:maroon; ">partLayout</span> element contains a <span style="font-family:Courier New; color:maroon; ">partTitleLayout</span> element and an optional <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element. Both of these have &#8220;title format information&#8221; attributes. See section <a href="#sTitleFormatInfoAttributes">7.4</a> for more on these attributes.
       </p>
-      <h2 style=""><a name="sChapterLayout">4.3&nbsp;Chapter Layout</a></h2>
+      <h2 style=""><a name="sChapterLayout"></a>4.3&nbsp;Chapter Layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iChapterLayout.d0e1500"></a><a name="rXLingPapIndexedItem.iChapterTitleLayout.d0e1501"></a><a name="rXLingPapIndexedItem.iNumberLayout.d0e1502"></a>For books, which have chapters, you can describe how to format the chapter number and title. The <span style="font-family:Courier New; color:maroon; ">chapterLayout</span> element contains a <span style="font-family:Courier New; color:maroon; ">chapterTitleLayout</span> element and an optional <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element. Both of these have &#8220;title format information&#8221; attributes. See section <a href="#sTitleFormatInfoAttributes">7.4</a> for more on these attributes.
       </p>
       <p>In addition the <span style="font-family:Courier New; color:maroon; ">chapterLayout</span> element itself has one attribute as shown in example <a href="#xChapterLayoutAttribute">(17)</a>.
@@ -1028,7 +1046,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sSectionLevelLayouts">4.4&nbsp;Section Level Layouts</a></h2>
+      <h2 style=""><a name="sSectionLevelLayouts"></a>4.4&nbsp;Section Level Layouts
+      </h2>
       <p><a name="rXLingPapIndexedItem.iSection1Layout.d0e1547"></a><a name="rXLingPapIndexedItem.iSection2Layout.d0e1548"></a><a name="rXLingPapIndexedItem.iSection3Layout.d0e1549"></a><a name="rXLingPapIndexedItem.iSection4Layout.d0e1550"></a><a name="rXLingPapIndexedItem.iSection5Layout.d0e1551"></a><a name="rXLingPapIndexedItem.iSection6Layout.d0e1552"></a><a name="rXLingPapIndexedItem.iSectionTitleLayout.d0e1553"></a><a name="rXLingPapIndexedItem.iNumberLayout.d0e1554"></a>For sections, each level has its own section layout element. Within this layout element, one has a <span style="font-family:Courier New; color:maroon; ">sectionTitleLayout</span> and an optional <span style="font-family:Courier New; color:maroon; ">numberLayout</span>. The <span style="font-family:Courier New; color:maroon; "> sectionTitleLayout</span> element indicates how the title is to be formatted while the <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element indicates how the number of the section is to be formatted.
       </p>
       <p>The attributes for the main section layout elements (i.e. <span style="font-family:Courier New; color:maroon; ">section1Layout</span>, <span style="font-family:Courier New; color:maroon; ">section2Layout</span>, <span style="font-family:Courier New; color:maroon; ">section3Layout</span>, <span style="font-family:Courier New; color:maroon; ">section4Layout</span>, <span style="font-family:Courier New; color:maroon; ">section5Layout</span>, and <span style="font-family:Courier New; color:maroon; ">section6Layout</span>) are shown in example <a href="#xSectionFormatInfoAttribute">(18)</a>.
@@ -1072,7 +1091,8 @@
       </div>
       <p>The attributes for the embedded <span style="font-family:Courier New; color:maroon; ">sectionTitleLayout</span> element and any <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element are given in section <a href="#sTitleFormatInfoAttributes">7.4</a>.
       </p>
-      <h1 style=""><a name="sBackMatterLayout">5&nbsp;Back Matter Layout</a></h1>
+      <h1 style=""><a name="sBackMatterLayout"></a>5&nbsp;Back Matter Layout
+      </h1>
       <p>This section discusses layouts for back matter. In reading this section, please keep in mind that while a given publisher
          style sheet often has formatting information for most, if not all, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> back matter elements, when a given <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document is formatted per such a publisher style sheet, only those elements contained in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document are actually processed.
       </p>
@@ -1157,7 +1177,8 @@
          publisher style sheet layout elements, then the last publisher style sheet layout element will be used for all of the extra
          instances in the document.
       </p>
-      <h2 style=""><a name="sAppendixLayout">5.1&nbsp;Appendix Layout</a></h2>
+      <h2 style=""><a name="sAppendixLayout"></a>5.1&nbsp;Appendix Layout
+      </h2>
       <p><a name="rXLingPapIndexedItem.iAppendixLayout.d0e1839"></a>You can describe how to format the appendix &#8220;number&#8221; and title. The <span style="font-family:Courier New; color:maroon; ">appendixLayout</span> element contains an <span style="font-family:Courier New; color:maroon; ">appendixTitleLayout</span> element and an optional <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> expects the latter to be used with books. Both of these have &#8220;title format information&#8221; attributes. See section <a href="#sTitleFormatInfoAttributes">7.4</a> for more on these attributes.
       </p>
       <p>In addition the <span style="font-family:Courier New; color:maroon; ">appendixTitleLayout</span> element itself has two other attributes as shown in example <a href="#xAppendixTitleLayoutAttribute">(20)</a>.
@@ -1191,7 +1212,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sReferences">5.2&nbsp;References Layout</a></h2>
+      <h2 style=""><a name="sReferences"></a>5.2&nbsp;References Layout
+      </h2>
       <p>This section outlines how to control the way reference material is to be formatted in a references section of a document.
          The key idea to keep in mind when creating reference layout information in an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet is that the layout elements are used to define patterns. When a given referenced work is to be output,
          <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> compares the information in the referenced <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> <span style="font-family:Courier New; color:maroon; ">refWork</span> element to these patterns and uses the pattern that matches the information in the referenced work. If no pattern is found,
@@ -1206,7 +1228,8 @@
       </p>
       <p>In addition, section <a href="#sRefRefLayoutAttributes">5.2.16</a> delineates the attributes which can be on the <span style="font-family:Courier New; color:maroon; ">referencesLayout</span> element itself.
       </p>
-      <h3 style=""><a name="sRefAuthorLayouts">5.2.1&nbsp;Author layouts</a></h3>
+      <h3 style=""><a name="sRefAuthorLayouts"></a>5.2.1&nbsp;Author layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">refAuthorLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">refAuthorLayout</span> elements, each of which provides a pattern for the author- and date-related information of a referenced work. An author pattern
          defined within a <span style="font-family:Courier New; color:maroon; ">refAuthorLayout</span> can consist of one or more of the elements given in example <a href="#xRefAuthorElements">(21)</a>.
       </p>
@@ -1256,7 +1279,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sRefArticleLayouts">5.2.2&nbsp;Article in a Journal Layouts</a></h3>
+      <h3 style=""><a name="sRefArticleLayouts"></a>5.2.2&nbsp;Article in a Journal Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">articleLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">articleLayout</span> elements, each of which provides a pattern for the information of an <span style="font-family:Courier New; color:maroon; ">article</span> referenced work. An article pattern defined within an <span style="font-family:Courier New; color:maroon; ">articleLayout</span> can consist of one or more of the elements given in example <a href="#xArticleLayoutElements">(22)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1377,7 +1401,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefBookLayouts">5.2.3&nbsp;Book Layouts</a></h3>
+      <h3 style=""><a name="sRefBookLayouts"></a>5.2.3&nbsp;Book Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">bookLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">bookLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">book</span> referenced work. A book pattern defined within a <span style="font-family:Courier New; color:maroon; ">bookLayout</span> can consist of one or more of the elements given in example <a href="#xBookLayoutElements">(23)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1532,7 +1557,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefCollectionLayouts">5.2.4&nbsp;Paper in a Collection Layouts</a></h3>
+      <h3 style=""><a name="sRefCollectionLayouts"></a>5.2.4&nbsp;Paper in a Collection Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">collectionLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">collectionLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">collection</span> referenced work. A paper in a collection pattern defined within a <span style="font-family:Courier New; color:maroon; ">collectionLayout</span> can consist of one or more of the elements given in example <a href="#xCollectionLayoutElements">(24)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1745,7 +1771,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefDissertationLayouts">5.2.5&nbsp;Dissertation Layouts</a></h3>
+      <h3 style=""><a name="sRefDissertationLayouts"></a>5.2.5&nbsp;Dissertation Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">dissertationLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">dissertationLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">dissertation</span> referenced work. A dissertation pattern defined within a <span style="font-family:Courier New; color:maroon; ">dissertationLayout</span> can consist of one or more of the elements given in example <a href="#xDissertationLayoutElements">(25)</a>. Please note that every dissertation pattern is expected to have a <span style="font-family:Courier New; color:maroon; ">dissertationLabelItem</span> element in it.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1861,7 +1888,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefFieldNotesLayouts">5.2.6&nbsp;Field Notes Layouts</a></h3>
+      <h3 style=""><a name="sRefFieldNotesLayouts"></a>5.2.6&nbsp;Field Notes Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">fieldNotesLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">fieldNotesLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">fieldNotes</span> referenced work. A field notes pattern defined within a <span style="font-family:Courier New; color:maroon; ">fieldNotesLayout</span> can consist of one or more of the elements given in example <a href="#xFieldNotesLayoutElements">(26)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1951,7 +1979,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefMs">5.2.7&nbsp;Manuscript Layouts</a></h3>
+      <h3 style=""><a name="sRefMs"></a>5.2.7&nbsp;Manuscript Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">msLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">msLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">ms</span> referenced work. A manuscript pattern defined within a <span style="font-family:Courier New; color:maroon; ">msLayout</span> can consist of one or more of the elements given in example <a href="#xManuscriptLayoutElements">(27)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2041,7 +2070,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefPaper">5.2.8&nbsp;Paper Presented at a Conference Layouts</a></h3>
+      <h3 style=""><a name="sRefPaper"></a>5.2.8&nbsp;Paper Presented at a Conference Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">paperLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">paperLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">paper</span> referenced work. A paper presented at a conference pattern defined within a <span style="font-family:Courier New; color:maroon; ">paperLayout</span> can consist of one or more of the elements given in example <a href="#xPaperLayoutElements">(28)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2131,7 +2161,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefProceedingsLayouts">5.2.9&nbsp;Paper in a Proceedings Volume Layouts</a></h3>
+      <h3 style=""><a name="sRefProceedingsLayouts"></a>5.2.9&nbsp;Paper in a Proceedings Volume Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">proceedingsLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">proceedingsLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">proceedings</span> referenced work. A paper in a proceedings volume pattern defined within a <span style="font-family:Courier New; color:maroon; ">proceedingsLayout</span> can consist of one or more of the elements given in example <a href="#xProceedingsLayoutElements">(29)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2286,7 +2317,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefThesis">5.2.10&nbsp;Thesis Layouts</a></h3>
+      <h3 style=""><a name="sRefThesis"></a>5.2.10&nbsp;Thesis Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">thesisLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">thesisLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">thesis</span> referenced work. A thesis pattern defined within an <span style="font-family:Courier New; color:maroon; ">thesisLayout</span> can consist of one or more of the elements given in example <a href="#xThesisLayoutElements">(30)</a>. Please note that every thesis pattern is expected to have a <span style="font-family:Courier New; color:maroon; ">thesisLabelItem</span> element in it.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2402,7 +2434,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefWebPageLayouts">5.2.11&nbsp;Web Page Layouts</a></h3>
+      <h3 style=""><a name="sRefWebPageLayouts"></a>5.2.11&nbsp;Web Page Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">webPageLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">webPageLayout</span> elements, each of which provides a pattern for the information of a <span style="font-family:Courier New; color:maroon; ">webPage</span> referenced work. A web page pattern defined within a <span style="font-family:Courier New; color:maroon; ">webPageLayout</span> can consist of one or more of the elements given in example <a href="#xWebPagesLayoutElements">(31)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2508,7 +2541,8 @@
       </div>
       <p>For backwards compatibility purposes, there also are two other elements: <span style="font-family:Courier New; color:maroon; ">urlItem</span> and <span style="font-family:Courier New; color:maroon; ">dateAccessedItem</span>. You are advised, however, to not use either of these elements directly. Instead, use the <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayoutsRef</span> element. It will mean defining fewer patterns.
       </p>
-      <h3 style=""><a name="sRefPublishedLayout">5.2.12&nbsp;Published Dissertation or Thesis Layout</a></h3>
+      <h3 style=""><a name="sRefPublishedLayout"></a>5.2.12&nbsp;Published Dissertation or Thesis Layout
+      </h3>
       <p>The section describes the <span style="font-family:Courier New; color:maroon; ">publishedLayout</span> element which is used to create a common pattern for published dissertations and theses. The pattern consists of one or more
          of the elements given in example <a href="#xPublishedLayoutElements">(32)</a>.
       </p>
@@ -2549,7 +2583,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sRefLocationPublisherLayouts">5.2.13&nbsp;Location and/or Publisher Layouts</a></h3>
+      <h3 style=""><a name="sRefLocationPublisherLayouts"></a>5.2.13&nbsp;Location and/or Publisher Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">locationPublisherLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">locationPublisherLayout</span> elements, each of which provides a pattern for the information of those reference work elements that contain a <span style="font-family:Courier New; color:maroon; ">location</span> and/or <span style="font-family:Courier New; color:maroon; ">publisher</span> element or neither. A <span style="font-family:Courier New; color:maroon; ">locationPublisherLayout</span> can consist of one or more of the elements given in example <a href="#xLocationPublisherLayoutElements">(33)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2597,7 +2632,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sRefUrlDateAccessedLayouts">5.2.14&nbsp;URL and/or Date Accessed Layouts</a></h3>
+      <h3 style=""><a name="sRefUrlDateAccessedLayouts"></a>5.2.14&nbsp;URL and/or Date Accessed Layouts
+      </h3>
       <p>The <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayouts</span> element contains one or more <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayout</span> elements, each of which provides a pattern for the information of those reference work elements that contain a <span style="font-family:Courier New; color:maroon; ">url</span> and/or <span style="font-family:Courier New; color:maroon; ">dateAccessed</span> element or neither. A <span style="font-family:Courier New; color:maroon; ">urlDateAccessedLayout</span> can consist of one or more of the elements given in example <a href="#xUrlDateAccessedLayoutElements">(34)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2645,7 +2681,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sRefISO639-3CodeItem">5.2.15&nbsp;ISO 639-3 Code Layout</a></h3>
+      <h3 style=""><a name="sRefISO639-3CodeItem"></a>5.2.15&nbsp;ISO 639-3 Code Layout
+      </h3>
       <p><a name="rXLingPapIndexedItem.iISO639-3Code.d0e4400"></a>The <span style="font-family:Courier New; color:maroon; ">iso639-3codeItem</span> is optional and only needed if any of your documents will show one or more ISO 639-3 codes for each reference work. In addition
          to the attributes given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, it has the attributes shown in example <a href="#xISO639-3CodeItemAttributes">(35)</a>.
       </p>
@@ -2721,7 +2758,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sRefRefLayoutAttributes">5.2.16&nbsp;Attributes on the <span style="font-family:Courier New; color:maroon; ">referencesLayout</span> element</a></h3>
+      <h3 style=""><a name="sRefRefLayoutAttributes"></a>5.2.16&nbsp;Attributes on the <span style="font-family:Courier New; color:maroon; ">referencesLayout</span> element
+      </h3>
       <p>Besides the various reference types discussed in sections <a href="#sRefAuthorLayouts">5.2.1</a>&#8211;<a href="#sRefISO639-3CodeItem">5.2.15</a>, there are some special attributes on the <span style="font-family:Courier New; color:maroon; ">referencesLayout</span> element itself. These control more global characteristics of the reference material. These attributes are shown in example
          <a href="#xReferencesLayoutAttributes">(36)</a>.
       </p>
@@ -2883,14 +2921,17 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sDocumentContentLayout">6&nbsp;Document Content Layout</a></h1>
+      <h1 style=""><a name="sDocumentContentLayout"></a>6&nbsp;Document Content Layout
+      </h1>
       <p>This section discusses layout information for various items occurring within the content of a document. The only element in
          this section that is required is <span style="font-family:Courier New; color:maroon; ">exampleLayout</span>, which always comes first. All others are optional. They are described in the order in which they must appear.
       </p>
-      <h2 style=""><a name="sParagraphLayout">6.1&nbsp;Controlling the Display of Paragraphs</a></h2>
+      <h2 style=""><a name="sParagraphLayout"></a>6.1&nbsp;Controlling the Display of Paragraphs
+      </h2>
       <p><a name="rXLingPapIndexedItem.iParagraphLayout.d0e4806"></a>Some style sheets require extra space before and after paragraphs. One can use the <span style="font-family:Courier New; color:purple; ">spacebefore</span> and <span style="font-family:Courier New; color:purple; ">spaceafter</span> attributes of the <span style="font-family:Courier New; color:maroon; ">paragraphLayout</span> element to set these values. See these attributes in section &#8220;<a href="#sFrontMatterFormatInfoAttributes">Front Matter Format Information Attributes</a>&#8221;.
       </p>
-      <h2 style=""><a name="sExampleLayout">6.2&nbsp;Controlling the Display of Examples and Example Numbers</a></h2>
+      <h2 style=""><a name="sExampleLayout"></a>6.2&nbsp;Controlling the Display of Examples and Example Numbers
+      </h2>
       <p>The <span style="font-family:Courier New; color:maroon; ">exampleLayout</span> element determines how examples and their numbers are to be displayed. The attributes involved are given in example <a href="#xExampleLayoutAttributes">(37)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2970,15 +3011,18 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sListLayout">6.3&nbsp;Controlling the Display of Lists</a></h2>
+      <h2 style=""><a name="sListLayout"></a>6.3&nbsp;Controlling the Display of Lists
+      </h2>
       <p><a name="rXLingPapIndexedItem.iListLayout.d0e4957"></a>Some style sheets require specific indents for lists. One can use the <span style="font-family:Courier New; color:purple; ">indent-before</span> attribute of the <span style="font-family:Courier New; color:maroon; ">listLayout</span> element to set this indent. See this attribute in section &#8220;<a href="#sExampleLayout">Controlling the Display of Examples and Example Numbers</a>&#8221;. If you need a list indent of 0pt, please use something slightly different such as <span style="font-family:Courier New; font-style:italic; color:steelblue; ">0.0pt</span> or <span style="font-family:Courier New; font-style:italic; color:steelblue; ">0in</span>. This will guarantee that it comes out with no indent.
       </p>
       <p>Another attribute available for controlling list output is the <span style="font-family:Courier New; color:purple; ">spacebetween</span> attribute. Enter the amount of extra vertical space needed between list items such as <span style="font-family:Courier New; font-style:italic; color:steelblue; ">6pt</span>.
       </p>
-      <h2 style=""><a name="sSectionRefLayout">6.4&nbsp;Controlling the Display of Section References</a></h2>
+      <h2 style=""><a name="sSectionRefLayout"></a>6.4&nbsp;Controlling the Display of Section References
+      </h2>
       <p><a name="rXLingPapIndexedItem.iSectionRefLayout.d0e4985"></a>There are two elements that control how section reference numbers and section reference titles are displayed.
       </p>
-      <h3 style=""><a name="sSectionRefNumberLayout">6.4.1&nbsp;Section Reference Number Layout</a></h3>
+      <h3 style=""><a name="sSectionRefNumberLayout"></a>6.4.1&nbsp;Section Reference Number Layout
+      </h3>
       <p><a name="rXLingPapIndexedItem.iSectionRefNumber.d0e4991"></a>The <span style="font-family:Courier New; color:maroon; ">sectionRefLayout</span> element determines how section reference numbers are to be displayed. The attributes involved are given in example <a href="#xSectionRefNumberLayoutAttributes">(38)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3095,10 +3139,12 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sSectionRefTitleLayout">6.4.2&nbsp;Section Reference Title Layout</a></h3>
+      <h3 style=""><a name="sSectionRefTitleLayout"></a>6.4.2&nbsp;Section Reference Title Layout
+      </h3>
       <p><a name="rXLingPapIndexedItem.iSectionRefTitle.d0e5215"></a>The <span style="font-family:Courier New; color:maroon; ">sectionRefTitleLayout</span> element determines how section reference titles are to be displayed. All of its attributes are described in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">sectionRefTitleLayout</span> element.
       </p>
-      <h2 style=""><a name="sInterlinearSourceStyleLayout">6.5&nbsp;Controlling the Display of Interlinear Source Style</a></h2>
+      <h2 style=""><a name="sInterlinearSourceStyleLayout"></a>6.5&nbsp;Controlling the Display of Interlinear Source Style
+      </h2>
       <p><a name="rXLingPapIndexedItem.iInterlinearSourceStyle.d0e5231"></a>How an interlinear source reference (i.e. the <span style="font-family:Courier New; color:maroon; ">interlinearSource</span> element in an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document) is to be displayed is controlled by the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. Its attributes are given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. What does show is given in example <a href="#xInterlinearSourceStyle">(39)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3146,28 +3192,34 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sInterlinearRefCitationTitle">6.6&nbsp;Controlling the Display of Interlinear Reference Citation Titles</a></h2>
+      <h2 style=""><a name="sInterlinearRefCitationTitle"></a>6.6&nbsp;Controlling the Display of Interlinear Reference Citation Titles
+      </h2>
       <p><a name="rXLingPapIndexedItem.iInterlinearRefCitationLayout.d0e5283"></a>The <span style="font-family:Courier New; color:maroon; ">interlinearRefCitationTitleLayout</span> element determines how <span style="font-family:Courier New; color:maroon; ">interlinearRefCitation</span> elements are to be formatted when their <span style="font-family:Courier New; color:purple; ">showTitleOnly</span> is set to either <span style="font-family:Courier New; font-style:italic; color:steelblue; ">short</span> or <span style="font-family:Courier New; font-style:italic; color:steelblue; ">full</span>. All of its attributes are described in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">interlinearRefCitationTitleLayout</span> element.
       </p>
-      <h2 style=""><a name="sInterlinearAlignedWordSpacing">6.7&nbsp;Controlling the Spacing between Aligned Words in Interlinears</a></h2>
+      <h2 style=""><a name="sInterlinearAlignedWordSpacing"></a>6.7&nbsp;Controlling the Spacing between Aligned Words in Interlinears
+      </h2>
       <p><a name="rXLingPapIndexedItem.iInterlinearAlignedWordSpacing.d0e5311"></a>You can control how much spacing there is between aligned word units in an interlinear via the <span style="font-family:Courier New; color:maroon; ">interlinearAlignedWordSpacing</span> element. It only has the three &#8220;special&#8221; attributes although currently only the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> attribute will make a difference and that only with the <span style="font-family:Courier New; font-style:italic; color:steelblue; ">interlinear-aligned-word-skip</span> attribute value set equal to a TeX &#8216;glue&#8217; value: a basic point value plus a stretch point factor minus a shrink point factor.
          The default &#8216;glue&#8217; value used by <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is <span style="color:maroon; ">6.66666pt plus 3.33333pt minus 2.22222pt</span> (this is what is used by <a href="#rITF">Kew &amp; McConnel  1990:56</a>). If this is too much or too little for the publisher, you can change it. For example, if you wanted to reduce the default
          value by one point in all three factors, you would set the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</span>.
       </p>
-      <h2 style=""><a name="sInterlinearMultipleGroup">6.8&nbsp;Controlling the Indent for and Spacing Between Non-initial Interlinear Line Groups</a></h2>
+      <h2 style=""><a name="sInterlinearMultipleGroup"></a>6.8&nbsp;Controlling the Indent for and Spacing Between Non-initial Interlinear Line Groups
+      </h2>
       <p><a name="rXLingPapIndexedItem.iInterlinearMultipleLineGroupLayoutIndent.d0e5339"></a><a name="rXLingPapIndexedItem.iInterlinearMultipleLineGroupLayoutSpacing.d0e5340"></a>Sometimes one wants to control the indent and/or the vertical spacing between line groups when there is more than one such
          line group within an interlinear display.
       </p>
-      <p>Both of these are attributes on the <span style="font-family:Courier New; color:maroon; ">interlinearMultipleLineGroupLayout</span> element.  The <span style="font-family:Courier New; color:purple; ">indentOfNonInitialGroup</span> attribute sets the indent.  Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>).
+      <p>Both of these are attributes on the <span style="font-family:Courier New; color:maroon; ">interlinearMultipleLineGroupLayout</span> element. The <span style="font-family:Courier New; color:purple; ">indentOfNonInitialGroup</span> attribute sets the indent. Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>).
       </p>
-      <p>The vertical spacing between units is controlled by the <span style="font-family:Courier New; color:purple; ">spaceBetweenGroups</span> attribute.  Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>).  Note that this attribute does not work for web page or EBook outputs.
+      <p>The vertical spacing between units is controlled by the <span style="font-family:Courier New; color:purple; ">spaceBetweenGroups</span> attribute. Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>). Note that this attribute does not work for web page or EBook outputs.
       </p>
-      <h2 style=""><a name="sEndnoteRefLayout">6.9&nbsp;Controlling the Display of Endnote References</a></h2>
+      <h2 style=""><a name="sEndnoteRefLayout"></a>6.9&nbsp;Controlling the Display of Endnote References
+      </h2>
       <p><a name="rXLingPapIndexedItem.iEndnoteRefLayout.d0e5363"></a>The <span style="font-family:Courier New; color:maroon; ">endnoteRefLayout</span> element determines how <span style="font-family:Courier New; color:maroon; ">endnoteRef</span> elements are to be formatted. All of its attributes are described in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">endnoteRefLayout</span> element.
       </p>
-      <h2 style=""><a name="sFigureRelated">6.10&nbsp;Controlling the Display of Figures</a></h2>
+      <h2 style=""><a name="sFigureRelated"></a>6.10&nbsp;Controlling the Display of Figures
+      </h2>
       <p>The next three main elements describe how figures are to be displayed and how figure references are to be handled.</p>
-      <h3 style=""><a name="sFigures">6.10.1&nbsp;Figures</a></h3>
+      <h3 style=""><a name="sFigures"></a>6.10.1&nbsp;Figures
+      </h3>
       <p><a name="rXLingPapIndexedItem.iFigure.d0e5387"></a>The <span style="font-family:Courier New; color:maroon; ">figureLayout</span> dictates how <span style="font-family:Courier New; color:maroon; ">figure</span> elements are to be displayed. This can look like what is shown in example <a href="#xFigureLayout">(41)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3185,7 +3237,8 @@
          </table>
       </div>
       <p>There are actually four parts here.</p>
-      <h4 style=""><a name="sFiguresCaption">6.10.1.1&nbsp;Figure and its Caption</a></h4>
+      <h4 style=""><a name="sFiguresCaption"></a>6.10.1.1&nbsp;Figure and its Caption
+      </h4>
       <p>If you click on the first line, you control the <span style="font-family:Courier New; color:maroon; ">figureLayout</span> element. This has two attributes as shown in <a href="#xFigureLayoutAttributes">(42)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3238,7 +3291,8 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sFiguresLabelLayout">6.10.1.2&nbsp;Figure Label Layout</a></h4>
+      <h4 style=""><a name="sFiguresLabelLayout"></a>6.10.1.2&nbsp;Figure Label Layout
+      </h4>
       <p>If in example <a href="#xFigureLayout">(41)</a>, you click on the word &#8220;Figure&#8221; in the second line, you can control information about how the label of the figure is to be
          formatted. The attributes for this <span style="font-family:Courier New; color:maroon; ">figureLabelLayout</span> element are given in example <a href="#xFigureLabelLayoutAttributes">(43)</a>.
       </p>
@@ -3291,7 +3345,8 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sFiguresNumberLayout">6.10.1.3&nbsp;Figure Number Layout</a></h4>
+      <h4 style=""><a name="sFiguresNumberLayout"></a>6.10.1.3&nbsp;Figure Number Layout
+      </h4>
       <p>If in example <a href="#xFigureLayout">(41)</a>, you click on the digit &#8220;1&#8221; in the second line, you can control information about how the number of the figure is to be formatted.
          The attributes for this <span style="font-family:Courier New; color:maroon; ">figureNumberLayout</span> element are given in example <a href="#xFigureNumberLayoutAttributes">(44)</a>.
       </p>
@@ -3394,14 +3449,17 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sFiguresCaptionLayout">6.10.1.4&nbsp;Figure Caption Layout</a></h4>
+      <h4 style=""><a name="sFiguresCaptionLayout"></a>6.10.1.4&nbsp;Figure Caption Layout
+      </h4>
       <p>If in example <a href="#xFigureLayout">(41)</a>, you click on &#8220;Caption goes here&#8221; in the second line, you can control information about how the captions of figures are to
          be formatted. The attributes for this <span style="font-family:Courier New; color:maroon; ">figureCaptionLayout</span> element are given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;.
       </p>
-      <h3 style=""><a name="sFigureRefLayout">6.10.2&nbsp;Controlling the Display of Figure References</a></h3>
+      <h3 style=""><a name="sFigureRefLayout"></a>6.10.2&nbsp;Controlling the Display of Figure References
+      </h3>
       <p><a name="rXLingPapIndexedItem.iFigureRefLayout.d0e5711"></a>There are two elements that control how figure reference numbers and figure reference captions are displayed.
       </p>
-      <h4 style=""><a name="sFigureRefNumberLayout">6.10.2.1&nbsp;Figure Reference Number Layout</a></h4>
+      <h4 style=""><a name="sFigureRefNumberLayout"></a>6.10.2.1&nbsp;Figure Reference Number Layout
+      </h4>
       <p><a name="rXLingPapIndexedItem.iFigureRefNumber.d0e5717"></a>The <span style="font-family:Courier New; color:maroon; ">figureRefLayout</span> element determines how figure reference numbers are to be displayed. The attributes involved are given in example <a href="#xFigureRefNumberLayoutAttributes">(45)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3511,14 +3569,17 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sFigureRefCaptionLayout">6.10.2.2&nbsp;Figure Reference Caption Layout</a></h4>
+      <h4 style=""><a name="sFigureRefCaptionLayout"></a>6.10.2.2&nbsp;Figure Reference Caption Layout
+      </h4>
       <p><a name="rXLingPapIndexedItem.iFigureRefCaption.d0e5916"></a>The <span style="font-family:Courier New; color:maroon; ">figureRefCaptionLayout</span> element determines how figure reference captions are to be displayed. All of its attributes are described in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">figureRefCaptionLayout</span> element.
       </p>
-      <h2 style=""><a name="sTableNumberedRelated">6.11&nbsp;Controlling the Display of Numbered Tables</a></h2>
+      <h2 style=""><a name="sTableNumberedRelated"></a>6.11&nbsp;Controlling the Display of Numbered Tables
+      </h2>
       <p>The next three main elements describe how numbered tables are to be displayed and how references to numbered tables are to
          be handled.
       </p>
-      <h3 style=""><a name="sNumberedTables">6.11.1&nbsp;Numbered Tables</a></h3>
+      <h3 style=""><a name="sNumberedTables"></a>6.11.1&nbsp;Numbered Tables
+      </h3>
       <p><a name="rXLingPapIndexedItem.iTableNumbered.d0e5937"></a>The <span style="font-family:Courier New; color:maroon; ">tablenumberedLayout</span> dictates how <span style="font-family:Courier New; color:maroon; ">tablenumbered</span> elements are to be displayed. This can look like what is shown in example <a href="#xTableNumberedLayout">(46)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3536,7 +3597,8 @@
          </table>
       </div>
       <p>There are actually four parts here.</p>
-      <h4 style=""><a name="sTableNumberedCaption">6.11.1.1&nbsp;Numbered Table and its Caption</a></h4>
+      <h4 style=""><a name="sTableNumberedCaption"></a>6.11.1.1&nbsp;Numbered Table and its Caption
+      </h4>
       <p>If you click on the first line, you control the <span style="font-family:Courier New; color:maroon; ">tablenumberedLayout</span> element. This has two attributes as shown in <a href="#xNumberedTableLayoutAttributes">(47)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3589,7 +3651,8 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sTableNumberedLabelLayout">6.11.1.2&nbsp;Numbered Table Label Layout</a></h4>
+      <h4 style=""><a name="sTableNumberedLabelLayout"></a>6.11.1.2&nbsp;Numbered Table Label Layout
+      </h4>
       <p>If in example <a href="#xTableNumberedLayout">(46)</a>, you click on the word &#8220;Table&#8221; in the second line, you can control information about how the label of the numbered table
          is to be formatted. The attributes for this <span style="font-family:Courier New; color:maroon; ">tablenumberedLabelLayout</span> element are given in example <a href="#xTableNumberedLabelLayoutAttributes">(48)</a>.
       </p>
@@ -3642,7 +3705,8 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sTableNumberedNumberLayout">6.11.1.3&nbsp;Numbered Table Number Layout</a></h4>
+      <h4 style=""><a name="sTableNumberedNumberLayout"></a>6.11.1.3&nbsp;Numbered Table Number Layout
+      </h4>
       <p>If in example <a href="#xTableNumberedLayout">(46)</a>, you click on the digit &#8220;1&#8221; in the second line, you can control information about how the number of the numbered table is
          to be formatted. The attributes for this <span style="font-family:Courier New; color:maroon; ">tablenumberedNumberLayout</span> element are given in example <a href="#xNumberedTableNumberLayoutAttributes">(49)</a>.
       </p>
@@ -3745,15 +3809,18 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sTableNumberedCaptionLayout">6.11.1.4&nbsp;Numbered Table Caption Layout</a></h4>
+      <h4 style=""><a name="sTableNumberedCaptionLayout"></a>6.11.1.4&nbsp;Numbered Table Caption Layout
+      </h4>
       <p>If in example <a href="#xTableNumberedLayout">(46)</a>, you click on &#8220;Caption goes here&#8221; in the second line, you can control information about how the captions of numbered tables
          are to be formatted. The attributes for this <span style="font-family:Courier New; color:maroon; ">tablenumberedCaptionLayout</span> element are given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;.
       </p>
-      <h3 style=""><a name="sTableNumberedRefLayout">6.11.2&nbsp;Controlling the Display of References to Numbered Tables</a></h3>
+      <h3 style=""><a name="sTableNumberedRefLayout"></a>6.11.2&nbsp;Controlling the Display of References to Numbered Tables
+      </h3>
       <p><a name="rXLingPapIndexedItem.iTableNumberedRefLayout.d0e6261"></a>There are two elements that control how references to the numbers of numbered tables and references to the captions of numbered
          tables are displayed.
       </p>
-      <h4 style=""><a name="sTableNumberedRefNumberLayout">6.11.2.1&nbsp;Reference to Numbered Table Number Layout</a></h4>
+      <h4 style=""><a name="sTableNumberedRefNumberLayout"></a>6.11.2.1&nbsp;Reference to Numbered Table Number Layout
+      </h4>
       <p><a name="rXLingPapIndexedItem.iTableNumberedRefNumber.d0e6267"></a>The <span style="font-family:Courier New; color:maroon; ">figureRefLayout</span> element determines how references to the number of a numbered table are to be displayed. The attributes involved are given
          in example <a href="#xTableNumberedRefNumberLayoutAttributes">(50)</a>.
       </p>
@@ -3864,15 +3931,18 @@
             </tr>
          </table>
       </div>
-      <h4 style=""><a name="sTableNumberedRefCaptionLayout">6.11.2.2&nbsp;Reference to Numbered Table Caption Layout</a></h4>
+      <h4 style=""><a name="sTableNumberedRefCaptionLayout"></a>6.11.2.2&nbsp;Reference to Numbered Table Caption Layout
+      </h4>
       <p><a name="rXLingPapIndexedItem.iTableNumberedRefCaption.d0e6466"></a>The <span style="font-family:Courier New; color:maroon; ">tablenumberedRefCaptionLayout</span> element determines how references to the captions of numbered tables are to be displayed. All of its attributes are described
          in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">tablenumberedRefCaptionLayout</span> element.
       </p>
-      <h2 style=""><a name="sMagnificationFactor">6.12&nbsp;Magnification Factor</a></h2>
+      <h2 style=""><a name="sMagnificationFactor"></a>6.12&nbsp;Magnification Factor
+      </h2>
       <p><a name="rXLingPapIndexedItem.iMagnificationFactor.d0e6482"></a>When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining
          the same page size. This is what the <span style="font-family:Courier New; color:maroon; ">magnificationFactor</span> element is for. Enter the factor you want (e.g. <span style="font-family:Courier New; font-weight:bold; ">1.5</span> or <span style="font-family:Courier New; font-weight:bold; ">2</span>). The factor should be a number.
       </p>
-      <h2 style=""><a name="sLangDataOverrides">6.13&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">langData</span> Elements</a></h2>
+      <h2 style=""><a name="sLangDataOverrides"></a>6.13&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">langData</span> Elements
+      </h2>
       <p><a name="rXLingPapIndexedItem.iLangDataOverrides.d0e6500"></a>Sometimes one wants language data to appear one way when it is in prose and another way in examples and/or tables. The <span style="font-family:Courier New; color:maroon; ">langDataLayout</span> element controls this. When you add it, you will see what is in example <a href="#xLangDataOverrides">(51)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3931,7 +4001,8 @@
       </div>
       <p>For a given <span style="font-family:Courier New; color:maroon; ">langData</span> element, the formatting that is used depends on what the closest element to that <span style="font-family:Courier New; color:maroon; ">langData</span> element is. If an <span style="font-family:Courier New; color:maroon; ">example</span> is closest, then the formatting for an example is used. If a <span style="font-family:Courier New; color:maroon; ">table</span> is closest, then the formatting for a table is used. If an <span style="font-family:Courier New; color:maroon; ">endnote</span> or any other element is closest, then the formatting for prose is used.
       </p>
-      <h2 style=""><a name="sGlossOverrides">6.14&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">gloss</span> Elements</a></h2>
+      <h2 style=""><a name="sGlossOverrides"></a>6.14&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">gloss</span> Elements
+      </h2>
       <p><a name="rXLingPapIndexedItem.iGlossOverrides.d0e6608"></a>Sometimes one wants gloss data to appear one way when it is in prose and another way in examples and/or tables. The <span style="font-family:Courier New; color:maroon; ">glossLayout</span> element controls this. When you add it, you will see what is in example <a href="#xGlossOverrides">(53)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -3990,7 +4061,8 @@
       </div>
       <p>For a given <span style="font-family:Courier New; color:maroon; ">gloss</span> element, the formatting that is used depends on what the closest element to that <span style="font-family:Courier New; color:maroon; ">gloss</span> element is. If an <span style="font-family:Courier New; color:maroon; ">example</span> is closest, then the formatting for an example is used. If a <span style="font-family:Courier New; color:maroon; ">table</span> is closest, then the formatting for a table is used. If an <span style="font-family:Courier New; color:maroon; ">endnote</span> or any other element is closest, then the formatting for prose is used.
       </p>
-      <h2 style=""><a name="sFreeOverrides">6.15&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">free</span> Elements</a></h2>
+      <h2 style=""><a name="sFreeOverrides"></a>6.15&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">free</span> Elements
+      </h2>
       <p><a name="rXLingPapIndexedItem.iFreeOverrides.d0e6716"></a>Sometimes one wants to override the default formatting for data in free translations (i.e in <span style="font-family:Courier New; color:maroon; ">free</span> elements). The <span style="font-family:Courier New; color:maroon; ">freeLayout</span> element controls this. It has the attributes shown in example <a href="#xFreeOverrideLayoutAttributes">(55)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -4071,7 +4143,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sLiteralOverrides">6.16&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">literal</span> Elements</a></h2>
+      <h2 style=""><a name="sLiteralOverrides"></a>6.16&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">literal</span> Elements
+      </h2>
       <p><a name="rXLingPapIndexedItem.iLiteralOverrides.d0e6857"></a>Sometimes one wants to override the default formatting for data in literal translations (i.e in <span style="font-family:Courier New; color:maroon; ">literal</span> elements). The <span style="font-family:Courier New; color:maroon; ">literalLayout</span> element controls this. It contains two elements: <span style="font-family:Courier New; color:maroon; ">literalLabelLayout</span> and <span style="font-family:Courier New; color:maroon; ">literalContentLayout</span>.
       </p>
       <p>The <span style="font-family:Courier New; color:maroon; ">literalLabelLayout</span> element allows you to type in a label that will appear at the beginning of every literal translation (e.g., &#8220;Lit. &#8221;). It
@@ -4157,11 +4230,13 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sCommonSetsOfAttributes">7&nbsp;Common Sets of Attributes</a></h1>
+      <h1 style=""><a name="sCommonSetsOfAttributes"></a>7&nbsp;Common Sets of Attributes
+      </h1>
       <p>Throughout this documentation on publisher style sheets there are references to sets of attributes. This section lists those
          sets and defines them. For each one, we indicate whether or not the result of setting the attribute is shown in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. When possible, we do show the result in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>, but not all of the attributes can do so.
       </p>
-      <h2 style=""><a name="sFontInfoAttributes">7.1&nbsp;Font Information Attributes</a></h2>
+      <h2 style=""><a name="sFontInfoAttributes"></a>7.1&nbsp;Font Information Attributes
+      </h2>
       <p>The following are the attributes that can be used to for controlling font information.</p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -4321,7 +4396,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sFormatInfoAttributes">7.2&nbsp;Format Information Attributes</a></h2>
+      <h2 style=""><a name="sFormatInfoAttributes"></a>7.2&nbsp;Format Information Attributes
+      </h2>
       <p>All of the attributes shown in section <a href="#sFontInfoAttributes">7.1</a> plus the following are the attributes that can be used to for controlling format information.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -4391,7 +4467,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sFrontMatterFormatInfoAttributes">7.3&nbsp;Front Matter Format Information Attributes</a></h2>
+      <h2 style=""><a name="sFrontMatterFormatInfoAttributes"></a>7.3&nbsp;Front Matter Format Information Attributes
+      </h2>
       <p>All of the attributes shown in section <a href="#sFormatInfoAttributes">7.2</a> plus the following are the attributes that can be used to for controlling front matter format information.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -4488,7 +4565,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sTitleFormatInfoAttributes">7.4&nbsp;Title Format Information Attributes</a></h2>
+      <h2 style=""><a name="sTitleFormatInfoAttributes"></a>7.4&nbsp;Title Format Information Attributes
+      </h2>
       <p>All of the attributes shown in section <a href="#sFrontMatterFormatInfoAttributes">7.3</a> plus the following are the attributes that can be used to for controlling front matter format information.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -4558,8 +4636,8 @@
             </tr>
          </table>
       </div>
-      <hr size="3"><a name="rXLingPapEndnotes">
-         <p style=""><big><big><big><b><a name="">Endnotes</a></b></big></big></big></p></a><table>
+      <hr size="3"><a name="rXLingPapEndnotes"></a><p style=""><big><big><big><b>Endnotes</b></big></big></big></p>
+      <table>
          <tr>
             <td valign="top"><a name="nNoFontChooser">[1]</a></td>
             <td>
@@ -4592,8 +4670,8 @@
             </td>
          </tr>
       </table>
-      <hr size="3"><a name="rXLingPapReferences">
-         <p style=""><big><big><big><b><a name="">References</a></b></big></big></big></p></a><div style="margin-left:0.25in">
+      <hr size="3"><a name="rXLingPapReferences"></a><p style=""><big><big><big><b>References</b></big></big></big></p>
+      <div style="margin-left:0.25in">
          <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"><a name="rXlingPapSFLF">Black, H. Andrew</a>.   2009. Writing Linguistic Papers in the Third Wave. <i>SIL Forum for Language Fieldwork 2009-004</i>. (<a href="http://www.sil.org/%E2%80%8Bsilepubs/%E2%80%8Babstract.%E2%80%8Basp?%E2%80%8Bid=%E2%80%8B52286">http://www.sil.org/&#8203;silepubs/&#8203;abstract.&#8203;asp?&#8203;id=&#8203;52286</a>).
          </p>
          <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"><a name="rITF">Kew, Jonathan and Stephen McConnel</a>.   1990. <i>Formatting Interlinear Text</i>.  <i>Occassional Publications in Academic Computing Number 17</i>. Dallas, Texas: Summer Institute of Linguistics.
@@ -4602,8 +4680,8 @@
          </p>
       </div>
       <hr>
-      <a name="rXLingPapIndex.d0e7877">
-         <p style=""><big><big><big><b><a name="">Index</a></b></big></big></big></p></a><div style="margin-left: 0.5in; margin-right: 0.5in">
+      <a name="rXLingPapIndex.d0e7877"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
+      <div style="margin-left: 0.5in; margin-right: 0.5in">
          <a name="rXLingPapIndexTerm.iAbbrRefLink">Abbreviation reference link&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAbbrRefLink.d0e390">2.7</a><br><a name="rXLingPapIndexTerm.iAbstactLayout">Abstract layout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAbstactLayout.d0e1223">3.2</a>, <a href="#rXLingPapIndexedItem.iAbstactLayout.d0e1254">3.2</a><br><a name="rXLingPapIndexTerm.iAcknowledgementsLayout">Acknowledgements layout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAcknowledgementsLayout.d0e1195">3.2</a>, <a href="#rXLingPapIndexedItem.iAcknowledgementsLayout.d0e1709">5</a><br><a name="rXLingPapIndexTerm.iAffiliationLayout">Affiliation Layout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAffiliationLayout.d0e1020">3.2</a><br><a name="rXLingPapIndexTerm.iAppendixLayout">Appendix layout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixLayout.d0e1738">5</a>, <b><a href="#rXLingPapIndexedItem.iAppendixLayout.d0e1839">5.1</a></b><br><a name="rXLingPapIndexTerm.iAppendixRefLink">Appendix reference link&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixRefLink.d0e391">2.7</a><br>Author contact information&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iContactInformation">Contact information</a>.<br>
          <a name="rXLingPapIndexTerm.iAuthorFormatting">Author formatting&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAuthorFormatting.d0e1949">5.2.1</a><br><a name="rXLingPapIndexTerm.iAuthorLayout">Author layout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAuthorLayout.d0e1006">3.2</a>, <a href="#rXLingPapIndexedItem.iAuthorLayout.d0e1048">3.2</a><br><a name="rXLingPapIndexTerm.iAuthorRoleFormatting">Author role formatting&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAuthorRoleFormatting.d0e1965">5.2.1</a>, <a href="#rXLingPapIndexedItem.iAuthorRoleFormatting.d0e2773">5.2.4</a>, <a href="#rXLingPapIndexedItem.iAuthorRoleFormatting.d0e3699">5.2.9</a><br><a name="rXLingPapIndexTerm.iBackgroundColorAttribute">Background color attribute&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iBackgroundColorAttribute.d0e7049">7.1</a><br><a name="rXLingPapIndexTerm.iBlockQuoteIndent">Block quote indent&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iBlockQuoteIndent.d0e184">2.2</a><br>Book total pages&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iBookTotalPages">Total pages in a book</a>.<br>
          Book volume number of a referenced work&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iVolumeNumber">Volume number of a book in a referenced work</a>.<br>

@@ -8,8 +8,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>19 January 2013</small></center>
-      <center><small>Version: 2.20.6</small></center>
+      <center><i>SIL International</i></center><br><center><small>21 February 2013</small></center>
+      <center><small>Version: 2.21.0</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -153,7 +153,8 @@
             <li><a href="#rXLingPapReferences">References</a></li>
          </ul>
       </div>
-      <h1 style=""><a name="sIntro">1&nbsp;Introduction</a></h1>
+      <h1 style=""><a name="sIntro"></a>1&nbsp;Introduction
+      </h1>
       <p><span style="font-weight:bold; ">NOTE: We highly recommend that you read the companion documentation, <span style="font-style:italic; "><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></span>. It has much more current and relevant information in it. We maintain this documentation for legacy purposes.</span></p>
       <p>The <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> package is designed to aid the linguist in writing linguistic papers.
       </p>
@@ -185,7 +186,8 @@
       </p>
       <p>Since <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is in XML, it also can serve as an archiving format.
       </p>
-      <h2 style=""><a name="sIntroMajor">1.1&nbsp;Major Components</a></h2>
+      <h2 style=""><a name="sIntroMajor"></a>1.1&nbsp;Major Components
+      </h2>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has several major components:
       </p>
       <ol style="list-style-type:decimal; ">
@@ -198,13 +200,14 @@
          in turn contain sections) or be a series of chapters or just a series of sections.
       </p>
       <p>The back matter contains items like appendices, endnotes, and references.</p>
-      <h2 style=""><a name="sIntroLang">1.2&nbsp;Language Definitions</a></h2>
+      <h2 style=""><a name="sIntroLang"></a>1.2&nbsp;Language Definitions
+      </h2>
       <p>Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data
          items as belonging to one of these languages. Each language definition has font-related information associated with it, so
          one can set the font, size, color, etc. for each language. When the paper is formatted, each data item tagged with a given
          language will consistently be shown in the specified way.
       </p>
-      <h2 style=""><a name="sIntroUsing">1.3&nbsp;Using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span></a></h2>
+      <h2 style=""><a name="sIntroUsing"></a>1.3&nbsp;Using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span></h2>
       <p>This section describes how to use <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>. There are two basic steps involved.
       </p>
       <p>The first consists of entering the appropriate element tags into an XML document. That is, the writer needs to key the correct
@@ -267,25 +270,31 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sIntroOrg">1.4&nbsp;Organization of this Documentation</a></h2>
+      <h2 style=""><a name="sIntroOrg"></a>1.4&nbsp;Organization of this Documentation
+      </h2>
       <p>This user documentation is organized first by the major components: <a href="#sFrontMatter">front matter</a>, <a href="#sSections">sections</a>, and then <a href="#sBackMatter">back matter</a>. There also are sections on <a href="#sExamples">examples</a>, on <a href="#sTablesChartsTrees">tables, charts, and trees</a>, on <a href="#sCitations">citations</a>, and also on producing <a href="#sSpecialEffects">special effects</a>. Appendix <a href="#aElements">A</a> contains a reference listing of all the elements that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> uses, with a brief description of each.
       </p>
       <p>When we give examples of what elements to use to get a particular effect, we will show the XML itself. As we seek to note
          in section <a href="#sXMLmindXMLEditor">12</a>, the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> actually makes this much, much easier to key. The choice of editor you use to key an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document, of course, is still up to you.
       </p>
-      <h1 style=""><a name="sFrontMatter">2&nbsp;Front Matter</a></h1>
+      <h1 style=""><a name="sFrontMatter"></a>2&nbsp;Front Matter
+      </h1>
       <p>This section delineates the elements that can appear in the front matter of a paper. They are presented in the order in which
          they must occur.
       </p>
-      <h2 style=""><a name="sFMTitle">2.1&nbsp;Title</a></h2>
+      <h2 style=""><a name="sFMTitle"></a>2.1&nbsp;Title
+      </h2>
       <p>The <span style="font-family:fixed; color:maroon; ">title</span> element is required in a frontmatter. A title may include language data and endnotes, as well as other elements.<span style="font-size:65%; vertical-align:super">[<a href="#nTitle">2</a>]</span></p>
-      <h2 style=""><a name="sFMSubtitle">2.2&nbsp;Subtitle</a></h2>
+      <h2 style=""><a name="sFMSubtitle"></a>2.2&nbsp;Subtitle
+      </h2>
       <p>The <span style="font-family:fixed; color:maroon; ">subtitle</span> element is optional. Like a title element, it may include language data and endotes, among other elements.
       </p>
-      <h2 style=""><a name="sFMAuthor">2.3&nbsp;Author</a></h2>
+      <h2 style=""><a name="sFMAuthor"></a>2.3&nbsp;Author
+      </h2>
       <p>One or more <span style="font-family:fixed; color:maroon; ">author</span> elements must be included.
       </p>
-      <h2 style=""><a name="sFMAuthorContactInfo">2.4&nbsp;Author Contact Information</a></h2>
+      <h2 style=""><a name="sFMAuthorContactInfo"></a>2.4&nbsp;Author Contact Information
+      </h2>
       <p>One or more <span style="font-family:fixed; color:maroon; ">authorContactInfo</span> elements may optionally be included. Each one refers to an <span style="font-family:fixed; color:maroon; ">authorContact</span> element via its <span style="font-family:fixed; color:purple; ">author</span> attribute.
       </p>
       <p>These are typically only used for some publications. You probably will only need to insert one when you are about to publish
@@ -293,20 +302,25 @@
       </p>
       <p>See also section <a href="#sAuthorContactInformation">11.2</a>.
       </p>
-      <h2 style=""><a name="sFMAffiliation">2.5&nbsp;Affiliation</a></h2>
+      <h2 style=""><a name="sFMAffiliation"></a>2.5&nbsp;Affiliation
+      </h2>
       <p>Each author name may be followed by the affiliation of that author or the preceding authors, using an <span style="font-family:fixed; color:maroon; ">affiliation</span> element. These are optional elements.
       </p>
-      <h2 style=""><a name="sFMPresentedAt">2.6&nbsp;PresentedAt</a></h2>
+      <h2 style=""><a name="sFMPresentedAt"></a>2.6&nbsp;PresentedAt
+      </h2>
       <p>One may add this line in the front matter indicating that the paper had been presented at some conference. This is an optional
          element.
       </p>
-      <h2 style=""><a name="sFMDate">2.7&nbsp;Date</a></h2>
+      <h2 style=""><a name="sFMDate"></a>2.7&nbsp;Date
+      </h2>
       <p>The date of the paper may also be included as a <span style="font-family:fixed; color:maroon; ">date</span> element. This is an optional element.
       </p>
-      <h2 style=""><a name="sFMVersion">2.8&nbsp;Version</a></h2>
+      <h2 style=""><a name="sFMVersion"></a>2.8&nbsp;Version
+      </h2>
       <p>The <span style="font-family:fixed; color:maroon; ">version</span> element may be included to provide a version number for the document. It is also optional.
       </p>
-      <h2 style=""><a name="sFMContents">2.9&nbsp;Table of Contents</a></h2>
+      <h2 style=""><a name="sFMContents"></a>2.9&nbsp;Table of Contents
+      </h2>
       <p>One may optionally include a table of contents by merely including the <span style="font-family:fixed; color:maroon; ">contents</span> element. Including this tag will instruct <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> to automatically generate a table of contents.
       </p>
       <p>The default situation is for the table of contents to include sections up to three levels deep (i.e. it will include the titles
@@ -315,23 +329,27 @@
       <p>The table of contents will also include acknowledgements (if any), the abstract (if present), endnotes, and references.</p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Table of Contents" for the contents. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
       </p>
-      <h2 style=""><a name="sFMAcknowledgements">2.10&nbsp;Acknowledgements</a></h2>
+      <h2 style=""><a name="sFMAcknowledgements"></a>2.10&nbsp;Acknowledgements
+      </h2>
       <p>Acknowledgements for the paper may be included by using the <span style="font-family:fixed; color:maroon; ">acknowledgements</span> element. The content of the acknowledgements may be a sequence of any "chunk" elements.<span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span></p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Acknowledgements" for the acknowledgements. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
       </p>
-      <h2 style=""><a name="sFMAbstract">2.11&nbsp;Abstract</a></h2>
+      <h2 style=""><a name="sFMAbstract"></a>2.11&nbsp;Abstract
+      </h2>
       <p>An abstract for the paper or book may be included by using the <span style="font-family:fixed; color:maroon; ">abstract</span> element. The content of the abstract may be a sequence of any "chunk" elements. (See endnote <span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span> for what the "chunk" elements are.)
       </p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Abstract" for the abstract. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
       </p>
-      <h2 style=""><a name="sFMPreface">2.12&nbsp;Preface</a></h2>
+      <h2 style=""><a name="sFMPreface"></a>2.12&nbsp;Preface
+      </h2>
       <p>A preface for a book may be included by using the <span style="font-family:fixed; color:maroon; ">preface</span> element. The content of the preface may be a sequence of any "chunk" elements. (See endnote <span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span> for what the "chunk" elements are.)
       </p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Preface" for the preface. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
       </p>
       <p>Note that if one has a <span style="font-family:fixed; color:maroon; ">preface</span> element, then one may not also have an <span style="font-family:fixed; color:maroon; ">abstract</span> element.
       </p>
-      <h2 style=""><a name="sFMExample">2.13&nbsp;Front Matter Example</a></h2>
+      <h2 style=""><a name="sFMExample"></a>2.13&nbsp;Front Matter Example
+      </h2>
       <p>Here is an example of the front matter using most of the possibilities. If one keys the elements so they look like this:</p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -414,12 +432,15 @@
       </div>
       <p class="pc">Perhaps you can see why we prefer to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>.
       </p>
-      <h1 style=""><a name="sSections">3&nbsp;Sections</a></h1>
+      <h1 style=""><a name="sSections"></a>3&nbsp;Sections
+      </h1>
       <p>Sections may be nested up to six levels deep. Each level is an element tag consisting of the word "section" followed by the level number. For example, a third level section is <span style="font-family:fixed; color:maroon; ">section3</span>.
       </p>
-      <h2 style=""><a name="sSectionTitle">3.1&nbsp;Section Title</a></h2>
+      <h2 style=""><a name="sSectionTitle"></a>3.1&nbsp;Section Title
+      </h2>
       <p>Every section element has a required <span style="font-family:fixed; color:maroon; ">secTitle</span> element which gives the section title. The title may contain language data and an endnote, if one so desires.<span style="font-size:65%; vertical-align:super">[<a href="#nSecTitle">4</a>]</span></p>
-      <h2 style=""><a name="sSectionContent">3.2&nbsp;Section Content</a></h2>
+      <h2 style=""><a name="sSectionContent"></a>3.2&nbsp;Section Content
+      </h2>
       <p>Sections may contain a sequence of any of the following elements:</p>
       <ul>
          <li>Paragraphs (<span style="font-family:fixed; color:maroon; ">p</span>).
@@ -444,12 +465,14 @@
          </li>
          <li>Sub sections.</li>
       </ul>
-      <h2 style=""><a name="sSectionReference">3.3&nbsp;Section Referencing</a></h2>
+      <h2 style=""><a name="sSectionReference"></a>3.3&nbsp;Section Referencing
+      </h2>
       <p>Every section element also has a required <span style="font-family:fixed; color:purple; ">id</span> attribute which is used to uniquely identify the section. One can use the <span style="font-family:fixed; color:maroon; ">sectionRef</span> element to refer to a particular section via its <span style="font-family:fixed; color:purple; ">sec</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span> A hyperlink is made between the reference and the section header.
       </p>
       <p>Note that if you wish to refer to an appendix, you should use the <span style="font-family:fixed; color:maroon; ">appendixRef</span> element and set its <span style="font-family:fixed; color:purple; ">app</span> attribute to the <span style="font-family:fixed; color:purple; ">id</span> attribute of the <span style="font-family:fixed; color:maroon; ">appendix</span> element.
       </p>
-      <h2 style=""><a name="sSectionExample">3.4&nbsp;Section Example</a></h2>
+      <h2 style=""><a name="sSectionExample"></a>3.4&nbsp;Section Example
+      </h2>
       <p>Here is an example of some sections, including some section references.</p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -495,37 +518,45 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sSectionChapter">3.5&nbsp;Chapters</a></h2>
+      <h2 style=""><a name="sSectionChapter"></a>3.5&nbsp;Chapters
+      </h2>
       <p>Instead of starting a paper with a top level section, one may use chapters instead. Each chapter then may have up to six levels
          of sections and subsections. Use the <span style="font-family:fixed; color:maroon; ">chapter</span> element as the first element after any front matter.
       </p>
-      <h2 style=""><a name="sSectionPart">3.6&nbsp;Parts</a></h2>
+      <h2 style=""><a name="sSectionPart"></a>3.6&nbsp;Parts
+      </h2>
       <p>If one is working on a larger project and the paper has not only chapters, but also parts (each of which contains chapters),
          then one should use the <span style="font-family:fixed; color:maroon; ">part</span> element as the first element after any front matter.
       </p>
-      <h1 style=""><a name="sBackMatter">4&nbsp;Back Matter</a></h1>
+      <h1 style=""><a name="sBackMatter"></a>4&nbsp;Back Matter
+      </h1>
       <p>Back matter consists of acknowledgements, appendices, glossary, endnotes, references, and indexes. All of these are optional.</p>
-      <h2 style=""><a name="sBMAcknowledgements">4.1&nbsp;Acknowledgements</a></h2>
+      <h2 style=""><a name="sBMAcknowledgements"></a>4.1&nbsp;Acknowledgements
+      </h2>
       <p>Acknowledgements for the paper may be included either in the front matter or in the back matter. See section <a href="#sFMAcknowledgements">2.10</a> for more on this.
       </p>
-      <h2 style=""><a name="sBMAppendix">4.2&nbsp;Appendices</a></h2>
+      <h2 style=""><a name="sBMAppendix"></a>4.2&nbsp;Appendices
+      </h2>
       <p>Appendices are similar to chapters. One merely adds an <span style="font-family:fixed; color:maroon; ">appendix</span> element. It has its title and one may include sections and subsections. The appendix will automatically be given a letter.
          Its sections and subsections will be numbered like other sections, only they will begin with the appropriate appendix letter.
          See the example back matter section (<a href="#sBMExample">4.8</a>) below.
       </p>
-      <h2 style=""><a name="sBMGlossary">4.3&nbsp;Glossary</a></h2>
+      <h2 style=""><a name="sBMGlossary"></a>4.3&nbsp;Glossary
+      </h2>
       <p>A glossary for the paper may be included by using the <span style="font-family:fixed; color:maroon; ">glossary</span> element. The content of the glossary may be a sequence of any "chunk" elements,<span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span> although including either a table or a definition list is the most likely.
       </p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Glossary" for the glossary. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
       </p>
-      <h2 style=""><a name="sBMEndnotes">4.4&nbsp;Endnotes</a></h2>
+      <h2 style=""><a name="sBMEndnotes"></a>4.4&nbsp;Endnotes
+      </h2>
       <p>HTML does not readily allow for footnotes, since the entire paper may be rendered on one HTML page. Therefore we use endnotes
          instead of footnotes. It is now possible for some outputs like PDF or <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> to use footnotes. Nonetheless, we still use <span style="font-family:fixed; color:maroon; ">endnote</span> elements for this. That is, use an <span style="font-family:fixed; color:maroon; ">endnote</span> element whether or not you plan to have endnotes or footnotes. The process that converts <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.
       </p>
       <p>One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the "endnote number", usually rendered in superscript). Create the <span style="font-family:fixed; color:maroon; ">endnote</span> element, give it its required <span style="font-family:fixed; color:purple; ">id</span> attribute, type the content of the endnote, and then give the <span style="font-family:fixed; color:maroon; ">/endnote</span> closing tag. The content of the endnote normally begins with a paragraph tag <span style="font-family:fixed; color:maroon; ">p</span>, although one may use a sequence of any "chunk" elements.<span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span></p>
       <p>Note that an <span style="font-family:fixed; color:maroon; ">endnotes/</span> element is required in the back matter section in order to get endnotes to come out properly.
       </p>
-      <h2 style=""><a name="sBMReferences">4.5&nbsp;References</a></h2>
+      <h2 style=""><a name="sBMReferences"></a>4.5&nbsp;References
+      </h2>
       <p>The references section begins by using the <span style="font-family:fixed; color:maroon; ">references</span> element. One then creates a sequence of <span style="font-family:fixed; color:maroon; ">refAuthor</span> elements within it. The <span style="font-family:fixed; color:maroon; ">refAuthor</span> elements should be ordered alphabetically by the author's last name. Note that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has you group the references by author, not by work.
       </p>
       <p>Each <span style="font-family:fixed; color:maroon; ">refAuthor</span> element has two required attributes: <span style="font-family:fixed; color:purple; ">name</span> and <span style="font-family:fixed; color:purple; ">citename</span>. The <span style="font-family:fixed; color:purple; ">name</span> attribute is how you want the author's name to appear in the references (usually last name first for single authors; see
@@ -543,14 +574,14 @@
       </p>
       <p>The rest of the information about the citation depends on the type of citation it is. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows the types given in the following sections:
       </p>
-      <h3 style=""><a name="sBMRefArticle">4.5.1&nbsp;<span style="font-family:fixed; color:maroon; ">article</span></a></h3>
+      <h3 style=""><a name="sBMRefArticle"></a>4.5.1&nbsp;<span style="font-family:fixed; color:maroon; ">article</span></h3>
       <p>This is for an article published in a journal. Besides the date and the title, an article also has <span style="font-family:fixed; color:maroon; ">jTitle</span>, <span style="font-family:fixed; color:maroon; ">jVol</span>, and <span style="font-family:fixed; color:maroon; ">jPages</span> elements (for the journal title, the journal volume number, and the page numbers of the article in the journal). It may also
          have optional <span style="font-family:fixed; color:maroon; ">location</span> and <span style="font-family:fixed; color:maroon; ">publisher</span> elements.
       </p>
-      <h3 style=""><a name="sBMRefBook">4.5.2&nbsp;<span style="font-family:fixed; color:maroon; ">book</span></a></h3>
+      <h3 style=""><a name="sBMRefBook"></a>4.5.2&nbsp;<span style="font-family:fixed; color:maroon; ">book</span></h3>
       <p>This is for a book. Besides the date and the title, a book also has optional <span style="font-family:fixed; color:maroon; ">translatedBy</span>, <span style="font-family:fixed; color:maroon; ">edition</span>, <span style="font-family:fixed; color:maroon; ">series</span>, and <span style="font-family:fixed; color:maroon; ">bVol</span> (book volume) elements, a recommended <span style="font-family:fixed; color:maroon; ">location</span> element and a recommended <span style="font-family:fixed; color:maroon; ">publisher</span> element.
       </p>
-      <h3 style=""><a name="sBMRefCollection">4.5.3&nbsp;<span style="font-family:fixed; color:maroon; ">collection</span></a></h3>
+      <h3 style=""><a name="sBMRefCollection"></a>4.5.3&nbsp;<span style="font-family:fixed; color:maroon; ">collection</span></h3>
       <p>This is for a paper included in a volume or collection of papers. Besides the date and the title, a collection paper also
          has:
       </p>
@@ -570,19 +601,19 @@
       </ol>
       <p>The <span style="font-family:fixed; color:maroon; ">collEd</span> element also has a <span style="font-family:fixed; color:purple; ">plural</span> attribute to indicate whether there is more than one editor. Use the value of <span style="font-family:fixed; font-style:italic; color:steelblue; ">yes</span> if there are more than one editor; otherwise, use the value of <span style="font-family:fixed; font-style:italic; color:steelblue; ">no</span>.
       </p>
-      <h3 style=""><a name="sBMRefDissertation">4.5.4&nbsp;<span style="font-family:fixed; color:maroon; ">dissertation</span></a></h3>
+      <h3 style=""><a name="sBMRefDissertation"></a>4.5.4&nbsp;<span style="font-family:fixed; color:maroon; ">dissertation</span></h3>
       <p>This is for a Ph.D. dissertation. Besides the date and the title, a dissertation also has an optional <span style="font-family:fixed; color:maroon; ">location</span> element, a required <span style="font-family:fixed; color:maroon; ">institution</span> element, and an optional <span style="font-family:fixed; color:maroon; ">published</span> element. The latter is for the case where the dissertation has also been published. A <span style="font-family:fixed; color:maroon; ">published</span> element consists of recommended <span style="font-family:fixed; color:maroon; ">location</span> and <span style="font-family:fixed; color:maroon; ">publisher</span> elements, and a required <span style="font-family:fixed; color:maroon; ">pubDate</span> element.
       </p>
-      <h3 style=""><a name="sBMRefFieldNotes">4.5.5&nbsp;<span style="font-family:fixed; color:maroon; ">fieldNotes</span></a></h3>
+      <h3 style=""><a name="sBMRefFieldNotes"></a>4.5.5&nbsp;<span style="font-family:fixed; color:maroon; ">fieldNotes</span></h3>
       <p>This is for unpublished field note materials. Besides the date and the title, field notes also hav an optional <span style="font-family:fixed; color:maroon; ">location</span> element and a required <span style="font-family:fixed; color:maroon; ">institution</span> element.
       </p>
-      <h3 style=""><a name="sBMRefMs">4.5.6&nbsp;<span style="font-family:fixed; color:maroon; ">ms</span></a></h3>
+      <h3 style=""><a name="sBMRefMs"></a>4.5.6&nbsp;<span style="font-family:fixed; color:maroon; ">ms</span></h3>
       <p>This is for an unpublished manuscript. Besides the date and the title, a manuscript also has either an optional <span style="font-family:fixed; color:maroon; ">location</span> element followed by a required <span style="font-family:fixed; color:maroon; ">institution</span> element or it has a required <span style="font-family:fixed; color:maroon; ">empty</span> element.
       </p>
-      <h3 style=""><a name="sBMRefPaper">4.5.7&nbsp;<span style="font-family:fixed; color:maroon; ">paper</span></a></h3>
+      <h3 style=""><a name="sBMRefPaper"></a>4.5.7&nbsp;<span style="font-family:fixed; color:maroon; ">paper</span></h3>
       <p>This is for a paper presented at a conference. Besides the date and the title, a paper also has a required <span style="font-family:fixed; color:maroon; ">conference</span> element and an optional <span style="font-family:fixed; color:maroon; ">location</span> element.
       </p>
-      <h3 style=""><a name="sBMRefProceedings">4.5.8&nbsp;<span style="font-family:fixed; color:maroon; ">proceedings</span></a></h3>
+      <h3 style=""><a name="sBMRefProceedings"></a>4.5.8&nbsp;<span style="font-family:fixed; color:maroon; ">proceedings</span></h3>
       <p>This is for a paper included in a conference proceedings volume. Besides the date and the title, a proceedings paper also
          has:
       </p>
@@ -602,10 +633,10 @@
       </ol>
       <p>The <span style="font-family:fixed; color:maroon; ">procEd</span> element also has a <span style="font-family:fixed; color:purple; ">plural</span> attribute to indicate whether there is more than one editor. Use the value of <span style="font-family:fixed; font-style:italic; color:steelblue; ">yes</span> if there are more than one editor; otherwise, use the value of <span style="font-family:fixed; font-style:italic; color:steelblue; ">no</span>.
       </p>
-      <h3 style=""><a name="sBMRefThesis">4.5.9&nbsp;<span style="font-family:fixed; color:maroon; ">thesis</span></a></h3>
+      <h3 style=""><a name="sBMRefThesis"></a>4.5.9&nbsp;<span style="font-family:fixed; color:maroon; ">thesis</span></h3>
       <p>This is for an M.A. thesis. Besides the date and the title, a thesis also has an optional <span style="font-family:fixed; color:maroon; ">location</span> element, a required <span style="font-family:fixed; color:maroon; ">institution</span> element, and an optional <span style="font-family:fixed; color:maroon; ">published</span> element. The latter is for the case where the thesis has also been published. A <span style="font-family:fixed; color:maroon; ">published</span> element consists of recommended <span style="font-family:fixed; color:maroon; ">location</span> and <span style="font-family:fixed; color:maroon; ">publisher</span> elements, and a required <span style="font-family:fixed; color:maroon; ">pubDate</span> element.
       </p>
-      <h3 style=""><a name="sBMRefWebPage">4.5.10&nbsp;<span style="font-family:fixed; color:maroon; ">webPage</span></a></h3>
+      <h3 style=""><a name="sBMRefWebPage"></a>4.5.10&nbsp;<span style="font-family:fixed; color:maroon; ">webPage</span></h3>
       <p>This is for a paper that has been posted on the World Wide Web. Besides the date and the title, a web paper also has:</p>
       <ol style="list-style-type:decimal; ">
          <li>an optional <span style="font-family:fixed; color:maroon; ">edition</span> element,
@@ -622,7 +653,8 @@
       <p>The <span style="font-family:fixed; color:maroon; ">url</span> element is, of course, the address of the page on the World Wide Web. The URL will contain an HTML link to it, so you should
          be able to click on it within your web browser and link to it.
       </p>
-      <h3 style=""><a name="sReferencesSelectedBibliography">4.5.11&nbsp;Using a Selected Bibliography</a></h3>
+      <h3 style=""><a name="sReferencesSelectedBibliography"></a>4.5.11&nbsp;Using a Selected Bibliography
+      </h3>
       <p>There are certain situations when you may find that you want more than just the cited references to appear. Some possible
          scenarios include an abstract that is to be submitted for a conference and proposals for theses and dissertations. The references
          in such situations are often referred to as &#8220;Selected References&#8221; or "Selected Bibliography.&#8221;
@@ -634,7 +666,8 @@
          the <span style="font-family:fixed; color:purple; ">label</span> attribute of the <span style="font-family:fixed; color:maroon; ">selectedBibliography</span> element.
       </p>
       <p>Please note that the output will either have a &#8220;References&#8221; section or a &#8220;Selected Bibliography&#8221; section, but not both.</p>
-      <h2 style=""><a name="sBMIndex">4.6&nbsp;Indexes</a></h2>
+      <h2 style=""><a name="sBMIndex"></a>4.6&nbsp;Indexes
+      </h2>
       <p>Beginning with version 1.11.0 of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>, one may add one or more indexes to an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. There are four basic kinds of indexes allowed:
       </p>
       <ul>
@@ -720,7 +753,8 @@
          </li>
       </ol>
       <p>The following sections outline each of these steps in more detail.</p>
-      <h3 style=""><a name="sBMIndexIndexTerms">4.6.1&nbsp;Index Terms</a></h3>
+      <h3 style=""><a name="sBMIndexIndexTerms"></a>4.6.1&nbsp;Index Terms
+      </h3>
       <p>The set of index terms is the potential content of the index(es). You may want to nest certain terms under other terms, if
          they are related. With <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>, there is no enforced limit to the depth of nesting. In addition, you may want to include terms which then refer to another
          term elsewhere in the index. This, of course, is because a reader may look under some similar topic than the main one you
@@ -784,7 +818,8 @@
       </div>
       <p>A <span style="font-family:fixed; color:maroon; ">term</span> element has an optional <span style="font-family:fixed; color:purple; ">lang</span> attribute which refers to a <span style="font-family:fixed; color:maroon; ">language</span> element. This is a way to tag the term as being for a particular language (e.g. English or Spanish or French). The <span style="font-family:fixed; color:maroon; ">index</span> element also has a <span style="font-family:fixed; color:purple; ">lang</span> attribute one can use to indicate which <span style="font-family:fixed; color:maroon; ">term</span> elements to use.
       </p>
-      <h3 style=""><a name="sBMIndexIndexedItems">4.6.2&nbsp;Tagging the Document for Indexed Items</a></h3>
+      <h3 style=""><a name="sBMIndexIndexedItems"></a>4.6.2&nbsp;Tagging the Document for Indexed Items
+      </h3>
       <p>After setting up the set of index terms, the second step in producing an index is to tag the places in the document that correspond
          to index terms. Recall from example <a href="#xIndexHTMLExample">(8)</a> that there are two main kinds of index references: singleton and a range. You use the <span style="font-family:fixed; color:maroon; ">indexedItem</span> element to tag a singleton reference. For a range, you use two elements: <span style="font-family:fixed; color:maroon; ">indexRangeBegin</span> to mark the beginning of the range and <span style="font-family:fixed; color:maroon; ">indexRangeEnd</span> to mark the end of the range.
       </p>
@@ -863,7 +898,8 @@
          document of either an <span style="font-family:fixed; color:maroon; ">indexedItem</span> or an <span style="font-family:fixed; color:maroon; ">indexRangeBegin</span> element that refers to this index term. In such a case, there will only be one hyperlink associated with the term, so it
          will not be output in bold.
       </p>
-      <h3 style=""><a name="sBMIndexIndexElement">4.6.3&nbsp;The <span style="font-family:fixed; color:maroon; ">index</span> Element</a></h3>
+      <h3 style=""><a name="sBMIndexIndexElement"></a>4.6.3&nbsp;The <span style="font-family:fixed; color:maroon; ">index</span> Element
+      </h3>
       <p>The third step in producing an index is to create one or more <span style="font-family:fixed; color:maroon; ">index</span> elements as the last element within the <span style="font-family:fixed; color:maroon; ">backMatter</span> element.
       </p>
       <p>It is possible to have some prefatory text before the actual index material. This is so you could include some explanations
@@ -951,10 +987,12 @@
       </p>
       <p>Finally, the <span style="font-family:fixed; color:purple; ">lang</span> attribute may be used to indicate which of several <span style="font-family:fixed; color:maroon; ">term</span> elements to use for <span style="font-family:fixed; color:maroon; ">indexTerm</span> elements (see <a href="#sBMIndexIndexTerms">4.6.1</a>). The default is to use the first <span style="font-family:fixed; color:maroon; ">term</span> element.
       </p>
-      <h2 style=""><a name="sBMAuthorContactInfo">4.7&nbsp;Author Contact Information</a></h2>
+      <h2 style=""><a name="sBMAuthorContactInfo"></a>4.7&nbsp;Author Contact Information
+      </h2>
       <p>See section <a href="#sFMAuthorContactInfo">2.4</a> for this. If you insert an <span style="font-family:fixed; color:maroon; ">authorContactInfo</span> element in the back matter, then the contact information will appear in the back matter of your document.
       </p>
-      <h2 style=""><a name="sBMExample">4.8&nbsp;Back Matter Example</a></h2>
+      <h2 style=""><a name="sBMExample"></a>4.8&nbsp;Back Matter Example
+      </h2>
       <p>Here is an example of the back matter using all possibilities except indexes. If one keys the following</p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -1024,14 +1062,17 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sExamples">5&nbsp;Examples</a></h1>
+      <h1 style=""><a name="sExamples"></a>5&nbsp;Examples
+      </h1>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has several types of examples. All types will be automatically numbered. If you are going to refer to an example, then you
          will need to specify the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element tag and also give it a unique value.
       </p>
       <p>The various types are illustrated in the following sections. Each section shows what to type and how it would appear.</p>
-      <h2 style=""><a name="sExWord">5.1&nbsp;Word examples</a></h2>
+      <h2 style=""><a name="sExWord"></a>5.1&nbsp;Word examples
+      </h2>
       <p>Word examples consist of one or more words, usually with their glosses. They come in two varieties: single and lists.</p>
-      <h3 style=""><a name="sExWordSingle">5.1.1&nbsp;Single word examples</a></h3>
+      <h3 style=""><a name="sExWordSingle"></a>5.1.1&nbsp;Single word examples
+      </h3>
       <p>Single word examples consist of a single word and its gloss, usually. A single word example is given below. If you type what
          is shown in <a href="#xExWord">(16)</a>, you'll get the result in <a href="#xExWordHTML">(17)</a> (assuming that this is the second example in the paper).
       </p>
@@ -1071,7 +1112,8 @@
       </div>
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these.
       </p>
-      <h3 style=""><a name="sExWordList">5.1.2&nbsp;List of Words examples</a></h3>
+      <h3 style=""><a name="sExWordList"></a>5.1.2&nbsp;List of Words examples
+      </h3>
       <p>The second kind of word example is a list of words. These consist of a list of words and their glosses, usually. A list of
          words example is given below. If you type what is shown in <a href="#xLW2">(18)</a>, then you'll get the result shown in <a href="#xLW2HTML">(19)</a> (assuming that this is the third example in the paper).
       </p>
@@ -1117,11 +1159,13 @@
       </div>
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these. In addition, one uses the <span style="font-family:fixed; color:purple; ">letter</span> attribute of the <span style="font-family:fixed; color:maroon; ">listWord</span> element. One does not need to label these <span style="font-family:fixed; color:purple; ">letter</span> attributes in any particular order. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will correctly assign the letters.
       </p>
-      <h2 style=""><a name="sExLine">5.2&nbsp;Line examples</a></h2>
+      <h2 style=""><a name="sExLine"></a>5.2&nbsp;Line examples
+      </h2>
       <p>Line examples consist of but one line. There is no gloss (one would use an interlinear to include glosses). There are two
          varieties of line examples: single and list.
       </p>
-      <h3 style=""><a name="secExLineSingle">5.2.1&nbsp;Single line examples</a></h3>
+      <h3 style=""><a name="secExLineSingle"></a>5.2.1&nbsp;Single line examples
+      </h3>
       <p>Single line examples consist of but one line. An English example is given below. If you type what is shown in <a href="#xSingleLine">(20)</a>, you'll get the result in <a href="#xSingleLineHTML">(21)</a> (assuming that this is the fourth example in the paper).
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1160,7 +1204,8 @@
       </div>
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these.
       </p>
-      <h3 style=""><a name="secExLineList">5.2.2&nbsp;List of single line examples</a></h3>
+      <h3 style=""><a name="secExLineList"></a>5.2.2&nbsp;List of single line examples
+      </h3>
       <p>A list of single line examples consist of but one line each. The key difference between just a single example and a list of
          single examples is that the latter are indented and each line is prefixed by an alphabetic letter. The following is an English
          example. If you type what is shown in <a href="#xLSingleLine">(22)</a>, you'll get the result in <a href="#xLSingleLineHTML">(23)</a> (assuming that this is the fifth example in the paper).
@@ -1203,17 +1248,20 @@
       </div>
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these. In addition, one uses the <span style="font-family:fixed; color:purple; ">letter</span> attribute of the <span style="font-family:fixed; color:maroon; ">listSingle</span> element. One does not need to label these <span style="font-family:fixed; color:purple; ">letter</span> attributes in any particular order. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will correctly assign the letters.
       </p>
-      <h2 style=""><a name="sExInterlinear">5.3&nbsp;Interlinear examples</a></h2>
+      <h2 style=""><a name="sExInterlinear"></a>5.3&nbsp;Interlinear examples
+      </h2>
       <p>Interlinear examples consist of several lines of aligned text along with one or more lines of an unaligned free translation.
          Like word and line examples, there are two varieties of interlinear: single and list. In addition, a given interlinear example
          may be created in one of three ways. Any one of these three may be included in a single interlinear or in any interlinear
          example included in a list of intelinear examples. These three ways are described in sections <a href="#sExInterlinearSpace">5.3.1.1</a>, <a href="#sExInterlinearWrd">5.3.1.2</a>, and <a href="#sExInterlinearMorph">5.3.1.3</a>.
       </p>
-      <h3 style=""><a name="sExInterlinearSingle">5.3.1&nbsp;Single interlinear examples</a></h3>
+      <h3 style=""><a name="sExInterlinearSingle"></a>5.3.1&nbsp;Single interlinear examples
+      </h3>
       <p>Single interlinear examples contain only one interlinear example. The following sub-sections delineate the three ways one
          may key an interlinear example. The first two align the words in the interlinear. The third also aligns the morphemes.
       </p>
-      <h4 style=""><a name="sExInterlinearSpace">5.3.1.1&nbsp;Word-aligned, using a space between words</a></h4>
+      <h4 style=""><a name="sExInterlinearSpace"></a>5.3.1.1&nbsp;Word-aligned, using a space between words
+      </h4>
       <p>The easiest way to key an interlinear example is to merely type a space between each of the words in the interlinear. You
          do this for both the language data itself and also for the glosses.
       </p>
@@ -1263,7 +1311,8 @@
       <p>Also note that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does all that is needed to do the aligning (with the exception that it will not be able to automatically break long lines;
          see <a href="#secExInterlinearContinuation">5.3.3</a> below).
       </p>
-      <h4 style=""><a name="sExInterlinearWrd">5.3.1.2&nbsp;Word-aligned, marking certain words or morphemes</a></h4>
+      <h4 style=""><a name="sExInterlinearWrd"></a>5.3.1.2&nbsp;Word-aligned, marking certain words or morphemes
+      </h4>
       <p>If you want the words to align, but you also want to, say, emphasize a certain word or some morpheme or if you want a gloss
          to show in small caps, then you need to use the second method for keying interlinear examples.
       </p>
@@ -1327,7 +1376,8 @@
       <p>Also note that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does all that is needed to do the aligning (with the exception that it will not be able to automatically break long lines;
          see <a href="#secExInterlinearContinuation">5.3.3</a> below).
       </p>
-      <h4 style=""><a name="sExInterlinearMorph">5.3.1.3&nbsp;Morpheme-aligned</a></h4>
+      <h4 style=""><a name="sExInterlinearMorph"></a>5.3.1.3&nbsp;Morpheme-aligned
+      </h4>
       <p>If you want to have not only the words align, but also the morphemes within the words to align, you will need to key the interlinear
          examples in a special, more complicated way.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExInterlinear">8</a>]</span> Some interlinearizing programs may automatically produce this kind of format. The SIL FieldWorks Language Explorer program
          is one that allows one to automatically generate this kind of interlinear. One can then merely copy and paste the results
@@ -1433,7 +1483,8 @@
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these. In addition, notice the use of the various elements and attributes. If you are producing such an interlinear
          example by hand, you may want to read <a href="#rHughesBirdAndBow">Hughes, Bird, and Bow (2003)</a> which is available online at <a href="http://eprints.unimelb.edu.au/archive/00000455/">http://eprints.unimelb.edu.au/archive/00000455/</a>.
       </p>
-      <h3 style=""><a name="secExInterlinearList">5.3.2&nbsp;List of interlinear examples</a></h3>
+      <h3 style=""><a name="secExInterlinearList"></a>5.3.2&nbsp;List of interlinear examples
+      </h3>
       <p>Besides single interlinear examples, one may also produce a list of interlinear examples. Such a list consists of individual
          interlinear examples. The key difference between just a single interlinear example and a list of interlinear examples is that
          the latter are indented and each interlinear unit is prefixed by an alphabetic letter. You may use any of the three kinds
@@ -1486,7 +1537,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="secExInterlinearContinuation">5.3.3&nbsp;Handling long interlinear examples</a></h3>
+      <h3 style=""><a name="secExInterlinearContinuation"></a>5.3.3&nbsp;Handling long interlinear examples
+      </h3>
       <p>As mentioned in sections <a href="#sExInterlinearSpace">5.3.1.1</a>, <a href="#sExInterlinearWrd">5.3.1.2</a>, and <a href="#sExInterlinearMorph">5.3.1.3</a> above, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> does not automatically break lengthy interlinear examples (except for the morpheme-aligned ones when the output is a webpage).
          You have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand,
          you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a
@@ -1540,12 +1592,14 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sExInterlinearSource">5.3.4&nbsp;Citing the source of the interlinear</a></h3>
+      <h3 style=""><a name="sExInterlinearSource"></a>5.3.4&nbsp;Citing the source of the interlinear
+      </h3>
       <p>Another characteristic of interlinear examples is that they may be taken from an interlinear text. In such cases, one may
          well want to indicate the text and line number from where the interlinear was taken. One convention is to include an abbreviated
          name of the text, a colon, and the line number. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> provides two ways to do this, depending on whether the source interlinear text is included within the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document or not.
       </p>
-      <h4 style=""><a name="sExInterlinearSourceIncluded">5.3.4.1&nbsp;Interlinear text included in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document</a></h4>
+      <h4 style=""><a name="sExInterlinearSourceIncluded"></a>5.3.4.1&nbsp;Interlinear text included in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document
+      </h4>
       <p>If the source interlinear text is included in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document (most likely as an <span style="font-family:fixed; color:maroon; ">interlinear-text</span> element within an appendix; see section <a href="#sInterlinearText">9</a>), then you can create an interlinear example that will refer to the appropriate portion of the interlinear text. You can
          do so by following these steps:
       </p>
@@ -1625,7 +1679,8 @@
          </li>
       </ul>
       <p>.</p>
-      <h4 style=""><a name="sExInterlinearSourceNotIncluded">5.3.4.2&nbsp;Interlinear text not in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document</a></h4>
+      <h4 style=""><a name="sExInterlinearSourceNotIncluded"></a>5.3.4.2&nbsp;Interlinear text not in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document
+      </h4>
       <p>If the source interlinear text is not included in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document, then you can use the <span style="font-family:fixed; color:maroon; ">interlinearSource</span> element to type in a reference to the text.
       </p>
       <p>For example, if you key what is shown in <a href="#xExInterlinearSourceKeyed">(36)</a>, it will come out as shown in <a href="#xExInterlinearSourceKeyedHTML">(37)</a> (assuming this is the second example in the document).
@@ -1680,20 +1735,25 @@
             translation.<span style="font-size:65%; vertical-align:super">[<a href="#nLocationOfInterlinearSource">11</a>]</span></li>
       </ul>
       <p>.</p>
-      <h2 style=""><a name="sExTables">5.4&nbsp;Tables</a></h2>
+      <h2 style=""><a name="sExTables"></a>5.4&nbsp;Tables
+      </h2>
       <p>Table examples consist of a table (of course). See section <a href="#sTCTTables">6.1</a> for more on dealing with tables.
       </p>
-      <h2 style=""><a name="sExCharts">5.5&nbsp;Charts</a></h2>
+      <h2 style=""><a name="sExCharts"></a>5.5&nbsp;Charts
+      </h2>
       <p>Chart examples consist of a chart (of course). See section <a href="#sTCTCharts">6.2</a> for more on this.
       </p>
-      <h2 style=""><a name="sExTrees">5.6&nbsp;Trees</a></h2>
+      <h2 style=""><a name="sExTrees"></a>5.6&nbsp;Trees
+      </h2>
       <p>Tree examples consist of a tree diagram or image (of course). See section <a href="#sTCTTrees">6.3</a> for more on this.
       </p>
-      <h2 style=""><a name="sExDefinition">5.7&nbsp;Definitions</a></h2>
+      <h2 style=""><a name="sExDefinition"></a>5.7&nbsp;Definitions
+      </h2>
       <p>Definition examples merely consist of a definition, optionally including its key term. They come in two varieties: single
          and lists.
       </p>
-      <h3 style=""><a name="sExDefinitiionSingle">5.7.1&nbsp;Single definition examples</a></h3>
+      <h3 style=""><a name="sExDefinitiionSingle"></a>5.7.1&nbsp;Single definition examples
+      </h3>
       <p>A single definition example merely consists of a definition, including its key term. A definition example is given below.
          If you type what is shown in <a href="#xExDefinition">(38)</a>, you'll get the result in <a href="#xExDefinitionHTML">(39)</a> (assuming that this is the second example in the paper).
       </p>
@@ -1734,7 +1794,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sExDefinitionList">5.7.2&nbsp;List of Definitions examples</a></h3>
+      <h3 style=""><a name="sExDefinitionList"></a>5.7.2&nbsp;List of Definitions examples
+      </h3>
       <p>The second kind of definition example is a list of definitions. As an example, if you type in the values as shown in <a href="#xLD2Data">(40)</a>, you'll get the result shown in <a href="#xLD2HTML">(41)</a> (assuming that this is the third example in the paper).
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -1781,11 +1842,13 @@
       </div>
       <p>Notice that one uses the <span style="font-family:fixed; color:purple; ">num</span> attribute of the <span style="font-family:fixed; color:maroon; ">example</span> element for these. In addition, one uses the <span style="font-family:fixed; color:purple; ">letter</span> attribute of the <span style="font-family:fixed; color:maroon; ">listDefinition</span> element. One does not need to label these <span style="font-family:fixed; color:purple; ">letter</span> attributes in any particular order. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will correctly assign the letters.
       </p>
-      <h2 style=""><a name="sExampleHeading">5.8&nbsp;Headings on Examples</a></h2>
+      <h2 style=""><a name="sExampleHeading"></a>5.8&nbsp;Headings on Examples
+      </h2>
       <p>Sometimes one wishes to tag an interlinear example or a list of interlinear examples with a title or heading or label. One
          uses the <span style="font-family:fixed; color:maroon; ">exampleHeading</span> element for this. Insert an <span style="font-family:fixed; color:maroon; ">exampleHeading</span> element within the <span style="font-family:fixed; color:maroon; ">example</span> element, just before the <span style="font-family:fixed; color:maroon; ">interlinear</span> or <span style="font-family:fixed; color:maroon; ">listInterlinear</span> element. One may also put an <span style="font-family:fixed; color:maroon; ">exampleHeading</span> element within a <span style="font-family:fixed; color:maroon; ">listInterlinear</span> element before a <span style="font-family:fixed; color:maroon; ">lineGroup</span> element. This way, you can label or tag each interlinear within the list as needed.
       </p>
-      <h2 style=""><a name="sExampleRf">5.9&nbsp;References to Examples</a></h2>
+      <h2 style=""><a name="sExampleRf"></a>5.9&nbsp;References to Examples
+      </h2>
       <p>Example numbering involves two aspects: an example number <span style="font-family:Courier New; font-weight:bold; ">declaration</span> and an example number <span style="font-family:Courier New; font-weight:bold; ">reference</span>. The example number declaration "declares" the existence of an example number and its unique name. The example number reference refers to an example number that is
          "declared" elsewhere within the file(s). Consider the following example:
       </p>
@@ -1896,9 +1959,11 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sTablesChartsTrees">6&nbsp;Tables, Charts, and Trees</a></h1>
+      <h1 style=""><a name="sTablesChartsTrees"></a>6&nbsp;Tables, Charts, and Trees
+      </h1>
       <p>One may also create tables, charts, and trees.</p>
-      <h2 style=""><a name="sTCTTables">6.1&nbsp;Tables</a></h2>
+      <h2 style=""><a name="sTCTTables"></a>6.1&nbsp;Tables
+      </h2>
       <p>In defining tables, one defines the rows and column elements, etc. Consider the following example:<span style="font-size:65%; vertical-align:super">[<a href="#nXMLmindTable">12</a>]</span></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -1991,7 +2056,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sTCTCharts">6.2&nbsp;Charts</a></h2>
+      <h2 style=""><a name="sTCTCharts"></a>6.2&nbsp;Charts
+      </h2>
       <p>One can also create charts. These currently simply have whatever content you put in them. One such possiblity is to use a
          reference to an image file. See the input in <a href="#xSampleChartGif">(49)</a> and the corresponding output in <a href="#xSampleChartGifHtml">(50)</a>.<span style="font-size:65%; vertical-align:super">[<a href="#nImages">13</a>]</span></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2028,7 +2094,8 @@
       </div>
       <p>Charts can also be used as numbered example merely by enclosing them within an <span style="font-family:fixed; color:maroon; ">example</span> element.
       </p>
-      <h2 style=""><a name="sTCTTrees">6.3&nbsp;Trees</a></h2>
+      <h2 style=""><a name="sTCTTrees"></a>6.3&nbsp;Trees
+      </h2>
       <p>One can also create tree diagrams. You can type plain text to try and format the tree (by using a lot of non-breaking spaces,
          for example) or you can use some tool to produce a tree image file (e.g. <a href="https://sdev.sil.org/sdev/ls/dev/project/carla/software/LingTree">LingTree</a>). The following tree uses the latter.
       </p>
@@ -2068,7 +2135,8 @@
       </div>
       <p>A tree may also just be inserted by not enclosing it within an <span style="font-family:fixed; color:maroon; ">example</span> element.
       </p>
-      <h2 style=""><a name="sTCTFloats">6.4&nbsp;Floats (Numbered Tables and Figures)</a></h2>
+      <h2 style=""><a name="sTCTFloats"></a>6.4&nbsp;Floats (Numbered Tables and Figures)
+      </h2>
       <p>Some publishers require one to put tables, charts and trees in special formatting items sometimes called &#8220;floats.&#8221; The idea
          is that where these items will appear in the published document will &#8220;float" depending on what is best as determined by the
          typesetter.<span style="font-size:65%; vertical-align:super">[<a href="#nFloat">14</a>]</span> Personally, I am not a fan of floats. Whenever I am reading an article or book that has these, it is often the case that
@@ -2079,7 +2147,8 @@
       </p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> provides two kinds of floats: figures and numbered tables.
       </p>
-      <h3 style=""><a name="sTCTFloatsFigures">6.4.1&nbsp;Figures</a></h3>
+      <h3 style=""><a name="sTCTFloatsFigures"></a>6.4.1&nbsp;Figures
+      </h3>
       <p>Figures consist of a required <span style="font-family:fixed; color:maroon; ">chart</span> element and an optional <span style="font-family:fixed; color:maroon; ">caption</span> element. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers,
          each figure is numbered consecutively. For books (i.e. documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for figures starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the figure number.
       </p>
@@ -2188,11 +2257,13 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sTCTFloatsFigureRef">6.4.2&nbsp;References to Figures</a></h3>
+      <h3 style=""><a name="sTCTFloatsFigureRef"></a>6.4.2&nbsp;References to Figures
+      </h3>
       <p>As noted in section <a href="#sTCTFloatsFigures">6.4.1</a>, you should give each figure a unique identifier name (that begins with a lower case <span style="font-family:fixed; font-weight:bold; ">f</span>). This is so you can refer to the figure elsewhere in the paper. When your document is processed, a hyperlink is made between
          the reference and the figure.
       </p>
-      <h4 style=""><a name="sTCTFloatsFigureRefTextBefore">6.4.2.1&nbsp;Controlling Text before a Reference to a Figure</a></h4>
+      <h4 style=""><a name="sTCTFloatsFigureRefTextBefore"></a>6.4.2.1&nbsp;Controlling Text before a Reference to a Figure
+      </h4>
       <p>One can also control what text precedes a figure reference, if one so chooses. Some people like to use a word such as &#8220;figure,&#8221;
          whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that some publishers
          may want the author to do it one way or the other. In fact, some publications want authors to use capitalized "Figure" while
@@ -2318,7 +2389,8 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sTCTFloatsNumberedTables">6.4.3&nbsp;Numbered Tables</a></h3>
+      <h3 style=""><a name="sTCTFloatsNumberedTables"></a>6.4.3&nbsp;Numbered Tables
+      </h3>
       <p>Numbered tables consist of a required <span style="font-family:fixed; color:maroon; ">tablenumbered</span> element<span style="font-size:65%; vertical-align:super">[<a href="#nTablenumbered">18</a>]</span> and a required <span style="font-family:fixed; color:maroon; ">table</span> element. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers,
          each numbered table is numbered consecutively. For books (i.e. documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for numbered tables starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the table number.
       </p>
@@ -2436,12 +2508,14 @@
             </tr>
          </table>
       </div>
-      <h3 style=""><a name="sTCTFloatsNumberedTableRef">6.4.4&nbsp;References to Numbered Tables</a></h3>
+      <h3 style=""><a name="sTCTFloatsNumberedTableRef"></a>6.4.4&nbsp;References to Numbered Tables
+      </h3>
       <p>As noted in section <a href="#sTCTFloatsNumberedTables">6.4.3</a>, you should give each numbered table a unique identifier name (that begins with lower case <span style="font-family:fixed; font-weight:bold; ">nt</span>). This is so you can refer to the numbered table elsewhere in the paper.
       </p>
       <p>To make such a reference to a numbered table, you use the <span style="font-family:fixed; color:maroon; ">tablenumberedRef</span> element.
       </p>
-      <h4 style=""><a name="sTCTFloatsTableNumberedRefTextBefore">6.4.4.1&nbsp;Controlling Text before a Reference to a Numbered Table</a></h4>
+      <h4 style=""><a name="sTCTFloatsTableNumberedRefTextBefore"></a>6.4.4.1&nbsp;Controlling Text before a Reference to a Numbered Table
+      </h4>
       <p>One can also control what text precedes a numbered table reference, if one so chooses. Some people like to use a word such
          as &#8220;table,&#8221; whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that
          some publishers may want the author to do it one way or the other. In fact, some publications want authors to use capitalized
@@ -2568,7 +2642,8 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sLists">7&nbsp;Lists</a></h1>
+      <h1 style=""><a name="sLists"></a>7&nbsp;Lists
+      </h1>
       <p>Lists come in three varieties:</p>
       <ul>
          <li>Unordered or bulleted</li>
@@ -2576,7 +2651,8 @@
          <li>Definition lists</li>
       </ul>
       <p>Each one is explained and illustrated in the following sections.</p>
-      <h2 style=""><a name="sListsUnordered">7.1&nbsp;Unordered or Bulleted Lists</a></h2>
+      <h2 style=""><a name="sListsUnordered"></a>7.1&nbsp;Unordered or Bulleted Lists
+      </h2>
       <p>Unordered or bulleted lists consist of items, each of which is tagged with a bullet. For example, if you type what is shown
          in <a href="#xULSample">(63)</a>, the corresponding output will be as in <a href="#xULSampleHTML">(64)</a>.
       </p>
@@ -2614,7 +2690,8 @@
       <p>One can embed lists within lists. Normally, one uses the same kind of list for both the outside and inside lists, but one
          can mix the varieties. To embed a list, merely insert the embedded list within an <span style="font-family:fixed; color:maroon; ">li</span> element.
       </p>
-      <h2 style=""><a name="sListsOrdered">7.2&nbsp;Ordered or Numbered Lists</a></h2>
+      <h2 style=""><a name="sListsOrdered"></a>7.2&nbsp;Ordered or Numbered Lists
+      </h2>
       <p>Ordered or numbered lists consist of items, each of which is tagged with a number or letter in sequence. For example, if you
          type what is shown in <a href="#xOLSample">(65)</a>, the corresponding output will be as in <a href="#xOLSampleHTML">(66)</a>.
       </p>
@@ -2652,7 +2729,8 @@
       <p>One can embed lists within lists. Normally, one uses the same kind of list for both the outside and inside lists, but one
          can mix the varieties. To embed a list, merely insert the embedded list within an <span style="font-family:fixed; color:maroon; ">li</span> element.
       </p>
-      <h2 style=""><a name="sListsDefinition">7.3&nbsp;Definition Lists</a></h2>
+      <h2 style=""><a name="sListsDefinition"></a>7.3&nbsp;Definition Lists
+      </h2>
       <p>Definition lists are lists whose items have two parts: a term and its definition. Appendix <a href="#aElements">A</a> in this document has such a list in it.
       </p>
       <p>For example, if you type what is shown in <a href="#xDLSample">(67)</a>, the corresponding output will be as in <a href="#xDLSampleHTML">(68)</a>.
@@ -2690,11 +2768,13 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sCitations">8&nbsp;Citations</a></h1>
+      <h1 style=""><a name="sCitations"></a>8&nbsp;Citations
+      </h1>
       <p>Reference citations involve two aspects: the declaration of a label and citations to that label. As with example number names,
          the label is chosen by the user. A label can be any sequence of characters the user wishes to use (such as <span style="font-family:fixed; font-weight:bold; ">rChomsky81</span> or <span style="font-family:fixed; font-weight:bold; ">rLGB</span>, for example). The <span style="font-family:fixed; color:purple; ">id</span> attribute of the <span style="font-family:fixed; color:maroon; ">refWork</span> element declares the unique label. The <span style="font-family:fixed; color:maroon; ">citation</span> element refers to the label and <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will insert the author name(s)<span style="font-size:65%; vertical-align:super">[<a href="#nAuthName">20</a>]</span> and date in an appropriate fashion.
       </p>
-      <h2 style=""><a name="sCitationsExample">8.1&nbsp;Basic Examples</a></h2>
+      <h2 style=""><a name="sCitationsExample"></a>8.1&nbsp;Basic Examples
+      </h2>
       <p>Consider the examples shown in <a href="#xCitationExample">(69)</a> which come out as shown in <a href="#xCitationExampleHTML">(70)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2743,7 +2823,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sCitationsDate">8.2&nbsp;Controlling the Date</a></h2>
+      <h2 style=""><a name="sCitationsDate"></a>8.2&nbsp;Controlling the Date
+      </h2>
       <p>Recall that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> only includes those reference entries which have a corresponding citation somewhere in the file(s). Suppose that there are
          two <span style="font-family:fixed; color:maroon; ">refWork</span> elements for a particular <span style="font-family:fixed; color:maroon; ">refAuthor</span> element, both of which are for the same year as in <a href="#xCitationDateExample">(71)</a></p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2854,7 +2935,8 @@
             </tr>
          </table>
       </div>
-      <h2 style=""><a name="sCitationsPage">8.3&nbsp;Controlling Page Numbers</a></h2>
+      <h2 style=""><a name="sCitationsPage"></a>8.3&nbsp;Controlling Page Numbers
+      </h2>
       <p>Sometimes a writer wishes to include a page number with the citation. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> provides a means for doing this. Suppose the references section for <a href="#xCitationPage">(75)</a> below is the same as that in <a href="#xCitationExample">(69)</a>-<a href="#xCitationExampleHTML">(70)</a> above. Then the result of giving <a href="#xCitationPage">(75)</a> to <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is shown in <a href="#xCitationPageHTML">(76)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2894,7 +2976,8 @@
       <p>The contents of the <span style="font-family:fixed; color:purple; ">page</span> attribute of the <span style="font-family:fixed; color:maroon; ">citation</span> element is inserted after the date with an intervening colon. Any string of characters (not just digits) can be used as a
          page number.
       </p>
-      <h2 style=""><a name="sCitationsAttributes">8.4&nbsp;Attribute Summary</a></h2>
+      <h2 style=""><a name="sCitationsAttributes"></a>8.4&nbsp;Attribute Summary
+      </h2>
       <p>The reference citation attributes are summarized in <a href="#xCitationAttributes">(77)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -2955,18 +3038,20 @@
             </tr>
          </table>
       </div>
-      <h1 style=""><a name="sInterlinearText">9&nbsp;Interlinear Text</a></h1>
+      <h1 style=""><a name="sInterlinearText"></a>9&nbsp;Interlinear Text
+      </h1>
       <p>Some linguistic papers and books include one or more complete interlinear glossed texts, often in one or more appendices.
          <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows you to include such texts. The form of the interlinear within the interlinear text may be the same as any of those
          described for interlinear examples (see section <a href="#sExInterlinear">5.3</a>).
       </p>
       <p>Occasionally, such interlinear text is preceded by the same text in paragraph form.<span style="font-size:65%; vertical-align:super">[<a href="#nProseText">21</a>]</span> In such cases, use a <span style="font-family:fixed; color:maroon; ">prose-text</span> element to key the text. Set the <span style="font-family:fixed; color:purple; ">lang</span> attribute of the <span style="font-family:fixed; color:maroon; ">prose-text</span> element to the <span style="font-family:fixed; color:purple; ">id</span> attribute value of the <span style="font-family:fixed; color:maroon; ">language</span> element the text is written in. The text will then be formatted in the output per the information contained in that <span style="font-family:fixed; color:maroon; ">language</span> element.
       </p>
-      <h2 style=""><a name="sInterlinearTextFLEx">9.1&nbsp;Importing a text from <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span></a></h2>
+      <h2 style=""><a name="sInterlinearTextFLEx"></a>9.1&nbsp;Importing a text from <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span></h2>
       <p>One possible way to include an interlinear text is to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program to interlinearize a text and then export the text in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> format.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExTextExport">22</a>]</span> One can then merely copy and paste the resulting text into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a> for more on the <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program.
       </p>
       <p>Note that if you use this option, then most of what is described in the next section has already been done for you.</p>
-      <h2 style=""><a name="sInterlinearTextManually">9.2&nbsp;Entering an interlinear text by hand</a></h2>
+      <h2 style=""><a name="sInterlinearTextManually"></a>9.2&nbsp;Entering an interlinear text by hand
+      </h2>
       <p>One can also key an entire interlinear text by hand.</p>
       <p>For example, if you key what is in <a href="#xInterlinear-TextOptionKeyed">(78)</a>,<span style="font-size:65%; vertical-align:super">[<a href="#nLifeInQSource">23</a>]</span> it will look like what is shown in <a href="#xInterlinear-TextOptionKeyedHTML">(79)</a>.
       </p>
@@ -3032,10 +3117,12 @@
       </p>
       <p>If you will want to make reference to a portion, then you should give a unique <span style="font-family:fixed; color:purple; ">text</span> ID attribute<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span> to the <span style="font-family:fixed; color:maroon; ">interlinear</span> element in such a portion. In the example in <a href="#xInterlinear-TextOptionKeyed">(78)</a>, we did this for the second portion, using a <span style="font-family:fixed; color:purple; ">text</span> ID of <span style="font-family:fixed; font-style:italic; color:steelblue; ">TLIQ2</span>. You can now make reference to this in an interlinear example. See section <a href="#sExInterlinearSourceIncluded">5.3.4.1</a> for more on this.
       </p>
-      <h1 style=""><a name="sSpecialEffects">10&nbsp;Special Effects</a></h1>
+      <h1 style=""><a name="sSpecialEffects"></a>10&nbsp;Special Effects
+      </h1>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> allows for two types of special effects.
       </p>
-      <h2 style=""><a name="sSpecialEffectsText">10.1&nbsp;Text</a></h2>
+      <h2 style=""><a name="sSpecialEffectsText"></a>10.1&nbsp;Text
+      </h2>
       <p>Within a paragraph or other text, you may want to create some special effects (such as we do here for the word <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> and for element and attribute names). Normally you will use an <span style="font-family:fixed; color:maroon; ">object</span> element for these, although there is also the <span style="font-family:fixed; color:maroon; ">langData</span> element. The latter is to be used for all language data in order to provide a consistent rendering for language data. It
          also tags all instances of such language data within the document. This is important for archiving purposes.
       </p>
@@ -3121,7 +3208,8 @@
       </div>
       <p>You can also add highlights or other effects to a language data item by embedding an <span style="font-family:fixed; color:maroon; ">object</span> element within a <span style="font-family:fixed; color:maroon; ">langData</span> element.
       </p>
-      <h2 style=""><a name="sSpecialEffectsLinks">10.2&nbsp;HyperText Links</a></h2>
+      <h2 style=""><a name="sSpecialEffectsLinks"></a>10.2&nbsp;HyperText Links
+      </h2>
       <p>It is also possible to create a special hyperlink by using the <span style="font-family:fixed; color:maroon; ">genericRef</span> element within text. The <span style="font-family:fixed; color:maroon; ">genericRef</span> element has one attribute: <span style="font-family:fixed; color:purple; ">gref</span> which should be the <span style="font-family:fixed; color:purple; ">id</span> attribute of some section, appendix, example, or endnote element. Type some text between the begin <span style="font-family:fixed; color:maroon; ">genericRef</span> element and its endtag. The result will be a hyperlink on that text that will link to the appropriate section, appendix,
          example, or endnote.
       </p>
@@ -3134,16 +3222,19 @@
          </li>
          <li>Click on this icon to hear some Mandarin Chinese: <a href="resources/Chinese.wav"> <img src="resources/SPEAKER.BMP"> </a></li>
       </ol>
-      <h1 style=""><a name="sPublishingInfo">11&nbsp;Publishing Information</a></h1>
+      <h1 style=""><a name="sPublishingInfo"></a>11&nbsp;Publishing Information
+      </h1>
       <p>When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication
          and also sometimes one needs to include contact information for the authors. One includes this kind of information via the
          optional <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element. The <span style="font-family:fixed; color:maroon; ">publishingInfo</span> element has two optional parts: the blurb and author contacts.
       </p>
-      <h2 style=""><a name="sPublishingBlurb">11.1&nbsp;Publishing Blurb</a></h2>
+      <h2 style=""><a name="sPublishingBlurb"></a>11.1&nbsp;Publishing Blurb
+      </h2>
       <p>The optional <span style="font-family:fixed; color:maroon; ">publishingBlurb</span> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part
          of, copyright notice, links to online versions of the paper, etc. The content of a <span style="font-family:fixed; color:maroon; ">publishingBlurb</span> element is plain text and any of the embedded elements.<span style="font-size:65%; vertical-align:super">[<a href="#nEmbedded">6</a>]</span> When you need multiple lines in the blurb, separate each part by a <span style="font-family:fixed; color:maroon; ">br</span> element.
       </p>
-      <h2 style=""><a name="sAuthorContactInformation">11.2&nbsp;Author Contact Information</a></h2>
+      <h2 style=""><a name="sAuthorContactInformation"></a>11.2&nbsp;Author Contact Information
+      </h2>
       <p>Some publications include more than merely an author's name and affiliation. They want to show the author's contact information,
          including things like full name (perhaps including degree initials, professor title, etc.), mail address, phone number, and/or
          a web site or other electronic contact information.
@@ -3197,7 +3288,7 @@
       </p>
       <p>The <span style="font-family:fixed; color:maroon; ">contactElectronic</span> element also has a <span style="font-family:fixed; color:purple; ">show</span> attribute. When it is set to <span style="font-family:fixed; font-style:italic; color:steelblue; ">no</span>, the content of the <span style="font-family:fixed; color:maroon; ">contactElectronic</span> element will not be included in the output. When it is set to <span style="font-family:fixed; font-style:italic; color:steelblue; ">yes</span> (which is the default), the content of the <span style="font-family:fixed; color:maroon; ">contactElectronic</span> element will be included in the output.
       </p>
-      <h1 style=""><a name="sXMLmindXMLEditor">12&nbsp;Our Preferred Editor: the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></a></h1>
+      <h1 style=""><a name="sXMLmindXMLEditor"></a>12&nbsp;Our Preferred Editor: the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></h1>
       <p>The <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> is a freely downloadable editor that makes it quite easy to create not only <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> documents, but also XHTML documents, among others. This editor is a structured editor and has at least the following very
          nice features:
       </p>
@@ -3260,7 +3351,8 @@
       </p>
       <p>You are now on your way to creating your document.</p>
       <hr size="3">
-      <h1 style=""><a name="aElements">A.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Element Reference Guide</a></h1>
+      <h1 style=""><a name="aElements"></a>A.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Element Reference Guide
+      </h1>
       <p>This appendix lists the various elements available with <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> and briefly explains their usage. They are listed in alphabetical order.
       </p>
       <dl>
@@ -3715,7 +3807,8 @@
          </dd>
       </dl>
       <hr size="3">
-      <h1 style=""><a name="aStyleSheetElements">B.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet Element Reference Guide</a></h1>
+      <h1 style=""><a name="aStyleSheetElements"></a>B.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet Element Reference Guide
+      </h1>
       <p>This appendix lists the various elements available for an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet and briefly explains their usage. They are listed in alphabetical order.
       </p>
       <dl>
@@ -4172,8 +4265,8 @@
          <dt><span style="font-family:fixed; color:maroon; ">webPageLayouts</span></dt>
          <dd>Collection of web page layouts</dd>
       </dl>
-      <hr size="3"><a name="rXLingPapEndnotes">
-         <p style=""><big><big><big><b><a name="">Endnotes</a></b></big></big></big></p></a><table>
+      <hr size="3"><a name="rXLingPapEndnotes"></a><p style=""><big><big><big><b>Endnotes</b></big></big></big></p>
+      <table>
          <tr>
             <td valign="top"><a name="nMinimum">[1]</a></td>
             <td>
@@ -4451,8 +4544,8 @@
             </td>
          </tr>
       </table>
-      <hr size="3"><a name="rXLingPapReferences">
-         <p style=""><big><big><big><b><a name="">References</a></b></big></big></big></p></a><div style="margin-left:0.25in">
+      <hr size="3"><a name="rXLingPapReferences"></a><p style=""><big><big><big><b>References</b></big></big></big></p>
+      <div style="margin-left:0.25in">
          <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"><a name="rHughesBirdAndBow">Hughes, Baden, Steven Bird and Catherine Bow</a>.   2003. Encoding and Presenting Interlinear Text Using XML Technologies.  In Knott, Alistair and Dominique Estival, eds.<i>Proceedings Australasian Language Technology Workshop</i>, 105-113. Melbourne, Australia: University of Melbourne.
          </p>
          <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"><a name="rRegnier">Regnier, Randy</a>.   1989. Collection of unpublished Quiegolani Zapotec glossed texts. Summer Institute of Linguistics, Mexico Branch Manuscript.

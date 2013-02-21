@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 January 2013</date
+>21 February 2013</date
 ><version
->2.20.6</version
+>2.21.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -7739,10 +7739,10 @@ term="iInterlinearMultipleLineGroupLayoutSpacing"
 >Both of these are attributes on the <object
 type="tElement"
 >interlinearMultipleLineGroupLayout</object
-> element.  The <object
+> element. The <object
 type="tAttribute"
 >indentOfNonInitialGroup</object
-> attribute sets the indent.  Use a number followed immediately by a unit of measure (see example <exampleRef
+> attribute sets the indent. Use a number followed immediately by a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
@@ -7751,11 +7751,11 @@ num="xUnitsOfMeasure"
 >The vertical spacing between units is controlled by the <object
 type="tAttribute"
 >spaceBetweenGroups</object
-> attribute.  Use a number followed immediately by a unit of measure (see example <exampleRef
+> attribute. Use a number followed immediately by a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
->).  Note that this attribute does not work for web page or EBook outputs.</p
+>). Note that this attribute does not work for web page or EBook outputs.</p
 ></section2
 ><section2
 id="sEndnoteRefLayout"

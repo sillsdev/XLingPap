@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.20.8</a:version
+>2.21.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-02-13</a:date
+>2013-02-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,25 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.20.8 13 February 2013<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->Fix bug which caused the PDF to not be produced when a listWord or listSingle element was in an example in an endnote and that endnote was in a table cell (td element).</li
-></ul
-></li
-><li
->For web pages without a style sheet, fix a bug which would cause an endnote to not show correctly in many browsers.</li
-></ul
-></li
-><li
->2.20.7 30 January 2013<ul
-><li
->Fix bug which would cause any "textafter" material in a collCitationItem in the reference section of a publisher style sheet to be shown inappropriately when "fleshing out" the citation information.</li
-></ul
-></li
-><li
->2.20.6 21 January 2013<ul
+>2.21.0 21 February 2013<ul
 ><li
 >To publisher style sheets, add a new interlinearMultipleLineGroupLayout element to the contentLayout section. It has two attributes:<ul
 ><li
@@ -60,35 +42,11 @@ href="mailto::andy_black@sil.org"
 ></ul
 ></li
 ><li
->Fix bug which failed to show the content of an appendixRef or exampleRef in a secTitle in the contents and in PDF bookmarks.</li
-></ul
-></li
-><li
->2.20.5 18 January 2013<ul
-><li
->Let showLevel attribute of contents element have a value of 0 so that one can have a book whose table of contents shows chapters without any sections.</li
-><li
 >Add three attributes to the abbreviationsShownHere element to control the width of the abbreviation column (abbrWidth), the equals sign column (equalsWidth), and the definition column (definitionWidth). This is only used when the abbreviations are shown as a table.</li
 ><li
 >Make sure that if the abbreviations are shown as a table and any take more than a single line, that the information aligns at the top of the row in the table.</li
 ><li
->Update GIAL thesis publisher style sheet.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
-><li
->Fix bug which caused the PDF to not be produced when a period was immediately followed by a special character such as an underscore.</li
-><li
->Fix a bug where using the showinlandscapemode attribute on an appendix element could cause the PDF not to be produced when not using a style sheet.</li
-><li
->Fix bug which failed to show the content of a sectionRef in a secTitle in the contents and in PDF bookmarks.</li
-></ul
-></li
-></ul
-></li
-><li
->2.20.4 5 December 2012<ul
-><li
->Modify Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements to make it ignore when a wrd element contains an exampleRef.</li
+>Let showLevel attribute of contents element have a value of 0 so that one can have a book whose table of contents shows chapters without any sections.</li
 ><li
 >Add useappendixlabelbeforeappendixletter attribute in contentsLayout element of publisher style sheet to allow insertion of appendix label before the appendix letter in the contents.</li
 ><li
@@ -96,37 +54,21 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add useLabel for abstract layout in publisher style sheet documentation.</li
 ><li
+>Enable paragraphs and continuation paragraphs between interlinears in an interlinear text.</li
+><li
 >For the default way of producing PDF (via XeLaTeX): <ul
+><li
+>Fix bug which caused the PDF to not be produced when a listWord or listSingle element was in an example in an endnote and that endnote was in a table cell (td element).</li
+><li
+>Fix bug which caused the PDF to not be produced when a period was immediately followed by a special character such as an underscore.</li
+><li
+>Fix a bug where using the showinlandscapemode attribute on an appendix element could cause the PDF not to be produced when not using a style sheet.</li
+><li
+>Fix bug which failed to show the content of a sectionRef in a secTitle in the contents and in PDF bookmarks.</li
 ><li
 >Fix bug which caused the PDF to not be produced when using text-transform='uppercase' for back matter items in books.</li
-></ul
-></li
-></ul
-></li
-><li
->2.20.3 28 November 2012<ul
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Make XeLaTeXSpecial attribute value of 'pagebreak' work for a refWork element.</li
-></ul
-></li
-></ul
-></li
-><li
->2.20.2 20 November 2012<ul
-><li
->Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li
-><li
->Add Schematron check for valid values for table cell widths.</li
-><li
->Add ORCID to author element (ORCID = Open Researcher and Contributor ID; http://about.orcid.org/)</li
-><li
->For web page with a style sheet and for EBook outputs, fix the document title so it does not include the text of any endnote. (In a web page, this title shows at the very top of the browser window; in and EBook, it shows on the cover page.)</li
-><li
->For EBook output: fix bug which would fail to produce an EBook if the file name contained an underscore character.</li
-><li
->For the default way of producing PDF (via XeLaTeX): <ul
 ><li
 >Make XeLaTeXSpecial attribute value of 'pagebreak' work for a blockquote element.</li
 ><li
@@ -135,12 +77,26 @@ href="mailto::andy_black@sil.org"
 >Fix bug which failed to produce PDF when there was a framedType element but no framedUnit element.</li
 ></ul
 ></li
-></ul
-></li
 ><li
->2.20.1 23 October 2012<ul
+>For web pages without a style sheet, fix a bug which would cause an endnote to not show correctly in many browsers.</li
 ><li
->Enable paragraphs and continuation paragraphs between interlinears in an interlinear text.</li
+>Fix bug which would cause any "textafter" material in a collCitationItem in the reference section of a publisher style sheet to be shown inappropriately when "fleshing out" the citation information.</li
+><li
+>Fix bug which failed to show the content of an appendixRef or exampleRef in a secTitle in the contents and in PDF bookmarks.</li
+><li
+>For EBook output: fix bug which would fail to produce an EBook if the file name contained an underscore character.</li
+><li
+>For web page with a style sheet and for EBook outputs, fix the document title so it does not include the text of any endnote. (In a web page, this title shows at the very top of the browser window; in and EBook, it shows on the cover page.)</li
+><li
+>Update GIAL thesis publisher style sheet.</li
+><li
+>Add ORCID to author element (ORCID = Open Researcher and Contributor ID; http://about.orcid.org/)</li
+><li
+>Add Schematron check for valid values for table cell widths.</li
+><li
+>Add Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements.</li
+><li
+>Modify Schematron check for two or more lines in an interlinear lineGroup with different number of wrd elements to make it ignore when a wrd element contains an exampleRef.</li
 ></ul
 ></li
 ><li

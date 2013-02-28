@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.21.0</a:version
+>2.21.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-02-21</a:date
+>2013-02-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.21.1 28 February 2013<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Rework how the automatic wrapping of interlinears works in order to fix problems where some aligned units went off the right margin and also to fix proper wrapping of long free translations.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.21.0 21 February 2013<ul
 ><li

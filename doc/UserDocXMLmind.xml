@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 February 2013</date
+>28 February 2013</date
 ><version
->2.21.0</version
+>2.21.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -1243,6 +1243,25 @@ type="tElement"
 > element. This can be useful when the URL of the link is too long to fit on the line.</td
 ><td
 >break-before</td
+></tr
+><tr
+><td
+><indexedItem
+term="ifix-free-literal-footnote-placement"
+></indexedItem
+>fix-free-literal-footnote-placement</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Fix incorrect footnote content placement.  In rare cases, footnote material can appear on a following page.  See <genericRef
+gref="gfix-free-literal-footnote-placement"
+>known limitations</genericRef
+>.</td
+><td
+>fix-free-literal-footnote-placement</td
 ></tr
 ><tr
 ><td
@@ -18074,6 +18093,44 @@ note="nXeLaTeXAttributes"
 ></endnoteRef
 ></li
 ><li
+><genericTarget
+id="gfix-free-literal-footnote-placement"
+></genericTarget
+>If you are using automatic wrapping for interlinear examples and you have either a <object
+type="tElement"
+>free</object
+> or a <object
+type="tElement"
+>literal</object
+> element with an <object
+type="tElement"
+>endnote</object
+> in it and it just so happens that the example is near the bottom of the page, you may find that the footnote content shows up on the next page, not the same page where the footnote should appear.  To fix this, set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of the  <object
+type="tElement"
+>free</object
+> or <object
+type="tElement"
+>literal</object
+> element to <object
+type="tAttrValue"
+>fix-free-literal-footnote-placement</object
+>.<endnoteRef
+note="nXeLaTeXAttributes"
+></endnoteRef
+>  The footnote should then appear on the correct page.  You can also just try and force the example to be on the next page by setting the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of the  <object
+type="tElement"
+>example</object
+> element to <object
+type="tAttrValue"
+>pagebreak</object
+>.</li
+><li
 >As mentioned above, the first time you try to produce a PDF file for a document, it may take quite a long time. This is especially so when a document has fonts that the <object
 type="tXeTeX"
 ></object
@@ -26599,6 +26656,16 @@ id="iFootnotes"
 see="iEndnotes"
 ><term
 >Footnotes</term
+><indexTerms
+><indexTerm
+id="ifix-free-literal-footnote-placement"
+><term
+>Footnote appears on next page in <object
+type="tXeTeX"
+></object
+>-produced PDF</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iFramedUnit"

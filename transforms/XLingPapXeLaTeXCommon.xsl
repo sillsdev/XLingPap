@@ -3863,10 +3863,12 @@
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
-        <xsl:if test="preceding-sibling::*[1][name()='free' or name()='literal']">
-            <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
-            <xsl:text>*</xsl:text>
+        <xsl:if test="$bAutomaticallyWrapInterlinears!='yes' or $mode='NoTextRef'">
+            <xsl:if test="preceding-sibling::*[1][name()='free' or name()='literal']">
+                <tex:spec cat="esc"/>
+                <tex:spec cat="esc"/>
+                <xsl:text>*</xsl:text>
+            </xsl:if>
         </xsl:if>
         <!-- add extra indent for when have an embedded interlinear; 
             be sure to allow for the case of when a listInterlinear begins with an interlinear -->
@@ -4013,6 +4015,16 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
+            <xsl:if test="$mode!='NoTextRef'">
+                <!-- Need to override the XLingPaperraggedright stuff so free comes out correctly -->
+                <xsl:if test="not(ancestor::listInterlinear)">
+                    <tex:spec cat="bg"/>
+                </xsl:if>
+                <tex:cmd name="rightskip" gr="0"/>
+                <xsl:text>=0pt</xsl:text>
+                <tex:cmd name="pretolerance" gr="0"/>
+                <xsl:text>=100</xsl:text>
+            </xsl:if>
             <tex:spec cat="esc"/>
             <xsl:text>hangindent</xsl:text>
             <xsl:choose>
@@ -4022,6 +4034,9 @@
                 <xsl:when test="contains($bListsShareSameCode,'N')">
                     <!-- want 1 plus 2.75 -->
                     <xsl:text>3.75</xsl:text>
+                </xsl:when>
+                <xsl:when test="count(ancestor::interlinear) &gt; 1">
+                    <xsl:text>2</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>1</xsl:text>
@@ -4100,6 +4115,27 @@
         <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <tex:spec cat="eg"/>
         </xsl:if>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and $mode!='NoTextRef' and not(ancestor::td)">
+            <xsl:if test="count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
+                <!--                <tex:cmd name="par"/> \par makes the hanging indent work, but causes bad page breaks and does not work in tables, etc.-->
+                <xsl:choose>
+                    <xsl:when test="following-sibling::*[1][name()='free' or name()='literal']">
+                    <!-- we want to keep this free with the following free or literal; using this will still wrap a long line -->    
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>*</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
+                            <!-- endnotes get put on next page if we try and use \vskip and it is near the bottom of the page -->
+                        <!-- any vertical operation will cause the hanging indent to work: it ends the paragraph: TeX Book, p. 86 -->
+                        <tex:cmd name="vskip" gr="0"/>
+                        <xsl:text>0pt</xsl:text>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="eg"/>
         </xsl:if>
@@ -4107,6 +4143,10 @@
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:if test="$mode!='NoTextRef' and not(ancestor::listInterlinear)">
+                <!-- finish overriding XLingPaperraggedright stuff -->
+                <tex:spec cat="eg"/>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="following-sibling::*[1][name()='interlinear'] ">
                     <xsl:call-template name="DoInterlinearFreeEndOfParagraph">
@@ -5029,6 +5069,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <tex:cmd name="XLingPaperraggedright" gr="0"/>
         <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="bg"/>
         </xsl:if>
@@ -9742,6 +9783,18 @@ What might go in a TeX package file
             <tex:parm>
                 <tex:cmd name="hskip" gr="0"/>
                 <tex:cmd name="XLingPaperinterwordskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <!-- Also do special ragged right with pretolerance to avoid long lines -->
+        <tex:cmd name="def" gr="0"/>
+        <tex:cmd name="XLingPaperraggedright">
+            <tex:parm>
+                <!-- See TeX book, page101 -->
+                <tex:cmd name="rightskip" gr="0"/>
+                <xsl:text>=0pt plus1fil</xsl:text>
+                <!-- See TeX book, page 96 -->
+                <tex:cmd name="pretolerance" gr="0"/>
+                <xsl:text>=10000</xsl:text>
             </tex:parm>
         </tex:cmd>
     </xsl:template>

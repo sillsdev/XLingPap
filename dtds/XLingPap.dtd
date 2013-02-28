@@ -462,12 +462,14 @@
 <!ELEMENT conflation (lineSet+)>
 <!ELEMENT free (#PCDATA | %embedded;)*>
 <!ATTLIST free
+    XeLaTeXSpecial CDATA #IMPLIED
     externalID CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!ELEMENT literal (#PCDATA | %embedded;)*>
 <!ATTLIST literal
+    XeLaTeXSpecial CDATA #IMPLIED
     externalID CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED

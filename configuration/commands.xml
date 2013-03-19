@@ -679,7 +679,6 @@ alt causes menu to be selected
                     <cfg:command name="setExample" parameter="%0"/>
                     <cfg:command name="setLanguage"/>
                     <cfg:command name="setSection" parameter="%0"/>
-                    <cfg:command name="setType"/>
                     <cfg:command name="setEndnote"/>
                     <cfg:command name="setIndexSee"/>
                     <cfg:command name="setIndex"/>
@@ -692,6 +691,8 @@ alt causes menu to be selected
                     <cfg:command name="setCollOrProcCitation"/>
                     <cfg:command name="setAuthorContactInfo"/>
                     <cfg:command name="setFramedType"/>
+                    <cfg:command name="setContentType"/>
+                    <cfg:command name="setType"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
@@ -1191,6 +1192,26 @@ alt causes menu to be selected
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="setContentType">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="putAttribute" parameter="[implicitElement] contentType"/>
+                </cfg:pass>
+                <cfg:command name="getContentTypesAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Content Type' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] contentType %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getContentTypesAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/getContentTypesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
     <cfg:binding>
         <cfg:keyPressed code="F11" modifiers="shift ctrl"/>
         <cfg:command name="jumpToWorkInReferences"/>
@@ -1283,7 +1304,8 @@ alt causes menu to be selected
     <cfg:command name="applyXLingPapTransform">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPap1.xsl" to="%{P}%{S}%{R}.htm">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="../transforms/XLingPap1.xsl" to="%{P}%{S}%{R}.htm">
                 <!--
           sInterlinearSourceStyle:
           The default is AfterFirstLine (immediately after the last item in the first line)
@@ -1302,8 +1324,9 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="applyXLingPapXHTMLTransform">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}.css"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{R}.htm">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}.css"/>
+            <cfg:transform file="in2.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{R}.htm">
                 <cfg:parameter name="sFileName">%{R}</cfg:parameter>
             </cfg:transform>
         </cfg:process>
@@ -1355,7 +1378,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="ConvertToEPUBEBook">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
@@ -1392,7 +1415,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="ConvertToEPUBEBookProcessing">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%{R}.epub"/>
                 <cfg:set variable="result" plainString="true" expression="%_"/>
@@ -1468,8 +1491,9 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="eBookPrepPublisherStyleSheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}4EBook.css"/>
-            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{0}4EBook.htm">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTMLCSS.xsl" to="%{P}%{S}%{R}4EBook.css"/>
+            <cfg:transform file="in2.xml" stylesheet="../transforms/XLingPapPublisherStylesheetXHTML.xsl" to="%{P}%{S}%{0}4EBook.htm">
                 <cfg:parameter name="sFileName">%{R}</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="bEBook">Y</cfg:parameter>
@@ -1790,7 +1814,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="PDFCompletionProcessing">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
@@ -1923,7 +1947,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="produceBookPDFFromCannedStylesheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
                 <cfg:parameter name="sFOProcessor">XEP</cfg:parameter>
                 <!--
              sInterlinearSourceStyle:
@@ -1977,8 +2002,8 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
             <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
             <cfg:copyDocument to="in.xml"/>
-            <!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}%{R}ParseError.xml"/>-->
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
                 <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
                 <cfg:parameter name="sPageHeight">11in</cfg:parameter>
                 <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
@@ -2021,8 +2046,8 @@ What we want is to load IE independently and to do a refresh so it will show the
         <cfg:process>
             <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
             <cfg:copyDocument to="in.xml"/>
-            <!--            <cfg:copy quiet="true" files="in.xml" to="%{P}%{S}in.xml"/>-->
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetXeLaTeX.xsl" to="TeXML.xml">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetXeLaTeX.xsl" to="TeXML.xml">
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
@@ -2048,7 +2073,8 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
             <cfg:subProcess name="ProducePDFViaXeLaTeXInitialProcessing" parameter="&quot;%1&quot;"/>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapXeLaTeX1.xsl" to="TeXML.xml">
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
@@ -2071,7 +2097,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="producePaperPDFFromCannedStylesheetViaFO">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="in.psmi">
                 <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
                 <cfg:parameter name="sPageHeight">11in</cfg:parameter>
                 <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
@@ -2102,7 +2129,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="producePDFFromEmbeddedStylesheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF.bat&quot; &quot;%{P}%{S}%{R}&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Unix"/>
         </cfg:process>
@@ -2230,7 +2258,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="produceWord2003DocumentFromCannedStylesheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapFO1.xsl" to="%{P}/%{R}.fo">
                 <cfg:parameter name="sPageWidth">8.5in</cfg:parameter>
                 <cfg:parameter name="sPageHeight">11in</cfg:parameter>
                 <cfg:parameter name="sBasicPointSize">12</cfg:parameter>
@@ -2258,7 +2287,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="produceWord2003DocumentFromEmbeddedStylesheet">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo">
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapPublisherStylesheetFO.xsl" to="%{P}/%{R}.fo">
                 <cfg:parameter name="sFOProcessor">XFC</cfg:parameter>
             </cfg:transform>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoWord.bat&quot; &quot;%{P}%{S}%{R}&quot; &quot;%{P}&quot; %0" platform="Windows"/>
@@ -2398,7 +2428,8 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="produceHandoutTransform">
         <cfg:process>
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="..%{S}transforms%{S}XLingPapToHandout.xsl" to="%{P}%{S}%{R}Handout.%{E}"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in2.xml" stylesheet="..%{S}transforms%{S}XLingPapToHandout.xsl" to="%{P}%{S}%{R}Handout.%{E}"/>
         </cfg:process>
     </cfg:command>
     <!-- Following requires almost 12MB of zipped stuff to actually work...  
@@ -2784,7 +2815,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="convertTdToTh">
-        <cfg:macro trace="true" undoable="true" repeatable="true">
+        <cfg:macro trace="false" undoable="true" repeatable="true">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:test expression="number(%0) &gt; 0"/>
@@ -2804,7 +2835,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="InsertHeaderRows">
-        <cfg:macro trace="true" undoable="true" repeatable="true">
+        <cfg:macro trace="false" undoable="true" repeatable="true">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:test expression="number(%0) &gt; 0"/>
@@ -2815,13 +2846,86 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="InsertColumns">
-        <cfg:macro trace="true" undoable="true" repeatable="true">
+        <cfg:macro trace="false" undoable="true" repeatable="true">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:test expression="number(%0) &gt; 0"/>
                 </cfg:pass>
                 <cfg:command name="xhtml.tableEdit" parameter="pasteColumnAfter"/>
                 <cfg:command name="InsertColumns" parameter="number(%0)-1"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="UseThisContentControlChoice">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:command name="putAttribute" parameter="active  yes"/>
+                <cfg:command name="SetPreviousContentControlChoiceOff"/>
+                <cfg:command name="SetNextContentControlChoiceOff"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="SetPreviousContentControlChoiceOff">
+        <!-- We recursively move through all previous content control choice elements and make sure
+                their active attribute is set to no.  We also need to move the current selection back each time. -->
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="previousSibling"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:command name="putAttribute" parameter="active  no"/>
+<!--                                <cfg:command name="alert" parameter="Previous: After setting active to no"/>-->
+                            </cfg:sequence>
+                            <cfg:sequence>
+<!--                                <cfg:command name="alert" parameter="Previous: Could not set active to no"/>-->
+                                <!-- following is a no op -->
+                                <cfg:command name="selectNode" parameter="self"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        <cfg:command name="SetPreviousContentControlChoiceOff"/>
+                        <cfg:command name="selectNode" parameter="nextSibling"/>
+<!--                        <cfg:command name="alert" parameter="Previous: After next sibling"/>-->
+                    </cfg:sequence>
+                    <cfg:sequence>
+<!--                        <cfg:command name="alert" parameter="Previous: in no op"/>-->
+                        <!-- following is a no op -->
+                        <cfg:command name="selectNode" parameter="self"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="SetNextContentControlChoiceOff">
+        <!-- We recursively move through all following content control choice elements and make sure
+            their active attribute is set to no.  We also need to move the current selection back each time. -->
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:command name="selectNode" parameter="nextSibling"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:command name="putAttribute" parameter="active  no"/>
+<!--                                <cfg:command name="alert" parameter="Next: After setting active to no"/>-->
+                            </cfg:sequence>
+                            <cfg:sequence>
+<!--                                <cfg:command name="alert" parameter="Next: Could not set active to no"/>-->
+                                <!-- following is a no op -->
+                                <cfg:command name="selectNode" parameter="self"/>
+                            </cfg:sequence>
+                        </cfg:choice>
+                        <cfg:command name="SetNextContentControlChoiceOff"/>
+                        <cfg:command name="selectNode" parameter="previousSibling"/>
+<!--                        <cfg:command name="alert" parameter="Next: After previous sibling"/>-->
+                    </cfg:sequence>
+                    <cfg:sequence>
+<!--                        <cfg:command name="alert" parameter="Next: in no op"/>-->
+                        <!-- following is a no op -->
+                        <cfg:command name="selectNode" parameter="self"/>
+                    </cfg:sequence>
+                </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

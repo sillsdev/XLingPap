@@ -2567,6 +2567,8 @@
     <xsl:template match="beforeTerm"/>
     <xsl:template match="blockQuoteIndent"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
+    <xsl:template match="contentControlChoice"/>
+    <xsl:template match="contentType"/>
     <xsl:template match="defaultFontFamily"/>
     <xsl:template match="fixedText"/>
     <xsl:template match="footerMargin"/>

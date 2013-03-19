@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.21.1</span></p>
-      <p align="center">Date: 2013-02-28</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.21.2</span></p>
+      <p align="center">Date: 2013-03-19</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,24 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.21.2 19 March 2013
+                  <ul>
+                     <li>Add content control mechanism.</li>
+                  </ul>
+               </li>
+               <li>2.21.1_1 01 March 2013
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when using automatic wrapping of interlinears, showing ISO codes, and when there is an example with listInterlinears
+                              that (i) have different ISO codes and (ii) have an exampleHeading before the first listInterlinear, the content of the first
+                              listInterlinear was not always shown correctly.
+                           </li>
+                           <li>Fix bug: A blockquote in an endnote within a table could cause the PDF to not be produced.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.21.1 28 February 2013
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->21 February 2013</date
+>14 March 2013</date
 ><version
->2.21.0</version
+>2.21.2</version
 ><contents
 showLevel="3"
 ></contents
@@ -9400,6 +9400,47 @@ type="tElement"
 ></dt
 ><dd
 >Contact phone number for an author</dd
+><dt
+><object
+type="tElement"
+>contentControl</object
+></dt
+><dd
+>Way to control (exclude) content</dd
+><dt
+><object
+type="tElement"
+>contentControlChoice</object
+></dt
+><dd
+>An instance of a way to control content</dd
+><dt
+><object
+type="tElement"
+>contentControlChoices</object
+></dt
+><dd
+>A collection of <object
+type="tElement"
+>contentControlChoice</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>contentControlType</object
+></dt
+><dd
+>A type for controlling content</dd
+><dt
+><object
+type="tElement"
+>contentControlTypes</object
+></dt
+><dd
+>A collection of <object
+type="tElement"
+>contentControlType</object
+> elements</dd
 ><dt
 ><object
 type="tElement"

@@ -4136,7 +4136,16 @@
             <xsl:with-param name="sTitle" select="$sTitle"/>
             <xsl:with-param name="bIsBook" select="'Y'"/>
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sFirstPageStyle" select="'backmatterfirstpage'"/>
+            <xsl:with-param name="sFirstPageStyle">
+                <xsl:choose>
+                    <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
+                        <xsl:text>backmatterfirstpage</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>bodyfirstpage</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
             <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
                 content of the hypertarget be empty, we suddenly got an extra page break here.
             -->

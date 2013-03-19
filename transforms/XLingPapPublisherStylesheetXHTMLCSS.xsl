@@ -1629,6 +1629,8 @@ li.lower-roman {
     <xsl:template match="author" mode="contents"/>
     <xsl:template match="comment"/>
     <xsl:template match="comment" mode="contents"/>
+    <xsl:template match="contentControlChoice"/>
+    <xsl:template match="contentType"/>
     <xsl:template match="date" mode="contents"/>
     <xsl:template match="dd"/>
     <xsl:template match="fixedText"/>

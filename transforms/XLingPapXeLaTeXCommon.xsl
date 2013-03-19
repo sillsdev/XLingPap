@@ -255,11 +255,27 @@
         <xsl:value-of select="."/>
         <xsl:if test="following-sibling::*[1][name()='p'or name()='pc' or name()='example' or name()='table' or name()='tablenumbered' or name()='chart' or name()='figure' or name()='tree' or name()='ol' or name()='ul' or name()='dl']">
             <!-- any chunk item following requires a \par here -->
-            <tex:cmd name="par"/>
+            <xsl:choose>
+                <xsl:when test="ancestor::td">
+                    <tex:cmd name="vskip" gr="0"/>
+                    <xsl:text>0pt</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="par"/>    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="count(following-sibling::*)=0">
             <!-- if all there is is text, still need a \par -->
-            <tex:cmd name="par"/>
+            <xsl:choose>
+                <xsl:when test="ancestor::td">
+                    <tex:cmd name="vskip" gr="0"/>
+                    <xsl:text>0pt</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="par"/>    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
     </xsl:template>
     <!-- ===========================================================
@@ -4120,7 +4136,7 @@
                 <!--                <tex:cmd name="par"/> \par makes the hanging indent work, but causes bad page breaks and does not work in tables, etc.-->
                 <xsl:choose>
                     <xsl:when test="following-sibling::*[1][name()='free' or name()='literal']">
-                    <!-- we want to keep this free with the following free or literal; using this will still wrap a long line -->    
+                        <!-- we want to keep this free with the following free or literal; using this will still wrap a long line -->
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
                         <xsl:text>*</xsl:text>
@@ -4128,9 +4144,9 @@
                     <xsl:otherwise>
                         <xsl:if test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
                             <!-- endnotes get put on next page if we try and use \vskip and it is near the bottom of the page -->
-                        <!-- any vertical operation will cause the hanging indent to work: it ends the paragraph: TeX Book, p. 86 -->
-                        <tex:cmd name="vskip" gr="0"/>
-                        <xsl:text>0pt</xsl:text>
+                            <!-- any vertical operation will cause the hanging indent to work: it ends the paragraph: TeX Book, p. 86 -->
+                            <tex:cmd name="vskip" gr="0"/>
+                            <xsl:text>0pt</xsl:text>
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -5117,6 +5133,10 @@
         <tex:spec cat="esc"/>
         <xsl:text>hangafter</xsl:text>
         <xsl:choose>
+            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
+                <!-- if we use 2, then longer interlinears are aligned incorrectly -->
+                <xsl:text>1</xsl:text>
+            </xsl:when>
             <xsl:when test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
                 <xsl:text>2</xsl:text>
             </xsl:when>

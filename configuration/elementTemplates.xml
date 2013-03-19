@@ -2182,4 +2182,15 @@ table
             </publishingBlurb>
         </publishingInfo>
     </cfg:elementTemplate>
+   <cfg:elementTemplate name="contentControl" selectable="override">
+      <contentControl xmlns="">
+         <contentControlChoices>
+            <contentControlChoice>Show everything</contentControlChoice>
+         </contentControlChoices>
+         <contentTypes>
+            <contentType id="ct">
+            </contentType>
+         </contentTypes>
+      </contentControl>
+   </cfg:elementTemplate>
 </cfg:configuration>

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->28 February 2013</date
+>19 March 2013</date
 ><version
->2.21.1</version
+>2.21.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -1256,7 +1256,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Fix incorrect footnote content placement.  In rare cases, footnote material can appear on a following page.  See <genericRef
+>Fix incorrect footnote content placement. In rare cases, footnote material can appear on a following page. See <genericRef
 gref="gfix-free-literal-footnote-placement"
 >known limitations</genericRef
 >.</td
@@ -2141,7 +2141,10 @@ type="tElement"
 >, <object
 type="tElement"
 >dl</object
->, and <object
+>, <object
+type="tElement"
+>prose-text</object
+> and <object
 type="tElement"
 >interlinear-text</object
 >.</p
@@ -11775,7 +11778,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Specifies the width of the element. It may be a percentage.</langData
+>Specifies the width of the element. It may be a percentage of the total width.</langData
 ></td
 ></tr
 ></table
@@ -17452,13 +17455,16 @@ id="sFAQSpellingAddon"
 ><secTitle
 >Adding a spelling checker language</secTitle
 ><p
->To add a spelling checker for French, German, or Spanish, go to the <object
-type="tInstruction"
->Options / Install Add-ons...</object
-> menu item. Find the Dictionary item that is for the language you want. Check the box in front of it and then click on OK. The <object
+>To add a spelling checker for French, German, or Spanish, go to the downloads page on the <object
+type="tXLingPap"
+></object
+> web site (<link
+href="http://www.xlingpaper.org/?page_id=4"
+>http://www.xlingpaper.org/?page_id=4</link
+>). Go to the section for getting the French, German, or Spanish files and follow the instructions. You will need to restart the <object
 type="tXMLmindXMLEditor"
 ></object
-> will then install that package for you.</p
+> after installing the dictionary files.</p
 ></section3
 ></section2
 ><section2
@@ -18105,10 +18111,10 @@ type="tElement"
 > element with an <object
 type="tElement"
 >endnote</object
-> in it and it just so happens that the example is near the bottom of the page, you may find that the footnote content shows up on the next page, not the same page where the footnote should appear.  To fix this, set the <object
+> in it and it just so happens that the example is near the bottom of the page, you may find that the footnote content shows up on the next page, not the same page where the footnote should appear. To fix this, set the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
-> attribute of the  <object
+> attribute of the <object
 type="tElement"
 >free</object
 > or <object
@@ -18120,10 +18126,10 @@ type="tAttrValue"
 >.<endnoteRef
 note="nXeLaTeXAttributes"
 ></endnoteRef
->  The footnote should then appear on the correct page.  You can also just try and force the example to be on the next page by setting the <object
+> The footnote should then appear on the correct page. You can also just try and force the example to be on the next page by setting the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
-> attribute of the  <object
+> attribute of the <object
 type="tElement"
 >example</object
 > element to <object
@@ -20563,25 +20569,30 @@ type="tXLingPap"
 ></object
 > is in English. There also are versions in French and Spanish. (If you notice any error in these versions, please let us know.)</p
 ><p
->To use one of these non-English versions of the user interface, do the following steps in the <object
-type="tXMLmindXMLEditor"
-></object
->:</p
+>To use one of these non-English versions of the user interface, do the following steps:</p
 ><ol
 ><li
->While you are connected to the Internet, use the <object
-type="tInstruction"
->Options / Install Add-ons...</object
-> menu item.</li
-><li
->In the ensuing dialog box, find the Translation for the language you want.</li
-><li
->Check the box and click on OK.</li
-><li
->Wait for the translation package to be downloaded and installed. You will be told you will need to restart the <object
+>Exit out of the <object
 type="tXMLmindXMLEditor"
 ></object
-> for the change to take place. You can wait to do that until after you have done the next steps.</li
+>.</li
+><li
+>Go to the downloads page on the <object
+type="tXLingPap"
+></object
+> web site (<link
+href="http://www.xlingpaper.org/?page_id=4"
+>http://www.xlingpaper.org/?page_id=4</link
+>).</li
+><li
+>Find the section for the French or Spanish user interface.</li
+><li
+>Download and run the installer per the instructions.</li
+><li
+>Restart the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
 ><li
 >Use the <object
 type="tInstruction"
@@ -20592,7 +20603,9 @@ type="tInstruction"
 ><li
 >In the right hand pane, find the word “Locale” and click on the drop-down button.</li
 ><li
->Look for the language you want.</li
+>Look for the language you want. Please note that both French (français) and Spanish (español) come after all the uppercase languages in this list.</li
+><li
+>Click on the OK button.</li
 ><li
 >Restart the <object
 type="tXMLmindXMLEditor"
@@ -21918,7 +21931,19 @@ sec="sSpecialEffectsText"
 > for more on <object
 type="tElement"
 >type</object
-> elements).</p
+> elements). To insert a <object
+type="tElement"
+>framedTypes</object
+> element, click on the last element before any publisher style sheet (usually the <object
+type="tElement"
+>types</object
+> element) and do an <object
+type="tInstruction"
+>Insert After</object
+> command.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+></p
 ><p
 >Each <object
 type="tElement"
@@ -22346,6 +22371,435 @@ type="tElement"
 > element, select the material and then do a Convert Wrap command. Choose “framedUnit”.</li
 ></ol
 ></section1
+><section1
+id="sContentControl"
+><secTitle
+>Content Control</secTitle
+><p
+>There are times when one may wish to have certain “chunks” of material excluded for a particular output of a given document. Other times, one will want to include these “chunks” of material for a different output. Ideally, one would not want to have to create two separate documents - one with the excluded material and one without.</p
+><p
+>Now <object
+type="tXLingPap"
+></object
+> has a way to control which “chunks” of material, if any, should be excluded within a single document when producing an output. The basic idea is to tag any “chunk” material that might need to be excluded for some output with a particular content “type” that you have defined. Then you define a set of content choices where each choice indicates zero, one, or more of these content types. When you are ready to produce an output for the document, you select the choice that excludes the type(s) you want and the resulting output will have all material in the document except those “chunks” with the type(s) of that choice.</p
+><p
+>As an example, let's suppose you have a grammar for a minority language which includes some pedagogically-oriented material usually in the introduction of many sections and you also have some examples showing what the national language does. You may want four outputs for this depending on the intended audience: one with everything, one without the introductory material, one without the national language comparative examples, and one with neither the introductory material nor the national language comparative examples.</p
+><p
+>To make this happen, one would first create a <object
+type="tElement"
+>contentControl</object
+> element. To insert a <object
+type="tElement"
+>contentControl</object
+> element, click on the last element before any publisher style sheet (usually the <object
+type="tElement"
+>types</object
+> element) and do an <object
+type="tInstruction"
+>Insert After</object
+> command.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> Select <object
+type="tElement"
+>contentControl</object
+>. This will look something like this:</p
+><example
+num="xContentControlCreation"
+><chart
+><img
+src="resources/ContentControlCreation.png"
+></img
+></chart
+></example
+><p
+>When you click on the plus sign to open it, it will look like this:</p
+><example
+num="xContentControlNew"
+><chart
+><img
+src="resources/ContentControlNew.png"
+></img
+></chart
+></example
+><p
+>Notice that there are two parts: Content types and Content control choices. The types section is where you can define one or more types. Each type has an <object
+type="tAttribute"
+>id</object
+> attribute which must be unique. We suggest you begin all <object
+type="tElement"
+>contentType</object
+> ids with “ct”. For our example, we will want two types: one for introductory material and one for national language comparative material. We could make it look like this:</p
+><example
+num="xContentTypesDefined"
+><chart
+><img
+src="resources/ContentTypesDefined.png"
+></img
+></chart
+></example
+><p
+>Next, we would want to create the various output control choices. Each <object
+type="tElement"
+>contentControlChoice</object
+> element has a label and also an <object
+type="tAttribute"
+>exclude</object
+> attribute. The <object
+type="tAttribute"
+>exclude</object
+> attribute is used to set zero, one or more of the <object
+type="tElement"
+>contentType</object
+> ids. For our example, we might make it look like this:</p
+><example
+num="xContentControlChoicesDefind"
+><chart
+><img
+src="resources/ContentControlChoicesDefined.png"
+></img
+></chart
+></example
+><p
+>The first one would leave the <object
+type="tAttribute"
+>exclude</object
+> attribute empty. The second would set it to <object
+type="tAttrValue"
+>ctIntro</object
+>. The third would set it to <object
+type="tAttrValue"
+>ctComparative</object
+>. The final would set the <object
+type="tAttribute"
+>exclude</object
+> attribute to be “<object
+type="tAttrValue"
+>ctIntro</object
+> <object
+type="tAttrValue"
+>ctComparative</object
+>”.</p
+><p
+>Having defined the content types and content choices, we now would need to work our way through our document and find each “chunk” of material that might need to be excluded. For example, there may be a <object
+type="tElement"
+>p</object
+> element at the beginning of a section that needs to be marked as being introductory material. We click in the <object
+type="tElement"
+>p</object
+> element (and perhaps even on the “p” in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+>). If we then press the <object
+type="tInstruction"
+>F11</object
+> key on the keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+> or if we right-click on it and choose <object
+type="tInstruction"
+>Set Reference</object
+>), a dialog box will pop up that lists all the content types we defined. We can then select one (<object
+type="tAttrValue"
+>ctIntro</object
+> in this case). We would do something similar for the national language comparative examples (click on the <object
+type="tElement"
+>example</object
+> element and then use the <object
+type="tInstruction"
+>Set Reference</object
+> tool to select <object
+type="tAttrValue"
+>ctComparative</object
+>).</p
+><p
+>The complete list of elements which can be tagged with a content type id is given in example <exampleRef
+letter="xContentTypeChunkElements"
+num="xContentTypeChunkElements"
+></exampleRef
+>.</p
+><example
+num="xContentTypeChunkElements"
+><table
+><tr
+><td
+><object
+type="tElement"
+>abstract</object
+></td
+><td
+><object
+type="tElement"
+>emailAddress</object
+></td
+><td
+><object
+type="tElement"
+>prose-text</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>acknowledgements</object
+></td
+><td
+><object
+type="tElement"
+>example</object
+></td
+><td
+><object
+type="tElement"
+>section1</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>affiliation</object
+></td
+><td
+><object
+type="tElement"
+>figure</object
+></td
+><td
+><object
+type="tElement"
+>section2</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>appendix</object
+></td
+><td
+><object
+type="tElement"
+>framedUnit</object
+></td
+><td
+><object
+type="tElement"
+>section3</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>authorContactInfo</object
+></td
+><td
+><object
+type="tElement"
+>glossary</object
+></td
+><td
+><object
+type="tElement"
+>section4</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>blockquote</object
+></td
+><td
+><object
+type="tElement"
+>index</object
+></td
+><td
+><object
+type="tElement"
+>section5</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>chapter</object
+></td
+><td
+><object
+type="tElement"
+>interlinear-text</object
+></td
+><td
+><object
+type="tElement"
+>section6</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>chapterBeforePart</object
+></td
+><td
+><object
+type="tElement"
+>li</object
+></td
+><td
+><object
+type="tElement"
+>selectedBibliography</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>chart</object
+></td
+><td
+><object
+type="tElement"
+>ol</object
+></td
+><td
+><object
+type="tElement"
+>table</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>contents</object
+></td
+><td
+><object
+type="tElement"
+>p</object
+></td
+><td
+><object
+type="tElement"
+>tablenumbered</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>date</object
+></td
+><td
+><object
+type="tElement"
+>pc</object
+></td
+><td
+><object
+type="tElement"
+>tree</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>dd</object
+></td
+><td
+><object
+type="tElement"
+>part</object
+></td
+><td
+><object
+type="tElement"
+>ul</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>dl</object
+></td
+><td
+><object
+type="tElement"
+>preface</object
+></td
+><td
+><object
+type="tElement"
+>version</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>dt</object
+></td
+><td
+><object
+type="tElement"
+>presentedAt</object
+></td
+><td
+> </td
+></tr
+></table
+></example
+><p
+>Please note that there could be a problem if you exclude an <object
+type="tElement"
+>example</object
+>, say, but have an <object
+type="tElement"
+>exampleRef</object
+> element that refers to the excluded <object
+type="tElement"
+>example</object
+> and that <object
+type="tElement"
+>exampleRef</object
+> is not also in some material (like a <object
+type="tElement"
+>p</object
+>) that is also excluded. Since the <object
+type="tElement"
+>example</object
+> will not be in the output, the <object
+type="tElement"
+>exampleRef</object
+> will not be able to refer to it properly. Thus, in the output, it will be incorrect. We check for these kinds of potential problems and attempt to report them in the Validity tool.<endnote
+id="nValidityTool"
+><p
+>See section <sectionRef
+sec="sFAQValidity"
+></sectionRef
+> for more on the Validity tool.</p
+></endnote
+></p
+><p
+>Finally, when we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude the introductory material, then it would look like this:</p
+><example
+num="xContentControlChoiceChosen"
+><chart
+><img
+src="resources/ContentControlChoiceChosen.png"
+></img
+></chart
+></example
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -22715,6 +23169,47 @@ type="tElement"
 ></dt
 ><dd
 >Contact phone number for an author</dd
+><dt
+><object
+type="tElement"
+>contentControl</object
+></dt
+><dd
+>Way to control (exclude) content</dd
+><dt
+><object
+type="tElement"
+>contentControlChoice</object
+></dt
+><dd
+>An instance of a way to control content</dd
+><dt
+><object
+type="tElement"
+>contentControlChoices</object
+></dt
+><dd
+>A collection of <object
+type="tElement"
+>contentControlChoice</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>contentControlType</object
+></dt
+><dd
+>A type for controlling content</dd
+><dt
+><object
+type="tElement"
+>contentControlTypes</object
+></dt
+><dd
+>A collection of <object
+type="tElement"
+>contentControlType</object
+> elements</dd
 ><dt
 ><object
 type="tElement"

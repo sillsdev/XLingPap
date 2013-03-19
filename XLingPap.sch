@@ -272,4 +272,39 @@
             <report test="count(descendant::abbreviationsShownHere)>1">Sorry, but you can use only one abbreviationsShownHere element.  You have two or more of them.  Please remove the extra ones.</report>
         </rule>
     </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for non-excluded reference elements to elements being excluded via a contentType.</dir>
+        </title>
+        <rule context="exampleRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@num=//example/@num[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an exampleRef which refers to an example which may be excluded in the output (via a contentType) and yet the exampleRef itself is always present.  Please make sure that both the example and its exampleRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="sectionRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@sec=//section1/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//section2/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//section3/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//section4/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//section5/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//section6/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//chapter/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]] or @sec=//chapterBeforePart/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is a sectionRef which refers to a section or a chapter which may be excluded in the output (via a contentType) and yet the sectionRef itself is always present.  Please make sure that both the section (or chapter) and its sectionRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="appendixRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@app=//appendix/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an appendixRef which refers to an appendix which may be excluded in the output (via a contentType) and yet the appendixRef itself is always present.  Please make sure that both the appendix and its appendixRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="interlinearRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@textref=//interlinear/@text[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an interlinearRef which refers to an interlinear in an interlinear text which may be excluded in the output (via a contentType) and yet the interlinearRef itself is always present.  Please make sure that both the interlinear and its interlinearRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="interlinearRefCitation[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@textref=//interlinear/@text[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an interlinearRefCitation which refers to an interlinear in an interlinear text which may be excluded in the output (via a contentType) and yet the interlinearRefCitation itself is always present.  Please make sure that both the interlinear and its interlinearRefCitation are excluded in the same situations.</report>
+        </rule>
+        <rule context="figureRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@figure=//figure/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is a figureRef which refers to a figure which may be excluded in the output (via a contentType) and yet the figureRef itself is always present.  Please make sure that both the figure and its figureRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="tablenumberedRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@table=//tablenumbered/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is a tablenumberedRef which refers to a tablenumbered which may be excluded in the output (via a contentType) and yet the tablenumberedRef itself is always present.  Please make sure that both the tablenumbered and its tablenumberedRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="abbrRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="//abbreviationsShownHere[ancestor::*[string-length(@contentType)!=0]]">There is an abbreviationsShownHere element which may be excluded in the output (via a contentType) and yet there are one or more abbrRef elements which are always present.  Please make sure that both the abbreviationsShownHere and all abbrRefs are excluded in the same situations.</report>
+        </rule>
+        <rule context="genericRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@gref=//genericTarget/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is a genericRef which refers to a genericTarget which may be excluded in the output (via a contentType) and yet the genericRef itself is always present.  Please make sure that both the genericTarget and its genericRef are excluded in the same situations.</report>
+        </rule>
+        <rule context="endnoteRef[not(ancestor::*[string-length(@contentType)!=0])]">
+            <report test="@note=//endnote/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an endnoteRef which refers to an endnote which may be excluded in the output (via a contentType) and yet the endnoteRef itself is always present.  Please make sure that both the endnote and its endnoteRef are excluded in the same situations.</report>
+        </rule>
+    </pattern>
 </schema>

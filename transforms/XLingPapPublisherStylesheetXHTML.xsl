@@ -1864,6 +1864,8 @@
     <xsl:template match="basicPointSize"/>
     <xsl:template match="blockQuoteIndent"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
+    <xsl:template match="contentControlChoice"/>
+    <xsl:template match="contentType"/>
     <xsl:template match="defaultFontFamily"/>
     <xsl:template match="footerMargin"/>
     <xsl:template match="footnotePointSize"/>

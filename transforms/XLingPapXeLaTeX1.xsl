@@ -1028,8 +1028,10 @@
                     <tex:cmd name="par"/>
                 </xsl:if>
                 <xsl:if test="following-sibling::*[1][name()='blockquote']">
+                    <xsl:if test="not(ancestor::td)">
                     <!-- we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
                     <tex:cmd name="par"/>
+                    </xsl:if>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="parent::endnote and name()='p' and preceding-sibling::table[1]">

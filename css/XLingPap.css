@@ -972,6 +972,73 @@ contactPhone
 	padding-left: 0.5in;
 }
 
+contentControl:before
+{
+	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Content control: ";
+}
+contentControl
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
+
+contentControlChoice[active='yes']:before
+{
+	content: icon(radio-on)
+	" "
+	         ;
+}
+contentControlChoice:before
+{
+	content: 
+	command-button(icon, icon(radio-off), command, "UseThisContentControlChoice")
+	" "
+	         ;
+}
+contentControlChoice
+{
+	display:block;
+	padding-left: 0.5in;
+}
+
+contentControlChoices:before
+{
+	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Content control choices: ";
+}
+contentControlChoices
+{
+	display:block;
+	property-group: isCollapsible( no, 1);
+	padding-left: 0.25in;
+}
+
+contentType:before
+{
+	content: /* "type: "  */
+	text-field(attribute, id, columns, 10, font-size, small)
+	" "
+	;
+}
+contentType
+{
+	display:block;
+	padding-left: 0.5in;
+}
+
+contentTypes:before
+{
+	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Content types: ";
+}
+contentTypes
+{
+	display:block;
+	property-group: isCollapsible( no, 1);
+	padding-left: 0.25in;
+}
+
 contents[label]:before
 {
 	content:text-field(attribute,label);

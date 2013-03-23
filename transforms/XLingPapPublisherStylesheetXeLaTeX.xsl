@@ -5144,9 +5144,17 @@
         <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
-        <xsl:apply-templates>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:apply-templates>
+        <xsl:variable name="sFreeTextContent" select="normalize-space(.)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sFreeTextContent)=0 and following-sibling::free">
+                <xsl:text>&#xa0;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="HandleFreeTextAfterAndFontOverrides">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>

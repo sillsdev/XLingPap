@@ -3822,9 +3822,17 @@
     <xsl:template name="HandleFreeNoLanguageFontInfo">
         <xsl:param name="originalContext"/>
         <xsl:call-template name="DoLiteralLabel"/>
-        <xsl:apply-templates>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:apply-templates>
+        <xsl:variable name="sFreeTextContent" select="normalize-space(.)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sFreeTextContent)=0 and following-sibling::free">
+                <xsl:text>&#xa0;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         FleshOutRefCitation

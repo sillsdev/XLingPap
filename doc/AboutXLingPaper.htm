@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.21.2</span></p>
-      <p align="center">Date: 2013-03-19</p>
+      <p align="center">Date: 2013-03-23</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,9 +34,21 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.21.2 19 March 2013
+               <li>2.21.2 23 March 2013
                   <ul>
                      <li>Add content control mechanism.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when td or th elements in the first row of a table contained width attributes and the table did not have any colspan
+                              attributes, the width was not passed down to other td and th elements. Also, this process of passing down width attributes
+                              failed to work correctly when there was a rowspan at the top. We longer try to pass the width values down when there is a
+                              rowspan at the top.
+                           </li>
+                           <li>Fix bug: when using autowrap in interlinears and have two free elements in a row without a lang attribute set, if the first
+                              free does not have any text material in it, the PDF could fail.
+                           </li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>2.21.1_1 01 March 2013

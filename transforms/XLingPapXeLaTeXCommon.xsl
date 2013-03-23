@@ -261,7 +261,7 @@
                     <xsl:text>0pt</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <tex:cmd name="par"/>    
+                    <tex:cmd name="par"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -273,7 +273,7 @@
                     <xsl:text>0pt</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <tex:cmd name="par"/>    
+                    <tex:cmd name="par"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -3510,10 +3510,11 @@
             </xsl:when>
             <xsl:when test="@align">
                 <xsl:variable name="parentTablesFirstRow" select="ancestor::table[1]/tr[1]"/>
-                <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/tr/td[@colspan] | $parentTablesFirstRow/tr/th[@colspan]"/>
+                <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/td[@colspan] | $parentTablesFirstRow/th[@colspan]"/>
+                <xsl:variable name="rowSpansInTable" select="$parentTablesFirstRow/td[@rowspan] | $parentTablesFirstRow/th[@rowspan]"/>
                 <xsl:variable name="widthsInFirstRowOfTable" select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
                 <xsl:choose>
-                    <xsl:when test="count($colSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0">
+                    <xsl:when test="count($colSpansInTable) &gt; 0 or count($rowSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0">
                         <!-- there are no widths set or there are some column spans somewhere in this table so figuring out widths is too complicated; punt -->
                         <xsl:call-template name="HandleMulticolumnInCell">
                             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
@@ -3534,7 +3535,7 @@
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:variable name="iPosition" select="count(preceding-sibling::td) + count(preceding-sibling::th) + 1"/>
-                                        <xsl:variable name="widthForThisCell" select="$parentTablesFirstRow[position()=$iPosition]/@width"/>
+                                        <xsl:variable name="widthForThisCell" select="$parentTablesFirstRow/*[position()=$iPosition]/@width"/>
                                         <xsl:choose>
                                             <xsl:when test="string-length(normalize-space($widthForThisCell)) &gt; 0">
                                                 <xsl:value-of select="$widthForThisCell"/>

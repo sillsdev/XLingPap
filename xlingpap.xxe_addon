@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.21.2</a:version
+>2.21.3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-03-23</a:date
+>2013-04-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.21.3 1 April 2013<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>If an endnote has an example in it and if that endnote is in a table cell with its width attribute set, it would fail to produce the PDF. We now ignore the width attribute in such cases.</li
+><li
+>Add automatic table width calculations for tables with no embedded tables, no column spans, no row spans, and no width attributes.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.21.2 23 March 2013<ul
 ><li

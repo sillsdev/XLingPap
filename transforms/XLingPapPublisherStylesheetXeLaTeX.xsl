@@ -209,6 +209,10 @@
                     <tex:cmd name="XLingPaperindex" gr="0" nl2="0"/>
                 </xsl:if>
                 <xsl:call-template name="SetInterlinearSourceLength"/>
+                <xsl:if test="contains($fTablesCanWrap,'Y')">
+                    <xsl:call-template name="SetTableLengthWidths"/>
+                    <xsl:call-template name="SetXLingPaperTableWidthMacros"/>
+                </xsl:if>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>

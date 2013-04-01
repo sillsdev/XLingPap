@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.21.2</span></p>
-      <p align="center">Date: 2013-03-23</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.21.3</span></p>
+      <p align="center">Date: 2013-04-01</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,18 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.21.3 1 April 2013
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>If an endnote has an example in it and if that endnote is in a table cell with its width attribute set, it would fail to produce
+                              the PDF. We now ignore the width attribute in such cases.
+                           </li>
+                           <li>Add automatic table width calculations for tables with no embedded tables, no column spans, no row spans, and no width attributes.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.21.2 23 March 2013
                   <ul>
                      <li>Add content control mechanism.</li>

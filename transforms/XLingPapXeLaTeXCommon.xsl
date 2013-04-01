@@ -129,6 +129,14 @@
     <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
     <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
+    <xsl:variable name="topLevelTables" select="//table[not(ancestor::table)]"/>
+    <xsl:variable name="fTablesCanWrap">
+        <xsl:for-each select="$topLevelTables">
+            <xsl:if test="not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
+                <xsl:text>Y</xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:variable>
     <!--
         citation (InMarker)
     -->
@@ -1663,6 +1671,7 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
+        <xsl:call-template name="CalculateTableCellWidths"/>
         <xsl:call-template name="OutputTable"/>
         <xsl:call-template name="OutputTypeAttributesEnd">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
@@ -1725,35 +1734,8 @@
             <tex:spec cat="esc"/>
             <xsl:text>raggedright</xsl:text>
         </xsl:if>
-        <!-- default formatting is bold -->
-        <tex:spec cat="esc"/>
-        <xsl:text>textbf</xsl:text>
-        <tex:spec cat="bg"/>
-        <xsl:for-each select="..">
-            <!-- have to do the row's type processing here -->
-            <xsl:call-template name="DoType"/>
-        </xsl:for-each>
-        <xsl:call-template name="DoType"/>
-        <!--      <xsl:call-template name="OutputBackgroundColor"/>-->
-        <xsl:variable name="iCountBr" select="count(child::br)"/>
-        <xsl:call-template name="DoEmbeddedBrBegin">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:apply-templates/>
-        <!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
-            <xsl:text>&#xa0;</xsl:text>  Not sure why we have this 2010.07.10; it's not there for td's
-        </xsl:if>
--->
-        <xsl:call-template name="DoEmbeddedBrEnd">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTypeEnd"/>
-        <xsl:for-each select="..">
-            <!-- have to do the row's type processing here -->
-            <xsl:call-template name="DoTypeEnd"/>
-        </xsl:for-each>
+        <xsl:call-template name="FormatTHContent"/>
         <xsl:call-template name="DoCellAttributesEnd"/>
-        <tex:spec cat="eg"/>
         <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
             <tex:spec cat="align"/>
         </xsl:if>
@@ -1851,28 +1833,9 @@
             <tex:spec cat="esc"/>
             <xsl:text>raggedright </xsl:text>
         </xsl:if>
-        <xsl:for-each select="..">
-            <!-- have to do the row's type processing here -->
-            <xsl:call-template name="DoType"/>
-        </xsl:for-each>
-        <xsl:call-template name="DoType"/>
-        <!--      <xsl:call-template name="OutputBackgroundColor"/>-->
-        <xsl:variable name="iCountBr" select="count(child::br)"/>
-        <xsl:call-template name="DoEmbeddedBrBegin">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        <xsl:call-template name="FormatTDContent">
+            <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
         </xsl:call-template>
-        <xsl:apply-templates/>
-        <xsl:call-template name="DoEmbeddedBrEnd">
-            <xsl:with-param name="iCountBr" select="$iCountBr"/>
-        </xsl:call-template>
-        <xsl:if test="not(contains($bInARowSpan,'Y'))">
-            <xsl:call-template name="HandleFootnotesInTableHeader"/>
-        </xsl:if>
-        <xsl:call-template name="DoTypeEnd"/>
-        <xsl:for-each select="..">
-            <!-- have to do the row's type processing here -->
-            <xsl:call-template name="DoTypeEnd"/>
-        </xsl:for-each>
         <xsl:call-template name="DoCellAttributesEnd"/>
         <!-- if this td has a rowspan, any endnotes in it will not have their text appear at the bottom of the page; make it happen -->
         <xsl:if test="@rowspan &gt; 0 and descendant-or-self::endnote">
@@ -2573,6 +2536,76 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        CalculateAvailableTableWidth
+    -->
+    <xsl:template name="CalculateAvailableTableWidth">
+        <tex:cmd name="setlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperavailabletablewidth" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:choose>
+                    <xsl:when test="ancestor::example">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::landscape">
+                                <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$iExampleWidth"/>        
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:call-template name="GetUnitOfMeasure">
+                            <xsl:with-param name="sValue" select="$sPageWidth"/>
+                        </xsl:call-template>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$sExampleIndentBefore"/>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$sExampleIndentAfter"/>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$iNumberWidth"/>
+                        <xsl:text>em</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="ancestor::landscape">
+                                <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:call-template name="GetUnitOfMeasure">
+                            <xsl:with-param name="sValue" select="$sPageWidth"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="ancestor::framedUnit">
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:text> - </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> - </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> - </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:text> - </xsl:text>
+                    <xsl:call-template name="SetFramedTypeItem">
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                        <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
         CalculateColumnsInInterlinearLine
     -->
     <xsl:template name="CalculateColumnsInInterlinearLine">
@@ -2586,6 +2619,42 @@
                 <xsl:with-param name="sList" select="$sRest"/>
             </xsl:call-template>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        CalculateColumnWidths
+    -->
+    <xsl:template name="CalculateColumnWidths">
+        <xsl:for-each select="tr[1]">
+            <xsl:for-each select="td | th">
+                <xsl:variable name="sColumnLetter">
+                    <xsl:call-template name="GetColumnLetter"/>
+                </xsl:variable>
+                <tex:cmd name="XLingPapersetcolumnwidth" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapercol{$sColumnLetter}width" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapermincol{$sColumnLetter}" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapermaxcol{$sColumnLetter}" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <!-- This is not necessarily exactly correct, but it's the best I've seen -->
+                        <xsl:choose>
+                            <xsl:when test="position()=1">
+                                <xsl:text>-0</xsl:text>
+                                <tex:cmd name="tabcolsep" gr="0"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-2</xsl:text>
+                                <tex:cmd name="tabcolsep" gr="0"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:for-each>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         CalculateExampleAndExampleHeadingHeights
@@ -2669,6 +2738,118 @@
         <xsl:value-of select="$iFootnoteNumber + $iTableCaptionEndnotes"/>
     </xsl:template>
     <!--  
+        CalculateMaxTableWidth
+    -->
+    <xsl:template name="CalculateMaxTableWidth">
+        <tex:cmd name="setlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertablemaxwidth" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:for-each select="tr[1]">
+                    <xsl:for-each select="td | th">
+                        <xsl:variable name="sColumnLetter">
+                            <xsl:call-template name="GetColumnLetter"/>
+                        </xsl:variable>
+                        <tex:cmd name="XLingPapermaxcol{$sColumnLetter}" gr="0"/>
+                        <xsl:if test="position() != last()">
+                            <xsl:text>+</xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        CalculateMinTableWidth
+    -->
+    <xsl:template name="CalculateMinTableWidth">
+        <tex:cmd name="setlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertableminwidth" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:for-each select="tr[1]">
+                    <xsl:for-each select="td | th">
+                        <xsl:variable name="sColumnLetter">
+                            <xsl:call-template name="GetColumnLetter"/>
+                        </xsl:variable>
+                        <tex:cmd name="XLingPapermincol{$sColumnLetter}" gr="0"/>
+                        <xsl:if test="position() != last()">
+                            <xsl:text>+</xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        CalculateMinMaxColumnWidths
+    -->
+    <xsl:template name="CalculateMinMaxColumnWidths">
+        <xsl:for-each select="tr">
+            <xsl:for-each select="td | th">
+                <xsl:variable name="sColumnLetter">
+                    <xsl:call-template name="GetColumnLetter"/>
+                </xsl:variable>
+                <xsl:variable name="sCellMaximumString">
+                    <xsl:choose>
+                        <xsl:when test="counter">
+                            <xsl:apply-templates/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="GetLongestWordInCell"/>        
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <tex:cmd name="XLingPaperminmaxcellincolumn" nl1="1">
+                    <tex:parm>
+                        <xsl:value-of select="$sCellMaximumString"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapermincol{$sColumnLetter}" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:choose>
+                            <xsl:when test="name()='th'">
+                                <xsl:call-template name="FormatTHContent">
+                                    <xsl:with-param name="fIncludeEndnotes" select="'N'"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="FormatTDContent">
+                                    <xsl:with-param name="bInARowSpan" select="'N'"/>
+                                    <xsl:with-param name="fIncludeEndnotes" select="'N'"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <!--
+                        <xsl:apply-templates select="."/>-->
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapermaxcol{$sColumnLetter}" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:choose>
+                            <xsl:when test="position()=1">
+                                <xsl:text>+0</xsl:text>
+                                <tex:cmd name="tabcolsep" gr="0"/>
+                            </xsl:when>
+                            <xsl:when test="position()=last()">
+                                <xsl:text>+0</xsl:text>
+                                <tex:cmd name="tabcolsep" gr="0"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>+0</xsl:text>
+                                <tex:cmd name="tabcolsep" gr="0"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
@@ -2687,6 +2868,39 @@
         <xsl:text>thinspace</xsl:text>
         <tex:spec cat="esc"/>
         <xsl:text>thinspace</xsl:text>
+    </xsl:template>
+    <!--  
+        CalculateTableCellWidths
+    -->
+    <xsl:template name="CalculateTableCellWidths">
+        <xsl:if test="not(ancestor::table) and not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
+            <xsl:if test="ancestor::endnote and preceding-sibling::*[name()='p' or name()='pc']">
+                <!--  we need to do an overt \par here; otherwise the content of the paragraph wmay stretch across the line incorrectly -->
+                <tex:cmd name="par"/>
+            </xsl:if>
+            <xsl:call-template name="CalculateMinMaxColumnWidths"/>
+            <xsl:call-template name="CalculateAvailableTableWidth"/>
+            <xsl:call-template name="CalculateMinTableWidth"/>
+            <xsl:call-template name="CalculateMaxTableWidth"/>
+            <xsl:call-template name="CalculateTableWidthRatio"/>
+            <xsl:call-template name="CalculateColumnWidths"/>
+            <xsl:if test="ancestor::framedUnit and ancestor::example">
+                <!-- when we have a table in an example in a framedUnit, we have to force material out (via \par) and then adjust for the vertical space it uses. -->
+                <tex:cmd name="par" gr="0"/>
+                <tex:cmd name="vspace*">
+                    <tex:parm>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        CalculateTableWidthRatio
+    -->
+    <xsl:template name="CalculateTableWidthRatio">
+        <tex:cmd name="XLingPapercalculatetablewidthratio" nl1="1"/>
     </xsl:template>
     <!--  
         CaptionIsBeforeTablenumbered
@@ -2970,8 +3184,10 @@
         </xsl:call-template>
         <xsl:call-template name="CreateColumnSpecBackgroundColor"/>
         <xsl:choose>
-            <xsl:when test="string-length($sWidth) &gt; 0 and $bUseWidth='Y'">
-                <!--   
+            <xsl:when test="string-length($sWidth) &gt; 0 and $bUseWidth='Y' and not(descendant::*[name()='endnote']/descendant::example)">
+                <!-- We also have to look for endnotes with examples in them.  If we allow such, we get a TeX capacity exceeded error. 
+                    This is also the case whenever we use a p{} so at least on Windows, this error occurs.
+                -->                <!--   
                     not needed, but still here so I can remember this way of setting it
                     <xsl:choose>
                     <xsl:when test="@align!='justify'">
@@ -3010,6 +3226,34 @@
                         <xsl:value-of select="$sWidth"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                <tex:spec cat="eg"/>
+            </xsl:when>
+            <xsl:when test="count(ancestor::table)=1 and not(ancestor::table/descendant::*[string-length(@width)&gt;0]) and not(ancestor::table/descendant::table) and not(ancestor::table/descendant::*[string-length(@colspan)&gt;0]) and not(ancestor::table/descendant::*[string-length(@rowspan)&gt;0]) and not(count(ancestor::table/tr[1]/td | ancestor::table/tr[1]/th)&gt; 26) and not(name()='caption' or name()='endCaption') and not(descendant::*[name()='endnote']/descendant::example)">
+                <!-- In addition to the usual exceptions here, we also have to look for endnotes with examples in them.  If we allow such, we get a TeX capacity exceeded error. 
+                        This is also the case whenever we use a p{} so at least on Windows, this error occurs.
+                -->
+                <xsl:choose>
+                    <xsl:when test="@align='center'">
+                        <tex:spec cat="gt"/>
+                        <tex:group>
+                            <tex:cmd name="centering" gr="0"/>
+                        </tex:group>
+                    </xsl:when>
+                    <xsl:when test="@align='right'">
+                        <tex:spec cat="gt"/>
+                        <tex:group>
+                            <tex:cmd name="raggedleft" gr="0"/>
+                        </tex:group>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:text>p</xsl:text>
+                <tex:spec cat="bg"/>
+                <xsl:variable name="sColumnLetter">
+                    <xsl:call-template name="GetColumnLetter">
+                        <xsl:with-param name="iPos" select="count(preceding-sibling::*)+1"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <tex:cmd name="XLingPapercol{$sColumnLetter}width" gr="0"/>
                 <tex:spec cat="eg"/>
             </xsl:when>
             <xsl:when test="@align='left'">l</xsl:when>
@@ -5374,6 +5618,83 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        FormatTDContent
+    -->
+    <xsl:template name="FormatTDContent">
+        <xsl:param name="bInARowSpan"/>
+        <xsl:param name="fIncludeEndnotes" select="'Y'"/>
+        <xsl:for-each select="..">
+            <!-- have to do the row's type processing here -->
+            <xsl:call-template name="DoType"/>
+        </xsl:for-each>
+        <xsl:call-template name="DoType"/>
+        <!--      <xsl:call-template name="OutputBackgroundColor"/>-->
+        <xsl:variable name="iCountBr" select="count(child::br)"/>
+        <xsl:call-template name="DoEmbeddedBrBegin">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$fIncludeEndnotes='N'">
+                <xsl:apply-templates select="text() | child::node()[name()!='endnote']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>        
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="DoEmbeddedBrEnd">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:if test="not(contains($bInARowSpan,'Y'))">
+            <xsl:call-template name="HandleFootnotesInTableHeader"/>
+        </xsl:if>
+        <xsl:call-template name="DoTypeEnd"/>
+        <xsl:for-each select="..">
+            <!-- have to do the row's type processing here -->
+            <xsl:call-template name="DoTypeEnd"/>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
+        FormatTHContent
+    -->
+    <xsl:template name="FormatTHContent">
+        <xsl:param name="fIncludeEndnotes" select="'Y'"/>
+        <!-- default formatting is bold -->
+        <tex:spec cat="esc"/>
+        <xsl:text>textbf</xsl:text>
+        <tex:spec cat="bg"/>
+        <xsl:for-each select="..">
+            <!-- have to do the row's type processing here -->
+            <xsl:call-template name="DoType"/>
+        </xsl:for-each>
+        <xsl:call-template name="DoType"/>
+        <!--      <xsl:call-template name="OutputBackgroundColor"/>-->
+        <xsl:variable name="iCountBr" select="count(child::br)"/>
+        <xsl:call-template name="DoEmbeddedBrBegin">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$fIncludeEndnotes='N'">
+                <xsl:apply-templates select="text() | *[name()!='endnote']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>        
+            </xsl:otherwise>
+        </xsl:choose>
+        <!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
+            <xsl:text>&#xa0;</xsl:text>  Not sure why we have this 2010.07.10; it's not there for td's
+            </xsl:if>
+        -->
+        <xsl:call-template name="DoEmbeddedBrEnd">
+            <xsl:with-param name="iCountBr" select="$iCountBr"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoTypeEnd"/>
+        <xsl:for-each select="..">
+            <!-- have to do the row's type processing here -->
+            <xsl:call-template name="DoTypeEnd"/>
+        </xsl:for-each>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
       GetColorDecimalCodeFromHexCode
    -->
     <xsl:template name="GetColorDecimalCodeFromHexCode">
@@ -5568,6 +5889,40 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetColumnLetter
+    -->
+    <xsl:template name="GetColumnLetter">
+        <xsl:param name="iPos" select="position()"/>
+        <xsl:choose>
+            <xsl:when test="$iPos=1">a</xsl:when>
+            <xsl:when test="$iPos=2">b</xsl:when>
+            <xsl:when test="$iPos=3">c</xsl:when>
+            <xsl:when test="$iPos=4">d</xsl:when>
+            <xsl:when test="$iPos=5">e</xsl:when>
+            <xsl:when test="$iPos=6">f</xsl:when>
+            <xsl:when test="$iPos=7">g</xsl:when>
+            <xsl:when test="$iPos=8">h</xsl:when>
+            <xsl:when test="$iPos=9">i</xsl:when>
+            <xsl:when test="$iPos=10">j</xsl:when>
+            <xsl:when test="$iPos=11">k</xsl:when>
+            <xsl:when test="$iPos=12">l</xsl:when>
+            <xsl:when test="$iPos=13">m</xsl:when>
+            <xsl:when test="$iPos=14">n</xsl:when>
+            <xsl:when test="$iPos=15">o</xsl:when>
+            <xsl:when test="$iPos=16">p</xsl:when>
+            <xsl:when test="$iPos=17">q</xsl:when>
+            <xsl:when test="$iPos=18">r</xsl:when>
+            <xsl:when test="$iPos=19">s</xsl:when>
+            <xsl:when test="$iPos=20">t</xsl:when>
+            <xsl:when test="$iPos=21">u</xsl:when>
+            <xsl:when test="$iPos=22">v</xsl:when>
+            <xsl:when test="$iPos=23">w</xsl:when>
+            <xsl:when test="$iPos=24">x</xsl:when>
+            <xsl:when test="$iPos=25">y</xsl:when>
+            <xsl:when test="$iPos=26">z</xsl:when>
         </xsl:choose>
     </xsl:template>
     <!--  
@@ -5801,6 +6156,29 @@
             <xsl:when test="$iLetterCount &lt; 53">2.5</xsl:when>
             <xsl:otherwise>3</xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetLongestWordInCell
+    -->
+    <xsl:template name="GetLongestWordInCell">
+        <!-- We need to find the longest word in a table cell.
+            We put XML into a variable, with a root of <words> and each line as <word>.
+            Each word contains one word in the cell.  We then sort these and get the longest one.
+            Note that with XSLT version 1.0, we have to use something like the Saxon extension function node-set().
+        -->
+        <xsl:variable name="words">
+            <words>
+                <xsl:call-template name="GetWordsInCell">
+                    <xsl:with-param name="sList" select="."/>
+                </xsl:call-template>
+            </words>
+        </xsl:variable>
+        <xsl:for-each select="saxon:node-set($words)/descendant::text()">
+            <xsl:sort select="string-length(.)" order="descending"/>
+            <xsl:if test="position()=1">
+                <xsl:value-of select="."/>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         GetMaxColumnCountForLineGroup
@@ -6066,6 +6444,23 @@
                 <xsl:with-param name="iLetterCount" select="$iLetterCount"/>
             </xsl:call-template>
             <xsl:text>em</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        GetWordsInCell
+    -->
+    <xsl:template name="GetWordsInCell">
+        <xsl:param name="sList"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <word>
+            <xsl:value-of select="$sFirst"/>
+        </word>
+        <xsl:if test="$sRest">
+            <xsl:call-template name="GetWordsInCell">
+                <xsl:with-param name="sList" select="$sRest"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -8956,6 +9351,441 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        SetTableLengthWidths
+    -->
+    <xsl:template name="SetTableLengthWidths">
+        <tex:cmd name="newsavebox" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertempbox" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertemplen" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperavailabletablewidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertableminwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertablemaxwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertablewidthminustableminwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertablewidthratio" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincola" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcola" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolawidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolb" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolb" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolbwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolc" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolc" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolcwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincold" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcold" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercoldwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincole" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcole" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolewidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolf" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolf" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolfwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolg" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolg" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolgwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolh" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolh" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolhwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincoli" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcoli" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercoliwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolj" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolj" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercoljwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolk" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolk" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolkwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincoll" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcoll" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercollwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolm" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolm" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolmwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincoln" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcoln" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolnwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolo" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolo" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolowidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolp" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolp" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolpwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolq" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolq" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolqwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolr" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolr" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolrwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincols" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcols" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolswidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolt" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolt" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercoltwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolu" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolu" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercoluwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolv" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolv" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolvwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolw" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolw" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolwwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolx" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolx" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolxwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincoly" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcoly" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolywidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapermincolz" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapermaxcolz" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPapercolzwidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
         SetTeXCommand
     -->
     <xsl:template name="SetTeXCommand">
@@ -10035,6 +10865,264 @@ What might go in a TeX package file
                 </tex:cmd>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperListItemMacro
+    -->
+    <xsl:template name="SetXLingPaperTableWidthMacros">
+        <tex:cmd name="newcommand" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperlongestcell" gr="0" nl2="0"/>
+            </tex:parm>
+            <tex:opt>2</tex:opt>
+            <tex:parm>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:spec cat="parm"/>
+                <xsl:text>1</xsl:text>
+                <tex:spec cat="gt"/>
+                <tex:spec cat="parm"/>
+                <xsl:text>2
+</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>2=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>1</xsl:text>
+                <tex:cmd name="fi" gr="0" nl1="1" nl2="1"/>
+            </tex:parm>
+        </tex:cmd>
+        <!-- 
+        #1 is text to use for calculating minimum width of the cell
+        #2 is the column (maximum) minimum width
+        #3 is the material to use for calculating  maximum width of the cell
+        #4 is the column maximum width
+        #5 is an adjustment amount
+        -->
+        <tex:cmd name="newcommand" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperminmaxcellincolumn" gr="0" nl2="0"/>
+            </tex:parm>
+            <tex:opt>5</tex:opt>
+            <tex:parm>
+                <tex:cmd name="savebox" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertempbox" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>3</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="settowidth" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="usebox">
+                            <tex:parm>
+                                <tex:cmd name="XLingPapertempbox" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="addtolength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>5</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="XLingPaperlongestcell" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>4</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="setlength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="widthof">
+                            <tex:parm>
+                                <tex:spec cat="parm"/>
+                                <xsl:text>1</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="addtolength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>5</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPapertemplen" gr="0" nl2="0"/>
+                <tex:spec cat="gt"/>
+                <tex:spec cat="parm"/>
+                <xsl:text>4</xsl:text>
+                <!--                <tex:spec cat="parm" nl1="1"/>-->
+                <tex:cmd name="XLingPapertemplen" gr="0" nl1="1"/>
+                <xsl:text>=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>4</xsl:text>
+                <tex:cmd name="fi" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPaperlongestcell" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+            </tex:parm>
+        </tex:cmd>
+        <!-- 
+    #1 is the column width (output)
+    #2 is the min width
+    #3 is the max width
+    #4 is an adjustment amount for column separation
+-->
+        <tex:cmd name="newcommand" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapersetcolumnwidth" gr="0" nl2="0"/>
+            </tex:parm>
+            <tex:opt>4</tex:opt>
+            <tex:parm>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPapertableminwidth" gr="0" nl2="0"/>
+                <tex:spec cat="gt"/>
+                <tex:cmd name="XLingPaperavailabletablewidth" gr="0" nl2="0"/>
+                <tex:spec cat="parm" nl1="1"/>
+                <xsl:text>1=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>2</xsl:text>
+                <tex:cmd name="else" gr="0" nl1="1"/>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPapertableminwidth" gr="0" nl2="0"/>
+                <xsl:text>=</xsl:text>
+                <tex:cmd name="XLingPaperavailabletablewidth" gr="0" nl2="0"/>
+                <tex:spec cat="parm" nl1="1"/>
+                <xsl:text>1=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>2</xsl:text>
+                <tex:cmd name="else" gr="0" nl1="1"/>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPapertablemaxwidth" gr="0" nl2="0"/>
+                <tex:spec cat="lt"/>
+                <tex:cmd name="XLingPaperavailabletablewidth" gr="0" nl2="0"/>
+                <tex:spec cat="parm" nl1="1"/>
+                <xsl:text>1=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>3</xsl:text>
+                <tex:cmd name="else" gr="0" nl1="1"/>
+                <tex:cmd name="setlength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>3-</xsl:text>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="divide" gr="0" nl1="1">
+                    <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    <xsl:text> by 100</xsl:text>
+                </tex:cmd>
+                <tex:cmd name="multiply" gr="0" nl1="1">
+                    <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    <xsl:text> by </xsl:text>
+                    <tex:cmd name="XLingPapertablewidthratio" gr="0"/>
+                </tex:cmd>
+                <tex:spec cat="parm" nl1="1"/>
+                <xsl:text>1=</xsl:text>
+                <tex:spec cat="parm"/>
+                <xsl:text>2</xsl:text>
+                <tex:cmd name="addtolength" nl1="1">
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="addtolength" nl1="1">
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>4</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="fi" gr="0" nl1="1"/>
+                <tex:cmd name="fi" gr="0" nl1="1"/>
+                <tex:cmd name="fi" gr="0" nl1="1" nl2="1"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newcommand" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapercalculatetablewidthratio" gr="0" nl2="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="setlength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertablewidthminustableminwidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperavailabletablewidth" gr="0"/>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="XLingPapertableminwidth" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="setlength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertablemaxwidth" gr="0"/>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="XLingPapertableminwidth" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="ifdim" gr="0" nl1="1"/>
+                <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0" nl2="0"/>
+                <xsl:text>=0sp</xsl:text>
+                <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0" nl1="1"/>
+                <xsl:text>=10000sp</xsl:text>
+                <tex:cmd name="fi" gr="0" nl1="1"/>
+                <tex:cmd name="setlength" nl1="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertablewidthratio" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertablewidthminustableminwidth" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="divide" nl1="1" gr="0">
+                    <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0"/>
+                    <xsl:text> by 100</xsl:text>
+                </tex:cmd>
+                <tex:cmd name="divide" nl1="1" gr="0">
+                    <tex:cmd name="XLingPapertablewidthratio" gr="0"/>
+                    <xsl:text> by </xsl:text>
+                    <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0"/>
+                </tex:cmd>
+            </tex:parm>
+            </tex:cmd>
     </xsl:template>
     <!--  
         SetXLingPaperTableOfContentsMacro

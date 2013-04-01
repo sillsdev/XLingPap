@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->19 March 2013</date
+>1 April 2013</date
 ><version
->2.21.2</version
+>2.21.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -17972,7 +17972,12 @@ type="tXeTeX"
 > approach:</p
 ><ul
 ><li
->Table column widths may well need to be adjusted by hand. The default is for each column to be as wide as the material in the column. For tables with more horizontal content, this often means that the table is too wide to fit the page. To fix this, you will need to set the <object
+>Table column widths can be a problem.  For very simple tables (i.e., those without any embedded tables or column spans or row spans or overt width specifications), we try to get <object
+type="tXeTeX"
+></object
+> to calculate the width of each column.  The algorithm used, however, is only approximate and may or may not work well for a given table.<br
+></br
+>Therefore, you may well need to adjust column widths by hand. The default is for each column to be as wide as the material in the column. For tables with more horizontal content, this often means that the table is too wide to fit the page. To fix this, you will need to set the <object
 type="tAttribute"
 >width</object
 > attribute of any cells that are too wide to fit in the space you want them to take. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).<endnote
@@ -17984,7 +17989,7 @@ type="tElement"
 > element. If you have an embedded <object
 type="tElement"
 >table</object
-> within another table, then you will probably get overlapping material.</p
+> within another table, then you will probably get overlapping material.  Also, the percentage is of the total width of the table (not, say, how much larger or smaller you want the column to be).</p
 ></endnote
 > Given how <object
 type="tXeTeX"

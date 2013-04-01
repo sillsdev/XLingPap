@@ -137,6 +137,10 @@
                     <tex:cmd name="XLingPaperindex" gr="0" nl2="0"/>
                 </xsl:if>
                 <xsl:call-template name="SetInterlinearSourceLength"/>
+                <xsl:if test="contains($fTablesCanWrap,'Y')">
+                    <xsl:call-template name="SetTableLengthWidths"/>
+                    <xsl:call-template name="SetXLingPaperTableWidthMacros"/>
+                </xsl:if>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
@@ -1029,8 +1033,8 @@
                 </xsl:if>
                 <xsl:if test="following-sibling::*[1][name()='blockquote']">
                     <xsl:if test="not(ancestor::td)">
-                    <!-- we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
-                    <tex:cmd name="par"/>
+                        <!-- we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
+                        <tex:cmd name="par"/>
                     </xsl:if>
                 </xsl:if>
             </xsl:when>

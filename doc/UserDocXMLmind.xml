@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 April 2013</date
+>2 April 2013</date
 ><version
 >2.21.3</version
 ><contents
@@ -17972,15 +17972,35 @@ type="tXeTeX"
 > approach:</p
 ><ul
 ><li
->Table column widths can be a problem.  For very simple tables (i.e., those without any embedded tables or column spans or row spans or overt width specifications), we try to get <object
+>Table column widths can be a problem. For very simple tables (i.e., those without any embedded tables or column spans or row spans or overt width specifications), we try to get <object
 type="tXeTeX"
 ></object
-> to calculate the width of each column.  The algorithm used, however, is only approximate and may or may not work well for a given table.<br
+> to calculate the width of each column. The algorithm used, however, is only approximate and may or may not work well for a given table.<br
 ></br
 >Therefore, you may well need to adjust column widths by hand. The default is for each column to be as wide as the material in the column. For tables with more horizontal content, this often means that the table is too wide to fit the page. To fix this, you will need to set the <object
 type="tAttribute"
 >width</object
-> attribute of any cells that are too wide to fit in the space you want them to take. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).<endnote
+> attribute of any cells that are too wide to fit in the space you want them to take.<endnote
+id="nXeLaTeXTableWidthWithEndnoteWithExample"
+><p
+>Please note that due to some very technical reasons if a table cell has a <object
+type="tAttribute"
+>width</object
+> attribute and it also has an <object
+type="tElement"
+>endnote</object
+> element which contains an <object
+type="tElement"
+>example</object
+> element, then we ignore the <object
+type="tAttribute"
+>width</object
+> attribute. If we do not, then <object
+type="tXeTeX"
+></object
+> will fail to produce the PDF.</p
+></endnote
+> You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).<endnote
 id="nXeLaTeXTableWidthPercentage"
 ><p
 >The percentage works only for a top-most <object
@@ -17989,7 +18009,7 @@ type="tElement"
 > element. If you have an embedded <object
 type="tElement"
 >table</object
-> within another table, then you will probably get overlapping material.  Also, the percentage is of the total width of the table (not, say, how much larger or smaller you want the column to be).</p
+> within another table, then you will probably get overlapping material. Also, the percentage is of the total width of the table (not, say, how much larger or smaller you want the column to be).</p
 ></endnote
 > Given how <object
 type="tXeTeX"
@@ -24962,6 +24982,13 @@ type="tElement"
 ></dt
 ><dd
 >Margin to use for the footer</dd
+><dt
+><object
+type="tElement"
+>footnoteIndent</object
+></dt
+><dd
+>The indent to use in the footnote text at the bottom of the page. This is the space from the left margin to the (superscript) footnote number</dd
 ><dt
 ><object
 type="tElement"

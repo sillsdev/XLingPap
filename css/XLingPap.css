@@ -5613,6 +5613,14 @@ footerMargin
 	property-group: layoutParameter(0ex);
 }
 
+footnoteIndent:before
+{
+	property-group:layoutParameterLabel( "footnote indent" );
+}
+footnoteIndent
+{
+	property-group: layoutParameter(.67ex);
+}
 footnoteLine:before
 {
 	property-group:layoutParameterLabel( "footnote line separator attributes" );

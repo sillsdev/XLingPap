@@ -200,7 +200,15 @@
         <xsl:attribute name="text-align">left</xsl:attribute>
         <xsl:attribute name="text-align-last">left</xsl:attribute>
         <xsl:attribute name="text-indent">
-            <xsl:value-of select="$sParagraphIndent"/>
+            <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sFootnoteIndent)&gt;0">
+                    <xsl:value-of select="$sFootnoteIndent"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sParagraphIndent"/>        
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:attribute>
         <xsl:attribute name="start-indent">0pt</xsl:attribute>
         <xsl:attribute name="end-indent">0pt</xsl:attribute>
@@ -3081,6 +3089,7 @@ not using
     <xsl:template match="citation[parent::selectedBibliography]"/>
     <xsl:template match="defaultFontFamily"/>
     <xsl:template match="footerMargin"/>
+    <xsl:template match="footnoteIndent"/>
     <xsl:template match="footnotePointSize"/>
     <xsl:template match="headerMargin"/>
     <xsl:template match="magnificationFactor"/>

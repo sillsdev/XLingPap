@@ -2551,7 +2551,7 @@
                                 <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$iExampleWidth"/>        
+                                <xsl:value-of select="$iExampleWidth"/>
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:call-template name="GetUnitOfMeasure">
@@ -2798,7 +2798,7 @@
                             <xsl:apply-templates/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:call-template name="GetLongestWordInCell"/>        
+                            <xsl:call-template name="GetLongestWordInCell"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -3187,7 +3187,8 @@
             <xsl:when test="string-length($sWidth) &gt; 0 and $bUseWidth='Y' and not(descendant::*[name()='endnote']/descendant::example)">
                 <!-- We also have to look for endnotes with examples in them.  If we allow such, we get a TeX capacity exceeded error. 
                     This is also the case whenever we use a p{} so at least on Windows, this error occurs.
-                -->                <!--   
+                -->
+                <!--   
                     not needed, but still here so I can remember this way of setting it
                     <xsl:choose>
                     <xsl:when test="@align!='justify'">
@@ -3419,7 +3420,7 @@
         <xsl:param name="iCountAncestorEndnotes"/>
         <xsl:if test="ancestor-or-self::table[1][@border &gt; 0] and count(ancestor-or-self::table[@border &gt; 0][count(ancestor::endnote)=$iCountAncestorEndnotes])=1">
             <xsl:choose>
-                <xsl:when test="ancestor::example and not(ancestor-or-self::table[caption])">
+                <xsl:when test="ancestor::example and not(ancestor-or-self::table[caption]) and ancestor-or-self::table[count(tr)&gt;1]">
                     <tex:cmd name="specialrule">
                         <tex:parm>
                             <tex:cmd name="heavyrulewidth" gr="0" nl2="0"/>
@@ -5638,7 +5639,7 @@
                 <xsl:apply-templates select="text() | child::node()[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>        
+                <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoEmbeddedBrEnd">
@@ -5677,7 +5678,7 @@
                 <xsl:apply-templates select="text() | *[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>        
+                <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
         <!--        <xsl:if test="following-sibling::th | following-sibling::td | following-sibling::col">
@@ -9314,6 +9315,22 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="SetStartingPageNumber"/>
+        <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+        <xsl:if test="string-length($sFootnoteIndent)&gt;0">
+            <tex:cmd name="makeatletter" gr="0" nl2="1"/>
+            <tex:cmd name="renewcommand" gr="0"/>
+            <tex:cmd name="@makefntext">
+                <tex:opt>1</tex:opt>
+                <tex:parm>
+                    <tex:cmd name="hskip" gr="0"/>
+                    <xsl:value-of select="$sFootnoteIndent"/>
+                    <tex:cmd name="@makefnmark" gr="0"/>
+                    <tex:spec cat="parm"/>
+                    <xsl:text>1</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetSpecialTextSymbols
@@ -11122,7 +11139,7 @@ What might go in a TeX package file
                     <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0"/>
                 </tex:cmd>
             </tex:parm>
-            </tex:cmd>
+        </tex:cmd>
     </xsl:template>
     <!--  
         SetXLingPaperTableOfContentsMacro

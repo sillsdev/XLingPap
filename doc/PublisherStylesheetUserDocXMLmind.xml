@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 February 2013</date
+>2 April 2013</date
 ><version
->2.21.0</version
+>2.21.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -372,6 +372,45 @@ term="iFootnoteSpaceAfterNumber"
 type="tAttribute"
 >contentBetweenFootnoteNumberAndFootnoteContent</object
 > attribute to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.</p
+></section2
+><section2
+id="sFootnoteIndent"
+><secTitle
+>Footnote indent</secTitle
+><p
+><indexedItem
+term="iFootnoteIndentr"
+></indexedItem
+>Some publishers want a specified indent in the footnote text before the (superscript) footnote number.  Use the <object
+type="tElement"
+>footnoteIndent</object
+> element to set this value overtly instead of the normal default value.  You will need to overtly insert this element (it appears between <object
+type="tElement"
+>footnotePointSize</object
+> and <object
+type="tElement"
+>footnoteLine</object
+>; you will probably have to click on one of these two and then do an insert after or insert before command to get the <object
+type="tElement"
+>footnoteIndent</object
+> element).  It will look like this:</p
+><example
+num="xFootnoteIndent"
+><chart
+><img
+src="resources/FootnoteIndent.png"
+></img
+></chart
+></example
+><p
+>Type your indent in the black portion.  Be sure to use a number followed immediately by a unit of measure.  <indexedItem
+term="iUnitsOfMeasure"
+></indexedItem
+>You can use the units of measure shown in <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+> or ems. Do not put any spaces between the number and the unit.</p
 ></section2
 ><section2
 id="sFootnoteLineSeparator"
@@ -11912,6 +11951,11 @@ see="iUseEndnotesLayout"
 ><term
 >Footnotes</term
 ><indexTerms
+><indexTerm
+id="iFootnoteIndentr"
+><term
+>Indent</term
+></indexTerm
 ><indexTerm
 id="iFootnoteSpaceAfterNumber"
 ><term

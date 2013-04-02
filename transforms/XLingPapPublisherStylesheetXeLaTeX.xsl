@@ -3145,6 +3145,7 @@
     <xsl:template match="fixedText"/>
     <xsl:template match="footerMargin"/>
     <xsl:template match="footnotePointSize"/>
+    <xsl:template match="footnoteIndent"/>
     <xsl:template match="headerMargin"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="magnificationFactor"/>

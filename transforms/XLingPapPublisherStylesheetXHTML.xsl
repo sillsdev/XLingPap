@@ -1868,6 +1868,7 @@
     <xsl:template match="contentType"/>
     <xsl:template match="defaultFontFamily"/>
     <xsl:template match="footerMargin"/>
+    <xsl:template match="footnoteIndent"/>
     <xsl:template match="footnotePointSize"/>
     <xsl:template match="headerMargin"/>
     <xsl:template match="magnificationFactor"/>

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->14 March 2013</date
+>2 April 2013</date
 ><version
->2.21.2</version
+>2.21.3</version
 ><contents
 showLevel="3"
 ></contents
@@ -11150,6 +11150,13 @@ type="tElement"
 ></dt
 ><dd
 >Margin to use for the footer</dd
+><dt
+><object
+type="tElement"
+>footnoteIndent</object
+></dt
+><dd
+>The indent to use in the footnote text at the bottom of the page. This is the space from the left margin to the (superscript) footnote number</dd
 ><dt
 ><object
 type="tElement"

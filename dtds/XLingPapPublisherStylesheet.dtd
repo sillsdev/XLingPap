@@ -56,6 +56,7 @@ Page Layout
                         defaultFontFamily?,
                         basicPointSize?,
                         footnotePointSize?,
+                        footnoteIndent?,
                         footnoteLine?,
                         linkLayout?,
                         headerFooterPageStyles?
@@ -78,6 +79,7 @@ Page Layout
       leaderlength CDATA #IMPLIED
       leaderwidth CDATA #IMPLIED
     >
+    <!ELEMENT footnoteIndent (#PCDATA) >
     <!ELEMENT headerMargin (#PCDATA) >
     <!ELEMENT footerMargin (#PCDATA) >
     <!ELEMENT pageWidth (#PCDATA) >

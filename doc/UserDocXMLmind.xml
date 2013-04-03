@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 April 2013</date
+>3 April 2013</date
 ><version
 >2.21.3</version
 ><contents
@@ -7934,6 +7934,57 @@ type="tInTextExample"
 type="tInTextExample"
 >example(word_without_gloss)</object
 >, you will only see the blue language data element, not the green gloss element.</p
+><p
+>In some cases, you may want to add another line of data after the first line.  This could be because the data are all related.  You can do this by inserting another <object
+type="tElement"
+>word</object
+> element after the last element in the <object
+type="tElement"
+>word</object
+> element (which will be either a <object
+type="tElement"
+>langData</object
+> or <object
+type="tElement"
+>gloss</object
+> element).  You can then fill in the <object
+type="tElement"
+>langData</object
+> and any <object
+type="tElement"
+>gloss</object
+> elements in it.  As an example,<endnote
+id="nMarlo165"
+><p
+>The data are from <citation
+page="165"
+ref="rMarlo"
+></citation
+>.</p
+></endnote
+> if you key what is shown in <exampleRef
+letter="xExWordWithWordLines"
+num="xExWordWithWordLines"
+></exampleRef
+>, then you'll get the result in <exampleRef
+letter="xExWordWithWordlinesHTML"
+num="xExWordWithWordlinesHTML"
+></exampleRef
+> (assuming that this is the first example in the paper).</p
+><example
+num="xExWordWithWordLines"
+><chart
+><img
+src="resources/WordWithWordLines.png"
+></img
+></chart
+></example
+><example
+num="xExWordWithWordlinesHTML"
+><chart
+type="tHtmlOutput"
+> &lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xWordMulti"&gt;(1)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ry-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;fear&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mb&amp;eacute;k-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nz&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;kill&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[n&amp;iacute;&amp;iacute;nd-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nd&amp;eacute;&amp;eacute;&amp;#946;-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbuk&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nyimb-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;sing for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbool&amp;oacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;untie&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nzasy&amp;aacute;&amp;aacute;k-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;split for&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ndex&amp;uacute;&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;release&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[niing&amp;eacute;&amp;eacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbod&amp;oacute;&amp;oacute;x&amp;aacute;n-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;go around&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; </chart
+></example
 ></section3
 ><section3
 id="sExWordList"
@@ -8027,6 +8078,60 @@ type="tAttribute"
 type="tXLingPap"
 ></object
 > will correctly assign the letters.</p
+><p
+>Just like with <object
+type="tElement"
+>word</object
+> examples, you may sometimes want to add another line of data after the first line. This could be because the data are all related. You can do this by inserting another <object
+type="tElement"
+>word</object
+> element after the last element in the <object
+type="tElement"
+>listWord</object
+> element (which will be either a <object
+type="tElement"
+>langData</object
+> or <object
+type="tElement"
+>gloss</object
+> element). You can then fill in the <object
+type="tElement"
+>langData</object
+> and any <object
+type="tElement"
+>gloss</object
+> elements in it. As an example,<endnote
+id="nMarlo181"
+><p
+>The data are from <citation
+page="181"
+ref="rMarlo"
+></citation
+>.</p
+></endnote
+> if you key what is shown in <exampleRef
+letter="xExListWordWithWordLines"
+num="xExListWordWithWordLines"
+></exampleRef
+>, then you'll get the result in <exampleRef
+letter="xExListWordWithWordlinesHTML"
+num="xExListWordWithWordlinesHTML"
+></exampleRef
+> (assuming that this is the eleventh example in the paper).</p
+><example
+num="xExListWordWithWordLines"
+><chart
+><img
+src="resources/ListWordWithWordLines.png"
+></img
+></chart
+></example
+><example
+num="xExListWordWithWordlinesHTML"
+><chart
+type="tHtmlOutput"
+> &lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xListWordMulti"&gt;(11)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultia"&gt;a.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s-&amp;aacute;a-li[fw-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;die&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[tsy-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;go&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultib"&gt;b.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;&amp;eacute;k-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;oacute;l-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;see&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;iacute;&amp;iacute;nd-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[r&amp;eacute;&amp;eacute;&amp;#946;-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultic"&gt;c.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;uk&amp;uacute;l-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[kar&amp;aacute;&amp;aacute;ng-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;fry&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[siind&amp;iacute;x-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;push&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[liing&amp;eacute;&amp;eacute;r-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[lom&amp;aacute;lom-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;talk&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; </chart
+></example
 ></section3
 ></section2
 ><section2
@@ -26625,6 +26730,29 @@ id="rITF"
 ><publisher
 >Summer Institute of Linguistics</publisher
 ></book
+></refWork
+></refAuthor
+><refAuthor
+citename="Marlo"
+name="Marlo, Michael R."
+><refWork
+id="rMarlo"
+><refDate
+>2008</refDate
+><refTitle
+>Tura Verbal Tonology</refTitle
+><article
+><jTitle
+>Studies in African Linguistics</jTitle
+><jVol
+>37</jVol
+><jIssueNumber
+>2</jIssueNumber
+><jPages
+>153-243</jPages
+><url
+>http://elanguage.net/journals/sal/article/view/721/976</url
+></article
 ></refWork
 ></refAuthor
 ><refAuthor

@@ -829,7 +829,69 @@
         word
     -->
     <xsl:template match="word">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:choose>
+            <xsl:when test="not(descendant::word)">
+                <xsl:call-template name="OutputWordOrSingle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sIsoCode">
+                    <xsl:call-template name="GetISOCode"/>
+                </xsl:variable>
+                <xsl:call-template name="PrepareListForLongtable">
+                    <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+                <tex:env name="longtable" nl1="1">
+                    <tex:parm>
+                        <xsl:text>*</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <xsl:variable name="iColCount" select="count(langData) + count(gloss)"/>
+                        <xsl:value-of select="$iColCount"/>
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="bg"/>
+                        <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
+                        <xsl:text>l@</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="space"/>
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="eg"/>
+                        <xsl:text>l</xsl:text>
+                    </tex:parm>
+                    <xsl:call-template name="OutputListLevelISOCode">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                    </xsl:call-template>
+                    <!-- not sure if the following is the best or even needed...
+                        <tex:cmd name="hspace*">
+                        <tex:parm>-2.5pt</tex:parm>
+                        </tex:cmd>  -->
+                    <xsl:call-template name="OutputWordOrSingle"/>
+                    <!-- remaining rows -->
+                    <xsl:apply-templates select="word">
+                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                    </xsl:apply-templates>
+                </tex:env>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="word[parent::word or ancestor::listWord]">
+        <xsl:param name="bListsShareSameCode"/>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc"/>
+        <xsl:if test="ancestor::listWord">
+            <!-- letter column -->
+            <tex:spec cat="align"/>
+        </xsl:if>
+        <xsl:if test="ancestor::listWord and contains($bListsShareSameCode,'N')">
+            <!-- need another column for the ISO code -->
+            <tex:spec cat="align"/>
+        </xsl:if>
         <xsl:call-template name="OutputWordOrSingle"/>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!--
         listWord
@@ -6711,6 +6773,17 @@
         <xsl:text>&#x0a;</xsl:text>
     </xsl:template>
     <!--  
+        HandleLangDataGlossInWordOrListWord
+    -->
+    <xsl:template name="HandleLangDataGlossInWordOrListWord">
+        <xsl:for-each select="langData | gloss">
+            <xsl:apply-templates select="self::*"/>
+            <xsl:if test="position()!=last()">
+                <tex:spec cat="align"/>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         HandleLanguageContent
     -->
     <xsl:template name="HandleLanguageContent">
@@ -7018,6 +7091,22 @@
                     <xsl:with-param name="sList" select="$sRest"/>
                 </xsl:call-template>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        HandleXeLaTeXSpecialCommand
+    -->
+    <xsl:template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode">
+        <xsl:variable name="sIsoCode">
+            <xsl:call-template name="GetISOCode"/>
+        </xsl:variable>
+        <xsl:if test="string-length($sIsoCode) &gt; 0 and preceding-sibling::exampleHeading">
+            <tex:cmd name="vspace*" nl2="1">
+                <tex:parm>
+                    <xsl:text>-.8</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
     </xsl:template>
     <!--
@@ -8033,55 +8122,9 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:if test="$sTableType='longtable'">
-                        <xsl:if test="../descendant-or-self::endnote">
-                            <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
-                                then one cannot overtly say what the footnote number should be. 
-                                Therefore, we must set the footnote counter here.
-                            -->
-                            <xsl:call-template name="SetLaTeXFootnoteCounter"/>
-                        </xsl:if>
-                        <xsl:call-template name="SetTeXCommand">
-                            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
-                            <xsl:with-param name="sCommandToSet" select="'LTpre'"/>
-                            <xsl:with-param name="sValue">
-                                <xsl:choose>
-                                    <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
-                                        <xsl:choose>
-                                            <xsl:when test="preceding-sibling::exampleHeading">
-                                                <xsl:text>-.8</xsl:text>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:text>-1.725</xsl:text>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:when>
-                                    <xsl:when test="preceding-sibling::exampleHeading">
-                                        <xsl:text>.1</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>-.875</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                        <!--                    </xsl:if>-->
-                        <xsl:call-template name="SetTeXCommand">
-                            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
-                            <xsl:with-param name="sCommandToSet" select="'LTleft'"/>
-                            <xsl:with-param name="sValue">
-                                <xsl:value-of select="$sExampleIndentBefore"/>
-                                <xsl:text> + </xsl:text>
-                                <xsl:value-of select="$iNumberWidth - .5"/>
-                                <xsl:text>em</xsl:text>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                        <xsl:call-template name="SetTeXCommand">
-                            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
-                            <xsl:with-param name="sCommandToSet" select="'LTpost'"/>
-                            <xsl:with-param name="sValue">
-                                <xsl:text>0pt</xsl:text>
-                            </xsl:with-param>
+                        <xsl:call-template name="PrepareListForLongtable">
+                            <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                         </xsl:call-template>
                     </xsl:if>
                     <tex:env name="{$sTableType}" nl1="1">
@@ -8162,6 +8205,11 @@
                                 <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
                             </xsl:call-template>
                             <xsl:call-template name="OutputWordOrSingle"/>
+                            <xsl:if test="name()='listWord'">
+                                <xsl:apply-templates select="word">
+                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                </xsl:apply-templates>
+                            </xsl:if>
                         </xsl:for-each>
                     </tex:env>
                 </tex:group>
@@ -8580,12 +8628,13 @@
     <xsl:template name="OutputWordOrSingle">
         <xsl:choose>
             <xsl:when test="name()='listWord'">
-                <xsl:for-each select="langData | gloss">
-                    <xsl:apply-templates select="self::*"/>
-                    <xsl:if test="position()!=last()">
-                        <tex:spec cat="align"/>
-                    </xsl:if>
-                </xsl:for-each>
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
+            </xsl:when>
+            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::word">
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
+            </xsl:when>
+            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
             <xsl:when test="name()='listDefinition'">
                 <xsl:for-each select="definition">
@@ -8605,18 +8654,70 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode">
-        <xsl:variable name="sIsoCode">
-            <xsl:call-template name="GetISOCode"/>
-        </xsl:variable>
-        <xsl:if test="string-length($sIsoCode) &gt; 0 and preceding-sibling::exampleHeading">
-            <tex:cmd name="vspace*" nl2="1">
-                <tex:parm>
-                    <xsl:text>-.8</xsl:text>
-                    <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                </tex:parm>
-            </tex:cmd>
+    <!--  
+        PrepareListForLongtable
+    -->
+    <xsl:template name="PrepareListForLongtable">
+        <xsl:param name="sIsoCode"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:if test="../descendant-or-self::endnote">
+            <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
+                then one cannot overtly say what the footnote number should be. 
+                Therefore, we must set the footnote counter here.
+            -->
+            <xsl:call-template name="SetLaTeXFootnoteCounter"/>
         </xsl:if>
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+            <xsl:with-param name="sCommandToSet" select="'LTpre'"/>
+            <xsl:with-param name="sValue">
+                <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                        <xsl:choose>
+                            <xsl:when test="preceding-sibling::exampleHeading">
+                                <xsl:text>-.8</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-1.725</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="preceding-sibling::exampleHeading">
+                        <xsl:text>.1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>-.875</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+            </xsl:with-param>
+        </xsl:call-template>
+        <!--                    </xsl:if>-->
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+            <xsl:with-param name="sCommandToSet" select="'LTleft'"/>
+            <xsl:with-param name="sValue">
+                <xsl:value-of select="$sExampleIndentBefore"/>
+                <xsl:text> + </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="name()='word'">
+                        <xsl:value-of select="$iNumberWidth"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$iNumberWidth - .5"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>em</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'setlength'"/>
+            <xsl:with-param name="sCommandToSet" select="'LTpost'"/>
+            <xsl:with-param name="sValue">
+                <xsl:text>0pt</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
+
     </xsl:template>
     <!--  
         ReportTeXCannotHandleThisMessage

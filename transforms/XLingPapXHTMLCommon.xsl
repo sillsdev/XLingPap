@@ -700,7 +700,35 @@
                     </td>
                 </xsl:for-each>
             </tr>
+            <xsl:apply-templates select="word"/>
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="word[ancestor::listWord]">
+        <xsl:param name="bListsShareSameCode"/>
+        <tr>
+            <td>
+                <!-- letter column -->
+            </td>
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <td>
+                    <!-- ISO code -->
+                </td>
+            </xsl:if>
+            <xsl:call-template name="HandleListWordLangDataOrGloss"/>
+        </tr>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="word[parent::word and not(ancestor::listWord)]">
+        <tr>
+            <xsl:for-each select="(langData | gloss)">
+                <td>
+                    <xsl:apply-templates select="."/>
+                </td>
+            </xsl:for-each>
+        </tr>
+        <xsl:apply-templates select="word"/>
     </xsl:template>
     <!--
         listWord
@@ -728,6 +756,9 @@
                 </td>
             </xsl:for-each>
         </tr>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
         <!--    </table> -->
     </xsl:template>
     <!--
@@ -1478,6 +1509,23 @@
                 <xsl:apply-templates/>
             </td>
         </tr>
+    </xsl:template>
+    <!--  
+        HandleListWordLangDataOrGloss
+    -->
+    <xsl:template name="HandleListWordLangDataOrGloss">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="OutputListLevelISOCode">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
+        <xsl:for-each select="(langData | gloss)">
+            <td>
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sExampleCellPadding"/>
+                </xsl:attribute>
+                <xsl:apply-templates select="."/>
+            </td>
+        </xsl:for-each>
     </xsl:template>
     <!--
         HandleLiteralLabelLayoutInfo

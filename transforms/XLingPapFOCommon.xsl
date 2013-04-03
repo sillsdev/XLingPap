@@ -404,6 +404,19 @@
             <xsl:text> + </xsl:text>
         </xsl:if>
     </xsl:template>
+    <!--  
+        HandleLangDataGlossInWordOrListWord
+    -->
+    <xsl:template name="HandleLangDataGlossInWordOrListWord">
+        <xsl:for-each select="langData | gloss">
+            <fo:table-cell xsl:use-attribute-sets="ExampleCell">
+                <xsl:call-template name="DoDebugExamples"/>
+                <fo:block>
+                    <xsl:apply-templates select="self::*"/>
+                </fo:block>
+            </fo:table-cell>
+        </xsl:for-each>
+    </xsl:template>
     <!--
         OutputAbbreviationInTable
     -->

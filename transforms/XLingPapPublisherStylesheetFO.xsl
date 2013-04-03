@@ -1547,7 +1547,48 @@
       word
       -->
     <xsl:template match="word">
-        <xsl:call-template name="OutputWordOrSingle"/>
+        <xsl:choose>
+            <xsl:when test="descendant::word">
+                <fo:block>
+                    <fo:table space-before="0pt">
+                        <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1" keep-with-next.within-page="1">
+                            <fo:table-row>
+                                <xsl:call-template name="OutputWordOrSingle"/>
+                            </fo:table-row>
+                            <xsl:apply-templates select="word"/>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:block>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputWordOrSingle"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="word[ancestor::listWord]">
+        <xsl:param name="bListsShareSameCode"/>
+        <fo:table-row>
+            <fo:table-cell text-align="start" end-indent=".2em">
+                <!-- letter column -->
+                <fo:block/>
+            </fo:table-cell>
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <fo:table-cell>
+                    <!-- ISO code -->
+                    <fo:block/>
+                </fo:table-cell>
+            </xsl:if>
+            <xsl:call-template name="OutputWordOrSingle"/>
+        </fo:table-row>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="word[parent::word and not(ancestor::listWord)]">
+        <fo:table-row>
+            <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
+        </fo:table-row>
+        <xsl:apply-templates select="word"/>
     </xsl:template>
     <!--
       listWord
@@ -6417,6 +6458,11 @@ not using
                             </xsl:otherwise>
                         </xsl:choose>
                     </fo:table-row>
+                    <xsl:if test="name()='listWord'">
+                        <xsl:apply-templates select="word">
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                        </xsl:apply-templates>
+                    </xsl:if>
                     <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listInterlinear | following-sibling::listDefinition">
                         <xsl:if test="name()='listInterlinear'">
                             <!-- output a fake row to add spacing between iterlinears -->
@@ -6463,6 +6509,11 @@ not using
                                 </xsl:otherwise>
                             </xsl:choose>
                         </fo:table-row>
+                        <xsl:if test="name()='listWord'">
+                            <xsl:apply-templates select="word">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:apply-templates>
+                        </xsl:if>
                     </xsl:for-each>
                 </fo:table-body>
             </fo:table>
@@ -6723,14 +6774,13 @@ not using
     <xsl:template name="OutputWordOrSingle">
         <xsl:choose>
             <xsl:when test="name()='listWord'">
-                <xsl:for-each select="langData | gloss">
-                    <fo:table-cell xsl:use-attribute-sets="ExampleCell">
-                        <xsl:call-template name="DoDebugExamples"/>
-                        <fo:block>
-                            <xsl:apply-templates select="self::*"/>
-                        </fo:block>
-                    </fo:table-cell>
-                </xsl:for-each>
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
+            </xsl:when>
+            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::word">
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
+            </xsl:when>
+            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
+                <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
             <xsl:when test="name()='listSingle'">
                 <fo:table-cell xsl:use-attribute-sets="ExampleCell">

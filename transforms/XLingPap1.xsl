@@ -372,22 +372,22 @@
             <xsl:when test="name(.)='glossary'">
                 <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
                 <a name="rXLingPapGlossary{$iPos}"/>
-                    <xsl:call-template name="OutputChapTitle">
-                        <xsl:with-param name="sTitle">
-                            <xsl:call-template name="OutputGlossaryLabel">
-                                <xsl:with-param name="iPos" select="$iPos"/>
-                            </xsl:call-template>
-                        </xsl:with-param>
-                    </xsl:call-template>
+                <xsl:call-template name="OutputChapTitle">
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputGlossaryLabel">
+                            <xsl:with-param name="iPos" select="$iPos"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <!-- assume it is acknowledgments -->
                 <a name="{$sAcknowledgementsID}"/>
-                    <xsl:call-template name="OutputChapTitle">
-                        <xsl:with-param name="sTitle">
-                            <xsl:call-template name="OutputAcknowledgementsLabel"/>
-                        </xsl:with-param>
-                    </xsl:call-template>
+                <xsl:call-template name="OutputChapTitle">
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                    </xsl:with-param>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
         <div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -410,11 +410,11 @@
             </xsl:attribute>
         </a>
         <xsl:apply-templates/>
-            <xsl:call-template name="OutputChapTitle">
-                <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputIndexLabel"/>
-                </xsl:with-param>
-            </xsl:call-template>
+        <xsl:call-template name="OutputChapTitle">
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputIndexLabel"/>
+            </xsl:with-param>
+        </xsl:call-template>
         <!-- process any paragraphs, etc. that may be at the beginning -->
         <xsl:apply-templates/>
         <!-- now process the contents of this index -->
@@ -886,7 +886,35 @@
                     </td>
                 </xsl:for-each>
             </tr>
+            <xsl:apply-templates select="word"/>
         </table>
+    </xsl:template>
+    <xsl:template match="word[ancestor::listWord]">
+        <xsl:param name="bListsShareSameCode"/>
+        <tr>
+            <td>
+                <!-- letter column -->
+            </td>
+            <xsl:if test="contains($bListsShareSameCode,'N')">
+                <td>
+                    <!-- ISO code -->
+                </td>
+            </xsl:if>
+            <xsl:call-template name="HandleListWordLangDataOrGloss"/>
+        </tr>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="word[parent::word and not(ancestor::listWord)]">
+        <tr>
+            <xsl:for-each select="(langData | gloss)">
+                <td>
+                    <xsl:apply-templates select="."/>
+                </td>
+            </xsl:for-each>
+        </tr>
+        <xsl:apply-templates select="word"/>
     </xsl:template>
     <!--
       listWord
@@ -902,18 +930,13 @@
                     </xsl:attribute>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
-            <xsl:call-template name="OutputListLevelISOCode">
+            <xsl:call-template name="HandleListWordLangDataOrGloss">
                 <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
             </xsl:call-template>
-            <xsl:for-each select="(langData | gloss)">
-                <td>
-                    <xsl:attribute name="style">
-                        <xsl:value-of select="$sExampleCellPadding"/>
-                    </xsl:attribute>
-                    <xsl:apply-templates select="."/>
-                </td>
-            </xsl:for-each>
         </tr>
+        <xsl:apply-templates select="word">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:apply-templates>
         <!--    </table> -->
     </xsl:template>
     <!--
@@ -1974,11 +1997,11 @@
         <xsl:if test="contains($endnotesToShow,'X')">
             <hr size="3"/>
             <a name="rXLingPapEndnotes"/>
-                <xsl:call-template name="OutputChapTitle">
-                    <xsl:with-param name="sTitle">
-                        <xsl:call-template name="OutputEndnotesLabel"/>
-                    </xsl:with-param>
-                </xsl:call-template>
+            <xsl:call-template name="OutputChapTitle">
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputEndnotesLabel"/>
+                </xsl:with-param>
+            </xsl:call-template>
             <table>
                 <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //interlinearRef" mode="backMatter"/>
             </table>
@@ -2099,11 +2122,11 @@
     <xsl:template match="references">
         <hr size="3"/>
         <a name="rXLingPapReferences"/>
-            <xsl:call-template name="OutputChapTitle">
-                <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputReferencesLabel"/>
-                </xsl:with-param>
-            </xsl:call-template>
+        <xsl:call-template name="OutputChapTitle">
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputReferencesLabel"/>
+            </xsl:with-param>
+        </xsl:call-template>
         <div style="margin-left:0.25in">
             <xsl:call-template name="DoRefAuthors"/>
         </div>
@@ -3775,6 +3798,23 @@
         </tr>
     </xsl:template>
     <!--  
+        HandleListWordLangDataOrGloss
+    -->
+    <xsl:template name="HandleListWordLangDataOrGloss">
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:call-template name="OutputListLevelISOCode">
+            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+        </xsl:call-template>
+        <xsl:for-each select="(langData | gloss)">
+            <td>
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sExampleCellPadding"/>
+                </xsl:attribute>
+                <xsl:apply-templates select="."/>
+            </td>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
       HandleSmallCaps
    -->
     <xsl:template name="HandleSmallCaps">
@@ -4160,13 +4200,13 @@
                     <big>
                         <b>
                             <xsl:if test="string-length(@id) &gt; 0">
-                            <a name="{@id}"/>
+                                <a name="{@id}"/>
                             </xsl:if>
                             <xsl:if test="$sNumber">
-                                    <xsl:value-of select="$sNumber"/>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                </xsl:if>
-                                <xsl:value-of select="$sTitle"/>
+                                <xsl:value-of select="$sNumber"/>
+                                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                            </xsl:if>
+                            <xsl:value-of select="$sTitle"/>
                         </b>
                     </big>
                 </big>
@@ -4266,7 +4306,7 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputFigureLabel"/>
-<!--            <xsl:apply-templates select="." mode="figure"/>-->
+            <!--            <xsl:apply-templates select="." mode="figure"/>-->
             <xsl:call-template name="GetFigureNumber">
                 <xsl:with-param name="figure" select="."/>
             </xsl:call-template>
@@ -4691,44 +4731,44 @@
         <xsl:param name="nLevel" select="3"/>
         <xsl:param name="nodesSection1"/>
         <xsl:if test="$nLevel!=0">
-        <xsl:for-each select="$nodesSection1">
-            <xsl:call-template name="OutputSectionTOC"/>
-            <xsl:if test="section2 and $nLevel>=2">
-                <ul>
-                    <xsl:for-each select="section2">
-                        <xsl:call-template name="OutputSectionTOC"/>
-                        <xsl:if test="section3 and $nLevel>=3">
-                            <ul>
-                                <xsl:for-each select="section3">
-                                    <xsl:call-template name="OutputSectionTOC"/>
-                                    <xsl:if test="section4 and $nLevel>=4">
-                                        <ul>
-                                            <xsl:for-each select="section4">
-                                                <xsl:call-template name="OutputSectionTOC"/>
-                                                <xsl:if test="section5 and $nLevel>=5">
-                                                    <ul>
-                                                        <xsl:for-each select="section5">
-                                                            <xsl:call-template name="OutputSectionTOC"/>
-                                                            <xsl:if test="section6 and $nLevel>=6">
-                                                                <ul>
-                                                                    <xsl:for-each select="section6">
-                                                                        <xsl:call-template name="OutputSectionTOC"/>
-                                                                    </xsl:for-each>
-                                                                </ul>
-                                                            </xsl:if>
-                                                        </xsl:for-each>
-                                                    </ul>
-                                                </xsl:if>
-                                            </xsl:for-each>
-                                        </ul>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </ul>
-                        </xsl:if>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-        </xsl:for-each>
+            <xsl:for-each select="$nodesSection1">
+                <xsl:call-template name="OutputSectionTOC"/>
+                <xsl:if test="section2 and $nLevel>=2">
+                    <ul>
+                        <xsl:for-each select="section2">
+                            <xsl:call-template name="OutputSectionTOC"/>
+                            <xsl:if test="section3 and $nLevel>=3">
+                                <ul>
+                                    <xsl:for-each select="section3">
+                                        <xsl:call-template name="OutputSectionTOC"/>
+                                        <xsl:if test="section4 and $nLevel>=4">
+                                            <ul>
+                                                <xsl:for-each select="section4">
+                                                    <xsl:call-template name="OutputSectionTOC"/>
+                                                    <xsl:if test="section5 and $nLevel>=5">
+                                                        <ul>
+                                                            <xsl:for-each select="section5">
+                                                                <xsl:call-template name="OutputSectionTOC"/>
+                                                                <xsl:if test="section6 and $nLevel>=6">
+                                                                    <ul>
+                                                                        <xsl:for-each select="section6">
+                                                                            <xsl:call-template name="OutputSectionTOC"/>
+                                                                        </xsl:for-each>
+                                                                    </ul>
+                                                                </xsl:if>
+                                                            </xsl:for-each>
+                                                        </ul>
+                                                    </xsl:if>
+                                                </xsl:for-each>
+                                            </ul>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </ul>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -4833,7 +4873,7 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="OutputTableNumberedLabel"/>
-<!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
+            <!--            <xsl:apply-templates select="." mode="tablenumbered"/>-->
             <xsl:call-template name="GetTableNumberedNumber">
                 <xsl:with-param name="tablenumbered" select="."/>
             </xsl:call-template>

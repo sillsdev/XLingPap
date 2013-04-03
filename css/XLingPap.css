@@ -1627,6 +1627,14 @@ table endnote gloss:after
 {
 	content: glossProseOverrideAfter();
 }
+listWord gloss:after
+{
+	content: glossProseOverrideAfter() " ";
+}
+word gloss:after
+{
+	content: glossProseOverrideAfter() " ";
+}
 gloss:after
 {
 	content: glossProseOverrideAfter();
@@ -2214,6 +2222,14 @@ table endnote langData:after
 {
 	content: langDataProseOverrideAfter();
 }
+listWord langData:after
+{
+	content: langDataProseOverrideAfter() " ";
+}
+word langData:after
+{
+	content: langDataProseOverrideAfter() " ";
+}
 langData:after
 {
 	content: langDataProseOverrideAfter();
@@ -2422,7 +2438,6 @@ listWord:before
 listWord
 {
 	display:block;
-	padding-left:example-indent();
 }
 
 literal:before
@@ -3763,6 +3778,22 @@ iword {
     border-style: solid;
     border-width: my-border-width();
     padding: 2;
+}
+
+example > word
+{
+    display:block;
+    padding-left:example-indent();
+}
+
+listWord > word
+{
+    display:block;
+    padding-left:example-indent();
+}
+word word
+{
+    display:block;
 }
 
 words { 

@@ -430,11 +430,11 @@
     %special;
     contentType IDREF #IMPLIED
 >
-<!ELEMENT word (langData | gloss)+>
+<!ELEMENT word ((langData | gloss)+, word?)>
 <!ATTLIST word
     externalID CDATA #IMPLIED
 >
-<!ELEMENT listWord (langData | gloss)+>
+<!ELEMENT listWord ((langData | gloss)+, word?)>
 <!ATTLIST listWord
     externalID CDATA #IMPLIED
     letter ID #REQUIRED

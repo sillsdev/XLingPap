@@ -1365,6 +1365,17 @@ examples
          </word>
       </example>
    </cfg:elementTemplate>
+   <cfg:elementTemplate name="word_with_gloss">
+         <word>
+            <langData lang="lVernacular"/>
+            <gloss lang="lGloss"/>
+         </word>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="word_without_gloss">
+         <word>
+            <langData lang="lVernacular"/>
+         </word>
+   </cfg:elementTemplate>
    <cfg:elementTemplate name="listSingle" selectable="override">
       <listSingle letter="x" xmlns="">
          <langData lang="lVernacular"/>

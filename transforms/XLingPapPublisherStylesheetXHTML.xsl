@@ -1699,6 +1699,9 @@
             <xsl:call-template name="GetContextOfItem"/>
         </xsl:variable>
         <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
+        <xsl:if test="ancestor::*[name()='word' or name()='listWord'] and preceding-sibling::*[1][name()='langData']">
+            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+        </xsl:if>
         <xsl:call-template name="HandleGlossTextBeforeOutside">
             <xsl:with-param name="glossLayout" select="$glossLayout"/>
             <xsl:with-param name="sGlossContext" select="$sGlossContext"/>

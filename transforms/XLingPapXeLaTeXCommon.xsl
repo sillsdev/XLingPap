@@ -2956,6 +2956,24 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
+            <xsl:if test="descendant-or-self::endnote and not(ancestor::table)">
+                <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
+                    then one cannot overtly say what the footnote number should be. 
+                    Therefore, we must set the footnote counter here.
+                -->
+                <xsl:call-template name="SetLaTeXFootnoteCounter">
+                    <xsl:with-param name="bInTableNumbered">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::tablenumbered">
+                                <xsl:text>Y</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>N</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  

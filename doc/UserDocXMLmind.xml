@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 April 2013</date
+>5 April 2013</date
 ><version
->2.21.3</version
+>2.21.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -7935,7 +7935,7 @@ type="tInTextExample"
 >example(word_without_gloss)</object
 >, you will only see the blue language data element, not the green gloss element.</p
 ><p
->In some cases, you may want to add another line of data after the first line.  This could be because the data are all related.  You can do this by inserting another <object
+>In some cases, you may want to add another line of data after the first line. This could be because the data are all related. You can do this by inserting another <object
 type="tElement"
 >word</object
 > element after the last element in the <object
@@ -7947,13 +7947,13 @@ type="tElement"
 > or <object
 type="tElement"
 >gloss</object
-> element).  You can then fill in the <object
+> element). You can then fill in the <object
 type="tElement"
 >langData</object
 > and any <object
 type="tElement"
 >gloss</object
-> elements in it.  As an example,<endnote
+> elements in it. As an example,<endnote
 id="nMarlo165"
 ><p
 >The data are from <citation
@@ -7983,7 +7983,7 @@ src="resources/WordWithWordLines.png"
 num="xExWordWithWordlinesHTML"
 ><chart
 type="tHtmlOutput"
-> &lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xWordMulti"&gt;(1)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ry-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;fear&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mb&amp;eacute;k-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nz&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;kill&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[n&amp;iacute;&amp;iacute;nd-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nd&amp;eacute;&amp;eacute;&amp;#946;-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbuk&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nyimb-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;sing for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbool&amp;oacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;untie&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nzasy&amp;aacute;&amp;aacute;k-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;split for&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ndex&amp;uacute;&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;release&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[niing&amp;eacute;&amp;eacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbod&amp;oacute;&amp;oacute;x&amp;aacute;n-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;go around&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; </chart
+>&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xWordMulti"&gt;(1)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ry-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;fear&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mb&amp;eacute;k-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nz&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;kill&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[n&amp;iacute;&amp;iacute;nd-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nd&amp;eacute;&amp;eacute;&amp;#946;-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbuk&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nyimb-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;sing for&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbool&amp;oacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;untie&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[nzasy&amp;aacute;&amp;aacute;k-&amp;iacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;split for&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[ndex&amp;uacute;&amp;uacute;l-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;release&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[niing&amp;eacute;&amp;eacute;r-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&lt;span style="color:blue; "&gt;a-li&amp;iacute;[mbod&amp;oacute;&amp;oacute;x&amp;aacute;n-&amp;aacute;]&lt;/span&gt;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;go around&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
 ></section3
 ><section3
@@ -8130,7 +8130,7 @@ src="resources/ListWordWithWordLines.png"
 num="xExListWordWithWordlinesHTML"
 ><chart
 type="tHtmlOutput"
-> &lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xListWordMulti"&gt;(11)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultia"&gt;a.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s-&amp;aacute;a-li[fw-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;die&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[tsy-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;go&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultib"&gt;b.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;&amp;eacute;k-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;oacute;l-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;see&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;iacute;&amp;iacute;nd-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[r&amp;eacute;&amp;eacute;&amp;#946;-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultic"&gt;c.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;uk&amp;uacute;l-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[kar&amp;aacute;&amp;aacute;ng-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;fry&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[siind&amp;iacute;x-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;push&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[liing&amp;eacute;&amp;eacute;r-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[lom&amp;aacute;lom-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;talk&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; </chart
+>&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="xListWordMulti"&gt;(11)&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table cellpadding="0pt" cellspacing="0pt"&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultia"&gt;a.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s-&amp;aacute;a-li[fw-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;die&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[tsy-&amp;aacute;] t&amp;aacute; [O]&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;go&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultib"&gt;b.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;&amp;eacute;k-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;shave&amp;#8217;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;oacute;l-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;see&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[l&amp;iacute;&amp;iacute;nd-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;wait&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[r&amp;eacute;&amp;eacute;&amp;#946;-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;ask&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;a name="xListWordMultic"&gt;c.&lt;/a&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[&amp;#946;uk&amp;uacute;l-&amp;aacute;] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;take&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[kar&amp;aacute;&amp;aacute;ng-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:green; "&gt;&amp;#8216;fry&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[siind&amp;iacute;x-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;push&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[liing&amp;eacute;&amp;eacute;r-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;watch&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&lt;span style="color:blue; "&gt;s&amp;iacute;-&amp;#946;a-li[lom&amp;aacute;lom-a] t&amp;aacute;&lt;/span&gt;&lt;/td&gt; &lt;td style="padding-left: .25em"&gt;&amp;nbsp;&lt;span style="color:green; "&gt;&amp;#8216;talk&amp;#8217;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
 ></section3
 ></section2
@@ -21406,6 +21406,56 @@ type="tXLingPap"
 ></object
 > PDF first and then insert the front matter before it. This will probably preserve the hyperlinks in the document.</p
 ></section2
+><section2
+id="sFAQCreateZipFile"
+><secTitle
+>Create a Zip File of My Document?</secTitle
+><p
+><indexedItem
+term="iCreateZipFile"
+></indexedItem
+>Since a given <object
+type="tXLingPap"
+></object
+> document may contain the main document plus a number of “referenced” (or embedded) documents as well as refer to any number of image files, making sure you have a backup of all the relevant files for a given document can be difficult.  It also can be difficult to make sure you have all the needed files if you wish to share your document with someone else.  You can now ask <object
+type="tXLingPap"
+></object
+> to create a zip file for you that has all these files in it.</p
+><p
+>To do so, follow these steps:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.</li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Cr” (it should then fill in “CreateZipFile” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then (silently) create a zip file containing all the files involved in your document.  The name of the zip file will be the same as your main document's file name but with an extension of “.zip” instead of “.xml”.  This zip file will appear in the same directory as your main document.</li
+></ol
+><p
+>Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will contain these files and indicate their directory with respect to the directory of your main document.  Some unzip programs are able to unzip these files in their original locations and others are not.  Nonetheless, the zip file does contain all the files your document uses.</p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -27078,6 +27128,11 @@ id="iCreateNew"
 >Create a new XLingPaper Document</term
 ></indexTerm
 ><indexTerm
+id="iCreateZipFile"
+><term
+>Create a zip file containing all files in my document</term
+></indexTerm
+><indexTerm
 id="iDate"
 ><term
 >Date</term
@@ -28230,6 +28285,12 @@ id="iXXEUserPreferences"
 >User Preferences</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iZipFile"
+see="iCreateZipFile"
+><term
+>Zip file, create</term
 ></indexTerm
 ><indexTerm
 id="iZotero"

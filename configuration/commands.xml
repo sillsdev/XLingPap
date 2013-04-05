@@ -254,6 +254,9 @@
     <cfg:command name="GetXIncludesAndImageFilesCmd">
         <cfg:class>xlingpaper.xxe.GetXIncludesAndImageFiles</cfg:class>
     </cfg:command>
+    <cfg:command name="CreateZipFileCmd">
+        <cfg:class>xlingpaper.xxe.CreateZipFile</cfg:class>
+    </cfg:command>
     <cfg:command name="ConvertFileNameForXeLaTeXCmd">
         <cfg:class>xlingpaper.xxe.ConvertFileNameForXeLaTeX</cfg:class>
     </cfg:command>
@@ -2926,6 +2929,22 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:command name="selectNode" parameter="self"/>
                     </cfg:sequence>
                 </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="CreateZipFile">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="GetXIncludesAndImageFiles"/>
+                <cfg:command name="CreateZipFileCmd" parameter="%P|%R.zip|%N|%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="GetXIncludesAndImageFiles">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="GetXIncludesAndImageFilesCmd" parameter="%D|%P"/>
+<!--                <cfg:command name="alert" parameter="%_"/>-->
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

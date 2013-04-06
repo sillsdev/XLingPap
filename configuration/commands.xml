@@ -2936,7 +2936,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:macro>
             <cfg:sequence>
                 <cfg:command name="GetXIncludesAndImageFiles"/>
-                <cfg:command name="CreateZipFileCmd" parameter="%P|%R.zip|%N|%_"/>
+                <cfg:command name="CreateZipFileCmd" parameter="%P|%R.zip|%D|%_"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

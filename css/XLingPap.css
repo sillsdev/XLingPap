@@ -2252,7 +2252,8 @@ langName:after
 language:before
 {
 	content:"language: " 
-	text-field(attribute, id, columns, 10, font-size, small)
+	text-field(attribute, id, columns, 10, font-size, small,
+                        background-color, white)
 	" "
 			 command-button(text, "  Click to Set Font Info  ", 
 							command, "ChooseFontCmd",
@@ -3686,7 +3687,8 @@ tree
 type:before
 {
 	content:"type: " 
-	text-field(attribute, id, columns, 10, font-size, small)
+	text-field(attribute, id, columns, 10, font-size, small,
+                      background-color, white)
 	" "
 	;
 }

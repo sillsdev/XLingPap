@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 April 2013</date
+>11 April 2013</date
 ><version
->2.21.4</version
+>2.22.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -5350,7 +5350,10 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
->.</li
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “Z” (it should then fill in “ZoteroMODSToXLingPaperReferences” for you).</li
 ><li
@@ -5451,7 +5454,10 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
->.</li
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “E” (it should then fill in “EndnoteXMLToXLingPaperReferences” for you).</li
 ><li
@@ -10532,7 +10538,7 @@ id="sExampleHeading"
 ><secTitle
 >Headings on Examples</secTitle
 ><p
->Sometimes one wishes to tag an interlinear example or a list of interlinear examples with a title or heading or label. One uses the <object
+>Sometimes one wishes to tag an example with a title or heading or label. One uses the <object
 type="tElement"
 >exampleHeading</object
 > element for this. Insert an <object
@@ -10541,13 +10547,7 @@ type="tElement"
 > element within the <object
 type="tElement"
 >example</object
-> element, just before the <object
-type="tElement"
->interlinear</object
-> or <object
-type="tElement"
->listInterlinear</object
-> element. One may also put an <object
+> element, just before the first element of the example. One may also put an <object
 type="tElement"
 >exampleHeading</object
 > element within a <object
@@ -10577,7 +10577,7 @@ num="xExInterlinearLGFData"
 > above, then click on the word “interlinear" in the node path bar and then do an insert before operation<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->. The only option will be to insert “exampleHeader”. Choose this. You can then type your header information, including inserting any “embedded” elements.<endnoteRef
+>. The only option will be to insert “exampleHeading”. Choose this. You can then type your header information, including inserting any “embedded” elements.<endnoteRef
 note="nEmbedded"
 ></endnoteRef
 ></p
@@ -16733,7 +16733,10 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
->.</li
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “U” (it should then fill in “URIConvertFileNameToURI” for you).</li
 ><li
@@ -20013,7 +20016,10 @@ type="tXMLmindXMLEditor"
 >Use menu items <object
 type="tInstruction"
 >Tools / Execute Command...</object
->. This opens up the Execute Command dialog box. It will look something like this:<br
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+> This opens up the Execute Command dialog box. It will look something like this:<br
 ></br
 ><img
 src="resources/ExecuteCommandDialogBox.png"
@@ -20553,7 +20559,10 @@ type="tXMLmindXMLEditor"
 >Use menu items <object
 type="tInstruction"
 >Tools / Execute Command...</object
->. This opens up the Execute Command dialog box. It will look something like this:<br
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+> This opens up the Execute Command dialog box. It will look something like this:<br
 ></br
 ><img
 src="resources/ExecuteCommandDialogBox.png"
@@ -21417,7 +21426,7 @@ term="iCreateZipFile"
 >Since a given <object
 type="tXLingPap"
 ></object
-> document may contain the main document plus a number of “referenced” (or embedded) documents as well as refer to any number of image files, making sure you have a backup of all the relevant files for a given document can be difficult.  It also can be difficult to make sure you have all the needed files if you wish to share your document with someone else.  You can now ask <object
+> document may contain the main document plus a number of “referenced” (or embedded) documents as well as refer to any number of image files, making sure you have a backup of all the relevant files for a given document can be difficult. It also can be difficult to make sure you have all the needed files if you wish to share your document with someone else. You can now ask <object
 type="tXLingPap"
 ></object
 > to create a zip file for you that has all these files in it.</p
@@ -21439,7 +21448,46 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
+>.<endnote
+id="nToolMenuExecuteCommand"
+><p
+>Some versions of the <object
+type="tXMLmindXMLEditor"
+></object
+> do not automatically include this menu item.  To get it, do this:</p
+><ol
+><li
+>Use <object
+type="tInstruction"
+>Options</object
+> meu item / <object
+type="tElement"
+>Preferences...</object
 >.</li
+><li
+>In the left hand pane, click on “Features" (under “General”).</li
+><li
+>Scroll the right hand pane down until you see the “Enable the "Tools|Record Macro" Submenu” item.</li
+><li
+>Make sure the check box before it is checked.</li
+><li
+>Click on the OK button.</li
+><li
+>Exit the <object
+type="tXMLmindXMLEditor"
+></object
+> program.</li
+><li
+>Restart the <object
+type="tXMLmindXMLEditor"
+></object
+> program.  The <object
+type="tInstruction"
+>Tools / Execute Command</object
+> menu item should now be available.</li
+></ol
+></endnote
+></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “Cr” (it should then fill in “CreateZipFile” for you).</li
 ><li
@@ -21451,10 +21499,10 @@ type="tInstruction"
 >OK</object
 >.</li
 ><li
->This will then (silently) create a zip file containing all the files involved in your document.  The name of the zip file will be the same as your main document's file name but with an extension of “.zip” instead of “.xml”.  This zip file will appear in the same directory as your main document.</li
+>This will then (silently) create a zip file containing all the files involved in your document. The name of the zip file will be the same as your main document's file name but with an extension of “.zip” instead of “.xml”. This zip file will appear in the same directory as your main document.</li
 ></ol
 ><p
->Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will contain these files and indicate their directory with respect to the directory of your main document.  Some unzip programs are able to unzip these files in their original locations and others are not.  Nonetheless, the zip file does contain all the files your document uses.</p
+>Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will contain these files and indicate their directory with respect to the directory of your main document. Some unzip programs are able to unzip these files in their original locations and others are not. Nonetheless, the zip file does contain all the files your document uses.</p
 ></section2
 ></section1
 ><section1

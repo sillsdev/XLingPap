@@ -1812,6 +1812,9 @@
             <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
         -->
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0"/>
+        </xsl:if>
         <xsl:call-template name="CreateHorizontalLine">
             <xsl:with-param name="iBorder" select="$iBorder"/>
         </xsl:call-template>

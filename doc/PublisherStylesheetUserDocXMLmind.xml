@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 April 2013</date
+>11 April 2013</date
 ><version
->2.21.3</version
+>2.22.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -381,10 +381,10 @@ id="sFootnoteIndent"
 ><indexedItem
 term="iFootnoteIndentr"
 ></indexedItem
->Some publishers want a specified indent in the footnote text before the (superscript) footnote number.  Use the <object
+>Some publishers want a specified indent in the footnote text before the (superscript) footnote number. Use the <object
 type="tElement"
 >footnoteIndent</object
-> element to set this value overtly instead of the normal default value.  You will need to overtly insert this element (it appears between <object
+> element to set this value overtly instead of the normal default value. You will need to overtly insert this element (it appears between <object
 type="tElement"
 >footnotePointSize</object
 > and <object
@@ -393,7 +393,7 @@ type="tElement"
 >; you will probably have to click on one of these two and then do an insert after or insert before command to get the <object
 type="tElement"
 >footnoteIndent</object
-> element).  It will look like this:</p
+> element). It will look like this:</p
 ><example
 num="xFootnoteIndent"
 ><chart
@@ -403,7 +403,7 @@ src="resources/FootnoteIndent.png"
 ></chart
 ></example
 ><p
->Type your indent in the black portion.  Be sure to use a number followed immediately by a unit of measure.  <indexedItem
+>Type your indent in the black portion. Be sure to use a number followed immediately by a unit of measure. <indexedItem
 term="iUnitsOfMeasure"
 ></indexedItem
 >You can use the units of measure shown in <exampleRef

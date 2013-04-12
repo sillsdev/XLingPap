@@ -3740,6 +3740,15 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
+        <tex:cmd name="needspace">
+            <tex:parm>
+                <xsl:text>3</xsl:text>
+                <tex:cmd name="baselineskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -3762,12 +3771,6 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
-            <tex:cmd name="needspace">
-                <tex:parm>
-                    <xsl:text>3</xsl:text>
-                    <tex:cmd name="baselineskip" gr="0"/>
-                </tex:parm>
-            </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>

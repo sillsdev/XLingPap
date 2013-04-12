@@ -4784,6 +4784,12 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
+        <tex:cmd name="needspace">
+            <tex:parm>
+                <xsl:text>3</xsl:text>
+                <tex:cmd name="baselineskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
             <xsl:with-param name="fDoRaisebox" select="'N'"/>
@@ -4796,12 +4802,6 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
-            <tex:cmd name="needspace">
-                <tex:parm>
-                    <xsl:text>3</xsl:text>
-                    <tex:cmd name="baselineskip" gr="0"/>
-                </tex:parm>
-            </tex:cmd>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
             <tex:cmd name="vspace">
                 <tex:parm>

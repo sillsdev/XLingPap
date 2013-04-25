@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 April 2013</date
+>12 April 2013</date
 ><version
->2.22.0</version
+>2.22.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -2228,17 +2228,6 @@ note="nAttributesToolReminder"
 type="tElement"
 >preface</object
 > elements and thus, by changing the label, you can create special front matter sections.</p
-><p
-><indexedItem
-term="iAbstract"
-></indexedItem
->Note that if one has a <object
-type="tElement"
->preface</object
-> element, then one may not also have an <object
-type="tElement"
->abstract</object
-> element.</p
 ></section2
 ><section2
 id="sFMExample"
@@ -21454,7 +21443,7 @@ id="nToolMenuExecuteCommand"
 >Some versions of the <object
 type="tXMLmindXMLEditor"
 ></object
-> do not automatically include this menu item.  To get it, do this:</p
+> do not automatically include this menu item. To get it, do this:</p
 ><ol
 ><li
 >Use <object
@@ -21481,7 +21470,7 @@ type="tXMLmindXMLEditor"
 >Restart the <object
 type="tXMLmindXMLEditor"
 ></object
-> program.  The <object
+> program. The <object
 type="tInstruction"
 >Tools / Execute Command</object
 > menu item should now be available.</li

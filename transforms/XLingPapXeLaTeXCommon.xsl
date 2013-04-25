@@ -2083,6 +2083,9 @@
         =========================================================== -->
     <xsl:template match="br">
         <xsl:choose>
+            <xsl:when test="ancestor::figure and parent::chart and not(following-sibling::text()) and not(following-sibling::*)">
+                <!-- do nothing when it is the last thing in a chart - XeLaTeX will fail if we output the \\ -->
+            </xsl:when>
             <xsl:when test="ancestor::langData or ancestor::td or ancestor::th or ancestor::gloss">
                 <!-- these all are using the \vbox{\hbox{}\hbox{}} approach -->
                 <tex:spec cat="eg"/>
@@ -10039,6 +10042,9 @@
         </tex:cmd>
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>booktabs</tex:parm>
+        </tex:cmd>
+        <tex:cmd name="usepackage" nl2="1">
+            <tex:parm>calc</tex:parm>
         </tex:cmd>
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>fancyhdr</tex:parm>

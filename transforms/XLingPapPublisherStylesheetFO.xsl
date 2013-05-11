@@ -2719,6 +2719,10 @@ not using
             <xsl:variable name="sPage" select="normalize-space(@page)"/>
             <xsl:if test="string-length($sPage) &gt; 0">
                 <xsl:text>:</xsl:text>
+                <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
+                <xsl:if test="string-length($citationLayout/@textbeforepages) &gt; 0">
+                    <xsl:value-of select="$citationLayout/@textbeforepages"/>
+                </xsl:if>
                 <xsl:value-of select="$sPage"/>
             </xsl:if>
             <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>

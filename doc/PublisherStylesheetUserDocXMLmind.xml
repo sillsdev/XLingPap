@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 April 2013</date
+>10 May 2013</date
 ><version
->2.22.0</version
+>2.22.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -10222,6 +10222,96 @@ type="tAttrValue"
 ></table
 ></example
 ></section2
+><section2
+id="sCitationOverrides"
+><secTitle
+>Special Overrides for <object
+type="tElement"
+>citation</object
+> Elements</secTitle
+><p
+><indexedItem
+term="iCitationOverrides"
+></indexedItem
+>Sometimes one wants to override the default formatting for data in citations.  Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
+><p
+>The <object
+type="tElement"
+>citationLayout</object
+> element has the attribute shown in example <exampleRef
+letter="xCitationOverrideLayoutAttributes"
+num="xCitationOverrideLayoutAttributes"
+></exampleRef
+>. You use this to control formatting of the content ot the <object
+type="tElement"
+>citation</object
+> elements.</p
+><example
+num="xCitationOverrideLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>citation</object
+> Content Overrides Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iPageNumbersInCitation"
+></indexedItem
+><object
+type="tAttribute"
+>textbeforepages</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear between the colon after the date and the page(s).</langData
+></td
+><td
+><object
+type="tAttrValue"
+> </object
+></td
+><td
+>Yes</td
+></tr
+></table
+></example
+></section2
 ></section1
 ><section1
 id="sCommonSetsOfAttributes"
@@ -11642,6 +11732,11 @@ see="iTableNumberedShowChapterNumber"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iCitationOverrides"
+><term
+>Citation special formatting</term
+></indexTerm
+><indexTerm
 id="iCitationLink"
 ><term
 >Citation link</term
@@ -12251,6 +12346,11 @@ id="iPageInsideMargin"
 id="iPageNumber"
 ><term
 >Page number</term
+></indexTerm
+><indexTerm
+id="iPageNumbersInCitation"
+><term
+>Page number(s) in citation</term
 ></indexTerm
 ><indexTerm
 id="iPageOutsideMargin"

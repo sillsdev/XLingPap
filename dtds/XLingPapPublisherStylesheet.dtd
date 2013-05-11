@@ -532,7 +532,7 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout? ) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout? ) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -704,6 +704,10 @@ Content Layout
     <!ELEMENT literalLabelLayout (#PCDATA) >
     <!ATTLIST literalLabelLayout
        %fontinfo;
+    >
+    <!ELEMENT citationLayout (#PCDATA) >
+    <!ATTLIST citationLayout
+      textbeforepages CDATA #IMPLIED
     >
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.

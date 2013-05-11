@@ -4536,6 +4536,16 @@ chapterTitleLayout
 	margin-left:.125in;
 /*	property-group: titledItem("1 Chapter"); */
 }
+citationLayout
+{
+	display:block;
+	content:"citation layout:  Doe (2003:"
+           label(attribute, textbeforepages)
+            "23-45)";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 citationLinkLayout[showmarking='no']
 {
 	color:Gray;

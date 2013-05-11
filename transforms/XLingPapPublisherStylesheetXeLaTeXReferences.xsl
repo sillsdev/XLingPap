@@ -26,6 +26,7 @@
             <xsl:otherwise>
                 <xsl:for-each select="$referencesLayoutInfo/refAuthorLayouts/*[position()=$authorLayoutToUsePosition]">
                     <xsl:for-each select="*">
+                        <tex:spec cat="bg"/>
                         <xsl:choose>
                             <xsl:when test="name(.)='refAuthorItem'">
                                 <xsl:call-template name="OutputFontAttributes">
@@ -94,6 +95,7 @@
                                 </xsl:call-template>
                             </xsl:when>
                         </xsl:choose>
+                        <tex:spec cat="eg"/>
                     </xsl:for-each>
                 </xsl:for-each>
                 <xsl:call-template name="DoInternalTargetEnd"/>

@@ -3052,6 +3052,13 @@ not using
                 <xsl:apply-templates select="../refTitle"/>
             </fo:inline>
             <xsl:text>.  </xsl:text>
+            <xsl:if test="../../@showAuthorName='no'">
+                <xsl:for-each select="..">
+                    <xsl:call-template name="DoDate">
+                        <xsl:with-param name="works" select="$book/.."/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
             <xsl:if test="translatedBy">
                 <xsl:text>Translated by </xsl:text>
                 <xsl:value-of select="normalize-space(translatedBy)"/>
@@ -3377,6 +3384,24 @@ not using
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoDate
+    -->
+    <xsl:template name="DoDate">
+        <xsl:param name="works"/>
+        <xsl:variable name="date">
+            <xsl:value-of select="refDate"/>
+        </xsl:variable>
+        <xsl:value-of select="$date"/>
+        <xsl:if test="../@showAuthorName!='no'">
+            <xsl:if test="count($works[refDate=$date])>1">
+                <xsl:apply-templates select="." mode="dateLetter">
+                    <xsl:with-param name="date" select="$date"/>
+                </xsl:apply-templates>
+            </xsl:if>
+        </xsl:if>
+        <xsl:text>. </xsl:text>
     </xsl:template>
     <!--  
         DoDebugExamples
@@ -3839,26 +3864,21 @@ not using
         <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <xsl:for-each select="$works">
             <fo:block text-indent="-.25in" start-indent=".25in" id="{@id}">
-                <xsl:variable name="author">
-                    <xsl:value-of select="normalize-space(../@name)"/>
-                </xsl:variable>
-                <xsl:value-of select="$author"/>
-                <xsl:if test="substring($author,string-length($author),string-length($author))!='.'">.</xsl:if>
-                <xsl:text>&#x20;  </xsl:text>
-                <xsl:if test="authorRole">
-                    <xsl:value-of select="authorRole"/>
-                    <xsl:text>.  </xsl:text>
+                <xsl:if test="../@showAuthorName!='no'">
+                    <xsl:variable name="author">
+                        <xsl:value-of select="normalize-space(../@name)"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$author"/>
+                    <xsl:if test="substring($author,string-length($author),string-length($author))!='.'">.</xsl:if>
+                    <xsl:text>&#x20;  </xsl:text>
+                    <xsl:if test="authorRole">
+                        <xsl:value-of select="authorRole"/>
+                        <xsl:text>.  </xsl:text>
+                    </xsl:if>
+                    <xsl:call-template name="DoDate">
+                        <xsl:with-param name="works" select="$works"/>
+                    </xsl:call-template>
                 </xsl:if>
-                <xsl:variable name="date">
-                    <xsl:value-of select="refDate"/>
-                </xsl:variable>
-                <xsl:value-of select="$date"/>
-                <xsl:if test="count($works[refDate=$date])>1">
-                    <xsl:apply-templates select="." mode="dateLetter">
-                        <xsl:with-param name="date" select="$date"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-                <xsl:text>. </xsl:text>
                 <!--
                     book
                 -->
@@ -3875,6 +3895,11 @@ not using
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
                     <!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:text> In </xsl:text>
                     <xsl:choose>
                         <xsl:when test="collection/collCitation">
@@ -3984,6 +4009,11 @@ not using
                         </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:if test="dissertation/location">
                         <xsl:text>(</xsl:text>
                         <xsl:value-of select="normalize-space(dissertation/location)"/>
@@ -4011,6 +4041,11 @@ not using
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
                     <xsl:text>&#x20;</xsl:text>
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <fo:inline font-style="italic">
                         <xsl:value-of select="normalize-space(article/jTitle)"/>
                         <xsl:text>&#x20;</xsl:text>
@@ -4046,6 +4081,16 @@ not using
                         <xsl:text>.</xsl:text>
                         <!--                        <xsl:value-of select="$sRdquo"/>-->
                         <xsl:text>&#x20;</xsl:text>
+                        <xsl:if test="../@showAuthorName='no'">
+                            <xsl:call-template name="DoDate">
+                                <xsl:with-param name="works" select="$works"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <xsl:if test="../@showAuthorName='no'">
+                            <xsl:call-template name="DoDate">
+                                <xsl:with-param name="works" select="$works"/>
+                            </xsl:call-template>
+                        </xsl:if>
                         <xsl:if test="fieldNotes/location">
                             <xsl:text> (</xsl:text>
                             <xsl:value-of select="normalize-space(fieldNotes/location)"/>
@@ -4067,6 +4112,11 @@ not using
                     <xsl:text>.</xsl:text>
                     <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>&#x20;</xsl:text>
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:if test="ms/location">
                         <xsl:text> (</xsl:text>
                         <xsl:value-of select="normalize-space(ms/location)"/>
@@ -4093,6 +4143,11 @@ not using
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
                     <!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:text>  Paper presented at the </xsl:text>
                     <xsl:value-of select="normalize-space(paper/conference)"/>
                     <xsl:if test="paper/location">
@@ -4112,6 +4167,11 @@ not using
                     <xsl:apply-templates select="refTitle"/>
                     <xsl:text>.</xsl:text>
                     <!--                    <xsl:value-of select="$sRdquo"/>-->
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="proceedings/procCitation">
                             <xsl:text>  In </xsl:text>
@@ -4197,6 +4257,11 @@ not using
                         </xsl:with-param>
                     </xsl:call-template>
                     <xsl:text>. </xsl:text>
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:if test="thesis/location">
                         <xsl:text> (</xsl:text>
                         <xsl:value-of select="normalize-space(thesis/location)"/>
@@ -4226,6 +4291,11 @@ not using
                     <xsl:text>.</xsl:text>
                     <!--                    <xsl:value-of select="$sRdquo"/>-->
                     <xsl:text>&#x20;</xsl:text>
+                    <xsl:if test="../@showAuthorName='no'">
+                        <xsl:call-template name="DoDate">
+                            <xsl:with-param name="works" select="$works"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:if test="webPage/edition">
                         <xsl:value-of select="normalize-space(webPage/edition)"/>
                         <xsl:call-template name="OutputPeriodIfNeeded">

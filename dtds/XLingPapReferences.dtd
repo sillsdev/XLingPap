@@ -19,6 +19,7 @@
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
+    showAuthorName (yes | no) "yes"
 >
 <!-- There are two versions of an author's/authors'  name(s), 
         one is full and the other contains only initials for first and middle (etc.) names.

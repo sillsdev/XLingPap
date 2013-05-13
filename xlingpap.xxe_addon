@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.22.2</a:version
+>2.22.3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-05-10</a:date
+>2013-05-13</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.22.3 13 May 2013<ul
+><li
+>For reference items for which there is no known author, add a way to show the title in the author position.  (Done via a showAuthorName attribute on the refAuthor element.)</li
+></ul
+></li
 ><li
 >2.22.2 10 May 2013<ul
 ><li

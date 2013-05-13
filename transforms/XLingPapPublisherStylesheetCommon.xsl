@@ -298,10 +298,12 @@
         <xsl:param name="works"/>
         <xsl:variable name="date" select="."/>
         <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date])>1">
-            <xsl:apply-templates select="." mode="dateLetter">
-                <xsl:with-param name="date" select="$date"/>
-            </xsl:apply-templates>
+        <xsl:if test="../../@showAuthorName!='no'">
+            <xsl:if test="count($works[refDate=$date])>1">
+                <xsl:apply-templates select="." mode="dateLetter">
+                    <xsl:with-param name="date" select="$date"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--
@@ -424,6 +426,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='jTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -708,6 +716,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='translatedByItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1051,6 +1065,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='collCitationItem'">
                                 <xsl:call-template name="OutputCitation">
@@ -1203,6 +1223,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='dissertationLabelItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1517,6 +1543,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1589,6 +1621,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1666,6 +1704,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='conferenceItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -1753,6 +1797,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='procCitationItem'">
                                 <xsl:call-template name="OutputCitation">
@@ -2032,6 +2082,12 @@
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
+                                <xsl:if test="$work/../@showAuthorName='no'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="ancestor::referencesLayout/refAuthorLayouts/refAuthorLayout[position()=last()]/refDateItem"/>
+                                        <xsl:with-param name="work" select="$work"/>
+                                    </xsl:call-template>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
@@ -3334,13 +3390,13 @@
     -->
     <xsl:template name="HandleFreeTextBeforeOutside">
         <xsl:param name="freeLayout"/>
-                <xsl:if test="$freeLayout">
-                <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no'">
-                        <xsl:if test="string-length($freeLayout/@textbefore) &gt; 0">
-                            <xsl:value-of select="$freeLayout/@textbefore"/>
-                        </xsl:if>
+        <xsl:if test="$freeLayout">
+            <xsl:if test="$freeLayout/@textbeforeafterusesfontinfo='no'">
+                <xsl:if test="string-length($freeLayout/@textbefore) &gt; 0">
+                    <xsl:value-of select="$freeLayout/@textbefore"/>
                 </xsl:if>
-                </xsl:if>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleGlossFontOverrides

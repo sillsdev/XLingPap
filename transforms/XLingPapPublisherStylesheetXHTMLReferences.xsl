@@ -21,77 +21,92 @@
                 <xsl:call-template name="ReportNoPatternMatched"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="$referencesLayoutInfo/refAuthorLayouts/*[position()=$authorLayoutToUsePosition]">
-                    <xsl:for-each select="*">
-                        <xsl:choose>
-                            <xsl:when test="name(.)='refAuthorItem'">
-                                <span>
-                                    <xsl:attribute name="style">
-                                        <xsl:call-template name="OutputFontAttributes">
-                                            <xsl:with-param name="language" select="."/>
+                <xsl:if test="$work/../@showAuthorName!='no'">
+                    <xsl:for-each select="$referencesLayoutInfo/refAuthorLayouts/*[position()=$authorLayoutToUsePosition]">
+                        <xsl:for-each select="*">
+                            <xsl:choose>
+                                <xsl:when test="name(.)='refAuthorItem'">
+                                    <span>
+                                        <xsl:attribute name="style">
+                                            <xsl:call-template name="OutputFontAttributes">
+                                                <xsl:with-param name="language" select="."/>
+                                            </xsl:call-template>
+                                        </xsl:attribute>
+                                        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                                            <xsl:with-param name="layoutInfo" select="."/>
                                         </xsl:call-template>
-                                    </xsl:attribute>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                    </xsl:call-template>
-                                    <xsl:variable name="sAuthorName">
-                                        <xsl:choose>
-                                            <xsl:when test="$referencesLayoutInfo/@uselineforrepeatedauthor='yes' and $iPos &gt; 1">
-                                                <xsl:text>______</xsl:text>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:apply-templates select="$work/.."/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:variable>
-                                    <xsl:value-of select="$sAuthorName"/>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                        <xsl:with-param name="sPrecedingText" select="$sAuthorName"/>
-                                    </xsl:call-template>
-                                </span>
-                            </xsl:when>
-                            <xsl:when test="name(.)='authorRoleItem'">
-                                <span>
-                                    <xsl:attribute name="style">
-                                        <xsl:call-template name="OutputFontAttributes">
-                                            <xsl:with-param name="language" select="."/>
+                                        <xsl:variable name="sAuthorName">
+                                            <xsl:choose>
+                                                <xsl:when test="$referencesLayoutInfo/@uselineforrepeatedauthor='yes' and $iPos &gt; 1">
+                                                    <xsl:text>______</xsl:text>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:apply-templates select="$work/.."/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:variable>
+                                        <xsl:value-of select="$sAuthorName"/>
+                                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                                            <xsl:with-param name="layoutInfo" select="."/>
+                                            <xsl:with-param name="sPrecedingText" select="$sAuthorName"/>
                                         </xsl:call-template>
-                                    </xsl:attribute>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                    </xsl:call-template>
-                                    <xsl:apply-templates select="$work/authorRole"/>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                        <xsl:with-param name="sPrecedingText" select="$work/authorRole"/>
-                                    </xsl:call-template>
-                                </span>
-                            </xsl:when>
-                            <xsl:when test="name(.)='refDateItem'">
-                                <span>
-                                    <xsl:attribute name="style">
-                                        <xsl:call-template name="OutputFontAttributes">
-                                            <xsl:with-param name="language" select="."/>
+                                    </span>
+                                </xsl:when>
+                                <xsl:when test="name(.)='authorRoleItem'">
+                                    <span>
+                                        <xsl:attribute name="style">
+                                            <xsl:call-template name="OutputFontAttributes">
+                                                <xsl:with-param name="language" select="."/>
+                                            </xsl:call-template>
+                                        </xsl:attribute>
+                                        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                                            <xsl:with-param name="layoutInfo" select="."/>
                                         </xsl:call-template>
-                                    </xsl:attribute>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                    </xsl:call-template>
-                                    <xsl:apply-templates select="$work/refDate">
+                                        <xsl:apply-templates select="$work/authorRole"/>
+                                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                                            <xsl:with-param name="layoutInfo" select="."/>
+                                            <xsl:with-param name="sPrecedingText" select="$work/authorRole"/>
+                                        </xsl:call-template>
+                                    </span>
+                                </xsl:when>
+                                <xsl:when test="name(.)='refDateItem'">
+                                    <xsl:call-template name="DoDateLayout">
+                                        <xsl:with-param name="refDateItem" select="."/>
+                                        <xsl:with-param name="work" select="$work"/>
                                         <xsl:with-param name="works" select="$works"/>
-                                    </xsl:apply-templates>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                        <xsl:with-param name="sPrecedingText" select="$work/refDate"/>
                                     </xsl:call-template>
-                                </span>
-                            </xsl:when>
-                        </xsl:choose>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:for-each>
                     </xsl:for-each>
-                </xsl:for-each>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoDateLayout
+    -->
+    <xsl:template name="DoDateLayout">
+        <xsl:param name="refDateItem"/>
+        <xsl:param name="work"/>
+        <xsl:param name="works"/>
+        <span>
+            <xsl:attribute name="style">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$refDateItem"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                <xsl:with-param name="layoutInfo" select="$refDateItem"/>
+            </xsl:call-template>
+            <xsl:apply-templates select="$work/refDate">
+                <xsl:with-param name="works" select="$works"/>
+            </xsl:apply-templates>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$refDateItem"/>
+                <xsl:with-param name="sPrecedingText" select="$work/refDate"/>
+            </xsl:call-template>
+        </span>
     </xsl:template>
     <!--  
         DoRefCitation

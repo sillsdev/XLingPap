@@ -314,7 +314,7 @@ Page Layout
    <!-- 
    fixedText is arbitrary text one can use (e.g. entity name, copyright, etc.)
    -->
-<!ELEMENT fixedText (#PCDATA)>
+<!ELEMENT fixedText (#PCDATA | %embedded;)*>
 <!ATTLIST fixedText
     %fontinfo;
     >
@@ -532,7 +532,7 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout? ) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout? ) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -544,6 +544,9 @@ Content Layout
        indent-after CDATA #REQUIRED       
        AddPeriodAfterFinalDigit (no | yes) 'no'
        referencesUseParens (no | yes) 'yes'
+       numberProperAddPeriodAfterFinalDigit (no | yes) 'no'
+       numberProperUseParens (no | yes) 'yes'
+       listItemsHaveParenInsteadOfPeriod (no | yes) 'no'
    >
    <!ELEMENT listLayout EMPTY >
    <!ATTLIST listLayout
@@ -708,6 +711,14 @@ Content Layout
     <!ELEMENT citationLayout (#PCDATA) >
     <!ATTLIST citationLayout
       textbeforepages CDATA #IMPLIED
+    >
+    <!ELEMENT abbreviationsInTableLayout  EMPTY>
+    <!ATTLIST abbreviationsInTableLayout
+       %fontinfo;
+       start-indent CDATA #IMPLIED
+       useEqualSignsColumn (yes | no) "yes"
+       useDoubleColumns (yes | no) "no"
+       doubleColumnSeparation CDATA #IMPLIED
     >
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.

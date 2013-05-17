@@ -1214,11 +1214,7 @@
                         <xsl:attribute name="name">
                             <xsl:value-of select="@num"/>
                         </xsl:attribute>
-                        <xsl:text>(</xsl:text>
-                        <xsl:call-template name="GetExampleNumber">
-                            <xsl:with-param name="example" select="."/>
-                        </xsl:call-template>
-                        <xsl:text>)</xsl:text>
+                        <xsl:call-template name="GetAndFormatExampleNumber"/>
                         <xsl:if test="not(listDefinition) and not(definition)">
                             <xsl:call-template name="OutputExampleLevelISOCode">
                                 <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -1405,13 +1401,13 @@
                 <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                     <tr>
                         <td>
-                           <!-- Following does not work 
-                               <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
-                              <xsl:attribute name="style">
-                                  <xsl:text>padding-top:</xsl:text>
-                                  <xsl:value-of select="$sSpaceBetweenGroups"/>
-                              </xsl:attribute>
-                           </xsl:if>-->
+                            <!-- Following does not work 
+                                <xsl:if test="string-length($sSpaceBetweenGroups) &gt; 0">
+                                <xsl:attribute name="style">
+                                <xsl:text>padding-top:</xsl:text>
+                                <xsl:value-of select="$sSpaceBetweenGroups"/>
+                                </xsl:attribute>
+                                </xsl:if>-->
                             <xsl:text>&#xa0;</xsl:text>
                         </td>
                     </tr>
@@ -1428,32 +1424,61 @@
     -->
     <xsl:template name="OutputAbbreviationInTable">
         <xsl:param name="abbrsShownHere"/>
+        <xsl:param name="abbrInSecondColumn"/>
         <tr>
-            <td valign="top">
-                <xsl:call-template name="HandleColumnWidth">
-                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
-                </xsl:call-template>
-                <a id="{@id}">
-                    <xsl:call-template name="OutputAbbrTerm">
-                        <xsl:with-param name="abbr" select="."/>
+            <xsl:call-template name="OutputAbbreviationItemInTable">
+                <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+            </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$abbrInSecondColumn">
+                    <td>
+                        <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@doubleColumnSeparation)"/>
+                        <xsl:if test="string-length($sSep)&gt;0">
+                            <xsl:attribute name="style">
+                                <xsl:text>padding-left:</xsl:text>
+                                <xsl:value-of select="$sSep"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </td>
+                    <xsl:call-template name="OutputAbbreviationItemInTable">
+                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
                     </xsl:call-template>
-                </a>
-            </td>
+                </xsl:for-each>
+            </xsl:if>
+        </tr>
+    </xsl:template>
+    <!--
+        OutputAbbreviationItemInTable
+    -->
+    <xsl:template name="OutputAbbreviationItemInTable">
+        <xsl:param name="abbrsShownHere"/>
+        <td valign="top">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
+            </xsl:call-template>
+            <a id="{@id}">
+                <xsl:call-template name="OutputAbbrTerm">
+                    <xsl:with-param name="abbr" select="."/>
+                </xsl:call-template>
+            </a>
+        </td>
+        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
             <td valign="top">
                 <xsl:call-template name="HandleColumnWidth">
                     <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@equalsWidth)"/>
                 </xsl:call-template>
                 <xsl:text> = </xsl:text>
             </td>
-            <td valign="top">
-                <xsl:call-template name="HandleColumnWidth">
-                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
-                </xsl:call-template>
-                <xsl:call-template name="OutputAbbrDefinition">
-                    <xsl:with-param name="abbr" select="."/>
-                </xsl:call-template>
-            </td>
-        </tr>
+        </xsl:if>
+        <td valign="top">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputAbbrDefinition">
+                <xsl:with-param name="abbr" select="."/>
+            </xsl:call-template>
+        </td>
+
     </xsl:template>
     <!--
         OutputAbbreviationsInTable
@@ -1462,6 +1487,17 @@
         <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
+                <xsl:attribute name="style">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@start-indent)"/>
+                    <xsl:if test="string-length($sStartIndent)&gt;0">
+                        <xsl:text>margin-left:</xsl:text>
+                        <xsl:value-of select="$sStartIndent"/>
+                        <xsl:text>;</xsl:text>
+                    </xsl:if>
+                </xsl:attribute>
                 <xsl:call-template name="SortAbbreviationsInTable">
                     <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
                 </xsl:call-template>

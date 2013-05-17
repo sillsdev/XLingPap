@@ -73,7 +73,8 @@
     <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
     <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
     <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
-    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>  
+    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
+    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <!--
         counter
     -->
@@ -531,7 +532,7 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:variable name="iRelNumber">
-                    <xsl:apply-templates select="." mode="exampleInFramedUnit"/>
+                        <xsl:apply-templates select="." mode="exampleInFramedUnit"/>
                     </xsl:variable>
                     <xsl:value-of select="$iRelNumber + $iStartNumber"/>
                 </xsl:when>
@@ -1091,6 +1092,10 @@
     <xsl:template name="SortAbbreviationsInTable">
         <xsl:param name="abbrsUsed"/>
         <xsl:variable name="abbrsShownHere" select="."/>
+        <!--                 <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
+            <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
+        -->
+        <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
@@ -1098,17 +1103,43 @@
                 </xsl:variable>
                 <xsl:for-each select="$abbrsUsed">
                     <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
-                    <xsl:call-template name="OutputAbbreviationInTable">
-                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                            <xsl:if test="position() &lt;= $iHalfwayPoint">
+                                <xsl:variable name="iPos" select="position()"/>
+                                <xsl:call-template name="OutputAbbreviationInTable">
+                                    <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                                    <xsl:with-param name="abbrInSecondColumn" select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputAbbreviationInTable">
+                                <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="$abbrsUsed">
-                    <xsl:call-template name="OutputAbbreviationInTable">
-                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
-                    </xsl:call-template>
-                </xsl:for-each>
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
+                            <xsl:variable name="iPos" select="position()"/>
+                            <xsl:call-template name="OutputAbbreviationInTable">
+                                <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                                <xsl:with-param name="abbrInSecondColumn" select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="$abbrsUsed">
+                            <xsl:call-template name="OutputAbbreviationInTable">
+                                <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

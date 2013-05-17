@@ -2868,6 +2868,22 @@ refAuthor
 	property-group: isCollapsible( no, 1);
 }
 
+refAuthorLastName
+{
+	display:inline;
+	color: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/backMatterLayout/referencesLayout/refAuthorLayouts/refAuthorLastNameLayout/@color"),"'");
+	font-family: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/backMatterLayout/referencesLayout/refAuthorLayouts/refAuthorLastNameLayout/@font-family"),"'");
+	font-size: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/backMatterLayout/referencesLayout/refAuthorLayouts/refAuthorLastNameLayout/@font-size"),"'");
+	font-style: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/backMatterLayout/referencesLayout/refAuthorLayouts/refAuthorLastNameLayout/@font-style"),"'");
+	font-weight: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/backMatterLayout/referencesLayout/refAuthorLayouts/refAuthorLastNameLayout/@font-weight"),"'");
+}
+
+refAuthorName
+{
+	display:block;
+	padding-left: .5in;
+}
+
 references[authorformtoshowineditor="both"] refAuthorInitials:before
 {
 	property-group: authorInitialsBefore();
@@ -3912,6 +3928,34 @@ tr > td[bgcolor] {
  * Publisher Stylesheet items
  */
 
+abbreviationsInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+abbreviationsInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+abbreviationsInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+abbreviationsInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+abbreviationsInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+abbreviationsInTableLayout
+{
+	display:block;
+	content:"abbreviations in table layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 abbrRefLinkLayout[showmarking='no']
 {
 	color:Gray;
@@ -7858,6 +7902,33 @@ refAuthorItem[font-weight]
 refAuthorItem
 {
 	property-group: referencesItem("Doe, John F.");
+}
+
+refAuthorLastNameLayout[color]
+{
+	color:concatenate(attr(color));
+}
+refAuthorLastNameLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+refAuthorLastNameLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+refAuthorLastNameLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+refAuthorLastNameLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+refAuthorLastNameLayout
+{
+	display:block;
+	content:"author last name layout";
+	margin-left:.125in;
 }
 refAuthorLayout:before
 {

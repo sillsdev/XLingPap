@@ -422,22 +422,49 @@
     -->
     <xsl:template name="OutputAbbreviationInTable">
         <xsl:param name="abbrsShownHere"/>
+        <xsl:param name="abbrInSecondColumn"/>
         <fo:table-row>
             <xsl:if test="position() = last() -1 or position() = 1">
                 <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
             </xsl:if>
-            <fo:table-cell border-collapse="collapse" padding=".2em" padding-top=".01em">
-                <xsl:call-template name="HandleColumnWidth">
-                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
-                </xsl:call-template>
-                <fo:block>
-                    <fo:inline id="{@id}">
-                        <xsl:call-template name="OutputAbbrTerm">
-                            <xsl:with-param name="abbr" select="."/>
-                        </xsl:call-template>
-                    </fo:inline>
-                </fo:block>
-            </fo:table-cell>
+            <xsl:call-template name="OutputAbbreviationItemInTable">
+                <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+            </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$abbrInSecondColumn">
+                    <fo:table-cell>
+                        <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@doubleColumnSeparation)"/>
+                        <xsl:if test="string-length($sSep)&gt;0">
+                            <xsl:attribute name="padding-left">
+                                <xsl:value-of select="$sSep"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </fo:table-cell>
+                    <xsl:call-template name="OutputAbbreviationItemInTable">
+                        <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </fo:table-row>
+    </xsl:template>
+    <!--
+        OutputAbbreviationItemInTable
+    -->
+    <xsl:template name="OutputAbbreviationItemInTable">
+        <xsl:param name="abbrsShownHere"/>
+        <fo:table-cell border-collapse="collapse" padding=".2em" padding-top=".01em">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@abbrWidth)"/>
+            </xsl:call-template>
+            <fo:block>
+                <fo:inline id="{@id}">
+                    <xsl:call-template name="OutputAbbrTerm">
+                        <xsl:with-param name="abbr" select="."/>
+                    </xsl:call-template>
+                </fo:inline>
+            </fo:block>
+        </fo:table-cell>
+        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
             <fo:table-cell border-collapse="collapse">
                 <xsl:attribute name="padding-left">.2em</xsl:attribute>
                 <xsl:call-template name="HandleColumnWidth">
@@ -447,24 +474,33 @@
                     <xsl:text> = </xsl:text>
                 </fo:block>
             </fo:table-cell>
-            <fo:table-cell border-collapse="collapse">
-                <xsl:attribute name="padding-left">.2em</xsl:attribute>
-                <xsl:call-template name="HandleColumnWidth">
-                    <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
+        </xsl:if>
+        <fo:table-cell border-collapse="collapse">
+            <xsl:attribute name="padding-left">.2em</xsl:attribute>
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($abbrsShownHere/@definitionWidth)"/>
+            </xsl:call-template>
+            <fo:block>
+                <xsl:call-template name="OutputAbbrDefinition">
+                    <xsl:with-param name="abbr" select="."/>
                 </xsl:call-template>
-                <fo:block>
-                    <xsl:call-template name="OutputAbbrDefinition">
-                        <xsl:with-param name="abbr" select="."/>
-                    </xsl:call-template>
-                </fo:block>
-            </fo:table-cell>
-        </fo:table-row>
+            </fo:block>
+        </fo:table-cell>
     </xsl:template>
     <!--
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <fo:block>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+            </xsl:call-template>
+            <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@start-indent)"/>
+            <xsl:if test="string-length($sStartIndent)&gt;0">
+                <xsl:attribute name="margin-left">
+                    <xsl:value-of select="$sStartIndent"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
             <xsl:if test="count($abbrsUsed) &gt; 0">
                 <fo:table space-before="12pt">

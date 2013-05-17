@@ -6,7 +6,7 @@
       =========================================================== -->
     <xsl:param name="sFOProcessor">XEP</xsl:param>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+<!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
         <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
@@ -1407,6 +1407,10 @@ li.lower-roman {
     <xsl:template match="@beginsparagraph"/>
     <xsl:template match="@betweentitleandnumber"/>
     <xsl:template match="@captionLocation"/>
+    <xsl:template match="@dateIndentAuthorOverDateStyle"/>
+    <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
+    <xsl:template match="@doubleColumnSeparation"/>
+    <xsl:template match="@useAuthorOverDateStyle"/>
     <xsl:template match="@ethnCode"/>
     <xsl:template match="@firstParagraphHasIndent"/>
     <xsl:template match="@fontissmallcaps"/>
@@ -1422,7 +1426,10 @@ li.lower-roman {
     <xsl:template match="@leaderwidth"/>
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
+    <xsl:template match="@listItemsHaveParenInsteadOfPeriod"/>
     <xsl:template match="@name"/>
+    <xsl:template match="@numberProperAddPeriodAfterFinalDigit"/>
+    <xsl:template match="@numberProperUseParens"/>
     <xsl:template match="@ORCID"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
     <xsl:template match="@rtl"/>
@@ -1440,6 +1447,8 @@ li.lower-roman {
     <xsl:template match="@showNumber"/>
     <xsl:template match="@showpagenumber"/>
     <xsl:template match="@spacebeforemainsection"/>
+    <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>
+    <xsl:template match="@spaceBetweenEntryAndAuthorInAuthorOverDateStyle"/>
     <xsl:template match="@startSection1NumberingAtZero"/>
     <xsl:template match="@textafterletter"/>
     <xsl:template match="@textafternumber"/>
@@ -1454,7 +1463,9 @@ li.lower-roman {
     <xsl:template match="@useappendixlabelbeforeappendixletter"/>
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
+    <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
+    <xsl:template match="@useEqualSignsColumn"/>
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>

@@ -15,7 +15,7 @@
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
 >
 <!-- the citename is the string to use in a citation within the text body -->
-<!ELEMENT refAuthor (refAuthorInitials?, refWork+)>
+<!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, refWork+)>
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
@@ -28,6 +28,8 @@
      There are a number of kinds of references, each of which has different
      content. -->
 <!ELEMENT  refAuthorInitials (#PCDATA) >     
+<!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
+<!ELEMENT  refAuthorLastName (#PCDATA) >     
 <!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?)>
 <!ATTLIST refWork
     id ID #REQUIRED

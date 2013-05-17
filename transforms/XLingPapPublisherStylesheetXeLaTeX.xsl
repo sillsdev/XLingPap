@@ -97,6 +97,8 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sSpaceBetweenDates" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntriesAuthorOverDateStyle)"/>
+    <xsl:variable name="sSpaceBetweenEntryAndAuthor" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntryAndAuthorInAuthorOverDateStyle)"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -223,6 +225,9 @@
                 <xsl:call-template name="SetXLingPaperListInterlinearInTableMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleFreeIndent"/>
                 <xsl:call-template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes"/>
+                <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                    <xsl:call-template name="SetXLingPaperEntrySpaceAuthorOverDateMacro"/>
+                </xsl:if>
                 <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
                     <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
                 </xsl:if>
@@ -3064,6 +3069,28 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        refAuthorLastName
+    -->
+    <xsl:template match="refAuthorLastName">
+        <tex:spec at="bg"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
+        </xsl:call-template>
+        <tex:spec at="eg"/>
+    </xsl:template>
+    <!--
+        refAuthorName
+    -->
+    <xsl:template match="refAuthorName">
+        <tex:spec at="bg"/>
+        <xsl:apply-templates/>
+        <tex:spec at="eg"/>
+    </xsl:template>
+    <!--
         authorContactInfo
     -->
     <xsl:template match="authorContactInfo">
@@ -3705,11 +3732,7 @@
                                 <xsl:call-template name="DoInternalTargetBegin">
                                     <xsl:with-param name="sName" select="@num"/>
                                 </xsl:call-template>
-                                <xsl:text>(</xsl:text>
-                                <xsl:call-template name="GetExampleNumber">
-                                    <xsl:with-param name="example" select="."/>
-                                </xsl:call-template>
-                                <xsl:text>)</xsl:text>
+                                <xsl:call-template name="GetAndFormatExampleNumber"/>
                                 <xsl:call-template name="DoInternalTargetEnd"/>
                                 <xsl:call-template name="OutputExampleLevelISOCode">
                                     <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
@@ -3724,11 +3747,7 @@
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@num"/>
                 </xsl:call-template>
-                <xsl:text>(</xsl:text>
-                <xsl:call-template name="GetExampleNumber">
-                    <xsl:with-param name="example" select="."/>
-                </xsl:call-template>
-                <xsl:text>)</xsl:text>
+                <xsl:call-template name="GetAndFormatExampleNumber"/>
                 <xsl:call-template name="DoInternalTargetEnd"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -4445,6 +4464,15 @@
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
+            <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes' and position()!=1">
+                <xsl:if test="string-length($sSpaceBetweenDates)&gt;0">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceBetweenDates"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+            </xsl:if>
             <tex:cmd name="hangindent" gr="0"/>
             <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
             <tex:cmd name="relax" gr="0" nl2="1"/>
@@ -4465,6 +4493,15 @@
             </xsl:call-template>
             <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
             <tex:cmd name="par" gr="0" nl2="1"/>
+            <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes' and position()=last()">
+                <xsl:if test="string-length($sSpaceBetweenEntryAndAuthor)&gt;0">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceBetweenEntryAndAuthor"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+            </xsl:if>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
                 <xsl:variable name="sExtraSpace">
                     <xsl:choose>
@@ -6918,12 +6955,14 @@
             <xsl:variable name="originalContext" select="."/>
             <xsl:for-each select="$layoutInfo[name()='headerFooterPage' or name()='headerFooterFirstPage']/*">
                 <!-- uses the same layout for all pages -->
-                <xsl:for-each select="*[not(descendant::nothing)]">
+                <xsl:for-each select="*">
                     <!-- for each left, center, right item -->
-                    <xsl:call-template name="DoHeaderFooterItem">
-                        <xsl:with-param name="item" select="."/>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                    </xsl:call-template>
+                    <xsl:if test="not(descendant::nothing)">
+                        <xsl:call-template name="DoHeaderFooterItem">
+                            <xsl:with-param name="item" select="."/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:if>
                 </xsl:for-each>
             </xsl:for-each>
             <xsl:for-each select="$layoutInfo[name()='headerFooterOddEvenPages']/*">
@@ -6947,6 +6986,89 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template name="SetXLingPaperEntrySpaceAuthorOverDateMacro">
+        <!--\newdimen\XLingPaperdatelen
+        \newdimen\XLingPaperindentanddate
+        \newdimen\XLingPapertemplen-->
+        <tex:cmd name="newdimen" gr="0"/>
+        <tex:cmd name="XLingPaperdatelen" gr="0" nl2="1"/>
+        <tex:cmd name="newdimen" gr="0"/>
+        <tex:cmd name="XLingPaperindentanddate" gr="0" nl2="1"/>
+        <tex:cmd name="newdimen" gr="0"/>
+        <tex:cmd name="XLingPapertemplen" gr="0" nl2="1"/>
+        <!--\newcommand{\XLingPaperentryspaceauthoroverdate}[3]{%
+        \settowidth{\XLingPaperdatelen}{#2}%
+        \setlength{\XLingPaperindentanddate}{#1 + \XLingPaperdatelen}%
+        \setlength{\XLingPapertemplen}{#3 - \XLingPaperindentanddate}%-->
+        <tex:cmd name="newcommand">
+            <tex:parm>
+                <tex:cmd name="XLingPaperentryspaceauthoroverdate" gr="0"/>
+            </tex:parm>
+            <tex:opt>
+                <xsl:text>3</xsl:text>
+            </tex:opt>
+            <tex:parm>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="settowidth">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperdatelen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="setlength">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperindentanddate" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1 + </xsl:text>
+                        <tex:cmd name="XLingPaperdatelen" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="setlength">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>3 - </xsl:text>
+                        <tex:cmd name="XLingPaperindentanddate" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment" nl2="1"/>
+                <!--\ifdim\XLingPapertemplen<0pt%
+                        \hspace*{1em}%
+                        \else%
+                        \hspace*{\XLingPapertemplen}%
+                        \fi%
+                        }-->
+                <tex:cmd name="ifdim" gr="0"/>
+                <tex:cmd name="XLingPapertemplen" gr="0"/>
+                <tex:spec cat="lt"/>
+                <xsl:text>0pt</xsl:text>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="hspace*">
+                    <tex:parm>1em</tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="else" gr="0"/>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="hspace*">
+                    <tex:parm>
+                        <tex:cmd name="XLingPapertemplen" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment" nl2="1"/>
+                <tex:cmd name="fi" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->12 April 2013</date
+>17 May 2013</date
 ><version
->2.22.1</version
+>2.22.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -24680,6 +24680,13 @@ type="tXLingPap"
 ><dt
 ><object
 type="tElement"
+>abbreviationsInTableLayout</object
+></dt
+><dd
+>Layout info for showing abbreviations used in a table</dd
+><dt
+><object
+type="tElement"
 >abbrRefLinkLayout</object
 ></dt
 ><dd
@@ -24865,6 +24872,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a chapter</dd
+><dt
+><object
+type="tElement"
+>citationLayout</object
+></dt
+><dd
+>Layout info for a citation</dd
 ><dt
 ><object
 type="tElement"

@@ -12,7 +12,6 @@
     <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet"/>
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
@@ -381,6 +380,25 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        HandleAbbreviationsInTableColumnSpecColumns
+    -->
+    <xsl:template name="HandleAbbreviationsInTableColumnSpecColumns">
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@abbrWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
+        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
+                <xsl:with-param name="sDefaultSpec" select="'c'"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@definitionWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         HandleAnyExampleHeadingAdjustWithISOCode
@@ -6058,7 +6076,7 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        GetHyphenationLanguage
+        GetFramedTypeBackgroundColorName
     -->
     <xsl:template name="GetFramedTypeBackgroundColorName">
         <xsl:param name="sId"/>
@@ -7262,7 +7280,22 @@
     -->
     <xsl:template name="OutputAbbreviationInTable">
         <xsl:param name="abbrsShownHere"/>
+        <xsl:param name="abbrInSecondColumn"/>
         <!--  we do not use abbrsShownHere in this instance of OutputAbbreviationInTable  -->
+        <xsl:call-template name="OutputAbbreviationItemInTable"/>
+        <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+            <tex:spec cat="align"/>
+            <xsl:for-each select="$abbrInSecondColumn">
+                <xsl:call-template name="OutputAbbreviationItemInTable"/>
+            </xsl:for-each>
+        </xsl:if>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc" nl2="1"/>
+    </xsl:template>
+    <!--
+        OutputAbbreviationItemInTable
+    -->
+    <xsl:template name="OutputAbbreviationItemInTable">
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -7271,13 +7304,13 @@
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <tex:spec cat="align"/>
-        <xsl:text> = </xsl:text>
-        <tex:spec cat="align"/>
+        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:text> = </xsl:text>
+            <tex:spec cat="align"/>
+        </xsl:if>
         <xsl:call-template name="OutputAbbrDefinition">
             <xsl:with-param name="abbr" select="."/>
         </xsl:call-template>
-        <tex:spec cat="esc"/>
-        <tex:spec cat="esc" nl2="1"/>
     </xsl:template>
     <!--
         OutputAbbreviationsInTable
@@ -7289,6 +7322,10 @@
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
             </xsl:if>
+            <tex:spec cat="bg"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+            </xsl:call-template>
             <tex:env name="longtable">
                 <tex:opt>l</tex:opt>
                 <tex:parm>
@@ -7296,22 +7333,38 @@
                     <tex:group>
                         <tex:cmd name="hspace*">
                             <tex:parm>
-                                <tex:cmd name="parindent" gr="0" nl2="0"/>
+                                <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@start-indent)"/>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sStartIndent)&gt;0">
+                                        <xsl:value-of select="$sStartIndent"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <tex:cmd name="parindent" gr="0" nl2="0"/>        
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </tex:parm>
                         </tex:cmd>
                     </tex:group>
-                    <xsl:call-template name="HandleColumnWidth">
-                        <xsl:with-param name="sWidth" select="normalize-space(@abbrWidth)"/>
-                        <xsl:with-param name="sDefaultSpec" select="'l'"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="HandleColumnWidth">
-                        <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
-                        <xsl:with-param name="sDefaultSpec" select="'c'"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="HandleColumnWidth">
-                        <xsl:with-param name="sWidth" select="normalize-space(@definitionWidth)"/>
-                        <xsl:with-param name="sDefaultSpec" select="'l'"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="HandleAbbreviationsInTableColumnSpecColumns"/>
+                    <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:text>@</xsl:text>
+                        <tex:group>
+                            <tex:cmd name="hspace*">
+                                <tex:parm>
+                                    <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@doubleColumnSeparation)"/>
+                                    <xsl:choose>
+                                        <xsl:when test="string-length($sSep)&gt;0">
+                                            <xsl:value-of select="$sSep"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <tex:cmd name="parindent" gr="0" nl2="0"/>        
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </tex:parm>
+                            </tex:cmd>
+                        </tex:group>
+                        <xsl:call-template name="HandleAbbreviationsInTableColumnSpecColumns"/>    
+                    </xsl:if>                    
                 </tex:parm>
                 <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
                 The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
@@ -7324,6 +7377,10 @@
                     <xsl:with-param name="abbrsUsed" select="$abbrsUsed"/>
                 </xsl:call-template>
             </tex:env>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+            </xsl:call-template>
+            <tex:spec cat="eg"/>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                 <tex:spec cat="eg"/>
             </xsl:if>
@@ -8007,7 +8064,14 @@
             <xsl:with-param name="sName" select="@letter"/>
         </xsl:call-template>
         <xsl:apply-templates select="." mode="letter"/>
-        <xsl:text>.</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                <xsl:text>)</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>.</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="DoInternalTargetEnd"/>
     </xsl:template>
     <!--  
@@ -8708,6 +8772,9 @@
                     </xsl:when>
                     <xsl:when test="preceding-sibling::exampleHeading">
                         <xsl:text>.1</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$contentLayoutInfo/exampleLayout/@numberProperUseParens='no'">
+                        <xsl:text>-.7</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>-.875</xsl:text>

@@ -31,18 +31,26 @@ References Layouts
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"
    usecitationformatwhennumberofsharedpaperis (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "0"
+   useAuthorOverDateStyle (no | yes) "no"
+   dateIndentAuthorOverDateStyle CDATA #IMPLIED
+   dateToEntrySpaceAuthorOverDateStyle CDATA #IMPLIED
+   spaceBetweenEntryAndAuthorInAuthorOverDateStyle CDATA #IMPLIED
+   spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
    >
 
 <!-- Name and version of this references stylesheet -->
 <!ELEMENT  publisherStyleSheetReferencesName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetReferencesVersion (#PCDATA)>
 
-<!ELEMENT refAuthorLayouts (comment?, refAuthorLayout)+ >                                                         
+<!ELEMENT refAuthorLayouts (comment?, refAuthorLastNameLayout?, refAuthorLayout)+ >                                                         
 <!ELEMENT refAuthorLayout (authorRoleItem | refAuthorItem | refDateItem)+ >                                                         
 <!ELEMENT  authorRoleItem EMPTY >
 <!ATTLIST authorRoleItem
    %formatinfo;
 >
+<!ELEMENT  refAuthorLastNameLayout EMPTY >
+<!ATTLIST refAuthorLastNameLayout
+   %fontinfo;>
 <!ELEMENT  refAuthorItem EMPTY >
 <!ATTLIST refAuthorItem 
    %formatinfo;>

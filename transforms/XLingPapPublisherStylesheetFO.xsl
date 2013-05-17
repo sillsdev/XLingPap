@@ -6,7 +6,7 @@
       =========================================================== -->
     <xsl:param name="sFOProcessor">XEP</xsl:param>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+<!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
         <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
@@ -1520,11 +1520,7 @@
                             <xsl:call-template name="DoDebugExamples"/>
                             <!--                 <xsl:call-template name="DoCellAttributes"/> -->
                             <fo:block>
-                                <xsl:text>(</xsl:text>
-                                <xsl:call-template name="GetExampleNumber">
-                                    <xsl:with-param name="example" select="."/>
-                                </xsl:call-template>
-                                <xsl:text>)</xsl:text>
+                                <xsl:call-template name="GetAndFormatExampleNumber"/>
                                 <xsl:if test="not(listDefinition) and not(definition)">
                                     <xsl:call-template name="OutputExampleLevelISOCode">
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
@@ -6435,7 +6431,14 @@ not using
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
                                 <xsl:apply-templates select="." mode="letter"/>
-                                <xsl:text>.</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                        <xsl:text>)</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>.</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </fo:block>
                         </fo:table-cell>
                         <xsl:call-template name="OutputListLevelISOCode">
@@ -6486,7 +6489,14 @@ not using
                                         <xsl:value-of select="@letter"/>
                                     </xsl:attribute>
                                     <xsl:apply-templates select="." mode="letter"/>
-                                    <xsl:text>.</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                            <xsl:text>)</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </fo:block>
                             </fo:table-cell>
                             <xsl:call-template name="OutputListLevelISOCode">

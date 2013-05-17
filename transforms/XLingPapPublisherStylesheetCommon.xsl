@@ -284,7 +284,14 @@
     <xsl:template match="refAuthor">
         <xsl:choose>
             <xsl:when test="$authorForm='full' or not(refAuthorInitials)">
-                <xsl:value-of select="normalize-space(@name)"/>
+                <xsl:choose>
+                    <xsl:when test="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout and string-length(refAuthorName) &gt;0">
+                        <xsl:apply-templates select="refAuthorName"/>                        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(@name)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="normalize-space(refAuthorInitials)"/>
@@ -2175,6 +2182,23 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetAndFormatExampleNumber
+    -->
+    <xsl:template name="GetAndFormatExampleNumber">
+        <xsl:if test="$contentLayoutInfo/exampleLayout/@numberProperUseParens!='no'">
+            <xsl:text>(</xsl:text>
+        </xsl:if>
+        <xsl:call-template name="GetExampleNumber">
+            <xsl:with-param name="example" select="."/>
+        </xsl:call-template>
+        <xsl:if test="$contentLayoutInfo/exampleLayout/@numberProperAddPeriodAfterFinalDigit='yes'">
+            <xsl:text>.</xsl:text>
+        </xsl:if>
+        <xsl:if test="$contentLayoutInfo/exampleLayout/@numberProperUseParens!='no'">
+            <xsl:text>)</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--  
         GetArticleLayoutToUsePosition

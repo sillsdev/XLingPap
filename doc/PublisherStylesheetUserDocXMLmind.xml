@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->10 May 2013</date
+>17 May 2013</date
 ><version
->2.22.2</version
+>2.22.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -1130,7 +1130,16 @@ type="tElement"
 >fixedText</object
 ></td
 ><td
->Insert some fixed text in this part of the header/footer.</td
+>Insert some fixed text in this part of the header/footer.  One can also include things like <object
+type="tElement"
+>object</object
+>, <object
+type="tElement"
+>langData</object
+>, and <object
+type="tElement"
+>gloss</object
+> elements.</td
 ><td
 >See section <sectionRef
 sec="sFontInfoAttributes"
@@ -6734,6 +6743,76 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>dateIndentAuthorOverDateStyle</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the indent before the date in an "Author over date" references style.  It is only used when the <object
+type="tAttribute"
+>useAuthorOverDateStyle</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1cm</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>dateToEntrySpaceAuthorOverDateStyle</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the amount of space to insert between the date and the entry in an "Author over date" references style when the space used by the date is tool long to fit. It is only used when the <object
+type="tAttribute"
+>useAuthorOverDateStyle</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>.  (Not implemented yet.)</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1cm</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >defaultfontsize</object
 ></td
 ><td
@@ -6840,6 +6919,76 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>spaceBetweenEntryAndAuthorInAuthorOverDateStyle</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the amount of extra vertical space to insert between the last entry and the next author in an "Author over date" references style. It is only used when the <object
+type="tAttribute"
+>useAuthorOverDateStyle</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1cm</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spaceBetweenEntriesAuthorOverDateStyle</object
+></td
+><td
+>(user control)</td
+><td
+>This sets the amount of extra vertical space to insert between two entries for the same author in an "Author over date" references style. It is only used when the <object
+type="tAttribute"
+>useAuthorOverDateStyle</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>10pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1cm</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >titleform</object
 ></td
 ><td
@@ -6893,6 +7042,61 @@ type="tAttrValue"
 ><object
 type="tAttrValue"
 >lowercase</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useAuthorOverDateStyle</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>When this is set to <object
+type="tAttrValue"
+>yes</object
+> , then the formatting of the references section will put the author on one line followed by the date and the entry.  If there are more than one entries for an author, the author name is not repeated. The default value is <object
+type="tAttrValue"
+>no</object
+>.  This is only implemented for the <object
+type="tXeTeX"
+></object
+> way of producing PDF.<endnote
+id="nAuthorOverDateXeLaTeXOnly"
+><p
+>It is only implemented for <object
+type="tXeTeX"
+></object
+> because <object
+type="tXeTeX"
+></object
+> is only output that lets us know how much horizontal space is used by the content of the date.  We use this to figure out how much space to insert after the date to get the beginning of the entry to line up properly.</p
+></endnote
+></td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
 ></td
 ></tr
 ></table
@@ -7228,6 +7432,114 @@ lang="lEng"
 ><object
 type="tAttrValue"
 >yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleUsePeriodAfter"
+></indexedItem
+><object
+type="tAttribute"
+>numberProperAddPeriodAfterFinalDigit</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to insert a period after the final digit of the example number.  The default is to not use a period.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleUseParens"
+></indexedItem
+><object
+type="tAttribute"
+>numberProperUseParens</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to inclose the example number within parentheses.  The default is to use parentheses.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleListIetmUseParen"
+></indexedItem
+><object
+type="tAttribute"
+>listItemsHaveParenInsteadOfPeriod</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to insert a closing parenthesis instead of a period after the letter in a list example.  The default is to use a period.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
 ></td
 ><td
 >No</td
@@ -10231,30 +10543,31 @@ type="tElement"
 > Elements</secTitle
 ><p
 ><indexedItem
-term="iCitationOverrides"
+term="iAbbreviationsInTable"
 ></indexedItem
->Sometimes one wants to override the default formatting for data in citations.  Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
-><p
->The <object
+>Sometimes one wants to control how the list of abbreviations come out when they are in a table.  You do this via the <object
 type="tElement"
->citationLayout</object
-> element has the attribute shown in example <exampleRef
-letter="xCitationOverrideLayoutAttributes"
-num="xCitationOverrideLayoutAttributes"
+>abbreviationsInTableLayout</object
+> element. The <object
+type="tElement"
+>abbreviationsInTableLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xAbbreviationsInTableLayoutAttributes"
+num="xAbbreviationsInTableLayoutAttributes"
 ></exampleRef
 >. You use this to control formatting of the content ot the <object
 type="tElement"
 >citation</object
 > elements.</p
 ><example
-num="xCitationOverrideLayoutAttributes"
+num="xAbbreviationsInTableLayoutAttributes"
 ><table
 border="1"
 ><caption
 ><object
 type="tElement"
->citation</object
-> Content Overrides Attributes</caption
+>abbreviationsInTableLayout</object
+> Attributes</caption
 ><tr
 ><th
 ><langData
@@ -10308,6 +10621,269 @@ type="tAttrValue"
 ></td
 ><td
 >Yes</td
+></tr
+></table
+></example
+></section2
+><section2
+id="sAbbreviationsInTables"
+><secTitle
+>Controlling the Display of Abbreviations in a Table</secTitle
+><p
+><indexedItem
+term="iCitationOverrides"
+></indexedItem
+>Sometimes one wants to override the default formatting for data in citations. Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
+><p
+>The <object
+type="tElement"
+>citationLayout</object
+> element has the attribute shown in example <exampleRef
+letter="xCitationOverrideLayoutAttributes"
+num="xCitationOverrideLayoutAttributes"
+></exampleRef
+>. You use this to control formatting of the content ot the <object
+type="tElement"
+>citation</object
+> elements.</p
+><example
+num="xCitationOverrideLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>citation</object
+> Content Overrides Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iPageNumbersInCitation"
+></indexedItem
+><object
+type="tAttribute"
+>doubleColumnSeparation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear between the colon after the date and the page(s).</langData
+></td
+><td
+><object
+type="tAttrValue"
+> </object
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAbbrInTabledoubleColumnSeparation"
+></indexedItem
+><object
+type="tAttribute"
+>doubleColumnSeparation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert between the two sets of abbreviations when using double columns. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAbbrInTableStartIndent"
+></indexedItem
+><object
+type="tAttribute"
+>start-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert before the table. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAbbrInTableuseDoubleColumns"
+></indexedItem
+><object
+type="tAttribute"
+>useDoubleColumns</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of abbreviations and their definitions should be in a single column or in double columns (i.e two sets of abbreviations and their definitions).  The default is to have only one such column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAbbrInTableeuseEqualSignsColumn"
+></indexedItem
+><object
+type="tAttribute"
+>useEqualSignsColumn</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviaiton and its definition.  The default is to include this column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
 ></tr
 ></table
 ></example
@@ -11606,6 +12182,33 @@ id="iAbbrRefLink"
 >Abbreviation reference link</term
 ></indexTerm
 ><indexTerm
+id="iAbbreviationsInTable"
+><term
+>Abbreviations in a table</term
+><indexTerms
+><indexTerm
+id="iAbbrInTabledoubleColumnSeparation"
+><term
+>doubleColumnSeparation</term
+></indexTerm
+><indexTerm
+id="iAbbrInTableStartIndent"
+><term
+>start-indent</term
+></indexTerm
+><indexTerm
+id="iAbbrInTableuseDoubleColumns"
+><term
+>useDoubleColumns</term
+></indexTerm
+><indexTerm
+id="iAbbrInTableeuseEqualSignsColumn"
+><term
+>useEqualSignsColumn</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iAbstactLayout"
 ><term
 >Abstract layout</term
@@ -11925,9 +12528,24 @@ id="iExampleIndentBefore"
 >Initial indent for an example display</term
 ></indexTerm
 ><indexTerm
+id="iExampleListIetmUseParen"
+><term
+>List letter has closing parenthesis after rather than a period after</term
+></indexTerm
+><indexTerm
+id="iExampleUseParens"
+><term
+>Parentheses around the number</term
+></indexTerm
+><indexTerm
 id="iExampleRefUseParens"
 ><term
 >Parentheses around the number in an example reference</term
+></indexTerm
+><indexTerm
+id="iExampleUsePeriodAfter"
+><term
+>Period after the number</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

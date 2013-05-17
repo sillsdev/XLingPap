@@ -8,7 +8,7 @@
     <xsl:param name="sMainSourcePath" select="'file:/C:/Users/Andy%20Black/Documents/XLingPap/SILEWPTrial/'"/>
     <xsl:param name="bEBook" select="'N'"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+<!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
         <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
@@ -3926,11 +3926,7 @@
             <xsl:attribute name="name">
                 <xsl:value-of select="../../@num"/>
             </xsl:attribute>
-            <xsl:text>(</xsl:text>
-            <xsl:call-template name="GetExampleNumber">
-                <xsl:with-param name="example" select="."/>
-            </xsl:call-template>
-            <xsl:text>)</xsl:text>
+            <xsl:call-template name="GetAndFormatExampleNumber"/>
         </xsl:element>
     </xsl:template>
     <!--  
@@ -4394,14 +4390,21 @@
                         <xsl:attribute name="padding-top">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                     </xsl:if>
-                    <td>
+                    <td valign="baseline">
                         <xsl:call-template name="DoDebugExamples"/>
                         <div>
                             <xsl:attribute name="id">
                                 <xsl:value-of select="@letter"/>
                             </xsl:attribute>
                             <xsl:apply-templates select="." mode="letter"/>
-                            <xsl:text>.</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                    <xsl:text>)</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>.</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </div>
                     </td>
                     <xsl:choose>
@@ -4435,14 +4438,21 @@
                         </tr>
                     </xsl:if>
                     <tr>
-                        <td>
+                        <td valign="baseline">
                             <xsl:call-template name="DoDebugExamples"/>
                             <div>
                                 <xsl:attribute name="id">
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
                                 <xsl:apply-templates select="." mode="letter"/>
-                                <xsl:text>.</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                        <xsl:text>)</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>.</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </div>
                         </td>
                         <xsl:choose>

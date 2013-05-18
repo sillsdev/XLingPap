@@ -42,7 +42,7 @@ References Layouts
 <!ELEMENT  publisherStyleSheetReferencesName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetReferencesVersion (#PCDATA)>
 
-<!ELEMENT refAuthorLayouts (comment?, refAuthorLastNameLayout?, refAuthorLayout)+ >                                                         
+<!ELEMENT refAuthorLayouts ((comment?, refAuthorLayout)+, refAuthorLastNameLayout?) >                                                         
 <!ELEMENT refAuthorLayout (authorRoleItem | refAuthorItem | refDateItem)+ >                                                         
 <!ELEMENT  authorRoleItem EMPTY >
 <!ATTLIST authorRoleItem

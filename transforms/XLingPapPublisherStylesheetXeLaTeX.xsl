@@ -3072,7 +3072,7 @@
         refAuthorLastName
     -->
     <xsl:template match="refAuthorLastName">
-        <tex:spec at="bg"/>
+        <tex:spec cat="bg"/>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
         </xsl:call-template>
@@ -3080,15 +3080,15 @@
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
         </xsl:call-template>
-        <tex:spec at="eg"/>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--
         refAuthorName
     -->
     <xsl:template match="refAuthorName">
-        <tex:spec at="bg"/>
+        <tex:spec cat="bg"/>
         <xsl:apply-templates/>
-        <tex:spec at="eg"/>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--
         authorContactInfo

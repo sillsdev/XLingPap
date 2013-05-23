@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->17 May 2013</date
+>23 May 2013</date
 ><version
->2.22.4</version
+>2.22.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -1130,7 +1130,7 @@ type="tElement"
 >fixedText</object
 ></td
 ><td
->Insert some fixed text in this part of the header/footer.  One can also include things like <object
+>Insert some fixed text in this part of the header/footer. One can also include things like <object
 type="tElement"
 >object</object
 >, <object
@@ -3002,6 +3002,24 @@ showTitle="short"
 ></tr
 ></table
 ></example
+><p
+><indexedItem
+term="iAuthorLastNameLayout"
+></indexedItem
+>After the set of <object
+type="tElement"
+>refAuthorLayout</object
+> elements, one may also insert a <object
+type="tElement"
+>refAuthorLastNameLayout</object
+> element.  This controls the layout of any <object
+type="tElement"
+>refAuthorLastName</object
+> elements.  See section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+> for the available options.</p
 ></section3
 ><section3
 id="sRefArticleLayouts"
@@ -6748,7 +6766,7 @@ type="tAttribute"
 ><td
 >(user control)</td
 ><td
->This sets the indent before the date in an "Author over date" references style.  It is only used when the <object
+>This sets the indent before the date in an "Author over date" references style. It is only used when the <object
 type="tAttribute"
 >useAuthorOverDateStyle</object
 > attribute is set to <object
@@ -6789,7 +6807,7 @@ type="tAttribute"
 > attribute is set to <object
 type="tAttrValue"
 >yes</object
->.  (Not implemented yet.)</td
+>. (Not implemented yet.)</td
 ><td
 ><table
 ><tr
@@ -7065,10 +7083,10 @@ type="tAttrValue"
 >When this is set to <object
 type="tAttrValue"
 >yes</object
-> , then the formatting of the references section will put the author on one line followed by the date and the entry.  If there are more than one entries for an author, the author name is not repeated. The default value is <object
+> , then the formatting of the references section will put the author on one line followed by the date and the entry. If there are more than one entries for an author, the author name is not repeated. The default value is <object
 type="tAttrValue"
 >no</object
->.  This is only implemented for the <object
+>. This is only implemented for the <object
 type="tXeTeX"
 ></object
 > way of producing PDF.<endnote
@@ -7080,7 +7098,7 @@ type="tXeTeX"
 > because <object
 type="tXeTeX"
 ></object
-> is only output that lets us know how much horizontal space is used by the content of the date.  We use this to figure out how much space to insert after the date to get the beginning of the entry to line up properly.</p
+> is only output that lets us know how much horizontal space is used by the content of the date. We use this to figure out how much space to insert after the date to get the beginning of the entry to line up properly.</p
 ></endnote
 ></td
 ><td
@@ -7462,7 +7480,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not to insert a period after the final digit of the example number.  The default is to not use a period.</langData
+>This indicates whether or not to insert a period after the final digit of the example number. The default is to not use a period.</langData
 ></td
 ><td
 ><object
@@ -7498,7 +7516,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not to inclose the example number within parentheses.  The default is to use parentheses.</langData
+>This indicates whether or not to inclose the example number within parentheses. The default is to use parentheses.</langData
 ></td
 ><td
 ><object
@@ -7534,7 +7552,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not to insert a closing parenthesis instead of a period after the letter in a list example.  The default is to use a period.</langData
+>This indicates whether or not to insert a closing parenthesis instead of a period after the letter in a list example. The default is to use a period.</langData
 ></td
 ><td
 ><object
@@ -10545,7 +10563,7 @@ type="tElement"
 ><indexedItem
 term="iAbbreviationsInTable"
 ></indexedItem
->Sometimes one wants to control how the list of abbreviations come out when they are in a table.  You do this via the <object
+>Sometimes one wants to control how the list of abbreviations come out when they are in a table. You do this via the <object
 type="tElement"
 >abbreviationsInTableLayout</object
 > element. The <object
@@ -10839,7 +10857,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not the table of abbreviations and their definitions should be in a single column or in double columns (i.e two sets of abbreviations and their definitions).  The default is to have only one such column.</langData
+>This indicates whether or not the table of abbreviations and their definitions should be in a single column or in double columns (i.e two sets of abbreviations and their definitions). The default is to have only one such column.</langData
 ></td
 ><td
 ><object
@@ -10875,7 +10893,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviaiton and its definition.  The default is to include this column.</langData
+>This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviaiton and its definition. The default is to include this column.</langData
 ></td
 ><td
 ><object
@@ -12243,6 +12261,11 @@ see="iContactInformation"
 id="iAuthorFormatting"
 ><term
 >Author formatting</term
+></indexTerm
+><indexTerm
+id="iAuthorLastNameLayout"
+><term
+>Author last name layout</term
 ></indexTerm
 ><indexTerm
 id="iAuthorLayout"

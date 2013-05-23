@@ -2873,6 +2873,25 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
+        refAuthorLastName
+    -->
+    <xsl:template match="refAuthorLastName">
+        <fo:inline>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
+                </xsl:call-template>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    <!--
+        refAuthorName
+    -->
+    <xsl:template match="refAuthorName">
+        <fo:inline>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    <!--
         authorContactInfo
     -->
     <xsl:template match="authorContactInfo">

@@ -43,7 +43,14 @@
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:variable>
-                                        <xsl:value-of select="$sAuthorName"/>
+                                        <xsl:choose>
+                                            <xsl:when test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+                                                <xsl:apply-templates select="$work/.."/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="$sAuthorName"/>        
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                                             <xsl:with-param name="layoutInfo" select="."/>
                                             <xsl:with-param name="sPrecedingText" select="$sAuthorName"/>

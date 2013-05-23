@@ -32,6 +32,12 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.22.5 23 May 2013<ul
+><li
+>Added refAuthorName, refAuthorLastName, and refAuthorLastNameLayout elements so one can format an author's last name differently (when using a publisher style sheet).</li
+></ul
+></li
+><li
 >2.22.4 17 May 2013<ul
 ><li
 >Added abbreviationsInTableLayout in publisher style sheet to control how the abbreviations which occur in a table appear.</li

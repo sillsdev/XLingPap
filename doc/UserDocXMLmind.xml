@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->17 May 2013</date
+>23 May 2013</date
 ><version
->2.22.4</version
+>2.22.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -3760,6 +3760,38 @@ type="tElement"
 sec="sReferencesAttributes"
 ></sectionRef
 > below for more on this.</p
+><p
+><indexedItem
+term="iAuthorLastName"
+></indexedItem
+>Some publishers wish to format author's last names differently from first names (e.g., using small caps).  Therefore, it is also possible to insert a <object
+type="tElement"
+>refAuthorName</object
+> element just before the first <object
+type="tElement"
+>refWork</object
+> element.  One types the author name(s) in the <object
+type="tElement"
+>refAuthorName</object
+> element and one then selects an author's last name and uses the <object
+type="tInstruction"
+>Convert</object
+> command (via <object
+type="tInstruction"
+>Edit / Convert</object
+>, pressing <object
+type="tKey"
+>Ctrl-T</object
+>, or by clicking on the convert icon in the Edit tool<endnoteRef
+note="nEditTool"
+></endnoteRef
+>) to convert the last name into a <object
+type="tElement"
+>refAuthorLastName</object
+> element.  Note that this only works with a publisher style sheet that has a <object
+type="tElement"
+>refAuthorLastNameLayout</object
+> element defined.</p
 ><p
 ><indexedItem
 term="iReferencesWorksCited"
@@ -24259,6 +24291,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorLastName</object
+></dt
+><dd
+>An author's last name</dd
+><dt
+><object
+type="tElement"
+>refAuthorName</object
+></dt
+><dd
+>An author's name</dd
+><dt
+><object
+type="tElement"
 >refDate</object
 ></dt
 ><dd
@@ -25909,6 +25955,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorLastNameLayout</object
+></dt
+><dd
+>Layout info for an author's last name within references</dd
+><dt
+><object
+type="tElement"
 >refAuthorLayout</object
 ></dt
 ><dd
@@ -27014,6 +27067,11 @@ id="iAuthorContactInformation"
 see="iContactInformation"
 ><term
 >contact information</term
+></indexTerm
+><indexTerm
+id="iAuthorLastName"
+><term
+>last name</term
 ></indexTerm
 ><indexTerm
 id="iAuthorCiteName"

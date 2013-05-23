@@ -8,7 +8,7 @@
     <xsl:param name="sMainSourcePath" select="'file:/C:/Users/Andy%20Black/Documents/XLingPap/SILEWPTrial/'"/>
     <xsl:param name="bEBook" select="'N'"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
-<!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
+    <!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
         <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
@@ -155,7 +155,7 @@
                     <title>
                         <xsl:for-each select="//title/node()">
                             <xsl:if test="name()!='endnote'">
-                            <xsl:value-of select="."/>
+                                <xsl:value-of select="."/>
                             </xsl:if>
                         </xsl:for-each>
                     </title>
@@ -1676,6 +1676,27 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        refAuthorLastName
+    -->
+    <xsl:template match="refAuthorLastName">
+        <span>
+            <xsl:attribute name="style">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!--
+        refAuthorName
+    -->
+    <xsl:template match="refAuthorName">
+        <span>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!--
         authorContactInfo
     -->
     <xsl:template match="authorContactInfo">
@@ -2933,7 +2954,8 @@
                             <xsl:call-template name="DoInterlinearFreeContent">
                                 <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
                                 <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:call-template>    </xsl:when>
+                            </xsl:call-template>
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="DoLiteralLabel"/>
                             <xsl:call-template name="DoInterlinearFreeContent">

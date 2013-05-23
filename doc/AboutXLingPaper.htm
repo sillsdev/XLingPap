@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.22.2</span></p>
-      <p align="center">Date: 2013-05-10</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.22.4</span></p>
+      <p align="center">Date: 2013-05-17</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,6 +34,35 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.22.5 23 May 2013
+                  <ul>
+                     <li>Added refAuthorName, refAuthorLastName, and refAuthorLastNameLayout elements so one can format an author's last name differently
+                        (when using a publisher style sheet).
+                     </li>
+                  </ul>
+               </li>
+               <li>2.22.4 17 May 2013
+                  <ul>
+                     <li>Added abbreviationsInTableLayout in publisher style sheet to control how the abbreviations which occur in a table appear.</li>
+                     <li>For page header/footer layouts in publisher style sheets, allowed fixedText to include embedded elements like object.</li>
+                     <li>For example layouts in publisher style sheets, allowed control over whether the number has parens, ends with a period, and
+                        whether the list letters end with a period or a closing parenthesis.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Added several attributes on the referencesLayout element to allow for an "author over date" style of showing the references.</li>
+                        </ul>
+                     </li>
+                     <li>For the web page with publisher style sheet output, improve alignment of list definition letters and definitions.</li>
+                  </ul>
+               </li>
+               <li>2.22.3 13 May 2013
+                  <ul>
+                     <li>For reference items for which there is no known author, add a way to show the title in the author position. (Done via a showAuthorName
+                        attribute on the refAuthor element.)
+                     </li>
+                  </ul>
+               </li>
                <li>2.22.2 10 May 2013
                   <ul>
                      <li>In publisher style sheets, add a way to insert text before the page number(s) of a citation (which comes after the colon after

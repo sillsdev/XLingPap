@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->17 May 2013</date
+>23 May 2013</date
 ><version
->2.22.4</version
+>2.22.5</version
 ><contents
 showLevel="3"
 ></contents
@@ -10266,6 +10266,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>refAuthorLastName</object
+></dt
+><dd
+>An author's last name</dd
+><dt
+><object
+type="tElement"
+>refAuthorName</object
+></dt
+><dd
+>An author's name</dd
+><dt
+><object
+type="tElement"
 >refDate</object
 ></dt
 ><dd
@@ -11882,6 +11896,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for an author within references</dd
+><dt
+><object
+type="tElement"
+>refAuthorLastNameLayout</object
+></dt
+><dd
+>Layout info for an author's last name within references</dd
 ><dt
 ><object
 type="tElement"

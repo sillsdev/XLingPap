@@ -2323,6 +2323,9 @@
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
+    <xsl:template match="object" mode="Use">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
     <!-- ===========================================================
         FRAMEDUNIT
         =========================================================== -->
@@ -3992,26 +3995,6 @@
    -->
     <xsl:template name="OutputAbbrTerm">
         <xsl:param name="abbr"/>
-        <xsl:variable name="sAbbrTerm">
-            <xsl:choose>
-                <xsl:when test="string-length($abbrLang) &gt; 0">
-                    <xsl:choose>
-                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                            <xsl:value-of select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- a language is specified, but this abbreviation does not have anything; try using the default;
-                        this assumes that something is better than nothing -->
-                            <xsl:value-of select="$abbr/abbrInLang[1]/abbrTerm"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!--  no language specified; just use the first one -->
-                    <xsl:value-of select="$abbr/abbrInLang[1]/abbrTerm"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
         <span>
             <xsl:variable name="sFontAttributes">
                 <xsl:call-template name="OutputFontAttributes">
@@ -4026,7 +4009,24 @@
                     <xsl:value-of select="$sFontAttributes"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:value-of select="$sAbbrTerm"/>
+            <xsl:choose>
+                <xsl:when test="string-length($abbrLang) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm" mode="Use"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- a language is specified, but this abbreviation does not have anything; try using the default;
+                                this assumes that something is better than nothing -->
+                            <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--  no language specified; just use the first one -->
+                    <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </span>
     </xsl:template>
     <!--  

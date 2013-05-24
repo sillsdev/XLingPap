@@ -2162,8 +2162,8 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="abbrTerm | abbrDefinition"/>
-    <!--    <xsl:template match="abbrTerm"/>-->
+    <xsl:template match="abbrDefinition"/>
+        <xsl:template match="abbrTerm"/>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -2282,6 +2282,9 @@
     </xsl:template>
     <!-- InMarker -->
     <xsl:template match="object" mode="InMarker">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <xsl:template match="object" mode="Use">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <!-- no mode -->
@@ -7415,26 +7418,6 @@
     -->
     <xsl:template name="OutputAbbrTerm">
         <xsl:param name="abbr"/>
-        <xsl:variable name="sAbbrTerm">
-            <xsl:choose>
-                <xsl:when test="string-length($abbrLang) &gt; 0">
-                    <xsl:choose>
-                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                            <xsl:value-of select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- a language is specified, but this abbreviation does not have anything; try using the default;
-                                this assumes that something is better than nothing -->
-                            <xsl:value-of select="$abbr/abbrInLang[1]/abbrTerm"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!--  no language specified; just use the first one -->
-                    <xsl:value-of select="$abbr/abbrInLang[1]/abbrTerm"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
         <tex:group>
             <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <tex:cmd name="fontspec">
@@ -7475,7 +7458,24 @@
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$abbreviations"/>
             </xsl:call-template>
-            <xsl:value-of select="$sAbbrTerm"/>
+            <xsl:choose>
+                <xsl:when test="string-length($abbrLang) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm" mode="Use"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- a language is specified, but this abbreviation does not have anything; try using the default;
+                                this assumes that something is better than nothing -->
+                            <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--  no language specified; just use the first one -->
+                    <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:call-template name="OutputFontAttributesEnd">
                 <xsl:with-param name="language" select="$abbreviations"/>
             </xsl:call-template>

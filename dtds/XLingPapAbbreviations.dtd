@@ -32,7 +32,7 @@ It only shows if there is an instance of a referring index element in the docume
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT abbrTerm (#PCDATA)>
+<!ELEMENT abbrTerm (#PCDATA | object)*>
 <!ELEMENT abbrDefinition (#PCDATA | %embedded;)*>
 <!-- an abbrRef element refers to an abbreviation element
 -->

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 May 2013</date
+>24 May 2013</date
 ><version
 >2.22.5</version
 ><contents
@@ -3764,13 +3764,13 @@ sec="sReferencesAttributes"
 ><indexedItem
 term="iAuthorLastName"
 ></indexedItem
->Some publishers wish to format author's last names differently from first names (e.g., using small caps).  Therefore, it is also possible to insert a <object
+>Some publishers wish to format author's last names differently from first names (e.g., using small caps). Therefore, it is also possible to insert a <object
 type="tElement"
 >refAuthorName</object
 > element just before the first <object
 type="tElement"
 >refWork</object
-> element.  One types the author name(s) in the <object
+> element. One types the author name(s) in the <object
 type="tElement"
 >refAuthorName</object
 > element and one then selects an author's last name and uses the <object
@@ -3788,7 +3788,7 @@ note="nEditTool"
 >) to convert the last name into a <object
 type="tElement"
 >refAuthorLastName</object
-> element.  Note that this only works with a publisher style sheet that has a <object
+> element. Note that this only works with a publisher style sheet that has a <object
 type="tElement"
 >refAuthorLastNameLayout</object
 > element defined.</p
@@ -5688,7 +5688,16 @@ id="gSmallCapsInAbbreviations"
 >If you want to have your abbreviations appear as small caps, then you need to do two things:</p
 ><ol
 ><li
->Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you apply small caps to an upper case letter, it remains unchanged).</li
+>Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you apply small caps to an upper case letter, it remains unchanged). If you need a portion of the abbreviation to remain lower case (and not be shown in small caps), you can insert an <object
+type="tElement"
+>object</object
+> element and put that portion in it.  Set the <object
+type="tAttribute"
+>type</object
+> attribute to a <object
+type="tElement"
+>type</object
+> element which uses a normal font.</li
 ><li
 >The next step depends on whether or not you have a true small caps font. <ul
 ><li

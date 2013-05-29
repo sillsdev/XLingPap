@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->24 May 2013</date
+>29 May 2013</date
 ><version
 >2.22.5</version
 ><contents
@@ -801,10 +801,7 @@ term="iLanguageNew"
 >You may certainly have more than two languages defined. Merely add another <object
 type="tElement"
 >language</object
-> element as described in section <sectionRef
-sec="sIntroUsingQuickOverview"
-></sectionRef
-> above and key in the appropriate attributes.</p
+> element as described earlier in this section above and key in the appropriate attributes.</p
 ><p
 ><indexedItem
 term="iLanguageAttributes"
@@ -5691,7 +5688,7 @@ id="gSmallCapsInAbbreviations"
 >Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you apply small caps to an upper case letter, it remains unchanged). If you need a portion of the abbreviation to remain lower case (and not be shown in small caps), you can insert an <object
 type="tElement"
 >object</object
-> element and put that portion in it.  Set the <object
+> element and put that portion in it. Set the <object
 type="tAttribute"
 >type</object
 > attribute to a <object
@@ -17622,7 +17619,7 @@ type="tTool"
 letter="xKeystrokeCombinationsForQuotes"
 num="xKeystrokeCombinationsForQuotes"
 ></exampleRef
->, when there is a hyphen between the keys, type all the keys at the same time as indicated in the “Key stroke combination” column. The result is given in the “Result” column.</p
+>, when there is a plus sign between the keys, type all the keys at the same time as indicated in the “Key stroke combination” column. The result is given in the “Result” column.</p
 ><example
 num="xKeystrokeCombinationsForQuotes"
 ><table
@@ -24777,6 +24774,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for affiliation</dd
+><dt
+><object
+type="tElement"
+>appendiciesTitlePageLayout</object
+></dt
+><dd
+>Layout info for an appendicies title page</dd
 ><dt
 ><object
 type="tElement"

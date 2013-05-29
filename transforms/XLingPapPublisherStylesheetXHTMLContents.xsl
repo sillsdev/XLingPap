@@ -68,7 +68,16 @@
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputSectionNumberAndTitleInContents"/>
             </xsl:with-param>
-            <xsl:with-param name="sIndent" select="$sLevel"/>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                        <xsl:value-of select="$sLevel + 1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sLevel"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
         </xsl:call-template>
     </xsl:template>
@@ -81,8 +90,38 @@
         <xsl:param name="sSpaceBefore" select="'0'"/>
         <xsl:param name="sIndent" select="'0'"/>
         <xsl:param name="override"/>
+        <xsl:param name="fUseHalfSpacing" select="'N'"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <div>
+                <xsl:attribute name="style">
+                    <xsl:choose>
+                        <xsl:when test="$sLineSpacing='double'">
+                            <xsl:choose>
+                                <xsl:when test="$fUseHalfSpacing='Y'">
+                                    <xsl:text>line-height:50%;</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>line-height:100%;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                            <xsl:choose>
+                                <xsl:when test="$fUseHalfSpacing='Y'">
+                                    <xsl:text>line-height:25%;</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>line-height:50%;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:text>&#xa0;</xsl:text>
+            </div>
+        </xsl:if>
         <div>
             <!--            <xsl:attribute name="text-align-last">
                 <xsl:choose>
@@ -94,25 +133,50 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
--->
-            <xsl:if test="$sIndent!='0'">
-                <xsl:attribute name="style">
-                    <xsl:if test="$sSpaceBefore!='0'">
-                        <xsl:text>margin-top:</xsl:text>
-                        <xsl:value-of select="$sSpaceBefore"/>
-                        <xsl:text>; </xsl:text>
+            -->
+            <xsl:choose>
+                <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
+                    <xsl:attribute name="style">
+                        <xsl:if test="$sSpaceBefore!='0'">
+                            <xsl:text>margin-top:</xsl:text>
+                            <xsl:value-of select="$sSpaceBefore"/>
+                            <xsl:text>; </xsl:text>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="string(number($sIndent))!='NaN'">
+                                <xsl:text>text-indent:-</xsl:text>
+                                <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                                <xsl:text>em; padding-left:</xsl:text>
+                                <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                                <xsl:text>em;</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>text-indent:-1em; padding-left:</xsl:text>
+                                <xsl:value-of select="$sIndent"/>
+                                <xsl:text>; </xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                            <xsl:text>line-height:</xsl:text>
+                            <xsl:value-of select="$sSinglespacingLineHeight"/>
+                            <xsl:text>;</xsl:text>
+                        </xsl:if>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                        <xsl:attribute name="style">
+                            <xsl:text>line-height:</xsl:text>
+                            <xsl:value-of select="$sSinglespacingLineHeight"/>
+                            <xsl:text>;</xsl:text>
+                        </xsl:attribute>
                     </xsl:if>
-                    <xsl:text>text-indent:-</xsl:text>
-                    <xsl:value-of select="$sIndent div 2 + 1.5"/>
-                    <xsl:text>em; padding-left:</xsl:text>
-                    <xsl:value-of select="1.5 * $sIndent + 1.5"/>
-                    <xsl:text>em;</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
             <a href="#{$sLink}">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
-                </xsl:call-template>                
+                </xsl:call-template>
                 <span>
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
@@ -127,14 +191,15 @@
                             </xsl:if>
                         </fo:leader>
 -->
-<!--                        <xsl:text>&#xa0;</xsl:text>
+                        <!--                        <xsl:text>&#xa0;</xsl:text>
                         <span>
                             <xsl:call-template name="OutputTOCPageNumber">
                                 <xsl:with-param name="linkLayout" select="$linkLayout"/>
                                 <xsl:with-param name="sLink" select="$sLink"/>
                             </xsl:call-template>
                         </span>
--->                    </xsl:if>
+-->
+                    </xsl:if>
                 </span>
             </a>
         </div>
@@ -161,12 +226,13 @@
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
         <span>
-<!--            <xsl:if test="$linkLayout/@linktitle!='no'">
+            <!--            <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
             </xsl:if>
--->            <xsl:copy-of select="$sLabel"/>
+-->
+            <xsl:copy-of select="$sLabel"/>
         </span>
     </xsl:template>
 </xsl:stylesheet>

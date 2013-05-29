@@ -107,7 +107,16 @@
             <xsl:with-param name="sCommandToSet" select="concat($sLevelName,'width')"/>
             <xsl:with-param name="sValue" select="$sSectionNumberWidthFormula"/>
         </xsl:call-template>
-        <!-- output the toc line -->
+        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+            <tex:cmd name="addtolength">
+                <tex:parm>
+                    <tex:cmd name="{$sLevelName}indent" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sChapterLineIndent"/>        
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <!-- output the toc line -->
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
@@ -133,6 +142,7 @@
         <xsl:param name="sIndent" select="'0pt'"/>
         <xsl:param name="override"/>
         <xsl:param name="sNumWidth" select="'0pt'"/>
+        <xsl:param name="fUseHalfSpacing"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
@@ -142,6 +152,10 @@
                     <xsl:text>pt</xsl:text>
                 </tex:parm>
             </tex:cmd>
+        </xsl:if>
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="$sLink"/>
@@ -169,6 +183,9 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!--  
       OutputTOCPageNumber

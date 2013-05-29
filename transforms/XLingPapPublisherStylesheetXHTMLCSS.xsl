@@ -322,6 +322,14 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        appendiciesTitlePageLayout
+    -->
+    <xsl:template match="appendiciesTitlePageLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'appendiciesTitlePageLayout'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         appendixTitleLayout
     -->
     <xsl:template match="appendixTitleLayout">
@@ -1407,6 +1415,8 @@ li.lower-roman {
     <xsl:template match="@beginsparagraph"/>
     <xsl:template match="@betweentitleandnumber"/>
     <xsl:template match="@captionLocation"/>
+    <xsl:template match="@chapterlabel"/>
+    <xsl:template match="@chapterlineindent"/>
     <xsl:template match="@dateIndentAuthorOverDateStyle"/>
     <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
     <xsl:template match="@doubleColumnSeparation"/>
@@ -1418,6 +1428,7 @@ li.lower-roman {
     <xsl:template match="@hyphenationExceptionsFile"/>
     <xsl:template match="@id"/>
     <xsl:template match="@ignore"/>
+    <xsl:template match="@indentchapterline"/>
     <xsl:template match="@interlinearsourcestyle"/>
     <xsl:template match="@ISO639-3Code"/>
     <xsl:template match="@label"/>
@@ -1439,6 +1450,7 @@ li.lower-roman {
     <xsl:template match="@rulebelowlength"/>
     <xsl:template match="@rulebelowpattern"/>
     <xsl:template match="@rulebelowwidth"/>
+    <xsl:template match="@showappendices"/>
     <xsl:template match="@showAsFootnoteAtEndOfAbstract"/>
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
@@ -1446,6 +1458,7 @@ li.lower-roman {
     <xsl:template match="@showmarking"/>
     <xsl:template match="@showNumber"/>
     <xsl:template match="@showpagenumber"/>
+    <xsl:template match="@singlespaceeachcontentline"/>
     <xsl:template match="@spacebeforemainsection"/>
     <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>
     <xsl:template match="@spaceBetweenEntryAndAuthorInAuthorOverDateStyle"/>
@@ -1462,6 +1475,7 @@ li.lower-roman {
     <xsl:template match="@types"/>
     <xsl:template match="@useappendixlabelbeforeappendixletter"/>
     <xsl:template match="@useblankextrapage"/>
+    <xsl:template match="@usechapterlabelbeforechapters"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
     <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
@@ -1469,6 +1483,8 @@ li.lower-roman {
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>
+    <xsl:template match="@useperiodafterchapternumber"/>
+    <xsl:template match="@useperiodaftersectionnumber"/>
     <xsl:template match="@usetitleinheader"/>
     <xsl:template match="@version"/>
     <xsl:template match="@verticalfillafter"/>

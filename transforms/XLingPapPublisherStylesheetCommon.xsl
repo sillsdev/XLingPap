@@ -26,6 +26,7 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
+    <xsl:variable name="sChapterLineIndent" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlineindent)"/>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->
@@ -3693,6 +3694,15 @@
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
+    <!--
+        OutputAppendiciesLabel
+    -->
+    <xsl:template name="OutputAppendiciesLabel">
+        <xsl:call-template name="OutputLabel">
+            <xsl:with-param name="sDefault">Appendicies</xsl:with-param>
+            <xsl:with-param name="pLabel" select="$backMatterLayoutInfo/appendiciesTitlePageLayout/@label"/>
+        </xsl:call-template>
+    </xsl:template>
     <!--  
         OutputCitation
     -->
@@ -3739,6 +3749,7 @@
     <xsl:template name="OutputSectionNumberProper">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bAppendix"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:variable name="bUseNumber">
             <xsl:choose>
                 <xsl:when test="name()='section1' and $bodyLayoutInfo/section1Layout/@showNumber='no'">N</xsl:when>
@@ -3754,6 +3765,7 @@
             <xsl:call-template name="HandleSectionNumberOutput">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>

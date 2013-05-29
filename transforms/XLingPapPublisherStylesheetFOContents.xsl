@@ -68,7 +68,16 @@
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputSectionNumberAndTitleInContents"/>
             </xsl:with-param>
-            <xsl:with-param name="sIndent" select="$sLevel"/>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                        <xsl:value-of select="$sLevel + 1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sLevel"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
         </xsl:call-template>
     </xsl:template>
@@ -81,10 +90,26 @@
         <xsl:param name="sSpaceBefore" select="'0'"/>
         <xsl:param name="sIndent" select="'0'"/>
         <xsl:param name="override"/>
+        <xsl:param name="fUseHalfSpacing"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <fo:block>
+                <xsl:attribute name="line-height">
+                    <xsl:choose>
+                        <xsl:when test="$sLineSpacing='double'">
+                            <xsl:text>1.2</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                            <xsl:text>.9</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:text>&#xa0;</xsl:text>
+            </fo:block>
+        </xsl:if>
         <fo:block>
             <xsl:attribute name="text-align-last">
                 <xsl:choose>
@@ -101,10 +126,33 @@
                     <xsl:value-of select="$sSpaceBefore"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if test="$sIndent!='0'">
-                <xsl:attribute name="text-indent">-<xsl:value-of select="$sIndent div 2 + 1.5"/>em</xsl:attribute>
-                <xsl:attribute name="start-indent">
-                    <xsl:value-of select="1.5 * $sIndent + 1.5"/>em</xsl:attribute>
+            <xsl:if test="$sIndent!='0' and $sIndent!='0pt'">
+                <xsl:choose>
+                    <xsl:when test="string(number($sIndent))!='NaN'">
+                        <xsl:attribute name="text-indent">
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$sIndent div 2 + 1.5"/>
+                            <xsl:text>em</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="start-indent">
+                            <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                            <xsl:text>em</xsl:text>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="text-indent">
+                            <xsl:text>-1em</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="start-indent">
+                            <xsl:value-of select="$sIndent"/>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                <xsl:attribute name="line-height">
+                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                </xsl:attribute>
             </xsl:if>
             <fo:basic-link internal-destination="{$sLink}">
                 <fo:inline>

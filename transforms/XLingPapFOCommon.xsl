@@ -586,6 +586,10 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
+    <!-- 
+        SetChapterNumberWidth
+    -->
+    <xsl:template name="SetChapterNumberWidth"/>
     <!--  
         SetFramedTypeItem
     -->

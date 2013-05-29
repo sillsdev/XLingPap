@@ -32,50 +32,88 @@
         appendix (contents)
     -->
     <xsl:template match="appendix" mode="contents">
-        <xsl:call-template name="OutputTOCLine">
-            <xsl:with-param name="sLink" select="@id"/>
-            <xsl:with-param name="sLabel">
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
-                    <xsl:choose>
-                        <xsl:when test="string-length(@label) &gt; 0">
-                            <xsl:value-of select="@label"/>
-                        </xsl:when>
-                        <xsl:otherwise>Appendix</xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:text>&#x20;</xsl:text>
-                </xsl:if>
-                <xsl:call-template name="OutputChapterNumber">
-                    <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
-                </xsl:call-template>
-                <xsl:apply-templates select="secTitle"/>
-            </xsl:with-param>
-            <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:apply-templates select="section1 | section2" mode="contents"/>
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showappendices!='no'">
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink" select="@id"/>
+                <xsl:with-param name="sLabel">
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
+                        <xsl:choose>
+                            <xsl:when test="string-length(@label) &gt; 0">
+                                <xsl:value-of select="@label"/>
+                            </xsl:when>
+                            <xsl:otherwise>Appendix</xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>&#x20;</xsl:text>
+                    </xsl:if>
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates select="secTitle"/>
+                </xsl:with-param>
+                <xsl:with-param name="sSpaceBefore">
+                    <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:apply-templates select="section1 | section2" mode="contents"/>
+        </xsl:if>
     </xsl:template>
     <!-- 
         chapter (contents) 
     -->
     <xsl:template match="chapter | chapterBeforePart" mode="contents">
-        <!--        <xsl:template match="chapter[not(//part)]" mode="contents">-->
         <!--            <xsl:param name="nLevel"/>-->
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@usechapterlabelbeforechapters='yes'">
+            <xsl:if test="name()='chapterBeforePart' or count(preceding-sibling::chapter)=0 and not(//chapterBeforePart)">
+                <xsl:call-template name="DoChapterLabelInContents"/>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+            <xsl:call-template name="SetChapterNumberWidth"/>
+        </xsl:if>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputChapterNumber"/>
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>
+                <xsl:if test="string-length($sChapterLineIndent)&gt;0">
+                    <xsl:call-template name="AddWordSpace"/>
+                </xsl:if>
                 <xsl:apply-templates select="secTitle"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
             </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                        <xsl:value-of select="$sChapterLineIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>0pt</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="sNumWidth">
+                <xsl:call-template name="DoChapterNumberWidth"/>
+            </xsl:with-param>
+            <xsl:with-param name="fUseHalfSpacing">
+                <xsl:choose>
+                    <xsl:when test="position()=1">
+                        <xsl:text>Y</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>N</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:if test="$nLevel!=0">
-        <xsl:apply-templates select="section1 | section2" mode="contents">
-            <!--            <xsl:with-param name="nLevel" select="$nLevel"/>-->
-        </xsl:apply-templates>
+            <xsl:apply-templates select="section1 | section2" mode="contents">
+                <!--            <xsl:with-param name="nLevel" select="$nLevel"/>-->
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!--

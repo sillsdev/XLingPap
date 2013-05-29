@@ -195,12 +195,12 @@
                 <xsl:text>newdimen</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>XLingPapertempdim
-</xsl:text>
+                </xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>newdimen</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>XLingPapertempdimletter
-</xsl:text>
+                </xsl:text>
                 <xsl:call-template name="SetTOCMacros"/>
                 <xsl:call-template name="SetTOClengths"/>
                 <xsl:if test="$bHasIndex='Y'">
@@ -216,6 +216,9 @@
                     <xsl:call-template name="SetXLingPaperTableWidthMacros"/>
                 </xsl:if>
                 <xsl:call-template name="SetListLengthWidths"/>
+                <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+                    <xsl:call-template name="SetListOfWidths"/>
+                </xsl:if>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
@@ -2246,13 +2249,70 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+            <tex:cmd name="noindent"/>
+            <xsl:call-template name="OutputFigureLabel"/>
+            <tex:cmd name="hfill"/>
+            <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/figureLayout/@pageLabelInListOfFigures)"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sLabel)&gt;0">
+                    <xsl:value-of select="$sLabel"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Page</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <tex:cmd name="par" nl2="1"/>
+        </xsl:if>
         <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
+            <xsl:variable name="sFigureNumber">
+                <xsl:call-template name="GetFigureNumber">
+                    <xsl:with-param name="figure" select="."/>
+                </xsl:call-template>
+            </xsl:variable>
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputFigureLabelAndCaption">
-                        <xsl:with-param name="bDoStyles" select="'N'"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+                            <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
+                            <xsl:value-of select="$sFigureNumber"/>
+                            <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
+                            <xsl:text>&#xa0;</xsl:text>
+                            <xsl:text>&#xa0;</xsl:text>
+                            <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
+                            <xsl:apply-templates select="caption" mode="contents"/>
+                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textafter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputFigureLabelAndCaption">
+                                <xsl:with-param name="bDoStyles" select="'N'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="sIndent">
+                    <xsl:text>0pt</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="sNumWidth">
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+                            <xsl:choose>
+                                <xsl:when test="string-length($sFigureNumber)=1">
+                                    <tex:cmd name="XLingPapersingledigitlistofwidth"/>
+                                </xsl:when>
+                                <xsl:when test="string-length($sFigureNumber)=2">
+                                    <tex:cmd name="XLingPaperdoubledigitlistofwidth"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tex:cmd name="XLingPapertripledigitlistofwidth"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
@@ -2368,13 +2428,70 @@
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+            <tex:cmd name="noindent"/>
+            <xsl:call-template name="OutputTableNumberedLabel"/>
+            <tex:cmd name="hfill"/>
+            <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@pageLabelInListOfTables)"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sLabel)&gt;0">
+                    <xsl:value-of select="$sLabel"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>Page</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <tex:cmd name="par" nl2="1"/>
+        </xsl:if>
         <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
+            <xsl:variable name="sTableNumber">
+                <xsl:call-template name="GetTableNumberedNumber">
+                    <xsl:with-param name="tablenumbered" select="."/>
+                </xsl:call-template>
+            </xsl:variable>
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputTableNumberedLabelAndCaption">
-                        <xsl:with-param name="bDoStyles" select="'N'"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+                            <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
+                            <xsl:value-of select="$sTableNumber"/>
+                            <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
+                            <xsl:text>&#xa0;</xsl:text>
+                            <xsl:text>&#xa0;</xsl:text>
+                            <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
+                            <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                            <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputTableNumberedLabelAndCaption">
+                                <xsl:with-param name="bDoStyles" select="'N'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="sIndent">
+                    <xsl:text>0pt</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="sNumWidth">
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+                            <xsl:choose>
+                                <xsl:when test="string-length($sTableNumber)=1">
+                                    <tex:cmd name="XLingPapersingledigitlistofwidth"/>
+                                </xsl:when>
+                                <xsl:when test="string-length($sTableNumber)=2">
+                                    <tex:cmd name="XLingPaperdoubledigitlistofwidth"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tex:cmd name="XLingPapertripledigitlistofwidth"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
@@ -3197,8 +3314,15 @@
       NAMED TEMPLATES
       =========================================================== -->
     <!--
+        AddWordSpace
+    -->
+    <xsl:template name="AddWordSpace">
+        <tex:spec cat="esc"/>
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!--
                   CheckSeeTargetIsCitedOrItsDescendantIsCited
-                                    -->
+    -->
     <xsl:template name="CheckSeeTargetIsCitedOrItsDescendantIsCited">
         <xsl:variable name="sSee" select="@see"/>
         <xsl:choose>
@@ -3261,6 +3385,25 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoAppendiciesTitlePage
+    -->
+    <xsl:template name="DoAppendiciesTitlePage">
+        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+            <xsl:with-param name="id" select="$sAppendiciesPageID"/>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputAppendiciesLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputBookmark">
+            <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputAppendiciesLabel"/>
+            </xsl:with-param>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+    </xsl:template>
+    <!--  
       DoBackMatterBookmarksPerLayout
    -->
     <xsl:template name="DoBackMatterBookmarksPerLayout">
@@ -3270,6 +3413,16 @@
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="bookmarks"/>
+                </xsl:when>
+                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                    <xsl:if test="count(//appendix)&gt;1">
+                        <xsl:call-template name="OutputBookmark">
+                            <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputAppendiciesLabel"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix" mode="bookmarks">
@@ -3301,6 +3454,16 @@
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents"/>
+                </xsl:when>
+                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                    <xsl:if test="count(//appendix)&gt;1">
+                        <xsl:call-template name="OutputTOCLine">
+                            <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputAppendiciesLabel"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix" mode="contents">
@@ -3349,6 +3512,21 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
+                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                    <xsl:if test="count(//appendix)&gt;1">
+                        <xsl:choose>
+                            <xsl:when test="$bIsBook">
+                                <xsl:call-template name="DoPageBreakFormatInfo">
+                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="DoAppendiciesTitlePage"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="DoAppendiciesTitlePage"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
+                </xsl:when>
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix"/>
                 </xsl:when>
@@ -3371,6 +3549,38 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--
+        DoChapterLabelInContents
+    -->
+    <xsl:template name="DoChapterLabelInContents">
+        <xsl:variable name="sLabel" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlabel)"/>
+        <tex:spec cat="bg"/>
+        <tex:cmd name="singlespacing"/>
+        <tex:cmd name="noindent"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sLabel)&gt;0">
+                <xsl:value-of select="$sLabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Chapter</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="par"/>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--
+        DoChapterNumberWidth
+    -->
+    <xsl:template name="DoChapterNumberWidth" priority="10">
+        <xsl:choose>
+            <xsl:when test="string-length($sChapterLineIndent)&gt;0">
+                <tex:cmd name="levelonewidth" gr="0" nl2="0"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         DoContactInfo
@@ -3759,14 +3969,6 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-            <xsl:with-param name="fDoRaisebox" select="'N'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInternalTargetEnd"/>
-        <xsl:call-template name="CreateAddToContents">
-            <xsl:with-param name="id" select="@id"/>
-        </xsl:call-template>
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <xsl:text>protect</xsl:text>
@@ -3822,6 +4024,14 @@
             <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+            <xsl:with-param name="fDoRaisebox" select="'N'"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <xsl:call-template name="CreateAddToContents">
+            <xsl:with-param name="id" select="@id"/>
+        </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
             <xsl:if test="chart/*[position()=last()][name()='img' and not(contains(@XeLaTeXSpecial,'vertical-adjustment='))]">
                 <tex:spec cat="esc"/>
@@ -5345,6 +5555,7 @@
     <xsl:template name="HandleSectionNumberOutput">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bAppendix"/>
+        <xsl:param name="sContentsPeriod"/>
         <tex:group>
             <xsl:if test="$layoutInfo">
                 <xsl:call-template name="DoTitleFormatInfo">
@@ -5357,6 +5568,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="." mode="number"/>
+                    <xsl:value-of select="$sContentsPeriod"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
@@ -6071,7 +6283,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote)]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -6617,6 +6829,7 @@
     <xsl:template name="OutputSectionNumber">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bIsForBookmark" select="'N'"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:variable name="bAppendix">
             <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
@@ -6627,12 +6840,14 @@
                 <xsl:call-template name="OutputSectionNumberProper">
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputSectionNumberProper">
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -6654,6 +6869,11 @@
         <xsl:param name="layoutInfo"/>
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            <xsl:with-param name="sContentsPeriod">
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:call-template name="OutputSectionTitleInContents"/>
     </xsl:template>
@@ -6812,6 +7032,24 @@
                 <!-\-                        </fo:leader>-\->
             </xsl:if>-->
         </xsl:if>
+    </xsl:template>
+    <!--  
+        SetChapterNumberWidth
+    -->
+    <xsl:template name="SetChapterNumberWidth" priority="10">
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
+            <xsl:with-param name="sCommandToSet" select="'levelonewidth'"/>
+            <xsl:with-param name="sValue">
+                <xsl:call-template name="OutputChapterNumber"/>
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+                <xsl:text>&#xa0;</xsl:text>
+                <tex:spec cat="esc"/>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         SetFonts
@@ -6987,7 +7225,56 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-
+    <!--  
+        SetListOfWidths
+    -->
+    <xsl:template name="SetListOfWidths">
+        <tex:cmd name="newlength" nl2="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapersingledigitlistofwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
+            <xsl:with-param name="sCommandToSet" select="'XLingPapersingledigitlistofwidth'"/>
+            <xsl:with-param name="sValue">
+                <xsl:text>8.</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
+        <tex:cmd name="newlength" nl2="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperdoubledigitlistofwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
+            <xsl:with-param name="sCommandToSet" select="'XLingPaperdoubledigitlistofwidth'"/>
+            <xsl:with-param name="sValue">
+                <xsl:text>88.</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
+        <tex:cmd name="newlength" nl2="1">
+            <tex:parm>
+                <tex:cmd name="XLingPapertripledigitlistofwidth" gr="0" nl2="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <xsl:call-template name="SetTeXCommand">
+            <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
+            <xsl:with-param name="sCommandToSet" select="'XLingPapertripledigitlistofwidth'"/>
+            <xsl:with-param name="sValue">
+                <xsl:text>888.</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+                <xsl:text>&#xa0;</xsl:text>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        SetXLingPaperEntrySpaceAuthorOverDateMacro
+    -->
     <xsl:template name="SetXLingPaperEntrySpaceAuthorOverDateMacro">
         <!--\newdimen\XLingPaperdatelen
         \newdimen\XLingPaperindentanddate

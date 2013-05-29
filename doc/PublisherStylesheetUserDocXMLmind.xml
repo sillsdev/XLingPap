@@ -179,7 +179,7 @@ term="iThesisSubmissionStyle"
 letter="xPageSizeMargin"
 num="xPageSizeMargin"
 ></exampleRef
->. The inside margin value refers to how much space there is on the inside of a page (right-hand side of the left page and the left-hand side of the right page). Similarly, the outside margin value refers to how much space there is on the inside of a page (left-hand side of the left page and the right-hand side of the right page).</p
+>. The inside margin value refers to how much space there is on the inside of a page (right-hand side of the left page and the left-hand side of the right page). Similarly, the outside margin value refers to how much space there is on the outside of a page (left-hand side of the left page and the right-hand side of the right page).</p
 ><example
 num="xPageSizeMargin"
 ><chart
@@ -1802,6 +1802,58 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>chapterlabel</object
+></td
+><td
+>(User control) Only used when <object
+type="tAttribute"
+>usechapterlabelbeforechapters</object
+> is <object
+type="tAttrValue"
+>yes</object
+>.  Use it to use a chapter label other than the default "Chapter".</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>chapterlineindent</object
+></td
+><td
+>(User control) Only used when <object
+type="tAttribute"
+>indentchapterline</object
+> is <object
+type="tAttrValue"
+>yes</object
+>. Use it to indicate the amount to indent each chapter line.  Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>indentchapterline</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.  This indicates whether or not to indent chapter lines.  The default is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >showbookmarks</object
 ></td
 ><td
@@ -1822,6 +1874,24 @@ id="nWebPageIgnoresPDFBookmarks"
 ><td
 ><object
 type="tAttribute"
+>showappendices</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to show appendix titles in the table of contents.  The default is <object
+type="tAttrValue"
+>yes</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >showpagenumber</object
 ></td
 ><td
@@ -1832,6 +1902,24 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 ></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>singlespaceeachcontentline</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to make long content lines wrap using single spacing.  This only makes sense when the line spacing of the document is not already set to use single spacing. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
 ></tr
 ><tr
 ><td
@@ -1861,6 +1949,24 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>usechapterlabelbeforechapters</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to insert a chapter label before the first chapter is shown in the table of contents. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >useperiodafterappendixletter</object
 ></td
 ><td
@@ -1871,6 +1977,42 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 ></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useperiodafterchapternumber</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to insert a period after the chapter number. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useperiodaftersectionnumber</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to insert a period after the section number. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
 ></tr
 ></table
 ></td
@@ -2644,6 +2786,27 @@ term="iAppendixLayout"
 ></indexedItem
 ><object
 type="tElement"
+>appendiciesTitlePageLayout</object
+></td
+><td
+>How a special "Appendicies" page is to be formatted. See section <sectionRef
+sec="sAppendiciesTiltePageLayout"
+></sectionRef
+>.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iAppendixLayout"
+></indexedItem
+><object
+type="tElement"
 >appendixLayout</object
 ></td
 ><td
@@ -2783,6 +2946,53 @@ type="tElement"
 type="tElement"
 >index</object
 >). If you have only one publisher style sheet layout element for these, then all instances of them will use the same formatting. If you have two or more publisher style sheet layout elements for any of these, then the first will be used for the first instance in the document, the second for the second, etc. If there are more instances in the document than there are corresponding publisher style sheet layout elements, then the last publisher style sheet layout element will be used for all of the extra instances in the document.</p
+><section2
+id="sAppendiciesTiltePageLayout"
+><secTitle
+>Appendicies Title Page Layout</secTitle
+><p
+><indexedItem
+main="yes"
+term="iAppendiciesTilePageLayout"
+></indexedItem
+>Some publishers or educational institutions want a separate page containing the words “Appendicies” before the first appendix (when there are more than one).  You can describe how to format this appendicies title page via the <object
+type="tElement"
+>appendiciesTitlePageLayout</object
+> element.  It has “title format information” attributes. See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+></sectionRef
+> for more on these attributes.</p
+><p
+>In addition the <object
+type="tElement"
+>appendiciesTitlePageLayout</object
+> element itself has one other attribute as shown in example <exampleRef
+letter="xAppendiciesTitlePageLayoutAttribute"
+num="xAppendiciesTitlePageLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xAppendiciesTitlePageLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>label</object
+></td
+><td
+>Use this to override the default label of “Appendicies”.</td
+></tr
+></table
+></example
+></section2
 ><section2
 id="sAppendixLayout"
 ><secTitle
@@ -3012,10 +3222,10 @@ type="tElement"
 > elements, one may also insert a <object
 type="tElement"
 >refAuthorLastNameLayout</object
-> element.  This controls the layout of any <object
+> element. This controls the layout of any <object
 type="tElement"
 >refAuthorLastName</object
-> elements.  See section <sectionRef
+> elements. See section <sectionRef
 sec="sFontInfoAttributes"
 showTitle="short"
 ></sectionRef
@@ -8271,6 +8481,91 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iFigureListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.  The deault value is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not the automatically generated list of figures uses a "Figure" and "Page" heading.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFigureHeadingPage"
+></indexedItem
+><object
+type="tAttribute"
+>pageLabelInListOfFigures</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>.  It determines the label to use for the page heading and only needs to be set when the default value of "Page" is incorrect.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>PAGE</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>Página</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iFigureCaptionSpace"
 ></indexedItem
 ><object
@@ -8309,6 +8604,45 @@ type="tAttrValue"
 ></td
 ><td
 >Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFigureSingleSpace"
+></indexedItem
+><object
+type="tAttribute"
+>useSingleSpacingForLongCaptions</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The deault value is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not the automatically generated list of figures should use single spacing when a long caption needs to wrap.  This only makes sense to use when the document is not using single spacing.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
 ></tr
 ></table
 ></example
@@ -9090,6 +9424,91 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iTableNumberedListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The deault value is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not the automatically generated list of tables uses a "Table" and "Page" heading.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedHeadingPage"
+></indexedItem
+><object
+type="tAttribute"
+>pageLabelInListOfTables</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>. It determines the label to use for the page heading and only needs to be set when the default value of "Page" is incorrect.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>PAGE</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>Página</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iNumberedTableCaptionSpace"
 ></indexedItem
 ><object
@@ -9128,6 +9547,45 @@ type="tAttrValue"
 ></td
 ><td
 >Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedSingleSpace"
+></indexedItem
+><object
+type="tAttribute"
+>useSingleSpacingForLongCaptions</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The deault value is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>Whether or not the automatically generated list of figures should use single spacing when a long caption needs to wrap. This only makes sense to use when the document is not using single spacing.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
 ></tr
 ></table
 ></example
@@ -12242,6 +12700,11 @@ id="iAffiliationLayout"
 >Affiliation Layout</term
 ></indexTerm
 ><indexTerm
+id="iAppendiciesTilePageLayout"
+><term
+>Appendicies Tilte Page layout</term
+></indexTerm
+><indexTerm
 id="iAppendixLayout"
 ><term
 >Appendix layout</term
@@ -12598,14 +13061,29 @@ id="iFigureLabel"
 >Label for figures</term
 ></indexTerm
 ><indexTerm
+id="iFigureListHasHeading"
+><term
+>List of figures has a heading of 'Figure' and 'Page'</term
+></indexTerm
+><indexTerm
 id="iFigureNumber"
 ><term
 >Number for figures</term
 ></indexTerm
 ><indexTerm
+id="iFigureHeadingPage"
+><term
+>Page label in list of figures heading</term
+></indexTerm
+><indexTerm
 id="iFigureShowChapterNumber"
 ><term
 >Show chapter number with figure number</term
+></indexTerm
+><indexTerm
+id="iFigureSingleSpace"
+><term
+>Single space long captions in list of figures</term
 ></indexTerm
 ><indexTerm
 id="iFigureCaptionSpace"
@@ -13516,6 +13994,11 @@ id="iTableNumberedFormatOfNumber"
 >Format of the number of a numbered table</term
 ></indexTerm
 ><indexTerm
+id="iTableNumberedListHasHeading"
+><term
+>List of tables has a heading of 'Table' and 'Page'</term
+></indexTerm
+><indexTerm
 id="iTableNumberedLabel"
 ><term
 >Label for numbered tables</term
@@ -13529,6 +14012,11 @@ id="iTableNumberedNumber"
 id="iTableNumberedShowChapterNumber"
 ><term
 >Show chapter number with number of a numbered table</term
+></indexTerm
+><indexTerm
+id="iTableNumberedSingleSpace"
+><term
+>Single space long captions in list of tables</term
 ></indexTerm
 ><indexTerm
 id="iNumberedTableCaptionSpace"
@@ -13556,6 +14044,11 @@ id="iTableNumberedRefNumber"
 id="iTableNumberedRefCaption"
 ><term
 >Numbered table reference caption</term
+></indexTerm
+><indexTerm
+id="iTableNumberedHeadingPage"
+><term
+>Page label in list of tables heading</term
 ></indexTerm
 ><indexTerm
 id="iTableNumberedRefTextBefore"

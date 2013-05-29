@@ -4148,6 +4148,50 @@ affiliationLayout
 {
 	property-group: titledItem("Author's Affiliation");
 }
+appendiciesTitlePageLayout[color]
+{
+	color:concatenate(attr(color));
+}
+appendiciesTitlePageLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+appendiciesTitlePageLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+appendiciesTitlePageLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+appendiciesTitlePageLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+appendiciesTitlePageLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+appendiciesTitlePageLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+appendiciesTitlePageLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+appendiciesTitlePageLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+appendiciesTitlePageLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+appendiciesTitlePageLayout
+{
+	property-group: titledItem("Appendicies");
+}
 appendixLayout
 {
 	display:block;

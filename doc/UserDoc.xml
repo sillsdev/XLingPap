@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->23 May 2013</date
+>29 May 2013</date
 ><version
 >2.22.5</version
 ><contents
@@ -10712,6 +10712,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for affiliation</dd
+><dt
+><object
+type="tElement"
+>appendiciesTitlePageLayout</object
+></dt
+><dd
+>Layout info for an appendicies title page</dd
 ><dt
 ><object
 type="tElement"

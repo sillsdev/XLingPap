@@ -56,6 +56,7 @@
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>
+    <xsl:variable name="sAppendiciesPageID" select="'rXLingPapAppendiciesPage'"/>
     <xsl:variable name="endnotesToShow">
         <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)]">
             <xsl:text>X</xsl:text>

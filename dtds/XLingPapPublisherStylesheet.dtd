@@ -410,10 +410,18 @@ Front MatterLayout
      %titleformatinfo;
      spacebeforemainsection CDATA #IMPLIED
      betweentitleandnumber (rule | space | dots) "dots"
+     indentchapterline (yes | no) 'no'
+     showappendices (yes | no) 'yes'
      showbookmarks (yes | no) 'yes'
      showpagenumber (yes | no) 'yes'
+     usechapterlabelbeforechapters (yes | no) 'no'
+     chapterlabel CDATA #IMPLIED
+     chapterlineindent CDATA #IMPLIED
+     singlespaceeachcontentline (yes | no) 'no'
      useappendixlabelbeforeappendixletter (yes | no) 'no'
      useperiodafterappendixletter (yes | no) 'no'
+     useperiodafterchapternumber (yes | no) 'no'
+     useperiodaftersectionnumber (yes | no) 'no'
     >
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
@@ -498,8 +506,13 @@ Back Matter Layout
 
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
-<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendixLayout | glossaryLayout | useEndNotesLayout | 
+<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendiciesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
                                                         (referencesTitleLayout, referencesLayout) | indexLayout | authorContactInfoLayout)*) >    
+<!ELEMENT appendiciesTitlePageLayout EMPTY >
+<!ATTLIST appendiciesTitlePageLayout
+     label CDATA #IMPLIED    
+    %titleformatinfo;
+    >
     <!ELEMENT appendixLayout (appendixTitleLayout | numberLayout)+ >
     <!ELEMENT  appendixTitleLayout EMPTY >
     <!ATTLIST appendixTitleLayout 
@@ -592,6 +605,9 @@ Content Layout
     <!ATTLIST figureLayout
         captionLocation (before|after) "after"
         spaceBetweenFigureAndCaption CDATA #IMPLIED
+        listOfFiguresUsesFigureAndPageHeaders (no | yes) "no"
+        useSingleSpacingForLongCaptions (no | yes) "no"
+        pageLabelInListOfFigures CDATA #IMPLIED
 >
     <!ELEMENT figureLabelLayout EMPTY >
     <!ATTLIST figureLabelLayout
@@ -626,7 +642,10 @@ Content Layout
     <!ATTLIST tablenumberedLayout
         captionLocation (before|after) "after"
         spaceBetweenTableAndCaption CDATA #IMPLIED
-    >
+        listOfTablesUsesTableAndPageHeaders (no | yes) "no"
+        useSingleSpacingForLongCaptions (no | yes) "no"
+        pageLabelInListOfTables CDATA #IMPLIED
+>
     <!ELEMENT tablenumberedLabelLayout EMPTY >
     <!ATTLIST tablenumberedLabelLayout
         label CDATA #IMPLIED
@@ -719,6 +738,7 @@ Content Layout
        useEqualSignsColumn (yes | no) "yes"
        useDoubleColumns (yes | no) "no"
        doubleColumnSeparation CDATA #IMPLIED
+       useSingleSpacing (yes | no) "yes"
     >
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.

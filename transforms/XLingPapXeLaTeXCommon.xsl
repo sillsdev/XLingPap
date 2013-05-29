@@ -2943,7 +2943,13 @@
     -->
     <xsl:template name="CalculateSectionNumberIndent">
         <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart']">
-            <xsl:call-template name="OutputSectionNumber"/>
+            <xsl:call-template name="OutputSectionNumber">
+                <xsl:with-param name="sContentsPeriod">
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+                        <xsl:text>.</xsl:text>
+                    </xsl:if>
+                </xsl:with-param>
+            </xsl:call-template>
             <tex:spec cat="esc"/>
             <xsl:text>&#x20;</xsl:text>
         </xsl:for-each>
@@ -2952,7 +2958,13 @@
         CalculateSectionNumberWidth
     -->
     <xsl:template name="CalculateSectionNumberWidth">
-        <xsl:call-template name="OutputSectionNumber"/>
+        <xsl:call-template name="OutputSectionNumber">
+            <xsl:with-param name="sContentsPeriod">
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:with-param>
+        </xsl:call-template>
         <tex:spec cat="esc"/>
         <xsl:text>thinspace</xsl:text>
         <tex:spec cat="esc"/>
@@ -7321,7 +7333,7 @@
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
             </xsl:if>
@@ -7384,7 +7396,7 @@
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
             </xsl:call-template>
             <tex:spec cat="eg"/>
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>

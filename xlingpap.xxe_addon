@@ -37,6 +37,52 @@ href="mailto::andy_black@sil.org"
 >Added refAuthorName, refAuthorLastName, and refAuthorLastNameLayout elements so one can format an author's last name differently (when using a publisher style sheet).</li
 ><li
 >Made abbrTerm element contain optional object elements so one can control things like small caps for Bantu noun classes (e.g. in class 6a, the a is always a, not small caps a).</li
+><li
+>Added a new element and several attributes to publisher style sheet elements to handle UNDSIL thesis style sheet requirements:<ul
+><li
+>Added appendiciesTitlePageLayout element to backMatterLayout to handle separate "Appendicies" page.</li
+><li
+>To contentsLayout element, added these attributes:<ul
+><li
+>indentchapterline</li
+><li
+>showappendices</li
+><li
+>usechapterlabelbeforechapters</li
+><li
+>chapterlabel</li
+><li
+>chapterlineindent</li
+><li
+>singlespaceeachcontentline</li
+><li
+>useperiodafterchapternumber</li
+><li
+>useperiodaftersectionnumber</li
+></ul
+></li
+><li
+>To figureLayout element, added these attributes:<ul
+><li
+>listOfFiguresUsesFigureAndPageHeaders</li
+><li
+>useSingleSpacingForLongCaptions</li
+><li
+>pageLabelInListOfFigures</li
+></ul
+></li
+><li
+>To tablenumberedLayout element, added these attributes:<ul
+><li
+>listOfTablesUsesTableAndPageHeaders</li
+><li
+>useSingleSpacingForLongCaptions</li
+><li
+>pageLabelInListOfTables</li
+></ul
+></li
+></ul
+></li
 ></ul
 ></li
 ><li

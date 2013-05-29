@@ -32,7 +32,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote)]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

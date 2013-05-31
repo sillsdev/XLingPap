@@ -8289,6 +8289,11 @@
                             <tex:parm>-2.5pt</tex:parm>
                             </tex:cmd>  -->
                         <xsl:call-template name="OutputWordOrSingle"/>
+                        <xsl:if test="name()='listWord'">
+                            <xsl:apply-templates select="word">
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            </xsl:apply-templates>
+                        </xsl:if>
                         <!-- remaining rows -->
                         <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listDefinition">
                             <tex:spec cat="esc"/>

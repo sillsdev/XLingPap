@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->29 May 2013</date
+>31 May 2013</date
 ><version
->2.22.5</version
+>2.22.5_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -5579,7 +5579,7 @@ sec="sBMAbbreviationsSortingTheList"
 type="tElement"
 >abbrRef</object
 > element and then setting its reference to one of the abbreviations in the master list. The easiest way to do this is described in section <sectionRef
-sec="sInsertThenSetReference"
+sec="sBMAbbreviationsReferences"
 ></sectionRef
 >.</p
 ><p
@@ -6026,7 +6026,15 @@ href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"
 > (It also uses the space and non-breaking space characters.) Note that the abbreviation labels need to be identical to what they are in the abbreviation element, including lower or upper case (unless you are using smallcaps for your abbreviations<endnoteRef
 note="nSeeHowToUseSmallcaps"
 ></endnoteRef
-> in which case either lower case or upper case will do). There is an exception to this: if you have abbreviations for person using 1, 2, or 3 to indicate the person, then it will also find combinations such as 3sg or 2pl (as long as you also have sg and pl as abbreviations).</p
+> in which case either lower case or upper case will do). There is an exception to this: if you have abbreviations for person using 1, 2, or 3 to indicate the person, then it will also find combinations such as 3sg or 2pl (as long as you also have sg and pl as abbreviations).<endnote
+id="n3sgExplanation"
+><p
+>This is intended to mean that if your list of abbreviations has “3” and “sg” as separate abbreviations, then the automatic method will find “3sg” as consisting of a sequence of two <object
+type="tElement"
+>abbrRef</object
+> elements: the first will refer to the “3” abbreviation and the second will refer to the “sg” abbreviation.</p
+></endnote
+></p
 ><example
 num="xLeipzigPunctuationDelimiters"
 ><table
@@ -6180,6 +6188,11 @@ type="tElement"
 sec="sBMAbbreviationsReferencesManual"
 ></sectionRef
 >). You cannot use this short-cut method.</p
+><p
+>In addition, this method cannot recognize any word or abbreviation that contains an apostrophe character ( ' ).  If you have an abbreviation that uses an apostrophe, you will need to create the <object
+type="tElement"
+>abbrRef</object
+> element by hand.</p
 ><p
 >Further, note that if your master list of abbreviations include abbreviations for more than one language and if you have set the <object
 type="tAttribute"

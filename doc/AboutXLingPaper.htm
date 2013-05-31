@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.22.5</span></p>
-      <p align="center">Date: 2013-05-24</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.22.5_1</span></p>
+      <p align="center">Date: 2013-05-31</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,13 +34,58 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.22.5 24 May 2013
+               <li>2.22.5_1 31 May 2013
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fixed bug: when using word elements in listWord examples, the initial listWord failed to process any embedded word elements.</li>
+                           <li>Fixed bug: the non-style sheet process failed due to error in an XSLT file.</li>
+                        </ul>
+                     </li>
+                     <li>Fix bug in process which converts abbreviations in glosses to abbrRefs: if the gloss contained a word with an apostrophe,
+                        the process would fail with a message of "doExecute: Exception caught:unrecognized operator name".
+                     </li>
+                     <li>Improve the CreateZipFile command to also include any hyphenation exception files.</li>
+                  </ul>
+               </li>
+               <li>2.22.5 29 May 2013
                   <ul>
                      <li>Added refAuthorName, refAuthorLastName, and refAuthorLastNameLayout elements so one can format an author's last name differently
                         (when using a publisher style sheet).
                      </li>
                      <li>Made abbrTerm element contain optional object elements so one can control things like small caps for Bantu noun classes (e.g.
                         in class 6a, the a is always a, not small caps a).
+                     </li>
+                     <li>Added a new element and several attributes to publisher style sheet elements to handle UNDSIL thesis style sheet requirements:
+                        <ul>
+                           <li>Added appendiciesTitlePageLayout element to backMatterLayout to handle separate "Appendicies" page.</li>
+                           <li>To contentsLayout element, added these attributes:
+                              <ul>
+                                 <li>indentchapterline</li>
+                                 <li>showappendices</li>
+                                 <li>usechapterlabelbeforechapters</li>
+                                 <li>chapterlabel</li>
+                                 <li>chapterlineindent</li>
+                                 <li>singlespaceeachcontentline</li>
+                                 <li>useperiodafterchapternumber</li>
+                                 <li>useperiodaftersectionnumber</li>
+                              </ul>
+                           </li>
+                           <li>To figureLayout element, added these attributes:
+                              <ul>
+                                 <li>listOfFiguresUsesFigureAndPageHeaders</li>
+                                 <li>useSingleSpacingForLongCaptions</li>
+                                 <li>pageLabelInListOfFigures</li>
+                              </ul>
+                           </li>
+                           <li>To tablenumberedLayout element, added these attributes:
+                              <ul>
+                                 <li>listOfTablesUsesTableAndPageHeaders</li>
+                                 <li>useSingleSpacingForLongCaptions</li>
+                                 <li>pageLabelInListOfTables</li>
+                              </ul>
+                           </li>
+                        </ul>
                      </li>
                   </ul>
                </li>

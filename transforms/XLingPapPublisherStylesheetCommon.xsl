@@ -1401,6 +1401,32 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoFormatLayoutInfoTextAfter
+    -->
+    <xsl:template name="DoFormatLayoutInfoTextAfter">
+        <xsl:param name="layoutInfo"/>
+        <xsl:param name="sPrecedingText"/>
+        <xsl:variable name="sAfter" select="$layoutInfo/@textafter"/>
+        <xsl:if test="string-length($sAfter) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="starts-with($sAfter,'.')">
+                    <xsl:variable name="sLastChar" select="substring($sPrecedingText,string-length($sPrecedingText),string-length($sPrecedingText))"/>
+                    <xsl:choose>
+                        <xsl:when test="$sLastChar='.' or $sLastChar='?' or $sLastChar='!'">
+                            <xsl:value-of select="substring($sAfter, 2)"/>        
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$sAfter"/>        
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sAfter"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         DoInterlinearRefCitationShowTitleOnly
     -->
     <xsl:template name="DoInterlinearRefCitationShowTitleOnly">

@@ -3983,24 +3983,6 @@ not using
         </xsl:if>
     </xsl:template>
     <!--  
-        DoFormatLayoutInfoTextAfter
-    -->
-    <xsl:template name="DoFormatLayoutInfoTextAfter">
-        <xsl:param name="layoutInfo"/>
-        <xsl:param name="sPrecedingText"/>
-        <xsl:variable name="sAfter" select="$layoutInfo/@textafter"/>
-        <xsl:if test="string-length($sAfter) &gt; 0">
-            <xsl:choose>
-                <xsl:when test="starts-with($sAfter,'.') and substring($sPrecedingText,string-length($sPrecedingText),string-length($sPrecedingText))='.'">
-                    <xsl:value-of select="substring($sAfter, 2)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$sAfter"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>
-    </xsl:template>
-    <!--  
         DoFormatLayoutInfoTextBefore
     -->
     <xsl:template name="DoFormatLayoutInfoTextBefore">

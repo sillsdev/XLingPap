@@ -3996,6 +3996,14 @@
                     <tex:cmd name="baselineskip" gr="0"/>
                 </tex:parm>
             </tex:cmd>
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="@id"/>
+                <xsl:with-param name="fDoRaisebox" select="'N'"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoInternalTargetEnd"/>
+            <xsl:call-template name="CreateAddToContents">
+                <xsl:with-param name="id" select="@id"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
             <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
             <tex:cmd name="vspace">
@@ -4024,14 +4032,6 @@
             <tex:cmd name="leavevmode" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-            <xsl:with-param name="fDoRaisebox" select="'N'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoInternalTargetEnd"/>
-        <xsl:call-template name="CreateAddToContents">
-            <xsl:with-param name="id" select="@id"/>
-        </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
             <xsl:if test="chart/*[position()=last()][name()='img' and not(contains(@XeLaTeXSpecial,'vertical-adjustment='))]">
                 <tex:spec cat="esc"/>
@@ -4056,6 +4056,14 @@
                 <xsl:otherwise>0pt</xsl:otherwise>
             </xsl:choose>
             <tex:spec cat="rsb"/>
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="@id"/>
+                <xsl:with-param name="fDoRaisebox" select="'N'"/>
+            </xsl:call-template>
+            <xsl:call-template name="DoInternalTargetEnd"/>
+            <xsl:call-template name="CreateAddToContents">
+                <xsl:with-param name="id" select="@id"/>
+            </xsl:call-template>
             <xsl:call-template name="OutputFigureLabelAndCaption"/>
             <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
             <!--            <tex:spec cat="esc"/>
@@ -4171,24 +4179,6 @@
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:apply-templates>
             </xsl:for-each>
-        </xsl:if>
-    </xsl:template>
-    <!--  
-        DoFormatLayoutInfoTextAfter
-    -->
-    <xsl:template name="DoFormatLayoutInfoTextAfter">
-        <xsl:param name="layoutInfo"/>
-        <xsl:param name="sPrecedingText"/>
-        <xsl:variable name="sAfter" select="$layoutInfo/@textafter"/>
-        <xsl:if test="string-length($sAfter) &gt; 0">
-            <xsl:choose>
-                <xsl:when test="starts-with($sAfter,'.') and substring($sPrecedingText,string-length($sPrecedingText),string-length($sPrecedingText))='.'">
-                    <xsl:value-of select="substring($sAfter, 2)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$sAfter"/>
-                </xsl:otherwise>
-            </xsl:choose>
         </xsl:if>
     </xsl:template>
     <!--  

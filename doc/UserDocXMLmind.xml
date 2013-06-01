@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->31 May 2013</date
+>01 June 2013</date
 ><version
->2.22.5_1</version
+>2.22.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -1562,6 +1562,31 @@ type="tAttribute"
 ></tr
 ></table
 ></td
+></tr
+><tr
+><td
+>singlespacing</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force single spacing in a double spaced or space-and-a-half document.  This only works in a <object
+type="tElement"
+>chart</object
+> element containing text and when the <object
+type="tElement"
+>chart</object
+> element is not in a <object
+type="tElement"
+>table</object
+> or <object
+type="tElement"
+>example</object
+>.</td
+><td
+>singlespacing</td
 ></tr
 ><tr
 ><td
@@ -6189,7 +6214,7 @@ sec="sBMAbbreviationsReferencesManual"
 ></sectionRef
 >). You cannot use this short-cut method.</p
 ><p
->In addition, this method cannot recognize any word or abbreviation that contains an apostrophe character ( ' ).  If you have an abbreviation that uses an apostrophe, you will need to create the <object
+>In addition, this method cannot recognize any word or abbreviation that contains an apostrophe character ( ' ). If you have an abbreviation that uses an apostrophe, you will need to create the <object
 type="tElement"
 >abbrRef</object
 > element by hand.</p

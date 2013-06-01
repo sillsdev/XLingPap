@@ -1627,7 +1627,18 @@
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
+        <xsl:if test="contains(@XeLaTeXSpecial,'singlespacing')">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="singlespacing" nl2="0"/>
+            <xsl:if test="not(img or ul or ol or dl) and descendant-or-self::br and $sLineSpacing and $sLineSpacing!='single'">
+                <!-- It's mainly text that has br elements; we'll use \par for the br elements, but we also need a noindent -->
+                <tex:cmd name="noindent"/>
+            </xsl:if>
+        </xsl:if>
         <xsl:apply-templates/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'singlespacing')">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:call-template name="OutputTypeAttributesEnd">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
@@ -2103,6 +2114,12 @@
         <xsl:choose>
             <xsl:when test="ancestor::figure and parent::chart and not(following-sibling::text()) and not(following-sibling::*)">
                 <!-- do nothing when it is the last thing in a chart - XeLaTeX will fail if we output the \\ -->
+            </xsl:when>
+            <xsl:when test="ancestor::chart and not(ancestor::table or ancestor::example) and $sLineSpacing and $sLineSpacing!='single' and ancestor::chart[contains(@XeLaTeXSpecial,'singlespacing')]">
+                <tex:cmd name="par"/>
+                <xsl:if test="following-sibling::text()">
+                    <tex:cmd name="noindent"/>
+                </xsl:if>
             </xsl:when>
             <xsl:when test="ancestor::langData or ancestor::td or ancestor::th or ancestor::gloss">
                 <!-- these all are using the \vbox{\hbox{}\hbox{}} approach -->

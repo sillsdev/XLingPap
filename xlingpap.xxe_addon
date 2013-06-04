@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-06-01</a:date
+>2013-06-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.22.6 01 June 2013<ul
+>2.22.6 03 June 2013<ul
 ><li
 >With publisher style sheets: If a reference item ends in a question mark or an exclamation mark and the textafter material begins with a period, do not show the period.</li
 ><li

@@ -1644,8 +1644,15 @@
         </xsl:call-template>
         <xsl:call-template name="DoTypeEnd"/>
         <xsl:if test="not(ancestor::example) and not(child::img) and string-length(.) &gt; 0">
-            <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
+            <xsl:choose>
+                <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and contains(@XeLaTeXSpecial,'singlespacing')">
+                    <tex:cmd name="par"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
     </xsl:template>
     <!--

@@ -1572,7 +1572,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force single spacing in a double spaced or space-and-a-half document.  This only works in a <object
+>Force single spacing in a double spaced or space-and-a-half document. This only works in a <object
 type="tElement"
 >chart</object
 > element containing text and when the <object
@@ -15510,15 +15510,7 @@ type="tTool"
 > program to interlinearize a text and then export the text in <object
 type="tXLingPap"
 ></object
-> format.<endnote
-id="nFLExTextExport"
-><p
->The ability to export an interlinear text as a text (and not only as a series of examples) should be available in the October 2007 version. If you need it sooner, please contact <link
-href="mailto:andy_black@sil.org"
->Andy Black</link
->.</p
-></endnote
-> One can then merely copy and paste the resulting text into an <object
+> format.  One can then merely copy and paste the resulting text into an <object
 type="tXLingPap"
 ></object
 > document. See <link

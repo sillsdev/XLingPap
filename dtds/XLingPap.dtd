@@ -192,74 +192,87 @@
 <!ATTLIST acknowledgements
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT abstract (%chunk;)+>
 <!ATTLIST abstract
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT contents EMPTY>
 <!ATTLIST contents
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!-- Main content -->
 <!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, chapter*)>
 <!ATTLIST part
     id ID #REQUIRED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
     id ID #REQUIRED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST section6
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT secTitle (#PCDATA | %embedded;)*>
 <!ATTLIST secTitle
@@ -348,7 +361,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- prose text (i.e. text in a language, but is prose, not interlinear -->
-<!ELEMENT prose-text (p)*>
+<!ELEMENT prose-text (p|pc)*>
 <!ATTLIST prose-text
     lang IDREF #REQUIRED
     type IDREF #IMPLIED
@@ -839,6 +852,7 @@
     label CDATA #IMPLIED
     type IDREF #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!-- selected bibliography 
        This is a place to put citations in the few cases where one wants to have more references than are actually cited in the document body.
@@ -847,6 +861,7 @@
 <!ATTLIST selectedBibliography
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
 >
 <!-- landscape mode: in PDF, output the material in landscape instead of portrait mode; will start a new page in the output -->
 <!ELEMENT landscape (%chunk;)+>

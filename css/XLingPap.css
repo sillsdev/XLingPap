@@ -7715,6 +7715,49 @@ proceedingsLayouts
 {
 	property-group: referencesLayouts();
 }
+
+prose-textTextLayout[color]
+{
+	color:concatenate(attr(color));
+}
+prose-textTextLayout[end-indent]
+{
+	margin-right:concatenate(attr(end-indent));
+}
+prose-textTextLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+prose-textTextLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+prose-textTextLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+prose-textTextLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+prose-textTextLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+prose-textTextLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+prose-textTextLayout[start-indent]
+{
+	margin-left:concatenate(attr(start-indent));
+}
+prose-textTextLayout
+{
+	property-group: titledItem("prose-text");
+}
+
+
 locationPublisherLayouts:before
 {
 	property-group: collasper( " location/publisher layouts: " );

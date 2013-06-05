@@ -32,6 +32,7 @@
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
+    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
@@ -907,6 +908,14 @@ li.lower-roman {
     <xsl:template match="presentedAtLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="'presentedAt'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        prose-textTextLayout
+    -->
+    <xsl:template match="prose-textTextLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'prose-text'"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 

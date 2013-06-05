@@ -32,6 +32,7 @@
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
+    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
@@ -1204,7 +1205,7 @@
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
             <xsl:choose>
-                <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
+                <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                     <!-- is the first item -->
                     <xsl:choose>
                         <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
@@ -1303,22 +1304,63 @@
         PROSE TEXT
         =========================================================== -->
     <xsl:template match="prose-text">
-        <fo:block>
-            <xsl:attribute name="start-indent">
-                <xsl:value-of select="$sBlockQuoteIndent"/>
-            </xsl:attribute>
-            <xsl:attribute name="end-indent">
-                <xsl:value-of select="$sBlockQuoteIndent"/>
-            </xsl:attribute>
-            <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoType"/>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-        </fo:block>
+        <xsl:choose>
+            <xsl:when test="$documentLayoutInfo/prose-textTextLayout">
+                <fo:block>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
+                    <xsl:if test="string-length($sSpaceBefore)&gt;0"> 
+                        <xsl:attribute name="space-before">
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </xsl:attribute></xsl:if>
+                    <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
+                    <xsl:if test="string-length($sSpaceAfter)&gt;0"> 
+                        <xsl:attribute name="space-after">
+                            <xsl:value-of select="$sSpaceAfter"/>
+                        </xsl:attribute></xsl:if>
+                    <xsl:variable name="sStartIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
+                    <xsl:if test="string-length($sStartIndent)&gt;0">
+                        <xsl:attribute name="start-indent">
+                            <xsl:value-of select="$sStartIndent"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:variable name="sEndIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
+                    <xsl:if test="string-length($sEndIndent)&gt;0">
+                        <xsl:attribute name="end-indent">
+                            <xsl:value-of select="$sEndIndent"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoType"/>
+                    <xsl:call-template name="OutputTypeAttributes">
+                        <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$documentLayoutInfo/prose-textTextLayout"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:block>
+                    <xsl:attribute name="start-indent">
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="end-indent">
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoType"/>
+                    <xsl:call-template name="OutputTypeAttributes">
+                        <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LISTS
@@ -1471,6 +1513,12 @@
                 </xsl:if>
                 <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
             </xsl:attribute>
+            <xsl:if test="$sFOProcessor='XFC' and ancestor::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'example'"/>
+                    <xsl:with-param name="sId" select="@num"/>
+                </xsl:call-template>
+            </xsl:if>
             <fo:table space-before="0pt">
                 <xsl:call-template name="DoDebugExamples"/>
                 <xsl:attribute name="width">
@@ -2150,6 +2198,11 @@
                 </xsl:when>
             </xsl:choose>
             <xsl:call-template name="DoType"/>
+            <xsl:if test="$sFOProcessor='XFC' and parent::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'table'"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="caption">
                     <fo:table-and-caption>
@@ -5436,6 +5489,12 @@ not using
             <xsl:call-template name="OutputTypeAttributes">
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
+            <xsl:if test="$sFOProcessor='XFC' and parent::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'tablenumbered'"/>
+                    <xsl:with-param name="sId" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                 <fo:block>
                     <xsl:attribute name="space-after">.3em</xsl:attribute>

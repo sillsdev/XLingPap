@@ -289,17 +289,72 @@
         PROSE TEXT
         =========================================================== -->
     <xsl:template match="prose-text">
-        <tex:env name="quotation">
-            <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="OutputTypeAttributesEnd">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <!--                    <xsl:call-template name="DoTypeEnd"/>-->
-        </tex:env>
+        <xsl:choose>
+            <xsl:when test="$documentLayoutInfo/prose-textTextLayout">
+                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
+                <xsl:if test="string-length($sSpaceBefore)&gt;0">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
+                <tex:group>
+                    <xsl:call-template name="OutputTypeAttributes">
+                        <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                    </xsl:call-template>
+                    <xsl:variable name="sStartIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
+                    <xsl:if test="string-length($sStartIndent)&gt;0">
+                        <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
+                        <xsl:value-of select="$sStartIndent"/>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> left glue for indent</xsl:text>
+                    </xsl:if>
+                    <xsl:variable name="sEndIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
+                    <xsl:if test="string-length($sEndIndent)&gt;0">
+                        <tex:cmd name="rightskip" gr="0" nl1="1" nl2="0"/>
+                        <xsl:value-of select="$sEndIndent"/>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                    </xsl:if>
+                    <tex:cmd name="interlinepenalty10000" gr="0" nl1="1" nl2="0"/>
+                    <tex:spec cat="comment"/>
+                    <tex:cmd name="leavevmode" gr="0" nl1="1" nl2="0"/>
+                    <tex:cmd name="hskip" gr="0" nl2="0"/>
+                    <xsl:text>-</xsl:text>
+                    <tex:cmd name="parindent" gr="0" nl2="0"/>
+                    <tex:spec cat="bg"/>
+                    <xsl:apply-templates/>
+                    <tex:spec cat="eg"/>
+                    <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                    <xsl:call-template name="OutputTypeAttributesEnd">
+                        <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                    </xsl:call-template>
+                </tex:group>
+                <xsl:if test="string-length($sSpaceAfter)&gt;0">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceAfter"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:env name="quotation">
+                    <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
+                    <xsl:call-template name="OutputTypeAttributes">
+                        <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                    <xsl:call-template name="OutputTypeAttributesEnd">
+                        <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
+                    </xsl:call-template>
+                    <!--                    <xsl:call-template name="DoTypeEnd"/>-->
+                </tex:env>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       LISTS
@@ -2187,7 +2242,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="abbrDefinition"/>
-        <xsl:template match="abbrTerm"/>
+    <xsl:template match="abbrTerm"/>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -7378,7 +7433,7 @@
                                         <xsl:value-of select="$sStartIndent"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <tex:cmd name="parindent" gr="0" nl2="0"/>        
+                                        <tex:cmd name="parindent" gr="0" nl2="0"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </tex:parm>
@@ -7396,14 +7451,14 @@
                                             <xsl:value-of select="$sSep"/>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <tex:cmd name="parindent" gr="0" nl2="0"/>        
+                                            <tex:cmd name="parindent" gr="0" nl2="0"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </tex:parm>
                             </tex:cmd>
                         </tex:group>
-                        <xsl:call-template name="HandleAbbreviationsInTableColumnSpecColumns"/>    
-                    </xsl:if>                    
+                        <xsl:call-template name="HandleAbbreviationsInTableColumnSpecColumns"/>
+                    </xsl:if>
                 </tex:parm>
                 <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
                 The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
@@ -10140,7 +10195,7 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>longtable</tex:parm>
         </tex:cmd>
-        <xsl:if test="//landscape or //appendix[@showinlandscapemode='yes']">
+        <xsl:if test="//landscape or //*[@showinlandscapemode='yes']">
             <tex:cmd name="usepackage" nl2="1">
                 <tex:parm>lscape</tex:parm>
             </tex:cmd>

@@ -150,7 +150,8 @@
 -->
       <cfg:item command="produceWord2003Document"
          label="Produce _Word 2003 document">
-         <cfg:accelerator code="F10"/>
+<!--  trying without the keyboard short cut    
+   <cfg:accelerator code="F10"/>-->
       </cfg:item>
 <!-- old one with icon
       <cfg:item command="produceWord2003Document" icon="xxe-config:common/icons2/table.gif"
@@ -160,7 +161,8 @@
 -->
        <cfg:item command="produceOpenOfficeDocument"
            label="Produce Open O_ffice document">
-           <cfg:accelerator code="F10" modifiers="ctrl"/>
+<!--    Trying without the key board short cut
+   <cfg:accelerator code="F10" modifiers="ctrl"/>-->
        </cfg:item>
       <cfg:separator/>
       <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">

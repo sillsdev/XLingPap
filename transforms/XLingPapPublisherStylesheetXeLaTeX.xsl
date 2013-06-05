@@ -671,6 +671,9 @@
     <xsl:template match="abstract" mode="paper">
         <xsl:variable name="abstractLayoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
         <xsl:variable name="abstractTextLayoutInfo" select="$frontMatterLayoutInfo/abstractTextFontInfo"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id">rXLingPapAbstract</xsl:with-param>
             <xsl:with-param name="sTitle">
@@ -730,6 +733,9 @@
                 <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       aknowledgements (frontmatter - book)
@@ -768,6 +774,9 @@
                 <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>
+                <xsl:if test="@showinlandscapemode='yes'">
+                    <tex:cmd name="landscape" gr="0" nl2="1"/>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="ancestor::frontMatter">
                         <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -795,6 +804,9 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates/>
+                <xsl:if test="@showinlandscapemode='yes'">
+                    <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -814,6 +826,9 @@
         preface (paper)
     -->
     <xsl:template match="preface" mode="paper">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id" select="concat('rXLingPapPreface',position())"/>
             <xsl:with-param name="sTitle">
@@ -823,6 +838,9 @@
             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
       PARTS, CHAPTERS, SECTIONS, and APPENDICES
@@ -844,6 +862,9 @@
             <tex:cmd name="pagenumbering">
                 <tex:parm>arabic</tex:parm>
             </tex:cmd>
+        </xsl:if>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
         <tex:group>
             <xsl:call-template name="DoTitleFormatInfo">
@@ -913,6 +934,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle' and name()!='chapter']"/>
         <xsl:apply-templates select="child::node()[name()='chapter']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       Chapter or appendix (in book with chapters)
@@ -1581,7 +1605,7 @@
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
                         <xsl:choose>
-                            <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
+                            <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                                 <!-- is the first item -->
                                 <xsl:choose>
                                     <xsl:when test="parent::chapter and $bodyLayoutInfo/chapterLayout/@firstParagraphHasIndent='no'">
@@ -1629,13 +1653,19 @@
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="key('LanguageID',parent::prose-text/@lang)"/>
                     </xsl:call-template>
-                    <!-- want to do this in prose-text, but type kinds of things cannot cross paragraph boundaries, so have to do here -->
+                    <!-- want to do these in prose-text, but many font info kinds of things cannot cross paragraph boundaries, so have to do here -->
                     <xsl:call-template name="DoType">
                         <xsl:with-param name="type" select="parent::prose-text/@type"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$documentLayoutInfo/prose-textTextLayout"/>
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:apply-templates/>
                 <xsl:if test="parent::prose-text">
+                    <xsl:call-template name="OutputFontAttributesEnd">
+                        <xsl:with-param name="language" select="$documentLayoutInfo/prose-textTextLayout"/>
+                    </xsl:call-template>
                     <xsl:call-template name="DoTypeEnd">
                         <xsl:with-param name="type" select="parent::prose-text/@type"/>
                     </xsl:call-template>
@@ -3623,6 +3653,9 @@
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <!--        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>-->
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -3664,6 +3697,9 @@
         <xsl:call-template name="DoBackMatterContentsPerLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="eg"/>
+        </xsl:if>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -4359,6 +4395,9 @@
         <xsl:call-template name="DoPageBreakFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id" select="$id"/>
             <xsl:with-param name="sTitle" select="$sTitle"/>
@@ -4380,6 +4419,9 @@
             <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoFrontMatterItemNewPage
@@ -4391,6 +4433,9 @@
         <xsl:call-template name="DoPageBreakFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id" select="$id"/>
             <xsl:with-param name="sTitle" select="$sTitle"/>
@@ -4403,6 +4448,9 @@
             <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoFrontMatterPerLayout
@@ -4421,6 +4469,9 @@
 -->
     <xsl:template name="DoGlossary">
         <xsl:param name="iPos" select="'1'"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputBackMatterItemTitle">
             <xsl:with-param name="sId" select="concat('rXLingPapGlossary',$iPos)"/>
             <xsl:with-param name="sLabel">
@@ -4431,6 +4482,9 @@
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/glossaryLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
       DoHeaderFooterItem
@@ -4632,6 +4686,9 @@
         <xsl:variable name="refAuthors" select="//refAuthor"/>
         <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
         <xsl:if test="$directlyCitedAuthors">
+            <xsl:if test="@showinlandscapemode='yes'">
+                <tex:cmd name="landscape" gr="0" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="OutputBackMatterItemTitle">
                 <xsl:with-param name="sId" select="'rXLingPapReferences'"/>
                 <xsl:with-param name="sLabel">
@@ -4651,6 +4708,9 @@
             <xsl:call-template name="DoRefAuthors"/>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
                 <tex:spec cat="eg"/>
+            </xsl:if>
+            <xsl:if test="@showinlandscapemode='yes'">
+                <tex:cmd name="endlandscape" gr="0" nl2="1"/>
             </xsl:if>
         </xsl:if>
     </xsl:template>
@@ -4732,6 +4792,9 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="DoType"/>
         <xsl:choose>
             <xsl:when test="$layoutInfo/@ignore='yes'">
@@ -4751,6 +4814,9 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoTypeEnd"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
       DoSectionAsTitle

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->01 June 2013</date
+>05 June 2013</date
 ><version
->2.22.6</version
+>2.22.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -15510,7 +15510,7 @@ type="tTool"
 > program to interlinearize a text and then export the text in <object
 type="tXLingPap"
 ></object
-> format.  One can then merely copy and paste the resulting text into an <object
+> format. One can then merely copy and paste the resulting text into an <object
 type="tXLingPap"
 ></object
 > document. See <link
@@ -20421,6 +20421,29 @@ type="tElement"
 ><li
 >Paste.</li
 ></ol
+><p
+>Most major elements (such as <object
+type="tElement"
+>chapter</object
+>, <object
+type="tElement"
+>part</object
+>, <object
+type="tElement"
+>section1</object
+>, <object
+type="tElement"
+>section2</object
+>, etc.) and most front matter and back matter elements have an attribute called <object
+type="tAttribute"
+>showinlandscapemode</object
+>.  If it is set to <object
+type="tAttrValue"
+>yes</object
+>, then the default way of producing PDF via <object
+type="tXeTeX"
+></object
+> will make that element (and all its sub-elements) appear in landscape mode.</p
 ><p
 ><indexedItem
 term="iPublisherStyleSheet"

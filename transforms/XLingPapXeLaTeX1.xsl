@@ -607,6 +607,9 @@
         <tex:cmd name="thispagestyle">
             <tex:parm>empty</tex:parm>
         </tex:cmd>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <tex:cmd name="vspace*" nl1="1" nl2="1">
             <tex:parm>144pt</tex:parm>
         </tex:cmd>
@@ -727,6 +730,9 @@
         </tex:cmd>
         <xsl:apply-templates select="child::node()[name()!='secTitle' and name()!='chapter']"/>
         <xsl:apply-templates select="child::node()[name()='chapter']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       Chapter or appendix (in book with chapters)
@@ -867,6 +873,9 @@
       Sections
       -->
     <xsl:template match="section1">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="DoSectionLevelTitle">
             <xsl:with-param name="bIsCentered" select="'Y'"/>
             <xsl:with-param name="sFontFamily" select="'SectionLevelOneFontFamily'"/>
@@ -874,22 +883,40 @@
             <xsl:with-param name="sBold">textbf</xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="section2">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="DoSectionLevelTitle">
             <xsl:with-param name="sFontFamily" select="'SectionLevelTwoFontFamily'"/>
             <xsl:with-param name="sBold">textbf</xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="section3">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="DoSectionLevelTitle">
             <xsl:with-param name="sFontFamily" select="'SectionLevelThreeFontFamily'"/>
             <xsl:with-param name="sItalic">textit</xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="section4 | section5 | section6">
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="DoSectionLevelTitle">
             <xsl:with-param name="sFontFamily">
                 <xsl:choose>
@@ -907,6 +934,9 @@
             <xsl:with-param name="sItalic">textit</xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
       Appendix
@@ -2403,6 +2433,9 @@
     -->
     <xsl:template name="DoAbstractAcknowledgementsOrPreface">
         <xsl:param name="bIsBook" select="'Y'"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="name(.)='abstract'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -2438,6 +2471,9 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--
         DoBook
@@ -2547,6 +2583,9 @@
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
@@ -2731,6 +2770,9 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoDebugExamples
@@ -2883,6 +2925,9 @@
     -->
     <xsl:template name="DoGlossary">
         <xsl:param name="bIsBook" select="'N'"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id">
                 <xsl:call-template name="CreateGlossaryID"/>
@@ -2896,6 +2941,9 @@
             <xsl:with-param name="bForcePageBreak" select="'N'"/>
         </xsl:call-template>
         <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoIndex
@@ -2985,6 +3033,9 @@
         <xsl:param name="bIsBook" select="'N'"/>
         <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
         <xsl:if test="$authors">
+            <xsl:if test="@showinlandscapemode='yes'">
+                <tex:cmd name="landscape" gr="0" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="OutputFrontOrBackMatterTitle">
                 <xsl:with-param name="id" select="'rXLingPapReferences'"/>
                 <xsl:with-param name="sTitle">
@@ -3011,6 +3062,9 @@
                 </xsl:call-template>-->
             <tex:cmd name="raggedright" gr="0" nl2="1"/>
             <xsl:call-template name="DoRefAuthors"/>
+            <xsl:if test="@showinlandscapemode='yes'">
+                <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  

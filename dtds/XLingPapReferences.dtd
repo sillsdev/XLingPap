@@ -13,6 +13,7 @@
     version CDATA #IMPLIED
     authorformtoshowineditor (full | initials | both) "full"
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
+    showinlandscapemode (yes | no) "no"
 >
 <!-- the citename is the string to use in a citation within the text body -->
 <!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, refWork+)>

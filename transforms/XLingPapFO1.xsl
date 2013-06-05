@@ -1211,6 +1211,12 @@
                 <xsl:call-template name="HandleFramedUnitEndIndent"/>
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </xsl:attribute>
+            <xsl:if test="$sFOProcessor='XFC' and parent::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'example'"/>
+                    <xsl:with-param name="sId" select="@num"/>
+                </xsl:call-template>
+            </xsl:if>
             <fo:table space-before="0pt">
                 <xsl:call-template name="DoDebugExamples"/>
                 <xsl:attribute name="width">
@@ -1957,6 +1963,11 @@
                 </xsl:when>
             </xsl:choose>
             <xsl:call-template name="DoType"/>
+            <xsl:if test="$sFOProcessor='XFC' and parent::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'table'"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="caption">
                     <fo:table-and-caption>
@@ -4353,6 +4364,12 @@ not using
             <xsl:call-template name="OutputTypeAttributes">
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
+            <xsl:if test="$sFOProcessor='XFC' and parent::endnote">
+                <xsl:call-template name="InsertEndnoteWarningMessage">
+                    <xsl:with-param name="sKind" select="'tablenumbered'"/>
+                    <xsl:with-param name="sId" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                 <fo:block>
                     <xsl:attribute name="space-after">.3em</xsl:attribute>

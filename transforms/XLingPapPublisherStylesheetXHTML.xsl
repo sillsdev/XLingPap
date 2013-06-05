@@ -34,6 +34,7 @@
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
+    <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
@@ -941,7 +942,7 @@
                 </xsl:call-template>
             </xsl:attribute>
             <xsl:choose>
-                <xsl:when test="count(preceding-sibling::*[name()!='secTitle'])=0">
+                <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                     <!-- is the first item -->
                     <xsl:choose>
                         <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
@@ -1041,15 +1042,33 @@
         PROSE TEXT
         =========================================================== -->
     <xsl:template match="prose-text">
-        <div class="blockquote language{@lang}">
-            <xsl:attribute name="style">
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputTypeAttributes">
-                    <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </div>
+        <xsl:choose>
+            <xsl:when test="$documentLayoutInfo/prose-textTextLayout">
+                <div class="prose-text language{@lang}">
+                    <xsl:attribute name="style">
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputTypeAttributes">
+                            <xsl:with-param name="sList" select="@cssSpecial"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputFontAttributes">
+                            <xsl:with-param name="language" select="$documentLayoutInfo/prose-textTextLayout"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="blockquote language{@lang}">
+                    <xsl:attribute name="style">
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputTypeAttributes">
+                            <xsl:with-param name="sList" select="@cssSpecial"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         EXAMPLES

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->23 May 2013</date
+>5 June 2013</date
 ><version
->2.22.5</version
+>2.22.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -1811,7 +1811,7 @@ type="tAttribute"
 > is <object
 type="tAttrValue"
 >yes</object
->.  Use it to use a chapter label other than the default "Chapter".</td
+>. Use it to use a chapter label other than the default "Chapter".</td
 ></tr
 ><tr
 ><td
@@ -1826,7 +1826,7 @@ type="tAttribute"
 > is <object
 type="tAttrValue"
 >yes</object
->. Use it to indicate the amount to indent each chapter line.  Use a number and a unit of measure (see example <exampleRef
+>. Use it to indicate the amount to indent each chapter line. Use a number and a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
@@ -1845,7 +1845,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->.  This indicates whether or not to indent chapter lines.  The default is <object
+>. This indicates whether or not to indent chapter lines. The default is <object
 type="tAttrValue"
 >no</object
 >.</td
@@ -1883,7 +1883,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. This indicates whether or not to show appendix titles in the table of contents.  The default is <object
+>. This indicates whether or not to show appendix titles in the table of contents. The default is <object
 type="tAttrValue"
 >yes</object
 >.</td
@@ -1916,7 +1916,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. This indicates whether or not to make long content lines wrap using single spacing.  This only makes sense when the line spacing of the document is not already set to use single spacing. The default is <object
+>. This indicates whether or not to make long content lines wrap using single spacing. This only makes sense when the line spacing of the document is not already set to use single spacing. The default is <object
 type="tAttrValue"
 >no</object
 >.</td
@@ -2955,10 +2955,10 @@ id="sAppendiciesTiltePageLayout"
 main="yes"
 term="iAppendiciesTilePageLayout"
 ></indexedItem
->Some publishers or educational institutions want a separate page containing the words “Appendicies” before the first appendix (when there are more than one).  You can describe how to format this appendicies title page via the <object
+>Some publishers or educational institutions want a separate page containing the words “Appendicies” before the first appendix (when there are more than one). You can describe how to format this appendicies title page via the <object
 type="tElement"
 >appendiciesTitlePageLayout</object
-> element.  It has “title format information” attributes. See section <sectionRef
+> element. It has “title format information” attributes. See section <sectionRef
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
 > for more on these attributes.</p
@@ -8497,7 +8497,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->.  The deault value is <object
+>. The deault value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -8539,7 +8539,7 @@ type="tAttribute"
 > attribute is set to <object
 type="tAttrValue"
 >yes</object
->.  It determines the label to use for the page heading and only needs to be set when the default value of "Page" is incorrect.</td
+>. It determines the label to use for the page heading and only needs to be set when the default value of "Page" is incorrect.</td
 ><td
 ><table
 ><tr
@@ -8634,7 +8634,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->Whether or not the automatically generated list of figures should use single spacing when a long caption needs to wrap.  This only makes sense to use when the document is not using single spacing.</langData
+>Whether or not the automatically generated list of figures should use single spacing when a long caption needs to wrap. This only makes sense to use when the document is not using single spacing.</langData
 ></td
 ><td
 ><object
@@ -11011,7 +11011,7 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
-id="sCitationOverrides"
+id="sAbbreviationsInTables"
 ><secTitle
 >Special Overrides for <object
 type="tElement"
@@ -11019,31 +11019,30 @@ type="tElement"
 > Elements</secTitle
 ><p
 ><indexedItem
-term="iAbbreviationsInTable"
+term="iCitationOverrides"
 ></indexedItem
->Sometimes one wants to control how the list of abbreviations come out when they are in a table. You do this via the <object
+>Sometimes one wants to override the default formatting for data in citations. Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
+><p
+>The <object
 type="tElement"
->abbreviationsInTableLayout</object
-> element. The <object
-type="tElement"
->abbreviationsInTableLayout</object
-> element has the attributes shown in example <exampleRef
-letter="xAbbreviationsInTableLayoutAttributes"
-num="xAbbreviationsInTableLayoutAttributes"
+>citationLayout</object
+> element has the attribute shown in example <exampleRef
+letter="xCitationOverrideLayoutAttributes"
+num="xCitationOverrideLayoutAttributes"
 ></exampleRef
->. You use this to control formatting of the content ot the <object
+>. You use this to control formatting of the content of <object
 type="tElement"
 >citation</object
 > elements.</p
 ><example
-num="xAbbreviationsInTableLayoutAttributes"
+num="xCitationOverrideLayoutAttributes"
 ><table
 border="1"
 ><caption
 ><object
 type="tElement"
->abbreviationsInTableLayout</object
-> Attributes</caption
+>citation</object
+> Content Overrides Attributes</caption
 ><tr
 ><th
 ><langData
@@ -11094,7 +11093,7 @@ lang="lEng"
 ><object
 type="tAttrValue"
 > </object
-></td
+> (a space)</td
 ><td
 >Yes</td
 ></tr
@@ -11102,35 +11101,36 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
-id="sAbbreviationsInTables"
+id="sCitationOverrides"
 ><secTitle
 >Controlling the Display of Abbreviations in a Table</secTitle
 ><p
 ><indexedItem
-term="iCitationOverrides"
+term="iAbbreviationsInTable"
 ></indexedItem
->Sometimes one wants to override the default formatting for data in citations. Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
-><p
->The <object
+>Sometimes one wants to control how the list of abbreviations come out when they are in a table. You do this via the <object
 type="tElement"
->citationLayout</object
-> element has the attribute shown in example <exampleRef
-letter="xCitationOverrideLayoutAttributes"
-num="xCitationOverrideLayoutAttributes"
+>abbreviationsInTableLayout</object
+> element. The <object
+type="tElement"
+>abbreviationsInTableLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xAbbreviationsInTableLayoutAttributes"
+num="xAbbreviationsInTableLayoutAttributes"
 ></exampleRef
 >. You use this to control formatting of the content ot the <object
 type="tElement"
 >citation</object
 > elements.</p
 ><example
-num="xCitationOverrideLayoutAttributes"
+num="xAbbreviationsInTableLayoutAttributes"
 ><table
 border="1"
 ><caption
 ><object
 type="tElement"
->citation</object
-> Content Overrides Attributes</caption
+>abbreviationsInTableLayout</object
+> Attributes</caption
 ><tr
 ><th
 ><langData
@@ -11252,6 +11252,9 @@ lang="lEng"
 > <indexedItem
 term="iAbbrInTableStartIndent"
 ></indexedItem
+><indexedItem
+term="iStartIndentAttribute"
+></indexedItem
 ><object
 type="tAttribute"
 >start-indent</object
@@ -11360,6 +11363,258 @@ type="tAttrValue"
 ></td
 ><td
 >No</td
+></tr
+></table
+></example
+></section2
+><section2
+id="sProseText"
+><secTitle
+>Controlling the Display of Prose Text</secTitle
+><p
+><indexedItem
+term="iProse-Text"
+></indexedItem
+>Sometimes one wants to override the default formatting for data in <object
+type="tElement"
+>prose-text</object
+> elements.</p
+><p
+>The <object
+type="tElement"
+>prose-textTextLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xProse-textTextLayoutAttributes"
+num="xProse-textTextLayoutAttributes"
+></exampleRef
+>. You use this to control formatting of the content of <object
+type="tElement"
+>prose-text</object
+> elements.</p
+><example
+num="xProse-textTextLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>citation</object
+> Content Overrides Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iEndIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>end-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert after the prose text. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert after this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert before this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iStartIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>start-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert before the prose text. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
 ></tr
 ></table
 ></example
@@ -12983,6 +13238,11 @@ id="iEmailAddressLayout"
 >Email address layout</term
 ></indexTerm
 ><indexTerm
+id="iEndIndentAttribute"
+><term
+>End indent attribute</term
+></indexTerm
+><indexTerm
 id="iEndnoteRefLayout"
 ><term
 >Endnote reference layout</term
@@ -13594,6 +13854,11 @@ see="iProcTitle"
 >Proceedings volume title (part of a referenced work)</term
 ></indexTerm
 ><indexTerm
+id="iProse-Text"
+><term
+>Prose-text formatting</term
+></indexTerm
+><indexTerm
 id="iPubDate2"
 see="iPubDate"
 ><term
@@ -13967,6 +14232,11 @@ id="iSpaceAndAHalf"
 id="iSpaceBeforeAttribute"
 ><term
 >Space before attribute</term
+></indexTerm
+><indexTerm
+id="iStartIndentAttribute"
+><term
+>Start indent attribute</term
 ></indexTerm
 ><indexTerm
 id="iStartOnOddPageAttribute"

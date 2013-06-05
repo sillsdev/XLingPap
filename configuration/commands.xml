@@ -2326,10 +2326,11 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:transform file="%{C}%{S}..%{S}xlingpap.xxe_addon" stylesheet="..%{S}transforms%{S}AboutXLingPaper.xsl" to="%{C}%{S}..%{S}doc%{S}AboutXLingPaper.htm"/>
         </cfg:process>
     </cfg:command>
+<!-- Not used very much; will try turning it off and see what reaction we get.   
     <cfg:binding>
         <cfg:keyPressed code="F10"/>
         <cfg:command name="produceWord2003Document"/>
-    </cfg:binding>
+    </cfg:binding>-->
     <cfg:command name="xhtml.tableEdit">
         <cfg:class>com.xmlmind.xmleditext.xhtml.table.HTMLTableEdit</cfg:class>
     </cfg:command>

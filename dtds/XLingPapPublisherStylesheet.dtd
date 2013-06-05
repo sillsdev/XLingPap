@@ -545,7 +545,7 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout? ) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, prose-textTextLayout? ) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -740,6 +740,14 @@ Content Layout
        doubleColumnSeparation CDATA #IMPLIED
        useSingleSpacing (yes | no) "yes"
     >
+<!ELEMENT prose-textTextLayout EMPTY>
+<!ATTLIST prose-textTextLayout
+     %fontinfo;
+     start-indent CDATA #IMPLIED
+     end-indent CDATA #IMPLIED
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+>
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

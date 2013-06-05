@@ -418,6 +418,30 @@
         </xsl:for-each>
     </xsl:template>
     <!--
+        InsertEndnoteWarningMessage
+    -->
+    <xsl:template name="InsertEndnoteWarningMessage">
+        <xsl:param name="sKind"/>
+        <xsl:param name="sId" select="''"/>
+        <fo:inline background-color="yellow">
+            <xsl:text>NOTE: </xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sId)&gt;0">
+                    <xsl:text>the </xsl:text>
+                    <xsl:value-of select="$sKind"/>
+                    <xsl:text> with id='</xsl:text>
+                    <xsl:value-of select="$sId"/>
+                    <xsl:text>'</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>a </xsl:text>
+                    <xsl:value-of select="$sKind"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text> is missing here.  You will need to add it manually.</xsl:text>
+        </fo:inline>
+    </xsl:template>
+    <!--
         OutputAbbreviationInTable
     -->
     <xsl:template name="OutputAbbreviationInTable">

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->29 May 2013</date
+>6 June 2013</date
 ><version
->2.22.5</version
+>2.22.7</version
 ><contents
 showLevel="3"
 ></contents
@@ -11819,6 +11819,13 @@ type="tElement"
 ></dt
 ><dd
 >Collection of proceedings layouts</dd
+><dt
+><object
+type="tElement"
+>prose-textTextLayout</object
+></dt
+><dd
+>Layout info for a prose-text element</dd
 ><dt
 ><object
 type="tElement"

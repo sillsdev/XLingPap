@@ -95,6 +95,7 @@
     sectionRefCapitalizedSingularLabel CDATA #IMPLIED
     sectionRefCapitalizedPluralLabel CDATA #IMPLIED
     sectionRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    showcommentinoutput (yes | no) "no"
     showindexeditemsineditor (yes | no) "yes"
     showiso639-3codeininterlinear (yes | no) "no"
     abbreviationlang IDREF #IMPLIED

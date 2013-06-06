@@ -4288,6 +4288,14 @@
         </p>
     </xsl:template>
     <!--
+        OutputComment
+    -->
+    <xsl:template name="OutputComment">
+        <span style="background-color:yellow;">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    <!--
         OutputCssSpecial
     -->
     <xsl:template name="OutputCssSpecial">
@@ -5000,7 +5008,6 @@
       ELEMENTS TO IGNORE
       =========================================================== -->
     <xsl:template match="language"/>
-    <xsl:template match="comment"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="shortTitle"/>
     <xsl:template match="styles"/>

@@ -36,6 +36,14 @@
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        OutputComment
+    -->
+    <xsl:template name="OutputComment">
+        <span style="background-color:yellow;">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
     <!--  
         SetFramedTypeItem
     -->

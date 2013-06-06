@@ -545,6 +545,14 @@
         </fo:block>
     </xsl:template>
     <!--  
+        OutputComment
+    -->
+    <xsl:template name="OutputComment">
+        <fo:inline background-color="yellow">
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    <!--  
         OutputInterlinearTextReference
     -->
     <xsl:template name="OutputInterlinearTextReference">

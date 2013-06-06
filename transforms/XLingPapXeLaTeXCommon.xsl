@@ -7611,6 +7611,28 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        OutputComment
+    -->
+    <xsl:template name="OutputComment">
+        <tex:spec cat="bg"/>
+        <tex:cmd name="colorbox">
+            <tex:opt>rgb</tex:opt>
+            <tex:parm>
+                <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                    <xsl:with-param name="sColorHexCode">
+                        <xsl:call-template name="GetColorHexCode">
+                            <xsl:with-param name="sColor" select="'yellow'"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </tex:parm>
+            <tex:spec cat="bg"/>
+        </tex:cmd>
+        <xsl:apply-templates/>
+        <tex:spec cat="eg"/>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
         OutputFontAttributes
     -->
     <xsl:template name="OutputFontAttributes">

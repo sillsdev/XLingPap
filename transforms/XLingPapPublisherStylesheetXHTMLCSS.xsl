@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon">
+    <xsl:import href="XLingPapCommon.xsl"/>
     <xsl:output method="text" version="1.0" encoding="utf-8" indent="no"/>
     <!-- ===========================================================
       Parameterized Variables
@@ -1697,7 +1698,6 @@ li.lower-roman {
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE
         =========================================================== -->
-    <xsl:include href="XLingPapCommon.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCSSContents.xsl"/>
     <!--    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
     <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>

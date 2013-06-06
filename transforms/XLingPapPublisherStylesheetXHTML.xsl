@@ -4868,7 +4868,6 @@
       ELEMENTS TO IGNORE
       =========================================================== -->
     <xsl:template match="appendix/shortTitle"/>
-    <xsl:template match="comment"/>
     <!--<xsl:template match="dd"/>-->
     <xsl:template match="fixedText"/>
     <xsl:template match="language"/>

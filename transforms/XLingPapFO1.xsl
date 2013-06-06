@@ -5781,7 +5781,6 @@ not using
       =========================================================== -->
     <xsl:template match="language"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
-    <xsl:template match="comment"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="appendix/shortTitle"/>
     <xsl:template match="chapter/shortTitle"/>

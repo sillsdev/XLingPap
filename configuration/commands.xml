@@ -2949,4 +2949,14 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="UseShorterMenus">
+        <cfg:process>
+            <cfg:copy files="%{C}%{S}menusShorter.xml" to="%{C}%{S}menus.xml" quiet="true"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="UseLongerMenus">
+        <cfg:process>
+            <cfg:copy files="%{C}%{S}menusLonger.xml" to="%{C}%{S}menus.xml" quiet="true"/>
+        </cfg:process>
+    </cfg:command>
 </cfg:configuration>

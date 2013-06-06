@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->05 June 2013</date
+>06 June 2013</date
 ><version
 >2.22.7</version
 ><contents
@@ -19830,7 +19830,25 @@ note="nInsertElementReminder"
 > and see that one possible element to add is <object
 type="tElement"
 >comment</object
->, you can type in a comment. The comment will not appear in any output.</p
+>, you can type in a comment. The comment will not appear in any output unless you overtly set the <object
+type="tAttribute"
+>showcommentinoutput</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to <object
+type="tAttrValue"
+>yes</object
+>. (To set this attribute, click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then use the Attributes Tool.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+>)</p
 ></section2
 ><section2
 id="sFAQAssociatePublisherStyleSheet"
@@ -20437,7 +20455,7 @@ type="tElement"
 >, etc.) and most front matter and back matter elements have an attribute called <object
 type="tAttribute"
 >showinlandscapemode</object
->.  If it is set to <object
+>. If it is set to <object
 type="tAttrValue"
 >yes</object
 >, then the default way of producing PDF via <object
@@ -21540,7 +21558,7 @@ type="tXMLmindXMLEditor"
 >Use <object
 type="tInstruction"
 >Options</object
-> meu item / <object
+> menu item / <object
 type="tElement"
 >Preferences...</object
 >.</li
@@ -21583,6 +21601,76 @@ type="tInstruction"
 ></ol
 ><p
 >Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will contain these files and indicate their directory with respect to the directory of your main document. Some unzip programs are able to unzip these files in their original locations and others are not. Nonetheless, the zip file does contain all the files your document uses.</p
+></section2
+><section2
+id="sFAQUseShorterMenus"
+><secTitle
+>Make the List of <object
+type="tXLingPap"
+></object
+> Menu Items Fit on My Screen?</secTitle
+><p
+><indexedItem
+term="iMenus"
+></indexedItem
+>If you are using the <object
+type="tXMLmindXMLEditor"
+></object
+> with the <object
+type="tXLingPap"
+></object
+> configuration files on a computer with a rather small screen, the long list of <object
+type="tXLingPap"
+></object
+> menu items may not all fit on your computer's screen.  While some operating systems provide a way to still see the missing items, some do not.  If you find yourself in this situation, then do this:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open any <object
+type="tXLingPap"
+></object
+> document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “UseShorterMenus”.</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then (silently) change the configuration files to use a shorter version of the <object
+type="tXLingPap"
+></object
+> menu item.</li
+><li
+>In order to make this change be effective, however, you will need to restart the <object
+type="tXMLmindXMLEditor"
+></object
+> program.</li
+></ol
+><p
+>Please note that you will need to do this every time you install a new version of <object
+type="tXLingPap"
+></object
+>.  The installer does not remember the option you had.</p
+><p
+>If you find that you do not like the shorter version for some reason, you can re-instate the longer version.  Follow the steps above except use the command “UseLongerMenus” instead of “UseShorterMenus”.</p
 ></section2
 ></section1
 ><section1
@@ -27829,6 +27917,11 @@ id="iMAThesisReferenceEntry"
 >Refererence entry</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iMenus"
+><term
+>Menu is too long</term
 ></indexTerm
 ><indexTerm
 id="iMSWord2003"

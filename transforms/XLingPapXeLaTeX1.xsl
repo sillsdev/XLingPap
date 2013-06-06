@@ -5106,8 +5106,8 @@
         </tex:cmd>
     </xsl:template>
     <!--  
-      SingleSpaceAdjust
-   -->
+        SingleSpaceAdjust
+    -->
     <xsl:template name="SingleSpaceAdjust">
         <tex:cmd name="hspace*">
             <tex:parm>-.25em</tex:parm>
@@ -5117,11 +5117,10 @@
         <xsl:apply-templates/>
     </xsl:template>
     <!-- ===========================================================
-      ELEMENTS TO IGNORE
-      =========================================================== -->
+        ELEMENTS TO IGNORE
+        =========================================================== -->
     <xsl:template match="language"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
-    <xsl:template match="comment"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="textInfo/shortTitle"/>
     <xsl:template match="styles"/>

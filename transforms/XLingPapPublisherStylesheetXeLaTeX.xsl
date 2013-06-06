@@ -7417,7 +7417,6 @@
       ELEMENTS TO IGNORE
       =========================================================== -->
     <xsl:template match="language"/>
-    <xsl:template match="comment"/>
     <xsl:template match="appendix/shortTitle"/>
     <xsl:template match="chapter/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>

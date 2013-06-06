@@ -77,6 +77,14 @@
     <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <!--
+        comment
+    -->
+    <xsl:template match="comment">
+        <xsl:if test="ancestor::lingPaper and $lingPaper/@showcommentinoutput='yes' and not(parent::types)">
+            <xsl:call-template name="OutputComment"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         counter
     -->
     <xsl:template match="counter">

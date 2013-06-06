@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.22.7</span></p>
-      <p align="center">Date: 2013-06-05</p>
+      <p align="center">Date: 2013-06-06</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,19 +34,23 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.22.7 05 June 2013
+               <li>2.22.7 06 June 2013
                   <ul>
                      <li>Add showinlandscapemode attribute to all section level elements, chapter, chapterBeforePart, part, preface, contents, acknowledgements,
                         glossary, references, and selectedBibliography elements. This only works for the default way of producing PDF (via XeLaTeX).
+                     </li>
+                     <li>Add showcommentinoutput attribute to the lingPaper element. When it is set to 'yes', the output includes comment elements.
+                        The default setting is 'no'.
                      </li>
                      <li>Add prose-textTextLayout to publisher style sheet. This controls how prose-text material is to be output.</li>
                      <li>Fix bug: if using a publisher style sheet where the first paragraph of a section is not have an indent and if the section
                         had a shortTitle, the first paragraph was still indented.
                      </li>
                      <li>For the "Produce Word 2003 Document" and "Produce Open Office Document" commands, if an example or table is in an endnote,
-                        add a warning message in the output that it is missing.  Include the ID of the missing element if available.
+                        add a warning message in the output that it is missing. Include the ID of the missing element if available.
                      </li>
                      <li>Removed keyboard short cuts for the "Produce Word 2003 Document" and "Produce Open Office Document" commands.</li>
+                     <li>Provide a way to have the XLingPaper menu options be shorter so they fit on small computer screens.</li>
                   </ul>
                </li>
                <li>2.22.6 03 June 2013

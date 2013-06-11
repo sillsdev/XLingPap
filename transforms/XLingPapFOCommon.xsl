@@ -2,6 +2,19 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format">
     <!-- variables -->
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
+    <xsl:variable name="iIndent">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sBlockQuoteIndent"/>
+            <xsl:with-param name="iValue" select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleWidth">
+        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
+    </xsl:variable>
+    <xsl:variable name="sExampleWidth">
+        <xsl:value-of select="$iExampleWidth"/>
+        <xsl:text>pt</xsl:text>
+    </xsl:variable>
     <!-- ===========================================================
         INTERLINEAR TEXT
         =========================================================== -->

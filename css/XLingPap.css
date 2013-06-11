@@ -4148,49 +4148,49 @@ affiliationLayout
 {
 	property-group: titledItem("Author's Affiliation");
 }
-appendiciesTitlePageLayout[color]
+appendicesTitlePageLayout[color]
 {
 	color:concatenate(attr(color));
 }
-appendiciesTitlePageLayout[font-family]
+appendicesTitlePageLayout[font-family]
 {
 	font-family:concatenate(attr(font-family));
 }
-appendiciesTitlePageLayout[font-size]
+appendicesTitlePageLayout[font-size]
 {
 	font-size:concatenate(attr(font-size));
 }
-appendiciesTitlePageLayout[font-style]
+appendicesTitlePageLayout[font-style]
 {
 	font-style:concatenate(attr(font-style));
 }
-appendiciesTitlePageLayout[font-weight]
+appendicesTitlePageLayout[font-weight]
 {
 	font-weight:concatenate(attr(font-weight));
 }
-appendiciesTitlePageLayout[pagebreakbefore='no']
+appendicesTitlePageLayout[pagebreakbefore='no']
 {
     property-group: pagebreakBeforeIsNo();
 }
-appendiciesTitlePageLayout[pagebreakbefore='yes']
+appendicesTitlePageLayout[pagebreakbefore='yes']
 {
     property-group: pagebreakBeforeIsYes();
 }
-appendiciesTitlePageLayout[spacebefore]
+appendicesTitlePageLayout[spacebefore]
 {
 	padding-top:concatenate(attr(spacebefore));
 }
-appendiciesTitlePageLayout[spaceafter]
+appendicesTitlePageLayout[spaceafter]
 {
 	padding-bottom:concatenate(attr(spaceafter));
 }
-appendiciesTitlePageLayout[textalign]
+appendicesTitlePageLayout[textalign]
 {
 	text-align:concatenate(attr(textalign));
 }
-appendiciesTitlePageLayout
+appendicesTitlePageLayout
 {
-	property-group: titledItem("Appendicies");
+	property-group: titledItem("Appendices");
 }
 appendixLayout
 {

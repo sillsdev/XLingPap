@@ -106,29 +106,6 @@
         </xsl:choose>
         -->
     </xsl:variable>
-    <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
-    <xsl:variable name="iPageWidth">
-        <xsl:value-of select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageHeight">
-        <xsl:value-of select="number(substring($sPageHeight,1,string-length($sPageHeight) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageInsideMargin">
-        <xsl:value-of select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageOutsideMargin">
-        <xsl:value-of select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iIndent">
-        <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iExampleWidth">
-        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
-    </xsl:variable>
-    <xsl:variable name="sExampleWidth">
-        <xsl:value-of select="$iExampleWidth"/>
-        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
-    </xsl:variable>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
     <!-- ===========================================================
@@ -149,8 +126,7 @@ body {</xsl:text>
             <xsl:text>;
      width:</xsl:text>
             <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
-            <xsl:value-of select="normalize-space(substring($sPageWidth,string-length($sPageWidth)-1,2))"/>
-            <xsl:text>;</xsl:text>
+            <xsl:text>pt;</xsl:text>
         </xsl:if>
         <xsl:text>
      font-family:"</xsl:text>
@@ -324,11 +300,11 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
-        appendiciesTitlePageLayout
+        appendicesTitlePageLayout
     -->
-    <xsl:template match="appendiciesTitlePageLayout">
+    <xsl:template match="appendicesTitlePageLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'appendiciesTitlePageLayout'"/>
+            <xsl:with-param name="name" select="'appendicesTitlePageLayout'"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 

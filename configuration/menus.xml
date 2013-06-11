@@ -1,6 +1,4 @@
-<cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
+<cfg:configuration name="XLingPaper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cfg="http://www.xmlmind.com/xmleditor/schema/configuration">
    <!-- Following is to add to the right click menu -->
    <cfg:command name="contextualMenu">
       <cfg:macro>
@@ -10,8 +8,7 @@
                <cfg:command name="contextualMenu1"/>
             </cfg:sequence>
             <cfg:sequence>
-               <cfg:match context="$selectedElement"
-                  pattern="appendixRef | citation | endnoteRef | exampleRef | gloss | langData | object | sectionRef"/>
+               <cfg:match context="$selectedElement" pattern="appendixRef | citation | endnoteRef | exampleRef | gloss | langData | object | sectionRef"/>
                <cfg:command name="contextualMenu2"/>
             </cfg:sequence>
             <cfg:command name="editMenu"/>
@@ -41,18 +38,18 @@
       <cfg:command name="contextualMenu"/>
    </cfg:binding>
    <cfg:menu label="_XLingPaper">
-      <cfg:item command="insertThenSetReference" label="_Insert and then Set Reference">
-         <cfg:accelerator code="F11" modifiers="shift"/>
-      </cfg:item>
-      <cfg:item command="setReference" 
-          label="Se_t Reference" 
-          icon="xxe-config:common/icons/link.png">
-         <cfg:accelerator code="F11"/>
-      </cfg:item>
-       <cfg:item command="insertThenSetReferenceRange" label="Insert and then Set Reference Range">
-           <cfg:accelerator code="F11" modifiers="alt ctrl shift"/>
-       </cfg:item>
-       <!-- no longer needed because XXE now has Search / Bookmarks
+      <cfg:menu label="Set Reference">
+         <cfg:item command="insertThenSetReference" label="_Insert and then Set Reference">
+            <cfg:accelerator code="F11" modifiers="shift"/>
+         </cfg:item>
+         <cfg:item command="setReference" label="Se_t Reference" icon="xxe-config:common/icons/link.png">
+            <cfg:accelerator code="F11"/>
+         </cfg:item>
+         <cfg:item command="insertThenSetReferenceRange" label="Insert and then Set Reference Range">
+            <cfg:accelerator code="F11" modifiers="alt ctrl shift"/>
+         </cfg:item>
+      </cfg:menu>
+      <!-- no longer needed because XXE now has Search / Bookmarks
       <cfg:item command="SetMarkCmd" label="Set _Mark">
          <cfg:accelerator code="F6"/>
       </cfg:item>
@@ -61,163 +58,140 @@
       </cfg:item>
 -->
       <cfg:separator/>
-       <cfg:item command="SetTableSize" label="Increase Table Si_ze"/>
-           <cfg:menu label="Table C_olumn">
-         <cfg:item command="xhtml.tableEdit"
-             label="_Insert Before" parameter="insertColumnBefore"  icon="xxe-config:common/icons/insertColumnBefore.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="I_nsert After" parameter="insertColumnAfter" icon="xxe-config:common/icons/insertColumnAfter.png"/>
-         <cfg:separator/>
-         <cfg:item command="xhtml.tableEdit"  label="_Cut"
-             parameter="cutColumn" icon="xxe-config:common/icons/cut.png"/>
-         <cfg:item command="xhtml.tableEdit"  label="C_opy"
-             parameter="copyColumn" icon="xxe-config:common/icons/copy.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="_Paste Before" parameter="pasteColumnBefore" icon="xxe-config:common/icons/pasteBefore.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="P_aste After" parameter="pasteColumnAfter" icon="xxe-config:common/icons/pasteAfter.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="_Delete" parameter="deleteColumn" icon="xxe-config:common/icons/deleteColumn.png"/>
-      </cfg:menu>
-      <cfg:menu label="Table _Row">
-         <cfg:item command="xhtml.tableEdit"
-             label="_Insert Before" parameter="insertRowBefore" icon="xxe-config:common/icons/insertRowBefore.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="I_nsert After" parameter="insertRowAfter" icon="xxe-config:common/icons/insertRowAfter.png"/>
-         <cfg:separator/>
-         <cfg:item command="xhtml.tableEdit" label="_Cut"
-             parameter="cutRow" icon="xxe-config:common/icons/cut.png"/>
-         <cfg:item command="xhtml.tableEdit" label="C_opy"
-             parameter="copyRow" icon="xxe-config:common/icons/copy.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="_Paste Before" parameter="pasteRowBefore" icon="xxe-config:common/icons/pasteBefore.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="P_aste After" parameter="pasteRowAfter" icon="xxe-config:common/icons/pasteAfter.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="_Delete" parameter="deleteRow" icon="xxe-config:common/icons/deleteRow.png"/>
-      </cfg:menu>
-      <cfg:menu label="Table C_ell">
-         <cfg:item command="xhtml.tableEdit"
-             label="_Increment Column Span" parameter="incrColumnSpan" icon="xxe-config:common/icons/incrementColumnSpan.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="_Decrement Column Span" parameter="decrColumnSpan" icon="xxe-config:common/icons/decrementColumnSpan.png"/>
-         <cfg:separator/>
-         <cfg:item command="xhtml.tableEdit"
-             label="I_ncrement Row Span" parameter="incrRowSpan" icon="xxe-config:common/icons/incrementRowSpan.png"/>
-         <cfg:item command="xhtml.tableEdit"
-             label="D_ecrement Row Span" parameter="decrRowSpan" icon="xxe-config:common/icons/decrementRowSpan.png"/>
+      <cfg:menu label="Table">
+         <cfg:item command="SetTableSize" label="Increase Table Si_ze"/>
+         <cfg:menu label="Table C_olumn">
+            <cfg:item command="xhtml.tableEdit" label="_Insert Before" parameter="insertColumnBefore" icon="xxe-config:common/icons/insertColumnBefore.png"/>
+            <cfg:item command="xhtml.tableEdit" label="I_nsert After" parameter="insertColumnAfter" icon="xxe-config:common/icons/insertColumnAfter.png"/>
+            <cfg:separator/>
+            <cfg:item command="xhtml.tableEdit" label="_Cut" parameter="cutColumn" icon="xxe-config:common/icons/cut.png"/>
+            <cfg:item command="xhtml.tableEdit" label="C_opy" parameter="copyColumn" icon="xxe-config:common/icons/copy.png"/>
+            <cfg:item command="xhtml.tableEdit" label="_Paste Before" parameter="pasteColumnBefore" icon="xxe-config:common/icons/pasteBefore.png"/>
+            <cfg:item command="xhtml.tableEdit" label="P_aste After" parameter="pasteColumnAfter" icon="xxe-config:common/icons/pasteAfter.png"/>
+            <cfg:item command="xhtml.tableEdit" label="_Delete" parameter="deleteColumn" icon="xxe-config:common/icons/deleteColumn.png"/>
+         </cfg:menu>
+         <cfg:menu label="Table _Row">
+            <cfg:item command="xhtml.tableEdit" label="_Insert Before" parameter="insertRowBefore" icon="xxe-config:common/icons/insertRowBefore.png"/>
+            <cfg:item command="xhtml.tableEdit" label="I_nsert After" parameter="insertRowAfter" icon="xxe-config:common/icons/insertRowAfter.png"/>
+            <cfg:separator/>
+            <cfg:item command="xhtml.tableEdit" label="_Cut" parameter="cutRow" icon="xxe-config:common/icons/cut.png"/>
+            <cfg:item command="xhtml.tableEdit" label="C_opy" parameter="copyRow" icon="xxe-config:common/icons/copy.png"/>
+            <cfg:item command="xhtml.tableEdit" label="_Paste Before" parameter="pasteRowBefore" icon="xxe-config:common/icons/pasteBefore.png"/>
+            <cfg:item command="xhtml.tableEdit" label="P_aste After" parameter="pasteRowAfter" icon="xxe-config:common/icons/pasteAfter.png"/>
+            <cfg:item command="xhtml.tableEdit" label="_Delete" parameter="deleteRow" icon="xxe-config:common/icons/deleteRow.png"/>
+         </cfg:menu>
+         <cfg:menu label="Table C_ell">
+            <cfg:item command="xhtml.tableEdit" label="_Increment Column Span" parameter="incrColumnSpan" icon="xxe-config:common/icons/incrementColumnSpan.png"/>
+            <cfg:item command="xhtml.tableEdit" label="_Decrement Column Span" parameter="decrColumnSpan" icon="xxe-config:common/icons/decrementColumnSpan.png"/>
+            <cfg:separator/>
+            <cfg:item command="xhtml.tableEdit" label="I_ncrement Row Span" parameter="incrRowSpan" icon="xxe-config:common/icons/incrementRowSpan.png"/>
+            <cfg:item command="xhtml.tableEdit" label="D_ecrement Row Span" parameter="decrRowSpan" icon="xxe-config:common/icons/decrementRowSpan.png"/>
+         </cfg:menu>
       </cfg:menu>
       <cfg:separator/>
       <cfg:item command="markAsGrammaticalGloss" label="Mark selection as grammatical gloss">
          <cfg:accelerator code="F5"/>
       </cfg:item>
       <cfg:separator/>
-       <cfg:item command="produceWebPage"
-         label="_Produce Webpage">
+      <cfg:item command="produceWebPage" label="_Produce Webpage">
          <cfg:accelerator code="F7"/>
       </cfg:item>
-<!-- old one with icon
+      <!-- old one with icon
       <cfg:item command="applyXLingPapTransform" icon="xxe-config:common/icons2/table.gif"
          label="_Produce Webpage">
          <cfg:accelerator code="F7"/>
       </cfg:item>
 -->
-      <cfg:item command="showXLingPapTransformResult"
-         label="_Show Webpage">
+      <cfg:item command="showXLingPapTransformResult" label="_Show Webpage">
          <cfg:accelerator code="F8"/>
       </cfg:item>
-<!-- old one with icon
+      <!-- old one with icon
       <cfg:item command="showXLingPapTransformResult" icon="xxe-config:common/icons2/table.gif"
          label="_Show Webpage">
          <cfg:accelerator code="F8"/>
       </cfg:item>
 -->
-      <cfg:item command="EBookPrep"
-         label="_Produce EBook (in EPUB format)">
+      <cfg:item command="EBookPrep" label="_Produce EBook (in EPUB format)">
          <cfg:accelerator code="F7" modifiers="shift ctrl"/>
       </cfg:item>
       <cfg:separator/>
-       <cfg:item command="ProducePDFViaXeLaTeX" label="Prod_uce PDF">
-           <cfg:accelerator code="F9" />
-       </cfg:item>
-       <cfg:item command="producePDFViaRenderX" label="P_roduce PDF (RenderX)">
-           <cfg:accelerator code="F9" modifiers="shift ctrl"/>
-       </cfg:item>
-       <!-- old one with icon
+      <cfg:item command="ProducePDFViaXeLaTeX" label="Prod_uce PDF">
+         <cfg:accelerator code="F9"/>
+      </cfg:item>
+      <cfg:item command="producePDFViaRenderX" label="P_roduce PDF (RenderX)">
+         <cfg:accelerator code="F9" modifiers="shift ctrl"/>
+      </cfg:item>
+      <!-- old one with icon
       <cfg:item command="producePDF" icon="xxe-config:common/icons2/table.gif" label="Produce PD_F">
          <cfg:accelerator code="F9"/>
       </cfg:item>
 -->
-      <cfg:item command="produceWord2003Document"
-         label="Produce _Word 2003 document">
-<!--  trying without the keyboard short cut    
+      <cfg:item command="produceWord2003Document" label="Produce _Word 2003 document">
+         <!--  trying without the keyboard short cut    
    <cfg:accelerator code="F10"/>-->
       </cfg:item>
-<!-- old one with icon
+      <!-- old one with icon
       <cfg:item command="produceWord2003Document" icon="xxe-config:common/icons2/table.gif"
          label="Produce _Word 2003 document">
          <cfg:accelerator code="F10"/>
       </cfg:item>
 -->
-       <cfg:item command="produceOpenOfficeDocument"
-           label="Produce Open O_ffice document">
-<!--    Trying without the key board short cut
+      <cfg:item command="produceOpenOfficeDocument" label="Produce Open O_ffice document">
+         <!--    Trying without the key board short cut
    <cfg:accelerator code="F10" modifiers="ctrl"/>-->
-       </cfg:item>
+      </cfg:item>
       <cfg:separator/>
-      <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">
-         <cfg:accelerator code="F7" modifiers="shift"/>
-      </cfg:item>
-      <cfg:item command="demoteCmd" label="Demote entire selected section; copy to clipboard"/>
-      <cfg:item command="promoteCmd" label="Promote entire selected section; copy to clipboard"/>
+      <cfg:menu label="Demote/Promote Section">
+         <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">
+            <cfg:accelerator code="F7" modifiers="shift"/>
+         </cfg:item>
+         <cfg:item command="demoteCmd" label="Demote entire selected section; copy to clipboard"/>
+         <cfg:item command="promoteCmd" label="Promote entire selected section; copy to clipboard"/>
+      </cfg:menu>
       <cfg:separator/>
-      <cfg:item command="ConvertToWrds" label="Convert interlinear line to wrd elements">
-         <cfg:accelerator code="F10" modifiers="shift"/>
-      </cfg:item>
-       <cfg:item command="ConvertAnyAbbreviationsInGlossToAbbrRef" label="Convert any abbreviations in gloss to abbrRefs">
-           <cfg:accelerator code="F10" modifiers="shift ctrl"/>
-       </cfg:item>
-      <cfg:item command="ConvertSelectedTextToObject" label="Convert selected text to object">
-         <cfg:accelerator code="F11" modifiers="ctrl"/>
-      </cfg:item>
-      <cfg:item command="ConvertSelectedTextToLangData" label="Convert selected text to langData">
-         <cfg:accelerator code="F11" modifiers="alt"/>
-      </cfg:item>
-      <cfg:item command="ConvertSelectedTextToGloss" label="Convert selected text to gloss">
-         <cfg:accelerator code="F11" modifiers="alt shift"/>
-      </cfg:item>
-      <cfg:item command="ConvertSVGFileToPDF" label="Convert .svg file to .pdf">
-<!--  rarely used, so no need for keyboard shortcut          <cfg:accelerator code="F10" modifiers="shift ctrl"/>-->
-       </cfg:item>
-       <cfg:separator/>
-<!-- 
+      <cfg:menu label="Convert">
+         <cfg:item command="ConvertToWrds" label="Convert interlinear line to wrd elements">
+            <cfg:accelerator code="F10" modifiers="shift"/>
+         </cfg:item>
+         <cfg:item command="ConvertAnyAbbreviationsInGlossToAbbrRef" label="Convert any abbreviations in gloss to abbrRefs">
+            <cfg:accelerator code="F10" modifiers="shift ctrl"/>
+         </cfg:item>
+         <cfg:item command="ConvertSelectedTextToObject" label="Convert selected text to object">
+            <cfg:accelerator code="F11" modifiers="ctrl"/>
+         </cfg:item>
+         <cfg:item command="ConvertSelectedTextToLangData" label="Convert selected text to langData">
+            <cfg:accelerator code="F11" modifiers="alt"/>
+         </cfg:item>
+         <cfg:item command="ConvertSelectedTextToGloss" label="Convert selected text to gloss">
+            <cfg:accelerator code="F11" modifiers="alt shift"/>
+         </cfg:item>
+         <cfg:item command="ConvertSVGFileToPDF" label="Convert .svg file to .pdf">
+            <!--  rarely used, so no need for keyboard shortcut          <cfg:accelerator code="F10" modifiers="shift ctrl"/>-->
+         </cfg:item>
+      </cfg:menu>
+      <cfg:separator/>
+      <!-- 
       <cfg:item command="produceHandout" label="Make a Handout  for This Paper ">
          <cfg:accelerator code="F8" modifiers="shift"/>
       </cfg:item>
 -->
-      <cfg:item command="associatePublisherStylesheet" label="Associate a publisher style sheet ">
-      </cfg:item>       
-       <cfg:item command="removePublisherStylesheet" label="Remove (unassociate) a publisher style sheet ">
-       </cfg:item>
-       <cfg:separator/>
-       <cfg:menu label="Reference (Bibliography) Related">
-           <cfg:item command="jumpToWorkInReferences" 
-               label="_Jump to Work in References (Bibliography)" >
-               <cfg:accelerator code="F11" modifiers="shift ctrl"/>
-           </cfg:item>
-           <cfg:item command="ConvertCollectionInfoToCollectionCitation" label="Convert collection information to a collCitation element"/>
-           <cfg:item command="ConvertProceedingsInfoToProceedingsCitation" label="Convert proceedings information to a procCitation element"/>
-       </cfg:menu>
-       <cfg:separator/>
-       <cfg:item command="showXLingPapUserDocumentation"
-         label="Show XLingPaper User _Documentation"/>
-<!-- old one with icon
+      <cfg:item command="associatePublisherStylesheet" label="Associate a publisher style sheet "> </cfg:item>
+      <cfg:item command="removePublisherStylesheet" label="Remove (unassociate) a publisher style sheet "> </cfg:item>
+      <cfg:separator/>
+      <cfg:menu label="Reference (Bibliography) Related">
+         <cfg:item command="jumpToWorkInReferences" label="_Jump to Work in References (Bibliography)">
+            <cfg:accelerator code="F11" modifiers="shift ctrl"/>
+         </cfg:item>
+         <cfg:item command="ConvertCollectionInfoToCollectionCitation" label="Convert collection information to a collCitation element"/>
+         <cfg:item command="ConvertProceedingsInfoToProceedingsCitation" label="Convert proceedings information to a procCitation element"/>
+      </cfg:menu>
+      <cfg:separator/>
+      <cfg:item command="showXLingPapUserDocumentation" label="Show XLingPaper User _Documentation"/>
+      <!-- old one with icon
       <cfg:item command="showXLingPapUserDocumentation" icon="xxe-config:common/icons2/table.gif"
          label="Show XLingPaper User _Documentation"/>
 -->
-      <cfg:item command="showXLingPapPubStyleSheetDocumentation"
-         label="Show XLingPaper Publisher Style Sheet Documentation"/>
-   <cfg:item command="showAboutXLingPaper"
-           label="About XLingPaper"/>
+      <cfg:item command="showXLingPapPubStyleSheetDocumentation" label="Show XLingPaper Publisher Style Sheet Documentation"/>
+      <cfg:item command="showAboutXLingPaper" label="About XLingPaper"/>
    </cfg:menu>
-   </cfg:configuration>
+</cfg:configuration>

@@ -38,7 +38,7 @@
       <cfg:command name="contextualMenu"/>
    </cfg:binding>
    <cfg:menu label="_XLingPaper">
-      <cfg:menu label="Set Reference Related">
+      <cfg:menu label="Set Reference">
          <cfg:item command="insertThenSetReference" label="_Insert and then Set Reference">
             <cfg:accelerator code="F11" modifiers="shift"/>
          </cfg:item>
@@ -58,7 +58,7 @@
       </cfg:item>
 -->
       <cfg:separator/>
-      <cfg:menu label="Table Related">
+      <cfg:menu label="Table">
          <cfg:item command="SetTableSize" label="Increase Table Si_ze"/>
          <cfg:menu label="Table C_olumn">
             <cfg:item command="xhtml.tableEdit" label="_Insert Before" parameter="insertColumnBefore" icon="xxe-config:common/icons/insertColumnBefore.png"/>
@@ -141,7 +141,7 @@
    <cfg:accelerator code="F10" modifiers="ctrl"/>-->
       </cfg:item>
       <cfg:separator/>
-      <cfg:menu label="Demote/Promote Section Related">
+      <cfg:menu label="Demote/Promote Section">
          <cfg:item command="demoteSelectionCmd" label="Demote selected portion of section">
             <cfg:accelerator code="F7" modifiers="shift"/>
          </cfg:item>
@@ -149,7 +149,7 @@
          <cfg:item command="promoteCmd" label="Promote entire selected section; copy to clipboard"/>
       </cfg:menu>
       <cfg:separator/>
-      <cfg:menu label="Convert Related">
+      <cfg:menu label="Convert">
          <cfg:item command="ConvertToWrds" label="Convert interlinear line to wrd elements">
             <cfg:accelerator code="F10" modifiers="shift"/>
          </cfg:item>

@@ -191,6 +191,7 @@
 >
 <!ELEMENT acknowledgements (%chunk;)+>
 <!ATTLIST acknowledgements
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
@@ -850,6 +851,7 @@
 <!-- glossary -->
 <!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
 <!ATTLIST glossary
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     type IDREF #IMPLIED
     contentType IDREF #IMPLIED
@@ -860,6 +862,7 @@
 -->
 <!ELEMENT selectedBibliography (citation+)>
 <!ATTLIST selectedBibliography
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
@@ -925,6 +928,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        -->
 <!ELEMENT index (%chunk; | landscape | framedUnit)*>
 <!ATTLIST index
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     kind (common | name | language | subject) "common"
     contentType IDREF #IMPLIED

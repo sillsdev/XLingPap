@@ -76,6 +76,31 @@
     <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
     <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+    <!-- Now we convert all of these to points -->
+    <xsl:variable name="iPageWidth">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageWidth"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iPageHeight">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageHeight"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageHeight,1,string-length($sPageHeight) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iPageInsideMargin">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iPageOutsideMargin">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageOutsideMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
     <!--
         comment
     -->
@@ -220,6 +245,33 @@
         <xsl:if test="string-length($sSecondAuthorEtc) &gt; 0">
             <xsl:value-of select="$sSecondAuthorEtc"/>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        ConvertToPoints
+    -->
+    <xsl:template name="ConvertToPoints">
+        <xsl:param name="sValue"/>
+        <xsl:param name="iValue"/>
+        <xsl:variable name="sUnit">
+            <xsl:call-template name="GetUnitOfMeasure">
+                <xsl:with-param name="sValue" select="$sValue"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$sUnit='in'">
+                <xsl:value-of select="number($iValue * 72.27)"/>
+            </xsl:when>
+            <xsl:when test="$sUnit='mm'">
+                <xsl:value-of select="number($iValue * 2.845275591)"/>
+            </xsl:when>
+            <xsl:when test="$sUnit='cm'">
+                <xsl:value-of select="number($iValue * .2845275591)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- if it's not inches and not millimeters and not centimeters, punt -->
+                <xsl:value-of select="$iValue"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DetermineIfListsShareSameISOCode
@@ -713,6 +765,13 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        GetUnitOfMeasure
+    -->
+    <xsl:template name="GetUnitOfMeasure">
+        <xsl:param name="sValue"/>
+        <xsl:value-of select="substring($sValue, string-length($sValue)-1)"/>
     </xsl:template>
     <!--
         InsertCommaBetweenConsecutiveEndnotes

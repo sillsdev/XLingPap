@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->06 June 2013</date
+>11 June 2013</date
 ><version
->2.22.7</version
+>2.23.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -1240,6 +1240,25 @@ type="tElement"
 > element. This can be useful when the URL of the link is too long to fit on the line.</td
 ><td
 >break-before</td
+></tr
+><tr
+><td
+><indexedItem
+term="ifix-final-landscape"
+></indexedItem
+>fix-final-landscape</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Fix incorrect table of contents page numbers caused by having the final main item be in landscape mode. See <genericRef
+gref="gfix-final-landscape"
+>known limitations</genericRef
+>.</td
+><td
+>fix-final-landscape</td
 ></tr
 ><tr
 ><td
@@ -18457,6 +18476,20 @@ sec="sFAQAssociatePublisherStyleSheet"
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
 > to see the documentation on publisher style sheets).</li
+><li
+><genericTarget
+id="gfix-final-landscape"
+></genericTarget
+>If the very last main item of your document is set to use landscape mode, the table of contents may not show the correct page numbers. To fix this, set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of the main item element to <object
+type="tAttrValue"
+>fix-final-landscape</object
+>.<endnoteRef
+note="nXeLaTeXAttributes"
+></endnoteRef
+> The table of contents should then contain the correct page numbers on subsequent runs of producing the PDF (you may have to run it two or three times). Please note that this must only be on the very last main element. If it is on an earlier element, then the PDF may fail to be produced.</li
 ></ul
 ></section4
 ><section4
@@ -24918,10 +24951,10 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
->appendiciesTitlePageLayout</object
+>appendicesTitlePageLayout</object
 ></dt
 ><dd
->Layout info for an appendicies title page</dd
+>Layout info for an appendices title page</dd
 ><dt
 ><object
 type="tElement"
@@ -28393,6 +28426,16 @@ id="iTableOfContents"
 see="iContents"
 ><term
 >Table of contents</term
+><indexTerms
+><indexTerm
+id="ifix-final-landscape"
+><term
+>Missing page numbers in table of contents when final item is in landscape mode (PDF produced by <object
+type="tXeTeX"
+></object
+>)</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iThesis"

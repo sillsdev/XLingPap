@@ -805,6 +805,12 @@
                 </xsl:choose>
                 <xsl:apply-templates/>
                 <xsl:if test="@showinlandscapemode='yes'">
+                    <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                        <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+                    </xsl:if>
+                    <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                        <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+                    </xsl:if>
                     <tex:cmd name="endlandscape" gr="0" nl2="1"/>
                 </xsl:if>
             </xsl:otherwise>
@@ -1148,6 +1154,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -1284,6 +1293,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -3423,7 +3435,7 @@
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
         </xsl:call-template>
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3444,7 +3456,7 @@
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="bookmarks"/>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:call-template name="OutputBookmark">
                             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3485,7 +3497,7 @@
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents"/>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:call-template name="OutputTOCLine">
                             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3542,12 +3554,12 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:choose>
                             <xsl:when test="$bIsBook">
                                 <xsl:call-template name="DoPageBreakFormatInfo">
-                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
                                 </xsl:call-template>
                                 <xsl:call-template name="DoAppendiciesTitlePage"/>
                             </xsl:when>
@@ -4420,6 +4432,9 @@
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -4483,6 +4498,9 @@
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -4710,6 +4728,9 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
             <xsl:if test="@showinlandscapemode='yes'">
+                <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                    <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+                </xsl:if>
                 <tex:cmd name="endlandscape" gr="0" nl2="1"/>
             </xsl:if>
         </xsl:if>
@@ -4815,6 +4836,9 @@
         </xsl:choose>
         <xsl:call-template name="DoTypeEnd"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>

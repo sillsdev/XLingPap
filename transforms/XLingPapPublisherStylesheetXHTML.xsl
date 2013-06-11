@@ -107,26 +107,6 @@
         </xsl:choose>
         -->
     </xsl:variable>
-    <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
-    <xsl:variable name="iPageWidth">
-        <xsl:value-of select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageInsideMargin">
-        <xsl:value-of select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageOutsideMargin">
-        <xsl:value-of select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iIndent">
-        <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iExampleWidth">
-        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
-    </xsl:variable>
-    <xsl:variable name="sExampleWidth">
-        <xsl:value-of select="$iExampleWidth"/>
-        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
-    </xsl:variable>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
     <!-- ===========================================================
@@ -2098,7 +2078,7 @@
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -2144,7 +2124,7 @@
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents"/>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:call-template name="OutputTOCLine">
                             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -2191,12 +2171,12 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:choose>
                             <xsl:when test="$bIsBook">
                                 <xsl:call-template name="DoPageBreakFormatInfo">
-                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+                                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
                                 </xsl:call-template>
                                 <xsl:call-template name="DoAppendiciesTitlePage"/>
                             </xsl:when>

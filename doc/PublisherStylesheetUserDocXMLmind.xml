@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 June 2013</date
+>11 June 2013</date
 ><version
->2.22.7</version
+>2.23.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -255,13 +255,7 @@ border="1"
 ></table
 ></example
 ><p
->It is crucial, however, to note that all of the items shown in <exampleRef
-letter="xPageSizeMargin"
-num="xPageSizeMargin"
-></exampleRef
-> should be in terms of the exact same unit of measure. If you do not, then the default way of producing PDF will not come out correctly.</p
-><p
->In addition, there should be no space between the number and the abbreviation.</p
+>There should be no space between the number and the abbreviation.</p
 ><p
 >If you check the “Use thesis submission style, ” then the result will be "single-sided" pages (like in theses and dissertations).</p
 ></section2
@@ -2786,11 +2780,11 @@ term="iAppendixLayout"
 ></indexedItem
 ><object
 type="tElement"
->appendiciesTitlePageLayout</object
+>appendicesTitlePageLayout</object
 ></td
 ><td
->How a special "Appendicies" page is to be formatted. See section <sectionRef
-sec="sAppendiciesTiltePageLayout"
+>How a special "Appendices" page is to be formatted. See section <sectionRef
+sec="sAppendicesTiltePageLayout"
 ></sectionRef
 >.</td
 ><td
@@ -2947,17 +2941,17 @@ type="tElement"
 >index</object
 >). If you have only one publisher style sheet layout element for these, then all instances of them will use the same formatting. If you have two or more publisher style sheet layout elements for any of these, then the first will be used for the first instance in the document, the second for the second, etc. If there are more instances in the document than there are corresponding publisher style sheet layout elements, then the last publisher style sheet layout element will be used for all of the extra instances in the document.</p
 ><section2
-id="sAppendiciesTiltePageLayout"
+id="sAppendicesTiltePageLayout"
 ><secTitle
->Appendicies Title Page Layout</secTitle
+>Appendices Title Page Layout</secTitle
 ><p
 ><indexedItem
 main="yes"
-term="iAppendiciesTilePageLayout"
+term="iAppendicesTilePageLayout"
 ></indexedItem
->Some publishers or educational institutions want a separate page containing the words “Appendicies” before the first appendix (when there are more than one). You can describe how to format this appendicies title page via the <object
+>Some publishers or educational institutions want a separate page containing the words “Appendices” before the first appendix (when there are more than one). You can describe how to format this appendices title page via the <object
 type="tElement"
->appendiciesTitlePageLayout</object
+>appendicesTitlePageLayout</object
 > element. It has “title format information” attributes. See section <sectionRef
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
@@ -2965,7 +2959,7 @@ sec="sTitleFormatInfoAttributes"
 ><p
 >In addition the <object
 type="tElement"
->appendiciesTitlePageLayout</object
+>appendicesTitlePageLayout</object
 > element itself has one other attribute as shown in example <exampleRef
 letter="xAppendiciesTitlePageLayoutAttribute"
 num="xAppendiciesTitlePageLayoutAttribute"
@@ -2988,7 +2982,7 @@ type="tAttribute"
 >label</object
 ></td
 ><td
->Use this to override the default label of “Appendicies”.</td
+>Use this to override the default label of “Appendices”.</td
 ></tr
 ></table
 ></example
@@ -12955,9 +12949,9 @@ id="iAffiliationLayout"
 >Affiliation Layout</term
 ></indexTerm
 ><indexTerm
-id="iAppendiciesTilePageLayout"
+id="iAppendicesTilePageLayout"
 ><term
->Appendicies Tilte Page layout</term
+>Appendices Tilte Page layout</term
 ></indexTerm
 ><indexTerm
 id="iAppendixLayout"

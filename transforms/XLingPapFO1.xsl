@@ -53,9 +53,9 @@
                 <xsl:text>2.75</xsl:text>
             </xsl:when>
             <xsl:when test="$sFOProcessor='XFC'">
-                <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
+                <!--  units are points because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
-                <xsl:text>0.375</xsl:text>
+                <xsl:text>27.10125</xsl:text>
             </xsl:when>
             <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->
         </xsl:choose>
@@ -68,26 +68,6 @@
             <xsl:otherwise>3</xsl:otherwise>
         </xsl:choose>
         -->
-    </xsl:variable>
-    <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
-    <xsl:variable name="iPageWidth">
-        <xsl:value-of select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageInsideMargin">
-        <xsl:value-of select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageOutsideMargin">
-        <xsl:value-of select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iIndent">
-        <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iExampleWidth">
-        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
-    </xsl:variable>
-    <xsl:variable name="sExampleWidth">
-        <xsl:value-of select="$iExampleWidth"/>
-        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
     </xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <!-- ===========================================================
@@ -1231,9 +1211,9 @@
                                 <xsl:text>em</xsl:text>
                             </xsl:when>
                             <xsl:when test="$sFOProcessor='XFC'">
-                                <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
+                                <!--  units are points because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
-                                <xsl:text>in</xsl:text>
+                                <xsl:text>pt</xsl:text>
                             </xsl:when>
                             <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->
                         </xsl:choose>
@@ -1251,7 +1231,7 @@
                                 <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
                                 <xsl:value-of select="number($iExampleWidth - $iNumberWidth)"/>
-                                <xsl:text>in</xsl:text>
+                                <xsl:text>pt</xsl:text>
                             </xsl:attribute>
                         </xsl:when>
                         <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->

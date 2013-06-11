@@ -866,6 +866,9 @@
         </tex:cmd>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -884,6 +887,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -897,6 +903,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -910,6 +919,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -935,6 +947,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -957,6 +972,9 @@
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -2472,6 +2490,9 @@
         </xsl:choose>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -2942,6 +2963,9 @@
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
+            <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+            </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
     </xsl:template>
@@ -3063,6 +3087,9 @@
             <tex:cmd name="raggedright" gr="0" nl2="1"/>
             <xsl:call-template name="DoRefAuthors"/>
             <xsl:if test="@showinlandscapemode='yes'">
+                <xsl:if test="contains(@XeLaTeXSpecial,'fix-final-landscape')">
+                    <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+                </xsl:if>
                 <tex:cmd name="endlandscape" gr="0" nl2="1"/>
             </xsl:if>
         </xsl:if>

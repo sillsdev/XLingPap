@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon" exclude-result-prefixes="fo rx xfc saxon ">
     <xsl:variable name="sCSSContentsLabel" select="'_contents'"/>
+    <xsl:variable name="iIndent">
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sBlockQuoteIndent"/>
+            <xsl:with-param name="iValue" select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleWidth">
+        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
+    </xsl:variable>
+    <xsl:variable name="sExampleWidth">
+        <xsl:value-of select="$iExampleWidth"/>
+        <xsl:text>pt</xsl:text>
+    </xsl:variable>
     <!-- 
         CreateCSSContentsClassName
     -->

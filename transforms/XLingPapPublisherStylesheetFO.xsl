@@ -89,9 +89,9 @@
                 <xsl:text>2.75</xsl:text>
             </xsl:when>
             <xsl:when test="$sFOProcessor='XFC'">
-                <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
+                <!--  units are points because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
-                <xsl:text>0.375</xsl:text>
+                <xsl:text>27.10125</xsl:text>
             </xsl:when>
             <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->
         </xsl:choose>
@@ -104,26 +104,6 @@
             <xsl:otherwise>3</xsl:otherwise>
         </xsl:choose>
         -->
-    </xsl:variable>
-    <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
-    <xsl:variable name="iPageWidth">
-        <xsl:value-of select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageInsideMargin">
-        <xsl:value-of select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageOutsideMargin">
-        <xsl:value-of select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iIndent">
-        <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iExampleWidth">
-        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>
-    </xsl:variable>
-    <xsl:variable name="sExampleWidth">
-        <xsl:value-of select="$iExampleWidth"/>
-        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
     </xsl:variable>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="sListInitialHorizontalOffset">
@@ -1533,9 +1513,9 @@
                                 <xsl:text>em</xsl:text>
                             </xsl:when>
                             <xsl:when test="$sFOProcessor='XFC'">
-                                <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
+                                <!--  units are points because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
-                                <xsl:text>in</xsl:text>
+                                <xsl:text>pt</xsl:text>
                             </xsl:when>
                             <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->
                         </xsl:choose>
@@ -1550,10 +1530,10 @@
                         </xsl:when>
                         <xsl:when test="$sFOProcessor='XFC'">
                             <xsl:attribute name="column-width">
-                                <!--  units are inches because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
+                                <!--  units are points because "XFC is not a renderer. It has a limited set of font metrics and therefore handles 'em' units in a very approximate way."
                                     (email of August 10, 2007 from Jean-Yves Belmonte of XMLmind)-->
                                 <xsl:value-of select="number($iExampleWidth - $iNumberWidth)"/>
-                                <xsl:text>in</xsl:text>
+                                <xsl:text>pt</xsl:text>
                             </xsl:attribute>
                         </xsl:when>
                         <!--  if we can ever get FOP to do something reasonable for examples and interlinear, we'll add a 'when' clause here -->
@@ -3429,7 +3409,7 @@ not using
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -3444,7 +3424,7 @@ not using
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="bookmarks"/>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:call-template name="OutputBookmark">
                             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3485,7 +3465,7 @@ not using
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents"/>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:call-template name="OutputTOCLine">
                             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3532,7 +3512,7 @@ not using
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="name(.)='appendiciesTitlePageLayout'">
+                <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
                         <xsl:choose>
                             <xsl:when test="$bIsBook">
@@ -3552,7 +3532,7 @@ not using
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:attribute>
-                                    <xsl:if test="$backMatterLayoutInfo/appendiciesTitlePageLayout/@useemptyheaderfooter!='yes'">
+                                    <xsl:if test="$backMatterLayoutInfo/appendicesTitlePageLayout/@useemptyheaderfooter!='yes'">
                                         <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
                                     </xsl:if>
                                     <fo:flow flow-name="xsl-region-body">
@@ -3562,7 +3542,7 @@ not using
                                         <xsl:attribute name="font-size">
                                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                                         <xsl:call-template name="DoPageBreakFormatInfo">
-                                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendiciesTitlePageLayout"/>
+                                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
                                         </xsl:call-template>
                                         <xsl:call-template name="DoAppendiciesTitlePage"/>
                                     </fo:flow>
@@ -7118,7 +7098,6 @@ not using
       ELEMENTS TO IGNORE
       =========================================================== -->
     <xsl:template match="appendix/shortTitle"/>
-    <xsl:template match="comment"/>
     <xsl:template match="dd"/>
     <xsl:template match="fixedText"/>
     <xsl:template match="language"/>

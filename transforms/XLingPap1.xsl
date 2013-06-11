@@ -19,6 +19,11 @@
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
+    <!-- Following are now in the common transform; we put them here for that reason even though we do not use them. -->
+    <xsl:param name="sPageWidth" select="'6in'"/>
+    <xsl:param name="sPageHeight" select="'9in'"/>
+    <xsl:param name="sPageInsideMargin" select="'1in'"/>
+    <xsl:param name="sPageOutsideMargin" select="'.5in'"/>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -1578,6 +1583,7 @@
                     </xsl:if>
                     <xsl:call-template name="OutputCssSpecial">
                         <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
+                        <xsl:with-param name="fDoBackgroundColor" select="'N'"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputTable"/>
                 </div>
@@ -4300,24 +4306,40 @@
     -->
     <xsl:template name="OutputCssSpecial">
         <xsl:param name="fDoStyleAttribute" select="'Y'"/>
+        <xsl:param name="fDoBackgroundColor" select="'Y'"/>
         <xsl:choose>
             <xsl:when test="string-length(normalize-space(@cssSpecial)) &gt; 0">
                 <xsl:choose>
                     <xsl:when test="$fDoStyleAttribute='Y'">
                         <xsl:attribute name="style">
                             <xsl:value-of select="@cssSpecial"/>
-                            <xsl:call-template name="OutputBackgroundColor"/>
+                            <xsl:if test="$fDoBackgroundColor='Y'">
+                                <xsl:call-template name="OutputBackgroundColor"/>
+                            </xsl:if>
                         </xsl:attribute>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>; </xsl:text>
                         <xsl:value-of select="@cssSpecial"/>
-                        <xsl:call-template name="OutputBackgroundColor"/>
+                        <xsl:if test="$fDoBackgroundColor='Y'">
+                            <xsl:call-template name="OutputBackgroundColor"/>
+                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputBackgroundColor"/>
+                <xsl:if test="$fDoBackgroundColor='Y'">
+                    <xsl:choose>
+                    <xsl:when test="$fDoStyleAttribute='Y' and string-length(@backgroundcolor) &gt; 0">
+                        <xsl:attribute name="style">
+                            <xsl:call-template name="OutputBackgroundColor"/>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                            <xsl:call-template name="OutputBackgroundColor"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

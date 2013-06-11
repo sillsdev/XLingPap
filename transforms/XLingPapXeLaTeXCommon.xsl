@@ -80,15 +80,6 @@
         -->
     </xsl:variable>
     <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
-    <xsl:variable name="iPageWidth">
-        <xsl:value-of select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageInsideMargin">
-        <xsl:value-of select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
-    </xsl:variable>
-    <xsl:variable name="iPageOutsideMargin">
-        <xsl:value-of select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
-    </xsl:variable>
     <xsl:variable name="iIndent">
         <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
     </xsl:variable>
@@ -98,22 +89,32 @@
     </xsl:variable>
     <xsl:variable name="sExampleWidth">
         <xsl:value-of select="$iExampleWidth"/>
-        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>
-    </xsl:variable>
-    <xsl:variable name="iPageHeight">
-        <xsl:value-of select="number(substring($sPageHeight,1,string-length($sPageHeight) - 2))"/>
+        <xsl:text>pt</xsl:text>
+<!--        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>-->
     </xsl:variable>
     <xsl:variable name="iPageTopMargin">
-        <xsl:value-of select="number(substring($sPageTopMargin,1,string-length($sPageTopMargin) - 2))"/>
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageTopMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageTopMargin,1,string-length($sPageTopMargin) - 2))"/>
+        </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iPageBottomMargin">
-        <xsl:value-of select="number(substring($sPageBottomMargin,1,string-length($sPageBottomMargin) - 2))"/>
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sPageBottomMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageBottomMargin,1,string-length($sPageBottomMargin) - 2))"/>
+        </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iHeaderMargin">
-        <xsl:value-of select="number(substring($sHeaderMargin,1,string-length($sHeaderMargin) - 2))"/>
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sHeaderMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sHeaderMargin,1,string-length($sHeaderMargin) - 2))"/>
+        </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iFooterMargin">
-        <xsl:value-of select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
+        <xsl:call-template name="ConvertToPoints">
+            <xsl:with-param name="sValue" select="$sFooterMargin"/>
+            <xsl:with-param name="iValue" select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
+        </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
     <xsl:variable name="sTeXInterlinearSourceWidth" select="'XLingPaperinterlinearsourcewidth'"/>
@@ -2343,6 +2344,9 @@
     <xsl:template match="landscape">
         <tex:cmd name="landscape" gr="0" nl2="1"/>
         <xsl:apply-templates/>
+        <xsl:if test="contains(../@XeLaTeXSpecial,'fix-final-landscape')">
+            <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
+        </xsl:if>
         <tex:cmd name="endlandscape" gr="0" nl2="1"/>
     </xsl:template>
     <!-- ===========================================================
@@ -2722,9 +2726,10 @@
                                 <xsl:value-of select="$iExampleWidth"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:call-template name="GetUnitOfMeasure">
+                        <xsl:text>pt</xsl:text>
+                        <!--<xsl:call-template name="GetUnitOfMeasure">
                             <xsl:with-param name="sValue" select="$sPageWidth"/>
-                        </xsl:call-template>
+                        </xsl:call-template>-->
                         <xsl:text> - </xsl:text>
                         <xsl:value-of select="$sExampleIndentBefore"/>
                         <xsl:text> - </xsl:text>
@@ -2742,9 +2747,10 @@
                                 <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:call-template name="GetUnitOfMeasure">
+                        <xsl:text>pt</xsl:text>
+                        <!--<xsl:call-template name="GetUnitOfMeasure">
                             <xsl:with-param name="sValue" select="$sPageWidth"/>
-                        </xsl:call-template>
+                        </xsl:call-template>-->
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="ancestor::framedUnit">
@@ -3161,30 +3167,6 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$sImageFile"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!--  
-        ConvertToPoints
-    -->
-    <xsl:template name="ConvertToPoints">
-        <xsl:param name="sValue"/>
-        <xsl:param name="iValue"/>
-        <xsl:variable name="sUnit">
-            <xsl:call-template name="GetUnitOfMeasure">
-                <xsl:with-param name="sValue" select="$sValue"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:choose>
-            <xsl:when test="$sUnit='in'">
-                <xsl:value-of select="number($iValue * 72.27)"/>
-            </xsl:when>
-            <xsl:when test="$sUnit='mm'">
-                <xsl:value-of select="number($iValue * 2.845275591)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- if it's not inches and not millimeters, punt -->
-                <xsl:value-of select="$iValue"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -6147,9 +6129,10 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:value-of select="$iTableWidth"/>
-        <xsl:call-template name="GetUnitOfMeasure">
+        <xsl:text>pt</xsl:text>
+        <!--<xsl:call-template name="GetUnitOfMeasure">
             <xsl:with-param name="sValue" select="$sPageWidth"/>
-        </xsl:call-template>
+        </xsl:call-template>-->
     </xsl:template>
     <!--  
         GetCurrentPointSize
@@ -6595,13 +6578,6 @@
                 <xsl:call-template name="GetCurrentPointSize"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <!--  
-        GetUnitOfMeasure
-    -->
-    <xsl:template name="GetUnitOfMeasure">
-        <xsl:param name="sValue"/>
-        <xsl:value-of select="substring($sValue, string-length($sValue)-1)"/>
     </xsl:template>
     <!--  
         GetWidthForExampleContent
@@ -7133,11 +7109,15 @@
                     <tex:opt>t</tex:opt>
                     <tex:parm>
                         <tex:cmd name="textwidth" gr="0" nl2="0"/>
-                        <xsl:text> - </xsl:text>
+                        <!--<xsl:text> - </xsl:text>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                         <xsl:text> - </xsl:text>
                         <xsl:value-of select="$iExampleWidth"/>
-                        <xsl:text>em</xsl:text>
+                        <xsl:text>em</xsl:text>-->
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$sExampleIndentBefore"/>
+                        <xsl:text> - </xsl:text>
+                        <xsl:value-of select="$sExampleIndentAfter"/>
                     </tex:parm>
                     <tex:parm>
                         <xsl:call-template name="DoImageFile">
@@ -9488,13 +9468,13 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sPageTopMarginToAdjust">
-                    <xsl:variable name="iPageTopMargin">
+                    <!--<xsl:variable name="iPageTopMargin">
                         <xsl:call-template name="GetMeasure">
                             <xsl:with-param name="sValue" select="$sPageTopMargin"/>
                         </xsl:call-template>
-                    </xsl:variable>
+                    </xsl:variable>-->
                     <xsl:call-template name="SubtractOneInch">
-                        <xsl:with-param name="sValue" select="$sPageTopMargin"/>
+                        <xsl:with-param name="sValue" select="'pt'"/>
                         <!-- the .15in makes it match what we got with FO - I'm not sure why, though -->
                         <xsl:with-param name="iValue" select="$iPageTopMargin"/>
                     </xsl:call-template>
@@ -9513,13 +9493,13 @@
                     <xsl:choose>
                         <xsl:when test="$pageLayoutInfo/useThesisSubmissionStyle/@singlesided='yes'">
                             <xsl:call-template name="SubtractOneInch">
-                                <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
+                                <xsl:with-param name="sValue" select="'pt'"/>
                                 <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="SubtractOneInch">
-                                <xsl:with-param name="sValue" select="$sPageOutsideMargin"/>
+                                <xsl:with-param name="sValue" select="'pt'"/>
                                 <xsl:with-param name="iValue" select="$iPageOutsideMargin"/>
                             </xsl:call-template>
                         </xsl:otherwise>
@@ -9537,7 +9517,7 @@
             <tex:parm>
                 <xsl:variable name="sOddSideMarginToAdjust">
                     <xsl:call-template name="SubtractOneInch">
-                        <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
+                        <xsl:with-param name="sValue" select="'pt'"/>
                         <xsl:with-param name="iValue" select="$iPageInsideMargin"/>
                     </xsl:call-template>
                 </xsl:variable>
@@ -9553,9 +9533,10 @@
             <tex:parm>
                 <xsl:variable name="sTextWidthToAdjust">
                     <xsl:value-of select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
-                    <xsl:call-template name="GetUnitOfMeasure">
+                    <xsl:text>pt</xsl:text>
+                    <!--<xsl:call-template name="GetUnitOfMeasure">
                         <xsl:with-param name="sValue" select="$sPageWidth"/>
-                    </xsl:call-template>
+                    </xsl:call-template>-->
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sTextWidthToAdjust"/>
@@ -9569,9 +9550,10 @@
             <tex:parm>
                 <xsl:variable name="sTextHeightToAdjust">
                     <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
-                    <xsl:call-template name="GetUnitOfMeasure">
+                    <xsl:text>pt</xsl:text>
+                    <!--<xsl:call-template name="GetUnitOfMeasure">
                         <xsl:with-param name="sValue" select="$sPageHeight"/>
-                    </xsl:call-template>
+                    </xsl:call-template>-->
                 </xsl:variable>
                 <xsl:call-template name="AdjustLayoutParameterUnitName">
                     <xsl:with-param name="sLayoutParam" select="$sTextHeightToAdjust"/>
@@ -9606,7 +9588,7 @@
             <tex:parm>
                 <xsl:variable name="iHeaderMarginAsPoints">
                     <xsl:call-template name="ConvertToPoints">
-                        <xsl:with-param name="sValue" select="$sHeaderMargin"/>
+                        <xsl:with-param name="sValue" select="'pt'"/>
                         <xsl:with-param name="iValue" select="$iHeaderMargin"/>
                     </xsl:call-template>
                 </xsl:variable>
@@ -10264,6 +10246,14 @@
             <xsl:when test="$sUnit='mm'">
                 <xsl:value-of select="number($iValue - 25.4)"/>
                 <xsl:text>mm</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sUnit='cm'">
+                <xsl:value-of select="number($iValue - 2.54)"/>
+                <xsl:text>cm</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sUnit='pt'">
+                <xsl:value-of select="number($iValue - 72.27)"/>
+                <xsl:text>pt</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$iValue"/>

@@ -506,10 +506,10 @@ Back Matter Layout
 
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
-<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendiciesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
+<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
                                                         (referencesTitleLayout, referencesLayout) | indexLayout | authorContactInfoLayout)*) >    
-<!ELEMENT appendiciesTitlePageLayout EMPTY >
-<!ATTLIST appendiciesTitlePageLayout
+<!ELEMENT appendicesTitlePageLayout EMPTY >
+<!ATTLIST appendicesTitlePageLayout
      label CDATA #IMPLIED    
     %titleformatinfo;
     >

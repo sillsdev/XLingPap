@@ -3726,7 +3726,7 @@
     <xsl:template name="OutputAppendiciesLabel">
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Appendicies</xsl:with-param>
-            <xsl:with-param name="pLabel" select="$backMatterLayoutInfo/appendiciesTitlePageLayout/@label"/>
+            <xsl:with-param name="pLabel" select="$backMatterLayoutInfo/appendicesTitlePageLayout/@label"/>
         </xsl:call-template>
     </xsl:template>
     <!--  

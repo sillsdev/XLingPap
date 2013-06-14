@@ -3047,7 +3047,7 @@ chapter section1:before
 }
 part section1:before
 {
-	property-group: sectionBeforeWithPart( -n, section-background-color() );
+	property-group: sectionBeforeWithPart( n, section-background-color() );
 }
 section1:before
 {
@@ -3098,7 +3098,7 @@ chapterBeforePart section1 section2:before
 }
 part chapter section1 section2:before
 {
-	property-group: sectionBeforeWithPart( -nn, section-background-color() );
+	property-group: sectionBeforeWithPart( nn, section-background-color() );
 }
 chapter section1 section2:before
 {
@@ -3152,7 +3152,7 @@ chapterBeforePart section3:before
 }
 part chapter section1 section2 section3:before
 {
-	property-group: sectionBeforeWithPart( -nnn, section-background-color() );
+	property-group: sectionBeforeWithPart( nnn, section-background-color() );
 }
 chapter section3:before
 {
@@ -3207,7 +3207,7 @@ chapterBeforePart section4:before
 }
 part chapter section1 section2 section3 section4:before
 {
-	property-group: sectionBeforeWithPart( -nnnn, section-background-color() );
+	property-group: sectionBeforeWithPart( nnnn, section-background-color() );
 }
 chapter section4:before
 {
@@ -3262,7 +3262,7 @@ chapterBeforePart section5:before
 }
 part chapter section1 section2 section3 section4 section5:before
 {
-	property-group: sectionBeforeWithPart( -nnnnn, section-background-color() );
+	property-group: sectionBeforeWithPart( nnnnn, section-background-color() );
 }
 chapter section5:before
 {
@@ -3317,7 +3317,7 @@ chapterBeforePart section6:before
 }
 part chapter section1 section2 section3 section4 section5 section6:before
 {
-	property-group: sectionBeforeWithPart( -nnnnnn, section-background-color() );
+	property-group: sectionBeforeWithPart( nnnnnn, section-background-color() );
 }
 chapter section6:before
 {

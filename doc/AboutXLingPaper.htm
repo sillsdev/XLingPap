@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.23.0_1</span></p>
-      <p align="center">Date: 2013-06-14</p>
+      <p align="center">Date: 2013-07-02</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,12 +34,19 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.23.0_1 14 June 2013
+               <li>2.23.0_1 2 July 2013
                   <ul>
+                     <li>Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li>
                      <li>Fix bug in converting gloss material to abbrRefs: if there were two or more delimiters before an embedded object, then only
                         the first delimiter was kept.
                      </li>
                      <li>Fix bug in how section numbers show in XXE in a multi-part book (only a problem for XXE version 5.3).</li>
+                     <li>Fix bug in how gloss elements shown in XXE when in a listWord or word element (used prose form instead of example form).</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix a bug which caused the PDF to fail to be produced when an indexedItem was the first thing in a dt element.</li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>2.23.0 11 June 2013

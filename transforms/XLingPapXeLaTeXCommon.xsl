@@ -90,7 +90,7 @@
     <xsl:variable name="sExampleWidth">
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:text>pt</xsl:text>
-<!--        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>-->
+        <!--        <xsl:value-of select="substring($sPageWidth,string-length($sPageWidth) - 1)"/>-->
     </xsl:variable>
     <xsl:variable name="iPageTopMargin">
         <xsl:call-template name="ConvertToPoints">
@@ -889,7 +889,13 @@
         </xsl:choose>
         <tex:cmd name="item" nl2="1">
             <tex:opt>
+                <xsl:if test="indexedItem or indexedRangeBegin or indexedRangeEnd">
+                    <tex:spec cat="bg"/>
+                </xsl:if>
                 <xsl:apply-templates/>
+                <xsl:if test="indexedItem or indexedRangeBegin or indexedRangeEnd">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
             </tex:opt>
             <tex:parm>
                 <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>

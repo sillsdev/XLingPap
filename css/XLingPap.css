@@ -1629,11 +1629,11 @@ table endnote gloss:after
 }
 listWord gloss:after
 {
-	content: glossProseOverrideAfter() " ";
+	content: glossExampleOverrideAfter() " ";
 }
 word gloss:after
 {
-	content: glossProseOverrideAfter() " ";
+	content: glossExampleOverrideAfter() " ";
 }
 gloss:after
 {

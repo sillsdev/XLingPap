@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 June 2013</date
+>2 July 2013</date
 ><version
 >2.23.0</version
 ><contents
@@ -400,7 +400,7 @@ term="iDemoMovies"
 ></indexedItem
 >I recommend if at possible that you go to <link
 href="http://www.xlingpaper.org/?page_id=14"
->http://www.xlingpaper.org/?page_id=14</link
+>http://www.xlingpaper.​org/​?page_id=​14</link
 > and download two of the movies: <indexedItem
 term="iDemoMovieOverview"
 ></indexedItem
@@ -472,6 +472,7 @@ sec="sBMReferences"
 num="xNewPaper"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/XLingPapPaperStart.png"
 ></img
 ></chart
@@ -517,6 +518,7 @@ src="resources/EditTool.png"
 num="xNewPaperRightClick"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/RightClick.png"
 ></img
 ></chart
@@ -530,6 +532,7 @@ type="tInstruction"
 num="xNewPaperInsertAfter"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/InsertAfter.png"
 ></img
 ></chart
@@ -569,6 +572,7 @@ id="nEditToolTypeAhead"
 num="xNewPaperAffiliation"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/Affiliation.png"
 ></img
 ></chart
@@ -588,6 +592,7 @@ type="tElement"
 num="xNewPaperAffiliationElement"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AffiliationElement.png"
 ></img
 ></chart
@@ -609,6 +614,7 @@ type="tInTextExample"
 num="xNewPaperInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/Insert.png"
 ></img
 ></chart
@@ -625,6 +631,7 @@ note="nEditTool"
 num="xNewPaperInsertElements"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/InsertElements.png"
 ></img
 ></chart
@@ -666,6 +673,7 @@ sec="sCitations"
 num="xNewPaperAttributesTool"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AttributesTool.png"
 ></img
 ></chart
@@ -737,6 +745,7 @@ type="tInTextExample"
 num="xLanguages"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/Languages.png"
 ></img
 ></chart
@@ -966,7 +975,7 @@ type="tAttribute"
 ><td
 ><langData
 lang="lEng"
-> (user control)</langData
+>(user control)</langData
 ></td
 ><td
 ><langData
@@ -1126,7 +1135,7 @@ type="tAttribute"
 ><td
 ><langData
 lang="lEng"
-> (user control)</langData
+>(user control)</langData
 ></td
 ><td
 ><langData
@@ -1146,7 +1155,7 @@ type="tAttribute"
 ><td
 ><langData
 lang="lEng"
-> (user control)</langData
+>(user control)</langData
 ></td
 ><td
 ><langData
@@ -1332,7 +1341,7 @@ term="iGraphite"
 ><td
 ><object
 type="tItalic"
->one</object
+>none</object
 ></td
 ><td
 >Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
@@ -1715,7 +1724,7 @@ type="tElement"
 lang="lEng"
 > <object
 type="tAttribute"
->xsl‑foSpecial</object
+>xsl-foSpecial</object
 > </langData
 ></td
 ><td
@@ -3402,6 +3411,7 @@ num="xSectionExample"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/SectionExample.png"
 ></img
 > <br
@@ -3613,6 +3623,7 @@ num="xBMEndnoteBefore"
 num="xBMEndnoteBefore"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BMEndnoteBefore.png"
 ></img
 ></chart
@@ -3629,6 +3640,7 @@ type="tInstruction"
 num="xBMEndnoteInserted"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BMEndnoteInserted.png"
 ></img
 ></chart
@@ -3648,6 +3660,7 @@ src="resources/BoxedPlusSignGray.png"
 num="xBMEndnoteType"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BMEndnoteOpened.png"
 ></img
 ></chart
@@ -4179,12 +4192,13 @@ id="sBMRefCollectionCitationOverview"
 ><p
 >Consider the following portion of a references section (taken from <link
 href="http://assets.cambridge.org/IPA/IPA_ifc.pdf"
->http://assets.cambridge.org/IPA/IPA_ifc.pdf</link
+>http://assets.cambridge.​org/​IPA/​IPA_ifc.pdf</link
 > accessed on 10 November 2010). Only those entries which are collections are shown.</p
 ><example
 num="xCollectionSamplesJIPA"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CollectionSamplesJIPA.png"
 ></img
 ></chart
@@ -4274,6 +4288,7 @@ sec="sCitations"
 num="xCollectionSamplesJIPAXXE"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CollectionSamplesJIPAXXE.png"
 ></img
 ></chart
@@ -4415,6 +4430,7 @@ type="tElement"
 num="xCollectionCitationConvert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CollectionCitationConvertBefore.png"
 ></img
 ></chart
@@ -4448,6 +4464,7 @@ src="resources/CollectionCitationConvertIdDialog.png"
 num="xCollectionCitationConvertAfter"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CollectionCitationConvertAfter.png"
 ></img
 ></chart
@@ -5154,6 +5171,7 @@ type="tXLingPap"
 num="xJumpToReferenceDialog"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/JumpToReferenceDialog.png"
 ></img
 ></chart
@@ -5183,6 +5201,7 @@ num="xJumpToReferenceResult"
 num="xJumpToReferenceResult"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/JumpToReferenceResult.png"
 ></img
 ></chart
@@ -5707,6 +5726,7 @@ type="tInstruction"
 num="xAbbreviationsNew"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AbbreviationsNew.png"
 ></img
 ></chart
@@ -6000,6 +6020,7 @@ type="tKey"
 num="xAbbreviationRef"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AbbreviationsReference.png"
 ></img
 ></chart
@@ -6748,6 +6769,7 @@ num="xIndexTermsInsert"
 num="xIndexTermsInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/IndexTermsInsert.png"
 ></img
 ></chart
@@ -6764,6 +6786,7 @@ type="tInstruction"
 num="xIndexTermsInserted"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/IndexTermsInserted.png"
 ></img
 ></chart
@@ -6833,6 +6856,7 @@ type="tElement"
 num="xIndexTermsOpened"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/IndexTermsOpened.png"
 ></img
 ></chart
@@ -6845,6 +6869,7 @@ type="tElement"
 type="tAttribute"
 >id</object
 > attribute is required. It is shown as <img
+XeLaTeXSpecial="scaled='550'"
 src="resources/indextermID.png"
 ></img
 >. Give it a unique <object
@@ -7008,6 +7033,7 @@ num="xIndexTermsB4Nested"
 num="xIndexTermsB4Nested"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/indexTermsB4Nested.png"
 ></img
 ></chart
@@ -7024,6 +7050,7 @@ type="tInstruction"
 num="xIndexTermsNested"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/indexTermsNested.png"
 ></img
 ></chart
@@ -7806,6 +7833,7 @@ num="xBackMatterAppendix"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AppendixExample.png"
 ></img
 ></chart
@@ -7833,6 +7861,7 @@ num="xBackMatterRefsHTML"
 num="xBackMatterRefs"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BackMatterRefs.png"
 ></img
 ></chart
@@ -7886,6 +7915,7 @@ type="tInTextExample"
 num="xExampleTemplatesEditTool"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleTemplatesEditTool.png"
 ></img
 ></chart
@@ -7990,6 +8020,7 @@ num="xExWord"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleWordGloss.png"
 ></img
 ></chart
@@ -8006,6 +8037,7 @@ num="xExWordHTML"
 num="xExWordData"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleWordGlossData.png"
 ></img
 ></chart
@@ -8093,6 +8125,7 @@ num="xLW2"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListWordGloss.png"
 ></img
 ></chart
@@ -8114,6 +8147,7 @@ num="xExWordListXPathBar"
 num="xExWordListXPathBar"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListWordGlossAddNewListWord.png"
 ></img
 ></chart
@@ -8138,6 +8172,7 @@ num="xLW2HTML"
 num="xLW2Data"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListWordGlossData.png"
 ></img
 ></chart
@@ -8249,6 +8284,7 @@ num="xExSingle"
 num="xExSingle"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExSingle.png"
 ></img
 ></chart
@@ -8266,6 +8302,7 @@ num="xSingleLine"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleSingleData.png"
 ></img
 ></chart
@@ -8290,6 +8327,7 @@ num="xLS2"
 num="xLS2"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListSingle.png"
 ></img
 ></chart
@@ -8308,6 +8346,7 @@ num="xExListSingleNodePathBar"
 num="xExListSingleNodePathBar"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListSingleAddNewListSingle.png"
 ></img
 ></chart
@@ -8333,6 +8372,7 @@ num="xLSingleLine"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleListSingleData.png"
 ></img
 ></chart
@@ -8462,6 +8502,7 @@ num="xExInterlinearLGF"
 ><chart
 type="tElementExample"
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExInterlinearLLGF.png"
 ></img
 ></chart
@@ -8478,6 +8519,7 @@ num="xSingleInterHTMLSpace"
 num="xExInterlinearLGFData"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExInterlinearLLGFData.png"
 ></img
 ></chart
@@ -8915,6 +8957,7 @@ id="nNodePathBarReminder"
 >Remember that the node path bar is located in the upper part of the window. The big black arrow is pointing to it in the screenshot below.</p
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/NodePathBar.png"
 ></img
 ></chart
@@ -9240,6 +9283,7 @@ num="xSingleInterHTMLMorpheme"
 num="xSingleInterMorpheme"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/FLExInterlinear.png"
 ></img
 ></chart
@@ -9789,6 +9833,7 @@ num="xBreakLongInterInsertAfter"
 num="xBreakLongInterInsertAfter"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BreakLongInterlinearInsert.png"
 ></img
 ></chart
@@ -9819,6 +9864,7 @@ type="tInTextExample"
 num="xBreakLongInterInserted"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BreakLongInterlinearInserted.png"
 ></img
 ></chart
@@ -9850,6 +9896,7 @@ type="tKey"
 num="xBreakLongInterPasted"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BreakLongInterlinearPasted.png"
 ></img
 ></chart
@@ -9860,6 +9907,7 @@ src="resources/BreakLongInterlinearPasted.png"
 num="xBreakLongInterResult"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/BreakLongInterlinearResult.png"
 ></img
 ></chart
@@ -10521,6 +10569,7 @@ type="tElement"
 num="xExDefinitionData"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExDefinitionData.png"
 ></img
 ></chart
@@ -10669,6 +10718,7 @@ note="nEmbedded"
 num="xExInterlinearLGFData2"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExInterlinearLLGFData.png"
 ></img
 ></chart
@@ -10738,6 +10788,7 @@ num="xSampleExample"
 num="xSampleExample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ExampleRefSample.png"
 ></img
 ></chart
@@ -11164,6 +11215,7 @@ num="xTableInsert"
 num="xTableInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableInsert.png"
 ></img
 ></chart
@@ -11177,6 +11229,7 @@ type="tKey"
 num="xTableHeaders"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableHeaders.png"
 ></img
 ></chart
@@ -11190,6 +11243,7 @@ type="tInstruction"
 num="xTableMenuColumn"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableMenuColumn.png"
 ></img
 ></chart
@@ -11233,6 +11287,7 @@ num="xSampleTableHTML"
 num="xSampleTable"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableSample.png"
 ></img
 ></chart
@@ -11492,6 +11547,7 @@ type="tKey"
 num="xTableSampleCaption"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableSampleCaption.png"
 ></img
 ></chart
@@ -11596,6 +11652,7 @@ type="tAttribute"
 num="xTableSampleCaptionNoBorder"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableSampleCaptionNoBorder.png"
 ></img
 ></chart
@@ -11993,6 +12050,7 @@ num="xChartInsert"
 num="xChartInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ChartInsert.png"
 ></img
 ></chart
@@ -12009,6 +12067,7 @@ type="tKey"
 num="xChartImage"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ChartImage.png"
 ></img
 ></chart
@@ -12025,6 +12084,7 @@ note="nAttributesToolReminder"
 num="xChartImageAttributes"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ChartImageAttributes.png"
 ></img
 ></chart
@@ -12081,6 +12141,7 @@ id="nImages"
 num="xSampleChartGif"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ChartImageShowImage.png"
 ></img
 ></chart
@@ -12145,6 +12206,7 @@ num="xTreeInsert"
 num="xTreeInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TreeInsert.png"
 ></img
 ></chart
@@ -12164,6 +12226,7 @@ type="tKey"
 num="xTreeImage"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TreeImage.png"
 ></img
 ></chart
@@ -12180,6 +12243,7 @@ note="nAttributesToolReminder"
 num="xTreeImageAttributes"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TreeImageAttributes.png"
 ></img
 ></chart
@@ -12233,6 +12297,7 @@ num="xSampleTreeHTML"
 num="xSampleTree"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TreeImageShowImage.png"
 ></img
 ></chart
@@ -13575,6 +13640,7 @@ num="xNumberedTableNew"
 num="xNumberedTableNew"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableNumberedNew.png"
 ></img
 ></chart
@@ -13623,6 +13689,7 @@ num="xNumberedTable"
 num="xNumberedTable"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/TableNumbered.png"
 ></img
 ></chart
@@ -14526,6 +14593,7 @@ note="nInsertElementReminder"
 num="xULInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ULInsert.png"
 ></img
 ></chart
@@ -14542,6 +14610,7 @@ type="tKey"
 num="xULList"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ULList.png"
 ></img
 ></chart
@@ -14574,6 +14643,7 @@ num="xULSampleHTML"
 num="xULSample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ULSample.png"
 ></img
 ></chart
@@ -14596,6 +14666,7 @@ note="nInsertElementReminder"
 num="xULEmbedded"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ULEmedded.png"
 ></img
 ></chart
@@ -14630,6 +14701,7 @@ note="nInsertElementReminder"
 num="xOLInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/OLInsert.png"
 ></img
 ></chart
@@ -14646,6 +14718,7 @@ type="tKey"
 num="xOLList"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/OLList.png"
 ></img
 ></chart
@@ -14678,6 +14751,7 @@ num="xOLSampleHTML"
 num="xOLSample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/OLSample.png"
 ></img
 ></chart
@@ -14700,6 +14774,7 @@ note="nInsertElementReminder"
 num="xOLEmbedded"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/OLEmedded.png"
 ></img
 ></chart
@@ -14737,6 +14812,7 @@ note="nInsertElementReminder"
 num="xDLInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DLInsert.png"
 ></img
 ></chart
@@ -14753,6 +14829,7 @@ type="tKey"
 num="xDLList"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DLList.png"
 ></img
 ></chart
@@ -14787,6 +14864,7 @@ num="xDLSampleHTML"
 num="xDLSample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DLSample.png"
 ></img
 ></chart
@@ -14922,6 +15000,7 @@ type="tXLingPap"
 num="xCitationDialog"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CitationDialog.png"
 ></img
 ></chart
@@ -14943,6 +15022,7 @@ num="xCitationExampleHTML"
 num="xCitationExample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CitationSample.png"
 ></img
 ></chart
@@ -14976,6 +15056,7 @@ num="xCitationDateExample"
 num="xCitationDateExample"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CitationMultiYear.png"
 ></img
 ></chart
@@ -15179,6 +15260,7 @@ num="xCitationNoAuthorHTML"
 num="xCitationNoAuthor"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CitationAuthor.png"
 ></img
 ></chart
@@ -16043,6 +16125,7 @@ term="iSuperscript"
 num="xTypes"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/Types.png"
 ></img
 ></chart
@@ -16682,6 +16765,7 @@ type="tElement"
 num="xGenericRefInsert"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/GenericRefInsert.png"
 ></img
 ></chart
@@ -16727,6 +16811,7 @@ type="tInTextExample"
 num="xGenericRefData"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/GenericRefData.png"
 ></img
 ></chart
@@ -17231,6 +17316,7 @@ id="nCharisSILFontProblemInHtmlSource"
 num="xCharisSILFontProblemInHtml"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CharisSILFontProblemInHtml.png"
 ></img
 ></chart
@@ -17244,6 +17330,7 @@ type="tFont"
 num="xCharisSILFontProblemInHtmlFix1"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/CharisSILFontProblemInHtmlFix1.png"
 ></img
 ></chart
@@ -17831,6 +17918,7 @@ type="tXLingPap"
 >First, you may have already noticed that usually there is a green check mark in the lower left corner of the window, as indicated in the following screen shot by the large black arrow.</p
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ValidityIconLocation.png"
 ></img
 ></chart
@@ -17859,6 +17947,7 @@ type="tXMLmindXMLEditor"
 num="xValidityErrors"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/ValidityToolData.png"
 ></img
 ></chart
@@ -19395,6 +19484,7 @@ num="xDemotePortionOfSectionBegin"
 num="xDemotePortionOfSectionBegin"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DemotePortionOfSectionBegin.png"
 ></img
 ></chart
@@ -19414,6 +19504,7 @@ type="tKey"
 num="xDemotePortionOfSectionFirst"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DemotePortionOfSectionFirst.png"
 ></img
 ></chart
@@ -19434,6 +19525,7 @@ num="xDemotePortionOfSectionFirstAfter"
 num="xDemotePortionOfSectionFirstAfter"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DemotePortionOfSectionFirstAfter.png"
 ></img
 ></chart
@@ -19464,6 +19556,7 @@ type="tKey"
 num="xDemotePortionOfSectionSecond"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DemotePortionOfSectionSecond.png"
 ></img
 ></chart
@@ -19489,6 +19582,7 @@ num="xDemotePortionOfSectionSecondAfter"
 num="xDemotePortionOfSectionSecondAfter"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/DemotePortionOfSectionSecondAfter.png"
 ></img
 ></chart
@@ -19596,6 +19690,7 @@ num="xSectionPromote"
 num="xSectionPromote"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/SectionPromoteB4.png"
 ></img
 ></chart
@@ -19615,6 +19710,7 @@ type="tElement"
 num="xSectionPromoteSelect1"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/SectionPromoteSelect1.png"
 ></img
 ></chart
@@ -19637,6 +19733,7 @@ num="xSectionPromoteSelect1"
 num="xSectionPromoteSelect2"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/SectionPromoteSelect2.png"
 ></img
 ></chart
@@ -19662,6 +19759,7 @@ type="tKey"
 num="xSectionPromotePasteBefore"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/SectionPromotePasteBefore.png"
 ></img
 ></chart
@@ -19947,6 +20045,7 @@ num="xChoosePublisherStyleSheet"
 num="xChoosePublisherStyleSheet"
 ><chart
 ><img
+XeLaTeXSpecial="scaled='550'"
 src="resources/AssociatePublisherStyleSheetFileChooser.png"
 ></img
 ></chart
@@ -24670,10 +24769,10 @@ type="tElement"
 ><indexedItem
 term="iShortTtileHeaderFooter"
 ></indexedItem
-> <indexedItem
+><indexedItem
 term="iShortTitleElement"
 ></indexedItem
-> <object
+><object
 type="tElement"
 >shortTitle</object
 ></dt
@@ -24785,7 +24884,7 @@ type="tElement"
 ><indexedItem
 term="iTitle"
 ></indexedItem
-> <object
+><object
 type="tElement"
 >title</object
 ></dt

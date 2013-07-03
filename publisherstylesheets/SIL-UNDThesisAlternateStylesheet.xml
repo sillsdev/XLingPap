@@ -54,7 +54,7 @@ textalign="left"
 ></footnoteLine
 ><linkLayout
 color="none"
-decoration="underline"
+decoration="none"
 ><abbrRefLinkLayout
 ></abbrRefLinkLayout
 ><appendixRefLinkLayout
@@ -437,6 +437,8 @@ textalign="center"
 ></partLayout
 ><chapterLayout
 ><numberLayout
+font-size="14pt"
+font-weight="bold"
 pagebreakbefore="yes"
 spacebefore=".65in"
 startonoddpage="no"
@@ -444,13 +446,15 @@ textalign="center"
 textbefore="CHAPTER "
 ></numberLayout
 ><chapterTitleLayout
+font-size="14pt"
+font-weight="bold"
 spaceafter="16pt"
 textalign="center"
 ></chapterTitleLayout
 ></chapterLayout
 ><section1Layout
 ><sectionTitleLayout
-font-size="14pt"
+font-size="13pt"
 font-weight="bold"
 spaceafter="10pt"
 spacebefore="15pt"
@@ -459,6 +463,7 @@ textalign="left"
 ></section1Layout
 ><section2Layout
 ><sectionTitleLayout
+font-size="13pt"
 font-style="italic"
 pagebreakbefore="no"
 spaceafter="10pt"

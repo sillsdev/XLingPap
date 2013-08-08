@@ -9113,6 +9113,65 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        SetFootnoteLayout
+    -->
+    <xsl:template name="SetFootnoteLayout">
+        <!--\renewcommand{\footnotelayout}{\doublespacing}
+        \newlength{\myfootnotesep}
+        \setlength{\myfootnotesep}{\baselineskip}
+        \addtolength{\myfootnotesep}{-\footnotesep}
+        \setlength{\footnotesep}{\myfootnotesep} % set spacing between footnotes-->
+        <tex:cmd name="renewcommand" nl1="1">
+            <tex:parm>
+                <tex:cmd name="footnotelayout" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:choose>
+                    <xsl:when test="$sLineSpacing='double'">
+                        <tex:cmd name="doublespacing" gr="0"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="onehalfspacing" gr="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <tex:cmd name="footnotesize" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperfootnotesep" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="setlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperfootnotesep" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="baselineskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="addtolength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperfootnotesep" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:text>-</xsl:text>
+                <tex:cmd name="footnotesep" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="setlength" nl1="1">
+            <tex:parm>
+                <tex:cmd name="footnotesep" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="XLingPaperfootnotesep" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:spec cat="comment"/>
+        <xsl:text> set spacing between footnotes
+</xsl:text>
+</xsl:template>
+    <!--  
         SetFramedTypeItem
     -->
     <xsl:template name="SetFramedTypeItem">
@@ -10189,6 +10248,11 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>setspace</tex:parm>
         </tex:cmd>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:parm>footmisc</tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <tex:cmd name="usepackage" nl2="1">
             <tex:opt>normalem</tex:opt>
             <tex:parm>ulem</tex:parm>
@@ -10227,6 +10291,11 @@
         </tex:cmd>
         <!-- hyperref should be the last package listed -->
         <tex:cmd name="usepackage" nl2="1">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+                <tex:opt>
+                    <xsl:text>hyperfootnotes=false</xsl:text>
+                </tex:opt>
+            </xsl:if>
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
         <tex:cmd name="hypersetup" nl2="1">

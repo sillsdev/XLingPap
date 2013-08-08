@@ -234,6 +234,9 @@
                 <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
                     <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
                 </xsl:if>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+                    <xsl:call-template name="SetFootnoteLayout"/>
+                </xsl:if>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>

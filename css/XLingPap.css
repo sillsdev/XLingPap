@@ -1663,6 +1663,19 @@ glossary
 	property-group: isCollapsible( yes, 1);
 }
 
+hangingIndent:before 
+{
+	content: icon(pop-ne) " ";
+}
+hangingIndent 
+{
+	display:block;
+/* negative text-indent does not work 
+	text-indent: -.25in; 
+	padding-left: .25in; */
+	margin: 1.33ex 0;
+}
+
 headerCol { 
     display: table-cell;
     border-style: solid;

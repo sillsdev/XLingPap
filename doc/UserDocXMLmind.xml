@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 July 2013</date
+>5 August 2013</date
 ><version
 >2.23.0</version
 ><contents
@@ -9245,7 +9245,10 @@ type="tXMLmindXMLEditor"
 ></object
 >.</p
 ></endnote
-> Some interlinearizing programs may automatically produce this kind of format. The <object
+>Please note, however, that this style of interlinear only works with the web page output and the default <object
+type="tXeTeX"
+></object
+> way of producing PDF.  All of the other outputs will not show this correctly.  Some interlinearizing programs may automatically produce this kind of format. The <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
 > program is one that allows one to automatically generate this kind of interlinear. One can then merely copy and paste the results into an <object

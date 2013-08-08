@@ -5,6 +5,9 @@
         and the other for the types of content.
 -->
 <!ELEMENT contentControl (contentTypes, contentControlChoices) >
+<!ATTLIST contentControl 
+   showOnlyChosenItemsInEditor (yes | no ) "no"
+>
 
 <!-- contentControlChoices has at least one contentControlChoice -->
 <!ELEMENT contentControlChoices (contentControlChoice+) >

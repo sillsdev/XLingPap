@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.23.0_1</a:version
+>2.23.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.23.0_1 8 August 2013<ul
+>2.23.1 8 August 2013<ul
 ><li
 >Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li
 ><li
@@ -51,6 +51,8 @@ href="mailto::andy_black@sil.org"
 ></li
 ><li
 >Overtly state in the user documentation that it is a known issue that morpheme-aligned interlinears will not render correctly in the RenderX PDF, Word and Open Office output formats.</li
+><li
+>When a document is using the content control mechanism (see section 15 "Content Control" in the user documentation), you can now control whether all possible content shows in the editor or just the currently selected content.</li
 ></ul
 ></li
 ><li

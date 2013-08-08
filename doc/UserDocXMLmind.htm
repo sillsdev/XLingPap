@@ -9,8 +9,8 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>andy_black@sil.org</i></center><br><center><small>5 August 2013</small></center>
-      <center><small>Version: 2.23.0</small></center>
+      <center><i>andy_black@sil.org</i></center><br><center><small>8 August 2013</small></center>
+      <center><small>Version: 2.23.1</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -308,7 +308,7 @@
             <li><a href="#aLanguageCodes">C&nbsp;Language Codes</a></li>
             <li><a href="#rXLingPapEndnotes">Endnotes</a></li>
             <li><a href="#rXLingPapReferences">References</a></li>
-            <li><a href="#rXLingPapIndex.d0e20545">Index</a></li>
+            <li><a href="#rXLingPapIndex.d0e20561">Index</a></li>
          </ul>
       </div><br><hr>
       <center><b><big><big><a name="rXLingPapAbstract">Abstract</a></big></big></b></center>
@@ -3746,7 +3746,7 @@
       <h4 style=""><a name="sExInterlinearMorph"></a>5.3.1.3&nbsp;Morpheme-aligned
       </h4>
       <p>If you want to have not only the words align, but also the morphemes within the words to align, you will need to key the interlinear
-         examples in a special, more complicated way.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExInterlinear">43</a>]</span>Please note, however, that this style of interlinear only works with the web page output and the default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF.  All of the other outputs will not show this correctly.  Some interlinearizing programs may automatically
+         examples in a special, more complicated way.<span style="font-size:65%; vertical-align:super">[<a href="#nFLExInterlinear">43</a>]</span> Please note, however, that this style of interlinear only works with the web page output and the default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF. All of the other outputs will not show this correctly. Some interlinearizing programs may automatically
          produce this kind of format. The <span style="font-family:Courier New; font-weight:bold; color:navy; ">SIL FieldWorks Language Explorer</span> program is one that allows one to automatically generate this kind of interlinear. One can then merely copy and paste the
          results into an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> file. See <a href="http://www.sil.org/computing/fieldworks/flex/">http://www.sil.org/computing/fieldworks/flex/</a>.
       </p>
@@ -9391,8 +9391,8 @@
       </div>
       <p>Please note that there could be a problem if you exclude an <span style="font-family:Courier New; color:maroon; ">example</span>, say, but have an <span style="font-family:Courier New; color:maroon; ">exampleRef</span> element that refers to the excluded <span style="font-family:Courier New; color:maroon; ">example</span> and that <span style="font-family:Courier New; color:maroon; ">exampleRef</span> is not also in some material (like a <span style="font-family:Courier New; color:maroon; ">p</span>) that is also excluded. Since the <span style="font-family:Courier New; color:maroon; ">example</span> will not be in the output, the <span style="font-family:Courier New; color:maroon; ">exampleRef</span> will not be able to refer to it properly. Thus, in the output, it will be incorrect. We check for these kinds of potential
          problems and attempt to report them in the Validity tool.<span style="font-size:65%; vertical-align:super">[<a href="#nValidityTool">105</a>]</span></p>
-      <p>Finally, when we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to
-         exclude the introductory material, then it would look like this:
+      <p>When we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude
+         the introductory material, then it would look like this:
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -9408,6 +9408,9 @@
             </tr>
          </table>
       </div>
+      <p>Finally, you may sometimes want the &#8220;chunks&#8221; to show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for all possible content types and sometimes you may not.  You control this by setting the <span style="font-family:Courier New; color:purple; ">showOnlyChosenItemsInEditor</span> attribute of the <span style="font-family:Courier New; color:maroon; ">contentControl</span> element.  If you want only the chosen &#8220;chunks&#8221; to show (that is, only those &#8220;chunk&#8221; elements which are not excluded by the
+         currently selected content control choice), set this attribute's value to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">yes</span>.  Otherwise, set it to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">no</span> (which is the default).
+      </p>
       <hr size="3">
       <h1 style=""><a name="aElements"></a>A.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Element Reference Guide
       </h1>
@@ -9829,7 +9832,7 @@
          <dd>A shortened form of an author. This is for aiding in publishing when the real author names are too long to appear in headers
             or footers.
          </dd>
-         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e18684"></a><a name="rXLingPapIndexedItem.iShortTitleElement.d0e18685"></a><span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e18700"></a><a name="rXLingPapIndexedItem.iShortTitleElement.d0e18701"></a><span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
          <dd>A shortened form of a title. This is for aiding in publishing when the real title is too long to appear in headings. Within
             an interlinear text, it is used as the abbreviated name of the text.
          </dd>
@@ -9859,7 +9862,7 @@
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">thesis</span></dt>
          <dd>Reference information for an M.A. thesis</dd>
-         <dt><a name="rXLingPapIndexedItem.iTitle.d0e18765"></a><span style="font-family:Courier New; color:maroon; ">title</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iTitle.d0e18781"></a><span style="font-family:Courier New; color:maroon; ">title</span></dt>
          <dd>The title of the paper</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">tr</span></dt>
          <dd>A row in a table. This replaces both the <span style="font-family:Courier New; color:maroon; ">headerRow</span> and the <span style="font-family:Courier New; color:maroon; ">row</span> elements in order to show tables well in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
@@ -9888,7 +9891,7 @@
       <hr size="3">
       <h1 style=""><a name="aStyleSheetElements"></a>B.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet Element Reference Guide
       </h1>
-      <p><a name="rXLingPapIndexedItem.iPublisherStyleSheet.d0e18839"></a>This appendix lists the various elements available for an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet and briefly explains their usage. They are listed in alphabetical order. See the <a href="PublisherStylesheetUserDocXMLmind.htm"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</a> for more.
+      <p><a name="rXLingPapIndexedItem.iPublisherStyleSheet.d0e18855"></a>This appendix lists the various elements available for an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet and briefly explains their usage. They are listed in alphabetical order. See the <a href="PublisherStylesheetUserDocXMLmind.htm"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</a> for more.
       </p>
       <dl>
          <dt><span style="font-family:Courier New; color:maroon; ">abbreviationsInTableLayout</span></dt>
@@ -12063,7 +12066,7 @@
          </p>
       </div>
       <hr>
-      <a name="rXLingPapIndex.d0e20545"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
+      <a name="rXLingPapIndex.d0e20561"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
       <div style="margin-left: 0.5in; margin-right: 0.5in">
          .bmp files&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
          .jpg (.jpeg) files&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
@@ -12120,7 +12123,7 @@
          <a name="rXLingPapIndexTerm.iORCID">ORCID&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iORCID.d0e1417">2.3</a><br><a name="rXLingPapIndexTerm.iPart">Part&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPart.d0e2519">3.6</a><br><a name="rXLingPapIndexTerm.iPDF">PDF output&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPDF.d0e128">1.2</a>, <b><a href="#rXLingPapIndexedItem.iPDF.d0e13560">11.17</a></b><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iRenderXPDF"><span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> way&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iRenderXPDF.d0e13985">11.17.2</a>-<a href="#rXLingPapIndexedItem.bRenderX.d0e14244">11.17.2.2</a><br><a name="rXLingPapIndexTerm.iXeTexPDF"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeTexPDF.d0e13608">11.17.1</a>-<a href="#rXLingPapIndexedItem.bXeTeX.d0e13978">11.17.1.2</a><br></div>Ph.D. Dissertation&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iDissertation">Dissertation</a>.<br>
          <a name="rXLingPapIndexTerm.iPortrait">Portrait mode&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPortrait.d0e15545">11.34</a><br><a name="rXLingPapIndexTerm.iPreface">Preface&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPreface.d0e1647">2.13</a><br><a name="rXLingPapIndexTerm.iPresentedAt">Presented at&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPresentedAt.d0e1485">2.7</a><br><a name="rXLingPapIndexTerm.iRefProceedings">Proceedings reference entry&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iRefProceedings.d0e3519">4.5.8</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.iProcCitation">Citation to proceedings volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitation.d0e3568">4.5.8</a><br><a name="rXLingPapIndexTerm.iProcCitationConvert">Convert from proceedings to proceedings citation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitationConvert.d0e3582">4.5.8</a><br></div><a name="rXLingPapIndexTerm.iPublisherStyleSheet">Publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e283">1.2.3</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e2067">3.3.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e3140">4.5.3.1.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e9767">6.4.2.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e13514">11.16n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e13944">11.17.1.1</a>, <b><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15175">11.25</a></b>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15464">11.32</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15597">11.34</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e18839">B.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.iProcCitation">Citation to proceedings volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitation.d0e3568">4.5.8</a><br><a name="rXLingPapIndexTerm.iProcCitationConvert">Convert from proceedings to proceedings citation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitationConvert.d0e3582">4.5.8</a><br></div><a name="rXLingPapIndexTerm.iPublisherStyleSheet">Publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e283">1.2.3</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e2067">3.3.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e3140">4.5.3.1.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e9767">6.4.2.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e13514">11.16n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e13944">11.17.1.1</a>, <b><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15175">11.25</a></b>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15464">11.32</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15597">11.34</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e18855">B.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iPublisherStyleSheetAssociate">Associate a publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheetAssociate.d0e15115">11.25</a><br><a name="rXLingPapIndexTerm.iPublisherStyleSheetRemove">Remove a publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheetRemove.d0e15185">11.26</a><br>Unassociate a publisher style sheet&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iPublisherStyleSheetRemove">Remove a publisher style sheet</a>.<br>
             
          </div><a name="rXLingPapIndexTerm.iPublishingBlurb">Publishing blurb&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublishingBlurb.d0e16903">13.1</a><br><a name="rXLingPapIndexTerm.iPublishingInfo">Publishing information&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublishingInfo.d0e16837">13</a><br><a name="rXLingPapIndexTerm.iReference">Reference&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iReference.d0e16725">12.9</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -12147,8 +12150,8 @@
             <a name="rXLingPapIndexTerm.iTablesAttributes">Attributes used in tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesAttributes.d0e8828">6.1.4</a><br><a name="rXLingPapIndexTerm.iTablesCaption">Captions in tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesCaption.d0e8660">6.1.3</a><br><a name="rXLingPapIndexTerm.iNumberedTables">Numbered Tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTables.d0e10187">6.4.3</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
                <a name="rXLingPapIndexTerm.iNumberedTablesFloat">As a float&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesFloat.d0e10188">6.4.3</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferences">References&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferences.d0e10517">6.4.4</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
                   <a name="rXLingPapIndexTerm.iNumberedTableReferenceControlText">Controlling the text that appears before&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTableReferenceControlText.d0e10555">6.4.4.1</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferencesShowCaption">Show caption only&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferencesShowCaption.d0e10907">6.4.4.2</a><br></div>
-            </div><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e8533">6.1</a><br></div><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e16877">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1388">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e18765">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.iAppendixTitle">Appendix Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixTitle.d0e2568">4.2</a><br><a name="rXLingPapIndexTerm.iGlossaryTitle">GlossaryTitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTitle.d0e2599">4.3</a><br><a name="rXLingPapIndexTerm.iTitleSection">Section Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitleSection.d0e1699">3.1</a><br><a name="rXLingPapIndexTerm.iShortTtileHeaderFooter">Shortened title for headers or footers&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e18684">A.</a><br><a name="rXLingPapIndexTerm.iShortTitleElement">shortTitle element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTitleElement.d0e18685">A.</a><br></div>Tone ligatures (require Graphite font renderer with Charis SIL fonts)&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
+            </div><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e8533">6.1</a><br></div><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e16877">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1388">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e18781">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.iAppendixTitle">Appendix Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixTitle.d0e2568">4.2</a><br><a name="rXLingPapIndexTerm.iGlossaryTitle">GlossaryTitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTitle.d0e2599">4.3</a><br><a name="rXLingPapIndexTerm.iTitleSection">Section Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitleSection.d0e1699">3.1</a><br><a name="rXLingPapIndexTerm.iShortTtileHeaderFooter">Shortened title for headers or footers&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e18700">A.</a><br><a name="rXLingPapIndexTerm.iShortTitleElement">shortTitle element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTitleElement.d0e18701">A.</a><br></div>Tone ligatures (require Graphite font renderer with Charis SIL fonts)&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
          <a name="rXLingPapIndexTerm.iTools">Tools&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             Attributes Tool&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iAttributeTool">Attributes Tool</a>.<br>
             Characters Tool&nbsp;&nbsp;See <a href="#rXLingPapIndexTerm.iCharactersTool">Characters Tool</a>.<br>

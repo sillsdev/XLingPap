@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 August 2013</date
+>8 August 2013</date
 ><version
->2.23.0</version
+>2.23.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -9245,10 +9245,10 @@ type="tXMLmindXMLEditor"
 ></object
 >.</p
 ></endnote
->Please note, however, that this style of interlinear only works with the web page output and the default <object
+> Please note, however, that this style of interlinear only works with the web page output and the default <object
 type="tXeTeX"
 ></object
-> way of producing PDF.  All of the other outputs will not show this correctly.  Some interlinearizing programs may automatically produce this kind of format. The <object
+> way of producing PDF. All of the other outputs will not show this correctly. Some interlinearizing programs may automatically produce this kind of format. The <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
 > program is one that allows one to automatically generate this kind of interlinear. One can then merely copy and paste the results into an <object
@@ -23321,7 +23321,7 @@ sec="sFAQValidity"
 ></endnote
 ></p
 ><p
->Finally, when we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude the introductory material, then it would look like this:</p
+>When we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude the introductory material, then it would look like this:</p
 ><example
 num="xContentControlChoiceChosen"
 ><chart
@@ -23330,6 +23330,23 @@ src="resources/ContentControlChoiceChosen.png"
 ></img
 ></chart
 ></example
+><p
+>Finally, you may sometimes want the “chunks” to show in the <object
+type="tXMLmindXMLEditor"
+></object
+> for all possible content types and sometimes you may not.  You control this by setting the <object
+type="tAttribute"
+>showOnlyChosenItemsInEditor</object
+> attribute of the <object
+type="tElement"
+>contentControl</object
+> element.  If you want only the chosen “chunks” to show (that is, only those “chunk” elements which are not excluded by the currently selected content control choice), set this attribute's value to <object
+type="tAttrValue"
+>yes</object
+>.  Otherwise, set it to <object
+type="tAttrValue"
+>no</object
+> (which is the default).</p
 ></section1
 ><backMatter
 ><appendix

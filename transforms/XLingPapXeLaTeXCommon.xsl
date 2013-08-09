@@ -137,6 +137,8 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
+    <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
+    <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
     <!--
         citation (InMarker)
     -->
@@ -190,6 +192,51 @@
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <!--        <tex:spec cat="eg"/>-->
+    </xsl:template>
+    <!-- ===========================================================
+        Hanging indent paragraph
+        =========================================================== -->
+    <xsl:template match="hangingIndent">
+        <xsl:variable name="sThisInitialIndent" select="normalize-space(@initialIndent)"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space(@hangingIndent)"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
+        <tex:spec cat="bg"/>
+        <tex:cmd name="hangafter" gr="0"/>
+        <xsl:text>1</xsl:text>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <tex:cmd name="hangindent" gr="0"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                <xsl:value-of select="$sThisHangingIndent"/>
+            </xsl:when>
+            <xsl:when test="string-length($sHangingIndentNormalIndent) &gt; 0">
+                <xsl:value-of select="$sHangingIndentNormalIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sParagraphIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                <tex:cmd name="parindent" gr="0"/>
+                <xsl:value-of select="$sThisInitialIndent"/>
+                <tex:cmd name="indent"/>
+            </xsl:when>
+            <xsl:when test="string-length($sHangingIndentInitialIndent) &gt; 0">
+                <tex:cmd name="parindent" gr="0"/>
+                <xsl:value-of select="$sHangingIndentInitialIndent"/>
+                <tex:cmd name="indent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="noindent"/>        
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates/>
+        <tex:cmd name="par" nl2="1"/>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!-- ===========================================================
         QUOTES

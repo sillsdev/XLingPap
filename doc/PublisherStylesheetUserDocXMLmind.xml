@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 June 2013</date
+>9 August 2013</date
 ><version
->2.23.0</version
+>2.23.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -292,6 +292,34 @@ letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
 > or ems. The unit of measure used for paragraph indent and for the block quote indent do not have to the be same. Do not put any spaces between the number and the unit.</p
+><p
+><indexedItem
+term="iHangingIndent"
+></indexedItem
+>Indents for hanging indent paragraphs are controlled by the values shown in example <exampleRef
+letter="xHangingIndents"
+num="xHangingIndents"
+></exampleRef
+>.  These can be overridden by the <object
+type="tAttribute"
+>initialIndent</object
+> and <object
+type="tAttribute"
+>hangingIndent</object
+> attributes of any <object
+type="tElement"
+>hangingIndent</object
+> element.</p
+><example
+num="xHangingIndents"
+><chart
+><img
+src="resources/HangingIndentStyleSheet.png"
+></img
+></chart
+></example
+><p
+>These use the same units of measure as the paragraph and block quote indents do.</p
 ></section2
 ><section2
 id="sLineSpacing"
@@ -13462,6 +13490,11 @@ id="iGlossOverrides"
 id="iGlossaryLayout"
 ><term
 >Glossary Layout</term
+></indexTerm
+><indexTerm
+id="iHangingIndent"
+><term
+>Hanging indent</term
 ></indexTerm
 ><indexTerm
 id="iHeaderFooterLayout"

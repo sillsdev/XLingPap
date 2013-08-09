@@ -6253,6 +6253,23 @@ glossaryLayout
 	property-group: titledItem("Glossary");
 }
 
+hangingIndentInitialIndent:before
+{
+	property-group:layoutParameterLabel( "hanging indent first line indent" );
+}
+hangingIndentInitialIndent
+{
+	property-group: layoutParameter(.67ex);
+}
+hangingIndentNormalIndent:before
+{
+	property-group:layoutParameterLabel( "hanging indent normal indent" );
+}
+hangingIndentNormalIndent
+{
+	property-group: layoutParameter(0ex);
+}
+
 /*
 header:before
 {

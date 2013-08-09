@@ -2341,6 +2341,24 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        GetBestHangingIndentInitialIndent
+    -->
+    <xsl:template name="GetBestHangingIndentInitialIndent">
+        <xsl:param name="sThisHangingIndent"/>
+        <xsl:param name="sThisInitialIndent"/>
+        <xsl:variable name="sValue" select="substring($sThisInitialIndent,1,string-length($sThisHangingIndent)-2)"/>
+        <xsl:choose>
+            <xsl:when test="$sValue=0">
+                <xsl:call-template name="GetHangingIndentNormalIndent">
+                    <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sThisInitialIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetBookLayoutToUsePosition
     -->
     <xsl:template name="GetBookLayoutToUsePosition">
@@ -2916,6 +2934,23 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$normalizedPages"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetHangingIndentNormalIndent
+    -->
+    <xsl:template name="GetHangingIndentNormalIndent">
+        <xsl:param name="sThisHangingIndent"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                <xsl:value-of select="$sThisHangingIndent"/>
+            </xsl:when>
+            <xsl:when test="string-length($sHangingIndentNormalIndent) &gt; 0">
+                <xsl:value-of select="$sHangingIndentNormalIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>1em</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

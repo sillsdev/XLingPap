@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 August 2013</date
+>9 August 2013</date
 ><version
 >2.23.1</version
 ><contents
@@ -2163,6 +2163,9 @@ type="tElement"
 >pc</object
 >, <object
 type="tElement"
+>hangingIndent</object
+>, <object
+type="tElement"
 >example</object
 >, <object
 type="tElement"
@@ -2720,6 +2723,11 @@ type="tElement"
 type="tElement"
 >dl</object
 >).</li
+><li
+>Hanging indent paragraphs (<object
+type="tElement"
+>hangingIndent</object
+>)</li
 ><li
 >Sub sections.</li
 ></ul
@@ -23334,19 +23342,155 @@ src="resources/ContentControlChoiceChosen.png"
 >Finally, you may sometimes want the “chunks” to show in the <object
 type="tXMLmindXMLEditor"
 ></object
-> for all possible content types and sometimes you may not.  You control this by setting the <object
+> for all possible content types and sometimes you may not. You control this by setting the <object
 type="tAttribute"
 >showOnlyChosenItemsInEditor</object
 > attribute of the <object
 type="tElement"
 >contentControl</object
-> element.  If you want only the chosen “chunks” to show (that is, only those “chunk” elements which are not excluded by the currently selected content control choice), set this attribute's value to <object
+> element. If you want only the chosen “chunks” to show (that is, only those “chunk” elements which are not excluded by the currently selected content control choice), set this attribute's value to <object
 type="tAttrValue"
 >yes</object
->.  Otherwise, set it to <object
+>. Otherwise, set it to <object
 type="tAttrValue"
 >no</object
 > (which is the default).</p
+></section1
+><section1
+id="sHangingIndentParagraph"
+><secTitle
+>Hanging Indent Paragraph</secTitle
+><p
+><indexedItem
+term="iHangingIndentParagraph"
+></indexedItem
+>On some occasions, one may want to place certain material within a hanging indent paragraph.  To do so, use a <object
+type="tElement"
+>hangingIndent</object
+> element.  These can be used anywhere a “chunk” element can be used.<endnoteRef
+note="nChunk"
+></endnoteRef
+>  </p
+><p
+>Due to a bug in the <object
+type="tXMLmindXMLEditor"
+></object
+>, we cannot show <object
+type="tElement"
+>hangingIndent</object
+> elements with the hanging indent.  The output, however, will have the correct format.  Since we cannot show the correct hanging indent in the <object
+type="tXMLmindXMLEditor"
+></object
+>, we use a small icon at the beginning of each <object
+type="tElement"
+>hangingIndent</object
+> element as shown in example <exampleRef
+letter="xHangingIndenParagraph"
+num="xHangingIndenParagraph"
+></exampleRef
+> to try and distinguish a <object
+type="tElement"
+>hangingIndent</object
+> paragraph from a regular paragraph.  (The hope is that the icon suggests that the first line is longer than the other lines.)</p
+><example
+num="xHangingIndenParagraph"
+><chart
+><img
+src="resources/HangingIndentParagraph.png"
+></img
+></chart
+></example
+><p
+>The default is for the first line to be at the left edge and for all other lines to be indented 1em.  You can change this by using the <object
+type="tElement"
+>hangingIndentInitialIndent</object
+> and <object
+type="tElement"
+>hangingIndentNormalIndent</object
+> elements of a publisher style sheet (see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> for more on publisher style sheets).  Naturally, you will have to associate your document with your publisher style sheet to make this take effect.</p
+><p
+>Another way to change the indent values is to set either of the special attributes of a <object
+type="tElement"
+>hangingIndent</object
+> element shown in example <exampleRef
+letter="xHangingIndentAttributes"
+num="xHangingIndentAttributes"
+></exampleRef
+>.</p
+><example
+num="xHangingIndentAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>initialIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The indent of the first line.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>hangingIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The indent of all non-initial lines.</langData
+></td
+></tr
+></table
+></example
+><p
+>When you set either one of these attributes for a given <object
+type="tElement"
+>hangingIndent</object
+> element, the value(s) will be used for the hanging indent paragraph.  In particular, if you have an associated publisher style sheet that has the hanging indent elements above set, setting either attribute shown in example <exampleRef
+letter="xHangingIndentAttributes"
+num="xHangingIndentAttributes"
+></exampleRef
+> will override the values of the publisher style sheet.</p
 ></section1
 ><backMatter
 ><appendix
@@ -23995,6 +24139,13 @@ type="tElement"
 ></dt
 ><dd
 >A glossary section in the back matter</dd
+><dt
+><object
+type="tElement"
+>hangingIndent</object
+></dt
+><dd
+>A hanging indent paragraph</dd
 ><dt
 ><object
 type="tElement"
@@ -25647,6 +25798,20 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a glossary</dd
+><dt
+><object
+type="tElement"
+>hangingIndentInitialIndent</object
+></dt
+><dd
+>The indent to use for the first line of a hanging indent paragraph</dd
+><dt
+><object
+type="tElement"
+>hangingIndentNormalIndent</object
+></dt
+><dd
+>The indent to use for all non-initial lines of a hanging indent paragraph</dd
 ><dt
 ><object
 type="tElement"
@@ -27850,6 +28015,11 @@ id="iGlossary"
 id="iGraphite"
 ><term
 >Graphite font renderer</term
+></indexTerm
+><indexTerm
+id="iHangingIndentParagraph"
+><term
+>Hanging indent paragraph</term
 ></indexTerm
 ><indexTerm
 id="iHTML"

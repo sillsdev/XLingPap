@@ -14,8 +14,7 @@
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
     indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject">
-<!--<!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text | hangingIndent">-->
-<!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text">
+<!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text | hangingIndent">
 
 <!ENTITY % XLingPapPublisherStyleSheet SYSTEM  "XLingPapPublisherStylesheet.dtd">
 %XLingPapPublisherStyleSheet;
@@ -309,14 +308,14 @@
     contentType IDREF #IMPLIED
 >
 <!-- hanging indent paragraph -->
-<!--<!ELEMENT hangingIndent (#PCDATA | %embedded; | definition)*>
+<!ELEMENT hangingIndent (#PCDATA | %embedded; | definition)*>
 <!ATTLIST hangingIndent
     xml:lang CDATA #IMPLIED
     %special;
     contentType IDREF #IMPLIED
     initialIndent CDATA #IMPLIED
     hangingIndent CDATA #IMPLIED
->-->
+>
 <!-- blockquote -->
 <!ELEMENT blockquote (#PCDATA | %embedded; | %chunk;)*>
 <!ATTLIST blockquote

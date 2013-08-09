@@ -74,6 +74,8 @@
     <xsl:variable name="styleSheetTableNumberedNumberLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedNumberLayout"/>
     <xsl:variable name="styleSheetTableNumberedCaptionLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedCaptionLayout"/>
     <xsl:variable name="sSpaceBetweenTableAndCaption" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@spaceBetweenTableAndCaption)"/>
+    <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
+    <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -1241,6 +1243,51 @@
                     </fo:footnote-body>
                 </fo:footnote>
             </xsl:if>
+        </fo:block>
+    </xsl:template>
+    <!-- ===========================================================
+        Hanging indent paragraph
+        =========================================================== -->
+    <xsl:template match="hangingIndent">
+        <xsl:variable name="sThisInitialIndent" select="normalize-space(@initialIndent)"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space(@hangingIndent)"/>
+        <fo:block>
+                <xsl:call-template name="OutputTypeAttributes">
+                    <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+                </xsl:call-template>
+            <xsl:attribute name="start-indent">
+                <xsl:call-template name="GetHangingIndentNormalIndent">
+                    <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="text-indent">
+                <xsl:text>-</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                        <xsl:call-template name="GetBestHangingIndentInitialIndent">
+                            <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                            <xsl:with-param name="sThisInitialIndent" select="$sThisInitialIndent"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="string-length($sHangingIndentInitialIndent) &gt; 0">
+                        <xsl:call-template name="GetBestHangingIndentInitialIndent">
+                            <xsl:with-param name="sThisHangingIndent" select="$sHangingIndentNormalIndent"/>
+                            <xsl:with-param name="sThisInitialIndent" select="$sHangingIndentInitialIndent"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1em</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
     <!-- ===========================================================
@@ -3278,6 +3325,8 @@ not using
     <xsl:template match="footerMargin"/>
     <xsl:template match="footnoteIndent"/>
     <xsl:template match="footnotePointSize"/>
+    <xsl:template match="hangingIndentInitialIndent"/>
+    <xsl:template match="hangingIndentNormalIndent"/>
     <xsl:template match="headerMargin"/>
     <xsl:template match="magnificationFactor"/>
     <xsl:template match="pageBottomMargin"/>

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->11 June 2013</date
+>9 August 2013</date
 ><version
->2.23.0</version
+>2.23.1</version
 ><contents
 showLevel="3"
 ></contents
@@ -9681,6 +9681,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>hangingIndent</object
+></dt
+><dd
+>A hanging indent paragraph</dd
+><dt
+><object
+type="tElement"
 >headerCol</object
 ></dt
 ><dd
@@ -11292,6 +11299,20 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a glossary</dd
+><dt
+><object
+type="tElement"
+>hangingIndentInitialIndent</object
+></dt
+><dd
+>The indent to use for the first line of a hanging indent paragraph</dd
+><dt
+><object
+type="tElement"
+>hangingIndentNormalIndent</object
+></dt
+><dd
+>The indent to use for all non-initial lines of a hanging indent paragraph</dd
 ><dt
 ><object
 type="tElement"

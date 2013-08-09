@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-08-08</a:date
+>2013-08-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.23.1 8 August 2013<ul
+>2.23.1 9 August 2013<ul
 ><li
 >Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li
+><li
+>Add hangingIndent element as a kind of paragraph.  See section 16 "Hanging Indent Paragraph" in the user documentation.</li
 ><li
 >Fix bug in converting gloss material to abbrRefs: if there were two or more delimiters before an embedded object, then only the first delimiter was kept.</li
 ><li

@@ -1026,6 +1026,45 @@
         </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
+        Hanging indent paragraph
+        =========================================================== -->
+    <xsl:template match="hangingIndent">
+        <xsl:variable name="sThisInitialIndent" select="normalize-space(@initialIndent)"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space(@hangingIndent)"/>
+        <fo:block>
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
+            <xsl:attribute name="start-indent">
+                <xsl:call-template name="GetHangingIndentNormalIndent">
+                    <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="text-indent">
+                <xsl:text>-</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                        <xsl:call-template name="GetBestHangingIndentInitialIndent">
+                            <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                            <xsl:with-param name="sThisInitialIndent" select="$sThisInitialIndent"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1em</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    <!-- ===========================================================
       QUOTES
       =========================================================== -->
     <xsl:template match="q">
@@ -4411,6 +4450,38 @@ not using
             <xsl:with-param name="book" select="$citedWork/book"/>
             <xsl:with-param name="pages" select="$citation/@page"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        GetBestHangingIndentInitialIndent
+    -->
+    <xsl:template name="GetBestHangingIndentInitialIndent">
+        <xsl:param name="sThisHangingIndent"/>
+        <xsl:param name="sThisInitialIndent"/>
+        <xsl:variable name="sValue" select="substring($sThisInitialIndent,1,string-length($sThisHangingIndent)-2)"/>
+        <xsl:choose>
+            <xsl:when test="$sValue=0">
+                <xsl:call-template name="GetHangingIndentNormalIndent">
+                    <xsl:with-param name="sThisHangingIndent" select="$sThisHangingIndent"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sThisInitialIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetHangingIndentNormalIndent
+    -->
+    <xsl:template name="GetHangingIndentNormalIndent">
+        <xsl:param name="sThisHangingIndent"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                <xsl:value-of select="$sThisHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>1em</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       HandleSmallCaps

@@ -52,6 +52,8 @@ Page Layout
                         footerMargin?,
                         paragraphIndent?,
                         blockQuoteIndent?,
+                        hangingIndentInitialIndent?,
+                        hangingIndentNormalIndent?,
                         lineSpacing?,
                         defaultFontFamily?,
                         basicPointSize?,
@@ -80,6 +82,8 @@ Page Layout
       leaderwidth CDATA #IMPLIED
     >
     <!ELEMENT footnoteIndent (#PCDATA) >
+    <!ELEMENT hangingIndentInitialIndent (#PCDATA) >
+    <!ELEMENT hangingIndentNormalIndent (#PCDATA) >
     <!ELEMENT headerMargin (#PCDATA) >
     <!ELEMENT footerMargin (#PCDATA) >
     <!ELEMENT pageWidth (#PCDATA) >

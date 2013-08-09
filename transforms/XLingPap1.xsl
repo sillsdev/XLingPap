@@ -681,6 +681,46 @@
         <!--    </xsl:if> -->
     </xsl:template>
     <!-- ===========================================================
+        Hanging indent paragraph
+        =========================================================== -->
+    <xsl:template match="hangingIndent">
+        <xsl:variable name="sThisInitialIndent" select="normalize-space(@initialIndent)"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space(@hangingIndent)"/>
+        <p>
+            <xsl:attribute name="style">
+                <xsl:call-template name="OutputCssSpecial">
+                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                </xsl:call-template>
+                <xsl:text>; padding-left:</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>; text-indent:-</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                        <xsl:value-of select="$sThisInitialIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1em</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
+    <!-- ===========================================================
       QUOTES
       =========================================================== -->
     <xsl:template match="q">"<xsl:apply-templates/>"</xsl:template>
@@ -4330,15 +4370,15 @@
             <xsl:otherwise>
                 <xsl:if test="$fDoBackgroundColor='Y'">
                     <xsl:choose>
-                    <xsl:when test="$fDoStyleAttribute='Y' and string-length(@backgroundcolor) &gt; 0">
-                        <xsl:attribute name="style">
+                        <xsl:when test="$fDoStyleAttribute='Y' and string-length(@backgroundcolor) &gt; 0">
+                            <xsl:attribute name="style">
+                                <xsl:call-template name="OutputBackgroundColor"/>
+                            </xsl:attribute>
+                        </xsl:when>
+                        <xsl:otherwise>
                             <xsl:call-template name="OutputBackgroundColor"/>
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                            <xsl:call-template name="OutputBackgroundColor"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>

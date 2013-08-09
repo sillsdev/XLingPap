@@ -1477,6 +1477,8 @@ li.lower-roman {
     <xsl:template match="@verticalfillbefore"/>
     <xsl:template match="@XeLaTeXSpecial"/>
     <xsl:template match="@xsl-foSpecial"/>
+    <xsl:template match="hangingIndentInitialIndent"/>
+    <xsl:template match="hangingIndentNormalIndent"/>
     <xsl:template match="literalLabelLayout"/>
     <!--
         AddAnyLinkAttributes

@@ -306,7 +306,7 @@
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] chapter section1"/>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc blockquote dl table chart tree interlinear-text"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc hangingIndent blockquote dl table chart tree interlinear-text"/>
                 </cfg:pass>
                 <cfg:choice>
                     <cfg:sequence>
@@ -321,7 +321,7 @@
                         </cfg:fail>
                         <cfg:command name="cut" parameter="[implicit_selection]"/>
                         <cfg:choice>
-                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc blockquote dl table chart tree interlinear-text"/>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p example ul ol pc hangingIndent blockquote dl table chart tree interlinear-text"/>
                             <cfg:command name="undo"/>
                         </cfg:choice>
                         <cfg:command name="selectNode" parameter="lastSibling"/>
@@ -445,7 +445,7 @@ Borrowed from xhtml
             <cfg:choice>
                 <cfg:command name="insertControlChar" parameter="\n"/>
                 <cfg:sequence>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p pc li"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] p pc hangingIndent li"/>
                     <cfg:command name="split"/>
                 </cfg:sequence>
             </cfg:choice>
@@ -455,7 +455,7 @@ Borrowed from xhtml
         <cfg:macro>
             <cfg:choice>
                 <cfg:sequence>
-                    <cfg:test expression="$dot/ancestor::p and not($selected) and not($mark) or $dot/ancestor::pc and not($selected) and not($mark) or $dot/ancestor::li and not($selected) and not($mark)"/>
+                    <cfg:test expression="$dot/ancestor::p and not($selected) and not($mark) or $dot/ancestor::pc and not($selected) and not($mark) or $dot/ancestor::li and not($selected) and not($mark) or $dot/ancestor::hangingIndent and not($selected) and not($mark)"/>
                     <cfg:command name="deleteSelectionOrJoinOrDeleteChar" parameter="%0"/>
                 </cfg:sequence>
                 <cfg:command name="deleteSelectionOrDeleteChar" parameter="%0"/>

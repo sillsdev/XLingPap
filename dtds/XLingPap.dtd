@@ -524,6 +524,8 @@
     externalID CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
+    textafter CDATA #IMPLIED
+    textbefore CDATA #IMPLIED
 >
 <!ELEMENT literal (#PCDATA | %embedded;)*>
 <!ATTLIST literal
@@ -780,12 +782,16 @@
 <!ATTLIST langData
     externalID CDATA #IMPLIED
     lang IDREF #REQUIRED
+    textafter CDATA #IMPLIED
+    textbefore CDATA #IMPLIED
 >
 <!-- gloss is a way to tag some text as being a gloss in a particular language. -->
 <!ELEMENT gloss (#PCDATA | %embedded; | abbrRef)*>
 <!ATTLIST gloss
     externalID CDATA #IMPLIED
     lang IDREF #REQUIRED
+    textafter CDATA #IMPLIED
+    textbefore CDATA #IMPLIED
 >
 <!-- references to example numbers or example number/letter.
      Use just num for the example number.

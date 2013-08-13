@@ -26,29 +26,29 @@
 
 @property-value tablenumbered-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@tablenumberedLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedLabel, 'Table ')");
 
-@property-value glossExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
+@property-value glossExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
 
-@property-value glossProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textbefore, '')");
+@property-value glossProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textbefore, '')");
 
-@property-value glossTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textbefore, '')");
+@property-value glossTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textbefore, '')");
 
-@property-value glossExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')");
+@property-value glossExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')");
 
-@property-value glossProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textafter, '')");
+@property-value glossProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textafter, '')");
 
-@property-value glossTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textafter, '')");
+@property-value glossTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textafter, '')");
 
-@property-value langDataExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textbefore, '')");
+@property-value langDataExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textbefore, '')");
 
-@property-value langDataProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textbefore, '')");
+@property-value langDataProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textbefore, '')");
 
-@property-value langDataTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textbefore, '')");
+@property-value langDataTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textbefore, '')");
 
-@property-value langDataExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textafter, '')");
+@property-value langDataExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInExampleLayout/@textafter, '')");
 
-@property-value langDataTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textafter, '')");
+@property-value langDataTableOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInTableLayout/@textafter, '')");
 
-@property-value langDataProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textafter, '')");
+@property-value langDataProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textafter, '')");
 
 @property-group authorInitialsBefore( )
 {
@@ -1506,7 +1506,7 @@ framedUnit
 
 free:before
 {
-	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textbefore, '')");
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(@textbefore)>0,@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textbefore, '')");
 }
 free
 {
@@ -1519,7 +1519,7 @@ free
 }
 free:after
 {
-	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textafter, '')");
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/freeLayout/@textafter, '')");
 }
 
 frontMatter 

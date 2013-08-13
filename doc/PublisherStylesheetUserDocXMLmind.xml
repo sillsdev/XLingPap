@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 August 2013</date
+>13 August 2013</date
 ><version
 >2.23.1</version
 ><contents
@@ -300,7 +300,7 @@ term="iHangingIndent"
 letter="xHangingIndents"
 num="xHangingIndents"
 ></exampleRef
->.  These can be overridden by the <object
+>. These can be overridden by the <object
 type="tAttribute"
 >initialIndent</object
 > and <object
@@ -10438,6 +10438,26 @@ type="tElement"
 type="tElement"
 >endnote</object
 > or any other element is closest, then the formatting for prose is used.</p
+><p
+>Occasionally one finds that there are rare instances in a document where the <object
+type="tAttribute"
+>textbefore</object
+> and/or the <object
+type="tAttribute"
+>textafter</object
+> attributes of the special override are/is not correct for the context.  In such cases, one can override the style sheet override by setting the <object
+type="tAttribute"
+>textbefore</object
+> and/or <object
+type="tAttribute"
+>textafter</object
+> attribute of the <object
+type="tElement"
+>langData</object
+> element in the document itself where that <object
+type="tElement"
+>langData</object
+> element occurs.</p
 ></section2
 ><section2
 id="sGlossOverrides"
@@ -10588,6 +10608,26 @@ type="tElement"
 type="tElement"
 >endnote</object
 > or any other element is closest, then the formatting for prose is used.</p
+><p
+>Occasionally one finds that there are rare instances in a document where the <object
+type="tAttribute"
+>textbefore</object
+> and/or the <object
+type="tAttribute"
+>textafter</object
+> attributes of the special override are/is not correct for the context. In such cases, one can override the style sheet override by setting the <object
+type="tAttribute"
+>textbefore</object
+> and/or <object
+type="tAttribute"
+>textafter</object
+> attribute of the <object
+type="tElement"
+>gloss</object
+> element in the document itself where that <object
+type="tElement"
+>gloss</object
+> element occurs.</p
 ></section2
 ><section2
 id="sFreeOverrides"
@@ -10798,6 +10838,26 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+><p
+>Occasionally one finds that there are rare instances in a document where the <object
+type="tAttribute"
+>textbefore</object
+> and/or the <object
+type="tAttribute"
+>textafter</object
+> attributes of the special override are/is not correct for the context. In such cases, one can override the style sheet override by setting the <object
+type="tAttribute"
+>textbefore</object
+> and/or <object
+type="tAttribute"
+>textafter</object
+> attribute of the <object
+type="tElement"
+>free</object
+> element in the document itself where that <object
+type="tElement"
+>free</object
+> element occurs.</p
 ></section2
 ><section2
 id="sLiteralOverrides"

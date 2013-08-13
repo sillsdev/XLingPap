@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 August 2013</date
+>13 August 2013</date
 ><version
 >2.23.1</version
 ><contents
@@ -11115,6 +11115,35 @@ src="resources/LanguageDialog.png"
 ></example
 ><p
 >You can type in the name of the language or scroll down until you find the one you want. Note that capitalization is significant when typing.</p
+><p
+>Besides the <object
+type="tAttribute"
+>lang</object
+> attribute, both <object
+type="tElement"
+>langData</object
+> and <object
+type="tElement"
+>gloss</object
+> elements have two other attributes: <object
+type="tAttribute"
+>textbefore</object
+> and <object
+type="tAttribute"
+>textafter</object
+>.  These two attributes are ignored unless one has associated a publisher style sheet and set special override values in it for text before and text after to be inserted around each <object
+type="tElement"
+>langData</object
+> or <object
+type="tElement"
+>gloss</object
+> element in given contexts.  See section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> for associating a publisher style sheet and also see <link
+href="PublisherStylesheetUserDocXMLmind.htm/#sLangDataOverrides"
+>sections 6.13 and 6.14 in the publisher style sheet documentation </link
+>.</p
 ></section2
 ><section2
 id="sFreeLanguage"
@@ -11140,6 +11169,29 @@ type="tInstruction"
 sec="sLangDataGloss"
 ></sectionRef
 > for more illustrations of this procedure.</p
+><p
+>Besides the <object
+type="tAttribute"
+>lang</object
+> attribute, the <object
+type="tElement"
+>free</object
+> element has two other attributes: <object
+type="tAttribute"
+>textbefore</object
+> and <object
+type="tAttribute"
+>textafter</object
+>. These two attributes are ignored unless one has associated a publisher style sheet and set special override values in it for text before and text after to be inserted around each <object
+type="tElement"
+>free</object
+> element. See section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+> for associating a publisher style sheet and also see <link
+href="PublisherStylesheetUserDocXMLmind.htm/#sFreeOverrides"
+>sections 6.15 in the publisher style sheet documentation </link
+>.</p
 ></section2
 ><section2
 id="sExamplesInATable"
@@ -23364,13 +23416,13 @@ id="sHangingIndentParagraph"
 ><indexedItem
 term="iHangingIndentParagraph"
 ></indexedItem
->On some occasions, one may want to place certain material within a hanging indent paragraph.  To do so, use a <object
+>On some occasions, one may want to place certain material within a hanging indent paragraph. To do so, use a <object
 type="tElement"
 >hangingIndent</object
-> element.  These can be used anywhere a “chunk” element can be used.<endnoteRef
+> element. These can be used anywhere a “chunk” element can be used.<endnoteRef
 note="nChunk"
 ></endnoteRef
->  </p
+></p
 ><p
 >Due to a bug in the <object
 type="tXMLmindXMLEditor"
@@ -23378,7 +23430,7 @@ type="tXMLmindXMLEditor"
 >, we cannot show <object
 type="tElement"
 >hangingIndent</object
-> elements with the hanging indent.  The output, however, will have the correct format.  Since we cannot show the correct hanging indent in the <object
+> elements with the hanging indent. The output, however, will have the correct format. Since we cannot show the correct hanging indent in the <object
 type="tXMLmindXMLEditor"
 ></object
 >, we use a small icon at the beginning of each <object
@@ -23391,7 +23443,7 @@ num="xHangingIndenParagraph"
 > to try and distinguish a <object
 type="tElement"
 >hangingIndent</object
-> paragraph from a regular paragraph.  (The hope is that the icon suggests that the first line is longer than the other lines.)</p
+> paragraph from a regular paragraph. (The hope is that the icon suggests that the first line is longer than the other lines.)</p
 ><example
 num="xHangingIndenParagraph"
 ><chart
@@ -23401,7 +23453,7 @@ src="resources/HangingIndentParagraph.png"
 ></chart
 ></example
 ><p
->The default is for the first line to be at the left edge and for all other lines to be indented 1em.  You can change this by using the <object
+>The default is for the first line to be at the left edge and for all other lines to be indented 1em. You can change this by using the <object
 type="tElement"
 >hangingIndentInitialIndent</object
 > and <object
@@ -23410,7 +23462,7 @@ type="tElement"
 > elements of a publisher style sheet (see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
-> for more on publisher style sheets).  Naturally, you will have to associate your document with your publisher style sheet to make this take effect.</p
+> for more on publisher style sheets). Naturally, you will have to associate your document with your publisher style sheet to make this take effect.</p
 ><p
 >Another way to change the indent values is to set either of the special attributes of a <object
 type="tElement"
@@ -23486,7 +23538,7 @@ lang="lEng"
 >When you set either one of these attributes for a given <object
 type="tElement"
 >hangingIndent</object
-> element, the value(s) will be used for the hanging indent paragraph.  In particular, if you have an associated publisher style sheet that has the hanging indent elements above set, setting either attribute shown in example <exampleRef
+> element, the value(s) will be used for the hanging indent paragraph. In particular, if you have an associated publisher style sheet that has the hanging indent elements above set, setting either attribute shown in example <exampleRef
 letter="xHangingIndentAttributes"
 num="xHangingIndentAttributes"
 ></exampleRef

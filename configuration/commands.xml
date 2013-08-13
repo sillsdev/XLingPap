@@ -179,6 +179,8 @@
                 <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] langData gloss"/>
                 <!--            <cfg:command name="alert" parameter="before set lang attr"/>-->
                 <cfg:set variable="lang" expression="$implicitElement/@lang"/>
+                <cfg:set variable="textafter" expression="$implicitElement/@textafter"/>
+                <cfg:set variable="textbefore" expression="$implicitElement/@textbefore"/>
                 <!-- insert new langData/gloss and paste the cut word into it; recurse -->
                 <!--            <cfg:command name="alert" parameter="before InsertLangDataOrGloss"/>-->
                 <cfg:command name="InsertLangDataOrGloss"/>
@@ -194,6 +196,24 @@
                     </cfg:pass>
                     <cfg:get expression="$lang"/>
                     <cfg:command name="putAttribute" parameter="lang %_"/>
+              <!--  </cfg:sequence>
+                <cfg:sequence>-->
+                    <cfg:choice>
+                        <cfg:sequence>
+                            <cfg:test expression="string-length($textafter) &gt; 0"/>
+                            <cfg:get expression="$textafter"/>
+                            <cfg:command name="putAttribute" parameter="textafter %_"/>
+                        </cfg:sequence>
+                    </cfg:choice>
+             <!--   </cfg:sequence>
+                <cfg:sequence>-->
+                    <cfg:choice>
+                        <cfg:sequence>
+                            <cfg:test expression="string-length($textbefore) &gt; 0"/>
+                            <cfg:get expression="$textbefore"/>
+                            <cfg:command name="putAttribute" parameter="textbefore %_"/>
+                        </cfg:sequence>
+                    </cfg:choice>
                 </cfg:sequence>
                 <!--            <cfg:command name="alert" parameter="before past into"/>-->
                 <cfg:command name="paste" parameter="into"/>
@@ -2326,7 +2346,7 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:transform file="%{C}%{S}..%{S}xlingpap.xxe_addon" stylesheet="..%{S}transforms%{S}AboutXLingPaper.xsl" to="%{C}%{S}..%{S}doc%{S}AboutXLingPaper.htm"/>
         </cfg:process>
     </cfg:command>
-<!-- Not used very much; will try turning it off and see what reaction we get.   
+    <!-- Not used very much; will try turning it off and see what reaction we get.   
     <cfg:binding>
         <cfg:keyPressed code="F10"/>
         <cfg:command name="produceWord2003Document"/>
@@ -2880,20 +2900,20 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:command name="putAttribute" parameter="active  no"/>
-<!--                                <cfg:command name="alert" parameter="Previous: After setting active to no"/>-->
+                                <!--                                <cfg:command name="alert" parameter="Previous: After setting active to no"/>-->
                             </cfg:sequence>
                             <cfg:sequence>
-<!--                                <cfg:command name="alert" parameter="Previous: Could not set active to no"/>-->
+                                <!--                                <cfg:command name="alert" parameter="Previous: Could not set active to no"/>-->
                                 <!-- following is a no op -->
                                 <cfg:command name="selectNode" parameter="self"/>
                             </cfg:sequence>
                         </cfg:choice>
                         <cfg:command name="SetPreviousContentControlChoiceOff"/>
                         <cfg:command name="selectNode" parameter="nextSibling"/>
-<!--                        <cfg:command name="alert" parameter="Previous: After next sibling"/>-->
+                        <!--                        <cfg:command name="alert" parameter="Previous: After next sibling"/>-->
                     </cfg:sequence>
                     <cfg:sequence>
-<!--                        <cfg:command name="alert" parameter="Previous: in no op"/>-->
+                        <!--                        <cfg:command name="alert" parameter="Previous: in no op"/>-->
                         <!-- following is a no op -->
                         <cfg:command name="selectNode" parameter="self"/>
                     </cfg:sequence>
@@ -2912,20 +2932,20 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:command name="putAttribute" parameter="active  no"/>
-<!--                                <cfg:command name="alert" parameter="Next: After setting active to no"/>-->
+                                <!--                                <cfg:command name="alert" parameter="Next: After setting active to no"/>-->
                             </cfg:sequence>
                             <cfg:sequence>
-<!--                                <cfg:command name="alert" parameter="Next: Could not set active to no"/>-->
+                                <!--                                <cfg:command name="alert" parameter="Next: Could not set active to no"/>-->
                                 <!-- following is a no op -->
                                 <cfg:command name="selectNode" parameter="self"/>
                             </cfg:sequence>
                         </cfg:choice>
                         <cfg:command name="SetNextContentControlChoiceOff"/>
                         <cfg:command name="selectNode" parameter="previousSibling"/>
-<!--                        <cfg:command name="alert" parameter="Next: After previous sibling"/>-->
+                        <!--                        <cfg:command name="alert" parameter="Next: After previous sibling"/>-->
                     </cfg:sequence>
                     <cfg:sequence>
-<!--                        <cfg:command name="alert" parameter="Next: in no op"/>-->
+                        <!--                        <cfg:command name="alert" parameter="Next: in no op"/>-->
                         <!-- following is a no op -->
                         <cfg:command name="selectNode" parameter="self"/>
                     </cfg:sequence>
@@ -2945,7 +2965,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:macro>
             <cfg:sequence>
                 <cfg:command name="GetXIncludesAndImageFilesCmd" parameter="%D|%P"/>
-<!--                <cfg:command name="alert" parameter="%_"/>-->
+                <!--                <cfg:command name="alert" parameter="%_"/>-->
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

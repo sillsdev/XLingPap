@@ -38,7 +38,7 @@
                   <ul>
                      <li>Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li>
                      <li>Add hangingIndent element as a kind of paragraph. See section 16 "Hanging Indent Paragraph" in the user documentation.</li>
-                     <li>Add ability to override the publisher style sheet override for langData, gloss, and free elements.  This is for the rare cases
+                     <li>Add ability to override the publisher style sheet override for langData, gloss, and free elements. This is for the rare cases
                         where the publisher style sheet override is incorrect in a particular case.
                      </li>
                      <li>Fix bug in converting gloss material to abbrRefs: if there were two or more delimiters before an embedded object, then only
@@ -50,6 +50,7 @@
                         <ul>
                            <li>Fix a bug which caused the PDF to fail to be produced when an indexedItem was the first thing in a dt element.</li>
                            <li>Fix bug which failed to render footnotes doublespaced (or space-and-a-half) when the style sheet said to.</li>
+                           <li>Fix bug which caused the PDF to fail to be produced when an abbrRef element was part of a section title.</li>
                         </ul>
                      </li>
                      <li>Overtly state in the user documentation that it is a known issue that morpheme-aligned interlinears will not render correctly

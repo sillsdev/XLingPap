@@ -2456,7 +2456,15 @@
         </xsl:call-template>
         <tex:spec cat="eg"/>
     </xsl:template>
-
+    <!-- ===========================================================
+        GLOSS
+        =========================================================== -->
+    <xsl:template match="gloss" mode="InMarker">
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="bInMarker" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    
     <!-- ===========================================================
         IMG
         =========================================================== -->
@@ -6955,6 +6963,7 @@
         <xsl:param name="language"/>
         <xsl:param name="bReversing"/>
         <xsl:param name="originalContext"/>
+        <xsl:param name="bInMarker" select="'N'"/>
         <xsl:variable name="bReverseWrdContent">
             <xsl:choose>
                 <xsl:when test="ancestor-or-self::wrd">
@@ -7011,6 +7020,7 @@
             <xsl:otherwise>
                 <xsl:apply-templates>
                     <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bInMarker" select="$bInMarker"/>
                 </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>

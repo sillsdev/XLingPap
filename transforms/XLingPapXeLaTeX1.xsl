@@ -1767,12 +1767,10 @@
     <!-- ===========================================================
         GLOSS
         =========================================================== -->
-    <xsl:template match="gloss" mode="InMarker">
-        <xsl:apply-templates select="self::*"/>
-    </xsl:template>
     <xsl:template match="gloss">
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
+        <xsl:param name="bInMarker" select="'N'"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:choose>
             <xsl:when test="$language/@rtl='yes'">
@@ -1795,6 +1793,7 @@
             <xsl:with-param name="language" select="$language"/>
             <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="bInMarker" select="$bInMarker"/>
         </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
@@ -2127,6 +2126,7 @@
       ABBREVIATION
       =========================================================== -->
     <xsl:template match="abbrRef">
+        <xsl:param name="bInMarker" select="'N'"/>
         <xsl:choose>
             <xsl:when test="ancestor::genericRef">
                 <xsl:call-template name="OutputAbbrTerm">
@@ -2135,10 +2135,12 @@
             </xsl:when>
             <xsl:otherwise>
                 <tex:group>
-                    <xsl:call-template name="DoInternalHyperlinkBegin">
-                        <xsl:with-param name="sName" select="@abbr"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="AddAnyLinkAttributes"/>
+                    <xsl:if test="$bInMarker!='Y'">
+                        <xsl:call-template name="DoInternalHyperlinkBegin">
+                            <xsl:with-param name="sName" select="@abbr"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="AddAnyLinkAttributes"/>
+                    </xsl:if>
                     <xsl:for-each select="ancestor::gloss">
                         <xsl:sort order="descending"/>
                         <xsl:call-template name="OutputFontAttributes">
@@ -2166,7 +2168,9 @@
                             <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                         </xsl:call-template>
                     </xsl:for-each>
-                    <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                    <xsl:if test="$bInMarker!='Y'">
+                        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                    </xsl:if>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>

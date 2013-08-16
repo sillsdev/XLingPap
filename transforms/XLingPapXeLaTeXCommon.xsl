@@ -239,6 +239,40 @@
         <tex:spec cat="eg"/>
     </xsl:template>
     <!-- ===========================================================
+        Block hyphenation in langData in p, pc, and hanging indent paragraphs
+        =========================================================== -->
+    <xsl:template match="text()[parent::langData and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0]">
+        <xsl:choose>
+            <xsl:when test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
+                <xsl:call-template name="BlockAnyHyphenationOfText">
+                    <xsl:with-param name="sList" select="."/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template name="BlockAnyHyphenationOfText">
+        <xsl:param name="sList"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:if test="string-length($sFirst)&gt;0">
+            <tex:cmd name="mbox">
+                <tex:parm>
+                    <xsl:value-of select="$sFirst"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:if test="$sRest">
+            <xsl:text> </xsl:text>
+            <xsl:call-template name="BlockAnyHyphenationOfText">
+                <xsl:with-param name="sList" select="$sRest"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!-- ===========================================================
         QUOTES
         =========================================================== -->
     <xsl:template match="q">

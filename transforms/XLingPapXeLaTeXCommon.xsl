@@ -231,7 +231,7 @@
                 <tex:cmd name="indent"/>
             </xsl:when>
             <xsl:otherwise>
-                <tex:cmd name="noindent"/>        
+                <tex:cmd name="noindent"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:apply-templates/>
@@ -2498,7 +2498,7 @@
             <xsl:with-param name="bInMarker" select="'Y'"/>
         </xsl:apply-templates>
     </xsl:template>
-    
+
     <!-- ===========================================================
         IMG
         =========================================================== -->
@@ -4679,6 +4679,29 @@
         <xsl:call-template name="DoFootnoteTextAfterFree">
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
+        <!-- If we had to do a parbox, we need to now handle any footnotes in any interlinearSource -->
+        <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
+            <xsl:if test="$mode!='NoTextRef'">
+                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
+                    <xsl:if test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
+                        <xsl:for-each select="../interlinearSource">
+                            <xsl:call-template name="DoFootnoteTextAfterFree">
+<!--                                <xsl:with-param name="originalContext" select="."/>-->
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:if>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
+                <xsl:if test="ancestor::example or ancestor::listInterlinear">
+                    <xsl:for-each select="../interlinearSource">
+                        <xsl:call-template name="DoFootnoteTextAfterFree">
+                            <xsl:with-param name="originalContext" select="."/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:if>
+            </xsl:if>
+        </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
             <xsl:if test="$mode!='NoTextRef' and not(ancestor::listInterlinear)">
                 <!-- finish overriding XLingPaperraggedright stuff -->
@@ -9261,7 +9284,7 @@
         <tex:spec cat="comment"/>
         <xsl:text> set spacing between footnotes
 </xsl:text>
-</xsl:template>
+    </xsl:template>
     <!--  
         SetFramedTypeItem
     -->

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-08-16</a:date
+>2013-08-19</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.23.1 16 August 2013<ul
+>2.23.1 19 August 2013<ul
 ><li
 >Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li
 ><li
@@ -55,6 +55,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug which caused the PDF to fail to be produced when an abbrRef element was part of a section title.</li
 ><li
 >Fix bug which once in a while caused the PDF to fail to be produced on Windows systems when langData was in a paragraph and non-English hyphenation of the paper was in effect.</li
+><li
+>Fix bug which could cause a footnote text to not appear at the bottom of a page when there was an interlinearSource element within a listInterlinear.</li
 ></ul
 ></li
 ><li

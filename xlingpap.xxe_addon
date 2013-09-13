@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.23.1</a:version
+>2.24.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-08-19</a:date
+>2013-09-13</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.23.1 19 August 2013<ul
+>2.24.0 13 September 2013<ul
 ><li
->Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li
+>Add SIL-UND Thesis style sheet to canned set of publisher style sheets.</li
+><li
+>Add ability to have a book contain a collection of papers (each paper as a chapter).</li
 ><li
 >Add hangingIndent element as a kind of paragraph. See section 16 "Hanging Indent Paragraph" in the user documentation.</li
 ><li
@@ -59,6 +61,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug which could cause a footnote text to not appear at the bottom of a page when there was an interlinearSource element within a listInterlinear.</li
 ></ul
 ></li
+><li
+>When using a style sheet, for the RenderX way of producing PDF, Word output, and Open Office output, fix a bug when using author contact info which did not show the author contact info (RenderX way of producing) or produced a blank result (Word and Open Office output).</li
 ><li
 >Overtly state in the user documentation that it is a known issue that morpheme-aligned interlinears will not render correctly in the RenderX PDF, Word and Open Office output formats.</li
 ><li

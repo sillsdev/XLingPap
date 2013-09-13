@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.23.1</span></p>
-      <p align="center">Date: 2013-08-19</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.24.0</span></p>
+      <p align="center">Date: 2013-09-13</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,9 +34,10 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.23.1 19 August 2013
+               <li>2.24.0 13 September 2013
                   <ul>
-                     <li>Add SIL-UND Thesis style sheet to canned set of publisher style sheetes.</li>
+                     <li>Add SIL-UND Thesis style sheet to canned set of publisher style sheets.</li>
+                     <li>Add ability to have a book contain a collection of papers (each paper as a chapter).</li>
                      <li>Add hangingIndent element as a kind of paragraph. See section 16 "Hanging Indent Paragraph" in the user documentation.</li>
                      <li>Add ability to override the publisher style sheet override for langData, gloss, and free elements. This is for the rare cases
                         where the publisher style sheet override is incorrect in a particular case.
@@ -58,6 +59,10 @@
                               within a listInterlinear.
                            </li>
                         </ul>
+                     </li>
+                     <li>When using a style sheet, for the RenderX way of producing PDF, Word output, and Open Office output, fix a bug when using
+                        author contact info which did not show the author contact info (RenderX way of producing) or produced a blank result (Word
+                        and Open Office output).
                      </li>
                      <li>Overtly state in the user documentation that it is a known issue that morpheme-aligned interlinears will not render correctly
                         in the RenderX PDF, Word and Open Office output formats.

@@ -2833,9 +2833,7 @@
                     <xsl:call-template name="CreateGlossaryID"/>
                 </xsl:with-param>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputGlossaryLabel">
-                        <xsl:with-param name="iPos" select="position()"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="OutputGlossaryLabel"/>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
@@ -3086,9 +3084,7 @@
                 <xsl:call-template name="CreateGlossaryID"/>
             </xsl:with-param>
             <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputGlossaryLabel">
-                    <xsl:with-param name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-                </xsl:call-template>
+                <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
             <xsl:with-param name="bIsBook" select="$bIsBook"/>
             <xsl:with-param name="bForcePageBreak">
@@ -5117,9 +5113,7 @@
                     <xsl:value-of select="$sChapterInCollectionID"/>
                 </xsl:with-param>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputGlossaryLabel">
-                        <xsl:with-param name="iPos" select="$iPos"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="OutputGlossaryLabel"/>
                 </xsl:with-param>
                 <xsl:with-param name="sIndent">
                     <tex:cmd name="leveloneindent" gr="0" nl2="0"/>

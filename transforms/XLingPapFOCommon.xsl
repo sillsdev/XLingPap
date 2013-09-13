@@ -711,9 +711,7 @@
                     <xsl:value-of select="$sChapterInCollectionID"/>
                 </xsl:with-param>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputGlossaryLabel">
-                        <xsl:with-param name="iPos" select="$iPos"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="OutputGlossaryLabel"/>
                 </xsl:with-param>
                 <xsl:with-param name="sIndent" select="1"/>
             </xsl:call-template>

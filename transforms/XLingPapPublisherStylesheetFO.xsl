@@ -3177,25 +3177,34 @@ not using
     -->
     <xsl:template match="authorContactInfo">
         <xsl:param name="layoutInfo"/>
-        <fo:table-cell xsl:use-attribute-sets="ExampleCell">
-            <fo:block>
-                <xsl:choose>
-                    <xsl:when test="preceding-sibling::authorContactInfo">
-                        <!--                do nothing special-->
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:variable name="firstLayoutItem" select="$layoutInfo/*[position()=1]"/>
-                        <xsl:call-template name="DoPageBreakFormatInfo">
-                            <xsl:with-param name="layoutInfo" select="$firstLayoutItem"/>
-                        </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:call-template name="DoAuthorContactInfoPerLayout">
-                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                    <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
-                </xsl:call-template>
-            </fo:block>
-        </fo:table-cell>
+        <fo:block>
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::authorContactInfo">
+                    <!--                do nothing special-->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:variable name="firstLayoutItem" select="$layoutInfo/*[position()=1]"/>
+                    <xsl:call-template name="DoPageBreakFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$firstLayoutItem"/>
+                    </xsl:call-template>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                    <xsl:if test="string-length($sSpaceBefore)&gt;0 and $sFOProcessor='XEP'">
+                        <xsl:attribute name="space-before">
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+            <fo:table>
+                <fo:table-column/>
+                <fo:table-body>
+                    <xsl:call-template name="DoAuthorContactInfoPerLayout">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="authorInfo" select="key('AuthorContactID',@author)"/>
+                    </xsl:call-template>
+                </fo:table-body>
+            </fo:table>
+        </fo:block>
     </xsl:template>
     <!-- ===========================================================
       BR
@@ -3899,24 +3908,28 @@ not using
     -->
     <xsl:template name="DoContactInfo">
         <xsl:param name="currentLayoutInfo"/>
-        <fo:block>
-            <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
-            <xsl:if test="string-length($sSpaceBefore) &gt; 0">
-                <xsl:attribute name="space-before">
-                    <xsl:value-of select="$sSpaceBefore"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
-            <xsl:if test="string-length($sSpaceAfter) &gt; 0">
-                <xsl:attribute name="space-after">
-                    <xsl:value-of select="$sSpaceAfter"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$currentLayoutInfo"/>
-            </xsl:call-template>
-            <xsl:apply-templates select="."/>
-        </fo:block>
+        <fo:table-row>
+            <fo:table-cell xsl:use-attribute-sets="ExampleCell">
+                <fo:block>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
+                    <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                        <xsl:attribute name="space-before">
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
+                    <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+                        <xsl:attribute name="space-after">
+                            <xsl:value-of select="$sSpaceAfter"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$currentLayoutInfo"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates select="."/>
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
     </xsl:template>
     <!--
                   DoContents
@@ -4552,9 +4565,7 @@ not using
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputGlossaryLabel">
-                    <xsl:with-param name="iPos" select="$iPos"/>
-                </xsl:call-template>
+                <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayout/glossaryLayout"/>
         </xsl:call-template>

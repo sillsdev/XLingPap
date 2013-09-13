@@ -152,9 +152,7 @@
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink" select="concat($sGlossaryID,$iPos)"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputGlossaryLabel">
-                    <xsl:with-param name="iPos" select="$iPos"/>
-                </xsl:call-template>
+                <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
             <xsl:with-param name="sNestingLevel">
                 <xsl:choose>

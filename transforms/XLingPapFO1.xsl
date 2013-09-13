@@ -2434,9 +2434,7 @@ not using
                         <xsl:attribute name="font-size">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <fo:marker marker-class-name="chap-title">
-                            <xsl:call-template name="OutputGlossaryLabel">
-                                <xsl:with-param name="iPos" select="$iPos"/>
-                            </xsl:call-template>
+                            <xsl:call-template name="OutputGlossaryLabel"/>
                         </fo:marker>
                         <xsl:call-template name="DoGlossary">
                             <xsl:with-param name="iPos" select="$iPos"/>
@@ -2728,9 +2726,7 @@ not using
                                             <xsl:choose>
                                                 <xsl:when test="ancestor::glossary">
                                                     <xsl:for-each select="ancestor::glossary">
-                                                        <xsl:call-template name="OutputGlossaryLabel">
-                                                            <xsl:with-param name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-                                                        </xsl:call-template>
+                                                        <xsl:call-template name="OutputGlossaryLabel"/>
                                                     </xsl:for-each>
                                                 </xsl:when>
                                                 <xsl:when test="ancestor::index">
@@ -2772,9 +2768,7 @@ not using
                                 </xsl:when>
                                 <xsl:when test="ancestor::glossary">
                                     <xsl:for-each select="ancestor::glossary">
-                                        <xsl:call-template name="OutputGlossaryLabel">
-                                            <xsl:with-param name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-                                        </xsl:call-template>
+                                        <xsl:call-template name="OutputGlossaryLabel"/>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <xsl:when test="ancestor::index">
@@ -3438,9 +3432,7 @@ not using
                 <xsl:call-template name="OutputTOCLine">
                     <xsl:with-param name="sLink" select="concat($sGlossaryID,'.',$iPos)"/>
                     <xsl:with-param name="sLabel">
-                        <xsl:call-template name="OutputGlossaryLabel">
-                            <xsl:with-param name="iPos" select="$iPos"/>
-                        </xsl:call-template>
+                        <xsl:call-template name="OutputGlossaryLabel"/>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:for-each>
@@ -3611,9 +3603,7 @@ not using
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputGlossaryLabel">
-                    <xsl:with-param name="iPos" select="$iPos"/>
-                </xsl:call-template>
+                <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>

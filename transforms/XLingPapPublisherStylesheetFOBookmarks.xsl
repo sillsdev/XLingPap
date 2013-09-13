@@ -125,9 +125,7 @@
             </xsl:call-template>
          </xsl:with-param>
          <xsl:with-param name="sLabel">
-            <xsl:call-template name="OutputGlossaryLabel">
-               <xsl:with-param name="iPos" select="$iPos"/>
-            </xsl:call-template>
+            <xsl:call-template name="OutputGlossaryLabel"/>
          </xsl:with-param>
       </xsl:call-template>
    </xsl:template>

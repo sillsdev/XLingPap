@@ -286,9 +286,7 @@
                         <li>
                             <xsl:variable name="iPos" select="position()"/>
                             <a href="#{$sGlossaryID}{$iPos}">
-                                <xsl:call-template name="OutputGlossaryLabel">
-                                    <xsl:with-param name="iPos" select="$iPos"/>
-                                </xsl:call-template>
+                                <xsl:call-template name="OutputGlossaryLabel"/>
                             </a>
                         </li>
                     </xsl:for-each>
@@ -362,9 +360,7 @@
                 <a name="{$sGlossaryID}{$iPos}">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
-                            <xsl:call-template name="OutputGlossaryLabel">
-                                <xsl:with-param name="iPos" select="$iPos"/>
-                            </xsl:call-template>
+                            <xsl:call-template name="OutputGlossaryLabel"/>
                         </xsl:with-param>
                     </xsl:call-template>
                 </a>

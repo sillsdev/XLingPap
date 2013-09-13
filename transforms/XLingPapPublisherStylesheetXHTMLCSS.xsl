@@ -258,7 +258,11 @@ li.lower-roman {
     -->
     <xsl:template match="abstractLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'abstract'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sAbstract"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -266,7 +270,11 @@ li.lower-roman {
     -->
     <xsl:template match="abstractTextFontInfo">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'abstractText'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sAbstractText"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -275,7 +283,11 @@ li.lower-roman {
     <xsl:template match="acknowledgementsLayout">
         <xsl:variable name="acknowledgementsName">
             <xsl:call-template name="CreateCSSName">
-                <xsl:with-param name="sBase" select="'acknowledgements'"/>
+                <xsl:with-param name="sBase">
+                        <xsl:call-template name="GetLayoutClassNameToUse">
+                            <xsl:with-param name="sType" select="$sAcknowledgements"/>
+                        </xsl:call-template>
+                </xsl:with-param>
                 <xsl:with-param name="sLayout" select="parent::*"/>
             </xsl:call-template>
         </xsl:variable>
@@ -288,7 +300,11 @@ li.lower-roman {
     -->
     <xsl:template match="affiliationLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'affiliation'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sAffiliation"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -304,7 +320,11 @@ li.lower-roman {
     -->
     <xsl:template match="appendicesTitlePageLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'appendicesTitlePageLayout'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sAppendicesTitlePage"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -312,15 +332,22 @@ li.lower-roman {
     -->
     <xsl:template match="appendixTitleLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'appendixTitle'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sAppendixTitle"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
         authorLayout
     -->
     <xsl:template match="authorLayout">
+        <xsl:variable name="sClassName">
+            <xsl:call-template name="GetAuthorLayoutClassNameToUse"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'author'"/>
+            <xsl:with-param name="name" select="$sClassName"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -342,7 +369,11 @@ li.lower-roman {
     -->
     <xsl:template match="chapterTitleLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'chapterTitle'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sChapterTitle"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -358,7 +389,11 @@ li.lower-roman {
     -->
     <xsl:template match="contentsLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'contents'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sContents"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -374,7 +409,11 @@ li.lower-roman {
     -->
     <xsl:template match="dateLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'date'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sDate"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -382,7 +421,11 @@ li.lower-roman {
     -->
     <xsl:template match="emailAddressLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'emailAddress'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sEmailAddress"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -579,7 +622,11 @@ li.lower-roman {
     -->
     <xsl:template match="glossaryLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'glossaryTitle'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sGlossary"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -712,7 +759,11 @@ li.lower-roman {
     <xsl:template match="numberLayout">
         <xsl:variable name="numberName">
             <xsl:call-template name="CreateCSSName">
-                <xsl:with-param name="sBase" select="'number'"/>
+                <xsl:with-param name="sBase">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sNumber"/>
+                    </xsl:call-template>
+                </xsl:with-param>
                 <xsl:with-param name="sLayout" select="parent::*"/>
             </xsl:call-template>
         </xsl:variable>
@@ -876,7 +927,11 @@ li.lower-roman {
     -->
     <xsl:template match="prefaceLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'preface'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sPreface"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -884,7 +939,11 @@ li.lower-roman {
     -->
     <xsl:template match="presentedAtLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'presentedAt'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sPresentedAt"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -935,7 +994,11 @@ li.lower-roman {
     -->
     <xsl:template match="referencesTitleLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'referencesTitle'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sReferencesTitle"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -1114,7 +1177,11 @@ li.lower-roman {
     -->
     <xsl:template match="versionLayout">
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'version'"/>
+            <xsl:with-param name="name">
+                <xsl:call-template name="GetLayoutClassNameToUse">
+                    <xsl:with-param name="sType" select="$sVersionCSS"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -1565,6 +1632,10 @@ li.lower-roman {
         <xsl:text>}
 </xsl:text>
     </xsl:template>
+    <!--
+        OutputAbbreviationsInTable (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputAbbreviationsInTable"/>    
     <!-- 
         OutputContentLayoutFormatInfo
     -->

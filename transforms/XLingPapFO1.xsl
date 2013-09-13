@@ -41,7 +41,6 @@
     <!-- ===========================================================
       Variables
       =========================================================== -->
-    <xsl:variable name="chapters" select="//chapter"/>
     <xsl:variable name="landscapes" select="//landscape"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
@@ -486,7 +485,7 @@
       =========================================================== -->
     <xsl:template match="frontMatter">
         <xsl:choose>
-            <xsl:when test="$chapters">
+            <xsl:when test="$chapters and not(ancestor::chapterInCollection)">
                 <fo:page-sequence master-reference="FrontMatter" format="i">
                     <fo:static-content flow-name="xsl-footnote-separator">
                         <fo:block text-align="left">
@@ -502,11 +501,16 @@
                 </fo:page-sequence>
                 <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="book"/>
             </xsl:when>
+            <xsl:when test="ancestor::chapterInCollection">
+                <xsl:apply-templates select="author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb | contents"/>
+                <xsl:apply-templates select="acknowledgements | abstract | preface" mode="paper"/>
+            </xsl:when>
             <xsl:otherwise>
                 <fo:page-sequence master-reference="Chapter">
                     <xsl:attribute name="initial-page-number">
                         <xsl:choose>
                             <xsl:when test="name()='chapter' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
+                            <xsl:when test="name()='chapterInCollection' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
                                 <xsl:choose>
@@ -551,7 +555,7 @@
     <!--
       title
       -->
-    <xsl:template match="title">
+    <xsl:template match="title[not(ancestor::chapterInCollection)]">
         <xsl:if test="$chapters">
             <fo:block font-size="18pt" font-weight="bold" text-align="center" space-before="1.25in" space-before.conditionality="retain">
                 <xsl:apply-templates/>
@@ -561,6 +565,9 @@
         <fo:block font-size="18pt" font-weight="bold" text-align="center" space-before="1.25in" space-before.conditionality="retain" break-before="odd-page">
             <xsl:apply-templates/>
         </fo:block>
+    </xsl:template>
+    <xsl:template match="title" mode="contents">
+        <xsl:apply-templates select="*[not(descendant::endnote)] | text()"/>
     </xsl:template>
     <!--
       subtitle
@@ -685,6 +692,12 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        contents (for chapter in a collection
+    -->
+    <xsl:template match="contents[ancestor::chapterInCollection]">
+        <xsl:call-template name="DoContentsInChapterInCollection"/>
+    </xsl:template>
+    <!--
         abstract, preface and acknowledgements (for book)
     -->
     <xsl:template match="abstract | acknowledgements | preface" mode="book">
@@ -763,6 +776,48 @@
             <xsl:with-param name="bIsBook" select="'N'"/>
         </xsl:call-template>
     </xsl:template>
+    <xsl:template match="abstract" mode="contents">
+        <xsl:variable name="sId">
+            <xsl:call-template name="GetIdToUse">
+                <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="$sId"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputAbstractLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent" select="1"/>>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="acknowledgements" mode="contents">
+        <xsl:variable name="sId">
+            <xsl:call-template name="GetIdToUse">
+                <xsl:with-param name="sBaseId" select="$sAcknowledgementsID"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="$sId"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputAcknowledgementsLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent" select="1"/>
+        </xsl:call-template>
+    </xsl:template>
+    <xsl:template match="preface" mode="contents">
+        <xsl:variable name="sId">
+            <xsl:call-template name="GetIdToUse">
+                <xsl:with-param name="sBaseId" select="concat($sPrefaceID,'.',count(preceding-sibling::preface)+1)"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="$sId"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputPrefaceLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent" select="1"/>
+        </xsl:call-template>
+    </xsl:template>
     <!-- ===========================================================
       PARTS, CHAPTERS, SECTIONS, and APPENDICES
       =========================================================== -->
@@ -774,6 +829,7 @@
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
                     <xsl:when test="name()='chapter' and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
+                    <xsl:when test="name()='chapterInCollection' and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
                     <xsl:otherwise>auto-odd</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
@@ -804,19 +860,20 @@
                 <fo:block font-size="18pt" font-weight="bold" text-align="center" margin-bottom="21.6pt">
                     <xsl:apply-templates select="secTitle"/>
                 </fo:block>
-                <xsl:apply-templates select="child::node()[name()!='secTitle' and name()!='chapter']"/>
+                <xsl:apply-templates select="child::node()[name()!='secTitle' and name()!='chapter' and name()!='chapterInCollection']"/>
             </fo:flow>
         </fo:page-sequence>
-        <xsl:apply-templates select="child::node()[name()='chapter']"/>
+        <xsl:apply-templates select="child::node()[name()='chapter' or name()='chapterInCollection']"/>
     </xsl:template>
     <!--
       Chapter or appendix (in book with chapters)
       -->
-    <xsl:template match="chapter | appendix[//chapter]  | chapterBeforePart">
+    <xsl:template match="chapter | appendix[//chapter]  | chapterBeforePart | chapterInCollection | appendix[//chapterInCollection and not(ancestor::chapterInCollection)]">
         <fo:page-sequence master-reference="Chapter">
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
                     <xsl:when test="name()='chapter' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
+                    <xsl:when test="name()='chapterInCollection' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
                     <xsl:otherwise>auto-odd</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
@@ -839,11 +896,27 @@
                     </xsl:call-template>
                 </fo:block>
                 <fo:block font-size="18pt" font-weight="bold" text-align="center" margin-bottom="21.6pt">
-                    <xsl:apply-templates select="secTitle"/>
+                    <xsl:apply-templates select="secTitle | frontMatter/title"/>
                 </fo:block>
-                <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
+                <xsl:choose>
+                    <xsl:when test="name()='chapterInCollection'">
+                        <xsl:apply-templates select="child::node()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="child::node()[name()!='secTitle']"/>        
+                    </xsl:otherwise>
+                </xsl:choose>               
             </fo:flow>
         </fo:page-sequence>
+    </xsl:template>
+    <!--
+        BackMatter (in a chapter in a collection)
+    -->
+    <xsl:template match="backMatter[ancestor::chapterInCollection]">
+        <xsl:apply-templates select="acknowledgements" mode="paper"/>
+        <xsl:apply-templates select="appendix"/>
+        <xsl:apply-templates select="glossary"/>
+        <xsl:apply-templates select="references | selectedBibliography"/>
     </xsl:template>
     <!--
       Sections
@@ -907,7 +980,7 @@
     <!--
       Appendix
       -->
-    <xsl:template match="appendix[not(//chapter)]">
+    <xsl:template match="appendix[not(//chapter | //chapterInCollection) or ancestor::chapterInCollection]">
         <xsl:element name="fo:block" use-attribute-sets="NonChapterTitleInfoPaper">
             <xsl:attribute name="id">
                 <xsl:value-of select="@id"/>
@@ -927,6 +1000,9 @@
       -->
     <xsl:template match="secTitle">
         <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="secTitle" mode="contents">
+        <xsl:apply-templates select="*[not(descendant::endnote)] | text()"/>
     </xsl:template>
     <!--
       sectionRef
@@ -2290,7 +2366,7 @@ not using
                                     <xsl:text> in chapter </xsl:text>
                                     <xsl:variable name="sNoteId" select="@note"/>
                                     <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
-                                        <xsl:number level="any" count="chapter" format="1"/>
+                                        <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
                                     </xsl:for-each>
                                     <xsl:text>.</xsl:text>
                                 </xsl:when>
@@ -2346,7 +2422,7 @@ not using
     <xsl:template match="glossary">
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:choose>
-            <xsl:when test="$chapters">
+            <xsl:when test="$chapters and not(ancestor::chapterInCollection)">
                 <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
                     <xsl:call-template name="OutputChapterStaticContent">
                         <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
@@ -2438,7 +2514,7 @@ not using
       -->
     <xsl:template match="references">
         <xsl:choose>
-            <xsl:when test="$chapters">
+            <xsl:when test="$chapters and not(ancestor::chapterInCollection)">
                 <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
                     <xsl:call-template name="OutputChapterStaticContent">
                         <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
@@ -2568,18 +2644,18 @@ not using
             <xsl:when test="ancestor::endnote">
                 <xsl:choose>
                     <xsl:when test="parent::p">
-                        <xsl:call-template name="OutputAbbreviationsInCommaSeparatedList"/>
+                        <xsl:call-template name="HandleAbbreviationsInCommaSeparatedList"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <fo:block>
-                            <xsl:call-template name="OutputAbbreviationsInCommaSeparatedList"/>
+                            <xsl:call-template name="HandleAbbreviationsInCommaSeparatedList"/>
                         </fo:block>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="not(ancestor::p)">
                 <!-- ignore any other abbreviationsShownHere in a p except when also in an endnote; everything else goes in a table -->
-                <xsl:call-template name="OutputAbbreviationsInTable"/>
+                <xsl:call-template name="HandleAbbreviationsInTable"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -2639,7 +2715,7 @@ not using
                     </xsl:when>
                     <xsl:otherwise>
                         <fo:marker marker-class-name="chap-title">
-                            <xsl:variable name="elementWithSecTitle" select="ancestor::chapter | ancestor::appendix[//chapter] | ancestor::chapterBeforePart |ancestor::part"/>
+                            <xsl:variable name="elementWithSecTitle" select="ancestor::chapter | ancestor::appendix[$chapters] | ancestor::chapterBeforePart |ancestor::part | ancestor::chapterInCollection"/>
                             <xsl:choose>
                                 <xsl:when test="$elementWithSecTitle">
                                     <xsl:for-each select="$elementWithSecTitle">
@@ -2797,9 +2873,9 @@ not using
 -->
     <xsl:template mode="number" match="*">
         <xsl:choose>
-            <xsl:when test="ancestor-or-self::chapter">
+            <xsl:when test="ancestor-or-self::chapter | ancestor-or-self::chapterInCollection">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if test="ancestor::chapter">
+                <xsl:if test="ancestor::chapter or ancestor::chapterInCollection">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:when>
@@ -2847,9 +2923,6 @@ not using
     <!--  
                   appendix
 -->
-    <xsl:template mode="numberAppendix" match="*">
-        <xsl:number level="multiple" count="appendix | section1 | section2 | section3 | section4 | section5 | section6" format="A.1"/>
-    </xsl:template>
     <xsl:template mode="labelNumberAppendix" match="*">
         <xsl:choose>
             <xsl:when test="@label">
@@ -2859,18 +2932,6 @@ not using
         </xsl:choose>
         <xsl:text>&#x20;</xsl:text>
         <xsl:number level="single" count="appendix" format="A"/>
-    </xsl:template>
-    <!--  
-                  chapter
--->
-    <xsl:template mode="numberChapter" match="*">
-        <xsl:number level="any" count="chapter" format="1"/>
-    </xsl:template>
-    <!--  
-                  part
--->
-    <xsl:template mode="numberPart" match="*">
-        <xsl:number level="multiple" count="part" format="I"/>
     </xsl:template>
     <!--  
                   endnote
@@ -2884,7 +2945,7 @@ not using
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
             <xsl:when test="$chapters">
-                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | glossary | acknowledgements | preface | abstract" format="1"/>
+                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter | appendix | chapterInCollection | glossary | acknowledgements | preface | abstract" format="1"/>
                 <!--                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter" format="1"/>-->
             </xsl:when>
             <xsl:otherwise>
@@ -2898,13 +2959,13 @@ not using
     <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$chapters">
-                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="figure" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="1"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="figure" format="1"/>
@@ -2917,13 +2978,13 @@ not using
     <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$chapters">
-                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:text>.</xsl:text>
-                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart" format="1"/>
+                <xsl:number level="any" count="tablenumbered" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="1"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="tablenumbered" format="1"/>
@@ -3031,7 +3092,11 @@ not using
                     </fo:marker>
                 </xsl:if>
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapAbstract</xsl:with-param>
+                    <xsl:with-param name="id">
+                        <xsl:call-template name="GetIdToUse">
+                            <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputAbstractLabel"/>
                     </xsl:with-param>
@@ -3048,7 +3113,9 @@ not using
                 </xsl:if>
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
                     <xsl:with-param name="id">
-                        <xsl:value-of select="$sAcknowledgementsID"/>
+                    <xsl:call-template name="GetIdToUse">
+                        <xsl:with-param name="sBaseId" select="$sAcknowledgementsID"/>
+                    </xsl:call-template>
                     </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputAcknowledgementsLabel"/>
@@ -3064,7 +3131,11 @@ not using
                     </fo:marker>
                 </xsl:if>
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                    <xsl:with-param name="id">rXLingPapPreface</xsl:with-param>
+                    <xsl:with-param name="id">
+                    <xsl:call-template name="GetIdToUse">
+                        <xsl:with-param name="sBaseId" select="concat($sPrefaceID,'.',count(preceding-sibling::preface)+1)"/>
+                    </xsl:call-template>
+                    </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputPrefaceLabel"/>
                     </xsl:with-param>
@@ -3273,7 +3344,7 @@ not using
             <xsl:value-of select="number(@showLevel)"/>
         </xsl:variable>
         <!-- acknowledgements -->
-        <xsl:if test="//acknowledgements">
+        <xsl:if test="//acknowledgements[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink">
                     <xsl:value-of select="$sAcknowledgementsID"/>
@@ -3284,9 +3355,9 @@ not using
             </xsl:call-template>
         </xsl:if>
         <!-- abstract -->
-        <xsl:if test="//abstract">
+        <xsl:if test="//abstract[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="'rXLingPapAbstract'"/>
+                <xsl:with-param name="sLink" select="$sAbstractID"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAbstractLabel"/>
                 </xsl:with-param>
@@ -3294,9 +3365,9 @@ not using
         </xsl:if>
         <!-- preface -->
         <xsl:if test="//preface">
-            <xsl:for-each select="//preface">
+            <xsl:for-each select="//preface[not(ancestor::chapterInCollection)]">
                 <xsl:call-template name="OutputTOCLine">
-                    <xsl:with-param name="sLink" select="'rXLingPapPreface'"/>
+                    <xsl:with-param name="sLink" select="concat($sPrefaceID,'.',count(preceding-sibling::preface)+1)"/>
                     <xsl:with-param name="sLabel">
                         <xsl:call-template name="OutputPrefaceLabel"/>
                     </xsl:with-param>
@@ -3306,6 +3377,7 @@ not using
         <!-- part -->
         <xsl:if test="//part">
             <xsl:for-each select="//part">
+                <xsl:variable name="part" select="."/>
                 <xsl:if test="position()=1">
                     <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                         <xsl:call-template name="OutputAllChapterTOC">
@@ -3324,7 +3396,7 @@ not using
                         <xsl:text>&#xa0;</xsl:text>
                         <xsl:apply-templates select="secTitle"/>
                     </fo:basic-link>
-                    <xsl:for-each select="chapter">
+                    <xsl:for-each select="$chapters[ancestor::part[.=$part]]">
                         <xsl:call-template name="OutputAllChapterTOC">
                             <xsl:with-param name="nLevel">
                                 <xsl:value-of select="$nLevel"/>
@@ -3353,44 +3425,18 @@ not using
                 <xsl:with-param name="nodesSection1" select="//section1[not(parent::appendix)]"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:for-each select="//appendix">
+        <xsl:for-each select="//appendix[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputAllChapterTOC">
                 <xsl:with-param name="nLevel">
                     <xsl:value-of select="$nLevel"/>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:for-each>
-        <!--
-            <xsl:for-each select="//appendix">
-            <li>
-            <xsl:element name="a">
-            <xsl:attribute name="href">#<xsl:value-of select="@id"/>
-            </xsl:attribute>
-            <xsl:apply-templates select="." mode="numberAppendix"/>
-            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-            <xsl:apply-templates select="secTitle"/>
-            </xsl:element>
-            <xsl:call-template name="OutputAllSectionTOC">
-            <xsl:with-param name="nLevel">
-            <xsl:value-of select="$nLevel"/>
-            </xsl:with-param>
-            <xsl:with-param name="nodesSection1" select="section1"/>
-            </xsl:call-template>
-            </li>
-            </xsl:for-each>
-            <xsl:if test="//endnote">
-            <li>
-            <a href="#rXLingPapEndnotes">
-            <xsl:call-template name="OutputEndnotesLabel"/>
-            </a>
-            </li>
-            </xsl:if>
-        -->
-        <xsl:if test="//glossary">
-            <xsl:for-each select="//glossary">
+        <xsl:if test="//glossary[not(ancestor::chapterInCollection)]">
+            <xsl:for-each select="//glossary[not(ancestor::chapterInCollection)]">
                 <xsl:variable name="iPos" select="position()"/>
                 <xsl:call-template name="OutputTOCLine">
-                    <xsl:with-param name="sLink" select="concat('rXLingPapGlossary',$iPos)"/>
+                    <xsl:with-param name="sLink" select="concat($sGlossaryID,'.',$iPos)"/>
                     <xsl:with-param name="sLabel">
                         <xsl:call-template name="OutputGlossaryLabel">
                             <xsl:with-param name="iPos" select="$iPos"/>
@@ -3399,9 +3445,9 @@ not using
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:if>
-        <xsl:if test="//references">
+        <xsl:if test="//references[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="'rXLingPapReferences'"/>
+                <xsl:with-param name="sLink" select="$sReferencesID"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputReferencesLabel"/>
                 </xsl:with-param>
@@ -3415,6 +3461,29 @@ not using
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputIndexLabel"/>
                 </xsl:with-param>
+            </xsl:call-template>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
+        DoContentsInChapterInCollection
+    -->
+    <xsl:template name="DoContentsInChapterInCollection">
+        <xsl:element name="fo:block" use-attribute-sets="NonChapterTitleInfoPaper">
+            <xsl:call-template name="OutputContentsLabel"/>
+        </xsl:element>
+        <xsl:variable name="nLevel">
+            <xsl:value-of select="number(@showLevel)"/>
+        </xsl:variable>
+        <xsl:for-each select="ancestor::chapterInCollection">
+                <xsl:apply-templates select="frontMatter/abstract | frontMatter/acknowledgements | frontMatter/preface" mode="contents"/>
+            <xsl:call-template name="OutputAllSectionTOC">
+                <xsl:with-param name="nLevel">
+                    <xsl:value-of select="$nLevel"/>
+                </xsl:with-param>
+                <xsl:with-param name="nodesSection1" select="section1[not(parent::appendix)]"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputChapterInCollectionBackMatterContents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
@@ -3536,7 +3605,11 @@ not using
     <xsl:template name="DoGlossary">
         <xsl:param name="iPos" select="'1'"/>
         <xsl:call-template name="OutputBackMatterItemTitle">
-            <xsl:with-param name="sId" select="concat('rXLingPapGlossary',$iPos)"/>
+            <xsl:with-param name="sId">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sGlossaryID,'.',$iPos)"/>
+                </xsl:call-template>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputGlossaryLabel">
                     <xsl:with-param name="iPos" select="$iPos"/>
@@ -3845,13 +3918,17 @@ not using
     -->
     <xsl:template name="DoReferences">
         <xsl:call-template name="OutputBackMatterItemTitle">
-            <xsl:with-param name="sId" select="'rXLingPapReferences'"/>
+            <xsl:with-param name="sId">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+                </xsl:call-template>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputReferencesLabel"/>
             </xsl:with-param>
         </xsl:call-template>
         <fo:block font-size="10pt">
-            <xsl:call-template name="DoRefAuthors"/>
+            <xsl:call-template name="HandleRefAuthors"/>
         </fo:block>
     </xsl:template>
     <!--  
@@ -4366,7 +4443,7 @@ not using
                 <xsl:apply-templates select="following-sibling::shortTitle"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote'] | frontmatter/title/child::node()[name()!='endnote']"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4804,7 +4881,7 @@ not using
         <xsl:param name="sId"/>
         <xsl:param name="sLabel"/>
         <xsl:choose>
-            <xsl:when test="$chapters">
+            <xsl:when test="$chapters and not(ancestor::chapterInCollection)">
                 <fo:block id="{$sId}" font-size="18pt" font-weight="bold" break-before="page" margin-top="176pt" margin-bottom="10.8pt" text-align="center" span="all">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle" select="$sLabel"/>
@@ -4835,7 +4912,7 @@ not using
 -->
     <xsl:template name="OutputChapterNumber">
         <xsl:choose>
-            <xsl:when test="name()='chapter'">
+            <xsl:when test="name()='chapter' or name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
             </xsl:when>
             <xsl:when test="name()='chapterBeforePart'">
@@ -5490,88 +5567,6 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--  
-                  OutputAllChapterTOC
--->
-    <xsl:template name="OutputAllChapterTOC">
-        <xsl:param name="nLevel" select="3"/>
-        <xsl:call-template name="OutputTOCLine">
-            <xsl:with-param name="sLink" select="@id"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputChapterNumber"/>
-                <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:choose>
-            <xsl:when test="section1">
-                <xsl:call-template name="OutputAllSectionTOC">
-                    <xsl:with-param name="nLevel">
-                        <xsl:value-of select="$nLevel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="nodesSection1" select="section1"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:when test="section2">
-                <!-- only for appendix -->
-                <xsl:call-template name="OutputAllSectionTOC">
-                    <xsl:with-param name="nLevel">
-                        <xsl:value-of select="$nLevel"/>
-                    </xsl:with-param>
-                    <xsl:with-param name="nodesSection1" select="section2"/>
-                </xsl:call-template>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-    <!--  
-                  OutputAllSectionTOC
--->
-    <xsl:template name="OutputAllSectionTOC">
-        <xsl:param name="nLevel" select="3"/>
-        <xsl:param name="nodesSection1"/>
-        <xsl:if test="$nLevel!=0">
-            <xsl:for-each select="$nodesSection1">
-                <xsl:call-template name="OutputSectionTOC">
-                    <xsl:with-param name="sLevel" select="'1'"/>
-                </xsl:call-template>
-                <xsl:if test="section2 and $nLevel>=2">
-                    <xsl:for-each select="section2">
-                        <xsl:call-template name="OutputSectionTOC">
-                            <xsl:with-param name="sLevel" select="'2'"/>
-                        </xsl:call-template>
-                        <xsl:if test="section3 and $nLevel>=3">
-                            <xsl:for-each select="section3">
-                                <xsl:call-template name="OutputSectionTOC">
-                                    <xsl:with-param name="sLevel" select="'3'"/>
-                                </xsl:call-template>
-                                <xsl:if test="section4 and $nLevel>=4">
-                                    <xsl:for-each select="section4">
-                                        <xsl:call-template name="OutputSectionTOC">
-                                            <xsl:with-param name="sLevel" select="'4'"/>
-                                        </xsl:call-template>
-                                        <xsl:if test="section5 and $nLevel>=5">
-                                            <xsl:for-each select="section5">
-                                                <xsl:call-template name="OutputSectionTOC">
-                                                    <xsl:with-param name="sLevel" select="'5'"/>
-                                                </xsl:call-template>
-                                                <xsl:if test="section6 and $nLevel>=6">
-                                                    <xsl:for-each select="section6">
-                                                        <xsl:call-template name="OutputSectionTOC">
-                                                            <xsl:with-param name="sLevel" select="'6'"/>
-                                                        </xsl:call-template>
-                                                    </xsl:for-each>
-                                                </xsl:if>
-                                            </xsl:for-each>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:if>
-                    </xsl:for-each>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:if>
-    </xsl:template>
-    <!--  
                   OutputSectionTOC
 -->
     <xsl:template name="OutputSectionTOC">
@@ -5583,7 +5578,16 @@ not using
                     <xsl:with-param name="bInContents" select="'Y'"/>
                 </xsl:call-template>
             </xsl:with-param>
-            <xsl:with-param name="sIndent" select="$sLevel"/>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="ancestor::appendix and ancestor::chapterInCollection">
+                        <xsl:value-of select="$sLevel + 1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sLevel"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  

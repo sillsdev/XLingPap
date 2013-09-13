@@ -1484,7 +1484,7 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
+        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
                 <xsl:attribute name="style">

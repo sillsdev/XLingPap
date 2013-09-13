@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 August 2013</date
+>13 September 2013</date
 ><version
->2.23.1</version
+>2.24.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -424,16 +424,16 @@ type="tInstruction"
 >, find the <object
 type="tXLingPap"
 ></object
-> section, and then select the kind of document you want to create. There are five complete document types, eight document component types, plus <indexedItem
+> section, and then select the kind of document you want to create. There are six complete document types, eight document component types, plus <indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
->four publisher style sheet templates (see <sectionRef
+>five publisher style sheet templates (see <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > or click <link
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
-> to see the documentation for publisher style sheets). Here the most basic ones, listed alphabetically:</p
+> to see the documentation for publisher style sheets). Here are the most basic ones, listed alphabetically:</p
 ><ul
 ><li
 >Abbreviations using small caps (which merely lists glossing abbreviations; you can use this to create a master abbreviations file; see section <sectionRef
@@ -11131,13 +11131,13 @@ type="tAttribute"
 > and <object
 type="tAttribute"
 >textafter</object
->.  These two attributes are ignored unless one has associated a publisher style sheet and set special override values in it for text before and text after to be inserted around each <object
+>. These two attributes are ignored unless one has associated a publisher style sheet and set special override values in it for text before and text after to be inserted around each <object
 type="tElement"
 >langData</object
 > or <object
 type="tElement"
 >gloss</object
-> element in given contexts.  See section <sectionRef
+> element in given contexts. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for associating a publisher style sheet and also see <link
@@ -18642,6 +18642,19 @@ type="tAttrValue"
 note="nXeLaTeXAttributes"
 ></endnoteRef
 > The table of contents should then contain the correct page numbers on subsequent runs of producing the PDF (you may have to run it two or three times). Please note that this must only be on the very last main element. If it is on an earlier element, then the PDF may fail to be produced.</li
+><li
+>A page may have a footnote continuation line at the bottom, but no footnote content when the preceding page has one or more footnotes and the final item on that preceding page is a table or certain kinds of examples. Try forcing a page break<endnoteRef
+note="nXeLaTeXAttributes"
+></endnoteRef
+> on the last item on the preceding page (if it's a table, try it on one of the rows in the table).</li
+><li
+>In very rare circumstances, you may get a blank page before a table at the top of the page. Try settting the table's <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute to <object
+type="tAttrValue"
+>pagebreak</object
+>. This often removes the unwanted blank page.</li
 ></ul
 ></section4
 ><section4
@@ -21760,7 +21773,7 @@ type="tElement"
 ><li
 >In the left hand pane, click on “Features" (under “General”).</li
 ><li
->Scroll the right hand pane down until you see the “Enable the "Tools|Record Macro" Submenu” item.</li
+>Scroll the right hand pane down until you see the “Enable the ‘Tools|Record Macro’ Submenu” item.</li
 ><li
 >Make sure the check box before it is checked.</li
 ><li
@@ -23544,6 +23557,101 @@ num="xHangingIndentAttributes"
 ></exampleRef
 > will override the values of the publisher style sheet.</p
 ></section1
+><section1
+id="sChapterInCollection"
+><secTitle
+>Chapters in a Collection Volume</secTitle
+><p
+><indexedItem
+term="iCollectionVolume"
+></indexedItem
+>If you are using <object
+type="tXLingPap"
+></object
+> to produce a volume which contains a collection of papers, normally each such paper is a chapter in the resulting volume. Each such chapter will certainly have its unique set of authors and in addition may have its own front and/or back matter. To deal with this situation, <object
+type="tXLingPap"
+></object
+> offers a document whose major pieces are <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements.</p
+><p
+>The editor(s) of such a volume can use the <object
+type="tInstruction"
+>File / New</object
+> menu item and choose the “Book (Collection of chapters authored by different authors)” option. This will be the collection document.</p
+><p
+><indexedItem
+term="iConvertPaperToChapterInCollection"
+></indexedItem
+>Each contributing set of author(s) can use the “Paper (Section-oriented)” <object
+type="tXLingPap"
+></object
+> kind of document for what will become their chapter in the volume. When their work is complete, they can submit the <object
+type="tXLingPap"
+></object
+> file(s) to the editor(s). The editor(s) can then convert each such submitted paper to a “chapter in a collection” document by using the <object
+type="tInstruction"
+>Tools / Execute Command</object
+>,<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+> typing “PaperToChapterInCollection” in the “Command” box, and pressing “OK”. This will create and open a new <object
+type="tXLingPap"
+></object
+> document with the same name as the paper document but with the addition of “AsChapterInCollection” at the end of the file name proper. This new document will also be automatically loaded into the <object
+type="tXMLmindXMLEditor"
+></object
+>. The editor(s) can then copy the <object
+type="tElement"
+>chapterInCollection</object
+> element from that new document into the appropriate location in the collection volume document they are making.</p
+><p
+>Note that the main difference between a <object
+type="tElement"
+>chapter</object
+> element and a <object
+type="tElement"
+>chapterInCollection</object
+> element is that the <object
+type="tElement"
+>chapterInCollection</object
+> element can have front matter and back matter embedded within it. For the non-appendix back matter, it is up to the collection volume editor(s) as to whether each chapter in the volume should have its own set of glossaries (e.g., list of abbreviations), references, and endnotes (should the editors choose to use endnotes) or if there should be a common set of glossaries, references, and endnotes for the entire volume. Both options are possible with <object
+type="tXLingPap"
+></object
+>.</p
+><p
+>The editors will probably need to combine abbreviations and references used by contributing authors into a common set or they may want to provide authors with a starting set to use. There will be a similar need for dealing with <object
+type="tElement"
+>language</object
+> and <object
+type="tElement"
+>type</object
+> elements.</p
+><p
+><indexedItem
+term="iPublisherStyleSheet"
+></indexedItem
+>Finally, editors can create a publisher style sheet for the collection volume. They should make use of the <object
+type="tElement"
+>chapterInCollectionLayout</object
+>, <object
+type="tElement"
+>chapterInCollectionFrontMatterLayout</object
+>, and <object
+type="tElement"
+>chapterInCollectionBackMatterLayout</object
+> elements to control how the content of the chapter is to be formatted. See the documentation in <link
+href="PublisherStylesheetUserDocXMLmind.htm"
+><object
+type="tXLingPap"
+></object
+> Publisher Style Sheet User Documentation</link
+>.</p
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -23763,6 +23871,13 @@ type="tElement"
 ></dt
 ><dd
 >A chapter section which occurs before a part</dd
+><dt
+><object
+type="tElement"
+>chapterInCollection</object
+></dt
+><dd
+>A chapter in a collection volume</dd
 ><dt
 ><object
 type="tElement"
@@ -25406,6 +25521,27 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the last chapter number in a header or footer</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionBackMatterLayout</object
+></dt
+><dd
+>Layout info for the back matter contained in a chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionFrontMatterLayout</object
+></dt
+><dd
+>Layout info for the front matter contained in a chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionLayout</object
+></dt
+><dd
+>Layout info for a chapter in a collection volume</dd
 ><dt
 ><object
 type="tElement"
@@ -27642,6 +27778,12 @@ id="iBold"
 >Bold</term
 ></indexTerm
 ><indexTerm
+id="iBookOfPapers"
+see="iCollectionVolume"
+><term
+>Book containing papers</term
+></indexTerm
+><indexTerm
 id="iCaptionInTable"
 see="iTablesCaption"
 ><term
@@ -27703,6 +27845,11 @@ id="iCollCitationConvert"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iCollectionVolume"
+><term
+>Collection volume (collection of papers by multiple authors)</term
+></indexTerm
+><indexTerm
 id="iContactInformation"
 ><term
 >Contact information</term
@@ -27760,6 +27907,11 @@ id="iColorType"
 id="iContents"
 ><term
 >Contents</term
+></indexTerm
+><indexTerm
+id="iConvertPaperToChapterInCollection"
+><term
+>Convert paper for use in a collection volume</term
 ></indexTerm
 ><indexTerm
 id="iCreateNew"
@@ -28331,6 +28483,12 @@ id="iORCID"
 >ORCID</term
 ></indexTerm
 ><indexTerm
+id="iPaperInACollectionVolume"
+see="iConvertPaperToChapterInCollection"
+><term
+>Paper to be in a collection volume</term
+></indexTerm
+><indexTerm
 id="iPart"
 ><term
 >Part</term
@@ -28888,6 +29046,12 @@ id="iValidityTool"
 id="iVersion"
 ><term
 >Version</term
+></indexTerm
+><indexTerm
+id="iVolumeOfPapers"
+see="iCollectionVolume"
+><term
+>Volume of papers</term
 ></indexTerm
 ><indexTerm
 id="iWebpage"

@@ -43,6 +43,9 @@
    <xsl:template match="chapterBeforePart">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="chapterInCollection">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="chart">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>

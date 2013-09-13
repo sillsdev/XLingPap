@@ -159,7 +159,7 @@
                 </xsl:if>
                 <xsl:if test="//abstract">
                     <li>
-                        <a href="#rXLingPapAbstract">
+                        <a href="#{$sAbstractID}">
                             <xsl:call-template name="OutputAbstractLabel"/>
                         </a>
                     </li>
@@ -167,7 +167,7 @@
                 <xsl:if test="//preface">
                     <xsl:for-each select="//preface">
                         <li>
-                            <a href="#rXLingPapPreface{count(preceding-sibling::preface)}">
+                            <a href="#{$sPrefaceID}{count(preceding-sibling::preface)}">
                                 <xsl:call-template name="OutputPrefaceLabel"/>
                             </a>
                         </li>
@@ -285,7 +285,7 @@
                     <xsl:for-each select="//glossary">
                         <li>
                             <xsl:variable name="iPos" select="position()"/>
-                            <a href="#rXLingPapGlossary{$iPos}">
+                            <a href="#{$sGlossaryID}{$iPos}">
                                 <xsl:call-template name="OutputGlossaryLabel">
                                     <xsl:with-param name="iPos" select="$iPos"/>
                                 </xsl:call-template>
@@ -295,14 +295,14 @@
                 </xsl:if>
                 <xsl:if test="//endnote">
                     <li>
-                        <a href="#rXLingPapEndnotes">
+                        <a href="#{$sEndnotesID}">
                             <xsl:call-template name="OutputEndnotesLabel"/>
                         </a>
                     </li>
                 </xsl:if>
                 <xsl:if test="//references">
                     <li>
-                        <a href="#rXLingPapReferences">
+                        <a href="#{$sReferencesID}">
                             <xsl:call-template name="OutputReferencesLabel"/>
                         </a>
                     </li>
@@ -337,12 +337,12 @@
                             <big>
                                 <xsl:choose>
                                     <xsl:when test="name(.)='abstract'">
-                                        <a name="rXLingPapAbstract">
+                                        <a name="$sAbstractID">
                                             <xsl:call-template name="OutputAbstractLabel"/>
                                         </a>
                                     </xsl:when>
                                     <xsl:when test="name(.)='preface'">
-                                        <a name="rXLingPapPreface{count(preceding-sibling::preface)}">
+                                        <a name="{$sPrefaceID}{count(preceding-sibling::preface)}">
                                             <xsl:call-template name="OutputPrefaceLabel"/>
                                         </a>
                                     </xsl:when>
@@ -359,7 +359,7 @@
             </xsl:when>
             <xsl:when test="name(.)='glossary'">
                 <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-                <a name="rXLingPapGlossary{$iPos}">
+                <a name="{$sGlossaryID}{$iPos}">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
                             <xsl:call-template name="OutputGlossaryLabel">
@@ -1026,7 +1026,7 @@
     <xsl:template match="endnotes">
         <xsl:if test="//endnote">
             <hr size="3"/>
-            <a name="rXLingPapEndnotes">
+            <a name="{$sEndnotesID}">
                 <xsl:call-template name="OutputChapTitle">
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputEndnotesLabel"/>
@@ -1091,7 +1091,7 @@
     -->
     <xsl:template match="references">
         <hr size="3"/>
-        <a name="rXLingPapReferences">
+        <a name="{$sReferencesID}">
             <xsl:call-template name="OutputChapTitle">
                 <xsl:with-param name="sTitle">
                     <xsl:call-template name="OutputReferencesLabel"/>

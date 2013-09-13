@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->9 August 2013</date
+>12 September 2013</date
 ><version
->2.23.1</version
+>2.24.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -9253,6 +9253,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>chapterInCollection</object
+></dt
+><dd
+>A chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
 >chart</object
 ></dt
 ><dd
@@ -10848,6 +10855,27 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for an item that will appear in the center/middle of a header or footer</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionBackMatterLayout</object
+></dt
+><dd
+>Layout info for the back matter contained in a chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionFrontMatterLayout</object
+></dt
+><dd
+>Layout info for the front matter contained in a chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
+>chapterInCollectionLayout</object
+></dt
+><dd
+>Layout info for a chapter in a collection volume</dd
 ><dt
 ><object
 type="tElement"

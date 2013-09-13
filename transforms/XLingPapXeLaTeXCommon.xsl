@@ -7,7 +7,6 @@
     <!-- ===========================================================
         Variables
         =========================================================== -->
-    <xsl:variable name="chapters" select="//chapter"/>
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet"/>
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
@@ -22,7 +21,7 @@
     <xsl:variable name="sInterlinearMaxNumberOfColumns" select="'50'"/>
     <xsl:variable name="bHasChapter">
         <xsl:choose>
-            <xsl:when test="//chapter">
+            <xsl:when test="$chapters">
                 <xsl:text>Y</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -1073,6 +1072,15 @@
         <xsl:apply-templates mode="InMarker"/>
     </xsl:template>
     <xsl:template match="secTitle">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <!--
+        title
+    -->
+    <xsl:template match="title" mode="InMarker">
+        <xsl:apply-templates mode="InMarker"/>
+    </xsl:template>
+    <xsl:template match="title[ancestor::chapterInCollection]">
         <xsl:apply-templates/>
     </xsl:template>
     <!--
@@ -2316,16 +2324,16 @@
             <xsl:when test="ancestor::endnote">
                 <xsl:choose>
                     <xsl:when test="parent::p">
-                        <xsl:call-template name="OutputAbbreviationsInCommaSeparatedList"/>
+                        <xsl:call-template name="HandleAbbreviationsInCommaSeparatedList"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="OutputAbbreviationsInCommaSeparatedList"/>
+                        <xsl:call-template name="HandleAbbreviationsInCommaSeparatedList"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="not(ancestor::p)">
                 <!-- ignore any other abbreviationsShownHere in a p except when also in an endnote; everything else goes in a table -->
-                <xsl:call-template name="OutputAbbreviationsInTable"/>
+                <xsl:call-template name="HandleAbbreviationsInTable"/>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -3122,7 +3130,7 @@
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
-        <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart']">
+        <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart' or name()='chapterInCollection']">
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="sContentsPeriod">
                     <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
@@ -3685,7 +3693,8 @@
         CreatePrefaceID
     -->
     <xsl:template name="CreatePrefaceID">
-        <xsl:text>rXLingPapPreface.</xsl:text>
+        <xsl:value-of select="$sPrefaceID"/>
+        <xsl:text>.</xsl:text>
         <xsl:value-of select="count(preceding-sibling::preface)+1"/>
     </xsl:template>
     <!--
@@ -4686,7 +4695,7 @@
                     <xsl:if test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
                         <xsl:for-each select="../interlinearSource">
                             <xsl:call-template name="DoFootnoteTextAfterFree">
-<!--                                <xsl:with-param name="originalContext" select="."/>-->
+                                <!--                                <xsl:with-param name="originalContext" select="."/>-->
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:if>
@@ -7510,7 +7519,7 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
+        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="bg"/>
@@ -8566,6 +8575,37 @@
                 <tex:spec cat="align"/>
             </xsl:if>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputPlainTOCLine
+    -->
+    <xsl:template name="OutputPlainTOCLine">
+        <xsl:param name="sLabel"/>
+        <xsl:param name="sSpaceBefore" select="'0'"/>
+        <xsl:param name="sIndent" select="'0pt'"/>
+        <xsl:param name="sNumWidth" select="'0pt'"/>
+        <xsl:if test="number($sSpaceBefore)>0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <!--    <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>-->
+                    <xsl:call-template name="GetCurrentPointSize">
+                        <xsl:with-param name="bAddGlue" select="'Y'"/>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <tex:cmd name="XLingPaperplaintocline" nl2="1">
+            <tex:parm>
+                <xsl:copy-of select="$sIndent"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:copy-of select="$sNumWidth"/>
+            </tex:parm>
+            <tex:parm>
+                <xsl:copy-of select="$sLabel"/>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!--  
         OutputTable
@@ -11062,6 +11102,73 @@ What might go in a TeX package file
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="//chapterInCollection">
+            <tex:cmd name="newcommand" nl2="1">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperplaintocline" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:opt>3</tex:opt>
+                <tex:parm>
+                    <tex:cmd name="newdimen" gr="0" nl1="1" nl2="0"/>
+                    <tex:cmd name="XLingPapertempdim" gr="0" nl2="1"/>
+                    <tex:cmd name="vskip" gr="0" nl2="0"/>
+                    <xsl:text>0pt plus .2pt</xsl:text>
+                    <tex:group>
+                        <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> left glue for indent</xsl:text>
+                        <tex:cmd name="rightskip" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="XLingPapertocrmarg" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> right glue for for right margin</xsl:text>
+                        <tex:cmd name="parfillskip" gr="0" nl1="1" nl2="0"/>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="rightskip" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> so can go into margin if need be???</xsl:text>
+                        <tex:cmd name="parindent" gr="0" nl1="1" nl2="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:cmd name="interlinepenalty10000" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="leavevmode" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="XLingPapertempdim" gr="0" nl1="1" nl2="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>2</xsl:text>
+                        <tex:cmd name="relax" gr="0" nl2="0"/>
+                        <tex:spec cat="comment"/>
+                        <xsl:text> numwidth</xsl:text>
+                        <tex:cmd name="advance" gr="0" nl1="1" nl2="0"/>
+                        <tex:cmd name="leftskip" gr="0" nl2="0"/>
+                        <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                        <tex:cmd name="null" gr="0" nl2="0"/>
+                        <tex:cmd name="nobreak" gr="0" nl2="0"/>
+                        <tex:cmd name="hskip" gr="0" nl2="0"/>
+                        <xsl:text>-</xsl:text>
+                        <tex:cmd name="leftskip" gr="0" nl2="0"/>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>3</xsl:text>
+                        <tex:spec cat="eg"/>
+                        <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                        <tex:cmd name="hfill" gr="0" nl2="0"/>
+                    <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                    <tex:cmd name="hbox to" gr="0" nl2="0"/>
+                    <tex:cmd name="XLingPaperpnumwidth" gr="0" nl2="0">
+                        <tex:parm>
+                            <tex:cmd name="hfil" gr="0" nl2="0"/>
+                            <tex:cmd name="normalfont" gr="0" nl2="0"/>
+                            <tex:cmd name="normalcolor" gr="0" nl2="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                        <tex:cmd name="par" gr="0" nl1="1"/>
+                    </tex:group>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes

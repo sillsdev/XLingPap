@@ -2,14 +2,14 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="text" encoding="UTF-8" indent="no"/>
     <xsl:template match="/">
-        <xsl:apply-templates select="//part | //chapter | //chapterBeforePart | //section1 | //section2 | //section3 | //section4 | //section5 | //section6"/>
+        <xsl:apply-templates select="//part | //chapter | //chapterBeforePart | //chapterInCollection | //section1 | //section2 | //section3 | //section4 | //section5 | //section6"/>
     </xsl:template>
-    <xsl:template match="//part | //chapter | //chapterBeforePart | //section1 | //section2 | //section3 | //section4 | //section5 | //section6">
+    <xsl:template match="//part | //chapter | //chapterBeforePart | //chapterInCollection | //section1 | //section2 | //section3 | //section4 | //section5 | //section6">
        <xsl:if test="not(ancestor::appendix)">
         <xsl:text>"</xsl:text>
         <xsl:call-template name="getNumber"/>
         <xsl:text> </xsl:text>
-        <xsl:apply-templates select="secTitle" mode="InTitle"/>
+        <xsl:apply-templates select="secTitle | frontMatter/title" mode="InTitle"/>
         <xsl:text> {</xsl:text>
         <xsl:value-of select="@id"/>
         <xsl:text>}"
@@ -26,8 +26,8 @@
     </xsl:template>
     <xsl:template name="getNumber">
         <xsl:choose>
-            <xsl:when test="ancestor-or-self::chapter">
-                <xsl:number level="any" count="chapter" format="1"/>
+            <xsl:when test="ancestor-or-self::chapter or ancestor-or-self::chapterInCollection">
+                <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
                 <xsl:text>.</xsl:text>
             </xsl:when>
             <xsl:when test="ancestor-or-self::chapterBeforePart">

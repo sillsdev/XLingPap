@@ -419,7 +419,7 @@
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
-                        <cfg:test context="$selected" expression="name(.)='section1' and count(//chapter) = 0"/>
+                        <cfg:test context="$selected" expression="name(.)='section1' and count(//chapter) = 0 and count(//chapterInCollection) = 0"/>
                         <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to promote a section1 when there are no chapters."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.promote"/>
                         <cfg:command name="alert" parameter="%_"/>
@@ -726,7 +726,11 @@ alt causes menu to be selected
                 <cfg:pass>
                     <cfg:command name="selectNode" parameter="self[implicitElement] abbrRef"/>
                 </cfg:pass>
-                <cfg:command name="getAbbreviationTermsandIds"/>
+                <cfg:set variable="chapterInCollectionId" expression="ancestor::chapterInCollection[backMatter/abbreviations]/@id" context="$implicitElement"/>
+                <!--<cfg:get expression="$chapterInCollectionId"/>
+                <cfg:command name="alert" parameter="%_"/>-->
+                <cfg:get expression="$chapterInCollectionId"/>
+                <cfg:command name="getAbbreviationTermsandIds" parameter="%_"/>
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Abbreviation' true %_"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] abbr %_"/>
@@ -736,7 +740,9 @@ alt causes menu to be selected
     <cfg:command name="getAbbreviationTermsandIds">
         <cfg:process showProgress="false">
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAbbreviationTermsAndIds.xsl" to="out.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAbbreviationTermsAndIds.xsl" to="out.xml">
+                <cfg:parameter name="chapterInCollectionId">%0</cfg:parameter>
+            </cfg:transform>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>
@@ -810,7 +816,11 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] citation"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] ref"/>-->
                 </cfg:pass>
-                <cfg:command name="getRefWorkTitlesandIds"/>
+                <cfg:set variable="chapterInCollectionId" expression="ancestor::chapterInCollection[backMatter/references]/@id" context="$implicitElement"/>
+                <!--<cfg:get expression="$chapterInCollectionId"/>
+                    <cfg:command name="alert" parameter="%_"/>-->
+                <cfg:get expression="$chapterInCollectionId"/>
+                <cfg:command name="getRefWorkTitlesandIds" parameter="%_"/>
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="Citation true %_"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] ref %_"/>
@@ -820,7 +830,9 @@ alt causes menu to be selected
     <cfg:command name="getRefWorkTitlesandIds">
         <cfg:process showProgress="false">
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetRefWorkTitlesAndIds.xsl" to="out.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetRefWorkTitlesAndIds.xsl" to="out.xml">
+                <cfg:parameter name="chapterInCollectionId">%0</cfg:parameter>
+            </cfg:transform>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>
@@ -1484,7 +1496,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <!--                <cfg:get expression="concat($CalibreBookId,' ','&quot;',$Authors,'&quot;')"/>-->
                         <cfg:choice>
                             <cfg:sequence>
-                                <cfg:test expression="//chapter"/>
+                                <cfg:test expression="//chapter | //chapterInCollection"/>
                                 <cfg:get expression="concat($safeXeLaTeXFileName, ' ', $CalibreBookId,' ',$Authors)"/>
                             </cfg:sequence>
                             <cfg:sequence>
@@ -1681,7 +1693,7 @@ What we want is to load IE independently and to do a refresh so it will show the
 -->
                                         </cfg:sequence>
                                         <cfg:sequence>
-                                            <cfg:test expression="//chapter"/>
+                                            <cfg:test expression="//chapter | //chapterInCollection"/>
                                             <cfg:get expression="$safeXeLaTeXFileName"/>
                                             <!--                                            <cfg:choice>
                                                 <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}FileExists.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%_.log&quot;"/>
@@ -1953,7 +1965,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                     <!-- if it has chapters, use book-oriented parameters in the canned version -->
                     <cfg:sequence>
                         <cfg:pass>
-                            <cfg:test expression="//chapter"/>
+                            <cfg:test expression="//chapter | //chapterInCollection"/>
                         </cfg:pass>
                         <cfg:command name="produceBookPDFFromCannedStylesheet"/>
                         <cfg:command name="PDFCompletionProcessing"/>
@@ -2977,6 +2989,34 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="UseLongerMenus">
         <cfg:process>
             <cfg:copy files="%{C}%{S}menusLonger.xml" to="%{C}%{S}menus.xml" quiet="true"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="PaperToChapterInCollection">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <!-- needs to be a paper, not a book -->
+                        <cfg:test context="//lingPaper" expression="descendant::chapter or descendant::chapterInCollection"/>
+                        <cfg:command name="LocalizeString" parameter="msg.mustBePaper"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','AsChapterInCollection','.','%{E}')"/>
+                        <!--<cfg:get expression="$newFileName"/>
+                            <cfg:command name="alert" parameter="%_"/>-->
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="ConvertPaperToChapterInCollectionTransform" parameter="%_"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="XXE.open" parameter="%_"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertPaperToChapterInCollectionTransform">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ConvertPaperToChapterInCollection.xsl" to="%*"/>
         </cfg:process>
     </cfg:command>
 </cfg:configuration>

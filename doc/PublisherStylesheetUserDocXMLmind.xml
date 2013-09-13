@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 August 2013</date
+>13 September 2013</date
 ><version
->2.23.1</version
+>2.24.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -1768,7 +1768,22 @@ type="tElement"
 >contentsLayout</object
 ></td
 ><td
->How the table of contents are to be formatted.</td
+>How the table of contents are to be formatted. For books which are collections of papers (i.e., use <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements), the <object
+type="tElement"
+>contentsLayout</object
+> may be immediately followed by an <object
+type="tElement"
+>authorLayout</object
+> element. This <object
+type="tElement"
+>authorLayout</object
+> element specifies how author names are to be formatted on a line immediately below the chapter (i.e. paper) title in the table of contents.</td
 ><td
 >See section <sectionRef
 sec="sTitleFormatInfoAttributes"
@@ -2420,7 +2435,15 @@ term="iFooterHeaderLayout"
 ></indexedItem
 >For books, you may normally want to first describe the header and footer styles for pages in the body and the back matter (unless you overtly give other header and footer style information in the back matter section). Then you can define how to format parts, chapters, and the six section levels.</p
 ><p
->All of the kinds of layouts in the body portion of a document are numbered. In some styles, one wants to format the number in a different way than the title. In other cases, one wants the number to be formatted the same way. <object
+>For the special case of a book which is a collection of papers (i.e. it uses <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements), one can also describe how to format front matter and back matter embedded within each chapter. These often have different formatting than the front matter and back matter for the entire book.</p
+><p
+>All of the kinds of layouts in the body portion of a document are numbered (except, of course, for any embedded front matter and/or back matter). In some styles, one wants to format the number in a different way than the title. In other cases, one wants the number to be formatted the same way. <object
 type="tXLingPap"
 ></object
 > allows both ways. <indexedItem
@@ -2448,6 +2471,28 @@ type="tElement"
 sec="sHeaderFooterLayout"
 ></sectionRef
 > for information on how to set the header and footer content.</p
+></section2
+><section2
+id="sChapterInCollectionFrontMatterLayout"
+><secTitle
+>Embedded Front Matter in a Chapter in a Collection</secTitle
+><p
+><indexedItem
+term="iiChapterInCollectionFrontMatterLayout"
+></indexedItem
+>For the special case of a book which is a collection of papers (i.e. it uses <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements), one can use the <object
+type="tElement"
+>chapterInCollectionFrontMatterLayout</object
+> element. It contains instances of the normal front matter layout elements described in section <sectionRef
+sec="sOtherFrontMatterLayoutElements"
+></sectionRef
+>. These layout elements define how any front matter items embedded within the chapter are to be formatted.</p
 ></section2
 ><section2
 id="sPartLayout"
@@ -2515,6 +2560,79 @@ num="xChapterLayoutAttribute"
 >.</p
 ><example
 num="xChapterLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the chapter has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+></table
+></example
+></section2
+><section2
+id="sChapterInCollectionLayout"
+><secTitle
+>Chapter in Collection Layout</secTitle
+><p
+><indexedItem
+term="iChapterInCollection"
+></indexedItem
+><indexedItem
+term="iChapterTitleLayout"
+></indexedItem
+><indexedItem
+term="iNumberLayout"
+></indexedItem
+>For books which are collections of papers (i.e., use <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements), you can describe how to format the chapter number and title. The <object
+type="tElement"
+>chapterInCollectionLayout</object
+> element contains a <object
+type="tElement"
+>chapterTitleLayout</object
+> element and an optional <object
+type="tElement"
+>numberLayout</object
+> element. Both of these have “title format information” attributes. See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+></sectionRef
+> for more on these attributes.</p
+><p
+>In addition the <object
+type="tElement"
+>chapterInCollectionLayout</object
+> element itself has one attribute as shown in example <exampleRef
+letter="xChapterInCollectionLayoutAttribute"
+num="xChapterInCollectionLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xChapterInCollectionLayoutAttribute"
 ><table
 border="1"
 ><tr
@@ -2714,6 +2832,39 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
 >.</p
+></section2
+><section2
+id="sChapterInCollectionBackMatterLayout"
+><secTitle
+>Embedded Back Matter in a Chapter in a Collection</secTitle
+><p
+><indexedItem
+term="iChapterInCollectionBackMatterLayout"
+></indexedItem
+>For the special case of a book which is a collection of papers (i.e. it uses <object
+type="tElement"
+>chapterInCollection</object
+> elements instead of <object
+type="tElement"
+>chapter</object
+> elements), one can use the <object
+type="tElement"
+>chapterInCollectionBackMatterLayout</object
+> element. It contains instances of many of the normal back matter layout elements described in section <sectionRef
+sec="sBackMatterLayout"
+></sectionRef
+>. These layout elements define how any back matter items embedded within the chapter are to be formatted. Note that there is no instance of <object
+type="tElement"
+>headerFooterPageStyles</object
+> since the paging used will be that of the body. In addition, for references, one only uses the <object
+type="tElement"
+>referencesTitleLayout</object
+> element. The formatting of the reference material itself uses the reference formatting of the entire volume (this guarantees consistency throughout the volume).</p
+><p
+>Finally, there is no <object
+type="tElement"
+>indexLayout</object
+>. The assumption is that if the volume has an index, it will be for the entire volume, not for a given paper/chapter.</p
 ></section2
 ></section1
 ><section1
@@ -10445,7 +10596,7 @@ type="tAttribute"
 > and/or the <object
 type="tAttribute"
 >textafter</object
-> attributes of the special override are/is not correct for the context.  In such cases, one can override the style sheet override by setting the <object
+> attributes of the special override are/is not correct for the context. In such cases, one can override the style sheet override by setting the <object
 type="tAttribute"
 >textbefore</object
 > and/or <object
@@ -13154,6 +13305,23 @@ id="iChapterTableNumberedNumber"
 see="iTableNumberedShowChapterNumber"
 ><term
 >Show chapter number with figure number</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iChapterInCollection"
+><term
+>Chapter in collection volume</term
+><indexTerms
+><indexTerm
+id="iChapterInCollectionBackMatterLayout"
+><term
+>Back matter</term
+></indexTerm
+><indexTerm
+id="iiChapterInCollectionFrontMatterLayout"
+><term
+>Front matter</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

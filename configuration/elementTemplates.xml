@@ -21,13 +21,64 @@ part, chapter, sections, appendix
          <p/>
       </chapter>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="p" selectable="override">
-        <chapterBeforePart id="c" xmlns="">
+   <cfg:elementTemplate name="p" selectable="override">
+      <chapterBeforePart id="c" xmlns="">
+         <secTitle/>
+         <p/>
+      </chapterBeforePart>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
+      <chapterInCollection id="cc" xmlns="">
+         <frontMatter>
+            <title/>
+            <author/>
+         </frontMatter>
+         <p/>
+      </chapterInCollection>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="appendix">
+      <backMatter>
+         <appendix id="a" xmlns="">
             <secTitle/>
             <p/>
-        </chapterBeforePart>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="p" selectable="override">
+         </appendix>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="abbreviations">
+      <backMatter>
+         <abbreviations/>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="acknowledgements">
+      <backMatter>
+         <acknowledgements>
+            <p/>
+         </acknowledgements>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="authorContactInfo">
+      <backMatter>
+         <authorContactInfo/>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="endnotes">
+      <backMatter>
+         <endnotes/>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="glossary">
+      <backMatter>
+         <glossary>
+            <p/>
+         </glossary>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="references">
+      <backMatter>
+         <references/>
+      </backMatter>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="p" selectable="override">
       <part id="p" xmlns="">
          <secTitle/>
          <p/>
@@ -80,38 +131,36 @@ part, chapter, sections, appendix
          <img src="fileName"/>
       </chart>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="simple" selectable="override">
-        <figure id="f" xmlns="">
-            <chart xmlns="">
-            </chart>
-        </figure>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="with_caption">
-        <figure id="f" xmlns="">
-            <chart xmlns="">
-            </chart>
-            <caption></caption>
-        </figure>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="with_image">
-        <figure id="f" xmlns="">
-            <chart xmlns="">
-                <img src="fileName"/>
-            </chart>
-        </figure>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="with_caption_and_image">
-        <figure id="f" xmlns="">
-            <chart xmlns="">
-                <img src="fileName"/>
-            </chart>
-            <caption></caption>
-        </figure>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="figure" selectable="override">
-        <figureRef figure="f" xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="with_image">
+   <cfg:elementTemplate name="simple" selectable="override">
+      <figure id="f" xmlns="">
+         <chart xmlns=""> </chart>
+      </figure>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_caption">
+      <figure id="f" xmlns="">
+         <chart xmlns=""> </chart>
+         <caption/>
+      </figure>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_image">
+      <figure id="f" xmlns="">
+         <chart xmlns="">
+            <img src="fileName"/>
+         </chart>
+      </figure>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_caption_and_image">
+      <figure id="f" xmlns="">
+         <chart xmlns="">
+            <img src="fileName"/>
+         </chart>
+         <caption/>
+      </figure>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="figure" selectable="override">
+      <figureRef figure="f" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_image">
       <tree xmlns="">
          <img src="fileName"/>
       </tree>
@@ -155,12 +204,12 @@ citations
          <refWork cfg:template="collection"/>
       </refAuthor>
    </cfg:elementTemplate>
-    <cfg:elementTemplate xmlns="" name="collectionCitation">
-        <refAuthor citename="???" name="???">
-            <refWork cfg:template="collectionCitation"/>
-        </refAuthor>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate xmlns="" name="dissertation">
+   <cfg:elementTemplate xmlns="" name="collectionCitation">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="collectionCitation"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="dissertation">
       <refAuthor citename="???" name="???">
          <refWork cfg:template="dissertation"/>
       </refAuthor>
@@ -185,12 +234,12 @@ citations
          <refWork cfg:template="proceedings"/>
       </refAuthor>
    </cfg:elementTemplate>
-    <cfg:elementTemplate xmlns="" name="proceedingsCitation">
-        <refAuthor citename="???" name="???">
-            <refWork cfg:template="proceedingsCitation"/>
-        </refAuthor>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate xmlns="" name="thesis">
+   <cfg:elementTemplate xmlns="" name="proceedingsCitation">
+      <refAuthor citename="???" name="???">
+         <refWork cfg:template="proceedingsCitation"/>
+      </refAuthor>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate xmlns="" name="thesis">
       <refAuthor citename="???" name="???">
          <refWork cfg:template="thesis"/>
       </refAuthor>
@@ -225,14 +274,14 @@ citations
          </article>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="article">
-            <article>
-                <jTitle>journal</jTitle>
-                <jVol>volume</jVol>
-                <jPages>pages</jPages>
-            </article>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="book">
+   <cfg:elementTemplate name="article">
+      <article>
+         <jTitle>journal</jTitle>
+         <jVol>volume</jVol>
+         <jPages>pages</jPages>
+      </article>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="book">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -242,24 +291,24 @@ citations
          </book>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="book">
-            <book>
-                <location>location</location>
-                <publisher>publisher</publisher>
-            </book>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="bookCollectionOrProceedingsVolume">
-        <refWork id="r" xmlns="">
-            <authorRole>eds.</authorRole>
-            <refDate>date</refDate>
-            <refTitle>title</refTitle>
-            <book>
-                <location>location</location>
-                <publisher>publisher</publisher>
-            </book>
-        </refWork>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection">
+   <cfg:elementTemplate name="book">
+      <book>
+         <location>location</location>
+         <publisher>publisher</publisher>
+      </book>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="bookCollectionOrProceedingsVolume">
+      <refWork id="r" xmlns="">
+         <authorRole>eds.</authorRole>
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <book>
+            <location>location</location>
+            <publisher>publisher</publisher>
+         </book>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -273,31 +322,31 @@ citations
          </collection>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collectionCitation">
-        <refWork id="r" xmlns="">
-            <refDate>date</refDate>
-            <refTitle>title</refTitle>
-            <collection>
-                <collCitation refToBook="???"/>
-            </collection>
-        </refWork>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection">
-            <collection>
-                <collEd>collection_editor</collEd>
-                <collTitle>collection_title </collTitle>
-                <collVol>collection_volume </collVol>
-                <collPages>collection_pages</collPages>
-                <location>location</location>
-                <publisher>publisher</publisher>
-            </collection>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collectionCitation">
-            <collection>
-                <collCitation refToBook="???"/>
-            </collection>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="dissertation">
+   <cfg:elementTemplate name="collectionCitation">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <collection>
+            <collCitation refToBook="???"/>
+         </collection>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection">
+      <collection>
+         <collEd>collection_editor</collEd>
+         <collTitle>collection_title </collTitle>
+         <collVol>collection_volume </collVol>
+         <collPages>collection_pages</collPages>
+         <location>location</location>
+         <publisher>publisher</publisher>
+      </collection>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collectionCitation">
+      <collection>
+         <collCitation refToBook="???"/>
+      </collection>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="dissertation">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -307,13 +356,13 @@ citations
          </dissertation>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="dissertation">
-            <dissertation>
-                <location>location</location>
-                <institution>institution</institution>
-            </dissertation>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="fieldNotes">
+   <cfg:elementTemplate name="dissertation">
+      <dissertation>
+         <location>location</location>
+         <institution>institution</institution>
+      </dissertation>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="fieldNotes">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -322,12 +371,12 @@ citations
          </fieldNotes>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="fieldNotes">
-            <fieldNotes>
-                <institution>institution</institution>
-            </fieldNotes>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="ms">
+   <cfg:elementTemplate name="fieldNotes">
+      <fieldNotes>
+         <institution>institution</institution>
+      </fieldNotes>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="ms">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -336,12 +385,12 @@ citations
          </ms>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="ms">
-            <ms>
-                <institution>institution</institution>
-            </ms>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="paper">
+   <cfg:elementTemplate name="ms">
+      <ms>
+         <institution>institution</institution>
+      </ms>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="paper">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -351,13 +400,13 @@ citations
          </paper>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="paper">
-            <paper>
-                <conference>conference</conference>
-                <location>location</location>
-            </paper>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings">
+   <cfg:elementTemplate name="paper">
+      <paper>
+         <conference>conference</conference>
+         <location>location</location>
+      </paper>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -371,31 +420,31 @@ citations
          </proceedings>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedingsCitation">
-        <refWork id="r" xmlns="">
-            <refDate>date</refDate>
-            <refTitle>title</refTitle>
-            <proceedings>
-                <procCitation page="???"/>
-            </proceedings>
-        </refWork>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings">
-            <proceedings>
-                <procEd>proceedings_editor</procEd>
-                <procTitle>proceedings_title</procTitle>
-                <procVol>proceedings_volume</procVol>
-                <procPages>proceedings_pages</procPages>
-                <location>location</location>
-                <publisher>publisher</publisher>
-            </proceedings>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedingsCitation">
-            <proceedings>
-                <procCitation pages="???"/>
-            </proceedings>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="thesis">
+   <cfg:elementTemplate name="proceedingsCitation">
+      <refWork id="r" xmlns="">
+         <refDate>date</refDate>
+         <refTitle>title</refTitle>
+         <proceedings>
+            <procCitation page="???"/>
+         </proceedings>
+      </refWork>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings">
+      <proceedings>
+         <procEd>proceedings_editor</procEd>
+         <procTitle>proceedings_title</procTitle>
+         <procVol>proceedings_volume</procVol>
+         <procPages>proceedings_pages</procPages>
+         <location>location</location>
+         <publisher>publisher</publisher>
+      </proceedings>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedingsCitation">
+      <proceedings>
+         <procCitation pages="???"/>
+      </proceedings>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="thesis">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -405,13 +454,13 @@ citations
          </thesis>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="thesis">
-            <thesis>
-                <location>location</location>
-                <institution>institution</institution>
-            </thesis>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="webPage">
+   <cfg:elementTemplate name="thesis">
+      <thesis>
+         <location>location</location>
+         <institution>institution</institution>
+      </thesis>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="webPage">
       <refWork id="r" xmlns="">
          <refDate>date</refDate>
          <refTitle>title</refTitle>
@@ -421,13 +470,13 @@ citations
          </webPage>
       </refWork>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="webPage">
-            <webPage>
-                <url>url</url>
-                <dateAccessed>date</dateAccessed>
-            </webPage>
-    </cfg:elementTemplate>
-    <!-- 
+   <cfg:elementTemplate name="webPage">
+      <webPage>
+         <url>url</url>
+         <dateAccessed>date</dateAccessed>
+      </webPage>
+   </cfg:elementTemplate>
+   <!-- 
 - - - - - - - - - - - - - - - - - - - - 
 examples
 - - - - - - - - - - - - - - - - - - - - 
@@ -452,22 +501,22 @@ examples
          <definition/>
       </example>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="listDefinition">
-        <example num="x" xmlns="">
-            <listDefinition letter="x">
-                <definition> </definition>
-            </listDefinition>
-            <listDefinition letter="x">
-                <definition> </definition>
-            </listDefinition>
-        </example>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="listDefinition" selectable="override">
-        <listDefinition letter="x" xmlns="">
-            <definition></definition>
-        </listDefinition>
-    </cfg:elementTemplate>
-    <!-- example / interlinear -->
+   <cfg:elementTemplate name="listDefinition">
+      <example num="x" xmlns="">
+         <listDefinition letter="x">
+            <definition> </definition>
+         </listDefinition>
+         <listDefinition letter="x">
+            <definition> </definition>
+         </listDefinition>
+      </example>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="listDefinition" selectable="override">
+      <listDefinition letter="x" xmlns="">
+         <definition/>
+      </listDefinition>
+   </cfg:elementTemplate>
+   <!-- example / interlinear -->
    <cfg:elementTemplate name="interlinearSource" selectable="override">
       <interlinearSource xmlns=""/>
    </cfg:elementTemplate>
@@ -819,11 +868,11 @@ examples
          </listInterlinear>
       </example>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="interlinearRef">
-        <listInterlinear letter="x" xmlns="">
-            <interlinearRef textref="T"/>
-        </listInterlinear>
-    </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinearRef">
+      <listInterlinear letter="x" xmlns="">
+         <interlinearRef textref="T"/>
+      </listInterlinear>
+   </cfg:elementTemplate>
    <cfg:elementTemplate name="listInterlinear_l_free">
       <example num="x" xmlns="">
          <listInterlinear cfg:template="l_free"/>
@@ -997,7 +1046,7 @@ examples
    </cfg:elementTemplate>
    <cfg:elementTemplate name="wrd_l_free">
       <listInterlinear letter="x" xmlns="">
-      <lineGroup cfg:template="wrd_l"/>
+         <lineGroup cfg:template="wrd_l"/>
          <free/>
       </listInterlinear>
    </cfg:elementTemplate>
@@ -1121,12 +1170,12 @@ examples
          </interlinear>
       </example>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="p" selectable="override">
-        <prose-text lang="l" xmlns="">
-            <p/>
-        </prose-text>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="interlinear-text" selectable="override">
+   <cfg:elementTemplate name="p" selectable="override">
+      <prose-text lang="l" xmlns="">
+         <p/>
+      </prose-text>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="interlinear-text" selectable="override">
       <interlinear-text xmlns="">
          <textInfo>
             <textTitle/>
@@ -1366,15 +1415,15 @@ examples
       </example>
    </cfg:elementTemplate>
    <cfg:elementTemplate name="word_with_gloss">
-         <word>
-            <langData lang="lVernacular"/>
-            <gloss lang="lGloss"/>
-         </word>
+      <word>
+         <langData lang="lVernacular"/>
+         <gloss lang="lGloss"/>
+      </word>
    </cfg:elementTemplate>
    <cfg:elementTemplate name="word_without_gloss">
-         <word>
-            <langData lang="lVernacular"/>
-         </word>
+      <word>
+         <langData lang="lVernacular"/>
+      </word>
    </cfg:elementTemplate>
    <cfg:elementTemplate name="listSingle" selectable="override">
       <listSingle letter="x" xmlns="">
@@ -1534,134 +1583,134 @@ lists
          <dd/>
       </dl>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="definition_list">
-        <dl xmlns="">
-            <dt/>
-            <dd/>
-            <dt/>
-            <dd/>
-        </dl>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="2" selectable="override">
+   <cfg:elementTemplate name="definition_list">
+      <dl xmlns="">
+         <dt/>
+         <dd/>
+         <dt/>
+         <dd/>
+      </dl>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="2" selectable="override">
       <ol xmlns="">
          <li/>
          <li/>
       </ol>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="ordered_list">
-        <ol xmlns="">
-            <li/>
-            <li/>
-        </ol>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="2" selectable="override">
-        <ul xmlns="">
-            <li/>
-            <li/>
-        </ul>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="bulleted_list">
-        <ul xmlns="">
-            <li/>
-            <li/>
-        </ul>
-    </cfg:elementTemplate>
-    <!-- 
+   <cfg:elementTemplate name="ordered_list">
+      <ol xmlns="">
+         <li/>
+         <li/>
+      </ol>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="2" selectable="override">
+      <ul xmlns="">
+         <li/>
+         <li/>
+      </ul>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="bulleted_list">
+      <ul xmlns="">
+         <li/>
+         <li/>
+      </ul>
+   </cfg:elementTemplate>
+   <!-- 
         - - - - - - - - - - - - - - - - - - - - 
         short named elements that could use a fuller explanation
         - - - - - - - - - - - - - - - - - - - - 
     -->
-    <cfg:elementTemplate name="break_line">
-        <br xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="book_volume">
-        <bVol xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_editor">
-        <collEd xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_editor_initialis">
-        <collEdInitials xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_pages">
-        <collPages xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_title">
-        <collTitle xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_title_using_lower_case">
-        <collTitleLowerCase xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="collection_volume">
-        <collVol xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="definition_description">
-        <dd xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="definition_term">
-        <dt xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="image">
-        <img xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="journal_article_number">
-        <jArticleNumber xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="journal_pages">
-        <jPages xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="journal_title">
-        <jTitle xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="journal_volume">
-        <jVol xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="list_item">
-        <li xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="manuscript">
-        <ms xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="paragraph">
-        <p xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="paragraph_continuation">
-        <pc xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_editor">
-        <procEd xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_editor_initialis">
-        <procEdInitials xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_pages">
-        <procPages xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_title">
-        <procTitle xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_title_using_lower_case">
-        <procTitleLowerCase xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="proceedings_volume">
-        <procVol xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="publication_date">
-        <pubDate xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="quote">
-        <q xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="table_cell">
-        <td xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="table_header_cell">
-        <th xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="table_row">
-        <tr xmlns=""/>
-    </cfg:elementTemplate>
-    <!-- 
+   <cfg:elementTemplate name="break_line">
+      <br xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="book_volume">
+      <bVol xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_editor">
+      <collEd xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_editor_initialis">
+      <collEdInitials xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_pages">
+      <collPages xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_title">
+      <collTitle xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_title_using_lower_case">
+      <collTitleLowerCase xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="collection_volume">
+      <collVol xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="definition_description">
+      <dd xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="definition_term">
+      <dt xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="image">
+      <img xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="journal_article_number">
+      <jArticleNumber xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="journal_pages">
+      <jPages xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="journal_title">
+      <jTitle xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="journal_volume">
+      <jVol xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="list_item">
+      <li xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="manuscript">
+      <ms xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="paragraph">
+      <p xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="paragraph_continuation">
+      <pc xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_editor">
+      <procEd xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_editor_initialis">
+      <procEdInitials xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_pages">
+      <procPages xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_title">
+      <procTitle xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_title_using_lower_case">
+      <procTitleLowerCase xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="proceedings_volume">
+      <procVol xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="publication_date">
+      <pubDate xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="quote">
+      <q xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table_cell">
+      <td xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table_header_cell">
+      <th xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table_row">
+      <tr xmlns=""/>
+   </cfg:elementTemplate>
+   <!-- 
 - - - - - - - - - - - - - - - - - - - - 
 table
 - - - - - - - - - - - - - - - - - - - - 
@@ -1727,119 +1776,119 @@ table
          </tr>
       </table>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="simple" selectable="override">
-        <tablenumbered id="nt" xmlns="" >
-            <table border="1" xmlns="">
-                <tr>
-                <td/>
-                <td/>
+   <cfg:elementTemplate name="simple" selectable="override">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <tr>
+               <td/>
+               <td/>
             </tr>
             <tr>
-                <td/>
-                <td/>
+               <td/>
+               <td/>
             </tr>
-                </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="caption">
-        <tablenumbered id="nt" xmlns="" >
-            <table border="1" xmlns="">
-                <caption></caption>
-                <tr>
-                    <td/>
-                    <td/>
-                </tr>
-                <tr>
-                    <td/>
-                    <td/>
-                </tr>
-            </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="caption_head_row">
-        <tablenumbered id="nt" xmlns="">
-            <table border="1" xmlns="">
-                <caption></caption>
-                <tr>
-                    <th/>
-                    <th/>
-                </tr>
-                <tr>
-                    <td/>
-                    <td/>
-                </tr>
-                <tr>
-                    <td/>
-                    <td/>
-                </tr>
-            </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="head_row">
-        <tablenumbered id="nt" xmlns="">
-            <table border="1" xmlns="">
-                <tr>
-                <th/>
-                <th/>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="caption">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <caption/>
+            <tr>
+               <td/>
+               <td/>
             </tr>
             <tr>
-                <td/>
-                <td/>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="caption_head_row">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <caption/>
+            <tr>
+               <th/>
+               <th/>
             </tr>
             <tr>
-                <td/>
-                <td/>
-            </tr>
-                </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="caption_head_row_head_col">
-        <tablenumbered id="nt" xmlns="">
-            <table border="1" xmlns="">
-                <caption></caption>
-                <tr>
-                    <th/>
-                    <th/>
-                    <th/>
-                </tr>
-                <tr>
-                    <th/>
-                    <td/>
-                    <td/>
-                </tr>
-                <tr>
-                    <th/>
-                    <td/>
-                    <td/>
-                </tr>
-            </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="head_row_head_col">
-        <tablenumbered id="nt" xmlns="">
-            <table border="1" xmlns="">
-                <tr>
-                <th/>
-                <th/>
-                <th/>
+               <td/>
+               <td/>
             </tr>
             <tr>
-                <th/>
-                <td/>
-                <td/>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="head_row">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <tr>
+               <th/>
+               <th/>
             </tr>
             <tr>
-                <th/>
-                <td/>
-                <td/>
+               <td/>
+               <td/>
             </tr>
-                </table>
-        </tablenumbered>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="table" selectable="override">
-        <tablenumberedRef table="nt" xmlns=""/>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="b" selectable="override">
+            <tr>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="caption_head_row_head_col">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <caption/>
+            <tr>
+               <th/>
+               <th/>
+               <th/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="head_row_head_col">
+      <tablenumbered id="nt" xmlns="">
+         <table border="1" xmlns="">
+            <tr>
+               <th/>
+               <th/>
+               <th/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+            <tr>
+               <th/>
+               <td/>
+               <td/>
+            </tr>
+         </table>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="table" selectable="override">
+      <tablenumberedRef table="nt" xmlns=""/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="b" selectable="override">
       <indexedItem term="i" xmlns=""/>
    </cfg:elementTemplate>
    <cfg:elementTemplate name="b" selectable="override">
@@ -1871,8 +1920,8 @@ table
    <cfg:elementTemplate name="abbreviation" selectable="override">
       <abbreviation id="v" xmlns="">
          <abbrInLang lang="en">
-            <abbrTerm></abbrTerm>
-            <abbrDefinition></abbrDefinition>
+            <abbrTerm/>
+            <abbrDefinition/>
          </abbrInLang>
       </abbreviation>
    </cfg:elementTemplate>
@@ -1935,15 +1984,15 @@ table
     </table>
   </cfg:elementTemplate>
 -->
-    <cfg:elementTemplate name="authorContact" selectable="override">
-        <authorContact id="z">
-            <contactName></contactName>
-            <contactAddress></contactAddress>
-            <contactAddress></contactAddress>
-            <contactEmail></contactEmail>
-        </authorContact>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="titleHeaderFooterPageStyles" selectable="override">
+   <cfg:elementTemplate name="authorContact" selectable="override">
+      <authorContact id="z">
+         <contactName/>
+         <contactAddress/>
+         <contactAddress/>
+         <contactEmail/>
+      </authorContact>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="titleHeaderFooterPageStyles" selectable="override">
       <titleHeaderFooterPageStyles>
          <headerFooterFirstPage cfg:template="first_blank"/>
          <headerFooterPage cfg:template="regular"/>
@@ -2161,46 +2210,44 @@ table
          </headerFooterOddPage>
       </headerFooterOddEvenPages>
    </cfg:elementTemplate>
-    <cfg:elementTemplate name="langDataLayout" selectable="override">
-        <langDataLayout>
-            <langDataInExampleLayout textbeforeafterusesfontinfo="no"/> 
-            <langDataInTableLayout textbeforeafterusesfontinfo="no"/>
-            <langDataInProseLayout textbeforeafterusesfontinfo="no"/> 
-        </langDataLayout>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="glossLayout" selectable="override">
-        <glossLayout>
-            <glossInExampleLayout textbeforeafterusesfontinfo="no"/> 
-            <glossInTableLayout textbeforeafterusesfontinfo="no"/>
-            <glossInProseLayout textbeforeafterusesfontinfo="no"/> 
-        </glossLayout>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="freeLayout" selectable="override">
-        <freeLayout textbeforeafterusesfontinfo="no"/> 
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="referencedInterlinearTexts" selectable="override">
-        <interlinear-text xmlns="">
-            <textInfo>
-                <textTitle/>
-                <shortTitle/>
-            </textInfo>
-            <interlinear cfg:template="interlinear"/>
-            </interlinear-text>
-    </cfg:elementTemplate>
-    <cfg:elementTemplate name="publishingInfo" selectable="override">
-        <publishingInfo xmlns="">
-            <publishingBlurb>
-            </publishingBlurb>
-        </publishingInfo>
-    </cfg:elementTemplate>
+   <cfg:elementTemplate name="langDataLayout" selectable="override">
+      <langDataLayout>
+         <langDataInExampleLayout textbeforeafterusesfontinfo="no"/>
+         <langDataInTableLayout textbeforeafterusesfontinfo="no"/>
+         <langDataInProseLayout textbeforeafterusesfontinfo="no"/>
+      </langDataLayout>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="glossLayout" selectable="override">
+      <glossLayout>
+         <glossInExampleLayout textbeforeafterusesfontinfo="no"/>
+         <glossInTableLayout textbeforeafterusesfontinfo="no"/>
+         <glossInProseLayout textbeforeafterusesfontinfo="no"/>
+      </glossLayout>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="freeLayout" selectable="override">
+      <freeLayout textbeforeafterusesfontinfo="no"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="referencedInterlinearTexts" selectable="override">
+      <interlinear-text xmlns="">
+         <textInfo>
+            <textTitle/>
+            <shortTitle/>
+         </textInfo>
+         <interlinear cfg:template="interlinear"/>
+      </interlinear-text>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="publishingInfo" selectable="override">
+      <publishingInfo xmlns="">
+         <publishingBlurb> </publishingBlurb>
+      </publishingInfo>
+   </cfg:elementTemplate>
    <cfg:elementTemplate name="contentControl" selectable="override">
       <contentControl xmlns="">
          <contentControlChoices>
             <contentControlChoice>Show everything</contentControlChoice>
          </contentControlChoices>
          <contentTypes>
-            <contentType id="ct">
-            </contentType>
+            <contentType id="ct"> </contentType>
          </contentTypes>
       </contentControl>
    </cfg:elementTemplate>

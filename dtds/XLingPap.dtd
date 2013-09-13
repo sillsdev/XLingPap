@@ -82,7 +82,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -216,7 +216,7 @@
     showinlandscapemode (yes | no) "no"
 >
 <!-- Main content -->
-<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, chapter*)>
+<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
     id ID #REQUIRED
     contentType IDREF #IMPLIED
@@ -230,6 +230,12 @@
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
+    id ID #REQUIRED
+    contentType IDREF #IMPLIED
+    showinlandscapemode (yes | no) "no"
+>
+<!ELEMENT chapterInCollection (frontMatter, (%chunk; | landscape | framedUnit)*, section1*, backMatter?) >
+<!ATTLIST chapterInCollection
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"

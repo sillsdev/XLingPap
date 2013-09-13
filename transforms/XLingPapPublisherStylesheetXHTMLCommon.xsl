@@ -14,6 +14,27 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:text>pt</xsl:text>
     </xsl:variable>
+    <xsl:variable name="sAbstract" select="'abstract'"/>
+    <xsl:variable name="sAbstractText" select="'abstractText'"/>
+    <xsl:variable name="sAcknowledgements" select="'acknowledgements'"/>
+    <xsl:variable name="sAffiliation" select="'affiliation'"/>
+    <xsl:variable name="sAppendicesTitlePage" select="'appendicesTitlePageLayout'"/>
+    <xsl:variable name="sAppendixTitle" select="'appendixTitle'"/>
+    <xsl:variable name="sAuthor" select="'author'"/>
+    <xsl:variable name="sAuthorContactInfo" select="'authorContactInfo'"/>
+    <xsl:variable name="sAuthorInContents" select="'authorInContents'"/>
+    <xsl:variable name="sAuthorInChapterInCollection" select="'authorInChapterInCollection'"/>
+    <xsl:variable name="sChapterTitle" select="'chapterTitle'"/>
+    <xsl:variable name="sContents" select="'contents'"/>
+    <xsl:variable name="sDate" select="'date'"/>
+    <xsl:variable name="sEmailAddress" select="'emailAddress'"/>
+    <xsl:variable name="sGlossary" select="'glossaryTitle'"/>
+    <xsl:variable name="sNumber" select="'number'"/>
+    <xsl:variable name="sPreface" select="'preface'"/>
+    <xsl:variable name="sPresentedAt" select="'presentedAt'"/>
+    <xsl:variable name="sReferencesTitle" select="'referencesTitle'"/>
+    <xsl:variable name="sSubtitle" select="'subtitle'"/>
+    <xsl:variable name="sVersionCSS" select="'version'"/>
     <!-- 
         CreateCSSContentsClassName
     -->
@@ -34,7 +55,9 @@
         CreateSubtitleCSSName
     -->
     <xsl:template name="CreateSubtitleCSSName">
-        <xsl:text>subtitle</xsl:text>
+        <xsl:call-template name="GetLayoutClassNameToUse">
+            <xsl:with-param name="sType" select="$sSubtitle"/>
+        </xsl:call-template>
         <xsl:choose>
             <xsl:when test="preceding-sibling::subtitleLayout">Two</xsl:when>
             <xsl:otherwise>One</xsl:otherwise>
@@ -48,6 +71,35 @@
         <xsl:call-template name="OutputAuthorFootnoteSymbol">
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        GetAuthorLayoutClassNameToUse
+    -->
+    <xsl:template name="GetAuthorLayoutClassNameToUse">
+        <xsl:choose>
+            <xsl:when test="preceding-sibling::*[1][name()='contentsLayout']">
+                <xsl:value-of select="$sAuthorInContents"/>
+            </xsl:when>
+            <xsl:when test="ancestor::chapterInCollectionFrontMatterLayout">
+                <xsl:value-of select="$sAuthorInChapterInCollection"/>
+            </xsl:when>
+            <xsl:when test="ancestor::chapterInCollection">
+                <xsl:value-of select="$sAuthorInChapterInCollection"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sAuthor"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        GetLayoutClassNameToUse
+    -->
+    <xsl:template name="GetLayoutClassNameToUse">
+        <xsl:param name="sType"/>
+        <xsl:value-of select="$sType"/>
+        <xsl:if test="ancestor::chapterInCollectionFrontMatterLayout or ancestor::chapterInCollectionBackMatterLayout or ancestor::chapterInCollectionLayout or ancestor-or-self::chapterInCollection">
+            <xsl:text>InChapterInCollection</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputComment

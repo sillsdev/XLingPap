@@ -89,6 +89,22 @@
 	background-color:section-background-color();
 }
 
+@property-group chapterInCollectionAppendixSectionBefore( counter-level )
+{
+    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    " "
+    label(xpath, "count(preceding::chapterInCollection) + 1")
+     ". "
+    counter(appendix, upper-alpha) 
+    "."
+    simple-counter(counter-level, decimal)
+    " " 
+    text-field(attribute, id, columns, 10, font-size, small) 
+    ;
+	font-weight: bold;
+	font-size:large;
+	background-color:appendix-background-color();
+}
 @property-group collasper( label )
 {
 	content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
@@ -293,7 +309,7 @@
 {	
     content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
     " "
-    label(xpath, "count(preceding::chapter) + 1")
+    label(xpath, "count(preceding::chapter|preceding::chapterInCollection) + 1")
     "."
     simple-counter(counter-level, decimal) 
     " " 
@@ -444,6 +460,22 @@ affiliation {
 afterTerm
 {
 	display:inline;
+}
+
+chapterInCollection appendix:before
+{
+    counter-increment: appendix;
+    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+    " "
+    label(xpath, "count(preceding::chapterInCollection) + 1")
+     ". "
+    counter(appendix, upper-alpha)
+     ". "
+     text-field(attribute, id, columns, 10, font-size, small) 
+     ;
+	font-weight: bold;
+	font-size:large;
+	background-color:appendix-background-color();
 }
 
 appendix:before
@@ -649,6 +681,20 @@ part chapter:before
 {
 	property-group: chapterBeforeWithPart(chapter-background-color() );
 }
+part chapterInCollection:before
+{
+    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    " "
+    label(xpath, "count(preceding::chapterInCollection) + 1")
+    " " 
+    text-field(attribute, id, columns, 10, font-size, small) 
+    " "
+    label(xpath, "frontMatter/title")
+    ;
+	font-weight: bold;
+	font-size:large;
+	background-color:chapter-background-color();
+}
 chapter:before
 {
 	property-group: sectionBefore( n, chapter-background-color() );
@@ -663,6 +709,27 @@ chapterBeforePart:before
 	property-group: chapterBeforePartBefore( );
 }
 chapterBeforePart
+{
+	property-group: section(  );
+}
+
+chapterInCollection:before
+{
+/*	property-group: sectionBefore( n, chapter-background-color() ); */
+    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    " "
+    simple-counter(n, decimal) 
+    " " 
+    text-field(attribute, id, columns, 10, font-size, small) 
+    " "
+/*    concatenate(frontMatter/title)*/
+    label(xpath, "frontMatter/title")
+    ;
+	font-weight: bold;
+	font-size:large;
+	background-color:chapter-background-color();
+}
+chapterInCollection 
 {
 	property-group: section(  );
 }
@@ -3042,6 +3109,23 @@ row {
     display: table-row;
 }
 
+chapterInCollection appendix > section1:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(n);
+/*    content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box)) 
+    " "
+    label(xpath, "count(preceding::chapterInCollection) + 1")
+     ". "
+    counter(appendix, upper-alpha) 
+    "."
+    simple-counter(n, decimal)
+    " " 
+    text-field(attribute, id, columns, 10, font-size, small) 
+    ;
+	font-weight: bold;
+	font-size:large;
+	background-color:appendix-background-color(); */
+}
 appendix > section1:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
@@ -3068,6 +3152,10 @@ chapter section1:before
 {
 	property-group: sectionBefore( nn, section-background-color() );
 }
+chapterInCollection section1:before
+{
+	property-group: sectionBefore( nn, section-background-color() );
+}
 part section1:before
 {
 	property-group: sectionBeforeWithPart( n, section-background-color() );
@@ -3081,6 +3169,14 @@ section1
 	property-group: section(  );
 }
 
+chapterInCollection appendix > section1 > section2:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nn);
+}
+chapterInCollection appendix > section2:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(n);
+}
 appendix > section1 > section2:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
@@ -3115,25 +3211,37 @@ appendix > section2:before
 	background-color:appendix-background-color();
 
 }
-chapterBeforePart section1 section2:before
+chapterBeforePart section2:before
 {
 	property-group: chapterBeforePartSectionBefore( nn );
 }
-part chapter section1 section2:before
+part section1 section2:before
 {
 	property-group: sectionBeforeWithPart( nn, section-background-color() );
 }
-chapter section1 section2:before
+chapter section2:before
 {
 	property-group: sectionBefore( nnn, section-background-color() );
 }
-section1 > section2:before
+chapterInCollection section2:before
+{
+	property-group: sectionBefore( nnn, section-background-color() );
+}
+section2:before
 {
 	property-group: sectionBefore( nn, section-background-color() );
 }
 section2 
 {
 	property-group: section(  );
+}
+chapterInCollection appendix > section1 > section2 > section3:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnn);
+}
+chapterInCollection appendix > section2 > section3:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nn);
 }
 appendix > section1 > section2 > section3:before
 {
@@ -3173,11 +3281,15 @@ chapterBeforePart section3:before
 {
 	property-group: chapterBeforePartSectionBefore( nnn );
 }
-part chapter section1 section2 section3:before
+part section1 section2 section3:before
 {
 	property-group: sectionBeforeWithPart( nnn, section-background-color() );
 }
 chapter section3:before
+{
+	property-group: sectionBefore( nnnn, section-background-color() );
+}
+chapterInCollection section3:before
 {
 	property-group: sectionBefore( nnnn, section-background-color() );
 }
@@ -3190,6 +3302,14 @@ section3
 	property-group: section(  );
 }
 
+chapterInCollection appendix > section1 > section2 > section3 > section4:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnnn);
+}
+chapterInCollection appendix > section2 > section3 > section4:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnn);
+}
 appendix > section1 > section2 > section3 > section4:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
@@ -3228,11 +3348,15 @@ chapterBeforePart section4:before
 {
 	property-group: chapterBeforePartSectionBefore( nnnn );
 }
-part chapter section1 section2 section3 section4:before
+part section1 section2 section3 section4:before
 {
 	property-group: sectionBeforeWithPart( nnnn, section-background-color() );
 }
 chapter section4:before
+{
+	property-group: sectionBefore( nnnnn, section-background-color() );
+}
+chapterInCollection section4:before
 {
 	property-group: sectionBefore( nnnnn, section-background-color() );
 }
@@ -3245,6 +3369,14 @@ section4
 	property-group: section(  );
 }
 
+chapterInCollection appendix > section1 > section2 > section3 > section4 > section5:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnnnn);
+}
+chapterInCollection appendix > section2 > section3 > section4 > section5:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnnn);
+}
 appendix > section1 > section2 > section3 > section4 > section5:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
@@ -3283,11 +3415,15 @@ chapterBeforePart section5:before
 {
 	property-group: chapterBeforePartSectionBefore( nnnnn );
 }
-part chapter section1 section2 section3 section4 section5:before
+part section1 section2 section3 section4 section5:before
 {
 	property-group: sectionBeforeWithPart( nnnnn, section-background-color() );
 }
 chapter section5:before
+{
+	property-group: sectionBefore( nnnnnn, section-background-color() );
+}
+chapterInCollection section5:before
 {
 	property-group: sectionBefore( nnnnnn, section-background-color() );
 }
@@ -3300,6 +3436,14 @@ section5
 	property-group: section(  );
 }
 
+chapterInCollection appendix > section1 > section2 > section3 > section4 > section5 > section6:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnnnnn);
+}
+chapterInCollection appendix > section2 > section3 > section4 > section5 > section6:before
+{
+    property-group: chapterInCollectionAppendixSectionBefore(nnnnn);
+}
 appendix > section1 > section2 > section3 > section4 > section5 > section6:before
 {
 /*	property-group: sectionBefore( an, appendix-background-color() ); */
@@ -3338,11 +3482,15 @@ chapterBeforePart section6:before
 {
 	property-group: chapterBeforePartSectionBefore( nnnnnn );
 }
-part chapter section1 section2 section3 section4 section5 section6:before
+part section1 section2 section3 section4 section5 section6:before
 {
 	property-group: sectionBeforeWithPart( nnnnnn, section-background-color() );
 }
 chapter section6:before
+{
+	property-group: sectionBefore( nnnnnnn, section-background-color() );
+}
+chapterInCollection section6:before
 {
 	property-group: sectionBefore( nnnnnnn, section-background-color() );
 }
@@ -3692,6 +3840,16 @@ thesis:before
 thesis
 {
 	display:inline;
+}
+
+chapterInCollection title:before
+{
+	content:" ";
+}
+chapterInCollection title
+{
+	font-weight: bold;
+	font-size:large;
 }
 
 title { 
@@ -4367,6 +4525,42 @@ authorLayout
 {
 	property-group: titledItem("Author of the Document");
 }
+contentsLayout + authorLayout[color]
+{
+	color:concatenate(attr(color));
+}
+contentsLayout + authorLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+contentsLayout + authorLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+contentsLayout + authorLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+contentsLayout + authorLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+contentsLayout + authorLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+contentsLayout + authorLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+contentsLayout + authorLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+contentsLayout + authorLayout
+{
+	property-group: titledItem("Author(s) in contents");
+}
 authorContactInfoLayout:before
 {
 	property-group: collasper( " author contact info layout: " );
@@ -4572,6 +4766,28 @@ chapterTitle
 {
 	content:"";
 }
+chapterInCollectionBackMatterLayout:before
+{
+	property-group: collasper( " Chapter in Collection Back Matter Layout: " );
+}
+chapterInCollectionBackMatterLayout
+{
+	display:block;
+	property-group: isCollapsible( yes, 1 );
+}
+chapterInCollectionFrontMatterLayout:before
+{
+	property-group: collasper( " Chapter in Collection Front Matter Layout: " );
+}
+chapterInCollectionFrontMatterLayout
+{
+	display:block;
+	property-group: isCollapsible( yes, 1 );
+}
+chapterInCollectionLayout
+{
+	display:block;
+}
 chapterLayout
 {
 	display:block;
@@ -4635,6 +4851,10 @@ numberLayout + chapterTitleLayout
 {
 	property-group: titledItem("Chapter Title");
 }
+chapterInCollectionLayout numberLayout + chapterTitleLayout
+{
+	property-group: titledItem("Chapter in collection Title");
+}
 chapterTitleLayout
 {
 	display:block;
@@ -4642,6 +4862,18 @@ chapterTitleLayout
 	         "1"
                  label(attribute, textafternumber)
                  "Chapter"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+/*	property-group: titledItem("1 Chapter"); */
+}
+chapterInCollectionLayout chapterTitleLayout
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "1"
+                 label(attribute, textafternumber)
+                 "Chapter in collection"
 	         label(attribute, textafter)
 	         ;
 	margin-left:.125in;

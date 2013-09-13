@@ -27,6 +27,7 @@
     </xsl:variable>
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
     <xsl:variable name="sChapterLineIndent" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlineindent)"/>
+    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->
@@ -38,6 +39,12 @@
             <xsl:when test="ancestor-or-self::chapter">
                 <xsl:apply-templates select="." mode="numberChapter"/>
                 <xsl:if test="ancestor::chapter">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="ancestor-or-self::chapterInCollection">
+                <xsl:apply-templates select="." mode="numberChapter"/>
+                <xsl:if test="ancestor::chapterInCollection">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:when>
@@ -70,7 +77,7 @@
                 <xsl:value-of select="$num1At0"/>
                 <xsl:value-of select="$numRest"/>
             </xsl:when>
-            <xsl:when test="count(//chapter)=0 and count(//section1)=1 and count(//section1/section2)=0">
+            <xsl:when test="count($chapters)=0 and count(//section1)=1 and count(//section1/section2)=0">
                 <!-- if there are no chapters and there is but one section1 (with no subsections), there's no need to have a number so don't  -->
             </xsl:when>
             <xsl:otherwise>
@@ -82,34 +89,6 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        appendix
-    -->
-    <xsl:template mode="numberAppendix" match="*">
-        <xsl:number level="multiple" count="appendix | section1 | section2 | section3 | section4 | section5 | section6" format="A.1"/>
-    </xsl:template>
-    <xsl:template mode="labelNumberAppendix" match="*">
-        <xsl:choose>
-            <xsl:when test="@label">
-                <xsl:value-of select="@label"/>
-            </xsl:when>
-            <xsl:otherwise>Appendix</xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>&#x20;</xsl:text>
-        <xsl:number level="single" count="appendix" format="A"/>
-    </xsl:template>
-    <!--  
-        chapter
-    -->
-    <xsl:template mode="numberChapter" match="*">
-        <xsl:number level="any" count="chapter" format="1"/>
-    </xsl:template>
-    <!--  
-        part
-    -->
-    <xsl:template mode="numberPart" match="*">
-        <xsl:number level="multiple" count="part" format="I"/>
-    </xsl:template>
-    <!--  
         endnote
     -->
     <xsl:template mode="endnote" match="endnote[parent::author]">
@@ -118,29 +97,19 @@
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
     </xsl:template>
-    <xsl:template mode="endnote" match="*">
-        <xsl:choose>
-            <xsl:when test="$bIsBook">
-                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" from="chapter" format="1"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:number level="any" count="endnote[not(parent::author)]  | endnoteRef[not(ancestor::endnote)]" format="1"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
     <!--  
         figure
     -->
     <xsl:template mode="figure" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$bIsBook and $styleSheetFigureNumberLayout/@showchapternumber='yes'">
-                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetFigureNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="{$styleSheetFigureNumberLayout/@format}"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="{$styleSheetFigureNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetFigureNumberLayout/@format}"/>
@@ -153,13 +122,13 @@
     <xsl:template mode="tablenumbered" match="*" priority="10">
         <xsl:choose>
             <xsl:when test="$bIsBook and $styleSheetTableNumberedNumberLayout/@showchapternumber='yes'">
-                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart">
+                <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
@@ -631,7 +600,7 @@
     <xsl:template name="DoBookEndnotesLabelingContent">
         <xsl:param name="chapterOrAppendixUnit"/>
         <xsl:choose>
-            <xsl:when test="name($chapterOrAppendixUnit)='chapter'">
+            <xsl:when test="name($chapterOrAppendixUnit)='chapter' or name($chapterOrAppendixUnit)='chapterInCollection' or name($chapterOrAppendixUnit)='chapterBeforePart'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
                     <xsl:with-param name="sDefault" select="'Chapter'"/>
@@ -646,7 +615,9 @@
             <xsl:when test="name($chapterOrAppendixUnit)='glossary'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/glossaryLayout/glossaryTitleLayout"/>
-                    <xsl:with-param name="sDefault" select="'Glossary'"/>
+                    <xsl:with-param name="sDefault">
+                        <xsl:call-template name="OutputGlossaryLabel"/>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="name($chapterOrAppendixUnit)='acknowledgements'">
@@ -668,7 +639,13 @@
             <xsl:when test="name($chapterOrAppendixUnit)='preface'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout/prefaceTitleLayout"/>
-                    <xsl:with-param name="sDefault" select="'Preface'"/>
+                    <xsl:with-param name="sDefault">
+                        <xsl:for-each select="$chapterOrAppendixUnit">
+                            <xsl:call-template name="OutputPrefaceLabel">
+                                <xsl:with-param name="iPos" select="count($chapterOrAppendixUnit/preceding-sibling::preface)+1"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="name($chapterOrAppendixUnit)='abstract'">
@@ -687,7 +664,7 @@
         <xsl:choose>
             <xsl:when test="$originalContext">
                 <xsl:for-each select="$originalContext">
-                    <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                    <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
                     <xsl:call-template name="DoBookEndnotesLabeling">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
                         <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
@@ -695,7 +672,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
                 <xsl:call-template name="DoBookEndnotesLabeling">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                     <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
@@ -3171,7 +3148,7 @@
     <xsl:template name="GetSectionRefToUse">
         <xsl:param name="section"/>
         <xsl:choose>
-            <xsl:when test="name($section)='section1' or name($section)='chapter'">
+            <xsl:when test="name($section)='section1' or contains(name($section),'chapter')">
                 <!-- just use section1 and chapter;   if section1 is being ignored, that's the style sheet's problem... -->
                 <xsl:value-of select="$section/@id"/>
             </xsl:when>
@@ -3301,10 +3278,11 @@
     -->
     <xsl:template name="HandleBasicFrontMatterPerLayout">
         <xsl:param name="frontMatter"/>
-        <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
-        <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
-        <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
-        <xsl:for-each select="$frontMatterLayoutInfo/*">
+        <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayout/authorLayout)"/>
+        <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayout/affiliationLayout)"/>
+        <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayout/emailAddressLayout)"/>
+        <xsl:for-each select="$frontMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='titleLayout'">
                     <xsl:apply-templates select="$frontMatter/title"/>
@@ -3394,22 +3372,46 @@
                     <xsl:apply-templates select="$frontMatter/presentedAt"/>
                 </xsl:when>
                 <xsl:when test="name(.)='dateLayout'">
-                    <xsl:apply-templates select="$frontMatter/date"/>
+                    <xsl:apply-templates select="$frontMatter/date">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='versionLayout'">
-                    <xsl:apply-templates select="$frontMatter/version"/>
+                    <xsl:apply-templates select="$frontMatter/version">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='publishingBlurbLayout'">
                     <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb"/>
                 </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $frontMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/contents" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='acknowledgementsLayout' and $frontMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='acknowledgementsLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper"/>
                 </xsl:when>
+                <xsl:when test="name(.)='abstractLayout' and $frontMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='abstractLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='prefaceLayout' and $frontMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/preface" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/preface" mode="paper"/>
@@ -3554,7 +3556,7 @@
                         <xsl:value-of select="normalize-space(gloss/@textafter)"/>
                     </xsl:when>
                     <xsl:when test="string-length(normalize-space($glossLayout/glossInExampleLayout/@textafter)) &gt; 0">
-                        <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textafter)"/>        
+                        <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textafter)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -3564,7 +3566,7 @@
                         <xsl:value-of select="normalize-space(@textafter)"/>
                     </xsl:when>
                     <xsl:when test="string-length(normalize-space($glossLayout/glossInTableLayout/@textafter)) &gt; 0">
-                        <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textafter)"/>        
+                        <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textafter)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -3574,7 +3576,7 @@
                         <xsl:value-of select="normalize-space(@textafter)"/>
                     </xsl:when>
                     <xsl:when test="string-length(normalize-space($glossLayout/glossInProseLayout/@textafter)) &gt; 0">
-                        <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textafter)"/>        
+                        <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textafter)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -3655,7 +3657,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($glossLayout/glossInTableLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3665,7 +3667,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($glossLayout/glossInProseLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3689,7 +3691,7 @@
                             <xsl:value-of select="normalize-space(gloss/@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($glossLayout/glossInExampleLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($glossLayout/glossInExampleLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3699,7 +3701,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($glossLayout/glossInTableLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($glossLayout/glossInTableLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3709,7 +3711,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($glossLayout/glossInProseLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($glossLayout/glossInProseLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3772,7 +3774,7 @@
                         <xsl:value-of select="normalize-space(@textafter)"/>
                     </xsl:when>
                     <xsl:when test="string-length(normalize-space($langDataLayout/langDataInTableLayout/@textafter)) &gt; 0">
-                        <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>        
+                        <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -3782,7 +3784,7 @@
                         <xsl:value-of select="normalize-space(@textafter)"/>
                     </xsl:when>
                     <xsl:when test="string-length(normalize-space($langDataLayout/langDataInProseLayout/@textafter)) &gt; 0">
-                        <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>        
+                        <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -3805,7 +3807,7 @@
                             <xsl:value-of select="normalize-space(langData/@textafter)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textafter)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textafter)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textafter)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3815,7 +3817,7 @@
                             <xsl:value-of select="normalize-space(@textafter)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInTableLayout/@textafter)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textafter)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3825,7 +3827,7 @@
                             <xsl:value-of select="normalize-space(@textafter)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInProseLayout/@textafter)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textafter)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3853,7 +3855,7 @@
                             <xsl:value-of select="normalize-space(langData/@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3863,7 +3865,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInTableLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3873,7 +3875,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInProseLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInProseLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3897,7 +3899,7 @@
                             <xsl:value-of select="normalize-space(langData/@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInExampleLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -3907,7 +3909,7 @@
                             <xsl:value-of select="normalize-space(@textbefore)"/>
                         </xsl:when>
                         <xsl:when test="string-length(normalize-space($langDataLayout/langDataInTableLayout/@textbefore)) &gt; 0">
-                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>        
+                            <xsl:value-of select="normalize-space($langDataLayout/langDataInTableLayout/@textbefore)"/>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>

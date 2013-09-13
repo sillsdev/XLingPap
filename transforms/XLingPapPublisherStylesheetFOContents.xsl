@@ -27,7 +27,7 @@
                     </xsl:with-param>
                 </xsl:call-template>
             </fo:basic-link>
-            <xsl:apply-templates mode="contents">
+            <xsl:apply-templates select="child::node()[name()!='secTitle']" mode="contents">
                 <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
             </xsl:apply-templates>
         </fo:block>
@@ -37,14 +37,14 @@
     -->
     <xsl:template match="section1" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::chapterInCollection) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:variable name="sSpaceBefore"> </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix)">
+                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
                         <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>

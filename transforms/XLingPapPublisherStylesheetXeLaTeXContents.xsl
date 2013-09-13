@@ -34,20 +34,20 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:apply-templates select="chapter" mode="contents"/>
+        <xsl:apply-templates select="chapter | chapterInCollection" mode="contents"/>
     </xsl:template>
     <!-- 
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::appendix) + 1"/>
+            <xsl:value-of select="count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::appendix) + 1"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart)">
+                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
                         <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>

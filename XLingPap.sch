@@ -126,10 +126,10 @@
             <dir value="ltr">Check for paper with improper header and footer layouts</dir>
         </title>
         <rule context="publisherStyleSheet">
-            <report test="//lingPaper and not(//chapter) and pageLayout[not(headerFooterPageStyles)]">Warning: this is a paper but it is trying to use a book-oriented publisher style sheet (i.e. it has the header and footer layout information under both front matter layout and body layout instead of under page layout).  The XeLaTex way of producing PDF will fail.  Please associate this document with a *paper* publisher style sheet..</report>
-            <report test="//lingPaper and not(//chapter) and frontMatterLayout/titleHeaderFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information for titles under the front matter layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the unneeded title header and footer layout information or by associating this document with a paper publisher style sheet..</report>
-            <report test="//lingPaper and not(//chapter) and frontMatterLayout/headerFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information for non-title front matter pages under the front matter layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the header and footer layout information for the non-title front matter or by associating this document with a paper publisher style sheet..</report>
-            <report test="//lingPaper and not(//chapter) and bodyLayout/headerFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information under the body layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the header and footer layout information in the body layout or by associating this document with a paper publisher style sheet..</report>
+            <report test="//lingPaper and not(//chapter | //chapterInCollection) and pageLayout[not(headerFooterPageStyles)]">Warning: this is a paper but it is trying to use a book-oriented publisher style sheet (i.e. it has the header and footer layout information under both front matter layout and body layout instead of under page layout).  The XeLaTex way of producing PDF will fail.  Please associate this document with a *paper* publisher style sheet..</report>
+            <report test="//lingPaper and not(//chapter | //chapterInCollection) and frontMatterLayout/titleHeaderFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information for titles under the front matter layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the unneeded title header and footer layout information or by associating this document with a paper publisher style sheet..</report>
+            <report test="//lingPaper and not(//chapter | //chapterInCollection) and frontMatterLayout/headerFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information for non-title front matter pages under the front matter layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the header and footer layout information for the non-title front matter or by associating this document with a paper publisher style sheet..</report>
+            <report test="//lingPaper and not(//chapter | //chapterInCollection) and bodyLayout/headerFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information under the body layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the header and footer layout information in the body layout or by associating this document with a paper publisher style sheet..</report>
         </rule>
     </pattern>
     <pattern>
@@ -268,8 +268,14 @@
         <title>
             <dir value="ltr">Check for two or more abbreviationsShownHere elements.</dir>
         </title>
-        <rule context="lingPaper">
+        <rule context="lingPaper[not(descendant::chapterInCollection)]">
             <report test="count(descendant::abbreviationsShownHere)>1">Sorry, but you can use only one abbreviationsShownHere element.  You have two or more of them.  Please remove the extra ones.</report>
+        </rule>
+        <rule context="lingPaper[descendant::chapterInCollection]">
+            <report test="count(descendant::abbreviationsShownHere[not(ancestor::chapterInCollection)])>1">Sorry, but you can use only one abbreviationsShownHere element outside of chapterInCollection elements.  You have two or more of them.  Please remove the extra ones.</report>
+        </rule>
+        <rule context="chapterInCollection">
+            <report test="count(descendant::abbreviationsShownHere)>1">Sorry, but you can use only one abbreviationsShownHere element within a chapterInCollection element.  You have two or more of them.  Please remove the extra ones.</report>
         </rule>
     </pattern>
     <pattern>
@@ -305,6 +311,17 @@
         </rule>
         <rule context="endnoteRef[not(ancestor::*[string-length(@contentType)!=0])]">
             <report test="@note=//endnote/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an endnoteRef which refers to an endnote which may be excluded in the output (via a contentType) and yet the endnoteRef itself is always present.  Please make sure that both the endnote and its endnoteRef are excluded in the same situations.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <rule context="chapterInCollectionBackMatterLayout">
+            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
+        </rule>
+        <rule context="chapterInCollectionFrontMatterLayout">
+            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionFrontMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionFrontMatterLayout will be ignored.</assert>
+        </rule>
+        <rule context="authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
+            <assert test="//chapterInCollectionLayout">There is an authorLayout element immediately after a contentsLayout element, but no chapterInCollectionLayout.  This authorLayout will be ignored.</assert>
         </rule>
     </pattern>
 </schema>

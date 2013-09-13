@@ -5,9 +5,23 @@
     -->
     <xsl:template match="abstract" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="'rXLingPapAbstract'"/>
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                </xsl:call-template>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputAbstractLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -16,9 +30,23 @@
     -->
     <xsl:template match="acknowledgements" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="'rXLingPapAcknowledgements'"/>
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sAcknowledgementsID"/>
+                </xsl:call-template>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -33,7 +61,14 @@
             <tex:opt>0pt</tex:opt>
             <tex:parm>
                 <tex:cmd name="pdfbookmark" nl2="0">
-                    <tex:opt>1</tex:opt>
+                    <xsl:choose>
+                        <xsl:when test="ancestor::chapterInCollection">
+                            <tex:opt>2</tex:opt>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:opt>1</tex:opt>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <tex:parm>
                         <xsl:call-template name="OutputChapterNumber">
                             <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
@@ -52,13 +87,13 @@
     <!-- 
         chapter (bookmarks) 
     -->
-    <xsl:template match="chapter | chapterBeforePart" mode="bookmarks">
+    <xsl:template match="chapter | chapterBeforePart | chapterInCollection" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputChapterNumber"/>
                 <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                <xsl:apply-templates select="secTitle | frontMatter/title" mode="bookmarks"/>
             </xsl:with-param>
         </xsl:call-template>
         <!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
@@ -72,6 +107,16 @@
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputContentsLabel"/>
             </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -83,9 +128,19 @@
    -->
     <xsl:template match="endnotes" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="'rXLingPapEndnotes'"/>
+            <xsl:with-param name="sLink" select="$sEndnotesID"/>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputEndnotesLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -95,11 +150,21 @@
     <xsl:template match="glossary" mode="bookmarks">
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="concat('rXLingPapGlossary',$iPos)"/>
+            <xsl:with-param name="sLink" select="concat($sGlossaryID,$iPos)"/>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputGlossaryLabel">
                     <xsl:with-param name="iPos" select="$iPos"/>
                 </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -162,10 +227,22 @@
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink">
                 <xsl:variable name="sPos" select="count(preceding-sibling::preface)+1"/>
-                <xsl:value-of  select="concat('rXLingPapPreface',$sPos)"/>
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sPrefaceID,$sPos)"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputPrefaceLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -174,9 +251,23 @@
     -->
     <xsl:template match="references" mode="bookmarks">
         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink" select="'rXLingPapReferences'"/>
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+                </xsl:call-template>
+            </xsl:with-param>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputReferencesLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sNestingLevel">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:text>2</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -272,7 +363,9 @@
                     <xsl:variable name="iLevel" select="substring-after(name(),'section')"/>
                     <tex:opt>
                         <xsl:choose>
-                            <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart">
+                            <xsl:when test="name()='section1' and ancestor::appendix and ancestor::chapterInCollection">3</xsl:when>
+                            <xsl:when test="name()='section2' and ancestor::appendix and ancestor::section1">3</xsl:when>
+                            <xsl:when test="ancestor::chapter or ancestor::chapterBeforePart or ancestor::chapterInCollection">
                                 <xsl:value-of select="$iLevel + 1"/>
                             </xsl:when>
                             <xsl:when test="name()='section1' and ancestor::appendix">2</xsl:when>

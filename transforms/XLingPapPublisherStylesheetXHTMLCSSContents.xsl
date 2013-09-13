@@ -34,7 +34,7 @@
     <!-- 
         chapter (contents) 
     -->
-    <xsl:template match="chapter | chapterBeforePart" mode="contents">
+    <xsl:template match="chapter | chapterBeforePart | chapterInCollection" mode="contents">
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
@@ -123,13 +123,13 @@
     -->
     <xsl:template match="section1" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="count(ancestor::chapter)  + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
+            <xsl:value-of select="count(ancestor::chapter) + count(ancestor::chapterBeforePart) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix)">
+                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
                         <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -147,7 +147,7 @@
     -->
     <xsl:template match="section2" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
@@ -161,7 +161,7 @@
     -->
     <xsl:template match="section3" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="1 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="1 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
@@ -175,7 +175,7 @@
     -->
     <xsl:template match="section4" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="2 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="2 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
@@ -189,7 +189,7 @@
     -->
     <xsl:template match="section5" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="3 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="3 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
@@ -203,7 +203,7 @@
     -->
     <xsl:template match="section6" mode="contents">
         <xsl:variable name="iLevel">
-            <xsl:value-of select="4 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix)"/>
+            <xsl:value-of select="4 + count(ancestor::section1) + count(ancestor::chapter) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
         <xsl:call-template name="OutputCSSForSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>

@@ -83,7 +83,12 @@
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
-    <!--  
+    <!--
+        title
+    -->
+    <xsl:template match="title[ancestor::chapterInCollection]">
+        <xsl:apply-templates/>
+    </xsl:template>    <!--  
         source
     -->
     <xsl:template match="source">
@@ -528,6 +533,7 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
+        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <fo:block>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
@@ -538,7 +544,6 @@
                     <xsl:value-of select="$sStartIndent"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:variable name="abbrsUsed" select="//abbreviation[//abbrRef/@abbr=@id]"/>
             <xsl:if test="count($abbrsUsed) &gt; 0">
                 <fo:table space-before="12pt">
                     <fo:table-body start-indent="0pt" end-indent="0pt">
@@ -556,6 +561,191 @@
                 </fo:table>
             </xsl:if>
         </fo:block>
+    </xsl:template>
+    <!--  
+        OutputAllChapterTOC
+    -->
+    <xsl:template name="OutputAllChapterTOC">
+        <xsl:param name="nLevel" select="3"/>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="@id"/>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputChapterNumber"/>
+                <xsl:text>&#xa0;</xsl:text>
+                <xsl:apply-templates select="secTitle | frontMatter/title" mode="contents"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="name()='appendix' and ancestor::chapterInCollection">1</xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
+        <xsl:if test="name()='chapterInCollection'">
+            <fo:block text-align-last="justify" text-indent="-2em" start-indent="3em">
+                <fo:inline font-style="italic">
+                    <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
+                    <xsl:text>&#xa0;</xsl:text>
+                    <fo:leader leader-pattern="use-content">
+                        <xsl:text>&#xa0;</xsl:text>
+                    </fo:leader>
+                </fo:inline>
+            </fo:block>
+        </xsl:if>
+        <xsl:apply-templates select="frontMatter/abstract | frontMatter/acknowledgements | frontMatter/preface" mode="contents"/>
+        <xsl:choose>
+            <xsl:when test="section1">
+                <xsl:call-template name="OutputAllSectionTOC">
+                    <xsl:with-param name="nLevel">
+                        <xsl:value-of select="$nLevel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="nodesSection1" select="section1"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="section2">
+                <!-- only for appendix -->
+                <xsl:call-template name="OutputAllSectionTOC">
+                    <xsl:with-param name="nLevel">
+                        <xsl:value-of select="$nLevel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="nodesSection1" select="section2"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:call-template name="OutputChapterInCollectionBackMatterContents">
+            <xsl:with-param name="nLevel" select="$nLevel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputAllSectionTOC
+    -->
+    <xsl:template name="OutputAllSectionTOC">
+        <xsl:param name="nLevel" select="3"/>
+        <xsl:param name="nodesSection1"/>
+        <xsl:if test="$nLevel!=0">
+            <xsl:for-each select="$nodesSection1">
+                <xsl:call-template name="OutputSectionTOC">
+                    <xsl:with-param name="sLevel" select="'1'"/>
+                </xsl:call-template>
+                <xsl:if test="section2 and $nLevel>=2">
+                    <xsl:for-each select="section2">
+                        <xsl:call-template name="OutputSectionTOC">
+                            <xsl:with-param name="sLevel" select="'2'"/>
+                        </xsl:call-template>
+                        <xsl:if test="section3 and $nLevel>=3">
+                            <xsl:for-each select="section3">
+                                <xsl:call-template name="OutputSectionTOC">
+                                    <xsl:with-param name="sLevel" select="'3'"/>
+                                </xsl:call-template>
+                                <xsl:if test="section4 and $nLevel>=4">
+                                    <xsl:for-each select="section4">
+                                        <xsl:call-template name="OutputSectionTOC">
+                                            <xsl:with-param name="sLevel" select="'4'"/>
+                                        </xsl:call-template>
+                                        <xsl:if test="section5 and $nLevel>=5">
+                                            <xsl:for-each select="section5">
+                                                <xsl:call-template name="OutputSectionTOC">
+                                                    <xsl:with-param name="sLevel" select="'5'"/>
+                                                </xsl:call-template>
+                                                <xsl:if test="section6 and $nLevel>=6">
+                                                    <xsl:for-each select="section6">
+                                                        <xsl:call-template name="OutputSectionTOC">
+                                                            <xsl:with-param name="sLevel" select="'6'"/>
+                                                        </xsl:call-template>
+                                                    </xsl:for-each>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputAppendixTOC
+    -->
+    <xsl:template name="OutputAppendixTOC">
+        <xsl:param name="nLevel"/>
+        <xsl:call-template name="OutputAllChapterTOC">
+            <xsl:with-param name="nLevel">
+                <xsl:value-of select="$nLevel"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputChapterInCollectionBackMatterContents
+    -->
+    <xsl:template name="OutputChapterInCollectionBackMatterContents">
+        <xsl:param name="nLevel"/>
+        <xsl:variable name="sChapterInCollectionID" select="ancestor-or-self::chapterInCollection/@id"/>
+        <xsl:for-each select="backMatter/acknowledgements">
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sAcknowledgementsID"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="$sChapterInCollectionID"/>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="sIndent" select="1"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="backMatter/appendix">
+            <xsl:call-template name="OutputAppendixTOC">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="backMatter/glossary">
+            <xsl:variable name="iPos" select="position()"/>
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sGlossaryID"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="$iPos"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="$sChapterInCollectionID"/>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputGlossaryLabel">
+                        <xsl:with-param name="iPos" select="$iPos"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+                <xsl:with-param name="sIndent" select="1"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <!--        <xsl:for-each select="backMatter/endnotes">
+            <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink">
+            <xsl:value-of select="$sEndnotesID"/>
+            <xsl:text>.</xsl:text>
+            <xsl:value-of select="$sChapterInCollectionID"/>
+            </xsl:with-param>
+            <xsl:with-param name="sLabel">
+            <xsl:call-template name="OutputEndnotesLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+            <tex:cmd name="leveloneindent" gr="0" nl2="0"/>
+            </xsl:with-param>
+            </xsl:call-template>
+            </xsl:for-each>-->
+        <xsl:for-each select="backMatter/references">
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sReferencesID"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="$sChapterInCollectionID"/>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="sIndent" select="1"/>
+            </xsl:call-template>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         OutputComment

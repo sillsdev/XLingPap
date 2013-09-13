@@ -5,18 +5,36 @@
         <xsl:apply-templates select="//part | //chapter | //chapterBeforePart | //chapterInCollection | //section1 | //section2 | //section3 | //section4 | //section5 | //section6"/>
     </xsl:template>
     <xsl:template match="//part | //chapter | //chapterBeforePart | //chapterInCollection | //section1 | //section2 | //section3 | //section4 | //section5 | //section6">
-       <xsl:if test="not(ancestor::appendix)">
-        <xsl:text>"</xsl:text>
-        <xsl:call-template name="getNumber"/>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="secTitle | frontMatter/title" mode="InTitle"/>
-        <xsl:text> {</xsl:text>
-        <xsl:value-of select="@id"/>
-        <xsl:text>}"
+       <xsl:choose>
+           <xsl:when test="name()='part'">
+               <xsl:text>"</xsl:text>
+               <xsl:number level="multiple" count="part" format="I"/>
+               <xsl:text> </xsl:text>
+               <xsl:apply-templates select="secTitle | frontMatter/title" mode="InTitle"/>
+               <xsl:text> {</xsl:text>
+               <xsl:value-of select="@id"/>
+               <xsl:text>}"
 </xsl:text>
-        <xsl:value-of select="@id"/>
-        <xsl:text> </xsl:text>
-       </xsl:if>
+               <xsl:value-of select="@id"/>
+               <xsl:text> 
+</xsl:text>
+           </xsl:when>
+           <xsl:otherwise>
+               <xsl:if test="not(ancestor::appendix)">
+                   <xsl:text>"</xsl:text>
+                   <xsl:call-template name="getNumber"/>
+                   <xsl:text> </xsl:text>
+                   <xsl:apply-templates select="secTitle | frontMatter/title" mode="InTitle"/>
+                   <xsl:text> {</xsl:text>
+                   <xsl:value-of select="@id"/>
+                   <xsl:text>}"
+</xsl:text>
+                   <xsl:value-of select="@id"/>
+                   <xsl:text> 
+</xsl:text>
+               </xsl:if>
+           </xsl:otherwise>
+       </xsl:choose>
     </xsl:template>
     <xsl:template match="object" mode="InTitle">
         <xsl:variable name="type" select="id(@type)"/>

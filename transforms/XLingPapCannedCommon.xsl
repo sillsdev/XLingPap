@@ -142,13 +142,29 @@
                     <xsl:when test="$section/shortTitle and string-length($section/shortTitle) &gt; 0">
                         <xsl:apply-templates select="$section/shortTitle/child::node()[name()!='endnote']"/>
                     </xsl:when>
+                    <xsl:when test="$section/frontMatter/shortTitle and string-length($section/frontMatter/shortTitle) &gt; 0">
+                        <xsl:apply-templates select="$section/frontMatter/shortTitle/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:when test="name($section)='chapterInCollection'">
+                        <xsl:apply-templates select="$section/frontMatter/title/child::node()[name()!='endnote']"/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="@showTitle='full'">
-                <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
+                <xsl:choose>
+                    <xsl:when test="name($section)='chapterInCollection'">
+                        <xsl:apply-templates select="$section/frontMatter/title/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>        
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="name($section)='part'">
+                <xsl:apply-templates select="$section" mode="numberPart"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="$section" mode="number"/>

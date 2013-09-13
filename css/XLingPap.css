@@ -3533,7 +3533,7 @@ sectionRef[showTitle='short']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('“',id(@sec)/frontMatter/shortTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
 	background-color:section-background-color();
 }
 sectionRef[showTitle='full']
@@ -3542,7 +3542,7 @@ sectionRef[showTitle='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
 	background-color:section-background-color();
 }
 sectionRef

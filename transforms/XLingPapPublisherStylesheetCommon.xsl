@@ -1956,6 +1956,9 @@
                     <xsl:when test="$section/shortTitle and string-length($section/shortTitle) &gt; 0">
                         <xsl:apply-templates select="$section/shortTitle/child::node()[name()!='endnote']"/>
                     </xsl:when>
+                    <xsl:when test="$section/frontMatter/shortTitle and string-length($section/frontMatter/shortTitle) &gt; 0">
+                        <xsl:apply-templates select="$section/frontMatter/shortTitle/child::node()[name()!='endnote']"/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
                     </xsl:otherwise>
@@ -1968,14 +1971,28 @@
                 <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                     <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
+                <xsl:choose>
+                    <xsl:when test="name($section)='chapterInCollection'">
+                        <xsl:apply-templates select="$section/frontMatter/title/child::node()[name()!='endnote']"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/sectionRefTitleLayout"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="sNum">
-                    <xsl:apply-templates select="id($secRefToUse)" mode="number"/>
+                    <xsl:choose>
+                        <xsl:when test="name($section)='part'">
+                            <xsl:apply-templates select="$section" mode="numberPart"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$section" mode="number"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes'">
@@ -3148,8 +3165,8 @@
     <xsl:template name="GetSectionRefToUse">
         <xsl:param name="section"/>
         <xsl:choose>
-            <xsl:when test="name($section)='section1' or contains(name($section),'chapter')">
-                <!-- just use section1 and chapter;   if section1 is being ignored, that's the style sheet's problem... -->
+            <xsl:when test="name($section)='section1' or contains(name($section),'chapter') or name($section)='part'">
+                <!-- just use section1, chapter, and part;   if section1 is being ignored, that's the style sheet's problem... -->
                 <xsl:value-of select="$section/@id"/>
             </xsl:when>
             <xsl:when test="name($section)='section2'">

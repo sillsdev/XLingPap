@@ -4410,12 +4410,12 @@
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textbefore"/>
             <xsl:choose>
                 <xsl:when test="$bDoStyles='Y'">
-                    <xsl:apply-templates select="table/caption | table/endCaption" mode="show">
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show">
                         <xsl:with-param name="styleSheetLabelLayout" select="$contentLayoutInfo/tablenumberedLabelLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>

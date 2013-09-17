@@ -5322,10 +5322,10 @@
         </span>
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="show"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

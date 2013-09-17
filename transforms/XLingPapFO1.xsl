@@ -1271,8 +1271,18 @@
                     <xsl:apply-templates select="child::node()[name()!='dd']"/>
                 </fo:block>
             </fo:list-item-label>
-            <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
-        </fo:list-item>
+            <xsl:choose>
+                <xsl:when test="following-sibling::dd[1][name()='dd']">
+                    <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- fo requires a body element; insert it -->
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block/>
+                    </fo:list-item-body>
+                </xsl:otherwise>
+            </xsl:choose>
+            </fo:list-item>
     </xsl:template>
     <xsl:template match="dd" mode="dt">
         <fo:list-item-body start-indent="body-start()">
@@ -5710,10 +5720,10 @@ not using
         </fo:inline>
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="show"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

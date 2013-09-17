@@ -364,6 +364,7 @@
 <!ATTLIST dl
     %special;
     contentType IDREF #IMPLIED
+    showddOnNewLineInPDF (yes|no) "no"
 >
 <!-- definition term -->
 <!ELEMENT dt (#PCDATA | %embedded; | %chunk;)*>
@@ -610,7 +611,7 @@
     pagecontrol (keepAllOnSamePage | letFormatterDecide) "letFormatterDecide"
     contentType IDREF #IMPLIED
 >
-<!ELEMENT tablenumbered (shortCaption?, table)>
+<!ELEMENT tablenumbered (shortCaption?, (table | (caption?, img)))>
 <!ATTLIST tablenumbered
     location (here | topOfPage | bottomOfPage) "here"
     id ID #REQUIRED

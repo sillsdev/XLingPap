@@ -187,7 +187,15 @@
             <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>
         </title>
         <rule context="abbreviations">
-            <report test="@usesmallcaps='yes'">Warning: The 'usesmallcaps' attribute is now deprecated.  Please use font-variant='small-caps' instead (or better yet, use a real, true-blue small-caps font and put its name in the font-family attribute).</report>
+            <report test="@usesmallcaps='yes'">Warning: The 'usesmallcaps' attribute is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>
+            <dir value="ltr">Check for use of font-variant='small-caps'</dir>
+        </title>
+        <rule context="*">
+            <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
         </rule>
     </pattern>
     <pattern>

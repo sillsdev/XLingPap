@@ -1924,6 +1924,12 @@
     <xsl:template match="langData">
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
+        <!-- if we are using \mbox{} to deal with unwanted hyphenation, and the langData begins with a space, we need to insert a space here -->
+        <xsl:if test="substring(.,1,1)=' ' and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0">
+            <xsl:if test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+        </xsl:if>
         <tex:spec cat="bg"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:call-template name="OutputFontAttributes">
@@ -4973,7 +4979,7 @@
                     <xsl:with-param name="sLabel">
                         <tex:cmd name="textit">
                             <tex:parm>
-                                <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>        
+                                <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
                             </tex:parm>
                         </tex:cmd>
                     </xsl:with-param>
@@ -5249,12 +5255,12 @@
         </xsl:if>
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="show">
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show">
                     <xsl:with-param name="bDoLineBreak" select="'Y'"/>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

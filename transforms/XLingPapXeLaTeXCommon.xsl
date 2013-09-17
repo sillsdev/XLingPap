@@ -731,7 +731,7 @@
     </xsl:template>
     <xsl:template match="ul">
         <xsl:choose>
-            <xsl:when test="count(ancestor::ul | ancestor::ol) = 0">
+            <xsl:when test="count(ancestor::ul | ancestor::ol) = 0 or parent::endnote">
                 <xsl:if test="parent::definition">
                     <xsl:call-template name="DoTypeEnd">
                         <xsl:with-param name="type" select="../@type"/>
@@ -741,11 +741,18 @@
                     <tex:spec cat="esc"/>
                     <xsl:text>parskip .5pt plus 1pt minus 1pt
 </xsl:text>
-                    <tex:cmd name="vspace" nl1="1" nl2="1">
-                        <tex:parm>
-                            <xsl:call-template name="VerticalSkipAroundList"/>
-                        </tex:parm>
-                    </tex:cmd>
+                    <xsl:choose>
+                        <xsl:when test="parent::definition and ancestor::p">
+                            <xsl:text>&#x0a;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:cmd name="vspace" nl1="1" nl2="1">
+                                <tex:parm>
+                                    <xsl:call-template name="VerticalSkipAroundList"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:if test="parent::definition">
                         <xsl:call-template name="DoType">
                             <xsl:with-param name="type" select="../@type"/>
@@ -793,7 +800,8 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template name="VerticalSkipAroundList">
-        <xsl:if test="ancestor::example">
+        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example'][1]"/>
+        <xsl:if test="name($nearestRelevantElement)='example'">
             <xsl:text>-</xsl:text>
         </xsl:if>
         <tex:cmd name="baselineskip" gr="0" nl2="0"/>
@@ -978,12 +986,28 @@
                 </xsl:if>
             </tex:opt>
             <tex:parm>
-                <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
+                <xsl:variable name="mydt" select="."/>
+                <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt">
+                    <xsl:with-param name="mydt" select="$mydt"/>
+                </xsl:apply-templates>
             </tex:parm>
         </tex:cmd>
     </xsl:template>
     <xsl:template match="dd" mode="dt">
+        <xsl:param name="mydt"/>
+        <xsl:if test="parent::dl/@showddOnNewLineInPDF='yes'">
+            <tex:cmd name="hfill" gr="0"/>
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+        </xsl:if>
         <xsl:apply-templates/>
+        <xsl:if test="count(preceding-sibling::dd[preceding-sibling::dt[1]=$mydt])=0">
+            <xsl:for-each select="following-sibling::dd[preceding-sibling::dt[1]=$mydt]">
+                <xsl:apply-templates select="self::*" mode="dt">
+                    <xsl:with-param name="mydt" select="$mydt"/>
+                </xsl:apply-templates>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--
         word
@@ -1190,7 +1214,7 @@
             <xsl:when test="parent::td">
                 <!-- when we are in a table, any attempt to insert a new row for a free translation 
                     causes a Missing \endgroup message. By embedding the interlinear within
-                    a tabular, we avoid that problem (although, the interlienar may be indented a
+                    a tabular, we avoid that problem (although, the interlinear may be indented a
                     bit more than we'd like). -->
                 <tex:env name="tabular">
                     <tex:opt>t</tex:opt>
@@ -1798,6 +1822,9 @@
             <xsl:choose>
                 <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and contains(@XeLaTeXSpecial,'singlespacing')">
                     <tex:cmd name="par"/>
+                </xsl:when>
+                <xsl:when test="dl">
+                    <!-- do nothing or PDF will fail to be produced -->
                 </xsl:when>
                 <xsl:otherwise>
                     <tex:spec cat="esc"/>
@@ -5747,8 +5774,11 @@
         </xsl:variable>
         <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
             <xsl:if test="parent::interlinear[string-length(@textref) &gt; 0] or following-sibling::interlinearSource">
-                <!-- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -->
-                <tex:cmd name="raggedright" gr="0" nl2="1"/>
+                <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='td'][1]"/>
+                <xsl:if test="not($bAutomaticallyWrapInterlinears='yes') or not(name($nearestRelevantElement)='td')">
+                    <!-- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -->
+                    <tex:cmd name="raggedright" gr="0" nl2="1"/>
+                </xsl:if>
             </xsl:if>
         </xsl:if>
         <xsl:choose>
@@ -11155,15 +11185,15 @@ What might go in a TeX package file
                         <tex:spec cat="eg"/>
                         <tex:cmd name="nobreak" gr="0" nl2="1"/>
                         <tex:cmd name="hfill" gr="0" nl2="0"/>
-                    <tex:cmd name="nobreak" gr="0" nl2="1"/>
-                    <tex:cmd name="hbox to" gr="0" nl2="0"/>
-                    <tex:cmd name="XLingPaperpnumwidth" gr="0" nl2="0">
-                        <tex:parm>
-                            <tex:cmd name="hfil" gr="0" nl2="0"/>
-                            <tex:cmd name="normalfont" gr="0" nl2="0"/>
-                            <tex:cmd name="normalcolor" gr="0" nl2="0"/>
-                        </tex:parm>
-                    </tex:cmd>
+                        <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                        <tex:cmd name="hbox to" gr="0" nl2="0"/>
+                        <tex:cmd name="XLingPaperpnumwidth" gr="0" nl2="0">
+                            <tex:parm>
+                                <tex:cmd name="hfil" gr="0" nl2="0"/>
+                                <tex:cmd name="normalfont" gr="0" nl2="0"/>
+                                <tex:cmd name="normalcolor" gr="0" nl2="0"/>
+                            </tex:parm>
+                        </tex:cmd>
                         <tex:cmd name="par" gr="0" nl1="1"/>
                     </tex:group>
                 </tex:parm>

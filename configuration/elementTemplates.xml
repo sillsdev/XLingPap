@@ -1885,6 +1885,17 @@ table
          </table>
       </tablenumbered>
    </cfg:elementTemplate>
+   <cfg:elementTemplate name="with_image">
+      <tablenumbered id="nt" xmlns="">
+         <img src="fileName"/>
+      </tablenumbered>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="caption_with_image">
+      <tablenumbered id="nt" xmlns="">
+         <caption/>
+         <img src="fileName"/>
+      </tablenumbered>
+   </cfg:elementTemplate>
    <cfg:elementTemplate name="table" selectable="override">
       <tablenumberedRef table="nt" xmlns=""/>
    </cfg:elementTemplate>

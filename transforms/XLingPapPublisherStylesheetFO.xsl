@@ -1571,7 +1571,17 @@
                     <xsl:apply-templates select="child::node()[name()!='dd']"/>
                 </fo:block>
             </fo:list-item-label>
-            <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
+            <xsl:choose>
+                <xsl:when test="following-sibling::dd[1][name()='dd']">
+                    <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- fo requires a body element; insert it -->
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block/>
+                    </fo:list-item-body>
+                </xsl:otherwise>
+            </xsl:choose>
         </fo:list-item>
     </xsl:template>
     <xsl:template match="dd" mode="dt">
@@ -5683,8 +5693,7 @@ not using
             </xsl:if>
             <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                 <fo:block>
-                    <xsl:attribute name="space-after">.3em</xsl:attribute>
-                    <xsl:attribute name="keep-with-next.within-page">
+                    <xsl:attribute name="space-after">
                         <xsl:choose>
                             <xsl:when test="string-length($sSpaceBetweenTableAndCaption) &gt; 0">
                                 <xsl:value-of select="$sSpaceBetweenTableAndCaption"/>
@@ -6396,12 +6405,12 @@ not using
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textbefore"/>
             <xsl:choose>
                 <xsl:when test="$bDoStyles='Y'">
-                    <xsl:apply-templates select="table/caption | table/endCaption" mode="show">
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show">
                         <xsl:with-param name="styleSheetLabelLayout" select="$contentLayoutInfo/tablenumberedLabelLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>

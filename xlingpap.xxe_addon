@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-09-13</a:date
+>2013-09-17</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.0 13 September 2013<ul
+>2.24.0 17 Sehypptember 2013<ul
 ><li
 >Add SIL-UND Thesis style sheet to canned set of publisher style sheets.</li
+><li
+>Allow a tablenumbered element to contain an image file (which, presumably, will be of a table).</li
 ><li
 >Add ability to have a book contain a collection of papers (each paper as a chapter).</li
 ><li
@@ -44,7 +46,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug in converting gloss material to abbrRefs: if there were two or more delimiters before an embedded object, then only the first delimiter was kept.</li
 ><li
->Fix bug which would not show a sectionRef to a part.  It also did not show parts correctly in the sectionRef chooser in XXE.</li
+>Fix bug which would not show a sectionRef to a part. It also did not show parts correctly in the sectionRef chooser in XXE.</li
 ><li
 >Fix bug in how section numbers show in XXE in a multi-part book (only a problem for XXE version 5.3).</li
 ><li
@@ -61,6 +63,14 @@ href="mailto::andy_black@sil.org"
 >Fix bug which once in a while caused the PDF to fail to be produced on Windows systems when langData was in a paragraph and non-English hyphenation of the paper was in effect.</li
 ><li
 >Fix bug which could cause a footnote text to not appear at the bottom of a page when there was an interlinearSource element within a listInterlinear.</li
+><li
+>Fix bug which caused the PDF not to be produced when using automatically wrapped interlinears and there was an interlinear in a table.</li
+><li
+>Fix bug which caused the PDF not to be produced when using a dl (definition list) in a chart in a figure with a caption.</li
+><li
+>Add a new attribute to the dl element: when showddOnNewLineInPDF is set to 'yes', then each dd after a dt will start on a new line.</li
+><li
+>Fix bug: when there was a ul (unordered list) in an endnote in an example, the list would start overlapping on top of the last line of the preceding paragraph and would also have it's last line overlap on top of the first line of a following paragraph.</li
 ></ul
 ></li
 ><li

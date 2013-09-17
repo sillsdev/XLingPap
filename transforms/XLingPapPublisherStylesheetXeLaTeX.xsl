@@ -1890,128 +1890,7 @@
     <!-- ===========================================================
       LISTS
       =========================================================== -->
-    <!--  What about type attributes?
-    
-    
-    <xsl:template match="ol">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <xsl:variable name="NestingLevel">
-                <xsl:choose>
-                    <xsl:when test="ancestor::endnote">
-                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="count(ancestor::ol)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:if test="$NestingLevel = '0'">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">2em</xsl:attribute>
-            </xsl:if>
-            <xsl:if test="ancestor::endnote">
-                <xsl:attribute name="provisional-label-separation">0em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
-    </xsl:template>
-    <xsl:template match="ul">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <xsl:if test="not(ancestor::ul)">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">1em</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoType"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
-    </xsl:template>
-    <xsl:template match="li">
-        <fo:list-item relative-align="baseline">
-            <xsl:if test="@id">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-            </xsl:if>
-            <fo:list-item-label end-indent="label-end()">
-                <fo:block>
-                    <xsl:choose>
-                        <xsl:when test="parent::*[name(.)='ul']">&#x2022;</xsl:when>
-                        <xsl:otherwise>
-                            <xsl:attribute name="text-align">end</xsl:attribute>
-                            <xsl:variable name="NestingLevel">
-                                <xsl:choose>
-                                    <xsl:when test="ancestor::endnote">
-                                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="count(ancestor::ol)"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:variable>
-                            <xsl:choose>
-                                <xsl:when test="($NestingLevel mod 3)=1">
-                                    <xsl:number count="li" format="1"/>
-                                </xsl:when>
-                                <xsl:when test="($NestingLevel mod 3)=2">
-                                    <xsl:number count="li" format="a"/>
-                                </xsl:when>
-                                <xsl:when test="($NestingLevel mod 3)=0">
-                                    <xsl:number count="li" format="i"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="position()"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:text>.</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>
-                    <xsl:apply-templates select="child::node()[name()!='ul']"/>
-                </fo:block>
-                <xsl:apply-templates select="child::node()[name()='ul']"/>
-            </fo:list-item-body>
-        </fo:list-item>
-    </xsl:template>
-    <xsl:template match="dl">
-        <fo:list-block>
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-            </xsl:call-template>
-            <xsl:if test="not(ancestor::dl)">
-                <xsl:attribute name="start-indent">1em</xsl:attribute>
-                <xsl:attribute name="provisional-distance-between-starts">6em</xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-        </fo:list-block>
-    </xsl:template>
-    <xsl:template match="dt">
-        <fo:list-item>
-            <fo:list-item-label end-indent="label-end()">
-                <fo:block font-weight="bold">
-                    <xsl:apply-templates select="child::node()[name()!='dd']"/>
-                </fo:block>
-            </fo:list-item-label>
-            <xsl:apply-templates select="following-sibling::dd[1][name()='dd']" mode="dt"/>
-        </fo:list-item>
-    </xsl:template>
-    <xsl:template match="dd" mode="dt">
-        <fo:list-item-body start-indent="body-start()">
-            <fo:block>
-                <xsl:apply-templates/>
-            </fo:block>
-        </fo:list-item-body>
-    </xsl:template>
--->
+   <!-- handled elsewhere -->
     <!-- ===========================================================
       EXAMPLES
       =========================================================== -->
@@ -2695,6 +2574,12 @@
     <xsl:template match="langData">
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
+        <!-- if we are using \mbox{} to deal with unwanted hyphenation, and the langData begins with a space, we need to insert a space here -->
+        <xsl:if test="substring(.,1,1)=' ' and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0">
+            <xsl:if test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
+        </xsl:if>
         <tex:spec cat="bg"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sLangDataContext">
@@ -4279,14 +4164,16 @@
                     <tex:spec cat="esc"/>
                 </xsl:if>
             </xsl:for-each>
-            <tex:spec cat="lsb"/>
-            <xsl:choose>
-                <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
-                    <xsl:value-of select="$sSpaceBetweenFigureAndCaption"/>
-                </xsl:when>
-                <xsl:otherwise>0pt</xsl:otherwise>
-            </xsl:choose>
-            <tex:spec cat="rsb"/>
+            <xsl:if test="not(chart/dl)">
+                <tex:spec cat="lsb"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
+                        <xsl:value-of select="$sSpaceBetweenFigureAndCaption"/>
+                    </xsl:when>
+                    <xsl:otherwise>0pt</xsl:otherwise>
+                </xsl:choose>
+                <tex:spec cat="rsb"/>
+            </xsl:if>
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="@id"/>
                 <xsl:with-param name="fDoRaisebox" select="'N'"/>
@@ -7342,10 +7229,10 @@
         <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textbefore"/>
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="show"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>

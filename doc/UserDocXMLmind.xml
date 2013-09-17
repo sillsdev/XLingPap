@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 September 2013</date
+>16 September 2013</date
 ><version
 >2.24.0</version
 ><contents
@@ -13605,13 +13605,27 @@ type="tElement"
 >numberedtable</object
 > so that when you are looking to insert a table, you will see it. Most of us will not naturally look under "n" for a table.</p
 ></endnote
-> and a required <object
+> and either a required <object
 type="tElement"
 >table</object
-> element. <object
+> element or a required <object
+type="tElement"
+>img</object
+> element.<endnote
+id="nImageInTablenumbered"
+><p
+>We allow an <object
+type="tElement"
+>img</object
+> element for cases where the table itself is in an image file.  For example, the R program (<link
+href="http://www.r-project.org/"
+>http://www.r-project.org/</link
+>) which is a statistical analysis tool can produce table outputs which can be converted to PDF.</p
+></endnote
+>  <object
 type="tXLingPap"
 ></object
-> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the tables in your document. (These tables are numbered independently of figures.)  For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for numbered tables starts over with each <object
@@ -14952,6 +14966,20 @@ type="tKey"
 type="tElement"
 >dd</object
 > definition element.</p
+><p
+>The default way of producing PDF does not put the content of the <object
+type="tElement"
+>dd</object
+> element on a new line like the web page output does. If you want it to be on a new line, then set the <object
+type="tAttribute"
+>showddOnNewLineInPDF</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> on the <object
+type="tElement"
+>dl</object
+> element.</p
 ></section2
 ></section1
 ><section1

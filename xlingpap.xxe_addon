@@ -32,7 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.0 17 Sehypptember 2013<ul
+>2.24.1 26 September 2013<ul
+><li
+>Add multivolumeWork as a reference item.</li
+></ul
+></li
+><li
+>2.24.0 17 September 2013<ul
 ><li
 >Add SIL-UND Thesis style sheet to canned set of publisher style sheets.</li
 ><li

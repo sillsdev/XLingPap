@@ -3220,6 +3220,12 @@ not using
                     </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:if test="multivolumeWork">
+                <fo:inline font-style="italic">
+                    <xsl:value-of select="normalize-space(multivolumeWork)"/>
+                </fo:inline>
+                <xsl:text>.&#x20;</xsl:text>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="location and publisher">
                     <xsl:value-of select="normalize-space(location)"/>
@@ -4074,6 +4080,12 @@ not using
                                     </xsl:call-template>
                                 </xsl:if>
                                 <xsl:text>&#x20;</xsl:text>
+                            </xsl:if>
+                            <xsl:if test="collection/multivolumeWork">
+                                <fo:inline font-style="italic">
+                                    <xsl:value-of select="normalize-space(collection/multivolumeWork)"/>
+                                </fo:inline>
+                                <xsl:text>.&#x20;</xsl:text>
                             </xsl:if>
                             <xsl:choose>
                                 <xsl:when test="collection/location">

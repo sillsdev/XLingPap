@@ -728,6 +728,11 @@
                                     <xsl:with-param name="item" select="normalize-space($book/bVol)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='multivolumeWorkItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($book/multivolumeWork)"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='bookTotalPagesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($book/bookTotalPages)"/>
@@ -866,6 +871,11 @@
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($book/series)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='multivolumeWorkItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($book/multivolumeWork)"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <!--        in a series??                    <xsl:when test="name(.)='bVolItem'">
@@ -1137,6 +1147,11 @@
                             <xsl:when test="name(.)='bVolItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($collection/bVol)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='multivolumeWorkItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($collection/multivolumeWork)"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
@@ -2381,6 +2396,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
+                <xsl:when test="multivolumeWork">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
                 <xsl:when test="bookTotalPages">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
@@ -2418,20 +2437,24 @@
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(bVolItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and bookTotalPagesItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(bookTotalPagesItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and multivolumeWorkItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(multivolumeWorkItem)">x</xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and bookTotalPagesItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(bookTotalPagesItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="locationPublisherPos">8</xsl:with-param>
+                        <xsl:with-param name="locationPublisherPos">9</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="urlPos">9</xsl:with-param>
+                        <xsl:with-param name="urlPos">10</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="dateAccessedPos">10</xsl:with-param>
+                        <xsl:with-param name="dateAccessedPos">11</xsl:with-param>
                     </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -2440,7 +2463,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2658,6 +2681,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
+                <xsl:when test="multivolumeWork">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
@@ -2711,26 +2738,30 @@
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and bVolItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(bVolItem)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and multivolumeWorkItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(multivolumeWorkItem)">x</xsl:when>
+                    </xsl:choose>
                     <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="locationPublisherPos">9</xsl:with-param>
+                        <xsl:with-param name="locationPublisherPos">10</xsl:with-param>
                     </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,10, 1)='y' and collCitationItem">
+                        <xsl:when test="substring($sOptionsPresent,11, 1)='y' and collCitationItem">
                             <xsl:choose>
                                 <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and collPagesItem and string-length(normalize-space($refWork/collCitation/@page)) &gt; 0">xx</xsl:when>
                                 <xsl:otherwise>x</xsl:otherwise>
                             </xsl:choose>
                         </xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(collCitationItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent,11, 1)='n' and not(collCitationItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="urlPos">11</xsl:with-param>
+                        <xsl:with-param name="urlPos">12</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="dateAccessedPos">12</xsl:with-param>
+                        <xsl:with-param name="dateAccessedPos">13</xsl:with-param>
                     </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -2739,15 +2770,16 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,14, 1)='y' and authorRoleItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,14, 1)='n' and not(authorRoleItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent,15, 1)='y' and authorRoleItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent,15, 1)='n' and not(authorRoleItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 15, 1)='y' and editionItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 15, 1)='n' and not(editionItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 16, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 16, 1)='n' and not(editionItem)">x</xsl:when>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 15">
+                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 16">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>

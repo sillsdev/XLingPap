@@ -76,9 +76,9 @@ References Layouts
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
                                                 locationPublisherLayoutsRef | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem | 
+<!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
                                                bookTotalPagesItem | locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem |  collCitationItem | authorRoleItem |
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
@@ -170,6 +170,8 @@ References Layouts
 >
 <!ELEMENT seriesItem EMPTY >
 <!ATTLIST seriesItem %formatinfo;>
+<!ELEMENT multivolumeWorkItem EMPTY >
+<!ATTLIST multivolumeWorkItem %formatinfo;>
 <!ELEMENT bookTotalPagesItem EMPTY >
 <!ATTLIST bookTotalPagesItem %formatinfo;>
 

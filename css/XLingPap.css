@@ -2592,6 +2592,15 @@ ms
 	display:inline;
 }
 
+multivolumeWork
+{
+	display:inline;
+}
+multivolumeWork:after
+{
+	content: ". ";
+}
+
 object:before
 {
 	color: black;
@@ -7537,6 +7546,32 @@ msLayouts
 {
 	property-group: referencesLayouts();
 }
+
+multivolumeWorkItem[color]
+{
+	color:concatenate(attr(color));
+}
+multivolumeWorkItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+multivolumeWorkItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+multivolumeWorkItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+multivolumeWorkItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+multivolumeWorkItem
+{
+	property-group: referencesItem("Languages of the Caucasus");
+}
+
 nothing
 {
 	content:"                         ";

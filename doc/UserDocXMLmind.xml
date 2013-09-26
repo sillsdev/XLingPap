@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->16 September 2013</date
+>26 September 2013</date
 ><version
->2.24.0</version
+>2.24.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -4082,10 +4082,24 @@ type="tElement"
 >, <object
 type="tElement"
 >series</object
->, and <object
+>, <object
 type="tElement"
 >bVol</object
-> (book volume) elements, a recommended <object
+> (book volume), and <indexedItem
+term="iMultivoumeWork"
+></indexedItem
+><object
+type="tElement"
+>multivolumeWork</object
+> (a volume in a multivolume set of works<endnote
+id="nMultivolumeWork"
+><p
+>See sections 17.86 and 17.94 of the 15th edition of the <object
+type="tItalic"
+>Chicago Manual of Style</object
+> or see sections 14.124 and 14.131 of the 16th edtion.</p
+></endnote
+>) elements, a recommended <object
 type="tElement"
 >location</object
 > element and a recommended <object
@@ -4147,6 +4161,17 @@ type="tElement"
 type="tElement"
 >bVol</object
 > (volume number of the series that the volume is in) element,</li
+><li
+><indexedItem
+term="iMultivoumeWork"
+></indexedItem
+>an optional  <object
+type="tElement"
+>multivolumeWork</object
+> (a volume in a multivolume set of works<endnoteRef
+note="nMultivolumeWork"
+></endnoteRef
+>),</li
 ><li
 >an optional <object
 type="tElement"
@@ -13617,15 +13642,15 @@ id="nImageInTablenumbered"
 >We allow an <object
 type="tElement"
 >img</object
-> element for cases where the table itself is in an image file.  For example, the R program (<link
+> element for cases where the table itself is in an image file. For example, the R program (<link
 href="http://www.r-project.org/"
 >http://www.r-project.org/</link
 >) which is a statistical analysis tool can produce table outputs which can be converted to PDF.</p
 ></endnote
->  <object
+> <object
 type="tXLingPap"
 ></object
-> will automatically number the tables in your document. (These tables are numbered independently of figures.)  For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
+> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers, each numbered table is numbered consecutively. For books (i.e. documents containing <object
 type="tElement"
 >chapter</object
 > elements), the numbering for numbered tables starts over with each <object
@@ -24745,6 +24770,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>multivolumeWork</object
+></dt
+><dd
+>Reference information for a volume in a multivolume work</dd
+><dt
+><object
+type="tElement"
 >object</object
 ></dt
 ><dd
@@ -26356,6 +26388,13 @@ type="tElement"
 ></dt
 ><dd
 >Collection of manuscript layouts (within references)</dd
+><dt
+><object
+type="tElement"
+>multivolumeWorkItem</object
+></dt
+><dd
+>Reference information for a volume in a multivolume work item within references</dd
 ><dt
 ><object
 type="tElement"
@@ -28488,6 +28527,11 @@ id="iMenus"
 id="iMSWord2003"
 ><term
 >Microsoft Word 2003 format</term
+></indexTerm
+><indexTerm
+id="iMultivoumeWork"
+><term
+>Volume in a multivolume work in a reference entry</term
 ></indexTerm
 ><indexTerm
 id="iNewDocument"

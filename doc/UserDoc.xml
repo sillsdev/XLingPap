@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->12 September 2013</date
+>26 September 2013</date
 ><version
->2.24.0</version
+>2.24.1</version
 ><contents
 showLevel="3"
 ></contents
@@ -10096,6 +10096,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>multivolumeWork</object
+></dt
+><dd
+>Reference information for a volume in a multivolume work</dd
+><dt
+><object
+type="tElement"
 >object</object
 ></dt
 ><dd
@@ -11669,6 +11676,13 @@ type="tElement"
 ></dt
 ><dd
 >Collection of manuscript layouts (within references)</dd
+><dt
+><object
+type="tElement"
+>multivolumeWorkItem</object
+></dt
+><dd
+>Reference information for a volume in a multivolume work item within references</dd
 ><dt
 ><object
 type="tElement"

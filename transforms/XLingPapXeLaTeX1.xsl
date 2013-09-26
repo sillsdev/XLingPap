@@ -2672,6 +2672,14 @@
                     </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:if test="multivolumeWork">
+                <tex:cmd name="textit">
+                    <tex:parm>
+                        <xsl:value-of select="normalize-space(multivolumeWork)"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:text>.&#x20;</xsl:text>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="location and publisher">
                     <xsl:value-of select="normalize-space(location)"/>
@@ -3458,6 +3466,14 @@
                                 </xsl:call-template>
                             </xsl:if>
                             <xsl:text>&#x20;</xsl:text>
+                        </xsl:if>
+                        <xsl:if test="collection/multivolumeWork">
+                            <tex:cmd name="textit">
+                                <tex:parm>
+                                    <xsl:value-of select="normalize-space(collection/multivolumeWork)"/>
+                                </tex:parm>
+                            </tex:cmd>
+                            <xsl:text>.&#x20;</xsl:text>
                         </xsl:if>
                         <xsl:choose>
                             <xsl:when test="collection/location">

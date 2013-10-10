@@ -21941,7 +21941,7 @@ id="sFAQConvertPaperToBook"
 ><indexedItem
 term="iConvertPaperToChapter"
 ></indexedItem
->It is not unusual for an author to write a paper and then later want to include that paper (or a revision of it) as a chapter in a book.  This often happens when a student is working on a thesis or a dissertation: papers written earlier for classes may well work as part of a thesis or dissertation.</p
+>It is not unusual for an author to write a paper and then later want to include that paper (or a revision of it) as a chapter in a book. This often happens when a student is working on a thesis or a dissertation: papers written earlier for classes may well work as part of a thesis or dissertation.</p
 ><p
 >If one has used <object
 type="tXLingPap"
@@ -21949,7 +21949,7 @@ type="tXLingPap"
 > to write such a paper, one may want to convert that paper to a chapter so one can include it in the thesis or dissertation <object
 type="tXLingPap"
 ></object
-> book document.  To do so, follow these steps:</p
+> book document. To do so, follow these steps:</p
 ><ol
 ><li
 >In <object
@@ -22020,16 +22020,16 @@ type="tInstruction"
 >This will then create a new <object
 type="tXLingPap"
 ></object
-> document with the same name as the paper document but with the addition of “AsChapter” at the end of the file name proper. This new file will appear in the same directory as your main document.  This new document will also be automatically loaded into the <object
+> document with the same name as the paper document but with the addition of “AsChapter” at the end of the file name proper. This new file will appear in the same directory as your main document. This new document will also be automatically loaded into the <object
 type="tXMLmindXMLEditor"
 ></object
->. </li
+>.</li
 ></ol
 ><p
 >You can then copy the <object
 type="tElement"
 >chapter</object
-> element from that new document into the appropriate location in the thesis or dissertation book document you are making. </p
+> element from that new document into the appropriate location in the thesis or dissertation book document you are making.</p
 ></section2
 ></section1
 ><section1
@@ -26776,6 +26776,16 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the publishing blurb</dd
+><dt
+><object
+type="tElement"
+>quoteLayout</object
+></dt
+><dd
+>Layout info for a <object
+type="tElement"
+>q</object
+> (quote) element</dd
 ><dt
 ><object
 type="tElement"

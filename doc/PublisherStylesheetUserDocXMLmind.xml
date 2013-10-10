@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->26 September 2013</date
+>10 October 2013</date
 ><version
->2.24.1</version
+>2.24.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -11898,6 +11898,146 @@ type="tAttrValue"
 ></table
 ></example
 ></section2
+><section2
+id="sQUote"
+><secTitle
+>Controlling the Display of Quotes</secTitle
+><p
+><indexedItem
+term="iQuote"
+></indexedItem
+>Sometimes one wants to override the default quotation marks before and after data in <object
+type="tElement"
+>q</object
+> elements.</p
+><p
+>The <object
+type="tElement"
+>quoteLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xQuoteLayoutAttributes"
+num="xQuoteLayoutAttributes"
+></exampleRef
+>. You use this to control what comes before and after the content of <object
+type="tElement"
+>q</object
+> elements</p
+><example
+num="xQuoteLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>quoteLayout</object
+> Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTextAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>textafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>Text material to output immediately after the information.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>» ’</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+></object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTextBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>textbefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>Text material to output immediately before the information.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+> « </object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>‘</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+></table
+></example
+></section2
 ></section1
 ><section1
 id="sCommonSetsOfAttributes"
@@ -14174,6 +14314,11 @@ see="iPubDate"
 id="iPublisher"
 ><term
 >Publisher</term
+></indexTerm
+><indexTerm
+id="iQuote"
+><term
+>Quote quotation marks</term
 ></indexTerm
 ><indexTerm
 id="iReferences"

@@ -8273,6 +8273,12 @@ publishingBlurbLayout
 {
 	property-group: titledItem("Publishing Blurb");
 }
+quoteLayout
+{
+	property-group: titledItem("quoted material");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 refAuthorItem[color]
 {
 	color:concatenate(attr(color));

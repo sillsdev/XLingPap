@@ -1391,9 +1391,9 @@
     <xsl:template match="q">
         <fo:inline>
             <xsl:call-template name="DoType"/>
-            <xsl:value-of select="$sLdquo"/>
+            <xsl:call-template name="DoQuoteTextBefore"/>
             <xsl:apply-templates/>
-            <xsl:value-of select="$sRdquo"/>
+            <xsl:call-template name="DoQuoteTextAfter"/>
         </fo:inline>
     </xsl:template>
     <xsl:template match="blockquote">

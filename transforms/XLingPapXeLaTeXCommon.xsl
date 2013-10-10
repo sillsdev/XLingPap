@@ -275,11 +275,11 @@
         QUOTES
         =========================================================== -->
     <xsl:template match="q">
-        <xsl:value-of select="$sLdquo"/>
+        <xsl:call-template name="DoQuoteTextBefore"/>
         <xsl:call-template name="DoType"/>
         <xsl:apply-templates/>
         <xsl:call-template name="DoTypeEnd"/>
-        <xsl:value-of select="$sRdquo"/>
+        <xsl:call-template name="DoQuoteTextAfter"/>
     </xsl:template>
     <xsl:template match="blockquote">
         <!--  following did not work      <tex:group>

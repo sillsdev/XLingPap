@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->26 September 2013</date
+>10 October 2013</date
 ><version
->2.24.1</version
+>2.24.2</version
 ><contents
 showLevel="3"
 ></contents
@@ -11966,6 +11966,16 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the publishing blurb</dd
+><dt
+><object
+type="tElement"
+>quoteLayout</object
+></dt
+><dd
+>Layout info for a <object
+type="tElement"
+>q</object
+> (quote) element</dd
 ><dt
 ><object
 type="tElement"

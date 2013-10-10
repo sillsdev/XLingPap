@@ -439,6 +439,34 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    <!--  
+        DoQuoteTextAfter
+    -->
+    <xsl:template name="DoQuoteTextAfter">
+        <xsl:variable name="sTextAfter" select="$contentLayoutInfo/quoteLayout/@textafter"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sTextAfter)&gt;0">
+                <xsl:value-of select="$sTextAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sRdquo"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoQuoteTextBefore
+    -->
+    <xsl:template name="DoQuoteTextBefore">
+        <xsl:variable name="sTextBefore" select="$contentLayoutInfo/quoteLayout/@textbefore"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sTextBefore)&gt;0">
+                <xsl:value-of select="$sTextBefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sLdquo"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--
         DoRefAuthors
     -->

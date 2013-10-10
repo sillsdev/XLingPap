@@ -559,7 +559,7 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, prose-textTextLayout? ) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, prose-textTextLayout? , quoteLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -762,7 +762,12 @@ Content Layout
      spaceafter CDATA #IMPLIED
      spacebefore CDATA #IMPLIED
 >
-<!-- REVISION HISTORY
+<!ELEMENT quoteLayout EMPTY >
+   <!ATTLIST quoteLayout
+     textafter CDATA #IMPLIED
+     textbefore CDATA #IMPLIED
+   >
+   <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 
 -->

@@ -1215,14 +1215,14 @@
         =========================================================== -->
     <xsl:template match="q">
         <span>
-            <xsl:value-of select="$sLdquo"/>
+            <xsl:call-template name="DoQuoteTextBefore"/>
             <span>
                 <xsl:attribute name="style">
                     <xsl:call-template name="DoType"/>
                 </xsl:attribute>
                 <xsl:apply-templates/>
             </span>
-            <xsl:value-of select="$sRdquo"/>
+            <xsl:call-template name="DoQuoteTextAfter"/>
         </span>
     </xsl:template>
     <xsl:template match="blockquote">

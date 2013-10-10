@@ -262,9 +262,9 @@
         <rule context="/publisherStyleSheet/pageLayout/footnotePointSize | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout/footnotePointSize">
             <report test="string(number(.))='NaN'">The footnote point size needs to be a number.  It is not.</report>
         </rule>
-        <rule context="/publisherStyleSheet/pageLayout | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout">
+        <!-- no longer an issue <rule context="/publisherStyleSheet/pageLayout | /xlingpaper/styledPaper/publisherStyleSheet/pageLayout">
             <report test="substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageHeight),string-length(normalize-space(pageHeight))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageTopMargin),string-length(normalize-space(pageTopMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageBottomMargin),string-length(normalize-space(pageBottomMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageInsideMargin),string-length(normalize-space(pageInsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(pageOutsideMargin),string-length(normalize-space(pageOutsideMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(headerMargin),string-length(normalize-space(headerMargin))-1,2) or substring(normalize-space(pageWidth),string-length(normalize-space(pageWidth))-1,2)!=substring(normalize-space(footerMargin),string-length(normalize-space(footerMargin))-1,2)">The unit of measure for pageWidth, pageHeight, pageTopMargin, pageBottomMargin, pageInsideMargin, pageOutsideMargin, headerMargin, and footerMargin all need to be the same.  Please make them all the same.</report>
-        </rule>
+        </rule>-->
         <rule context="/publisherStyleSheet/contentLayout/magnificationFactor | /xlingpaper/styledPaper/publisherStyleSheet/contentLayout/magnificationFactor">
             <report test="string(number(.))='NaN'">The magnification factor needs to be a number.  It is not.</report>
         </rule>
@@ -330,6 +330,20 @@
         </rule>
         <rule context="authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
             <assert test="//chapterInCollectionLayout">There is an authorLayout element immediately after a contentsLayout element, but no chapterInCollectionLayout.  This authorLayout will be ignored.</assert>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>Check for ill-formed font-size attribute values</title>
+        <rule context="@font-size">
+            <report test="contains(normalize-space(.),' ')">The font-size attribute should not contain a space.  Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%' and normalize-space(.)!='smaller' and normalize-space(.)!='larger' and normalize-space(.)!='large' and normalize-space(.)!='medium' and normalize-space(.)!='small' and normalize-space(.)!='x-large' and normalize-space(.)!='xx-large' and normalize-space(.)!='x-small' and normalize-space(.)!='xx-small'">Warning: this font-size attribute does not have a proper unit of measure.   Please use either 'pt' or '%'.  The PDF may fail to be produced.</report>
+        </rule>
+    </pattern>
+    <pattern>
+        <title>Check for ill-formed spacebefore and spaceafter attribute values</title>
+        <rule context="@spaceafter | @spacebefore">
+            <report test="contains(normalize-space(.),' ')">The spacebefore or spaceafter attribute should not contain a space.  Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spacebefore or spaceafter attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
         </rule>
     </pattern>
 </schema>

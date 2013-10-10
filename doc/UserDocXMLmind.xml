@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->26 September 2013</date
+>10 October 2013</date
 ><version
->2.24.1</version
+>2.24.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -4165,7 +4165,7 @@ type="tElement"
 ><indexedItem
 term="iMultivoumeWork"
 ></indexedItem
->an optional  <object
+>an optional <object
 type="tElement"
 >multivolumeWork</object
 > (a volume in a multivolume set of works<endnoteRef
@@ -5515,7 +5515,7 @@ type="tXLingPap"
 ><section3
 id="sBMRefEndnoteXML"
 ><secTitle
->Converting a <object
+>Converting an <object
 type="tEndnoteXML"
 ></object
 > XML references file to <object
@@ -21933,6 +21933,104 @@ type="tXLingPap"
 ><p
 >If you find that you do not like the shorter version for some reason, you can re-instate the longer version. Follow the steps above except use the command “UseLongerMenus” instead of “UseShorterMenus”.</p
 ></section2
+><section2
+id="sFAQConvertPaperToBook"
+><secTitle
+>Convert a Paper to Be a Chapter in a Book?</secTitle
+><p
+><indexedItem
+term="iConvertPaperToChapter"
+></indexedItem
+>It is not unusual for an author to write a paper and then later want to include that paper (or a revision of it) as a chapter in a book.  This often happens when a student is working on a thesis or a dissertation: papers written earlier for classes may well work as part of a thesis or dissertation.</p
+><p
+>If one has used <object
+type="tXLingPap"
+></object
+> to write such a paper, one may want to convert that paper to a chapter so one can include it in the thesis or dissertation <object
+type="tXLingPap"
+></object
+> book document.  To do so, follow these steps:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> paper document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnote
+id="nToolMenuExecuteCommand"
+><p
+>Some versions of the <object
+type="tXMLmindXMLEditor"
+></object
+> do not automatically include this menu item. To get it, do this:</p
+><ol
+><li
+>Use <object
+type="tInstruction"
+>Options</object
+> menu item / <object
+type="tElement"
+>Preferences...</object
+>.</li
+><li
+>In the left hand pane, click on “Features" (under “General”).</li
+><li
+>Scroll the right hand pane down until you see the “Enable the ‘Tools|Record Macro’ Submenu” item.</li
+><li
+>Make sure the check box before it is checked.</li
+><li
+>Click on the OK button.</li
+><li
+>Exit the <object
+type="tXMLmindXMLEditor"
+></object
+> program.</li
+><li
+>Restart the <object
+type="tXMLmindXMLEditor"
+></object
+> program. The <object
+type="tInstruction"
+>Tools / Execute Command</object
+> menu item should now be available.</li
+></ol
+></endnote
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Pa” (it should then fill in “PaperToChapter” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then create a new <object
+type="tXLingPap"
+></object
+> document with the same name as the paper document but with the addition of “AsChapter” at the end of the file name proper. This new file will appear in the same directory as your main document.  This new document will also be automatically loaded into the <object
+type="tXMLmindXMLEditor"
+></object
+>. </li
+></ol
+><p
+>You can then copy the <object
+type="tElement"
+>chapter</object
+> element from that new document into the appropriate location in the thesis or dissertation book document you are making. </p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -27981,6 +28079,11 @@ id="iConvertPaperToChapterInCollection"
 >Convert paper for use in a collection volume</term
 ></indexTerm
 ><indexTerm
+id="iConvertPaperToChapter"
+><term
+>Convert paper to a chapter for use in a thesis or dissertation or book</term
+></indexTerm
+><indexTerm
 id="iCreateNew"
 ><term
 >Create a new XLingPaper Document</term
@@ -28559,6 +28662,12 @@ id="iPaperInACollectionVolume"
 see="iConvertPaperToChapterInCollection"
 ><term
 >Paper to be in a collection volume</term
+></indexTerm
+><indexTerm
+id="iPaperInAThesis"
+see="iConvertPaperToChapter"
+><term
+>Paper to be in a thesis or dissertation (or book)</term
 ></indexTerm
 ><indexTerm
 id="iPart"

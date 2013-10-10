@@ -3019,4 +3019,32 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ConvertPaperToChapterInCollection.xsl" to="%*"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="PaperToChapter">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <!-- needs to be a paper, not a book -->
+                        <cfg:test context="//lingPaper" expression="descendant::chapter or descendant::chapterInCollection"/>
+                        <cfg:command name="LocalizeString" parameter="msg.mustBePaper"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','AsChapter','.','%{E}')"/>
+                        <!--<cfg:get expression="$newFileName"/>
+                            <cfg:command name="alert" parameter="%_"/>-->
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="ConvertPaperToChapterTransform" parameter="%_"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="XXE.open" parameter="%_"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ConvertPaperToChapterTransform">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ConvertPaperToChapter.xsl" to="%*"/>
+        </cfg:process>
+    </cfg:command>
 </cfg:configuration>

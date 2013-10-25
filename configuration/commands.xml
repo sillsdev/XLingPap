@@ -1243,7 +1243,7 @@ alt causes menu to be selected
     <cfg:command name="getContentTypesAndIds">
         <cfg:process showProgress="false">
             <cfg:copyDocument to="in.xml"/>
-            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/getContentTypesAndIds.xsl" to="out.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetContentTypesAndIds.xsl" to="out.xml"/>
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>

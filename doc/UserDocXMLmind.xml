@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->10 October 2013</date
+>22 October 2013</date
 ><version
 >2.24.2</version
 ><contents
@@ -11870,7 +11870,15 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->A color name or code to be used as the background color of this table, row or cell.</langData
+>A color name or code to be used as the background color of this table, row or cell.<endnote
+id="nColorNames"
+><p
+>There is a long list of color names you can use.  See <link
+href="http://coloreminder.com/"
+>http://coloreminder.com/</link
+> for a listing.  Be sure to click on the “Colors and Names” button.</p
+></endnote
+></langData
 ></td
 ></tr
 ><tr
@@ -21966,45 +21974,9 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
->.<endnote
-id="nToolMenuExecuteCommand"
-><p
->Some versions of the <object
-type="tXMLmindXMLEditor"
-></object
-> do not automatically include this menu item. To get it, do this:</p
-><ol
-><li
->Use <object
-type="tInstruction"
->Options</object
-> menu item / <object
-type="tElement"
->Preferences...</object
->.</li
-><li
->In the left hand pane, click on “Features" (under “General”).</li
-><li
->Scroll the right hand pane down until you see the “Enable the ‘Tools|Record Macro’ Submenu” item.</li
-><li
->Make sure the check box before it is checked.</li
-><li
->Click on the OK button.</li
-><li
->Exit the <object
-type="tXMLmindXMLEditor"
-></object
-> program.</li
-><li
->Restart the <object
-type="tXMLmindXMLEditor"
-></object
-> program. The <object
-type="tInstruction"
->Tools / Execute Command</object
-> menu item should now be available.</li
-></ol
-></endnote
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
 ></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “Pa” (it should then fill in “PaperToChapter” for you).</li
@@ -22777,7 +22749,10 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->A color name or code to be used as the background color of the entire framed unit.</langData
+>A color name or code to be used as the background color of the entire framed unit.<endnoteRef
+note="nColorNames"
+></endnoteRef
+></langData
 ></td
 ></tr
 ><tr

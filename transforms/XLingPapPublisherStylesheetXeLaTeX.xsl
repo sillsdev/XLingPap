@@ -88,9 +88,10 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">
+        <xsl:variable name="sIndentBefore" select="normalize-space($contentLayoutInfo/listLayout/@indent-before)"/>
         <xsl:choose>
-            <xsl:when test="$contentLayoutInfo/listLayout">
-                <xsl:value-of select="$contentLayoutInfo/listLayout/@indent-before"/>
+            <xsl:when test="string-length($sIndentBefore)&gt;0">
+                <xsl:value-of select="$sIndentBefore"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>0pt</xsl:text>

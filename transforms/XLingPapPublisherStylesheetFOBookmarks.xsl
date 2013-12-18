@@ -40,7 +40,7 @@
                <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
             </xsl:call-template>
 <!--            <xsl:apply-templates select="secTitle"/>-->
-            <xsl:value-of select="secTitle"/>
+            <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
          </fo:bookmark-title>
       <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>
       </fo:bookmark>
@@ -53,7 +53,7 @@
            <fo:bookmark-title>
                <xsl:call-template name="OutputChapterNumber"/>
                <xsl:text>&#xa0;</xsl:text>
-               <xsl:apply-templates select="secTitle"/>
+              <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment'] | frontMatter/title" mode="bookmarks"/>
            </fo:bookmark-title>
            <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>
        </fo:bookmark>
@@ -160,12 +160,14 @@
             <xsl:text>&#x20;</xsl:text>
             <xsl:apply-templates select="." mode="numberPart"/>
             <xsl:text>&#xa0;</xsl:text>
-            <xsl:apply-templates select="secTitle"/>
+<!--            <xsl:apply-templates select="secTitle"/>-->
+         <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
          </fo:bookmark-title>
       </fo:bookmark>
-       <xsl:apply-templates select="child::node()[name()!='secTitle']" mode="bookmarks">
-            <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
-         </xsl:apply-templates>
+       <!--<xsl:apply-templates select="child::node()[name()!='secTitle']" mode="bookmarks">
+            <!-\-                <xsl:with-param name="nLevel" select="$nLevel"/>-\->
+       </xsl:apply-templates>-->
+      <xsl:apply-templates select="chapter | chapterInCollection" mode="bookmarks"/>
    </xsl:template>
    <!--
         preface (bookmarks)
@@ -287,7 +289,7 @@
          <xsl:if test="not(count(//section1)=1 and count(//section2)=0)">
          <xsl:text>&#xa0;</xsl:text>
          </xsl:if>
-         <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+         <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
       </fo:bookmark-title>
    </xsl:template>
 </xsl:stylesheet>

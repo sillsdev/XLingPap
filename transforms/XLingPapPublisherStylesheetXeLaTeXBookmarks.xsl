@@ -73,7 +73,7 @@
                         <xsl:call-template name="OutputChapterNumber">
                             <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                         </xsl:call-template>
-                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                        <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
                         <!--                <xsl:value-of select="secTitle"/>-->
                     </tex:parm>
                     <tex:parm>
@@ -93,7 +93,7 @@
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputChapterNumber"/>
                 <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle | frontMatter/title" mode="bookmarks"/>
+                <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment'] | frontMatter/title" mode="bookmarks"/>
             </xsl:with-param>
         </xsl:call-template>
         <!--        <xsl:apply-templates select="section1 | section2" mode="bookmarks"/>-->
@@ -205,7 +205,7 @@
                         <xsl:text>&#x20;</xsl:text>
                         <xsl:apply-templates select="." mode="numberPart"/>
                         <xsl:text>&#xa0;</xsl:text>
-                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                        <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
                         <!--                <xsl:value-of select="secTitle"/>-->
                     </tex:parm>
                     <tex:parm>
@@ -379,7 +379,7 @@
                         <xsl:if test="not(count(//section1)=1 and count(//section2)=0)">
                             <xsl:text>&#xa0;</xsl:text>
                         </xsl:if>
-                        <xsl:apply-templates select="secTitle" mode="bookmarks"/>
+                        <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment']" mode="bookmarks"/>
                     </tex:parm>
                     <tex:parm>
                         <xsl:value-of select="translate(@id,$sIDcharsToMap, $sIDcharsMapped)"/>

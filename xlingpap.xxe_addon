@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.24.2_1</a:version
+>2.24.2_2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-11-05</a:date
+>2013-12-18</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,27 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.2_1 5 November 2013<ul
+>2.24.2_2 18 December 2013<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: if a publisher style sheet indicated space-and-a-half spacing and there was a paragraph, followed by a block quote, followed by a paragraph, then there was too much vertical spacing before the block quote material.</li
+></ul
+></li
+><li
+>Fix bug: If a section title contained a comment, the comment showed up in the PDF bookmarks.</li
+></ul
+></li
+><li
+>2.24.2_1 18 November 2013<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: if a publisher style sheet had a listLayout element and the indent-before attribute was not overtlyset, the PDF would fail to be produced.</li
 ></ul
 ></li
+><li
+>Revise the way checking for font size and space before/after is done to try and improve performance.</li
 ></ul
 ></li
 ><li

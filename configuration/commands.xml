@@ -7,8 +7,16 @@
     <!-- following are customized cfg:commands written by hab -->
     <cfg:binding>
         <cfg:keyPressed code="F10" modifiers="shift"/>
-        <cfg:command name="ConvertToWrds"/>
+        <cfg:command name="ConvertToWrdsOrGlossToAbbrRefs"/>
     </cfg:binding>
+    <cfg:command name="ConvertToWrdsOrGlossToAbbrRefs">
+        <cfg:macro>
+            <cfg:choice>
+                <cfg:command name="ConvertToWrds"/>
+                <cfg:command name="ConvertAnyAbbreviationsInGlossToAbbrRef"/>
+            </cfg:choice>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="ConvertAnyAbbreviationsInGlossToAbbrRef">
         <cfg:macro undoable="true" repeatable="true" trace="false">
             <cfg:sequence>
@@ -16,7 +24,7 @@
                     <!-- need to be abbreviations and currently needs to be in gloss  -->
                     <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
                     <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
-                    <!-- but not with a wrd element -->
+                    <!-- but not with a parent line element -->
                     <cfg:fail>
                         <cfg:command name="selectNode" parameter="parent[implicitElement] line"/>
                     </cfg:fail>
@@ -27,7 +35,7 @@
         </cfg:macro>
     </cfg:command>
     <cfg:command name="ConvertToWrds">
-        <cfg:macro undoable="true" repeatable="true" trace="false">
+        <cfg:macro undoable="true" repeatable="true" trace="true">
             <cfg:sequence>
                 <cfg:pass>
                     <!-- needs to be in interlinear line and langData or gloss -->
@@ -60,6 +68,7 @@
                                     <cfg:command name="SelectNextWordToConvert"/>
                                 </cfg:pass>
                                 <cfg:command name="ReplaceNextWordWithWrd"/>
+<!--  if you want it to recurse                              <cfg:command name="ConvertToWrds"/>-->
                             </cfg:sequence>
                             <cfg:sequence>
                                 <!-- exceptional case where have only one word in the line;  
@@ -87,6 +96,7 @@
                                     </cfg:choice>
                                     <!-- Could not select the next word; are done.  Move the dot to the next text node in hopes this helps the user -->
                                     <cfg:command name="moveDotTo" parameter="nextTextNode"/>
+                                    <!--  if you want it to recurse                              <cfg:command name="ConvertToWrds"/>-->
                                 </cfg:sequence>
                             </cfg:sequence>
                         </cfg:choice>
@@ -196,7 +206,7 @@
                     </cfg:pass>
                     <cfg:get expression="$lang"/>
                     <cfg:command name="putAttribute" parameter="lang %_"/>
-              <!--  </cfg:sequence>
+                    <!--  </cfg:sequence>
                 <cfg:sequence>-->
                     <cfg:choice>
                         <cfg:sequence>
@@ -205,7 +215,7 @@
                             <cfg:command name="putAttribute" parameter="textafter %_"/>
                         </cfg:sequence>
                     </cfg:choice>
-             <!--   </cfg:sequence>
+                    <!--   </cfg:sequence>
                 <cfg:sequence>-->
                     <cfg:choice>
                         <cfg:sequence>
@@ -2893,7 +2903,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="UseThisContentControlChoice">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="putAttribute" parameter="active  yes"/>
                 <cfg:command name="SetPreviousContentControlChoiceOff"/>
@@ -2904,7 +2914,7 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="SetPreviousContentControlChoiceOff">
         <!-- We recursively move through all previous content control choice elements and make sure
                 their active attribute is set to no.  We also need to move the current selection back each time. -->
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
@@ -2936,7 +2946,7 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="SetNextContentControlChoiceOff">
         <!-- We recursively move through all following content control choice elements and make sure
             their active attribute is set to no.  We also need to move the current selection back each time. -->
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
@@ -2992,7 +3002,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:process>
     </cfg:command>
     <cfg:command name="PaperToChapterInCollection">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
@@ -3020,7 +3030,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:process>
     </cfg:command>
     <cfg:command name="PaperToChapter">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>

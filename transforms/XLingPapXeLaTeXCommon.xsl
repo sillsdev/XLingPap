@@ -298,10 +298,6 @@
             <tex:cmd name="small">
                 <tex:parm>
 -->
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
-            <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
-        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -311,6 +307,21 @@
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </tex:parm>
             <tex:parm>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
+                    <tex:spec cat="bg"/>
+                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <!-- I do not know why these values are needed, but they are... -->
+                            <xsl:choose>
+                                <xsl:when test="$sLineSpacing='double'"><xsl:text>-1.3</xsl:text></xsl:when>
+                                <xsl:otherwise><xsl:text>-1.75</xsl:text></xsl:otherwise>
+                            </xsl:choose>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>baselineskip</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <!--                    <xsl:call-template name="DoType"/>  this kind cannot cross paragraph boundaries, so have to do it in p-->
                 <xsl:call-template name="OutputTypeAttributes">
                     <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
@@ -319,13 +330,13 @@
                 <xsl:call-template name="OutputTypeAttributesEnd">
                     <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                 </xsl:call-template>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
             </tex:parm>
         </tex:cmd>
         <!--                    <xsl:call-template name="DoTypeEnd"/>-->
         <!--        </tex:env>-->
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
-            <tex:spec cat="eg"/>
-        </xsl:if>
         <!--</tex:parm>
             </tex:cmd>
             <tex:cmd name="vspace" nl2="1">

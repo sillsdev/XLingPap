@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 November 2013</date
+>17 December 2013</date
 ><version
 >2.24.2</version
 ><contents
@@ -291,7 +291,7 @@ term="iUnitsOfMeasure"
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
-> or ems. The unit of measure used for paragraph indent and for the block quote indent do not have to the be same. Do not put any spaces between the number and the unit.</p
+> or ems. The unit of measure used for paragraph indent and for the block quote indent do not have to be the same. Do not put any spaces between the number and the unit.</p
 ><p
 ><indexedItem
 term="iHangingIndent"

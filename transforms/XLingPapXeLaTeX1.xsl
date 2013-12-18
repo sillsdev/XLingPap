@@ -4900,7 +4900,7 @@
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bIsBookmark='Y'">
-                <xsl:apply-templates select="secTitle | frontMatter/title" mode="bookmarks"/>
+                <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment'] | frontMatter/title/text() | frontMatter/title/*[name()!='comment']" mode="bookmarks"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle | frontMatter/title"/>

@@ -194,7 +194,7 @@
         <title>
             <dir value="ltr">Check for use of font-variant='small-caps'</dir>
         </title>
-        <rule context="*">
+        <rule context="/lingPaper/languages/language | /lingPaper/types/type | /xlingpaper/styledPaper/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/types/type | /xlingpaper/styledPaper/publisherStyleSheet//* | /publisherStyleSheet//*">
             <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
         </rule>
     </pattern>
@@ -334,16 +334,20 @@
     </pattern>
     <pattern>
         <title>Check for ill-formed font-size attribute values</title>
-        <rule context="@font-size">
+        <rule context="/lingPaper/languages/language/@font-size | /lingPaper/types/type/@font-size | /xlingpaper/styledPaper/lingPaper/languages/language/@font-size | /xlingpaper/styledPaper/lingPaper/types/type/@font-size | /xlingpaper/styledPaper/publisherStyleSheet//@font-size | /publisherStyleSheet//@font-size">
             <report test="contains(normalize-space(.),' ')">The font-size attribute should not contain a space.  Please remove it.</report>
             <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%' and normalize-space(.)!='smaller' and normalize-space(.)!='larger' and normalize-space(.)!='large' and normalize-space(.)!='medium' and normalize-space(.)!='small' and normalize-space(.)!='x-large' and normalize-space(.)!='xx-large' and normalize-space(.)!='x-small' and normalize-space(.)!='xx-small'">Warning: this font-size attribute does not have a proper unit of measure.   Please use either 'pt' or '%'.  The PDF may fail to be produced.</report>
         </rule>
     </pattern>
     <pattern>
         <title>Check for ill-formed spacebefore and spaceafter attribute values</title>
-        <rule context="@spaceafter | @spacebefore">
-            <report test="contains(normalize-space(.),' ')">The spacebefore or spaceafter attribute should not contain a space.  Please remove it.</report>
-            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spacebefore or spaceafter attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
+        <rule context="/lingPaper/framedTypes/framedType/@spaceafter | /xlingpaper/styledPaper/lingPaper/framedTypes/framedType/@spaceafter | /xlingpaper/styledPaper/publisherStyleSheet//@spaceafter | /publisherStyleSheet//@spaceafter">
+            <report test="contains(normalize-space(.),' ')">The spaceafter attribute should not contain a space.  Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spaceafter attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
+        </rule>
+        <rule context="/lingPaper/framedTypes/framedType/@spacebefore | /xlingpaper/styledPaper/lingPaper/framedTypes/framedType/@spacebefore | /xlingpaper/styledPaper/publisherStyleSheet//@spacebefore | /publisherStyleSheet//@spacebefore">
+            <report test="contains(normalize-space(.),' ')">The spacebefore attribute should not contain a space.  Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spacebefore attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
         </rule>
     </pattern>
 </schema>

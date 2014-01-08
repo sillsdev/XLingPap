@@ -334,6 +334,28 @@
                     <tex:spec cat="eg"/>
                 </xsl:if>
             </tex:parm>
+            <tex:parm>
+                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sSpaceBefore)&gt;0">
+                        <xsl:value-of select="$sSpaceBefore"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
+            <tex:parm>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sSpaceAfter)&gt;0">
+                        <xsl:value-of select="$sSpaceAfter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
         </tex:cmd>
         <!--                    <xsl:call-template name="DoTypeEnd"/>-->
         <!--        </tex:env>-->
@@ -11329,10 +11351,11 @@ What might go in a TeX package file
                 <tex:parm>
                     <tex:cmd name="XLingPaperblockquote" gr="0" nl2="0"/>
                 </tex:parm>
-                <tex:opt>2</tex:opt>
+                <tex:opt>4</tex:opt>
                 <tex:parm>
                     <tex:cmd name="vskip" gr="0" nl2="0"/>
-                    <tex:cmd name="baselineskip" gr="0"/>
+                    <tex:spec cat="parm"/>
+                    <xsl:text>3</xsl:text>
                     <tex:group>
                         <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
                         <tex:spec cat="parm"/>
@@ -11359,7 +11382,8 @@ What might go in a TeX package file
                         <tex:cmd name="nobreak" gr="0" nl2="1"/>
                     </tex:group>
                     <tex:cmd name="vskip" gr="0" nl2="0"/>
-                    <tex:cmd name="baselineskip" gr="0"/>
+                    <tex:spec cat="parm"/>
+                    <xsl:text>4</xsl:text>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>

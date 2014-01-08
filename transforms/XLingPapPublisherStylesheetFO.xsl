@@ -1415,9 +1415,29 @@
             <xsl:attribute name="font-size">
                 <xsl:value-of select="$sBasicPointSize - 1"/>pt</xsl:attribute>
             <xsl:attribute name="space-before">
-                <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
+                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sSpaceBefore)&gt;0">
+                        <xsl:value-of select="$sSpaceBefore"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
             <xsl:attribute name="space-after">
-                <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sSpaceAfter)&gt;0">
+                        <xsl:value-of select="$sSpaceAfter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBasicPointSize"/>
+                        <xsl:text>pt</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
             <xsl:call-template name="DoType"/>
             <xsl:apply-templates/>
         </fo:block>

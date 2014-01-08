@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.24.2_2</a:version
+>2.24.3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2013-12-18</a:date
+>2014-01-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,14 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.24.3 08 January 2014<ul
+><li
+>Add validity check for when a contentType has been set in the only p element within a blockquote: can end up with extra, unwanted vertical space.</li
+><li
+>Add blockQuoteLayout element to publisher style sheet to control how much vertical space there is before and/or after a blockquote element.</li
+></ul
+></li
 ><li
 >2.24.2_2 18 December 2013<ul
 ><li

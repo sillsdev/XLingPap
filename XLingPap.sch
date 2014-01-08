@@ -350,4 +350,10 @@
             <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spacebefore attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
         </rule>
     </pattern>
+    <pattern>
+        <title>Check for ill-formed contentType locations</title>
+        <rule context="blockquote">
+            <report test="count(p)=1 and string-length(p/@contentType)!=0">There is a contentType set for the sole p element within a blockquote.  There will probably be extra, unwanted vertical space in the output.  Please set the contentType on the blockquote element instead of on the p element.</report>
+        </rule>
+    </pattern>
 </schema>

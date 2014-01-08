@@ -4534,6 +4534,18 @@ authorLayout
 {
 	property-group: titledItem("Author of the Document");
 }
+blockQuoteLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+blockQuoteLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+blockQuoteLayout
+{
+	property-group: titledItem("block quote");
+}
 contentsLayout + authorLayout[color]
 {
 	color:concatenate(attr(color));

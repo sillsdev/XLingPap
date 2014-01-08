@@ -899,6 +899,18 @@ li.lower-roman {
         <xsl:call-template name="DoSingleSpacing">
             <xsl:with-param name="useSingleSpacing" select="$lineSpacing/@singlespaceblockquotes"/>
         </xsl:call-template>
+        <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
+        <xsl:if test="string-length($sSpaceBefore)&gt;0">
+            <xsl:text>;
+                padding-top:</xsl:text>                
+            <xsl:value-of select="$sSpaceBefore"/>
+        </xsl:if>
+        <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceAfter)&gt;0">
+            <xsl:text>;
+                padding-bottom:</xsl:text>                
+            <xsl:value-of select="$sSpaceAfter"/>
+        </xsl:if>
         <xsl:text>}
 </xsl:text>
         <xsl:apply-templates select="linkLayout"/>

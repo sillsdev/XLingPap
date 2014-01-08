@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->17 December 2013</date
+>8 January 2014</date
 ><version
->2.24.2</version
+>2.24.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -11918,7 +11918,7 @@ type="tElement"
 letter="xQuoteLayoutAttributes"
 num="xQuoteLayoutAttributes"
 ></exampleRef
->. You use this to control what comes before and after the content of <object
+>. You use these to control what comes before and after the content of <object
 type="tElement"
 >q</object
 > elements</p
@@ -12037,6 +12037,162 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+></section2
+><section2
+id="sBlockQUote"
+><secTitle
+>Controlling the Display of Block Quotes</secTitle
+><p
+><indexedItem
+term="iBlockQuoteVerticalSpacing"
+></indexedItem
+>Sometimes one wants to override the default vertical spacing before and/or after a block quotation (<object
+type="tElement"
+>blockquote</object
+> elements).</p
+><p
+>The <object
+type="tElement"
+>blockQuoteLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xBlockQuoteLayoutAttributes"
+num="xBlockQuoteLayoutAttributes"
+></exampleRef
+>. You use these to control the vertical spacing before and after the content of <object
+type="tElement"
+>blockquote</object
+> elements</p
+><example
+num="xBlockQuoteLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>blockQuoteLayout</object
+> Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert after this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert before this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+></table
+></example
+><p
+>See also section <sectionRef
+sec="sParagraphIndents"
+></sectionRef
+> for controlling the indent of <object
+type="tElement"
+>blockquote</object
+> elements.</p
 ></section2
 ></section1
 ><section1
@@ -13423,6 +13579,11 @@ id="iBackgroundColorAttribute"
 id="iBlockQuoteIndent"
 ><term
 >Block quote indent</term
+></indexTerm
+><indexTerm
+id="iBlockQuoteVerticalSpacing"
+><term
+>Block quote vertical spacing</term
 ></indexTerm
 ><indexTerm
 id="iBoolTotalPages2"

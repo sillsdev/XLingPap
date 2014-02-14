@@ -23,15 +23,15 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->22 October 2013</date
+>13 February 2014</date
 ><version
->2.24.2</version
+>2.24.3</version
 ><contents
 showLevel="4"
 ></contents
 ><abstract
 ><p
->This paper describes how to write a linguistic paper in XML using the <object
+>This paper describes how to write a linguistic document in XML using the <object
 type="tXLingPap"
 ></object
 > approach. It is specifically for those who wish to also use the <object
@@ -60,7 +60,7 @@ id="sIntro"
 >The <object
 type="tXLingPap"
 ></object
-> package is designed to aid the linguist in writing linguistic papers.</p
+> package is designed to aid the linguist in writing linguistic documents such as papers, books, theses, and dissertations.</p
 ><p
 >Linguists commonly face three obstacles in formatting papers. First, all examples are numbered in a paper. If during the writing process the author discovers a need to insert an example, then the numbering of all following examples and all references to those examples within the text need to be re-adjusted. This mechanical change can be both time-consuming and prone to error. Similarly, if the author decides to reorder some examples, then the numbering needs to be adjusted appropriately. <object
 type="tXLingPap"
@@ -226,10 +226,16 @@ id="nXMLmind"
 >See <link
 href="http://www.xmlmind.com/xmleditor/"
 >http://www.xmlmind.com/xmleditor/</link
->. Use the edition that is appropriate for your situation. The <object
+> for current information on this editor. For <object
 type="tXLingPap"
 ></object
-> configuration files conform to the Standard Edition License, so you may freely use it.</p
+>, however, we use an older version of the <object
+type="tXMLmindXMLEditor"
+></object
+>. See <link
+href="http://www.xlingpaper.org/?page_id=51"
+>http://www.xlingpaper.org/?page_id=51</link
+> for how to obtain it.</p
 ></endnote
 > is a freely downloadable editor that makes it quite easy to create not only <object
 type="tXLingPap"
@@ -257,14 +263,11 @@ type="tXLingPap"
 ><li
 >The user interface can be in English, Czech, French, Italian, Spanish, or German.</li
 ><li
->It works with <object
-type="tTool"
->Keyman 6.0</object
->.</li
+>It works with many custom keyboard tools for entering special characters.</li
 ><li
 >It has some ways to find and key Unicode and other special characters.</li
 ><li
->Unlike some other XML Editors, performance does not degrade for large files.</li
+>Unlike some other XML Editors, performance does not obviously degrade for large files.</li
 ><li
 >It is possible to create and maintain modular documents (ones which consist of multiple files).</li
 ></ul
@@ -275,118 +278,19 @@ id="sIntroUsingObtaining"
 >Obtaining the <object
 type="tXMLmindXMLEditor"
 ></object
-></secTitle
-><p
-><indexedItem
-term="iXXEObtaining"
-></indexedItem
->There are two steps in getting the complete package as given in the following sections.</p
-><section4
-id="sIntroUsingDownloadXXE"
-><secTitle
->Download the <object
-type="tXMLmindXMLEditor"
-></object
-></secTitle
-><p
->First, you need to download and install the <object
-type="tXMLmindXMLEditor"
-> </object
-> from this website: <link
-href="http://www.xmlmind.com/xmleditor/"
->http://www.xmlmind.com/xmleditor/</link
->. As of April 25, 2011, you can download a version from <link
-href="http://www.xmlmind.com/xmleditor/download.shtml"
->http://www.xmlmind.com/xmleditor/download.shtml</link
->. Windows users should download the installer that comes with the bundled Java runtime. Use the edition (Personal or Professional) that is appropriate for your situation.<endnote
-id="nSILAndPersonalEditionOfXXE"
-><p
->Members of SIL may use the Personal edition.</p
-></endnote
-> The <object
-type="tXLingPap"
-></object
-> configuration files should work with either edition.</p
-></section4
-><section4
-id="sIntroUsingXLingPapConfig"
-><secTitle
->Obtain the <object
+> and the <object
 type="tXLingPap"
 ></object
 > Configuration Files</secTitle
 ><p
 ><indexedItem
-term="iXLingPaperConfig"
+term="iXXEObtaining"
 ></indexedItem
->The second step is to download and install the <object
-type="tXLingPap"
-></object
-> configuration installation package from this website: <link
+>There are two steps in getting the complete package. See <link
 href="http://www.xlingpaper.org/?page_id=51"
->http://www.xlingpaper.org</link
->. After you finish running this installer, the <object
-type="tXMLmindXMLEditor"
-></object
-> program will start with a small sample <object
-type="tXLingPap"
-></object
-> paper file in it. Please read what is there as well as what is in the next section.</p
-><p
->Contact <link
-href="mailto:andy_black@sil.org"
->andy_black@sil.org</link
-> if you have any questions.</p
-></section4
-><!-- 
-    <section4 id="sIntroUsingXLingPapConfig">
-    <secTitle>Obtain the <object type="tXLingPap"/> Configuration Files</secTitle>
-    <p><indexedItem term="iXLingPaperConfig"/>The second step is to obtain the <object type="tXLingPap"/> configuration files. In order to use <object type="tXLingPap"/> with the <object type="tXMLmindXMLEditor"/>, one must have the <object type="tXLingPap"/> configuration files. One way to do this is as follows.</p>
-    <ol>
-    <li>Use menu items <object type="tInstruction">Options / Preferences</object> and click on the words <object type="tInTextExample">Install add-ons</object> in the left column. You should see something like this:<chart type="tSpaceBefore">
-    <img src="resources/InstallAddOns.png"/>
-    </chart></li>
-    <li>Click on the Add... button. You will see the following dialog box:<chart type="tSpaceBefore">
-    <img src="resources/InstallAddOnsURLDialog.png"/>
-    </chart></li>
-    <li>Type in <object type="tInstruction">http://www.sil.org/~blacka/xlingpap/list.xxe_addon</object> so that it looks like this:<chart type="tSpaceBefore">
-    <img src="resources/InstallAddOnsURLDialogData.png"/>
-    </chart></li>
-    <li>Click on the OK button on the Add dialog.</li>
-    <li>Click on the OK button on the Options button.</li>
-    <li>Be sure you are logged on to the Internet.</li>
-    <li id="InstallStep7">Now use menu items <object type="tInstruction">Options / Install Add-ons</object>.</li>
-    <li>You should see a dialog box flash by (or it may stay for a while, depending on your Internet access.)</li>
-    <li>When it is done, you should see a dialog box that looks something like this (but probably with many more items listed - when I made this screen shot, I had already installed several of these packages).<chart type="tSpaceBefore">
-    <img src="resources/InstallAddOnsListDialog.png"/>
-    </chart></li>
-    <li>Note: if you have previously installed an XLingPaper configuration, I highly recommend uninstalling the old version first:<ol>
-    <li>Click on the Uninstall tab.</li>
-    <li>Click on box next to the Word <object type="tInstruction">Configuration</object> which is for the XLingPaper documents.</li>
-    <li>Click on OK.</li>
-    <li>When it is done uninstalling, repeat starting at <genericRef gref="InstallStep7">step 7 above</genericRef>, but being sure to skip this uninstall step(!).</li>
-    </ol></li>
-    <li>Click on the box next to the Word <object type="tInstruction">Configuration</object> which is for the XLingPaper documents.</li>
-    <li>(I highly recommend that you also click on the box next to the word <object type="tInstruction">Configuration</object> which is for "A sample customize.xxe".)</li>
-    <li>Click on the OK button.</li>
-    <li>The <object type="tXMLmindXMLEditor"/> will now download and install the <object type="tXLingPap"/> configuration files for you. (If you also checked the box for the sample customize.xxe, it will install that for you, too.)</li>
-    <li>You will need to restart the <object type="tXMLmindXMLEditor"/>.</li>
-    </ol>
-    <p>Contact <link href="mailto:andy_black@sil.org">andy_black@sil.org</link> if you have any questions.</p>
-    </section4>
-    <section4 id="sIntroUsingPreferences">
-    <secTitle>Set Some User Preferences</secTitle>
-    <p><indexedItem term="iXXEUserPreferences"/>After you obtain the <object type="tXLingPap"/> configuration files, I recommend you set some of the options so that what you read here and what you see with your version will be the same. To do this, use menu items <object type="tInstruction">Options / Preferences</object> and click on the word <object type="tInTextExample">Edit</object> in the left column. Then make the rest look like it does below:</p>
-    <chart>
-    <img src="resources/OptionsEdit.png"/>
-    </chart>
-    <p>You may well want to also check on the options that show up when you click on the word <object type="tInTextExample">Save</object> in the left column. Scroll down so you can see the bottom portion. You may want to set the bottom part so it looks like this:</p>
-    <chart>
-    <img src="resources/OptionsSave.png"/>
-    </chart>
-    <p>When you are done, click on the OK button.</p>
-    </section4>
---></section3
+>http://www.xlingpaper.org/?page_id=51</link
+> for details and instructions on getting the package.</p
+></section3
 ><section3
 id="sIntroUsingQuickOverview"
 ><secTitle
@@ -484,13 +388,24 @@ term="iExpandSection"
 >You can click on the plus sign inside a box <img
 src="resources/BoxedPlusSign.png"
 ></img
-> to open up what is inside the element. If you also install the “sample customize.xxe” add-on, then you can press the <object
+> to open up what is inside the element. You can also press the <object
 type="tKey"
 >Esc</object
 > key followed by the <object
 type="tKey"
 >/</object
-> key to open up an element. This same sequence of keys will close an element.</pc
+> key to open up an element. This same sequence of keys will close an element.<endnote
+id="nKeyman"
+><p
+>Some versions of the <object
+type="tTool"
+>Keyman</object
+> program prevent this sequence from working. You may need to turn <object
+type="tTool"
+>Keyman</object
+> off temporarily to get the sequence to work.</p
+></endnote
+></pc
 ><p
 ><indexedItem
 term="iInsertElement"
@@ -696,7 +611,18 @@ num="xNewPaperAttributesTool"
 >, but one cannot seem to type beyond the recently inserted element. The trick to learn is to type the <object
 type="tKey"
 >Insert</object
-> key while the newly inserted element is still outlined in red. When you do this, you will see a hashed box after the element and you can continue typing.</p
+> key<endnote
+id="nInsertIsF1OnMac"
+><p
+>Since Macs do not have an <object
+type="tKey"
+>Insert</object
+> key, you have to use <object
+type="tKey"
+>F1</object
+> on Macs.</p
+></endnote
+> while the newly inserted element is still outlined in red. When you do this, you will see a hashed box after the element and you can continue typing.</p
 ><p
 >Armed with the knowledge that you can right-click and then insert before, within, or after the current position as well as the use of the Attributes tool, you are now on your way to creating your document.<endnote
 id="nBeingProductive"
@@ -751,10 +677,10 @@ src="resources/Languages.png"
 ></chart
 ></example
 ><p
->There are two predefined languages which come when you create a new <object
+>There are three predefined languages which come when you create a new <object
 type="tXLingPap"
 ></object
-> document: one for your (default) vernacular language data and one for your (default) glossing language. <indexedItem
+> document: one for your (default) vernacular language data; one for your (default) glossing language; and one for English (used with abbreviations). <indexedItem
 term="iFontLanguage"
 ></indexedItem
 >You can set the font-related attributes by clicking on the <img
@@ -869,6 +795,26 @@ lang="lEng"
 href="http://www.sil.org/iso639-3/default.asp"
 >http://www.sil.org/iso639-3/default.asp</link
 >.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>backgroundcolor</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The name of the color or the special RGB code for the background color.</langData
 ></td
 ></tr
 ><tr
@@ -1193,6 +1139,41 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 > or not set at all, the language is treated as a left-to-right language.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>text-transform</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>none</object
+>, <object
+type="tAttrValue"
+>capitalize</object
+>, <object
+type="tAttrValue"
+>lowercase</object
+>, or <object
+type="tAttrValue"
+>uppercase</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>You can use this to set an automatic transformation of the text. The most common usage will be to set it to <object
+type="tAttrValue"
+>none</object
+> (the default).</langData
 ></td
 ></tr
 ><tr
@@ -1848,7 +1829,7 @@ id="sIntroOrg"
 ><secTitle
 >Organization of this Documentation</secTitle
 ><p
->In the rest of this user documentation, the uses of the various elements will be discussed . It is organized first by the major components: <genericRef
+>In the rest of this user documentation, the uses of the various elements will be discussed. It is organized first by the major components: <genericRef
 gref="sFrontMatter"
 >front matter</genericRef
 >, <genericRef
@@ -1881,13 +1862,34 @@ gref="sHowDoI"
 > and <genericRef
 gref="sBeingProductive"
 >notes on being productive</genericRef
+>. Finally, there sections on several special issues: <genericRef
+gref="sPublishingInfo"
+>publishing information</genericRef
+>, <genericRef
+gref="sFramedUnits"
+>framed units</genericRef
+>, <genericRef
+gref="sContentControl"
+>content control</genericRef
+>, <genericRef
+gref="sHangingIndentParagraph"
+>hanging indent paragraphs</genericRef
+>, and <genericRef
+gref="sChapterInCollection"
+>chapters in collection volumes</genericRef
 >. Appendix <appendixRef
 app="aElements"
 ></appendixRef
 > contains a reference listing of all the elements that <object
 type="tXLingPap"
 ></object
-> uses, with a brief description of each.</p
+> uses, with a brief description of each. Similarly, appendix <appendixRef
+app="aStyleSheetElements"
+></appendixRef
+> has a reference listing of all the elements that <object
+type="tXLingPap"
+></object
+> uses for publisher style sheets.</p
 ><p
 >Examples of what elements to use to get a particular effect will be illustrated using the <object
 type="tXMLmindXMLEditor"
@@ -1895,7 +1897,7 @@ type="tXMLmindXMLEditor"
 >. See the <link
 href="UserDoc.htm"
 >regular user documentation</link
-> for other (I think more difficult) ways to key the XML The choice of editor you use to key an <object
+> for other (I think more difficult) ways to key the XML. The choice of editor you use to key an <object
 type="tXLingPap"
 ></object
 > document, of course, is still up to you.</p
@@ -2260,7 +2262,7 @@ id="sFMPreface"
 main="yes"
 term="iPreface"
 ></indexedItem
->A preface for a book may be included by using the <object
+>A preface may be included by using the <object
 type="tElement"
 >preface</object
 > element. The content of the preface may be a sequence of any "chunk" elements. (See endnote <endnoteRef
@@ -2620,12 +2622,12 @@ num="xSectionIdExamples"
 ><chart
 ><object
 type="tInTextExample"
->examples</object
+>sExamples</object
 > <br
 ></br
 > <object
 type="tInTextExample"
->sex word</object
+>sExWord</object
 > <br
 ></br
 > <object
@@ -2640,7 +2642,7 @@ type="tInTextExample"
 ></br
 > <object
 type="tInTextExample"
->sex interlinear</object
+>sExInterlinear</object
 > <br
 ></br
 > <object
@@ -2694,9 +2696,19 @@ type="tElement"
 >table</object
 >).</li
 ><li
+>Numbered table (<object
+type="tElement"
+>tablenumbered</object
+>).</li
+><li
 >Chart (<object
 type="tElement"
 >chart</object
+>).</li
+><li
+>Figure (<object
+type="tElement"
+>figure</object
 >).</li
 ><li
 >Tree (<object
@@ -2727,7 +2739,17 @@ type="tElement"
 >Hanging indent paragraphs (<object
 type="tElement"
 >hangingIndent</object
->)</li
+>).</li
+><li
+>Prose text (<object
+type="tElement"
+>prose-text</object
+>).</li
+><li
+>Interlinear text (<object
+type="tElement"
+>interlinear-text</object
+>).</li
 ><li
 >Sub sections.</li
 ></ul
@@ -3295,7 +3317,10 @@ term="iSectionReferenceShowTitle"
 >It is also possible to show just the title or the short title of a section. One uses the <object
 type="tAttribute"
 >showTitle</object
-> attribute to control this as explained in example <exampleRef
+> attribute of the <object
+type="tElement"
+>sectionRef</object
+> element to control this as explained in example <exampleRef
 letter="xSectionRefShowTitle"
 num="xSectionRefShowTitle"
 ></exampleRef
@@ -3449,7 +3474,7 @@ term="iChapter"
 >That is, when you create a new document (by using menu items <object
 type="tInstruction"
 >File / New</object
->), choose the option for “Book (which has chapters, each of which may have sections)”.</p
+>), choose the option for “Book (chapter-oriented)”.</p
 ></section2
 ><section2
 id="sSectionPart"
@@ -3467,7 +3492,7 @@ type="tElement"
 >That is, when you create a new document (by using menu items <object
 type="tInstruction"
 >File / New</object
->), choose the option for “Multi-part book (which is a book that has two or more major parts in it) ”.</p
+>), choose the option for “Multi-part book (part-oriented) ”.</p
 ></section2
 ></section1
 ><section1
@@ -3969,6 +3994,12 @@ type="tElement"
 >endnoteRef</object
 >, <object
 type="tElement"
+>figureRef</object
+>, <object
+type="tElement"
+>tablenumberedRef</object
+>, <object
+type="tElement"
 >q</object
 >, <object
 type="tElement"
@@ -3982,9 +4013,21 @@ type="tElement"
 >, <object
 type="tElement"
 >interlinearRefCitation</object
-> and <object
+>, <object
 type="tElement"
 >link</object
+>, <object
+type="tElement"
+>indexedItem</object
+>, <object
+type="tElement"
+>indexedRangeBegin</object
+>, <object
+type="tElement"
+>indexedRangeEnd</object
+>, and <object
+type="tElement"
+>mediaObject</object
 >.</p
 ></endnote
 > You may also include a <object
@@ -4053,7 +4096,7 @@ type="tElement"
 >jPages</object
 > or <object
 type="tElement"
-></object
+>jArticleNumber</object
 > elements (for the journal title, the journal volume number, the journal issue number, and either the page numbers of the article in the journal or the article number; the latter two are optional). It may also have optional <object
 type="tElement"
 >location</object
@@ -4079,6 +4122,9 @@ type="tElement"
 >, <object
 type="tElement"
 >seriesEd</object
+>, <object
+type="tElement"
+>seriesEdInitials</object
 >, <object
 type="tElement"
 >series</object
@@ -4127,6 +4173,11 @@ type="tElement"
 >collEd</object
 > (collection volume editor(s)) element,</li
 ><li
+>an optional <object
+type="tElement"
+>collEdInitials</object
+> (collection volume editor(s), using initials instead of first name, etc.) element,</li
+><li
 >a required <object
 type="tElement"
 >collTitle</object
@@ -4151,6 +4202,11 @@ type="tElement"
 type="tElement"
 >seriesEd</object
 > (series editor(s) of the series that the volume is in) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEdInitials</object
+> (series editor(s) of the series that the volume is in, using initials instead of first name, etc.) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -4741,6 +4797,11 @@ type="tElement"
 >procEd</object
 > (proceedings volume editor(s)) element,</li
 ><li
+>an optional <object
+type="tElement"
+>procEdInitials</object
+> (proceedings volume editor(s), using initials instead of first name, etc.) element,</li
+><li
 >a required <object
 type="tElement"
 >procTitle</object
@@ -4856,7 +4917,7 @@ term="iMAThesisLabel"
 >When <object
 type="tXLingPap"
 ></object
-> produces output, the default label for a thesis is ‘M.A. Thesis’. You can override this default by setting the content of the <object
+> produces output, the default label for a thesis is ‘M.A. thesis’. You can override this default by setting the content of the <object
 type="tAttribute"
 >labelThesis</object
 > attribute of the <object
@@ -4922,14 +4983,17 @@ type="tElement"
 >The <object
 type="tElement"
 >url</object
-> element is, of course, the address of the page on the World Wide Web. The URL will contain an HTML link to it, so you should be able to click on it within your web browser and link to it.</p
+> element is, of course, the address of the page on the World Wide Web. In the output, the URL will contain a link to it, so you should be able to click on it within the program you use to view the output and open it in a web browser.</p
 ></section3
 ><section3
 id="sReferencesAttributes"
 ><secTitle
 >Attribute Summary</secTitle
 ><p
->The reference attributes are summarized in <exampleRef
+>The attributes on the <object
+type="tElement"
+>references</object
+> element are summarized in <exampleRef
 letter="xReferencesAttributes"
 num="xReferencesAttributes"
 ></exampleRef
@@ -5039,7 +5103,45 @@ lang="lValue"
 ><td
 ><langData
 lang="lMeaning"
->the label to use when formatting the refernces section. The default is “References”</langData
+>the label to use when formatting the references section. The default is “References”</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+>labelDissertation</langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>the label to use when formatting a dissertation. The default is “Ph.D. dissertation”.</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+>labelThesis</langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>the label to use when formatting a thesis. The default is “M.A. thesis”.</langData
 ></td
 ></tr
 ><tr
@@ -5160,7 +5262,7 @@ type="tKey"
 >Ctrl</object
 >, <object
 type="tKey"
->shift</object
+>Shift</object
 >, and <object
 type="tKey"
 >F11</object
@@ -5779,7 +5881,7 @@ note="nInsertElementReminder"
 ><genericTarget
 id="gSmallCapsInAbbreviations"
 ></genericTarget
->If you want to have your abbreviations appear as small caps, then you need to do two things:</p
+>If you want to have your abbreviations appear as small caps, then you need to do three things:</p
 ><ol
 ><li
 >Make sure that every abbreviation is in lower case (please recall that small caps only work on lower case letters; if you apply small caps to an upper case letter, it remains unchanged). If you need a portion of the abbreviation to remain lower case (and not be shown in small caps), you can insert an <object
@@ -5812,7 +5914,10 @@ type="tAttribute"
 >font-family</object
 > attribute using the Attributes Tool.</li
 ><li
->If you do not have a true small caps font, set the <object
+>If you do not have a true small caps font, you can download some at <link
+href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
+>http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
+>. This is definitely the preferred way to go. If this is not possible for you, then set the <object
 type="tAttribute"
 >font-variant</object
 > attribute of the <object
@@ -6264,7 +6369,7 @@ type="tKey"
 ><td
 ><object
 type="tKey"
->)-</object
+>)</object
 ></td
 ><td
 >Right parenthesis</td
@@ -6516,7 +6621,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Specifies the width of the column containing the abbreviations. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+>Specifies the width of the column containing the abbreviations. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
 ></td
 ></tr
 ><tr
@@ -6536,7 +6641,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Specifies the width of the column containing the abbreviation definitions. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+>Specifies the width of the column containing the abbreviation definitions. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
 ></td
 ></tr
 ><tr
@@ -6556,7 +6661,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Specifies the width of the column of the equals sign. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%).</langData
+>Specifies the width of the column of the equals sign. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
 ></td
 ></tr
 ></table
@@ -6773,10 +6878,10 @@ type="tElement"
 ><object
 type="tElement"
 >term</object
->: this is the actual description of the term. It can be associated with a given language (so you can potentially maintain one set of index terms that can be output in, say, English or Spanish or French). It also may contain any sequence of “embedded” elements. See <endnoteRef
+>: this is the actual description of the term. It can be associated with a given language (so you can potentially maintain one set of index terms that can be output in, say, English or Spanish or French). It also may contain any sequence of “embedded” elements.<endnoteRef
 note="nEmbedded"
 ></endnoteRef
->.</li
+></li
 ></ol
 ><p
 >As implied in the last point, it is possible to create some kind of a master set of index terms and then use that master set in more than one <object
@@ -6787,7 +6892,7 @@ type="tXLingPap"
 >The top-level <object
 type="tElement"
 >indexTerms</object
-> element goes as the last top-level element in the file. In the <object
+> element goes as one of the last top-level elements in the file. In the <object
 type="tXMLmindXMLEditor"
 ></object
 >, this means you should select the <object
@@ -6999,10 +7104,10 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->An ID to uniquely identify this index term. See <endnoteRef
+>An ID to uniquely identify this index term.<endnoteRef
 note="nInitialIDLetter"
 ></endnoteRef
->.</langData
+></langData
 ></td
 ></tr
 ><tr
@@ -7377,10 +7482,10 @@ lang="lEng"
 >An ID to uniquely identify this <object
 type="tElement"
 >indexRangeBegin</object
-> element. See <endnoteRef
+> element.<endnoteRef
 note="nInitialIDLetter"
 ></endnoteRef
->.</langData
+></langData
 ></td
 ></tr
 ><tr
@@ -7499,10 +7604,10 @@ num="xHideIndexTagElements"
 >Click on <object
 type="tInstruction"
 >lingPaper</object
-> in the node path bar<endnoteRef
+> in the node path bar.<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
->. This will select the entire document.</li
+> This will select the entire document.</li
 ><li
 >In the Attributes tool,<endnoteRef
 note="nAttributesToolReminder"
@@ -7584,7 +7689,7 @@ type="tInstruction"
 >index</object
 >.</p
 ><p
->It is possible to have some prefatory text before the actual index material. This is so you could include some explanations if so desired. Such prefatory material is not required. If you wish to include some beginning text, you use a sequence of any "chunk" elements. See <endnoteRef
+>It is possible to have some prefatory text before the actual index material. This is so you could include some explanations if so desired. Such prefatory material is not required. If you wish to include some beginning text, you use a sequence of any "chunk" elements.<endnoteRef
 note="nChunk"
 ></endnoteRef
 ></p
@@ -7966,7 +8071,7 @@ type="tInTextExample"
 note="nInitialIDLetter"
 ></endnoteRef
 > You will actually see this name when you create any references to examples (see section <sectionRef
-sec="sSectionReference"
+sec="sExampleRefs"
 ></sectionRef
 >). The idea is to create a unique name that relates to the example itself. It could be a short description of what the example is illustrating or some key reminder of the content. I strongly recommend that you use letters and numbers, but no spaces.<endnoteRef
 note="nNoSpaceInID"
@@ -8059,7 +8164,24 @@ src="resources/ExampleWordGloss.png"
 ></chart
 ></example
 ><p
->If you then type in the blue (language data) area and green (gloss) areas as shown in <exampleRef
+>If you then type in the blue (language data) area and green (gloss) areas<endnote
+id="nBlueLangGreenGloss"
+><p
+>The exact color you see will depend on the color of the <object
+type="tAttrValue"
+>lVernacular</object
+> <object
+type="tElement"
+>language</object
+> element and the color of the <object
+type="tAttrValue"
+>lGloss</object
+> <object
+type="tElement"
+>language</object
+> element.</p
+></endnote
+> as shown in <exampleRef
 num="xExWordData"
 ></exampleRef
 >, you'll get the result in <exampleRef
@@ -8088,7 +8210,10 @@ type="tInTextExample"
 >, you choose <object
 type="tInTextExample"
 >example(word_without_gloss)</object
->, you will only see the blue language data element, not the green gloss element.</p
+>, you will only see the blue language data element, not the green gloss element.<endnoteRef
+note="nBlueLangGreenGloss"
+></endnoteRef
+></p
 ><p
 >In some cases, you may want to add another line of data after the first line. This could be because the data are all related. You can do this by inserting another <object
 type="tElement"
@@ -8149,7 +8274,7 @@ id="sExWordList"
 >The second kind of word example is a list of words. These consist of a list of words and their glosses, usually. A list of words example is given below. If you choose <object
 type="tInTextExample"
 >example(listWord_with_glosses)</object
-> , you'll get what is shown in <exampleRef
+>, you'll get what is shown in <exampleRef
 num="xLW2"
 ></exampleRef
 >, as indicated by the large black arrow.</p
@@ -8170,7 +8295,10 @@ sec="sExampleRefs"
 >. As with the plain word example in <exampleRef
 num="xExWord"
 ></exampleRef
-> above, the blue patches are for language data and the green ones are for glosses.</p
+> above, the blue patches are for language data and the green ones are for glosses.<endnoteRef
+note="nBlueLangGreenGloss"
+></endnoteRef
+></p
 ><p
 >If you need more lines, click in one and then click on the listWord that shows in the node path bar as indicated by the big black arrow in <exampleRef
 num="xExWordListXPathBar"
@@ -8235,7 +8363,24 @@ type="tAttribute"
 > attributes in any particular order. <object
 type="tXLingPap"
 ></object
-> will correctly assign the letters.</p
+> will correctly assign the letters.<endnote
+id="nExampleNumLetter"
+><p
+>When using the <object
+type="tXMLmindXMLEditor"
+></object
+>, <object
+type="tXLingPap"
+></object
+> will automatically set the <object
+type="tAttribute"
+>num</object
+> and <object
+type="tAttribute"
+>letter</object
+> attributes to be the same value. You do not need to worry about maintaining them separately.</p
+></endnote
+></p
 ><p
 >Just like with <object
 type="tElement"
@@ -8352,7 +8497,7 @@ id="secExLineList"
 ><secTitle
 >List of single line examples</secTitle
 ><p
->A list of single line examples consist of but one line each. The key difference between just a single example and a list of single examples is that the latter are indented and each line is prefixed by an alphabetic letter. A list of single line example is given below. If you choose example(listSingle) , you'll get what is shown in <exampleRef
+>A list of single line examples consist of but one line each. The key difference between just a single example and a list of single examples is that the latter are indented and each line is prefixed by an alphabetic letter. A list of single line example is given below. If you choose example(listSingle), you'll get what is shown in <exampleRef
 num="xLS2"
 ></exampleRef
 >, as indicated by the large black arrow.</p
@@ -8435,7 +8580,10 @@ type="tAttribute"
 > attributes in any particular order. <object
 type="tXLingPap"
 ></object
-> will correctly assign the letters.</p
+> will correctly assign the letters.<endnoteRef
+note="nExampleNumLetter"
+></endnoteRef
+></p
 ></section3
 ></section2
 ><section2
@@ -8472,7 +8620,10 @@ type="tXMLmindXMLEditor"
 ><indexedItem
 term="iAutoWrapInterlinear"
 ></indexedItem
->Beginning with version 2.17, it is possible to have the <object
+>Beginning with version 2.17 of <object
+type="tXLingPap"
+></object
+>, it is possible to have the <object
 type="tXeTeX"
 ></object
 > way of producing PDF automatically wrap long interlinears. To make this automatic wrapping happen, you click on <object
@@ -8541,7 +8692,10 @@ src="resources/ExInterlinearLLGF.png"
 ></chart
 ></example
 ><p
->If you then type in the blue (language data), green (gloss), and black (free translation) areas as shown in <exampleRef
+>If you then type in the blue (language data), green (gloss), and black (free translation) areas<endnoteRef
+note="nBlueLangGreenGloss"
+></endnoteRef
+> as shown in <exampleRef
 num="xExInterlinearLGF"
 ></exampleRef
 >, you'll get the result in <exampleRef
@@ -8957,7 +9111,7 @@ type="tElement"
 > elements.</li
 ></ol
 ><p
->For these "wrd" interlinear examples, you should use the example templates that begin <object
+>For these "wrd" interlinear examples, if you do not want to use the special convert command mentioned above, you should use the example templates that begin <object
 type="tInTextExample"
 >example(interlinear_wrd_...)</object
 >. These produce an example that has five <object
@@ -8981,10 +9135,13 @@ src="resources/ExInterlinearWrdLGF.png"
 ></chart
 ></example
 ><p
->The blue patches are for language data, the green are for glosses, and the black is for the free translation. Each section is a word that will be aligned in the interlinear output. If you need more than five words, click in the last one in the line, click on <object
+>The blue patches are for language data, the green are for glosses, and the black is for the free translation.<endnoteRef
+note="nBlueLangGreenGloss"
+></endnoteRef
+> Each section is a word that will be aligned in the interlinear output. If you need more than five words, click in the last one in the line, click on <object
 type="tInTextExample"
 >wrd</object
-> in the node path bar<endnote
+> in the node path bar,<endnote
 id="nNodePathBarReminder"
 ><p
 >Remember that the node path bar is located in the upper part of the window. The big black arrow is pointing to it in the screenshot below.</p
@@ -8995,7 +9152,7 @@ src="resources/NodePathBar.png"
 ></img
 ></chart
 ></endnote
->, and insert another element.<endnoteRef
+> and insert another element.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
 > Choose <object
@@ -9281,15 +9438,18 @@ type="tXMLmindXMLEditor"
 > Please note, however, that this style of interlinear only works with the web page output and the default <object
 type="tXeTeX"
 ></object
-> way of producing PDF. All of the other outputs will not show this correctly. Some interlinearizing programs may automatically produce this kind of format. The <object
+> way of producing PDF. All of the other outputs will not show this correctly. Also, please note that this style is not recommended by the Leipzig Glossing Rules (<link
+href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php"
+>http://www.eva.mpg.de/lingua/resources/glossing-rules.php</link
+>). Some interlinearizing programs may automatically produce this kind of format. The <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
 > program is one that allows one to automatically generate this kind of interlinear. One can then merely copy and paste the results into an <object
 type="tXLingPap"
 ></object
 > file. See <link
-href="http://www.sil.org/computing/fieldworks/flex/"
->http://www.sil.org/computing/fieldworks/flex/</link
+href="http://fieldworks.sil.org/flex/"
+>http://fieldworks.sil.org/flex/</link
 >.</p
 ><p
 >Besides aligning the morphemes within words, this kind will also automatically wrap long interlinear examples when viewed in a webpage. It will not automatically wrap in PDF or <object
@@ -9378,7 +9538,10 @@ src="resources/ExListInterLLGF.png"
 >Notice that there is one example item for the entire example and that there are two example items for two words, each with its own gloss. This is so you can refer to either the whole example or to an individual line within that example. See section <sectionRef
 sec="sExampleRefs"
 ></sectionRef
->. The blue patches are for language data, the green patches are for glosses and the black is for the free translations.</p
+>. The blue patches are for language data, the green patches are for glosses and the black is for the free translations.<endnoteRef
+note="nBlueLangGreenGloss"
+></endnoteRef
+></p
 ><p
 >If you need more lines, click in one and then click on the listInterlinear that shows in the node path bar.<endnoteRef
 note="nNodePathBarReminder"
@@ -9859,10 +10022,10 @@ type="tKey"
 ></endnote
 ></li
 ><li
->Insert an element after<endnoteRef
+>Insert an element after.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->. You will see something like what is in <exampleRef
+> You will see something like what is in <exampleRef
 num="xBreakLongInterInsertAfter"
 ></exampleRef
 >.<example
@@ -9909,10 +10072,10 @@ src="resources/BreakLongInterlinearInserted.png"
 ><li
 >Click on the first blue patch (language data area).</li
 ><li
->In the node path bar<endnoteRef
+>In the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
->, click on <object
+> click on <object
 type="tInTextExample"
 >lineGroup</object
 >.</li
@@ -10180,17 +10343,15 @@ type="tHtmlOutput"
 >The default result is to have the source appear to the right at the end of the first line. The transforms that produce the result can optionally be told to put the source information either after the free translation or on a line after the free translation.<endnote
 id="nLocationOfInterlinearSource"
 ><p
->The current configuration files do not have a way for the user to control this location nicely. It can be changed, but it requires modifying one of the configuration files by hand. I plan to provide a way to control this (and other layout parameters), but obviously have not implemented it yet. If you want to know how to manually change the setting, please contact <link
-href="mailto:andy_black@sil.org"
->Andy Black</link
+>The way to have the source appear after the free translation or on a line after the free translation is to use a publisher style sheet with the appropriate option set. See <link
+href="PublisherStylesheetUserDocXMLmind.htm/#sInterlinearSourceStyleLayout"
+>the publisher style sheet documentation</link
 >.</p
 ></endnote
 ></li
 ><li
 >While the interlinear has a linked reference to the portion in the interlinear text, it is a copy of that portion. This is so you can, for example, highlight certain constructs in it if that is appropriate for the context of what you are writing about.</li
 ></ul
-><p
->.</p
 ></section4
 ><section4
 id="sExInterlinearSourceNotIncluded"
@@ -10288,8 +10449,6 @@ begin="bInterlinearExamples"
 ></indexedRangeEnd
 ></li
 ></ul
-><p
->.</p
 ></section4
 ></section3
 ><section3
@@ -10309,7 +10468,7 @@ href="http://www.sil.org/iso639-3/default.asp"
 > for that language. <object
 type="tXLingPap"
 ></object
-> makes it possible to show these codes in interlinear examples. It does so by looking at the ISO 639-3 code of the <object
+> makes it possible to show these codes in interlinear, word, and single examples. It does so by looking at the ISO 639-3 code of the <object
 type="tElement"
 >language</object
 > element referred to by the first <object
@@ -10699,7 +10858,10 @@ type="tAttribute"
 > attributes in any particular order. <object
 type="tXLingPap"
 ></object
-> will correctly assign the letters.</p
+> will correctly assign the letters.<endnoteRef
+note="nExampleNumLetter"
+></endnoteRef
+></p
 ></section3
 ></section2
 ><section2
@@ -10733,7 +10895,7 @@ sec="sExamples"
 >) that include an example heading. You will need to create the kind of example you want (e.g. interlinear or list interlinear), click on the element as described in the previous paragraph in the node path bar<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
-> and then do an insert operation and choose “exampleHeader”.</p
+> and then do an insert before operation and choose “exampleHeader”.</p
 ><p
 >For example, if you have an interlinear example such as the one shown in <exampleRef
 letter="xExInterlinearLGFData2"
@@ -10743,10 +10905,10 @@ num="xExInterlinearLGFData2"
 letter="xExInterlinearLGFData"
 num="xExInterlinearLGFData"
 ></exampleRef
-> above, then click on the word “interlinear" in the node path bar and then do an insert before operation<endnoteRef
+> above, then click on the word “interlinear" in the node path bar and then do an insert before operation.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->. The only option will be to insert “exampleHeading”. Choose this. You can then type your header information, including inserting any “embedded” elements.<endnoteRef
+> The only option will be to insert “exampleHeading”. Choose this. You can then type your header information, including inserting any “embedded” elements.<endnoteRef
 note="nEmbedded"
 ></endnoteRef
 ></p
@@ -10771,7 +10933,7 @@ sec="sExamples"
 >, you should give each example a unique identifier name (that begins with a lower case <object
 type="tInTextExample"
 >x</object
->). This is so you can refer to the section elsewhere in the paper.</p
+>). This is so you can refer to the example elsewhere in the paper.</p
 ><p
 >To make such a reference to an example, you use the <object
 type="tElement"
@@ -11228,7 +11390,13 @@ sec="sTCTTables"
 ></sectionRef
 >). You then replace the text within each cell with the appropriate example.</p
 ><p
->We recommend that you only do this for examples which are not very wide. Otherwise it is quite likely that the examples will not fit on the page when you create a PDF or Word version of your document.</p
+>We recommend that you only do this for examples which are not very wide. Otherwise it is quite likely that the examples will not fit on the page when you create a PDF, <object
+type="tTool"
+>Open Office Writer</object
+> or <object
+type="tTool"
+>Word</object
+> version of your document.</p
 ></section2
 ></section1
 ><section1
@@ -11253,7 +11421,7 @@ type="tXMLmindXMLEditor"
 >One creates a table by inserting a new element.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
-> You can initially create one of two types of tables (either within an example or separately):</p
+> You can initially create one of three types of tables (either within an example or separately):</p
 ><table
 border="1"
 ><tr
@@ -11628,7 +11796,18 @@ type="tInstruction"
 > and the <object
 type="tKey"
 >Enter</object
-> key. My experience with tables containing borders suggests that using a non-breaking space is a way to get otherwise empty cells to still have a border around them.</p
+> key.<endnote
+id="nEscapeCKeyman"
+><p
+>If you are using certain versions of the <object
+type="tTool"
+>Keyman</object
+> program, the dialog will not appear, just a capital C. You have to temporarily turn off the <object
+type="tTool"
+>Keyman</object
+> program to get this to work.</p
+></endnote
+> My experience with tables containing borders suggests that using a non-breaking space is a way to get otherwise empty cells to still have a border around them.</p
 ></endnote
 ></p
 ><example
@@ -11873,10 +12052,10 @@ lang="lEng"
 >A color name or code to be used as the background color of this table, row or cell.<endnote
 id="nColorNames"
 ><p
->There is a long list of color names you can use.  See <link
+>There is a long list of color names you can use. See <link
 href="http://coloreminder.com/"
 >http://coloreminder.com/</link
-> for a listing.  Be sure to click on the “Colors and Names” button.</p
+> for a listing. Be sure to click on the “Colors and Names” button.</p
 ></endnote
 ></langData
 ></td
@@ -12261,7 +12440,10 @@ type="tInstruction"
 > and the <object
 type="tKey"
 >Enter</object
-> key.</p
+> key.<endnoteRef
+note="nEscapeCKeyman"
+></endnoteRef
+></p
 ></endnote
 > before the text in each line and insert a <object
 type="tElement"
@@ -12486,10 +12668,10 @@ type="tAttrValue"
 >content-height='1in' </object
 > or <object
 type="tAttrValue"
->content-height='3cm' </object
+>content-height='3cm'</object
 >. The pattern is to use <object
 type="tAttrValue"
->contetnt-height='</object
+>content-height='</object
 > followed by a percentage or a number followed by a unit of measure. To be safe, add an extra space at the end.</td
 ></tr
 ></table
@@ -13074,7 +13256,7 @@ term="iPublisherStyleSheet"
 >An <object
 type="tXLingPap"
 ></object
-> style sheet for a particular publisher can be set to override any of these settings with the lower case or capitalized form. So if you find that a publisher requires one or the other, you will only need to use a stylesheet for their requirements. See section <sectionRef
+> style sheet for a particular publisher can be set to override any of these settings with the lower case or capitalized form. So if you find that a publisher requires one or the other, you will only need to use a style sheet for their requirements. See section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > or click <link
@@ -13567,7 +13749,7 @@ type="tAttrValue"
 colspan="2"
 ><langData
 lang="lEng"
->This indicates whether thecaptione of the targeted figure should be output or just the number. The normal value for this is <object
+>This indicates whether the caption of the targeted figure should be output or just the number. The normal value for this is <object
 type="tAttrValue"
 >numberOnly</object
 > which means that only the number will be output.. All of the other values override this default. Each one is listed below.</langData
@@ -14623,7 +14805,7 @@ type="tAttrValue"
 colspan="2"
 ><langData
 lang="lEng"
->This indicates whether thecaption of the targeted numbered table should be output or just the number. The normal value for this is <object
+>This indicates whether the caption of the targeted numbered table should be output or just the number. The normal value for this is <object
 type="tAttrValue"
 >numberOnly</object
 > which means that only the number will be output.. All of the other values override this default. Each one is listed below.</langData
@@ -15739,8 +15921,8 @@ type="tXLingPap"
 type="tXLingPap"
 ></object
 > document. See <link
-href="http://www.sil.org/computing/fieldworks/flex/"
->http://www.sil.org/computing/fieldworks/flex/</link
+href="http://fieldworks.sil.org/flex/"
+>http://fieldworks.sil.org/flex/</link
 > for more on the <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
@@ -15851,7 +16033,16 @@ type="tHtmlOutput"
 >Notice how <object
 type="tXLingPap"
 ></object
-> uses the shortened title and automatically assigns a line number.</p
+> uses the shortened title and automatically assigns a line number. (If the text was imported from <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+> as described in section <sectionRef
+sec="sInterlinearTextFLEx"
+></sectionRef
+>, then the line number will be the one given by <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+>.)</p
 ></section2
 ><section2
 id="sInterlinearTextReference"
@@ -16042,7 +16233,7 @@ type="tAttrValue"
 >both</object
 > or <object
 type="tAttrValue"
->initial</object
+>final</object
 > are set. No brackets appear if <object
 type="tAttrValue"
 >none</object
@@ -16152,7 +16343,7 @@ type="tElement"
 >interlinear-text</object
 > element as a reference by using menu items <object
 type="tInstruction"
->Edit / Document Reference / Copy as Reference</object
+>Edit / Reference / Copy as Reference</object
 >.</p
 ><p
 >Second, insert a <object
@@ -16327,7 +16518,7 @@ src="resources/TypeDialog.png"
 ></chart
 ></example
 ><p
->You can type the name you want or scroll down until you find the one you want. Note that when you type, capitalization is significant .</p
+>You can type the name you want or scroll down until you find the one you want. Note that when you type, capitalization is significant.</p
 ></li
 ></ol
 ><p
@@ -16408,12 +16599,12 @@ type="tElement"
 > element. This is what I do here for the <object
 type="tXLingPap"
 ></object
-> object: I never have to type “XLingPap”. I just create an instance of an object whose type has the <object
+> object: I never have to type “XLingPaper”. I just create an instance of an object whose type has the <object
 type="tAttribute"
 >after</object
 > attribute set to <object
 type="tAttrValue"
->XLingPap</object
+>XLingPaper</object
 >.<endnote
 id="nTypeBeforeAfterAsEntity"
 ><p
@@ -16478,7 +16669,7 @@ lang="lEng"
 type="tElement"
 >type</object
 > element. CSS attributes only work for webpage output. Click <link
-href="http://msdn.microsoft.com/library/default.asp?url=/workshop/author/css/reference/attributes.asp"
+href="http://msdn.microsoft.com/en-us/library/ms531209.aspx"
 >here</link
 > to see one webpage that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
 ></td
@@ -16698,7 +16889,7 @@ lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
 type="tElement"
 >type</object
-> element. TeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnoteRef
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnoteRef
 note="nXeLaTeXAttributes"
 ></endnoteRef
 > </langData
@@ -17241,10 +17432,10 @@ type="tAttrValue"
 >bold</object
 > for bold or set the <object
 type="tAttribute"
->font-style attribute to <object
+>font-style</object
+> attribute to <object
 type="tAttrValue"
 >italic</object
-></object
 > for italic. See section <sectionRef
 sec="sIntroLang"
 ></sectionRef
@@ -17343,8 +17534,8 @@ type="tAttribute"
 >type</object
 > to a color type. You may have to add a <object
 type="tElement"
->type element.</object
-> See section <sectionRef
+>type</object
+> element. See section <sectionRef
 sec="sSpecialEffectsText"
 ></sectionRef
 >.</p
@@ -17416,7 +17607,10 @@ type="tFont"
 > and/or <object
 type="tFont"
 >Doulos SIL</object
-> font in your document, you may notice some unpleasant formatting issues when producing either a webpage or PDF output.</p
+> font in your document, you may notice some unpleasant formatting issues when producing either a webpage or the <object
+type="tRenderX"
+></object
+> PDF output.</p
 ><p
 >I'm told that these fonts have different ascender and descender values than fonts like <object
 type="tFont"
@@ -17426,7 +17620,10 @@ id="nSILFonts"
 ><p
 >I am not a font expert by any stretch of the imagination, so all this is over my head. I do offer a guess, however, that the source of these problems might be that the designers of these fonts chose to do this so that it would be easier to have stacked diacritics.</p
 ></endnote
-> So when you try and mix these fonts in a paragraph or in an interlinear example, sometimes the spacing between lines in a paragraph (in a webpage, say) or the horizontal alignment of interlinear lines (in the PDF output) do not come out as one would like. For example, the webpage problem might be something like what is in <exampleRef
+> So when you try and mix these fonts in a paragraph or in an interlinear example, sometimes the spacing between lines in a paragraph (in a webpage, say) or the horizontal alignment of interlinear lines (in the <object
+type="tRenderX"
+></object
+> PDF output) do not come out as one would like. For example, the webpage problem might be something like what is in <exampleRef
 letter="xCharisSILFontProblemInHtml"
 num="xCharisSILFontProblemInHtml"
 ></exampleRef
@@ -17462,7 +17659,10 @@ src="resources/CharisSILFontProblemInHtmlFix1.png"
 ><p
 >Notice that now the line spacing is even.</p
 ><p
->The problem with PDF output might look something like what is shown in <exampleRef
+>The problem with the <object
+type="tRenderX"
+></object
+> PDF output might look something like what is shown in <exampleRef
 letter="xCharisSILFontProblemInPdf"
 num="xCharisSILFontProblemInPdf"
 ></exampleRef
@@ -17603,6 +17803,11 @@ id="sFAQListOfAbbreviations"
 ><indexedItem
 term="iAbbreviationsList"
 ></indexedItem
+>See section <sectionRef
+sec="sBMAbbreviationsShowingList"
+></sectionRef
+> for an automated way of producing a list of abbreviations.</p
+><p
 >While <object
 type="tXLingPap"
 ></object
@@ -17706,7 +17911,7 @@ type="tInstruction"
 >Edit / Paste</object
 ></li
 ><li
->The References element will now a light aqua background color: <chart
+>The References element will now have a light aqua background color: <chart
 > <img
 src="resources/ReferencesReferenced.png"
 ></img
@@ -17926,7 +18131,10 @@ type="tKey"
 >, then immediately type a capital <object
 type="tKey"
 >C</object
->.</li
+>.<endnoteRef
+note="nEscapeCKeyman"
+></endnoteRef
+></li
 ><li
 >You will see a dialog like this:<chart
 > <img
@@ -18243,13 +18451,13 @@ type="tXLingPap"
 type="tXLingPap"
 ></object
 > configuration installation package (see section <sectionRef
-sec="sIntroUsingXLingPapConfig"
+sec="sIntroUsingObtaining"
 ></sectionRef
 >). There also is an older way to produce PDF.</p
 ><p
->Therefore we have two ways to produce PDF.The default way uses <object
-type="tTool"
->XeTeX</object
+>Therefore we have two ways to produce PDF. The default way uses <object
+type="tXeTeX"
+></object
 > (see section <sectionRef
 sec="sXeTeX2PDF"
 ></sectionRef
@@ -18738,7 +18946,7 @@ type="tXeTeX"
 type="tXLingPap"
 ></object
 > configuration installation package, please do so. See section <sectionRef
-sec="sIntroUsingXLingPapConfig"
+sec="sIntroUsingObtaining"
 ></sectionRef
 >.<indexedRangeEnd
 begin="bXeTeX"
@@ -19099,16 +19307,8 @@ href="http://www.pdftoword.com/"
 ><p
 >The second way is to use the menu items <object
 type="tInstruction"
->XLingPaper / Produce Word 2003 Document F10</object
->.<endnote
-id="nF10"
-><p
->The F10 at the end is a reminder that you can invoke this process merely by pressing the <object
-type="tKey"
->F10</object
-> key.</p
-></endnote
-> This invokes a transform on your document and then tries to run the <object
+>XLingPaper / Produce Word 2003 Document</object
+>. This invokes a transform on your document and then tries to run the <object
 type="tXMLmindXSLUtility"
 ></object
 > tool to produce a Word 2003 document file. If you have the <object
@@ -19233,7 +19433,7 @@ type="tItalic"
 >On Windows machines, the current <object
 type="tXLingPap"
 ></object
-> configuration files will work with versions 4.2p1, 4.3.1 and 4.3.2 of this converter.</p
+> configuration files will also work with versions 4.2p1, 4.3.1, and 4.3.2 of this converter.</p
 ><p
 >By the way, you can also invoke this tool by itself and use it to convert to some other formats, too. You will need to use the .fo version of your file (that this process also produces) as your input file. Then you will need to select the output format you wish. Ones that make the most sense are to map from FO to .docx, .odt, or .rtf.</p
 ><p
@@ -19347,19 +19547,8 @@ href="http://www.pdftoword.com/"
 ><p
 >The second option is to use the menu items <object
 type="tInstruction"
->XLingPaper / Produce Open Office Document Ctrl+F10</object
->.<endnote
-id="nCtrlPlusF10"
-><p
->The Ctrl+F10 at the end is a reminder that you can invoke this process merely by pressing both the <object
-type="tKey"
->Ctrl</object
-> key and the <object
-type="tKey"
->F10</object
-> key at the same time.</p
-></endnote
-> This invokes a transform on your document and then tries to run the <object
+>XLingPaper / Produce Open Office Document</object
+>. This invokes a transform on your document and then tries to run the <object
 type="tXMLmindXSLUtility"
 ></object
 > tool to produce an <object
@@ -19398,7 +19587,7 @@ sec="sFAQProduceWord"
 >On Windows machines, the current <object
 type="tXLingPap"
 ></object
-> configuration files will work with versions 4.2p1, 4.3.1 and 4.3.2 of this converter.</p
+> configuration files will also work with versions 4.2p1, 4.3.1 and 4.3.2 of this converter.</p
 ><p
 >By the way, you can also invoke this tool by itself and use it to convert to some other formats, too. You will need to use the .fo version of your file (that this process also produces) as your input file. Then you will need to select the output format you wish. Ones that you will most likely want to use are to map from FO to .docx or .rtf.</p
 ><p
@@ -19449,7 +19638,7 @@ type="tXLingPap"
 > menu item. You can use these to invoke the macro.</li
 ></ol
 ><p
->Note that the macro does always not work for each and every example/table. Sometimes when there is a list interlinear, the widest one will not get reformatted. You have to manually adjust the width of the table and then apply the macro again.</p
+>Note that the macro does not always work for each and every example/table. Sometimes when there is a list interlinear, the widest one will not get reformatted. You have to manually adjust the width of the table and then apply the macro again.</p
 ></li
 ><li
 >Tables and interlinear examples may be split across page boundaries.<endnoteRef
@@ -19795,7 +19984,7 @@ type="tXMLmindXMLEditor"
 ></object
 > can recognize it.</li
 ><li
->You then click on the section before or after where the demoted/promoted section should now go and use the <object
+>You then click on the blue section number of the section before or after where the demoted/promoted section should now go and use the <object
 type="tInstruction"
 >Paste After</object
 > or the <object
@@ -19932,7 +20121,10 @@ type="tElement"
 > element can only be promoted when the document already has at least one <object
 type="tElement"
 >chapter</object
-> element in it.</li
+> element in it.  See section <sectionRef
+sec="sFAQConvertPaperToBook"
+></sectionRef
+> for how to convert a paper to a chapter.</li
 ><li
 >A <object
 type="tElement"
@@ -20152,7 +20344,7 @@ type="tXLingPap"
 > and then associate it with a particular publisher style sheet. Once your document has been associated with such a style sheet, whenever you produce output, the formatting will now conform to the associated style sheet. One implication of this is that as you write your document, you do not have to be thinking about the target format. Just use the normal <object
 type="tXLingPap"
 ></object
-> elements and, when it is time to produce the output, associate the style sheet you need and produce the output). If you change your mind about where you want to submit your document, in theory all you have to do is associate (or re-associate) the document to the new style sheet.<endnote
+> elements and, when it is time to produce the output, associate the style sheet you need and produce the output. If you change your mind about where you want to submit your document, in theory all you have to do is associate (or re-associate) the document to the new style sheet.<endnote
 id="nPublisherDifferences"
 ><p
 >Note that some differences between publishers may also require you to change things like the formating for <object
@@ -20222,6 +20414,14 @@ type="tXLingPap"
 ></object
 > Publisher Style Sheet User Documentation</link
 > if you need to create or modify a publisher style sheet.</p
+><p
+>If you do need to create or modify a publisher style sheet, please be sure to save the publisher style sheet file in a directory near your document.  Do not directly make changes to the publisher style sheets included with <object
+type="tXLingPap"
+></object
+>.  The reason is that the next time you update to a new version of <object
+type="tXLingPap"
+></object
+>, you will probably lose your changes.</p
 ></section2
 ><section2
 id="sFAQRemoveAssociatedPublisherStyleSheet"
@@ -20279,23 +20479,6 @@ type="tKey"
 type="tXMLmindXMLEditor"
 ></object
 > will look just like it does when you first open the file).</p
-><p
->If you are using an earlier version of the <object
-type="tXMLmindXMLEditor"
-></object
->, then while setting the font information for a <object
-type="tElement"
->language</object
-> element will cause the output to correctly show your language data, sometimes the default font used for the <object
-type="tXMLmindXMLEditor"
-></object
-> does not show your language data well. This is one of the few “down” sides of the <object
-type="tXMLmindXMLEditor"
-></object
->. Unfortunately, there is no work-around for this. The developers of the <object
-type="tXMLmindXMLEditor"
-></object
-> tell me that this is a result of the particular programming language they happened to use and that they have no control over it.</p
 ></section2
 ><section2
 id="sFAQChangeDefaultLangIDs"
@@ -20457,7 +20640,7 @@ type="tTool"
 >Get a copy of a PDF reader program that enables you to add comments. You then produce a PDF version of your document (see section <sectionRef
 sec="sFAQProducePDF"
 ></sectionRef
->) and read the resulting .pdf file using this program. You can pay for a version of Adobe There is the freely available <object
+>) and read the resulting .pdf file using this program. Some newer versions of Adobe Reader have this capability. There is also the freely available <object
 type="tTool"
 >Foxit READER</object
 > program which allows you to enter annotations or comments in the PDF. The <object
@@ -20717,6 +20900,9 @@ type="tElement"
 >part</object
 >, <object
 type="tElement"
+>appendix</object
+>, <object
+type="tElement"
 >section1</object
 >, <object
 type="tElement"
@@ -20818,13 +21004,7 @@ type="tInstruction"
 >Set Reference</object
 >), then you will get the chooser for the abbreviations. Select the one you want to change to.</li
 ><li
->Exactly how one repeats this command changed in version 4.5.2 of the <object
-type="tXMLmindXMLEditor"
-></object
->. Earlier versions used <object
-type="tKey"
->Ctrl-A</object
-> to repeat. Beginning with version 4.5.2, one uses <object
+>To repeat the search command use <object
 type="tKey"
 >Esc-g</object
 > (which means press the <object
@@ -20980,7 +21160,7 @@ type="tAttribute"
 >lang</object
 > attribute is set the old gloss ID and change it to the new one.</p
 ><p
->Please note that if there any <object
+>Please note that if there are any <object
 type="tElement"
 >language</object
 > elements whose <object
@@ -21020,7 +21200,10 @@ type="tKey"
 >, release it, then immediately type a capital <object
 type="tKey"
 >C</object
->.</li
+>.<endnoteRef
+note="nEscapeCKeyman"
+></endnoteRef
+></li
 ><li
 >You will see a dialog like this:<chart
 > <img
@@ -21157,8 +21340,8 @@ type="tXeTeX"
 type="tXLingPap"
 ></object
 >. See <link
-href="http://www.xlingpaper.org/?page_id=4"
->http://www.xlingpaper.org/?page_id=4</link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
 > for more. If you do not have this update, trying to produce the PDF will fail when you also try to use hyphenation for a non-English language.</p
 ><p
 >Also, if you find that you need to have <object
@@ -21377,7 +21560,7 @@ type="tInstruction"
 >F11</object
 > keys on your keyboard at the same time (or use menu items <object
 type="tInstruction"
->XLingPaper / Convert selected text to langData </object
+>XLingPaper / Convert selected text to langData</object
 >). This will immediately convert your selected text into a <object
 type="tElement"
 >langData</object
@@ -21430,7 +21613,7 @@ type="tInstruction"
 >F11</object
 > keys on your keyboard at the same time (or use menu items <object
 type="tInstruction"
->XLingPaper / Convert selected text to gloss </object
+>XLingPaper / Convert selected text to gloss</object
 >). This will immediately convert your selected text into a <object
 type="tElement"
 >gloss</object
@@ -21828,7 +22011,7 @@ type="tXMLmindXMLEditor"
 type="tInstruction"
 >Options</object
 > menu item / <object
-type="tElement"
+type="tInstruction"
 >Preferences...</object
 >.</li
 ><li
@@ -22030,7 +22213,7 @@ type="tKey"
 >. Instead of clicking the node path bar, you can also keep typing the <object
 type="tKey"
 >Ctrl+UpArrow</object
-> key until the element has been selected (it will have a red line around it).</p
+> key until the element has been selected (it will have a thin red line around it).</p
 ></section2
 ><section2
 id="sReplaceOrConvert"
@@ -22185,7 +22368,7 @@ src="resources/RedFlashingTriangle.png"
 ></img
 ></chart
 ><p
->When you open this section, then you can find the cursor.</p
+>When you open this section, then you can find the cursor (although it may be inside a sub-section in which case the little red flashing triangle will be by that sub-section).</p
 ></section2
 ><section2
 id="sCancelingInsertion"
@@ -23113,7 +23296,7 @@ type="tXLingPap"
 ></object
 > has a way to control which “chunks” of material, if any, should be excluded within a single document when producing an output. The basic idea is to tag any “chunk” material that might need to be excluded for some output with a particular content “type” that you have defined. Then you define a set of content choices where each choice indicates zero, one, or more of these content types. When you are ready to produce an output for the document, you select the choice that excludes the type(s) you want and the resulting output will have all material in the document except those “chunks” with the type(s) of that choice.</p
 ><p
->As an example, let's suppose you have a grammar for a minority language which includes some pedagogically-oriented material usually in the introduction of many sections and you also have some examples showing what the national language does. You may want four outputs for this depending on the intended audience: one with everything, one without the introductory material, one without the national language comparative examples, and one with neither the introductory material nor the national language comparative examples.</p
+>As an example, suppose you have a grammar for a minority language which includes some pedagogically-oriented material usually in the introduction of many sections and you also have some examples showing what the national language does. You may want four outputs for this depending on the intended audience: one with everything, one without the introductory material, one without the national language comparative examples, and one with neither the introductory material nor the national language comparative examples.</p
 ><p
 >To make this happen, one would first create a <object
 type="tElement"

@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 January 2014</date
+>14 February 2014</date
 ><version
 >2.24.3</version
 ><contents
@@ -1761,6 +1761,27 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iPublishingBlurbLayout"
+></indexedItem
+><object
+type="tElement"
+>publishingBlurbLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>publishingBlurb</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><indexedItem
 term="iContentsLayout"
 ></indexedItem
 ><object
@@ -3109,7 +3130,7 @@ showTitle="short"
 >Some of the <object
 type="tXLingPap"
 ></object
-> back matter elements can occur more than once in a document (i.e <object
+> back matter elements can occur more than once in a document (i.e., <object
 type="tElement"
 >appendix</object
 >, <object
@@ -6020,7 +6041,7 @@ type="tElement"
 > elements, each of which provides a pattern for the information of a <object
 type="tElement"
 >thesis</object
-> referenced work. A thesis pattern defined within an <object
+> referenced work. A thesis pattern defined within a <object
 type="tElement"
 >thesisLayout</object
 > can consist of one or more of the elements given in example <exampleRef
@@ -7016,9 +7037,22 @@ type="tElement"
 >refwork</object
 >.</td
 ><td
+><table
+><tr
+><td
 ><object
 type="tAttrValue"
 >, </object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>; </object
+></td
+></tr
+></table
 ></td
 ></tr
 ><tr
@@ -7230,7 +7264,7 @@ type="tAttribute"
 ><td
 >(user control)</td
 ><td
->This sets the amount of space to insert between the date and the entry in an "Author over date" references style when the space used by the date is tool long to fit. It is only used when the <object
+>This sets the amount of space to insert between the date and the entry in an "Author over date" references style when the space used by the date is too long to fit. It is only used when the <object
 type="tAttribute"
 >useAuthorOverDateStyle</object
 > attribute is set to <object
@@ -7656,7 +7690,7 @@ id="sDocumentContentLayout"
 >This section discusses layout information for various items occurring within the content of a document. The only element in this section that is required is <object
 type="tElement"
 >exampleLayout</object
->, which always comes first. All others are optional. They are described in the order in which they must appear.</p
+>. All others are optional. They are described in the order in which they must appear.</p
 ><section2
 id="sParagraphLayout"
 ><secTitle
@@ -8624,7 +8658,7 @@ id="sFiguresCaption"
 >If you click on the first line, you control the <object
 type="tElement"
 >figureLayout</object
-> element. This has two attributes as shown in <exampleRef
+> element. This has five attributes as shown in <exampleRef
 letter="xFigureLayoutAttributes"
 num="xFigureLayoutAttributes"
 ></exampleRef
@@ -9137,6 +9171,9 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
+>.  The default value is <object
+type="tAttrValue"
+>no</object
 >.</langData
 ></td
 ><td
@@ -9567,7 +9604,7 @@ id="sTableNumberedCaption"
 >If you click on the first line, you control the <object
 type="tElement"
 >tablenumberedLayout</object
-> element. This has two attributes as shown in <exampleRef
+> element. This has five attributes as shown in <exampleRef
 letter="xNumberedTableLayoutAttributes"
 num="xNumberedTableLayoutAttributes"
 ></exampleRef
@@ -10078,6 +10115,9 @@ lang="lEng"
 type="tAttrValue"
 >yes</object
 > or <object
+type="tAttrValue"
+>no</object
+>.  The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -11266,16 +11306,16 @@ type="tAttrValue"
 lang="lEng"
 >This indicates whether or not any text which comes before or after the <object
 type="tElement"
->free</object
+>literal</object
 > item uses the same font information as the <object
 type="tElement"
->free</object
+>literal</object
 > item itself will. For example, if you use openning and closing double quotes before and after the <object
 type="tElement"
->free</object
+>literal</object
 > item, do you want these quotes formatted the same as the <object
 type="tElement"
->free</object
+>literal</object
 > item or not?</langData
 ></td
 ><td
@@ -11397,10 +11437,7 @@ type="tElement"
 letter="xAbbreviationsInTableLayoutAttributes"
 num="xAbbreviationsInTableLayoutAttributes"
 ></exampleRef
->. You use this to control formatting of the content ot the <object
-type="tElement"
->citation</object
-> elements.</p
+>.</p
 ><example
 num="xAbbreviationsInTableLayoutAttributes"
 ><table
@@ -11449,36 +11486,6 @@ showTitle="short"
 > </td
 ><td
 > </td
-></tr
-><tr
-><td
-><langData
-lang="lEng"
-> <indexedItem
-term="iPageNumbersInCitation"
-></indexedItem
-><object
-type="tAttribute"
->doubleColumnSeparation</object
-> </langData
-></td
-><td
-><langData
-lang="lEng"
->(user control)</langData
-></td
-><td
-><langData
-lang="lEng"
->Type the text you want to appear between the colon after the date and the page(s).</langData
-></td
-><td
-><object
-type="tAttrValue"
-> </object
-></td
-><td
->Yes</td
 ></tr
 ><tr
 ><td
@@ -11633,7 +11640,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviaiton and its definition. The default is to include this column.</langData
+>This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviation and its definition. The default is to include this column.</langData
 ></td
 ><td
 ><object
@@ -11677,7 +11684,7 @@ border="1"
 ><caption
 ><object
 type="tElement"
->citation</object
+>prose-text</object
 > Content Overrides Attributes</caption
 ><tr
 ><th
@@ -11980,14 +11987,14 @@ lang="lEng"
 ><td
 ><object
 type="tAttrValue"
->» ’</object
+>» </object
 ></td
 ></tr
 ><tr
 ><td
 ><object
 type="tAttrValue"
-></object
+>’ </object
 ></td
 ></tr
 ></table
@@ -12718,7 +12725,7 @@ id="sFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFontInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used to for controlling format information.</p
+> plus the following are the attributes that can be used for controlling format information.</p
 ><example
 num="xFormatInfoAttributes"
 ><table
@@ -12856,7 +12863,7 @@ id="sFrontMatterFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFormatInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used to for controlling front matter format information.</p
+> plus the following are the attributes that can be used for controlling front matter format information.</p
 ><example
 num="xFrontMatterFormatInfoAttributes"
 ><table
@@ -13149,7 +13156,7 @@ id="sTitleFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used to for controlling front matter format information.</p
+> plus the following are the attributes that can be used for controlling front matter format information.</p
 ><example
 num="xTitleFormatInfjoAttributes"
 ><table
@@ -14475,6 +14482,11 @@ see="iPubDate"
 id="iPublisher"
 ><term
 >Publisher</term
+></indexTerm
+><indexTerm
+id="iPublishingBlurbLayout"
+><term
+>Publishing blurb layout</term
 ></indexTerm
 ><indexTerm
 id="iQuote"

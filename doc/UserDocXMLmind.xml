@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 February 2014</date
+>12 March 2014</date
 ><version
->2.24.3</version
+>2.24.3_1</version
 ><contents
 showLevel="4"
 ></contents
@@ -1217,6 +1217,32 @@ border="1"
 ></tr
 ><tr
 ><td
+>baselineskip</td
+><td
+><object
+type="tItalic"
+>number</object
+>. Use the point value (but do not include 'pt').</td
+><td
+>Tell <object
+type="tXeTeX"
+></object
+> to use the specified size for vertical spacing between lines.  This is only used when font-size is also specified.  The default value is 1.2 times the font size (when expressed in points).</td
+><td
+><table
+><tr
+><td
+>baselineskip='13'</td
+></tr
+><tr
+><td
+>baselineskip='10.2'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
 >break-before</td
 ><td
 ><object
@@ -1281,7 +1307,10 @@ type="tItalic"
 >Font feature=value</object
 >. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
 ><td
->Tell XeTeX to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
+>Tell <object
+type="tXeTeX"
+></object
+> to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
 type="tElement"
 >langDataLayout</object
 >, <object
@@ -1325,7 +1354,10 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Tell XeTeX to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
+>Tell <object
+type="tXeTeX"
+></object
+> to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
 type="tElement"
 >langDataLayout</object
 >, <object
@@ -20121,7 +20153,7 @@ type="tElement"
 > element can only be promoted when the document already has at least one <object
 type="tElement"
 >chapter</object
-> element in it.  See section <sectionRef
+> element in it. See section <sectionRef
 sec="sFAQConvertPaperToBook"
 ></sectionRef
 > for how to convert a paper to a chapter.</li
@@ -20415,10 +20447,10 @@ type="tXLingPap"
 > Publisher Style Sheet User Documentation</link
 > if you need to create or modify a publisher style sheet.</p
 ><p
->If you do need to create or modify a publisher style sheet, please be sure to save the publisher style sheet file in a directory near your document.  Do not directly make changes to the publisher style sheets included with <object
+>If you do need to create or modify a publisher style sheet, please be sure to save the publisher style sheet file in a directory near your document. Do not directly make changes to the publisher style sheets included with <object
 type="tXLingPap"
 ></object
->.  The reason is that the next time you update to a new version of <object
+>. The reason is that the next time you update to a new version of <object
 type="tXLingPap"
 ></object
 >, you will probably lose your changes.</p

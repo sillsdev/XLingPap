@@ -37,6 +37,8 @@ href="mailto::andy_black@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: if a publisher style sheet indicated space before a paragraph, an endnote could have too much vertical space between the first and second lines.</li
+><li
+>Add a XeLaTeXSpecial attribute of baselineskip to set the vertical line spacing instead of the default 1.2 times the font size.</li
 ></ul
 ></li
 ><li

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon"
+    version="1.0">
     <!-- 
     XLingPapXeLaTeXCommon.xsl
     Contains called templates common to many of the XeLaTeX-oriented transforms.
@@ -80,7 +82,8 @@
     </xsl:variable>
     <!-- following used to calculate width of an example table.  NB: we assume all units will be the same -->
     <xsl:variable name="iIndent">
-        <xsl:value-of select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
+        <xsl:value-of
+            select="number(substring($sBlockQuoteIndent,1,string-length($sBlockQuoteIndent) - 2))"/>
     </xsl:variable>
     <xsl:variable name="iExampleWidth">
         <!--        <xsl:value-of select="number($iPageWidth - 2 * $iIndent - $iPageOutsideMargin - $iPageInsideMargin)"/>-->
@@ -94,30 +97,36 @@
     <xsl:variable name="iPageTopMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageTopMargin"/>
-            <xsl:with-param name="iValue" select="number(substring($sPageTopMargin,1,string-length($sPageTopMargin) - 2))"/>
+            <xsl:with-param name="iValue"
+                select="number(substring($sPageTopMargin,1,string-length($sPageTopMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iPageBottomMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageBottomMargin"/>
-            <xsl:with-param name="iValue" select="number(substring($sPageBottomMargin,1,string-length($sPageBottomMargin) - 2))"/>
+            <xsl:with-param name="iValue"
+                select="number(substring($sPageBottomMargin,1,string-length($sPageBottomMargin) - 2))"
+            />
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iHeaderMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sHeaderMargin"/>
-            <xsl:with-param name="iValue" select="number(substring($sHeaderMargin,1,string-length($sHeaderMargin) - 2))"/>
+            <xsl:with-param name="iValue"
+                select="number(substring($sHeaderMargin,1,string-length($sHeaderMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iFooterMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sFooterMargin"/>
-            <xsl:with-param name="iValue" select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
+            <xsl:with-param name="iValue"
+                select="number(substring($sFooterMargin,1,string-length($sFooterMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
     <xsl:variable name="sTeXInterlinearSourceWidth" select="'XLingPaperinterlinearsourcewidth'"/>
-    <xsl:variable name="sTeXInterlinearSourceGapWidth" select="'XLingPaperinterlinearsourcegapwidth'"/>
+    <xsl:variable name="sTeXInterlinearSourceGapWidth"
+        select="'XLingPaperinterlinearsourcegapwidth'"/>
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
@@ -125,19 +134,24 @@
     <xsl:variable name="sFontLanguage" select="'language='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
-    <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
+    <xsl:variable name="bAutomaticallyWrapInterlinears"
+        select="//lingPaper/@automaticallywrapinterlinears"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
-    <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
+    <xsl:variable name="sListLayoutSpaceBetween"
+        select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
     <xsl:variable name="topLevelTables" select="//table[not(ancestor::table)]"/>
     <xsl:variable name="fTablesCanWrap">
         <xsl:for-each select="$topLevelTables">
-            <xsl:if test="not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
+            <xsl:if
+                test="not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
                 <xsl:text>Y</xsl:text>
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
-    <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
-    <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
+    <xsl:variable name="sHangingIndentInitialIndent"
+        select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
+    <xsl:variable name="sHangingIndentNormalIndent"
+        select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
     <!--
         citation (InMarker)
     -->
@@ -148,7 +162,8 @@
             <xsl:text>&#x20;</xsl:text>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
-        <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="works"
+            select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:value-of select="$refer/refDate"/>
         </xsl:variable>
@@ -240,7 +255,8 @@
     <!-- ===========================================================
         Block hyphenation in langData in p, pc, and hanging indent paragraphs
         =========================================================== -->
-    <xsl:template match="text()[parent::langData and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0]">
+    <xsl:template
+        match="text()[parent::langData and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0]">
         <xsl:choose>
             <xsl:when test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
                 <xsl:call-template name="BlockAnyHyphenationOfText">
@@ -307,15 +323,20 @@
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </tex:parm>
             <tex:parm>
-                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
+                <xsl:if
+                    test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                     <tex:spec cat="bg"/>
                     <tex:cmd name="singlespacing" gr="0" nl2="1"/>
                     <tex:cmd name="vspace">
                         <tex:parm>
                             <!-- I do not know why these values are needed, but they are... -->
                             <xsl:choose>
-                                <xsl:when test="$sLineSpacing='double'"><xsl:text>-1.3</xsl:text></xsl:when>
-                                <xsl:otherwise><xsl:text>-1.75</xsl:text></xsl:otherwise>
+                                <xsl:when test="$sLineSpacing='double'">
+                                    <xsl:text>-1.3</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>-1.75</xsl:text>
+                                </xsl:otherwise>
                             </xsl:choose>
                             <tex:spec cat="esc"/>
                             <xsl:text>baselineskip</xsl:text>
@@ -330,12 +351,14 @@
                 <xsl:call-template name="OutputTypeAttributesEnd">
                     <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                 </xsl:call-template>
-                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
+                <xsl:if
+                    test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                     <tex:spec cat="eg"/>
                 </xsl:if>
             </tex:parm>
             <tex:parm>
-                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
+                <xsl:variable name="sSpaceBefore"
+                    select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sSpaceBefore)&gt;0">
                         <xsl:value-of select="$sSpaceBefore"/>
@@ -346,7 +369,8 @@
                 </xsl:choose>
             </tex:parm>
             <tex:parm>
-                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
+                <xsl:variable name="sSpaceAfter"
+                    select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sSpaceAfter)&gt;0">
                         <xsl:value-of select="$sSpaceAfter"/>
@@ -374,7 +398,8 @@
 -->
     <xsl:template match="text()[parent::blockquote][string-length(normalize-space(.))&gt;0]">
         <xsl:value-of select="."/>
-        <xsl:if test="following-sibling::*[1][name()='p'or name()='pc' or name()='example' or name()='table' or name()='tablenumbered' or name()='chart' or name()='figure' or name()='tree' or name()='ol' or name()='ul' or name()='dl']">
+        <xsl:if
+            test="following-sibling::*[1][name()='p'or name()='pc' or name()='example' or name()='table' or name()='tablenumbered' or name()='chart' or name()='figure' or name()='tree' or name()='ol' or name()='ul' or name()='dl']">
             <!-- any chunk item following requires a \par here -->
             <xsl:choose>
                 <xsl:when test="ancestor::td">
@@ -405,7 +430,8 @@
     <xsl:template match="prose-text">
         <xsl:choose>
             <xsl:when test="$documentLayoutInfo/prose-textTextLayout">
-                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
+                <xsl:variable name="sSpaceBefore"
+                    select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
                 <xsl:if test="string-length($sSpaceBefore)&gt;0">
                     <tex:cmd name="vspace">
                         <tex:parm>
@@ -413,12 +439,14 @@
                         </tex:parm>
                     </tex:cmd>
                 </xsl:if>
-                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
+                <xsl:variable name="sSpaceAfter"
+                    select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
                 <tex:group>
                     <xsl:call-template name="OutputTypeAttributes">
                         <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                     </xsl:call-template>
-                    <xsl:variable name="sStartIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
+                    <xsl:variable name="sStartIndent"
+                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
                     <xsl:if test="string-length($sStartIndent)&gt;0">
                         <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
                         <xsl:value-of select="$sStartIndent"/>
@@ -426,7 +454,8 @@
                         <tex:spec cat="comment"/>
                         <xsl:text> left glue for indent</xsl:text>
                     </xsl:if>
-                    <xsl:variable name="sEndIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
+                    <xsl:variable name="sEndIndent"
+                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
                     <xsl:if test="string-length($sEndIndent)&gt;0">
                         <tex:cmd name="rightskip" gr="0" nl1="1" nl2="0"/>
                         <xsl:value-of select="$sEndIndent"/>
@@ -558,7 +587,8 @@
             <xsl:with-param name="sWidth" select="normalize-space(@abbrWidth)"/>
             <xsl:with-param name="sDefaultSpec" select="'l'"/>
         </xsl:call-template>
-        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
+        <xsl:if
+            test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
             <xsl:call-template name="HandleColumnWidth">
                 <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
                 <xsl:with-param name="sDefaultSpec" select="'c'"/>
@@ -574,14 +604,17 @@
     -->
     <xsl:template name="HandleAnyExampleHeadingAdjustWithISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N'))">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N'))">
             <xsl:choose>
-                <xsl:when test="exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear]">
+                <xsl:when
+                    test="exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear]">
                     <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
+                <xsl:when
+                    test="child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
                     <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     </xsl:call-template>
@@ -643,7 +676,8 @@
                 <xsl:choose>
                     <xsl:when test="contains($sWidth,'%')">
                         <xsl:call-template name="GetColumnWidthBasedOnPercentage">
-                            <xsl:with-param name="iPercentage" select="substring-before(normalize-space($sWidth),'%')"/>
+                            <xsl:with-param name="iPercentage"
+                                select="substring-before(normalize-space($sWidth),'%')"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
@@ -833,7 +867,8 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template name="VerticalSkipAroundList">
-        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example'][1]"/>
+        <xsl:variable name="nearestRelevantElement"
+            select="ancestor::*[name()='endnote' or name()='example'][1]"/>
         <xsl:if test="name($nearestRelevantElement)='example'">
             <xsl:text>-</xsl:text>
         </xsl:if>
@@ -903,7 +938,8 @@
                         <xsl:variable name="NestingLevel">
                             <xsl:choose>
                                 <xsl:when test="ancestor::endnote">
-                                    <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                                    <xsl:value-of
+                                        select="count(ancestor::ol[not(descendant::endnote)])"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="count(ancestor::ol)"/>
@@ -938,7 +974,8 @@
                 <xsl:call-template name="HandleTypesForLi"/>
             </tex:parm>
         </tex:cmd>
-        <xsl:if test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
+        <xsl:if
+            test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
             <tex:cmd name="vspace">
                 <tex:parm>
                     <xsl:value-of select="$sListLayoutSpaceBetween"/>
@@ -1174,7 +1211,9 @@
                                     <xsl:value-of select="count(exampleHeading) + 2"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of select="count(lineGroup/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
+                                    <xsl:value-of
+                                        select="count(lineGroup/line) + count(free) + count(literal) + count(exampleHeading) + 1"
+                                    />
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
@@ -1264,7 +1303,8 @@
                     </xsl:call-template>
                 </tex:env>
             </xsl:when>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>
                     <xsl:when test="parent::example">
                         <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
@@ -1306,7 +1346,8 @@
         <xsl:variable name="originalContext" select="."/>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
             <xsl:choose>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:when
+                    test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -1838,7 +1879,8 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'singlespacing')">
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" nl2="0"/>
-            <xsl:if test="not(img or ul or ol or dl) and descendant-or-self::br and $sLineSpacing and $sLineSpacing!='single'">
+            <xsl:if
+                test="not(img or ul or ol or dl) and descendant-or-self::br and $sLineSpacing and $sLineSpacing!='single'">
                 <!-- It's mainly text that has br elements; we'll use \par for the br elements, but we also need a noindent -->
                 <tex:cmd name="noindent"/>
             </xsl:if>
@@ -1853,7 +1895,8 @@
         <xsl:call-template name="DoTypeEnd"/>
         <xsl:if test="not(ancestor::example) and not(child::img) and string-length(.) &gt; 0">
             <xsl:choose>
-                <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and contains(@XeLaTeXSpecial,'singlespacing')">
+                <xsl:when
+                    test="$sLineSpacing and $sLineSpacing!='single' and contains(@XeLaTeXSpecial,'singlespacing')">
                     <tex:cmd name="par"/>
                 </xsl:when>
                 <xsl:when test="dl">
@@ -1886,7 +1929,8 @@
     <xsl:template match="table">
         <!--  If this is in an example, an embedded table, or within a list, then there's no need to add extra space around it. -->
         <xsl:choose>
-            <xsl:when test="not(parent::example) and not(ancestor::table) and not(ancestor::li) and not(ancestor::framedUnit)">
+            <xsl:when
+                test="not(parent::example) and not(ancestor::table) and not(ancestor::li) and not(ancestor::framedUnit)">
                 <!-- longtable does this effectively anyway
                     <tex:cmd name="vspace">
                     <tex:parm><xsl:value-of select="$sBasicPointSize"/>
@@ -1900,8 +1944,10 @@
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </tex:parm>
                 </tex:cmd>
-                <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                <xsl:if
+                    test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                    <xsl:if
+                        test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
                         <tex:spec cat="bg"/>
                         <tex:cmd name="singlespacing" gr="0" nl2="1"/>
                     </xsl:if>
@@ -1996,8 +2042,10 @@
                     <tex:parm><xsl:value-of select="$sBasicPointSize"/>
                     <xsl:text>pt</xsl:text></tex:parm>
                     </tex:cmd> -->
-                <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                <xsl:if
+                    test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                    <xsl:if
+                        test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
                         <tex:spec cat="eg"/>
                     </xsl:if>
                 </xsl:if>
@@ -2075,7 +2123,8 @@
         </xsl:apply-templates>
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
-        <xsl:if test="contains(ancestor::table[1]/@XeLaTeXSpecial,'row-separation') or contains(@XeLaTeXSpecial,'row-separation')">
+        <xsl:if
+            test="contains(ancestor::table[1]/@XeLaTeXSpecial,'row-separation') or contains(@XeLaTeXSpecial,'row-separation')">
             <tex:spec cat="lsb"/>
             <xsl:choose>
                 <xsl:when test="contains(@XeLaTeXSpecial,'row-separation')">
@@ -2124,7 +2173,8 @@
             <xsl:with-param name="iBorder" select="$iBorder"/>
             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
         </xsl:call-template>
-        <xsl:if test="../../caption and count(preceding-sibling::td) = 0 and count(../preceding-sibling::tr[td]) = 0 and not($backMatterLayoutInfo/useEndNotesLayout)">
+        <xsl:if
+            test="../../caption and count(preceding-sibling::td) = 0 and count(../preceding-sibling::tr[td]) = 0 and not($backMatterLayoutInfo/useEndNotesLayout)">
             <xsl:variable name="bCaptionIsBeforeTablenumbered">
                 <xsl:call-template name="CaptionIsBeforeTablenumbered"/>
             </xsl:variable>
@@ -2203,12 +2253,14 @@
     <xsl:template match="exampleHeading">
         <xsl:param name="bCalculateHeight" select="'N'"/>
         <xsl:choose>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='interlinear' or name()='interlinearRef' or name()='listInterlinear']">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='interlinear' or name()='interlinearRef' or name()='listInterlinear']">
                 <xsl:call-template name="DoExampleHeadingWhenWrappable">
                     <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
                 </xsl:call-template>
             </xsl:when>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and parent::*[name()='interlinear' or name()='listInterlinear']">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and parent::*[name()='interlinear' or name()='listInterlinear']">
                 <xsl:call-template name="DoExampleHeadingWhenWrappable">
                     <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
                 </xsl:call-template>
@@ -2219,11 +2271,13 @@
                     <xsl:with-param name="bCalculateHeight" select="$bCalculateHeight"/>
                 </xsl:call-template>
                 <xsl:choose>
-                    <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
+                    <xsl:when
+                        test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
                         <tex:cmd name="newline" gr="0" nl2="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:if test="following-sibling::*[1][name()='single' or name()='word' or name()='chart' or name()='definition' or name()='tree']">
+                        <xsl:if
+                            test="following-sibling::*[1][name()='single' or name()='word' or name()='chart' or name()='definition' or name()='tree']">
                             <tex:spec cat="esc"/>
                             <tex:spec cat="esc"/>
                             <xsl:text>*
@@ -2330,10 +2384,12 @@
         =========================================================== -->
     <xsl:template match="br">
         <xsl:choose>
-            <xsl:when test="ancestor::figure and parent::chart and not(following-sibling::text()) and not(following-sibling::*)">
+            <xsl:when
+                test="ancestor::figure and parent::chart and not(following-sibling::text()) and not(following-sibling::*)">
                 <!-- do nothing when it is the last thing in a chart - XeLaTeX will fail if we output the \\ -->
             </xsl:when>
-            <xsl:when test="ancestor::chart and not(ancestor::table or ancestor::example) and $sLineSpacing and $sLineSpacing!='single' and ancestor::chart[contains(@XeLaTeXSpecial,'singlespacing')]">
+            <xsl:when
+                test="ancestor::chart and not(ancestor::table or ancestor::example) and $sLineSpacing and $sLineSpacing!='single' and ancestor::chart[contains(@XeLaTeXSpecial,'singlespacing')]">
                 <tex:cmd name="par"/>
                 <xsl:if test="following-sibling::text()">
                     <tex:cmd name="noindent"/>
@@ -2354,8 +2410,10 @@
                 <tex:spec cat="align"/>
                 <tex:spec cat="bg"/>
             </xsl:when>
-            <xsl:when test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
-                <xsl:variable name="previousTextOrBr" select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
+            <xsl:when
+                test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
+                <xsl:variable name="previousTextOrBr"
+                    select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
                 <xsl:if test="name($previousTextOrBr[2])='br'">
                     <!--                    <xsl:if test="name($previousTextOrBr[2])='br' or name($previousTextOrBr[1])='br'">-->
                     <!-- two <br/>s in a row need some content; use a non-breaking space -->
@@ -2446,47 +2504,56 @@
                 </xsl:choose>
                 <xsl:text>,skipabove=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@spacebefore)"/>
                     <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:text>,skipbelow=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@spaceafter)"/>
                     <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:text>,innermargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@indent-before)"/>
                     <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>,outermargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@indent-after)"/>
                     <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>,innertopmargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@innertopmargin)"/>
                     <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:text>,innerbottommargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@innerbottommargin)"/>
                     <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:text>,innerleftmargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@innerleftmargin)"/>
                     <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>,innerrightmargin=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@innerrightmargin)"/>
                     <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                 </xsl:call-template>
                 <xsl:text>,align=</xsl:text>
                 <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
+                    <xsl:with-param name="sAttributeValue"
+                        select="normalize-space($framedtype/@align)"/>
                     <xsl:with-param name="sDefaultValue">left</xsl:with-param>
                 </xsl:call-template>
             </tex:opt>
@@ -2590,7 +2657,8 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$sExtension='.svg'">
-                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:variable name="sPDFFile"
+                    select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
                 <xsl:call-template name="HandlePDFImageFile">
                     <xsl:with-param name="sImgFile" select="$sPDFFile"/>
                 </xsl:call-template>
@@ -2883,7 +2951,9 @@
                     <xsl:when test="ancestor::example">
                         <xsl:choose>
                             <xsl:when test="ancestor::landscape">
-                                <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                                <xsl:value-of
+                                    select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"
+                                />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:value-of select="$iExampleWidth"/>
@@ -2904,10 +2974,14 @@
                     <xsl:otherwise>
                         <xsl:choose>
                             <xsl:when test="ancestor::landscape">
-                                <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                                <xsl:value-of
+                                    select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"
+                                />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
+                                <xsl:value-of
+                                    select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"
+                                />
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:text>pt</xsl:text>
@@ -2917,25 +2991,30 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="ancestor::framedUnit">
-                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:variable name="framedtype"
+                        select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
                     <xsl:text> - </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
+                        <xsl:with-param name="sAttributeValue"
+                            select="normalize-space($framedtype/@indent-before)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> - </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
+                        <xsl:with-param name="sAttributeValue"
+                            select="normalize-space($framedtype/@indent-after)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> - </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
+                        <xsl:with-param name="sAttributeValue"
+                            select="normalize-space($framedtype/@innerleftmargin)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> - </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
+                        <xsl:with-param name="sAttributeValue"
+                            select="normalize-space($framedtype/@innerrightmargin)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                 </xsl:if>
@@ -3062,10 +3141,14 @@
                     </xsl:variable>
                     <xsl:choose>
                         <xsl:when test="name()='caption' and $bCaptionIsBeforeTablenumbered='N'">
-                            <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
+                            <xsl:value-of
+                                select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"
+                            />
                         </xsl:when>
                         <xsl:when test="name()='table' and $bCaptionIsBeforeTablenumbered='Y'">
-                            <xsl:value-of select="count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                            <xsl:value-of
+                                select="count(ancestor::tablenumbered/table/caption/descendant::endnote)"
+                            />
                         </xsl:when>
                         <xsl:otherwise>0</xsl:otherwise>
                     </xsl:choose>
@@ -3190,10 +3273,12 @@
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
-        <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart' or name()='chapterInCollection']">
+        <xsl:for-each
+            select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart' or name()='chapterInCollection']">
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="sContentsPeriod">
-                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+                    <xsl:if
+                        test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
                         <xsl:text>.</xsl:text>
                     </xsl:if>
                 </xsl:with-param>
@@ -3208,7 +3293,8 @@
     <xsl:template name="CalculateSectionNumberWidth">
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="sContentsPeriod">
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+                <xsl:if
+                    test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:with-param>
@@ -3222,7 +3308,8 @@
         CalculateTableCellWidths
     -->
     <xsl:template name="CalculateTableCellWidths">
-        <xsl:if test="not(ancestor::table) and not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
+        <xsl:if
+            test="not(ancestor::table) and not(descendant::*[string-length(@width)&gt;0]) and not(descendant::table) and not(descendant::*[string-length(@colspan)&gt;0]) and not(descendant::*[string-length(@rowspan)&gt;0]) and not(count(tr[1]/td | tr[1]/th)&gt; 26)">
             <xsl:if test="ancestor::endnote and preceding-sibling::*[name()='p' or name()='pc']">
                 <!--  we need to do an overt \par here; otherwise the content of the paragraph wmay stretch across the line incorrectly -->
                 <tex:cmd name="par"/>
@@ -3277,7 +3364,8 @@
             <xsl:when test="/xlingpaper">
                 <!-- style sheet takes precedence -->
                 <xsl:choose>
-                    <xsl:when test="$documentLayoutInfo/tablenumberedLayout/@captionLocation='before'">
+                    <xsl:when
+                        test="$documentLayoutInfo/tablenumberedLayout/@captionLocation='before'">
                         <xsl:text>Y</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -3325,7 +3413,8 @@
                 <xsl:value-of select="substring-before($sImageFile,'%20')"/>
                 <xsl:text>&#x20;</xsl:text>
                 <xsl:call-template name="ConvertPercent20ToSpace">
-                    <xsl:with-param name="sImageFile" select="substring-after($sImageFile,$sPercent20)"/>
+                    <xsl:with-param name="sImageFile"
+                        select="substring-after($sImageFile,$sPercent20)"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3345,13 +3434,15 @@
                 <!-- sorting is crucial here; we need the previous ones to go from left to right -->
                 <xsl:sort select="count(preceding-sibling::td) +count(preceding-sibling::th)"/>
                 <xsl:if test="position() = $iPosition">
-                    <xsl:variable name="iRowNumberOfMyCell" select="count(../preceding-sibling::tr) + 1"/>
+                    <xsl:variable name="iRowNumberOfMyCell"
+                        select="count(../preceding-sibling::tr) + 1"/>
                     <xsl:variable name="iRealColumnNumberOfCell">
                         <xsl:call-template name="GetRealColumnNumberOfCell">
                             <xsl:with-param name="iRowNumberOfMyCell" select="$iRowNumberOfMyCell"/>
                         </xsl:call-template>
                     </xsl:variable>
-                    <xsl:if test="$iRealColumnNumberOfCell &lt;= ($iMyInSituColumnNumber + $iPosition)">
+                    <xsl:if
+                        test="$iRealColumnNumberOfCell &lt;= ($iMyInSituColumnNumber + $iPosition)">
                         <!-- the real column is before or at the adjusted cell's column number -->
                         <xsl:choose>
                             <xsl:when test="@colspan &gt; 1">
@@ -3368,9 +3459,11 @@
         <xsl:value-of select="$sOneYForEachColumn"/>
         <xsl:if test="$iPosition &lt; count($previousCellsWithRowspansSpanningMyRow)">
             <xsl:call-template name="CountPreviousRowspansInMyRow">
-                <xsl:with-param name="previousCellsWithRowspansSpanningMyRow" select="$previousCellsWithRowspansSpanningMyRow"/>
+                <xsl:with-param name="previousCellsWithRowspansSpanningMyRow"
+                    select="$previousCellsWithRowspansSpanningMyRow"/>
                 <xsl:with-param name="iPosition" select="$iPosition + 1"/>
-                <xsl:with-param name="iMyInSituColumnNumber" select="$iMyInSituColumnNumber + string-length($sOneYForEachColumn)"/>
+                <xsl:with-param name="iMyInSituColumnNumber"
+                    select="$iMyInSituColumnNumber + string-length($sOneYForEachColumn)"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -3440,7 +3533,8 @@
                  then we need to move any following material up       
         -->
         <xsl:choose>
-            <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes' and  $bAutomaticallyWrapInterlinears!='yes' and $originalContext and parent::interlinear and ancestor::interlinear-text and count(preceding-sibling::*)=0">
+            <xsl:when
+                test="$lingPaper/@showiso639-3codeininterlinear='yes' and  $bAutomaticallyWrapInterlinears!='yes' and $originalContext and parent::interlinear and ancestor::interlinear-text and count(preceding-sibling::*)=0">
                 <xsl:choose>
                     <xsl:when test="$originalContext[parent::example]">
                         <xsl:variable name="iLineCount" select="count(line)"/>
@@ -3454,13 +3548,15 @@
                                     <xsl:when test="$iLineCount &lt; 3">
                                         <xsl:choose>
                                             <xsl:when test="$iLineCount=1">
-                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
-                                                    <xsl:with-param name="iAdjust" select="'1.65'"/>
+                                                <xsl:call-template
+                                                  name="AdjustForLongerISOCodeInInterlinearRef">
+                                                  <xsl:with-param name="iAdjust" select="'1.65'"/>
                                                 </xsl:call-template>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
-                                                    <xsl:with-param name="iAdjust" select="'.65'"/>
+                                                <xsl:call-template
+                                                  name="AdjustForLongerISOCodeInInterlinearRef">
+                                                  <xsl:with-param name="iAdjust" select="'.65'"/>
                                                 </xsl:call-template>
                                             </xsl:otherwise>
                                         </xsl:choose>
@@ -3475,7 +3571,8 @@
                                 <!-- the ISO code takes one extra line -->
                                 <xsl:choose>
                                     <xsl:when test="$iLineCount=1">
-                                        <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                        <xsl:call-template
+                                            name="AdjustForLongerISOCodeInInterlinearRef">
                                             <xsl:with-param name="iAdjust" select="'.65'"/>
                                         </xsl:call-template>
                                     </xsl:when>
@@ -3527,7 +3624,8 @@
         </xsl:call-template>
         <xsl:call-template name="CreateColumnSpecBackgroundColor"/>
         <xsl:choose>
-            <xsl:when test="string-length($sWidth) &gt; 0 and $bUseWidth='Y' and not(descendant::*[name()='endnote']/descendant::example)">
+            <xsl:when
+                test="string-length($sWidth) &gt; 0 and $bUseWidth='Y' and not(descendant::*[name()='endnote']/descendant::example)">
                 <!-- We also have to look for endnotes with examples in them.  If we allow such, we get a TeX capacity exceeded error. 
                     This is also the case whenever we use a p{} so at least on Windows, this error occurs.
                 -->
@@ -3563,7 +3661,8 @@
                 <xsl:choose>
                     <xsl:when test="contains($sWidth,'%')">
                         <xsl:call-template name="GetColumnWidthBasedOnPercentage">
-                            <xsl:with-param name="iPercentage" select="substring-before(normalize-space($sWidth),'%')"/>
+                            <xsl:with-param name="iPercentage"
+                                select="substring-before(normalize-space($sWidth),'%')"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
@@ -3572,7 +3671,8 @@
                 </xsl:choose>
                 <tex:spec cat="eg"/>
             </xsl:when>
-            <xsl:when test="count(ancestor::table)=1 and not(ancestor::table/descendant::*[string-length(@width)&gt;0]) and not(ancestor::table/descendant::table) and not(ancestor::table/descendant::*[string-length(@colspan)&gt;0]) and not(ancestor::table/descendant::*[string-length(@rowspan)&gt;0]) and not(count(ancestor::table/tr[1]/td | ancestor::table/tr[1]/th)&gt; 26) and not(name()='caption' or name()='endCaption') and not(descendant::*[name()='endnote']/descendant::example)">
+            <xsl:when
+                test="count(ancestor::table)=1 and not(ancestor::table/descendant::*[string-length(@width)&gt;0]) and not(ancestor::table/descendant::table) and not(ancestor::table/descendant::*[string-length(@colspan)&gt;0]) and not(ancestor::table/descendant::*[string-length(@rowspan)&gt;0]) and not(count(ancestor::table/tr[1]/td | ancestor::table/tr[1]/th)&gt; 26) and not(name()='caption' or name()='endCaption') and not(descendant::*[name()='endnote']/descendant::example)">
                 <!-- In addition to the usual exceptions here, we also have to look for endnotes with examples in them.  If we allow such, we get a TeX capacity exceeded error. 
                         This is also the case whenever we use a p{} so at least on Windows, this error occurs.
                 -->
@@ -3630,7 +3730,8 @@
                     <xsl:call-template name="OutputBackgroundColor"/>
                 </xsl:for-each>
             </xsl:when>
-            <xsl:when test="string-length(../@backgroundcolor) &gt; 0 or string-length(key('TypeID', ../@type)/@backgroundcolor) &gt; 0">
+            <xsl:when
+                test="string-length(../@backgroundcolor) &gt; 0 or string-length(key('TypeID', ../@type)/@backgroundcolor) &gt; 0">
                 <!-- next use the row's background color -->
                 <xsl:for-each select="..">
                     <xsl:call-template name="DoRowBackgroundColor">
@@ -3670,28 +3771,36 @@
                         <xsl:choose>
                             <xsl:when test="name()='tr' and count(preceding-sibling::tr)=0">
                                 <xsl:call-template name="CreateTopRule">
-                                    <xsl:with-param name="iCountAncestorEndnotes" select="$iCountAncestorEndnotes"/>
+                                    <xsl:with-param name="iCountAncestorEndnotes"
+                                        select="$iCountAncestorEndnotes"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name()='table' and tr[1]/th">
                                 <xsl:call-template name="CreateTopRule">
-                                    <xsl:with-param name="iCountAncestorEndnotes" select="$iCountAncestorEndnotes"/>
+                                    <xsl:with-param name="iCountAncestorEndnotes"
+                                        select="$iCountAncestorEndnotes"/>
                                 </xsl:call-template>
                             </xsl:when>
-                            <xsl:when test="$bIsLast='Y' and ancestor-or-self::table[1][@border &gt; 0]">
-                                <xsl:if test="count(ancestor::table[@border &gt; 0][count(ancestor::endnote)=$iCountAncestorEndnotes])=1">
+                            <xsl:when
+                                test="$bIsLast='Y' and ancestor-or-self::table[1][@border &gt; 0]">
+                                <xsl:if
+                                    test="count(ancestor::table[@border &gt; 0][count(ancestor::endnote)=$iCountAncestorEndnotes])=1">
                                     <tex:cmd name="bottomrule" gr="0"/>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:when test="not(th) and preceding-sibling::tr[1][th[not(@rowspan &gt; 1)]]">
+                            <xsl:when
+                                test="not(th) and preceding-sibling::tr[1][th[not(@rowspan &gt; 1)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1 and not(ancestor::framedUnit)">
+                                <xsl:if
+                                    test="not(ancestor::example) and not(../ancestor::table) and count(ancestor::table[@border &gt; 0])=1 and not(ancestor::framedUnit)">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:when test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
+                            <xsl:when
+                                test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
                                 <tex:cmd name="midrule" gr="0"/>
-                                <xsl:if test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]]) and not(ancestor::framedUnit)">
+                                <xsl:if
+                                    test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]]) and not(ancestor::framedUnit)">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>
@@ -3762,9 +3871,11 @@
     -->
     <xsl:template name="CreateTopRule">
         <xsl:param name="iCountAncestorEndnotes"/>
-        <xsl:if test="ancestor-or-self::table[1][@border &gt; 0] and count(ancestor-or-self::table[@border &gt; 0][count(ancestor::endnote)=$iCountAncestorEndnotes])=1">
+        <xsl:if
+            test="ancestor-or-self::table[1][@border &gt; 0] and count(ancestor-or-self::table[@border &gt; 0][count(ancestor::endnote)=$iCountAncestorEndnotes])=1">
             <xsl:choose>
-                <xsl:when test="ancestor::example and not(ancestor-or-self::table[caption]) and ancestor-or-self::table[count(tr)&gt;1]">
+                <xsl:when
+                    test="ancestor::example and not(ancestor-or-self::table[caption]) and ancestor-or-self::table[count(tr)&gt;1]">
                     <tex:cmd name="specialrule">
                         <tex:parm>
                             <tex:cmd name="heavyrulewidth" gr="0" nl2="0"/>
@@ -3970,7 +4081,8 @@
     <xsl:template name="DetermineIfInARowSpan">
         <xsl:variable name="myCell" select="."/>
         <xsl:variable name="iRowNumberOfMyCell" select="count(../preceding-sibling::tr) + 1"/>
-        <xsl:variable name="previousCellsWithRowspansSpanningMyRow" select="../preceding-sibling::tr/th[@rowspan][($iRowNumberOfMyCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan] | ../preceding-sibling::tr/td[@rowspan][($iRowNumberOfMyCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan]"/>
+        <xsl:variable name="previousCellsWithRowspansSpanningMyRow"
+            select="../preceding-sibling::tr/th[@rowspan][($iRowNumberOfMyCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan] | ../preceding-sibling::tr/td[@rowspan][($iRowNumberOfMyCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan]"/>
         <xsl:if test="count($previousCellsWithRowspansSpanningMyRow) &gt; 0">
             <!-- We now know that the current cell is in a row that is included by some previous cell's rowspan. -->
             <xsl:for-each select="$previousCellsWithRowspansSpanningMyRow">
@@ -3982,11 +4094,14 @@
                 -->
                 <xsl:variable name="iRealColumnNumberOfCell">
                     <xsl:call-template name="GetRealColumnNumberOfCell">
-                        <xsl:with-param name="iRowNumberOfCell" select="count(../preceding-sibling::tr) + 1"/>
+                        <xsl:with-param name="iRowNumberOfCell"
+                            select="count(../preceding-sibling::tr) + 1"/>
                     </xsl:call-template>
                 </xsl:variable>
-                <xsl:variable name="myPrecedingSiblings" select="$myCell/preceding-sibling::td | $myCell/preceding-sibling::th"/>
-                <xsl:variable name="iMyInSituColumnNumber" select="count($myPrecedingSiblings[not(number(@colspan) &gt; 0)]) + sum($myPrecedingSiblings[number(@colspan) &gt; 0]/@colspan)"/>
+                <xsl:variable name="myPrecedingSiblings"
+                    select="$myCell/preceding-sibling::td | $myCell/preceding-sibling::th"/>
+                <xsl:variable name="iMyInSituColumnNumber"
+                    select="count($myPrecedingSiblings[not(number(@colspan) &gt; 0)]) + sum($myPrecedingSiblings[number(@colspan) &gt; 0]/@colspan)"/>
                 <xsl:if test="$iRealColumnNumberOfCell = ($iMyInSituColumnNumber + position()) - 1">
                     <xsl:choose>
                         <xsl:when test="@colspan &gt; 1">
@@ -4021,7 +4136,8 @@
                 <xsl:choose>
                     <xsl:when test="name()='listInterlinear'">
                         <xsl:apply-templates>
-                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"
+                            />
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
@@ -4035,7 +4151,8 @@
         DoAuthorFootnoteNumber
     -->
     <xsl:template name="DoAuthorFootnoteNumber">
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:variable name="iAuthorPosition"
+            select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
         <xsl:choose>
             <xsl:when test="$iAuthorPosition &lt; 10">
                 <xsl:value-of select="$iAuthorPosition"/>
@@ -4070,7 +4187,8 @@
             </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="number(@rowspan) &gt; 0 and number(@colspan) &gt; 0 or $valignFixup!='0pt' and number(@colspan) &gt; 0">
+            <xsl:when
+                test="number(@rowspan) &gt; 0 and number(@colspan) &gt; 0 or $valignFixup!='0pt' and number(@colspan) &gt; 0">
                 <xsl:call-template name="HandleMulticolumnInCell">
                     <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
                     <xsl:with-param name="iBorder" select="$iBorder"/>
@@ -4099,11 +4217,15 @@
             </xsl:when>
             <xsl:when test="@align">
                 <xsl:variable name="parentTablesFirstRow" select="ancestor::table[1]/tr[1]"/>
-                <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/td[@colspan] | $parentTablesFirstRow/th[@colspan]"/>
-                <xsl:variable name="rowSpansInTable" select="$parentTablesFirstRow/td[@rowspan] | $parentTablesFirstRow/th[@rowspan]"/>
-                <xsl:variable name="widthsInFirstRowOfTable" select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
+                <xsl:variable name="colSpansInTable"
+                    select="$parentTablesFirstRow/td[@colspan] | $parentTablesFirstRow/th[@colspan]"/>
+                <xsl:variable name="rowSpansInTable"
+                    select="$parentTablesFirstRow/td[@rowspan] | $parentTablesFirstRow/th[@rowspan]"/>
+                <xsl:variable name="widthsInFirstRowOfTable"
+                    select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
                 <xsl:choose>
-                    <xsl:when test="count($colSpansInTable) &gt; 0 or count($rowSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0">
+                    <xsl:when
+                        test="count($colSpansInTable) &gt; 0 or count($rowSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0">
                         <!-- there are no widths set or there are some column spans somewhere in this table so figuring out widths is too complicated; punt -->
                         <xsl:call-template name="HandleMulticolumnInCell">
                             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
@@ -4123,10 +4245,13 @@
                                         <xsl:value-of select="@width"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:variable name="iPosition" select="count(preceding-sibling::td) + count(preceding-sibling::th) + 1"/>
-                                        <xsl:variable name="widthForThisCell" select="$parentTablesFirstRow/*[position()=$iPosition]/@width"/>
+                                        <xsl:variable name="iPosition"
+                                            select="count(preceding-sibling::td) + count(preceding-sibling::th) + 1"/>
+                                        <xsl:variable name="widthForThisCell"
+                                            select="$parentTablesFirstRow/*[position()=$iPosition]/@width"/>
                                         <xsl:choose>
-                                            <xsl:when test="string-length(normalize-space($widthForThisCell)) &gt; 0">
+                                            <xsl:when
+                                                test="string-length(normalize-space($widthForThisCell)) &gt; 0">
                                                 <xsl:value-of select="$widthForThisCell"/>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -4294,7 +4419,8 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="following-sibling::*[1][name()='interlinear' or name()='interlinearRef']">
+            <xsl:when
+                test="following-sibling::*[1][name()='interlinear' or name()='interlinearRef']">
                 <!-- I'm not sure why exactly, but using \\ to end the heading causes the following interlinear to come out one pile per row.
                     Perhaps there is some side effect of LaTeX's \\ that causes this.
                     The following works, even though I'm not sure why.
@@ -4489,18 +4615,21 @@
         <xsl:variable name="sCurrentLanguage" select="@lang"/>
         <xsl:choose>
             <xsl:when test="name()='literal'">
-                <xsl:if test="preceding-sibling::*[1][name()='literal'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='literal'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                <xsl:if
+                    test="preceding-sibling::*[1][name()='literal'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='literal'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                     <xsl:call-template name="DoInterlinearFreeIndent"/>
                 </xsl:if>
                 <xsl:call-template name="DoInterlinearFreeContent">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     <xsl:with-param name="mode" select="$mode"/>
-                    <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                    <xsl:with-param name="freeLayout"
+                        select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:if test="preceding-sibling::*[1][name()='free'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='free'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
+                <xsl:if
+                    test="preceding-sibling::*[1][name()='free'][@lang=$sCurrentLanguage] or preceding-sibling::*[1][name()='free'][not(@lang)] or name(../..)='interlinear' or name(../..)='listInterlinear' and name(..)='interlinear' and $iParentPosition!=1">
                     <xsl:call-template name="DoInterlinearFreeIndent"/>
                 </xsl:if>
                 <xsl:call-template name="DoInterlinearFreeContent">
@@ -4525,13 +4654,16 @@
                 <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
                     <xsl:text>Y</xsl:text>
                 </xsl:when>
-                <xsl:when test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:when
+                    test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:text>Y</xsl:text>
                 </xsl:when>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $originalContext and $originalContext/ancestor-or-self::interlinearRef and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:when
+                    test="$bAutomaticallyWrapInterlinears='yes' and $originalContext and $originalContext/ancestor-or-self::interlinearRef and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:text>Y</xsl:text>
                 </xsl:when>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and not($originalContext) and ancestor::interlinear[string-length(normalize-space(@textref)) &gt; 0 and string-length(normalize-space(@text))=0] and not(ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:when
+                    test="$bAutomaticallyWrapInterlinears='yes' and not($originalContext) and ancestor::interlinear[string-length(normalize-space(@textref)) &gt; 0 and string-length(normalize-space(@text))=0] and not(ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:text>Y</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
@@ -4547,12 +4679,15 @@
                         <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
                     </tex:parm>
                 </tex:cmd>
-                <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 0">
+                <xsl:if
+                    test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 0">
                     <xsl:choose>
-                        <xsl:when test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
+                        <xsl:when
+                            test="ancestor::listInterlinear[child::*[1][name()='interlinear']]">
                             <!-- do nothing; since this interlinear is the first child, there's no need for extra indent-->
                         </xsl:when>
-                        <xsl:when test="name(ancestor::*[name()='endnote' or name()='listInterlinear'][1])='endnote'">
+                        <xsl:when
+                            test="name(ancestor::*[name()='endnote' or name()='listInterlinear'][1])='endnote'">
                             <!-- is in an interlinear within an endnote (and this endnote is in a listInterlinear); do nothing -->
                         </xsl:when>
                         <xsl:otherwise>
@@ -4590,7 +4725,8 @@
                     <xsl:value-of select="$iNumberWidth"/>
                     <xsl:text>em - </xsl:text>
                     <xsl:call-template name="GetLetterWidth">
-                        <xsl:with-param name="iLetterCount" select="count(ancestor::listInterlinear[1])"/>
+                        <xsl:with-param name="iLetterCount"
+                            select="count(ancestor::listInterlinear[1])"/>
                     </xsl:call-template>
                     <xsl:text>em - </xsl:text>
                     <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
@@ -4659,7 +4795,8 @@
                         <tex:parm>
                             <xsl:variable name="sThisName" select="name()"/>
                             <xsl:choose>
-                                <xsl:when test="../preceding-sibling::*[1][name()=$sThisName] or count(ancestor::interlinear) &gt; 1">
+                                <xsl:when
+                                    test="../preceding-sibling::*[1][name()=$sThisName] or count(ancestor::interlinear) &gt; 1">
                                     <xsl:text>1.65</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -4697,16 +4834,20 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$mode!='NoTextRef'">
-            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
-                <xsl:if test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
+            <xsl:if
+                test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
+                <xsl:if
+                    test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
                     <xsl:call-template name="OutputInterlinearTextReference">
-                        <xsl:with-param name="sRef" select="ancestor::interlinear[@textref]/@textref"/>
+                        <xsl:with-param name="sRef"
+                            select="ancestor::interlinear[@textref]/@textref"/>
                         <xsl:with-param name="sSource" select="../interlinearSource"/>
                     </xsl:call-template>
                 </xsl:if>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
+        <xsl:if
+            test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
             <xsl:if test="ancestor::example or ancestor::listInterlinear">
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc" nl2="1"/>
@@ -4721,8 +4862,10 @@
         <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <tex:spec cat="eg"/>
         </xsl:if>
-        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and $mode!='NoTextRef' and not(ancestor::td)">
-            <xsl:if test="count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
+        <xsl:if
+            test="$bAutomaticallyWrapInterlinears='yes' and $mode!='NoTextRef' and not(ancestor::td)">
+            <xsl:if
+                test="count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
                 <!--                <tex:cmd name="par"/> \par makes the hanging indent work, but causes bad page breaks and does not work in tables, etc.-->
                 <xsl:choose>
                     <xsl:when test="following-sibling::*[1][name()='free' or name()='literal']">
@@ -4732,7 +4875,8 @@
                         <xsl:text>*</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:if test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
+                        <xsl:if
+                            test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
                             <!-- endnotes get put on next page if we try and use \vskip and it is near the bottom of the page -->
                             <!-- any vertical operation will cause the hanging indent to work: it ends the paragraph: TeX Book, p. 86 -->
                             <tex:cmd name="vskip" gr="0"/>
@@ -4742,7 +4886,8 @@
                 </xsl:choose>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
+        <xsl:if
+            test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="eg"/>
         </xsl:if>
         <xsl:call-template name="DoFootnoteTextAfterFree">
@@ -4751,8 +4896,10 @@
         <!-- If we had to do a parbox, we need to now handle any footnotes in any interlinearSource -->
         <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <xsl:if test="$mode!='NoTextRef'">
-                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
-                    <xsl:if test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
+                <xsl:if
+                    test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and not(following-sibling::interlinear[descendant::free or descendant::literal])">
+                    <xsl:if
+                        test="ancestor::example  or ancestor::listInterlinear or ancestor::interlinear[@textref]">
                         <xsl:for-each select="../interlinearSource">
                             <xsl:call-template name="DoFootnoteTextAfterFree">
                                 <!--                                <xsl:with-param name="originalContext" select="."/>-->
@@ -4761,7 +4908,8 @@
                     </xsl:if>
                 </xsl:if>
             </xsl:if>
-            <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
+            <xsl:if
+                test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
                 <xsl:if test="ancestor::example or ancestor::listInterlinear">
                     <xsl:for-each select="../interlinearSource">
                         <xsl:call-template name="DoFootnoteTextAfterFree">
@@ -4797,7 +4945,8 @@
                                 <xsl:with-param name="mode" select="$mode"/>
                             </xsl:call-template>
                         </xsl:when>
-                        <xsl:when test="ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
+                        <xsl:when
+                            test="ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
                             <xsl:call-template name="DoInterlinearFreeEndOfParagraph">
                                 <xsl:with-param name="mode" select="$mode"/>
                             </xsl:call-template>
@@ -4829,13 +4978,16 @@
     -->
     <xsl:template name="DoInterlinearFreeIndent">
         <xsl:choose>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ../preceding-sibling::*[1][name()='free' or name()='literal']">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and ../preceding-sibling::*[1][name()='free' or name()='literal']">
                 <!-- do nothing -->
             </xsl:when>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 1">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and count(ancestor::interlinear) &gt; 1">
                 <!-- do nothing -->
             </xsl:when>
-            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
+            <xsl:when
+                test="$bAutomaticallyWrapInterlinears='yes' and ancestor::listInterlinear and count(ancestor::interlinear) &gt; 0">
                 <!-- do nothing -->
             </xsl:when>
             <xsl:otherwise>
@@ -4933,12 +5085,14 @@
         <xsl:param name="mode"/>
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
-        <xsl:if test="contains($bListsShareSameCode,'N') and count(preceding-sibling::line) &gt; 0">
+        <xsl:if
+            test="contains($bListsShareSameCode,'N') and count(preceding-sibling::line) &gt; 0">
             <tex:spec cat="align"/>
         </xsl:if>
         <xsl:variable name="bRtl">
             <xsl:choose>
-                <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'"
+                    >Y</xsl:when>
                 <xsl:otherwise>N</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -4971,7 +5125,8 @@
             <xsl:otherwise>
                 <xsl:variable name="bFlip">
                     <xsl:choose>
-                        <xsl:when test="id(parent::lineGroup/line[1]/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
+                        <xsl:when test="id(parent::lineGroup/line[1]/langData[1]/@lang)/@rtl='yes'"
+                            >Y</xsl:when>
                         <xsl:otherwise>N</xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -5001,7 +5156,8 @@
         <xsl:if test="$mode!='NoTextRef'">
             <xsl:if test="count(preceding-sibling::line) = 0">
                 <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-                    <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
+                    <xsl:if
+                        test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
                         <tex:spec cat="align"/>
                         <xsl:call-template name="DoDebugExamples"/>
                         <xsl:call-template name="OutputInterlinearTextReference">
@@ -5035,10 +5191,12 @@
                         <xsl:text>*
 </xsl:text>
                     </xsl:when>
-                    <xsl:when test="name($previous)='free' or name($previous)='literal' or name($previous)='lineGroup' or name($previous)='interlinear' and $previous[parent::interlinear or parent::listInterlinear]">
+                    <xsl:when
+                        test="name($previous)='free' or name($previous)='literal' or name($previous)='lineGroup' or name($previous)='interlinear' and $previous[parent::interlinear or parent::listInterlinear]">
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
-                        <xsl:if test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
+                        <xsl:if
+                            test="count(../../lineGroup[last()]/line) &gt; 1 or count(line) &gt; 1">
                             <tex:spec cat="lsb"/>
                             <!--                        <xsl:text>3pt</xsl:text>-->
                             <xsl:choose>
@@ -5054,7 +5212,8 @@
                         <tex:cmd name="hspace*" nl1="1">
                             <tex:parm>
                                 <xsl:choose>
-                                    <xsl:when test="string-length($sIndentOfNonInitialGroup) &gt; 0">
+                                    <xsl:when
+                                        test="string-length($sIndentOfNonInitialGroup) &gt; 0">
                                         <xsl:value-of select="$sIndentOfNonInitialGroup"/>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -5064,13 +5223,15 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
+                    <xsl:when
+                        test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
                         <xsl:call-template name="HandleImmediatelyPrecedingLineGroupOrFree"/>
                     </xsl:when>
                     <xsl:otherwise> </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:when test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
+            <xsl:when
+                test="preceding-sibling::*[1][name()='lineGroup' or name()='free' or name()='literal']">
                 <xsl:call-template name="HandleImmediatelyPrecedingLineGroupOrFree"/>
             </xsl:when>
             <xsl:otherwise/>
@@ -5133,14 +5294,16 @@
             <xsl:when test="following-sibling::*[1][name()='lineGroup']">
                 <!-- do nothing; otherwise we get an error -->
             </xsl:when>
-            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] or parent::interlinear/following-sibling::*[1][name()='free' or name()='literal']">
+            <xsl:when
+                test="following-sibling::*[1][name()='free' or name()='literal'] or parent::interlinear/following-sibling::*[1][name()='free' or name()='literal']">
                 <xsl:choose>
                     <xsl:when test="following-sibling::*[1][name()='free']">
                         <xsl:call-template name="CreateBreakAfter">
                             <xsl:with-param name="example" select="ancestor::example[1]"/>
                             <xsl:with-param name="originalContext" select="$originalContext"/>
                             <xsl:with-param name="sSpaceBeforeFree">
-                                <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
+                                <xsl:variable name="sSpaceBeforeFree"
+                                    select="normalize-space($contentLayoutInfo/freeLayout/@spacebefore)"/>
                                 <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
                                     <xsl:value-of select="$sSpaceBeforeFree"/>
                                 </xsl:if>
@@ -5152,7 +5315,8 @@
                             <xsl:with-param name="example" select="ancestor::example[1]"/>
                             <xsl:with-param name="originalContext" select="$originalContext"/>
                             <xsl:with-param name="sSpaceBeforeFree">
-                                <xsl:variable name="sSpaceBeforeFree" select="normalize-space($contentLayoutInfo/literalLayout/@spacebefore)"/>
+                                <xsl:variable name="sSpaceBeforeFree"
+                                    select="normalize-space($contentLayoutInfo/literalLayout/@spacebefore)"/>
                                 <xsl:if test="string-length($sSpaceBeforeFree) &gt; 0">
                                     <xsl:value-of select="$sSpaceBeforeFree"/>
                                 </xsl:if>
@@ -5198,7 +5362,8 @@
         <xsl:choose>
             <xsl:when test="$sInterlinearSourceStyle='AfterFirstLine'">
                 <xsl:choose>
-                    <xsl:when test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or following-sibling::interlinearSource">
+                    <xsl:when
+                        test="string-length(normalize-space(ancestor-or-self::*/@textref)) &gt; 0 or following-sibling::interlinearSource">
                         <!-- we have an extra column so include it -->
                         <xsl:value-of select="$iColCount + 1"/>
                     </xsl:when>
@@ -5232,7 +5397,8 @@
             <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
                 <xsl:call-template name="DoExternalHyperRefBegin">
                     <xsl:with-param name="sName">
-                        <xsl:value-of select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
+                        <xsl:value-of
+                            select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
                         <xsl:text>.pdf#</xsl:text>
                         <xsl:value-of select="$sRef"/>
                     </xsl:with-param>
@@ -5293,7 +5459,8 @@
                 <xsl:choose>
                     <xsl:when test="name()='listInterlinear'">
                         <xsl:apply-templates select="*[name()!='interlinearSource']">
-                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"
+                            />
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:when test="ancestor::interlinear-text">
@@ -5538,7 +5705,8 @@
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
                 </xsl:for-each>
-                <xsl:if test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
+                <xsl:if
+                    test="$iLineCountInLineGroup &gt; 1 or not($sRest or $iPosition &lt; $iMaxColumns)">
                     <!-- need extra space between aligned units when there are two or more lines or if it's the last one -->
                     <tex:spec cat="lsb"/>
                     <xsl:call-template name="GetCurrentPointSize"/>
@@ -5667,7 +5835,8 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="originalContext"/>
         <xsl:if test="(count(ancestor::interlinear) + count(ancestor::listInterlinear)) &gt; 1">
-            <xsl:if test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
+            <xsl:if
+                test="$mode='NoTextRef' or  ../preceding-sibling::*[1][name()!='free' and name()!='literal']">
                 <tex:cmd name="vspace">
                     <tex:parm>
                         <tex:cmd name="baselineskip"/>
@@ -5677,7 +5846,8 @@
         </xsl:if>
         <xsl:variable name="sLeftIndent">
             <xsl:choose>
-                <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
+                <xsl:when
+                    test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
                     <xsl:text>1.65</xsl:text>
                 </xsl:when>
                 <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
@@ -5725,7 +5895,8 @@
                 <tex:spec cat="esc"/>
                 <xsl:text>hangindent</xsl:text>
                 <xsl:choose>
-                    <xsl:when test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
+                    <xsl:when
+                        test="$mode='NoTextRef' and preceding-sibling::*[1][name()='lineGroup']">
                         <xsl:text>0</xsl:text>
                     </xsl:when>
                     <xsl:when test="$mode='NoTextRef'">
@@ -5746,11 +5917,13 @@
         <tex:spec cat="esc"/>
         <xsl:text>hangafter</xsl:text>
         <xsl:choose>
-            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
+            <xsl:when
+                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
                 <!-- if we use 2, then longer interlinears are aligned incorrectly -->
                 <xsl:text>1</xsl:text>
             </xsl:when>
-            <xsl:when test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
+            <xsl:when
+                test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
                 <xsl:text>2</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -5758,7 +5931,8 @@
             </xsl:otherwise>
         </xsl:choose>
         <tex:cmd name="relax" gr="0" nl2="1"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
             <xsl:variable name="sListIsoCode">
                 <xsl:call-template name="GetISOCode"/>
             </xsl:variable>
@@ -5806,9 +5980,12 @@
             </xsl:call-template>
         </xsl:variable>
         <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-            <xsl:if test="parent::interlinear[string-length(@textref) &gt; 0] or following-sibling::interlinearSource">
-                <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='td'][1]"/>
-                <xsl:if test="not($bAutomaticallyWrapInterlinears='yes') or not(name($nearestRelevantElement)='td')">
+            <xsl:if
+                test="parent::interlinear[string-length(@textref) &gt; 0] or following-sibling::interlinearSource">
+                <xsl:variable name="nearestRelevantElement"
+                    select="ancestor::*[name()='endnote' or name()='td'][1]"/>
+                <xsl:if
+                    test="not($bAutomaticallyWrapInterlinears='yes') or not(name($nearestRelevantElement)='td')">
                     <!-- When a reference comes after the first line, without this a wrapped line will get justified and will be right-aligned. -->
                     <tex:cmd name="raggedright" gr="0" nl2="1"/>
                 </xsl:if>
@@ -5879,15 +6056,19 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
-            <xsl:when test="$mode!='NoTextRef' and following-sibling::*[1][name()='interlinear' or name()='lineGroup']">
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
+            <xsl:when
+                test="$mode!='NoTextRef' and following-sibling::*[1][name()='interlinear' or name()='lineGroup']">
+                <xsl:if
+                    test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:cmd name="newline" nl2="1"/>
             </xsl:when>
             <xsl:when test="ancestor::endnote and ancestor::td">
-                <xsl:variable name="iEndnotePosition" select="count(ancestor::*[name()!='endnote' and ancestor::endnote])"/>
-                <xsl:variable name="iTdPosition" select="count(ancestor::*[name()!='td' and ancestor::td])"/>
+                <xsl:variable name="iEndnotePosition"
+                    select="count(ancestor::*[name()!='endnote' and ancestor::endnote])"/>
+                <xsl:variable name="iTdPosition"
+                    select="count(ancestor::*[name()!='td' and ancestor::td])"/>
                 <xsl:choose>
                     <xsl:when test="$iEndnotePosition &lt; $iTdPosition">
                         <tex:spec cat="esc"/>
@@ -5917,24 +6098,29 @@
                 <xsl:call-template name="GetSpaceBetweenGroups"/>
                 <tex:spec cat="rsb"/>
             </xsl:when>
-            <xsl:when test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
+            <xsl:when
+                test="../preceding-sibling::lineGroup and ../following-sibling::*[1][name()='interlinear'] and ../preceding-sibling::*[1][name()='interlinear' or name()='lineGroup']">
+                <xsl:if
+                    test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:cmd name="newline" nl2="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
+                <xsl:if
+                    test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
                 </xsl:if>
                 <tex:cmd name="par" nl2="1"/>
             </xsl:otherwise>
         </xsl:choose>
         <!--<tex:cmd name="par" nl2="1"/>-->
-        <xsl:if test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free' or name()='literal'])">
+        <xsl:if
+            test="not(ancestor::listInterlinear and preceding-sibling::*[1][name()='lineGroup'] and following-sibling::*[1][name()='free' or name()='literal'])">
             <!-- Not sure why, but when have the above scenario, get the free translation on top of the last line of the lineGroup -->
             <xsl:choose>
-                <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
+                <xsl:when
+                    test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples!='yes' and not(parent::td)">
                     <!-- do nothing -->
                 </xsl:when>
                 <xsl:when test="following-sibling::*[1][name()='lineGroup'] and $mode='NoTextRef'">
@@ -5952,7 +6138,8 @@
             </xsl:choose>
         </xsl:if>
         <!-- not sure why following is needed, but Lachixo example xPronombres.12a needs it -->
-        <xsl:if test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free' or name()='literal']">
+        <xsl:if
+            test="ancestor::listInterlinear and count(../following-sibling::*)=0 and count(../preceding-sibling::interlinear) &gt; 0 and following-sibling::*[1][name()='free' or name()='literal']">
             <tex:cmd name="vspace*">
                 <tex:parm>
                     <xsl:text>-</xsl:text>
@@ -6108,146 +6295,287 @@
     <xsl:template name="GetColorHexCode">
         <xsl:param name="sColor"/>
         <xsl:choose>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aliceblue'">F0F8FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='antiquewhite'">FAEBD7</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aqua'">00FFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aquamarine'">7FFFD4</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='azure'">F0FFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='beige'">F5F5DC</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='bisque'">FFE4C4</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='black'">000000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blanchedalmond'">FFEBCD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blue'">0000FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blueviolet'">8A2BE2</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='brown'">A52A2A</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='burlywood'">DEB887</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cadetblue'">5F9EA0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='chartreuse'">7FFF00</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='chocolate'">D2691E</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='coral'">FF7F50</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cornflowerblue'">6495ED</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cornsilk'">FFF8DC</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='crimson'">DC143C</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cyan'">00FFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkblue'">00008B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkcyan'">008B8B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgoldenrod'">B8860B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgray'">A9A9A9</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgreen'">006400</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkkhaki'">BDB76B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkmagenta'">8B008B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkolivegreen'">556B2F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkorange'">FF8C00</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkorchid'">9932CC</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkred'">8B0000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darksalmon'">E9967A</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkseagreen'">8FBC8F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkslateblue'">483D8B</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkslategray'">2F4F4F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkturquoise'">00CED1</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkviolet'">9400D3</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='deeppink'">FF1493</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='deepskyblue'">00BFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='dimgray'">696969</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='dodgerblue'">1E90FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='firebrick'">B22222</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='floralwhite'">FFFAF0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='forestgreen'">228B22</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='fuchsia'">FF00FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gainsboro'">DCDCDC</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='ghostwhite'">F8F8FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gold'">FFD700</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='goldenrod'">DAA520</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gray'">808080</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='green'">008000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='greenyellow'">ADFF2F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='honeydew'">F0FFF0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='hotpink'">FF69B4</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='indianred '">CD5C5C</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='indigo '">4B0082</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='ivory'">FFFFF0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='khaki'">F0E68C</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lavender'">E6E6FA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lavenderblush'">FFF0F5</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lawngreen'">7CFC00</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lemonchiffon'">FFFACD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightblue'">ADD8E6</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightcoral'">F08080</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightcyan'">E0FFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgoldenrodyellow'">FAFAD2</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgrey'">D3D3D3</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgreen'">90EE90</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightpink'">FFB6C1</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightsalmon'">FFA07A</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightseagreen'">20B2AA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightskyblue'">87CEFA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightslategray'">778899</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightsteelblue'">B0C4DE</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightyellow'">FFFFE0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lime'">00FF00</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='limegreen'">32CD32</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='linen'">FAF0E6</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='magenta'">FF00FF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='maroon'">800000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumaquamarine'">66CDAA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumblue'">0000CD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumorchid'">BA55D3</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumpurple'">9370D8</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumseagreen'">3CB371</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumslateblue'">7B68EE</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumspringgreen'">00FA9A</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumturquoise'">48D1CC</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumvioletred'">C71585</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='midnightblue'">191970</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mintcream'">F5FFFA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mistyrose'">FFE4E1</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='moccasin'">FFE4B5</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='navajowhite'">FFDEAD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='navy'">000080</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='oldlace'">FDF5E6</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='olive'">808000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='olivedrab'">6B8E23</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orange'">FFA500</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orangered'">FF4500</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orchid'">DA70D6</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palegoldenrod'">EEE8AA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palegreen'">98FB98</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='paleturquoise'">AFEEEE</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palevioletred'">D87093</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='papayawhip'">FFEFD5</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='peachpuff'">FFDAB9</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='peru'">CD853F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='pink'">FFC0CB</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='plum'">DDA0DD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='powderblue'">B0E0E6</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='purple'">800080</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='red'">FF0000</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='rosybrown'">BC8F8F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='royalblue'">4169E1</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='saddlebrown'">8B4513</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='salmon'">FA8072</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='sandybrown'">F4A460</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='seagreen'">2E8B57</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='seashell'">FFF5EE</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='sienna'">A0522D</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='silver'">C0C0C0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='skyblue'">87CEEB</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='slateblue'">6A5ACD</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='slategray'">708090</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='snow'">FFFAFA</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='springgreen'">00FF7F</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='steelblue'">4682B4</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='tan'">D2B48C</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='teal'">008080</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='thistle'">D8BFD8</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='tomato'">FF6347</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='turquoise'">40E0D0</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='violet'">EE82EE</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='wheat'">F5DEB3</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='white'">FFFFFF</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='whitesmoke'">F5F5F5</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='yellow'">FFFF00</xsl:when>
-            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='yellowgreen'">9ACD32</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aliceblue'"
+                >F0F8FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='antiquewhite'"
+                >FAEBD7</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aqua'"
+                >00FFFF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='aquamarine'"
+                >7FFFD4</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='azure'"
+                >F0FFFF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='beige'"
+                >F5F5DC</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='bisque'"
+                >FFE4C4</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='black'"
+                >000000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blanchedalmond'"
+                >FFEBCD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blue'"
+                >0000FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='blueviolet'"
+                >8A2BE2</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='brown'"
+                >A52A2A</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='burlywood'"
+                >DEB887</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cadetblue'"
+                >5F9EA0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='chartreuse'"
+                >7FFF00</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='chocolate'"
+                >D2691E</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='coral'"
+                >FF7F50</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cornflowerblue'"
+                >6495ED</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cornsilk'"
+                >FFF8DC</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='crimson'"
+                >DC143C</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='cyan'"
+                >00FFFF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkblue'"
+                >00008B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkcyan'"
+                >008B8B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgoldenrod'"
+                >B8860B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgray'"
+                >A9A9A9</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkgreen'"
+                >006400</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkkhaki'"
+                >BDB76B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkmagenta'"
+                >8B008B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkolivegreen'"
+                >556B2F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkorange'"
+                >FF8C00</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkorchid'"
+                >9932CC</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkred'"
+                >8B0000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darksalmon'"
+                >E9967A</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkseagreen'"
+                >8FBC8F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkslateblue'"
+                >483D8B</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkslategray'"
+                >2F4F4F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkturquoise'"
+                >00CED1</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='darkviolet'"
+                >9400D3</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='deeppink'"
+                >FF1493</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='deepskyblue'"
+                >00BFFF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='dimgray'"
+                >696969</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='dodgerblue'"
+                >1E90FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='firebrick'"
+                >B22222</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='floralwhite'"
+                >FFFAF0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='forestgreen'"
+                >228B22</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='fuchsia'"
+                >FF00FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gainsboro'"
+                >DCDCDC</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='ghostwhite'"
+                >F8F8FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gold'"
+                >FFD700</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='goldenrod'"
+                >DAA520</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='gray'"
+                >808080</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='green'"
+                >008000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='greenyellow'"
+                >ADFF2F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='honeydew'"
+                >F0FFF0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='hotpink'"
+                >FF69B4</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='indianred '"
+                >CD5C5C</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='indigo '"
+                >4B0082</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='ivory'"
+                >FFFFF0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='khaki'"
+                >F0E68C</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lavender'"
+                >E6E6FA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lavenderblush'"
+                >FFF0F5</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lawngreen'"
+                >7CFC00</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lemonchiffon'"
+                >FFFACD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightblue'"
+                >ADD8E6</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightcoral'"
+                >F08080</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightcyan'"
+                >E0FFFF</xsl:when>
+            <xsl:when
+                test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgoldenrodyellow'"
+                >FAFAD2</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgrey'"
+                >D3D3D3</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightgreen'"
+                >90EE90</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightpink'"
+                >FFB6C1</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightsalmon'"
+                >FFA07A</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightseagreen'"
+                >20B2AA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightskyblue'"
+                >87CEFA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightslategray'"
+                >778899</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightsteelblue'"
+                >B0C4DE</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lightyellow'"
+                >FFFFE0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='lime'"
+                >00FF00</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='limegreen'"
+                >32CD32</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='linen'"
+                >FAF0E6</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='magenta'"
+                >FF00FF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='maroon'"
+                >800000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumaquamarine'"
+                >66CDAA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumblue'"
+                >0000CD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumorchid'"
+                >BA55D3</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumpurple'"
+                >9370D8</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumseagreen'"
+                >3CB371</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumslateblue'"
+                >7B68EE</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumspringgreen'"
+                >00FA9A</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumturquoise'"
+                >48D1CC</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mediumvioletred'"
+                >C71585</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='midnightblue'"
+                >191970</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mintcream'"
+                >F5FFFA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='mistyrose'"
+                >FFE4E1</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='moccasin'"
+                >FFE4B5</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='navajowhite'"
+                >FFDEAD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='navy'"
+                >000080</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='oldlace'"
+                >FDF5E6</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='olive'"
+                >808000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='olivedrab'"
+                >6B8E23</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orange'"
+                >FFA500</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orangered'"
+                >FF4500</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='orchid'"
+                >DA70D6</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palegoldenrod'"
+                >EEE8AA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palegreen'"
+                >98FB98</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='paleturquoise'"
+                >AFEEEE</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='palevioletred'"
+                >D87093</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='papayawhip'"
+                >FFEFD5</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='peachpuff'"
+                >FFDAB9</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='peru'"
+                >CD853F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='pink'"
+                >FFC0CB</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='plum'"
+                >DDA0DD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='powderblue'"
+                >B0E0E6</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='purple'"
+                >800080</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='red'"
+                >FF0000</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='rosybrown'"
+                >BC8F8F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='royalblue'"
+                >4169E1</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='saddlebrown'"
+                >8B4513</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='salmon'"
+                >FA8072</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='sandybrown'"
+                >F4A460</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='seagreen'"
+                >2E8B57</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='seashell'"
+                >FFF5EE</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='sienna'"
+                >A0522D</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='silver'"
+                >C0C0C0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='skyblue'"
+                >87CEEB</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='slateblue'"
+                >6A5ACD</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='slategray'"
+                >708090</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='snow'"
+                >FFFAFA</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='springgreen'"
+                >00FF7F</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='steelblue'"
+                >4682B4</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='tan'"
+                >D2B48C</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='teal'"
+                >008080</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='thistle'"
+                >D8BFD8</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='tomato'"
+                >FF6347</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='turquoise'"
+                >40E0D0</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='violet'"
+                >EE82EE</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='wheat'"
+                >F5DEB3</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='white'"
+                >FFFFFF</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='whitesmoke'"
+                >F5F5F5</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='yellow'"
+                >FFFF00</xsl:when>
+            <xsl:when test="translate($sColor,$sUppercaseAtoZ, $sLowercaseAtoZ)='yellowgreen'"
+                >9ACD32</xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="string-length($sColor) = 7">
@@ -6312,7 +6640,9 @@
                             <xsl:value-of select="$iExampleWidth*$iPercentage div 100"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)*$iPercentage div 100"/>
+                            <xsl:value-of
+                                select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)*$iPercentage div 100"
+                            />
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
@@ -6486,7 +6816,8 @@
     -->
     <xsl:template name="GetISOCode">
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
-            <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
+            <xsl:variable name="firstLangData"
+                select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
             <xsl:if test="$firstLangData">
                 <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
             </xsl:if>
@@ -6559,14 +6890,16 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="iTempCount">
             <xsl:for-each select="line | ../listWord">
-                <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending" data-type="number"/>
+                <xsl:sort select="count(wrd) + count(langData) + count(gloss)" order="descending"
+                    data-type="number"/>
                 <xsl:if test="position()=1">
                     <xsl:value-of select="count(wrd) + count(langData) + count(gloss)"/>
                 </xsl:if>
             </xsl:for-each>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
+            <xsl:when
+                test=" name()!='listWord' and $iTempCount=1 or name()!='listWord' and count(descendant::wrd)=0">
                 <!-- have space-delimited langData and/or gloss line(s) -->
                 <xsl:variable name="sMaxColCount">
                     <xsl:call-template name="GetMaxColumnCountForPCDATALines"/>
@@ -6742,19 +7075,24 @@
     -->
     <xsl:template name="GetRealColumnNumberOfCell">
         <xsl:param name="iRowNumberOfCell"/>
-        <xsl:variable name="precedingSiblingsOfPreviousCellWithRowspan" select="preceding-sibling::td | preceding-sibling::th"/>
-        <xsl:variable name="iInSituColumnNumberOfPreviousCellWithRowspan" select="count($precedingSiblingsOfPreviousCellWithRowspan[not(number(@colspan) &gt; 0)]) + sum($precedingSiblingsOfPreviousCellWithRowspan[number(@colspan) &gt; 0]/@colspan)"/>
+        <xsl:variable name="precedingSiblingsOfPreviousCellWithRowspan"
+            select="preceding-sibling::td | preceding-sibling::th"/>
+        <xsl:variable name="iInSituColumnNumberOfPreviousCellWithRowspan"
+            select="count($precedingSiblingsOfPreviousCellWithRowspan[not(number(@colspan) &gt; 0)]) + sum($precedingSiblingsOfPreviousCellWithRowspan[number(@colspan) &gt; 0]/@colspan)"/>
         <xsl:variable name="iPreviousRowspansInRowOfCell">
             <xsl:variable name="sOneYForEachColumn">
                 <xsl:call-template name="CountPreviousRowspansInMyRow">
-                    <xsl:with-param name="previousCellsWithRowspansSpanningMyRow" select="../preceding-sibling::tr/th[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan] | ../preceding-sibling::tr/td[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan]"/>
+                    <xsl:with-param name="previousCellsWithRowspansSpanningMyRow"
+                        select="../preceding-sibling::tr/th[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan] | ../preceding-sibling::tr/td[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan]"/>
                     <xsl:with-param name="iPosition">1</xsl:with-param>
-                    <xsl:with-param name="iMyInSituColumnNumber" select="$iInSituColumnNumberOfPreviousCellWithRowspan"/>
+                    <xsl:with-param name="iMyInSituColumnNumber"
+                        select="$iInSituColumnNumberOfPreviousCellWithRowspan"/>
                 </xsl:call-template>
             </xsl:variable>
             <xsl:value-of select="string-length($sOneYForEachColumn)"/>
         </xsl:variable>
-        <xsl:value-of select="$iInSituColumnNumberOfPreviousCellWithRowspan + $iPreviousRowspansInRowOfCell"/>
+        <xsl:value-of
+            select="$iInSituColumnNumberOfPreviousCellWithRowspan + $iPreviousRowspansInRowOfCell"/>
     </xsl:template>
     <!--  
         GetSpaceBetweenGroups
@@ -6783,7 +7121,8 @@
         <xsl:value-of select="$iNumberWidth"/>
         <xsl:text>em - </xsl:text>
         <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
-        <xsl:if test="parent::listInterlinear or self::listInterlinear or $originalContext and $originalContext[parent::*[name()='listInterlinear']]">
+        <xsl:if
+            test="parent::listInterlinear or self::listInterlinear or $originalContext and $originalContext[parent::*[name()='listInterlinear']]">
             <xsl:variable name="iLetterCount">
                 <xsl:choose>
                     <xsl:when test="parent::listInterlinear">
@@ -6794,7 +7133,8 @@
                     <xsl:when test="self::listInterlinear">
                         <xsl:value-of select="count(listInterlinear)"/>
                     </xsl:when>
-                    <xsl:when test="$originalContext and $originalContext[parent::*[name()='listInterlinear']]">
+                    <xsl:when
+                        test="$originalContext and $originalContext[parent::*[name()='listInterlinear']]">
                         <xsl:for-each select="$originalContext[parent::*[name()='listInterlinear']]">
                             <xsl:value-of select="count(listInterlinear)"/>
                         </xsl:for-each>
@@ -6835,7 +7175,8 @@
         <xsl:param name="sAttr"/>
         <xsl:param name="sDefaultValue"/>
         <xsl:variable name="sCommandBeginning" select="substring-after(@XeLaTeXSpecial, $sAttr)"/>
-        <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
+        <xsl:variable name="sCommand"
+            select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
         <xsl:choose>
             <xsl:when test="string-length(normalize-space($sCommand)) &gt; 0">
                 <xsl:value-of select="$sCommand"/>
@@ -6865,7 +7206,8 @@
     -->
     <xsl:template name="HandleEndnotesTextInCaptionAfterTablenumbered">
         <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout)">
-            <xsl:variable name="iEndnotesInTable" select="count(table/tr/descendant-or-self::endnote)"/>
+            <xsl:variable name="iEndnotesInTable"
+                select="count(table/tr/descendant-or-self::endnote)"/>
             <xsl:for-each select="table/caption">
                 <xsl:for-each select="descendant-or-self::endnote">
                     <xsl:variable name="sFootnoteNumberOffOne">
@@ -6875,7 +7217,8 @@
                     </xsl:variable>
                     <xsl:apply-templates select=".">
                         <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
-                        <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne + $iEndnotesInTable"/>
+                        <xsl:with-param name="sPrecalculatedNumber"
+                            select="$sFootnoteNumberOffOne + $iEndnotesInTable"/>
                     </xsl:apply-templates>
                 </xsl:for-each>
             </xsl:for-each>
@@ -6930,10 +7273,12 @@
                                     <xsl:with-param name="bMoreOptionsWillFollow" select="'Y'"/>
                                 </xsl:call-template>
                                 <xsl:text>Scale=</xsl:text>
-                                <xsl:value-of select="number(substring-before($sSize,'%')) div 100"/>
+                                <xsl:value-of select="number(substring-before($sSize,'%')) div 100"
+                                />
                             </tex:opt>
                             <tex:parm>
-                                <xsl:variable name="sNormFontFamily" select="normalize-space($sFontFamily)"/>
+                                <xsl:variable name="sNormFontFamily"
+                                    select="normalize-space($sFontFamily)"/>
                                 <xsl:choose>
                                     <xsl:when test="string-length($sNormFontFamily) &gt; 0">
                                         <xsl:value-of select="$sFontFamily"/>
@@ -6943,18 +7288,24 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                                 <!-- some open type fonts also need a special script or a special language; handle them here -->
-                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontScript)">
+                                <xsl:if
+                                    test="$language and contains($language/@XeLaTeXSpecial, $sFontScript)">
                                     <xsl:for-each select="$language">
-                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
-                                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                        <xsl:call-template
+                                            name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                            <xsl:with-param name="sFontSpecial"
+                                                select="$sFontScript"/>
                                             <xsl:with-param name="sDefault" select="'arab'"/>
                                         </xsl:call-template>
                                     </xsl:for-each>
                                 </xsl:if>
-                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontLanguage)">
+                                <xsl:if
+                                    test="$language and contains($language/@XeLaTeXSpecial, $sFontLanguage)">
                                     <xsl:for-each select="$language">
-                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
-                                            <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
+                                        <xsl:call-template
+                                            name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                            <xsl:with-param name="sFontSpecial"
+                                                select="$sFontLanguage"/>
                                             <xsl:with-param name="sDefault" select="'ARA'"/>
                                         </xsl:call-template>
                                     </xsl:for-each>
@@ -7001,7 +7352,21 @@
                         <xsl:value-of select="$sSizeOnly"/>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:value-of select="number($sSizeOnly) * 1.2"/>
+                        <xsl:choose>
+                            <xsl:when
+                                test="$language and contains($language/@XeLaTeXSpecial,'baselineskip=')">
+                                <xsl:for-each select="$language">
+                                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                        <xsl:with-param name="sPattern" select="'baselineskip='"/>
+                                        <xsl:with-param name="default"
+                                            select="number($sSizeOnly) * 1.2"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="number($sSizeOnly) * 1.2"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="selectfont" gr="0" sp="1"/>
@@ -7013,7 +7378,8 @@
     -->
     <xsl:template name="HandleFootnotesInTableHeader">
         <xsl:if test="position()=1 or preceding-sibling::*[1][name()='th']">
-            <xsl:variable name="headerRows" select="../preceding-sibling::tr[1][th[count(following-sibling::td)=0]]"/>
+            <xsl:variable name="headerRows"
+                select="../preceding-sibling::tr[1][th[count(following-sibling::td)=0]]"/>
             <xsl:for-each select="$headerRows/th[descendant-or-self::endnote]">
                 <xsl:for-each select="descendant-or-self::endnote">
                     <xsl:apply-templates select=".">
@@ -7040,10 +7406,13 @@
     -->
     <xsl:template name="HandleHyphenationExceptionsFile">
         <xsl:for-each select="//language[@id=$documentLang]">
-            <xsl:variable name="sHyphenationExceptionsFile" select="normalize-space(@hyphenationExceptionsFile)"/>
+            <xsl:variable name="sHyphenationExceptionsFile"
+                select="normalize-space(@hyphenationExceptionsFile)"/>
             <xsl:if test="string-length($sHyphenationExceptionsFile) &gt; 0">
-                <xsl:variable name="sPathToExceptionsFile" select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
-                <xsl:for-each select="document($sPathToExceptionsFile)/exceptions/wordformingcharacter">
+                <xsl:variable name="sPathToExceptionsFile"
+                    select="concat($sMainSourcePath, $sDirectorySlash, $sHyphenationExceptionsFile)"/>
+                <xsl:for-each
+                    select="document($sPathToExceptionsFile)/exceptions/wordformingcharacter">
                     <tex:spec cat="esc"/>
                     <xsl:text>lccode`</xsl:text>
                     <xsl:value-of select="."/>
@@ -7101,7 +7470,8 @@
                             <!-- only need to reverse if the wrd contains a space (but that space is not in an endnote) -->
                             <xsl:choose>
                                 <xsl:when test="descendant::endnote">
-                                    <xsl:variable name="sNonEndnote" select="node()[name()!='endnote']"/>
+                                    <xsl:variable name="sNonEndnote"
+                                        select="node()[name()!='endnote']"/>
                                     <xsl:choose>
                                         <xsl:when test="contains($sNonEndnote,' ')">
                                             <xsl:text>Y</xsl:text>
@@ -7171,10 +7541,12 @@
                     <!--                     <xsl:if test="count(preceding-sibling::*) = 0">-->
                     <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
                 </xsl:if>
-                <xsl:if test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-left=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
+                <xsl:if
+                    test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-left=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
                     <xsl:variable name="sValue">
                         <xsl:choose>
-                            <xsl:when test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
+                            <xsl:when
+                                test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-left=')">
                                 <xsl:for-each select="key('TypeID',@type)">
                                     <xsl:call-template name="HandleXeLaTeXSpecialCommand">
                                         <xsl:with-param name="sPattern" select="'border-left='"/>
@@ -7199,10 +7571,12 @@
                     <xsl:with-param name="iBorder" select="$iBorder"/>
                     <xsl:with-param name="sWidth" select="$sWidth"/>
                 </xsl:call-template>
-                <xsl:if test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-right=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
+                <xsl:if
+                    test="$iBorder=0 and contains(@XeLaTeXSpecial,'border-right=') or contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
                     <xsl:variable name="sValue">
                         <xsl:choose>
-                            <xsl:when test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
+                            <xsl:when
+                                test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'border-right=')">
                                 <xsl:for-each select="key('TypeID',@type)">
                                     <xsl:call-template name="HandleXeLaTeXSpecialCommand">
                                         <xsl:with-param name="sPattern" select="'border-right='"/>
@@ -7445,7 +7819,8 @@
         <xsl:param name="sList"/>
         <xsl:param name="bIsFirstOpt" select="'Y'"/>
         <xsl:variable name="sCommandBeginning" select="substring-after($sList, $sFontFeature)"/>
-        <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
+        <xsl:variable name="sCommand"
+            select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
         <xsl:variable name="sRest" select="substring-after($sCommandBeginning,' ')"/>
         <xsl:if test="string-length($sCommandBeginning) &gt; 0">
             <xsl:if test="$bIsFirstOpt='N'">
@@ -7570,7 +7945,8 @@
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <tex:spec cat="align"/>
-        <xsl:if test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
+        <xsl:if
+            test="not($contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/abbreviationsInTableLayout/@useEqualSignsColumn!='no'">
             <xsl:text> = </xsl:text>
             <tex:spec cat="align"/>
         </xsl:if>
@@ -7582,15 +7958,18 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+        <xsl:param name="abbrsUsed"
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
+            <xsl:if
+                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="bg"/>
                 <tex:cmd name="singlespacing" gr="0" nl2="1"/>
             </xsl:if>
             <tex:spec cat="bg"/>
             <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+                <xsl:with-param name="language"
+                    select="$contentLayoutInfo/abbreviationsInTableLayout"/>
             </xsl:call-template>
             <tex:env name="longtable">
                 <tex:opt>l</tex:opt>
@@ -7599,7 +7978,8 @@
                     <tex:group>
                         <tex:cmd name="hspace*">
                             <tex:parm>
-                                <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@start-indent)"/>
+                                <xsl:variable name="sStartIndent"
+                                    select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@start-indent)"/>
                                 <xsl:choose>
                                     <xsl:when test="string-length($sStartIndent)&gt;0">
                                         <xsl:value-of select="$sStartIndent"/>
@@ -7612,12 +7992,14 @@
                         </tex:cmd>
                     </tex:group>
                     <xsl:call-template name="HandleAbbreviationsInTableColumnSpecColumns"/>
-                    <xsl:if test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                    <xsl:if
+                        test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
                         <xsl:text>@</xsl:text>
                         <tex:group>
                             <tex:cmd name="hspace*">
                                 <tex:parm>
-                                    <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@doubleColumnSeparation)"/>
+                                    <xsl:variable name="sSep"
+                                        select="normalize-space($contentLayoutInfo/abbreviationsInTableLayout/@doubleColumnSeparation)"/>
                                     <xsl:choose>
                                         <xsl:when test="string-length($sSep)&gt;0">
                                             <xsl:value-of select="$sSep"/>
@@ -7644,10 +8026,12 @@
                 </xsl:call-template>
             </tex:env>
             <xsl:call-template name="OutputFontAttributesEnd">
-                <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
+                <xsl:with-param name="language"
+                    select="$contentLayoutInfo/abbreviationsInTableLayout"/>
             </xsl:call-template>
             <tex:spec cat="eg"/>
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
+            <xsl:if
+                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>
@@ -7660,13 +8044,16 @@
         <xsl:choose>
             <xsl:when test="string-length($abbrLang) &gt; 0">
                 <xsl:choose>
-                    <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition" mode="Use"/>
+                    <xsl:when
+                        test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                        <xsl:apply-templates
+                            select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition" mode="Use"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- a language is specified, but this abbreviation does not have anything; try using the default;
                             this assumes that something is better than nothing -->
-                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition" mode="Use"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition" mode="Use"
+                        />
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -7682,7 +8069,8 @@
     <xsl:template name="OutputAbbrTerm">
         <xsl:param name="abbr"/>
         <tex:group>
-            <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
+            <xsl:if
+                test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <tex:cmd name="fontspec">
                     <tex:opt>Scale=0.65</tex:opt>
                     <tex:parm>
@@ -7707,8 +8095,11 @@
                             </xsl:for-each>
                         </xsl:variable>
                         <xsl:choose>
-                            <xsl:when test="string-length($closestGlossOrObjectWithAFontFamily) &gt; 0">
-                                <xsl:value-of select="substring-before($closestGlossOrObjectWithAFontFamily,'|')"/>
+                            <xsl:when
+                                test="string-length($closestGlossOrObjectWithAFontFamily) &gt; 0">
+                                <xsl:value-of
+                                    select="substring-before($closestGlossOrObjectWithAFontFamily,'|')"
+                                />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:value-of select="$sDefaultFontFamily"/>
@@ -7724,8 +8115,10 @@
             <xsl:choose>
                 <xsl:when test="string-length($abbrLang) &gt; 0">
                     <xsl:choose>
-                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm" mode="Use"/>
+                        <xsl:when
+                            test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"
+                                mode="Use"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- a language is specified, but this abbreviation does not have anything; try using the default;
@@ -7742,7 +8135,8 @@
             <xsl:call-template name="OutputFontAttributesEnd">
                 <xsl:with-param name="language" select="$abbreviations"/>
             </xsl:call-template>
-            <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
+            <xsl:if
+                test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
         </tex:group>
@@ -7947,7 +8341,8 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
-        <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
+        <xsl:if
+            test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
             <xsl:choose>
                 <xsl:when test="$sTextTransform='uppercase'">
                     <tex:spec cat="bg"/>
@@ -8033,7 +8428,8 @@
             <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
         </xsl:call-template>
         <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
-        <xsl:if test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
+        <xsl:if
+            test="string-length($sTextTransform) &gt; 0 and $originalContext and name($originalContext/*)=''">
             <xsl:choose>
                 <xsl:when test="$sTextTransform='uppercase'">
                     <tex:spec cat="eg"/>
@@ -8121,18 +8517,22 @@
         <xsl:param name="sIndexKind"/>
         <xsl:param name="lang"/>
         <xsl:param name="terms"/>
-        <xsl:variable name="indexTermsToShow" select="$terms/indexTerm[@kind=$sIndexKind or @kind='subject' and $sIndexKind='common' or count(//index)=1]"/>
+        <xsl:variable name="indexTermsToShow"
+            select="$terms/indexTerm[@kind=$sIndexKind or @kind='subject' and $sIndexKind='common' or count(//index)=1]"/>
         <xsl:if test="$indexTermsToShow">
-            <xsl:variable name="iIndent" select="count($terms/ancestor::*[name()='indexTerm']) * .125"/>
+            <xsl:variable name="iIndent"
+                select="count($terms/ancestor::*[name()='indexTerm']) * .125"/>
             <xsl:for-each select="$indexTermsToShow">
                 <!--                <xsl:sort select="term[1]"/>-->
-                <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
+                <xsl:sort lang="{$lang}"
+                    select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
                 <xsl:variable name="sTermId" select="@id"/>
                 <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                 <xsl:variable name="bHasCitedDescendant">
                     <xsl:for-each select="descendant::indexTerm">
                         <xsl:variable name="sDescendantTermId" select="@id"/>
-                        <xsl:if test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
+                        <xsl:if
+                            test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
                             <xsl:text>Y</xsl:text>
                         </xsl:if>
                         <xsl:if test="@see">
@@ -8140,7 +8540,8 @@
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:variable>
-                <xsl:variable name="indexedItems" select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
+                <xsl:variable name="indexedItems"
+                    select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
                 <xsl:variable name="bHasSeeAttribute">
                     <xsl:if test="string-length(@see) &gt; 0">
                         <xsl:text>Y</xsl:text>
@@ -8181,18 +8582,21 @@
                                         </xsl:call-template>
                                     </xsl:variable>
                                     <xsl:choose>
-                                        <xsl:when test="@main='yes' and count($indexedItems) &gt; 1">
+                                        <xsl:when
+                                            test="@main='yes' and count($indexedItems) &gt; 1">
                                             <tex:cmd name="textbf">
                                                 <tex:parm>
-                                                    <xsl:call-template name="OutputIndexedItemsRange">
-                                                        <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
-                                                    </xsl:call-template>
+                                                  <xsl:call-template name="OutputIndexedItemsRange">
+                                                  <xsl:with-param name="sIndexedItemID"
+                                                  select="$sIndexedItemID"/>
+                                                  </xsl:call-template>
                                                 </tex:parm>
                                             </tex:cmd>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:call-template name="OutputIndexedItemsRange">
-                                                <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                                <xsl:with-param name="sIndexedItemID"
+                                                  select="$sIndexedItemID"/>
                                             </xsl:call-template>
                                         </xsl:otherwise>
                                     </xsl:choose>
@@ -8200,7 +8604,8 @@
                                         <xsl:text>, </xsl:text>
                                     </xsl:if>
                                 </xsl:for-each>
-                                <xsl:if test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                                <xsl:if
+                                    test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                                     <!-- this term also has a @see attribute which refers to a term that is cited or whose descendant is cited -->
                                     <xsl:call-template name="OutputIndexTermSeeBefore">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
@@ -8213,12 +8618,16 @@
                                         </xsl:with-param>
                                     </xsl:call-template>
                                     <xsl:call-template name="LinkAttributesBegin">
-                                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                        <xsl:with-param name="override"
+                                            select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
                                     <!--                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>     -->
-                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                    <xsl:apply-templates
+                                        select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"
+                                        mode="InIndex"/>
                                     <xsl:call-template name="LinkAttributesEnd">
-                                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                        <xsl:with-param name="override"
+                                            select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
                                     <xsl:call-template name="DoInternalHyperlinkEnd"/>
                                     <xsl:call-template name="OutputIndexTermSeeAfter">
@@ -8234,7 +8643,8 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                    <xsl:when
+                        test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                         <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
                         <tex:cmd name="XLingPaperindexitem" nl2="1">
                             <tex:parm>
@@ -8244,7 +8654,9 @@
                             <tex:parm>
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
-                                <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:apply-templates
+                                    select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"
+                                    mode="InIndex"/>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                                 <xsl:call-template name="DoInternalHyperlinkBegin">
                                     <xsl:with-param name="sName">
@@ -8254,14 +8666,17 @@
                                     </xsl:with-param>
                                 </xsl:call-template>
                                 <xsl:call-template name="LinkAttributesBegin">
-                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                    <xsl:with-param name="override"
+                                        select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                 </xsl:call-template>
                                 <xsl:call-template name="OutputIndexTermsTerm">
                                     <xsl:with-param name="lang" select="$lang"/>
-                                    <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
+                                    <xsl:with-param name="indexTerm"
+                                        select="key('IndexTermID',@see)"/>
                                 </xsl:call-template>
                                 <xsl:call-template name="LinkAttributesEnd">
-                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                                    <xsl:with-param name="override"
+                                        select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                 </xsl:call-template>
                                 <xsl:call-template name="DoInternalHyperlinkEnd"/>
                                 <xsl:text>.</xsl:text>
@@ -8350,7 +8765,8 @@
         </xsl:call-template>
         <xsl:apply-templates select="." mode="letter"/>
         <xsl:choose>
-            <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+            <xsl:when
+                test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
                 <xsl:text>)</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -8366,7 +8782,9 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:variable name="sLetterWidth">
             <xsl:call-template name="GetLetterWidth">
-                <xsl:with-param name="iLetterCount" select="count(parent::example/listWord | parent::example/listSingle | parent::example/listInterlinear)"/>
+                <xsl:with-param name="iLetterCount"
+                    select="count(parent::example/listWord | parent::example/listSingle | parent::example/listInterlinear)"
+                />
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="sIsoCode">
@@ -8383,14 +8801,15 @@
                                     <tex:cmd name="vspace*" nl2="1">
                                         <tex:parm>
                                             <xsl:text>-</xsl:text>
-                                            <xsl:if test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                                            <xsl:if
+                                                test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                                                 <xsl:choose>
-                                                    <xsl:when test="contains($sIsoCode,'-')">
-                                                        <xsl:text>2.75</xsl:text>
-                                                    </xsl:when>
-                                                    <xsl:otherwise>
-                                                        <xsl:text>1.9</xsl:text>
-                                                    </xsl:otherwise>
+                                                  <xsl:when test="contains($sIsoCode,'-')">
+                                                  <xsl:text>2.75</xsl:text>
+                                                  </xsl:when>
+                                                  <xsl:otherwise>
+                                                  <xsl:text>1.9</xsl:text>
+                                                  </xsl:otherwise>
                                                 </xsl:choose>
                                             </xsl:if>
                                             <!-- if there is no ISO code, we just use a factor of 1 so we do not need to output anything -->
@@ -8399,9 +8818,11 @@
                                     </tex:cmd>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:when test="preceding-sibling::exampleHeading and string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                            <xsl:when
+                                test="preceding-sibling::exampleHeading and string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                                 <xsl:if test="not(parent::example[parent::td])">
-                                    <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes">
+                                    <tex:cmd
+                                        name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes">
                                         <tex:parm>
                                             <tex:cmd name="XLingPaperexampleheadingheight" gr="0"/>
                                         </tex:parm>
@@ -8436,7 +8857,8 @@
                         </tex:parm>
                         <tex:parm>
                             <xsl:call-template name="GetLetterWidth">
-                                <xsl:with-param name="iLetterCount" select="count(listInterlinear)"/>
+                                <xsl:with-param name="iLetterCount" select="count(listInterlinear)"
+                                />
                             </xsl:call-template>
                             <xsl:text>em</xsl:text>
                         </tex:parm>
@@ -8446,23 +8868,28 @@
                         <tex:parm>
                             <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
                             <xsl:choose>
-                                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                                <xsl:when
+                                    test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
                                     <xsl:choose>
                                         <xsl:when test="parent::example">
-                                            <xsl:call-template name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
-                                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                            <xsl:call-template
+                                                name="DoAnyInterlinearWrappedWithSourceAfterFirstLine">
+                                                <xsl:with-param name="bListsShareSameCode"
+                                                  select="$bListsShareSameCode"/>
                                             </xsl:call-template>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:apply-templates>
-                                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                                <xsl:with-param name="bListsShareSameCode"
+                                                  select="$bListsShareSameCode"/>
                                             </xsl:apply-templates>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:apply-templates>
-                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        <xsl:with-param name="bListsShareSameCode"
+                                            select="$bListsShareSameCode"/>
                                     </xsl:apply-templates>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -8490,14 +8917,16 @@
                     <xsl:variable name="sTableType">
                         <xsl:choose>
                             <xsl:when test="parent::example[parent::td]">tabular</xsl:when>
-                            <xsl:when test="parent::example[parent::endnote[parent::td]]">tabular</xsl:when>
+                            <xsl:when test="parent::example[parent::endnote[parent::td]]"
+                                >tabular</xsl:when>
                             <xsl:otherwise>longtable</xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:if test="$sTableType='longtable'">
                         <xsl:call-template name="PrepareListForLongtable">
                             <xsl:with-param name="sIsoCode" select="$sIsoCode"/>
-                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"
+                            />
                         </xsl:call-template>
                     </xsl:if>
                     <tex:env name="{$sTableType}" nl1="1">
@@ -8544,7 +8973,8 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoInterlinearTabularMainPattern">
-                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        <xsl:with-param name="bListsShareSameCode"
+                                            select="$bListsShareSameCode"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -8564,11 +8994,13 @@
                         <xsl:call-template name="OutputWordOrSingle"/>
                         <xsl:if test="name()='listWord'">
                             <xsl:apply-templates select="word">
-                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                <xsl:with-param name="bListsShareSameCode"
+                                    select="$bListsShareSameCode"/>
                             </xsl:apply-templates>
                         </xsl:if>
                         <!-- remaining rows -->
-                        <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listDefinition">
+                        <xsl:for-each
+                            select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listDefinition">
                             <tex:spec cat="esc"/>
                             <tex:spec cat="esc" nl2="1"/>
                             <xsl:call-template name="DoListLetter">
@@ -8579,13 +9011,15 @@
                                 <xsl:call-template name="GetISOCode"/>
                             </xsl:variable>
                             <xsl:call-template name="OutputListLevelISOCode">
-                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                <xsl:with-param name="bListsShareSameCode"
+                                    select="$bListsShareSameCode"/>
                                 <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
                             </xsl:call-template>
                             <xsl:call-template name="OutputWordOrSingle"/>
                             <xsl:if test="name()='listWord'">
                                 <xsl:apply-templates select="word">
-                                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    <xsl:with-param name="bListsShareSameCode"
+                                        select="$bListsShareSameCode"/>
                                 </xsl:apply-templates>
                             </xsl:if>
                         </xsl:for-each>
@@ -8610,7 +9044,8 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test=" name()='lineGroup' and count(preceding-sibling::*)!=0 and preceding-sibling::*[1][name()!='exampleHeading']">
+                    <xsl:when
+                        test=" name()='lineGroup' and count(preceding-sibling::*)!=0 and preceding-sibling::*[1][name()!='exampleHeading']">
                         <tex:cmd name="settowidth">
                             <tex:parm>
                                 <tex:cmd name="XLingPaperisocodewidth" gr="0"/>
@@ -8704,7 +9139,9 @@
             <rows>
                 <xsl:for-each select="tr">
                     <rowcount>
-                        <xsl:value-of select="count(*[not(number(@colspan) &gt; 0)]) + sum(*[number(@colspan) &gt; 0]/@colspan)"/>
+                        <xsl:value-of
+                            select="count(*[not(number(@colspan) &gt; 0)]) + sum(*[number(@colspan) &gt; 0]/@colspan)"
+                        />
                     </rowcount>
                 </xsl:for-each>
             </rows>
@@ -8713,7 +9150,9 @@
         <xsl:variable name="iNumCols">
             <xsl:choose>
                 <xsl:when test="count($elementsWithColspan) &gt; 0">
-                    <xsl:value-of select="count($firstRowColumns[not(number(@colspan) &gt; 0)]) + sum($firstRowColumns[number(@colspan) &gt; 0]/@colspan)"/>
+                    <xsl:value-of
+                        select="count($firstRowColumns[not(number(@colspan) &gt; 0)]) + sum($firstRowColumns[number(@colspan) &gt; 0]/@colspan)"
+                    />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="saxon:node-set($rowsall)/descendant::*">
@@ -8733,7 +9172,8 @@
                     <xsl:text>1</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="rowHasMaxCount" select="saxon:node-set($rowsall)/rows/rowcount[number(.)=number($iNumCols)]"/>
+                    <xsl:variable name="rowHasMaxCount"
+                        select="saxon:node-set($rowsall)/rows/rowcount[number(.)=number($iNumCols)]"/>
                     <xsl:for-each select="$rowHasMaxCount">
                         <xsl:if test="position()=1">
                             <xsl:value-of select="count(preceding-sibling::rowcount) + 1"/>
@@ -8806,7 +9246,8 @@
             </xsl:when>
             <xsl:when test="not(ancestor::endnote)">
                 <xsl:choose>
-                    <xsl:when test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+                    <xsl:when
+                        test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                         <tex:spec cat="esc"/>
                         <xsl:text>singlespacing</xsl:text>
                         <tex:cmd name="vspace*">
@@ -8869,7 +9310,8 @@
                     <xsl:otherwise>
                         <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
                         <!--                        <xsl:variable name="columns" select="tr[1]/td | tr[1]/th"/>-->
-                        <xsl:variable name="columns" select="tr[position()=$iRowWithMaxColumns]/td | tr[position()=$iRowWithMaxColumns]/th"/>
+                        <xsl:variable name="columns"
+                            select="tr[position()=$iRowWithMaxColumns]/td | tr[position()=$iRowWithMaxColumns]/th"/>
                         <xsl:for-each select="$columns">
                             <xsl:choose>
                                 <xsl:when test="number(@colspan) &gt; 0">
@@ -8908,7 +9350,8 @@
                 <xsl:choose>
                     <xsl:when test="count($headerRows) != 1">
                         <xsl:for-each select="$headerRows">
-                            <xsl:apply-templates select="th[count(following-sibling::td)=0] | headerRow">
+                            <xsl:apply-templates
+                                select="th[count(following-sibling::td)=0] | headerRow">
                                 <!--                        <xsl:with-param name="iBorder" select="$iBorder"/>-->
                             </xsl:apply-templates>
                             <tex:spec cat="esc"/>
@@ -8917,7 +9360,8 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <!--                  <xsl:call-template name="OutputBackgroundColor"/>-->
-                        <xsl:apply-templates select="tr[th[count(following-sibling::td)=0]] | headerRow">
+                        <xsl:apply-templates
+                            select="tr[th[count(following-sibling::td)=0]] | headerRow">
                             <!--                     <xsl:with-param name="iBorder" select="$iBorder"/>-->
                         </xsl:apply-templates>
                         <!--                  <xsl:apply-templates select="tr/th[count(following-sibling::td)=0] | headerRow"/>-->
@@ -9042,7 +9486,8 @@
             <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::word">
                 <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
-            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
+            <xsl:when
+                test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
                 <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
             <xsl:when test="name()='listDefinition'">
@@ -9081,7 +9526,8 @@
             <xsl:with-param name="sCommandToSet" select="'LTpre'"/>
             <xsl:with-param name="sValue">
                 <xsl:choose>
-                    <xsl:when test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
+                    <xsl:when
+                        test="string-length($sIsoCode) &gt; 0 and not(contains($bListsShareSameCode,'N'))">
                         <xsl:choose>
                             <xsl:when test="preceding-sibling::exampleHeading">
                                 <xsl:text>-.8</xsl:text>
@@ -9223,8 +9669,10 @@
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:apply-templates>
     </xsl:template>
-    <xsl:template match="exampleRef | sectionRef | appendixRef | citation | br | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
-        indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject" mode="reverse">
+    <xsl:template
+        match="exampleRef | sectionRef | appendixRef | citation | br | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
+        indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject"
+        mode="reverse">
         <xsl:apply-templates select="."/>
     </xsl:template>
     <!--  
@@ -9235,7 +9683,8 @@
         <tex:cmd name="XLingPaperinterwordskip" gr="0" nl1="1"/>
         <xsl:text>=</xsl:text>
         <xsl:choose>
-            <xsl:when test="$documentLayoutInfo/interlinearAlignedWordSpacing/@XeLaTeXSpecial[contains(.,'interlinear-aligned-word-skip')]">
+            <xsl:when
+                test="$documentLayoutInfo/interlinearAlignedWordSpacing/@XeLaTeXSpecial[contains(.,'interlinear-aligned-word-skip')]">
                 <xsl:for-each select="$documentLayoutInfo/interlinearAlignedWordSpacing">
                     <xsl:call-template name="GetXeLaTeXSpecialCommand">
                         <xsl:with-param name="sAttr" select="'interlinear-aligned-word-skip='"/>
@@ -9274,7 +9723,8 @@
             <xsl:when test="table">
                 <tex:cmd name="needspace">
                     <tex:parm>
-                        <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)"/>
+                        <xsl:variable name="iMinRows"
+                            select="count(table/descendant-or-self::tr) + count(table/caption)"/>
                         <xsl:variable name="iLines">
                             <xsl:choose>
                                 <xsl:when test="table/@border=1">
@@ -9286,9 +9736,12 @@
                                 <xsl:otherwise>0</xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
-                        <xsl:variable name="iInterlinearLines" select="count(table/descendant-or-self::tr/td[1]/descendant::line)"/>
-                        <xsl:variable name="iInterlinearFrees" select="count(table/descendant-or-self::tr/td[1]/descendant::free) + count(table/descendant-or-self::tr/td[1]/descendant::literal)"/>
-                        <xsl:variable name="iMinLines" select="$iMinRows + $iLines + $iInterlinearLines + $iInterlinearFrees"/>
+                        <xsl:variable name="iInterlinearLines"
+                            select="count(table/descendant-or-self::tr/td[1]/descendant::line)"/>
+                        <xsl:variable name="iInterlinearFrees"
+                            select="count(table/descendant-or-self::tr/td[1]/descendant::free) + count(table/descendant-or-self::tr/td[1]/descendant::literal)"/>
+                        <xsl:variable name="iMinLines"
+                            select="$iMinRows + $iLines + $iInterlinearLines + $iInterlinearFrees"/>
                         <xsl:choose>
                             <!-- assume if it is greater than 10, then we will get a page break somewhere within the example -->
                             <xsl:when test="$iMinLines &gt; 10">10</xsl:when>
@@ -9455,7 +9908,8 @@
         SetInterlinearSourceLength
     -->
     <xsl:template name="SetInterlinearSourceLength">
-        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+        <xsl:if
+            test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
             <tex:cmd name="newlength" nl1="1">
                 <tex:parm>
                     <tex:cmd name="{$sTeXInterlinearSourceWidth}" gr="0" nl2="0"/>
@@ -9814,7 +10268,8 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sTextWidthToAdjust">
-                    <xsl:value-of select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
+                    <xsl:value-of
+                        select="number($iPageWidth - $iPageInsideMargin - $iPageOutsideMargin)"/>
                     <xsl:text>pt</xsl:text>
                     <!--<xsl:call-template name="GetUnitOfMeasure">
                         <xsl:with-param name="sValue" select="$sPageWidth"/>
@@ -9831,7 +10286,8 @@
             </tex:parm>
             <tex:parm>
                 <xsl:variable name="sTextHeightToAdjust">
-                    <xsl:value-of select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
+                    <xsl:value-of
+                        select="number($iPageHeight - $iPageTopMargin - $iPageBottomMargin - $iHeaderMargin - $iFooterMargin)"/>
                     <xsl:text>pt</xsl:text>
                     <!--<xsl:call-template name="GetUnitOfMeasure">
                         <xsl:with-param name="sValue" select="$sPageHeight"/>
@@ -9889,7 +10345,8 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="SetStartingPageNumber"/>
-        <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+        <xsl:variable name="sFootnoteIndent"
+            select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
         <xsl:if test="string-length($sFootnoteIndent)&gt;0">
             <tex:cmd name="makeatletter" gr="0" nl2="1"/>
             <tex:cmd name="renewcommand" gr="0"/>
@@ -9929,7 +10386,8 @@
         SetStartingPageNumber
     -->
     <xsl:template name="SetStartingPageNumber">
-        <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+        <xsl:variable name="sStartingPageNumber"
+            select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
         <xsl:if test="string-length($sStartingPageNumber) &gt; 0">
             <tex:cmd name="setcounter">
                 <tex:parm>
@@ -10406,7 +10864,8 @@
                 <tex:cmd name="XLingPapertocrmarg" gr="0" nl2="0"/>
             </tex:parm>
         </tex:cmd>
-        <xsl:variable name="sMaxPageNumberInContents" select="document($sTableOfContentsFile)/toc/tocline[last()]/@page"/>
+        <xsl:variable name="sMaxPageNumberInContents"
+            select="document($sTableOfContentsFile)/toc/tocline[last()]/@page"/>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'setlength'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperpnumwidth'"/>
@@ -10415,8 +10874,10 @@
                     <xsl:when test="$sMaxPageNumberInContents">
                         <xsl:choose>
                             <xsl:when test="$sMaxPageNumberInContents &lt; 10">1.05em</xsl:when>
-                            <xsl:when test="$sMaxPageNumberInContents &lt; 100">1.55em</xsl:when>
-                            <xsl:when test="$sMaxPageNumberInContents &lt; 1000">2.05em</xsl:when>
+                            <xsl:when test="$sMaxPageNumberInContents &lt; 100"
+                                >1.55em</xsl:when>
+                            <xsl:when test="$sMaxPageNumberInContents &lt; 1000"
+                                >2.05em</xsl:when>
                             <xsl:otherwise>2.55em</xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -10465,7 +10926,8 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>setspace</tex:parm>
         </tex:cmd>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+        <xsl:if
+            test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
             <tex:cmd name="usepackage" nl2="1">
                 <tex:parm>footmisc</tex:parm>
             </tex:cmd>
@@ -10508,7 +10970,8 @@
         </tex:cmd>
         <!-- hyperref should be the last package listed -->
         <tex:cmd name="usepackage" nl2="1">
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+            <xsl:if
+                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                 <tex:opt>
                     <xsl:text>hyperfootnotes=false</xsl:text>
                 </tex:opt>
@@ -10516,7 +10979,8 @@
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
         <tex:cmd name="hypersetup" nl2="1">
-            <tex:parm>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true</tex:parm>
+            <tex:parm>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black,
+                urlcolor=blue, bookmarksopen=true</tex:parm>
         </tex:cmd>
     </xsl:template>
     <!--  
@@ -11238,7 +11702,8 @@ What might go in a TeX package file
     -->
     <xsl:template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes">
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
-            <xsl:if test="//example/exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear] or //example/child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
+            <xsl:if
+                test="//example/exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear] or //example/child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
                 <tex:cmd name="newdimen" gr="0"/>
                 <tex:cmd name="XLingPaperexamplenumberheight" gr="0" nl2="1"/>
                 <tex:cmd name="newdimen" gr="0"/>
@@ -11254,7 +11719,8 @@ What might go in a TeX package file
             -->
                 <tex:cmd name="newcommand" nl2="1">
                     <tex:parm>
-                        <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes" gr="0" nl2="0"/>
+                        <tex:cmd name="XLingPaperAdjustHeaderInListInterlinearWithISOCodes" gr="0"
+                            nl2="0"/>
                     </tex:parm>
                     <tex:opt>2</tex:opt>
                     <tex:parm>

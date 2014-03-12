@@ -1717,7 +1717,7 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="p | pc">
-        <xsl:if test="not(parent::endnote) or count(preceding-sibling::*) &gt; 0">
+        <xsl:if test="not(parent::endnote or parent::abstract) or count(preceding-sibling::*) &gt; 0">
             <xsl:call-template name="DoSpaceBefore">
                 <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
             </xsl:call-template>

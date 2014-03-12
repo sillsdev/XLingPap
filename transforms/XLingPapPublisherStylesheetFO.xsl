@@ -2525,25 +2525,23 @@
                     <xsl:with-param name="sKind" select="'table'"/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:if test="not(ancestor::tablenumbered)">
-                <xsl:choose>
-                    <xsl:when test="caption">
-                        <fo:table-and-caption>
-                            <fo:table-caption>
-                                <xsl:apply-templates select="caption"/>
-                            </fo:table-caption>
-                            <xsl:call-template name="OutputTable"/>
-                        </fo:table-and-caption>
-                    </xsl:when>
-                    <xsl:when test="endCaption">
+            <xsl:choose>
+                <xsl:when test="caption">
+                    <fo:table-and-caption>
+                        <fo:table-caption>
+                            <xsl:apply-templates select="caption"/>
+                        </fo:table-caption>
                         <xsl:call-template name="OutputTable"/>
-                        <xsl:apply-templates select="endCaption"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="OutputTable"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
+                    </fo:table-and-caption>
+                </xsl:when>
+                <xsl:when test="endCaption">
+                    <xsl:call-template name="OutputTable"/>
+                    <xsl:apply-templates select="endCaption"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputTable"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </fo:block>
     </xsl:template>
     <!--

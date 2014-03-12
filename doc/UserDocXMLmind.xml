@@ -1217,32 +1217,6 @@ border="1"
 ></tr
 ><tr
 ><td
->baselineskip</td
-><td
-><object
-type="tItalic"
->number</object
->. Use the point value (but do not include 'pt').</td
-><td
->Tell <object
-type="tXeTeX"
-></object
-> to use the specified size for vertical spacing between lines.  This is only used when font-size is also specified.  The default value is 1.2 times the font size (when expressed in points).</td
-><td
-><table
-><tr
-><td
->baselineskip='13'</td
-></tr
-><tr
-><td
->baselineskip='10.2'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
 >break-before</td
 ><td
 ><object

@@ -7352,21 +7352,7 @@
                         <xsl:value-of select="$sSizeOnly"/>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:choose>
-                            <xsl:when
-                                test="$language and contains($language/@XeLaTeXSpecial,'baselineskip=')">
-                                <xsl:for-each select="$language">
-                                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
-                                        <xsl:with-param name="sPattern" select="'baselineskip='"/>
-                                        <xsl:with-param name="default"
-                                            select="number($sSizeOnly) * 1.2"/>
-                                    </xsl:call-template>
-                                </xsl:for-each>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="number($sSizeOnly) * 1.2"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:value-of select="number($sSizeOnly) * 1.2"/>
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="selectfont" gr="0" sp="1"/>

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-03-11</a:date
+>2014-03-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.3_1 11-March-2014<ul
+>2.24.3_1 12-March-2014<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: if a publisher style sheet indicated space before a paragraph, an endnote could have too much vertical space between the first and second lines.</li
+></ul
+></li
+><li
+>For the RenderX way of producing PDF:<ul
+><li
+>Fix bug: PDF could fail to be produced when using a publisher style sheet if author contact information was used.</li
 ></ul
 ></li
 ></ul

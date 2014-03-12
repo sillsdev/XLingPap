@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.24.3_1</span></p>
-      <p align="center">Date: 2014-03-11</p>
+      <p align="center">Date: 2014-03-12</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,13 +34,18 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.24.3_1 11-March-2014
+               <li>2.24.3_1 12-March-2014
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: if a publisher style sheet indicated space before a paragraph, an endnote could have too much vertical space between
                               the first and second lines.
                            </li>
+                        </ul>
+                     </li>
+                     <li>For the RenderX way of producing PDF:
+                        <ul>
+                           <li>Fix bug: PDF could fail to be produced when using a publisher style sheet if author contact information was used.</li>
                         </ul>
                      </li>
                   </ul>

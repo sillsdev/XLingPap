@@ -4052,6 +4052,48 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        OutputCitationContents
+    -->
+    <xsl:template name="OutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:if test="@author='yes'">
+            <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
+                <xsl:text>(</xsl:text>
+            </xsl:if>
+            <xsl:value-of select="$refer/../@citename"/>
+            <xsl:text>&#x20;</xsl:text>
+        </xsl:if>
+        <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
+            <xsl:text>(</xsl:text>
+        </xsl:if>
+        <xsl:variable name="works"
+            select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="date">
+            <xsl:value-of select="$refer/refDate"/>
+        </xsl:variable>
+        <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
+            <xsl:text>&#x20;</xsl:text>
+        </xsl:if>
+        <xsl:value-of select="$date"/>
+        <xsl:if test="count($works[refDate=$date])>1">
+            <xsl:apply-templates select="$refer" mode="dateLetter">
+                <xsl:with-param name="date" select="$date"/>
+            </xsl:apply-templates>
+        </xsl:if>
+        <xsl:variable name="sPage" select="normalize-space(@page)"/>
+        <xsl:if test="string-length($sPage) &gt; 0">
+            <xsl:text>:</xsl:text>
+            <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
+            <xsl:if test="string-length($citationLayout/@textbeforepages) &gt; 0">
+                <xsl:value-of select="$citationLayout/@textbeforepages"/>
+            </xsl:if>
+            <xsl:value-of select="$sPage"/>
+        </xsl:if>
+        <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
+            <xsl:text>)</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         OutputCitationPages
     -->
     <xsl:template name="OutputCitationPages">

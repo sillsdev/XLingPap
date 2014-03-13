@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->12 March 2014</date
+>13 March 2014</date
 ><version
->2.24.3_1</version
+>2.24.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -15450,7 +15450,13 @@ num="xCitationParen"
 > delineates the various options.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-></p
+>  The last two (<object
+type="tAttrValue"
+>citationBoth</object
+> and <object
+type="tAttrValue"
+>citationInitial</object
+>) will put an opening parenthesis before the author name(s).  This is as a convenience for those cases where the citation is to be enclosed in parentheses.</p
 ><example
 num="xCitationParen"
 ><table
@@ -15542,6 +15548,42 @@ lang="lValue"
 ><langData
 lang="lMeaning"
 >use only a closing parenthesis after the date</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>citationBoth</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>put an opening parenthesis before the author name(s) and also after the date</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>citationInitial</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>put an opening parenthesis before the author name(s)</langData
 ></td
 ></tr
 ></table
@@ -15782,6 +15824,42 @@ lang="lValue"
 ><langData
 lang="lMeaning"
 >use both opening and closing parentheses around the date</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>citationBoth</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>put an opening parenthesis before the author name(s) and also after the date</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>citationInitial</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>put an opening parenthesis before the author name(s)</langData
 ></td
 ></tr
 ><tr

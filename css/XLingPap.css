@@ -762,6 +762,28 @@ selectedBibliography > citation
 	margin: indented-block();
 }
 
+citation[paren='citationBoth']
+{
+	content: set-attribute-button(attribute, ref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+		"("
+                 	 label(xpath, "id(@ref)/../@citename")
+             ;
+	background-color:citation-background-color();
+}
+citation[paren='citationInitial']
+{
+	content: set-attribute-button(attribute, ref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+		"("
+                 	 label(xpath, "id(@ref)/../@citename")
+             ;
+	background-color:citation-background-color();
+}
 citation
 {
 	content: set-attribute-button(attribute, ref,
@@ -769,7 +791,6 @@ citation
 						 icon, icon(pop-down),
 						 color, black)
 			 label(xpath, "id(@ref)/../@citename")
-/*	         label(attribute, ref, text-decoration, underline); */
              ;
 	background-color:citation-background-color();
 }
@@ -789,6 +810,22 @@ citation[paren='both']:after
 	        ")"
 	        ;
 }
+citation[page][paren='citationBoth']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
+	        ":"
+	        label(attribute, page)
+	        ")"
+	        ;
+}
+citation[paren='citationBoth']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
+	        ")"
+	        ;
+}
 citation[page][paren='final']:after
 {
 	content:" "
@@ -803,6 +840,36 @@ citation[paren='final']:after
 	content:" "
 	        label(xpath, "id(@ref)/refDate")
 	        ")"
+	        ;
+}
+citation[page][paren='citationBoth']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
+	        ":"
+	        label(attribute, page)
+	        ")"
+	        ;
+}
+citation[paren='citationBoth']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
+	        ")"
+	        ;
+}
+citation[page][paren='citationInitial']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
+	        ":"
+	        label(attribute, page)
+	        ;
+}
+citation[paren='citationInitial']:after
+{
+	content:" "
+	        label(xpath, "id(@ref)/refDate")
 	        ;
 }
 citation[page][paren='initial']:after

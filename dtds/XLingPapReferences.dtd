@@ -241,7 +241,7 @@
     ref IDREF #REQUIRED
     page CDATA #IMPLIED
     author (yes | no) "yes"
-    paren (both | none | initial | final) #IMPLIED
+    paren (both | none | initial | final | citationBoth | citationInitial) #IMPLIED
 >
 <!ENTITY % XLingPapCharacterEntities SYSTEM  "XLingPapCharacterEntities.dtd">
 %XLingPapCharacterEntities;

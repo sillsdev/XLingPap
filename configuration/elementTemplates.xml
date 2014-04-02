@@ -56,6 +56,24 @@ part, chapter, sections, appendix
          </acknowledgements>
       </backMatter>
    </cfg:elementTemplate>
+   <cfg:elementTemplate name="annotatedBibliographyType" selectable="override">
+         <annotatedBibliographyType id="at"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="annotatedBibliographyTypes" selectable="override">
+      <annotatedBibliographyTypes>
+         <annotatedBibliographyType id="at"/>
+         <annotatedBibliographyType id="at"/>
+      </annotatedBibliographyTypes>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="annotation" selectable="override">
+      <annotation id="an"/>
+   </cfg:elementTemplate>
+   <cfg:elementTemplate name="annotations" selectable="override">
+      <annotations>
+         <annotation id="an"/>
+         <annotation id="an"/>
+      </annotations>
+   </cfg:elementTemplate>
    <cfg:elementTemplate name="authorContactInfo">
       <backMatter>
          <authorContactInfo/>

@@ -4,6 +4,8 @@
 
 @property-value abbreviation-background-color() #FFFFBB; /* a light yellow */
 @property-value appendix-background-color() #D8BFD8; /* #D8BFD8 is thistle */
+@property-value annotatedbibliographytype-background-color() #FBDFFB;
+@property-value annotation-background-color() #F6CAF6;
 @property-value authorContact-background-color() #FFD788; /* #FFD700 is gold */
 @property-value chapter-background-color() #D8BFD8; /* #ADD8E6 is lightblue */
 @property-value citation-background-color() #F09FF0; /* #EE82EE is violet */
@@ -460,6 +462,75 @@ affiliation {
 afterTerm
 {
 	display:inline;
+}
+
+annotatedBibliographyType:before
+{
+	content:"Annotated bibliography type: " 
+	text-field(attribute, id, columns, 10, font-size, small, background-color, annotatedbibliographytype-background-color())
+	" "
+	;
+}
+annotatedBibliographyType
+{
+	display:block;
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+	property-group: isCollapsible( yes, 1);
+}
+annotatedBibliographyTypes:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Annotated Bibliography Types: ";
+}
+annotatedBibliographyTypes
+{
+	display:block;
+	padding-left: 0.125in;
+	property-group: isCollapsible( yes, 1);
+}
+
+annotation:before
+{
+	content:"Annotation: " 
+	text-field(attribute, id, columns, 10, font-size, small, background-color, annotation-background-color())
+	" ("
+        label(attribute, annotype, text-decoration, underline, background-color, annotatedbibliographytype-background-color())
+	") "
+	;
+}
+annotation
+{
+	display:block;
+	padding-left: 0.125in;
+	padding-top: 0.05in;
+}
+annotationRef:before
+{
+	content: label(xpath, "id(@citation)/../@citename")
+                 " ("
+	         label(xpath, "id(@citation)/refDate")
+	         ") "
+                 ;
+	background-color:citation-background-color();
+}
+annotationRef
+{
+	display:block;
+	margin: 1.33ex 0;
+	content: label(xpath, "if(string-length(id(@annotation))<51,id(@annotation),concat(substring(id(@annotation),1,50),'...'))")
+             " ";
+	background-color:annotation-background-color();
+}
+annotations:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Annotations: ";
+}
+annotations
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
 }
 
 chapterInCollection appendix:before
@@ -2299,6 +2370,28 @@ keyTerm
 	font-size: concatenate(xpath("if(string-length(normalize-space(@font-size))>0, @font-size, string-length(normalize-space(id(@type)/@font-size))>0, id(@type)/@font-size, '')"));
 	font-style: concatenate(xpath("if(string-length(normalize-space(@font-style))>0, @font-style, string-length(normalize-space(id(@type)/@font-style))>0, id(@type)/@font-style, 'italic')"));
 	font-weight: concatenate(xpath("if(string-length(normalize-space(@font-weight))>0, @font-weight, string-length(normalize-space(id(@type)/@font-weight))>0, id(@type)/@font-weight, '')"));
+}
+
+keyword:before
+{
+	content:"Keyword: " 
+	;
+}
+keyword
+{
+	display:block;
+	padding-left: 0.125in;
+	padding-top: 0.05in;
+}
+keywords:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Keywords: ";
+}
+keywords
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
 }
 
 example langData:before

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->10 October 2013</date
+>1 April 2014</date
 ><version
->2.24.2</version
+>2.24.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -9134,6 +9134,41 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>annotatedBibliographyType</object
+></dt
+><dd
+>A type of an annotated bibliography item</dd
+><dt
+><object
+type="tElement"
+>annotatedBibliographyTypes</object
+></dt
+><dd
+>A set of annotated bibliography types</dd
+><dt
+><object
+type="tElement"
+>annotation</object
+></dt
+><dd
+>An annotation for an annotated bibliography</dd
+><dt
+><object
+type="tElement"
+>annotationRef</object
+></dt
+><dd
+>A reference to an annotation in an annotated bibliography</dd
+><dt
+><object
+type="tElement"
+>annotations</object
+></dt
+><dd
+>A set of annotations</dd
+><dt
+><object
+type="tElement"
 >appendix</object
 ></dt
 ><dd
@@ -9907,6 +9942,20 @@ type="tElement"
 type="tElement"
 >definition</object
 > element.</dd
+><dt
+><object
+type="tElement"
+>keyword</object
+></dt
+><dd
+>A keyword used to classify a reference work</dd
+><dt
+><object
+type="tElement"
+>keywords</object
+></dt
+><dd
+>A set of keywords</dd
 ><dt
 ><object
 type="tElement"

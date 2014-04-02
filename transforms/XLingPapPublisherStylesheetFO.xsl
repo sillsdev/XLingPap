@@ -1519,6 +1519,20 @@
         </fo:block>
     </xsl:template>
     <!-- ===========================================================
+        Annotation reference (part of an annotated bibliography)
+        =========================================================== -->
+    <xsl:template match="annotationRef">
+        <xsl:for-each select="key('RefWorkID',@citation)">
+            <xsl:call-template name="DoRefWork">
+                <xsl:with-param name="works" select="."/>
+                <xsl:with-param name="bDoTarget" select="'N'"/>
+            </xsl:call-template>
+        </xsl:for-each>
+        <fo:block start-indent="0.25in" space-before="3pt" space-after="3pt">
+            <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
+        </fo:block>
+    </xsl:template>
+    <!-- ===========================================================
       QUOTES
       =========================================================== -->
     <xsl:template match="q">
@@ -5753,18 +5767,20 @@ not using
         </fo:block>
     </xsl:template>
     <!--  
-        DoRefWorks
+        DoRefWork
     -->
-    <xsl:template name="DoRefWorks">
-        <xsl:variable name="thisAuthor" select="."/>
-        <xsl:variable name="works"
-            select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
-        <xsl:for-each select="$works">
-            <xsl:variable name="work" select="."/>
-            <!-- insert a new line so we don't get everything all on one line -->
-            <xsl:text>&#xa;</xsl:text>
-            <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}"
-                start-indent="{$referencesLayoutInfo/@hangingindentsize}" id="{@id}">
+    <xsl:template name="DoRefWork">
+        <xsl:param name="works"/>
+        <xsl:param name="bDoTarget" select="'Y'"/>
+        <xsl:variable name="work" select="."/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
+        <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}"
+            start-indent="{$referencesLayoutInfo/@hangingindentsize}">
+            <xsl:if test="$bDoTarget='Y'">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@id"/>
+                </xsl:attribute>
                 <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
                     <xsl:attribute name="font-size">
                         <xsl:call-template name="AdjustFontSizePerMagnification">
@@ -5773,33 +5789,46 @@ not using
                         </xsl:call-template>
                     </xsl:attribute>
                 </xsl:if>
-                <xsl:if
-                    test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
-                    <xsl:attribute name="space-after">
-                        <xsl:variable name="sExtraSpace">
-                            <xsl:choose>
-                                <xsl:when test="$sLineSpacing='double'">
-                                    <xsl:value-of select="$sBasicPointSize"/>
-                                </xsl:when>
-                                <xsl:when test="$sLineSpacing='spaceAndAHalf'">
-                                    <xsl:value-of select=" number($sBasicPointSize div 2)"/>
-                                </xsl:when>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:value-of select="$sExtraSpace"/>
-                        <xsl:text>pt</xsl:text>
-                    </xsl:attribute>
-                </xsl:if>
-                <xsl:call-template name="DoAuthorLayout">
-                    <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
-                    <xsl:with-param name="work" select="$work"/>
-                    <xsl:with-param name="works" select="$works"/>
-                    <xsl:with-param name="iPos" select="position()"/>
-                </xsl:call-template>
-                <xsl:apply-templates
-                    select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"
-                />
-            </fo:block>
+            </xsl:if>
+            <xsl:if
+                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
+                <xsl:attribute name="space-after">
+                    <xsl:variable name="sExtraSpace">
+                        <xsl:choose>
+                            <xsl:when test="$sLineSpacing='double'">
+                                <xsl:value-of select="$sBasicPointSize"/>
+                            </xsl:when>
+                            <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                <xsl:value-of select=" number($sBasicPointSize div 2)"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:value-of select="$sExtraSpace"/>
+                    <xsl:text>pt</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="DoAuthorLayout">
+                <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
+                <xsl:with-param name="work" select="$work"/>
+                <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="iPos" select="position()"/>
+            </xsl:call-template>
+            <xsl:apply-templates
+                select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"
+            />
+        </fo:block>
+    </xsl:template>
+    <!--  
+        DoRefWorks
+    -->
+    <xsl:template name="DoRefWorks">
+        <xsl:variable name="thisAuthor" select="."/>
+        <xsl:variable name="works"
+            select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+        <xsl:for-each select="$works">
+            <xsl:call-template name="DoRefWork">
+                <xsl:with-param name="works" select="$works"/>
+            </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
     <!--  

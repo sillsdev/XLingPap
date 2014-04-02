@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
-    <xsl:variable name="authorForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
-    <xsl:variable name="titleForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
-    <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>
-    <xsl:variable name="sDateIndent" select="normalize-space($referencesLayoutInfo/@dateIndentAuthorOverDateStyle)"/>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
+    <xsl:variable name="authorForm"
+        select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
+    <xsl:variable name="titleForm"
+        select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
+    <xsl:variable name="iso639-3codeItem"
+        select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>
+    <xsl:variable name="sDateIndent"
+        select="normalize-space($referencesLayoutInfo/@dateIndentAuthorOverDateStyle)"/>
     <!--  
         DoAuthorLayout
     -->
@@ -12,39 +17,47 @@
         <xsl:param name="work"/>
         <xsl:param name="works"/>
         <xsl:param name="iPos" select="'0'"/>
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-        </xsl:call-template>
+        <xsl:param name="bDoTarget" select="'Y'"/>
+        <xsl:if test="$bDoTarget='Y'">
+            <xsl:call-template name="DoInternalTargetBegin">
+                <xsl:with-param name="sName" select="@id"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:variable name="authorLayoutToUsePosition">
             <xsl:call-template name="GetAuthorLayoutToUsePosition">
                 <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="$authorLayoutToUsePosition=0 or string-length($authorLayoutToUsePosition)=0">
+            <xsl:when
+                test="$authorLayoutToUsePosition=0 or string-length($authorLayoutToUsePosition)=0">
                 <xsl:call-template name="ReportNoPatternMatched"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$work/../@showAuthorName!='no'">
-                    <xsl:for-each select="$referencesLayoutInfo/refAuthorLayouts/*[position()=$authorLayoutToUsePosition]">
+                    <xsl:for-each
+                        select="$referencesLayoutInfo/refAuthorLayouts/*[position()=$authorLayoutToUsePosition]">
                         <xsl:for-each select="*">
                             <tex:spec cat="bg"/>
                             <xsl:choose>
                                 <xsl:when test="name(.)='refAuthorItem'">
                                     <xsl:choose>
-                                        <xsl:when test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                                        <xsl:when
+                                            test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
                                             <xsl:if test="$work=$works[position()=1]">
                                                 <xsl:call-template name="DoAuthorName">
-                                                    <xsl:with-param name="work" select="$work"/>
-                                                    <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
-                                                    <xsl:with-param name="iPos" select="$iPos"/>
+                                                  <xsl:with-param name="work" select="$work"/>
+                                                  <xsl:with-param name="referencesLayoutInfo"
+                                                  select="$referencesLayoutInfo"/>
+                                                  <xsl:with-param name="iPos" select="$iPos"/>
                                                 </xsl:call-template>
                                             </xsl:if>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:call-template name="DoAuthorName">
                                                 <xsl:with-param name="work" select="$work"/>
-                                                <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
+                                                <xsl:with-param name="referencesLayoutInfo"
+                                                  select="$referencesLayoutInfo"/>
                                                 <xsl:with-param name="iPos" select="$iPos"/>
                                             </xsl:call-template>
                                         </xsl:otherwise>
@@ -53,7 +66,8 @@
                                 <xsl:when test="name(.)='authorRoleItem'">
                                     <xsl:call-template name="OutputFontAttributes">
                                         <xsl:with-param name="language" select="."/>
-                                        <xsl:with-param name="originalContext" select="$work/authorRole"/>
+                                        <xsl:with-param name="originalContext"
+                                            select="$work/authorRole"/>
                                     </xsl:call-template>
                                     <xsl:call-template name="DoFormatLayoutInfoTextBefore">
                                         <xsl:with-param name="layoutInfo" select="."/>
@@ -61,22 +75,25 @@
                                     <xsl:apply-templates select="$work/authorRole"/>
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                                         <xsl:with-param name="layoutInfo" select="."/>
-                                        <xsl:with-param name="sPrecedingText" select="$work/authorRole"/>
+                                        <xsl:with-param name="sPrecedingText"
+                                            select="$work/authorRole"/>
                                     </xsl:call-template>
                                     <xsl:call-template name="OutputFontAttributesEnd">
                                         <xsl:with-param name="language" select="."/>
-                                        <xsl:with-param name="originalContext" select="$work/authorRole"/>
+                                        <xsl:with-param name="originalContext"
+                                            select="$work/authorRole"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:when test="name(.)='refDateItem'">
-                                    <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                                    <xsl:if
+                                        test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
                                         <xsl:if test="$work=$works[position()=1]">
                                             <tex:cmd name="par" nl2="1"/>
                                         </xsl:if>
                                         <xsl:if test="string-length($sDateIndent)&gt;0">
                                             <tex:cmd name="hspace*">
                                                 <tex:parm>
-                                                    <xsl:value-of select="$sDateIndent"/>
+                                                  <xsl:value-of select="$sDateIndent"/>
                                                 </tex:parm>
                                             </tex:cmd>
                                         </xsl:if>
@@ -86,20 +103,23 @@
                                         <xsl:with-param name="work" select="$work"/>
                                         <xsl:with-param name="works" select="$works"/>
                                     </xsl:call-template>
-                                    <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                                    <xsl:if
+                                        test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
                                         <tex:cmd name="XLingPaperentryspaceauthoroverdate">
                                             <tex:parm>
                                                 <xsl:value-of select="$sDateIndent"/>
                                             </tex:parm>
                                             <tex:parm>
                                                 <xsl:call-template name="DoDateLayout">
-                                                    <xsl:with-param name="refDateItem" select="."/>
-                                                    <xsl:with-param name="work" select="$work"/>
-                                                    <xsl:with-param name="works" select="$works"/>
+                                                  <xsl:with-param name="refDateItem" select="."/>
+                                                  <xsl:with-param name="work" select="$work"/>
+                                                  <xsl:with-param name="works" select="$works"/>
                                                 </xsl:call-template>
                                             </tex:parm>
                                             <tex:parm>
-                                                <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
+                                                <xsl:value-of
+                                                  select="$referencesLayoutInfo/@hangingindentsize"
+                                                />
                                             </tex:parm>
                                         </tex:cmd>
                                     </xsl:if>
@@ -108,7 +128,9 @@
                             <tex:spec cat="eg"/>
                         </xsl:for-each>
                     </xsl:for-each>
-                    <xsl:call-template name="DoInternalTargetEnd"/>
+                    <xsl:if test="$bDoTarget='Y'">
+                        <xsl:call-template name="DoInternalTargetEnd"/>
+                    </xsl:if>
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
@@ -129,7 +151,8 @@
         </xsl:call-template>
         <xsl:variable name="sAuthorName">
             <xsl:choose>
-                <xsl:when test="$referencesLayoutInfo/@uselineforrepeatedauthor='yes' and $iPos &gt; 1">
+                <xsl:when
+                    test="$referencesLayoutInfo/@uselineforrepeatedauthor='yes' and $iPos &gt; 1">
                     <xsl:text>______</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
@@ -138,11 +161,12 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+            <xsl:when
+                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
                 <xsl:apply-templates select="$work/.."/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$sAuthorName"/>        
+                <xsl:value-of select="$sAuthorName"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -191,11 +215,13 @@
                 <xsl:with-param name="sName" select="@refToBook"/>
             </xsl:call-template>
             <xsl:call-template name="LinkAttributesBegin">
-                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+                <xsl:with-param name="override"
+                    select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
             </xsl:call-template>
             <xsl:value-of select="$refer/../@citename"/>
             <xsl:call-template name="LinkAttributesEnd">
-                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+                <xsl:with-param name="override"
+                    select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
             </xsl:call-template>
             <xsl:call-template name="DoExternalHyperRefEnd"/>
         </xsl:for-each>
@@ -251,10 +277,14 @@
         <xsl:value-of select="$iso639-3codeItem/@textbefore"/>
         <xsl:choose>
             <xsl:when test="$iso639-3codeItem/@case='uppercase'">
-                <xsl:value-of select="translate(.,'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+                <xsl:value-of
+                    select="translate(.,'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"
+                />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+                <xsl:value-of
+                    select="translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"
+                />
             </xsl:otherwise>
         </xsl:choose>
         <xsl:value-of select="$iso639-3codeItem/@text"/>

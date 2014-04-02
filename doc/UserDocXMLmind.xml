@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->13 March 2014</date
+>2 April 2014</date
 ><version
 >2.24.4</version
 ><contents
@@ -2412,6 +2412,30 @@ lang="lEng"
 ><object
 type="tElement"
 >appendix</object
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+>an</langData
+></td
+><td
+><object
+type="tElement"
+>annotation</object
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+>at</langData
+></td
+><td
+><object
+type="tElement"
+>annotatedBibliographyType</object
 ></td
 ></tr
 ><tr
@@ -5723,6 +5747,201 @@ type="tEndnoteXML"
 type="tXLingPap"
 ></object
 >).</p
+></section3
+><section3
+id="sBMRefKeywords"
+><secTitle
+>Keywords</secTitle
+><p
+>You can create a list of keywords that classify a reference work. At the end of the <object
+type="tElement"
+>refWork</object
+> element (or at the end of any of the work type elements), insert a <object
+type="tElement"
+>keywords</object
+> element. Inside of this you can have one or more <object
+type="tElement"
+>keyword</object
+> elements.</p
+><p
+>This is for information only. <object
+type="tXLingPap"
+></object
+> never outputs or processes the content of <object
+type="tElement"
+>keyword</object
+> elements.</p
+></section3
+><section3
+id="sBMRefAnnotatedBibliography"
+><secTitle
+>Annotated Bibliography</secTitle
+><p
+><indexedItem
+term="iAnnotatedBibliography"
+></indexedItem
+>Sometimes you might want to create an annotated bilbliography. There are three steps to do so:</p
+><ol
+><li
+>In the references section:<ol
+><li
+>Create a set of annotated bibliography types (e.g. evaluation, purpose/scope, format, etc.)</li
+><li
+>Create annotations for relevant reference works and associate each one with its annotated bibliography type.</li
+></ol
+></li
+><li
+>Create a document with references to the relevant work and annotation you want to include.</li
+></ol
+><p
+></p
+><section4
+id="sBMRefAnnotatedBibliographyTypes"
+><secTitle
+>Annotated Bibliography Types</secTitle
+><p
+>The set of annotated bibliography types define the kinds of annotations you have. Some possibilities include:<endnote
+id="nAnnotatedBibliographyTypes"
+><p
+>Many of these are taken from <citation
+ref="rWritingAnnotatedBibliogrphy"
+></citation
+>.</p
+></endnote
+></p
+><ul
+><li
+>Qualificaions of author(s)</li
+><li
+>Summary of the work</li
+><li
+>Purpose or scope of the work</li
+><li
+>Your evaluation of the work</li
+><li
+>The intended audience of the work</li
+><li
+>Level of reading difficulty of the work</li
+><li
+>The bias or view point of the author</li
+><li
+>Linguistic theoretical framework used in the work</li
+><li
+>Relationship to other works in the field</li
+><li
+>Results</li
+><li
+>Format or special features</li
+></ul
+><p
+>To create annotated bbibiograhy types, in the references section, go to the last author. Select its <object
+type="tElement"
+>refAuthor</object
+> element and do an Insert After command. Choose <object
+type="tInstruction"
+>annotatedBibliographyTypes</object
+>. Open it up and for each type you need, insert an <object
+type="tElement"
+>annotatedBibliographyType</object
+> element. Set the <object
+type="tAttribute"
+>id</object
+> to a unique value. We suggest beginning the id with “at” and use letters and numbers, but no spaces.<endnoteRef
+note="nNoSpaceInID"
+></endnoteRef
+> Also type in the name or description of the type.</p
+></section4
+><section4
+id="sBMRefAnnotation"
+><secTitle
+>Annotations</secTitle
+><p
+>For each work you want to add an annotation to, select the last item in it. Do an Insert After command and choose <object
+type="tElement"
+>annotations</object
+>. Open it up. For each annotation, set the id to a unique value. We suggest beginning the id with “an” and use letters and numbers, but no spaces.<endnoteRef
+note="nNoSpaceInID"
+></endnoteRef
+> In addition, set the annotated bibliography type of this annotation. The easiest way to do that is to press the <object
+type="tKey"
+>F11</object
+> key (or use <object
+type="tInstruction"
+><object
+type="tXLingPap"
+></object
+></object
+> menu item / <object
+type="tInstruction"
+>Set Reference</object
+>). Also type in the content of the annotation. <object
+type="tXLingPap"
+></object
+> assumes that the content will appear in a single paragraph.</p
+></section4
+><section4
+id="sBMRefAnnotationRef"
+><secTitle
+>The Annotated Bibliography</secTitle
+><p
+>Now create a new <object
+type="tXLingPap"
+></object
+> document for the annotated bibliography or create a chapter, appendix, section or sub-section for it.</p
+><p
+>For each referenced work to be annotated, insert an <object
+type="tElement"
+>annotationRef</object
+> element and then press the <object
+type="tKey"
+>F11</object
+> key (or use <object
+type="tInstruction"
+><object
+type="tXLingPap"
+></object
+></object
+> menu item / <object
+type="tInstruction"
+>Set Reference</object
+>). This will first show a dialog box where you select the referenced work. If this work has an annotation, it will then show a dialog box where you choose the annotation you want to appear in this context. If the referenced work does not have an annotation, there will be a message saying that this work does not have any annotations. Either choose a different work or go add annotations to the work.</p
+><p
+>As an example, suppose you add the <object
+type="tElement"
+>annotationRef</object
+> elements to your document as shown in example <exampleRef
+letter="xAnnotationRefs"
+num="xAnnotationRefs"
+></exampleRef
+>.</p
+><example
+num="xAnnotationRefs"
+><chart
+><img
+src="resources/AnnotationRefs.png"
+></img
+></chart
+></example
+><p
+>Note that only the first 50 characters of the annotation content is shown here.  The full content will be in the output.</p
+><p
+>When formatted as a web page, this might come out as shown in example <exampleRef
+letter="xAnnotationRefsHTML"
+num="xAnnotationRefsHTML"
+></exampleRef
+>.</p
+><example
+num="xAnnotationRefsHTML"
+><chart
+type="tHtmlOutput"
+>&lt;div style="padding-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;Booij, Geert, and Rochelle Lieber. 1993. On the Simultaneity of Morphological and Prosodic Structure. In Sharon Hargus and EllenM. Kaisse, eds. &lt;i&gt;Phonetics and Phonology&lt;/i&gt;. &lt;/p&gt; &lt;/div&gt; &lt;p style="padding-left:0.25in"&gt;It is argued that morpheme subcategorization &amp;amp; phonological rules are both biplanar, in that both must occasionally cite prosodic &amp;amp; morphological criteria. Polish comparative &amp;amp; imperative allomorphy requires reference to an extrasyllabic consonant; biplanar phonological rules include the final syllable extrametricality of English adjectives, the Dutch compound stress rule, &amp;amp; German schwa insertion in nouns. Biplanar subcategorization, as exemplified by Yidiny nominal reduplication, analyzed as a minimal-word affix attaching simultaneously to a minimal word &amp;amp; a noun, is applied to a solution of a classical problem of reduplication in Tagalog; it is argued that what has been seen as a head operation is really affixation to a prosodic constituent. Biplanarity provides a natural solution to English bracketing paradoxes &amp;amp; permits a typological distinction between clitics &amp;amp; affixes: clitics have only prosodic subcategorization, whereas affix subcategorization is biplanar. 41 References. J. Hitchcock &lt;/p&gt; &lt;div style="padding-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;Clements, G N. October 1985. The Problem of Transfer in Nonlinear Morphology. &lt;i&gt;Cornell Working Papers in Linguistics 7(fall):-&lt;/i&gt;. (&lt;a href="http://ezproxy.uta.edu/docview/85690687?accountid=7117"&gt;http://ezproxy.uta.edu/docview/85690687?accountid=7117&lt;/a&gt;). &lt;/p&gt; &lt;/div&gt; &lt;p style="padding-left:0.25in"&gt;Problems with the treatment of syllables &amp;amp; length in theories of phonological representation &amp;amp; morphological reduplication are examined, &amp;amp; a formal theory of reduplication is proposed to account for these problems. It is shown that neither the standard theory of reduplication nor prosody-based theories can account for the general problem of melodic transfer. Contrary to A. Marantz's (1982) concatenative account, the alternative theory is based on the assumption of a nonconcatenative word formation process in the sense of J. McCarthy (1981). It proposes four steps: affixation, reduplication, transfer (as opposed to copying), &amp;amp; sequencing. The four-step procedure is illustrated with data from Agta, Klamath (Penutian), Tagalog, &amp;amp; Ponapean. Problems related to rule overapplication, language-specific reduplication processes, &amp;amp; the involvement of higher-level prosodic units are addressed. 29 References. C. Brennan &lt;/p&gt; &lt;div style="padding-left:0.25in"&gt; &lt;p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in"&gt;Delilkan, Ann S. 2002. &lt;i&gt;Fusion and other segmental processes in Malay: The crucial role of prosody&lt;/i&gt;. Doctoral dissertation. New York University. (&lt;a href="http://ezproxy.uta.edu/docview/305549834?accountid=7117"&gt;http://ezproxy.uta.edu/docview/305549834?accountid=7117&lt;/a&gt;). &lt;/p&gt; &lt;/div&gt; &lt;p style="padding-left:0.25in"&gt;The variegated data relating to nasal substitution (or fusion) in Malay have long escaped unified analysis. Past analyses have sought to explain the occurrence of fusion, assuming without exception that the conditioning environment is morphological. I consider such approaches wrongheaded on two counts. I suggest the question to ask is not why fusion occurs where it does but why it does not occur elsewhere. I show, then, that the answer to this question lies unquestionably in consideration of prosody, not morphology. Crucially, I claim that the demand for feature recoverability interacts with the prosodic specifications of the language. Fusion is the combined result of licensing of the features of a potential coda segment, and an opposing pressure for dependent foot syllables to be as light as possible. By contrast, in head foot syllables, the unmarked syllable is a closed one. While seeking independent support in the language for this analysis, I find evidence that, far from demanding special treatment, fusion is more appropriately seen as a natural impulse in the language, one of many segmental changes that occur in response to head-dependent asymmetries at the word prosodic level. Within my description of the parameters of fusion, all data relevant to the process that have hitherto been cited as exceptions are, instead, predictable. &lt;/p&gt;</chart
+></example
+><p
+>Notice that each referenced work is shown as it would be if it were in the references section and that the content of the chosen <object
+type="tElement"
+>annotation</object
+> element is formatted as a paragraph after it.</p
+></section4
 ></section3
 ></section2
 ><section2
@@ -15450,13 +15669,13 @@ num="xCitationParen"
 > delineates the various options.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
->  The last two (<object
+> The last two (<object
 type="tAttrValue"
 >citationBoth</object
 > and <object
 type="tAttrValue"
 >citationInitial</object
->) will put an opening parenthesis before the author name(s).  This is as a convenience for those cases where the citation is to be enclosed in parentheses.</p
+>) will put an opening parenthesis before the author name(s). This is as a convenience for those cases where the citation is to be enclosed in parentheses.</p
 ><example
 num="xCitationParen"
 ><table
@@ -24148,6 +24367,41 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>annotatedBibliographyType</object
+></dt
+><dd
+>A type of an annotated bibliography item</dd
+><dt
+><object
+type="tElement"
+>annotatedBibliographyTypes</object
+></dt
+><dd
+>A set of annotated bibliography types</dd
+><dt
+><object
+type="tElement"
+>annotation</object
+></dt
+><dd
+>An annotation for an annotated bibliography</dd
+><dt
+><object
+type="tElement"
+>annotationRef</object
+></dt
+><dd
+>A reference to an annotation in an annotated bibliography</dd
+><dt
+><object
+type="tElement"
+>annotations</object
+></dt
+><dd
+>A set of annotations</dd
+><dt
+><object
+type="tElement"
 >appendix</object
 ></dt
 ><dd
@@ -24921,6 +25175,20 @@ type="tElement"
 type="tElement"
 >definition</object
 > element</dd
+><dt
+><object
+type="tElement"
+>keyword</object
+></dt
+><dd
+>A keyword used to classify a reference work</dd
+><dt
+><object
+type="tElement"
+>keywords</object
+></dt
+><dd
+>A set of keywords</dd
 ><dt
 ><object
 type="tElement"
@@ -27947,6 +28215,15 @@ plural="yes"
 >Melbourne, Australia</location
 ><publisher
 >University of Melbourne</publisher
+><annotations
+><annotation
+annotype="at1"
+id="an1"
+></annotation
+><annotation
+id="an"
+></annotation
+></annotations
 ></proceedings
 ></refWork
 ></refAuthor
@@ -27967,6 +28244,23 @@ id="rITF"
 ><publisher
 >Summer Institute of Linguistics</publisher
 ></book
+></refWork
+></refAuthor
+><refAuthor
+citename="Lucy Scribner Library"
+name="Lucy Scribner Library"
+><refWork
+id="rWritingAnnotatedBibliogrphy"
+><refDate
+>n.d</refDate
+><refTitle
+>Writing an Annotated Bibliogrphy</refTitle
+><webPage
+><url
+>http://lib.skidmore.edu/library/index.php/li371-annotated-bib</url
+><dateAccessed
+>April 2, 2014</dateAccessed
+></webPage
 ></refWork
 ></refAuthor
 ><refAuthor
@@ -28007,6 +28301,14 @@ id="rRegnier"
 ></ms
 ></refWork
 ></refAuthor
+><annotatedBibliographyTypes
+><annotatedBibliographyType
+id="at1"
+>dadad</annotatedBibliographyType
+><annotatedBibliographyType
+id="at2"
+>mnmnmn</annotatedBibliographyType
+></annotatedBibliographyTypes
 ></references
 ><index
 ></index
@@ -28105,6 +28407,11 @@ see="iReferencesSort"
 >References</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iAnnotatedBibliography"
+><term
+>Annotated bibliography</term
 ></indexTerm
 ><indexTerm
 id="iAppendix"

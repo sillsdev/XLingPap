@@ -7,6 +7,7 @@
     <!-- ===========================================================
         Keys
         =========================================================== -->
+    <xsl:key name="AnnotationID" match="//annotation" use="@id"/>
     <xsl:key name="EndnoteID" match="//endnote" use="@id"/>
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear | //interlinear-text" use="@text"/>
@@ -109,6 +110,7 @@
             <xsl:with-param name="iValue" select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
+    <xsl:variable name="sAuthorNamesWordForAnd" select="$lingPaper/references/@authorNamesWordForAnd"/>
     <!--
         comment
     -->
@@ -126,6 +128,20 @@
         -->
         <xsl:number from="table[descendant::counter]" level="any"/>
         <xsl:text>.</xsl:text>
+    </xsl:template>
+    <!--
+        keyword
+    -->
+    <xsl:template match="keyword"/>
+    <!--
+        annotatedBibliographyType
+    -->
+    <xsl:template match="annotatedBibliographyType"/>
+    <!--
+        annotation
+    -->
+    <xsl:template match="annotation">
+        <xsl:apply-templates/>
     </xsl:template>
     <!--  
         appendix
@@ -252,6 +268,9 @@
                 <xsl:otherwise>
                     <!-- assume it is only one or two authors -->
                     <xsl:choose>
+                        <xsl:when test="string-length($sAuthorNamesWordForAnd) &gt; 0 and contains($sCitedWorkAuthor,$sAuthorNamesWordForAnd)">
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),concat(' ',$sAuthorNamesWordForAnd,' ')))"/>
+                        </xsl:when>
                         <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
                             <!-- there is an ampersand, so assume there are two authors and the first name is what comes between the first comma and the ampersand -->
                             <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>

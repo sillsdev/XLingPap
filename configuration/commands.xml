@@ -35,7 +35,7 @@
         </cfg:macro>
     </cfg:command>
     <cfg:command name="ConvertToWrds">
-        <cfg:macro undoable="true" repeatable="true" trace="true">
+        <cfg:macro undoable="true" repeatable="true" trace="false">
             <cfg:sequence>
                 <cfg:pass>
                     <!-- needs to be in interlinear line and langData or gloss -->
@@ -703,7 +703,7 @@ alt causes menu to be selected
         <cfg:command name="setReference"/>
     </cfg:binding>
     <cfg:command name="setReference">
-        <cfg:macro trace="false">
+        <cfg:macro trace="true">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="setAbbreviation"/>
@@ -726,6 +726,8 @@ alt causes menu to be selected
                     <cfg:command name="setFramedType"/>
                     <cfg:command name="setContentType"/>
                     <cfg:command name="setType"/>
+                    <cfg:command name="setAnnotation"/>
+                    <cfg:command name="setAnnotatedBibliographyType"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
@@ -1236,6 +1238,66 @@ alt causes menu to be selected
                 <cfg:command name="putAttribute" parameter="[implicitElement] type %_"/>
             </cfg:sequence>
         </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setAnnotation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="putAttribute" parameter="[implicitElement] annotation"/>
+                </cfg:pass>
+                <cfg:command name="getRefWorkTitlesandIds" parameter="%_"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="Citation true %_"/>
+                <cfg:set variable="refWork" expression="%_" plainString="true"/>
+                <!-- we put in a bad citation value to avoid the macro from stopping when the new value is the same as the old value -->
+                <cfg:command name="putAttribute" parameter="[implicitElement] citation 'r'"/>                
+                <cfg:get expression="$refWork"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] citation %_"/>
+                <cfg:get expression="$refWork"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//refWork[@id='%_']/annotations/annotation)"/>
+                        <cfg:command name="LocalizeString" parameter="msg.refWorkHasNoAnnotations"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="getAnnotationsForRefWorkandIds" parameter="%_"/>
+                        <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                        <cfg:command name="pick" parameter="Annotation true %_"/>
+                        <cfg:command name="putAttribute" parameter="[implicitElement] annotation %_"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getAnnotationsForRefWorkandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAnnotationsForRefWorkAndIds.xsl" to="out.xml">
+                <cfg:parameter name="refWorkId">%0</cfg:parameter>
+            </cfg:transform>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="setAnnotatedBibliographyType">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="putAttribute" parameter="[implicitElement] annotype"/>
+                </cfg:pass>
+                <cfg:command name="getAnnotatedBibliographyTypesAndIds"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Annotated Bibliography Type' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] annotype %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getAnnotatedBibliographyTypesAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetAnnotatedBibliographyTypesAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
     </cfg:command>
     <cfg:command name="setContentType">
         <cfg:macro>

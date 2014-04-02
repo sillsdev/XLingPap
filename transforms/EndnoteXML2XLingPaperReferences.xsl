@@ -46,6 +46,16 @@
         </dateAccessed>
     </xsl:template>
     <!-- 
+        custom7 (Hugh Patterson III uses this for iso codes
+    -->
+    <xsl:template match="custom7">
+        <xsl:call-template name="GetISOCodes">
+            <xsl:with-param name="sCodes">
+                <xsl:value-of select="."/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         publisher
     -->
     <xsl:template match="publisher">
@@ -90,9 +100,9 @@
                 <xsl:value-of select="normalize-space(../titles/secondary-title)"/>
             </collTitle>
             <xsl:if test="../edition">
-                <collVol>
+                <edition>
                     <xsl:value-of select="normalize-space(../edition)"/>
-                </collVol>
+                </edition>
             </xsl:if>
             <xsl:if test="../volume">
                 <collVol>
@@ -110,6 +120,9 @@
                         <xsl:call-template name="GetAuthorsNames"/>
                     </xsl:for-each>
                 </seriesEd>
+                <xsl:if test="not(../titles/tertiary-title)">
+                    <series/>
+                </xsl:if>
             </xsl:if>
             <xsl:if test="../titles/tertiary-title">
                 <series>
@@ -125,6 +138,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </collection>
     </xsl:template>
     <!-- 
@@ -139,6 +153,7 @@
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </paper>
     </xsl:template>
     <!-- 
@@ -171,6 +186,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </proceedings>
     </xsl:template>
     <!-- 
@@ -294,6 +310,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </article>
     </xsl:template>
     <!-- 
@@ -366,6 +383,9 @@
                         <xsl:call-template name="GetAuthorsNames"/>
                     </xsl:for-each>
                 </seriesEd>
+                <xsl:if test="not(../titles/secondary-title)">
+                    <series/>
+                </xsl:if>
             </xsl:if>
             <xsl:if test="../titles/secondary-title">
                 <series>
@@ -381,6 +401,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </book>
     </xsl:template>
     <!-- 
@@ -394,6 +415,7 @@
         </institution>
         <xsl:apply-templates select="../urls/related-urls"/>
         <xsl:apply-templates select="../dates/access-date"/>
+        <xsl:apply-templates select="../custom7"/>
     </xsl:template>
     <!-- 
         DoMs
@@ -407,6 +429,7 @@
             </institution>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </ms>
     </xsl:template>
     <!-- 
@@ -437,8 +460,16 @@
             </xsl:if>
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../publisher"/>
-            <xsl:apply-templates select="../urls/related-urls"/>
+            <xsl:choose>
+                <xsl:when test="not(../urls/related-urls)">
+                    <url/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="../urls/related-urls"/>        
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../custom7"/>
         </webPage>
     </xsl:template>
     <!-- 
@@ -468,5 +499,24 @@
             </xsl:choose>
             <xsl:value-of select="normalize-space(.)"/>
         </xsl:for-each>
+    </xsl:template>
+    <!-- 
+        GetISOCodes
+    -->
+    <xsl:template name="GetISOCodes">
+        <xsl:param name="sCodes"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sCodes),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before(substring-after($sNewList,'['),']')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,']')"/>
+        <xsl:if test="string-length($sFirst) &gt; 0">
+            <iso639-3code>
+                <xsl:value-of select="$sFirst"/>
+            </iso639-3code>
+            <xsl:if test="$sRest">
+                <xsl:call-template name="GetISOCodes">
+                    <xsl:with-param name="sCodes" select="$sRest"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

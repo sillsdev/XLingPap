@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.24.3_1</span></p>
-      <p align="center">Date: 2014-03-12</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.24.4</span></p>
+      <p align="center">Date: 2014-03-19</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,10 +34,14 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.24.4 13 March 2014
+               <li>2.24.4 19 March 2014
                   <ul>
-                     <li>Add two new paren attribute values to the citation element: citationBoth and citationInitial.  Both of them will put an opening
-                        parenthesis before the author name(s).  The citationBoth value will also put a closing parenthesis after the date.
+                     <li>Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening
+                        parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.
+                     </li>
+                     <li>Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection
+                        was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series
+                        title.
                      </li>
                   </ul>
                </li>

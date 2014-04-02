@@ -999,7 +999,24 @@ li.lower-roman {
 </xsl:text>
         </xsl:if>
         <xsl:text>}
+        </xsl:text>
+        <xsl:if test="//annotationRef">
+<xsl:text>
+.annotationRef {
 </xsl:text>
+        <xsl:if test="string-length($hangingIndentSize) &gt; 0">
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!-- 
         referencesTitleLayout

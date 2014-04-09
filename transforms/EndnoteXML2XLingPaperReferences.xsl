@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap" doctype-public="-//XMLmind//DTD XLingPap//EN"/>
+    <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap"
+        doctype-public="-//XMLmind//DTD XLingPap//EN"/>
     <xsl:include href="MODS2XLingPaperReferencesCommon.xsl"/>
+    <xsl:variable name="sRemoveForID">
+        <xsl:text> *!‐˙-:¸,¸()[]{}&#x22;&#x60;&#xb4;&#x201c;&#x201d;&#x2018;&#x2019;'?·&#xa0;¯</xsl:text>
+    </xsl:variable>
     <!-- 
         A transform to convert Endnote XML format to XLingPaper references pass 1 of 2
     -->
     <xsl:template match="//records">
         <references>
-            <xsl:for-each select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
-                <xsl:sort lang="en" select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
+            <xsl:for-each
+                select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                <xsl:sort lang="en"
+                    select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
                 <refAuthor>
                     <xsl:call-template name="DoAuthorItems"/>
-                    <refWork id="r{generate-id()}">
+                    <refWork>
+                        <xsl:attribute name="id">
+                            <xsl:call-template name="DoID"/>
+                        </xsl:attribute>
                         <xsl:call-template name="DoAuthorRole"/>
                         <xsl:apply-templates select="dates"/>
                         <xsl:call-template name="DoRefTitle"/>
@@ -27,14 +36,7 @@
     -->
     <xsl:template match="dates">
         <refDate>
-            <xsl:choose>
-                <xsl:when test="year">
-                    <xsl:value-of select="normalize-space(year)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>n.d.</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="DoDate"/>
         </refDate>
     </xsl:template>
     <!-- 
@@ -318,19 +320,7 @@
     -->
     <xsl:template name="DoAuthorItems">
         <xsl:attribute name="name">
-            <xsl:variable name="sAuthorName">
-                <xsl:for-each select="contributors/authors">
-                    <xsl:call-template name="GetAuthorsNames"/>
-                </xsl:for-each>
-            </xsl:variable>
-            <xsl:choose>
-                <xsl:when test="string-length($sAuthorName) &gt; 0 and $sAuthorName != ', '">
-                    <xsl:value-of select="normalize-space($sAuthorName)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$sMissingAuthorsMessage"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="DoAuthorName"/>
         </xsl:attribute>
         <xsl:attribute name="citename">
             <xsl:variable name="sCiteName">
@@ -345,6 +335,24 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+    <!-- 
+        DoAuthorName
+    -->
+    <xsl:template name="DoAuthorName">
+        <xsl:variable name="sAuthorName">
+            <xsl:for-each select="contributors/authors">
+                <xsl:call-template name="GetAuthorsNames"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="string-length($sAuthorName) &gt; 0 and $sAuthorName != ', '">
+                <xsl:value-of select="normalize-space($sAuthorName)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sMissingAuthorsMessage"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         DoAuthorRole
@@ -405,6 +413,19 @@
         </book>
     </xsl:template>
     <!-- 
+        DoDate
+    -->
+    <xsl:template name="DoDate">
+        <xsl:choose>
+            <xsl:when test="year">
+                <xsl:value-of select="normalize-space(year)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>n.d.</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
         DoDissertationOrThesis
     -->
     <xsl:template name="DoDissertationOrThesis">
@@ -416,6 +437,51 @@
         <xsl:apply-templates select="../urls/related-urls"/>
         <xsl:apply-templates select="../dates/access-date"/>
         <xsl:apply-templates select="../custom7"/>
+    </xsl:template>
+    <!-- 
+        DoID
+    -->
+    <xsl:template name="DoID">
+        <xsl:choose>
+            <xsl:when test="custom2">
+                <xsl:for-each select="custom2">
+                    <xsl:variable name="sCustom2" select="translate(.,$sRemoveForID,'')"/>
+                    <xsl:choose>
+                        <xsl:when test="starts-with(.,'r')">
+                            <xsl:value-of select="$sCustom2"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>r</xsl:text>
+                            <xsl:value-of select="$sCustom2"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>r</xsl:text>
+                <xsl:variable name="sName">
+                    <xsl:call-template name="DoAuthorName"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="contains($sName,',')">
+                        <xsl:value-of select="translate(substring-before($sName,','),$sRemoveForID,'')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="translate($sName,$sRemoveForID,'')"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:variable name="sDate">
+                    <xsl:for-each select="dates">
+                        <xsl:call-template name="DoDate"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:value-of select="translate($sDate,$sRemoveForID,'')"/>
+                <xsl:variable name="sTitle">
+                    <xsl:call-template name="DoTitle"/>
+                </xsl:variable>
+                <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         DoMs
@@ -437,15 +503,21 @@
     -->
     <xsl:template name="DoRefTitle">
         <refTitle>
-            <xsl:choose>
-                <xsl:when test="titles/title">
-                    <xsl:apply-templates select="titles/title"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>** There was no title for this work! **</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="DoTitle"/>
         </refTitle>
+    </xsl:template>
+    <!-- 
+        DoTitle
+    -->
+    <xsl:template name="DoTitle">
+        <xsl:choose>
+            <xsl:when test="titles/title">
+                <xsl:apply-templates select="titles/title"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>** There was no title for this work! **</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         DoWebPage
@@ -465,7 +537,7 @@
                     <url/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="../urls/related-urls"/>        
+                    <xsl:apply-templates select="../urls/related-urls"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="../dates/access-date"/>

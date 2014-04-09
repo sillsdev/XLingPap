@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 April 2014</date
+>9 April 2014</date
 ><version
 >2.24.4</version
 ><contents
@@ -5923,7 +5923,7 @@ src="resources/AnnotationRefs.png"
 ></chart
 ></example
 ><p
->Note that only the first 50 characters of the annotation content is shown here.  The full content will be in the output.</p
+>Note that only the first 50 characters of the annotation content is shown here. The full content will be in the output.</p
 ><p
 >When formatted as a web page, this might come out as shown in example <exampleRef
 letter="xAnnotationRefsHTML"
@@ -22276,6 +22276,9 @@ id="sFAQCreateZipFile"
 ><indexedItem
 term="iCreateZipFile"
 ></indexedItem
+><indexedItem
+term="iArchive"
+></indexedItem
 >Since a given <object
 type="tXLingPap"
 ></object
@@ -22283,6 +22286,8 @@ type="tXLingPap"
 type="tXLingPap"
 ></object
 > to create a zip file for you that has all these files in it.</p
+><p
+>This also can be useful for archving.</p
 ><p
 >To do so, follow these steps:</p
 ><ol
@@ -22355,7 +22360,7 @@ type="tInstruction"
 >This will then (silently) create a zip file containing all the files involved in your document. The name of the zip file will be the same as your main document's file name but with an extension of “.zip” instead of “.xml”. This zip file will appear in the same directory as your main document.</li
 ></ol
 ><p
->Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will contain these files and indicate their directory with respect to the directory of your main document. Some unzip programs are able to unzip these files in their original locations and others are not. Nonetheless, the zip file does contain all the files your document uses.</p
+>Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will adjust so that the highest level directory is at the top and all other files will be in their respective directories.</p
 ></section2
 ><section2
 id="sFAQUseShorterMenus"
@@ -28429,6 +28434,11 @@ id="iAppendixReference"
 >Reference</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iArchive"
+><term
+>Archiving an XLingPaper document</term
 ></indexTerm
 ><indexTerm
 id="iAttribute"

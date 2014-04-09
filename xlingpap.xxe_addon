@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-01</a:date
+>2014-04-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,15 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.4 1 April 2014<ul
+>2.24.4 9 April 2014<ul
 ><li
 >Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.</li
 ><li
->Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title.</li
+>Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title.  Also use custom2 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
 ><li
 >Add keyword elements to refWork (the content is never output by XLingPaper).</li
 ><li
 >Add ability to have an annotated bibliography.</li
+><li
+>Rework CreateZipFile command to use the highest directory among all the files.  Also make it include image files from embedded files.</li
 ></ul
 ></li
 ><li

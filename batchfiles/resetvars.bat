@@ -1,2 +1,2 @@
-"%AppData%\XMLmind\XMLEditor4\addon\XLingPap\batchfiles\resetvars.vbs"
+"%AppData%\XMLmind\XMLEditor5\addon\XLingPap\batchfiles\resetvars.vbs"
 call "%TEMP%\resetvars.bat"

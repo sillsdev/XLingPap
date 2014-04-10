@@ -574,6 +574,7 @@ Content Layout
        numberProperAddPeriodAfterFinalDigit (no | yes) 'no'
        numberProperUseParens (no | yes) 'yes'
        listItemsHaveParenInsteadOfPeriod (no | yes) 'no'
+       startNumberingOverAtEachChapter (no | yes) 'no'
    >
    <!ELEMENT listLayout EMPTY >
    <!ATTLIST listLayout

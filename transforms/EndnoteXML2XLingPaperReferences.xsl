@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap"
-        doctype-public="-//XMLmind//DTD XLingPap//EN"/>
+    <xsl:output encoding="UTF-8" indent="no" method="xml" doctype-system="XLingPap" doctype-public="-//XMLmind//DTD XLingPap//EN"/>
     <xsl:include href="MODS2XLingPaperReferencesCommon.xsl"/>
     <xsl:variable name="sRemoveForID">
         <xsl:text> *!‐˙-:¸,¸()[]{}&#x22;&#x60;&#xb4;&#x201c;&#x201d;&#x2018;&#x2019;'?·&#xa0;¯</xsl:text>
@@ -326,9 +325,29 @@
             <xsl:variable name="sCiteName">
                 <xsl:call-template name="GetCiteName"/>
             </xsl:variable>
+            <xsl:variable name="sNormalizedCiteName" select="normalize-space($sCiteName)"/>
             <xsl:choose>
-                <xsl:when test="string-length($sCiteName) &gt; 0">
-                    <xsl:value-of select="normalize-space($sCiteName)"/>
+                <xsl:when test="string-length($sNormalizedCiteName) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="contains($sNormalizedCiteName,',')">
+                            <xsl:value-of select="$sNormalizedCiteName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="contains($sNormalizedCiteName,' ')">
+                                    <xsl:call-template name="GetLastNameFirst">
+                                        <xsl:with-param name="sName" select="$sNormalizedCiteName"/>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="GetNonLastNames">
+                                        <xsl:with-param name="sName" select="$sNormalizedCiteName"/>
+                                    </xsl:call-template>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$sNormalizedCiteName"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="$sMissingAuthorsMessage"/>
@@ -345,9 +364,31 @@
                 <xsl:call-template name="GetAuthorsNames"/>
             </xsl:for-each>
         </xsl:variable>
+        <xsl:variable name="sNormalizedAuthorName">
+            <xsl:value-of select="normalize-space($sAuthorName)"/>
+        </xsl:variable>
         <xsl:choose>
-            <xsl:when test="string-length($sAuthorName) &gt; 0 and $sAuthorName != ', '">
-                <xsl:value-of select="normalize-space($sAuthorName)"/>
+            <xsl:when test="string-length($sNormalizedAuthorName) &gt; 0 and $sAuthorName != ', '">
+                <xsl:choose>
+                    <xsl:when test="contains($sNormalizedAuthorName,',')">
+                        <xsl:value-of select="$sNormalizedAuthorName"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="contains($sNormalizedAuthorName,' ')">
+                                <xsl:call-template name="GetLastNameFirst">
+                                    <xsl:with-param name="sName" select="$sNormalizedAuthorName"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="GetNonLastNames">
+                                    <xsl:with-param name="sName" select="$sNormalizedAuthorName"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sNormalizedAuthorName"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$sMissingAuthorsMessage"/>
@@ -589,6 +630,42 @@
                     <xsl:with-param name="sCodes" select="$sRest"/>
                 </xsl:call-template>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
+        GetLastNameFirst
+    -->
+    <xsl:template name="GetLastNameFirst">
+        <xsl:param name="sName"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sName),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:choose>
+            <xsl:when test="$sRest">
+                <xsl:call-template name="GetLastNameFirst">
+                    <xsl:with-param name="sName" select="$sRest"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sFirst"/>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
+        GetNonLastNames
+    -->
+    <xsl:template name="GetNonLastNames">
+        <xsl:param name="sName"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sName),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:if test="$sRest">
+            <xsl:value-of select="$sFirst"/>
+            <xsl:text>&#x20;</xsl:text>
+            <xsl:call-template name="GetNonLastNames">
+                <xsl:with-param name="sName" select="$sRest"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
 </xsl:stylesheet>

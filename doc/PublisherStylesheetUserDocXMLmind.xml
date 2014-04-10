@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 February 2014</date
+>10 April 2014</date
 ><version
->2.24.3</version
+>2.24.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -8025,6 +8025,42 @@ type="tAttrValue"
 ><td
 >No</td
 ></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleNumberingInChapter"
+></indexedItem
+><object
+type="tAttribute"
+>startNumberingOverAtEachChapter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to start example numbering over in each chapter and appendix of a document. The default is to not start the numbering over.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
 ></table
 ></example
 ></section2
@@ -9171,7 +9207,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->.  The default value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -10117,7 +10153,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->.  The default value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -13896,6 +13932,11 @@ id="iExampleRefUseParens"
 id="iExampleUsePeriodAfter"
 ><term
 >Period after the number</term
+></indexTerm
+><indexTerm
+id="iExampleNumberingInChapter"
+><term
+>Restart example numbering in each chapter</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

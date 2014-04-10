@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.24.4</a:version
+>2.24.5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
@@ -32,17 +32,23 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.24.5 9 April 2014<ul
+><li
+>Add option to exampleLayout to start example numbering over in each chapter.</li
+></ul
+></li
+><li
 >2.24.4 9 April 2014<ul
 ><li
 >Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.</li
 ><li
->Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title.  Also use custom2 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
+>Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title. Also use custom2 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
 ><li
 >Add keyword elements to refWork (the content is never output by XLingPaper).</li
 ><li
 >Add ability to have an annotated bibliography.</li
 ><li
->Rework CreateZipFile command to use the highest directory among all the files.  Also make it include image files from embedded files.</li
+>Rework CreateZipFile command to use the highest directory among all the files. Also make it include image files from embedded files.</li
 ></ul
 ></li
 ><li

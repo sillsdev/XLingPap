@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-09</a:date
+>2014-04-11</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.5 9 April 2014<ul
+>2.24.5 11 April 2014<ul
 ><li
 >Add option to exampleLayout to start example numbering over in each chapter.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add check for .tff or .tif files since these will prevent the PDF from being produced.</li
+></ul
+></li
 ></ul
 ></li
 ><li

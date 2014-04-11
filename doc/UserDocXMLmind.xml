@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 April 2014</date
+>11 April 2014</date
 ><version
->2.24.4</version
+>2.24.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -19095,7 +19095,7 @@ type="tXeTeX"
 ></ul
 ></li
 ><li
->It does not handle graphic files with a .gif extension nor with an .odg extension. You have to convert such .gif files to something else like .png or .jpg. Some versions of the <object
+>It does not handle graphic files with a .gif extension, a .tiff extension, a .tif extension, nor with an .odg extension. You have to convert such files to something else like .png or .jpg. Some versions of the <object
 type="tTool"
 >Paint</object
 > program can do this conversion.</li

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 April 2014</date
+>14 April 2014</date
 ><version
 >2.24.5</version
 ><contents
@@ -1214,6 +1214,50 @@ border="1"
 >Meaning</th
 ><th
 >Examples</th
+></tr
+><tr
+><td
+>border-left</td
+><td
+>0, 1 or 2</td
+><td
+>Add a vertical line to the left of the current <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element. This will only work when the <object
+type="tAttribute"
+>border</object
+> attribute of the <object
+type="tElement"
+>table</object
+> element is set to 0 (zero).</td
+><td
+>border-left=1</td
+></tr
+><tr
+><td
+>border-right</td
+><td
+>0, 1 or 2</td
+><td
+>Add a vertical line to the right of the current <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element. This will only work when the <object
+type="tAttribute"
+>border</object
+> attribute of the <object
+type="tElement"
+>table</object
+> element is set to 0 (zero).</td
+><td
+>border-right=1</td
 ></tr
 ><tr
 ><td

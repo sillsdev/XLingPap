@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.24.5</a:version
+>2.24.6</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
@@ -31,6 +31,12 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.24.6 15 April 2014<ul
+><li
+>In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
+></ul
+></li
 ><li
 >2.24.5 15 April 2014<ul
 ><li

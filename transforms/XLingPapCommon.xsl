@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="saxon xhtml">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    version="1.0" exclude-result-prefixes="saxon xhtml">
     <!-- 
         XLingPapCommon.xsl
         Contains common global variables and common templates common to many of the XLingPaper output transforms.
@@ -48,13 +47,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="indexSeeDefinition"
-        select="$lingPaper/indexTerms/seeDefinitions/seeDefinition[@lang=$indexLang]"/>
+    <xsl:variable name="indexSeeDefinition" select="$lingPaper/indexTerms/seeDefinitions/seeDefinition[@lang=$indexLang]"/>
     <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="refWorks" select="//refWork"/>
     <xsl:variable name="citations" select="//citation"/>
-    <xsl:variable name="referencesLayoutInfo"
-        select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
+    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="collOrProcVolumesToInclude">
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
@@ -69,12 +66,10 @@
     <xsl:variable name="sReferencesID" select="'rXLingPapReferences'"/>
     <xsl:variable name="sAppendiciesPageID" select="'rXLingPapAppendiciesPage'"/>
     <xsl:variable name="endnotesToShow">
-        <xsl:for-each
-            select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)]">
+        <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)]">
             <xsl:text>X</xsl:text>
         </xsl:for-each>
-        <xsl:for-each
-            select="//interlinearRef[not(ancestor::chapterInCollection/backMatter/endnotes)]">
+        <xsl:for-each select="//interlinearRef[not(ancestor::chapterInCollection/backMatter/endnotes)]">
             <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
                 <xsl:if test="descendant::endnote">
                     <xsl:text>X</xsl:text>
@@ -85,55 +80,43 @@
     <xsl:variable name="parts" select="//part"/>
     <xsl:variable name="chapters" select="//chapter | //chapterInCollection"/>
     <xsl:variable name="bIsBook" select="$chapters"/>
-    <xsl:variable name="sYs"
-        select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
+    <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
-    <xsl:variable name="literalLabelLayoutInfo"
-        select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
-    <xsl:variable name="sIndentOfNonInitialGroup"
-        select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
-    <xsl:variable name="sSpaceBetweenGroups"
-        select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
+    <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
+    <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
+    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
     <!-- Now we convert all of these to points -->
     <xsl:variable name="iPageWidth">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageWidth"/>
-            <xsl:with-param name="iValue"
-                select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageWidth,1,string-length($sPageWidth) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iPageHeight">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageHeight"/>
-            <xsl:with-param name="iValue"
-                select="number(substring($sPageHeight,1,string-length($sPageHeight) - 2))"/>
+            <xsl:with-param name="iValue" select="number(substring($sPageHeight,1,string-length($sPageHeight) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iPageInsideMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageInsideMargin"/>
-            <xsl:with-param name="iValue"
-                select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"
-            />
+            <xsl:with-param name="iValue" select="number(substring($sPageInsideMargin,1,string-length($sPageInsideMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="iPageOutsideMargin">
         <xsl:call-template name="ConvertToPoints">
             <xsl:with-param name="sValue" select="$sPageOutsideMargin"/>
-            <xsl:with-param name="iValue"
-                select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"
-            />
+            <xsl:with-param name="iValue" select="number(substring($sPageOutsideMargin,1,string-length($sPageOutsideMargin) - 2))"/>
         </xsl:call-template>
     </xsl:variable>
-    <xsl:variable name="sAuthorNamesWordForAnd"
-        select="$lingPaper/references/@authorNamesWordForAnd"/>
+    <xsl:variable name="sAuthorNamesWordForAnd" select="$lingPaper/references/@authorNamesWordForAnd"/>
     <!--
         comment
     -->
     <xsl:template match="comment">
-        <xsl:if
-            test="ancestor::lingPaper and $lingPaper/@showcommentinoutput='yes' and not(parent::types)">
+        <xsl:if test="ancestor::lingPaper and $lingPaper/@showcommentinoutput='yes' and not(parent::types)">
             <xsl:call-template name="OutputComment"/>
         </xsl:if>
     </xsl:template>
@@ -169,9 +152,7 @@
             <xsl:apply-templates select="ancestor::chapterInCollection" mode="numberChapter"/>
             <xsl:text>.</xsl:text>
         </xsl:if>
-        <xsl:number level="multiple"
-            count="appendix | section1 | section2 | section3 | section4 | section5 | section6"
-            format="A.1"/>
+        <xsl:number level="multiple" count="appendix | section1 | section2 | section3 | section4 | section5 | section6" format="A.1"/>
     </xsl:template>
     <xsl:template mode="labelNumberAppendix" match="*">
         <xsl:choose>
@@ -200,19 +181,15 @@
             <xsl:when test="$chapters">
                 <xsl:choose>
                     <xsl:when test="ancestor::appendix">
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef"
-                            from="appendix" format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef"
-                            from="chapter | chapterInCollection" format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter | chapterInCollection" format="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any"
-                    count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]"
-                    format="1"/>
+                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -222,12 +199,10 @@
     <xsl:template mode="example" match="*">
         <xsl:choose>
             <xsl:when test="$contentLayoutInfo/exampleLayout/@startNumberingOverAtEachChapter='yes'">
-                <xsl:number level="any" from="chapter | chapterInCollection | appendix"
-                    count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+                <xsl:number level="any" from="chapter | chapterInCollection | appendix" count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any"
-                    count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+                <xsl:number level="any" count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
 
@@ -249,8 +224,7 @@
         figure
     -->
     <xsl:template mode="figure" match="*">
-        <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]"
-            format="1"/>
+        <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
     </xsl:template>
     <!--  
         figureInEndnote
@@ -268,8 +242,7 @@
         tablenumbered
     -->
     <xsl:template mode="tablenumbered" match="*">
-        <xsl:number level="any"
-            count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
+        <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
     </xsl:template>
     <!--  
         tablenumberedInEndnote
@@ -296,8 +269,7 @@
         <xsl:param name="sCitedWorkAuthor"/>
         <xsl:variable name="sFirstAuthorLastName" select="substring-before($sCitedWorkAuthor,',')"/>
         <xsl:variable name="sFirstAuthorFirstName">
-            <xsl:variable name="sTryOne"
-                select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),','))"/>
+            <xsl:variable name="sTryOne" select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),','))"/>
             <xsl:choose>
                 <xsl:when test="string-length($sTryOne) &gt; 0">
                     <!-- there are three or more names (we assume), so what comes before the second comma should be the first name -->
@@ -306,36 +278,35 @@
                 <xsl:otherwise>
                     <!-- assume it is only one or two authors -->
                     <xsl:choose>
-                        <xsl:when
-                            test="string-length($sAuthorNamesWordForAnd) &gt; 0 and contains($sCitedWorkAuthor,$sAuthorNamesWordForAnd)">
-                            <xsl:value-of
-                                select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),concat(' ',$sAuthorNamesWordForAnd,' ')))"
-                            />
+                        <xsl:when test="string-length($sAuthorNamesWordForAnd) &gt; 0 and contains($sCitedWorkAuthor,$sAuthorNamesWordForAnd)">
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),concat(' ',$sAuthorNamesWordForAnd,' ')))"/>
                         </xsl:when>
                         <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
                             <!-- there is an ampersand, so assume there are two authors and the first name is what comes between the first comma and the ampersand -->
-                            <xsl:value-of
-                                select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' &amp; '))"
-                            />
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
                         </xsl:when>
                         <xsl:when test="contains($sCitedWorkAuthor,' and ')">
                             <!-- there is an 'and', so assume there are two authors and the first name is what comes between the first comma and the 'and' -->
-                            <xsl:value-of
-                                select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' and '))"
-                            />
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' and '))"/>
+                        </xsl:when>
+                        <xsl:when test="contains($sCitedWorkAuthor,' y ')">
+                            <!-- there is an 'y', so assume there are two authors and the first name is what comes between the first comma and the 'y' -->
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' y '))"/>
+                        </xsl:when>
+                        <xsl:when test="contains($sCitedWorkAuthor,' et ')">
+                            <!-- there is an 'et', so assume there are two authors and the first name is what comes between the first comma and the 'et' -->
+                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' et '))"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- it must be only one author -->
-                            <xsl:value-of
-                                select="normalize-space(substring-after($sCitedWorkAuthor,','))"/>
+                            <xsl:value-of select="normalize-space(substring-after($sCitedWorkAuthor,','))"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sSecondAuthorEtc">
-            <xsl:variable name="sTryOne"
-                select="substring-after(substring-after($sCitedWorkAuthor,','),',')"/>
+            <xsl:variable name="sTryOne" select="substring-after(substring-after($sCitedWorkAuthor,','),',')"/>
             <xsl:choose>
                 <xsl:when test="string-length($sTryOne) &gt; 0">
                     <!-- there are three or more names (we assume), so what comes before the second comma should be the rest -->
@@ -348,16 +319,22 @@
                         <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
                             <!-- there is an ampersand, so assume there are two authors and the rest is what comes after the ampersand -->
                             <xsl:text> &amp; </xsl:text>
-                            <xsl:value-of
-                                select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' &amp; '))"
-                            />
+                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
                         </xsl:when>
                         <xsl:when test="contains($sCitedWorkAuthor,' and ')">
                             <!-- there is an 'and', so assume there are two authors and the rest is what comes after the 'and' -->
                             <xsl:text> and </xsl:text>
-                            <xsl:value-of
-                                select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' and '))"
-                            />
+                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' and '))"/>
+                        </xsl:when>
+                        <xsl:when test="contains($sCitedWorkAuthor,' y ')">
+                            <!-- there is an 'y', so assume there are two authors and the rest is what comes after the 'y' -->
+                            <xsl:text> y </xsl:text>
+                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' y '))"/>
+                        </xsl:when>
+                        <xsl:when test="contains($sCitedWorkAuthor,' et ')">
+                            <!-- there is an 'et', so assume there are two authors and the rest is what comes after the 'et' -->
+                            <xsl:text> et </xsl:text>
+                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' et '))"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- it must be only one author -->
@@ -436,16 +413,11 @@
         <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
         <xsl:if test="not(@lineNumberOnly) or @lineNumberOnly!='yes'">
             <xsl:choose>
-                <xsl:when
-                    test="$interlinear/../textInfo/shortTitle and string-length($interlinear/../textInfo/shortTitle) &gt; 0">
-                    <xsl:apply-templates
-                        select="$interlinear/../textInfo/shortTitle/child::node()[name()!='endnote']"
-                    />
+                <xsl:when test="$interlinear/../textInfo/shortTitle and string-length($interlinear/../textInfo/shortTitle) &gt; 0">
+                    <xsl:apply-templates select="$interlinear/../textInfo/shortTitle/child::node()[name()!='endnote']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates
-                        select="$interlinear/../textInfo/textTitle/child::node()[name()!='endnote']"
-                    />
+                    <xsl:apply-templates select="$interlinear/../textInfo/textTitle/child::node()[name()!='endnote']"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:text>:</xsl:text>
@@ -481,8 +453,7 @@
             <xsl:variable name="referencedInterlinear" select="key('InterlinearReferenceID',$sRef)"/>
             <xsl:choose>
                 <xsl:when test="$referencedInterlinear[ancestor::referencedInterlinearTexts]">
-                    <xsl:value-of
-                        select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
+                    <xsl:value-of select="$referencedInterlinear/ancestor::referencedInterlinearText/@url"/>
                     <xsl:text>.</xsl:text>
                     <xsl:value-of select="$sExtension"/>
                     <xsl:text>#</xsl:text>
@@ -549,17 +520,14 @@
         DoRefAuthors
     -->
     <xsl:template name="DoRefAuthors">
-        <xsl:param name="refAuthors"
-            select="//refAuthor[not(ancestor::chapterInCollection/backMatter/references)]"/>
-        <xsl:param name="citations"
-            select="//citation[not(ancestor::chapterInCollection/backMatter/references)]"/>
+        <xsl:param name="refAuthors" select="//refAuthor[not(ancestor::chapterInCollection/backMatter/references)]"/>
+        <xsl:param name="citations" select="//citation[not(ancestor::chapterInCollection/backMatter/references)]"/>
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
         <xsl:variable name="directlyCitedAuthors"
             select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
-        <xsl:variable name="impliedAuthors"
-            select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+        <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
@@ -626,34 +594,26 @@
             <xsl:otherwise>
                 <xsl:variable name="iSharedPapers">
                     <xsl:choose>
-                        <xsl:when
-                            test="string(number($referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis))='NaN'">
+                        <xsl:when test="string(number($referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis))='NaN'">
                             <xsl:text>1</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of
-                                select="$referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis - 1"
-                            />
+                            <xsl:value-of select="$referencesLayoutInfo/@usecitationformatwhennumberofsharedpaperis - 1"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:variable name="directlyCitedWorks"
-                    select="$refWorks[@id=//citation[not(ancestor::comment)]/@ref]"/>
+                <xsl:variable name="directlyCitedWorks" select="$refWorks[@id=//citation[not(ancestor::comment)]/@ref]"/>
                 <xsl:variable name="citedCollOrProcWithCitation">
-                    <xsl:for-each
-                        select="$directlyCitedWorks/collection/collCitation | $directlyCitedWorks/proceedings/procCitation">
+                    <xsl:for-each select="$directlyCitedWorks/collection/collCitation | $directlyCitedWorks/proceedings/procCitation">
                         <xsl:sort select="@refToBook"/>
                         <xsl:copy-of select="."/>
                     </xsl:for-each>
                 </xsl:variable>
-                <xsl:for-each
-                    select="saxon:node-set($citedCollOrProcWithCitation)/collCitation | saxon:node-set($citedCollOrProcWithCitation)/procCitation">
+                <xsl:for-each select="saxon:node-set($citedCollOrProcWithCitation)/collCitation | saxon:node-set($citedCollOrProcWithCitation)/procCitation">
                     <xsl:variable name="thisRefToBook" select="@refToBook"/>
-                    <xsl:variable name="precedingSiblings"
-                        select="preceding-sibling::*[@refToBook=$thisRefToBook]"/>
+                    <xsl:variable name="precedingSiblings" select="preceding-sibling::*[@refToBook=$thisRefToBook]"/>
                     <!-- to set the required number, use count of preceding is greater than or equal to threshold minus 1 -->
-                    <xsl:if
-                        test="$precedingSiblings and count($precedingSiblings) &gt;= $iSharedPapers">
+                    <xsl:if test="$precedingSiblings and count($precedingSiblings) &gt;= $iSharedPapers">
                         <xsl:copy-of select="$refWorks[@id=$thisRefToBook]"/>
                     </xsl:if>
                 </xsl:for-each>
@@ -674,9 +634,7 @@
                         <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any"
-                            count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]"
-                            format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -699,22 +657,17 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="endnotesInPrecedingInterlinearRefs"
-            select="(descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
+        <xsl:variable name="endnotesInPrecedingInterlinearRefs" select="(descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
         <xsl:variable name="sCount">
             <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
-                <xsl:variable name="iCountOfEndnotes"
-                    select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
+                <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
                 <xsl:value-of select="substring($sYs,1,$iCountOfEndnotes)"/>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs"
-            select="string-length($sCount)"/>
+        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
         <!--        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
         <!--        <xsl:variable name="i2CountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
-        <xsl:value-of
-            select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"
-        />
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetCountOfEndnotesIncludingAnyInInterlinearRefsBook
@@ -726,16 +679,11 @@
             <xsl:variable name="iPreviousEndnotesPass1">
                 <xsl:choose>
                     <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
-                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1"
-                            from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"
-                        />
+                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any"
-                            count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]"
-                            format="1"
-                            from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"
-                        />
+                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
+                            from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -765,16 +713,12 @@
             select="(descendant::interlinearRef | preceding::interlinearRef)[ancestor::*[@id=$sCurrentAncestorId]][key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
         <xsl:variable name="sCount">
             <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
-                <xsl:variable name="iCountOfEndnotes"
-                    select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
+                <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
                 <xsl:value-of select="substring($sYs,1,$iCountOfEndnotes)"/>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs"
-            select="string-length($sCount)"/>
-        <xsl:value-of
-            select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"
-        />
+        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetExampleNumber
@@ -788,11 +732,9 @@
                 </xsl:when>
                 <xsl:when test="ancestor::framedUnit">
                     <xsl:variable name="iStartNumber">
-                        <xsl:variable name="sStartNumber"
-                            select="normalize-space(ancestor::framedUnit/@initialexamplenumber)"/>
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialexamplenumber)"/>
                         <xsl:choose>
-                            <xsl:when
-                                test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
                                 <xsl:value-of select="$sStartNumber - 1"/>
                             </xsl:when>
                             <xsl:otherwise>
@@ -823,11 +765,9 @@
                 </xsl:when>
                 <xsl:when test="ancestor::framedUnit">
                     <xsl:variable name="iStartNumber">
-                        <xsl:variable name="sStartNumber"
-                            select="normalize-space(ancestor::framedUnit/@initialfigurenumber)"/>
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialfigurenumber)"/>
                         <xsl:choose>
-                            <xsl:when
-                                test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
                                 <xsl:value-of select="$sStartNumber - 1"/>
                             </xsl:when>
                             <xsl:otherwise>
@@ -861,20 +801,16 @@
                 <xsl:choose>
                     <xsl:when test="$originalContext">
                         <xsl:for-each select="$originalContext">
-                            <xsl:call-template
-                                name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
+                            <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
                                 <xsl:with-param name="iAdjust" select="$iAdjust"/>
-                                <xsl:with-param name="iTablenumberedAdjust"
-                                    select="$iTablenumberedAdjust"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template
-                            name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
+                        <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefsBook">
                             <xsl:with-param name="iAdjust" select="$iAdjust"/>
-                            <xsl:with-param name="iTablenumberedAdjust"
-                                select="$iTablenumberedAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -895,19 +831,15 @@
                     <xsl:when test="$originalContext and ancestor::interlinear-text">
                         <xsl:variable name="iPreviousEndnotesInCurrentInterlinearRef">
                             <xsl:variable name="iIncludingCurrentEndnote">
-                                <xsl:number level="any" count="endnote" format="1"
-                                    from="interlinear[string-length(@text) &gt; 0]"/>
+                                <xsl:number level="any" count="endnote" format="1" from="interlinear[string-length(@text) &gt; 0]"/>
                             </xsl:variable>
                             <xsl:value-of select="number($iIncludingCurrentEndnote) - 1"/>
                         </xsl:variable>
                         <xsl:for-each select="$originalContext">
-                            <xsl:call-template
-                                name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
+                            <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
                                 <xsl:with-param name="iAdjust" select="$iAdjust"/>
-                                <xsl:with-param name="iPreviousEndnotesInCurrentInterlinearRef"
-                                    select="$iPreviousEndnotesInCurrentInterlinearRef"/>
-                                <xsl:with-param name="iTablenumberedAdjust"
-                                    select="$iTablenumberedAdjust"/>
+                                <xsl:with-param name="iPreviousEndnotesInCurrentInterlinearRef" select="$iPreviousEndnotesInCurrentInterlinearRef"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
@@ -915,8 +847,7 @@
                         <!--                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>-->
                         <xsl:call-template name="GetCountOfEndnotesIncludingAnyInInterlinearRefs">
                             <xsl:with-param name="iAdjust" select="$iAdjust"/>
-                            <xsl:with-param name="iTablenumberedAdjust"
-                                select="$iTablenumberedAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -975,11 +906,9 @@
                 </xsl:when>
                 <xsl:when test="ancestor::framedUnit">
                     <xsl:variable name="iStartNumber">
-                        <xsl:variable name="sStartNumber"
-                            select="normalize-space(ancestor::framedUnit/@initialnumberedtablenumber)"/>
+                        <xsl:variable name="sStartNumber" select="normalize-space(ancestor::framedUnit/@initialnumberedtablenumber)"/>
                         <xsl:choose>
-                            <xsl:when
-                                test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
+                            <xsl:when test="string-length($sStartNumber) &gt; 0 and number($sStartNumber)!='NaN'">
                                 <xsl:value-of select="$sStartNumber - 1"/>
                             </xsl:when>
                             <xsl:otherwise>
@@ -1012,10 +941,8 @@
         <xsl:choose>
             <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
                 <xsl:call-template name="OutputAbbreviationsInCommaSeparatedList">
-                    <xsl:with-param name="abbreviations"
-                        select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation"/>
-                    <xsl:with-param name="abbrRefs"
-                        select="ancestor::chapterInCollection/descendant::abbrRef"/>
+                    <xsl:with-param name="abbreviations" select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation"/>
+                    <xsl:with-param name="abbrRefs" select="ancestor::chapterInCollection/descendant::abbrRef"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1030,9 +957,7 @@
         <xsl:choose>
             <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
                 <xsl:call-template name="OutputAbbreviationsInTable">
-                    <xsl:with-param name="abbrsUsed"
-                        select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation[ancestor::chapterInCollection/descendant::abbrRef/@abbr=@id]"
-                    />
+                    <xsl:with-param name="abbrsUsed" select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation[ancestor::chapterInCollection/descendant::abbrRef/@abbr=@id]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1048,8 +973,7 @@
             <xsl:when test="ancestor::chapterInCollection">
                 <xsl:call-template name="DoRefAuthors">
                     <xsl:with-param name="refAuthors" select="descendant::refAuthor"/>
-                    <xsl:with-param name="citations"
-                        select="ancestor::chapterInCollection/descendant::citation"/>
+                    <xsl:with-param name="citations" select="ancestor::chapterInCollection/descendant::citation"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1070,25 +994,20 @@
         OutputAbbreviationsInCommaSeparatedList
     -->
     <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
-        <xsl:param name="abbreviations"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
-        <xsl:param name="abbrRefs"
-            select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
+        <xsl:param name="abbreviations" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
+        <xsl:param name="abbrRefs" select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
                     <xsl:call-template name="GetAbbreviationLanguageCode"/>
                 </xsl:variable>
-                <xsl:for-each
-                    select="$abbreviations[$abbrRefs[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]">
-                    <xsl:sort lang="{$sLang}"
-                        select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
+                <xsl:for-each select="$abbreviations[$abbrRefs[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]">
+                    <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
                     <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each
-                    select="$abbreviations[$abbrRefs[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]">
+                <xsl:for-each select="$abbreviations[$abbrRefs[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]">
                     <xsl:call-template name="OutputAbbreviationInCommaSeparatedList"/>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -1460,17 +1379,14 @@
                     <xsl:call-template name="GetAbbreviationLanguageCode"/>
                 </xsl:variable>
                 <xsl:for-each select="$abbrsUsed">
-                    <xsl:sort lang="{$sLang}"
-                        select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
+                    <xsl:sort lang="{$sLang}" select="abbrInLang[@lang=$sLang or position()=1 and not (following-sibling::abbrInLang[@lang=$sLang])]/abbrTerm"/>
                     <xsl:choose>
-                        <xsl:when
-                            test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:when test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
                             <xsl:if test="position() &lt;= $iHalfwayPoint">
                                 <xsl:variable name="iPos" select="position()"/>
                                 <xsl:call-template name="OutputAbbreviationInTable">
                                     <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
-                                    <xsl:with-param name="abbrInSecondColumn"
-                                        select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
+                                    <xsl:with-param name="abbrInSecondColumn" select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
                                 </xsl:call-template>
                             </xsl:if>
                         </xsl:when>
@@ -1484,14 +1400,12 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when
-                        test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
+                    <xsl:when test="$contentLayoutInfo/abbreviationsInTableLayout/@useDoubleColumns='yes'">
                         <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
                             <xsl:variable name="iPos" select="position()"/>
                             <xsl:call-template name="OutputAbbreviationInTable">
                                 <xsl:with-param name="abbrsShownHere" select="$abbrsShownHere"/>
-                                <xsl:with-param name="abbrInSecondColumn"
-                                    select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
+                                <xsl:with-param name="abbrInSecondColumn" select="$abbrsUsed[$iPos + $iHalfwayPoint]"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>

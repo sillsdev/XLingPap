@@ -484,16 +484,16 @@
     -->
     <xsl:template name="DoID">
         <xsl:choose>
-            <xsl:when test="custom2">
-                <xsl:for-each select="custom2">
-                    <xsl:variable name="sCustom2" select="translate(.,$sRemoveForID,'')"/>
+            <xsl:when test="custom6">
+                <xsl:for-each select="custom6">
+                    <xsl:variable name="scustom6" select="translate(.,$sRemoveForID,'')"/>
                     <xsl:choose>
                         <xsl:when test="starts-with(.,'r')">
-                            <xsl:value-of select="$sCustom2"/>
+                            <xsl:value-of select="$scustom6"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>r</xsl:text>
-                            <xsl:value-of select="$sCustom2"/>
+                            <xsl:value-of select="$scustom6"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>

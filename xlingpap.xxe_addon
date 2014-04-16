@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-15</a:date
+>2014-04-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.6 15 April 2014<ul
+>2.24.6 16 April 2014<ul
 ><li
 >In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
+><li
+>For collCitation and procCitation which need to insert the referred to book's authors in the reference, also do switch of last name when there is ' y ' (Spanish) or ' et ' (French) like we do for ' and ' and ' &amp; '.</li
 ></ul
 ></li
 ><li

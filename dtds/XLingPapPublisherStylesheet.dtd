@@ -370,6 +370,9 @@ Front MatterLayout
     >
 <!-- need to modify authorContactInfoLayout -->
 <!ELEMENT authorContactInfoLayout (contactNameLayout | contactAffiliationLayout | contactAddressLayout | contactPhoneLayout | contactEmailLayout | contactElectronicLayout)* >
+<!ATTLIST authorContactInfoLayout
+     textalign (start | left | center | end | right) 'start'
+     >
 <!ELEMENT contactNameLayout EMPTY >
 <!ATTLIST contactNameLayout
     %frontmatterformatinfo;

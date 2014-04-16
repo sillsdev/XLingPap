@@ -37,6 +37,12 @@ href="mailto::andy_black@sil.org"
 >In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
 ><li
 >For collCitation and procCitation which need to insert the referred to book's authors in the reference, also do switch of last name when there is ' y ' (Spanish) or ' et ' (French) like we do for ' and ' and ' &amp; '.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add attribute textalign to the authorContactInfoLayout element to control the horizontal position of a single author's contact information.  This does not work if there are two or more authors.</li
+></ul
+></li
 ></ul
 ></li
 ><li

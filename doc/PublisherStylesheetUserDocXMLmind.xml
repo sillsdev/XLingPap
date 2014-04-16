@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->10 April 2014</date
+>16 April 2014</date
 ><version
->2.24.5</version
+>2.24.6</version
 ><contents
 showLevel="6"
 ></contents
@@ -1677,7 +1677,7 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
-term="iAuthorLayout"
+term="iContactInformation"
 ></indexedItem
 ><object
 type="tElement"
@@ -2440,6 +2440,26 @@ showTitle="short"
 ></tr
 ></table
 ></example
+><p
+>In addition, the <object
+type="tElement"
+>authorContactInfoLayout</object
+> element has one attribute: <object
+type="tAttribute"
+>textalign</object
+>.  This has the values shown in section <sectionRef
+sec="sFrontMatterFormatInfoAttributes"
+></sectionRef
+> <genericRef
+gref="gTextAlign"
+>here</genericRef
+>.  Note that these only work with the <object
+type="tXeTeX"
+></object
+> way of producing PDF and, in addition, only work when there is but one <object
+type="tElement"
+>authorContactInfo</object
+> element.</p
 ></section3
 ></section2
 ></section1
@@ -13041,6 +13061,9 @@ lang="lEng"
 > <indexedItem
 term="iTextAlignAttribute"
 ></indexedItem
+><genericTarget
+id="gTextAlign"
+></genericTarget
 ><object
 type="tAttribute"
 >textalign</object

@@ -41,6 +41,8 @@ href="mailto::andy_black@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add attribute textalign to the authorContactInfoLayout element to control the horizontal position of a single author's contact information.  This does not work if there are two or more authors.</li
+><li
+>Fix bug: if an example(chart) had both an exampleHeading and an ol or ul list, then the first line of the list and the exampleHeading would overlap.</li
 ></ul
 ></li
 ></ul

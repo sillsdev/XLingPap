@@ -521,6 +521,9 @@
                         <xsl:when test="parent::definition and ancestor::p">
                             <xsl:text>&#x0a;</xsl:text>
                         </xsl:when>
+                        <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
+                            <!-- do nothing -->
+                        </xsl:when>
                         <xsl:otherwise>
                             <tex:cmd name="vspace" nl1="1" nl2="1">
                                 <tex:parm>
@@ -811,6 +814,9 @@
                     <xsl:choose>
                         <xsl:when test="parent::definition and ancestor::p">
                             <xsl:text>&#x0a;</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
+                            <!-- do nothing -->
                         </xsl:when>
                         <xsl:otherwise>
                             <tex:cmd name="vspace" nl1="1" nl2="1">

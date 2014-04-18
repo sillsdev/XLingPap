@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 April 2014</date
+>18 April 2014</date
 ><version
->2.24.5</version
+>2.24.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -4367,7 +4367,7 @@ src="resources/CollectionSamplesJIPA.png"
 ></chart
 ></example
 ><p
->Notice that for Bauer &amp; Warren (2004) and for Sampson (1987), the reference entry itself contains the information about the collection volume the paper occurs in. For Barry (1992) and Browman &amp; Goldstein (1992), however, the reference entry refers to another reference entry for the collection: Docherty &amp; Ladd (1992).</p
+>Notice that for Bauer &amp; Warren (2004) and for Sampson (1987), the reference entry itself contains the information about the collection volume (i.e. the book) the paper occurs in. For Barry (1992) and Browman &amp; Goldstein (1992), however, the reference entry refers to another reference entry for the collection: Docherty &amp; Ladd (1992).</p
 ><p
 >Why should some collection entries have the full information about the collection volume while others merely refer to the collection volume which is a distinct entry itself? The key difference is that when two or more papers from the same collection volume are cited, then for those papers, we need to refer to the collection volume itself instead of spelling out the collection volume information.</p
 ><p
@@ -4377,7 +4377,10 @@ type="tXLingPap"
 > to have both of these methods occur automatically. That is, one can add reference entries for the collection volume itself and then use a special <object
 type="tElement"
 >collCitation</object
-> element to refer to the collection volume. If a given <object
+> element to refer to the collection volume (which will use a <object
+type="tElement"
+>book</object
+> element). If a given <object
 type="tXLingPap"
 ></object
 > document has two<endnote
@@ -4410,7 +4413,10 @@ href="PublisherStylesheetUserDocXMLmind.htm"
 letter="xCollectionSamplesJIPA"
 num="xCollectionSamplesJIPA"
 ></exampleRef
-> above). In addition, the collection volume entry is also given (Docherty &amp; Ladd (1992) in example <exampleRef
+> above). In addition, the collection volume entry (which uses a <object
+type="tElement"
+>book</object
+> element) is also given (Docherty &amp; Ladd (1992) in example <exampleRef
 letter="xCollectionSamplesJIPA"
 num="xCollectionSamplesJIPA"
 ></exampleRef
@@ -15251,6 +15257,9 @@ id="sListsOrdered"
 ><secTitle
 >Ordered or Numbered Lists</secTitle
 ><p
+><indexedItem
+term="iOrderedList"
+></indexedItem
 >Ordered or numbered lists consist of items, each of which is tagged with a number or letter in sequence. To create an ordered list, insert an <object
 type="tElement"
 >ol</object
@@ -15353,6 +15362,202 @@ note="nNodePathBarReminder"
 type="tKey"
 >Ctrl+k</object
 >), cut it or copy it. If you cut or copy it, you can then paste it in another place in a list.</p
+><section3
+id="sListsOrderedControlling"
+><secTitle
+>Controlling Numbers and/or Letters Used</secTitle
+><p
+><indexedItem
+term="iOrderedListControlling"
+></indexedItem
+>For ordered lists, <object
+type="tXLingPap"
+></object
+> defaults to numbering the list elements at the highest level (i.e., using 1, 2, 3,... for each list item).  If there is a nested ordered list at the second level, then it uses lower case letters (i.e., a, b, c, ...).  For a third level nested ordered list, it uses lower case roman numerals (i.e., i, ii, iii, iv, v, ...).  If there is a fourth level nested ordered list, it will use numbers again.  It repeats this “numbers, lower case letters, lower case roman numerals” for each successive nested ordered list.</p
+><p
+>There are times when you may want to be able to choose the numbers or letters to use.  You do this by setting the <object
+type="tAttribute"
+>numberFormat</object
+> attribute of the <object
+type="tElement"
+>ol</object
+> element.  Example <exampleRef
+letter="xOrderedListNumberFormatBasic"
+num="xOrderedListNumberFormatBasic"
+></exampleRef
+> shows the possible values you can use.<endnote
+id="nOrderedListNumberFormat"
+><p
+>For the default way of producing PDF, you can also use some other items such as Unicode digits in non-Roman languages (e.g. Hebrew, Thai or Tamil).</p
+></endnote
+></p
+><example
+num="xOrderedListNumberFormatBasic"
+><table
+border="1"
+><tr
+><th
+>Format</th
+><th
+>Results</th
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1</object
+></td
+><td
+>1, 2, 3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>01</object
+></td
+><td
+>01, 02, 03, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>A</object
+></td
+><td
+>A, B, C, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>a</object
+></td
+><td
+>a, b, c, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>I</object
+></td
+><td
+>I, II, III, IV, V, VI, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>i</object
+></td
+><td
+>i, ii, iii, iv, v, vi, ...</td
+></tr
+></table
+></example
+></section3
+><section3
+id="sListsOrderedOutline"
+><secTitle
+>Creating an Outline</secTitle
+><p
+><indexedItem
+term="iOrderedListOutline"
+></indexedItem
+>Sometimes you may want to use an ordered list to create an outline, perhaps in a dissertation proposal to show the proposed content of various chapters and their sections  You also want to include the section numbers.  You can now do this for the default way of producing PDF only.  You do it by nesting <object
+type="tElement"
+>ol</object
+> elements and setting two attributes: <object
+type="tAttribute"
+>numberFormat</object
+> and <object
+type="tAttribute"
+>numberLevel</object
+>.  Set <object
+type="tAttribute"
+>numberLevel</object
+> to <object
+type="tAttrValue"
+>multiple</object
+> (which enables it to correctly set the level numbers).  You set the <object
+type="tAttribute"
+>numberFormat</object
+> attribute to values as shown in example <exampleRef
+letter="xOrderedListNumberFormatOutline"
+num="xOrderedListNumberFormatOutline"
+></exampleRef
+>.</p
+><example
+num="xOrderedListNumberFormatOutline"
+><table
+border="1"
+><tr
+><th
+>Format</th
+><th
+>Results</th
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1</object
+></td
+><td
+>1, 2, 3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1.1</object
+></td
+><td
+>1.1, 1.2, 1.3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1.1.1</object
+></td
+><td
+>1.1.1, 1.1.2, 1.1.3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1.1.1.1</object
+></td
+><td
+>1.1.1.1, 1.1.1.2, 1.1.1.3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1.1.1.1.1</object
+></td
+><td
+>1.1.1.1.1, 1.1.1.1.2, 1.1.1.1.3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1.1.1.1.1.1</object
+></td
+><td
+>1.1.1.1.1.1, 1.1.1.1.1.2, 1.1.1.1.1.3, ...</td
+></tr
+></table
+></example
+><p
+>You can also begin the pattern with a capital A if you are showing appendices, say.</p
+></section3
 ></section2
 ><section2
 id="sListsDefinition"
@@ -29255,6 +29460,12 @@ id="iNewDocument"
 >New Document</term
 ></indexTerm
 ><indexTerm
+id="iNumberedList"
+see="iOrderedList"
+><term
+>Numbered list</term
+></indexTerm
+><indexTerm
 id="iOpenOfficeWriter"
 ><term
 >Open Office Writer format</term
@@ -29264,6 +29475,23 @@ id="iOpenSection"
 see="iExpandSection"
 ><term
 >Open up a section</term
+></indexTerm
+><indexTerm
+id="iOrderedList"
+><term
+>Ordered list</term
+><indexTerms
+><indexTerm
+id="iOrderedListControlling"
+><term
+>Controlling letters or numbers used</term
+></indexTerm
+><indexTerm
+id="iOrderedListOutline"
+><term
+>Creating an outline</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iORCID"

@@ -111,16 +111,46 @@
         <ol>
             <xsl:attribute name="style">
                 <xsl:text>list-style-type:</xsl:text>
+                <xsl:variable name="sNumberFormat" select="@numberFormat"/>
                 <xsl:choose>
-                    <xsl:when test="($NestingLevel mod 3)=0">
-                        <xsl:text>decimal</xsl:text>
+                    <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                        <xsl:choose>
+                            <xsl:when test="$sNumberFormat='1'">
+                                <xsl:text>decimal</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sNumberFormat='A'">
+                                <xsl:text>upper-alpha</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sNumberFormat='a'">
+                                <xsl:text>lower-alpha</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sNumberFormat='I'">
+                                <xsl:text>upper-roman</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sNumberFormat='i'">
+                                <xsl:text>lower-roman</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sNumberFormat='01'">
+                                <xsl:text>decimal-leading-zero</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>decimal</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
-                    <xsl:when test="($NestingLevel mod 3)=1">
-                        <xsl:text>lower-alpha</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="($NestingLevel mod 3)=2">
-                        <xsl:text>lower-roman</xsl:text>
-                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="($NestingLevel mod 3)=0">
+                                <xsl:text>decimal</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="($NestingLevel mod 3)=1">
+                                <xsl:text>lower-alpha</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="($NestingLevel mod 3)=2">
+                                <xsl:text>lower-roman</xsl:text>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text>; </xsl:text>
                 <xsl:call-template name="DoType"/>
@@ -1484,7 +1514,8 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+        <xsl:param name="abbrsUsed"
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
                 <xsl:attribute name="style">
@@ -1671,7 +1702,8 @@
                             <xsl:choose>
                                 <xsl:when test="ancestor::tablenumbered ">
                                     <xsl:choose>
-                                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                                        <xsl:when
+                                            test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
                                             <xsl:choose>
                                                 <xsl:when test="ancestor::caption">
                                                     <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>

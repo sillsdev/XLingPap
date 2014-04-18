@@ -339,11 +339,14 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- ordered list -->
+<!-- Attribute numberFormat can be 1, 01, a, A, i, I any number Unicode character and combinations of these (e.g. A.1.a) -->
 <!ELEMENT ol (li)*>
 <!ATTLIST ol
     type IDREF #IMPLIED
     %special;
     contentType IDREF #IMPLIED
+    numberFormat CDATA #IMPLIED
+    numberLevel (single | multiple) #IMPLIED
 >
 <!-- unordered list -->
 <!ELEMENT ul (li)*>

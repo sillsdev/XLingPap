@@ -894,8 +894,55 @@
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
+    <!-- 
+        GetOrderedListItemNumberOrLetter
+    -->
+    <xsl:template name="GetOrderedListItemNumberOrLetter">
+        <xsl:variable name="sNumberFormat" select="../@numberFormat"/>
+        <xsl:variable name="sNumberLevel" select="../@numberLevel"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                <!-- the user has defined a format to use -->
+                <xsl:choose>
+                    <xsl:when test="$sNumberLevel='multiple'">
+                        <xsl:number level="multiple" count="li" format="{$sNumberFormat}"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number level="single" count="li" format="{$sNumberFormat}"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="NestingLevel">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::endnote">
+                            <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="count(ancestor::ol)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="($NestingLevel mod 3)=1">
+                        <xsl:number level="single" count="li" format="1"/>
+                    </xsl:when>
+                    <xsl:when test="($NestingLevel mod 3)=2">
+                        <xsl:number level="single" count="li" format="a"/>
+                    </xsl:when>
+                    <xsl:when test="($NestingLevel mod 3)=0">
+                        <xsl:number level="single" count="li" format="i"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="position()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>.</xsl:text>
+    </xsl:template>
     <!--  
-        GetExampleNumber
+        GetTableNumberedNumber
     -->
     <xsl:template name="GetTableNumberedNumber">
         <xsl:param name="tablenumbered"/>

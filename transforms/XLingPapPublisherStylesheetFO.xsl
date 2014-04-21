@@ -1993,12 +1993,7 @@
             <xsl:when test="parent::interlinear-text">
                 <fo:block id="{@text}" font-size="smaller" font-weight="bold"
                     keep-with-next.within-page="2" orphans="2" widows="2">
-                    <xsl:value-of select="../textInfo/shortTitle"/>
-                    <xsl:text>:</xsl:text>
-                    <xsl:call-template name="DoInterlinearTextNumber">
-                        <xsl:with-param name="interlinear" select="."/>
-                        <xsl:with-param name="sRef" select="@text"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 </fo:block>
                 <fo:block margin-left="0.125in">
                     <xsl:call-template name="OutputInterlinear">

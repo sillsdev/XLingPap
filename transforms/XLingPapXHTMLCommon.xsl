@@ -525,12 +525,7 @@
                             <xsl:value-of select="@text"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:value-of select="../textInfo/shortTitle"/>
-                    <xsl:text>:</xsl:text>
-                    <xsl:call-template name="DoInterlinearTextNumber">
-                        <xsl:with-param name="interlinear" select="."/>
-                        <xsl:with-param name="sRef" select="@text"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 </div>
                 <div style="margin-left:0.125in">
                     <xsl:call-template name="OutputInterlinear">

@@ -866,6 +866,20 @@
         </xsl:if>
     </xsl:template>
     <!--
+        GetInterlinearTextShortTitleAndNumber
+    -->
+    <xsl:template name="GetInterlinearTextShortTitleAndNumber">
+        <xsl:variable name="sTextShortTitle" select="../textInfo/shortTitle"/>
+        <xsl:if test="string-length($sTextShortTitle) &gt; 0">
+            <xsl:value-of select="$sTextShortTitle"/>
+            <xsl:text>:</xsl:text>
+        </xsl:if>
+        <xsl:call-template name="DoInterlinearTextNumber">
+            <xsl:with-param name="interlinear" select="."/>
+            <xsl:with-param name="sRef" select="@text"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         GetLiInOlNumberOrLetter
     -->
     <xsl:template name="GetLiInOlNumberOrLetter">

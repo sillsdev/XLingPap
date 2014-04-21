@@ -1220,12 +1220,7 @@
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@text"/>
                 </xsl:call-template>
-                <xsl:value-of select="../textInfo/shortTitle"/>
-                <xsl:text>:</xsl:text>
-                <xsl:call-template name="DoInterlinearTextNumber">
-                    <xsl:with-param name="interlinear" select="."/>
-                    <xsl:with-param name="sRef" select="@text"/>
-                </xsl:call-template>
+                <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 <xsl:call-template name="DoInternalTargetEnd"/>
                 <tex:spec cat="eg"/>
                 <tex:spec cat="eg"/>

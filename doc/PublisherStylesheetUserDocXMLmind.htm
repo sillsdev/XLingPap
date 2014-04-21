@@ -8,7 +8,7 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>andy_black@sil.org</i></center><br><center><small>16 April 2014</small></center>
+      <center><i>andy_black@sil.org</i></center><br><center><small>21 April 2014</small></center>
       <center><small>Version: 2.24.6</small></center>
       <hr>
       <div>
@@ -1096,7 +1096,7 @@
             </tr>
          </table>
       </div>
-      <p>In addition, the <span style="font-family:Courier New; color:maroon; ">authorContactInfoLayout</span> element has one attribute: <span style="font-family:Courier New; color:purple; ">textalign</span>.  This has the values shown in section <a href="#sFrontMatterFormatInfoAttributes">7.3</a> <a href="#gTextAlign">here</a>.  Note that these only work with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF and, in addition, only work when there is but one <span style="font-family:Courier New; color:maroon; ">authorContactInfo</span> element.
+      <p>In addition, the <span style="font-family:Courier New; color:maroon; ">authorContactInfoLayout</span> element has one attribute: <span style="font-family:Courier New; color:purple; ">textalign</span>. This has the values shown in section <a href="#sFrontMatterFormatInfoAttributes">7.3</a> <a href="#gTextAlign">here</a>. Note that these only work with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF and, in addition, only work when there is but one <span style="font-family:Courier New; color:maroon; ">authorContactInfo</span> element.
       </p>
       <h1 style=""><a name="sBodyLayout"></a>4&nbsp;Body Layout
       </h1>
@@ -3530,7 +3530,7 @@
       </p>
       <h2 style=""><a name="sInterlinearAlignedWordSpacing"></a>6.7&nbsp;Controlling the Spacing between Aligned Words in Interlinears
       </h2>
-      <p><a name="rXLingPapIndexedItem.iInterlinearAlignedWordSpacing.d0e5956"></a>You can control how much spacing there is between aligned word units in an interlinear via the <span style="font-family:Courier New; color:maroon; ">interlinearAlignedWordSpacing</span> element. It only has the three &#8220;special&#8221; attributes although currently only the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> attribute will make a difference and that only with the <span style="font-family:Courier New; font-style:italic; color:steelblue; ">interlinear-aligned-word-skip</span> attribute value set equal to a TeX &#8216;glue&#8217; value: a basic point value plus a stretch point factor minus a shrink point factor.
+      <p><a name="rXLingPapIndexedItem.iInterlinearAlignedWordSpacing.d0e5956"></a>You can control how much spacing there is between aligned word units in an automatically wrapped interlinear via the <span style="font-family:Courier New; color:maroon; ">interlinearAlignedWordSpacing</span> element. It only has the three &#8220;special&#8221; attributes although currently only the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> attribute will make a difference and that only with the <span style="font-family:Courier New; font-style:italic; color:steelblue; ">interlinear-aligned-word-skip</span> attribute value set equal to a TeX &#8216;glue&#8217; value: a basic point value plus a stretch point factor minus a shrink point factor.
          The default &#8216;glue&#8217; value used by <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is <span style="color:maroon; ">6.66666pt plus 3.33333pt minus 2.22222pt</span> (this is what is used by <a href="#rITF">Kew &amp; McConnel  1990:56</a>). If this is too much or too little for the publisher, you can change it. For example, if you wanted to reduce the default
          value by one point in all three factors, you would set the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</span>.
       </p>

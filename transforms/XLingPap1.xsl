@@ -3238,7 +3238,7 @@
     <xsl:template name="DoEndnotes">
         <xsl:param name="endnotesToShow" select="$endnotesToShow"/>
         <xsl:param name="endnotesToUse"
-            select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)] | //interlinearRef[not(ancestor::chapterInCollection/backMatter/endnotes)]"/>
+            select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)][not(ancestor::comment)] | //interlinearRef[not(ancestor::chapterInCollection/backMatter/endnotes)]"/>
         <xsl:if test="contains($endnotesToShow,'X')">
             <xsl:if test="not(ancestor::chapterInCollection)">
                 <hr size="3"/>

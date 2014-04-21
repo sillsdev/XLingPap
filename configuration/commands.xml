@@ -1692,7 +1692,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXLookForProblems"/>
                             <cfg:command name="status" parameter="%_"/>
                             <cfg:command name="CheckPresenceOfFontsAndImagesCmd" parameter="%{P}"/>
-                            <!--                        <cfg:command name="alert" parameter="After, result = %_"/>-->
+<!--                                                    <cfg:command name="alert" parameter="After, result = %_"/>-->
                             <cfg:choice>
                                 <cfg:sequence>
                                     <cfg:pass>

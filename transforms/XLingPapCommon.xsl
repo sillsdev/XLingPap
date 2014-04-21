@@ -66,7 +66,7 @@
     <xsl:variable name="sReferencesID" select="'rXLingPapReferences'"/>
     <xsl:variable name="sAppendiciesPageID" select="'rXLingPapAppendiciesPage'"/>
     <xsl:variable name="endnotesToShow">
-        <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)]">
+        <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)][not(ancestor::comment)]">
             <xsl:text>X</xsl:text>
         </xsl:for-each>
         <xsl:for-each select="//interlinearRef[not(ancestor::chapterInCollection/backMatter/endnotes)]">

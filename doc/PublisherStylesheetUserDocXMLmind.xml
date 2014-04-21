@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->16 April 2014</date
+>21 April 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -2447,13 +2447,13 @@ type="tElement"
 > element has one attribute: <object
 type="tAttribute"
 >textalign</object
->.  This has the values shown in section <sectionRef
+>. This has the values shown in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 ></sectionRef
 > <genericRef
 gref="gTextAlign"
 >here</genericRef
->.  Note that these only work with the <object
+>. Note that these only work with the <object
 type="tXeTeX"
 ></object
 > way of producing PDF and, in addition, only work when there is but one <object
@@ -8583,7 +8583,7 @@ id="sInterlinearAlignedWordSpacing"
 ><indexedItem
 term="iInterlinearAlignedWordSpacing"
 ></indexedItem
->You can control how much spacing there is between aligned word units in an interlinear via the <object
+>You can control how much spacing there is between aligned word units in an automatically wrapped interlinear via the <object
 type="tElement"
 >interlinearAlignedWordSpacing</object
 > element. It only has the three “special” attributes although currently only the <object

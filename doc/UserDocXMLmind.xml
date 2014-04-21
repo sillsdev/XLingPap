@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->19 April 2014</date
+>21 April 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -23875,6 +23875,20 @@ type="tElement"
 >framedUnit</object
 > element, select the material and then do a Convert Wrap command. Choose “framedUnit”.</li
 ></ol
+><p
+><indexedItem
+term="iXeLaTeXUpgrade"
+></indexedItem
+>Also please note that for the default way of producing PDF (via <object
+type="tXeTeX"
+></object
+>), you will need to have initially installed XLingPaper before October 2012 or you will need to get and install the <object
+type="tXeTeX"
+></object
+> Upgrade package.   See <link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+>.</p
 ></section1
 ><section1
 id="sContentControl"

@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.24.6</span></p>
-      <p align="center">Date: 2014-04-18</p>
+      <p align="center">Date: 2014-04-21</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,13 +34,13 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.24.6 18 April 2014
+               <li>2.24.6 21 April 2014
                   <ul>
                      <li>In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li>
                      <li>For collCitation and procCitation which need to insert the referred to book's authors in the reference, also do switch of
                         last name when there is ' y ' (Spanish) or ' et ' (French) like we do for ' and ' and ' &amp; '.
                      </li>
-                     <li>Allow user to control what letters or numbers are used in ordered lists (ol elements).  See section 7.2.1 "Controlling Numbers
+                     <li>Allow user to control what letters or numbers are used in ordered lists (ol elements). See section 7.2.1 "Controlling Numbers
                         and/or Letters Used" in the User Documentation.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
@@ -49,12 +49,16 @@
                            <li>Add attribute textalign to the authorContactInfoLayout element to control the horizontal position of a single author's contact
                               information. This does not work if there are two or more authors.
                            </li>
-                           <li>Allow a user to produce an outline format in ordered list (ol) elements.  See section 7.2.2 "Creating an Outline".</li>
+                           <li>Allow a user to produce an outline format in ordered list (ol) elements. See section 7.2.2 "Creating an Outline".</li>
                            <li>Fix bug: if an example(chart) had both an exampleHeading and an ol or ul list, then the first line of the list and the exampleHeading
                               would overlap.
                            </li>
+                           <li>Fix bug: if some text was selected while trying to produce the PDF, the PDF process would just silently not be done.  Now
+                              it is produced.
+                           </li>
                         </ul>
                      </li>
+                     <li>In the web page output, if an endnote was inside a comment element, it was still being shown when it should not have been.</li>
                   </ul>
                </li>
                <li>2.24.5 15 April 2014

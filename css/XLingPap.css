@@ -2802,6 +2802,9 @@ ol > li {
 ol > li:before {
     display: marker;
     content: simple-counter(n, decimal) ".";
+/* this did not work: label(xpath,"if(../@numberFormat='1',simple-counter(n, decimal),../@numberFormat='A',simple-counter(n, upper-alpha),../@numberFormat='a',simple-counter(n, lower-alpha),../@numberFormat='I',simple-counter(n, upper-roman),../@numberFormat='i',simple-counter(n, lower-roman),(count(ancestor::ol) mod 3)=1,simple-counter(n, decimal),(count(ancestor::ol) mod 3)=2,simple-counter(n, lower-alpha),(count(ancestor::ol) mod 3)=0,simple-counter(n, lower-roman),simple-counter(n, decimal)")
+              "."; */
+
 /*    font-weight: bold; */
 }
 ol > li ol > li:before {

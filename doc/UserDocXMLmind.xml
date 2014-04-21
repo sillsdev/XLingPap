@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->18 April 2014</date
+>19 April 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -15373,15 +15373,15 @@ term="iOrderedListControlling"
 >For ordered lists, <object
 type="tXLingPap"
 ></object
-> defaults to numbering the list elements at the highest level (i.e., using 1, 2, 3,... for each list item).  If there is a nested ordered list at the second level, then it uses lower case letters (i.e., a, b, c, ...).  For a third level nested ordered list, it uses lower case roman numerals (i.e., i, ii, iii, iv, v, ...).  If there is a fourth level nested ordered list, it will use numbers again.  It repeats this “numbers, lower case letters, lower case roman numerals” for each successive nested ordered list.</p
+> defaults to numbering the list elements at the highest level (i.e., using 1, 2, 3,... for each list item). If there is a nested ordered list at the second level, then it uses lower case letters (i.e., a, b, c, ...). For a third level nested ordered list, it uses lower case roman numerals (i.e., i, ii, iii, iv, v, ...). If there is a fourth level nested ordered list, it will use numbers again. It repeats this “numbers, lower case letters, lower case roman numerals” for each successive nested ordered list.</p
 ><p
->There are times when you may want to be able to choose the numbers or letters to use.  You do this by setting the <object
+>There are times when you may want to be able to choose the numbers or letters to use. You do this by setting the <object
 type="tAttribute"
 >numberFormat</object
 > attribute of the <object
 type="tElement"
 >ol</object
-> element.  Example <exampleRef
+> element. Example <exampleRef
 letter="xOrderedListNumberFormatBasic"
 num="xOrderedListNumberFormatBasic"
 ></exampleRef
@@ -15457,6 +15457,11 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+><p
+>Please note that while the output will have the correct number or letter, you will not see them in the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
 ></section3
 ><section3
 id="sListsOrderedOutline"
@@ -15466,7 +15471,7 @@ id="sListsOrderedOutline"
 ><indexedItem
 term="iOrderedListOutline"
 ></indexedItem
->Sometimes you may want to use an ordered list to create an outline, perhaps in a dissertation proposal to show the proposed content of various chapters and their sections  You also want to include the section numbers.  You can now do this for the default way of producing PDF only.  You do it by nesting <object
+>Sometimes you may want to use an ordered list to create an outline, perhaps in a dissertation proposal to show the proposed content of various chapters and their sections You also want to include the section numbers. You can now do this for the default way of producing PDF only. You do it by nesting <object
 type="tElement"
 >ol</object
 > elements and setting two attributes: <object
@@ -15475,13 +15480,13 @@ type="tAttribute"
 > and <object
 type="tAttribute"
 >numberLevel</object
->.  Set <object
+>. Set <object
 type="tAttribute"
 >numberLevel</object
 > to <object
 type="tAttrValue"
 >multiple</object
-> (which enables it to correctly set the level numbers).  You set the <object
+> (which enables it to correctly set the level numbers). You set the <object
 type="tAttribute"
 >numberFormat</object
 > attribute to values as shown in example <exampleRef
@@ -15557,6 +15562,16 @@ type="tAttrValue"
 ></example
 ><p
 >You can also begin the pattern with a capital A if you are showing appendices, say.</p
+><p
+>When you have more than nine numbered items at any level, then you should use double "11" instead of a single "1". For example, suppose that chapter 5 has eleven sections in it. For chapter 5's embedded <object
+type="tElement"
+>ol</object
+> element, use "1.11”. If any of these subsections of chapter 5 have further subsections, use “1.11.1”, etc. If you just use the usual “1.1” or “1.1.1”, the alignment will not be correct in the PDF.</p
+><p
+>Please note that while the output will have the correct number or letter, you will not see them in the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
 ></section3
 ></section2
 ><section2
@@ -19109,6 +19124,9 @@ type="tXeTeX"
 > If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email message to <link
 href="mailto:andy_black@sil.org"
 >andy_black@sil.org</link
+>. Also please see section <sectionRef
+sec="sFAQCreateZipFile"
+></sectionRef
 >.</p
 ><p
 >See the <genericRef
@@ -22610,6 +22628,23 @@ type="tInstruction"
 ></ol
 ><p
 >Please note that if any of the files involved in your document are in directories above the directory where your main document is, the zip file will adjust so that the highest level directory is at the top and all other files will be in their respective directories.</p
+><p
+>If you are sending this file to Andy Black, please do one of two things:</p
+><ol
+><li
+>Navigate to <link
+href="https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#"
+>https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#</link
+> and drag and drop your zip file to it. Then send Andy Black an email (<link
+href="mailto:andy_black@sil.org"
+>andy_black@sil.org</link
+>) that you have put the file there.</li
+><li
+>Change the extension of your zip file to something like “.piz” and send it via email to <link
+href="mailto:andy_black@sil.org"
+>andy_black@sil.org</link
+>. If you do not change the extension, the zip file will not be sent.</li
+></ol
 ></section2
 ><section2
 id="sFAQUseShorterMenus"

@@ -710,7 +710,13 @@ Content Layout
        textbeforeafterusesfontinfo (no | yes) 'no'
        %formatinfo;
     >
-    <!ELEMENT glossLayout (glossInExampleLayout, glossInTableLayout, glossInProseLayout) >
+    <!ELEMENT glossLayout (glossInListWordLayout?, glossInExampleLayout, glossInTableLayout, glossInProseLayout) >
+<!-- glossInListWordLayout is for listWord and word examples (listWord is the most commonly used) -->
+   <!ELEMENT glossInListWordLayout EMPTY >
+    <!ATTLIST glossInListWordLayout
+       textbeforeafterusesfontinfo (no | yes) 'no'
+       %formatinfo;
+    >
    <!ELEMENT glossInExampleLayout EMPTY >
     <!ATTLIST glossInExampleLayout
        textbeforeafterusesfontinfo (no | yes) 'no'

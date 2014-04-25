@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 April 2014</date
+>25 April 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -10885,13 +10885,39 @@ type="tAttrValue"
 ></table
 ></example
 ><p
+>There is actually a fourth element called <object
+type="tElement"
+>glossInListWordLayout</object
+> that controls how <object
+type="tElement"
+>gloss</object
+> elements are formatted in either  <object
+type="tElement"
+>listWord</object
+> or <object
+type="tElement"
+>word</object
+> examples.  You can insert it before the “gloss in example” line.</p
+><p
 >For a given <object
 type="tElement"
 >gloss</object
 > element, the formatting that is used depends on what the closest element to that <object
 type="tElement"
 >gloss</object
-> element is. If an <object
+> element is. If you are using a <object
+type="tElement"
+>glossInListWordLayout</object
+> element, then if either a <object
+type="tElement"
+>listWord</object
+> or a <object
+type="tElement"
+>word</object
+> element is closest, then the formatting of the <object
+type="tElement"
+>glossInListWordLayout</object
+> element is used.  If an <object
 type="tElement"
 >example</object
 > is closest, then the formatting for an example is used. If a <object

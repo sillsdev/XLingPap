@@ -5686,6 +5686,12 @@
         <xsl:param name="sGlossContext"/>
         <xsl:param name="glossLayout"/>
         <xsl:choose>
+            <xsl:when test="$sGlossContext='listWord'">
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="$glossLayout/glossInListWordLayout"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$sGlossContext='example'">
                 <xsl:call-template name="OutputFontAttributesEnd">
                     <xsl:with-param name="language" select="$glossLayout/glossInExampleLayout"/>

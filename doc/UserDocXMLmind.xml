@@ -1543,7 +1543,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a break before this point</td
+>Force a page break before this point</td
 ><td
 >pagebreak</td
 ></tr
@@ -23885,7 +23885,7 @@ type="tXeTeX"
 >), you will need to have initially installed XLingPaper before October 2012 or you will need to get and install the <object
 type="tXeTeX"
 ></object
-> Upgrade package.   See <link
+> Upgrade package. See <link
 href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
 >http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
 >.</p

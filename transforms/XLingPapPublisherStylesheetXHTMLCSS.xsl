@@ -638,6 +638,14 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        glossInListTableLayout
+    -->
+    <xsl:template match="glossInListWordLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'glossInListWordLayout'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         glossInProseLayout
     -->
     <xsl:template match="glossInProseLayout">

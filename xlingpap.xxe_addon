@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-21</a:date
+>2014-04-25</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.6 21 April 2014<ul
+>2.24.6 25 April 2014<ul
 ><li
 >In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
 ><li
 >For collCitation and procCitation which need to insert the referred to book's authors in the reference, also do switch of last name when there is ' y ' (Spanish) or ' et ' (French) like we do for ' and ' and ' &amp; '.</li
 ><li
 >Allow user to control what letters or numbers are used in ordered lists (ol elements). See section 7.2.1 "Controlling Numbers and/or Letters Used" in the User Documentation.</li
+><li
+>Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element.  This is via a publisher style sheet.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

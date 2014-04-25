@@ -28,11 +28,15 @@
 
 @property-value tablenumbered-label() label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@tablenumberedLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@tablenumberedLabel, 'Table ')");
 
+@property-value glossListWordOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout/@textbefore,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
+
 @property-value glossExampleOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textbefore, '')");
 
 @property-value glossProseOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInProseLayout/@textbefore, '')");
 
 @property-value glossTableOverrideBefore() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textbefore))>0,normalize-space(@textbefore),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInTableLayout/@textbefore, '')");
+
+@property-value glossListWordOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInListWordLayout/@textafter,/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')");
 
 @property-value glossExampleOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/glossLayout/glossInExampleLayout/@textafter, '')");
 
@@ -1755,6 +1759,14 @@ genericTarget
 	background-color:generic-background-color();
 }
 
+example listWord gloss:before
+{
+	content: glossListWordOverrideBefore();
+}
+example word gloss:before
+{
+	content: glossListWordOverrideBefore();
+}
 example gloss:before
 {
 	content: glossExampleOverrideBefore();
@@ -1805,6 +1817,14 @@ gloss
 	font-size: concatenate(xpath("id(@lang)/@font-size"));
 	font-style: concatenate(xpath("id(@lang)/@font-style"));
 	font-weight: concatenate(xpath("id(@lang)/@font-weight"));
+}
+example listWord gloss:after
+{
+	content: glossListWordOverrideAfter();
+}
+example word gloss:after
+{
+	content: glossListWordOverrideAfter();
 }
 example gloss:after
 {
@@ -6447,6 +6467,93 @@ glossInExampleLayout
 	margin-left:.125in;
 }
 glossInExampleLayout[textbeforeafterusesfontinfo='no']:after
+{
+	content: label(attribute, textafter)
+	         ;
+}
+
+glossInListWordLayout[color][textbeforeafterusesfontinfo='no']:before
+{
+	color:black;
+}
+glossInListWordLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossInListWordLayout[color][textbeforeafterusesfontinfo='no']:after
+{
+	color:black;
+}
+glossInListWordLayout[font-family][textbeforeafterusesfontinfo='no']:before
+{
+	/* no font-family */
+}
+glossInListWordLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossInListWordLayout[font-family][textbeforeafterusesfontinfo='no']:after
+{
+	/* no font-family */
+}
+glossInListWordLayout[font-size][textbeforeafterusesfontinfo='no']:before
+{
+	font-size:12pt;
+}
+glossInListWordLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossInListWordLayout[font-size][textbeforeafterusesfontinfo='no']:after
+{
+	font-size:12pt;
+}
+glossInListWordLayout[font-style][textbeforeafterusesfontinfo='no']:before
+{
+	font-style:normal;
+}
+glossInListWordLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossInListWordLayout[font-style][textbeforeafterusesfontinfo='no']:after
+{
+	font-style:normal;
+}
+glossInListWordLayout[font-weight][textbeforeafterusesfontinfo='no']:before
+{
+	font-weight:normal;
+}
+glossInListWordLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossInListWordLayout[font-weight][textbeforeafterusesfontinfo='no']:after
+{
+	font-weight:normal;
+}
+glossInListWordLayout[textbeforeafterusesfontinfo='yes']
+{
+	display:block;
+	content: label(attribute, textbefore)
+	         "gloss in listWord or word example"
+	         label(attribute, textafter)
+	         ;
+	margin-left:.125in;
+}
+glossInListWordLayout[textbeforeafterusesfontinfo='no']:before
+{
+	content: label(attribute, textbefore)
+	         ;
+}
+glossInListWordLayout
+{
+	display:block;
+	content: "gloss in listWord or word example"
+	         ;
+	margin-left:.125in;
+}
+glossInListWordLayout[textbeforeafterusesfontinfo='no']:after
 {
 	content: label(attribute, textafter)
 	         ;

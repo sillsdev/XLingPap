@@ -109,7 +109,8 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetFigureNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="{$styleSheetFigureNumberLayout/@format}"/>
+                <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection"
+                    format="{$styleSheetFigureNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="figure[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetFigureNumberLayout/@format}"/>
@@ -128,7 +129,8 @@
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbetweenchapterandnumber"/>
-                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
+                <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" from="chapter | appendix | chapterBeforePart | chapterInCollection"
+                    format="{$styleSheetTableNumberedNumberLayout/@format}"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:number level="any" count="tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]" format="{$styleSheetTableNumberedNumberLayout/@format}"/>
@@ -664,7 +666,8 @@
         <xsl:choose>
             <xsl:when test="$originalContext">
                 <xsl:for-each select="$originalContext">
-                    <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
+                    <xsl:variable name="chapterOrAppendixUnit"
+                        select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
                     <xsl:call-template name="DoBookEndnotesLabeling">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
                         <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
@@ -672,7 +675,8 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="chapterOrAppendixUnit" select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
+                <xsl:variable name="chapterOrAppendixUnit"
+                    select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
                 <xsl:call-template name="DoBookEndnotesLabeling">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                     <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
@@ -2790,8 +2794,21 @@
         GetContextOfItem
     -->
     <xsl:template name="GetContextOfItem">
-        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='example' or name()='table' or name()='interlinear-text'][1]"/>
+        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='listWord' or name()='word' or name()='example' or name()='table' or name()='interlinear-text'][1]"/>
         <xsl:choose>
+            <xsl:when test="name()='gloss' and name($closestRelevantAncestor)='listWord' or name()='gloss' and name($closestRelevantAncestor)='word'">
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/glossLayout/glossInListWordLayout">
+                        <xsl:text>listWord</xsl:text>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>example</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="name($closestRelevantAncestor)='listWord' or name($closestRelevantAncestor)='word'">
+                <xsl:text>example</xsl:text>
+            </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='example' or name($closestRelevantAncestor)='interlinear-text'">
                 <xsl:text>example</xsl:text>
             </xsl:when>
@@ -3566,6 +3583,13 @@
         <xsl:param name="sGlossContext"/>
         <xsl:param name="glossLayout"/>
         <xsl:choose>
+            <xsl:when test="$sGlossContext='listWord'">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$glossLayout/glossInListWordLayout"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                    <xsl:with-param name="bIsOverride" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$sGlossContext='example'">
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="$glossLayout/glossInExampleLayout"/>
@@ -3596,6 +3620,16 @@
         <xsl:param name="glossLayout"/>
         <xsl:param name="sGlossContext"/>
         <xsl:choose>
+            <xsl:when test="$glossLayout/glossInListWordLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='listWord'">
+                <xsl:choose>
+                    <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
+                        <xsl:value-of select="normalize-space(@textafter)"/>
+                    </xsl:when>
+                    <xsl:when test="string-length(normalize-space($glossLayout/glossInListWordLayout/@textafter)) &gt; 0">
+                        <xsl:value-of select="normalize-space($glossLayout/glossInListWordLayout/@textafter)"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='example'">
                 <xsl:choose>
                     <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
@@ -3639,6 +3673,16 @@
         <xsl:param name="sGlossContext"/>
         <xsl:if test="$glossLayout">
             <xsl:choose>
+                <xsl:when test="$glossLayout/glossInListWordLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textafter)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($glossLayout/glossInListWordLayout/@textafter)) &gt; 0">
+                            <xsl:value-of select="normalize-space($glossLayout/glossInListWordLayout/@textafter)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textafter)) &gt; 0">
@@ -3687,6 +3731,16 @@
                 <xsl:with-param name="glossLayout" select="$glossLayout"/>
             </xsl:call-template>
             <xsl:choose>
+                <xsl:when test="$glossLayout/glossInListWordLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textbefore)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($glossLayout/glossInListWordLayout/@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space($glossLayout/glossInListWordLayout/@textbefore)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='yes' and $sGlossContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
@@ -3731,6 +3785,16 @@
         <xsl:param name="sGlossContext"/>
         <xsl:if test="$glossLayout">
             <xsl:choose>
+                <xsl:when test="$glossLayout/glossInListWordLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='listWord'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space(@textbefore)"/>
+                        </xsl:when>
+                        <xsl:when test="string-length(normalize-space($glossLayout/glossInListWordLayout/@textbefore)) &gt; 0">
+                            <xsl:value-of select="normalize-space($glossLayout/glossInListWordLayout/@textbefore)"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:when test="$glossLayout/glossInExampleLayout/@textbeforeafterusesfontinfo='no' and $sGlossContext='example'">
                     <xsl:choose>
                         <xsl:when test="string-length(normalize-space(@textbefore)) &gt; 0">
@@ -4066,8 +4130,7 @@
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
-        <xsl:variable name="works"
-            select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:value-of select="$refer/refDate"/>
         </xsl:variable>

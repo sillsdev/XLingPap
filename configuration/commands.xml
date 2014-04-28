@@ -287,6 +287,9 @@
     <cfg:command name="CreateZipFileCmd">
         <cfg:class>xlingpaper.xxe.CreateZipFile</cfg:class>
     </cfg:command>
+    <cfg:command name="FLExExportRemoveHomographNumbers">
+        <cfg:class>xlingpaper.xxe.RemoveFLExExportHomographNumbers</cfg:class>
+    </cfg:command>
     <cfg:command name="ConvertFileNameForXeLaTeXCmd">
         <cfg:class>xlingpaper.xxe.ConvertFileNameForXeLaTeX</cfg:class>
     </cfg:command>

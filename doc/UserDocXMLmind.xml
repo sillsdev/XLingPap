@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 April 2014</date
+>28 April 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -22777,6 +22777,93 @@ type="tXMLmindXMLEditor"
 type="tElement"
 >chapter</object
 > element from that new document into the appropriate location in the thesis or dissertation book document you are making.</p
+></section2
+><section2
+id="sFAQRemoveFLExExportHomographNumbers"
+><secTitle
+>Remove Homograph Number <object
+type="tElement"
+>object</object
+> Elements from Interlinear Exported from <object
+type="tTool"
+>FLEx</object
+>?</secTitle
+><p
+>When you use the <object
+type="tTool"
+>FieldWorks Language Explorer</object
+> program (which is also known as <object
+type="tTool"
+>FLEx</object
+>) to export an interlinear text to <object
+type="tXLingPap"
+></object
+> format, it may include any number of <object
+type="tElement"
+>object</object
+> elements whose <object
+type="tAttribute"
+>type</object
+> attribute is set to <object
+type="tAttrValue"
+>tHomographNumber</object
+>.  While this homograph number is quite useful in <object
+type="tTool"
+>FLEx</object
+>, it may not be appropriate for the interlinear text or examples you need in your <object
+type="tXLingPap"
+></object
+> document.  You can have <object
+type="tXLingPap"
+></object
+> remove these by using the <object
+type="tInstruction"
+>FLExExportRemoveHomographNumbers</object
+> command.  </p
+><p
+>To do so, follow these steps:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> paper document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “F” (it should then fill in “FLExExportRemoveHomographNumbers” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then remove every <object
+type="tElement"
+>object</object
+> element whose <object
+type="tAttribute"
+>type</object
+> attribute is set to <object
+type="tAttrValue"
+>tHomographNumber</object
+> in your document.   If you have a lot of them in a large interlinear text, it may take a long time to run.</li
+></ol
 ></section2
 ></section1
 ><section1

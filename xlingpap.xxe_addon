@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-25</a:date
+>2014-04-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.6 25 April 2014<ul
+>2.24.6 28 April 2014<ul
 ><li
 >In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
 ><li
@@ -59,6 +59,8 @@ href="mailto::andy_black@sil.org"
 >In the web page output, if an endnote was inside a comment element, it was still being shown when it should not have been.</li
 ><li
 >When an interlinear text does not have a text title, just show line number, not a colon and the line number.</li
+><li
+>Add a command to remove homograph number object elements in an interlinear file exported from FLEx.</li
 ><li
 >Fix bug in Set Reference command for exampleRef elements: if somehow the num and letter values are different, if in the Set Reference command you choose the num value, the letter value does not get changed.</li
 ></ul

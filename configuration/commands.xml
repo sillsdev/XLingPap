@@ -911,6 +911,9 @@ alt causes menu to be selected
                     </cfg:sequence>
                 </cfg:choice>
                 <cfg:set expression="%_" plainString="true" variable="chosenId"/>
+                <!-- if the newly chosen value is the same as what's in num, letter never gets changed.
+                So we put junk into num first in an attempt to hve both get set correctly. -->
+                <cfg:command name="putAttribute" parameter="[implicitElement] num 'XlingPaperJUNKTtempMessIHopeNoOneEverUsesThisIdForReal"/>
                 <cfg:get expression="$chosenId"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
                 <cfg:get expression="$chosenId"/>

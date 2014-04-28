@@ -43,8 +43,8 @@
                      <li>Allow user to control what letters or numbers are used in ordered lists (ol elements). See section 7.2.1 "Controlling Numbers
                         and/or Letters Used" in the User Documentation.
                      </li>
-                     <li>Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element.  This
-                        is via a publisher style sheet.
+                     <li>Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element. This is
+                        via a publisher style sheet.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
@@ -63,6 +63,9 @@
                      </li>
                      <li>In the web page output, if an endnote was inside a comment element, it was still being shown when it should not have been.</li>
                      <li>When an interlinear text does not have a text title, just show line number, not a colon and the line number.</li>
+                     <li>Fix bug in Set Reference command for exampleRef elements: if somehow the num and letter values are different, if in the Set
+                        Reference command you choose the num value, the letter value does not get changed.
+                     </li>
                   </ul>
                </li>
                <li>2.24.5 15 April 2014

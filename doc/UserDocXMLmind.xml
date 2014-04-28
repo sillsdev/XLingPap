@@ -22789,6 +22789,12 @@ type="tTool"
 >FLEx</object
 >?</secTitle
 ><p
+><indexedItem
+term="iFLEx"
+></indexedItem
+><indexedItem
+term="iFLExRemoveHomographNumbers"
+></indexedItem
 >When you use the <object
 type="tTool"
 >FieldWorks Language Explorer</object
@@ -22807,19 +22813,19 @@ type="tAttribute"
 > attribute is set to <object
 type="tAttrValue"
 >tHomographNumber</object
->.  While this homograph number is quite useful in <object
+>. While this homograph number is quite useful in <object
 type="tTool"
 >FLEx</object
 >, it may not be appropriate for the interlinear text or examples you need in your <object
 type="tXLingPap"
 ></object
-> document.  You can have <object
+> document. You can have <object
 type="tXLingPap"
 ></object
 > remove these by using the <object
 type="tInstruction"
 >FLExExportRemoveHomographNumbers</object
-> command.  </p
+> command.</p
 ><p
 >To do so, follow these steps:</p
 ><ol
@@ -22862,7 +22868,63 @@ type="tAttribute"
 > attribute is set to <object
 type="tAttrValue"
 >tHomographNumber</object
-> in your document.   If you have a lot of them in a large interlinear text, it may take a long time to run.</li
+> in your document. If you have a lot of them in a large interlinear text, it may take a long time to run.</li
+></ol
+></section2
+><section2
+id="sFindAnElement"
+><secTitle
+>Find an Element (e.g. <object
+type="tElement"
+>comment</object
+>)?</secTitle
+><p
+>Sometimes you may want to find all instances of an element scattered throughout your <object
+type="tXLingPap"
+></object
+> document.  For example, if you or a colleague enter <object
+type="tElement"
+>comment</object
+> elements in various places, you may want to be able to find them all without having to open up each section and look for them.</p
+><p
+>Here is a way you can do that:</p
+><ol
+><li
+>Place the cursor at the beginning of your document (for example, in the <object
+type="tElement"
+>title</object
+> element).</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Search / Find Element</object
+>.</li
+><li
+>In the Element field, type the name of the element you are looking for.  For example, if you are looking for <object
+type="tElement"
+>comment</object
+> elements, make it look like this:<chart
+><img
+src="resources/FindElementCommentDialog.png"
+></img
+></chart
+></li
+><li
+>Click on OK and the <object
+type="tXMLmindXMLEditor"
+></object
+> will find the first instance of the element you named.</li
+><li
+>To repeat the search command use <object
+type="tKey"
+>Esc-g</object
+> (which means press the <object
+type="tKey"
+>Esc</object
+> key, release it, and then press the <object
+type="tKey"
+>g</object
+> key).</li
 ></ol
 ></section2
 ></section1
@@ -29169,6 +29231,13 @@ see="iSearchTool"
 id="iFLEx"
 ><term
 >FieldWorks Language Explorer</term
+><indexTerms
+><indexTerm
+id="iFLExRemoveHomographNumbers"
+><term
+>Remove homograph numbers from interllnear export</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iFigures"
@@ -29348,6 +29417,12 @@ id="iGraphite"
 id="iHangingIndentParagraph"
 ><term
 >Hanging indent paragraph</term
+></indexTerm
+><indexTerm
+id="iHomographNumbers"
+see="iFLExRemoveHomographNumbers"
+><term
+>Homograph numbers</term
 ></indexTerm
 ><indexTerm
 id="iHTML"

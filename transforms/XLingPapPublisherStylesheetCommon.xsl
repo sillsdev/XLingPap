@@ -2806,6 +2806,16 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
+            <xsl:when test="name()='abbrRef' and name($closestRelevantAncestor)='listWord' or name()='abbrRef' and name($closestRelevantAncestor)='word'">
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/glossLayout/glossInListWordLayout">
+                        <xsl:text>listWord</xsl:text>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>example</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='listWord' or name($closestRelevantAncestor)='word'">
                 <xsl:text>example</xsl:text>
             </xsl:when>

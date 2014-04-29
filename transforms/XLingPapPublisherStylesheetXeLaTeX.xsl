@@ -3307,9 +3307,25 @@
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="key('LanguageID',../@lang)"/>
                     </xsl:call-template>
+                    <xsl:variable name="sGlossContext">
+                        <xsl:call-template name="GetContextOfItem"/>
+                    </xsl:variable>
+                    <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
+                    <xsl:if test="$glossLayout">
+                        <xsl:call-template name="HandleGlossFontOverrides">
+                            <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+                            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="OutputAbbrTerm">
                         <xsl:with-param name="abbr" select="id(@abbr)"/>
                     </xsl:call-template>
+                    <xsl:if test="$glossLayout">
+                        <xsl:call-template name="HandleGlossFontOverridesEnd">
+                            <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+                            <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <xsl:call-template name="OutputFontAttributesEnd">
                         <xsl:with-param name="language" select="key('LanguageID',../@lang)"/>
                     </xsl:call-template>

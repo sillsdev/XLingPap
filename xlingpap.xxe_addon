@@ -69,6 +69,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug in Set Reference command for exampleRef elements: if somehow the num and letter values are different, if in the Set Reference command you choose the num value, the letter value does not get changed.</li
 ><li
 >Document using the Search / Find Element command.</li
+><li
+>Ensure that if the text and textref attributes of an interlinear element in an interlinear-text do not match, that the textef is set to the text value.</li
 ></ul
 ></li
 ><li

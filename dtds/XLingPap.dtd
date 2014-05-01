@@ -555,7 +555,7 @@
     Augmented by morphset so we can get XMLmind to show it as a table.
     Also changed word to iword (for interlinear word).
     -->
-<!ELEMENT item (#PCDATA | %embedded;)*>
+<!ELEMENT item (#PCDATA | %embedded; | abbrRef)*>
 <!ATTLIST item
     type (cf | gls | hn | msa | pos | punct | title | txt | note | variantTypes) #REQUIRED
     lang IDREF #REQUIRED

@@ -42,6 +42,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element. This is via a publisher style sheet.</li
 ><li
+>Add ability to use abbrRef elements in morpheme-aligned interlinear.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Make ordered lists (ol) and bulleted lists (ul) default to using the same indent as paragraphs have.</li

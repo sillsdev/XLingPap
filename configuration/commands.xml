@@ -23,7 +23,7 @@
                 <cfg:pass>
                     <!-- need to be abbreviations and currently needs to be in gloss  -->
                     <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss item"/>
                     <!-- but not with a parent line element -->
                     <cfg:fail>
                         <cfg:command name="selectNode" parameter="parent[implicitElement] line"/>

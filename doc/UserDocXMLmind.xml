@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->28 April 2014</date
+>1 May 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -6416,7 +6416,24 @@ type="tElement"
 > or a <object
 type="tElement"
 >wrd</object
-> element and select <object
+> element<endnote
+id="nItemGls"
+><p
+><indexedItem
+term="iInterlinearMorphemeAligned"
+></indexedItem
+>You can also do this in <object
+type="tElement"
+>item</object
+> elements within a morpheme-aligned interlinear when the <object
+type="tAttribute"
+>type</object
+> attribute is set to <object
+type="tAttrValue"
+>gls</object
+>.</p
+></endnote
+> and select <object
 type="tElement"
 >abbrRef</object
 >. Then press the <object
@@ -6457,7 +6474,10 @@ id="sBMAbbreviationsReferencesAutomatic"
 >The second way to create references to abbreviations is probably much more convenient. When you are entering abbreviations in a <object
 type="tElement"
 >gloss</object
-> element, there is a potentially easier way to insert these <object
+> element,<endnoteRef
+note="nItemGls"
+></endnoteRef
+> there is a potentially easier way to insert these <object
 type="tElement"
 >abbrRef</object
 > elements. Key the gloss material, including any abbreviations. While the cursor is within the gloss element, use the “<object
@@ -9687,6 +9707,9 @@ id="sExInterlinearMorph"
 ><secTitle
 >Morpheme-aligned</secTitle
 ><p
+><indexedItem
+term="iInterlinearMorphemeAligned"
+></indexedItem
 >If you want to have not only the words align, but also the morphemes within the words to align, you will need to key the interlinear examples in a special, more complicated way.<endnote
 id="nFLExInterlinear"
 ><p
@@ -22882,7 +22905,7 @@ type="tElement"
 >Sometimes you may want to find all instances of an element scattered throughout your <object
 type="tXLingPap"
 ></object
-> document.  For example, if you or a colleague enter <object
+> document. For example, if you or a colleague enter <object
 type="tElement"
 >comment</object
 > elements in various places, you may want to be able to find them all without having to open up each section and look for them.</p
@@ -22900,7 +22923,7 @@ type="tInstruction"
 >Search / Find Element</object
 >.</li
 ><li
->In the Element field, type the name of the element you are looking for.  For example, if you are looking for <object
+>In the Element field, type the name of the element you are looking for. For example, if you are looking for <object
 type="tElement"
 >comment</object
 > elements, make it look like this:<chart
@@ -29547,6 +29570,11 @@ id="iInterlinearGloss"
 id="iInterlinearLiteral"
 ><term
 >Literal translation in</term
+></indexTerm
+><indexTerm
+id="iInterlinearMorphemeAligned"
+><term
+>Morpheme-aligned</term
 ></indexTerm
 ><indexTerm
 id="iInterlinearObject"

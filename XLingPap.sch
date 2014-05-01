@@ -356,4 +356,10 @@
             <report test="count(p)=1 and string-length(p/@contentType)!=0">There is a contentType set for the sole p element within a blockquote.  There will probably be extra, unwanted vertical space in the output.  Please set the contentType on the blockquote element instead of on the p element.</report>
         </rule>
     </pattern>
+    <pattern>
+        <title>Check for ill-formed abbrRef elements in morpheme-aligned interlinear</title>
+        <rule context="abbrRef[parent::item]">
+            <report test="parent::item/@type!='gls'">There is an abbrRef in an item element that is not a gloss.  Please only use abbrRef elements in gloss lines.</report>
+        </rule>
+    </pattern>
 </schema>

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 May 2014</date
+>5 May 2014</date
 ><version
 >2.24.6</version
 ><contents
@@ -22950,6 +22950,60 @@ type="tKey"
 > key).</li
 ></ol
 ></section2
+><section2
+id="sFAQSelectToEndnote"
+><secTitle
+>Convert selected material to <object
+type="tElement"
+>endnote</object
+>?</secTitle
+><p
+><indexedItem
+term="iConvertSelectedToEndnote"
+></indexedItem
+>Sometimes you realize that some material you have written in a paragraph, say, should really be within an <object
+type="tElement"
+>endnote</object
+> element. One way to do this is:</p
+><ol
+><li
+>Select the material you want to put in an endnote.</li
+><li
+>Press the <object
+type="tInstruction"
+>Alt</object
+>, the <object
+type="tInstruction"
+>Ctrl</object
+> and the <object
+type="tInstruction"
+>F11</object
+> keys on your keyboard at the same time (or use menu items <object
+type="tInstruction"
+>XLingPaper / Convert selected item(s) to endnote</object
+>). This will immediately convert your selected material into an <object
+type="tElement"
+>endnote</object
+> element.</li
+></ol
+><p
+>Please note two things:</p
+><ol
+><li
+>You may need to delete whitespace before the newly inserted <object
+type="tElement"
+>endnote</object
+> element (or else the footnote number will have space before it in the output).</li
+><li
+>You will need to create a unique ID for the newly inserted <object
+type="tElement"
+>endnote</object
+> element (just like for any other <object
+type="tElement"
+>endnote</object
+> element).</li
+></ol
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -29218,6 +29272,14 @@ id="iEndnotes"
 ><term
 >Endnotes</term
 ><indexTerms
+><indexTerm
+id="iConvertSelectedToEndnote"
+><term
+>Convert selected material to <object
+type="tElement"
+>endnote</object
+></term
+></indexTerm
 ><indexTerm
 id="iEndnotesElement"
 ><term

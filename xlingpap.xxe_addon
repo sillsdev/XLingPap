@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-04-29</a:date
+>2014-05-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.6 29 April 2014<ul
+>2.24.6 5 May 2014<ul
 ><li
 >In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
 ><li
@@ -43,6 +43,8 @@ href="mailto::andy_black@sil.org"
 >Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element. This is via a publisher style sheet.</li
 ><li
 >Add ability to use abbrRef elements in morpheme-aligned interlinear.</li
+><li
+>Add ability to convert selected material to an endnote.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -56,19 +58,19 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug: if some text was selected while trying to produce the PDF, the PDF process would just silently not be done. Now it is produced.</li
 ><li
->Fix bug: If use style sheet override to change font property of a gloss, the abbreviations still come out with the gloss language element font properties, not the override's font properties.</li
+>Fix bug: If use style sheet override to change font property of a gloss, the abbreviations still comes out with the gloss language element font properties, not the override's font properties.</li
 ></ul
 ></li
 ><li
 >In the web page output, if an endnote was inside a comment element, it was still being shown when it should not have been.</li
 ><li
->When an interlinear text does not have a text title, just show line number, not a colon and the line number.</li
+>When an interlinear text does not have a short text title, just show line number, not a colon and the line number.</li
 ><li
 >Add a command to remove homograph number object elements in an interlinear file exported from FLEx.</li
 ><li
 >Fix bug in Set Reference command for exampleRef elements: if somehow the num and letter values are different, if in the Set Reference command you choose the num value, the letter value does not get changed.</li
 ><li
->Document using the Search / Find Element command.</li
+>Document how to use the Search / Find Element command.</li
 ><li
 >Ensure that if the text and textref attributes of an interlinear element in an interlinear-text do not match, that the textef is set to the text value.</li
 ></ul
@@ -92,7 +94,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.</li
 ><li
->Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title. Also use custom2 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
+>Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title. Also use custom6 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
 ><li
 >Add keyword elements to refWork (the content is never output by XLingPaper).</li
 ><li
@@ -144,7 +146,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Fix bug: if a publisher style sheet had a listLayout element and the indent-before attribute was not overtlyset, the PDF would fail to be produced.</li
+>Fix bug: if a publisher style sheet had a listLayout element and the indent-before attribute was not overtly set, the PDF would fail to be produced.</li
 ></ul
 ></li
 ><li

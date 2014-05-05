@@ -706,7 +706,7 @@ alt causes menu to be selected
         <cfg:command name="setReference"/>
     </cfg:binding>
     <cfg:command name="setReference">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:command name="setAbbreviation"/>
@@ -2728,6 +2728,10 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:binding>
+        <cfg:keyPressed code="F11" modifiers="ctrl alt"/>
+        <cfg:command name="ConvertSelectedToEndnote"/>
+    </cfg:binding>
     <cfg:command name="ConvertCollectionInfoToCollectionCitation">
         <cfg:macro undoable="true">
             <cfg:sequence>
@@ -3124,5 +3128,19 @@ NB actually it associates the stylesheet with the original file, not the new han
         <cfg:process showProgress="false">
             <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ConvertPaperToChapter.xsl" to="%*"/>
         </cfg:process>
+    </cfg:command>
+    <cfg:command name="ConvertSelectedToEndnote">
+        <cfg:macro undoable="true" trace="true">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="cut" parameter="[implicit_selection]"/>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] p pc secTitle hangingIndent li blockquote title subtitle q dt dd interlinearSource wrd free langData gloss literal th td exampleHeading textTitle source genre caption endCaption affiliation presentedAt chart definition keyTerm genericRef link publishingBlurb author item"/>
+                </cfg:pass>
+                <cfg:command name="cut" parameter="[implicit_selection]"/>
+                <cfg:command name="insert" parameter="into endnote"/>
+                <cfg:command name="paste" parameter="into"/>
+                <cfg:command name="toggleCollapsed" parameter="expand"/>
+            </cfg:sequence> 
+        </cfg:macro>
     </cfg:command>
 </cfg:configuration>

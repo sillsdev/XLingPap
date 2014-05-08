@@ -779,12 +779,15 @@
     description CDATA #IMPLIED
     %special;
 >
-    <!ELEMENT mediaObject EMPTY >
-    <!ATTLIST mediaObject
-    contentheight CDATA #REQUIRED
-    contentwidth CDATA #REQUIRED
+<!ELEMENT mediaObject EMPTY >
+<!ATTLIST mediaObject
+    contentheight CDATA #IMPLIED
+    contentwidth CDATA #IMPLIED
     src CDATA #REQUIRED
-    showcontrols (yes | no) "yes"
+    showcontrols (yes | no) "no"
+    icon (sound | moviecamera | cinema | opticaldisk) "sound"
+    font-size CDATA #IMPLIED
+    color CDATA #IMPLIED
     >
 <!-- there's more... -->
 <!-- langData is a way to tag some text as belonging to a particular language. -->

@@ -274,7 +274,7 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	    }
 	    int iLen = linkedHref.length();
 	    String suffix = linkedHref.substring(iLen - 4, iLen).toLowerCase();
-	    if (suffix.endsWith(".mp3") || suffix.endsWith("wav") || suffix.endsWith("swf")) {
+	    if (suffix.endsWith(".mp3") || suffix.endsWith("mp4") || suffix.endsWith("wav") || suffix.endsWith("swf")) {
 		iCount = processImageFile(iCount, sDocumentPath, linkedHref);
 	    }
 	}

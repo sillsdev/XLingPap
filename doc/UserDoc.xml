@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->1 April 2014</date
+>8 May 2014</date
 ><version
->2.24.4</version
+>2.25.0</version
 ><contents
 showLevel="3"
 ></contents
@@ -10872,6 +10872,16 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>blockQuoteLayout</object
+></dt
+><dd
+>Vertical space layout info for a <object
+type="tElement"
+>blockquote</object
+> element</dd
+><dt
+><object
+type="tElement"
 >bodyLayout</object
 ></dt
 ><dd
@@ -11336,6 +11346,22 @@ type="tElement"
 > elements which are in <object
 type="tElement"
 >example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInListWordLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>listWord</object
+> or <object
+type="tElement"
+>word</object
 > elements</dd
 ><dt
 ><object

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 May 2014</date
+>8 May 2014</date
 ><version
->2.24.6</version
+>2.25.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -17839,13 +17839,244 @@ id="sSpecialEffectsLinksMediaObject"
 ><secTitle
 >Media objects</secTitle
 ><p
+><indexedItem
+term="iMediaObject"
+></indexedItem
 >An alternative way is to embed a sound or movie file into a PDF file via the <object
 type="tElement"
 >mediaObject</object
-> element. Note, however, that this only works with the <object
+> element. The way one does this for the default (<object
+type="tXeTeX"
+></object
+>) way of producing PDF and the <object
 type="tRenderX"
 ></object
-> way of producing PDF. In addition, you will need to set the <object
+> way of producing PDF differs.</p
+><p
+>For the default (<object
+type="tXeTeX"
+></object
+>) way of producing PDF, you will need to get the free Symbola font and install it on your computer.  You can get it at <link
+href="http://www.xlingpaper.org/?page_id=4#SymbolaFont"
+>http://www.xlingpaper.org/?page_id=4#SymbolaFont</link
+>.  The attributes of the <object
+type="tElement"
+>mediaObject</object
+> element used by the <object
+type="tXeTeX"
+></object
+> way of producing PDF are summarized in the table in <exampleRef
+letter="xMediaObjectAttributes"
+num="xMediaObjectAttributes"
+></exampleRef
+>.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></p
+><example
+num="xMediaObjectAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>color</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>A color name or code to be used as the color of the icon symbol.<endnoteRef
+note="nColorNames"
+></endnoteRef
+></langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-size</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is the font size. If it is expressed in points, it should have the value followed by <object
+type="tAttrValue"
+>pt</object
+>. Perhaps the wisest way to specify a font size is to use a percentage (e.g. <object
+type="tAttrValue"
+>120%</object
+>). Then, if you use this element in a <object
+type="tElement"
+>secTitle</object
+> or an <object
+type="tElement"
+>endnote</object
+> element, it should come out proportionately well in those contexts.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>icon</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>cinema</object
+>,  <object
+type="tAttrValue"
+>moviecamera</object
+>, <object
+type="tAttrValue"
+>opticaldisk</object
+>, or <object
+type="tAttrValue"
+>sound</object
+> (the default is <object
+type="tAttrValue"
+>sound</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The icon which will show in the PDF and on which the user can double-click to play the media file.  The table in example <exampleRef
+letter="xMediaObjectIcons"
+num="xMediaObjectIcons"
+></exampleRef
+> shows what the icons look like (The size is 3 times normal size for clarity's sake.)</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>src</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The media file to use.</langData
+></td
+></tr
+></table
+></example
+><example
+num="xMediaObjectIcons"
+><table
+border="1"
+><tr
+><th
+><object
+type="tAttribute"
+>icon</object
+></th
+><th
+>Image</th
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>cinema</object
+></td
+><td
+><img
+src="Resources/CinemaIcon.png"
+></img
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>movicamera</object
+></td
+><td
+><img
+src="Resources/MovieCameraIcon.png"
+></img
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>opticaldisk</object
+></td
+><td
+><img
+src="Resources/OpticalDiskIcon.png"
+></img
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>sound</object
+></td
+><td
+><img
+src="Resources/SpeakerIcon.png"
+></img
+></td
+></tr
+></table
+></example
+><p
+>For the <object
+type="tRenderX"
+></object
+> way of producing PDF, you will need to set the <object
 type="tAttribute"
 >includemediaobjects</object
 > attribute of the <object
@@ -17863,21 +18094,22 @@ type="tAttribute"
 >, click on “lingPaper” in the node path bar.<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
-></p
-><p
->The attributes of the <object
+>  The attributes of the <object
 type="tElement"
 >mediaObject</object
-> element are summarized in the table in <exampleRef
-letter="xMediaObjectAttributes"
-num="xMediaObjectAttributes"
+> element used by the <object
+type="tRenderX"
+></object
+> way of producing PDF are summarized in the table in <exampleRef
+letter="xMediaObjectRenderXAttributes"
+num="xMediaObjectRenderXAttributes"
 ></exampleRef
 >.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
 ><example
-num="xMediaObjectAttributes"
+num="xMediaObjectRenderXAttributes"
 ><table
 ><tr
 ><th
@@ -26672,6 +26904,16 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>blockQuoteLayout</object
+></dt
+><dd
+>Vertical space layout info for a <object
+type="tElement"
+>blockquote</object
+> element</dd
+><dt
+><object
+type="tElement"
 >bodyLayout</object
 ></dt
 ><dd
@@ -27136,6 +27378,22 @@ type="tElement"
 > elements which are in <object
 type="tElement"
 >example</object
+> elements</dd
+><dt
+><object
+type="tElement"
+>glossInListWordLayout</object
+></dt
+><dd
+>Layout info for <object
+type="tElement"
+>gloss</object
+> elements which are in <object
+type="tElement"
+>listWord</object
+> or <object
+type="tElement"
+>word</object
 > elements</dd
 ><dt
 ><object
@@ -29741,9 +29999,20 @@ id="iMAThesisReferenceEntry"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iMediaObject"
+><term
+>Media file</term
+></indexTerm
+><indexTerm
 id="iMenus"
 ><term
 >Menu is too long</term
+></indexTerm
+><indexTerm
+id="iMovieFile"
+see="iMediaObject"
+><term
+>Movie File</term
 ></indexTerm
 ><indexTerm
 id="iMSWord2003"
@@ -29915,6 +30184,12 @@ id="iPublishingBlurb"
 id="iPublishingInfo"
 ><term
 >Publishing information</term
+></indexTerm
+><indexTerm
+id="iRecordiing"
+see="iMediaObject"
+><term
+>Recording</term
 ></indexTerm
 ><indexTerm
 id="iReference"
@@ -30110,16 +30385,6 @@ id="iSmallCaps"
 >Small caps</term
 ></indexTerm
 ><indexTerm
-id="iSpacing"
-><term
->Spacing in output after periods</term
-></indexTerm
-><indexTerm
-id="iSpanish"
-><term
->Spanish version of the user interface</term
-></indexTerm
-><indexTerm
 id="iSort"
 ><term
 >Sort</term
@@ -30143,6 +30408,22 @@ see="iReferencesSort"
 >References</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iSoundFile"
+see="iMediaObject"
+><term
+>Sound file</term
+></indexTerm
+><indexTerm
+id="iSpacing"
+><term
+>Spacing in output after periods</term
+></indexTerm
+><indexTerm
+id="iSpanish"
+><term
+>Spanish version of the user interface</term
 ></indexTerm
 ><indexTerm
 id="iSpecialCharacterInsert"

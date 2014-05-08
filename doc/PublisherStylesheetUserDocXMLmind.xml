@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 April 2014</date
+>8 May 2014</date
 ><version
->2.24.6</version
+>2.25.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -10891,13 +10891,13 @@ type="tElement"
 > that controls how <object
 type="tElement"
 >gloss</object
-> elements are formatted in either  <object
+> elements are formatted in either <object
 type="tElement"
 >listWord</object
 > or <object
 type="tElement"
 >word</object
-> examples.  You can insert it before the “gloss in example” line.</p
+> examples. You can insert it before the “gloss in example” line.</p
 ><p
 >For a given <object
 type="tElement"
@@ -10917,7 +10917,7 @@ type="tElement"
 > element is closest, then the formatting of the <object
 type="tElement"
 >glossInListWordLayout</object
-> element is used.  If an <object
+> element is used. If an <object
 type="tElement"
 >example</object
 > is closest, then the formatting for an example is used. If a <object

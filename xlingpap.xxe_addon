@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.24.0-xxe-4.8.0.zip"
+location="XLingPap-2.25.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.24.6</a:version
+>2.25.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-05-05</a:date
+>2014-05-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,31 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.24.6 5 May 2014<ul
+>2.25.0 8 May 2014<ul
 ><li
->In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, or .swf file on the computer.</li
+>Add a command to convert a paper to a chapter which can then be included in a book (such as a thesis or dissertation).</li
+><li
+>Add quoteLayout element to publisher style sheet in order to control what text occurs before and/or after the content of a q element.</li
+><li
+>Add blockQuoteLayout element to publisher style sheet to control how much vertical space there is before and/or after a blockquote element.</li
+><li
+>Add a validity check for proper formation of font-size, spacebefore, and spaceafter attributes.</li
+><li
+>Add multivolumeWork as a reference item.</li
+><li
+>Add ability to have an annotated bibliography. See section 4.5.18 "Annotated Bibliography" in the user documentation.</li
+><li
+>Add keyword elements to refWork (the content is never output by XLingPaper).</li
+><li
+>Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.</li
+><li
+>Add option to exampleLayout to start example numbering over in each chapter.</li
+><li
+>Rework CreateZipFile command to use the highest directory among all the files. Also make it include image files from embedded files.</li
+><li
+>In the CreateZipFile command, also check for link elements which refer to a .wav, .mp3, mp4, or .swf file on the computer.</li
+><li
+>Make CreateZipFile command also look for mediaObject items.</li
 ><li
 >For collCitation and procCitation which need to insert the referred to book's authors in the reference, also do switch of last name when there is ' y ' (Spanish) or ' et ' (French) like we do for ' and ' and ' &amp; '.</li
 ><li
@@ -42,23 +64,43 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add an ability to override how gloss elements are formatted when they occur in either a listWord or a word element. This is via a publisher style sheet.</li
 ><li
+>Add a command to remove homograph number object elements in an interlinear file exported from FLEx. See section 11.48 "Remove Homograph Number object Elements from Interlinear Exported from FLEx" in the user documentation.</li
+><li
 >Add ability to use abbrRef elements in morpheme-aligned interlinear.</li
 ><li
 >Add ability to convert selected material to an endnote.</li
+><li
+>Revise the way checking for font size and space before/after is done to try and improve performance.</li
+><li
+>Add validity check for when a contentType has been set in the only p element within a blockquote: can end up with extra, unwanted vertical space.</li
+><li
+>Revise user documentation.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Make ordered lists (ol) and bulleted lists (ul) default to using the same indent as paragraphs have.</li
 ><li
+>Make mediaObject element work.  See section 10.2.3 "Media objects" in the user documentation.</li
+><li
 >Add attribute textalign to the authorContactInfoLayout element to control the horizontal position of a single author's contact information. This does not work if there are two or more authors.</li
 ><li
 >Allow a user to produce an outline format in ordered list (ol) elements. See section 7.2.2 "Creating an Outline".</li
+><li
+>Add check for .tff or .tif files since these will prevent the PDF from being produced.</li
 ><li
 >Fix bug: if an example(chart) had both an exampleHeading and an ol or ul list, then the first line of the list and the exampleHeading would overlap.</li
 ><li
 >Fix bug: if some text was selected while trying to produce the PDF, the PDF process would just silently not be done. Now it is produced.</li
 ><li
->Fix bug: If use style sheet override to change font property of a gloss, the abbreviations still comes out with the gloss language element font properties, not the override's font properties.</li
+>Fix bug: If use style sheet override to change font property of a gloss, the abbreviation still comes out with the gloss language element font properties, not the override's font properties.</li
+><li
+>Fix bug: an ordered list with embedded blockquote containing an ordered list would cause the PDF to fail to be produced.</li
+><li
+>Fix bug: if a publisher style sheet had a listLayout element and the indent-before attribute was not overtly set, the PDF would fail to be produced.</li
+><li
+>Fix bug: if a publisher style sheet indicated space-and-a-half spacing and there was a paragraph, followed by a block quote, followed by a paragraph, then there was too much vertical spacing before the block quote material.</li
+><li
+>Fix bug: if a publisher style sheet indicated space before a paragraph, an endnote could have too much vertical space between the first and second lines.</li
 ></ul
 ></li
 ><li
@@ -66,113 +108,23 @@ href="mailto::andy_black@sil.org"
 ><li
 >When an interlinear text does not have a short text title, just show line number, not a colon and the line number.</li
 ><li
->Add a command to remove homograph number object elements in an interlinear file exported from FLEx.</li
-><li
 >Fix bug in Set Reference command for exampleRef elements: if somehow the num and letter values are different, if in the Set Reference command you choose the num value, the letter value does not get changed.</li
 ><li
 >Document how to use the Search / Find Element command.</li
 ><li
 >Ensure that if the text and textref attributes of an interlinear element in an interlinear-text do not match, that the textef is set to the text value.</li
-></ul
-></li
 ><li
->2.24.5 15 April 2014<ul
+>Fix typo which caused getting a list of content types to not work on Linux and Mac.</li
 ><li
->Add option to exampleLayout to start example numbering over in each chapter.</li
-><li
->Make CreateZipFile command also look for mediaObject items.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Add check for .tff or .tif files since these will prevent the PDF from being produced.</li
-></ul
-></li
-></ul
-></li
-><li
->2.24.4 9 April 2014<ul
-><li
->Add two new paren attribute values to the citation element: citationBoth and citationInitial. Both of them will put an opening parenthesis before the author name(s). The citationBoth value will also put a closing parenthesis after the date.</li
+>Fix bug: If a section title contained a comment, the comment showed up in the PDF bookmarks.</li
 ><li
 >Fix three bugs in the Converting an Endnote XML references file to XLingPaper Format process: edition number in a collection was treated as a volume number; a webpage could have an empty url element; and a book could have a series editor but no series title. Also use custom6 to hold the refWork ID or try to generate an ID by using the author name, date, and first part of the title.</li
-><li
->Add keyword elements to refWork (the content is never output by XLingPaper).</li
-><li
->Add ability to have an annotated bibliography.</li
-><li
->Rework CreateZipFile command to use the highest directory among all the files. Also make it include image files from embedded files.</li
-></ul
-></li
-><li
->2.24.3_1 12-March-2014<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: if a publisher style sheet indicated space before a paragraph, an endnote could have too much vertical space between the first and second lines.</li
-></ul
-></li
 ><li
 >For the RenderX way of producing PDF:<ul
 ><li
 >Fix bug: PDF could fail to be produced when using a publisher style sheet if author contact information was used.</li
 ></ul
 ></li
-></ul
-></li
-><li
->2.24.3 14 February 2014<ul
-><li
->Add validity check for when a contentType has been set in the only p element within a blockquote: can end up with extra, unwanted vertical space.</li
-><li
->Add blockQuoteLayout element to publisher style sheet to control how much vertical space there is before and/or after a blockquote element.</li
-><li
->Revise user documentation.</li
-></ul
-></li
-><li
->2.24.2_2 18 December 2013<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: if a publisher style sheet indicated space-and-a-half spacing and there was a paragraph, followed by a block quote, followed by a paragraph, then there was too much vertical spacing before the block quote material.</li
-></ul
-></li
-><li
->Fix bug: If a section title contained a comment, the comment showed up in the PDF bookmarks.</li
-></ul
-></li
-><li
->2.24.2_1 18 November 2013<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: if a publisher style sheet had a listLayout element and the indent-before attribute was not overtly set, the PDF would fail to be produced.</li
-></ul
-></li
-><li
->Revise the way checking for font size and space before/after is done to try and improve performance.</li
-></ul
-></li
-><li
->2.24.2_0 17 October 2013<ul
-><li
->Fix typo which caused getting a list of content types to not work on Linux and Mac.</li
-></ul
-></li
-><li
->2.24.2 10 October 2013<ul
-><li
->Add a command to convert a paper to a chapter which can then be included in a book (such as a thesis or dissertation).</li
-><li
->Add a validity check for proper formation of font-size, spacebefore, and spaceafter attributes.</li
-><li
->Add quoteLayout element to publisher style sheet in order to control what text occurs before and/or after the content of a q element.</li
-></ul
-></li
-><li
->2.24.1 26 September 2013<ul
-><li
->Add multivolumeWork as a reference item.</li
 ></ul
 ></li
 ><li

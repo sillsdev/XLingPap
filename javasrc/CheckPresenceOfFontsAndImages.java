@@ -23,23 +23,26 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
     boolean m_showAlerts = false; // used for debugging
 
     public boolean prepare(DocumentView docView, String parameter, int x, int y) {
-//	Alert.showError(docView.getPanel(), "In CheckPresenceOfFontsAndImages prepare");
-//	Alert.showError(docView.getPanel(), "prepare: parameter = |" +
-//	parameter + "|");
+	// Alert.showError(docView.getPanel(),
+	// "In CheckPresenceOfFontsAndImages prepare");
+	// Alert.showError(docView.getPanel(), "prepare: parameter = |" +
+	// parameter + "|");
 	MarkManager markManager = docView.getMarkManager();
 	if (markManager == null) {
-	    // Alert.showError(docView.getPanel(), "prepare: markManager is null");
+	    // Alert.showError(docView.getPanel(),
+	    // "prepare: markManager is null");
 	    return false;
 	}
 
 	// Selected element is not at issue for this command
-//	Element editedElement = docView.getSelectedElement(/* implicit */true);
-//	if (editedElement == null) {
-//	    Alert.showError(docView.getPanel(), "prepare: returning false");
-//	    return false;
-//	}
-//	docView.getElementEditor().editElement(editedElement);
-//	Alert.showError(docView.getPanel(), "prepare: returning true");
+	// Element editedElement = docView.getSelectedElement(/* implicit
+	// */true);
+	// if (editedElement == null) {
+	// Alert.showError(docView.getPanel(), "prepare: returning false");
+	// return false;
+	// }
+	// docView.getElementEditor().editElement(editedElement);
+	// Alert.showError(docView.getPanel(), "prepare: returning true");
 	return true;
     }
 
@@ -47,10 +50,11 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 	try {
 	    ValidationErrors validationErrors = new ValidationErrors();
 	    String sDocumentPath = parameter;
-		LocalizeString ls = new LocalizeString();
-		ls.prepare(docView, null, x, y);
+	    LocalizeString ls = new LocalizeString();
+	    ls.prepare(docView, null, x, y);
 
-	    int iMissingImageCount = findAnyMissingImages(docView, validationErrors, sDocumentPath, ls);
+	    int iMissingImageCount = findAnyMissingImages(docView, validationErrors, sDocumentPath,
+		    ls);
 	    int iMissingFontCount = findAnyMissingFonts(docView, validationErrors, ls);
 	    if (iMissingFontCount > 0 || iMissingImageCount > 0) {
 		showMissingItemsDialog(docView, validationErrors, ls);
@@ -64,10 +68,12 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 	return "allClear";
     }
 
-    private void showMissingItemsDialog(DocumentView docView, ValidationErrors validationErrors, LocalizeString ls) {
-	String sDialogTitle = (String)ls.doExecute(docView, "java.fontImageDialaogTitle", 0, 0);
-	CheckValidityDialog validityDialog = new CheckValidityDialog(docView.getPanel(), sDialogTitle);
-		// "Missing Fonts and/or Image Files"
+    private void showMissingItemsDialog(DocumentView docView, ValidationErrors validationErrors,
+	    LocalizeString ls) {
+	String sDialogTitle = (String) ls.doExecute(docView, "java.fontImageDialaogTitle", 0, 0);
+	CheckValidityDialog validityDialog = new CheckValidityDialog(docView.getPanel(),
+		sDialogTitle);
+	// "Missing Fonts and/or Image Files"
 	validityDialog.setModal(false);
 	validityDialog.setLocationRelativeTo(null);
 	validityDialog.showDiagnostics(validationErrors.toArray(), docView, 1);
@@ -101,67 +107,77 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 		f = new File(sFileNameTry2);
 		if (!f.exists()) {
 		    // image file is missing
-		    String sMissingImageFile1 = (String)ls.doExecute(docView, "java.fontImageDialogMissingImageFile1", 0, 0);
-		    String sMissingImageFile2 = (String)ls.doExecute(docView, "java.fontImageDialogMissingImageFile2", 0, 0);
-		    validationErrors
-			    .append((Element) node, sMissingImageFile1, String.format(sMissingImageFile2, originalImageFile));
-				    // "Image file not found on this computer.  Click on the number to the left to see the img element and fix its src attribute.",
-				    //"Could not find image file: " + originalImageFile);
+		    String sMissingImageFile1 = (String) ls.doExecute(docView,
+			    "java.fontImageDialogMissingImageFile1", 0, 0);
+		    String sMissingImageFile2 = (String) ls.doExecute(docView,
+			    "java.fontImageDialogMissingImageFile2", 0, 0);
+		    validationErrors.append((Element) node, sMissingImageFile1,
+			    String.format(sMissingImageFile2, originalImageFile));
+		    // "Image file not found on this computer.  Click on the number to the left to see the img element and fix its src attribute.",
+		    // "Could not find image file: " + originalImageFile);
 		    iMissingImageCount++;
 		}
-		    if (sFileNameTry2.toLowerCase().endsWith(".svg")) {
-			int iName = sFileNameTry2.length() - 4;
-			String imageFilePDF = sFileNameTry2.substring(0, iName) + ".pdf";
-			 //Alert.showError(docView.getPanel(), "Looking for this pdf file: " + imageFilePDF);
-			File fPDF = new File(imageFilePDF);
-			if (!fPDF.exists()) {
-			    // No .pdf equivalent of the .svg file
-			    String sMissingImageFileSvgNeedsPdf1 = (String)ls.doExecute(docView, "java.fontImageDialogMissingImageFileSvgNeedsPdf1", 0, 0);
-			    String sMissingImageFileSvgNeedsPdf2 = (String)ls.doExecute(docView, "java.fontImageDialogMissingImageFileSvgNeedsPdf2", 0, 0);
-			    validationErrors
-				    .append(
-					    (Element) node, sMissingImageFileSvgNeedsPdf1, 
-					    String.format(sMissingImageFileSvgNeedsPdf2, imageFile));
-					    // "The image file's extension indicates it is an SVG file.  XeLaTeX cannot format an SVG file, but it is possible to convert the SVG file to a PDF file and then XeLaTex will be able to format it.  See section 11.17.1.1 'Known limitations of using XeTeX' of the user documentation for how to convert the SVG file to PDF.",
-					    // "An SVG file needs to be converted to PDF format: " + imageFile);
-			    iMissingImageCount++;
-			} else if (!fPDF.exists() || fPDF.lastModified() < f.lastModified()) {
-			    // there is a .pdf equivalent of the .svg file, but it is
-			    // older than the .svg file
-			    String sSvgNeedsNewerPdf1 = (String)ls.doExecute(docView, "java.fontImageDialogSvgNeedsNewerPdf1", 0, 0);
-			    String sSvgNeedsNewerPdf2 = (String)ls.doExecute(docView, "java.fontImageDialogSvgNeedsNewerPdf2", 0, 0);
-			    validationErrors
-				    .append(
-					    (Element) node, sSvgNeedsNewerPdf1, String.format(sSvgNeedsNewerPdf2, imageFile));
-					    // "The image file's extension indicates it is an SVG file and there is an equivalent PDF version of the file.  The PDF file, however, is older than the SVG file.  Please convert the SVG to PDF again so it is up-to-date.  See section 11.17.1.1 'Known limitations of using XeTeX' of the user documentation for how to convert the SVG file to PDF.",
-					    // "An SVG file needs to be converted again to PDF format: " + imageFile);
-			    iMissingImageCount++;
-			}
+		if (sFileNameTry2.toLowerCase().endsWith(".svg")) {
+		    int iName = sFileNameTry2.length() - 4;
+		    String imageFilePDF = sFileNameTry2.substring(0, iName) + ".pdf";
+		    // Alert.showError(docView.getPanel(),
+		    // "Looking for this pdf file: " + imageFilePDF);
+		    File fPDF = new File(imageFilePDF);
+		    if (!fPDF.exists()) {
+			// No .pdf equivalent of the .svg file
+			String sMissingImageFileSvgNeedsPdf1 = (String) ls.doExecute(docView,
+				"java.fontImageDialogMissingImageFileSvgNeedsPdf1", 0, 0);
+			String sMissingImageFileSvgNeedsPdf2 = (String) ls.doExecute(docView,
+				"java.fontImageDialogMissingImageFileSvgNeedsPdf2", 0, 0);
+			validationErrors.append((Element) node, sMissingImageFileSvgNeedsPdf1,
+				String.format(sMissingImageFileSvgNeedsPdf2, imageFile));
+			// "The image file's extension indicates it is an SVG file.  XeLaTeX cannot format an SVG file, but it is possible to convert the SVG file to a PDF file and then XeLaTex will be able to format it.  See section 11.17.1.1 'Known limitations of using XeTeX' of the user documentation for how to convert the SVG file to PDF.",
+			// "An SVG file needs to be converted to PDF format: " +
+			// imageFile);
+			iMissingImageCount++;
+		    } else if (!fPDF.exists() || fPDF.lastModified() < f.lastModified()) {
+			// there is a .pdf equivalent of the .svg file, but it
+			// is
+			// older than the .svg file
+			String sSvgNeedsNewerPdf1 = (String) ls.doExecute(docView,
+				"java.fontImageDialogSvgNeedsNewerPdf1", 0, 0);
+			String sSvgNeedsNewerPdf2 = (String) ls.doExecute(docView,
+				"java.fontImageDialogSvgNeedsNewerPdf2", 0, 0);
+			validationErrors.append((Element) node, sSvgNeedsNewerPdf1,
+				String.format(sSvgNeedsNewerPdf2, imageFile));
+			// "The image file's extension indicates it is an SVG file and there is an equivalent PDF version of the file.  The PDF file, however, is older than the SVG file.  Please convert the SVG to PDF again so it is up-to-date.  See section 11.17.1.1 'Known limitations of using XeTeX' of the user documentation for how to convert the SVG file to PDF.",
+			// "An SVG file needs to be converted again to PDF format: "
+			// + imageFile);
+			iMissingImageCount++;
 		    }
+		}
 
 	    }
 	    if (imageFile.contains("%") || imageFile.contains("$") || imageFile.contains("~")) {
 		// image file has bad file name
-		    String sBadFileName1 = (String)ls.doExecute(docView, "java.fontImageDialogBadFileName1", 0, 0);
-		    String sBadFileName2 = (String)ls.doExecute(docView, "java.fontImageDialogBadFileName2", 0, 0);
-		validationErrors
-			.append(
-				(Element) node, sBadFileName1, String.format(sBadFileName2, imageFile));
-				// "Image file name contains one or more %, $ or ~ characters.  Sorry, but you'll need to change the file name to not use any of these characters.  Click on the number to the left to see the img element and fix its src attribute.",
-				// "File name contains characters that will not work: " + imageFile);
+		String sBadFileName1 = (String) ls.doExecute(docView,
+			"java.fontImageDialogBadFileName1", 0, 0);
+		String sBadFileName2 = (String) ls.doExecute(docView,
+			"java.fontImageDialogBadFileName2", 0, 0);
+		validationErrors.append((Element) node, sBadFileName1,
+			String.format(sBadFileName2, imageFile));
+		// "Image file name contains one or more %, $ or ~ characters.  Sorry, but you'll need to change the file name to not use any of these characters.  Click on the number to the left to see the img element and fix its src attribute.",
+		// "File name contains characters that will not work: " +
+		// imageFile);
 		iMissingImageCount++;
 	    }
 	    if (imageFile.endsWith(".tiff") || imageFile.endsWith(".tif")) {
 		// TIFF files cause XeLaTeX to fail
-		    String sTiffFileBad1 = (String)ls.doExecute(docView, "java.fontImageDialogTIFFFormat1", 0, 0);
-		    String sTiffFileBad2 = (String)ls.doExecute(docView, "java.fontImageDialogTIFFFormat2", 0, 0);
-		validationErrors
-			.append(
-				(Element) node, sTiffFileBad1, String.format(sTiffFileBad2, imageFile));
-				// "We're sorry, but this graphic file is in TIFF format and this processor cannot handle TIFF format.  You will need to convert the file to a different format.  We suggest using PNG format or JPG format.  Also see section 11.17.1.1 in the XLingPaper user documentation.  Click on the number to the left to see the img element and fix its src attribute.",
-				// "File format TIFF will fail to produce PDF: " + imageFile);
+		String sTiffFileBad1 = (String) ls.doExecute(docView,
+			"java.fontImageDialogTIFFFormat1", 0, 0);
+		String sTiffFileBad2 = (String) ls.doExecute(docView,
+			"java.fontImageDialogTIFFFormat2", 0, 0);
+		validationErrors.append((Element) node, sTiffFileBad1,
+			String.format(sTiffFileBad2, imageFile));
+		// "We're sorry, but this graphic file is in TIFF format and this processor cannot handle TIFF format.  You will need to convert the file to a different format.  We suggest using PNG format or JPG format.  Also see section 11.17.1.1 in the XLingPaper user documentation.  Click on the number to the left to see the img element and fix its src attribute.",
+		// "File format TIFF will fail to produce PDF: " + imageFile);
 		iMissingImageCount++;
-	    }	    
+	    }
 	}
 	return iMissingImageCount;
     }
@@ -194,25 +210,25 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 	return imageFile;
     }
 
-    private int findAnyMissingFonts(DocumentView docView, ValidationErrors validationErrors, LocalizeString ls)
-	    throws ParseException, EvalException {
+    private int findAnyMissingFonts(DocumentView docView, ValidationErrors validationErrors,
+	    LocalizeString ls) throws ParseException, EvalException {
 	Document doc = docView.getDocument();
 	GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	String[] installedFontFamilyNames = env.getAvailableFontFamilyNames();
 	if (installedFontFamilyNames == null) {
 	    return 0;
 	}
+	int iMissingFontCount = 0;
+	String fontName;
 	Arrays.sort(installedFontFamilyNames);
 	String sXpath = "//*[string-length(normalize-space(@font-family)) > 0] |"
 		+ "//defaultFontFamily[string-length(normalize-space(.)) > 0]";
 	XNode[] results = XPathUtil.evalAsNodeSet(sXpath, doc);
 	if (results == null) {
-	    return 0;
+	    iMissingFontCount = checkForMediaObjectFont(docView, validationErrors, ls, doc,
+			installedFontFamilyNames, iMissingFontCount);
+	    return iMissingFontCount;
 	}
-	int iMissingFontCount = 0;
-	// no longer needed: boolean fCheckedTimesNewRoman = false;
-	// no longer needed: String timesNewRoman = "Times New Roman";
-	String fontName;
 	for (XNode node : results) {
 	    Element element = (Element) node;
 	    fontName = node.attributeValue(Name.get("font-family"));
@@ -226,46 +242,46 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 		    + element.name().localPart);
 	    if ("fixedsys".equalsIgnoreCase(fontName)) {
 		// a special case
-		    String sFixedSysFont = (String)ls.doExecute(docView, "java.fontImageDialogFixedSysFont", 0, 0);
-		iMissingFontCount = recordMissingFont(
-			docView,
-			validationErrors,
-			iMissingFontCount,
-			element,
-			fontName, sFixedSysFont, ls);
-			// "  Also, see http://fixedsys.moviecorner.de/?p=download&amp;l=1 for an alternative font that will work.");
+		String sFixedSysFont = (String) ls.doExecute(docView,
+			"java.fontImageDialogFixedSysFont", 0, 0);
+		iMissingFontCount = recordMissingFont(docView, validationErrors, iMissingFontCount,
+			element, fontName, sFixedSysFont, ls);
+		// "  Also, see http://fixedsys.moviecorner.de/?p=download&amp;l=1 for an alternative font that will work.");
 	    } else {
-		/* 
-		 * no longer needed
-		 * if (timesNewRoman.equals(fontName)) {
-		    fCheckedTimesNewRoman = true;
-		} */
-		if (0 > Arrays.binarySearch(installedFontFamilyNames, fontName)) {
-		    // font is missing
-		    iMissingFontCount = recordMissingFont(docView, validationErrors,
-			    iMissingFontCount, element, fontName, ls);
-		}
+		iMissingFontCount = seeIfFontIsMissing(docView, validationErrors, ls,
+			installedFontFamilyNames, iMissingFontCount, fontName, element);
 
 	    }
 	}
-/*	// need to always check for Times New Roman since it is in the canned
-	// style sheets
-	 * 
-	 * (but if it's missing, it will show anyway)
-	 * 
-	if (!fCheckedTimesNewRoman) {
-	    if (0 > Arrays.binarySearch(installedFontFamilyNames, timesNewRoman)) {
-		// Times New Roman font is missing
-		    String sTimesNewRoman1 = (String)ls.doExecute(docView, "java.fontImageDialogTimesNewRoman1", 0, 0);
-		    String sTimesNewRoman2 = (String)ls.doExecute(docView, "java.fontImageDialogTimesNewRoman2", 0, 0);
-		validationErrors.append(null, sTimesNewRoman1, sTimesNewRoman2);
-			// "The " + timesNewRoman
-			// + " font not found on this computer.", "Missing font-family: "
-			// + timesNewRoman);
-		iMissingFontCount++;
-	    }
-	} */
 
+	iMissingFontCount = checkForMediaObjectFont(docView, validationErrors, ls, doc,
+		installedFontFamilyNames, iMissingFontCount);
+	return iMissingFontCount;
+    }
+
+    private int checkForMediaObjectFont(DocumentView docView, ValidationErrors validationErrors,
+	    LocalizeString ls, Document doc, String[] installedFontFamilyNames,
+	    int iMissingFontCount) throws ParseException, EvalException {
+	String fontName;
+	XNode[] results;
+	results = XPathUtil.evalAsNodeSet("//mediaObject", doc);
+	if (results != null) {
+	    Element element = (Element) results[0];
+	    fontName = "Symbola";
+	    iMissingFontCount = seeIfFontIsMissing(docView, validationErrors, ls,
+		    installedFontFamilyNames, iMissingFontCount, fontName, element);
+	}
+	return iMissingFontCount;
+    }
+
+    private int seeIfFontIsMissing(DocumentView docView, ValidationErrors validationErrors,
+	    LocalizeString ls, String[] installedFontFamilyNames, int iMissingFontCount,
+	    String fontName, Element element) {
+	if (0 > Arrays.binarySearch(installedFontFamilyNames, fontName)) {
+	    // font is missing
+	    iMissingFontCount = recordMissingFont(docView, validationErrors, iMissingFontCount,
+		    element, fontName, ls);
+	}
 	return iMissingFontCount;
     }
 
@@ -276,20 +292,23 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
     }
 
     private int recordMissingFont(DocumentView docView, ValidationErrors validationErrors,
-	    int iMissingFontCount, Element element, String fontName, String extraMessage, LocalizeString ls) {
+	    int iMissingFontCount, Element element, String fontName, String extraMessage,
+	    LocalizeString ls) {
 	showAlert(docView, "Before appending a validation error, fontName = " + fontName);
 	StringBuffer sConstraint = new StringBuffer();
-	    String sMissingFont1 = (String)ls.doExecute(docView, "java.fontImageDialogMissingFont1", 0, 0);
-	    String sMissingFont2 = (String)ls.doExecute(docView, "java.fontImageDialogMissingFont2", 0, 0);
+	String sMissingFont1 = (String) ls.doExecute(docView, "java.fontImageDialogMissingFont1",
+		0, 0);
+	String sMissingFont2 = (String) ls.doExecute(docView, "java.fontImageDialogMissingFont2",
+		0, 0);
 	sConstraint.append(String.format(sMissingFont1, element.name().localPart));
-		// .append("Font not found on this computer. Click on the number to the left to see the ");
+	// .append("Font not found on this computer. Click on the number to the left to see the ");
 	// sConstraint.append(element.name().localPart);
 	// sConstraint.append(" element and fix its font-family attribute.");
 	if (extraMessage != null) {
 	    sConstraint.append(extraMessage);
 	}
-	validationErrors
-		.append(element, sConstraint.toString(), String.format(sMissingFont2, fontName));
+	validationErrors.append(element, sConstraint.toString(),
+		String.format(sMissingFont2, fontName));
 	// "Missing font-family: " + fontName);
 	iMissingFontCount++;
 	return iMissingFontCount;

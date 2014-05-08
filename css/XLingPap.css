@@ -578,7 +578,7 @@ appendixRef[showTitle='short']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('“',id(@app)/shortTitle,'”'),string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('Â“',id(@app)/shortTitle,'Â”'),string-length(id(@app)/secTitle)>0,concat('Â“',id(@app)/secTitle,'Â”'),'Â“unnamedÂ”')");
 	background-color:appendix-background-color();
 }
 appendixRef[showTitle='full']
@@ -587,7 +587,7 @@ appendixRef[showTitle='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('“',id(@app)/secTitle,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('Â“',id(@app)/secTitle,'Â”'),'Â“unnamedÂ”')");
 	background-color:appendix-background-color();
 }
 appendixRef
@@ -1643,7 +1643,7 @@ figureRef[showCaption='short']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('“',id(@figure)/shortCaption,'”'),string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
+	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('Â“',id(@figure)/shortCaption,'Â”'),string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')");
 	background-color:figure-background-color();
 }
 figureRef[showCaption='full']
@@ -1652,7 +1652,7 @@ figureRef[showCaption='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
+	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')");
 	background-color:figure-background-color();
 }
 figureRef
@@ -2238,7 +2238,7 @@ interlinearRefCitation[showTitleOnly='short']:before
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('“',id(@textref)/../textInfo/shortTitle,'”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('“',id(@textref)/textInfo/shortTitle,'”'),'“unnamed”')")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('Â“',id(@textref)/../textInfo/shortTitle,'Â”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('Â“',id(@textref)/textInfo/shortTitle,'Â”'),'Â“unnamedÂ”')")
 	;
 	background-color:interlinearSource-background-color();
 }
@@ -2248,7 +2248,7 @@ interlinearRefCitation[showTitleOnly='full']:before
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('“',id(@textref)/../textInfo/textTitle,'”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('“',id(@textref)/textInfo/textTitle,'”'),'“unnamed”')")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('Â“',id(@textref)/../textInfo/textTitle,'Â”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('Â“',id(@textref)/textInfo/textTitle,'Â”'),'Â“unnamedÂ”')")
 	;
 	background-color:interlinearSource-background-color();
 }
@@ -2739,7 +2739,10 @@ location:after
 }
 
 mediaObject:before
-{ content: icon(file);
+{ 
+    content: icon(file);
+/*    content: image("%c%Sdoc%Sresources%SAbbreviationArticle.png");
+    font-family: Quivira; */
 }
 morph
 {
@@ -3725,7 +3728,7 @@ sectionRef[showTitle='short']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('“',id(@sec)/frontMatter/shortTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('Â“',id(@sec)/shortTitle,'Â”'),string-length(id(@sec)/secTitle)>0,concat('Â“',id(@sec)/secTitle,'Â”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('Â“',id(@sec)/frontMatter/shortTitle,'Â”'),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')");
 	background-color:section-background-color();
 }
 sectionRef[showTitle='full']
@@ -3734,7 +3737,7 @@ sectionRef[showTitle='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('Â“',id(@sec)/secTitle,'Â”'),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')");
 	background-color:section-background-color();
 }
 sectionRef
@@ -3968,7 +3971,7 @@ tablenumberedRef[showCaption='short']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('“',id(@table)/shortCaption,'”'),string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
+	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('Â“',id(@table)/shortCaption,'Â”'),string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef[showCaption='full']
@@ -3977,7 +3980,7 @@ tablenumberedRef[showCaption='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
+	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef

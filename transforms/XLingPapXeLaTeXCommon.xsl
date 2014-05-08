@@ -139,6 +139,7 @@
     </xsl:variable>
     <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
     <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
+    <xsl:variable name="sMediaObjectFontFamily" select="'Symbola'"/>
     <!--
         citation (InMarker)
     -->
@@ -695,7 +696,10 @@
             <xsl:with-param name="myEndnote" select="$myEndnote"/>
             <xsl:with-param name="bIsEnd" select="'Y'"/>
         </xsl:call-template>
-        <tex:spec cat="eg"/>
+        <xsl:if test="not(parent::blockquote)">
+            <!-- if parent is blockquote, we do not want to close off the content of the blockquote -->
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <!--        <tex:cmd name="par" nl2="1"/>-->
         <tex:spec cat="bg"/>
         <xsl:call-template name="DoTypeForLI">
@@ -757,6 +761,10 @@
                 <xsl:text>XLingPaperlistitemindent</xsl:text>
             </xsl:with-param>
         </xsl:apply-templates>
+        <xsl:if test="parent::blockquote">
+            <!-- if parent is blockquote, we now want to close off the content of the blockquote -->
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <xsl:template name="DoTypeForLI">
         <xsl:param name="myAncestorLists"/>
@@ -2649,6 +2657,62 @@
         </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
+        mediaObject
+        =========================================================== -->
+    <xsl:template match="mediaObject">
+        <xsl:param name="fIgnoreMediaObjectInsertion" select="'N'"/>
+        <xsl:variable name="sImgFile" select="normalize-space(translate(@src,'\','/'))"/>
+        <xsl:variable name="sAdjustedImageFile">
+            <xsl:call-template name="CreateAdjustedImageFile">
+                <xsl:with-param name="sImgFile" select="$sImgFile"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <tex:group>
+            <xsl:variable name="sFontSize" select="normalize-space(@font-size)"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sFontSize) &gt; 0">
+                    <xsl:call-template name="HandleFontSize">
+                        <xsl:with-param name="sSize" select="$sFontSize"/>
+                        <xsl:with-param name="sFontFamily" select="$sMediaObjectFontFamily"/>
+                        <xsl:with-param name="language" select="."/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="fontspec">
+                        <tex:parm>
+                            <xsl:value-of select="$sMediaObjectFontFamily"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$fIgnoreMediaObjectInsertion='Y'">
+                    <xsl:call-template name="GetMediaObjectSymbolCode"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="textattachfile">
+                        <xsl:variable name="sFontColor" select="normalize-space(@color)"/>
+                        <xsl:variable name="sColorCode">
+                            <xsl:call-template name="GetColorCodeToUse">
+                                <xsl:with-param name="sFontColor" select="$sFontColor"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <tex:opt>
+                            <xsl:text>color= </xsl:text>
+                            <xsl:value-of select="translate($sColorCode,',',' ')"/>
+                        </tex:opt>
+                        <tex:parm>
+                            <xsl:value-of select="$sAdjustedImageFile"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:call-template name="GetMediaObjectSymbolCode"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
+        </tex:group>
+    </xsl:template>
+    <!-- ===========================================================
         INTERLINEAR TEXT
         =========================================================== -->
     <!--  
@@ -3422,6 +3486,26 @@
             </xsl:call-template>
             <xsl:call-template name="DoInternalTargetEnd"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        CreateAdjustedImageFile
+    -->
+    <xsl:template name="CreateAdjustedImageFile">
+        <xsl:param name="sImgFile"/>
+        <xsl:variable name="sImageFileLocationAdjustment">
+            <xsl:choose>
+                <xsl:when test="not(contains($sImgFile, ':'))">
+                    <xsl:text>../</xsl:text>
+                    <xsl:value-of select="$sImgFile"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$sImgFile"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="ConvertPercent20ToSpace">
+            <xsl:with-param name="sImageFile" select="$sImageFileLocationAdjustment"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         CreateAllNumberingLevelIndentAndWidthCommands
@@ -4219,21 +4303,9 @@
         <tex:cmd name="textcolor">
             <tex:opt>rgb</tex:opt>
             <tex:parm>
-                <xsl:choose>
-                    <xsl:when test="string-length($sFontColor) &gt; 2">
-                        <xsl:call-template name="GetColorDecimalCodesFromHexCode">
-                            <xsl:with-param name="sColorHexCode">
-                                <xsl:call-template name="GetColorHexCode">
-                                    <xsl:with-param name="sColor" select="$sFontColor"/>
-                                </xsl:call-template>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <!-- use black -->
-                        <xsl:text>0,0,0</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="GetColorCodeToUse">
+                    <xsl:with-param name="sFontColor" select="$sFontColor"/>
+                </xsl:call-template>
             </tex:parm>
         </tex:cmd>
         <tex:spec cat="bg"/>
@@ -4425,20 +4497,9 @@
     <xsl:template name="DoImageFile">
         <xsl:param name="sXeTeXGraphicFile"/>
         <xsl:param name="sImgFile"/>
-        <xsl:variable name="sImageFileLocationAdjustment">
-            <xsl:choose>
-                <xsl:when test="not(contains($sImgFile, ':'))">
-                    <xsl:text>../</xsl:text>
-                    <xsl:value-of select="$sImgFile"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$sImgFile"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
         <xsl:variable name="sAdjustedImageFile">
-            <xsl:call-template name="ConvertPercent20ToSpace">
-                <xsl:with-param name="sImageFile" select="$sImageFileLocationAdjustment"/>
+            <xsl:call-template name="CreateAdjustedImageFile">
+                <xsl:with-param name="sImgFile" select="$sImgFile"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="sPatternVA" select="'vertical-adjustment='"/>
@@ -6038,7 +6099,9 @@
         </xsl:call-template>
         <xsl:choose>
             <xsl:when test="$fIncludeEndnotes='N'">
-                <xsl:apply-templates select="text() | child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="text() | child::node()[name()!='endnote']">
+                    <xsl:with-param name="fIgnoreMediaObjectInsertion" select="'Y'"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates/>
@@ -6096,6 +6159,27 @@
             <xsl:call-template name="DoTypeEnd"/>
         </xsl:for-each>
         <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
+        GetColorCodeToUse
+    -->
+    <xsl:template name="GetColorCodeToUse">
+        <xsl:param name="sFontColor"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sFontColor) &gt; 2">
+                <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                    <xsl:with-param name="sColorHexCode">
+                        <xsl:call-template name="GetColorHexCode">
+                            <xsl:with-param name="sColor" select="$sFontColor"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- use black -->
+                <xsl:text>0,0,0</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       GetColorDecimalCodeFromHexCode
@@ -6795,6 +6879,29 @@
     <xsl:template name="GetMeasure">
         <xsl:param name="sValue"/>
         <xsl:value-of select="number(substring($sValue,1,string-length($sValue) - 2))"/>
+    </xsl:template>
+    <!--  
+        GetMediaObjectSymbolCode
+    -->
+    <xsl:template name="GetMediaObjectSymbolCode">
+        <tex:cmd name="symbol">
+            <tex:parm>
+                <xsl:choose>
+                    <xsl:when test="@icon='moviecamera'">
+                        <xsl:text>"1F3A5</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='cinema'">
+                        <xsl:text>"1F3A6</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='opticaldisk'">
+                        <xsl:text>"1F4BF</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>"1F50A</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!--  
         GetNumberedItemWidth
@@ -10662,6 +10769,11 @@
             <tex:cmd name="usepackage" nl2="1">
                 <tex:opt>framemethod=TikZ</tex:opt>
                 <tex:parm>mdframed</tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:if test="//mediaObject">
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:parm>attachfile2</tex:parm>
             </tex:cmd>
         </xsl:if>
         <tex:cmd name="usepackage" nl2="1">

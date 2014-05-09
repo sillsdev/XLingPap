@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://purl.oclc.org/dsdl/schematron">
-    <pattern>
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" defaultPhase="check">
+    <phase id="empty"/>
+    <phase id="check">
+        <active pattern="line"/>
+        <active pattern="lineGroup"/>
+        <active pattern="nestings"/>
+        <active pattern="notimplemented"/>
+        <active pattern="headers"/>
+        <active pattern="tablewidths"/>
+        <active pattern="deprecatedtable"/>
+        <active pattern="columns"/>
+        <active pattern="tripleqs"/>
+        <active pattern="book"/>
+        <active pattern="paper"/>
+        <active pattern="definitions"/>
+        <active pattern="interlinears"/>
+        <active pattern="lineembeded"/>
+        <active pattern="badbr"/>
+        <active pattern="deprecatedsmallcaps"/>
+        <active pattern="deprecatedsmallcaps2"/>
+        <active pattern="fontsize"/>
+        <active pattern="index"/>
+        <active pattern="startpagenumber"/>
+        <active pattern="graphics"/>
+        <active pattern="pubstylesheets"/>
+        <active pattern="abbreviationsShownHere"/>
+        <active pattern="contentType"/>
+        <active pattern="chapterInCollection"/>
+        <active pattern="verticalspacing"/>
+        <active pattern="contentTypeLocation"/>
+        <active pattern="abbrRef"/>
+    </phase>
+    <pattern id="line">
         <title>
             <dir value="ltr">Well-formed line elements</dir>
         </title>
@@ -14,7 +45,7 @@
             <report test="gloss/endnote">Using an endnote element within a gloss element here will not produce the correct output.  Use wrd elements within this line element instead.  See section 5.3.1.2 "Word-aligned, marking certain words or morphemes" in the XLingPaper user documentation.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="lineGroup">
         <title>
             <dir value="ltr">Consistent line elements within a lineGroup</dir>
         </title>
@@ -26,7 +57,7 @@
             <report test="preceding-sibling::line[1] and count(preceding-sibling::line[1]/wrd[not(exampleRef)]) != count(wrd)">This line has a different number of wrd elements in it than its immediately preceding line.  The alignment will probably be incorrect.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="nestings">
         <title>
             <dir value="ltr">Check for nested langData, nested gloss, and nested link elements</dir>
         </title>
@@ -40,7 +71,7 @@
             <report test="parent::link and string-length(normalize-space(parent::link)) = string-length(normalize-space(.))">There is a link embedded within a link here for no apparent reason.   To fix this, click on the numbered link, then, using the mouse, do a copy; next click on the enclosing link element in the Node Path Bar and finally do a paste.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="notimplemented">
         <title>
             <dir value="ltr">Check for yet-to-be-implemented elements</dir>
         </title>
@@ -54,7 +85,7 @@
             <report test=".">The lineSetRow element has no been implemented fully yet.  Please do not use it.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="headers">
         <title>
             <dir value="ltr">Check for partial table header rows</dir>
         </title>
@@ -62,7 +93,7 @@
             <report test="not(ancestor::table) and count(tr) &gt; 5 and tr[1]/th and tr[1]/td">Warning: the first row of this table has some th cells , but it also has some td cells.  If the table goes beyond a page, no header will be repeated.  To fix this, convert the td cells to th cells (and use object elements to get the fomatting you want). </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="tablewidths">
         <title>
             <dir value="ltr">Check for invalid table widths (e.g., missing unit of measure)</dir>
         </title>
@@ -71,7 +102,7 @@
             <report test="contains(normalize-space(@width),' ')">Warning: this table cell has a width specified but it contains a space.  There should not be a space between the number and the unit of measure.  The result may not be what you want. </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="deprecatedtable">
         <title>
             <dir value="ltr">Check for deprecated table elements</dir>
         </title>
@@ -88,7 +119,7 @@
             <report test=".">Warning: the row element is deprecated.  Please replace it with a tr element. </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="columns">
         <title>
             <dir value="ltr">Check for inconsistent column counts</dir>
         </title>
@@ -96,7 +127,7 @@
             <report test="count(tr[1]/*[not(number(@colspan) &gt; 0)]) + sum(tr[1]/*[number(@colspan) &gt; 0]/@colspan) &lt; count(tr[2]/*[not(number(@colspan) &gt; 0)]) + sum(tr[2]/*[number(@colspan) &gt; 0]/@colspan)">Warning: the first row of this table does not have the same number of columns as the second row.  The XeLaTex way of producing PDF will fail.  Please make sure every row has the same number of columns (including any colspan attributes).</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="tripleqs">
         <title>
             <dir value="ltr">Check for yet-to-be-filled-out "???" attribute values</dir>
         </title>
@@ -110,7 +141,7 @@
             <report test="@src='fileName'">Warning: An img element's src attribute is still set to 'fileName'.  Please fill out the real name of the file using the Attributes Editor. </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="book">
         <title>
             <dir value="ltr">Check for book with improper header and footer layouts</dir>
         </title>
@@ -121,7 +152,7 @@
             <report test="//chapter and bodyLayout[not(headerFooterPageStyles)]">Warning: this is a book but it is trying to use a publisher style sheet that does not have header and footer layout information under the body layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by adding the correct header and footer layout information or by associating this document with a book publisher style sheet..</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="paper">
         <title>
             <dir value="ltr">Check for paper with improper header and footer layouts</dir>
         </title>
@@ -132,7 +163,7 @@
             <report test="//lingPaper and not(//chapter | //chapterInCollection) and bodyLayout/headerFooterPageStyles">Warning: this is a paper but it is trying to use a publisher style sheet that has header and footer layout information under the body layout.  The XeLaTex way of producing PDF will fail or not be correct.  Please fix this by removing the header and footer layout information in the body layout or by associating this document with a paper publisher style sheet..</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="definitions">
         <title>
             <dir value="ltr">Check for ill-formed definitions</dir>
         </title>
@@ -153,7 +184,7 @@
         </rule>
     </pattern>
 -->
-    <pattern>
+    <pattern id="interlinears">
         <title>
             <dir value="ltr">Check for improperly embedded interlinears</dir>
         </title>
@@ -161,7 +192,7 @@
             <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="lineembeded">
         <title>
             <dir value="ltr">Check for embedded elements in  line/langData or line/gloss</dir>
         </title>
@@ -173,7 +204,7 @@
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="badbr">
         <title>
             <dir value="ltr">Check for br elements within a line in an interlinear</dir>
         </title>
@@ -182,7 +213,7 @@
                 >Warning: There is a br element within an interlinear.  This will not produce PDF output.  Please either use an example(chart) or a table to do what you have in mind. </report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="deprecatedsmallcaps">
         <title>
             <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>
         </title>
@@ -190,7 +221,7 @@
             <report test="@usesmallcaps='yes'">Warning: The 'usesmallcaps' attribute is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="deprecatedsmallcaps2">
         <title>
             <dir value="ltr">Check for use of font-variant='small-caps'</dir>
         </title>
@@ -198,7 +229,7 @@
             <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="index">
         <title>
             <dir value="ltr">Check for issues related to indexes</dir>
         </title>
@@ -206,7 +237,7 @@
             <report test="@see=@id">The 'see' attribute of this indexTerm is referring to itself.  It should refer to a different indexTerm element.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="startpagenumber">
         <title>
             <dir value="ltr">Check for improper starting page number.</dir>
         </title>
@@ -214,7 +245,7 @@
             <report test="string-length(normalize-space(.)) &gt; 0 and string(number(.))='NaN'">Warning: The starting page number is not a valid number.  Producing the default PDF may fail.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="graphics">
         <title>
             <dir value="ltr">Check for graphic formats that will not work.</dir>
         </title>
@@ -222,7 +253,7 @@
             <report test="substring(.,string-length(.)-3)='.odg'">Sorry, but .odg graphic files are not supported.  Producing the default PDF will fail.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="pubstylesheets">
         <title>
             <dir value="ltr">Check for issues related to publisher style sheets</dir>
         </title>
@@ -272,7 +303,7 @@
             <report test="not(contains(.,'pt'))">The spacing for aligned words in interlinears needs to be in term of points.  It is not.  Please pattern this value after the default glue of interlinear-aligned-word-skip='6.66666pt plus 3.33333pt minus 2.22222pt'</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="abbreviationsShownHere">
         <title>
             <dir value="ltr">Check for two or more abbreviationsShownHere elements.</dir>
         </title>
@@ -286,7 +317,7 @@
             <report test="count(descendant::abbreviationsShownHere)>1">Sorry, but you can use only one abbreviationsShownHere element within a chapterInCollection element.  You have two or more of them.  Please remove the extra ones.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="contentType">
         <title>
             <dir value="ltr">Check for non-excluded reference elements to elements being excluded via a contentType.</dir>
         </title>
@@ -321,7 +352,7 @@
             <report test="@note=//endnote/@id[string-length(../@contentType)!=0 or ancestor::*[string-length(@contentType)!=0]]">There is an endnoteRef which refers to an endnote which may be excluded in the output (via a contentType) and yet the endnoteRef itself is always present.  Please make sure that both the endnote and its endnoteRef are excluded in the same situations.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="chapterInCollection">
         <rule context="chapterInCollectionBackMatterLayout">
             <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
         </rule>
@@ -332,14 +363,14 @@
             <assert test="//chapterInCollectionLayout">There is an authorLayout element immediately after a contentsLayout element, but no chapterInCollectionLayout.  This authorLayout will be ignored.</assert>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="fontsize">
         <title>Check for ill-formed font-size attribute values</title>
         <rule context="/lingPaper/languages/language/@font-size | /lingPaper/types/type/@font-size | /xlingpaper/styledPaper/lingPaper/languages/language/@font-size | /xlingpaper/styledPaper/lingPaper/types/type/@font-size | /xlingpaper/styledPaper/publisherStyleSheet//@font-size | /publisherStyleSheet//@font-size">
             <report test="contains(normalize-space(.),' ')">The font-size attribute should not contain a space.  Please remove it.</report>
             <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%' and normalize-space(.)!='smaller' and normalize-space(.)!='larger' and normalize-space(.)!='large' and normalize-space(.)!='medium' and normalize-space(.)!='small' and normalize-space(.)!='x-large' and normalize-space(.)!='xx-large' and normalize-space(.)!='x-small' and normalize-space(.)!='xx-small'">Warning: this font-size attribute does not have a proper unit of measure.   Please use either 'pt' or '%'.  The PDF may fail to be produced.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="verticalspacing">
         <title>Check for ill-formed spacebefore and spaceafter attribute values</title>
         <rule context="/lingPaper/framedTypes/framedType/@spaceafter | /xlingpaper/styledPaper/lingPaper/framedTypes/framedType/@spaceafter | /xlingpaper/styledPaper/publisherStyleSheet//@spaceafter | /publisherStyleSheet//@spaceafter">
             <report test="contains(normalize-space(.),' ')">The spaceafter attribute should not contain a space.  Please remove it.</report>
@@ -350,13 +381,13 @@
             <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='in' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='mm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='cm' and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt' and substring(normalize-space(.),string-length(normalize-space(.)),1)!='%'">Warning: this spacebefore attribute does not have a proper unit of measure.   The PDF may fail to be produced.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="contentTypeLocation">
         <title>Check for ill-formed contentType locations</title>
         <rule context="blockquote">
             <report test="count(p)=1 and string-length(p/@contentType)!=0">There is a contentType set for the sole p element within a blockquote.  There will probably be extra, unwanted vertical space in the output.  Please set the contentType on the blockquote element instead of on the p element.</report>
         </rule>
     </pattern>
-    <pattern>
+    <pattern id="abbrRef">
         <title>Check for ill-formed abbrRef elements in morpheme-aligned interlinear</title>
         <rule context="abbrRef[parent::item]">
             <report test="parent::item/@type!='gls'">There is an abbrRef in an item element that is not a gloss.  Please only use abbrRef elements in gloss lines.</report>

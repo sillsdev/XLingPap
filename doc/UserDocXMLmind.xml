@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 May 2014</date
+>9 May 2014</date
 ><version
 >2.25.0</version
 ><contents
@@ -17856,10 +17856,10 @@ type="tRenderX"
 >For the default (<object
 type="tXeTeX"
 ></object
->) way of producing PDF, you will need to get the free Symbola font and install it on your computer.  You can get it at <link
+>) way of producing PDF, you will need to get the free Symbola font and install it on your computer. You can get it at <link
 href="http://www.xlingpaper.org/?page_id=4#SymbolaFont"
 >http://www.xlingpaper.org/?page_id=4#SymbolaFont</link
->.  The attributes of the <object
+>. The attributes of the <object
 type="tElement"
 >mediaObject</object
 > element used by the <object
@@ -17963,7 +17963,7 @@ lang="lEng"
 > <object
 type="tAttrValue"
 >cinema</object
->,  <object
+>, <object
 type="tAttrValue"
 >moviecamera</object
 >, <object
@@ -17980,7 +17980,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->The icon which will show in the PDF and on which the user can double-click to play the media file.  The table in example <exampleRef
+>The icon which will show in the PDF and on which the user can double-click to play the media file. The table in example <exampleRef
 letter="xMediaObjectIcons"
 num="xMediaObjectIcons"
 ></exampleRef
@@ -18094,7 +18094,7 @@ type="tAttribute"
 >, click on “lingPaper” in the node path bar.<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
->  The attributes of the <object
+> The attributes of the <object
 type="tElement"
 >mediaObject</object
 > element used by the <object
@@ -23235,6 +23235,64 @@ type="tElement"
 >endnote</object
 > element).</li
 ></ol
+></section2
+><section2
+id="sFAQLargeFileLoadFaster"
+><secTitle
+>Make a Large File Load Faster?</secTitle
+><p
+>If you have an extremely large <object
+type="tXLingPap"
+></object
+> document, it may take a long time to load into the <object
+type="tXMLmindXMLEditor"
+></object
+> program (and may take a long time to overtly save the file, too).  One reason for this is that we normally try and do extra validation checks to help you know when there might be a problem or inconsistency with the document (see section <sectionRef
+sec="sFAQValidity"
+></sectionRef
+>).  When <object
+type="tXLingPap"
+></object
+> finds a problem with one of these extra validation checks, you may see the <img
+src="resources/ValidityIconSchematron.png"
+></img
+> symbol show up in the lower left corner of the program's window.  Unfortunately, on very large documents, these checks can take a very long time to perform.</p
+><p
+>To avoid this check, we now offer you a way to not have these extra checks be performed.  Please note that while your document will load (and save) much more quickly, you may run into problems when trying to produce PDF output.  That is because these validation checks would have told you that there was something amiss in the document and that it might not be able to produce PDF as a result.</p
+><p
+>To disable these extra checks, click on the “Endnotes” item (near the bottom).  Use the Attributes Editor<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the <object
+type="tAttribute"
+>validatelevel</object
+> attribute to <object
+type="tAttrValue"
+>min</object
+>.   To enable the checks again, set the  <object
+type="tAttribute"
+>validatelevel</object
+> attribute to <object
+type="tAttrValue"
+>max</object
+>.<endnote
+id="nValidateLevelOnEndnotes"
+><p
+>A more logical place for the  <object
+type="tAttribute"
+>validatelevel</object
+> attribute would be on the <object
+type="tElement"
+>lingPaper</object
+> element.  The problem is that when there is a large file, changing an attribute on the <object
+type="tElement"
+>lingPaper</object
+> element can take a long time.  So we use the <object
+type="tElement"
+>endnotes</object
+> element since it is near the end of the document.  This way it takes much less time to change the value.</p
+></endnote
+></p
 ></section2
 ></section1
 ><section1

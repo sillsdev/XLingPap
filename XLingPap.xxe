@@ -61,7 +61,7 @@ location="configuration/commands.xml"
 ></validateHook
 ><schematron
 location="XLingPap.sch"
-phase="if(//endnotes/@validatelevel='min','empty','check')"
+phase="if(//validation/@status='minimum','empty','check')"
 evaluatePhase="true"
 ></schematron
 ><saveOptions

@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-05-08</a:date
+>2014-05-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.25.0 8 May 2014<ul
+>2.25.0 10 May 2014<ul
 ><li
 >Add a command to convert a paper to a chapter which can then be included in a book (such as a thesis or dissertation).</li
 ><li
@@ -76,7 +76,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Revise user documentation.</li
 ><li
->Add a way to turn off the extra validation checking (via Schematron) so that extremely large documents do not take a very long time to load or save.</li
+>Add a way to turn off the extra validation checking (via Schematron) so that extremely large documents do not take a very long time to load or save.  Done via a validation element.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

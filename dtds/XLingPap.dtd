@@ -82,7 +82,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -856,7 +856,6 @@
 <!ELEMENT endnotes EMPTY>
 <!ATTLIST endnotes
     label CDATA #IMPLIED
-    validatelevel (min | max) "max"
 >
 <!-- An endnote goes in the flow of the text.  One may refer to a footnote via
      an endnoteRef.  -->
@@ -970,6 +969,11 @@ Can have more than one (for names, languages, and subjects, e.g.).
  version CDATA #IMPLIED
  >
 <!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >
+
+<!ELEMENT validation EMPTY >
+<!ATTLIST validation
+    status (minimum | maximum) "maximum"
+>
 <!ENTITY % XLingPapIndexTerms SYSTEM  "XLingPapIndexTerms.dtd">
 %XLingPapIndexTerms;
 <!ENTITY % XLingPapReferences SYSTEM  "XLingPapReferences.dtd">

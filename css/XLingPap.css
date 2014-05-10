@@ -4146,6 +4146,22 @@ url:after
 	text-decoration:none;
 }
 
+validation
+{
+	display:block;
+	content: attributes();
+	color:Maroon;
+	margin-left: .125in;
+}
+validation::attribute(status)
+{
+	attribute-content-left: " Validation status:";
+	attribute-content-middle: radio-buttons(attribute, status,
+	                       labels, "minimum\A maximum", 
+	                       values, "minimum\A maximum");
+	show-attribute: always;
+}
+
 version
 {
     display: block;

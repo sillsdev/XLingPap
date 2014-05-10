@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 May 2014</date
+>10 May 2014</date
 ><version
 >2.25.0</version
 ><contents
@@ -23247,52 +23247,23 @@ type="tXLingPap"
 > document, it may take a long time to load into the <object
 type="tXMLmindXMLEditor"
 ></object
-> program (and may take a long time to overtly save the file, too).  One reason for this is that we normally try and do extra validation checks to help you know when there might be a problem or inconsistency with the document (see section <sectionRef
+> program (and may take a long time to overtly save the file, too). One reason for this is that we normally try and do extra validation checks to help you know when there might be a problem or inconsistency with the document (see section <sectionRef
 sec="sFAQValidity"
 ></sectionRef
->).  When <object
+>). When <object
 type="tXLingPap"
 ></object
 > finds a problem with one of these extra validation checks, you may see the <img
 src="resources/ValidityIconSchematron.png"
 ></img
-> symbol show up in the lower left corner of the program's window.  Unfortunately, on very large documents, these checks can take a very long time to perform.</p
+> symbol show up in the lower left corner of the program's window. Unfortunately, on very large documents, these checks can take a very long time to perform.</p
 ><p
->To avoid this check, we now offer you a way to not have these extra checks be performed.  Please note that while your document will load (and save) much more quickly, you may run into problems when trying to produce PDF output.  That is because these validation checks would have told you that there was something amiss in the document and that it might not be able to produce PDF as a result.</p
+>To avoid this check, we now offer you a way to not have these extra checks be performed. Please note that while your document will load (and save) much more quickly, you may run into problems when trying to produce PDF output. That is because these validation checks would have told you that there was something amiss in the document and that it might not be able to produce PDF as a result.</p
 ><p
->To disable these extra checks, click on the “Endnotes” item (near the bottom).  Use the Attributes Editor<endnoteRef
-note="nAttributesToolReminder"
-></endnoteRef
-> to set the <object
-type="tAttribute"
->validatelevel</object
-> attribute to <object
-type="tAttrValue"
->min</object
->.   To enable the checks again, set the  <object
-type="tAttribute"
->validatelevel</object
-> attribute to <object
-type="tAttrValue"
->max</object
->.<endnote
-id="nValidateLevelOnEndnotes"
-><p
->A more logical place for the  <object
-type="tAttribute"
->validatelevel</object
-> attribute would be on the <object
+>To disable these extra checks, insert a <object
 type="tElement"
->lingPaper</object
-> element.  The problem is that when there is a large file, changing an attribute on the <object
-type="tElement"
->lingPaper</object
-> element can take a long time.  So we use the <object
-type="tElement"
->endnotes</object
-> element since it is near the end of the document.  This way it takes much less time to change the value.</p
-></endnote
-></p
+>validation</object
+> element at the end of the document (if you have associated a publisher style sheet, insert this element by clicking on the element just before the publisher style sheet and do an “Insert After” command). Click on the “minimum” option. To enable the checks again, click on the “maximum” option..</p
 ></section2
 ></section1
 ><section1
@@ -26762,6 +26733,13 @@ type="tElement"
 ></dt
 ><dd
 >The URL for a webpage</dd
+><dt
+><object
+type="tElement"
+>validation</object
+></dt
+><dd
+>Control the level of validation performed on the current document</dd
 ><dt
 ><object
 type="tElement"

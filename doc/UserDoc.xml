@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->8 May 2014</date
+>10 May 2014</date
 ><version
 >2.25.0</version
 ><contents
@@ -10681,6 +10681,13 @@ type="tElement"
 ></dt
 ><dd
 >The URL for a webpage</dd
+><dt
+><object
+type="tElement"
+>validation</object
+></dt
+><dd
+>Control the level of validation performed on the current document</dd
 ><dt
 ><object
 type="tElement"

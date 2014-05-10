@@ -263,14 +263,17 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 	    LocalizeString ls, Document doc, String[] installedFontFamilyNames,
 	    int iMissingFontCount) throws ParseException, EvalException {
 	String fontName;
-	XNode[] results;
-	results = XPathUtil.evalAsNodeSet("//mediaObject", doc);
-	if (results != null) {
+	//Alert.showError(docView.getPanel(), "Before mediaObject check: iMissingFontCount=" + iMissingFontCount);
+	XNode[] results = XPathUtil.evalAsNodeSet("//mediaObject", doc);
+	//Alert.showError(docView.getPanel(), "After mediaObject check");
+	if (results != null && results.length > 0) {
+	    //Alert.showError(docView.getPanel(), "results not null");
 	    Element element = (Element) results[0];
 	    fontName = "Symbola";
 	    iMissingFontCount = seeIfFontIsMissing(docView, validationErrors, ls,
 		    installedFontFamilyNames, iMissingFontCount, fontName, element);
 	}
+	//Alert.showError(docView.getPanel(), "Returning: iMissingFontCount=" + iMissingFontCount);
 	return iMissingFontCount;
     }
 

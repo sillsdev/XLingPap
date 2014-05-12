@@ -3130,7 +3130,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:process>
     </cfg:command>
     <cfg:command name="ConvertSelectedToEndnote">
-        <cfg:macro undoable="true" trace="true">
+        <cfg:macro undoable="true" trace="false">
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:command name="cut" parameter="[implicit_selection]"/>

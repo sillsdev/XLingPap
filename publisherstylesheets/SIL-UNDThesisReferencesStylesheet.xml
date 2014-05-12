@@ -8,7 +8,7 @@ removecommonhundredsdigitsinpages="yes"
 ><publisherStyleSheetReferencesName
 >SIL-UND Thesis References Stylesheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->1.0.0</publisherStyleSheetReferencesVersion
+>1.1.0</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -682,6 +682,74 @@ textbefore="In "
 font-style="italic"
 textafter=" "
 ></collTitleItem
+><seriesEdItem
+textbefore="In "
+></seriesEdItem
+><seriesItem
+textafter="), "
+textbefore="("
+></seriesItem
+><bVolItem
+textafter=", "
+></bVolItem
+><collVolItem
+textafter=", "
+></collVolItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=" (eds.), "
+textbefore="In "
+></collEdItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+></collTitleItem
+><seriesEdItem
+textbefore="In "
+></seriesEdItem
+><seriesItem
+textafter="), "
+textbefore="("
+></seriesItem
+><collVolItem
+textafter=", "
+></collVolItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=" (eds.), "
+textbefore="In "
+></collEdItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+></collTitleItem
+><seriesEdItem
+textbefore="In "
+></seriesEdItem
 ><seriesItem
 textafter="), "
 textbefore="("

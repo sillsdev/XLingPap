@@ -40,7 +40,8 @@
                 </title>
                 <style type="text/css">
                <xsl:text>.interblock { display: -moz-inline-box; display:inline-block; vertical-align: top; } </xsl:text>
-            </style>
+                </style>
+                <xsl:call-template name="SetMetadata"/>
             </head>
             <body>
                 <xsl:apply-templates/>
@@ -5421,6 +5422,35 @@
                 <xsl:value-of select="$sDefaultValue"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetMetadata
+    -->
+    <xsl:template name="SetMetadata">
+        <meta name="author">
+            <xsl:attribute name="content">
+                <xsl:call-template name="SetMetadataAuthor"/>
+            </xsl:attribute>
+        </meta>
+        <xsl:if test="$lingPaper/frontMatter/title != ''">
+            <meta name="title">
+                <xsl:attribute name="content">
+                    <xsl:call-template name="SetMetadataTitle"/>
+                </xsl:attribute>
+            </meta>
+        </xsl:if>
+        <xsl:if test="string-length($lingPaper/publishingInfo/keywords) &gt; 0">
+            <meta name="keywords">
+                <xsl:attribute name="content">
+                    <xsl:call-template name="SetMetadataKeywords"/>
+                </xsl:attribute>
+            </meta>
+        </xsl:if>
+        <meta name="generator">
+            <xsl:attribute name="content">
+                <xsl:call-template name="SetMetadataCreator"/>
+            </xsl:attribute>
+        </meta>
     </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE

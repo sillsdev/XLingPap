@@ -963,7 +963,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
     kind (common | name | language | subject) "common"
     contentType IDREF #IMPLIED
 >
-<!ELEMENT publishingInfo (publishingBlurb?, authorContacts?) >
+<!ELEMENT publishingInfo (publishingBlurb?, authorContacts?, keywords?) >
 <!ATTLIST publishingInfo
  startingPageNumber CDATA #IMPLIED
  version CDATA #IMPLIED

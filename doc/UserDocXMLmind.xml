@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->10 May 2014</date
+>2 June 2014</date
 ><version
->2.25.0</version
+>2.25.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -5803,6 +5803,9 @@ id="sBMRefKeywords"
 ><secTitle
 >Keywords</secTitle
 ><p
+><indexedItem
+term="iKeywords"
+></indexedItem
 >You can create a list of keywords that classify a reference work. At the end of the <object
 type="tElement"
 >refWork</object
@@ -17859,7 +17862,18 @@ type="tXeTeX"
 >) way of producing PDF, you will need to get the free Symbola font and install it on your computer. You can get it at <link
 href="http://www.xlingpaper.org/?page_id=4#SymbolaFont"
 >http://www.xlingpaper.org/?page_id=4#SymbolaFont</link
->. The attributes of the <object
+>. If you installed <object
+type="tXLingPap"
+></object
+> before version 2.25.0, you will also need to get and install the <object
+type="tXeTeX"
+></object
+> upgade package at <link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+>.</p
+><p
+>The attributes of the <object
 type="tElement"
 >mediaObject</object
 > element used by the <object
@@ -18030,7 +18044,7 @@ type="tAttrValue"
 ></td
 ><td
 ><img
-src="Resources/CinemaIcon.png"
+src="resources/CinemaIcon.png"
 ></img
 ></td
 ></tr
@@ -18042,7 +18056,7 @@ type="tAttrValue"
 ></td
 ><td
 ><img
-src="Resources/MovieCameraIcon.png"
+src="resources/MovieCameraIcon.png"
 ></img
 ></td
 ></tr
@@ -18054,7 +18068,7 @@ type="tAttrValue"
 ></td
 ><td
 ><img
-src="Resources/OpticalDiskIcon.png"
+src="resources/OpticalDiskIcon.png"
 ></img
 ></td
 ></tr
@@ -18066,7 +18080,7 @@ type="tAttrValue"
 ></td
 ><td
 ><img
-src="Resources/SpeakerIcon.png"
+src="resources/SpeakerIcon.png"
 ></img
 ></td
 ></tr
@@ -22497,7 +22511,7 @@ type="tBold"
 >: You must use the default location for storing your books in the Calibre Library. If you use some other location, <object
 type="tXLingPap"
 ></object
-> will not be able to find it and thus will not succeed in producing the EBook for you.</p
+> will not be able to find it and thus will not succeed in producing the EBook for you.  Also, you may find that the EBook fails to be produced if the file name is long.  Try to keep the name under 24 characters.</p
 ><p
 >For users of <object
 type="tXLingPap"
@@ -23612,7 +23626,7 @@ id="sPublishingInfo"
 ><indexedItem
 term="iPublishingInfo"
 ></indexedItem
->When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. One includes this kind of information via the optional <object
+>When your document is ready for publication, sometimes one needs to include a blurb containing particulars about the publication and also sometimes one needs to include contact information for the authors. In addition, one might want to add keywords metadata. One includes this kind of information via the optional <object
 type="tElement"
 >publishingInfo</object
 > element. To insert a <object
@@ -23636,7 +23650,7 @@ type="tElement"
 letter="xPublishingInfoAttributesForSectionRef"
 num="xPublishingInfoAttributesForSectionRef"
 ></exampleRef
-> and two optional parts: the blurb and author contacts.</p
+> and three optional parts: the blurb, author contacts, and keywords.</p
 ><example
 num="xPublishingInfoAttributesForSectionRef"
 ><table
@@ -23885,6 +23899,30 @@ type="tAttrValue"
 type="tElement"
 >contactElectronic</object
 > element will be included in the output.</p
+></section2
+><section2
+id="sKeywords"
+><secTitle
+>Keywords</secTitle
+><p
+><indexedItem
+term="iKeywords"
+></indexedItem
+>The optional <object
+type="tElement"
+>keywords</object
+> element can be used to include keyword phrases that will be included in the metadata for this document. Inside of this you can have one or more <object
+type="tElement"
+>keyword</object
+> elements.</p
+><p
+>This is for information only. <object
+type="tXLingPap"
+></object
+> never outputs or processes the content of <object
+type="tElement"
+>keyword</object
+> elements. It only shows up in the metadata embedded in the output file.</p
 ></section2
 ></section1
 ><section1
@@ -29971,6 +30009,11 @@ id="iJPG"
 see="iImageFiles"
 ><term
 >.jpg (.jpeg) files</term
+></indexTerm
+><indexTerm
+id="iKeywords"
+><term
+>Keywords</term
 ></indexTerm
 ><indexTerm
 id="iLandscape"

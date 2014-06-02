@@ -178,6 +178,7 @@
                 <!--                <meta name="{$sFileName}" http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     If we decide to get serious about meta data, look at http://dublincore.org/documents/dc-html/ and follow what it says.
 -->
+                <xsl:call-template name="SetMetadata"/>
                 <style type="text/css">
                     <xsl:text>.interblock { display: -moz-inline-box; display:inline-block; vertical-align: top; } </xsl:text>
                 </style>

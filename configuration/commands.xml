@@ -1545,14 +1545,18 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:set variable="safeXeLaTeXFileName" expression="%_" plainString="true"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="eBookPrepPublisherStyleSheet" parameter="%_"/>
+<!--                        <cfg:command name="alert" parameter="after eBookPrepPublisherStyleSheet"/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
                         <cfg:command name="status" parameter="%_ (2/4)"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="AddFileToCalibreLibrary" parameter="%_"/>
+<!--                        <cfg:command name="alert" parameter="after AddFileToCalibreLibrary"/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
                         <cfg:command name="status" parameter="%_ (3/4)"/>
                         <cfg:command name="GetHighestCalibreBookIdCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:set variable="CalibreBookId" plainString="true" expression="%_"/>
+                        <!--<cfg:get expression="$CalibreBookId"/>
+                        <cfg:command name="alert" parameter="book id = %_"/>-->
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}%_4EBook.htm"/>

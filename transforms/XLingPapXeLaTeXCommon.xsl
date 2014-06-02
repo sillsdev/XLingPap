@@ -10030,6 +10030,31 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        SetMetadata
+    -->
+    <xsl:template name="SetMetadata">
+        <xsl:text>pdfauthor=</xsl:text>
+        <tex:parm>
+            <xsl:call-template name="SetMetadataAuthor"/>
+        </tex:parm>
+        <xsl:text>, pdfcreator=</xsl:text>
+        <tex:parm>
+            <xsl:call-template name="SetMetadataCreator"/>
+        </tex:parm>
+        <xsl:if test="$lingPaper/frontMatter/title != ''">
+            <xsl:text>, pdftitle=</xsl:text>
+            <tex:parm>
+                <xsl:call-template name="SetMetadataTitle"/>
+            </tex:parm>
+        </xsl:if>
+        <xsl:if test="string-length($lingPaper/publishingInfo/keywords) &gt; 0">
+            <xsl:text>, pdfkeywords=</xsl:text>
+            <tex:parm>
+                <xsl:call-template name="SetMetadataKeywords"/>
+            </tex:parm>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         SetPageLayoutParameters
     -->
     <xsl:template name="SetPageLayoutParameters">
@@ -10828,11 +10853,12 @@
         </tex:cmd>
         <!-- hyperref should be the last package listed -->
         <tex:cmd name="usepackage" nl2="1">
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
-                <tex:opt>
-                    <xsl:text>hyperfootnotes=false</xsl:text>
-                </tex:opt>
-            </xsl:if>
+            <tex:opt>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+                    <xsl:text>hyperfootnotes=false, </xsl:text>
+                </xsl:if>
+                <xsl:call-template name="SetMetadata"/>
+            </tex:opt>
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
         <tex:cmd name="hypersetup" nl2="1">

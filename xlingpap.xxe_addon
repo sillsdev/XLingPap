@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.25.0</a:version
+>2.25.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-05-10</a:date
+>2014-06-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,22 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.25.1 2 June 2014<ul
+><li
+>Insert metadata for author, title, creator, and any keywords.</li
+></ul
+></li
+><li
+>2.25.0_1 20 May 2014<ul
+><li
+>RenderX way of producing PDF:<ul
+><li
+>Fix bug: if a style sheet said for the contents to be on a new page, it failed to start on a new page.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.25.0 10 May 2014<ul
 ><li
@@ -76,7 +92,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Revise user documentation.</li
 ><li
->Add a way to turn off the extra validation checking (via Schematron) so that extremely large documents do not take a very long time to load or save.  Done via a validation element.</li
+>Add a way to turn off the extra validation checking (via Schematron) so that extremely large documents do not take a very long time to load or save. Done via a validation element.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -22,7 +22,7 @@
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">2.24.0</xsl:variable>
+    <xsl:variable name="sVersion">2.25.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">
@@ -1423,6 +1423,46 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        SetMetadataAuthor
+    -->
+    <xsl:template name="SetMetadataAuthor">
+        <xsl:for-each select="$lingPaper/frontMatter/author">
+            <xsl:apply-templates select="child::node()[name()!='endnote']" mode="contentOnly"/>
+            <xsl:if test="position()!=last()">
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
+        SetMetadataCreator
+    -->
+    <xsl:template name="SetMetadataCreator">
+        <xsl:text>XLingPaper version </xsl:text>
+        <xsl:value-of select="$sVersion"/>
+        <xsl:text> (www.xlingpaper.org)</xsl:text>
+    </xsl:template>
+    <!--
+        SetMetadataKeywords
+    -->
+    <xsl:template name="SetMetadataKeywords">
+        <xsl:for-each select="$lingPaper/publishingInfo/keywords/keyword">
+            <xsl:value-of select="."/>
+            <xsl:if test="position()!=last()">
+                <xsl:text>, </xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
+        SetMetadataTitle
+    -->
+    <xsl:template name="SetMetadataTitle">
+        <xsl:apply-templates select="$lingPaper/frontMatter/title/child::node()[name()!='br' and name()!='endnote']" mode="contentOnly"/>
+        <xsl:if test="$lingPaper/frontMatter/subtitle != ''">
+            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$lingPaper/frontMatter/subtitle"/>
+        </xsl:if>
     </xsl:template>
     <!--
         SortAbbreviationsInTable

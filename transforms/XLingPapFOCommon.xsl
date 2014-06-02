@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions">
     <!-- variables -->
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'N'"/>
     <xsl:variable name="iIndent">
@@ -88,7 +88,8 @@
     -->
     <xsl:template match="title[ancestor::chapterInCollection]">
         <xsl:apply-templates/>
-    </xsl:template>    <!--  
+    </xsl:template>
+    <!--  
         source
     -->
     <xsl:template match="source">
@@ -533,7 +534,8 @@
         OutputAbbreviationsInTable
     -->
     <xsl:template name="OutputAbbreviationsInTable">
-        <xsl:param name="abbrsUsed" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+        <xsl:param name="abbrsUsed"
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
         <fo:block>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
@@ -837,5 +839,36 @@
                 <xsl:value-of select="$sDefaultValue"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetMetadata
+    -->
+    <xsl:template name="SetMetadata">
+        <rx:meta-info>
+            <rx:meta-field name="author">
+                <xsl:attribute name="value">
+                    <xsl:call-template name="SetMetadataAuthor"/>
+                </xsl:attribute>
+            </rx:meta-field>
+            <xsl:if test="$lingPaper/frontMatter/title != ''">
+                <rx:meta-field name="title">
+                    <xsl:attribute name="value">
+                        <xsl:call-template name="SetMetadataTitle"/>
+                    </xsl:attribute>
+                </rx:meta-field>
+            </xsl:if>
+            <xsl:if test="string-length($lingPaper/publishingInfo/keywords) &gt; 0">
+                <rx:meta-field name="keywords">
+                    <xsl:attribute name="value">
+                        <xsl:call-template name="SetMetadataKeywords"/>
+                    </xsl:attribute>
+                </rx:meta-field>
+            </xsl:if>
+            <rx:meta-field name="creator">
+                <xsl:attribute name="value">
+                    <xsl:call-template name="SetMetadataCreator"/>
+                </xsl:attribute>
+            </rx:meta-field>
+        </rx:meta-info>
     </xsl:template>
 </xsl:stylesheet>

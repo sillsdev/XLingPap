@@ -2397,6 +2397,12 @@ keyword:before
 	content:"Keyword: " 
 	;
 }
+publishingInfo keyword
+{
+	display:block;
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+}
 keyword
 {
 	display:block;
@@ -2408,6 +2414,14 @@ keywords:before
 	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
 	" Keywords: ";
 }
+publishingInfo keywords
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+}
+
 keywords
 {
 	display:block;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon" exclude-result-prefixes="fo rx xfc saxon ">
+<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon" exclude-result-prefixes="fo rx xfc saxon ">
     <xsl:variable name="sCSSContentsLabel" select="'_contents'"/>
     <xsl:variable name="iIndent">
         <xsl:call-template name="ConvertToPoints">
@@ -123,5 +124,34 @@
                 <xsl:value-of select="$sDefaultValue"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetMetadata
+    -->
+    <xsl:template name="SetMetadata">
+        <meta name="author">
+            <xsl:attribute name="content">
+                <xsl:call-template name="SetMetadataAuthor"/>
+            </xsl:attribute>
+        </meta>
+        <xsl:if test="$lingPaper/frontMatter/title != ''">
+            <meta name="title">
+                <xsl:attribute name="content">
+                    <xsl:call-template name="SetMetadataTitle"/>
+                </xsl:attribute>
+            </meta>
+        </xsl:if>
+        <xsl:if test="string-length($lingPaper/publishingInfo/keywords) &gt; 0">
+            <meta name="keywords">
+                <xsl:attribute name="content">
+                    <xsl:call-template name="SetMetadataKeywords"/>
+                </xsl:attribute>
+            </meta>
+        </xsl:if>
+        <meta name="generator">
+            <xsl:attribute name="content">
+                <xsl:call-template name="SetMetadataCreator"/>
+            </xsl:attribute>
+        </meta>
     </xsl:template>
 </xsl:stylesheet>

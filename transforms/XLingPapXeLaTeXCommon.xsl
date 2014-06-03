@@ -121,7 +121,8 @@
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
-    <xsl:variable name="sFontScript" select="'script='"/>
+    <xsl:variable name="sFontScript" select="'Script='"/>
+    <xsl:variable name="sFontScriptLower" select="'script='"/>
     <xsl:variable name="sFontLanguage" select="'language='"/>
     <xsl:variable name="sUppercaseAtoZ" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
     <xsl:variable name="sLowercaseAtoZ" select="'abcdefghijklmnopqrstuvwxyz'"/>
@@ -3977,22 +3978,41 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0">
+            <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0 or contains(@XeLaTeXSpecial, $sFontScript) or contains(../@XeLaTeXSpecial, $sFontScript) or contains(@XeLaTeXSpecial, $sFontScriptLower) or contains(../@XeLaTeXSpecial, $sFontScriptLower)">
                 <tex:opt>
+                    <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0">
+                        <xsl:choose>
+                            <xsl:when test="$bIsGraphite='Y'">
+                                <xsl:value-of select="$sRendererIsGraphite"/>
+                                <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                    <xsl:with-param name="sList" select="$sFontFeatureList"/>
+                                    <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                                    <xsl:with-param name="sList" select="$sFontFeatureList"/>
+                                    <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
+                    <!-- some open type fonts also need a special script; handle them here -->
                     <xsl:choose>
-                        <xsl:when test="$bIsGraphite='Y'">
-                            <xsl:value-of select="$sRendererIsGraphite"/>
-                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                <xsl:with-param name="sList" select="$sFontFeatureList"/>
-                                <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                        <xsl:when test="contains(@XeLaTeXSpecial, $sFontScript) or contains(@XeLaTeXSpecial, $sFontScriptLower)">
+                            <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                <xsl:with-param name="sDefault" select="'arab'"/>
                             </xsl:call-template>
                         </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
-                                <xsl:with-param name="sList" select="$sFontFeatureList"/>
-                                <xsl:with-param name="bIsFirstOpt" select="'Y'"/>
-                            </xsl:call-template>
-                        </xsl:otherwise>
+                        <xsl:when test="contains(../@XeLaTeXSpecial, $sFontScript) or contains(../@XeLaTeXSpecial, $sFontScriptLower)">
+                            <xsl:for-each select="..">
+                                <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                    <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                    <xsl:with-param name="sDefault" select="'arab'"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:when>
                     </xsl:choose>
                 </tex:opt>
             </xsl:if>
@@ -4006,28 +4026,13 @@
                         <xsl:value-of select="$sBaseFontName"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <!-- some open type fonts also need a special script or a special language; handle them here -->
-                <xsl:choose>
-                    <xsl:when test="contains(@XeLaTeXSpecial, $sFontScript)">
-                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
-                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
-                            <xsl:with-param name="sDefault" select="'arab'"/>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:when test="contains(../@XeLaTeXSpecial, $sFontScript)">
-                        <xsl:for-each select="..">
-                            <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
-                                <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
-                                <xsl:with-param name="sDefault" select="'arab'"/>
-                            </xsl:call-template>
-                        </xsl:for-each>
-                    </xsl:when>
-                </xsl:choose>
+                <!-- some open type fonts also need a special language; handle them here -->
                 <xsl:choose>
                     <xsl:when test="contains(@XeLaTeXSpecial, $sFontLanguage)">
                         <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
                             <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
                             <xsl:with-param name="sDefault" select="'ARA'"/>
+                            <xsl:with-param name="sPunctuation" select="':'"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="contains(../@XeLaTeXSpecial, $sFontLanguage)">
@@ -4035,6 +4040,7 @@
                             <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
                                 <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
                                 <xsl:with-param name="sDefault" select="'ARA'"/>
+                                <xsl:with-param name="sPunctuation" select="':'"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:when>
@@ -7166,7 +7172,8 @@
     <xsl:template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
         <xsl:param name="sFontSpecial"/>
         <xsl:param name="sDefault"/>
-        <xsl:text>:</xsl:text>
+        <xsl:param name="sPunctuation" select="','"/>
+        <xsl:value-of select="$sPunctuation"/>
         <xsl:value-of select="$sFontSpecial"/>
         <xsl:call-template name="HandleXeLaTeXSpecialCommand">
             <xsl:with-param name="sPattern" select="$sFontSpecial"/>
@@ -7196,6 +7203,15 @@
                                 </xsl:call-template>
                                 <xsl:text>Scale=</xsl:text>
                                 <xsl:value-of select="number(substring-before($sSize,'%')) div 100"/>
+                                <!-- some open type fonts also need a special script; handle them here -->
+                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontScript) or $language and contains($language/@XeLaTeXSpecial, $sFontScriptLower)">
+                                    <xsl:for-each select="$language">
+                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
+                                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
+                                            <xsl:with-param name="sDefault" select="'Arabic'"/>
+                                        </xsl:call-template>
+                                    </xsl:for-each>
+                                </xsl:if>
                             </tex:opt>
                             <tex:parm>
                                 <xsl:variable name="sNormFontFamily" select="normalize-space($sFontFamily)"/>
@@ -7207,20 +7223,13 @@
                                         <xsl:value-of select="$sDefaultFontFamily"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                <!-- some open type fonts also need a special script or a special language; handle them here -->
-                                <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontScript)">
-                                    <xsl:for-each select="$language">
-                                        <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
-                                            <xsl:with-param name="sFontSpecial" select="$sFontScript"/>
-                                            <xsl:with-param name="sDefault" select="'arab'"/>
-                                        </xsl:call-template>
-                                    </xsl:for-each>
-                                </xsl:if>
+                                <!-- some open type fonts also need a special language; handle them here -->
                                 <xsl:if test="$language and contains($language/@XeLaTeXSpecial, $sFontLanguage)">
                                     <xsl:for-each select="$language">
                                         <xsl:call-template name="HandleFontScriptOrLanguageXeLaTeXSpecial">
                                             <xsl:with-param name="sFontSpecial" select="$sFontLanguage"/>
                                             <xsl:with-param name="sDefault" select="'ARA'"/>
+                                            <xsl:with-param name="sPunctuation" select="':'"/>
                                         </xsl:call-template>
                                     </xsl:for-each>
                                 </xsl:if>

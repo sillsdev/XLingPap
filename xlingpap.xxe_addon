@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.25.1</a:version
+>2.25.1_1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-06-02</a:date
+>2014-06-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.25.1_1 3 June 2014<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix how fontspec now wants to handle script commands so newer version of teh Scheherazade font works.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.25.1 2 June 2014<ul
 ><li

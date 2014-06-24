@@ -210,10 +210,10 @@
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
+        <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
+            <xsl:text>(</xsl:text>
+        </xsl:if>
         <xsl:if test="@author='yes'">
-            <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
-                <xsl:text>(</xsl:text>
-            </xsl:if>
             <xsl:value-of select="$refer/../@citename"/>
             <xsl:text>&#x20;</xsl:text>
         </xsl:if>

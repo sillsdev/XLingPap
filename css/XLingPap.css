@@ -837,6 +837,16 @@ selectedBibliography > citation
 	margin: indented-block();
 }
 
+citation[author='no'][paren='citationBoth']
+{
+	content: set-attribute-button(attribute, ref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+		"("
+             ;
+	background-color:citation-background-color();
+}
 citation[paren='citationBoth']
 {
 	content: set-attribute-button(attribute, ref,
@@ -845,6 +855,16 @@ citation[paren='citationBoth']
 						 color, black)
 		"("
                  	 label(xpath, "id(@ref)/../@citename")
+             ;
+	background-color:citation-background-color();
+}
+citation[author='no'][paren='citationInitial']
+{
+	content: set-attribute-button(attribute, ref,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+		"("
              ;
 	background-color:citation-background-color();
 }
@@ -894,6 +914,12 @@ citation[page][paren='citationBoth']:after
 	        ")"
 	        ;
 }
+citation[author='no'][paren='citationBoth']:after
+{
+	content:label(xpath, "id(@ref)/refDate")
+	        ")"
+	        ;
+}
 citation[paren='citationBoth']:after
 {
 	content:" "
@@ -939,6 +965,11 @@ citation[page][paren='citationInitial']:after
 	        label(xpath, "id(@ref)/refDate")
 	        ":"
 	        label(attribute, page)
+	        ;
+}
+citation[author='no'][paren='citationInitial']:after
+{
+	content:label(xpath, "id(@ref)/refDate")
 	        ;
 }
 citation[paren='citationInitial']:after

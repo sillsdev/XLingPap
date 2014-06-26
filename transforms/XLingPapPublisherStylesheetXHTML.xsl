@@ -3850,12 +3850,14 @@
                 <xsl:call-template name="DoSectionBeginsParagraph">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoSectionAsTitle">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

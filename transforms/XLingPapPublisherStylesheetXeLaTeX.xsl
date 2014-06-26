@@ -4973,12 +4973,14 @@
                 <xsl:call-template name="DoSectionBeginsParagraph">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoSectionAsTitle">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -4996,6 +4998,7 @@
     <xsl:template name="DoSectionAsTitle">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <tex:group>
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -5038,15 +5041,17 @@
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
                 <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
             </xsl:call-template>
-            <!-- put title in marker so it can show up in running header -->
-            <tex:cmd name="markright" nl2="1">
-                <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
-                    </xsl:call-template>
-                </tex:parm>
-            </tex:cmd>
+            <xsl:if test="$layoutInfo/@showInHeader!='no'">
+                <!-- put title in marker so it can show up in running header -->
+                <tex:cmd name="markright" nl2="1">
+                    <tex:parm>
+                        <xsl:call-template name="DoSecTitleRunningHeader">
+                            <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="@id"/>
             </xsl:call-template>
@@ -5066,6 +5071,7 @@
     <xsl:template name="DoSectionBeginsParagraph">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <xsl:call-template name="DoSpaceBefore">
             <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
         </xsl:call-template>
@@ -5110,15 +5116,17 @@
                 <xsl:with-param name="contentOfThisElement" select="$contentOfThisElement"/>
             </xsl:call-template>
         </tex:group>
-        <!-- put title in marker so it can show up in running header -->
-        <tex:cmd name="markright">
-            <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
-                </xsl:call-template>
-            </tex:parm>
-        </tex:cmd>
+        <xsl:if test="$layoutInfo/@showInHeader!='no'">
+            <!-- put title in marker so it can show up in running header -->
+            <tex:cmd name="markright">
+                <tex:parm>
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>

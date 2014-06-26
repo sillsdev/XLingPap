@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.25.1_1</a:version
+>2.25.2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-06-24</a:date
+>2014-06-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.25.1_1 24 June 2014<ul
+>2.25.2 26 June 2014<ul
 ><li
 >Fix bug which did not correctly show citations using both author='no' and paren='citationBoth' or paren='citationInitial'.</li
+><li
+>Add ability to control which section levels show in running headers via the publisher style sheet.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

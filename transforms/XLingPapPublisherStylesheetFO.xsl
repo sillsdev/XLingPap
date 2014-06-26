@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions"
+<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions"
     xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="no"/>
     <!-- ===========================================================
@@ -10,11 +9,9 @@
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
     <!--    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>-->
     <xsl:variable name="iMagnificationFactor">
-        <xsl:variable name="sAdjustedFactor"
-            select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
+        <xsl:variable name="sAdjustedFactor" select="normalize-space($contentLayoutInfo/magnificationFactor)"/>
         <xsl:choose>
-            <xsl:when
-                test="string-length($sAdjustedFactor) &gt; 0 and $sAdjustedFactor!='1' and number($sAdjustedFactor)!='NaN'">
+            <xsl:when test="string-length($sAdjustedFactor) &gt; 0 and $sAdjustedFactor!='1' and number($sAdjustedFactor)!='NaN'">
                 <xsl:value-of select="$sAdjustedFactor"/>
             </xsl:when>
             <xsl:otherwise>1</xsl:otherwise>
@@ -31,18 +28,14 @@
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
-    <xsl:variable name="sBasicPointSize"
-        select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
-    <xsl:variable name="sFootnotePointSize"
-        select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
+    <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
+    <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet/bodyLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
-    <xsl:variable name="iAffiliationLayouts"
-        select="count($frontMatterLayoutInfo/affiliationLayout)"/>
-    <xsl:variable name="iEmailAddressLayouts"
-        select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
+    <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
+    <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
     <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayoutInfo/authorLayout)"/>
     <xsl:variable name="lineSpacing" select="$pageLayoutInfo/lineSpacing"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
@@ -73,28 +66,17 @@
         The other possibilities are AfterFree (immediately after the free translation, on the same line)
         and UnderFree (on the line immediately after the free translation)
     -->
-    <xsl:variable name="sInterlinearSourceStyle"
-        select="$contentLayoutInfo/interlinearSourceStyle/@interlinearsourcestyle"/>
-    <xsl:variable name="styleSheetFigureLabelLayout"
-        select="$contentLayoutInfo/figureLayout/figureLabelLayout"/>
-    <xsl:variable name="styleSheetFigureNumberLayout"
-        select="$contentLayoutInfo/figureLayout/figureNumberLayout"/>
-    <xsl:variable name="styleSheetFigureCaptionLayout"
-        select="$contentLayoutInfo/figureLayout/figureCaptionLayout"/>
-    <xsl:variable name="sSpaceBetweenFigureAndCaption"
-        select="normalize-space($contentLayoutInfo/figureLayout/@spaceBetweenFigureAndCaption)"/>
-    <xsl:variable name="styleSheetTableNumberedLabelLayout"
-        select="$contentLayoutInfo/tablenumberedLayout/tablenumberedLabelLayout"/>
-    <xsl:variable name="styleSheetTableNumberedNumberLayout"
-        select="$contentLayoutInfo/tablenumberedLayout/tablenumberedNumberLayout"/>
-    <xsl:variable name="styleSheetTableNumberedCaptionLayout"
-        select="$contentLayoutInfo/tablenumberedLayout/tablenumberedCaptionLayout"/>
-    <xsl:variable name="sSpaceBetweenTableAndCaption"
-        select="normalize-space($contentLayoutInfo/tablenumberedLayout/@spaceBetweenTableAndCaption)"/>
-    <xsl:variable name="sHangingIndentInitialIndent"
-        select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
-    <xsl:variable name="sHangingIndentNormalIndent"
-        select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
+    <xsl:variable name="sInterlinearSourceStyle" select="$contentLayoutInfo/interlinearSourceStyle/@interlinearsourcestyle"/>
+    <xsl:variable name="styleSheetFigureLabelLayout" select="$contentLayoutInfo/figureLayout/figureLabelLayout"/>
+    <xsl:variable name="styleSheetFigureNumberLayout" select="$contentLayoutInfo/figureLayout/figureNumberLayout"/>
+    <xsl:variable name="styleSheetFigureCaptionLayout" select="$contentLayoutInfo/figureLayout/figureCaptionLayout"/>
+    <xsl:variable name="sSpaceBetweenFigureAndCaption" select="normalize-space($contentLayoutInfo/figureLayout/@spaceBetweenFigureAndCaption)"/>
+    <xsl:variable name="styleSheetTableNumberedLabelLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedLabelLayout"/>
+    <xsl:variable name="styleSheetTableNumberedNumberLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedNumberLayout"/>
+    <xsl:variable name="styleSheetTableNumberedCaptionLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedCaptionLayout"/>
+    <xsl:variable name="sSpaceBetweenTableAndCaption" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@spaceBetweenTableAndCaption)"/>
+    <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
+    <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -137,8 +119,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="sListLayoutSpaceBetween"
-        select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
+    <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -203,8 +184,7 @@
         <xsl:attribute name="text-align">left</xsl:attribute>
         <xsl:attribute name="text-align-last">left</xsl:attribute>
         <xsl:attribute name="text-indent">
-            <xsl:variable name="sFootnoteIndent"
-                select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+            <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
             <xsl:choose>
                 <xsl:when test="string-length($sFootnoteIndent)&gt;0">
                     <xsl:value-of select="$sFootnoteIndent"/>
@@ -238,8 +218,7 @@
       =========================================================== -->
     <xsl:template match="//lingPaper">
         <!-- using line-height-shift-adjustment="disregard-shifts" to keep ugly gaps from appearing between lines with footnotes. -->
-        <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
-            line-height-shift-adjustment="disregard-shifts">
+        <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" line-height-shift-adjustment="disregard-shifts">
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
                 <xsl:attribute name="line-height">
                     <xsl:choose>
@@ -253,8 +232,7 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="SetMetadata"/>
-            <xsl:comment> generated by XLingPapPublisherStylesheetFO.xsl Version <xsl:value-of
-                    select="$sVersion"/>&#x20;</xsl:comment>
+            <xsl:comment> generated by XLingPapPublisherStylesheetFO.xsl Version <xsl:value-of select="$sVersion"/>&#x20;</xsl:comment>
             <!-- Page layouts -->
             <xsl:call-template name="DoLayoutMasterSet"/>
             <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
@@ -269,8 +247,7 @@
                     <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence master-reference="Chapter">
                         <xsl:attribute name="initial-page-number">
-                            <xsl:variable name="sStartingPageNumber"
-                                select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+                            <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
                             <xsl:choose>
                                 <xsl:when test="string-length($sStartingPageNumber) &gt; 0">
                                     <xsl:value-of select="$sStartingPageNumber"/>
@@ -281,8 +258,7 @@
                             </xsl:choose>
                         </xsl:attribute>
                         <xsl:call-template name="OutputChapterStaticContent">
-                            <xsl:with-param name="layoutInfo"
-                                select="$pageLayoutInfo/headerFooterPageStyles"/>
+                            <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterPageStyles"/>
                         </xsl:call-template>
                         <fo:flow flow-name="xsl-region-body">
                             <xsl:attribute name="font-family">
@@ -297,8 +273,7 @@
                                         <xsl:apply-templates select="//frontMatter/shortTitle"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:apply-templates
-                                            select="//title/child::node()[name()!='endnote']"/>
+                                        <xsl:apply-templates select="//title/child::node()[name()!='endnote']"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </fo:marker>
@@ -320,8 +295,7 @@
                 <!-- part -->
                 <xsl:apply-templates select="$lingPaper/part" mode="bookmarks"/>
                 <!--                 chapter, no parts -->
-                <xsl:apply-templates select="$lingPaper/chapter | $lingPaper/chapterInCollection"
-                    mode="bookmarks"/>
+                <xsl:apply-templates select="$lingPaper/chapter | $lingPaper/chapterInCollection" mode="bookmarks"/>
                 <!-- section, no chapters -->
                 <xsl:apply-templates select="$lingPaper/section1" mode="bookmarks"/>
                 <xsl:call-template name="DoBackMatterBookmarksPerLayout"/>
@@ -536,13 +510,11 @@
     <xsl:template match="publishingBlurb">
         <fo:block>
             <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo"
-                    select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
             </xsl:call-template>
             <xsl:apply-templates/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo"
-                    select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/publishingBlurbLayout"/>
             </xsl:call-template>
         </fo:block>
     </xsl:template>
@@ -572,15 +544,13 @@
                 <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
             </xsl:call-template>
             <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo"
-                    select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
                 <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
                 <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
             </xsl:call-template>
             <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo"
-                    select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
                 <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
                 <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
@@ -652,20 +622,17 @@
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
                     </xsl:call-template>
-                    <xsl:if
-                        test="string-length(normalize-space($abstractTextLayoutInfo/@textalign)) &gt; 0">
+                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@textalign)) &gt; 0">
                         <xsl:attribute name="text-align">
                             <xsl:value-of select="$abstractTextLayoutInfo/@textalign"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:if
-                        test="string-length(normalize-space($abstractTextLayoutInfo/@start-indent)) &gt; 0">
+                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@start-indent)) &gt; 0">
                         <xsl:attribute name="start-indent">
                             <xsl:value-of select="$abstractTextLayoutInfo/@start-indent"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:if
-                        test="string-length(normalize-space($abstractTextLayoutInfo/@end-indent)) &gt; 0">
+                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@end-indent)) &gt; 0">
                         <xsl:attribute name="end-indent">
                             <xsl:value-of select="$abstractTextLayoutInfo/@end-indent"/>
                         </xsl:attribute>
@@ -720,25 +687,20 @@
     -->
     <xsl:template match="acknowledgements" mode="paper">
         <xsl:choose>
-            <xsl:when
-                test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+            <xsl:when test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                 <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="layoutToUse">
                     <xsl:choose>
                         <xsl:when test="parent::frontMatter and ancestor::chapterInCollection">
-                            <xsl:copy-of
-                                select="$bodyLayoutInfo/chapterInCollectionFrontMatterLayout/acknowledgementsLayout"
-                            />
+                            <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionFrontMatterLayout/acknowledgementsLayout"/>
                         </xsl:when>
                         <xsl:when test="parent::frontMatter">
                             <xsl:copy-of select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
                         </xsl:when>
                         <xsl:when test="parent::backMatter and ancestor::chapterInCollection">
-                            <xsl:copy-of
-                                select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/acknowledgementsLayout"
-                            />
+                            <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/acknowledgementsLayout"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:copy-of select="$backMatterLayoutInfo/acknowledgementsLayout"/>
@@ -846,12 +808,10 @@
         <fo:page-sequence master-reference="Chapter">
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
-                    <xsl:when
-                        test="contains(name(),'chapter') and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
+                    <xsl:when test="contains(name(),'chapter') and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
                         <xsl:text>1</xsl:text>
                     </xsl:when>
-                    <xsl:when
-                        test="$bodyLayoutInfo/partLayout/partTitleLayout/@startonoddpage='yes'">
+                    <xsl:when test="$bodyLayoutInfo/partLayout/partTitleLayout/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>auto</xsl:otherwise>
@@ -868,14 +828,12 @@
                 <fo:marker marker-class-name="chap-title">
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle"
-                            select="$bChapterNumberIsBeforeTitle"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </fo:marker>
                 <fo:block id="{@id}" span="all">
                     <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo"
-                            select="$bodyLayoutInfo/partLayout/numberLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputChapTitle">
@@ -886,57 +844,46 @@
                         </xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                        <xsl:with-param name="layoutInfo"
-                            select="$bodyLayoutInfo/partLayout/numberLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/numberLayout"/>
                     </xsl:call-template>
                 </fo:block>
                 <fo:block>
                     <xsl:call-template name="DoTitleFormatInfo">
-                        <xsl:with-param name="layoutInfo"
-                            select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
                         <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                     </xsl:call-template>
                     <xsl:apply-templates select="secTitle"/>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                        <xsl:with-param name="layoutInfo"
-                            select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
                     </xsl:call-template>
                 </fo:block>
-                <xsl:apply-templates
-                    select="child::node()[name()!='secTitle' and not(contains(name(),'chapter'))]"/>
+                <xsl:apply-templates select="child::node()[name()!='secTitle' and not(contains(name(),'chapter'))]"/>
             </fo:flow>
         </fo:page-sequence>
-        <xsl:apply-templates
-            select="child::node()[name()='chapter' or name()='chapterInCollection']"/>
+        <xsl:apply-templates select="child::node()[name()='chapter' or name()='chapterInCollection']"/>
     </xsl:template>
     <!--
       Chapter or appendix (in book with chapters)
       -->
-    <xsl:template
-        match="chapter | appendix[//chapter]  | chapterBeforePart | chapterInCollection | appendix[//chapterInCollection and not(ancestor::chapterInCollection)]">
+    <xsl:template match="chapter | appendix[//chapter]  | chapterBeforePart | chapterInCollection | appendix[//chapterInCollection and not(ancestor::chapterInCollection)]">
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="Chapter">
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
-                    <xsl:when
-                        test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
+                    <xsl:when test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
                         <xsl:text>1</xsl:text>
                     </xsl:when>
-                    <xsl:when
-                        test="contains(name(),'chapter') and $bodyLayoutInfo/chapterInCollectionLayout/*[1]/@startonoddpage='yes'">
+                    <xsl:when test="contains(name(),'chapter') and $bodyLayoutInfo/chapterInCollectionLayout/*[1]/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
                     </xsl:when>
-                    <xsl:when
-                        test="contains(name(),'chapter') and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
+                    <xsl:when test="contains(name(),'chapter') and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
                     </xsl:when>
-                    <xsl:when
-                        test="name()='appendix' and $backMatterLayoutInfo/appendixLayout/*[1]/@startonoddpage='yes'">
+                    <xsl:when test="name()='appendix' and $backMatterLayoutInfo/appendixLayout/*[1]/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
                     </xsl:when>
-                    <xsl:when
-                        test="name()!='appendix' and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
+                    <xsl:when test="name()!='appendix' and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -950,8 +897,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:call-template name="OutputChapterStaticContent">
-                        <xsl:with-param name="layoutInfo"
-                            select="$bodyLayoutInfo/headerFooterPageStyles"/>
+                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/headerFooterPageStyles"/>
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
@@ -961,43 +907,32 @@
                 </xsl:attribute>
                 <xsl:attribute name="font-size">
                     <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-                <xsl:if
-                    test="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@usetitleinheader!='no' or $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@usetitleinheader!='no'">
+                <xsl:if test="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@usetitleinheader!='no' or $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@usetitleinheader!='no'">
                     <!-- put title in marker so it can show up in running header -->
                     <fo:marker marker-class-name="chap-title">
                         <xsl:call-template name="DoSecTitleRunningHeader">
                             <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle"
-                                select="$bChapterNumberIsBeforeTitle"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                         </xsl:call-template>
                     </fo:marker>
                 </xsl:if>
                 <xsl:choose>
-                    <xsl:when
-                        test="$bodyLayoutInfo/chapterLayout/numberLayout or $bodyLayoutInfo/chapterInCollectionLayout/numberLayout">
+                    <xsl:when test="$bodyLayoutInfo/chapterLayout/numberLayout or $bodyLayoutInfo/chapterInCollectionLayout/numberLayout">
                         <fo:block id="{@id}" span="all">
                             <xsl:choose>
-                                <xsl:when
-                                    test="name(.)='appendix' and not(ancestor::chapterInCollection)">
+                                <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/numberLayout | $bodyLayoutInfo/chapterInCollectionLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout | $bodyLayoutInfo/chapterInCollectionLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1007,54 +942,38 @@
                                 </xsl:with-param>
                             </xsl:call-template>
                             <xsl:choose>
-                                <xsl:when
-                                    test="name(.)='appendix' and not(ancestor::chapterInCollection)">
+                                <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/numberLayout | $bodyLayoutInfo/chapterInCollectionLayout/numberLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/numberLayout | $bodyLayoutInfo/chapterInCollectionLayout/numberLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </fo:block>
                         <fo:block>
                             <xsl:choose>
-                                <xsl:when
-                                    test="name(.)='appendix' and not(ancestor::chapterInCollection)">
+                                <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1062,24 +981,17 @@
                             <xsl:choose>
                                 <xsl:when test="name(.)='appendix' and not(chapterInCollection)">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1088,27 +1000,19 @@
                     <xsl:otherwise>
                         <fo:block id="{@id}" span="all">
                             <xsl:choose>
-                                <xsl:when
-                                    test="name(.)='appendix' and not(ancestor::chapterInCollection)">
+                                <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoTitleFormatInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1119,27 +1023,19 @@
                             </xsl:call-template>
                             <xsl:apply-templates select="secTitle | frontMatter/title"/>
                             <xsl:choose>
-                                <xsl:when
-                                    test="name(.)='appendix' and not(ancestor::chapterInCollection)">
+                                <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
-                                <xsl:when
-                                    test="name(.)='appendix' and ancestor::chapterInCollection">
+                                <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"
-                                        />
+                                        <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout | $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -1147,10 +1043,8 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates select="child::node()[name()!='secTitle']">
-                    <xsl:with-param name="frontMatterLayout"
-                        select="$bodyLayoutInfo/chapterInCollectionFrontMatterLayout"/>
-                    <xsl:with-param name="backMatterLayout"
-                        select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
+                    <xsl:with-param name="frontMatterLayout" select="$bodyLayoutInfo/chapterInCollectionFrontMatterLayout"/>
+                    <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
                 </xsl:apply-templates>
             </fo:flow>
         </fo:page-sequence>
@@ -1191,10 +1085,8 @@
     <!--
       Appendix
       -->
-    <xsl:template
-        match="appendix[not(//chapter | //chapterInCollection) or ancestor::chapterInCollection]">
-        <xsl:param name="appLayout"
-            select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+    <xsl:template match="appendix[not(//chapter | //chapterInCollection) or ancestor::chapterInCollection]">
+        <xsl:param name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:block>
@@ -1202,8 +1094,7 @@
             <fo:marker marker-class-name="section-title">
                 <xsl:call-template name="DoSecTitleRunningHeader">
                     <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle"
-                        select="$bChapterNumberIsBeforeTitle"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                 </xsl:call-template>
             </fo:marker>
         </fo:block>
@@ -1253,23 +1144,20 @@
                     <xsl:value-of select="$secRefToUse"/>
                 </xsl:attribute>
                 <xsl:call-template name="AddAnyLinkAttributes">
-                    <xsl:with-param name="override"
-                        select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
                 </xsl:call-template>
                 <xsl:choose>
                     <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                         <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
                             <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language"
-                                    select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                                <xsl:with-param name="language" select="$contentLayoutInfo/sectionRefTitleLayout"/>
                             </xsl:call-template>
                         </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="$contentLayoutInfo/sectionRefLayout">
                             <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language"
-                                    select="$contentLayoutInfo/sectionRefLayout"/>
+                                <xsl:with-param name="language" select="$contentLayoutInfo/sectionRefLayout"/>
                             </xsl:call-template>
                         </xsl:if>
                     </xsl:otherwise>
@@ -1289,23 +1177,20 @@
     <xsl:template match="appendixRef">
         <fo:basic-link internal-destination="{@app}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/appendixRefLinkLayout"/>
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="@showTitle = 'short' or @showTitle='full'">
                     <xsl:if test="$contentLayoutInfo/sectionRefTitleLayout">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language"
-                                select="$contentLayoutInfo/sectionRefTitleLayout"/>
+                            <xsl:with-param name="language" select="$contentLayoutInfo/sectionRefTitleLayout"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:if test="$contentLayoutInfo/sectionRefLayout">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language"
-                                select="$contentLayoutInfo/sectionRefLayout"/>
+                            <xsl:with-param name="language" select="$contentLayoutInfo/sectionRefLayout"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:otherwise>
@@ -1322,8 +1207,7 @@
     <xsl:template match="genericRef">
         <fo:basic-link internal-destination="{@gref}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/genericRefLinkLayout"/>
             </xsl:call-template>
             <xsl:call-template name="OutputGenericRef"/>
         </fo:basic-link>
@@ -1365,8 +1249,7 @@
                     <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                 </xsl:call-template>
             </xsl:for-each>
-            <xsl:if
-                test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">
+            <xsl:if test="string-length($sContentBetweenFootnoteNumberAndFootnoteContent) &gt; 0">
                 <xsl:value-of select="$sContentBetweenFootnoteNumberAndFootnoteContent"/>
             </xsl:if>
         </fo:inline>
@@ -1382,15 +1265,13 @@
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:block orphans="2" widows="2">
-            <xsl:variable name="sSpaceBefore"
-                select="normalize-space($contentLayoutInfo/paragraphLayout/@spacebefore)"/>
+            <xsl:variable name="sSpaceBefore" select="normalize-space($contentLayoutInfo/paragraphLayout/@spacebefore)"/>
             <xsl:if test="string-length($sSpaceBefore) &gt; 0">
                 <xsl:attribute name="space-before">
                     <xsl:value-of select="$sSpaceBefore"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:variable name="sSpaceAfter"
-                select="normalize-space($contentLayoutInfo/paragraphLayout/@spaceafter)"/>
+            <xsl:variable name="sSpaceAfter" select="normalize-space($contentLayoutInfo/paragraphLayout/@spaceafter)"/>
             <xsl:if test="string-length($sSpaceAfter) &gt; 0">
                 <xsl:attribute name="space-after">
                     <xsl:value-of select="$sSpaceAfter"/>
@@ -1403,32 +1284,25 @@
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
             <xsl:choose>
-                <xsl:when
-                    test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
+                <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                     <!-- is the first item -->
                     <xsl:choose>
-                        <xsl:when
-                            test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
-                        <xsl:when
-                            test="parent::section2 and $bodyLayoutInfo/section2Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section2 and $bodyLayoutInfo/section2Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
-                        <xsl:when
-                            test="parent::section3 and $bodyLayoutInfo/section3Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section3 and $bodyLayoutInfo/section3Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
-                        <xsl:when
-                            test="parent::section4 and $bodyLayoutInfo/section4Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section4 and $bodyLayoutInfo/section4Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
-                        <xsl:when
-                            test="parent::section5 and $bodyLayoutInfo/section5Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section5 and $bodyLayoutInfo/section5Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
-                        <xsl:when
-                            test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
+                        <xsl:when test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
                         <xsl:otherwise>
@@ -1439,8 +1313,7 @@
                     </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if
-                        test="name(.)='p' and not(parent::blockquote and not(preceding-sibling::*))">
+                    <xsl:if test="name(.)='p' and not(parent::blockquote and not(preceding-sibling::*))">
                         <xsl:attribute name="text-indent">
                             <xsl:value-of select="$sParagraphIndent"/>
                         </xsl:attribute>
@@ -1448,24 +1321,21 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates/>
-            <xsl:if
-                test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+            <xsl:if test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                 <fo:footnote>
                     <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
                         <xsl:text>*</xsl:text>
                     </fo:inline>
                     <fo:footnote-body>
                         <fo:block xsl:use-attribute-sets="FootnoteBody">
-                            <fo:inline baseline-shift="super"
-                                xsl:use-attribute-sets="FootnoteMarker">
+                            <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
                                 <xsl:attribute name="id">
                                     <xsl:value-of select="$sAcknowledgementsID"/>
                                 </xsl:attribute>
                                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                                 <xsl:text>*</xsl:text>
                             </fo:inline>
-                            <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"
-                                mode="contentOnly"/>
+                            <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*" mode="contentOnly"/>
                         </fo:block>
                     </fo:footnote-body>
                 </fo:footnote>
@@ -1498,10 +1368,8 @@
                     </xsl:when>
                     <xsl:when test="string-length($sHangingIndentInitialIndent) &gt; 0">
                         <xsl:call-template name="GetBestHangingIndentInitialIndent">
-                            <xsl:with-param name="sThisHangingIndent"
-                                select="$sHangingIndentNormalIndent"/>
-                            <xsl:with-param name="sThisInitialIndent"
-                                select="$sHangingIndentInitialIndent"/>
+                            <xsl:with-param name="sThisHangingIndent" select="$sHangingIndentNormalIndent"/>
+                            <xsl:with-param name="sThisInitialIndent" select="$sHangingIndentInitialIndent"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
@@ -1546,8 +1414,7 @@
     </xsl:template>
     <xsl:template match="blockquote">
         <fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -1564,8 +1431,7 @@
             <xsl:attribute name="font-size">
                 <xsl:value-of select="$sBasicPointSize - 1"/>pt</xsl:attribute>
             <xsl:attribute name="space-before">
-                <xsl:variable name="sSpaceBefore"
-                    select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
+                <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sSpaceBefore)&gt;0">
                         <xsl:value-of select="$sSpaceBefore"/>
@@ -1577,8 +1443,7 @@
                 </xsl:choose>
             </xsl:attribute>
             <xsl:attribute name="space-after">
-                <xsl:variable name="sSpaceAfter"
-                    select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spaceafter)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sSpaceAfter)&gt;0">
                         <xsl:value-of select="$sSpaceAfter"/>
@@ -1600,29 +1465,25 @@
         <xsl:choose>
             <xsl:when test="$documentLayoutInfo/prose-textTextLayout">
                 <fo:block>
-                    <xsl:variable name="sSpaceBefore"
-                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spacebefore)"/>
                     <xsl:if test="string-length($sSpaceBefore)&gt;0">
                         <xsl:attribute name="space-before">
                             <xsl:value-of select="$sSpaceBefore"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:variable name="sSpaceAfter"
-                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
+                    <xsl:variable name="sSpaceAfter" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@spaceafter)"/>
                     <xsl:if test="string-length($sSpaceAfter)&gt;0">
                         <xsl:attribute name="space-after">
                             <xsl:value-of select="$sSpaceAfter"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:variable name="sStartIndent"
-                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
+                    <xsl:variable name="sStartIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@start-indent)"/>
                     <xsl:if test="string-length($sStartIndent)&gt;0">
                         <xsl:attribute name="start-indent">
                             <xsl:value-of select="$sStartIndent"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:variable name="sEndIndent"
-                        select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
+                    <xsl:variable name="sEndIndent" select="normalize-space($documentLayoutInfo/prose-textTextLayout/@end-indent)"/>
                     <xsl:if test="string-length($sEndIndent)&gt;0">
                         <xsl:attribute name="end-indent">
                             <xsl:value-of select="$sEndIndent"/>
@@ -1636,8 +1497,7 @@
                         <xsl:with-param name="sList" select="@xsl-foSpecial"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputFontAttributes">
-                        <xsl:with-param name="language"
-                            select="$documentLayoutInfo/prose-textTextLayout"/>
+                        <xsl:with-param name="language" select="$documentLayoutInfo/prose-textTextLayout"/>
                     </xsl:call-template>
                     <xsl:apply-templates/>
                 </fo:block>
@@ -1680,8 +1540,7 @@
                     <xsl:value-of select="@id"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if
-                test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
+            <xsl:if test="following-sibling::*[1][name()='li'] and string-length($sListLayoutSpaceBetween) &gt; 0">
                 <xsl:attribute name="space-after">
                     <xsl:value-of select="$sListLayoutSpaceBetween"/>
                 </xsl:attribute>
@@ -1695,8 +1554,7 @@
                             <xsl:variable name="NestingLevel">
                                 <xsl:choose>
                                     <xsl:when test="ancestor::endnote">
-                                        <xsl:value-of
-                                            select="count(ancestor::ol[not(descendant::endnote)])"/>
+                                        <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:value-of select="count(ancestor::ol)"/>
@@ -1781,8 +1639,7 @@
                     <xsl:value-of select="@num"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -1796,17 +1653,14 @@
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="start-indent">
                 <xsl:if test="ancestor::framedUnit">
-                    <xsl:variable name="framedtype"
-                        select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue"
-                            select="normalize-space($framedtype/@indent-before)"/>
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> + </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue"
-                            select="normalize-space($framedtype/@innerleftmargin)"/>
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> + </xsl:text>
@@ -1815,17 +1669,14 @@
             </xsl:attribute>
             <xsl:attribute name="end-indent">
                 <xsl:if test="ancestor::framedUnit">
-                    <xsl:variable name="framedtype"
-                        select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',ancestor::framedUnit/@framedtype)"/>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue"
-                            select="normalize-space($framedtype/@indent-after)"/>
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> + </xsl:text>
                     <xsl:call-template name="SetFramedTypeItem">
-                        <xsl:with-param name="sAttributeValue"
-                            select="normalize-space($framedtype/@innerrightmargin)"/>
+                        <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
                         <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
                     </xsl:call-template>
                     <xsl:text> + </xsl:text>
@@ -1890,8 +1741,7 @@
                                 <xsl:call-template name="GetAndFormatExampleNumber"/>
                                 <xsl:if test="not(listDefinition) and not(definition)">
                                     <xsl:call-template name="OutputExampleLevelISOCode">
-                                        <xsl:with-param name="bListsShareSameCode"
-                                            select="$bListsShareSameCode"/>
+                                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                     </xsl:call-template>
                                 </xsl:if>
                             </fo:block>
@@ -1899,8 +1749,7 @@
                         <fo:table-cell>
                             <xsl:call-template name="DoDebugExamples"/>
                             <xsl:apply-templates>
-                                <xsl:with-param name="bListsShareSameCode"
-                                    select="$bListsShareSameCode"/>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                             </xsl:apply-templates>
                         </fo:table-cell>
                     </fo:table-row>
@@ -1916,8 +1765,7 @@
             <xsl:when test="descendant::word">
                 <fo:block>
                     <fo:table space-before="0pt">
-                        <fo:table-body start-indent="0pt" end-indent="0pt"
-                            keep-together.within-page="1" keep-with-next.within-page="1">
+                        <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1" keep-with-next.within-page="1">
                             <fo:table-row>
                                 <xsl:call-template name="OutputWordOrSingle"/>
                             </fo:table-row>
@@ -1992,8 +1840,7 @@
         <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
-                <fo:block id="{@text}" font-size="smaller" font-weight="bold"
-                    keep-with-next.within-page="2" orphans="2" widows="2">
+                <fo:block id="{@text}" font-size="smaller" font-weight="bold" keep-with-next.within-page="2" orphans="2" widows="2">
                     <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 </fo:block>
                 <fo:block margin-left="0.125in">
@@ -2011,8 +1858,7 @@
         interlinearRefCitation
     -->
     <xsl:template match="interlinearRefCitation[@showTitleOnly='short' or @showTitleOnly='full']">
-        <xsl:variable name="interlinearSourceStyleLayout"
-            select="$contentLayoutInfo/interlinearSourceStyle"/>
+        <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <fo:inline>
             <fo:basic-link>
                 <xsl:call-template name="DoInterlinearTextReferenceLink">
@@ -2023,32 +1869,27 @@
                     </xsl:with-param>
                 </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
-                    <xsl:with-param name="override"
-                        select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
                 <xsl:if test="$contentLayoutInfo/interlinearRefCitationTitleLayout">
                     <xsl:call-template name="OutputFontAttributes">
-                        <xsl:with-param name="language"
-                            select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
+                        <xsl:with-param name="language" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
                     </xsl:call-template>
                 </xsl:if>
                 <!-- we do not show any brackets when these options are set -->
                 <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                    <xsl:with-param name="layoutInfo"
-                        select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
                 </xsl:call-template>
                 <xsl:call-template name="DoInterlinearRefCitationShowTitleOnly"/>
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                    <xsl:with-param name="layoutInfo"
-                        select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/interlinearRefCitationTitleLayout"/>
                 </xsl:call-template>
                 <!-- we do not show any brackets when these options are set -->
             </fo:basic-link>
         </fo:inline>
     </xsl:template>
     <xsl:template match="interlinearRefCitation">
-        <xsl:variable name="interlinearSourceStyleLayout"
-            select="$contentLayoutInfo/interlinearSourceStyle"/>
+        <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
@@ -2070,16 +1911,11 @@
                 <xsl:choose>
                     <xsl:when test="name($interlinear)='interlinear-text'">
                         <xsl:choose>
-                            <xsl:when
-                                test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
-                                <xsl:apply-templates
-                                    select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"
-                                />
+                            <xsl:when test="$interlinear/textInfo/shortTitle and string-length($interlinear/textInfo/shortTitle) &gt; 0">
+                                <xsl:apply-templates select="$interlinear/textInfo/shortTitle/child::node()[name()!='endnote']"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:apply-templates
-                                    select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"
-                                />
+                                <xsl:apply-templates select="$interlinear/textInfo/textTitle/child::node()[name()!='endnote']"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -2106,8 +1942,7 @@
       interlinearSource
    -->
     <xsl:template match="interlinearSource">
-        <xsl:variable name="interlinearSourceStyleLayout"
-            select="$contentLayoutInfo/interlinearSourceStyle"/>
+        <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
@@ -2432,8 +2267,7 @@
             <fo:table-cell>
                 <fo:block>
                     <xsl:apply-templates/>
-                    <xsl:variable name="homographNumber"
-                        select="following-sibling::item[@type='hn']"/>
+                    <xsl:variable name="homographNumber" select="following-sibling::item[@type='hn']"/>
                     <xsl:if test="$homographNumber">
                         <fo:inline baseline-shift="sub">
                             <xsl:apply-templates select="$homographNumber" mode="hn"/>
@@ -2497,8 +2331,7 @@
       -->
     <xsl:template match="table">
         <fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -2658,8 +2491,7 @@ not using
    -->
     <xsl:template match="exampleHeading">
         <fo:table space-before="0pt">
-            <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1"
-                keep-with-next.within-page="1">
+            <fo:table-body start-indent="0pt" end-indent="0pt" keep-together.within-page="1" keep-with-next.within-page="1">
                 <fo:table-row>
                     <fo:table-cell padding-end=".5em" text-align="start">
                         <fo:block>
@@ -2688,8 +2520,7 @@ not using
                 </xsl:choose>
             </xsl:attribute>
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/exampleRefLinkLayout"/>
             </xsl:call-template>
             <xsl:call-template name="DoExampleRefContent"/>
         </fo:basic-link>
@@ -2728,24 +2559,21 @@ not using
         <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
         <fo:basic-link internal-destination="{@figure}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
             </xsl:call-template>
             <fo:inline>
                 <xsl:choose>
                     <xsl:when test="@showCaption = 'short' or @showCaption='full'">
                         <xsl:if test="$contentLayoutInfo/figureRefCaptionLayout">
                             <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language"
-                                    select="$contentLayoutInfo/figureRefCaptionLayout"/>
+                                <xsl:with-param name="language" select="$contentLayoutInfo/figureRefCaptionLayout"/>
                             </xsl:call-template>
                         </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="$contentLayoutInfo/figureRefLayout">
                             <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language"
-                                    select="$contentLayoutInfo/figureRefLayout"/>
+                                <xsl:with-param name="language" select="$contentLayoutInfo/figureRefLayout"/>
                             </xsl:call-template>
                         </xsl:if>
                     </xsl:otherwise>
@@ -2762,8 +2590,7 @@ not using
             <fo:block start-indent="0pt" end-indent="0pt" text-align-last="justify">
                 <xsl:call-template name="OutputFigureLabel"/>
                 <fo:leader leader-pattern="space"/>
-                <xsl:variable name="sLabel"
-                    select="normalize-space($contentLayoutInfo/figureLayout/@pageLabelInListOfFigures)"/>
+                <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/figureLayout/@pageLabelInListOfFigures)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sLabel)&gt;0">
                         <xsl:value-of select="$sLabel"/>
@@ -2773,8 +2600,7 @@ not using
                     </xsl:otherwise>
                 </xsl:choose>
             </fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
                 <fo:block>
                     <xsl:attribute name="line-height">
                         <xsl:choose>
@@ -2795,8 +2621,7 @@ not using
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
                     <xsl:choose>
-                        <xsl:when
-                            test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+                        <xsl:when test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
                             <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
                             <xsl:call-template name="GetFigureNumber">
                                 <xsl:with-param name="figure" select="."/>
@@ -2850,23 +2675,20 @@ not using
         <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
         <fo:basic-link internal-destination="{@table}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/tablenumberedRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/tablenumberedRefLinkLayout"/>
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="@showCaption = 'short' or @showCaption='full'">
                     <xsl:if test="$contentLayoutInfo/tablenumberedRefCaptionLayout">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language"
-                                select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
+                            <xsl:with-param name="language" select="$contentLayoutInfo/tablenumberedRefCaptionLayout"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:if test="$contentLayoutInfo/tablenumberedRefLayout">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language"
-                                select="$contentLayoutInfo/tablenumberedRefLayout"/>
+                            <xsl:with-param name="language" select="$contentLayoutInfo/tablenumberedRefLayout"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:otherwise>
@@ -2878,13 +2700,11 @@ not using
         listOfTablesShownHere
     -->
     <xsl:template match="listOfTablesShownHere">
-        <xsl:if
-            test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+        <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
             <fo:block start-indent="0pt" end-indent="0pt" text-align-last="justify">
                 <xsl:call-template name="OutputTableNumberedLabel"/>
                 <fo:leader leader-pattern="space"/>
-                <xsl:variable name="sLabel"
-                    select="normalize-space($contentLayoutInfo/tablenumberedLayout/@pageLabelInListOfTables)"/>
+                <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@pageLabelInListOfTables)"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sLabel)&gt;0">
                         <xsl:value-of select="$sLabel"/>
@@ -2894,8 +2714,7 @@ not using
                     </xsl:otherwise>
                 </xsl:choose>
             </fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
                 <fo:block>
                     <xsl:attribute name="line-height">
                         <xsl:choose>
@@ -2916,8 +2735,7 @@ not using
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
                     <xsl:choose>
-                        <xsl:when
-                            test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
                             <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
                             <xsl:call-template name="GetTableNumberedNumber">
                                 <xsl:with-param name="tablenumbered" select="."/>
@@ -2926,10 +2744,8 @@ not using
                             <xsl:text>&#xa0;</xsl:text>
                             <xsl:text>&#xa0;</xsl:text>
                             <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
-                            <xsl:apply-templates select="table/caption | table/endCaption"
-                                mode="contents"/>
-                            <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"
-                            />
+                            <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                            <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="OutputTableNumberedLabelAndCaption">
@@ -2961,14 +2777,10 @@ not using
                             test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
                             <xsl:choose>
                                 <xsl:when test="ancestor::caption">
-                                    <xsl:value-of
-                                        select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"
-                                    />
+                                    <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
                                 </xsl:when>
                                 <xsl:when test="ancestor::table">
-                                    <xsl:value-of
-                                        select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"
-                                    />
+                                    <xsl:value-of select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
                                 </xsl:when>
                                 <xsl:otherwise>0</xsl:otherwise>
                             </xsl:choose>
@@ -2997,8 +2809,7 @@ not using
                     <fo:footnote-body>
                         <xsl:call-template name="DoFootnoteContent">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
-                            <xsl:with-param name="iTablenumberedAdjust"
-                                select="$iTablenumberedAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </fo:footnote-body>
                 </fo:footnote>
@@ -3011,32 +2822,23 @@ not using
     <xsl:template match="endnote" mode="backMatter">
         <xsl:param name="originalContext"/>
         <xsl:choose>
-            <xsl:when
-                test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+            <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
                 <xsl:choose>
-                    <xsl:when
-                        test="ancestor::tablenumbered/table/descendant::endnote and ancestor::caption">
+                    <xsl:when test="ancestor::tablenumbered/table/descendant::endnote and ancestor::caption">
                         <!-- skip these for now -->
                     </xsl:when>
-                    <xsl:when
-                        test="ancestor::tablenumbered/table/caption/descendant-or-self::endnote and ancestor::table">
+                    <xsl:when test="ancestor::tablenumbered/table/caption/descendant-or-self::endnote and ancestor::table">
                         <xsl:call-template name="HandleEndnoteInBackMatter">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
-                            <xsl:with-param name="iTablenumberedAdjust"
-                                select="-count(ancestor::tablenumbered/table/caption/descendant-or-self::endnote)"
-                            />
+                            <xsl:with-param name="iTablenumberedAdjust" select="-count(ancestor::tablenumbered/table/caption/descendant-or-self::endnote)"/>
                         </xsl:call-template>
-                        <xsl:if
-                            test="ancestor::tablenumbered/table/descendant::endnote[position()=last()]=.">
+                        <xsl:if test="ancestor::tablenumbered/table/descendant::endnote[position()=last()]=.">
                             <!-- this is the last endnote in the table; now handle all endnotes in the caption -->
-                            <xsl:variable name="iTablenumberedAdjust"
-                                select="count(ancestor::tablenumbered/table/tr/descendant::endnote)"/>
-                            <xsl:for-each
-                                select="ancestor::tablenumbered/table/caption/descendant-or-self::endnote">
+                            <xsl:variable name="iTablenumberedAdjust" select="count(ancestor::tablenumbered/table/tr/descendant::endnote)"/>
+                            <xsl:for-each select="ancestor::tablenumbered/table/caption/descendant-or-self::endnote">
                                 <xsl:call-template name="HandleEndnoteInBackMatter">
                                     <xsl:with-param name="originalContext" select="$originalContext"/>
-                                    <xsl:with-param name="iTablenumberedAdjust"
-                                        select="$iTablenumberedAdjust"/>
+                                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                                 </xsl:call-template>
                             </xsl:for-each>
                         </xsl:if>
@@ -3110,8 +2912,7 @@ not using
     </xsl:template>
     <xsl:template name="DoEndnoteRefContent">
         <xsl:param name="sFootnoteNumber"/>
-        <fo:block text-align="left" text-indent="1em" font-size="{$sFootnotePointSize}pt"
-            id="{@note}">
+        <fo:block text-align="left" text-indent="1em" font-size="{$sFootnotePointSize}pt" id="{@note}">
             <fo:inline baseline-shift="super">
                 <xsl:attribute name="font-size">
                     <xsl:value-of select="$sFootnotePointSize - 2"/>
@@ -3170,8 +2971,7 @@ not using
                     <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence master-reference="Chapter">
                         <xsl:call-template name="DoInitialPageNumberAttribute">
-                            <xsl:with-param name="layoutInfo"
-                                select="$backMatterLayoutInfo/useEndNotesLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
                         </xsl:call-template>
                         <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
                         <fo:flow flow-name="xsl-region-body">
@@ -3205,8 +3005,7 @@ not using
         <xsl:variable name="refer" select="id(@ref)"/>
         <fo:basic-link internal-destination="{@ref}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
             </xsl:call-template>
             <xsl:call-template name="OutputCitationContents">
                 <xsl:with-param name="refer" select="$refer"/>
@@ -3227,8 +3026,7 @@ not using
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Chapter">
                     <xsl:call-template name="DoInitialPageNumberAttribute">
-                        <xsl:with-param name="layoutInfo" select="$backMatterLayout/glossaryLayout"
-                        />
+                        <xsl:with-param name="layoutInfo" select="$backMatterLayout/glossaryLayout"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
                     <fo:flow flow-name="xsl-region-body">
@@ -3267,8 +3065,7 @@ not using
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Index">
                     <xsl:call-template name="DoInitialPageNumberAttribute">
-                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"
-                        />
+                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputIndexStaticContent">
                         <xsl:with-param name="sIndexTitle" select="'index-title'"/>
@@ -3346,8 +3143,7 @@ not using
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Chapter">
                     <xsl:call-template name="DoInitialPageNumberAttribute">
-                        <xsl:with-param name="layoutInfo"
-                            select="$backMatterLayout/referencesTitleLayout"/>
+                        <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
                     </xsl:call-template>
                     <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
                     <fo:flow flow-name="xsl-region-body">
@@ -3380,8 +3176,7 @@ not using
     <xsl:template match="refAuthorLastName">
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language"
-                    select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
+                <xsl:with-param name="language" select="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout"/>
             </xsl:call-template>
             <xsl:apply-templates/>
         </fo:inline>
@@ -3409,8 +3204,7 @@ not using
                     <xsl:call-template name="DoPageBreakFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$firstLayoutItem"/>
                     </xsl:call-template>
-                    <xsl:variable name="sSpaceBefore"
-                        select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
                     <xsl:if test="string-length($sSpaceBefore)&gt;0 and $sFOProcessor='XEP'">
                         <xsl:attribute name="space-before">
                             <xsl:value-of select="$sSpaceBefore"/>
@@ -3492,8 +3286,7 @@ not using
                             <xsl:value-of select="@abbr"/>
                         </xsl:attribute>
                         <xsl:call-template name="AddAnyLinkAttributes">
-                            <xsl:with-param name="override"
-                                select="$pageLayoutInfo/linkLayout/abbrRefLinkLayout"/>
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/abbrRefLinkLayout"/>
                         </xsl:call-template>
                         <xsl:call-template name="OutputAbbrTerm">
                             <xsl:with-param name="abbr" select="id(@abbr)"/>
@@ -3645,8 +3438,7 @@ not using
         =========================================================== -->
     <xsl:template match="mediaObject">
         <xsl:if test="//lingPaper/@includemediaobjects='yes'">
-            <rx:media-object content-height="{@contentheight}" content-width="{@contentwidth}"
-                src="url({@src})">
+            <rx:media-object content-height="{@contentheight}" content-width="{@contentwidth}" src="url({@src})">
                 <xsl:attribute name="show-controls">
                     <xsl:choose>
                         <xsl:when test="@showcontrols='yes'">true</xsl:when>
@@ -3758,8 +3550,7 @@ not using
             <xsl:otherwise>
                 <xsl:for-each select="key('IndexTermID',@see)/descendant::indexTerm">
                     <xsl:variable name="sDescendantTermId" select="@id"/>
-                    <xsl:if
-                        test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
+                    <xsl:if test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
                         <xsl:text>Y</xsl:text>
                     </xsl:if>
                 </xsl:for-each>
@@ -3800,8 +3591,7 @@ not using
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo"
-                select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -3864,8 +3654,7 @@ not using
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references" mode="bookmarks"/>
                 </xsl:when>
-                <xsl:when
-                    test="name(.)='referencesTitleLayout' and $backMatter/ancestor::chapterInCollection">
+                <xsl:when test="name(.)='referencesTitleLayout' and $backMatter/ancestor::chapterInCollection">
                     <xsl:apply-templates select="$backMatter/references" mode="bookmarks"/>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
@@ -3907,12 +3696,10 @@ not using
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="contents"/>
                 </xsl:when>
-                <xsl:when
-                    test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
+                <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$backMatter/references" mode="contents"/>
                 </xsl:when>
-                <xsl:when
-                    test="name(.)='referencesLayout' and not($backMatter[ancestor::chapterInCollection])">
+                <xsl:when test="name(.)='referencesLayout' and not($backMatter[ancestor::chapterInCollection])">
                     <xsl:apply-templates select="$backMatter/references" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
@@ -3932,8 +3719,7 @@ not using
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:choose>
                         <xsl:when test="$bIsBook and not($backMatter/ancestor::chapterInCollection)">
-                            <xsl:apply-templates select="$backMatter/acknowledgements"
-                                mode="backmatter-book"/>
+                            <xsl:apply-templates select="$backMatter/acknowledgements" mode="backmatter-book"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates select="$backMatter/acknowledgements" mode="paper">
@@ -3951,12 +3737,10 @@ not using
                                 <fo:page-sequence master-reference="Chapter">
                                     <xsl:attribute name="initial-page-number">
                                         <xsl:choose>
-                                            <xsl:when
-                                                test="name()='appendix' and $backMatterLayoutInfo/appendixLayout/*[1]/@startonoddpage='yes'">
+                                            <xsl:when test="name()='appendix' and $backMatterLayoutInfo/appendixLayout/*[1]/@startonoddpage='yes'">
                                                 <xsl:text>auto-odd</xsl:text>
                                             </xsl:when>
-                                            <xsl:when
-                                                test="name()!='appendix' and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
+                                            <xsl:when test="name()!='appendix' and $bodyLayoutInfo/chapterLayout/*[1]/@startonoddpage='yes'">
                                                 <xsl:text>auto-odd</xsl:text>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -3964,22 +3748,17 @@ not using
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:attribute>
-                                    <xsl:if
-                                        test="$backMatterLayoutInfo/appendicesTitlePageLayout/@useemptyheaderfooter!='yes'">
-                                        <xsl:call-template
-                                            name="OutputChapterStaticContentForBackMatter"/>
+                                    <xsl:if test="$backMatterLayoutInfo/appendicesTitlePageLayout/@useemptyheaderfooter!='yes'">
+                                        <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
                                     </xsl:if>
                                     <fo:flow flow-name="xsl-region-body">
                                         <xsl:attribute name="font-family">
                                             <xsl:value-of select="$sDefaultFontFamily"/>
                                         </xsl:attribute>
                                         <xsl:attribute name="font-size">
-                                            <xsl:value-of select="$sBasicPointSize"
-                                            />pt</xsl:attribute>
+                                            <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                                         <xsl:call-template name="DoPageBreakFormatInfo">
-                                            <xsl:with-param name="layoutInfo"
-                                                select="$backMatterLayoutInfo/appendicesTitlePageLayout"
-                                            />
+                                            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
                                         </xsl:call-template>
                                         <xsl:call-template name="DoAppendiciesTitlePage"/>
                                     </fo:flow>
@@ -3993,8 +3772,7 @@ not using
                 </xsl:when>
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix">
-                        <xsl:with-param name="appLayout"
-                            select="$backMatterLayout/appendixLayout/appendixTitleLayout"/>
+                        <xsl:with-param name="appLayout" select="$backMatterLayout/appendixLayout/appendixTitleLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
@@ -4010,8 +3788,7 @@ not using
                         <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when
-                    test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
+                <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$backMatter/references">
                         <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
                     </xsl:apply-templates>
@@ -4019,8 +3796,7 @@ not using
                 <xsl:when test="name(.)='authorContactInfoLayout'">
                     <fo:block keep-together.within-page="1">
                         <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
-                        <xsl:variable name="sSpaceBefore"
-                            select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                        <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
                         <xsl:if test="string-length($sSpaceBefore) &gt; 0">
                             <xsl:attribute name="space-before">
                                 <xsl:value-of select="$sSpaceBefore"/>
@@ -4031,8 +3807,7 @@ not using
                             <fo:table-body>
                                 <fo:table-row>
                                     <xsl:apply-templates select="$backMatter/authorContactInfo">
-                                        <xsl:with-param name="layoutInfo"
-                                            select="$backMatterLayoutInfo/authorContactInfoLayout"/>
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/authorContactInfoLayout"/>
                                     </xsl:apply-templates>
                                 </fo:table-row>
                             </fo:table-body>
@@ -4099,10 +3874,8 @@ not using
         DoChapterLabelInContents
     -->
     <xsl:template name="DoChapterLabelInContents">
-        <xsl:variable name="sLabel"
-            select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlabel)"/>
-        <xsl:if
-            test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:variable name="sLabel" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlabel)"/>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
             <fo:block>
                 <xsl:attribute name="line-height">
                     <xsl:choose>
@@ -4127,8 +3900,7 @@ not using
                 </xsl:otherwise>
             </xsl:choose>
         </fo:block>
-        <xsl:if
-            test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
             <fo:block>
                 <xsl:attribute name="line-height">
                     <xsl:choose>
@@ -4156,15 +3928,13 @@ not using
         <fo:table-row>
             <fo:table-cell xsl:use-attribute-sets="ExampleCell">
                 <fo:block>
-                    <xsl:variable name="sSpaceBefore"
-                        select="normalize-space($currentLayoutInfo/@spacebefore)"/>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($currentLayoutInfo/@spacebefore)"/>
                     <xsl:if test="string-length($sSpaceBefore) &gt; 0">
                         <xsl:attribute name="space-before">
                             <xsl:value-of select="$sSpaceBefore"/>
                         </xsl:attribute>
                     </xsl:if>
-                    <xsl:variable name="sSpaceAfter"
-                        select="normalize-space($currentLayoutInfo/@spaceafter)"/>
+                    <xsl:variable name="sSpaceAfter" select="normalize-space($currentLayoutInfo/@spaceafter)"/>
                     <xsl:if test="string-length($sSpaceAfter) &gt; 0">
                         <xsl:attribute name="space-after">
                             <xsl:value-of select="$sSpaceAfter"/>
@@ -4223,8 +3993,7 @@ not using
             </xsl:call-template>
         </fo:block>
         <fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -4240,17 +4009,14 @@ not using
                     <xsl:call-template name="DoBackMatterContentsPerLayout">
                         <xsl:with-param name="nLevel" select="$nLevel"/>
                         <xsl:with-param name="backMatter" select="$chapterInCollection/backMatter"/>
-                        <xsl:with-param name="backMatterLayout"
-                            select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
+                        <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- part -->
                     <xsl:apply-templates select="$lingPaper/part" mode="contents"/>
                     <!--                 chapter, no parts -->
-                    <xsl:apply-templates
-                        select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]"
-                        mode="contents"/>
+                    <xsl:apply-templates select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]" mode="contents"/>
                     <!-- section, no chapters -->
                     <xsl:apply-templates select="//lingPaper/section1" mode="contents"/>
                     <xsl:call-template name="DoBackMatterContentsPerLayout"/>
@@ -4303,8 +4069,7 @@ not using
     <xsl:template name="DoEndnoteRefNumber">
         <fo:basic-link internal-destination="{@note}">
             <xsl:call-template name="AddAnyLinkAttributes">
-                <xsl:with-param name="override"
-                    select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
             </xsl:call-template>
             <xsl:for-each select="key('EndnoteID',@note)">
                 <xsl:call-template name="GetFootnoteNumber">
@@ -4324,9 +4089,7 @@ not using
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
         </xsl:call-template>
-        <xsl:apply-templates
-            select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef"
-            mode="backMatter"/>
+        <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
         <!--        <xsl:for-each select="//endnote">
             <xsl:call-template name="DoFootnoteContent"/>
         </xsl:for-each>
@@ -4345,13 +4108,11 @@ not using
             <xsl:call-template name="OutputTypeAttributes">
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
-            <xsl:if
-                test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
+            <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
                 <fo:block>
                     <xsl:attribute name="space-after">
                         <xsl:choose>
-                            <xsl:when
-                                test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
+                            <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
                                 <xsl:value-of select="$sSpaceBetweenFigureAndCaption"/>
                             </xsl:when>
                             <xsl:otherwise>0pt</xsl:otherwise>
@@ -4362,13 +4123,11 @@ not using
                 </fo:block>
             </xsl:if>
             <xsl:apply-templates select="*[name()!='caption' and name()!='shortCaption']"/>
-            <xsl:if
-                test="$contentLayoutInfo/figureLayout/@captionLocation='after' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='after'">
+            <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='after' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='after'">
                 <fo:block>
                     <xsl:attribute name="padding-before">
                         <xsl:choose>
-                            <xsl:when
-                                test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
+                            <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">
                                 <xsl:value-of select="$sSpaceBetweenFigureAndCaption"/>
                             </xsl:when>
                             <xsl:otherwise>0pt</xsl:otherwise>
@@ -4451,15 +4210,13 @@ not using
                         <xsl:value-of select="$link"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyLinkAttributes">
-                        <xsl:with-param name="override"
-                            select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
+                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/endnoteRefLinkLayout"/>
                     </xsl:call-template>
                     <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
                         <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
                         <xsl:call-template name="DoFootnoteNumberInTextValue">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
-                            <xsl:with-param name="iTablenumberedAdjust"
-                                select="$iTablenumberedAdjust"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                         </xsl:call-template>
                     </fo:inline>
                 </fo:basic-link>
@@ -4607,8 +4364,7 @@ not using
             </xsl:call-template>
         </xsl:variable>
         <xsl:if test="$sFootnoteNumber='1'">
-            <fo:block font-style="italic" font-size="larger" font-weight="bold"
-                keep-with-next.within-page="1" space-before="{$sBasicPointSize}pt">
+            <fo:block font-style="italic" font-size="larger" font-weight="bold" keep-with-next.within-page="1" space-before="{$sBasicPointSize}pt">
                 <xsl:call-template name="DoBookEndnotesLabelingContent">
                     <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
                 </xsl:call-template>
@@ -4668,8 +4424,7 @@ not using
                     <xsl:apply-templates select="$frontMatter/contents" mode="book"/>
                 </xsl:when>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
-                    <xsl:apply-templates select="$frontMatter/acknowledgements"
-                        mode="frontmatter-book"/>
+                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="frontmatter-book"/>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="book"/>
@@ -4728,8 +4483,7 @@ not using
             <xsl:call-template name="DoInitialPageNumberAttribute">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
-            <xsl:variable name="pageLayoutInfo"
-                select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
+            <xsl:variable name="pageLayoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
             <!-- $sHeaderTitleClassName -->
             <xsl:call-template name="DoHeaderAndFooter">
                 <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterFirstPage"/>
@@ -4744,15 +4498,13 @@ not using
                 <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
             </xsl:call-template>
             <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo"
-                    select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
                 <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
                 <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
             </xsl:call-template>
             <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo"
-                    select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+                <xsl:with-param name="layoutInfo" select="$pageLayoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
                 <xsl:with-param name="layoutInfoParentWithFontInfo" select="$pageLayoutInfo"/>
                 <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
                 <xsl:with-param name="sRetrieveClassName" select="$sHeaderTitleClassName"/>
@@ -4860,8 +4612,7 @@ not using
                 <xsl:with-param name="sFlowName" select="$sFlowName"/>
                 <xsl:with-param name="sFlowDisplayAlign" select="'before'"/>
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo"
-                    select="$layoutInfoParentWithFontInfo"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfoParentWithFontInfo"/>
                 <xsl:with-param name="headerOrFooter" select="$header"/>
                 <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
             </xsl:call-template>
@@ -4872,8 +4623,7 @@ not using
                 <xsl:with-param name="sFlowName" select="$sFlowName"/>
                 <xsl:with-param name="sFlowDisplayAlign" select="'after'"/>
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo"
-                    select="$layoutInfoParentWithFontInfo"/>
+                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfoParentWithFontInfo"/>
                 <xsl:with-param name="headerOrFooter" select="$footer"/>
                 <xsl:with-param name="sRetrieveClassName" select="$sRetrieveClassName"/>
             </xsl:call-template>
@@ -4890,19 +4640,16 @@ not using
                 <xsl:when test="name()='nothing'">
                     <fo:leader/>
                 </xsl:when>
-                <xsl:when
-                    test="name()='chapterNumber' and following-sibling::chapterTitle or name()='chapterNumber' and preceding-sibling::chapterTitle">
+                <xsl:when test="name()='chapterNumber' and following-sibling::chapterTitle or name()='chapterNumber' and preceding-sibling::chapterTitle">
                     <!-- do nothing; handled by the chapterTitle -->
                 </xsl:when>
-                <xsl:when
-                    test="name()='sectionNumber' and following-sibling::sectionTitle or name()='sectionNumber' and preceding-sibling::sectionTitle">
+                <xsl:when test="name()='sectionNumber' and following-sibling::sectionTitle or name()='sectionNumber' and preceding-sibling::sectionTitle">
                     <!-- do nothing; handled by the sectionTitle -->
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="parent" select="parent::*"/>
                     <xsl:variable name="beforeme" select="$parent/preceding-sibling::*"/>
-                    <xsl:if
-                        test="$parent[name()!='leftHeaderFooterItem'] and not($parent/preceding-sibling::*[1]/nothing)">
+                    <xsl:if test="$parent[name()!='leftHeaderFooterItem'] and not($parent/preceding-sibling::*[1]/nothing)">
                         <fo:leader/>
                     </xsl:if>
                     <fo:inline>
@@ -4913,13 +4660,11 @@ not using
                             <xsl:with-param name="layoutInfo" select="."/>
                         </xsl:call-template>
                         <xsl:choose>
-                            <xsl:when
-                                test="name()='chapterTitle' or name()='chapterNumber' and not(following-sibling::chapterTitle) and not(preceding-sibling::chapterTitle)">
+                            <xsl:when test="name()='chapterTitle' or name()='chapterNumber' and not(following-sibling::chapterTitle) and not(preceding-sibling::chapterTitle)">
                                 <fo:retrieve-marker>
                                     <xsl:attribute name="retrieve-class-name">
                                         <xsl:choose>
-                                            <xsl:when
-                                                test="string-length($sRetrieveClassName) &gt; 0">
+                                            <xsl:when test="string-length($sRetrieveClassName) &gt; 0">
                                                 <xsl:value-of select="$sRetrieveClassName"/>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -4940,8 +4685,7 @@ not using
                             </xsl:when>
                             <xsl:when test="name()='paperAuthor'">
                                 <xsl:choose>
-                                    <xsl:when
-                                        test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
+                                    <xsl:when test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
                                         <xsl:apply-templates select="//frontMatter/shortAuthor"/>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -4954,25 +4698,20 @@ not using
                             </xsl:when>
                             <xsl:when test="name()='paperTitle'">
                                 <xsl:choose>
-                                    <xsl:when
-                                        test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
+                                    <xsl:when test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
                                         <xsl:apply-templates select="//frontMatter/shortTitle"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <!--                              <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']" mode="contentOnly"/>-->
-                                        <xsl:apply-templates
-                                            select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"
-                                        />
+                                        <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote' and name()!='img' and name()!='br']"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>
-                            <xsl:when
-                                test="name()='sectionTitle' or name()='sectionNumber' and not(following-sibling::sectionTitle) and not(preceding-sibling::sectionTitle)">
+                            <xsl:when test="name()='sectionTitle' or name()='sectionNumber' and not(following-sibling::sectionTitle) and not(preceding-sibling::sectionTitle)">
                                 <fo:retrieve-marker>
                                     <xsl:attribute name="retrieve-class-name">
                                         <xsl:choose>
-                                            <xsl:when
-                                                test="string-length($sRetrieveClassName) &gt; 0">
+                                            <xsl:when test="string-length($sRetrieveClassName) &gt; 0">
                                                 <xsl:value-of select="$sRetrieveClassName"/>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -5083,8 +4822,7 @@ not using
             </xsl:choose>
         </xsl:variable>
         <fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceindexes='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceindexes='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -5118,8 +4856,7 @@ not using
     <xsl:template name="DoInterlinearFree">
         <xsl:param name="originalContext"/>
         <fo:block keep-with-previous.within-page="1">
-            <xsl:if
-                test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
+            <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
             </xsl:if>
             <!-- add extra indent for when have an embedded interlinear; 
@@ -5162,17 +4899,14 @@ not using
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:call-template name="DoInterlinearFreeContent">
-                        <xsl:with-param name="freeLayout"
-                            select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                        <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
                         <xsl:with-param name="language" select="$language"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if
-                test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
-                <xsl:if
-                    test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
+                <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
                         <xsl:with-param name="sSource" select="../interlinearSource"/>
@@ -5180,10 +4914,8 @@ not using
                 </xsl:if>
             </xsl:if>
         </fo:block>
-        <xsl:if
-            test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal)">
-            <xsl:if
-                test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal)">
+            <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <fo:block keep-with-previous.within-page="1">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
@@ -5247,8 +4979,7 @@ not using
         <fo:table-row>
             <xsl:variable name="bRtl">
                 <xsl:choose>
-                    <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'"
-                        >Y</xsl:when>
+                    <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
                     <xsl:otherwise>N</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -5264,12 +4995,10 @@ not using
                             <xsl:call-template name="DoDebugExamples"/>
                             <fo:block>
                                 <xsl:call-template name="OutputFontAttributes">
-                                    <xsl:with-param name="language" select="key('LanguageID',@lang)"
-                                    />
+                                    <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
                                 </xsl:call-template>
                                 <xsl:apply-templates>
-                                    <xsl:with-param name="originalContext" select="$originalContext"
-                                    />
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
                                 </xsl:apply-templates>
                             </fo:block>
                         </fo:table-cell>
@@ -5278,9 +5007,7 @@ not using
                 <xsl:otherwise>
                     <xsl:variable name="bFlip">
                         <xsl:choose>
-                            <xsl:when
-                                test="id(parent::lineGroup/line[1]/langData[1]/@lang)/@rtl='yes'"
-                                >Y</xsl:when>
+                            <xsl:when test="id(parent::lineGroup/line[1]/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
                             <xsl:otherwise>N</xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
@@ -5333,15 +5060,13 @@ not using
             <xsl:if test="$mode!='NoTextRef'">
                 <xsl:if test="count(preceding-sibling::line) = 0">
                     <xsl:if test="$sInterlinearSourceStyle='AfterFirstLine'">
-                        <xsl:if
-                            test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
+                        <xsl:if test="string-length(normalize-space(../../@textref)) &gt; 0 or ../../interlinearSource">
                             <fo:table-cell text-align="start" xsl:use-attribute-sets="ExampleCell">
                                 <fo:block>
                                     <xsl:call-template name="DoDebugExamples"/>
                                     <xsl:call-template name="OutputInterlinearTextReference">
                                         <xsl:with-param name="sRef" select="../../@textref"/>
-                                        <xsl:with-param name="sSource"
-                                            select="../../interlinearSource"/>
+                                        <xsl:with-param name="sSource" select="../../interlinearSource"/>
                                     </xsl:call-template>
                                 </fo:block>
                             </fo:table-cell>
@@ -5367,11 +5092,9 @@ not using
                     <xsl:with-param name="sRef" select="$sRef"/>
                 </xsl:call-template>
                 <xsl:call-template name="AddAnyLinkAttributes">
-                    <xsl:with-param name="override"
-                        select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/interlinearRefLinkLayout"/>
                 </xsl:call-template>
-                <xsl:variable name="interlinearSourceStyleLayout"
-                    select="$contentLayoutInfo/interlinearSourceStyle"/>
+                <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
                     <xsl:with-param name="originalContext" select="."/>
@@ -5438,8 +5161,7 @@ not using
                 <fo:region-before extent="{$sHeaderMargin}">
                     <xsl:call-template name="DoDebugHeader"/>
                 </fo:region-before>
-                <fo:region-after region-name="FrontMatterTOCFirstPage-after"
-                    extent="{$sFooterMargin}">
+                <fo:region-after region-name="FrontMatterTOCFirstPage-after" extent="{$sFooterMargin}">
                     <xsl:call-template name="DoDebugFooter"/>
                 </fo:region-after>
             </xsl:element>
@@ -5450,8 +5172,7 @@ not using
                 <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
                     <xsl:call-template name="DoDebugFrontMatterBody"/>
                 </fo:region-body>
-                <fo:region-before region-name="FrontMatterTOCEvenPage-before"
-                    extent="{$sHeaderMargin}">
+                <fo:region-before region-name="FrontMatterTOCEvenPage-before" extent="{$sHeaderMargin}">
                     <xsl:call-template name="DoDebugHeader"/>
                 </fo:region-before>
                 <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
@@ -5465,8 +5186,7 @@ not using
                 <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
                     <xsl:call-template name="DoDebugFrontMatterBody"/>
                 </fo:region-body>
-                <fo:region-before region-name="FrontMatterTOCOddPage-before"
-                    extent="{$sHeaderMargin}">
+                <fo:region-before region-name="FrontMatterTOCOddPage-before" extent="{$sHeaderMargin}">
                     <xsl:call-template name="DoDebugHeader"/>
                 </fo:region-before>
                 <fo:region-after region-name="xsl-region-after" extent="{$sFooterMargin}">
@@ -5565,8 +5285,7 @@ not using
             <xsl:text>&#xa;</xsl:text>
             <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                 <xsl:attribute name="master-name">IndexFirstPage</xsl:attribute>
-                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}"
-                    column-count="2" column-gap="0.25in">
+                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
                     <xsl:if test="$bDoDebug='y'">
                         <xsl:attribute name="border">
                             <xsl:text>thin solid silver</xsl:text>
@@ -5584,8 +5303,7 @@ not using
             <xsl:text>&#xa;</xsl:text>
             <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                 <xsl:attribute name="master-name">IndexEvenPage</xsl:attribute>
-                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}"
-                    column-count="2" column-gap="0.25in">
+                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
                     <xsl:if test="$bDoDebug='y'">
                         <xsl:attribute name="border-left">
                             <xsl:text>medium gray ridge</xsl:text>
@@ -5603,8 +5321,7 @@ not using
             <xsl:text>&#xa;</xsl:text>
             <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                 <xsl:attribute name="master-name">IndexOddPage</xsl:attribute>
-                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}"
-                    column-count="2" column-gap="0.25in">
+                <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
                     <xsl:if test="$bDoDebug='y'">
                         <xsl:attribute name="border-right">
                             <xsl:text>medium gray ridge</xsl:text>
@@ -5641,28 +5358,20 @@ not using
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence-master master-name="FrontMatter">
                     <fo:repeatable-page-master-alternatives>
-                        <fo:conditional-page-master-reference page-position="first"
-                            master-reference="FrontMatterPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="odd"
-                            master-reference="FrontMatterPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="even"
-                            master-reference="FrontMatterPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="even"
-                            blank-or-not-blank="blank" master-reference="FrontMatterBlankEvenPage"/>
+                        <fo:conditional-page-master-reference page-position="first" master-reference="FrontMatterPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="FrontMatterBlankEvenPage"/>
                     </fo:repeatable-page-master-alternatives>
                 </fo:page-sequence-master>
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence-master master-name="FrontMatterTOC">
                     <fo:repeatable-page-master-alternatives>
-                        <fo:conditional-page-master-reference page-position="first"
-                            master-reference="FrontMatterTOCFirstPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="even"
-                            blank-or-not-blank="blank" master-reference="FrontMatterBlankEvenPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="even"
-                            master-reference="FrontMatterTOCEvenPage"/>
-                        <fo:conditional-page-master-reference odd-or-even="odd"
-                            master-reference="FrontMatterTOCOddPage"/>
+                        <fo:conditional-page-master-reference page-position="first" master-reference="FrontMatterTOCFirstPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="FrontMatterBlankEvenPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterTOCEvenPage"/>
+                        <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterTOCOddPage"/>
                     </fo:repeatable-page-master-alternatives>
                 </fo:page-sequence-master>
             </xsl:if>
@@ -5670,20 +5379,15 @@ not using
             <xsl:text>&#xa;</xsl:text>
             <fo:page-sequence-master master-name="Chapter">
                 <fo:repeatable-page-master-alternatives>
-                    <fo:conditional-page-master-reference page-position="first"
-                        master-reference="ChapterFirstPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="even"
-                        blank-or-not-blank="blank" master-reference="BlankEvenPage"/>
+                    <fo:conditional-page-master-reference page-position="first" master-reference="ChapterFirstPage"/>
+                    <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="BlankEvenPage"/>
                     <xsl:choose>
                         <xsl:when test="$pageLayoutInfo/headerFooterPageStyles/headerFooterPage">
-                            <fo:conditional-page-master-reference odd-or-even="any"
-                                master-reference="ChapterRegularPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="any" master-reference="ChapterRegularPage"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <fo:conditional-page-master-reference odd-or-even="even"
-                                master-reference="ChapterEvenPage"/>
-                            <fo:conditional-page-master-reference odd-or-even="odd"
-                                master-reference="ChapterOddPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterEvenPage"/>
+                            <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterOddPage"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:repeatable-page-master-alternatives>
@@ -5692,14 +5396,10 @@ not using
             <xsl:text>&#xa;</xsl:text>
             <fo:page-sequence-master master-name="Index">
                 <fo:repeatable-page-master-alternatives>
-                    <fo:conditional-page-master-reference page-position="first"
-                        master-reference="IndexFirstPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="even"
-                        blank-or-not-blank="blank" master-reference="BlankEvenPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="even"
-                        master-reference="IndexEvenPage"/>
-                    <fo:conditional-page-master-reference odd-or-even="odd"
-                        master-reference="IndexOddPage"/>
+                    <fo:conditional-page-master-reference page-position="first" master-reference="IndexFirstPage"/>
+                    <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="BlankEvenPage"/>
+                    <fo:conditional-page-master-reference odd-or-even="even" master-reference="IndexEvenPage"/>
+                    <fo:conditional-page-master-reference odd-or-even="odd" master-reference="IndexOddPage"/>
                 </fo:repeatable-page-master-alternatives>
             </fo:page-sequence-master>
         </fo:layout-master-set>
@@ -5759,8 +5459,7 @@ not using
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:block>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
@@ -5781,8 +5480,7 @@ not using
         <xsl:variable name="work" select="."/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
-        <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}"
-            start-indent="{$referencesLayoutInfo/@hangingindentsize}">
+        <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}">
             <xsl:if test="$bDoTarget='Y'">
                 <xsl:attribute name="id">
                     <xsl:value-of select="@id"/>
@@ -5790,14 +5488,12 @@ not using
                 <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
                     <xsl:attribute name="font-size">
                         <xsl:call-template name="AdjustFontSizePerMagnification">
-                            <xsl:with-param name="sFontSize"
-                                select="$referencesLayoutInfo/@defaultfontsize"/>
+                            <xsl:with-param name="sFontSize" select="$referencesLayoutInfo/@defaultfontsize"/>
                         </xsl:call-template>
                     </xsl:attribute>
                 </xsl:if>
             </xsl:if>
-            <xsl:if
-                test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
                 <xsl:attribute name="space-after">
                     <xsl:variable name="sExtraSpace">
                         <xsl:choose>
@@ -5819,9 +5515,7 @@ not using
                 <xsl:with-param name="works" select="$works"/>
                 <xsl:with-param name="iPos" select="position()"/>
             </xsl:call-template>
-            <xsl:apply-templates
-                select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"
-            />
+            <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
         </fo:block>
     </xsl:template>
     <!--  
@@ -5881,12 +5575,14 @@ not using
                 <xsl:call-template name="DoSectionBeginsParagraph">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="DoSectionAsTitle">
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -5897,19 +5593,21 @@ not using
     <xsl:template name="DoSectionAsTitle">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <fo:block id="{@id}" keep-with-next.within-page="always">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
             <xsl:call-template name="DoType"/>
-            <!-- put title in marker so it can show up in running header -->
-            <fo:marker marker-class-name="section-title">
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle"
-                        select="$bSectionNumberIsBeforeTitle"/>
-                </xsl:call-template>
-            </fo:marker>
+            <xsl:if test="$layoutInfo/@showInHeader!='no'">
+                <!-- put title in marker so it can show up in running header -->
+                <fo:marker marker-class-name="section-title">
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                    </xsl:call-template>
+                </fo:marker>
+            </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">
                     <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
@@ -5928,6 +5626,7 @@ not using
     <xsl:template name="DoSectionBeginsParagraph">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <fo:block id="{@id}" keep-with-next.within-page="always">
             <xsl:attribute name="text-indent">
                 <xsl:value-of select="$sParagraphIndent"/>
@@ -5938,14 +5637,15 @@ not using
             <xsl:call-template name="DoSpaceBeforeAfter">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
-            <!-- put title in marker so it can show up in running header -->
-            <fo:marker marker-class-name="section-title">
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle"
-                        select="$bSectionNumberIsBeforeTitle"/>
-                </xsl:call-template>
-            </fo:marker>
+            <xsl:if test="$layoutInfo/@showInHeader!='no'">
+                <!-- put title in marker so it can show up in running header -->
+                <fo:marker marker-class-name="section-title">
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                    </xsl:call-template>
+                </fo:marker>
+            </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">
                     <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
@@ -5961,13 +5661,11 @@ not using
                 </xsl:call-template>
             </fo:inline>
             <!--            <xsl:text>.  </xsl:text>-->
-            <xsl:apply-templates select="child::node()[name()!='secTitle'][1][name()='p']"
-                mode="contentOnly"/>
+            <xsl:apply-templates select="child::node()[name()!='secTitle'][1][name()='p']" mode="contentOnly"/>
         </fo:block>
         <xsl:choose>
             <xsl:when test="child::node()[name()!='secTitle'][1][name()='p']">
-                <xsl:apply-templates select="child::node()[name()!='secTitle'][position()&gt;1]"
-                />
+                <xsl:apply-templates select="child::node()[name()!='secTitle'][position()&gt;1]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
@@ -6036,8 +5734,7 @@ not using
                     <xsl:with-param name="sId" select="@id"/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:if
-                test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                 <fo:block>
                     <xsl:attribute name="space-after">
                         <xsl:choose>
@@ -6051,8 +5748,7 @@ not using
                 </fo:block>
             </xsl:if>
             <xsl:apply-templates select="*[name()!='shortCaption']"/>
-            <xsl:if
-                test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
                 <fo:block>
                     <xsl:attribute name="padding-before">
                         <xsl:choose>
@@ -6227,8 +5923,7 @@ not using
         <xsl:choose>
             <xsl:when test="string-length($abbrLang) &gt; 0">
                 <xsl:choose>
-                    <xsl:when
-                        test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                    <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
                         <xsl:value-of select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -6259,10 +5954,8 @@ not using
             <xsl:choose>
                 <xsl:when test="string-length($abbrLang) &gt; 0">
                     <xsl:choose>
-                        <xsl:when
-                            test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"
-                            />
+                        <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                            <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- a language is specified, but this abbreviation does not have anything; try using the default;
@@ -6290,10 +5983,8 @@ not using
         <xsl:variable name="figureRefLayout" select="$contentLayoutInfo/figureRefLayout"/>
         <xsl:variable name="singularOverride" select="$figureRefLayout/@textBeforeSingularOverride"/>
         <xsl:variable name="pluralOverride" select="$figureRefLayout/@textBeforePluralOverride"/>
-        <xsl:variable name="capitalizedSingularOverride"
-            select="$figureRefLayout/@textBeforeCapitalizedSingularOverride"/>
-        <xsl:variable name="capitalizedPluralOverride"
-            select="$figureRefLayout/@textBeforeCapitalizedPluralOverride"/>
+        <xsl:variable name="capitalizedSingularOverride" select="$figureRefLayout/@textBeforeCapitalizedSingularOverride"/>
+        <xsl:variable name="capitalizedPluralOverride" select="$figureRefLayout/@textBeforeCapitalizedPluralOverride"/>
         <xsl:choose>
             <xsl:when test="@textBefore='useDefault'">
                 <xsl:choose>
@@ -6302,16 +5993,14 @@ not using
                     </xsl:when>
                     <xsl:when test="$lingPaper/@figureRefDefault='singular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@figureRefSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@figureRefSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$ssingular"/>
                             <xsl:with-param name="sOverride" select="$singularOverride"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$lingPaper/@figureRefDefault='capitalizedSingular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$sSingular"/>
                             <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                         </xsl:call-template>
@@ -6325,8 +6014,7 @@ not using
                     </xsl:when>
                     <xsl:when test="$lingPaper/@figureRefDefault='capitalizedPlural'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
                             <xsl:with-param name="sDefault" select="$sPlural"/>
                             <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                         </xsl:call-template>
@@ -6342,8 +6030,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedSingular'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
                     <xsl:with-param name="sDefault" select="$sSingular"/>
                     <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                 </xsl:call-template>
@@ -6357,8 +6044,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedPlural'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
                     <xsl:with-param name="sDefault" select="$sPlural"/>
                     <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                 </xsl:call-template>
@@ -6377,10 +6063,8 @@ not using
         <xsl:variable name="sectionRefLayout" select="$contentLayoutInfo/sectionRefLayout"/>
         <xsl:variable name="singularOverride" select="$sectionRefLayout/@textBeforeSingularOverride"/>
         <xsl:variable name="pluralOverride" select="$sectionRefLayout/@textBeforePluralOverride"/>
-        <xsl:variable name="capitalizedSingularOverride"
-            select="$sectionRefLayout/@textBeforeCapitalizedSingularOverride"/>
-        <xsl:variable name="capitalizedPluralOverride"
-            select="$sectionRefLayout/@textBeforeCapitalizedPluralOverride"/>
+        <xsl:variable name="capitalizedSingularOverride" select="$sectionRefLayout/@textBeforeCapitalizedSingularOverride"/>
+        <xsl:variable name="capitalizedPluralOverride" select="$sectionRefLayout/@textBeforeCapitalizedPluralOverride"/>
         <xsl:choose>
             <xsl:when test="@textBefore='useDefault'">
                 <xsl:choose>
@@ -6389,16 +6073,14 @@ not using
                     </xsl:when>
                     <xsl:when test="$lingPaper/@sectionRefDefault='singular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@sectionRefSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@sectionRefSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$ssingular"/>
                             <xsl:with-param name="sOverride" select="$singularOverride"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$lingPaper/@sectionRefDefault='capitalizedSingular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$sSingular"/>
                             <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                         </xsl:call-template>
@@ -6412,8 +6094,7 @@ not using
                     </xsl:when>
                     <xsl:when test="$lingPaper/@sectionRefDefault='capitalizedPlural'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
                             <xsl:with-param name="sDefault" select="$sPlural"/>
                             <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                         </xsl:call-template>
@@ -6429,8 +6110,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedSingular'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
                     <xsl:with-param name="sDefault" select="$sSingular"/>
                     <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                 </xsl:call-template>
@@ -6444,8 +6124,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedPlural'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
                     <xsl:with-param name="sDefault" select="$sPlural"/>
                     <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                 </xsl:call-template>
@@ -6461,16 +6140,11 @@ not using
         <xsl:variable name="splural" select="'tables '"/>
         <xsl:variable name="sSingular" select="'Table '"/>
         <xsl:variable name="sPlural" select="'Tables '"/>
-        <xsl:variable name="tablenumberedRefLayout"
-            select="$contentLayoutInfo/tablenumberedRefLayout"/>
-        <xsl:variable name="singularOverride"
-            select="$tablenumberedRefLayout/@textBeforeSingularOverride"/>
-        <xsl:variable name="pluralOverride"
-            select="$tablenumberedRefLayout/@textBeforePluralOverride"/>
-        <xsl:variable name="capitalizedSingularOverride"
-            select="$tablenumberedRefLayout/@textBeforeCapitalizedSingularOverride"/>
-        <xsl:variable name="capitalizedPluralOverride"
-            select="$tablenumberedRefLayout/@textBeforeCapitalizedPluralOverride"/>
+        <xsl:variable name="tablenumberedRefLayout" select="$contentLayoutInfo/tablenumberedRefLayout"/>
+        <xsl:variable name="singularOverride" select="$tablenumberedRefLayout/@textBeforeSingularOverride"/>
+        <xsl:variable name="pluralOverride" select="$tablenumberedRefLayout/@textBeforePluralOverride"/>
+        <xsl:variable name="capitalizedSingularOverride" select="$tablenumberedRefLayout/@textBeforeCapitalizedSingularOverride"/>
+        <xsl:variable name="capitalizedPluralOverride" select="$tablenumberedRefLayout/@textBeforeCapitalizedPluralOverride"/>
         <xsl:choose>
             <xsl:when test="@textBefore='useDefault'">
                 <xsl:choose>
@@ -6479,32 +6153,28 @@ not using
                     </xsl:when>
                     <xsl:when test="$lingPaper/@tablenumberedRefDefault='singular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@tablenumberedRefSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$ssingular"/>
                             <xsl:with-param name="sOverride" select="$singularOverride"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$lingPaper/@tablenumberedRefDefault='capitalizedSingular'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
                             <xsl:with-param name="sDefault" select="$sSingular"/>
                             <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$lingPaper/@tablenumberedRefDefault='plural'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@tablenumberedRefPluralLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefPluralLabel"/>
                             <xsl:with-param name="sDefault" select="$splural"/>
                             <xsl:with-param name="sOverride" select="$pluralOverride"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$lingPaper/@tablenumberedRefDefault='capitalizedPlural'">
                         <xsl:call-template name="DoItemRefLabel">
-                            <xsl:with-param name="sLabel"
-                                select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
+                            <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
                             <xsl:with-param name="sDefault" select="$sPlural"/>
                             <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                         </xsl:call-template>
@@ -6520,8 +6190,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedSingular'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
                     <xsl:with-param name="sDefault" select="$sSingular"/>
                     <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
                 </xsl:call-template>
@@ -6535,8 +6204,7 @@ not using
             </xsl:when>
             <xsl:when test="@textBefore='capitalizedPlural'">
                 <xsl:call-template name="DoItemRefLabel">
-                    <xsl:with-param name="sLabel"
-                        select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
+                    <xsl:with-param name="sLabel" select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
                     <xsl:with-param name="sDefault" select="$sPlural"/>
                     <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
                 </xsl:call-template>
@@ -6552,8 +6220,7 @@ not using
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:if
-                    test="$frontMatterLayout/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
+                <xsl:if test="$frontMatterLayout/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
                     <xsl:choose>
                         <xsl:when test="string-length(@label) &gt; 0">
                             <xsl:value-of select="@label"/>
@@ -6641,18 +6308,15 @@ not using
         <xsl:choose>
             <xsl:when test="name()='chapter' or name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if
-                    test="not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
-                    <xsl:value-of
-                        select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
+                <xsl:if test="not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                    <xsl:value-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="name()='chapterBeforePart'">
                 <xsl:text>0</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="appLayout"
-                    select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+                <xsl:variable name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                 <xsl:if test="$appLayout/@showletter!='no'">
                     <xsl:apply-templates select="." mode="numberAppendix"/>
                     <xsl:choose>
@@ -6662,8 +6326,7 @@ not using
                         <xsl:when test="$fDoTextAfterLetter='Y'">
                             <xsl:value-of select="$appLayout/@textafterletter"/>
                         </xsl:when>
-                        <xsl:when
-                            test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterappendixletter='yes'">
+                        <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterappendixletter='yes'">
                             <xsl:text>.&#xa0;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -6690,14 +6353,12 @@ not using
             <xsl:with-param name="sFlowName" select="'ChapterRegularPage'"/>
         </xsl:call-template>
         <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo"
-                select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
             <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
             <xsl:with-param name="sFlowName" select="'ChapterEvenPage'"/>
         </xsl:call-template>
         <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo"
-                select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
             <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
             <xsl:with-param name="sFlowName" select="'ChapterOddPage'"/>
         </xsl:call-template>
@@ -6710,14 +6371,12 @@ not using
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles">
                 <xsl:call-template name="OutputChapterStaticContent">
-                    <xsl:with-param name="layoutInfo"
-                        select="$backMatterLayoutInfo/headerFooterPageStyles"/>
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/headerFooterPageStyles"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputChapterStaticContent">
-                    <xsl:with-param name="layoutInfo"
-                        select="$bodyLayoutInfo/headerFooterPageStyles"/>
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/headerFooterPageStyles"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -6789,15 +6448,12 @@ not using
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textbefore"/>
             <xsl:choose>
                 <xsl:when test="$bDoStyles='Y'">
-                    <xsl:apply-templates select="table/caption | table/endCaption | caption"
-                        mode="show">
-                        <xsl:with-param name="styleSheetLabelLayout"
-                            select="$contentLayoutInfo/tablenumberedLabelLayout"/>
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show">
+                        <xsl:with-param name="styleSheetLabelLayout" select="$contentLayoutInfo/tablenumberedLabelLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="table/caption | table/endCaption | caption"
-                        mode="contents"/>
+                    <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
@@ -6813,8 +6469,7 @@ not using
         <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
         <xsl:if test="string-length($sFirst) &gt; 0 and contains($sFirst, '=')">
             <xsl:variable name="sAttr" select="substring-before($sFirst,'=')"/>
-            <xsl:variable name="sValue"
-                select="substring($sFirst,string-length($sAttr) + 3, string-length($sFirst) - string-length($sAttr) - 3)"/>
+            <xsl:variable name="sValue" select="substring($sFirst,string-length($sAttr) + 3, string-length($sFirst) - string-length($sAttr) - 3)"/>
             <xsl:attribute name="{$sAttr}">
                 <xsl:value-of select="$sValue"/>
             </xsl:attribute>
@@ -7067,8 +6722,7 @@ not using
         <fo:inline>
             <fo:basic-link internal-destination="{$sIndexedItemID}">
                 <xsl:call-template name="AddAnyLinkAttributes">
-                    <xsl:with-param name="override"
-                        select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                 </xsl:call-template>
                 <fo:page-number-citation ref-id="{$sIndexedItemID}"/>
                 <xsl:if test="ancestor::endnote">
@@ -7122,37 +6776,31 @@ not using
         <xsl:param name="sIndexKind"/>
         <xsl:param name="lang"/>
         <xsl:param name="terms"/>
-        <xsl:variable name="indexTermsToShow"
-            select="$terms/indexTerm[@kind=$sIndexKind or @kind='subject' and $sIndexKind='common' or count(//index)=1]"/>
+        <xsl:variable name="indexTermsToShow" select="$terms/indexTerm[@kind=$sIndexKind or @kind='subject' and $sIndexKind='common' or count(//index)=1]"/>
         <xsl:if test="$indexTermsToShow">
             <fo:block text-indent="-.5in">
-                <xsl:variable name="iIndent"
-                    select="count($terms/ancestor::*[name()='indexTerm']) * .25 + .5"/>
+                <xsl:variable name="iIndent" select="count($terms/ancestor::*[name()='indexTerm']) * .25 + .5"/>
                 <xsl:attribute name="start-indent">
                     <xsl:value-of select="$iIndent"/>
                     <xsl:text>in</xsl:text>
                 </xsl:attribute>
                 <xsl:for-each select="$indexTermsToShow">
                     <!--                    <xsl:sort select="term[1]"/>-->
-                    <xsl:sort lang="{$lang}"
-                        select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
+                    <xsl:sort lang="{$lang}" select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"/>
                     <xsl:variable name="sTermId" select="@id"/>
                     <!-- if a nested index term is cited, we need to be sure to show its parents, even if they are not cited -->
                     <xsl:variable name="bHasCitedDescendant">
                         <xsl:for-each select="descendant::indexTerm">
                             <xsl:variable name="sDescendantTermId" select="@id"/>
-                            <xsl:if
-                                test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
+                            <xsl:if test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
                                 <xsl:text>Y</xsl:text>
                             </xsl:if>
                             <xsl:if test="@see">
-                                <xsl:call-template
-                                    name="CheckSeeTargetIsCitedOrItsDescendantIsCited"/>
+                                <xsl:call-template name="CheckSeeTargetIsCitedOrItsDescendantIsCited"/>
                             </xsl:if>
                         </xsl:for-each>
                     </xsl:variable>
-                    <xsl:variable name="indexedItems"
-                        select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
+                    <xsl:variable name="indexedItems" select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
                     <xsl:variable name="bHasSeeAttribute">
                         <xsl:if test="string-length(@see) &gt; 0">
                             <xsl:text>Y</xsl:text>
@@ -7188,19 +6836,16 @@ not using
                                             </xsl:call-template>
                                         </xsl:variable>
                                         <xsl:choose>
-                                            <xsl:when
-                                                test="@main='yes' and count($indexedItems) &gt; 1">
+                                            <xsl:when test="@main='yes' and count($indexedItems) &gt; 1">
                                                 <fo:inline font-weight="bold">
-                                                  <xsl:call-template name="OutputIndexedItemsRange">
-                                                  <xsl:with-param name="sIndexedItemID"
-                                                  select="$sIndexedItemID"/>
-                                                  </xsl:call-template>
+                                                    <xsl:call-template name="OutputIndexedItemsRange">
+                                                        <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                                    </xsl:call-template>
                                                 </fo:inline>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:call-template name="OutputIndexedItemsRange">
-                                                  <xsl:with-param name="sIndexedItemID"
-                                                  select="$sIndexedItemID"/>
+                                                    <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
                                                 </xsl:call-template>
                                             </xsl:otherwise>
                                         </xsl:choose>
@@ -7209,8 +6854,7 @@ not using
                                         <xsl:text>, </xsl:text>
                                     </xsl:if>
                                 </xsl:for-each>
-                                <xsl:if
-                                    test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                                <xsl:if test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                                     <!-- this term also has a @see attribute which refers to a term that is cited or whose descendant is cited -->
                                     <xsl:call-template name="OutputIndexTermSeeBefore">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
@@ -7219,18 +6863,14 @@ not using
                                         <fo:basic-link>
                                             <xsl:attribute name="internal-destination">
                                                 <xsl:call-template name="CreateIndexTermID">
-                                                  <xsl:with-param name="sTermId" select="@see"/>
+                                                    <xsl:with-param name="sTermId" select="@see"/>
                                                 </xsl:call-template>
                                             </xsl:attribute>
                                             <xsl:call-template name="AddAnyLinkAttributes">
-                                                <xsl:with-param name="override"
-                                                  select="$pageLayoutInfo/linkLayout/indexLinkLayout"
-                                                />
+                                                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                             </xsl:call-template>
                                             <!--                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>-->
-                                            <xsl:apply-templates
-                                                select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"
-                                                mode="InIndex"/>
+                                            <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
                                         </fo:basic-link>
                                     </fo:inline>
                                     <xsl:call-template name="OutputIndexTermSeeAfter">
@@ -7244,15 +6884,12 @@ not using
                                 <xsl:with-param name="terms" select="indexTerms"/>
                             </xsl:call-template>
                         </xsl:when>
-                        <xsl:when
-                            test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                        <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                             <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
                             <fo:block>
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
-                                <xsl:apply-templates
-                                    select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]"
-                                    mode="InIndex"/>
+                                <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                                 <fo:inline>
                                     <fo:basic-link>
@@ -7262,14 +6899,11 @@ not using
                                             </xsl:call-template>
                                         </xsl:attribute>
                                         <xsl:call-template name="AddAnyLinkAttributes">
-                                            <xsl:with-param name="override"
-                                                select="$pageLayoutInfo/linkLayout/indexLinkLayout"
-                                            />
+                                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                         </xsl:call-template>
                                         <xsl:call-template name="OutputIndexTermsTerm">
                                             <xsl:with-param name="lang" select="$lang"/>
-                                            <xsl:with-param name="indexTerm"
-                                                select="key('IndexTermID',@see)"/>
+                                            <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
                                         </xsl:call-template>
                                     </fo:basic-link>
                                 </fo:inline>
@@ -7323,8 +6957,7 @@ not using
 -->
     <xsl:template name="OutputList">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:variable name="iLetterCount"
-            select="count(parent::example/listWord | parent::example/listWord)"/>
+        <xsl:variable name="iLetterCount" select="count(parent::example/listWord | parent::example/listWord)"/>
         <xsl:variable name="sLetterWidth">
             <xsl:choose>
                 <xsl:when test="$iLetterCount &lt; 27">1.5</xsl:when>
@@ -7358,8 +6991,7 @@ not using
                                 </xsl:attribute>
                                 <xsl:apply-templates select="." mode="letter"/>
                                 <xsl:choose>
-                                    <xsl:when
-                                        test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                    <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
                                         <xsl:text>)</xsl:text>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -7369,15 +7001,13 @@ not using
                             </fo:block>
                         </fo:table-cell>
                         <xsl:call-template name="OutputListLevelISOCode">
-                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"
-                            />
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                         </xsl:call-template>
                         <xsl:choose>
                             <xsl:when test="name()='listInterlinear'">
                                 <fo:table-cell keep-together.within-page="1">
                                     <xsl:call-template name="DoDebugExamples"/>
-                                    <xsl:apply-templates
-                                        select="child::node()[name()!='interlinearSource']"/>
+                                    <xsl:apply-templates select="child::node()[name()!='interlinearSource']"/>
                                 </fo:table-cell>
                             </xsl:when>
                             <xsl:when test="name()='listDefinition'">
@@ -7396,12 +7026,10 @@ not using
                     </fo:table-row>
                     <xsl:if test="name()='listWord'">
                         <xsl:apply-templates select="word">
-                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"
-                            />
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                         </xsl:apply-templates>
                     </xsl:if>
-                    <xsl:for-each
-                        select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listInterlinear | following-sibling::listDefinition">
+                    <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listInterlinear | following-sibling::listDefinition">
                         <xsl:if test="name()='listInterlinear'">
                             <!-- output a fake row to add spacing between iterlinears -->
                             <fo:table-row>
@@ -7421,8 +7049,7 @@ not using
                                     </xsl:attribute>
                                     <xsl:apply-templates select="." mode="letter"/>
                                     <xsl:choose>
-                                        <xsl:when
-                                            test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
+                                        <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
                                             <xsl:text>)</xsl:text>
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -7432,15 +7059,13 @@ not using
                                 </fo:block>
                             </fo:table-cell>
                             <xsl:call-template name="OutputListLevelISOCode">
-                                <xsl:with-param name="bListsShareSameCode"
-                                    select="$bListsShareSameCode"/>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                             </xsl:call-template>
                             <xsl:choose>
                                 <xsl:when test="name()='listInterlinear'">
                                     <fo:table-cell>
                                         <xsl:call-template name="DoDebugExamples"/>
-                                        <xsl:apply-templates
-                                            select="child::node()[name()!='interlinearSource']"/>
+                                        <xsl:apply-templates select="child::node()[name()!='interlinearSource']"/>
                                     </fo:table-cell>
                                 </xsl:when>
                                 <xsl:when test="name()='listDefinition'">
@@ -7459,8 +7084,7 @@ not using
                         </fo:table-row>
                         <xsl:if test="name()='listWord'">
                             <xsl:apply-templates select="word">
-                                <xsl:with-param name="bListsShareSameCode"
-                                    select="$bListsShareSameCode"/>
+                                <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                             </xsl:apply-templates>
                         </xsl:if>
                     </xsl:for-each>
@@ -7579,21 +7203,18 @@ not using
                                 <!-- insert a new line so we don't get everything all on one line -->
                                 <xsl:text>&#xa;</xsl:text>
                                 <fo:table-row>
-                                    <xsl:apply-templates
-                                        select="th[count(following-sibling::td)=0] | headerRow"/>
+                                    <xsl:apply-templates select="th[count(following-sibling::td)=0] | headerRow"/>
                                 </fo:table-row>
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates
-                                select="tr/th[count(following-sibling::td)=0] | headerRow"/>
+                            <xsl:apply-templates select="tr/th[count(following-sibling::td)=0] | headerRow"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:table-header>
             </xsl:if>
             <fo:table-body start-indent="0pt" end-indent="0pt">
-                <xsl:variable name="rows"
-                    select="tr[not(th) or th[count(following-sibling::td)!=0]]"/>
+                <xsl:variable name="rows" select="tr[not(th) or th[count(following-sibling::td)!=0]]"/>
                 <xsl:choose>
                     <xsl:when test="$rows">
                         <xsl:apply-templates select="$rows"/>
@@ -7602,8 +7223,7 @@ not using
                         <fo:table-row>
                             <fo:table-cell border-collapse="collapse">
                                 <xsl:choose>
-                                    <xsl:when
-                                        test="ancestor::table[1]/@border!='0' or count(ancestor::table)=1">
+                                    <xsl:when test="ancestor::table[1]/@border!='0' or count(ancestor::table)=1">
                                         <xsl:attribute name="padding">.2em</xsl:attribute>
                                     </xsl:when>
                                     <xsl:when test="position() &gt; 1">
@@ -7732,8 +7352,7 @@ not using
             <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::word">
                 <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
-            <xsl:when
-                test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
+            <xsl:when test="name()='word' and descendant::word or name()='word' and ancestor::listWord">
                 <xsl:call-template name="HandleLangDataGlossInWordOrListWord"/>
             </xsl:when>
             <xsl:when test="name()='listSingle'">

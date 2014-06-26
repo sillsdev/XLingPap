@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->9 May 2014</date
+>26 June 2014</date
 ><version
->2.25.0</version
+>2.25.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -2820,6 +2820,30 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 >).</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>showInHeader</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the section is to appear (<object
+type="tAttrValue"
+>yes</object
+>) or not appear (<object
+type="tAttrValue"
+>no</object
+>) in the running header.  Default is <object
+type="tAttrValue"
+>yes</object
+>.</td
 ></tr
 ><tr
 ><td

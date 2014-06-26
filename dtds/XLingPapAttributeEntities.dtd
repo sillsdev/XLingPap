@@ -84,5 +84,6 @@
      ignore (yes | no) 'no'
      showNumber (yes | no) 'yes'
      firstParagraphHasIndent (yes | no) 'yes' 
+     showInHeader (yes | no) 'yes'
      "
      >

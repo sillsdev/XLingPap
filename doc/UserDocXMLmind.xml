@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 June 2014</date
+>30 June 2014</date
 ><version
->2.25.1</version
+>2.25.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -6844,10 +6844,15 @@ src="resources/AbbreviationsInGlossary1.png"
 >One can then open up the <object
 type="tElement"
 >glossary</object
-> element and type any preface material one might want (of course, one does not have to type anything). One then inserts the special <object
+> element and type any prefatory material one might want (of course, one does not have to type anything). One then inserts the special <object
 type="tElement"
 >abbreviationsShownHere</object
-> element. One should also change the <object
+> element. Note that since this will be formatted as a table, it needs to go after or before a paragraph (<object
+type="tElement"
+>p</object
+> element);  it will not work to put it within a paragraph.  </p
+><p
+>One should also change the <object
 type="tAttribute"
 >label</object
 > attribute of the <object
@@ -7543,6 +7548,9 @@ type="tElement"
 >indexedRangeEnd</object
 > to mark the end of the range.</p
 ><p
+><indexedItem
+term="iIndexesMarkItem"
+></indexedItem
 >To mark a singleton index item, put the cursor at the place in the text where the indexed item should go, right-click, select <object
 type="tInstruction"
 >Insert...</object
@@ -7566,6 +7574,9 @@ type="tXLingPap"
 ></object
 > will create a hyperlink to this location from the index term in the index.</p
 ><p
+><indexedItem
+term="iIndexesMarkRange"
+></indexedItem
 >To mark a range, put the cursor at the place in the text where the indexed item should go, right-click, select <object
 type="tInstruction"
 >Insert...</object
@@ -7637,6 +7648,9 @@ type="tXLingPap"
 ></endnote
 ></p
 ><p
+><indexedItem
+term="iIndexesIndexItemAttributes"
+></indexedItem
 >The <object
 type="tElement"
 >indexedItem</object
@@ -7726,6 +7740,9 @@ type="tElement"
 ></table
 ></example
 ><p
+><indexedItem
+term="iIndexesIndexRangeBeginAttributes"
+></indexedItem
 >The <object
 type="tElement"
 >indexRangeBegin</object
@@ -7858,6 +7875,9 @@ type="tElement"
 >indexRangeBegin</object
 > element.</p
 ><p
+><indexedItem
+term="iIndexesMainItem"
+></indexedItem
 >Whenever the <object
 type="tAttribute"
 >main</object
@@ -7882,6 +7902,9 @@ id="sBMIndexIndexedItemsHiding"
 ><secTitle
 >Hiding the Index Tags</secTitle
 ><p
+><indexedItem
+term="iIndexesHidingTags"
+></indexedItem
 >You may find that after you have tagged a document for an index, that all of those index tags “get in the way” of being able to read the content of the document. This may be especially the case when you go to revise a previously indexed document. You may well wish for some way to hide the <object
 type="tElement"
 >indexedItem</object
@@ -7970,6 +7993,9 @@ type="tElement"
 >index</object
 > Element</secTitle
 ><p
+><indexedItem
+term="iIndexesIndex"
+></indexedItem
 >The third step in producing an index is to create one or more <object
 type="tElement"
 >index</object
@@ -8116,6 +8142,9 @@ type="tElement"
 ></table
 ></example
 ><p
+><indexedItem
+term="iIndexesKinds"
+></indexedItem
 >The <object
 type="tAttribute"
 >kind</object
@@ -8323,6 +8352,9 @@ id="sExamples"
 ><secTitle
 >Examples</secTitle
 ><p
+><indexedItem
+term="iExamples"
+></indexedItem
 ><object
 type="tXLingPap"
 ></object
@@ -8359,6 +8391,9 @@ src="resources/ExampleTemplatesEditTool.png"
 ><pc
 >Notice that most of these are in italics. That is because they are “templates” which define a set of elements appropriate to a given type of example. The non-italic “example” one produces a table. Whenever you select one of these example templates, you will see the appropriate elements for that variety.</pc
 ><p
+><indexedItem
+term="iExampleID"
+></indexedItem
 >In each case, you will see <img
 src="resources/ExampleAttr.png"
 ></img
@@ -8435,6 +8470,9 @@ id="sExWord"
 ><secTitle
 >Word examples</secTitle
 ><p
+><indexedItem
+term="iExampleWord"
+></indexedItem
 >Word examples consist of one or more words, usually with their glosses. They come in two varieties: single and lists. (See section <sectionRef
 sec="sExamples"
 ></sectionRef
@@ -8513,6 +8551,9 @@ note="nBlueLangGreenGloss"
 ></endnoteRef
 ></p
 ><p
+><indexedItem
+term="iExampleWordMulitline"
+></indexedItem
 >In some cases, you may want to add another line of data after the first line. This could be because the data are all related. You can do this by inserting another <object
 type="tElement"
 >word</object
@@ -8569,6 +8610,9 @@ id="sExWordList"
 ><secTitle
 >List of Words examples</secTitle
 ><p
+><indexedItem
+term="iExampleWordList"
+></indexedItem
 >The second kind of word example is a list of words. These consist of a list of words and their glosses, usually. A list of words example is given below. If you choose <object
 type="tInTextExample"
 >example(listWord_with_glosses)</object
@@ -8680,6 +8724,9 @@ type="tAttribute"
 ></endnote
 ></p
 ><p
+><indexedItem
+term="iExampleWordListMulitline"
+></indexedItem
 >Just like with <object
 type="tElement"
 >word</object
@@ -8740,6 +8787,9 @@ id="sExLine"
 ><secTitle
 >Line examples</secTitle
 ><p
+><indexedItem
+term="iExampleSingle"
+></indexedItem
 >Line examples consist of but one line. There is no gloss (one would use an interlinear to include glosses). There are two varieties of line examples: single and list. (See section <sectionRef
 sec="sExamples"
 ></sectionRef
@@ -8795,6 +8845,9 @@ id="secExLineList"
 ><secTitle
 >List of single line examples</secTitle
 ><p
+><indexedItem
+term="iExampleSingleList"
+></indexedItem
 >A list of single line examples consist of but one line each. The key difference between just a single example and a list of single examples is that the latter are indented and each line is prefixed by an alphabetic letter. A list of single line example is given below. If you choose example(listSingle), you'll get what is shown in <exampleRef
 num="xLS2"
 ></exampleRef
@@ -8948,6 +9001,12 @@ id="sExInterlinearSpace"
 ><secTitle
 >Word-aligned, using a space between words</secTitle
 ><p
+><indexedItem
+term="iInterlinearWordAligned"
+></indexedItem
+><indexedItem
+term="iInterlinearWordAlignedSpace"
+></indexedItem
 >The easiest way to key an interlinear example is to merely type a space between each of the words in the interlinear. You do this for both the language data itself and also for the glosses.</p
 ><p
 >Note, however, that this only works for plain text data within a single <object
@@ -9225,10 +9284,13 @@ id="sExInterlinearWrd"
 >Word-aligned, marking certain words or morphemes</secTitle
 ><p
 ><indexedItem
-term="iInterlinearGloss"
+term="iInterlinearWordAligned"
 ></indexedItem
 ><indexedItem
 term="iInterlinearGloss"
+></indexedItem
+><indexedItem
+term="iInterlinearWordAlignedWrd"
 ></indexedItem
 >The method given in section <sectionRef
 sec="sExInterlinearSpace"
@@ -10236,6 +10298,9 @@ id="secExInterlinearContinuation"
 ><secTitle
 >Handling wide interlinear examples</secTitle
 ><p
+><indexedItem
+term="iInterlinearWide"
+></indexedItem
 >As mentioned in sections <sectionRef
 sec="sExInterlinearSpace"
 ></sectionRef
@@ -10431,6 +10496,9 @@ id="sExInterlinearSource"
 ><secTitle
 >Citing the source of the interlinear</secTitle
 ><p
+><indexedItem
+term="iInterlinearSource"
+></indexedItem
 >Another characteristic of interlinear examples is that they may be taken from an interlinear text. In such cases, one may well want to indicate the text and line number from where the interlinear was taken. One convention is to include an abbreviated name of the text, a colon, and the line number. <object
 type="tXLingPap"
 ></object
@@ -10446,6 +10514,9 @@ type="tXLingPap"
 ></object
 > document</secTitle
 ><p
+><indexedItem
+term="iInterlinearSourceInDocument"
+></indexedItem
 >If the source interlinear text is included in the <object
 type="tXLingPap"
 ></object
@@ -10454,6 +10525,9 @@ type="tElement"
 >interlinear-text</object
 > element within an appendix; see section <sectionRef
 sec="sInterlinearText"
+></sectionRef
+> or else as a referenced interlinear text; see section <sectionRef
+sec="sInterlinearTextReferencedInterlinearText"
 ></sectionRef
 >), then you can create an interlinear example that will refer to the appropriate portion of the interlinear text. You can do so in either of two ways.</p
 ><p
@@ -10662,6 +10736,9 @@ type="tXLingPap"
 ></object
 > document</secTitle
 ><p
+><indexedItem
+term="iInterlinearSourceNotInocument"
+></indexedItem
 >If the source interlinear text is not included in the <object
 type="tXLingPap"
 ></object
@@ -10948,6 +11025,9 @@ id="sExTables"
 ><secTitle
 >Tables</secTitle
 ><p
+><indexedItem
+term="iTables"
+></indexedItem
 >Table examples consist of a table (of course). When creating an example, one can select <object
 type="tInTextExample"
 >example(table)</object
@@ -10967,6 +11047,9 @@ id="sExCharts"
 ><secTitle
 >Charts</secTitle
 ><p
+><indexedItem
+term="iExampleChart"
+></indexedItem
 >Chart examples consist of a chart (of course). See section <sectionRef
 sec="sTCTCharts"
 ></sectionRef
@@ -10980,6 +11063,9 @@ id="sExTrees"
 ><secTitle
 >Trees</secTitle
 ><p
+><indexedItem
+term="iTree"
+></indexedItem
 >Tree examples consist of a tree diagram or image (of course). See section <sectionRef
 sec="sTCTTrees"
 ></sectionRef
@@ -10993,6 +11079,9 @@ id="sExDefinition"
 ><secTitle
 >Definitions</secTitle
 ><p
+><indexedItem
+term="iExampleDefinition"
+></indexedItem
 >Definition examples merely consist of a definition, optionally including its key term. They come in two varieties: single and lists. (See section <sectionRef
 sec="sExamples"
 ></sectionRef
@@ -11002,6 +11091,9 @@ id="sExDefinitiionSingle"
 ><secTitle
 >Single definition examples</secTitle
 ><p
+><indexedItem
+term="iExampleDefinitionSingle"
+></indexedItem
 >If you choose the <object
 type="tInTextExample"
 >example(definition)</object
@@ -11022,6 +11114,9 @@ src="resources/ExDefinition.png"
 ></chart
 ></example
 ><p
+><indexedItem
+term="iExampleDefinitionKeyterm"
+></indexedItem
 >If you then type what is shown in <exampleRef
 letter="xExDefinitionData"
 num="xExDefinitionData"
@@ -11082,6 +11177,9 @@ id="sExDefinitionList"
 ><secTitle
 >List of Definitions examples</secTitle
 ><p
+><indexedItem
+term="iExampleDefinitionList"
+></indexedItem
 >The second kind of definition example is a list of definitions. A list of definitions example is given below. If you choose <object
 type="tInTextExample"
 >example(listDefinition)</object
@@ -11170,6 +11268,9 @@ id="sExampleHeading"
 ><secTitle
 >Headings on Examples</secTitle
 ><p
+><indexedItem
+term="iExampleHeading"
+></indexedItem
 >Sometimes one wishes to tag an example with a title or heading or label. One uses the <object
 type="tElement"
 >exampleHeading</object
@@ -11228,6 +11329,9 @@ id="sExampleRefs"
 ><secTitle
 >References to Examples</secTitle
 ><p
+><indexedItem
+term="iRefToExample"
+></indexedItem
 >As I noted in section <sectionRef
 sec="sExamples"
 ></sectionRef
@@ -11566,6 +11670,12 @@ id="sLangDataGloss"
 ><secTitle
 >Changing the Language of a Language Data or Gloss Element</secTitle
 ><p
+><indexedItem
+term="iLangDataChangeLanguage"
+></indexedItem
+><indexedItem
+term="iGlossChangeLanguage"
+></indexedItem
 >As mentioned in section <sectionRef
 sec="sIntroLang"
 ></sectionRef
@@ -11638,6 +11748,9 @@ id="sFreeLanguage"
 ><secTitle
 >Setting the Language of a Free Element</secTitle
 ><p
+><indexedItem
+term="iFreeTranslationChangeLanguage"
+></indexedItem
 >If you wish, you can also set the language of the free translation element (<object
 type="tElement"
 >free</object
@@ -11686,6 +11799,9 @@ id="sExamplesInATable"
 ><secTitle
 >Examples in a Table</secTitle
 ><p
+><indexedItem
+term="iExamplesInTable"
+></indexedItem
 >Sometimes it is appropriate to have two or maybe three examples side-by-side. You can do this by first creating a table (see section <sectionRef
 sec="sTCTTables"
 ></sectionRef
@@ -11711,6 +11827,9 @@ id="sTCTTables"
 ><secTitle
 >Tables</secTitle
 ><p
+><indexedItem
+term="iTables"
+></indexedItem
 ><object
 type="tElement"
 >Table</object
@@ -11865,6 +11984,9 @@ id="sIncreaseTableSize"
 ><secTitle
 >Increase Table Size</secTitle
 ><p
+><indexedItem
+term="iIncreaseTableSize"
+></indexedItem
 >Beginning with version 2.17.0 of <object
 type="tXLingPap"
 ></object
@@ -11975,6 +12097,9 @@ id="sTCTCouner"
 ><secTitle
 >Row Counter In Data Displays</secTitle
 ><p
+><indexedItem
+term="iTablesRowCounter"
+></indexedItem
 >There are times, such as in class handouts, poster sessions, and even in textbooks, where one may want to use a table to display a set of data. To facilitate locating data items in class or poster session discussions, one would like to have a line number for the data in a particular table. Rather than having to key such line numbers by hand, <object
 type="tXLingPap"
 ></object
@@ -12612,6 +12737,9 @@ id="sTCTCharts"
 ><secTitle
 >Charts</secTitle
 ><p
+><indexedItem
+term="iChart"
+></indexedItem
 >One can also create charts. <object
 type="tElement"
 >Chart</object
@@ -12632,6 +12760,9 @@ src="resources/ChartInsert.png"
 ></chart
 ></example
 ><p
+><indexedItem
+term="iImageFiles"
+></indexedItem
 >When you select <object
 type="tInTextExample"
 >chart(with_image)</object
@@ -12759,6 +12890,9 @@ id="sTCTTrees"
 ><secTitle
 >Trees</secTitle
 ><p
+><indexedItem
+term="iTree"
+></indexedItem
 >One can also create tree diagrams. From one perspective, tree diagrams are just charts. We have chosen to use a distinct element for trees and charts, however, as linguists typically consider these to be different things. You can type plain text to try and format the tree (by using a lot of non-breaking spaces<endnoteRef
 note="nNonBreakingSpace"
 ></endnoteRef
@@ -15175,6 +15309,9 @@ id="sListsUnordered"
 ><secTitle
 >Unordered or Bulleted Lists</secTitle
 ><p
+><indexedItem
+term="iUnorderedList"
+></indexedItem
 >Unordered or bulleted lists consist of items, each of which is tagged with a bullet. To create an unordered list, insert a <object
 type="tElement"
 >ul</object
@@ -15605,6 +15742,9 @@ id="sListsDefinition"
 ><secTitle
 >Definition Lists</secTitle
 ><p
+><indexedItem
+term="iDefinitionLists"
+></indexedItem
 >Definition lists are lists whose items have two parts: a term and its definition. Appendix <appendixRef
 app="aElements"
 ></appendixRef
@@ -15717,6 +15857,9 @@ id="sCitations"
 ><secTitle
 >Citations</secTitle
 ><p
+><indexedItem
+term="iCitations"
+></indexedItem
 >A mentioned in section <sectionRef
 sec="sIntro"
 ></sectionRef
@@ -15860,6 +16003,9 @@ id="sCitationsDate"
 ><secTitle
 >Controlling the Date</secTitle
 ><p
+><indexedItem
+term="iCitationsDate"
+></indexedItem
 >Recall that <object
 type="tXLingPap"
 ></object
@@ -16103,6 +16249,9 @@ id="sCitationsAuthor"
 ><secTitle
 >Controlling the Presence of the Author</secTitle
 ><p
+><indexedItem
+term="iCitationsAuthor"
+></indexedItem
 >In addition, one can control whether or not the author name appears. The default action is for the name to appear. If you do not want the author name to appear, use the <object
 type="tAttribute"
 >author</object
@@ -16165,6 +16314,9 @@ id="sCitationsPage"
 ><secTitle
 >Controlling Page Numbers</secTitle
 ><p
+><indexedItem
+term="iCitationsPageNumber"
+></indexedItem
 >Sometimes a writer wishes to include a page number with the citation. <object
 type="tXLingPap"
 ></object
@@ -16210,6 +16362,9 @@ id="sCitationsAttributes"
 ><secTitle
 >Attribute Summary</secTitle
 ><p
+><indexedItem
+term="iCitationAttributes"
+></indexedItem
 >The reference citation attributes are summarized in <exampleRef
 num="xCitationAttributes"
 ></exampleRef
@@ -16642,6 +16797,9 @@ id="sInterlinearTextReference"
 ><secTitle
 >Referring to an interlinear within an included interlinear text</secTitle
 ><p
+><indexedItem
+term="iInterlinearSourceInDocument"
+></indexedItem
 >If you will want to make reference to a portion of an interlinear, then you should give a unique <object
 type="tAttribute"
 >text</object
@@ -16900,10 +17058,7 @@ type="tAttrValue"
 >, then only the short title of the interlinear text will appear. If it is set to <object
 type="tAttrValue"
 >full</object
->, then only the full title of the interlinear text will appear.<indexedRangeEnd
-begin="bInterlinearText"
-></indexedRangeEnd
-></langData
+>, then only the full title of the interlinear text will appear.</langData
 ></td
 ></tr
 ></table
@@ -16914,6 +17069,9 @@ id="sInterlinearTextReferencedInterlinearText"
 ><secTitle
 >Referring to an interlinear when the interlinear text is in another document</secTitle
 ><p
+><indexedItem
+term="iInterlinearSourceNotInocument"
+></indexedItem
 >Sometimes one has a number of distinct <object
 type="tXLingPap"
 ></object
@@ -16978,7 +17136,10 @@ src="resources/ReferencedInterlinearTexts2.png"
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->. Note, however, that the interlinear text itself will not appear in the output.</p
+>. Note, however, that the interlinear text itself will not appear in the output.<indexedRangeEnd
+begin="bInterlinearText"
+></indexedRangeEnd
+></p
 ></section2
 ></section1
 ><section1
@@ -17542,6 +17703,9 @@ id="sSpecialEffectsLinksGeneric"
 ><indexedItem
 term="iRefToGeneric"
 ></indexedItem
+><indexedItem
+term="iHypertextLinksWithin"
+></indexedItem
 >The first is for linking material within the document. One does this by inserting<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
@@ -17730,6 +17894,9 @@ id="sSpecialEffectsLinksExternal"
 ><secTitle
 >External Links</secTitle
 ><p
+><indexedItem
+term="iHypertextLinksWithout"
+></indexedItem
 >For links to items outside of the document, one can use the <object
 type="tElement"
 >link</object
@@ -18819,6 +18986,9 @@ id="sFAQReplace"
 ><secTitle
 >Find and replace text in a document?</secTitle
 ><p
+><indexedItem
+term="iFindReplaceText"
+></indexedItem
 >To find and replace some text, you do what you need to do to find text (see section <sectionRef
 sec="sFAQFind"
 ></sectionRef
@@ -18834,6 +19004,9 @@ id="sFAQSpellingCheck"
 ><secTitle
 >Do a spelling check?</secTitle
 ><p
+><indexedItem
+term="iCheckSpelling"
+></indexedItem
 >To perform a spelling check, use the Spell Tool. It is located in the same place that the Attributes Tool is,<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
@@ -18842,6 +19015,9 @@ src="resources/SpellToolIcon.png"
 ></img
 ></p
 ><p
+><indexedItem
+term="iSpellingTool"
+></indexedItem
 >Click on the Spell Tool tab. You will see something like this:</p
 ><chart
 ><img
@@ -18908,6 +19084,9 @@ id="sFAQQuotes"
 ><secTitle
 >Key ‘smart’ quotes?</secTitle
 ><p
+><indexedItem
+term="iSmartQuotes"
+></indexedItem
 >From what I can tell, the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -19041,6 +19220,9 @@ id="sFAQNbsp"
 ><secTitle
 >Key a non-breaking space?</secTitle
 ><p
+><indexedItem
+term="iNonbreakingSpace"
+></indexedItem
 >To key a non-breaking space, use the insert character dialog discussed in section <sectionRef
 sec="sFAQQuotes"
 ></sectionRef
@@ -19054,6 +19236,9 @@ id="sFAQNbhy"
 ><secTitle
 >Key a non-breaking hyphen?</secTitle
 ><p
+><indexedItem
+term="iNonbreakingHyphen"
+></indexedItem
 >To key a non-breaking hyphen, use the insert character dialog discussed in section <sectionRef
 sec="sFAQQuotes"
 ></sectionRef
@@ -19067,6 +19252,9 @@ id="sFAQValidity"
 ><secTitle
 >Fix validity problems?</secTitle
 ><p
+><indexedItem
+term="iValidityProblems"
+></indexedItem
 >One of the nice things about using the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -19110,6 +19298,9 @@ type="tXMLmindXMLEditor"
 ></endnote
 ></p
 ><p
+><indexedItem
+term="iValidityTool"
+></indexedItem
 >When your file is saved and there is some such problem, you may also see the Validity tab open up on the right, in the same area where the Attributes tool is. For example, it might look like this:</p
 ><example
 num="xValidityErrors"
@@ -20611,6 +20802,9 @@ id="sFAQSplitPortionsOfASectionIntoSubsections"
 ><secTitle
 >Split portions of a section into sub-sections</secTitle
 ><p
+><indexedItem
+term="iSectionConvertTextToSubSection"
+></indexedItem
 >Sometimes while writing, one realizes that the material one has within a section should really be broken up into several sub-sections. For example, the material that at first seemed like it should all be part of a <object
 type="tElement"
 >section2</object
@@ -21123,6 +21317,9 @@ id="sFAQAddComment"
 ><secTitle
 >Add a comment?</secTitle
 ><p
+><indexedItem
+term="iComment"
+></indexedItem
 >Whenever you are inserting an element<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
@@ -21288,6 +21485,12 @@ type="tXMLmindXMLEditor"
 ></object
 >?</secTitle
 ><p
+><indexedItem
+term="iFontLanguageData"
+></indexedItem
+><indexedItem
+term="iLangDataShowFont"
+></indexedItem
 >If you are using version 4.0.0 or higher of the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -21330,6 +21533,12 @@ type="tAttrValue"
 >lGloss</object
 > language IDs?</secTitle
 ><p
+><indexedItem
+term="iGlossChangeDefaultLanguage"
+></indexedItem
+><indexedItem
+term="iLangDataChangeDefaultLanguage"
+></indexedItem
 >Some users have complained about the default language identifiers that come with <object
 type="tXLingPap"
 ></object
@@ -21457,6 +21666,12 @@ id="sFAQEditOutput"
 ><secTitle
 >Add comments to a PDF?</secTitle
 ><p
+><indexedItem
+term="iCommentInPDF"
+></indexedItem
+><indexedItem
+term="iPDFCommentIn"
+></indexedItem
 >After you or a colleague produces a PDF file, you may well want to be able to add comments to it. Typically, such comments would be to make suggestions on wording or presentation or formatting.</p
 ><p
 >How can one do this with <object
@@ -21496,6 +21711,9 @@ id="sFAQCreateHandout"
 ><secTitle
 >Create a talk handout from my paper?</secTitle
 ><p
+><indexedItem
+term="iTalkHandout"
+></indexedItem
 >For those whose working style includes writing a paper before presenting it, you may be wondering how to create a handout once the paper is written as an <object
 type="tXLingPap"
 ></object
@@ -21553,6 +21771,9 @@ id="sFAQCreatePoster"
 ><secTitle
 >Create a poster session presentation from my paper?</secTitle
 ><p
+><indexedItem
+term="iPosterSession"
+></indexedItem
 >Sometimes one needs to create a poster session presentation for a paper.</p
 ><p
 >Here is one way:</p
@@ -21614,6 +21835,9 @@ id="sFAQBreakLongURLs"
 ><secTitle
 >Make long web page addresses break into multiple lines?</secTitle
 ><p
+><indexedItem
+term="iWebpageAddressLong"
+></indexedItem
 >Sometimes a referenced work will have a very long web page address (URL). These will often not format well in the PDF output. There is a way to insert some special characters in the <object
 type="tElement"
 >url</object
@@ -21914,6 +22138,12 @@ type="tElement"
 >language</object
 > IDs in a document?</secTitle
 ><p
+><indexedItem
+term="iLangDataChangeDefaultLanguage"
+></indexedItem
+><indexedItem
+term="iGlossChangeDefaultLanguage"
+></indexedItem
 >Sometimes one may have an <object
 type="tXLingPap"
 ></object
@@ -22511,7 +22741,7 @@ type="tBold"
 >: You must use the default location for storing your books in the Calibre Library. If you use some other location, <object
 type="tXLingPap"
 ></object
-> will not be able to find it and thus will not succeed in producing the EBook for you.  Also, you may find that the EBook fails to be produced if the file name is long.  Try to keep the name under 24 characters.</p
+> will not be able to find it and thus will not succeed in producing the EBook for you. Also, you may find that the EBook fails to be produced if the file name is long. Try to keep the name under 24 characters.</p
 ><p
 >For users of <object
 type="tXLingPap"
@@ -23148,6 +23378,9 @@ type="tElement"
 >comment</object
 >)?</secTitle
 ><p
+><indexedItem
+term="iFindElement"
+></indexedItem
 >Sometimes you may want to find all instances of an element scattered throughout your <object
 type="tXLingPap"
 ></object
@@ -23255,6 +23488,9 @@ id="sFAQLargeFileLoadFaster"
 ><secTitle
 >Make a Large File Load Faster?</secTitle
 ><p
+><indexedItem
+term="iXXELoadLargeFile"
+></indexedItem
 >If you have an extremely large <object
 type="tXLingPap"
 ></object
@@ -23288,6 +23524,9 @@ type="tXMLmindXMLEditor"
 ></object
 ></secTitle
 ><p
+><indexedItem
+term="iXXEProductive"
+></indexedItem
 >This section outlines some ways that one can be more productive while using the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -24420,6 +24659,9 @@ id="sContentControl"
 ><secTitle
 >Content Control</secTitle
 ><p
+><indexedItem
+term="iContentControl"
+></indexedItem
 >There are times when one may wish to have certain “chunks” of material excluded for a particular output of a given document. Other times, one will want to include these “chunks” of material for a different output. Ideally, one would not want to have to create two separate documents - one with the excluded material and one without.</p
 ><p
 >Now <object
@@ -29314,6 +29556,12 @@ id="iAttributeShortcut"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iAudioFile"
+see="iMediaObject"
+><term
+>Audio file</term
+></indexTerm
+><indexTerm
 id="iAuthor"
 ><term
 >Author</term
@@ -29374,6 +29622,12 @@ see="iCollectionVolume"
 >Book containing papers</term
 ></indexTerm
 ><indexTerm
+id="iBulletedLists"
+see="iUnorderedList"
+><term
+>Bulleted lists</term
+></indexTerm
+><indexTerm
 id="iCaptionInTable"
 see="iTablesCaption"
 ><term
@@ -29413,9 +29667,46 @@ id="iCharisSILSmallCaps"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iChart"
+><term
+>Chart</term
+></indexTerm
+><indexTerm
+id="iCheckSpelling"
+><term
+>Check spelling</term
+></indexTerm
+><indexTerm
 id="iChunkElements"
 ><term
 >Chunk elements</term
+></indexTerm
+><indexTerm
+id="iCitations"
+><term
+>Citations</term
+><indexTerms
+><indexTerm
+id="iCitationAttributes"
+><term
+>Attributes</term
+></indexTerm
+><indexTerm
+id="iCitationsAuthor"
+><term
+>Controlling author</term
+></indexTerm
+><indexTerm
+id="iCitationsDate"
+><term
+>Controlling date</term
+></indexTerm
+><indexTerm
+id="iCitationsPageNumber"
+><term
+>Page number</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iRefCollection"
@@ -29438,6 +29729,18 @@ id="iCollCitationConvert"
 id="iCollectionVolume"
 ><term
 >Collection volume (collection of papers by multiple authors)</term
+></indexTerm
+><indexTerm
+id="iComment"
+><term
+>Comment</term
+><indexTerms
+><indexTerm
+id="iCommentInPDF"
+><term
+>in PDF</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iContactInformation"
@@ -29475,6 +29778,11 @@ id="iContactPhone"
 >Contact phone</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iContentControl"
+><term
+>Content control</term
 ></indexTerm
 ><indexTerm
 id="iColor"
@@ -29536,6 +29844,11 @@ id="iDateOfCitedWork"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iDefinitionLists"
+><term
+>Definition lists</term
+></indexTerm
+><indexTerm
 id="iDemoMovies"
 ><term
 >Demo movies</term
@@ -29551,6 +29864,12 @@ id="iDemoMovieTypingText"
 >How to type text in XLingPaper</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iDiagram"
+see="iChart"
+><term
+>Diagram</term
 ></indexTerm
 ><indexTerm
 id="iDissertation"
@@ -29628,6 +29947,114 @@ id="iEndnoteReference"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iExamples"
+><term
+>Examples</term
+><indexTerms
+><indexTerm
+id="iExampleChart"
+see="iChart"
+><term
+>Chart</term
+></indexTerm
+><indexTerm
+id="iExampleDefinition"
+><term
+>Definition</term
+><indexTerms
+><indexTerm
+id="iExampleDefinitionKeyterm"
+><term
+>Keyterm</term
+></indexTerm
+><indexTerm
+id="iExampleDefinitionList"
+><term
+>List</term
+></indexTerm
+><indexTerm
+id="iExampleDefinitionSingle"
+><term
+>Single</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iExampleDiagram"
+see="iChart"
+><term
+>Diagram</term
+></indexTerm
+><indexTerm
+id="iExampleHeading"
+><term
+>Heading</term
+></indexTerm
+><indexTerm
+id="iExampleID"
+><term
+>ID</term
+></indexTerm
+><indexTerm
+id="iExamplesInTable"
+><term
+>In a table (side-by-side)</term
+></indexTerm
+><indexTerm
+id="iExampleInterlinear"
+see="iInterlinear"
+><term
+>Interlinear</term
+></indexTerm
+><indexTerm
+id="iExampleSingle"
+><term
+>Single line of data</term
+><indexTerms
+><indexTerm
+id="iExampleSingleList"
+><term
+>List of single line of data</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iExampleTable"
+see="iTables"
+><term
+>Table</term
+></indexTerm
+><indexTerm
+id="iExampleTree"
+see="iTree"
+><term
+>Tree</term
+></indexTerm
+><indexTerm
+id="iExampleWord"
+><term
+>Word example</term
+><indexTerms
+><indexTerm
+id="iExampleWordList"
+><term
+>List of word examples</term
+></indexTerm
+><indexTerm
+id="iExampleWordListMulitline"
+><term
+>Multi-line word examples with letters</term
+></indexTerm
+><indexTerm
+id="iExampleWordMulitline"
+><term
+>Multi-line word examples without letters</term
+></indexTerm
+></indexTerms
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iExampleReference"
 see="iRefToExample"
 ><term
@@ -29639,10 +30066,28 @@ id="iExpandSection"
 >Expand a section</term
 ></indexTerm
 ><indexTerm
+id="iFindReplaceText"
+see="iSearchTool"
+><term
+>Find and replace text</term
+></indexTerm
+><indexTerm
+id="iFindElement"
+see="iSearchTool"
+><term
+>Find element</term
+></indexTerm
+><indexTerm
 id="iFind"
 see="iSearchTool"
 ><term
->Find Text</term
+>Find text</term
+></indexTerm
+><indexTerm
+id="iFileLoadLarge"
+see="iXXELoadLargeFile"
+><term
+>File, loading large</term
 ></indexTerm
 ><indexTerm
 id="iFLEx"
@@ -29739,6 +30184,11 @@ id="iFontLanguage"
 >Language</term
 ></indexTerm
 ><indexTerm
+id="iFontLanguageData"
+><term
+>Language data</term
+></indexTerm
+><indexTerm
 id="iFontSize"
 ><term
 >Size</term
@@ -29784,6 +30234,18 @@ id="iFramedUnit"
 >Framed units</term
 ></indexTerm
 ><indexTerm
+id="iFreeTranslation"
+><term
+>Free translation</term
+><indexTerms
+><indexTerm
+id="iFreeTranslationChangeLanguage"
+><term
+>Change language</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iFrenchUI"
 ><term
 >French version of user interface</term
@@ -29819,6 +30281,18 @@ id="iFrontMatterThesis"
 id="iGloss"
 ><term
 >Gloss</term
+><indexTerms
+><indexTerm
+id="iGlossChangeDefaultLanguage"
+><term
+>Change default language</term
+></indexTerm
+><indexTerm
+id="iGlossChangeLanguage"
+><term
+>Change language</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iGlossary"
@@ -29826,14 +30300,32 @@ id="iGlossary"
 >Glossary</term
 ></indexTerm
 ><indexTerm
+id="iGraphicFile"
+see="iImageFiles"
+><term
+>Graphic file</term
+></indexTerm
+><indexTerm
 id="iGraphite"
 ><term
 >Graphite font renderer</term
 ></indexTerm
 ><indexTerm
+id="iHandout"
+see="iTalkHandout"
+><term
+>Handout, make from paper</term
+></indexTerm
+><indexTerm
 id="iHangingIndentParagraph"
 ><term
 >Hanging indent paragraph</term
+></indexTerm
+><indexTerm
+id="iHideContent"
+see="iContentControl"
+><term
+>Hide some content</term
 ></indexTerm
 ><indexTerm
 id="iHomographNumbers"
@@ -29845,6 +30337,23 @@ see="iFLExRemoveHomographNumbers"
 id="iHTML"
 ><term
 >HTML output</term
+></indexTerm
+><indexTerm
+id="iHypertextLinks"
+><term
+>Hypertext links</term
+><indexTerms
+><indexTerm
+id="iHypertextLinksWithin"
+><term
+>in the document</term
+></indexTerm
+><indexTerm
+id="iHypertextLinksWithout"
+><term
+>outside the document</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iHyphenationi"
@@ -29880,6 +30389,52 @@ id="iIndexes"
 ><term
 >Indexes</term
 ><indexTerms
+><indexTerm
+id="iIndexesHidingTags"
+><term
+>Hiding index tags</term
+></indexTerm
+><indexTerm
+id="iIndexesIndex"
+><term
+>Index proper</term
+></indexTerm
+><indexTerm
+id="iIndexesIndexItemAttributes"
+><term
+><object
+type="tElement"
+>indexItem</object
+> attributes</term
+></indexTerm
+><indexTerm
+id="iIndexesIndexRangeBeginAttributes"
+><term
+><object
+type="tElement"
+>indexRangeBegin</object
+> attributes</term
+></indexTerm
+><indexTerm
+id="iIndexesKinds"
+><term
+>Kinds of indexes (common, name, language, subject)</term
+></indexTerm
+><indexTerm
+id="iIndexesMainItem"
+><term
+>Main item (outputs in bold)</term
+></indexTerm
+><indexTerm
+id="iIndexesMarkRange"
+><term
+>Marking a range</term
+></indexTerm
+><indexTerm
+id="iIndexesMarkItem"
+><term
+>Marking a singleton itm</term
+></indexTerm
 ><indexTerm
 id="iIndexesSorting"
 ><term
@@ -29976,6 +30531,23 @@ id="iInterlinearObject"
 >Object in</term
 ></indexTerm
 ><indexTerm
+id="iInterlinearSource"
+><term
+>Source of the interlinear example</term
+><indexTerms
+><indexTerm
+id="iInterlinearSourceInDocument"
+><term
+>Text is in the document</term
+></indexTerm
+><indexTerm
+id="iInterlinearSourceNotInocument"
+><term
+>Text is not in the document</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iInterlinearText"
 ><term
 >Text</term
@@ -29989,6 +30561,31 @@ id="iInterlinearTextModularDocument"
 id="iInterlinearTextFLEx"
 ><term
 >Get from FLEx</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iInterlinearWide"
+><term
+>Wide interlinears (go off the page)</term
+></indexTerm
+><indexTerm
+id="iInterlinearWordAligned"
+><term
+>Word-aligned</term
+><indexTerms
+><indexTerm
+id="iInterlinearWordAlignedSpace"
+><term
+>Using spaces between</term
+></indexTerm
+><indexTerm
+id="iInterlinearWordAlignedWrd"
+><term
+>Using <object
+type="tElement"
+>wrd</object
+> elements</term
 ></indexTerm
 ></indexTerms
 ></indexTerm
@@ -30026,6 +30623,16 @@ id="iLangData"
 >langData</term
 ><indexTerms
 ><indexTerm
+id="iLangDataChangeDefaultLanguage"
+><term
+>Change default language</term
+></indexTerm
+><indexTerm
+id="iLangDataChangeLanguage"
+><term
+>Change language</term
+></indexTerm
+><indexTerm
 id="iLangDataFontSize"
 ><term
 >Font size</term
@@ -30053,6 +30660,73 @@ id="iLanguageAttributes"
 >Attributes</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iLinks"
+see="iHypertextLinks"
+><term
+>Links</term
+></indexTerm
+><indexTerm
+id="iLists"
+><term
+>Lists</term
+><indexTerms
+><indexTerm
+id="iListsBulleted"
+see="iUnorderedList"
+><term
+>Bulleted lists</term
+></indexTerm
+><indexTerm
+id="iListsDefinition"
+see="iDefinitionLists"
+><term
+>Definition lists</term
+></indexTerm
+><indexTerm
+id="iListsNumbered"
+see="iOrderedList"
+><term
+>Numbered lists</term
+></indexTerm
+><indexTerm
+id="iListsOrdered"
+see="iOrderedList"
+><term
+>Ordered lists</term
+></indexTerm
+><indexTerm
+id="iListsUnordered"
+see="iUnorderedList"
+><term
+>Unordered lists</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iListOfDefinitions"
+see="iExampleDefinitionList"
+><term
+>List of definitions example</term
+></indexTerm
+><indexTerm
+id="iListOfInterlinear"
+see="iInterlinearList"
+><term
+>List of interlinears example</term
+></indexTerm
+><indexTerm
+id="iListOfSingle"
+see="iExampleSingleList"
+><term
+>List of single line example</term
+></indexTerm
+><indexTerm
+id="iListOfWords"
+see="iExampleWordList"
+><term
+>List of words example</term
 ></indexTerm
 ><indexTerm
 id="iLiteralTranslation"
@@ -30109,10 +30783,26 @@ id="iNewDocument"
 >New Document</term
 ></indexTerm
 ><indexTerm
+id="iNonbreakingHyphen"
+><term
+>Non-breaking hyphen</term
+></indexTerm
+><indexTerm
+id="iNonbreakingSpace"
+><term
+>Non-breaking space</term
+></indexTerm
+><indexTerm
 id="iNumberedList"
 see="iOrderedList"
 ><term
 >Numbered list</term
+></indexTerm
+><indexTerm
+id="iNumberedTables"
+see="iNumberedjTables"
+><term
+>Numbered table</term
 ></indexTerm
 ><indexTerm
 id="iOpenOfficeWriter"
@@ -30170,6 +30860,11 @@ id="iPDF"
 >PDF output</term
 ><indexTerms
 ><indexTerm
+id="iPDFCommentIn"
+><term
+>Comment in PDF</term
+></indexTerm
+><indexTerm
 id="iRenderXPDF"
 ><term
 ><object
@@ -30205,9 +30900,20 @@ id="iPortrait"
 >Portrait mode</term
 ></indexTerm
 ><indexTerm
+id="iPosterSession"
+><term
+>Poster session presentatiion</term
+></indexTerm
+><indexTerm
 id="iPreface"
 ><term
 >Preface</term
+></indexTerm
+><indexTerm
+id="iPresentationHandout"
+see="iTalkHandout"
+><term
+>Presentation handout</term
 ></indexTerm
 ><indexTerm
 id="iPresentedAt"
@@ -30265,10 +30971,21 @@ id="iPublishingInfo"
 >Publishing information</term
 ></indexTerm
 ><indexTerm
+id="iSmartQuotes"
+><term
+>Smart quotes</term
+></indexTerm
+><indexTerm
 id="iRecordiing"
 see="iMediaObject"
 ><term
 >Recording</term
+></indexTerm
+><indexTerm
+id="iReplaceText"
+see="iFindReplaceText"
+><term
+>Replace text</term
 ></indexTerm
 ><indexTerm
 id="iReference"
@@ -30370,6 +31087,12 @@ see="iSearchTool"
 >Replace text</term
 ></indexTerm
 ><indexTerm
+id="iRowCounter"
+see="iTablesRowCounter"
+><term
+>Row counter</term
+></indexTerm
+><indexTerm
 id="iSearchTool"
 ><term
 >Search Tool</term
@@ -30459,6 +31182,12 @@ see="iReferencesSelectedReferences"
 >Selected References</term
 ></indexTerm
 ><indexTerm
+id="iShowContent"
+see="iContentControl"
+><term
+>Show soome content</term
+></indexTerm
+><indexTerm
 id="iSmallCaps"
 ><term
 >Small caps</term
@@ -30511,9 +31240,15 @@ see="iSpecialSymbol"
 >Special character/symbol, insert</term
 ></indexTerm
 ><indexTerm
+id="iSpellingCheck"
+see="iCheckSpelling"
+><term
+>Spelling check</term
+></indexTerm
+><indexTerm
 id="iSpellingTool"
 ><term
->Spelling Tool</term
+>Spelling tool</term
 ></indexTerm
 ><indexTerm
 id="iStartingPageNumber"
@@ -30568,7 +31303,7 @@ id="iIncreaseTableSize"
 >Increase table size</term
 ></indexTerm
 ><indexTerm
-id="iNumberedTables"
+id="iNumberedjTables"
 ><term
 >Numbered Tables</term
 ><indexTerms
@@ -30597,6 +31332,11 @@ id="iNumberedTablesReferencesShowCaption"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iTablesRowCounter"
+><term
+>Row counter</term
+></indexTerm
+><indexTerm
 id="iTablesSpan"
 ><term
 >Span column or row</term
@@ -30618,6 +31358,11 @@ type="tXeTeX"
 >)</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iTalkHandout"
+><term
+>Talk handout</term
 ></indexTerm
 ><indexTerm
 id="iThesis"
@@ -30701,6 +31446,11 @@ see="iValidityTool"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iTree"
+><term
+>Tree</term
+></indexTerm
+><indexTerm
 id="iUnicodeComposed"
 ><term
 >Unicode “composed” form</term
@@ -30711,6 +31461,11 @@ id="iUnicodeDecomposed"
 >Unicode “decomposed” form</term
 ></indexTerm
 ><indexTerm
+id="iUnorderedList"
+><term
+>Unordered list</term
+></indexTerm
+><indexTerm
 id="iURI"
 ><term
 >URI</term
@@ -30719,11 +31474,24 @@ id="iURI"
 id="iURL"
 ><term
 >URL</term
+><indexTerms
+><indexTerm
+id="iURLLong"
+see="iWebpageAddressLong"
+><term
+>Long address goes off page</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iValidityProblems"
+><term
+>Validity problems</term
 ></indexTerm
 ><indexTerm
 id="iValidityTool"
 ><term
->Validity Tool</term
+>Validity tool</term
 ></indexTerm
 ><indexTerm
 id="iVersion"
@@ -30746,6 +31514,13 @@ id="iWebpageAddress"
 see="iURL"
 ><term
 >Webpage address (URL)</term
+><indexTerms
+><indexTerm
+id="iWebpageAddressLong"
+><term
+>Long address goes off page</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iWebpageOutput"
@@ -30753,6 +31528,12 @@ id="iWebpageOutput"
 >webpage output</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iWordExample"
+see="iExampleWord"
+><term
+>Word example</term
 ></indexTerm
 ><indexTerm
 id="iWord2003"
@@ -30779,6 +31560,16 @@ id="iXXE"
 id="iXXEAdvantages"
 ><term
 >Advantages</term
+></indexTerm
+><indexTerm
+id="iXXEProductive"
+><term
+>Be productive with</term
+></indexTerm
+><indexTerm
+id="iXXELoadLargeFile"
+><term
+>Loading very large files</term
 ></indexTerm
 ><indexTerm
 id="iXXEObtaining"

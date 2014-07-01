@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->30 June 2014</date
+>1 July 2014</date
 ><version
 >2.25.2</version
 ><contents
@@ -12859,6 +12859,8 @@ num="xSampleChartGifHtml"
 type="tHtmlOutput"
 >&lt;div&gt;&lt;img src="resources/ParseC.gif"&gt;&lt;/div&gt;</chart
 ></example
+><p
+>You may find it helpful to set the background of an image to be transparent.  This may especially be the case if the image is in an example with an example heading.</p
 ><p
 >Note that if you try to use “plain” text instead of an image in a chart, you will probably want to use non-breaking spaces<endnote
 id="nNonBreakingSpace"

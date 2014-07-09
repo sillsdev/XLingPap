@@ -93,6 +93,7 @@
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="SetPageLayoutParameters"/>
+            <xsl:call-template name="SetSpecialTextSymbols"/>
             <xsl:call-template name="SetUsePackages"/>
             <xsl:call-template name="SetHeaderFooter"/>
             <xsl:call-template name="SetFonts"/>
@@ -105,7 +106,6 @@
                     <xsl:value-of select="$sParagraphIndent"/>
                 </tex:parm>
             </tex:cmd>
-            <xsl:call-template name="SetSpecialTextSymbols"/>
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="DefineBlockQuoteWithIndent"/>
             <tex:cmd name="clubpenalty" gr="0"/>

@@ -474,6 +474,7 @@
 <!ATTLIST listWord
     externalID CDATA #IMPLIED
     letter ID #REQUIRED
+    %special;
 >
 <!ELEMENT single (langData | gloss)+>
 <!ATTLIST single
@@ -483,6 +484,7 @@
 <!ATTLIST listSingle
     externalID CDATA #IMPLIED
     letter ID #REQUIRED
+    %special;
 >
 <!-- the text ID is a reference number for an interlinear within an interlinear text 
     the textref IDREF refers to a text ID when the interlinear is in an example
@@ -761,6 +763,7 @@
 <!ELEMENT listDefinition (definition)>
 <!ATTLIST listDefinition
     letter ID #REQUIRED
+    %special;
 >
 <!ELEMENT keyTerm (#PCDATA | %embedded; )*>
 <!ATTLIST keyTerm

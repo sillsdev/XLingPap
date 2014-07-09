@@ -4686,8 +4686,9 @@
                     <xsl:call-template name="GetLetterWidth">
                         <xsl:with-param name="iLetterCount" select="count(ancestor::listInterlinear[1])"/>
                     </xsl:call-template>
-                    <xsl:text>em - </xsl:text>
-                    <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
+                    <xsl:text>em</xsl:text>
+                    <!-- not needed: <xsl:text>em - </xsl:text>
+                    <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>-->
                     <xsl:if test="contains($bListsShareSameCode,'N')">
                         <xsl:text> - </xsl:text>
                         <tex:cmd name="XLingPaperspacewidth" gr="0" nl2="0"/>
@@ -8594,6 +8595,17 @@
                         <xsl:with-param name="sSource" select="$sSource"/>
                         <xsl:with-param name="sRef" select="$sRef"/>
                     </xsl:call-template>
+                    <xsl:if test="$sInterlinearSourceStyle='UnderFree' and $bAutomaticallyWrapInterlinears='yes'">
+                        <!-- adjust for any right indent to example interlnear (not list interlinear; we handle that elsewhere -->
+                        <xsl:variable name="sIndentAfter" select="normalize-space($documentLayoutInfo/exampleLayout/@indent-after)"/>
+                        <xsl:if test="not(ancestor::listInterlinear) and string-length($sIndentAfter) &gt; 0">
+                            <tex:cmd name="hspace*">
+                                <tex:parm>
+                                    <xsl:value-of select="$sIndentAfter"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>
+                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -8846,6 +8858,9 @@
                         <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listDefinition">
                             <tex:spec cat="esc"/>
                             <tex:spec cat="esc" nl2="1"/>
+                            <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+                                <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+                            </xsl:if>
                             <xsl:call-template name="DoListLetter">
                                 <xsl:with-param name="sLetterWidth" select="$sLetterWidth"/>
                             </xsl:call-template>

@@ -2149,7 +2149,10 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--                        <cfg:copy files="TeXML2.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.xml"/>-->
             <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
-            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
+<!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="TeXML2.tex"/>
+            <cfg:invoke method="xlingpaper.xxe.NonASCIIIDandIDREFConversion.convert"/>
+            <cfg:copy quiet="true" files="TeXML3.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;%{R}.tex&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
@@ -2173,7 +2176,11 @@ What we want is to load IE independently and to do a refresh so it will show the
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
-            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
+<!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
+            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="TeXML2.tex"/>
+<!--            <cfg:copy quiet="true" files="TeXML2.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.tex"/>-->
+            <cfg:invoke method="xlingpaper.xxe.NonASCIIIDandIDREFConversion.convert"/>
+            <cfg:copy quiet="true" files="TeXML3.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%{P}%{S}%{R}&quot;" platform="Mac"/>
             <cfg:copy quiet="true" files="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.pdf" to="%{P}%{S}%{R}.pdf"/>

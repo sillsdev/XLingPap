@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-06-30</a:date
+>2014-07-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.25.2 30 June 2014<ul
+>2.25.2 9 July 2014<ul
 ><li
 >Fix bug which did not correctly show citations using both author='no' and paren='citationBoth' or paren='citationInitial'.</li
 ><li
@@ -41,10 +41,20 @@ href="mailto::andy_black@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix how fontspec now wants to handle script commands so newer version of the Scheherazade font works.</li
+><li
+>Fix bug: PDF would not be produced if a title contained square brackets.</li
+><li
+>Fix bug: When using the after free translation option for showing interlinear source, listInterlinear ones did not line up to the right properly.</li
+><li
+>Fix bug: When using the under free translation option for showing interlinear source and when using automatic wrapping, interlinear ones did not pay attention to the indent-after value of the exampleLayout element in a publisher style sheet.</li
+><li
+>Fix bug: Whenever an ID (for a section, example, refWork, etc.) contained a non-a to z or a non-A to Z or a non-0 to 9 character, the PDF would be produced but any hyperlink to the ID would not work.</li
 ></ul
 ></li
 ><li
 >Finish indexing the main user documentation.</li
+><li
+>Allow XeLaTeXSpecial, cssSpecial, and xsl-foSpecial attributes on listDefinition, listSingle, and listWord elements.</li
 ></ul
 ></li
 ><li

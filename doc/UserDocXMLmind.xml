@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->1 July 2014</date
+>7 July 2014</date
 ><version
 >2.25.2</version
 ><contents
@@ -6850,7 +6850,7 @@ type="tElement"
 > element. Note that since this will be formatted as a table, it needs to go after or before a paragraph (<object
 type="tElement"
 >p</object
-> element);  it will not work to put it within a paragraph.  </p
+> element); it will not work to put it within a paragraph.</p
 ><p
 >One should also change the <object
 type="tAttribute"
@@ -12860,7 +12860,7 @@ type="tHtmlOutput"
 >&lt;div&gt;&lt;img src="resources/ParseC.gif"&gt;&lt;/div&gt;</chart
 ></example
 ><p
->You may find it helpful to set the background of an image to be transparent.  This may especially be the case if the image is in an example with an example heading.</p
+>You may find it helpful to set the background of an image to be transparent. This may especially be the case if the image is in an example with an example heading.</p
 ><p
 >Note that if you try to use “plain” text instead of an image in a chart, you will probably want to use non-breaking spaces<endnote
 id="nNonBreakingSpace"
@@ -31187,7 +31187,7 @@ see="iReferencesSelectedReferences"
 id="iShowContent"
 see="iContentControl"
 ><term
->Show soome content</term
+>Show some content</term
 ></indexTerm
 ><indexTerm
 id="iSmallCaps"

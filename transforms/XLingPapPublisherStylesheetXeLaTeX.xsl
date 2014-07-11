@@ -1146,6 +1146,11 @@
                             <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                         </xsl:call-template>
                     </xsl:variable>
+                    <!-- hack: cannot do this in DoTitleFormatInfoEnd -->
+                    <xsl:if test="name()='appendix' and $titleLayoutToUse/appendixTitleLayout/@showletter='no'">
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:if>
                     <xsl:call-template name="DoTitleFormatInfoEnd">
                         <xsl:with-param name="layoutInfo" select="$numberLayoutToUse/descendant-or-self::*"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>

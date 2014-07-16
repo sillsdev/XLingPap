@@ -2758,7 +2758,12 @@ listWord
 
 literal:before
 {
-	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout[string-length(normalize-space(@textbefore))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/@textbefore, (/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@literalLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@literalLabel, 'Lit. ')");
+	content: label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout[string-length(normalize-space(.))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout, (/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@literalLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@literalLabel, 'Lit. ')");
+	color: concatenate(xpath("/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout/@color"));
+	font-family: concatenate("'",xpath("/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout/@font-family"),"'");
+	font-size: concatenate(xpath("/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout/@font-size"));
+	font-style: concatenate(xpath("/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout/@font-style"));
+	font-weight: concatenate(xpath("/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout/@font-weight")); 
 }
 literal
 {

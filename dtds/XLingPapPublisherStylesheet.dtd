@@ -549,6 +549,9 @@ Back Matter Layout
 <!ELEMENT indexLayout EMPTY >
 <!ATTLIST indexLayout
      %titleformatinfo;
+     defaultfontize CDATA #IMPLIED
+     useDoubleColumns (yes | no) "no"
+     doubleColumnSeparation CDATA #IMPLIED
     >
 <!ELEMENT referencesTitleLayout EMPTY >
 <!ATTLIST referencesTitleLayout

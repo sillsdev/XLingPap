@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-07-16</a:date
+>2014-07-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.25.3 16 July 2014<ul
+>2.25.3 22 July 2014<ul
 ><li
 >Made any literalLabelLayout of a publisher style sheet show in XXE.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug in publisher style sheet processing where some back matter items did not have hyperlinks or PDF bookmarks.</li
+><li
+>Refine how index processing is done.  Add options for publisher style sheets to set the font size to use for the index content, to show the index in double column mode, and to control the width of the spacing between columns.</li
+></ul
+></li
 ></ul
 ></li
 ><li

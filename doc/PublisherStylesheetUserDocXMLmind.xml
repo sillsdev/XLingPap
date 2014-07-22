@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->26 June 2014</date
+>21 July 2014</date
 ><version
 >2.25.2</version
 ><contents
@@ -2840,7 +2840,7 @@ type="tAttrValue"
 >) or not appear (<object
 type="tAttrValue"
 >no</object
->) in the running header.  Default is <object
+>) in the running header. Default is <object
 type="tAttrValue"
 >yes</object
 >.</td
@@ -3166,7 +3166,71 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
+> In addition this element has three other attributes: (these only work for the <object
+type="tXeTeX"
+></object
+> way of producing PDF).<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>defaultfontize</object
+></td
+><td
+>The font size (in points) or a percentage.  Use a number followed immediately by 'pt' or '%'.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>doubleColumnSeparation</object
+></td
+><td
+>The horizontal space to use between the two columns.  Use a number followed immediately by a unit of measure (see <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>).  This is ignored if <object
+type="tAttribute"
+>useDoubleColumns</object
+> is <object
+type="tAttrValue"
+>no</object
 >.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iDoubleColumn"
+></indexedItem
+><object
+type="tAttribute"
+>useDoubleColumns</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.  The default is <object
+type="tAttrValue"
+>no</object
+>.  When set to <object
+type="tAttrValue"
+>yes</object
+>, the index will start on a new page.</td
+></tr
+></table
+></td
 ></tr
 ></table
 ></example
@@ -12733,7 +12797,18 @@ type="tAttrValue"
 >, <object
 type="tAttrValue"
 >capitalize</object
->, <object
+>,<endnote
+id="nCapitalize"
+><p
+>The <object
+type="tAttrValue"
+>capitalize</object
+> value is not implemented for the <object
+type="tXeTeX"
+></object
+> way of producing PDF.</p
+></endnote
+> <object
 type="tAttrValue"
 >lowercase</object
 >, or <object
@@ -12749,7 +12824,7 @@ lang="lEng"
 ><td
 ><object
 type="tAttrValue"
->capitalize</object
+>uppercase</object
 ></td
 ><td
 >No</td
@@ -13919,6 +13994,11 @@ id="iDissertationLabel2"
 see="iDissertationLabel"
 ><term
 >Dissertation label (Ph.D dissertation) in a referenced work</term
+></indexTerm
+><indexTerm
+id="iDoubleColumn"
+><term
+>Double column in an index</term
 ></indexTerm
 ><indexTerm
 id="iDoubleSpace"

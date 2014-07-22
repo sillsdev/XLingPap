@@ -1287,7 +1287,7 @@
                 <xsl:value-of select="$indexSeeDefinition/seeTerm/beforeTerm"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>See</xsl:text>
+                <xsl:text>see</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>&#x20;</xsl:text>
@@ -1335,7 +1335,7 @@
                         <xsl:value-of select="$indexSeeDefinition/seeTerm/beforeTerm"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text>See</xsl:text>
+                        <xsl:text>see</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text>&#x20;</xsl:text>
@@ -1356,6 +1356,24 @@
                 <xsl:apply-templates select="$indexTerm/term[1]" mode="InIndex"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputIndexTermsTermFullPath
+    -->
+    <xsl:template name="OutputIndexTermsTermFullPath">
+        <xsl:param name="lang"/>
+        <xsl:param name="indexTerm"/>
+        <xsl:if test="$indexTerm/ancestor::indexTerm[1]">
+            <xsl:call-template name="OutputIndexTermsTermFullPath">
+                <xsl:with-param name="lang" select="$lang"/>
+                <xsl:with-param name="indexTerm" select="$indexTerm/ancestor::indexTerm[1]"/>
+            </xsl:call-template>
+            <xsl:text>, </xsl:text>
+        </xsl:if>
+        <xsl:call-template name="OutputIndexTermsTerm">
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:with-param name="indexTerm" select="$indexTerm"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
         OutputLabel

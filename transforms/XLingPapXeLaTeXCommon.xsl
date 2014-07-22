@@ -3978,7 +3978,8 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0 or contains(@XeLaTeXSpecial, $sFontScript) or contains(../@XeLaTeXSpecial, $sFontScript) or contains(@XeLaTeXSpecial, $sFontScriptLower) or contains(../@XeLaTeXSpecial, $sFontScriptLower)">
+            <xsl:if
+                test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0 or contains(@XeLaTeXSpecial, $sFontScript) or contains(../@XeLaTeXSpecial, $sFontScript) or contains(@XeLaTeXSpecial, $sFontScriptLower) or contains(../@XeLaTeXSpecial, $sFontScriptLower)">
                 <tex:opt>
                     <xsl:if test="$bIsGraphite='Y' or string-length($sFontFeatureList) &gt; 0">
                         <xsl:choose>
@@ -8390,6 +8391,36 @@
             </xsl:if>
         -->
     </xsl:template>
+    <!--
+        OutputIndexedItemsRange
+    -->
+    <xsl:template name="OutputIndexedItemsRange">
+        <xsl:param name="sIndexedItemID"/>
+        <xsl:variable name="sPage" select="document($sIndexFile)/idx/indexitem[@ref=$sIndexedItemID]/@page"/>
+        <xsl:call-template name="OutputIndexedItemsPageNumber">
+            <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+            <xsl:with-param name="sPage" select="$sPage"/>
+        </xsl:call-template>
+        <xsl:if test="beginId">
+            <xsl:variable name="sBeginId" select="beginId"/>
+            <xsl:for-each select="$lingPaper//indexedRangeEnd[@begin=$sBeginId][1]">
+                <!-- only use first one because that's all there should be -->
+                <xsl:variable name="sIndexedRangeEndID">
+                    <xsl:call-template name="CreateIndexedItemID">
+                        <xsl:with-param name="sTermId" select="@begin"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="sEndPage" select="document($sIndexFile)/idx/indexitem[@ref=$sIndexedRangeEndID]/@page"/>
+                <xsl:if test="$sPage != $sEndPage">
+                    <xsl:text>-</xsl:text>
+                    <xsl:call-template name="OutputIndexedItemsPageNumber">
+                        <xsl:with-param name="sIndexedItemID" select="$sIndexedRangeEndID"/>
+                        <xsl:with-param name="sPage" select="$sEndPage"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
     <!--  
         OutputIndexTerms
     -->
@@ -8448,39 +8479,105 @@
                                     <xsl:with-param name="lang" select="$lang"/>
                                     <xsl:with-param name="indexTerm" select="."/>
                                 </xsl:call-template>
+                                <xsl:if test="$indexedItems or $bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
                                 <xsl:text>&#x20;&#x20;</xsl:text>
-                                <xsl:for-each select="$indexedItems">
+                                <!-- When a given item is on the same page more than once, we want to show only one occurrence.
+                                     In addition, if one of the items on the same page is the main item, then we want to show
+                                     that main item only and not the other items on that page.
+                                     To do this, we create a data structure first and then run through it.
+                                -->
+                                <xsl:variable name="items">
+                                    <xsl:for-each select="$indexedItems">
+                                        <item>
+                                            <xsl:variable name="sIndexedItemID">
+                                                <xsl:call-template name="CreateIndexedItemID">
+                                                    <xsl:with-param name="sTermId" select="$sTermId"/>
+                                                </xsl:call-template>
+                                            </xsl:variable>
+                                            <id>
+                                                <xsl:value-of select="$sIndexedItemID"/>
+                                            </id>
+                                            <xsl:if test="name()='indexedRangeBegin'">
+                                                <beginId>
+                                                    <xsl:value-of select="@id"/>
+                                                </beginId>
+                                            </xsl:if>
+                                            <xsl:if test="@main='yes'">
+                                                <main/>
+                                            </xsl:if>
+                                            <page>
+                                                <xsl:value-of select="document($sIndexFile)/idx/indexitem[@ref=$sIndexedItemID]/@page"/>
+                                            </page>
+                                        </item>
+                                    </xsl:for-each>
+                                </xsl:variable>
+                                <xsl:variable name="iTotalItems" select="count($indexedItems)"/>
+                                <xsl:for-each select="saxon:node-set($items)/item">
                                     <!-- show each reference -->
-                                    <xsl:variable name="sIndexedItemID">
-                                        <xsl:call-template name="CreateIndexedItemID">
-                                            <xsl:with-param name="sTermId" select="$sTermId"/>
-                                        </xsl:call-template>
-                                    </xsl:variable>
+                                    <xsl:variable name="sThisPage" select="string(page)"/>
+                                    <xsl:variable name="itemsBeforeOnThisPage" select="preceding-sibling::item[string(page)=$sThisPage]"/>
+                                    <xsl:variable name="itemsAfterOnThisPageMain" select="following-sibling::item[string(page)=$sThisPage and main]"/>
                                     <xsl:choose>
-                                        <xsl:when test="@main='yes' and count($indexedItems) &gt; 1">
+                                        <xsl:when test="$itemsBeforeOnThisPage">
+                                            <!-- do nothing; already handled -->
+                                        </xsl:when>
+                                        <xsl:when test="$itemsAfterOnThisPageMain">
+                                            <!-- there are other items on this page, but this is the main one; use it -->
+                                            <xsl:if test="position()!=1">
+                                                <xsl:text>, </xsl:text>
+                                            </xsl:if>
+                                            <xsl:variable name="iOnThisPage" select="count($itemsAfterOnThisPageMain)+1"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$iOnThisPage &lt; $iTotalItems">
+                                                    <tex:cmd name="textbf">
+                                                        <tex:parm>
+                                                            <xsl:call-template name="OutputIndexedItemsRange">
+                                                                <xsl:with-param name="sIndexedItemID" select="$itemsAfterOnThisPageMain/id"/>
+                                                            </xsl:call-template>
+                                                        </tex:parm>
+                                                    </tex:cmd>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:call-template name="OutputIndexedItemsRange">
+                                                        <xsl:with-param name="sIndexedItemID" select="$itemsAfterOnThisPageMain/id"/>
+                                                    </xsl:call-template>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                        <xsl:when test="main and $iTotalItems &gt; 1">
+                                            <!-- there is only this item on this page and it is main (and there are other items to show) -->
+                                            <xsl:if test="position()!=1">
+                                                <xsl:text>, </xsl:text>
+                                            </xsl:if>
                                             <tex:cmd name="textbf">
                                                 <tex:parm>
                                                     <xsl:call-template name="OutputIndexedItemsRange">
-                                                        <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                                        <xsl:with-param name="sIndexedItemID" select="id"/>
                                                     </xsl:call-template>
                                                 </tex:parm>
                                             </tex:cmd>
                                         </xsl:when>
                                         <xsl:otherwise>
+                                            <xsl:if test="position()!=1">
+                                                <xsl:text>, </xsl:text>
+                                            </xsl:if>
                                             <xsl:call-template name="OutputIndexedItemsRange">
-                                                <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
+                                                <xsl:with-param name="sIndexedItemID" select="id"/>
                                             </xsl:call-template>
                                         </xsl:otherwise>
                                     </xsl:choose>
-                                    <xsl:if test="position()!=last()">
-                                        <xsl:text>, </xsl:text>
-                                    </xsl:if>
                                 </xsl:for-each>
                                 <xsl:if test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                                     <!-- this term also has a @see attribute which refers to a term that is cited or whose descendant is cited -->
+                                    <tex:spec cat="esc"/>
+                                    <xsl:text>textit</xsl:text>
+                                    <tex:spec cat="bg"/>
                                     <xsl:call-template name="OutputIndexTermSeeBefore">
                                         <xsl:with-param name="indexedItems" select="$indexedItems"/>
                                     </xsl:call-template>
+                                    <tex:spec cat="eg"/>
                                     <xsl:call-template name="DoInternalHyperlinkBegin">
                                         <xsl:with-param name="sName">
                                             <xsl:call-template name="CreateIndexTermID">
@@ -8491,8 +8588,11 @@
                                     <xsl:call-template name="LinkAttributesBegin">
                                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
-                                    <!--                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[1]" mode="InIndex"/>     -->
-                                    <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+<!--<!-\-     Why this? -\->                               <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>-->
+                                    <xsl:call-template name="OutputIndexTermsTermFullPath">
+                                        <xsl:with-param name="lang" select="$lang"/>
+                                        <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
+                                    </xsl:call-template>
                                     <xsl:call-template name="LinkAttributesEnd">
                                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
@@ -8521,7 +8621,12 @@
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:text>,</xsl:text>
+                                <tex:spec cat="esc"/>
+                                <xsl:text>textit</xsl:text>
+                                <tex:spec cat="bg"/>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
+                                <tex:spec cat="eg"/>
                                 <xsl:call-template name="DoInternalHyperlinkBegin">
                                     <xsl:with-param name="sName">
                                         <xsl:call-template name="CreateIndexTermID">
@@ -8532,7 +8637,7 @@
                                 <xsl:call-template name="LinkAttributesBegin">
                                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                 </xsl:call-template>
-                                <xsl:call-template name="OutputIndexTermsTerm">
+                                <xsl:call-template name="OutputIndexTermsTermFullPath">
                                     <xsl:with-param name="lang" select="$lang"/>
                                     <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
                                 </xsl:call-template>

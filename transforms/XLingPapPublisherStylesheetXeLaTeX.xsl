@@ -4705,28 +4705,55 @@
                   DoIndex
 -->
     <xsl:template name="DoIndex">
+        <xsl:if test="$backMatterLayoutInfo/indexLayout/@useDoubleColumns='yes'">
+            <xsl:variable name="doubleColSep" select="normalize-space($backMatterLayoutInfo/indexLayout/@doubleColumnSeparation)"/>
+            <xsl:if test="string-length($doubleColSep) &gt; 0">
+                <tex:cmd name="setlength">
+                    <tex:parm>
+                        <tex:cmd name="columnsep" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="$doubleColSep"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+            <tex:cmd name="twocolumn" gr="0"/>
+            <tex:spec cat="lsb"/>
+        </xsl:if>
+        <xsl:variable name="sIndexLabel">
+            <xsl:call-template name="OutputIndexLabel"/>
+        </xsl:variable>
         <xsl:call-template name="OutputBackMatterItemTitle">
             <xsl:with-param name="sId">
                 <xsl:call-template name="CreateIndexID"/>
             </xsl:with-param>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputIndexLabel"/>
-            </xsl:with-param>
+            <xsl:with-param name="sLabel" select="$sIndexLabel"/>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
         </xsl:call-template>
         <!-- process any paragraphs, etc. that may be at the beginning -->
         <xsl:apply-templates/>
-        <!-- Need to check on two column mode; looks like we allow it via a parameter in OutputFrontOrBackMatterTitle but not in OutputBackMatterItemTitle
-            do we want to add two column as a choice in indexLayout??
-    <xsl:if test="$chapters">
-            <!-\- close off all non-two column initial material; the \twocolumn[span stuff] command needs to end here -\->
+        <xsl:if test="$backMatterLayoutInfo/indexLayout/@useDoubleColumns='yes'">
             <tex:spec cat="rsb"/>
+            <!-- following does not 'take' in two column mode so do it again here -->
+            <tex:cmd name="markboth">
+                <tex:parm>
+                    <xsl:copy-of select="$sIndexLabel"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:copy-of select="$sIndexLabel"/>
+                </tex:parm>
+            </tex:cmd>
         </xsl:if>
--->
         <!-- now process the contents of this index -->
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceindexes='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:variable name="defaultFontSize" select="normalize-space($backMatterLayoutInfo/indexLayout/@defaultfontize)"/>
+        <xsl:if test="string-length($defaultFontSize) &gt; 0">
+            <xsl:call-template name="HandleFontSize">
+                <xsl:with-param name="sSize" select="$defaultFontSize"/>
+            </xsl:call-template>
         </xsl:if>
         <xsl:variable name="sIndexKind">
             <xsl:choose>
@@ -4743,6 +4770,17 @@
         </xsl:call-template>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceindexes='yes'">
             <tex:spec cat="eg"/>
+        </xsl:if>
+        <!--<xsl:if test="$backMatterLayoutInfo/indexLayout/@useDoubleColumns='yes'">
+            <!-\- starts a new page and we do not want one; also messes up end toc and end idx -\->
+            <tex:cmd name="onecolumn" gr="0"/>
+            <!-\-<tex:spec cat="lsb"/>
+            <tex:spec cat="rsb"/>-\->
+        </xsl:if>-->
+        <xsl:if test="string-length($defaultFontSize) &gt; 0">
+            <xsl:call-template name="HandleFontSize">
+                <xsl:with-param name="sSize" select="concat($sBasicPointSize,'pt')"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -6352,7 +6390,7 @@
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                         <xsl:with-param name="originalContext" select="$sLabel"/>
                     </xsl:call-template>
-                    <xsl:if test="$layoutInfo/@text-transform!='uppercase' and $layoutInfo/@text-transform!='lowercase'">
+                    <xsl:if test="not($layoutInfo/@text-transform) or $layoutInfo/@text-transform!='uppercase' and $layoutInfo/@text-transform!='lowercase'">
                         <xsl:call-template name="DoBookMark"/>
                         <xsl:call-template name="DoInternalTargetBegin">
                             <xsl:with-param name="sName" select="$sId"/>
@@ -6971,29 +7009,6 @@
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
-    </xsl:template>
-    <!--
-        OutputIndexedItemsRange
-    -->
-    <xsl:template name="OutputIndexedItemsRange">
-        <xsl:param name="sIndexedItemID"/>
-        <xsl:call-template name="OutputIndexedItemsPageNumber">
-            <xsl:with-param name="sIndexedItemID" select="$sIndexedItemID"/>
-        </xsl:call-template>
-        <xsl:if test="name()='indexedRangeBegin'">
-            <xsl:variable name="sBeginId" select="@id"/>
-            <xsl:for-each select="//indexedRangeEnd[@begin=$sBeginId][1]">
-                <!-- only use first one because that's all there should be -->
-                <xsl:text>-</xsl:text>
-                <xsl:call-template name="OutputIndexedItemsPageNumber">
-                    <xsl:with-param name="sIndexedItemID">
-                        <xsl:call-template name="CreateIndexedItemID">
-                            <xsl:with-param name="sTermId" select="@begin"/>
-                        </xsl:call-template>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </xsl:for-each>
-        </xsl:if>
     </xsl:template>
     <!--
         OutputIndexedItemsPageNumber

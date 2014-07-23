@@ -36,4 +36,8 @@
             </xsl:for-each>
         </references>
     </xsl:template>
+    <!-- Dummy templates -->
+    <xsl:template name="DoAuthorName"/>
+    <xsl:template name="DoDate"/>
+    <xsl:template name="DoTitle"/>
 </xsl:stylesheet>

@@ -10,7 +10,9 @@
     <xsl:template match="/m:modsCollection">
         <references>
             <xsl:apply-templates>
-                <xsl:sort lang="en" select="concat(m:name[1][m:role/m:roleTerm='aut' or m:role/m:roleTerm='ctb']/m:namePart[@type='family'], ' ', m:name[1][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='given'])"/>
+                <xsl:sort lang="en"
+                    select="concat(m:name[1][m:role/m:roleTerm='aut' or m:role/m:roleTerm='ctb']/m:namePart[@type='family'], ' ', m:name[1][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='given'])"
+                />
             </xsl:apply-templates>
         </references>
     </xsl:template>
@@ -20,29 +22,7 @@
     <xsl:template match="m:mods">
         <refAuthor>
             <xsl:attribute name="name">
-                <xsl:variable name="sAuthorName">
-                    <xsl:call-template name="GetAuthorsNames"/>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$sAuthorName != ', '">
-                        <xsl:value-of select="$sAuthorName"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:variable name="sContributorName">
-                            <xsl:call-template name="GetAuthorsNames">
-                                <xsl:with-param name="sKind" select="'ctb'"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:choose>
-                            <xsl:when test="$sContributorName != ', '">
-                                <xsl:value-of select="$sContributorName"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="$sMissingAuthorsMessage"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="DoAuthorName"/>
             </xsl:attribute>
             <xsl:attribute name="citename">
                 <xsl:variable name="sCiteName">
@@ -63,13 +43,30 @@
                                 <xsl:value-of select="$sCiteName2"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                <xsl:variable name="sCiteName3">
+                                    <xsl:call-template name="GetCiteName">
+                                        <xsl:with-param name="sKind" select="'edt'"/>
+                                    </xsl:call-template>
+                                </xsl:variable>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sCiteName3) &gt; 0">
+                                        <xsl:value-of select="$sCiteName3"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-            <refWork id="r{generate-id()}">
+            <refWork>
+                <xsl:attribute name="id">
+                    <xsl:for-each select="m:genre[@authority='local']">
+                        <xsl:call-template name="DoID"/>
+                    </xsl:for-each>
+                </xsl:attribute>
                 <xsl:apply-templates/>
             </refWork>
         </refAuthor>
@@ -168,9 +165,9 @@
             <xsl:variable name="pages" select="../m:relatedItem[@type='host']/m:part/m:extent[@unit='pages']"/>
             <xsl:if test="$pages">
                 <jPages>
-                    <xsl:value-of select="$pages/start"/>
+                    <xsl:value-of select="$pages/m:start"/>
                     <xsl:text>-</xsl:text>
-                    <xsl:value-of select="$pages/end"/>
+                    <xsl:value-of select="$pages/m:end"/>
                 </jPages>
             </xsl:if>
             <!-- location and publisher go here,if such exist -->
@@ -272,7 +269,7 @@
     <!-- 
         ignore these
     -->
-<!--    <xsl:template match="m:titleInfo | m:typeOfResource | m:genre | m:name | m:originInfo | m:location | m:subject | m:relatedItem | m:part | m:identifier | m:abstract | m:accessCondition | m:language | m:physicalDescription | m:classification"/>-->
+    <!--    <xsl:template match="m:titleInfo | m:typeOfResource | m:genre | m:name | m:originInfo | m:location | m:subject | m:relatedItem | m:part | m:identifier | m:abstract | m:accessCondition | m:language | m:physicalDescription | m:classification"/>-->
     <xsl:template match="m:abstract"/>
     <xsl:template match="m:accessCondition"/>
     <xsl:template match="m:classification"/>
@@ -311,31 +308,101 @@
         </xsl:if>
     </xsl:template>
     <!-- 
+        DoAuthor
+    -->
+    <xsl:template name="DoAuthor">
+        <xsl:variable name="sAuthorName">
+            <xsl:call-template name="GetAuthorsNames"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$sAuthorName != ', '">
+                <xsl:value-of select="$sAuthorName"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sContributorName">
+                    <xsl:call-template name="GetAuthorsNames">
+                        <xsl:with-param name="sKind" select="'ctb'"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="$sContributorName != ', '">
+                        <xsl:value-of select="$sContributorName"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="sEditorName">
+                            <xsl:call-template name="GetAuthorsNames">
+                                <xsl:with-param name="sKind" select="'edt'"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="$sEditorName != ', '">
+                                <xsl:value-of select="$sEditorName"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
+        DoAuthorName
+    -->
+    <xsl:template name="DoAuthorName">
+        <xsl:choose>
+            <xsl:when test="name()='mods'">
+                <xsl:call-template name="DoAuthor"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="..">
+                    <xsl:call-template name="DoAuthor"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
+        DoDate
+    -->
+    <xsl:template name="DoDate">
+        <xsl:param name="mydate" select="../m:originInfo/m:copyrightDate"/>
+        <xsl:choose>
+            <xsl:when test="string-length($mydate) &gt; 0">
+                <xsl:value-of select="$mydate"/>
+            </xsl:when>
+            <xsl:when test="string-length(../m:originInfo/m:issueDate) &gt; 0">
+                <xsl:value-of select="../m:originInfo/m:issueDate"/>
+            </xsl:when>
+            <xsl:when test="string-length(../m:relatedItem/m:originInfo/m:dateIssued) &gt; 0">
+                <xsl:value-of select="../m:relatedItem/m:originInfo/m:dateIssued"/>
+            </xsl:when>
+            <xsl:when test="string-length(../m:originInfo/m:dateCreated) &gt; 0">
+                <xsl:value-of select="../m:originInfo/m:dateCreated"/>
+            </xsl:when>
+            <xsl:when test="string-length(../m:relatedItem[@type='host']/m:originInfo/m:copyrightDate) &gt; 0">
+                <xsl:value-of select="../m:relatedItem[@type='host']/m:originInfo/m:copyrightDate"/>
+            </xsl:when>
+            <xsl:when test="string-length(../m:relatedItem[@type='host']/m:originInfo/m:dateCreated) &gt; 0">
+                <xsl:value-of select="../m:relatedItem[@type='host']/m:originInfo/m:dateCreated"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>**No Date**</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
         DoDateAndTitle
     -->
     <xsl:template name="DoDateAndTitle">
         <xsl:param name="mydate" select="../m:originInfo/m:copyrightDate"/>
         <refDate>
-            <xsl:choose>
-                <xsl:when test="string-length($mydate) &gt; 0">
-                    <xsl:value-of select="$mydate"/>
-                </xsl:when>
-                <xsl:when test="string-length(../m:originInfo/m:issueDate) &gt; 0">
-                    <xsl:value-of select="../m:originInfo/m:issueDate"/>
-                </xsl:when>
-                <xsl:when test="string-length(../m:relatedItem/m:originInfo/m:dateIssued) &gt; 0">
-                    <xsl:value-of select="../m:relatedItem/m:originInfo/m:dateIssued"/>
-                </xsl:when>
-                <xsl:when test="string-length(../m:originInfo/m:dateCreated) &gt; 0">
-                    <xsl:value-of select="../m:originInfo/m:dateCreated"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>**No Date**</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="DoDate">
+                <xsl:with-param name="mydate" select="$mydate"/>
+            </xsl:call-template>
         </refDate>
         <refTitle>
-            <xsl:value-of select="../m:titleInfo/m:title"/>
+            <xsl:call-template name="DoTitle"/>
         </refTitle>
     </xsl:template>
     <!-- 
@@ -354,7 +421,7 @@
             <xsl:element name="{$sElementPrefix}Ed">
                 <xsl:attribute name="plural">
                     <xsl:choose>
-                        <xsl:when test="count(../m:name[m:role/m:roleTerm='edt']) &gt; 1">
+                        <xsl:when test="count(../m:name[m:role/m:roleTerm='edt'] | ../m:relatedItem[@type='host']/m:name[m:role/m:roleTerm='edt']) &gt; 1">
                             <xsl:text>yes</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -365,6 +432,24 @@
                 <xsl:value-of select="$sEditors"/>
             </xsl:element>
         </xsl:if>
+    </xsl:template>
+    <!-- 
+        DoID
+    -->
+    <xsl:template name="DoID">
+        <xsl:text>r</xsl:text>
+        <xsl:variable name="sName">
+            <xsl:call-template name="DoAuthorName"/>
+        </xsl:variable>
+        <xsl:value-of select="translate($sName,$sRemoveForID,'')"/>
+        <xsl:variable name="sDate">
+            <xsl:call-template name="DoDate"/>
+        </xsl:variable>
+        <xsl:value-of select="translate($sDate,$sRemoveForID,'')"/>
+        <xsl:variable name="sTitle">
+            <xsl:call-template name="DoTitle"/>
+        </xsl:variable>
+        <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
     </xsl:template>
     <!-- 
         DoLocationAndPublisher
@@ -382,6 +467,12 @@
                 <xsl:value-of select="$sPublisher"/>
             </publisher>
         </xsl:if>
+    </xsl:template>
+    <!-- 
+        DoTitle
+    -->
+    <xsl:template name="DoTitle">
+        <xsl:value-of select="../m:titleInfo/m:title"/>
     </xsl:template>
     <!-- 
         DoTitleVolumePages
@@ -408,9 +499,9 @@
         </xsl:if>
         <xsl:if test="$pages">
             <xsl:element name="{$sElementPrefix}Pages">
-                <xsl:value-of select="$pages/start"/>
+                <xsl:value-of select="$pages/m:start"/>
                 <xsl:text>-</xsl:text>
-                <xsl:value-of select="$pages/end"/>
+                <xsl:value-of select="$pages/m:end"/>
             </xsl:element>
         </xsl:if>
     </xsl:template>
@@ -452,7 +543,7 @@
     -->
     <xsl:template name="GetEditorsNames">
         <xsl:param name="sKind" select="'edt'"/>
-        <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind]">
+        <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind] | m:relatedItem[@type='host']/m:name[m:role/m:roleTerm=$sKind]">
             <xsl:choose>
                 <xsl:when test="position()=last() and count(preceding-sibling::m:name[m:role/m:roleTerm=$sKind]) &gt; 0">
                     <xsl:text> and </xsl:text>

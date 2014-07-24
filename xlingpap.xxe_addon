@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.25.3</a:version
+>2.25.4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-07-23</a:date
+>2014-07-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,14 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.25.4 24 July 2014<ul
+><li
+>Add LSA Unified Style Sheet for Linguistics Style Sheet.</li
+><li
+>Refine SIL-UND Thesis references style sheet.</li
+></ul
+></li
 ><li
 >2.25.3 23 July 2014<ul
 ><li

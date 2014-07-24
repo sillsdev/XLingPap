@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->7 July 2014</date
+>24 July 2014</date
 ><version
->2.25.2</version
+>2.25.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -12743,7 +12743,47 @@ term="iChart"
 >One can also create charts. <object
 type="tElement"
 >Chart</object
-> elements can be placed between paragraphs or as examples. The content of a chart can either be “plain” text or an image (i.e. graphic) file.</p
+> elements can be placed between paragraphs or as examples. The content of a chart can either be “plain” text or an image (i.e. graphic) file.<endnote
+id="nSVGGraphBuilders"
+><p
+><indexedItem
+term="iChartChartBuilder"
+></indexedItem
+>If you find that you need a chart (such as a line chart, pie chart, etc.) based on some data you have, some users have found <object
+type="tTool"
+>ChartBuilder</object
+> (<link
+href="http://quartz.github.io/Chartbuilder/"
+>http://quartz.github.io/Chartbuilder/</link
+>) to be helpful.  In my experience with it, though, it only works with <object
+type="tTool"
+>Google Chrome</object
+> and <object
+type="tTool"
+>Safari</object
+> browsers.  <object
+type="tTool"
+>Internet Explorer</object
+> and <object
+type="tTool"
+>FireFox</object
+> do not work.  You may also find the comments on <link
+href="https://github.com/Quartz/Chartbuilder/issues/107"
+>https://github.com/Quartz/Chartbuilder/issues/107</link
+> to be helpful.</p
+><p
+><indexedItem
+term="iChartPygal"
+></indexedItem
+>Another possible tool is <object
+type="tTool"
+>Pygal</object
+> (<link
+href="http://pygal.org/"
+>http://pygal.org/</link
+>).  While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer.  It also requires you to have Python installed.</p
+></endnote
+></p
 ><p
 >Suppose we want to create a non-example chart that shows an image (by the way, this is exactly what all the screenshots in this document are). We can insert a chart as shown in <exampleRef
 letter="xChartInsert"
@@ -29672,6 +29712,24 @@ id="iCharisSILSmallCaps"
 id="iChart"
 ><term
 >Chart</term
+><indexTerms
+><indexTerm
+id="iChartChartBuilder"
+><term
+><object
+type="tTool"
+>ChartBuilder</object
+></term
+></indexTerm
+><indexTerm
+id="iChartPygal"
+><term
+><object
+type="tTool"
+>Pygal</object
+></term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iCheckSpelling"
@@ -30921,6 +30979,15 @@ see="iTalkHandout"
 id="iPresentedAt"
 ><term
 >Presented at</term
+></indexTerm
+><indexTerm
+id="iPygal"
+see="iChartPygal"
+><term
+><object
+type="tTool"
+>Pygal</object
+></term
 ></indexTerm
 ><indexTerm
 id="iRefProceedings"

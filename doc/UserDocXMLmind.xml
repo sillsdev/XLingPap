@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->24 July 2014</date
+>25 July 2014</date
 ><version
 >2.25.4</version
 ><contents
@@ -12755,19 +12755,19 @@ type="tTool"
 > (<link
 href="http://quartz.github.io/Chartbuilder/"
 >http://quartz.github.io/Chartbuilder/</link
->) to be helpful.  In my experience with it, though, it only works with <object
+>) to be helpful. In my experience with it, though, it only works with <object
 type="tTool"
 >Google Chrome</object
 > and <object
 type="tTool"
 >Safari</object
-> browsers.  <object
+> browsers. <object
 type="tTool"
 >Internet Explorer</object
 > and <object
 type="tTool"
 >FireFox</object
-> do not work.  You may also find the comments on <link
+> do not work. You may also find the comments on <link
 href="https://github.com/Quartz/Chartbuilder/issues/107"
 >https://github.com/Quartz/Chartbuilder/issues/107</link
 > to be helpful.</p
@@ -12781,7 +12781,7 @@ type="tTool"
 > (<link
 href="http://pygal.org/"
 >http://pygal.org/</link
->).  While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer.  It also requires you to have Python installed.</p
+>). While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer. It also requires you to have Python installed.</p
 ></endnote
 ></p
 ><p
@@ -23557,6 +23557,72 @@ type="tElement"
 >validation</object
 > element at the end of the document (if you have associated a publisher style sheet, insert this element by clicking on the element just before the publisher style sheet and do an “Insert After” command). Click on the “minimum” option. To enable the checks again, click on the “maximum” option..</p
 ></section2
+><section2
+id="sFAQConvertInterlinearToListInterlinear"
+><secTitle
+>Convert Interlinear to ListInterlinear (or vice versa)?</secTitle
+><p
+><indexedItem
+term="iConvertInterlinearToListInterlinear"
+></indexedItem
+>Sometimes you have an interlinear example which you realize would be better displayed as part of a list interlinear example (or maybe the other way around).  How can you make such a conversion?  The answer involves using a special keyboard command which selects all the child elements of the interlinear (or listInterlinear).  Here are the steps:</p
+><ol
+><li
+>In the source <object
+type="tElement"
+>interlinear</object
+> (or <object
+type="tElement"
+>listInterlinear</object
+>) element, click inside it.</li
+><li
+>In the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on “interlinear” (or “listInterlinear”).</li
+><li
+>Type the <object
+type="tKey"
+>Esc</object
+> key (let go) and then press the <object
+type="tKey"
+>down-arrow</object
+> key.  This will select all the child elements of the main element.</li
+><li
+>Do a <object
+type="tInstruction"
+>Copy</object
+> command (via the keyboard or menu item or toolbar).</li
+><li
+>Go to the target <object
+type="tElement"
+>listInterlinear</object
+> (or <object
+type="tElement"
+>interlinear</object
+>) element and click inside it.</li
+><li
+>In the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on “listInterlinear” (or “interlinear”).</li
+><li
+>Type the <object
+type="tKey"
+>Esc</object
+> key (let go) and then press the <object
+type="tKey"
+>down-arrow</object
+> key. This will select all the child elements of the main element.</li
+><li
+>Do a <object
+type="tInstruction"
+>Paste</object
+> command (via the keyboard or menu item or toolbar).</li
+></ol
+><p
+>You should now have the contents of the source item in the target item.</p
+></section2
 ></section1
 ><section1
 id="sBeingProductive"
@@ -29843,6 +29909,17 @@ id="iContactPhone"
 id="iContentControl"
 ><term
 >Content control</term
+></indexTerm
+><indexTerm
+id="iConvertInterlinearToListInterlinear"
+><term
+>Convert <object
+type="tElement"
+>interlinear</object
+> to <object
+type="tElement"
+>listInterlinear</object
+> (or vice versa)</term
 ></indexTerm
 ><indexTerm
 id="iColor"

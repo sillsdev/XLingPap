@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->25 July 2014</date
+>30 July 2014</date
 ><version
 >2.25.4</version
 ><contents
@@ -11838,6 +11838,20 @@ type="tXMLmindXMLEditor"
 ></object
 > has several nice tools to enable you to edit tables conveniently.</p
 ><p
+>If you have an existing table in a file created via a word processing program like <object
+type="tTool"
+>Microsoft Word</object
+>, a spreadsheet program like <object
+type="tTool"
+>Excel</object
+>, or in a web page, see section <sectionRef
+sec="sFAQConvertTableToXLingPaper"
+></sectionRef
+> for how you may be able to copy it and convert it to a draft form of a table in <object
+type="tXLingPap"
+></object
+>.</p
+><p
 >One creates a table by inserting a new element.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
@@ -23565,7 +23579,7 @@ id="sFAQConvertInterlinearToListInterlinear"
 ><indexedItem
 term="iConvertInterlinearToListInterlinear"
 ></indexedItem
->Sometimes you have an interlinear example which you realize would be better displayed as part of a list interlinear example (or maybe the other way around).  How can you make such a conversion?  The answer involves using a special keyboard command which selects all the child elements of the interlinear (or listInterlinear).  Here are the steps:</p
+>Sometimes you have an interlinear example which you realize would be better displayed as part of a list interlinear example (or maybe the other way around). How can you make such a conversion? The answer involves using a special keyboard command which selects all the child elements of the interlinear (or listInterlinear). Here are the steps:</p
 ><ol
 ><li
 >In the source <object
@@ -23587,7 +23601,7 @@ type="tKey"
 > key (let go) and then press the <object
 type="tKey"
 >down-arrow</object
-> key.  This will select all the child elements of the main element.</li
+> key. This will select all the child elements of the main element.</li
 ><li
 >Do a <object
 type="tInstruction"
@@ -23622,6 +23636,157 @@ type="tInstruction"
 ></ol
 ><p
 >You should now have the contents of the source item in the target item.</p
+></section2
+><section2
+id="sFAQConvertTableToXLingPaper"
+><secTitle
+>Copy <object
+type="tTool"
+>Word</object
+> or <object
+type="tTool"
+>Excel</object
+> Table to <object
+type="tXLingPap"
+></object
+>?</secTitle
+><p
+><indexedItem
+term="iCopyExternalTable"
+></indexedItem
+>If you have an existing table in a file created via a word processing program like <object
+type="tTool"
+>Microsoft Word</object
+>, a spreadsheet program like <object
+type="tTool"
+>Excel</object
+>, or in a web page, you may be able to copy it, run an <object
+type="tXLingPap"
+></object
+> special command, and then paste a draft form of the table into <object
+type="tXLingPap"
+></object
+>.  The result is very unlikely to be perfect, but it may save you the trouble of having to rekey the table completely by hand.</p
+><p
+>In particular, the following will probably not come through correctly:</p
+><ul
+><li
+>Header columns may come through as <object
+type="tElement"
+>td</object
+> elements instead of <object
+type="tElement"
+>th</object
+> elements.  You can fix these, though, by starting with the leftmost cell and using the <object
+type="tInstruction"
+>Edit / Convert</object
+> command to change the <object
+type="tElement"
+>td</object
+> to a <object
+type="tElement"
+>th</object
+> element, one-by-one across the row.</li
+><li
+>You will have to manually convert text to <object
+type="tElement"
+>langData</object
+>, <object
+type="tElement"
+>gloss</object
+>, or <object
+type="tElement"
+>object</object
+> elements.  See sections <sectionRef
+sec="sFAQSelectTextToLangData"
+></sectionRef
+>–<sectionRef
+sec="sFAQSelectTextToGloss"
+textBefore="none"
+></sectionRef
+>.</li
+><li
+>You may have to adjust some <object
+type="tElement"
+>td</object
+>, <object
+type="tElement"
+>th</object
+>, <object
+type="tElement"
+>tr</object
+> or <object
+type="tElement"
+>table</object
+>  attributes to get what you want.</li
+></ul
+><p
+>To use this process, follow these steps:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> paper document.</li
+><li
+>In your other document (e.g., <object
+type="tTool"
+>Microsoft Word</object
+>, <object
+type="tTool"
+>Microsoft Word</object
+>, or web page), copy the table.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “T” (it should then fill in “TableToXLingPaper” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>In your <object
+type="tXLingPap"
+></object
+> document, place the cursor where a <object
+type="tElement"
+>table</object
+> can go or where a <object
+type="tElement"
+>table</object
+> could be pasted before or after.  Do the paste.</li
+></ol
+><p
+>You should now have an <object
+type="tXLingPap"
+></object
+> version of the table.</p
+><p
+>Another thing to note is that sometimes this process leaves a temporary file in the same directory where your document is.  The name of this file will be “XLingPaperTempTable.html” and will have the raw data from the original copy.  You may not be able to delete it until after you close the <object
+type="tXMLmindXMLEditor"
+></object
+> program.<endnote
+id="nXLingPaperTempTable"
+><p
+>I have tried to avoid having this file show but so far have been unsuccessful for some very technical reasons.</p
+></endnote
+></p
 ></section2
 ></section1
 ><section1
@@ -31442,6 +31607,11 @@ id="iTablesAttributes"
 id="iTablesCaption"
 ><term
 >Captions in tables</term
+></indexTerm
+><indexTerm
+id="iCopyExternalTable"
+><term
+>Copy a table from a word processing, spreadsheet, or web page program</term
 ></indexTerm
 ><indexTerm
 id="iIncreaseTableSize"

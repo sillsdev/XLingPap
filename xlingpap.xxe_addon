@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-07-25</a:date
+>2014-07-30</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.25.4 25 July 2014<ul
+>2.25.4 30 July 2014<ul
+><li
+>Add ability to copy a table from a Word, Excel, or web page document and produce a draft XLingPaper table.</li
 ><li
 >Add LSA Unified Style Sheet for Linguistics Style Sheet.</li
 ><li

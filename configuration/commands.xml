@@ -314,6 +314,12 @@
     <cfg:command name="LocalizeString">
         <cfg:class>xlingpaper.xxe.LocalizeString</cfg:class>
     </cfg:command>
+    <cfg:command name="GetHtmlTableFromClipboardCmd">
+        <cfg:class>xlingpaper.xxe.GetHtmlTableFromClipboard</cfg:class>
+    </cfg:command>
+    <cfg:command name="SetHtmlTableToClipboardCmd">
+        <cfg:class>xlingpaper.xxe.SetHtmlTableToClipboard</cfg:class>
+    </cfg:command>
     <!-- no longer needed because XXE now has Search / Bookmarks
    <cfg:binding>
       <cfg:keyPressed code="F6"/>
@@ -3153,5 +3159,36 @@ NB actually it associates the stylesheet with the original file, not the new han
                 <cfg:command name="toggleCollapsed" parameter="expand"/>
             </cfg:sequence> 
         </cfg:macro>
+    </cfg:command>
+    <cfg:command name="TableToXLingPaper">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:command name="GetHtmlTableFromClipboardCmd" parameter="%{P}%{S}XLingPaperTempTable.html"/>
+                <cfg:set variable="result" plainString="true" expression="%_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="string-length($result) > 0"/>
+<!--                        <cfg:command name="alert" parameter="after command"/>-->
+                        <cfg:command name="CleanUpConvertedTable"/>
+<!--                        <cfg:command name="alert" parameter="After xsl"/>-->
+                        <cfg:command name="SetHtmlTableToClipboardCmd" parameter="%{P}%{S}XLingPaperTempTableCleaned.html"/>
+<!--                        <cfg:command name="alert" parameter="After set clipboard"/>-->
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTable.html"/>
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTable.xhtml"/>
+                        <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTableCleaned.html"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="alert" parameter="Sorry, but the content of the clipboard was not a recognizable table."/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="CleanUpConvertedTable">
+        <cfg:process>
+            <cfg:copy files="%{P}%{S}XLingPaperTempTable.xhtml" to="XLingPaperTempTable.xhtml" quiet="true"/>
+            <cfg:transform stylesheet="../transforms/ConvertTable.xsl" file="XLingPaperTempTable.xhtml" to="XLingPaperTempTableCleaned.html"/>
+            <cfg:copy files="XLingPaperTempTableCleaned.html" to="%{P}%{S}XLingPaperTempTableCleaned.html" quiet="true"/>
+        </cfg:process>
     </cfg:command>
 </cfg:configuration>

@@ -531,6 +531,9 @@ Back Matter Layout
     %titleformatinfo;
     >
     <!ELEMENT appendixLayout (appendixTitleLayout | numberLayout)+ >
+    <!ATTLIST appendixLayout
+    firstParagraphHasIndent (yes | no) 'yes' 
+    >
     <!ELEMENT  appendixTitleLayout EMPTY >
     <!ATTLIST appendixTitleLayout 
     %titleformatinfo; 

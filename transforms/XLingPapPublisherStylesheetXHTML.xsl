@@ -1199,6 +1199,15 @@
                     test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                     <!-- is the first item -->
                     <xsl:choose>
+                        <xsl:when test="parent::appendix and $backMatterLayoutInfo/appendixLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::chapter and $bodyLayoutInfo/chapterLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::chapterInCollection and $bodyLayoutInfo/chapterInCollectionLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
                         <xsl:when
                             test="parent::section1 and $bodyLayoutInfo/section1Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->

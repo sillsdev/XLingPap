@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->21 July 2014</date
+>31 July 2014</date
 ><version
->2.25.2</version
+>2.25.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -3184,7 +3184,7 @@ type="tAttribute"
 >defaultfontize</object
 ></td
 ><td
->The font size (in points) or a percentage.  Use a number followed immediately by 'pt' or '%'.</td
+>The font size (in points) or a percentage. Use a number followed immediately by 'pt' or '%'.</td
 ></tr
 ><tr
 ><td
@@ -3193,11 +3193,11 @@ type="tAttribute"
 >doubleColumnSeparation</object
 ></td
 ><td
->The horizontal space to use between the two columns.  Use a number followed immediately by a unit of measure (see <exampleRef
+>The horizontal space to use between the two columns. Use a number followed immediately by a unit of measure (see <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
->).  This is ignored if <object
+>). This is ignored if <object
 type="tAttribute"
 >useDoubleColumns</object
 > is <object
@@ -3221,10 +3221,10 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->.  The default is <object
+>. The default is <object
 type="tAttrValue"
 >no</object
->.  When set to <object
+>. When set to <object
 type="tAttrValue"
 >yes</object
 >, the index will start on a new page.</td
@@ -3322,6 +3322,45 @@ sec="sTitleFormatInfoAttributes"
 > for more on these attributes.</p
 ><p
 >In addition the <object
+type="tElement"
+>appendixLayout</object
+> element itself has one attribute as shown in example <exampleRef
+letter="xAppendixLayoutAttribute"
+num="xAppendixLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xAppendixLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the chapter has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+></table
+></example
+><p
+>Also, the <object
 type="tElement"
 >appendixTitleLayout</object
 > element itself has two other attributes as shown in example <exampleRef

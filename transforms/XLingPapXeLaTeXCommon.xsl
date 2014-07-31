@@ -4737,7 +4737,10 @@
                     <!-- want 1 plus 2.75 -->
                     <xsl:text>3.75</xsl:text>
                 </xsl:when>
-                <xsl:when test="count(ancestor::interlinear) &gt; 1">
+                <xsl:when test="ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
+                    <xsl:text>2</xsl:text>
+                </xsl:when>
+                <xsl:when test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1">
                     <xsl:text>2</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
@@ -4767,7 +4770,7 @@
                     </tex:cmd>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if test="count(ancestor::interlinear) &gt; 1">
+                    <xsl:if test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1 or ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
                         <tex:cmd name="hspace*">
                             <tex:parm>1em</tex:parm>
                         </tex:cmd>

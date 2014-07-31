@@ -1544,6 +1544,7 @@ li.lower-roman {
     <xsl:template match="@showAsFootnoteAtEndOfAbstract"/>
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
+    <xsl:template match="@showInHeader"/>
     <xsl:template match="@showletter"/>
     <xsl:template match="@showmarking"/>
     <xsl:template match="@showNumber"/>

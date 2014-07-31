@@ -1703,6 +1703,9 @@
                             <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
                                 <!-- is the first item -->
                                 <xsl:choose>
+                                    <xsl:when test="parent::appendix and $backMatterLayoutInfo/appendixLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
                                     <xsl:when test="parent::chapter and $bodyLayoutInfo/chapterLayout/@firstParagraphHasIndent='no'">
                                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                                     </xsl:when>

@@ -2820,7 +2820,14 @@
                 <xsl:text>example</xsl:text>
             </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='example' or name($closestRelevantAncestor)='interlinear-text'">
-                <xsl:text>example</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="ancestor::exampleHeading">
+                        <xsl:text>prose</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>example</xsl:text>        
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='table'">
                 <xsl:text>table</xsl:text>

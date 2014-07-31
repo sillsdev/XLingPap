@@ -3178,7 +3178,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTableCleaned.html"/>
                     </cfg:sequence>
                     <cfg:sequence>
-<!--                        <cfg:command name="alert" parameter="Sorry, but the content of the clipboard was not a recognizable table."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, but the copied material was not recognized as a table."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.tableToXLingPaper"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>

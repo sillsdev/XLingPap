@@ -9654,14 +9654,21 @@
     <xsl:template name="SetExampleKeepWithNext">
         <!-- we need to make sure the example number stays on the same page as the table or list -->
         <xsl:choose>
-            <xsl:when test="listWord or listSingle">
+            <xsl:when test="listWord or listSingle or listDefinition">
                 <tex:cmd name="needspace">
                     <tex:parm>
-                        <xsl:variable name="iLines" select="count(listWord | listSingle)"/>
+                        <xsl:variable name="iLines" select="count(listWord | listSingle | listDefinition)"/>
                         <xsl:choose>
                             <xsl:when test="$iLines &gt; 3">
                                 <!-- try to guarantee at least 2 lines on this page -->
-                                <xsl:text>3</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="exampleHeading">
+                                        <xsl:text>4</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>3</xsl:text>        
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
                                 <!-- try to keep it all on same page -->
@@ -9674,7 +9681,7 @@
             <xsl:when test="table">
                 <tex:cmd name="needspace">
                     <tex:parm>
-                        <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)"/>
+                        <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)  + count(exampleHeading)"/>
                         <xsl:variable name="iLines">
                             <xsl:choose>
                                 <xsl:when test="table/@border=1">

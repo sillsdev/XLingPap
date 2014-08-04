@@ -1844,15 +1844,18 @@
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoTableNumbered"/>
-                <tex:cmd name="vspace">
-                    <tex:parm>
-                        <!--    <xsl:value-of select="$sBasicPointSize"/>
+                <xsl:if
+                    test="$lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <!--    <xsl:value-of select="$sBasicPointSize"/>
                         <xsl:text>pt</xsl:text>-->
-                        <xsl:call-template name="GetCurrentPointSize">
-                            <xsl:with-param name="bAddGlue" select="'Y'"/>
-                        </xsl:call-template>
-                    </tex:parm>
-                </tex:cmd>
+                            <xsl:call-template name="GetCurrentPointSize">
+                                <xsl:with-param name="bAddGlue" select="'Y'"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <tex:spec cat="esc" nl1="1"/>

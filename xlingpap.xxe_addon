@@ -52,6 +52,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >Improve automatic page breaking for listDefinition and also for tables when an exampleHeading is present.</li
 ><li
+>Improve spacing after a tablenumbered when a caption is before the table.</li
+><li
 >Fix bug which resulted in a free translation being indented too much when the interlinear was in an endnote which was also in an interlinear.</li
 ></ul
 ></li

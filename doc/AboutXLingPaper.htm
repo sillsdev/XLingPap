@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.25.4</span></p>
-      <p align="center">Date: 2014-08-04</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.0</span></p>
+      <p align="center">Date: 2014-08-05</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.25.4 4 August 2014
+               <li>2.26.0 5 August 2014
                   <ul>
                      <li>Add ability to copy a table from a Word, Excel, or web page document and produce a draft XLingPaper table.</li>
                      <li>Add LSA Unified Style Sheet for Linguistics Style Sheet.</li>
@@ -45,39 +45,26 @@
                      <li>For publisher style sheet, when have special formatting for langData and/or gloss in examples, use the 'prose' format for
                         langData and gloss in an exampleHeading.
                      </li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Improve automatic page breaking for listDefinition and also for tables when an exampleHeading is present.</li>
-                           <li>Improve spacing after a tablenumbered when a caption is before the table.</li>
-                           <li>Fix bug which resulted in a free translation being indented too much when the interlinear was in an endnote which was also
-                              in an interlinear.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.25.3 23 July 2014
-                  <ul>
+                     <li>Insert metadata for author, title, creator, and any keywords.</li>
                      <li>Made any literalLabelLayout of a publisher style sheet show in XXE.</li>
                      <li>Fix a number of bugs in the Zotero to XLingPaper references converter process: some editor authors, journal pages, and collection
                         pages were missed.
                      </li>
+                     <li>Allow XeLaTeXSpecial, cssSpecial, and xsl-foSpecial attributes on listDefinition, listSingle, and listWord elements.</li>
+                     <li>Add ability to control which section levels show in running headers via the publisher style sheet.</li>
+                     <li>Finish indexing the main user documentation.</li>
+                     <li>Fix bug which did not correctly show citations using both author='no' and paren='citationBoth' or paren='citationInitial'.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
-                           <li>Fix bug in publisher style sheet processing where some back matter items did not have hyperlinks or PDF bookmarks.</li>
+                           <li>Improve automatic page breaking for listDefinition and also for tables when an exampleHeading is present.</li>
                            <li>Refine how index processing is done. Add options for publisher style sheets to set the font size to use for the index content,
                               to show the index in double column mode, and to control the width of the spacing between columns.
                            </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.25.2 11 July 2014
-                  <ul>
-                     <li>Fix bug which did not correctly show citations using both author='no' and paren='citationBoth' or paren='citationInitial'.</li>
-                     <li>Add ability to control which section levels show in running headers via the publisher style sheet.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
+                           <li>Fix bug in publisher style sheet processing where some back matter items did not have hyperlinks or PDF bookmarks.</li>
+                           <li>Improve spacing after a tablenumbered when a caption is before the table.</li>
+                           <li>Fix bug which resulted in a free translation being indented too much when the interlinear was in an endnote which was also
+                              in an interlinear.
+                           </li>
                            <li>Fix how fontspec now wants to handle script commands so newer version of the Scheherazade font works.</li>
                            <li>Fix bug: PDF would not be produced if a title contained square brackets.</li>
                            <li>Fix bug: When using the after free translation option for showing interlinear source, listInterlinear ones did not line up
@@ -89,20 +76,9 @@
                            <li>Fix bug: Whenever an ID (for a section, example, refWork, etc.) contained a non-a to z or a non-A to Z or a non-0 to 9 character,
                               the PDF would be produced but any hyperlink to the ID would not work.
                            </li>
-                           <li>Fix bug: if an appendix title layout's attriute showletter was set to 'no', the centering of the appendix title was not done.</li>
+                           <li>Fix bug: if an appendix title layout's attribute showletter was set to 'no', the centering of the appendix title was not done.</li>
                         </ul>
                      </li>
-                     <li>Finish indexing the main user documentation.</li>
-                     <li>Allow XeLaTeXSpecial, cssSpecial, and xsl-foSpecial attributes on listDefinition, listSingle, and listWord elements.</li>
-                  </ul>
-               </li>
-               <li>2.25.1 2 June 2014
-                  <ul>
-                     <li>Insert metadata for author, title, creator, and any keywords.</li>
-                  </ul>
-               </li>
-               <li>2.25.0_1 20 May 2014
-                  <ul>
                      <li>RenderX way of producing PDF:
                         <ul>
                            <li>Fix bug: if a style sheet said for the contents to be on a new page, it failed to start on a new page.</li>

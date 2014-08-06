@@ -8105,6 +8105,9 @@
         -->
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0">
+            <xsl:if test="ancestor::definition">
+                <tex:spec cat="bg"/>
+            </xsl:if>
             <xsl:call-template name="HandleFontFamily">
                 <xsl:with-param name="language" select="$language"/>
                 <xsl:with-param name="sFontFamily" select="$sFontFamily"/>
@@ -8334,6 +8337,9 @@
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0">
             <tex:spec cat="eg"/>
+            <xsl:if test="ancestor::definition">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:if>
         <!-- font size does not end with an open brace 
             <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>

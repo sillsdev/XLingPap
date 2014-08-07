@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->31 July 2014</date
+>7 August 2014</date
 ><version
->2.25.4</version
+>2.26.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -8933,7 +8933,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. The deault value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -9062,7 +9062,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. The deault value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -9879,7 +9879,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. The deault value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData
@@ -10008,7 +10008,7 @@ type="tAttrValue"
 > or <object
 type="tAttrValue"
 >no</object
->. The deault value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
 >.</langData

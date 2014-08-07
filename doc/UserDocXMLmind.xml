@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->30 July 2014</date
+>7 August 2014</date
 ><version
->2.25.4</version
+>2.26.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -1199,6 +1199,9 @@ type="tElement"
 > element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnote
 id="nXeLaTeXAttributes"
 ><p
+><indexedItem
+term="iXeLaTeXSpecial"
+></indexedItem
 >My experience in using the default <object
 type="tXeTeX"
 ></object
@@ -1543,7 +1546,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a page break before this point</td
+>Force a page break before this point.  If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
 ><td
 >pagebreak</td
 ></tr
@@ -13408,6 +13411,9 @@ type="tAttribute"
 >figureLabel</object
 > attribute.</p
 ><p
+><indexedItem
+term="iListOfFigures"
+></indexedItem
 >One can also produce an automatically generated list of figures for one's <object
 type="tXLingPap"
 ></object
@@ -13420,7 +13426,22 @@ type="tElement"
 > or <object
 type="tElement"
 >glossary</object
-> element. The list of figures will include the figure label, figure number and any caption.<endnote
+> element. Usually the <object
+type="tElement"
+>preface</object
+> or <object
+type="tElement"
+>glossary</object
+> element is a distinct preface or glossary and contains just the list of figures.  You change the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>preface</object
+> or <object
+type="tElement"
+>glossary</object
+> element to be something like “List of Figures” and so it will appear that way in the table of contents. The list of figures will include the figure label, figure number and any caption.<endnote
 id="nFigureShortCaption"
 ><p
 >It is possible to include a shortened caption in the list if you wish. Click on the <object
@@ -14510,6 +14531,9 @@ type="tAttribute"
 >tablenumberedLabel</object
 > attribute.</p
 ><p
+><indexedItem
+term="iListOfTables"
+></indexedItem
 >One can also produce an automatically generated list of numbered tables for one's <object
 type="tXLingPap"
 ></object
@@ -14522,7 +14546,22 @@ type="tElement"
 > or <object
 type="tElement"
 >glossary</object
-> element. The list of numbered tables will include the table label, table number and any caption.<endnote
+> element. Usually the <object
+type="tElement"
+>preface</object
+> or <object
+type="tElement"
+>glossary</object
+> element is a distinct preface or glossary and contains just the list of tables.  You change the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>preface</object
+> or <object
+type="tElement"
+>glossary</object
+> element to be something like “List of Tables” and so it will appear that way in the table of contents. The list of numbered tables will include the table label, table number and any caption.<endnote
 id="nNumberedTableShortCaption"
 ><p
 >It is possible to include a shortened caption in the list if you wish. Click on the <object
@@ -23666,7 +23705,7 @@ type="tXLingPap"
 > special command, and then paste a draft form of the table into <object
 type="tXLingPap"
 ></object
->.  The result is very unlikely to be perfect, but it may save you the trouble of having to rekey the table completely by hand.</p
+>. The result is very unlikely to be perfect, but it may save you the trouble of having to rekey the table completely by hand.</p
 ><p
 >In particular, the following will probably not come through correctly:</p
 ><ul
@@ -23677,7 +23716,7 @@ type="tElement"
 > elements instead of <object
 type="tElement"
 >th</object
-> elements.  You can fix these, though, by starting with the leftmost cell and using the <object
+> elements. You can fix these, though, by starting with the leftmost cell and using the <object
 type="tInstruction"
 >Edit / Convert</object
 > command to change the <object
@@ -23697,7 +23736,7 @@ type="tElement"
 >, or <object
 type="tElement"
 >object</object
-> elements.  See sections <sectionRef
+> elements. See sections <sectionRef
 sec="sFAQSelectTextToLangData"
 ></sectionRef
 >–<sectionRef
@@ -23718,7 +23757,7 @@ type="tElement"
 > or <object
 type="tElement"
 >table</object
->  attributes to get what you want.</li
+> attributes to get what you want.</li
 ></ul
 ><p
 >To use this process, follow these steps:</p
@@ -23770,7 +23809,7 @@ type="tElement"
 > can go or where a <object
 type="tElement"
 >table</object
-> could be pasted before or after.  Do the paste.</li
+> could be pasted before or after. Do the paste.</li
 ></ol
 ><p
 >You should now have an <object
@@ -23778,7 +23817,7 @@ type="tXLingPap"
 ></object
 > version of the table.</p
 ><p
->Another thing to note is that sometimes this process leaves a temporary file in the same directory where your document is.  The name of this file will be “XLingPaperTempTable.html” and will have the raw data from the original copy.  You may not be able to delete it until after you close the <object
+>Another thing to note is that sometimes this process leaves a temporary file in the same directory where your document is. The name of this file will be “XLingPaperTempTable.html” and will have the raw data from the original copy. You may not be able to delete it until after you close the <object
 type="tXMLmindXMLEditor"
 ></object
 > program.<endnote
@@ -31013,6 +31052,11 @@ see="iExampleDefinitionList"
 >List of definitions example</term
 ></indexTerm
 ><indexTerm
+id="iListOfFigures"
+><term
+>List of figures</term
+></indexTerm
+><indexTerm
 id="iListOfInterlinear"
 see="iInterlinearList"
 ><term
@@ -31023,6 +31067,11 @@ id="iListOfSingle"
 see="iExampleSingleList"
 ><term
 >List of single line example</term
+></indexTerm
+><indexTerm
+id="iListOfTables"
+><term
+>List of tables</term
 ></indexTerm
 ><indexTerm
 id="iListOfWords"
@@ -31856,6 +31905,11 @@ id="iWord2003"
 see="iMSWord2003"
 ><term
 >Word 2003 format</term
+></indexTerm
+><indexTerm
+id="iXeLaTeXSpecial"
+><term
+>XeLaTeXSpecial attribute possible values</term
 ></indexTerm
 ><indexTerm
 id="iXeLaTeXUpgrade"

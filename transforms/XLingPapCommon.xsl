@@ -121,6 +121,10 @@
         </xsl:if>
     </xsl:template>
     <!--
+        contentControl  (ignore it)
+    -->
+    <xsl:template match="contentControl"/>
+    <!--
         counter
     -->
     <xsl:template match="counter">

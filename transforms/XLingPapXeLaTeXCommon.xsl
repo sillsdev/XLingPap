@@ -4616,7 +4616,14 @@
         <xsl:variable name="fIsListInterlinearButNotInTable">
             <xsl:choose>
                 <xsl:when test="ancestor::listInterlinear and not(ancestor::table)">
-                    <xsl:text>Y</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and following-sibling::*[1][name()='interlinearSource'] and $sInterlinearSourceStyle='AfterFree'">
+                            <xsl:text>N</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>Y</xsl:text>        
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:when test="$originalContext and $originalContext/ancestor::listInterlinear and not($originalContext/ancestor::table) and $sInterlinearSourceStyle='AfterFirstLine'">
                     <xsl:text>Y</xsl:text>
@@ -4701,7 +4708,7 @@
             <tex:spec cat="bg"/>
         </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
-            <xsl:if test="$originalContext">
+            <xsl:if test="$originalContext or $fIsListInterlinearButNotInTable='N'">
                 <xsl:call-template name="AdjustFreePositionForISOCodeInListInterlinear">
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                 </xsl:call-template>

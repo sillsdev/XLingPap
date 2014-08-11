@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->7 August 2014</date
+>11 August 2014</date
 ><version
 >2.26.0</version
 ><contents
@@ -1546,7 +1546,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a page break before this point.  If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
+>Force a page break before this point. If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
 ><td
 >pagebreak</td
 ></tr
@@ -5439,7 +5439,7 @@ type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Boomark / Go to Last Visited or Go Back</object
+>Search / Bookmark / Go to Last Visited or Go Back</object
 > menu item command.<endnote
 id="nEnableBookmarksInXXE"
 ><p
@@ -13432,7 +13432,7 @@ type="tElement"
 > or <object
 type="tElement"
 >glossary</object
-> element is a distinct preface or glossary and contains just the list of figures.  You change the <object
+> element is a distinct preface or glossary and contains just the list of figures. You change the <object
 type="tAttribute"
 >label</object
 > attribute of the <object
@@ -14552,7 +14552,7 @@ type="tElement"
 > or <object
 type="tElement"
 >glossary</object
-> element is a distinct preface or glossary and contains just the list of tables.  You change the <object
+> element is a distinct preface or glossary and contains just the list of tables. You change the <object
 type="tAttribute"
 >label</object
 > attribute of the <object
@@ -24160,7 +24160,7 @@ type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Boomark / Go to Last Visited or Go Back</object
+>Search / Bookmark / Go to Last Visited or Go Back</object
 > menu item command.<endnoteRef
 note="nEnableBookmarksInXXE"
 ></endnoteRef

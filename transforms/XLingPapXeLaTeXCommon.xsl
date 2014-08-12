@@ -4621,7 +4621,7 @@
                             <xsl:text>N</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>Y</xsl:text>        
+                            <xsl:text>Y</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -8604,7 +8604,7 @@
                                     <xsl:call-template name="LinkAttributesBegin">
                                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
                                     </xsl:call-template>
-<!--<!-\-     Why this? -\->                               <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>-->
+                                    <!--<!-\-     Why this? -\->                               <xsl:apply-templates select="key('IndexTermID',@see)/term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>-->
                                     <xsl:call-template name="OutputIndexTermsTermFullPath">
                                         <xsl:with-param name="lang" select="$lang"/>
                                         <xsl:with-param name="indexTerm" select="key('IndexTermID',@see)"/>
@@ -9679,7 +9679,7 @@
                                         <xsl:text>4</xsl:text>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:text>3</xsl:text>        
+                                        <xsl:text>3</xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:when>
@@ -11003,18 +11003,17 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>fontspec</tex:parm>
         </tex:cmd>
-        <!-- hyperref should be the last package listed -->
         <tex:cmd name="usepackage" nl2="1">
-            <tex:opt>
+            <tex:parm>hyperref</tex:parm>
+        </tex:cmd>
+        <tex:cmd name="hypersetup" nl2="1">
+            <tex:parm>
+                <xsl:text>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true, </xsl:text>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                     <xsl:text>hyperfootnotes=false, </xsl:text>
                 </xsl:if>
                 <xsl:call-template name="SetMetadata"/>
-            </tex:opt>
-            <tex:parm>hyperref</tex:parm>
-        </tex:cmd>
-        <tex:cmd name="hypersetup" nl2="1">
-            <tex:parm>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true</tex:parm>
+            </tex:parm>
         </tex:cmd>
     </xsl:template>
     <!--  

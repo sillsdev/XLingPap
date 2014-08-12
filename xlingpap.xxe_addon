@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-08-11</a:date
+>2014-08-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.0_1 11 August 2014<ul
+>2.26.0_1 12 August 2014<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -41,6 +41,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug: when using an index along with content control, the text from the content control names was showing up at the end of the index.</li
 ><li
 >Fix bug: some listInterlinears with an interlinearSource did not align the source infromation at the right edge correctly when the source came after the free.</li
+><li
+>Fix bug: the PDF would fail to be produced if one said the document was in a particular language.</li
 ></ul
 ></li
 ></ul

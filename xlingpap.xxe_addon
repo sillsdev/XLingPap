@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-08-12</a:date
+>2014-08-13</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.0_1 12 August 2014<ul
+>2.26.0_1 13 August 2014<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -43,6 +43,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug: some listInterlinears with an interlinearSource did not align the source infromation at the right edge correctly when the source came after the free.</li
 ><li
 >Fix bug: the PDF would fail to be produced if one said the document was in a particular language.</li
+><li
+>A chart with an image could mess up a following paragraph's indent if the chart was at the top level.</li
 ></ul
 ></li
 ></ul

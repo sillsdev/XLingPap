@@ -2647,6 +2647,16 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:when>
+                    <xsl:when test="parent::chart and not(ancestor::figure)">
+                        <tex:cmd name="hbox">
+                            <tex:parm>
+                                <xsl:call-template name="DoImageFile">
+                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
+                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="DoImageFile">
                             <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>

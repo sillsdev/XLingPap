@@ -4172,7 +4172,7 @@
     -->
     <xsl:template name="HandleFreeLanguageFontInfo">
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
-        <tex:cmd name="Lang{@lang}FontFamily">
+        <tex:cmd name="Lang{translate(@lang,$sDigits, $sLetters)}FontFamily">
             <tex:parm>
                 <!--                        <tex:cmd name="raggedright" gr="0" nl2="0"/>-->
                 <tex:group>

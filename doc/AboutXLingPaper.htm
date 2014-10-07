@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.0_2</span></p>
-      <p align="center">Date: 2014-08-29</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.1</span></p>
+      <p align="center">Date: 2014-10-07</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,8 +34,10 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.26.0_2 29 August 2014
+               <li>2.26.1 7 October 2014
                   <ul>
+                     <li>Fix bug in web page output with a publisher style sheet: the indexLinkLayout information was ignored.</li>
+                     <li>Added figureRefLinkLayout and tablenumberedRefLinkLayout to new publisher style sheet templates.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: within a definition element, if one changed font family, the scope of that font family continued on when it should
@@ -52,6 +54,9 @@
                               a free that contained a hyphen.
                            </li>
                            <li>A chart with an image could mess up a following paragraph's indent if the chart was at the top level.</li>
+                           <li>Fix bug: when a publisher style sheet had a figureRefLinkLayout or a tablenumberedRefLinkLayout, any color or decoration did
+                              not show in the PDF.
+                           </li>
                         </ul>
                      </li>
                   </ul>

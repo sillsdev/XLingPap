@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >My Book Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.1</publisherStyleSheetVersion
+>0.4.2</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >6in</pageWidth
@@ -54,6 +54,8 @@ decoration="none"
 ></endnoteRefLinkLayout
 ><exampleRefLinkLayout
 ></exampleRefLinkLayout
+><figureRefLinkLayout
+></figureRefLinkLayout
 ><genericRefLinkLayout
 ></genericRefLinkLayout
 ><indexLinkLayout
@@ -64,6 +66,8 @@ decoration="none"
 ></linkLinkLayout
 ><sectionRefLinkLayout
 ></sectionRefLinkLayout
+><tablenumberedRefLinkLayout
+></tablenumberedRefLinkLayout
 ><urlLinkLayout
 ></urlLinkLayout
 ></linkLayout

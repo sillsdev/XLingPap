@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->7 August 2014</date
+>7 October 2014</date
 ><version
 >2.26.0</version
 ><contents
@@ -678,6 +678,9 @@ term="iEndnoteRefLink"
 term="iExampleRefLink"
 ></indexedItem
 ><indexedItem
+term="iFigureRefLink"
+></indexedItem
+><indexedItem
 term="iGenericRefLink"
 ></indexedItem
 ><indexedItem
@@ -694,6 +697,9 @@ term="iLinkLayoutDefaults"
 ></indexedItem
 ><indexedItem
 term="iSectionRefLink"
+></indexedItem
+><indexedItem
+term="iTableNumberedRefLink"
 ></indexedItem
 ><indexedItem
 term="iUrlLink"
@@ -14217,6 +14223,11 @@ id="iFigureRefTextBefore"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iFigureRefLink"
+><term
+>Figure reference link</term
+></indexTerm
+><indexTerm
 id="iFixedText"
 ><term
 >Fixed text</term
@@ -15183,6 +15194,11 @@ id="iTableNumberedRefTextBefore"
 >Text before numbered table reference number/caption</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iTableNumberedRefLink"
+><term
+>Table (numbered) reference link</term
 ></indexTerm
 ><indexTerm
 id="iTextAfterAttribute"

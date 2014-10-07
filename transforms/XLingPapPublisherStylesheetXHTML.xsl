@@ -4856,6 +4856,10 @@
             <xsl:call-template name="OutputIndexedItemsSectionNumber"/>
         </xsl:variable>
         <a href="#{$sIndexedItemID}">
+            <xsl:call-template name="AddAnyLinkAttributes">
+                <xsl:with-param name="override"
+                    select="$pageLayoutInfo/linkLayout/indexLinkLayout"/>
+            </xsl:call-template>
             <xsl:value-of select="$sBeginSectionNumber"/>
         </a>
         <xsl:if test="name()='indexedRangeBegin'">

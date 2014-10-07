@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >My Paper Publisher Stylesheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.1</publisherStyleSheetVersion
+>0.4.2</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -56,6 +56,8 @@ decoration="none"
 ></endnoteRefLinkLayout
 ><exampleRefLinkLayout
 ></exampleRefLinkLayout
+><figureRefLinkLayout
+></figureRefLinkLayout
 ><genericRefLinkLayout
 ></genericRefLinkLayout
 ><indexLinkLayout
@@ -66,6 +68,8 @@ decoration="none"
 ></linkLinkLayout
 ><sectionRefLinkLayout
 ></sectionRefLinkLayout
+><tablenumberedRefLinkLayout
+></tablenumberedRefLinkLayout
 ><urlLinkLayout
 color="black"
 ></urlLinkLayout

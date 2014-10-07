@@ -2217,9 +2217,6 @@
     -->
     <xsl:template match="figureRef">
         <xsl:call-template name="OutputAnyTextBeforeFigureRef"/>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
-        </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@figure"/>
         </xsl:call-template>
@@ -2239,6 +2236,9 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/figureRefLinkLayout"/>
+        </xsl:call-template>
         <xsl:call-template name="DoFigureRef"/>
         <xsl:choose>
             <xsl:when test="@showCaption = 'short' or @showCaption='full'">
@@ -2421,9 +2421,6 @@
     -->
     <xsl:template match="tablenumberedRef">
         <xsl:call-template name="OutputAnyTextBeforeTablenumberedRef"/>
-        <xsl:call-template name="LinkAttributesBegin">
-            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/tablenumberedRefLinkLayout"/>
-        </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@table"/>
         </xsl:call-template>
@@ -2443,6 +2440,9 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/tablenumberedRefLinkLayout"/>
+        </xsl:call-template>
         <xsl:call-template name="DoTablenumberedRef"/>
         <xsl:choose>
             <xsl:when test="@showCaption = 'short' or @showCaption='full'">

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.26.0_2</a:version
+>2.26.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-08-29</a:date
+>2014-10-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.0_2 29 August 2014<ul
+>2.26.1 7 October 2014<ul
+><li
+>Fix bug in web page output with a publisher style sheet: the indexLinkLayout information was ignored.</li
+><li
+>Added figureRefLinkLayout and tablenumberedRefLinkLayout to new publisher style sheet templates.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -47,6 +51,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug: the PDF would fail to be produced if using the default (no style sheet) output and one had a language id used in a free that contained a hyphen.</li
 ><li
 >A chart with an image could mess up a following paragraph's indent if the chart was at the top level.</li
+><li
+>Fix bug: when a publisher style sheet had a figureRefLinkLayout or a tablenumberedRefLinkLayout, any color or decoration did not show in the PDF.</li
 ></ul
 ></li
 ></ul

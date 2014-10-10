@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->14 August 2014</date
+>8 October 2014</date
 ><version
->2.26.0</version
+>2.26.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -21730,6 +21730,11 @@ type="tElement"
 type="tXLingPap"
 ></object
 > configuration files. If you decide to set the defaults back, you can run this command again, being sure to use your new values for the current (old) items and the original items for the new ones.</p
+><p
+>Note that you will need to restart the <object
+type="tXMLmindXMLEditor"
+></object
+> again in order for your changes to take effect.</p
 ></section2
 ><section2
 id="sXmlLang"

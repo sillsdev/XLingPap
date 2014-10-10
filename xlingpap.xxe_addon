@@ -32,6 +32,12 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.26.2 10 October 2014<ul
+><li
+>Add defaultGlossLanguage and defaultVernacularLanguage attributes to lingPaper element.</li
+></ul
+></li
+><li
 >2.26.1 7 October 2014<ul
 ><li
 >Fix bug in web page output with a publisher style sheet: the indexLinkLayout information was ignored.</li

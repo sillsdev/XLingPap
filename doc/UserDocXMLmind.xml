@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->8 October 2014</date
+>24 October 2014</date
 ><version
->2.26.1</version
+>2.26.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -12799,6 +12799,38 @@ type="tTool"
 href="http://pygal.org/"
 >http://pygal.org/</link
 >). While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer. It also requires you to have Python installed.</p
+></endnote
+>  In additon, you can use any list element (<object
+type="tElement"
+>ol</object
+>, <object
+type="tElement"
+>ul</object
+>, or <object
+type="tElement"
+>dl</object
+>) or a hanging indent paragraph (<object
+type="tElement"
+>hangingIndent</object
+>).  The latter can be useful for entering dictionary entry examples.<endnote
+id="nDictionaryEntries"
+><p
+>With the <object
+type="tXeTeX"
+></object
+> default way of producing PDF, if you have many consecutive examples containing a <object
+type="tElement"
+>hangingIndent</object
+> within a <object
+type="tElement"
+>chart</object
+>, you may see large gaps in places in the PDF.  To fix this, insert a paragraph (<object
+type="tElement"
+>p</object
+> element) after one of the examples and have it contain just a non-breaking space (see section <sectionRef
+sec="sFAQNbsp"
+></sectionRef
+>).  This can improve the page layout.  I am not sure why this happens, but at least we can offer this workaround.</p
 ></endnote
 ></p
 ><p
@@ -30218,6 +30250,12 @@ see="iChart"
 >Diagram</term
 ></indexTerm
 ><indexTerm
+id="iDictionaryEntry"
+see="iExampleDictionaryEntry"
+><term
+>Dictionary entry as an example</term
+></indexTerm
+><indexTerm
 id="iDissertation"
 ><term
 >Dissertation</term
@@ -30330,6 +30368,11 @@ id="iExampleDiagram"
 see="iChart"
 ><term
 >Diagram</term
+></indexTerm
+><indexTerm
+id="iExampleDictionaryEntry"
+><term
+>Dictionary entry</term
 ></indexTerm
 ><indexTerm
 id="iExampleHeading"

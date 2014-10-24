@@ -5959,6 +5959,16 @@ not using
             </xsl:if>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$abbreviations"/>
+                <xsl:with-param name="ignoreFontFamily">
+                    <xsl:choose>
+                        <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="string-length($abbrLang) &gt; 0">
@@ -6602,10 +6612,11 @@ not using
 -->
     <xsl:template name="OutputFontAttributes">
         <xsl:param name="language"/>
+        <xsl:param name="ignoreFontFamily" select="'N'"/>
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="$language/@xsl-foSpecial"/>
         </xsl:call-template>
-        <xsl:if test="string-length(normalize-space($language/@font-family)) &gt; 0">
+        <xsl:if test="string-length(normalize-space($language/@font-family)) &gt; 0 and $ignoreFontFamily='N'">
             <xsl:attribute name="font-family">
                 <xsl:value-of select="$language/@font-family"/>
             </xsl:attribute>

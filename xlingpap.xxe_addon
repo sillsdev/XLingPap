@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.26.1</a:version
+>2.26.2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-10-07</a:date
+>2014-10-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.2 10 October 2014<ul
+>2.26.2 24 October 2014<ul
 ><li
 >Add defaultGlossLanguage and defaultVernacularLanguage attributes to lingPaper element.</li
 ><li
 >When changing default gloss and vernacular languages, add note in documentation that need to restart XXE for the changes to take effect.</li
+><li
+>Allow more than one email address for a given author.</li
+><li
+>Allow a hanging indent to occur within a chart (especially for an example which is a dictionary entry).</li
+><li
+>For publisher style sheet, fix bug which kept section number from showing in running headers in papers.</li
 ></ul
 ></li
 ><li

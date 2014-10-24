@@ -423,7 +423,7 @@
                                             <xsl:call-template name="DoType"/>
                                         </xsl:attribute>
                                         <xsl:choose>
-                                            <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br">
+                                            <xsl:when test="child::ol | child::ul | child::dl | child::img | child::object | child::br | child::hangingIndent">
                                                 <xsl:apply-templates/>
                                             </xsl:when>
                                             <xsl:otherwise>

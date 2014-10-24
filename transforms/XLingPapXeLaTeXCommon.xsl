@@ -204,6 +204,14 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
+        <xsl:if test="parent::chart and ancestor::example">
+            <!-- Override the example macro's interline penalty; if we do not
+                 then sequences of example/chart/hangingIndent do not break at
+                 page boundaries.
+            -->
+            <tex:spec cat='esc'/>
+            <xsl:text>interlinepenalty0</xsl:text>
+        </xsl:if>
         <tex:spec cat="bg"/>
         <tex:cmd name="hangafter" gr="0"/>
         <xsl:text>1</xsl:text>
@@ -8015,9 +8023,19 @@
                 </tex:cmd>
                 <xsl:call-template name="HandleSmallCapsBegin"/>
             </xsl:if>
-            <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$abbreviations"/>
-            </xsl:call-template>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$abbreviations"/>
+                    <xsl:with-param name="ignoreFontFamily">
+                        <xsl:choose>
+                            <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
+                                <xsl:text>Y</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>N</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="string-length($abbrLang) &gt; 0">
                     <xsl:choose>
@@ -8036,9 +8054,19 @@
                     <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:call-template name="OutputFontAttributesEnd">
-                <xsl:with-param name="language" select="$abbreviations"/>
-            </xsl:call-template>
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="$abbreviations"/>
+                    <xsl:with-param name="ignoreFontFamily">
+                        <xsl:choose>
+                            <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
+                                <xsl:text>Y</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>N</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
             <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
@@ -8108,6 +8136,7 @@
         <xsl:param name="language"/>
         <xsl:param name="originalContext"/>
         <xsl:param name="bIsOverride" select="'N'"/>
+        <xsl:param name="ignoreFontFamily" select="'N'"/>
         <!-- unsuccessful attempt at dealing with "normal" to override inherited values 
             <xsl:param name="bCloseOffParent" select="'Y'"/>
             <xsl:if test="$bCloseOffParent='Y'">
@@ -8121,7 +8150,7 @@
             </xsl:if>
         -->
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
-        <xsl:if test="string-length($sFontFamily) &gt; 0">
+        <xsl:if test="string-length($sFontFamily) &gt; 0 and $ignoreFontFamily='N'">
             <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote">
                 <tex:spec cat="bg"/>
             </xsl:if>
@@ -8326,6 +8355,7 @@
     <xsl:template name="OutputFontAttributesEnd">
         <xsl:param name="language"/>
         <xsl:param name="originalContext"/>
+        <xsl:param name="ignoreFontFamily" select="'N'"/>
         <!-- unsuccessful attempt at dealing with "normal" to override inherited values 
             <xsl:param name="bStartParent" select="'Y'"/>
         -->
@@ -8352,7 +8382,7 @@
             <tex:spec cat="eg"/>
         </xsl:if>
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
-        <xsl:if test="string-length($sFontFamily) &gt; 0">
+        <xsl:if test="string-length($sFontFamily) &gt; 0 and $ignoreFontFamily='N'">
             <tex:spec cat="eg"/>
             <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote">
                 <tex:spec cat="eg"/>

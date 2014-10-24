@@ -3787,7 +3787,7 @@ sectionRef[showTitle='full']
 						 unset-attribute, no,
 						 icon, icon(pop-down),
 						 color, black)
-	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat('',id(@sec)/secTitle,''),string-length(id(@sec)/frontMatter/title)>0,concat('',id(@sec)/frontMatter/title,''),'unnamed')");
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('',id(@sec)/frontMatter/title,''),'unnamed')");
 	background-color:section-background-color();
 }
 sectionRef

@@ -14,10 +14,10 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="sectionNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::sectionNumber"/>
+    <xsl:variable name="sectionNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::sectionNumber | $pageLayoutInfo/headerFooterPageStyles/descendant::sectionNumber"/>
     <xsl:variable name="bSectionNumberIsBeforeTitle">
         <xsl:choose>
-            <xsl:when test="$sectionNumberInHeaderLayout[following-sibling::sectionTitle]">
+            <xsl:when test="$sectionNumberInHeaderLayout[1][following-sibling::sectionTitle]">
                 <xsl:text>Y</xsl:text>
             </xsl:when>
             <xsl:otherwise>

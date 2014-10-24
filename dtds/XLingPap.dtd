@@ -139,7 +139,7 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress?) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, abstract?, preface*)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, abstract?, preface*)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -723,7 +723,7 @@
     %special;
 >
 <!ELEMENT counter EMPTY >
-<!ELEMENT chart (#PCDATA | %embedded; | ol | ul | dl)*>
+<!ELEMENT chart (#PCDATA | %embedded; | ol | ul | dl | hangingIndent)*>
 <!ATTLIST chart
     type IDREF #IMPLIED
     xml:lang CDATA #IMPLIED

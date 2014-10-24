@@ -2712,6 +2712,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                 </cfg:pass>
                 <cfg:command name="convert" parameter="object"/>
                 <cfg:command name="setType"/>
+                <cfg:command name="moveDotTo" parameter="nextTextNode"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
@@ -2727,6 +2728,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                     <cfg:command name="convert" parameter="langData"/>
                 </cfg:pass>
                 <cfg:command name="convert" parameter="langData"/>
+                <cfg:command name="moveDotTo" parameter="nextTextNode"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
@@ -2742,6 +2744,7 @@ NB actually it associates the stylesheet with the original file, not the new han
                     <cfg:command name="convert" parameter="gloss"/>
                 </cfg:pass>
                 <cfg:command name="convert" parameter="gloss"/>
+                <cfg:command name="moveDotTo" parameter="nextTextNode"/>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>

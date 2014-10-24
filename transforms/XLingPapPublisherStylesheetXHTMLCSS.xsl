@@ -252,6 +252,11 @@ li.lower-roman {
         <xsl:apply-templates select="@*"/>
         <xsl:text>}
 </xsl:text>
+        <xsl:text>.abbreviationsNoFontFamily {
+</xsl:text>
+        <xsl:apply-templates select="@*[name()!='font-family']"/>
+<xsl:text>}
+        </xsl:text>
     </xsl:template>
     <!-- 
         abstractLayout

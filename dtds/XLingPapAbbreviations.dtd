@@ -24,6 +24,7 @@ It only shows if there is an instance of a referring index element in the docume
 <!ELEMENT abbreviation (abbrInLang+)>
 <!ATTLIST abbreviation
     id ID #REQUIRED
+    ignoreabbreviationsfontfamily (yes | no ) "no"
 >
 <!-- an abbrInLang element has a term and a defintion, both of which are in the same (glossing) language
 -->

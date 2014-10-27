@@ -127,14 +127,15 @@
                     </xsl:if>
                 </tex:opt>
                 <tex:parm>
-                    <xsl:choose>
+                    <xsl:text>article</xsl:text>
+                    <!--<xsl:choose>   book limits PDF bookmarks to two levels
                         <xsl:when test="$bHasChapter='Y'">
                             <xsl:text>book</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>article</xsl:text>
                         </xsl:otherwise>
-                    </xsl:choose>
+                    </xsl:choose>-->
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="SetPageLayoutParameters"/>

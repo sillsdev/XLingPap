@@ -43,6 +43,14 @@ href="mailto::andy_black@sil.org"
 >Allow a hanging indent to occur within a chart (especially for an example which is a dictionary entry).</li
 ><li
 >For publisher style sheet, fix bug which kept section number from showing in running headers in papers.</li
+><li
+>Add schematron check for a table cell width attribute which has just a space in it.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Enable PDF bookmarks for book documents to show three levels (and not just two).</li
+></ul
+></li
 ></ul
 ></li
 ><li

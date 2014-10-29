@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-10-24</a:date
+>2014-10-29</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.2 24 October 2014<ul
+>2.26.2 29 October 2014<ul
 ><li
 >Add defaultGlossLanguage and defaultVernacularLanguage attributes to lingPaper element.</li
 ><li
@@ -49,6 +49,8 @@ href="mailto::andy_black@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Enable PDF bookmarks for book documents to show three levels (and not just two).</li
+><li
+>Fix bug: a free translation could show up on top of the final line of a lineGroup when in an interlinear example, no heading, and there was another lineGroup before it.</li
 ></ul
 ></li
 ></ul

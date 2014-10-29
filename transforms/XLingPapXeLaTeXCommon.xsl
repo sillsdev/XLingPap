@@ -6068,6 +6068,9 @@
                 <xsl:when test="following-sibling::*[1][name()='lineGroup'] and $mode='NoTextRef'">
                     <!-- do nothing; we want the normal spacing -->
                 </xsl:when>
+                <xsl:when test="ancestor::interlinear and preceding-sibling::*[1][name()='lineGroup'] and not($mode) and not($originalContext) and following-sibling::*[1][name()='free'] and $bHasExampleHeading!='Y'">
+                    <!-- do nothing -->
+                </xsl:when>
                 <xsl:otherwise>
                     <tex:cmd name="vspace*">
                         <tex:parm>

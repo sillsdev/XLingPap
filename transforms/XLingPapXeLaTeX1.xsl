@@ -86,7 +86,7 @@
                         <xsl:otherwise>
                         <xsl:text>article</xsl:text>
                         </xsl:otherwise>
-                        </xsl:choose>-->                    
+                        </xsl:choose>-->
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="SetPageLayoutParameters"/>
@@ -532,8 +532,16 @@
       version
       -->
     <xsl:template match="version">
-        <xsl:text>Version: </xsl:text>
-        <xsl:apply-templates/>
+        <tex:group>
+            <tex:cmd name="centering" nl1="1">
+                <tex:parm>
+                    <xsl:text>Version: </xsl:text>
+                    <xsl:apply-templates/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </tex:parm>
+            </tex:cmd>
+        </tex:group>
     </xsl:template>
     <!--
         publishingBlurb
@@ -1845,8 +1853,7 @@
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoTableNumbered"/>
-                <xsl:if
-                    test="$lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
                     <tex:cmd name="vspace">
                         <tex:parm>
                             <!--    <xsl:value-of select="$sBasicPointSize"/>

@@ -911,17 +911,37 @@ alt causes menu to be selected
                     </cfg:sequence>-->
                     <cfg:sequence>
                         <cfg:test expression="'%0' != ''"/>
-                        <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
-                        <cfg:command name="pick" parameter="'%0 Example' false %_"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
+                                <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                                <cfg:command name="pick" parameter="'%0 Example' false %_"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:get expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
+<!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
+                                <cfg:command name="pick" parameter="'%0 Example' false %_"/>
+                            </cfg:sequence>
+                        </cfg:choice>
                     </cfg:sequence>
                     <cfg:sequence>
-                        <cfg:get expression="join(//example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //listDefinition/@letter | //lineSet/@letter, ' ')"/>
-                        <cfg:command name="pick" parameter="Example false %_"/>
+                        <cfg:choice>
+                            <cfg:sequence>
+                                <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
+                                <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                                <cfg:command name="pick" parameter="Example false %_"/>
+                            </cfg:sequence>
+                            <cfg:sequence>
+                                <cfg:get expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
+<!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
+                                <cfg:command name="pick" parameter="Example false %_"/>
+                            </cfg:sequence>
+                        </cfg:choice>
                     </cfg:sequence>
                 </cfg:choice>
                 <cfg:set expression="%_" plainString="true" variable="chosenId"/>
                 <!-- if the newly chosen value is the same as what's in num, letter never gets changed.
-                So we put junk into num first in an attempt to hve both get set correctly. -->
+                So we put junk into num first in an attempt to have both get set correctly. -->
                 <cfg:command name="putAttribute" parameter="[implicitElement] num 'XlingPaperJUNKTtempMessIHopeNoOneEverUsesThisIdForReal"/>
                 <cfg:get expression="$chosenId"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
@@ -929,6 +949,44 @@ alt causes menu to be selected
                 <cfg:command name="putAttribute" parameter="[implicitElement] letter %_"/>
             </cfg:sequence>
         </cfg:macro>
+    </cfg:command>
+    <cfg:command name="ShowExampleNumberAndIds">
+        <cfg:macro trace="false">
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] exampleRef"/>
+                </cfg:pass>
+                <cfg:sequence>
+                    <cfg:choice>
+                        <cfg:sequence>
+                            <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
+                            <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                            <cfg:command name="pick" parameter="Example false %_"/>
+                        </cfg:sequence>
+                        <cfg:sequence>
+                            <cfg:command name="getExampleNumbersAndIds"/>
+                            <cfg:command name="pick" parameter="Example true %_"/>
+                        </cfg:sequence>
+                    </cfg:choice>
+                </cfg:sequence>
+                <cfg:set expression="%_" plainString="true" variable="chosenId"/>
+                <!-- if the newly chosen value is the same as what's in num, letter never gets changed.
+                    So we put junk into num first in an attempt to have both get set correctly. -->
+                <cfg:command name="putAttribute" parameter="[implicitElement] num 'XlingPaperJUNKTtempMessIHopeNoOneEverUsesThisIdForReal"/>
+                <cfg:get expression="$chosenId"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] num %_"/>
+                <cfg:get expression="$chosenId"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] letter %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getExampleNumbersAndIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/XLingPapRemoveAnyContent.xsl" to="in2.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in2.xml" stylesheet="../transforms/GetExampleNumbersAndIds.xsl" to="out.xml"/>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
     </cfg:command>
     <!-- Failed attempt to set only @num or only @letter depending on the result of the pick
   <cfg:command name="setExample">
@@ -1861,7 +1919,7 @@ What we want is to load IE independently and to do a refresh so it will show the
         </cfg:macro>
     </cfg:command>
     <cfg:command name="AdjustWindowsRootPath">
-        <cfg:macro>
+        <cfg:macro trace="false">
             <!--  Have to work around the fact that %P includes a final backslash *if* it is the root on a Windows machine;  
                 when we then append %S, we get two backslashes in a row which causes a problem for the del command ('The network path was not found')-->
             <cfg:choice>
@@ -3164,7 +3222,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:macro>
     </cfg:command>
     <cfg:command name="TableToXLingPaper">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:command name="GetHtmlTableFromClipboardCmd" parameter="%{P}%{S}XLingPaperTempTable.html"/>
                 <cfg:set variable="result" plainString="true" expression="%_"/>

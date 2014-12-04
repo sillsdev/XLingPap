@@ -199,6 +199,25 @@
 	content: label " link";
 }
 
+@property-group listExampleBefore( )
+{
+	content: "(" 
+	text-field(attribute, letter, columns, 15, font-size, small) 
+	") " 
+	;
+	background-color:example-background-color();
+/* if show counters:
+        counter-increment:listexample;
+	content: counter(listexample,lower-alpha)
+	"."
+	text-field(attribute, letter, columns, 15, font-size, small, font-family, default, font-weight, normal) 
+	" " 
+	;
+	background-color:example-background-color();
+	font-family:monospaced;
+	font-weight:bold; */
+}
+
 @property-group lowerCaseTitleBefore( )
 {
 	content:" (lower case version: "
@@ -773,6 +792,7 @@ part chapterInCollection:before
 chapter:before
 {
 	property-group: sectionBefore( n, chapter-background-color() );
+	/* counter-reset:example; */
 }
 chapter 
 {
@@ -1427,6 +1447,8 @@ endnote:before
 	" endnote: " 
 	text-field(attribute, id, columns, 10, font-size, small)
 	;
+/* if show counters
+        counter-reset: endnoteexample; */
 }
 endnote
 {
@@ -1461,6 +1483,29 @@ endnotes
 	display:block;
 }
 
+/* if show counters
+endnote example:before
+{
+	counter-increment:endnoteexample;
+	content: "(" 
+	counter(endnoteexample,lower-roman)
+	") "
+	text-field(attribute, num, columns, 10, font-size, small) 
+	" " 
+	;
+	background-color:example-background-color();
+}
+framedUnit example:before
+{
+	counter-increment:framedunitexample;
+	content: "(" 
+	label(xpath,"if(string-length(ancestor::framedUnit/@initialexamplenumber)>0,ancestor::framedUnit/@initialexamplenumber+count(preceding-sibling::example),count(preceding-sibling::example)+1)")
+	") "
+	text-field(attribute, num, columns, 10, font-size, small) 
+	" " 
+	;
+	background-color:example-background-color();
+} */
 example:before
 {
 	content: "(" 
@@ -1468,11 +1513,22 @@ example:before
 	") " 
 	;
 	background-color:example-background-color();
+/* if show counters
+	counter-increment:example;
+	content: "(" 
+	counter(example)
+	") "
+	text-field(attribute, num, columns, 10, font-size, small) 
+	" " 
+	;
+	background-color:example-background-color(); */
 }
 example
 {
 	display:block;
 	padding-left: 0.25in;
+/* if show counters
+	counter-reset:listexample; */
 } 
 example > exampleHeading
 {
@@ -1727,6 +1783,11 @@ framedTypes
 	display:block;
 	property-group: isCollapsible( no, 1);
 }
+/* if show counters
+framedUnit:before
+{
+    counter-reset:framedunitexample;
+} */
 framedUnit
 {
 	display:block;
@@ -2703,11 +2764,7 @@ link
 
 listDefinition:before
 {
-	content: "(" 
-	text-field(attribute, letter, columns, 15, font-size, small) 
-	") " 
-	;
-	background-color:example-background-color();
+	property-group: listExampleBefore();
 }
 listDefinition
 {
@@ -2717,11 +2774,7 @@ listDefinition
 
 listInterlinear:before
 {
-	content: "(" 
-	text-field(attribute, letter, columns, 15, font-size, small) 
-	") " 
-	;
-	background-color:example-background-color();
+	property-group: listExampleBefore();
 }
 listInterlinear
 {
@@ -2731,11 +2784,7 @@ listInterlinear
 
 listSingle:before
 {
-	content: "(" 
-	text-field(attribute, letter, columns, 15, font-size, small) 
-	") " 
-	;
-	background-color:example-background-color();
+	property-group: listExampleBefore();
 }
 listSingle
 {
@@ -2745,15 +2794,12 @@ listSingle
 
 listWord:before
 {
-	content: "(" 
-	text-field(attribute, letter, columns, 15, font-size, small) 
-	") " 
-	;
-	background-color:example-background-color();
+	property-group: listExampleBefore();
 }
 listWord
 {
 	display:block;
+	padding-left:example-indent();
 }
 
 literal:before

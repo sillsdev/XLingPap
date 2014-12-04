@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->24 October 2014</date
+>3 December 2014</date
 ><version
->2.26.2</version
+>2.26.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -10722,7 +10722,7 @@ type="tHtmlOutput"
 id="nLocationOfInterlinearSource"
 ><p
 >The way to have the source appear after the free translation or on a line after the free translation is to use a publisher style sheet with the appropriate option set. See <link
-href="PublisherStylesheetUserDocXMLmind.htm/#sInterlinearSourceStyleLayout"
+href="PublisherStylesheetUserDocXMLmind.htm#sInterlinearSourceStyleLayout"
 >the publisher style sheet documentation</link
 >.</p
 ></endnote
@@ -11437,6 +11437,40 @@ type="tAttribute"
 ><p
 >Example reference elements can be used anywhere within a document. They do not need to immediately precede or follow their respective example declaration.</p
 ><p
+><indexedItem
+term="iExampleReferenceShowNumber"
+></indexedItem
+>There may be times when you find you have chosen an incorrect example and want to fix it.  In the output, you can find the number of the correct example and so want to be able to use the number.  You can get a list of the numbers by following the following steps:</p
+><ol
+><li
+>Click on the <object
+type="tElement"
+>exampleRef</object
+> element.</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Tools / Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+> This opens up the Execute Command dialog box. It will look something like this:<br
+></br
+><img
+src="resources/ExecuteCommandDialogBox.png"
+></img
+></li
+><li
+>In the Command box, type <object
+type="tInstruction"
+>ShowExampleNumberAndIds</object
+> and click on the OK button.  (Typing just "Sh" should work.)</li
+><li
+>You will then see a chooser that lists both the example numbers as they appear in the output and the example IDs.</li
+><li
+>Choose the one you want.</li
+></ol
+><p
 >The attributes of the <object
 type="tElement"
 >exampleRef</object
@@ -11742,7 +11776,7 @@ type="tElement"
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for associating a publisher style sheet and also see <link
-href="PublisherStylesheetUserDocXMLmind.htm/#sLangDataOverrides"
+href="PublisherStylesheetUserDocXMLmind.htm#sLangDataOverrides"
 >sections 6.13 and 6.14 in the publisher style sheet documentation </link
 >.</p
 ></section2
@@ -11793,7 +11827,7 @@ type="tElement"
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for associating a publisher style sheet and also see <link
-href="PublisherStylesheetUserDocXMLmind.htm/#sFreeOverrides"
+href="PublisherStylesheetUserDocXMLmind.htm#sFreeOverrides"
 >sections 6.15 in the publisher style sheet documentation </link
 >.</p
 ></section2
@@ -12800,7 +12834,7 @@ href="http://pygal.org/"
 >http://pygal.org/</link
 >). While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer. It also requires you to have Python installed.</p
 ></endnote
->  In additon, you can use any list element (<object
+> In additon, you can use any list element (<object
 type="tElement"
 >ol</object
 >, <object
@@ -12812,7 +12846,7 @@ type="tElement"
 >) or a hanging indent paragraph (<object
 type="tElement"
 >hangingIndent</object
->).  The latter can be useful for entering dictionary entry examples.<endnote
+>). The latter can be useful for entering dictionary entry examples.<endnote
 id="nDictionaryEntries"
 ><p
 >With the <object
@@ -12824,13 +12858,13 @@ type="tElement"
 > within a <object
 type="tElement"
 >chart</object
->, you may see large gaps in places in the PDF.  To fix this, insert a paragraph (<object
+>, you may see large gaps in places in the PDF. To fix this, insert a paragraph (<object
 type="tElement"
 >p</object
 > element) after one of the examples and have it contain just a non-breaking space (see section <sectionRef
 sec="sFAQNbsp"
 ></sectionRef
->).  This can improve the page layout.  I am not sure why this happens, but at least we can offer this workaround.</p
+>). This can improve the page layout. I am not sure why this happens, but at least we can offer this workaround.</p
 ></endnote
 ></p
 ><p
@@ -20045,6 +20079,14 @@ type="tXMLmindXMLEditor"
 >.</li
 ><li
 ><indexedItem
+term="iPDFFile"
+></indexedItem
+>While it will handle PDF files included as graphic files, these PDF files must be PDF version 1.4 or older. Newer PDF file versions will not work (the PDF for the <object
+type="tXLingPap"
+></object
+> document will fail to be produced).</li
+><li
+><indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
 >Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
@@ -20081,6 +20123,8 @@ type="tAttribute"
 type="tAttrValue"
 >pagebreak</object
 >. This often removes the unwanted blank page.</li
+><li
+>If you use an apostrophe character ' in a folder name or in a file name, no PDF output will be produced. Do not use apostrophes in file or folder names.</li
 ></ul
 ></section4
 ><section4
@@ -30448,6 +30492,13 @@ id="iExampleReference"
 see="iRefToExample"
 ><term
 >Example reference</term
+><indexTerms
+><indexTerm
+id="iExampleReferenceShowNumber"
+><term
+>Show resulting number</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iExpandSection"
@@ -31252,6 +31303,11 @@ see="iConvertPaperToChapter"
 id="iPart"
 ><term
 >Part</term
+></indexTerm
+><indexTerm
+id="iPDFFile"
+><term
+>PDF file included as a graphic</term
 ></indexTerm
 ><indexTerm
 id="iPDF"

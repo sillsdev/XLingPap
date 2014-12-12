@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->3 December 2014</date
+>12 December 2014</date
 ><version
->2.26.3</version
+>2.26.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -1533,6 +1533,29 @@ type="tElement"
 ><tr
 ><td
 >needspace='3'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>overfullhbox</td
+><td
+>a numerical value followed immediately by pt (for points)</td
+><td
+>If a line is too long (overfull), insert a black box with a width of the indicated number of points (this only works on a <object
+type="tElement"
+>lingPaper</object
+> element).</td
+><td
+><table
+><tr
+><td
+>overfullhbox='5pt'</td
+></tr
+><tr
+><td
+>overfullhbox='15pt'</td
 ></tr
 ></table
 ></td
@@ -11440,7 +11463,7 @@ type="tAttribute"
 ><indexedItem
 term="iExampleReferenceShowNumber"
 ></indexedItem
->There may be times when you find you have chosen an incorrect example and want to fix it.  In the output, you can find the number of the correct example and so want to be able to use the number.  You can get a list of the numbers by following the following steps:</p
+>There may be times when you find you have chosen an incorrect example and want to fix it. In the output, you can find the number of the correct example and so want to be able to use the number. You can get a list of the numbers by following the following steps:</p
 ><ol
 ><li
 >Click on the <object
@@ -11464,7 +11487,7 @@ src="resources/ExecuteCommandDialogBox.png"
 >In the Command box, type <object
 type="tInstruction"
 >ShowExampleNumberAndIds</object
-> and click on the OK button.  (Typing just "Sh" should work.)</li
+> and click on the OK button. (Typing just "Sh" should work.)</li
 ><li
 >You will then see a chooser that lists both the example numbers as they appear in the output and the example IDs.</li
 ><li
@@ -31286,6 +31309,11 @@ id="iOrderedListOutline"
 id="iORCID"
 ><term
 >ORCID</term
+></indexTerm
+><indexTerm
+id="iOverFullHBox"
+><term
+>Overfull hbox</term
 ></indexTerm
 ><indexTerm
 id="iPaperInACollectionVolume"

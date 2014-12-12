@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.3</span></p>
-      <p align="center">Date: 2014-12-01</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.4</span></p>
+      <p align="center">Date: 2014-12-12</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,9 +34,26 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.26.3 1 December 2014
+               <li>2.26.4 12 December 2014
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add XeLaTeXSpecial attribute to lingPaper element; have it use "overfullhbox='5pt'".  This will output a 5pt black box on
+                              any line that is too long (but not for tables).
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>2.26.3 3 December 2014
                   <ul>
                      <li>Fix some link typos in the user documentation.</li>
+                     <li>Make Set Reference for exampleRef elements show only examples within a framedUnit when the exampleRef is in a framedUnit.
+                        Conversely, Set Reference for exampleRef elements outside of a framedUnit do not show any examples within a framedUnit.
+                     </li>
+                     <li>Add a command ShowExampleNumberAndIds which when run on an exampleRef element will show projected example numbers as well
+                        as the example iDs.
+                     </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Make the version element be centered when there is no publisher style sheet.</li>

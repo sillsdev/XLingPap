@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.26.3</a:version
+>2.26.4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2014-12-03</a:date
+>2014-12-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,21 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.26.4 12 December 2014<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add XeLaTeXSpecial attribute to lingPaper element; have it use "overfullhbox='5pt'".  This will output a 5pt black box on any line that is too long (but not for tables).</li
+></ul
+></li
+></ul
+></li
+><li
 >2.26.3 3 December 2014<ul
 ><li
 >Fix some link typos in the user documentation.</li
 ><li
->Make Set Reference for exampleRef elements show only examples within a framedUnit when the exampleRef is in a framedUnit.  Conversely, Set Reference for exampleRef elements outside of a framedUnit do not show any examples within a framedUnit.  </li
+>Make Set Reference for exampleRef elements show only examples within a framedUnit when the exampleRef is in a framedUnit. Conversely, Set Reference for exampleRef elements outside of a framedUnit do not show any examples within a framedUnit.</li
 ><li
 >Add a command ShowExampleNumberAndIds which when run on an exampleRef element will show projected example numbers as well as the example iDs.</li
 ><li

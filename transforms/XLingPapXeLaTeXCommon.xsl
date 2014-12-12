@@ -209,7 +209,7 @@
                  then sequences of example/chart/hangingIndent do not break at
                  page boundaries.
             -->
-            <tex:spec cat='esc'/>
+            <tex:spec cat="esc"/>
             <xsl:text>interlinepenalty0</xsl:text>
         </xsl:if>
         <tex:spec cat="bg"/>
@@ -6068,7 +6068,8 @@
                 <xsl:when test="following-sibling::*[1][name()='lineGroup'] and $mode='NoTextRef'">
                     <!-- do nothing; we want the normal spacing -->
                 </xsl:when>
-                <xsl:when test="ancestor::interlinear and preceding-sibling::*[1][name()='lineGroup'] and not($mode) and not($originalContext) and following-sibling::*[1][name()='free'] and $bHasExampleHeading!='Y'">
+                <xsl:when
+                    test="ancestor::interlinear and preceding-sibling::*[1][name()='lineGroup'] and not($mode) and not($originalContext) and following-sibling::*[1][name()='free'] and $bHasExampleHeading!='Y'">
                     <!-- do nothing -->
                 </xsl:when>
                 <xsl:otherwise>
@@ -8026,19 +8027,19 @@
                 </tex:cmd>
                 <xsl:call-template name="HandleSmallCapsBegin"/>
             </xsl:if>
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="$abbreviations"/>
-                    <xsl:with-param name="ignoreFontFamily">
-                        <xsl:choose>
-                            <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
-                                <xsl:text>Y</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>N</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:with-param>
-                </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$abbreviations"/>
+                <xsl:with-param name="ignoreFontFamily">
+                    <xsl:choose>
+                        <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="string-length($abbrLang) &gt; 0">
                     <xsl:choose>
@@ -8057,19 +8058,19 @@
                     <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm" mode="Use"/>
                 </xsl:otherwise>
             </xsl:choose>
-                <xsl:call-template name="OutputFontAttributesEnd">
-                    <xsl:with-param name="language" select="$abbreviations"/>
-                    <xsl:with-param name="ignoreFontFamily">
-                        <xsl:choose>
-                            <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
-                                <xsl:text>Y</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>N</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:with-param>
-                </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$abbreviations"/>
+                <xsl:with-param name="ignoreFontFamily">
+                    <xsl:choose>
+                        <xsl:when test="$abbr/@ignoreabbreviationsfontfamily='yes'">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
             <xsl:if test="$abbreviations/@usesmallcaps='yes' and not($abbreviations/@font-variant='small-caps')">
                 <xsl:call-template name="HandleSmallCapsEnd"/>
             </xsl:if>
@@ -10440,6 +10441,24 @@
             </tex:cmd>
             <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'overfullhbox')">
+            <xsl:variable name="sValue">
+                <xsl:call-template name="GetXeLaTeXSpecialCommand">
+                    <xsl:with-param name="sAttr" select="'overfullhbox='"/>
+                    <xsl:with-param name="sDefaultValue" select="'5pt'"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:if test="string-length($sValue) &gt; 0">
+                <tex:cmd name="setlength" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="overfullrule" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:value-of select="$sValue"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetSpecialTextSymbols
@@ -12347,7 +12366,7 @@ What might go in a TeX package file
         </tex:cmd>
     </xsl:template>
     <!--  
-        SetXLingPaperTableOfContentsMacro
+        SetZeroWidthSpaceHandling
     -->
     <xsl:template name="SetZeroWidthSpaceHandling">
         <tex:spec cat="esc"/>

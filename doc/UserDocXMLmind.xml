@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->12 December 2014</date
+>5 January 2015</date
 ><version
->2.26.4</version
+>2.26.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -13007,6 +13007,44 @@ type="tHtmlOutput"
 ></example
 ><p
 >You may find it helpful to set the background of an image to be transparent. This may especially be the case if the image is in an example with an example heading.</p
+><p
+><indexedItem
+term="iCenterGraphic"
+></indexedItem
+>If you want to center an image, use a <object
+type="tElement"
+>table</object
+> element (instead of a <object
+type="tElement"
+>chart</object
+> element).  Make it have one column and one row (see section <sectionRef
+sec="sTCTTables"
+></sectionRef
+>).  In the table cell (<object
+type="tElement"
+>td</object
+> element), insert an <object
+type="tElement"
+>img</object
+> element.  On the <object
+type="tElement"
+>table</object
+> element itself, set the <object
+type="tAttribute"
+>border</object
+> attribute to be <object
+type="tAttrValue"
+>0</object
+> and set the <object
+type="tAttribute"
+>align</object
+> attribute to be <object
+type="tAttrValue"
+>center</object
+>.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></p
 ><p
 >Note that if you try to use “plain” text instead of an image in a chart, you will probably want to use non-breaking spaces<endnote
 id="nNonBreakingSpace"
@@ -30840,6 +30878,11 @@ id="iImageFiles"
 ><term
 >Image files</term
 ><indexTerms
+><indexTerm
+id="iCenterGraphic"
+><term
+>Center an image</term
+></indexTerm
 ><indexTerm
 id="iScaleGraphic"
 ><term

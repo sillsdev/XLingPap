@@ -566,7 +566,7 @@ Content Layout
   ===================================================
   -->
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
-                                                      interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, 
+                                                      interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
@@ -620,6 +620,10 @@ Content Layout
    <!ATTLIST interlinearMultipleLineGroupLayout
        indentOfNonInitialGroup CDATA #IMPLIED
        spaceBetweenGroups CDATA #IMPLIED
+ >
+   <!ELEMENT interlinearTextLayout EMPTY  >
+   <!ATTLIST interlinearTextLayout
+       spaceBetweenUnits CDATA #IMPLIED
  >
     <!ELEMENT endnoteRefLayout EMPTY >
     <!ATTLIST endnoteRefLayout

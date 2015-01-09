@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-01-05</a:date
+>2015-01-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.5 5 January 2015<ul
+>2.26.5 7 January 2015<ul
 ><li
 >The SIL International publisher style sheet for manuscript references needed a space after the colon after the location.</li
 ><li
 >Add documentation on how to center an image using a table.</li
+><li
+>Add ability to control vertical spacing between interlinear text units (via the spaceBetweenUnits attribute on the new interlinearTextLayout element).</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: When a publisher style sheet has acknowledgementsLayout with showAsFootnoteAtEndOfAbstract set to yes, it would use a footnote even when there was no acknowledgements element and it would use a footnote after every pc element.</li
+></ul
+></li
 ></ul
 ></li
 ><li

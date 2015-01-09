@@ -519,6 +519,17 @@
         <xsl:param name="originalContext"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
+                <xsl:variable name="sSpaceBetweenUnits">
+                    <xsl:value-of select="normalize-space($documentLayoutInfo/interlinearTextLayout/@spaceBetweenUnits)"/>
+                </xsl:variable>
+                <xsl:if test="string-length($sSpaceBetweenUnits) &gt; 0 and count(preceding-sibling::interlinear) &gt; 0">
+                    <div>
+                        <xsl:attribute name="style">
+                            <xsl:text>margin-top:</xsl:text>
+                            <xsl:value-of select="$sSpaceBetweenUnits"/>
+                        </xsl:attribute>
+                    </div>
+                </xsl:if>
                 <div class="interlinearLineTitle">
                     <xsl:if test="string-length(@text) &gt; 0">
                         <xsl:attribute name="id">

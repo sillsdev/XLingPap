@@ -7492,6 +7492,12 @@ interlinearSourceStyle
 	         ;
 	margin-left: .125in;
 }
+interlinearTextLayout
+{
+	property-group: titledItem("interlinear text");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 jArticleNumberItem[color]
 {
 	color:concatenate(attr(color));

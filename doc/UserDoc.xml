@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->10 May 2014</date
+> January 2015</date
 ><version
->2.25.0</version
+>2.26.5</version
 ><contents
 showLevel="3"
 ></contents
@@ -11544,6 +11544,13 @@ type="tElement"
 ></dt
 ><dd
 >Where the source information for an interlinear example should appear</dd
+><dt
+><object
+type="tElement"
+>interlinearTextLayout</object
+></dt
+><dd
+>Formatting information for an interlinear text</dd
 ><dt
 ><object
 type="tElement"

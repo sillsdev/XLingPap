@@ -1205,6 +1205,16 @@
         <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
+                <xsl:variable name="sSpaceBetweenUnits">
+                    <xsl:value-of select="normalize-space($documentLayoutInfo/interlinearTextLayout/@spaceBetweenUnits)"/>
+                </xsl:variable>
+                <xsl:if test="string-length($sSpaceBetweenUnits) &gt; 0 and count(preceding-sibling::interlinear) &gt; 0">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceBetweenUnits"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <tex:cmd name="needspace" nl2="1">
                     <tex:parm>
                         <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->

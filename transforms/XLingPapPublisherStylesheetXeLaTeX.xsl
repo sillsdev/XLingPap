@@ -1793,7 +1793,7 @@
                     <xsl:when test="parent::li and count(preceding-sibling::*)=0">
                         <!-- do nothing in this case -->
                     </xsl:when>
-                    <xsl:when test="parent::abstract and count(following-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                    <xsl:when test="parent::abstract and parent::abstract[preceding-sibling::acknowledgements] and count(following-sibling::p | following-sibling::pc)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                         <tex:cmd name="renewcommand">
                             <tex:parm>
                                 <tex:spec cat="esc"/>
@@ -3162,11 +3162,6 @@
                 <xsl:call-template name="DoInterlinearRefCitationHyperlinkAndContent">
                     <xsl:with-param name="sRef" select="@textref"/>
                 </xsl:call-template>
-
-                <!--                <xsl:call-template name="DoInterlinearRefCitation">
-                    <xsl:with-param name="sRef" select="@textref"/>
-                </xsl:call-template>
--->
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="LinkAttributesEnd">

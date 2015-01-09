@@ -1849,6 +1849,12 @@
         <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
+                <xsl:variable name="sSpaceBetweenUnits">
+                    <xsl:value-of select="normalize-space($documentLayoutInfo/interlinearTextLayout/@spaceBetweenUnits)"/>
+                </xsl:variable>
+                <xsl:if test="string-length($sSpaceBetweenUnits) &gt; 0 and count(preceding-sibling::interlinear) &gt; 0">
+                    <fo:block space-before="{$sSpaceBetweenUnits}"/>
+                </xsl:if>
                 <fo:block id="{@text}" font-size="smaller" font-weight="bold" keep-with-next.within-page="2" orphans="2" widows="2">
                     <xsl:call-template name="GetInterlinearTextShortTitleAndNumber"/>
                 </fo:block>

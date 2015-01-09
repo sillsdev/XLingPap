@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->5 January 2015</date
+>7 January 2015</date
 ><version
 >2.26.5</version
 ><contents
@@ -13017,16 +13017,16 @@ type="tElement"
 > element (instead of a <object
 type="tElement"
 >chart</object
-> element).  Make it have one column and one row (see section <sectionRef
+> element). Make it have one column and one row (see section <sectionRef
 sec="sTCTTables"
 ></sectionRef
->).  In the table cell (<object
+>). In the table cell (<object
 type="tElement"
 >td</object
 > element), insert an <object
 type="tElement"
 >img</object
-> element.  On the <object
+> element. On the <object
 type="tElement"
 >table</object
 > element itself, set the <object
@@ -28342,6 +28342,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>interlinearTextLayout</object
+></dt
+><dd
+>Formatting information for an interlinear text</dd
+><dt
+><object
+type="tElement"
 >iso639-3codeItem</object
 ></dt
 ><dd
@@ -28355,7 +28362,7 @@ type="tElement"
 >iso639-3codeItemRef</object
 ></dt
 ><dd
->A reference place holder to the formattiing information for ISO 639-3 language codes (within references)</dd
+>Formatting information for an interlinear text</dd
 ><dt
 ><object
 type="tElement"

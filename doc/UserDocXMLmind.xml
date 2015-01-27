@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->7 January 2015</date
+>20 January 2015</date
 ><version
->2.26.5</version
+>2.26.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -23082,6 +23082,9 @@ term="iFrontMatterDissertation"
 ><indexedItem
 term="iFrontMatterOfPublisher"
 ></indexedItem
+><indexedItem
+term="iPDFMergeTools"
+></indexedItem
 >When it comes time to actually produce a final PDF of a book or a thesis or a dissertation, how does one deal with the specific, custom pages that a given publisher or school requires to be at the beginning? We're talking about copyright pages, a thesis/dissertation approval page, etc., etc.</p
 ><p
 >Since it seems like each publisher and each institution tend to have their own, custom requirements on what needs to go on each page and where, <object
@@ -23129,6 +23132,24 @@ colspan="5"
 type="tItalic"
 >Free</object
 ></td
+></tr
+><tr
+><td
+>Merge PDF</td
+><td
+><link
+href="http://smallpdf.com/merge-pdf"
+>http://smallpdf.com/merge-pdf</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
 ></tr
 ><tr
 ><td
@@ -31396,6 +31417,11 @@ id="iPDF"
 id="iPDFCommentIn"
 ><term
 >Comment in PDF</term
+></indexTerm
+><indexTerm
+id="iPDFMergeTools"
+><term
+>Merge tools</term
 ></indexTerm
 ><indexTerm
 id="iRenderXPDF"

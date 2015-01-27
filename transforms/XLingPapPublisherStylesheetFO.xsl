@@ -1284,7 +1284,7 @@
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
             <xsl:choose>
-                <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
+                <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle' and name()!='frontMatter'])=0">
                     <!-- is the first item -->
                     <xsl:choose>
                         <xsl:when test="parent::appendix and $backMatterLayoutInfo/appendixLayout/@firstParagraphHasIndent='no'">

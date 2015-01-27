@@ -2378,7 +2378,9 @@
             <xsl:when test="ancestor::figure and parent::chart and not(following-sibling::text()) and not(following-sibling::*)">
                 <!-- do nothing when it is the last thing in a chart - XeLaTeX will fail if we output the \\ -->
             </xsl:when>
-            <xsl:when test="ancestor::chart and not(ancestor::table or ancestor::example) and $sLineSpacing and $sLineSpacing!='single' and ancestor::chart[contains(@XeLaTeXSpecial,'singlespacing')]">
+            <xsl:when test="ancestor::caption and not(ancestor::tablenumbered)">
+                <!-- do nothing when it is in a caption in a regular table - XeLaTeX will fail if we output the \\ -->
+            </xsl:when>            <xsl:when test="ancestor::chart and not(ancestor::table or ancestor::example) and $sLineSpacing and $sLineSpacing!='single' and ancestor::chart[contains(@XeLaTeXSpecial,'singlespacing')]">
                 <tex:cmd name="par"/>
                 <xsl:if test="following-sibling::text()">
                     <tex:cmd name="noindent"/>

@@ -1701,7 +1701,7 @@
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
                         <xsl:choose>
-                            <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle'])=0">
+                            <xsl:when test="count(preceding-sibling::*[name()!='secTitle' and name()!='shortTitle' and name()!='frontMatter'])=0">
                                 <!-- is the first item -->
                                 <xsl:choose>
                                     <xsl:when test="parent::appendix and $backMatterLayoutInfo/appendixLayout/@firstParagraphHasIndent='no'">

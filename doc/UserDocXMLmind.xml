@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->20 January 2015</date
+>2 February 2015</date
 ><version
 >2.26.6</version
 ><contents
@@ -7342,7 +7342,7 @@ src="resources/indextermID.png"
 >. Give it a unique <object
 type="tAttribute"
 >id</object
-> attribute value.<endnoteRef
+> attribute value (please use just a-z/A-Z letters and numbers; in particular, using an underscore may cause the page number to not appear in the default PDF output).<endnoteRef
 note="nInitialIDLetter"
 ></endnoteRef
 > Then type the name of the term.</p

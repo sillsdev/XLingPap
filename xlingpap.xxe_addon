@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-01-27</a:date
+>2015-02-02</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.6 27 January 2015<ul
+>2.26.6 2 February 2015<ul
 ><li
 >Fix bug: the firstParagraphHasIndent attribute of the chapterInCollectionLayout element was ignored.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: The PDF would fail to be produced if a caption in a table not in a tablenumbered contained a br element.</li
+><li
+>Add a note in documentation that using index IDs containing underscores may cause the page numbers to not come out.</li
 ></ul
 ></li
 ></ul

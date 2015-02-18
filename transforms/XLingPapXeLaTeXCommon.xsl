@@ -3527,10 +3527,12 @@
         <xsl:variable name="sImageFileLocationAdjustment">
             <xsl:choose>
                 <xsl:when test="not(contains($sImgFile, ':'))">
+                    <!-- .tex file is in temp directory so need to go up one level -->
                     <xsl:text>../</xsl:text>
                     <xsl:value-of select="$sImgFile"/>
                 </xsl:when>
                 <xsl:otherwise>
+                    <!-- is an absolute path -->
                     <xsl:value-of select="$sImgFile"/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -9780,6 +9782,23 @@
                 <tex:cmd name="needspace">
                     <tex:parm>
                         <xsl:variable name="iLines" select="count(descendant::li)"/>
+                        <xsl:choose>
+                            <xsl:when test="$iLines &gt; 3">
+                                <!-- try to guarantee at least 2 lines on this page -->
+                                <xsl:text>3</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- try to keep it all on same page -->
+                                <xsl:value-of select="$iLines + 1"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <tex:spec cat="esc"/>baselineskip</tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="word/word">
+                <tex:cmd name="needspace">
+                    <tex:parm>
+                        <xsl:variable name="iLines" select="count(descendant::word)"/>
                         <xsl:choose>
                             <xsl:when test="$iLines &gt; 3">
                                 <!-- try to guarantee at least 2 lines on this page -->

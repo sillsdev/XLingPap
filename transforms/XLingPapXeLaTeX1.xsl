@@ -144,6 +144,7 @@
                     <xsl:call-template name="SetTableLengthWidths"/>
                     <xsl:call-template name="SetXLingPaperTableWidthMacros"/>
                 </xsl:if>
+                <xsl:call-template name="SetXLingPaperNeedSpaceMacro"/>
                 <xsl:call-template name="SetListLengthWidths"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
@@ -1417,7 +1418,7 @@
             <xsl:if test="$sXLingPaperExample='XLingPaperexample'">
                 <xsl:if test="contains(@XeLaTeXSpecial,'needspace')">
                     <!-- the needspace seems to be needed to get page breaking right in some cases -->
-                    <tex:cmd name="needspace">
+                    <tex:cmd name="XLingPaperneedspace">
                         <tex:parm>
                             <xsl:call-template name="HandleXeLaTeXSpecialCommand">
                                 <xsl:with-param name="sPattern" select="'needspace='"/>
@@ -3044,7 +3045,7 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$lingPaper/@figureLabelAndCaptionLocation='before'">
-            <tex:cmd name="needspace">
+            <tex:cmd name="XLingPaperneedspace">
                 <tex:parm>
                     <xsl:text>3</xsl:text>
                     <tex:cmd name="baselineskip" gr="0"/>
@@ -4116,7 +4117,7 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
-        <tex:cmd name="needspace">
+        <tex:cmd name="XLingPaperneedspace">
             <tex:parm>
                 <xsl:text>3</xsl:text>
                 <tex:cmd name="baselineskip" gr="0"/>

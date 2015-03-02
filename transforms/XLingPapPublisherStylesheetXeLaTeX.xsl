@@ -222,6 +222,7 @@
                 <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
                     <xsl:call-template name="SetListOfWidths"/>
                 </xsl:if>
+                <xsl:call-template name="SetXLingPaperNeedSpaceMacro"/>
                 <xsl:call-template name="SetXLingPaperListItemMacro"/>
                 <xsl:call-template name="SetXLingPaperBlockQuoteMacro"/>
                 <xsl:call-template name="SetXLingPaperExampleMacro"/>
@@ -1331,7 +1332,7 @@
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:call-template name="DoTitleNeedsSpace"/>
+            <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:call-template name="DoType">
                 <xsl:with-param name="type" select="@type"/>
             </xsl:call-template>
@@ -1344,7 +1345,7 @@
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
-            </xsl:if>
+            </xsl:if>      
             <xsl:if test="$appLayout/@showletter!='no'">
                 <xsl:apply-templates select="." mode="numberAppendix"/>
                 <xsl:value-of select="$appLayout/@textafterletter"/>
@@ -1994,7 +1995,7 @@
             <xsl:if test="$sXLingPaperExample='XLingPaperexample'">
                 <xsl:if test="contains(@XeLaTeXSpecial,'needspace')">
                     <!-- the needspace seems to be needed to get page breaking right in some cases -->
-                    <tex:cmd name="needspace">
+                    <tex:cmd name="XLingPaperneedspace">
                         <tex:parm>
                             <xsl:call-template name="HandleXeLaTeXSpecialCommand">
                                 <xsl:with-param name="sPattern" select="'needspace='"/>
@@ -3422,7 +3423,7 @@
                     <tex:cmd name="baselineskip"/>
                 </tex:parm>
             </tex:cmd>
-            <tex:cmd name="needspace">
+            <tex:cmd name="XLingPaperneedspace">
                 <tex:parm>
                     <xsl:text>2</xsl:text>
                     <tex:cmd name="baselineskip" gr="0"/>
@@ -4152,7 +4153,7 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='before' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='before'">
-            <tex:cmd name="needspace">
+            <tex:cmd name="XLingPaperneedspace">
                 <tex:parm>
                     <xsl:text>3</xsl:text>
                     <tex:cmd name="baselineskip" gr="0"/>
@@ -4367,17 +4368,25 @@
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </xsl:if>
+        <!-- We need to do the needspace here or we get too much extra vertical space or we can strand a title 
+             at the bottom of a page. -->
+        <tex:cmd name="XLingPaperneedspace">
+            <tex:parm>
+                <xsl:text>3</xsl:text>
+                <tex:cmd name="baselineskip" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
         <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left' or $layoutInfo/@textalign='center'">
             <tex:cmd name="noindent" gr="0" nl2="1"/>
         </xsl:if>
-        <xsl:if test="ancestor::chapterInCollection and (name()='acknowledgements' or name()='abstract' or name()='preface' or name()='glossary' or name()='references')">
-            <tex:cmd name="needspace">
+        <!--<xsl:if test="ancestor::chapterInCollection and (name()='acknowledgements' or name()='abstract' or name()='preface' or name()='glossary' or name()='references')">
+            <tex:cmd name="XLingPaperneedspace">
                 <tex:parm>
                     <xsl:text>3</xsl:text>
                     <tex:cmd name="baselineskip" gr="0"/>
                 </tex:parm>
             </tex:cmd>
-        </xsl:if>
+        </xsl:if>-->
         <xsl:if test="string-length($sId) &gt; 0">
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="$sId"/>
@@ -5048,7 +5057,7 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:call-template name="DoTitleNeedsSpace"/>
+<!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoBookMark"/>
@@ -5316,7 +5325,7 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
-        <tex:cmd name="needspace">
+        <tex:cmd name="XLingPaperneedspace">
             <tex:parm>
                 <xsl:text>3</xsl:text>
                 <tex:cmd name="baselineskip" gr="0"/>
@@ -5533,7 +5542,7 @@
         DoTitleNeedsSpace
     -->
     <xsl:template name="DoTitleNeedsSpace">
-        <tex:cmd name="needspace" nl2="1">
+        <tex:cmd name="XLingPaperneedspace" nl2="1">
             <tex:parm>
                 <xsl:text>3</xsl:text>
                 <tex:cmd name="baselineskip" gr="0"/>
@@ -6380,7 +6389,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <tex:group>
-                    <xsl:call-template name="DoTitleNeedsSpace"/>
+                    <!--                    <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
                     <xsl:if test="$layoutInfo/@text-transform='uppercase' or $layoutInfo/@text-transform='lowercase'">
                         <xsl:call-template name="DoBookMark"/>
                         <xsl:call-template name="DoInternalTargetBegin">
@@ -6905,7 +6914,7 @@
             </xsl:when>
         </xsl:choose>
         <tex:group nl1="1" nl2="1">
-            <xsl:call-template name="DoTitleNeedsSpace"/>
+            <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$layoutInfo/@text-transform"/>
             <xsl:choose>
                 <xsl:when test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">

@@ -1205,34 +1205,41 @@
         <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
-                <xsl:variable name="sSpaceBetweenUnits">
-                    <xsl:value-of select="normalize-space($documentLayoutInfo/interlinearTextLayout/@spaceBetweenUnits)"/>
-                </xsl:variable>
-                <xsl:if test="string-length($sSpaceBetweenUnits) &gt; 0 and count(preceding-sibling::interlinear) &gt; 0">
-                    <tex:cmd name="vspace">
-                        <tex:parm>
-                            <xsl:value-of select="$sSpaceBetweenUnits"/>
-                        </tex:parm>
-                    </tex:cmd>
-                </xsl:if>
-                <tex:cmd name="needspace" nl2="1">
-                    <tex:parm>
-                        <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->
-                        <xsl:variable name="iFirstSetOfLines">
-                            <xsl:choose>
-                                <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                                    <xsl:value-of select="count(exampleHeading) + 2"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="count(lineGroup/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial,'pagebreak')">
+                        <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="sSpaceBetweenUnits">
+                            <xsl:value-of select="normalize-space($documentLayoutInfo/interlinearTextLayout/@spaceBetweenUnits)"/>
                         </xsl:variable>
-                        <!--                     <xsl:text>3</xsl:text>-->
-                        <xsl:value-of select="$iFirstSetOfLines"/>
-                        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
-                    </tex:parm>
-                </tex:cmd>
+                        <xsl:if test="string-length($sSpaceBetweenUnits) &gt; 0 and count(preceding-sibling::interlinear) &gt; 0">
+                            <tex:cmd name="vspace">
+                                <tex:parm>
+                                    <xsl:value-of select="$sSpaceBetweenUnits"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>
+                        <tex:cmd name="XLingPaperneedspace" nl2="1">
+                            <tex:parm>
+                                <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->
+                                <xsl:variable name="iFirstSetOfLines">
+                                    <xsl:choose>
+                                        <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                                            <xsl:value-of select="count(exampleHeading) + count(lineGroup[1]/line) + 1"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="count(lineGroup[1]/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <!--                     <xsl:text>3</xsl:text>-->
+                                <xsl:value-of select="$iFirstSetOfLines"/>
+                                <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <tex:cmd name="noindent" gr="0"/>
                 <xsl:choose>
                     <xsl:when test="$sBasicPointSize=$sLaTeXBasicPointSize">
@@ -7830,7 +7837,7 @@
         OKToBreakHere
     -->
     <xsl:template name="OKToBreakHere">
-        <tex:cmd name="needspace" nl2="1">
+        <tex:cmd name="XLingPaperneedspace" nl2="1">
             <tex:parm>
                 <xsl:text>5</xsl:text>
                 <tex:spec cat="esc"/>
@@ -9727,7 +9734,7 @@
         <!-- we need to make sure the example number stays on the same page as the table or list -->
         <xsl:choose>
             <xsl:when test="listWord or listSingle or listDefinition">
-                <tex:cmd name="needspace">
+                <tex:cmd name="XLingPaperneedspace">
                     <tex:parm>
                         <xsl:variable name="iLines" select="count(listWord | listSingle | listDefinition)"/>
                         <xsl:choose>
@@ -9751,7 +9758,7 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="table">
-                <tex:cmd name="needspace">
+                <tex:cmd name="XLingPaperneedspace">
                     <tex:parm>
                         <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)  + count(exampleHeading)"/>
                         <xsl:variable name="iLines">
@@ -9779,7 +9786,7 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="chart/ul or chart/ol">
-                <tex:cmd name="needspace">
+                <tex:cmd name="XLingPaperneedspace">
                     <tex:parm>
                         <xsl:variable name="iLines" select="count(descendant::li)"/>
                         <xsl:choose>
@@ -9796,7 +9803,7 @@
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="word/word">
-                <tex:cmd name="needspace">
+                <tex:cmd name="XLingPaperneedspace">
                     <tex:parm>
                         <xsl:variable name="iLines" select="count(descendant::word)"/>
                         <xsl:choose>
@@ -11047,9 +11054,10 @@
                 <tex:parm>attachfile2</tex:parm>
             </tex:cmd>
         </xsl:if>
-        <tex:cmd name="usepackage" nl2="1">
+        <!-- Doing this ourselves: using Needspace without the initial \par
+            <tex:cmd name="usepackage" nl2="1">
             <tex:parm>needspace</tex:parm>
-        </tex:cmd>
+        </tex:cmd>-->
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>xltxtra</tex:parm>
         </tex:cmd>
@@ -12112,6 +12120,67 @@ What might go in a TeX package file
                         <tex:spec cat="gt"/>
                     </tex:parm>
                 </tex:cmd>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperNeedSpaceMacro
+    -->
+    <xsl:template name="SetXLingPaperNeedSpaceMacro">
+        <!-- based on the Needspace macro from the needspace package 
+            #1 is the vertical space needed
+        -->
+        <tex:cmd name="newcommand" nl2="1" nl1="1">
+            <tex:parm>
+                <tex:cmd name="XLingPaperneedspace" gr="0" nl2="0"/>
+            </tex:parm>
+            <tex:opt>1</tex:opt>
+            <tex:parm>
+                <tex:cmd name="penalty" gr="0"/>
+                <xsl:text>-100</xsl:text>
+                <tex:cmd name="begingroup" gr="0" nl2="1"/>
+                <tex:cmd name="newdimen" gr="0" nl2="0">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperspaceneeded" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="newdimen" gr="0" nl1="1" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperspaceavailable" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="setlength" gr="0" nl1="0" nl2="0">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperspaceneeded" gr="0" nl2="0"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:spec cat="comment"/>
+                <tex:cmd name="XLingPaperspaceavailable" gr="0" nl1="1"/>
+                <tex:cmd name="pagegoal" gr="0"/>
+                <xsl:text>&#x20;</xsl:text>
+                <tex:cmd name="advance" gr="0"/>
+                <tex:cmd name="XLingPaperspaceavailable" gr="0"/>
+                <xsl:text>-</xsl:text>
+                <tex:cmd name="pagetotal" gr="0" nl2="1"/>
+                <tex:cmd name="ifdim" gr="0"/>
+                <xsl:text>&#x20;</xsl:text>
+                <tex:cmd name="XLingPaperspaceneeded" gr="0" nl2="0"/>
+                <tex:spec cat="gt"/>
+                <tex:cmd name="XLingPaperspaceavailable" gr="0" nl2="1"/>
+                <tex:cmd name="ifdim" gr="0"/>
+                <xsl:text>&#x20;</xsl:text>
+                <tex:cmd name="XLingPaperspaceavailable" gr="0" nl2="0"/>
+                <tex:spec cat="gt"/>
+                <xsl:text>0pt&#xa;</xsl:text>
+                <tex:cmd name="vfil" gr="0" nl2="1"/>
+                <tex:cmd name="fi" gr="0" nl2="1"/>
+                <tex:cmd name="break" gr="0" nl2="1"/>
+                <tex:cmd name="fi" gr="0"/>
+                <tex:cmd name="endgroup" gr="0"/>
             </tex:parm>
         </tex:cmd>
     </xsl:template>

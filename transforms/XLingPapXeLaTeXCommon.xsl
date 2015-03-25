@@ -2157,6 +2157,7 @@
                 <xsl:with-param name="bIsLast" select="'Y'"/>
             </xsl:call-template>
         </xsl:if>
+        <tex:spec cat="comment" nl2="1"/>
     </xsl:template>
     <!--
         col for a table

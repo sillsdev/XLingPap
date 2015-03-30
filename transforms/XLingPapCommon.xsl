@@ -832,7 +832,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="$originalContext and ancestor::interlinear-text">
+                    <xsl:when test="$originalContext and ancestor::interlinear-text and $originalContext != .">
                         <xsl:variable name="iPreviousEndnotesInCurrentInterlinearRef">
                             <xsl:variable name="iIncludingCurrentEndnote">
                                 <xsl:number level="any" count="endnote" format="1" from="interlinear[string-length(@text) &gt; 0]"/>

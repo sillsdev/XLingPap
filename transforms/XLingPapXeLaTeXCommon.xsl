@@ -141,6 +141,16 @@
     <xsl:variable name="sHangingIndentInitialIndent" select="normalize-space($pageLayoutInfo/hangingIndentInitialIndent)"/>
     <xsl:variable name="sHangingIndentNormalIndent" select="normalize-space($pageLayoutInfo/hangingIndentNormalIndent)"/>
     <xsl:variable name="sMediaObjectFontFamily" select="'Symbola'"/>
+    <xsl:variable name="sSingleSpacingCommand">
+        <xsl:choose>
+            <xsl:when test="$sBasicPointSize!=$sLaTeXBasicPointSize and $sLineSpacing and $sLineSpacing!='single'">
+                <xsl:text>XLingPapersinglespacing</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>singlespacing</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>    
     <!--
         citation (InMarker)
     -->
@@ -320,7 +330,7 @@
             <tex:parm>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                     <tex:spec cat="bg"/>
-                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
                     <tex:cmd name="vspace">
                         <tex:parm>
                             <!-- I do not know why these values are needed, but they are... -->
@@ -1889,7 +1899,7 @@
         </xsl:call-template>
         <xsl:if test="contains(@XeLaTeXSpecial,'singlespacing')">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" nl2="0"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" nl2="0"/>
             <xsl:if test="not(img or ul or ol or dl) and descendant-or-self::br and $sLineSpacing and $sLineSpacing!='single'">
                 <!-- It's mainly text that has br elements; we'll use \par for the br elements, but we also need a noindent -->
                 <tex:cmd name="noindent"/>
@@ -1955,7 +1965,7 @@
                 <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
                     <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
                         <tex:spec cat="bg"/>
-                        <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                        <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
                     </xsl:if>
                 </xsl:if>
                 <!-- Do we want this? 
@@ -2762,7 +2772,7 @@
         <tex:spec cat="bg"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:if test="preceding-sibling::p[1] or preceding-sibling::pc[1]">
             <tex:cmd name="vspace">
@@ -7918,7 +7928,7 @@
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="bg"/>
-                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
             </xsl:if>
             <tex:spec cat="bg"/>
             <xsl:call-template name="OutputFontAttributes">
@@ -9285,8 +9295,7 @@
             <xsl:when test="not(ancestor::endnote)">
                 <xsl:choose>
                     <xsl:when test="ancestor::tablenumbered and not(ancestor::table) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                        <tex:spec cat="esc"/>
-                        <xsl:text>singlespacing</xsl:text>
+                        <tex:cmd name="{$sSingleSpacingCommand}" gr="0"/>
                         <tex:cmd name="vspace*">
                             <tex:parm>
                                 <xsl:text>-</xsl:text>

@@ -155,7 +155,7 @@
         </xsl:if>
         <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="$sLink"/>

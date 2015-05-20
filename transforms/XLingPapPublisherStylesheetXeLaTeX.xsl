@@ -127,8 +127,9 @@
                     </xsl:if>
                 </tex:opt>
                 <tex:parm>
-<!--                    <xsl:text>article</xsl:text>-->
-                    <xsl:choose>   <!-- book limits PDF bookmarks to two levels, but we need book for starting on odd pages -->
+                    <!--                    <xsl:text>article</xsl:text>-->
+                    <xsl:choose>
+                        <!-- book limits PDF bookmarks to two levels, but we need book for starting on odd pages -->
                         <xsl:when test="$bHasChapter='Y'">
                             <xsl:text>book</xsl:text>
                         </xsl:when>
@@ -246,6 +247,9 @@
                     <tex:parm>fancy</tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="HandleHyphenationExceptionsFile"/>
+                <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize and $sLineSpacing and $sLineSpacing!='single'">
+                    <xsl:call-template name="SetXLingPaperSingleSpacingMacro"/>
+                </xsl:if>
                 <tex:env name="MainFont">
                     <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
                         <xsl:call-template name="HandleFontSize">
@@ -1345,7 +1349,7 @@
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
-            </xsl:if>      
+            </xsl:if>
             <xsl:if test="$appLayout/@showletter!='no'">
                 <xsl:apply-templates select="." mode="numberAppendix"/>
                 <xsl:value-of select="$appLayout/@textafterletter"/>
@@ -1794,7 +1798,8 @@
                     <xsl:when test="parent::li and count(preceding-sibling::*)=0">
                         <!-- do nothing in this case -->
                     </xsl:when>
-                    <xsl:when test="parent::abstract and parent::abstract[preceding-sibling::acknowledgements] and count(following-sibling::p | following-sibling::pc)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+                    <xsl:when
+                        test="parent::abstract and parent::abstract[preceding-sibling::acknowledgements] and count(following-sibling::p | following-sibling::pc)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                         <tex:cmd name="renewcommand">
                             <tex:parm>
                                 <tex:spec cat="esc"/>
@@ -2014,7 +2019,7 @@
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes' and not(parent::td)">
                 <!-- Note that if this example is embedded in a table, whatever line spacing the table has is used, not the line spacing for examples -->
                 <tex:spec cat="bg"/>
-                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
             </xsl:if>
             <tex:cmd name="{$sXLingPaperExample}" nl1="0" nl2="1">
                 <tex:parm>
@@ -2291,7 +2296,7 @@
     <xsl:template match="listOfFiguresShownHere">
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
             <tex:cmd name="noindent"/>
@@ -2473,7 +2478,7 @@
     <xsl:template match="listOfTablesShownHere">
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
             <tex:cmd name="noindent"/>
@@ -3688,7 +3693,7 @@
     <xsl:template name="DoChapterLabelInContents">
         <xsl:variable name="sLabel" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlabel)"/>
         <tex:spec cat="bg"/>
-        <tex:cmd name="singlespacing"/>
+        <tex:cmd name="{$sSingleSpacingCommand}"/>
         <tex:cmd name="noindent"/>
         <xsl:choose>
             <xsl:when test="string-length($sLabel)&gt;0">
@@ -3796,7 +3801,7 @@
         </xsl:choose>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="DoFrontMatterContentsPerLayout">
             <xsl:with-param name="frontMatter" select=".."/>
@@ -4024,7 +4029,7 @@
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <xsl:choose>
                 <xsl:when test="$lineSpacing/@singlespaceendnotes='yes'">
-                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
                 </xsl:when>
                 <xsl:when test="$sLineSpacing='double'">
                     <tex:cmd name="doublespacing" gr="0" nl2="1"/>
@@ -4758,7 +4763,7 @@
         <!-- now process the contents of this index -->
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceindexes='yes'">
             <tex:spec cat="bg"/>
-            <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:variable name="defaultFontSize" select="normalize-space($backMatterLayoutInfo/indexLayout/@defaultfontize)"/>
         <xsl:if test="string-length($defaultFontSize) &gt; 0">
@@ -4904,7 +4909,7 @@
             </xsl:call-template>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
                 <tex:spec cat="bg"/>
-                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
             </xsl:if>
             <tex:cmd name="raggedright" gr="0" nl2="1"/>
             <!--            <xsl:for-each select="$authors">
@@ -5057,7 +5062,7 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-<!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
+            <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoBookMark"/>
@@ -5943,7 +5948,7 @@
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="$lineSpacing/@singlespacetables='yes'">
-                    <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                    <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
                 </xsl:when>
                 <xsl:when test="$sLineSpacing='double'">
                     <tex:cmd name="doublespacing" gr="0" nl2="1"/>
@@ -6548,7 +6553,7 @@
         <xsl:if test="$bDoStyles='Y'">
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
                 <tex:spec cat="bg"/>
-                <tex:cmd name="singlespacing" gr="0" nl2="1"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
             </xsl:if>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$styleSheetFigureLabelLayout"/>
@@ -7704,6 +7709,24 @@
                 <tex:spec cat="comment" nl2="1"/>
                 <tex:cmd name="fi" gr="0"/>
             </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperSingelSpacingMacro
+    -->
+    <xsl:template name="SetXLingPaperSingleSpacingMacro">
+        <tex:cmd name="def">
+            <tex:cmd name="XLingPapersinglespacing">
+                <tex:parm>
+                    <tex:cmd name="singlespacing" gr="0"/>
+                    <xsl:call-template name="HandleFontSize">
+                        <xsl:with-param name="sSize">
+                            <xsl:value-of select="$sBasicPointSize"/>
+                            <xsl:text>pt</xsl:text>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
         </tex:cmd>
     </xsl:template>
     <!-- ===========================================================

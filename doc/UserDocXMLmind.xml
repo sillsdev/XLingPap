@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->2 February 2015</date
+>11 May 2015</date
 ><version
 >2.26.6</version
 ><contents
@@ -18407,7 +18407,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->The media file to use.</langData
+>The media file to use.  Please use just a-z/A-Z letters and numbers; in particular, using an underscore may cause the media file to not appear in the default PDF output.</langData
 ></td
 ></tr
 ></table

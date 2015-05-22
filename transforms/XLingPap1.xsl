@@ -59,6 +59,11 @@
             <xsl:apply-templates/>
         </span>
     </xsl:template>
+    <xsl:template match="title[ancestor::chapterInCollection]" mode="showChapterInCollectionTitleContents">
+        <span>
+            <xsl:apply-templates mode="contents"/>
+        </span>
+    </xsl:template>
     <xsl:template match="title[ancestor::chapterInCollection]">
         <!-- do nothing -->
     </xsl:template>
@@ -285,10 +290,10 @@
                                 <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                 <xsl:choose>
                                     <xsl:when test="name()='chapterInCollection'">
-                                        <xsl:apply-templates select="frontMatter/title" mode="showChapterInCollectionTitle"/>
+                                        <xsl:apply-templates select="frontMatter/title" mode="showChapterInCollectionTitleContents"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:apply-templates select="secTitle"/>
+                                        <xsl:apply-templates select="secTitle" mode="contents"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:element>
@@ -659,6 +664,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="fSecTitleApplyTemplates" select="'Y'"/>
         </xsl:call-template>
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
     </xsl:template>
@@ -721,6 +727,7 @@
                     <xsl:with-param name="sTitle">
                         <xsl:apply-templates select="secTitle"/>
                     </xsl:with-param>
+                    <xsl:with-param name="fSecTitleApplyTemplates" select="'Y'"/>
                 </xsl:call-template>
                 <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
             </xsl:when>
@@ -739,7 +746,7 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="secTitle" mode="contents">
-        <xsl:apply-templates select="child::node()[name()!='endnote']"/>
+        <xsl:apply-templates select="child::node()[name()!='endnote']" mode="contents"/>
     </xsl:template>
     <!--
         sectionRef
@@ -4561,7 +4568,7 @@
                 </xsl:if>
                 <xsl:apply-templates select="." mode="numberAppendix"/>
                 <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                <xsl:apply-templates select="secTitle"/>
+                <xsl:apply-templates select="secTitle" mode="contents"/>
             </xsl:element>
             <xsl:choose>
                 <xsl:when test="section1">
@@ -4656,6 +4663,7 @@
     <xsl:template name="OutputChapTitle">
         <xsl:param name="sNumber"/>
         <xsl:param name="sTitle"/>
+        <xsl:param name="fSecTitleApplyTemplates" select="'N'"/>
         <p>
             <xsl:attribute name="style">
                 <xsl:call-template name="DoType"/>
@@ -4671,7 +4679,20 @@
                                 <xsl:value-of select="$sNumber"/>
                                 <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                             </xsl:if>
-                            <xsl:value-of select="$sTitle"/>
+                            <xsl:choose>
+                                <xsl:when test="$fSecTitleApplyTemplates ='Y' and ancestor-or-self::chapter">
+                                    <xsl:apply-templates select="secTitle"/>        
+                                </xsl:when>
+                                <xsl:when test="$fSecTitleApplyTemplates ='Y' and ancestor-or-self::appendix">
+                                    <xsl:apply-templates select="secTitle"/>        
+                                </xsl:when>
+                                <xsl:when test="$fSecTitleApplyTemplates ='Y' and ancestor-or-self::chapterInCollection">
+                                    <xsl:apply-templates select="frontMatter/title" mode="showChapterInCollectionTitle"/>        
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$sTitle"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </b>
                     </big>
                 </big>
@@ -5214,7 +5235,7 @@
                         <xsl:apply-templates select="frontMatter/title" mode="showChapterInCollectionTitle"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="secTitle"/>
+                        <xsl:apply-templates select="secTitle" mode="contents"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:element>

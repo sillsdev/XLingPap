@@ -1042,7 +1042,7 @@
                         </fo:block>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates select="child::node()[name()!='secTitle']">
+                <xsl:apply-templates select="child::node()[name()!='secTitle' and name()!='shortTitle']">
                     <xsl:with-param name="frontMatterLayout" select="$bodyLayoutInfo/chapterInCollectionFrontMatterLayout"/>
                     <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
                 </xsl:apply-templates>
@@ -1121,7 +1121,7 @@
       secTitle
       -->
     <xsl:template match="secTitle" mode="InMarker">
-        <xsl:apply-templates select="child::node()[name()!='endnote']"/>
+        <xsl:apply-templates select="child::node()[name()!='endnote']" mode="contents"/>
     </xsl:template>
     <xsl:template match="secTitle">
         <xsl:apply-templates/>
@@ -3490,7 +3490,7 @@ not using
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="referencedInterlinearTexts"/>
-    <!--    <xsl:template match="shortTitle"/>-->
+<!--    <xsl:template match="shortTitle"/>-->
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -4714,7 +4714,7 @@ not using
                             <xsl:when test="name()='paperTitle'">
                                 <xsl:choose>
                                     <xsl:when test="string-length(normalize-space(//frontMatter/shortTitle)) &gt; 0">
-                                        <xsl:apply-templates select="//frontMatter/shortTitle"/>
+                                        <xsl:apply-templates select="//frontMatter/shortTitle" mode="InMarker"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <!--                              <xsl:apply-templates select="//frontMatter//title/child::node()[name()!='endnote']" mode="contentOnly"/>-->
@@ -6257,7 +6257,7 @@ not using
                 <xsl:call-template name="OutputChapterNumber">
                     <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="secTitle"/>
+                <xsl:apply-templates select="secTitle" mode="contents"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>

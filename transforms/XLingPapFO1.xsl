@@ -569,7 +569,7 @@
         </fo:block>
     </xsl:template>
     <xsl:template match="title" mode="contents">
-        <xsl:apply-templates select="*[not(descendant::endnote)] | text()"/>
+        <xsl:apply-templates select="*[not(descendant::endnote)] | text()" mode="contents"/>
     </xsl:template>
     <!--
       subtitle
@@ -1003,7 +1003,7 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="secTitle" mode="contents">
-        <xsl:apply-templates select="*[not(descendant::endnote)] | text()"/>
+        <xsl:apply-templates select="*[not(descendant::endnote)] | text()" mode="contents"/>
     </xsl:template>
     <!--
       sectionRef
@@ -4466,7 +4466,7 @@ not using
                 <xsl:apply-templates select="following-sibling::shortTitle"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote'] | frontmatter/title/child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote'] | frontmatter/title/child::node()[name()!='endnote']" mode="contents"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -5593,7 +5593,7 @@ not using
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bInContents='Y'">
-                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']"/>
+                <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']" mode="contents"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle"/>

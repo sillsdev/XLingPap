@@ -6308,7 +6308,7 @@
                 <xsl:call-template name="OutputChapterNumber">
                     <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="secTitle"/>
+                <xsl:apply-templates select="secTitle" mode="contents"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>

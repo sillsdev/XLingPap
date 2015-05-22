@@ -73,7 +73,7 @@
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                     </xsl:call-template>
-                    <xsl:apply-templates select="secTitle"/>
+                    <xsl:apply-templates select="secTitle" mode="contents"/>
                 </xsl:with-param>
                 <xsl:with-param name="sSpaceBefore">
                     <xsl:call-template name="DoSpaceBeforeContentsLine"/>
@@ -114,7 +114,7 @@
                 <xsl:if test="string-length($sChapterLineIndent)&gt;0">
                     <xsl:call-template name="AddWordSpace"/>
                 </xsl:if>
-                <xsl:apply-templates select="secTitle"/>
+                <xsl:apply-templates select="secTitle" mode="contents"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
@@ -143,6 +143,7 @@
                 </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:apply-templates select="shortTitle" mode="contents"/>
         <xsl:if test="$nLevel!=0">
             <xsl:apply-templates select="section1 | section2" mode="contents">
                 <!--            <xsl:with-param name="nLevel" select="$nLevel"/>-->
@@ -170,7 +171,7 @@
                 <xsl:if test="string-length($sChapterLineIndent)&gt;0">
                     <xsl:call-template name="AddWordSpace"/>
                 </xsl:if>
-                <xsl:apply-templates select="frontMatter/title" mode="content-only"/>
+                <xsl:apply-templates select="frontMatter/title" mode="contents"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
@@ -213,7 +214,7 @@
                 <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
             </xsl:call-template>
         </xsl:if>
-    </xsl:template>
+    </xsl:template>    
     <!--
       endnotes (contents)
    -->
@@ -406,6 +407,10 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
         </xsl:call-template>
     </xsl:template>
+    <!-- 
+        shortTitle (contents) 
+    -->
+    <xsl:template match="shortTitle" mode="contents"/>
     <!-- 
       DoSpaceBeforeContentsLine
    -->

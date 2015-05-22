@@ -4920,11 +4920,15 @@
 -->
     <xsl:template name="OutputSectionNumberAndTitle">
         <xsl:param name="bIsBookmark" select="'N'"/>
+        <xsl:param name="bIsContents" select="'N'"/>
         <xsl:call-template name="OutputSectionNumber"/>
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bIsBookmark='Y'">
                 <xsl:apply-templates select="secTitle/text() | secTitle/*[name()!='comment'] | frontMatter/title/text() | frontMatter/title/*[name()!='comment']" mode="bookmarks"/>
+            </xsl:when>
+            <xsl:when test="$bIsContents='Y'">
+                <xsl:apply-templates select="secTitle | frontMatter/title" mode="contents"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle | frontMatter/title"/>
@@ -4975,7 +4979,7 @@
                     <xsl:with-param name="sLabel">
                         <xsl:call-template name="OutputChapterNumber"/>
                         <xsl:text>&#xa0;</xsl:text>
-                        <xsl:apply-templates select="secTitle"/>
+                        <xsl:apply-templates select="secTitle" mode="contents"/>
                     </xsl:with-param>
                     <xsl:with-param name="sIndent">
                         <tex:cmd name="leveloneindent" gr="0" nl2="0"/>
@@ -4991,7 +4995,7 @@
                     <xsl:with-param name="sLabel">
                         <xsl:call-template name="OutputChapterNumber"/>
                         <xsl:text>&#xa0;</xsl:text>
-                        <xsl:apply-templates select="secTitle | frontMatter/title"/>
+                        <xsl:apply-templates select="secTitle | frontMatter/title" mode="contents"/>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:otherwise>
@@ -5247,7 +5251,10 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputSectionNumberAndTitle"/>
+                <xsl:call-template name="OutputSectionNumberAndTitle">
+                    <xsl:with-param name="bIsContents" select="'Y'"/>
+                    <!-- to avoid line breaks via br elements -->
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent">
                 <tex:cmd name="{$sLevelName}indent" gr="0" nl2="0"/>

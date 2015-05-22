@@ -112,6 +112,30 @@
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="sAuthorNamesWordForAnd" select="$lingPaper/references/@authorNamesWordForAnd"/>
+    <!-- 
+        appendixRef (contents) 
+    -->
+    <xsl:template match="appendixRef" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <!-- 
+        br (bookmarks) 
+    -->
+    <xsl:template match="br" mode="bookmarks">
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!-- 
+        br (contents) 
+    -->
+    <xsl:template match="br" mode="contents">
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!-- 
+        br (InMarker) 
+    -->
+    <xsl:template match="br" mode="InMarker">
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
     <!--
         comment
     -->
@@ -134,10 +158,55 @@
         <xsl:number from="table[descendant::counter]" level="any"/>
         <xsl:text>.</xsl:text>
     </xsl:template>
-    <!--
+    <!-- 
+        comment (contents) 
+    -->
+    <xsl:template match="comment" mode="contents"/>
+    <!-- 
+        endnote (contents) 
+    -->
+    <xsl:template match="endnote" mode="contents"/>
+    <xsl:template match="endnoteRef" mode="contents"/>
+    <!-- 
+        exampleRef (contents) 
+    -->
+    <xsl:template match="exampleRef" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <!-- 
+        genericRef (contents) 
+    -->
+    <xsl:template match="genericRef" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <!-- 
+        gloss (contents) 
+    -->
+    <xsl:template match="gloss" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+        <!--
         keyword
     -->
     <xsl:template match="keyword"/>
+    <!-- 
+        langData (contents) 
+    -->
+    <xsl:template match="langData" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <!-- 
+        object (contents) 
+    -->
+    <xsl:template match="object" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <!-- 
+        sectionRef (contents) 
+    -->
+    <xsl:template match="sectionRef" mode="contents">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
     <!--
         annotatedBibliographyType
     -->

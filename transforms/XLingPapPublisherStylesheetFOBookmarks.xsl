@@ -66,7 +66,7 @@
          <fo:bookmark-title>
             <xsl:call-template name="OutputChapterNumber"/>
             <xsl:text>&#xa0;</xsl:text>
-            <xsl:apply-templates select="frontMatter/title"/>
+            <xsl:apply-templates select="frontMatter/title" mode="bookmarks"/>
          </fo:bookmark-title>
          <xsl:call-template name="DoFrontMatterBookmarksPerLayout">
             <xsl:with-param name="frontMatter" select="frontMatter"/>

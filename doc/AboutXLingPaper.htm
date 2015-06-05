@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.26.7</span></p>
-      <p align="center">Date: 2015-05-22</p>
+      <p align="center">Date: 2015-06-05</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,13 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.26.7 22 May 2015
+               <li>2.26.7 5 June 2015
                   <ul>
                      <li>Allow br elements in appendix, chapter, part, and section titles but not in table of contents (i.e., remove them from table
-                        of contents.
+                        of contents).
                      </li>
+                     <li>Allow abbrRef elements wherever "embedded" elements can go, not just in the limited places allowed before.</li>
+                     <li>Insert section 6.1.4 in the user documentation on how to create a table with its own footnotes.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Undo "Enable PDF bookmarks for book documents to show three levels (and not just two)" from 2.26.2: it broke starting on odd

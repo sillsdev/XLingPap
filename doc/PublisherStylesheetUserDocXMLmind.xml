@@ -14,11 +14,11 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><emailAddress
->andy_black@sil.org</emailAddress
+>support@xlingpaper.org</emailAddress
 ><date
->7 January 2015</date
+>5 June 2015</date
 ><version
->2.26.5</version
+>2.26.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -8786,7 +8786,7 @@ id="sInterlinearText"
 ><indexedItem
 term="iInterlinearText"
 ></indexedItem
->Sometimes one wants to control the vertical spacing between interlinear items in an interlinear text.  Use the <object
+>Sometimes one wants to control the vertical spacing between interlinear items in an interlinear text. Use the <object
 type="tElement"
 >interlinearTextLayout</object
 > element.</p

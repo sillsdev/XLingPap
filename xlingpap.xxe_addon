@@ -40,6 +40,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >Insert section 6.1.4 in the user documentation on how to create a table with its own footnotes.</li
 ><li
+>Change documentation to use support@xlingpaper.org email address.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Undo "Enable PDF bookmarks for book documents to show three levels (and not just two)" from 2.26.2: it broke starting on odd pages.</li

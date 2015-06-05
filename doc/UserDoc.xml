@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
-> January 2015</date
+>5 June 2015</date
 ><version
->2.26.5</version
+>2.26.7</version
 ><contents
 showLevel="3"
 ></contents
@@ -4478,8 +4478,8 @@ type="tHtmlOutput"
 id="nLocationOfInterlinearSource"
 ><p
 >If you want to know how to manually change the setting, please contact <link
-href="mailto:andy_black@sil.org"
->Andy Black</link
+href="mailto:support@xlingpaper.org"
+>support@xlingpaper.org</link
 >.</p
 ></endnote
 ></li
@@ -8066,8 +8066,8 @@ type="tXLingPap"
 id="nFLExTextExport"
 ><p
 >The ability to export an interlinear text as a text (and not only as a series of examples) should be available in the October 2007 version. If you need it sooner, please contact <link
-href="mailto:andy_black@sil.org"
->Andy Black</link
+href="mailto:support@xlingpaper.org"
+>support@xlingpaper.org</link
 >.</p
 ></endnote
 > One can then merely copy and paste the resulting text into an <object

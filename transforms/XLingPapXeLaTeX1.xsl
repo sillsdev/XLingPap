@@ -2386,10 +2386,6 @@
     <xsl:template mode="endnote" match="endnote[parent::author]">
         <xsl:variable name="iAuthorPosition" select="count(ancestor::author/preceding-sibling::author[endnote]) + 1"/>
         <xsl:value-of select="$iAuthorPosition"/>
-        <!--        <xsl:call-template name="OutputAuthorFootnoteSymbol">
-            <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
-        </xsl:call-template>
--->
     </xsl:template>
     <!--  
         figure

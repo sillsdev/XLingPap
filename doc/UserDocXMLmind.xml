@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >andy_black@sil.org</emailAddress
 ><date
->11 May 2015</date
+>1 June 2015</date
 ><version
->2.26.6</version
+>2.26.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -4125,6 +4125,9 @@ type="tElement"
 >, <object
 type="tElement"
 >indexedRangeEnd</object
+>, <object
+type="tElement"
+>abbrRef</object
 >, and <object
 type="tElement"
 >mediaObject</object
@@ -6436,32 +6439,9 @@ id="sBMAbbreviationsReferencesManual"
 ><secTitle
 >Manual Method</secTitle
 ><p
->The first way to create references to abbreviations is to do it by hand. In an example with glosses, perform an insert operation<endnoteRef
+>The first way to create references to abbreviations is to do it by hand. Perform an insert operation<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
-> within a <object
-type="tElement"
->gloss</object
-> or a <object
-type="tElement"
->wrd</object
-> element<endnote
-id="nItemGls"
-><p
-><indexedItem
-term="iInterlinearMorphemeAligned"
-></indexedItem
->You can also do this in <object
-type="tElement"
->item</object
-> elements within a morpheme-aligned interlinear when the <object
-type="tAttribute"
->type</object
-> attribute is set to <object
-type="tAttrValue"
->gls</object
->.</p
-></endnote
 > and select <object
 type="tElement"
 >abbrRef</object
@@ -6503,9 +6483,23 @@ id="sBMAbbreviationsReferencesAutomatic"
 >The second way to create references to abbreviations is probably much more convenient. When you are entering abbreviations in a <object
 type="tElement"
 >gloss</object
-> element,<endnoteRef
-note="nItemGls"
-></endnoteRef
+> element,<endnote
+id="nItemGls"
+><p
+><indexedItem
+term="iInterlinearMorphemeAligned"
+></indexedItem
+>You can also do this in <object
+type="tElement"
+>item</object
+> elements within a morpheme-aligned interlinear when the <object
+type="tAttribute"
+>type</object
+> attribute is set to <object
+type="tAttrValue"
+>gls</object
+>.</p
+></endnote
 > there is a potentially easier way to insert these <object
 type="tElement"
 >abbrRef</object
@@ -18407,7 +18401,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->The media file to use.  Please use just a-z/A-Z letters and numbers; in particular, using an underscore may cause the media file to not appear in the default PDF output.</langData
+>The media file to use. Please use just a-z/A-Z letters and numbers; in particular, using an underscore may cause the media file to not appear in the default PDF output.</langData
 ></td
 ></tr
 ></table

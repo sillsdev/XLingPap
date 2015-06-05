@@ -13,7 +13,7 @@
 
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
-    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject">
+    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject | abbrRef">
 <!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text | hangingIndent | annotationRef">
 
 <!ENTITY % XLingPapPublisherStyleSheet SYSTEM  "XLingPapPublisherStylesheet.dtd">
@@ -523,7 +523,7 @@
 >
 <!ELEMENT lineGroup (line | conflatedLine)+>
 <!ELEMENT line ((langData | gloss)+ | wrd+)>
-<!ELEMENT wrd (#PCDATA | %embedded; | abbrRef)*>
+<!ELEMENT wrd (#PCDATA | %embedded;)*>
 <!ATTLIST wrd
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
@@ -562,7 +562,7 @@
     Augmented by morphset so we can get XMLmind to show it as a table.
     Also changed word to iword (for interlinear word).
     -->
-<!ELEMENT item (#PCDATA | %embedded; | abbrRef)*>
+<!ELEMENT item (#PCDATA | %embedded;)*>
 <!ATTLIST item
     type (cf | gls | hn | msa | pos | punct | title | txt | note | variantTypes) #REQUIRED
     lang IDREF #REQUIRED
@@ -807,7 +807,7 @@
     textbefore CDATA #IMPLIED
 >
 <!-- gloss is a way to tag some text as being a gloss in a particular language. -->
-<!ELEMENT gloss (#PCDATA | %embedded; | abbrRef)*>
+<!ELEMENT gloss (#PCDATA | %embedded;)*>
 <!ATTLIST gloss
     externalID CDATA #IMPLIED
     lang IDREF #REQUIRED
@@ -838,7 +838,7 @@
            after means show the li number/letter after the content of the genricRef
            only means show the li number/letter but do not show the content of the genericRef
 -->
-<!ELEMENT genericRef (#PCDATA | %embedded; | abbrRef)*>
+<!ELEMENT genericRef (#PCDATA | %embedded;)*>
 <!ATTLIST genericRef
     gref IDREF #REQUIRED
     showlivalue (no | before | after | only) "no"

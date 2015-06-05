@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-05-22</a:date
+>2015-06-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.26.7 22 May 2015<ul
+>2.26.7 1 June 2015<ul
 ><li
->Allow br elements in appendix, chapter, part, and section titles but not in table of contents (i.e., remove them from table of contents.</li
+>Allow br elements in appendix, chapter, part, and section titles but not in table of contents (i.e., remove them from table of contents).</li
+><li
+>Allow abbrRef elements wherever "embedded" elements can go, not just in the limited places allowed before.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

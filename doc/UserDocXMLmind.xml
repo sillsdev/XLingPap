@@ -12435,17 +12435,17 @@ id="sTCTFootnotesInTables"
 ><secTitle
 >Footnotes in Tables</secTitle
 ><p
->You can have footnotes in tables.  <object
+>You can have footnotes in tables. <object
 type="tXLingPap"
 ></object
 >'s default behavior is to show the footnotes in the table just like it does footnotes/endnotes in prose.</p
 ><p
->There are times, however, when you might need to have any footnotes in a given table show at the bottom of that table, not in the default location for general footnotes/endnotes.  In such cases, the norm is not to use footnote numbers but rather a sequence of symbols such as an asterisk (*), a dagger (†), a double dagger (‡), a section symbol (§), and a paragraph symbol (¶).  That is, the requirement is for the footnotes to stay with the table wherever that table appears and the footnote numbering is totally independent of the main footnote numbering elsewhere in the paper.  How does one accomplish this with <object
+>There are times, however, when you might need to have any footnotes in a given table show at the bottom of that table, not in the default location for general footnotes/endnotes. In such cases, the norm is not to use footnote numbers but rather a sequence of symbols such as an asterisk (*), a dagger (†), a double dagger (‡), a section symbol (§), and a paragraph symbol (¶). That is, the requirement is for the footnotes to stay with the table wherever that table appears and the footnote numbering is totally independent of the main footnote numbering elsewhere in the paper. How does one accomplish this with <object
 type="tXLingPap"
 ></object
 >?</p
 ><p
->The basic solution is to create a table that has the footnote material embedded in it by hand.  Here are some suggestions on how to do that.</p
+>The basic solution is to create a table that has the footnote material embedded in it by hand. Here are some suggestions on how to do that.</p
 ><ol
 ><li
 >Create two custom <object
@@ -12462,7 +12462,7 @@ type="tElement"
 > element <object
 type="tAttrValue"
 >tFootnoteSymbolInTable</object
-> is for the symbols.  I suggest you make a copy of the <object
+> is for the symbols. I suggest you make a copy of the <object
 type="tAttrValue"
 >tSuperscript</object
 > <object
@@ -12471,7 +12471,7 @@ type="tElement"
 > element that comes with <object
 type="tXLingPap"
 ></object
-> and modify it to your liking/requirements.  For example, it may be best to remove the <object
+> and modify it to your liking/requirements. For example, it may be best to remove the <object
 type="tAttribute"
 >font-size</object
 > attribute or to change its value so that the symbols are not too small.</li
@@ -12485,10 +12485,10 @@ type="tAttrValue"
 > is used on the cells (i.e., <object
 type="tElement"
 >td</object
-> elements) containing the body of the footnote.  Set the <object
+> elements) containing the body of the footnote. Set the <object
 type="tAttribute"
 >font-size</object
-> attribute to the size you need the footnote body to be in.  In some cases, this should be the same as regular footnotes; in other cases, it can be the same as the text in the table.</li
+> attribute to the size you need the footnote body to be in. In some cases, this should be the same as regular footnotes; in other cases, it can be the same as the text in the table.</li
 ></ol
 ></li
 ><li
@@ -12501,25 +12501,38 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >tFootnoteSymbolInTable</object
->.  Within this <object
+>. Within this <object
 type="tElement"
 >object</object
-> element, insert the symbol you need for this footnote.  In some cases, the same footnote body applies to multiple places in the body of the table.  Just repeat the same symbol for each of these (see <link
+> element, insert the symbol you need for this footnote. In some cases, the same footnote body applies to multiple places in the body of the table. Just repeat the same symbol for each of these (see <link
 href="http://www.press.uchicago.edu/dms/ucp/journals/jrnl-images/tbl_fg4.gif"
 >http://www.press.uchicago.edu/dms/ucp/journals/jrnl-images/tbl_fg4.gif</link
-> for an example; note the multiple uses of the single asterisk and the double asterisk; accessed on 5 June, 2015). </li
+> for an example; note the multiple uses of the single asterisk and the double asterisk; accessed on 5 June, 2015).</li
 ><li
->Add an extra row at the bottom of the table for each footnote body you need.  See section <sectionRef
+>Add an extra row at the bottom of the table for each footnote body you need. See section <sectionRef
 sec="sIncreaseTableSize"
 ></sectionRef
-> for a way to quickly do this.</li
+> for a way to quickly do this.  (Another hint if you have several footnotes: add one extra row, do the steps in 4 below for the first footnote body, and then increase the table size for the remaining footnotes.  This will automatically copy the information you did in step 4 for all the new footnote rows.)</li
 ><li
 >For each row which will contain a footnote body, do this:<ol
 ><li
->Set the column span of the leftmost cell of this row to span all the columns of the table.  See section <sectionRef
+>Set the column span of the leftmost cell of this row to span all the columns of the table. See section <sectionRef
 sec="sTCTTables"
 ></sectionRef
 >.</li
+><li
+>Click on “tr” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+></li
+><li
+>Set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute to <object
+type="tAttrValue"
+>row-separation='-2pt'</object
+>, where “-2pt” is the difference in font size between the regular font size (used in the table body) and the footnote size.  If the two are the same size, then skip this step.</li
 ><li
 >Click on “td” in the node path bar.<endnoteRef
 note="nNodePathBarReminder"
@@ -12529,7 +12542,7 @@ note="nNodePathBarReminder"
 >Set the <object
 type="tAttribute"
 >width</object
-> attribute to be the width of the table.  See the first bullet point of section <sectionRef
+> attribute to be the width of the table. See the first bullet point of section <sectionRef
 sec="sXeTeXLimitations"
 ></sectionRef
 > for some tools that can possibly make it easier to figure out the width value to use.</li
@@ -12559,7 +12572,7 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >tFootnoteSymbolInTable</object
->.  Within this <object
+>. Within this <object
 type="tElement"
 >object</object
 > element, insert the symbol you need for this footnote.</li
@@ -12574,7 +12587,7 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >table</object
-> empty. For Word and webpage, one sets it to "1".  (See footnote <endnoteRef
+> empty. For Word and webpage, one sets it to "1". (See footnote <endnoteRef
 note="nControllingTableBorderLines"
 ></endnoteRef
 > for a partial discussion on this difference.)</li
@@ -12582,7 +12595,7 @@ note="nControllingTableBorderLines"
 >For the default PDF output, since there are no border lines, we use some <object
 type="tAttribute"
 >XeLaTeXSpecial</object
-> attribute values to get the horizontal lines to show in the right places.  We want a line before the header, a line before the first row in the table proper (i.e., after the header), and a line after the last row in the table proper (i.e., the row before the first footnote).  Do this:<ol
+> attribute values to get the horizontal lines to show in the right places. We want a line before the header, a line before the first row in the table proper (i.e., after the header), and a line after the last row in the table proper (i.e., the row before the first footnote). Do this:<ol
 ><li
 >Click in the first row of the header (if there's only one header row, click in it).</li
 ><li

@@ -1548,6 +1548,7 @@
             <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
         </xsl:call-template>
     </xsl:template>
+    <xsl:template match="free[string-length(normalize-space(.))=0]"/>
     <!--
         literal
     -->

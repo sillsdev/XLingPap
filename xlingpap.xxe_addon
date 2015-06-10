@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.0</a:version
+>2.27.1</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-06-08</a:date
+>2015-06-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.27.1 10 June 2015<ul
+><li
+>Add a missing collection pattern to the SIL-UNDThesisReferencesStylesheet.xml file.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: an empty free element would cause the PDF to fail to be produced.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.27.0 8 June 2015<ul
 ><li
@@ -54,7 +66,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Make Set Reference for exampleRef elements show only examples within a framedUnit when the exampleRef is in a framedUnit. Conversely, Set Reference for exampleRef elements outside of a framedUnit do not show any examples within a framedUnit.</li
 ><li
->Add a command ShowExampleNumberAndIds which when run on an exampleRef element will show projected example numbers as well as the example iDs.</li
+>Add a command ShowExampleNumberAndIds which when run on an exampleRef element will show projected example numbers as well as the example IDs.</li
 ><li
 >Add defaultGlossLanguage and defaultVernacularLanguage attributes to lingPaper element.</li
 ><li
@@ -98,15 +110,13 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug: within a definition element, if one changed font family, the scope of that font family continued on when it should not have. Ths also happened in an endnote within an example.</li
 ><li
->Enable PDF bookmarks for book documents to show three levels (and not just two).</li
-><li
 >Fix bug: a free translation could show up on top of the final line of a lineGroup when in an interlinear example, no heading, and there was another lineGroup before it.</li
 ><li
 >Fix bug: within a definition element, if one changed font family, the scope of that font family continued on when it should not have. Ths also happened in an endnote within an example.</li
 ><li
 >Fix bug: when using an index along with content control, the text from the content control names was showing up at the end of the index.</li
 ><li
->Fix bug: some listInterlinears with an interlinearSource did not align the source infromation at the right edge correctly when the source came after the free.</li
+>Fix bug: some listInterlinears with an interlinearSource did not align the source information at the right edge correctly when the source came after the free.</li
 ><li
 >Fix bug: the PDF would fail to be produced if one said the document was in a particular language.</li
 ><li

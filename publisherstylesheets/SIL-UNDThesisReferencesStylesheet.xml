@@ -862,6 +862,27 @@ textafter=". "
 ><refTitleItem
 textafter=".  "
 ></refTitleItem
+><collEdItem
+appendEdAbbreviation="no"
+textafter=", "
+textbefore="In "
+></collEdItem
+><collTitleItem
+font-style="italic"
+textafter=", "
+></collTitleItem
+><collPagesItem
+textafter=". "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
 ><collTitleItem
 font-style="italic"
 textafter=", "

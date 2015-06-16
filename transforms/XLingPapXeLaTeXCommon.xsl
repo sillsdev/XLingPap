@@ -8189,7 +8189,7 @@
         -->
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0 and $ignoreFontFamily='N'">
-            <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote">
+            <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote or ancestor::interlinear-text and ancestor::endnote">
                 <tex:spec cat="bg"/>
             </xsl:if>
             <xsl:call-template name="HandleFontFamily">
@@ -8422,7 +8422,7 @@
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:if test="string-length($sFontFamily) &gt; 0 and $ignoreFontFamily='N'">
             <tex:spec cat="eg"/>
-            <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote">
+            <xsl:if test="ancestor::definition or ancestor::example and ancestor::endnote or ancestor::interlinear-text and ancestor::endnote">
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>

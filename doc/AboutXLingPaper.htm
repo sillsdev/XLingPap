@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.27.1</span></p>
-      <p align="center">Date: 2015-06-10</p>
+      <p align="center">Date: 2015-06-16</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,12 +34,15 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.27.1 10 June 2015
+               <li>2.27.1 16 June 2015
                   <ul>
                      <li>Add a missing collection pattern to the SIL-UNDThesisReferencesStylesheet.xml file.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: an empty free element would cause the PDF to fail to be produced.</li>
+                           <li>Fix bug: in an endnote embedded in an interlinear-text, the use of a gloss element whose language element had a font-family
+                              could cause the rest of the endnote to be formatted using that gloss' font-family.
+                           </li>
                         </ul>
                      </li>
                   </ul>

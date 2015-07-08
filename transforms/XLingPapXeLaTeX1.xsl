@@ -1193,7 +1193,16 @@
                 </xsl:if>
                 <xsl:if test="ancestor::li">
                     <!-- we're in a list, so we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
-                    <tex:cmd name="par"/>
+                    <xsl:choose>
+                        <xsl:when test="ancestor::table">
+                            <!-- cannot use \par here; have to use \\ -->
+                            <tex:spec cat="esc"/>
+                            <tex:spec cat="esc"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:cmd name="par"/>        
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
                 <xsl:if test="following-sibling::*[1][name()='blockquote']">
                     <xsl:if test="not(ancestor::td)">

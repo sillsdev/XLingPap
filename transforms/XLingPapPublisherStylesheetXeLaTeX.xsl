@@ -1654,7 +1654,16 @@
                 </xsl:if>
                 <xsl:if test="ancestor::li">
                     <!-- we're in a list, so we need to be sure we have a \par to force the preceding material to use the \leftskip and \parindent of a p in a footnote -->
-                    <tex:cmd name="par"/>
+                    <xsl:choose>
+                        <xsl:when test="ancestor::table">
+                            <!-- cannot use \par here; have to use \\ -->
+                            <tex:spec cat="esc"/>
+                            <tex:spec cat="esc"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:cmd name="par"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="parent::endnote and name()='p' and preceding-sibling::table[1]">
@@ -2019,7 +2028,9 @@
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceexamples='yes' and not(parent::td)">
                 <!-- Note that if this example is embedded in a table, whatever line spacing the table has is used, not the line spacing for examples -->
                 <tex:spec cat="bg"/>
-                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+                <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                    <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+                </xsl:if>
             </xsl:if>
             <tex:cmd name="{$sXLingPaperExample}" nl1="0" nl2="1">
                 <tex:parm>
@@ -4373,14 +4384,16 @@
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </xsl:if>
-        <!-- We need to do the needspace here or we get too much extra vertical space or we can strand a title 
+        <xsl:if test="not($layoutInfo/../@beginsparagraph='yes')">
+            <!-- We need to do the needspace here or we get too much extra vertical space or we can strand a title 
              at the bottom of a page. -->
-        <tex:cmd name="XLingPaperneedspace">
-            <tex:parm>
-                <xsl:text>3</xsl:text>
-                <tex:cmd name="baselineskip" gr="0"/>
-            </tex:parm>
-        </tex:cmd>
+            <tex:cmd name="XLingPaperneedspace">
+                <tex:parm>
+                    <xsl:text>3</xsl:text>
+                    <tex:cmd name="baselineskip" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:if test="$layoutInfo/@textalign='start' or $layoutInfo/@textalign='left' or $layoutInfo/@textalign='center'">
             <tex:cmd name="noindent" gr="0" nl2="1"/>
         </xsl:if>
@@ -5361,21 +5374,32 @@
             </tex:cmd>
         </xsl:if>
         <!--        <tex:cmd name="leavevmode" gr="0" nl2="1"/>-->
-        <!--<xsl:call-template name="HandleTableLineSpacing">
+        <xsl:call-template name="HandleTableLineSpacing">
             <xsl:with-param name="bDoBeginGroup" select="'Y'"/>
-        </xsl:call-template>-->
+        </xsl:call-template>
+        <!--        <xsl:call-template name="HandleTableLineSpacing"/>-->
         <xsl:apply-templates select="*[name()!='shortCaption']"/>
-        <!--<xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
-        </xsl:if>-->
+        </xsl:if>
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='after' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
-            <xsl:if test="not(ancestor::framedUnit)">
+            <xsl:if test="not(ancestor::framedUnit) and not($sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables!='yes')">
                 <tex:cmd name="vspace*">
                     <tex:parm>
-                        <xsl:text>-</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="$sLineSpacing and $sLineSpacing='double' and $lineSpacing/@singlespacetables='yes'">
+                                <xsl:text>-</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="$sLineSpacing and $sLineSpacing='spaceAndAHalf' and $lineSpacing/@singlespacetables='yes'">
+                                <xsl:text>-1.25</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-.65</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <tex:cmd name="baselineskip" gr="0"/>
                     </tex:parm>
                 </tex:cmd>

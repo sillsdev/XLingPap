@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->8 June 2015</date
+>24 June 2015</date
 ><version
->2.27.0</version
+>2.27.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -23607,7 +23607,7 @@ href="https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRK
 > and drag and drop your zip file to it. Then send an email to <link
 href="mailto:support@xlingpaper.org"
 >support@xlingpaper.org</link
-> that you have put the file there.  Please note that apparently you must have <object
+> that you have put the file there. Please note that apparently you must have <object
 type="tTool"
 >Google Drive</object
 > installed on your computer in order for the dropping of your file to work.</li
@@ -24154,7 +24154,7 @@ type="tTool"
 >Microsoft Word</object
 >, <object
 type="tTool"
->Microsoft Word</object
+>Microsoft Excel</object
 >, or web page), copy the table.</li
 ><li
 >Use <object
@@ -31600,6 +31600,12 @@ id="iORCID"
 id="iOverFullHBox"
 ><term
 >Overfull hbox</term
+></indexTerm
+><indexTerm
+id="iPageNumberStarting"
+see="iStartingPageNumber"
+><term
+>Page number, starting</term
 ></indexTerm
 ><indexTerm
 id="iPaperInACollectionVolume"

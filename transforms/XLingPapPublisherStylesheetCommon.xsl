@@ -84,9 +84,6 @@
                 <xsl:number level="multiple" count="section1 | section2 | section3 | section4 | section5 | section6" format="1.1"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes' and name()!='sectionRef'">
-            <xsl:text>. </xsl:text>
-        </xsl:if>
     </xsl:template>
     <!--  
         endnote
@@ -2013,14 +2010,10 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes'">
-                        <xsl:value-of select="substring($sNum,1,string-length($sNum)- 2)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$sNum"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:value-of select="$sNum"/>
+                <xsl:if test="$contentLayoutInfo/sectionRefLayout/@AddPeriodAfterFinalDigit='yes'">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -2799,7 +2792,7 @@
             <xsl:when test="name()='gloss' and name($closestRelevantAncestor)='listWord' or name()='gloss' and name($closestRelevantAncestor)='word'">
                 <xsl:choose>
                     <xsl:when test="$contentLayoutInfo/glossLayout/glossInListWordLayout">
-                        <xsl:text>listWord</xsl:text>        
+                        <xsl:text>listWord</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>example</xsl:text>
@@ -2809,7 +2802,7 @@
             <xsl:when test="name()='abbrRef' and name($closestRelevantAncestor)='listWord' or name()='abbrRef' and name($closestRelevantAncestor)='word'">
                 <xsl:choose>
                     <xsl:when test="$contentLayoutInfo/glossLayout/glossInListWordLayout">
-                        <xsl:text>listWord</xsl:text>        
+                        <xsl:text>listWord</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>example</xsl:text>
@@ -2825,7 +2818,7 @@
                         <xsl:text>prose</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text>example</xsl:text>        
+                        <xsl:text>example</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >International Journal of American Linguistics Paper Style Sheet</publisherStyleSheetName
 ><publisherStyleSheetVersion
->0.4.5</publisherStyleSheetVersion
+>0.4.6</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -260,7 +260,7 @@ beginsparagraph="yes"
 ><numberLayout
 font-weight="bold"
 spacebefore="10pt"
-textafter=".  "
+textafter=".  "
 ></numberLayout
 ><sectionTitleLayout
 font-weight="bold"
@@ -272,7 +272,7 @@ beginsparagraph="yes"
 ><numberLayout
 font-weight="bold"
 spacebefore="10pt"
-textafter=".  "
+textafter=".  "
 ></numberLayout
 ><sectionTitleLayout
 font-weight="bold"
@@ -284,7 +284,7 @@ beginsparagraph="yes"
 ><numberLayout
 font-weight="bold"
 spacebefore="10pt"
-textafter=".  "
+textafter=".  "
 ></numberLayout
 ><sectionTitleLayout
 font-weight="bold"
@@ -296,6 +296,7 @@ ignore="yes"
 ><numberLayout
 font-weight="bold"
 spacebefore=""
+textafter=".  "
 ></numberLayout
 ><sectionTitleLayout
 ></sectionTitleLayout
@@ -367,7 +368,6 @@ indent-before=".375in"
 referencesUseParens="no"
 ></exampleLayout
 ><sectionRefLayout
-AddPeriodAfterFinalDigit="yes"
 font-weight="bold"
 ></sectionRefLayout
 ><interlinearSourceStyle

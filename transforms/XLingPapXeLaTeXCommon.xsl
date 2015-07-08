@@ -7685,11 +7685,15 @@
                 <tex:cmd name="par"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="name()='pc'">
-            <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="name()='pc'">
+                <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="indent" gr="0" nl2="0" sp="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates/>
-
     </xsl:template>
     <!--  
         HandleSmallCapsBegin
@@ -9301,12 +9305,26 @@
                             <tex:parm>
                                 <xsl:text>-</xsl:text>
                                 <xsl:choose>
-                                    <xsl:when test="$sLineSpacing='double'">
-                                        <xsl:text>2</xsl:text>
+                                    <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+                                        <xsl:choose>
+                                            <xsl:when test="$sLineSpacing='double'">
+                                                <xsl:text>3</xsl:text>
+                                            </xsl:when>
+                                            <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                                <xsl:text>3</xsl:text>
+                                            </xsl:when>
+                                        </xsl:choose>
                                     </xsl:when>
-                                    <xsl:when test="$sLineSpacing='spaceAndAHalf'">
-                                        <xsl:text>1.5</xsl:text>
-                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="$sLineSpacing='double'">
+                                                <xsl:text>2</xsl:text>
+                                            </xsl:when>
+                                            <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                                <xsl:text>2.5</xsl:text>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
                                 </xsl:choose>
                                 <tex:cmd name="baselineskip" gr="0"/>
                             </tex:parm>

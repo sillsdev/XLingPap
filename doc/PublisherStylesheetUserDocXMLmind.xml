@@ -1524,16 +1524,25 @@ id="sLineNumbers"
 ><indexedItem
 term="iLineNumbering"
 ></indexedItem
->When submitting an article for review, some publishers want the PDF to have continuous line numbers throughout the document.  Presumably this is to make it easier for reviewers to identify the location in the document for a comment.  If you set the <object
+>When submitting an article for review, some publishers want the PDF to have continuous line numbers throughout the document. Presumably this is to make it easier for reviewers to identify the location in the document for a comment. If you set the <object
 type="tAttribute"
 >showLineNumbers</object
 > attribute of the <object
 type="tElement"
 >pageLayout</object
-> element  to <object
+> element to <object
 type="tAttrValue"
 >yes</object
->, then the default PDF will have line numbers appear in the left margin.</p
+>, then the default PDF will have line numbers appear in the left margin. Please note that if you installed <object
+type="tXLingPap"
+></object
+> before version 2.27.0, you will also need to get and install the <object
+type="tXeTeX"
+></object
+> upgade package at <link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+>.</p
 ></section2
 ></section1
 ><section1

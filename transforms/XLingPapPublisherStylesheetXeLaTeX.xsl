@@ -172,7 +172,19 @@
 </xsl:text>
             <tex:cmd name="widowpenalty" gr="0"/>
             <xsl:text>=10000</xsl:text>
+            <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
+                <tex:cmd name="def" gr="0"/>
+                <tex:cmd name="linenumberfont" gr="0">
+                    <tex:parm>
+                        <tex:cmd name="MainFont" gr="0"/>
+                        <tex:cmd name="tiny" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:env name="document">
+                <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
+                    <tex:cmd name="linenumbers" gr="0" nl2="1"/>
+                </xsl:if>
                 <!-- add some glue to baselineskip -->
                 <tex:cmd name="baselineskip" gr="0"/>
                 <xsl:text>=</xsl:text>

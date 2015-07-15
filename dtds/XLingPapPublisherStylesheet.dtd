@@ -66,6 +66,7 @@ Page Layout
 <!ATTLIST pageLayout
      ignorePageWidthForWebPageOutput (yes | no) 'no'
     contentBetweenFootnoteNumberAndFootnoteContent CDATA #IMPLIED
+    showLineNumbers (yes | no) 'no'
 >
     <!ELEMENT basicPointSize (#PCDATA) >
     <!ELEMENT blockQuoteIndent (#PCDATA) >

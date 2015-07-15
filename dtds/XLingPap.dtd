@@ -155,7 +155,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- ORCID is the Open Researcher and Contributor ID; see http://en.wikipedia.org/wiki/ORCID -->
-<!ELEMENT author (#PCDATA | endnote)*>
+<!ELEMENT author (#PCDATA | comment | endnote)*>
 <!ATTLIST author
     ORCID CDATA #IMPLIED
     xml:lang CDATA #IMPLIED

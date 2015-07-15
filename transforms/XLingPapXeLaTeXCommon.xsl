@@ -11083,6 +11083,11 @@
                 <tex:parm>attachfile2</tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
+            <tex:cmd name="usepackage" nl2="1">
+                <tex:parm>lineno</tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <!-- Doing this ourselves: using Needspace without the initial \par
             <tex:cmd name="usepackage" nl2="1">
             <tex:parm>needspace</tex:parm>

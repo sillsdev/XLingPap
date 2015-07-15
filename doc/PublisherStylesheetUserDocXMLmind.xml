@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->8 June 2015</date
+>15 June 2015</date
 ><version
->2.27.0</version
+>2.27.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -393,7 +393,10 @@ term="iFootnoteSpaceAfterNumber"
 >Some publishers prefer to include extra spacing between the footnote number and its content (at the bottom of the page). If you set the <object
 type="tAttribute"
 >contentBetweenFootnoteNumberAndFootnoteContent</object
-> attribute to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.</p
+> attribute of the <object
+type="tElement"
+>pageLayout</object
+> element to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.</p
 ></section2
 ><section2
 id="sFootnoteIndent"
@@ -1512,6 +1515,25 @@ src="resources/HeaderFooterFirstEvenOdd.png"
 ></img
 ></chart
 ></example
+></section2
+><section2
+id="sLineNumbers"
+><secTitle
+>Add line numbers to output</secTitle
+><p
+><indexedItem
+term="iLineNumbering"
+></indexedItem
+>When submitting an article for review, some publishers want the PDF to have continuous line numbers throughout the document.  Presumably this is to make it easier for reviewers to identify the location in the document for a comment.  If you set the <object
+type="tAttribute"
+>showLineNumbers</object
+> attribute of the <object
+type="tElement"
+>pageLayout</object
+> element  to <object
+type="tAttrValue"
+>yes</object
+>, then the default PDF will have line numbers appear in the left margin.</p
 ></section2
 ></section1
 ><section1
@@ -14475,6 +14497,11 @@ see="iTableNumberedLabel"
 id="iLangDataOverrides"
 ><term
 >Language data special formatting in prose, tables, or examples</term
+></indexTerm
+><indexTerm
+id="iLineNumbering"
+><term
+>Line numbering in PDF output</term
 ></indexTerm
 ><indexTerm
 id="iLineSpacing"

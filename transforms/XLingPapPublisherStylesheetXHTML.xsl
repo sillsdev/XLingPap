@@ -627,44 +627,51 @@
       preface (book)
    -->
     <xsl:template match="preface" mode="book">
+        <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
-        <xsl:call-template name="DoFrontMatterItemNewPage">
-            <xsl:with-param name="sHeaderTitleClassName" select="'preface-title'"/>
-            <xsl:with-param name="id" select="concat($sPrefaceID,$iPos)"/>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputPrefaceLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout"/>
-            <xsl:with-param name="sMarkerClassName">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sPreface"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
+            <xsl:call-template name="DoFrontMatterItemNewPage">
+                <xsl:with-param name="sHeaderTitleClassName" select="'preface-title'"/>
+                <xsl:with-param name="id" select="concat($sPrefaceID,$iPos)"/>
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputPrefaceLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout"/>
+                <xsl:with-param name="sMarkerClassName">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sPreface"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--
         preface (paper)
     -->
     <xsl:template match="preface" mode="paper">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
-        <xsl:call-template name="OutputFrontOrBackMatterTitle">
-            <xsl:with-param name="id">
-                <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
-                </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputPrefaceLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="bIsBook" select="'N'"/>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayout/prefaceLayout"/>
-            <xsl:with-param name="sMarkerClassName">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sPreface"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:apply-templates/>
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
+        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
+            <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                <xsl:with-param name="id">
+                    <xsl:call-template name="GetIdToUse">
+                        <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputPrefaceLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="bIsBook" select="'N'"/>
+                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/prefaceLayout"/>
+                <xsl:with-param name="sMarkerClassName">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sPreface"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:apply-templates/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
       PARTS, CHAPTERS, SECTIONS, and APPENDICES
@@ -1872,22 +1879,25 @@
       -->
     <xsl:template match="glossary">
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-        <xsl:choose>
-            <xsl:when test="$bIsBook">
-                <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
-                <xsl:call-template name="DoGlossary">
-                    <xsl:with-param name="iPos" select="$iPos"/>
-                    <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="DoGlossary">
-                    <xsl:with-param name="iPos" select="$iPos"/>
-                    <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
+            <xsl:choose>
+                <xsl:when test="$bIsBook">
+                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
+                    <xsl:call-template name="DoGlossary">
+                        <xsl:with-param name="iPos" select="$iPos"/>
+                        <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoGlossary">
+                        <xsl:with-param name="iPos" select="$iPos"/>
+                        <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
       index
@@ -2350,7 +2360,18 @@
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
-                    <xsl:apply-templates select="$backMatter/glossary" mode="bookmarks"/>
+                    <xsl:apply-templates select="$backMatter/glossary" mode="bookmarks">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::glossaryLayout or following-sibling::glossaryLayout">
+                                    <xsl:value-of select="count(preceding-sibling::glossaryLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="bookmarks"/>
@@ -2392,7 +2413,18 @@
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
-                    <xsl:apply-templates select="$backMatter/glossary" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/glossary" mode="contents">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::glossaryLayout or following-sibling::glossaryLayout">
+                                    <xsl:value-of select="count(preceding-sibling::glossaryLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="contents"/>
@@ -2454,6 +2486,16 @@
                 <xsl:when test="name(.)='glossaryLayout'">
                     <xsl:apply-templates select="$backMatter/glossary">
                         <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::glossaryLayout or following-sibling::glossaryLayout">
+                                    <xsl:value-of select="count(preceding-sibling::glossaryLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
@@ -2969,7 +3011,18 @@
                     <xsl:apply-templates select="$frontMatter/contents" mode="bookmarks"/>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
-                    <xsl:apply-templates select="$frontMatter/preface" mode="bookmarks"/>
+                    <xsl:apply-templates select="$frontMatter/preface" mode="bookmarks">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                                    <xsl:value-of select="count(preceding-sibling::prefaceLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
@@ -2988,7 +3041,18 @@
                     <xsl:apply-templates select="$frontMatter/abstract" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
-                    <xsl:apply-templates select="$frontMatter/preface" mode="contents"/>
+                    <xsl:apply-templates select="$frontMatter/preface" mode="contents">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                                    <xsl:value-of select="count(preceding-sibling::prefaceLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
@@ -3030,6 +3094,16 @@
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                                    <xsl:value-of select="count(preceding-sibling::prefaceLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>

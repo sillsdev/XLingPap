@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.2</a:version
+>2.27.3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-07-08</a:date
+>2015-07-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.3 13 July 2015<ul
+>2.27.3 23 July 2015<ul
 ><li
 >Allow comment elements in author element (so one can keep the information while submitting a paper for anonymous review).</li
 ><li
+>Allow a publisher style sheet to correctly place multiple preface elements or glossary elements around other frontmatter/backmatter elements.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Add ability to insert continuous line numbering in the PDF output.  See section 2.10 'Add line numbers to output' in the publisher style sheet documentation.</li
+>Add ability to insert continuous line numbering in the PDF output. See section 2.10 'Add line numbers to output' in the publisher style sheet documentation.</li
 ></ul
 ></li
 ></ul

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->24 June 2015</date
+>28 July 2015</date
 ><version
->2.27.1</version
+>2.27.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -20395,6 +20395,11 @@ type="tAttrValue"
 >. This often removes the unwanted blank page.</li
 ><li
 >If you use an apostrophe character ' in a folder name or in a file name, no PDF output will be produced. Do not use apostrophes in file or folder names.</li
+><li
+>As of July 25, 2015, there have been two cases reported where a font was not displaying correctly in the XMLmind XML Editor and in the default PDF output. In both cases it was on Windows 7 and in both cases the user had installed a new version of the font in question. It turned out that there were duplicate instances of that font installed. (Why Windows 7 allowed duplicates, I have no idea.) The solution was to get a tool like TypoGraf to see what fonts are truly installed, find the duplicates, delete them, and re-install the one version of the font desired. TypoGraf can be obtained from <link
+href="http://www.neuber.com/typograph/index.html"
+>http://www.neuber.com/typograph/index</link
+>. Please note that it is *crucial* that you run TypoGraf as Administrator when you try and delete a duplicate font. If you do not, it will look like the font is deleted but it will not be.</li
 ></ul
 ></section4
 ><section4

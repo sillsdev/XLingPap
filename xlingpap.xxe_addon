@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-07-23</a:date
+>2015-07-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -37,6 +37,8 @@ href="mailto::andy_black@sil.org"
 >Allow comment elements in author element (so one can keep the information while submitting a paper for anonymous review).</li
 ><li
 >Allow a publisher style sheet to correctly place multiple preface elements or glossary elements around other frontmatter/backmatter elements.</li
+><li
+>Add note to documentation about problems with duplicate fonts on Windows 7 causing XXE and default PDF to not show the font correctly.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->28 July 2015</date
+>5 August 2015</date
 ><version
 >2.27.3</version
 ><contents
@@ -2567,6 +2567,15 @@ type="tElement"
 ></tr
 ><tr
 ><td
+>gt</td
+><td
+><object
+type="tElement"
+>glossaryTerm</object
+></td
+></tr
+><tr
+><td
 ><langData
 lang="lEng"
 >i</langData
@@ -4128,6 +4137,9 @@ type="tElement"
 >, <object
 type="tElement"
 >abbrRef</object
+>, <object
+type="tElement"
+>glossaryTermRef</object
 >, and <object
 type="tElement"
 >mediaObject</object
@@ -4153,7 +4165,7 @@ sec="sReferencesAttributes"
 >Any <object
 type="tElement"
 >refWork</object
-> element may optionally contain a <object
+> element may optiona lly contain a <object
 type="tElement"
 >url</object
 > element and a <object
@@ -5500,7 +5512,7 @@ type="tElement"
 ><p
 >To use sorting by author names, you must set the <object
 type="tAttribute"
->sortRefsAbbrsByDocumentLanguage</object
+>sortRefsAbbrsGlossarytermsByDocumentLanguage</object
 > attribute of <genericTarget
 id="gSetAttributeInLingPaperElement"
 ></genericTarget
@@ -5518,7 +5530,7 @@ note="nAttributesToolReminder"
 ></endnoteRef
 > to set the <object
 type="tAttribute"
->sortRefsAbbrsByDocumentLanguage</object
+>sortRefsAbbrsGlossarytermsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object
@@ -6051,7 +6063,7 @@ type="tElement"
 > element. To find this attribute, click on <object
 type="tInstruction"
 >lingPaper</object
-> in the node path bar.<endnoteRef
+> in the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
 > and then use the Attributes Tool<endnoteRef
@@ -6335,7 +6347,7 @@ type="tElement"
 > element in the node path bar,<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
-> and them immediately press the <object
+> and then immediately press the <object
 type="tInstruction"
 >F11</object
 > key on your keyboard (or use menu items <object
@@ -7014,6 +7026,589 @@ type="tXLingPap"
 ></object
 > to sort the list of abbreviations in the output, you must set the <object
 type="tAttribute"
+>sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element. To do so, click anywhere in the document (except in any part of an associated publisher style sheet). In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on <object
+type="tInstruction"
+>lingPaper</object
+>. Then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the <object
+type="tAttribute"
+>sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+> attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.</p
+><p
+>The sorting algorithm used depends on the language code you have indicated, if any. The default is ‘en’ (for English). If you have set the <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element of the document, then <object
+type="tXLingPap"
+></object
+> will use that code. If the <object
+type="tAttribute"
+>abbreviationlang</object
+> attribute is not set, <object
+type="tXLingPap"
+></object
+> will use the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element, if it is set. Some of the known language codes to use are shown in example <exampleRef
+letter="xLanguageCodesForSorting"
+num="xLanguageCodesForSorting"
+></exampleRef
+>.</p
+></section3
+></section2
+><section2
+id="sBMGlossaryTerms"
+><secTitle
+>Glossary Terms</secTitle
+><p
+><indexedItem
+term="iGlossaryTerm"
+></indexedItem
+>If you wish, you can create a list of glossary terms used throughout your document. Just like references and citations, the idea here is that while the list of glossary terms can be large, <object
+type="tXLingPap"
+></object
+> will only show those that are actually used somewhere within the document. You can thus maintain a file that is just the list of glossary terms (and their definitions), include it in your document, and then, while writing, make a reference to a glossary term in the list. Besides only including glossary terms actually used somewhere in the document, <object
+type="tXLingPap"
+></object
+> will also create a hyperlink between the glossary term in the text and the actual glossary term in the list of glossary terms. Of course, the list will also include the definition of the glossary term.</p
+><p
+>This master list of glossary terms can also be in multiple languages. So if you typically write your papers in either English or Spanish, say, you can maintain the list of glossary terms in both languages. For a given paper, you indicate which language to use by setting the <object
+type="tAttribute"
+>glossarytermlang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element. To find this attribute, click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to find and edit the <object
+type="tAttribute"
+>glossarytermlang</object
+> attribute. You will need to key in the id of one of the <object
+type="tElement"
+>language</object
+> elements in your document (e.g. <object
+type="tAttrValue"
+>en</object
+> for English, <object
+type="tAttrValue"
+>es</object
+> for Spanish, or <object
+type="tAttrValue"
+>fr</object
+> for French). If you do not set this attribute, then the first glossary term item found will be used. Also, if you inadvertently do not have a glossary term for the language you selected, but you do have one for another language, then the first glossary term found will be used, too. See section <sectionRef
+sec="sBMGlossaryTermsMasterListMultipleLanguages"
+></sectionRef
+> for more on creating master lists with two or more languages. Also see section <sectionRef
+sec="sBMGlossaryTermsSortingTheList"
+></sectionRef
+> for information on sorting the output list of glossary terms.</p
+><p
+>One makes a reference to a glossary term by inserting a <object
+type="tElement"
+>glossaryTermRef</object
+> element and then setting its reference to one of the glossary terms in the master list.</p
+><p
+>Further, you can choose where you want this list of glossary terms to appear. While one keys the list of glossary terms in the <object
+type="tElement"
+>glossaryTerms</object
+> element under the <object
+type="tElement"
+>backMatter</object
+> element, you can elect to have the table of glossary terms appear within any of the following elements:</p
+><ul
+><li
+>in a <object
+type="tElement"
+>preface</object
+> element (front matter);</li
+><li
+>in an <object
+type="tElement"
+>appendix</object
+> element (back matter); or</li
+><li
+>in a <object
+type="tElement"
+>glossary</object
+> element (back matter).</li
+></ul
+><p
+>To get the list of glossary terms to appear, one inserts a <object
+type="tElement"
+>glossaryTermsShownHere</object
+> element at the appropriate place in one of these elements. <object
+type="tXLingPap"
+></object
+> will create a table showing the glossary terms that have been used at that spot.</p
+><p
+>The following sections explain how all of this can be done in more detail.</p
+><section3
+id="sBMGlossaryTermsMasterList"
+><secTitle
+>The Master List</secTitle
+><p
+>To create a master list of glossary terms, click on the word “Endnotes” in the back-matter section, do an insert-before operation,<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> and choose “<object
+type="tItalic"
+>glossaryTerms(glossaryTerms)</object
+>". This will produce what is shown in <exampleRef
+letter="xNewlyInsertedGlossaryTerms"
+num="xNewlyInsertedGlossaryTerms"
+></exampleRef
+>:</p
+><example
+num="xNewlyInsertedGlossaryTerms"
+><chart
+><img
+src="resources/NewlyInsertedGlossaryTerms.png"
+></img
+></chart
+></example
+><p
+>Open it up (by clicking on the plus sign inside the small box). This gives you the following:</p
+><example
+num="xNewGlossaryTerms"
+><chart
+><img
+src="resources/NewGlossaryTerms.png"
+></img
+></chart
+></example
+><p
+>Like abbreviations, there are three parts: a unique identifier (which goes in the pink part and by convention begins with “gt”<endnoteRef
+note="nInitialIDLetter"
+></endnoteRef
+>), the glossary term itself (which can be more than one word if needed), and its definition. Note that within a definition you can insert references to other glossary terms if you so choose. See section <sectionRef
+sec="sBMAGlossaryTermsReferences"
+></sectionRef
+> for how to do that.</p
+><p
+>Here is a screen shot of one short set of glossary terms:</p
+><example
+num="xGlossaryTermsMasterListSample"
+><chart
+><img
+src="resources/GlossaryTermsMasterListSample.png"
+></img
+></chart
+></example
+><p
+>Another thing that you may need to do is to add a <object
+type="tElement"
+>language</object
+> element whose ID is “en” (for English). If you write the prose of your documents in some other language such as Spanish or French, then you will need to also add a<object
+type="tElement"
+>language</object
+> element for each such language.</p
+><section4
+id="sBMGlossaryTermsMasterListMultipleLanguages"
+><secTitle
+>Master List in Multiple Languages</secTitle
+><p
+>If you are making a master list that contains two or more languages, you will need to keep a couple of things in mind.</p
+><p
+>First, when a given glossary term is spelled differently in the various languages, you should insert separate <object
+type="tElement"
+>glossaryTerm</object
+> elements for each one and place them in the correct alphabetical order in the master list. For example, you could have one (English) glossary term for phrase and one (Spanish) glossary term for frase:</p
+><example
+num="xGlossaryTermsMultiLanguage"
+><chart
+><img
+src="resources/GlossaryTerms2languages.png"
+></img
+></chart
+></example
+><p
+>The <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>glossaryTermInLang</object
+> element of the <object
+type="tAttrValue"
+>gtPhrase</object
+> <object
+type="tElement"
+>glossaryTerm</object
+> element will need to be <object
+type="tAttrValue"
+>en</object
+> for English and the <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>glossaryTermInLang</object
+> element of the <object
+type="tAttrValue"
+>gtFrase</object
+> <object
+type="tElement"
+>glossaryTerm</object
+> element will need to be <object
+type="tAttrValue"
+>es</object
+> for Spanish.<endnote
+id="nGlossaryTermInLangSetLang"
+><p
+>If you select the <object
+type="tElement"
+>glossaryTermInLang</object
+> element in the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+>), a dialog box will pop up that lists all the language identifiers in your paper. You can then select the one that is correct for this glossary term.</p
+></endnote
+> Naturally, when you refer to a glossary term for phrase in your document, you'll want to use 'frase' in Spanish and 'phrase' in English. Then, when you mark a given document's <object
+type="tAttribute"
+>glossarytermlang</object
+> attribute (in the <object
+type="tElement"
+>lingPaper</object
+> element) to be <object
+type="tAttrValue"
+>en</object
+> for English, <object
+type="tXLingPap"
+></object
+> will use the English glossary term for those glossary terms with two or more <object
+type="tElement"
+>glossaryTermInLang</object
+> elements. If you mark the document to be <object
+type="tAttrValue"
+>es</object
+> for Spanish, then <object
+type="tXLingPap"
+></object
+> will use the Spanish <object
+type="tElement"
+>glossaryTermInLang</object
+> information. For those glossary terms that have only one <object
+type="tElement"
+>glossaryTermInLang</object
+> element, that <object
+type="tElement"
+>glossaryTermInLang</object
+> information will be used.</p
+><p
+>Second, when both languages share the same glossary term, but the definitions are different (since they are in different languages), you will need to add a new <object
+type="tElement"
+>glossaryTermInLang</object
+> element for the new language and key its term and definition in the new language. This probably rarely happens.</p
+></section4
+></section3
+><section3
+id="sBMAGlossaryTermsReferences"
+><secTitle
+>References to an glossary term</secTitle
+><p
+>To create references to glossary terms, perform an insert operation<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> and select <object
+type="tElement"
+>glossaryTermRef</object
+>. Then press the <object
+type="tKey"
+>F11</object
+> key to bring up the chooser for glossary terms. (An easier way is to press the <object
+type="tKey"
+>Shift</object
+> and <object
+type="tKey"
+>F11</object
+> keys together.) In one document it looked like this:</p
+><example
+num="xGlossaryTermRef"
+><chart
+><img
+XeLaTeXSpecial="scaled='550'"
+src="resources/GlossaryTermChooser.png"
+></img
+></chart
+></example
+><p
+>You then type the glossary term you need or scroll down to find it. In the example, the “consonant = Sound that impedes the air flow partially or totally when pronounced.” was the correct choice. The result looked like this:</p
+><example
+num="xGlossaryTermRefInContext"
+><chart
+><img
+src="resources/GlossaryTermRefInContext.png"
+></img
+></chart
+></example
+><p
+>Notice that we actually need the word “consonant” to be plural in the context. This illustrates the need that, unlike abbreviations, glossary terms often need to be inflected and/or capitalized in the context in which they appear. Each <object
+type="tElement"
+>glossaryTermRef</object
+> element has a <object
+type="tAttribute"
+>capitalize</object
+> attribute you can set to capitalize it. In order to inflect it, however, you will need to type in the inflected form within the pink hashed box. In this case, we need “consonants” and after typing that in the hashed box, it looks like this:</p
+><example
+num="xGlossaryTermRefOverrideBeforeLeaving"
+><chart
+><img
+src="resources/GlossaryTermRefOverrideBeforeLeaving.png"
+></img
+></chart
+></example
+><p
+>As soon as we leave the <object
+type="tElement"
+>glossaryTermRef</object
+> element (by using the <object
+type="tInstruction"
+>Insert</object
+> key, e.g.), it becomes this:</p
+><example
+num="xGlossaryTermRefOverrideAfterLeaving"
+><chart
+><img
+src="resources/GlossaryTermRefOverrideAfterLeaving.png"
+></img
+></chart
+></example
+></section3
+><section3
+id="sBMGlossaryTermsShowingList"
+><secTitle
+>Showing the List of glossary terms</secTitle
+><p
+>As mentioned above, one can have the list of glossary terms appear in various places.</p
+><ul
+><li
+>in a <object
+type="tElement"
+>preface</object
+> element (front matter);</li
+><li
+>in an <object
+type="tElement"
+>appendix</object
+> element (back matter); or</li
+><li
+>in a <object
+type="tElement"
+>glossary</object
+> element (back matter).</li
+></ul
+><p
+>Please note that unless you overtly tell <object
+type="tXLingPap"
+></object
+> to show the list of glossary terms, no such list will appear in the formatted output.</p
+><p
+>We'll illustrate how to show the list of glossary terms in a glossary.</p
+><p
+>To show the list in a glossary, one needs to insert a <object
+type="tElement"
+>glossary</object
+> element in the back matter. One does this by clicking on the <object
+type="tElement"
+>glossaryTerms</object
+> element in the back matter area and then doing an insert before operation. (Note that if you have an <object
+type="tElement"
+>abbreviations</object
+> element, then you will need to click on it and then do an insert before operation.) The result might look something like this:</p
+><example
+num="xGlossaryWithGlossaryTerms"
+><chart
+><img
+src="resources/GlossaryWithGlossaryTerms.png"
+></img
+></chart
+></example
+><p
+>One can then open up the <object
+type="tElement"
+>glossary</object
+> element and type any prefatory material one might want (of course, one does not have to type anything). One then inserts the special <object
+type="tElement"
+>glossaryTermsShownHere</object
+> element. Note that since this will be formatted as a table, it needs to go after or before a paragraph (<object
+type="tElement"
+>p</object
+> element); it will not work to put it within a paragraph.</p
+><p
+>One can also change the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>glossary</object
+> element if “Glossary” is not the correct title you need. It might look like this:</p
+><example
+num="xGlossaryWithGlossaryTermsFilledOut"
+><chart
+><img
+src="resources/GlossaryWithGlossaryTermsFilledOut.png"
+></img
+></chart
+></example
+><p
+>When formatted in a web page, it might look like this:</p
+><example
+num="xGlossaryTermssInGlossaryHtml"
+><chart
+type="tHtmlOutput"
+>&lt;hr&gt;&lt;a name="rXLingPapGlossary1"&gt;&lt;/a&gt;&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;Glossary&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt; &lt;div style="margin-left: 0.5in; margin-right: 0.5in"&gt; &lt;p&gt;The following lists the glossary terms used in this document.&lt;/p&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtClause"&gt;&lt;span style="color:maroon; "&gt;clause&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Utterance that consists of a &lt;a href="#gtVerb"&gt;&lt;span style="color:maroon; "&gt;verb&lt;/span&gt;&lt;/a&gt; and its corresponding subject. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtConjunction"&gt;&lt;span style="color:maroon; "&gt;conjunction&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;&lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt; that unites &lt;a href="#gtPhrase"&gt;&lt;span style="color:maroon; "&gt;phrases&lt;/span&gt;&lt;/a&gt; or &lt;a href="#gtClause"&gt;&lt;span style="color:maroon; "&gt;clauses&lt;/span&gt;&lt;/a&gt;. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtConsonant"&gt;&lt;span style="color:maroon; "&gt;consonant&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Sound that impedes the air flow partially or totally when pronounced.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtEvent"&gt;&lt;span style="color:maroon; "&gt;event&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;A &lt;a href="#gtClause"&gt;&lt;span style="color:maroon; "&gt;clause&lt;/span&gt;&lt;/a&gt; that indicates an action. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtMorpheme"&gt;&lt;span style="color:maroon; "&gt;morpheme&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Shortest part of a &lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt; that has significance. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtNoun"&gt;&lt;span style="color:maroon; "&gt;noun&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;&lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt; that refers to an entity. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtPhonologicalProcess"&gt;&lt;span style="color:maroon; "&gt;phonological process&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Systematic modification of a group of &lt;a href="#gtVowel"&gt;&lt;span style="color:maroon; "&gt;vowels&lt;/span&gt;&lt;/a&gt; or &lt;a href="#gtConsonant"&gt;&lt;span style="color:maroon; "&gt;consonants&lt;/span&gt;&lt;/a&gt; in specific contexts. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtPhrase"&gt;&lt;span style="color:maroon; "&gt;phrase&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Part of a &lt;a href="#gtClause"&gt;&lt;span style="color:maroon; "&gt;clause&lt;/span&gt;&lt;/a&gt; that consists of two or more &lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;words&lt;/span&gt;&lt;/a&gt;, one of which is the central &lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt;; for example, a &lt;a href="#gtNoun"&gt;&lt;span style="color:maroon; "&gt;noun&lt;/span&gt;&lt;/a&gt; is the central &lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt; in a nominal &lt;a href="#gtPhrase"&gt;&lt;span style="color:maroon; "&gt;phrase&lt;/span&gt;&lt;/a&gt;. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtState"&gt;&lt;span style="color:maroon; "&gt;state&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;&lt;a href="#gtClause"&gt;&lt;span style="color:maroon; "&gt;clause&lt;/span&gt;&lt;/a&gt; that describes the final result of an action. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtStatement"&gt;&lt;span style="color:maroon; "&gt;statement&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;An act of human speech that has significance, whether short or long.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtVerb"&gt;&lt;span style="color:maroon; "&gt;verb&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;&lt;a href="#gtWord"&gt;&lt;span style="color:maroon; "&gt;Word&lt;/span&gt;&lt;/a&gt; that describes an &lt;a href="#gtEvent"&gt;&lt;span style="color:maroon; "&gt;event&lt;/span&gt;&lt;/a&gt; or &lt;a href="#gtState"&gt;&lt;span style="color:maroon; "&gt;state&lt;/span&gt;&lt;/a&gt;. &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtVowel"&gt;&lt;span style="color:maroon; "&gt;vowel&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Sound that is emitted without obstructing the air flow.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="gtWord"&gt;&lt;span style="color:maroon; "&gt;word&lt;/span&gt;&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;One or more &lt;a href="#gtMorpheme"&gt;&lt;span style="color:maroon; "&gt;morphemes&lt;/span&gt;&lt;/a&gt; that together have significance in a language. &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; &lt;hr size="3"&gt;</chart
+></example
+><p
+><indexedItem
+term="iGlossaryTermsColumnWidths"
+></indexedItem
+>When the list of glossary terms is formatted as a table, you can control the width of the glossary term column, the equals sign column, and/or the definition column via attributes on the <object
+type="tElement"
+>glossaryTermsShownHere</object
+> element. See example <exampleRef
+letter="xGlossaryTermColumnWidthAttributes"
+num="xGlossaryTermColumnWidthAttributes"
+></exampleRef
+>.</p
+><example
+num="xGlossaryTermColumnWidthAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>glossaryTermWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the glossary terms. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>definitionWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the glossary term definitions. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>equalsWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column of the equals sign. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+></table
+></example
+></section3
+><section3
+id="sBMGlossaryTermsSortingTheList"
+><secTitle
+>Sorting the List of glossary terms</secTitle
+><p
+><indexedItem
+term="iGlossaryTermsSort"
+></indexedItem
+>If your document is not written in English or if your master list of glossary terms contains glossary terms in multiple languages, you may well want to have the list of glossary terms that <object
+type="tXLingPap"
+></object
+> outputs be sorted by a particular language. Note that the default behavior is for <object
+type="tXLingPap"
+></object
+> to not do any special sorting: the list of glossary terms will occur in the same order they are given within the <object
+type="tElement"
+>glossaryTerms</object
+> element.</p
+><p
+>To get <object
+type="tXLingPap"
+></object
+> to sort the list of glossary terms in the output, you must set the <object
+type="tAttribute"
 >sortRefsAbbrsByDocumentLanguage</object
 > attribute of the main <object
 type="tElement"
@@ -7037,7 +7632,7 @@ type="tAttrValue"
 ><p
 >The sorting algorithm used depends on the language code you have indicated, if any. The default is ‘en’ (for English). If you have set the <object
 type="tAttribute"
->abbreviationlang</object
+>glossarytermlang</object
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
@@ -7046,7 +7641,7 @@ type="tXLingPap"
 ></object
 > will use that code. If the <object
 type="tAttribute"
->abbreviationlang</object
+>glossarytermlang</object
 > attribute is not set, <object
 type="tXLingPap"
 ></object
@@ -26100,7 +26695,7 @@ type="tElement"
 >abbreviationsShownHere</object
 ></dt
 ><dd
->This indicates where the list of abbreviations are to appear</dd
+>This indicates where the list (or table) of abbreviations is to appear</dd
 ><dt
 ><object
 type="tElement"
@@ -26718,6 +27313,61 @@ type="tElement"
 ></dt
 ><dd
 >A glossary section in the back matter</dd
+><dt
+><object
+type="tElement"
+>glossaryTermDefinition</object
+></dt
+><dd
+>The definition of a glossary term</dd
+><dt
+><object
+type="tElement"
+>glossaryTermInLang</object
+></dt
+><dd
+>glossary term information for a particular language; it has both a <object
+type="tElement"
+>glossaryTermTerm</object
+> and a <object
+type="tElement"
+>glossaryTermDefinition</object
+></dd
+><dt
+><object
+type="tElement"
+>glossaryTermRef</object
+></dt
+><dd
+>A reference to a glossary term</dd
+><dt
+><object
+type="tElement"
+>glossaryTermTerm</object
+></dt
+><dd
+>The glossary term itself (as you want it to appear, by default)</dd
+><dt
+><object
+type="tElement"
+>glossaryTerm</object
+></dt
+><dd
+>The information for a glossary term, possibly in more than one language</dd
+><dt
+><object
+type="tElement"
+>glossaryTerms</object
+></dt
+><dd
+>The set of glossary terms</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsShownHere</object
+></dt
+><dd
+>This indicates where the table of glossary terms is to appear</dd
 ><dt
 ><object
 type="tElement"
@@ -28455,6 +29105,23 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>glossaryTermRef</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsInTableLayout</object
+></dt
+><dd
+>Layout info for showing glossary terms used in a table</dd
+><dt
+><object
+type="tElement"
 >hangingIndentInitialIndent</object
 ></dt
 ><dd
@@ -29996,6 +30663,45 @@ border="1"
 ></tr
 ></table
 ></appendix
+><appendix
+id="aHistdory"
+><secTitle
+>History</secTitle
+><p
+>The name of this product, <object
+type="tXLingPap"
+></object
+> is based on work by David Weber back in the mid 1980s: he wrote a <object
+type="tTool"
+>CC</object
+> table for the old <object
+type="tTool"
+>ManuScripter</object
+> program that was for linguistic documents. Since back then files were limited to six characters plus a three letter extension, he called it <object
+type="tTool"
+>LNGPAP</object
+>. My work was based on XML, so I put an X in the front and added the i in Ling. The problem is that several people felt uncomfortable with the pap part since it reminded them of the PAP smear test ladies go through. So I changed it to <object
+type="tXLingPap"
+></object
+>.</p
+><p
+>The first version was written in the summer of 2001. In fall of 2005, I learned about the <object
+type="tXMLmindXMLEditor"
+></object
+> and began creating the configuration files for use with it. The first version only had web page output and only worked on Windows. In mid 2006, thanks to a suggestion by Gary Simons, I started adding output for XSL-FO which the <object
+type="tRenderX"
+></object
+> program would convert to PDF.</p
+><p
+>In late 2007, I started adding the publisher style sheet capability.</p
+><p
+>In 2009, I made it work on Mac and Linux and also added the XeLaTeX way of producing PDF.</p
+><p
+>See the <object
+type="tInstruction"
+>XLingPaper / About XLingPaper</object
+> menu item for more details.</p
+></appendix
 ><endnotes
 ></endnotes
 ><references
@@ -31047,6 +31753,49 @@ id="iGlossChangeLanguage"
 id="iGlossary"
 ><term
 >Glossary</term
+></indexTerm
+><indexTerm
+id="iGlossaryTerm"
+see="iIDPrefix"
+><term
+>Glossary term</term
+><indexTerms
+><indexTerm
+id="iGlossaryTermsChange"
+><term
+>Change a set of glossary terms in text</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsColumnWidths"
+><term
+>Column widths in table of glossary terms</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsList"
+><term
+>Make a list in front or back matter</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsMasterList"
+><term
+>Make a master list</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermSmallCaps"
+><term
+>Small caps and</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsSort"
+><term
+>Sorting the output list</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermSpacingAfter"
+><term
+>Spacing after</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iGraphicFile"

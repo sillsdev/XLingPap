@@ -2101,6 +2101,29 @@
     </xsl:template>
     <xsl:template match="abbrDefinition"/>
     <!-- ===========================================================
+        glossaryTerms
+        =========================================================== -->
+    <xsl:template match="glossaryTermRef">
+        <xsl:choose>
+            <xsl:when test="ancestor::genericRef">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <a href="#{@glossaryTerm}">
+                    <xsl:call-template name="AddAnyLinkAttributes">
+                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/glossaryTermRefLinkLayout"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputGlossaryTerm">
+                        <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                    </xsl:call-template>
+                </a>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- ===========================================================
       LANGDATA
       =========================================================== -->
     <xsl:template match="langData">
@@ -4738,6 +4761,56 @@
                 </xsl:call-template>
             </div>
         </xsl:if>
+    </xsl:template>
+    <!--
+        OutputGlossaryTerm
+    -->
+    <xsl:template name="OutputGlossaryTerm">
+        <xsl:param name="glossaryTerm"/>
+        <xsl:param name="bIsRef" select="'Y'"/>
+        <span>
+            <xsl:variable name="sFontAttributes">
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$glossaryTerms"/>
+                    <xsl:with-param name="ignoreFontFamily">
+                        <xsl:choose>
+                            <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
+                                <xsl:text>Y</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>N</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:if test="string-length($sFontAttributes) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:value-of select="$sFontAttributes"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$bIsRef='Y' and string-length(.) &gt; 0">
+                    <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:when test="string-length($glossaryTermLang) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="string-length($glossaryTerm//glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm) &gt; 0">
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm" mode="Use"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- a language is specified, but this glossary term does not have anything; try using the default;
+                                this assumes that something is better than nothing -->
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--  no language specified; just use the first one -->
+                    <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </span>
     </xsl:template>
     <!--
         OutputIndexedItemsRange

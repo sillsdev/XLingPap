@@ -13,7 +13,7 @@
 
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
-    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject | abbrRef">
+    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject | abbrRef | glossaryTermRef">
 <!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text | hangingIndent | annotationRef">
 
 <!ENTITY % XLingPapPublisherStyleSheet SYSTEM  "XLingPapPublisherStylesheet.dtd">
@@ -24,10 +24,10 @@
 %XLingPapAttributeEntities;
 <!ENTITY % XLingPapAbbreviations SYSTEM  "XLingPapAbbreviations.dtd">
 %XLingPapAbbreviations;
+<!ENTITY % XLingPapGlossaryTerms SYSTEM  "XLingPapGlossaryTerms.dtd">
+%XLingPapGlossaryTerms;
 <!ENTITY % XLingPapContentControl SYSTEM  "XLingPapContentControl.dtd">
 %XLingPapContentControl;
-
-
 
 <!-- 
     Elements used when publishing a given ling paper/book document
@@ -99,6 +99,7 @@
     showindexeditemsineditor (yes | no) "yes"
     showiso639-3codeininterlinear (yes | no) "no"
     abbreviationlang IDREF #IMPLIED
+    glossarytermlang IDREF #IMPLIED
     indexlang IDREF #IMPLIED
     figureLabel CDATA #IMPLIED
     figureLabelAndCaptionLocation (before|after) "after"
@@ -207,7 +208,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere)+>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
@@ -857,7 +858,7 @@
     XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- backmatter includes appendices, endnotes and references -->
-<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, endnotes?, (references, selectedBibliography?)?, index*, authorContactInfo*)>
+<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, index*, authorContactInfo*)>
 <!-- endnotes -->
 <!ELEMENT endnotes EMPTY>
 <!ATTLIST endnotes
@@ -875,7 +876,7 @@
     showNumberOnly (yes | no) "no"
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
@@ -885,7 +886,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere)+>
+<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere)+>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

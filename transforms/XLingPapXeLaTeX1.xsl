@@ -52,6 +52,7 @@
     <xsl:variable name="lineSpacing" select="/nothere"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
     <xsl:variable name="sXLingPaperAbbreviation" select="'XLingPaperAbbreviation'"/>
+    <xsl:variable name="sXLingPaperGlossaryTerm" select="'XLingPaperGlossaryTerm'"/>
     <xsl:variable name="iMagnificationFactor">1</xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>
@@ -1980,6 +1981,30 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
+    <!-- ===========================================================
+        glossaryTerms
+        =========================================================== -->
+    <xsl:template match="glossaryTermRef">
+        <xsl:choose>
+            <xsl:when test="ancestor::genericRef">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:group>
+                    <xsl:call-template name="DoInternalHyperlinkBegin">
+                        <xsl:with-param name="sName" select="@glossaryTerm"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="AddAnyLinkAttributes"/>
+                    <xsl:call-template name="OutputGlossaryTerm">
+                            <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                        </xsl:call-template>
+                    <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                </tex:group>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>    
     <!-- ===========================================================
         LANGDATA
         =========================================================== -->
@@ -4279,6 +4304,9 @@
                     <xsl:when test="name($language)='abbreviations'">
                         <xsl:value-of select="$sXLingPaperAbbreviation"/>
                     </xsl:when>
+                    <xsl:when test="name($language)='glossaryTerms'">
+                        <xsl:value-of select="$sXLingPaperGlossaryTerm"/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$language/@id"/>
                     </xsl:otherwise>
@@ -5439,6 +5467,16 @@
                     <xsl:text>FontFamily</xsl:text>
                 </xsl:with-param>
                 <xsl:with-param name="sBaseFontName" select="$abbreviations/@font-family"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="$glossaryTerms and string-length($glossaryTerms/@font-family) &gt; 0">
+            <xsl:call-template name="DefineAFontFamily">
+                <xsl:with-param name="sFontFamilyName">
+                    <xsl:text>Lang</xsl:text>
+                    <xsl:value-of select="$sXLingPaperGlossaryTerm"/>
+                    <xsl:text>FontFamily</xsl:text>
+                </xsl:with-param>
+                <xsl:with-param name="sBaseFontName" select="$glossaryTerms/@font-family"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="DefineLangaugeAndTypeFonts"/>

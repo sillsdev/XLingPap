@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->8 June 2015</date
+>5 August 2015</date
 ><version
->2.27.0</version
+>2.27.3</version
 ><contents
 showLevel="3"
 ></contents
@@ -9723,6 +9723,61 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermDefinition</object
+></dt
+><dd
+>The definition of a glossary term</dd
+><dt
+><object
+type="tElement"
+>glossaryTermInLang</object
+></dt
+><dd
+>glossary term information for a particular language; it has both a <object
+type="tElement"
+>glossaryTermTerm</object
+> and a <object
+type="tElement"
+>glossaryTermDefinition</object
+></dd
+><dt
+><object
+type="tElement"
+>glossaryTermRef</object
+></dt
+><dd
+>A reference to a glossary term</dd
+><dt
+><object
+type="tElement"
+>glossaryTermTerm</object
+></dt
+><dd
+>The glossary term itself (as you want it to appear, by default)</dd
+><dt
+><object
+type="tElement"
+>glossaryTerm</object
+></dt
+><dd
+>The information for a glossary term, possibly in more than one language</dd
+><dt
+><object
+type="tElement"
+>glossaryTerms</object
+></dt
+><dd
+>The set of glossary terms</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsShownHere</object
+></dt
+><dd
+>This indicates where the table of glossary terms is to appear</dd
+><dt
+><object
+type="tElement"
 >hangingIndent</object
 ></dt
 ><dd
@@ -11416,6 +11471,23 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a glossary</dd
+><dt
+><object
+type="tElement"
+>glossaryTermRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>glossaryTermRef</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsInTableLayout</object
+></dt
+><dd
+>Layout info for showing glossary terms used in a table</dd
 ><dt
 ><object
 type="tElement"

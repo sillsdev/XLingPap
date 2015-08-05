@@ -2,6 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:rx="http://www.renderx.com/XSL/Extensions"
     xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi" xmlns:saxon="http://icl.com/saxon">
     <xsl:output method="xml" version="1.0" encoding="utf-8"/>
+    <xsl:include href="XLingPapCommon.xsl"/>
+    <xsl:include href="XLingPapCannedCommon.xsl"/>
     <!-- ===========================================================
       Parameters
       =========================================================== -->
@@ -169,6 +171,8 @@
             <!-- Page layouts -->
             <fo:layout-master-set>
                 <!-- Front matter -->
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">FrontMatterPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -181,6 +185,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">FrontMatterTOCFirstPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -193,6 +199,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">FrontMatterTOCEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -205,6 +213,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">FrontMatterTOCOddPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -217,6 +227,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:if test="$landscapes">
                     <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                         <xsl:attribute name="master-name">FrontMatterTOCLandscapeEvenPage</xsl:attribute>
@@ -243,6 +255,8 @@
                         </fo:region-after>
                     </xsl:element>
                 </xsl:if>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">FrontMatterBlankEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -256,6 +270,8 @@
                     </fo:region-after>
                 </xsl:element>
                 <!-- Chapters -->
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">ChapterFirstPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -272,6 +288,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">ChapterEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -288,6 +306,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">ChapterOddPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -305,6 +325,8 @@
                     </fo:region-after>
                 </xsl:element>
                 <xsl:if test="$landscapes">
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                         <xsl:attribute name="master-name">ChapterLandscapeEvenPage</xsl:attribute>
                         <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
@@ -321,6 +343,8 @@
                             <xsl:call-template name="DoDebugFooter"/>
                         </fo:region-after>
                     </xsl:element>
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                         <xsl:attribute name="master-name">ChapterLandscapeOddPage</xsl:attribute>
                         <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" reference-orientation="90">
@@ -339,6 +363,8 @@
                     </xsl:element>
                 </xsl:if>
                 <!-- Indexes -->
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">IndexFirstPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
@@ -355,6 +381,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">IndexEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
@@ -371,6 +399,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="OddPageLayout">
                     <xsl:attribute name="master-name">IndexOddPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}" column-count="2" column-gap="0.25in">
@@ -387,6 +417,8 @@
                         <xsl:call-template name="DoDebugFooter"/>
                     </fo:region-after>
                 </xsl:element>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <xsl:element name="fo:simple-page-master" use-attribute-sets="EvenPageLayout">
                     <xsl:attribute name="master-name">BlankEvenPage</xsl:attribute>
                     <fo:region-body margin-top="{$sHeaderMargin}" margin-bottom="{$sFooterMargin}">
@@ -404,6 +436,8 @@
                     </fo:region-after>
                 </xsl:element>
                 <xsl:if test="$chapters">
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="FrontMatter">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference page-position="first" master-reference="FrontMatterPage"/>
@@ -412,6 +446,8 @@
                             <fo:conditional-page-master-reference odd-or-even="even" blank-or-not-blank="blank" master-reference="FrontMatterBlankEvenPage"/>
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="FrontMatterTOC">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference page-position="first" master-reference="FrontMatterTOCFirstPage"/>
@@ -421,6 +457,8 @@
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
                     <xsl:if test="$landscapes">
+                        <!-- insert a new line so we don't get everything all on one line -->
+                        <xsl:text>&#xa;</xsl:text>
                         <fo:page-sequence-master master-name="FrontMatterTOCLandscape">
                             <fo:repeatable-page-master-alternatives>
                                 <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterTOCLandscapeEvenPage"/>
@@ -428,12 +466,16 @@
                             </fo:repeatable-page-master-alternatives>
                         </fo:page-sequence-master>
                     </xsl:if>
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="FrontMatterTOCContinuation">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference odd-or-even="even" master-reference="FrontMatterTOCEvenPage"/>
                             <fo:conditional-page-master-reference odd-or-even="odd" master-reference="FrontMatterTOCOddPage"/>
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="IndexContinuation">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference odd-or-even="even" master-reference="IndexEvenPage"/>
@@ -441,6 +483,8 @@
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
                 </xsl:if>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence-master master-name="Chapter">
                     <fo:repeatable-page-master-alternatives>
                         <fo:conditional-page-master-reference page-position="first" master-reference="ChapterFirstPage"/>
@@ -450,12 +494,16 @@
                     </fo:repeatable-page-master-alternatives>
                 </fo:page-sequence-master>
                 <xsl:if test="$landscapes">
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="ChapterLandscape">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterLandscapeEvenPage"/>
                             <fo:conditional-page-master-reference odd-or-even="odd" master-reference="ChapterLandscapeOddPage"/>
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
+                    <!-- insert a new line so we don't get everything all on one line -->
+                    <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence-master master-name="ChapterContinuation">
                         <fo:repeatable-page-master-alternatives>
                             <fo:conditional-page-master-reference odd-or-even="even" master-reference="ChapterEvenPage"/>
@@ -463,6 +511,8 @@
                         </fo:repeatable-page-master-alternatives>
                     </fo:page-sequence-master>
                 </xsl:if>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence-master master-name="Index">
                     <fo:repeatable-page-master-alternatives>
                         <fo:conditional-page-master-reference page-position="first" master-reference="IndexFirstPage"/>
@@ -718,6 +768,8 @@
         </fo:page-sequence>
     </xsl:template>
     <xsl:template name="OutputFrontMatterStaticContent">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:static-content flow-name="FrontMatterTOCFirstPage-after" display-align="after">
             <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
                 <xsl:attribute name="text-align">center</xsl:attribute>
@@ -732,6 +784,8 @@
                 <xsl:otherwise>preface-title</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:static-content flow-name="FrontMatterTOCEvenPage-before" display-align="before">
             <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
@@ -748,6 +802,8 @@
                 </fo:inline>
             </xsl:element>
         </fo:static-content>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:static-content flow-name="FrontMatterTOCOddPage-before" display-align="before">
             <xsl:element name="fo:block" use-attribute-sets="HeaderFooterFontInfo">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
@@ -764,6 +820,8 @@
                 </fo:inline>
             </xsl:element>
         </fo:static-content>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:static-content flow-name="xsl-footnote-separator">
             <fo:block text-align="left">
                 <fo:leader leader-pattern="rule" leader-length="2in"/>
@@ -774,6 +832,8 @@
       abstract, preface and acknowledgements (paper)
       -->
     <xsl:template match="abstract | acknowledgements | preface" mode="paper">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:call-template name="DoAbstractAcknowledgementsOrPreface">
             <xsl:with-param name="bIsBook" select="'N'"/>
         </xsl:call-template>
@@ -1310,6 +1370,8 @@
         EXAMPLES
         =========================================================== -->
     <xsl:template match="example">
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <fo:block>
             <xsl:if test="@num">
                 <xsl:attribute name="id">
@@ -2609,33 +2671,6 @@ not using
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- decided to use glossary instead
-   <xsl:template match="backMatter/abbreviationsShownHere">
-      <xsl:choose>
-         <xsl:when test="$chapters">
-            <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
-               <xsl:call-template name="OutputChapterStaticContent">
-                  <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
-               </xsl:call-template>
-               <fo:flow flow-name="xsl-region-body">
-                  <xsl:attribute name="font-family">
-                     <xsl:value-of select="$sDefaultFontFamily"/>
-                  </xsl:attribute>
-                  <xsl:attribute name="font-size">
-                     <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-                  <fo:marker marker-class-name="chap-title">
-                     <xsl:call-template name="OutputAbbreviationsLabel"/>
-                  </fo:marker>
-                  <xsl:call-template name="DoAbbreviations"/>
-               </fo:flow>
-            </fo:page-sequence>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:call-template name="DoAbbreviations"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
--->
     <xsl:template match="abbreviationsShownHere">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
@@ -2657,6 +2692,31 @@ not using
         </xsl:choose>
     </xsl:template>
     <xsl:template match="abbrTerm | abbrDefinition"/>
+    <!-- ===========================================================
+        glossaryTerms
+        =========================================================== -->
+    <xsl:template match="glossaryTermRef">
+        <xsl:choose>
+            <xsl:when test="ancestor::genericRef">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline>
+                    <fo:basic-link>
+                        <xsl:attribute name="internal-destination">
+                            <xsl:value-of select="@glossaryTerm"/>
+                        </xsl:attribute>
+                        <xsl:call-template name="AddAnyLinkAttributes"/>
+                        <xsl:call-template name="OutputGlossaryTerm">
+                            <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                        </xsl:call-template>
+                    </fo:basic-link>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -4913,6 +4973,8 @@ not using
     <xsl:template name="OutputBackMatterItemTitle">
         <xsl:param name="sId"/>
         <xsl:param name="sLabel"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <xsl:choose>
             <xsl:when test="$chapters and not(ancestor::chapterInCollection)">
                 <fo:block id="{$sId}" font-size="18pt" font-weight="bold" break-before="page" margin-top="176pt" margin-bottom="10.8pt" text-align="center" span="all">
@@ -5566,6 +5628,8 @@ not using
 -->
     <xsl:template name="OutputSection">
         <xsl:call-template name="DoType"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
         <!-- put title in marker so it can show up in running header -->
         <fo:marker marker-class-name="section-title">
             <xsl:call-template name="DoSecTitleRunningHeader"/>
@@ -5886,7 +5950,5 @@ not using
     <xsl:template match="referencedInterlinearTexts"/>
     <xsl:template match="term"/>
     <xsl:template match="type"/>
-    <xsl:include href="XLingPapCommon.xsl"/>
-    <xsl:include href="XLingPapCannedCommon.xsl"/>
     <xsl:include href="XLingPapFOCommon.xsl"/>
 </xsl:stylesheet>

@@ -1794,6 +1794,95 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <!--
+        OutputGlossaryTermInTable
+    -->
+    <xsl:template name="OutputGlossaryTermInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:param name="glossaryTermInSecondColumn"/>
+        <tr>
+            <xsl:call-template name="OutputGlossaryTermItemInTable">
+                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+            </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$glossaryTermInSecondColumn">
+                    <td>
+                        <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@doubleColumnSeparation)"/>
+                        <xsl:if test="string-length($sSep)&gt;0">
+                            <xsl:attribute name="style">
+                                <xsl:text>padding-left:</xsl:text>
+                                <xsl:value-of select="$sSep"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </td>
+                    <xsl:call-template name="OutputGlossaryTermItemInTable">
+                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </tr>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermItemInTable
+    -->
+    <xsl:template name="OutputGlossaryTermItemInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <td valign="top">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@glossaryTermWidth)"/>
+            </xsl:call-template>
+            <a id="{@id}">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="."/>
+                    <xsl:with-param name="bIsRef" select="'N'"/>
+                </xsl:call-template>
+            </a>
+        </td>
+        <xsl:if test="not($contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn!='no'">
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@equalsWidth)"/>
+                </xsl:call-template>
+                <xsl:text> = </xsl:text>
+            </td>
+        </xsl:if>
+        <td valign="top">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@definitionWidth)"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputGlossaryTermDefinition">
+                <xsl:with-param name="glossaryTerm" select="."/>
+            </xsl:call-template>
+        </td>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsInTable
+    -->
+    <xsl:template name="OutputGlossaryTermsInTable">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <table>
+                <xsl:attribute name="style">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInTableLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@start-indent)"/>
+                    <xsl:if test="string-length($sStartIndent)&gt;0">
+                        <xsl:text>margin-left:</xsl:text>
+                        <xsl:value-of select="$sStartIndent"/>
+                        <xsl:text>;</xsl:text>
+                    </xsl:if>
+                </xsl:attribute>
+                <xsl:call-template name="SortGlossaryTermsInTable">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </table>
+        </xsl:if>
+    </xsl:template>
+    
+    
     <!--  
         OutputInterlinear
     -->

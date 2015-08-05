@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->15 June 2015</date
+>5 August 2015</date
 ><version
 >2.27.3</version
 ><contents
@@ -685,6 +685,9 @@ term="iFigureRefLink"
 ></indexedItem
 ><indexedItem
 term="iGenericRefLink"
+></indexedItem
+><indexedItem
+term="iGlossaryTermsRefLink"
 ></indexedItem
 ><indexedItem
 term="iIndexLink"
@@ -11598,7 +11601,7 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
-id="sAbbreviationsInTables"
+id="sCitationOverrides"
 ><secTitle
 >Special Overrides for <object
 type="tElement"
@@ -11688,7 +11691,7 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
-id="sCitationOverrides"
+id="sAbbreviationsInTables"
 ><secTitle
 >Controlling the Display of Abbreviations in a Table</secTitle
 ><p
@@ -11909,6 +11912,240 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 >This indicates whether or not the table of abbreviations should include a column consisting of an equal sign between the abbreviation and its definition. The default is to include this column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+></section2
+><section2
+id="sGlossaryTermssInTables"
+><secTitle
+>Controlling the Display of Glossary Terms in a Table</secTitle
+><p
+><indexedItem
+term="iGlossaryTermsInTable"
+></indexedItem
+>Sometimes one wants to control how the list of glossary terms come out when they are in a table. You do this via the <object
+type="tElement"
+>glossaryTermsInTableLayout</object
+> element. The <object
+type="tElement"
+>glossaryTermsInTableLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xGlossaryTermsInTableLayoutAttributes"
+num="xGlossaryTermsInTableLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xGlossaryTermsInTableLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>glossaryTermsInTableLayout</object
+> Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInTabledoubleColumnSeparation"
+></indexedItem
+><object
+type="tAttribute"
+>doubleColumnSeparation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert between the two sets of glossary terms when using double columns. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInTableStartIndent"
+></indexedItem
+><indexedItem
+term="iStartIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>start-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert before the table. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInTableuseDoubleColumns"
+></indexedItem
+><object
+type="tAttribute"
+>useDoubleColumns</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of glossary terms and their definitions should be in a single column or in double columns (i.e two sets of glossary terms and their definitions). The default is to have only one such column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInTableeuseEqualSignsColumn"
+></indexedItem
+><object
+type="tAttribute"
+>useEqualSignsColumn</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of glossary terms should include a column consisting of an equal sign between the glossary term and its definition. The default is to include this column.</langData
 ></td
 ><td
 ><object
@@ -14369,6 +14606,38 @@ id="iGlossOverrides"
 id="iGlossaryLayout"
 ><term
 >Glossary Layout</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsRefLink"
+><term
+>Glossary term reference link</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsInTable"
+><term
+>Glossary terms in a table</term
+><indexTerms
+><indexTerm
+id="iGlossaryTermInTabledoubleColumnSeparation"
+><term
+>doubleColumnSeparation</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInTableStartIndent"
+><term
+>start-indent</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInTableuseDoubleColumns"
+><term
+>useDoubleColumns</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInTableeuseEqualSignsColumn"
+><term
+>useEqualSignsColumn</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iHangingIndent"

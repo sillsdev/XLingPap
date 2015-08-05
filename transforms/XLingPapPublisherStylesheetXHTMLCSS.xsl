@@ -256,7 +256,7 @@ li.lower-roman {
 </xsl:text>
         <xsl:apply-templates select="@*[name()!='font-family']"/>
 <xsl:text>}
-        </xsl:text>
+</xsl:text>
     </xsl:template>
     <!-- 
         abstractLayout
@@ -634,6 +634,32 @@ li.lower-roman {
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+
+    <!--
+        glossaryTermRefLinkLayout
+    -->
+    <xsl:template match="glossaryTermRefLinkLayout">
+        <xsl:call-template name="OutputLinkAttributes">
+            <xsl:with-param name="override" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        glossaryTerms
+    -->
+    <xsl:template match="glossaryTerms">
+        <xsl:text>.glossaryTerms {
+</xsl:text>
+        <xsl:apply-templates select="@*"/>
+<xsl:text>}
+</xsl:text>
+        <xsl:text>.glossaryTermsNoFontFamily {
+</xsl:text>
+        <xsl:apply-templates select="@*[name()!='font-family']"/>
+<xsl:text>}
+</xsl:text>
+    </xsl:template>
+    
+    
     <!-- 
         glossInExampleLayout
     -->
@@ -747,6 +773,7 @@ li.lower-roman {
     -->
     <xsl:template match="lingPaper">
         <xsl:apply-templates select="backMatter/abbreviations"/>
+        <xsl:apply-templates select="backMatter/glossaryTerms"/>
         <xsl:apply-templates select="languages"/>
         <xsl:apply-templates select="types"/>
     </xsl:template>
@@ -1789,6 +1816,8 @@ li.lower-roman {
     <xsl:template name="HandleLiteralLabelLayoutInfo"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>
     <xsl:template name="OutputAbbreviationInTable"/>
+    <xsl:template name="OutputGlossaryTermInTable"/>
+    <xsl:template name="OutputGlossaryTermsInTable"/>
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE
         =========================================================== -->

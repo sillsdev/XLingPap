@@ -116,7 +116,8 @@ Page Layout
       A link will only be colored and/or decorated if the showmarking attrbute of the sub-element is 'yes'. 
       -->
     <!ELEMENT linkLayout (abbrRefLinkLayout?, appendixRefLinkLayout, citationLinkLayout, contentsLinkLayout,  endnoteRefLinkLayout, exampleRefLinkLayout, figureRefLinkLayout?,
-                                               genericRefLinkLayout, indexLinkLayout, interlinearRefLinkLayout, linkLinkLayout, sectionRefLinkLayout, tablenumberedRefLinkLayout?, urlLinkLayout) >
+                                               genericRefLinkLayout, glossaryTermRefLinkLayout?, indexLinkLayout, interlinearRefLinkLayout, linkLinkLayout, sectionRefLinkLayout,
+                                               tablenumberedRefLinkLayout?, urlLinkLayout) >
     <!ATTLIST  linkLayout
     color CDATA #IMPLIED
     decoration (none | underline | overline |  line-through | blink) "none"  
@@ -153,6 +154,10 @@ Page Layout
     >
     <!ELEMENT genericRefLinkLayout EMPTY>
     <!ATTLIST  genericRefLinkLayout
+    %linkLayoutCommonNoShow;
+    >
+    <!ELEMENT glossaryTermRefLinkLayout EMPTY>
+    <!ATTLIST  glossaryTermRefLinkLayout
     %linkLayoutCommonNoShow;
     >
     <!ELEMENT indexLinkLayout EMPTY>
@@ -569,7 +574,8 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, glossaryTermsInTableLayout?, 
+                                                      prose-textTextLayout?, quoteLayout?, blockQuoteLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -768,6 +774,15 @@ Content Layout
     >
     <!ELEMENT abbreviationsInTableLayout  EMPTY>
     <!ATTLIST abbreviationsInTableLayout
+       %fontinfo;
+       start-indent CDATA #IMPLIED
+       useEqualSignsColumn (yes | no) "yes"
+       useDoubleColumns (yes | no) "no"
+       doubleColumnSeparation CDATA #IMPLIED
+       useSingleSpacing (yes | no) "yes"
+    >
+    <!ELEMENT glossaryTermsInTableLayout  EMPTY>
+    <!ATTLIST glossaryTermsInTableLayout
        %fontinfo;
        start-indent CDATA #IMPLIED
        useEqualSignsColumn (yes | no) "yes"

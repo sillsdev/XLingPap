@@ -640,7 +640,7 @@ alt causes menu to be selected
                             <cfg:command name="insert" parameter="into abbrRef"/>
                         </cfg:pass>
                         <cfg:command name="LocalizeString" parameter="msg.insertReferenceElement"/>
-                        <cfg:command name="pick" parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="pick" parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss glossaryTermRef indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
                         <cfg:command name="insert" parameter="into %_"/>
                         <cfg:command name="setReference"/>
                     </cfg:sequence>
@@ -735,6 +735,7 @@ alt causes menu to be selected
                     <cfg:command name="setFramedType"/>
                     <cfg:command name="setContentType"/>
                     <cfg:command name="setType"/>
+                    <cfg:command name="setGlossaryTerm"/>
                     <cfg:command name="setAnnotation"/>
                     <cfg:command name="setAnnotatedBibliographyType"/>
                 </cfg:choice>
@@ -1196,7 +1197,7 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang term seeDefinition"/>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang glossaryTermInLang term seeDefinition"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
                 <cfg:get expression="join(//language/@id, ' ')"/>
@@ -1308,6 +1309,32 @@ alt causes menu to be selected
                 <cfg:command name="putAttribute" parameter="[implicitElement] type %_"/>
             </cfg:sequence>
         </cfg:macro>
+    </cfg:command>
+    <cfg:command name="setGlossaryTerm">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] glossaryTermRef"/>
+                </cfg:pass>
+                <cfg:set variable="chapterInCollectionId" expression="ancestor::chapterInCollection[backMatter/glossaryTerms]/@id" context="$implicitElement"/>
+                <!--<cfg:get expression="$chapterInCollectionId"/>
+                    <cfg:command name="alert" parameter="%_"/>-->
+                <cfg:get expression="$chapterInCollectionId"/>
+                <cfg:command name="getGlossaryTermsandIds" parameter="%_"/>
+                <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
+                <cfg:command name="pick" parameter="'Glossary Term' true %_"/>
+                <cfg:command name="putAttribute" parameter="[implicitElement] glossaryTerm %_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="getGlossaryTermsandIds">
+        <cfg:process showProgress="false">
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetGlossaryTermsAndIds.xsl" to="out.xml">
+                <cfg:parameter name="chapterInCollectionId">%0</cfg:parameter>
+            </cfg:transform>
+            <cfg:read encoding="UTF-8" file="out.xml"/>
+        </cfg:process>
     </cfg:command>
     <cfg:command name="setAnnotation">
         <cfg:macro>

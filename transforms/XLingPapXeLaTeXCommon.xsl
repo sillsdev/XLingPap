@@ -7406,6 +7406,25 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        HandleGlossaryTermsInTableColumnSpecColumns
+    -->
+    <xsl:template name="HandleGlossaryTermsInTableColumnSpecColumns">
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@glossaryTermWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
+        <xsl:if test="not($contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
+                <xsl:with-param name="sDefaultSpec" select="'c'"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@definitionWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
         HandleImmediatelyPrecedingLineGroupOrFree
     -->
     <xsl:template name="HandleImmediatelyPrecedingLineGroupOrFree">
@@ -8488,6 +8507,170 @@
             </xsl:if>
             </xsl:if>
         -->
+    </xsl:template>
+    <!--
+        OutputGlossaryTerm
+    -->
+    <xsl:template name="OutputGlossaryTerm">
+        <xsl:param name="glossaryTerm"/>
+        <xsl:param name="bIsRef" select="'Y'"/>
+        <tex:group>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$glossaryTerms"/>
+                <xsl:with-param name="ignoreFontFamily">
+                    <xsl:choose>
+                        <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$bIsRef='Y' and string-length(.) &gt; 0">
+                    <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:when test="string-length($glossaryTermLang) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="string-length($glossaryTerm//glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm) &gt; 0">
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm" mode="Use"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- a language is specified, but this glossary term does not have anything; try using the default;
+                                this assumes that something is better than nothing -->
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--  no language specified; just use the first one -->
+                    <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$glossaryTerms"/>
+            </xsl:call-template>
+        </tex:group>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermInTable
+    -->
+    <xsl:template name="OutputGlossaryTermInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:param name="glossaryTermInSecondColumn"/>
+        
+        <xsl:call-template name="OutputGlossaryTermItemInTable">
+            <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+        </xsl:call-template>
+        <xsl:if test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
+            <tex:spec cat="align"/>
+            <xsl:for-each select="$glossaryTermInSecondColumn">
+                <xsl:call-template name="OutputGlossaryTermItemInTable">
+                    <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:if>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc" nl2="1"/>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermItemInTable
+    -->
+    <xsl:template name="OutputGlossaryTermItemInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputGlossaryTerm">
+            <xsl:with-param name="glossaryTerm" select="."/>
+            <xsl:with-param name="bIsRef" select="'N'"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <tex:spec cat="align"/>
+        <xsl:if test="not($contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:text> = </xsl:text>
+            <tex:spec cat="align"/>
+        </xsl:if>
+        <xsl:call-template name="OutputGlossaryTermDefinition">
+            <xsl:with-param name="glossaryTerm" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsInTable
+    -->
+    <xsl:template name="OutputGlossaryTermsInTable">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/glossaryTermsInTableLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+            </xsl:if>
+            <tex:spec cat="bg"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInTableLayout"/>
+            </xsl:call-template>
+            <tex:env name="longtable">
+                <tex:opt>l</tex:opt>
+                <tex:parm>
+                    <xsl:text>@</xsl:text>
+                    <tex:group>
+                        <tex:cmd name="hspace*">
+                            <tex:parm>
+                                <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@start-indent)"/>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sStartIndent)&gt;0">
+                                        <xsl:value-of select="$sStartIndent"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <tex:cmd name="parindent" gr="0" nl2="0"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </tex:parm>
+                        </tex:cmd>
+                    </tex:group>
+                    <xsl:call-template name="HandleGlossaryTermsInTableColumnSpecColumns"/>
+                    <xsl:if test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:text>@</xsl:text>
+                        <tex:group>
+                            <tex:cmd name="hspace*">
+                                <tex:parm>
+                                    <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@doubleColumnSeparation)"/>
+                                    <xsl:choose>
+                                        <xsl:when test="string-length($sSep)&gt;0">
+                                            <xsl:value-of select="$sSep"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <tex:cmd name="parindent" gr="0" nl2="0"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </tex:parm>
+                            </tex:cmd>
+                        </tex:group>
+                        <xsl:call-template name="HandleGlossaryTermsInTableColumnSpecColumns"/>
+                    </xsl:if>
+                </tex:parm>
+                <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
+                    The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
+                    corresponding cell in the other column may skip a row (as far as what one would expect).
+                    So I'm going with just a single table here.
+                    <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
+                    <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
+                -->
+                <xsl:call-template name="SortGlossaryTermsInTable">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </tex:env>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInTableLayout"/>
+            </xsl:call-template>
+            <tex:spec cat="eg"/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/glossaryTermsInTableLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputIndexedItemsRange

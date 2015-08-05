@@ -3320,33 +3320,6 @@ not using
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- decided to use glossary instead
-      <xsl:template match="backMatter/abbreviationsShownHere">
-      <xsl:choose>
-      <xsl:when test="//chapter">
-      <fo:page-sequence master-reference="Chapter" initial-page-number="auto-odd">
-      <xsl:call-template name="OutputChapterStaticContent">
-      <xsl:with-param name="sSectionTitle" select="'chap-title'"/>
-      </xsl:call-template>
-      <fo:flow flow-name="xsl-region-body">
-      <xsl:attribute name="font-family">
-      <xsl:value-of select="$sDefaultFontFamily"/>
-      </xsl:attribute>
-      <xsl:attribute name="font-size">
-      <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-      <fo:marker marker-class-name="chap-title">
-      <xsl:call-template name="OutputAbbreviationsLabel"/>
-      </fo:marker>
-      <xsl:call-template name="DoAbbreviations"/>
-      </fo:flow>
-      </fo:page-sequence>
-      </xsl:when>
-      <xsl:otherwise>
-      <xsl:call-template name="DoAbbreviations"/>
-      </xsl:otherwise>
-      </xsl:choose>
-      </xsl:template>
-   -->
     <xsl:template match="abbreviationsShownHere">
         <xsl:if test="$iAbbreviationCount &gt; 0">
             <xsl:choose>
@@ -3370,6 +3343,33 @@ not using
         </xsl:if>
     </xsl:template>
     <xsl:template match="abbrDefinition"/>
+    <!-- ===========================================================
+        glossaryTerms
+        =========================================================== -->
+    <xsl:template match="glossaryTermRef">
+        <xsl:choose>
+            <xsl:when test="ancestor::genericRef">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline>
+                    <fo:basic-link>
+                        <xsl:attribute name="internal-destination">
+                            <xsl:value-of select="@glossaryTerm"/>
+                        </xsl:attribute>
+                        <xsl:call-template name="AddAnyLinkAttributes">
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/glossaryTermRefLinkLayout"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputGlossaryTerm">
+                            <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                        </xsl:call-template>
+                    </fo:basic-link>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->

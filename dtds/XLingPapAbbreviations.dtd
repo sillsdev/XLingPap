@@ -18,7 +18,7 @@
 >
 <!-- an abbreviation that might be used in glossing within a document.
 A given abbreviation may be expressed in more than one language (e.g. English, Spanish, French, etc.).  Thus it has multiple abbrInLang elements.
-It only shows if there is an instance of a referring index element in the document
+It only shows if there is an instance of a referring abbrRef element in the document;
    the id attribute uniquely identifies this abbreviation so it can be referred to by abbrRef elements
 -->
 <!ELEMENT abbreviation (abbrInLang+)>

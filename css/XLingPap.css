@@ -1,6 +1,8 @@
 /***********************
  XLingPap.css Style sheet for XLingPap for use with XMLMind
 ************************/
+/* Custom Java extension for XXE so we can handle feature paths */
+@extension "xlingpaper.xxe.StyleSheetExtension";
 
 @property-value abbreviation-background-color() #FFFFBB; /* a light yellow */
 @property-value appendix-background-color() #D8BFD8; /* #D8BFD8 is thistle */
@@ -15,6 +17,7 @@
 @property-value example-indent() 0.25in;
 @property-value figure-background-color() #FFCCA0; /* #FFCCA0 is a soft pink */
 @property-value generic-background-color() #AFEEEE; /* #AFEEEE is paleturquoise */
+@property-value glossaryterm-background-color() #FFB6C1; /* #FFB6C1 is lightpink */
 @property-value indented-block() 1.33ex 0.25in 1ex 0.25in; /* top right bottom left */
 @property-value index-background-color() #ccffcc; /* #AFEEEE is paleturquoise */
 @property-value indexRange-background-color() #ccffaa; /* #AFEEEE is paleturquoise */
@@ -379,7 +382,7 @@ abbreviations[label]:before
 abbreviations:before
 {
 	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
-    " Abbreviations";
+    " Abbreviations Master List";
 }
 backMatter > abbreviations 
 {
@@ -394,19 +397,19 @@ abbreviations
 endnote p abbreviationsShownHere
 {
 	display:inline;
-	content: "The abbreviations will appear here.";
+	content: "The abbreviations will appear here as a comma-separated list.";
 	font-style:italic;
 }
 p abbreviationsShownHere
 {
 	display:inline;
-	content: "This will not do anything.  Please remove this element.";
+	content: "This will not do anything.  Please remove this element.  Instead, select the p element it is in and do an insert-after command to insert an abbreviationsShownHere element.";
 	font-style:italic;
 }
 abbreviationsShownHere
 {
 	display:block;
-	content: "The abbreviations will appear here.";
+	content: "The abbreviations will appear here as a table.";
 	font-style:italic;
 	padding-bottom:1ex;
 }
@@ -1988,6 +1991,95 @@ glossary
 {
 	display:block;
 	property-group: isCollapsible( yes, 1);
+}
+
+glossaryTerm:before
+{
+    content: text-field(attribute, id, columns, 10, font-size, small);
+	background-color:glossaryterm-background-color();
+}
+glossaryTerm
+{
+	display:block;
+	padding-left: .25in;
+}
+glossaryTerms[label]:before
+{
+		content: collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	"  " text-field(attribute,label);
+}
+glossaryTerms:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+    " Glossary Terms Master List";
+}
+backMatter > glossaryTerms 
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
+glossaryTerms 
+{
+	display:block;
+	property-group: isCollapsible( yes, 1);
+}
+glossaryTermsShownHere
+{
+	display:block;
+	content: "The glossary terms will appear here as a table.";
+	font-style:italic;
+	padding-bottom:1ex;
+}
+glossaryTermDefinition:before
+{
+	content:" = ";
+}
+glossaryTermDefinition
+{
+	display:inline;
+}
+glossaryTermInLang:before
+{
+	content: " ";
+}
+glossaryTermInLang + glossaryTermInLang:before
+{
+	content: ";   ";
+}
+glossaryTermInLang
+{
+	display:inline;
+}
+glossaryTermRef[capitalize='yes']:before
+{
+	content: set-attribute-button(attribute, glossaryTerm,
+						 unset-attribute, no,
+						 color, black)
+	invoke("capitalize", "null")
+	;
+	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
+
+	background-color:glossaryTerm-background-color();
+}
+glossaryTermRef:before
+{
+	content: set-attribute-button(attribute, glossaryTerm,
+						 unset-attribute, no,
+						 color, black)
+	label(xpath,"if(string-length(.)>0,'',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@glossarytermlang))>0] and id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm,id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm, id(@glossaryTerm)/glossaryTermInLang[1]/glossaryTermTerm)")
+	;
+	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
+
+	background-color:glossaryTerm-background-color();
+}
+glossaryTermRef
+{
+	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
+	background-color:glossaryTerm-background-color();
+}
+glossaryTermTerm
+{
+	display:inline;
 }
 
 hangingIndent:before 
@@ -6480,6 +6572,67 @@ genericRefLinkLayout[showmarking='yes']
 genericRefLinkLayout
 {
 	property-group:linkLayoutParameter("genericRef");
+	color: gray;
+	text-decoration:none;
+}
+
+glossaryTermsInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossaryTermsInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossaryTermsInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossaryTermsInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossaryTermsInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossaryTermsInTableLayout
+{
+	display:block;
+	content:"glossary terms in table layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
+glossaryTermRefLinkLayout[showmarking='no']
+{
+	color:Gray;
+	text-decoration:none;
+}
+linkLayout[color] glossaryTermRefLinkLayout[color='default'][showmarking='yes']
+{
+	color:concatenate(xpath("../@color"));
+}
+glossaryTermRefLinkLayout[color][showmarking='yes']
+{
+	color:concatenate(attr(color));
+}
+linkLayout[decoration] glossaryTermRefLinkLayout[decoration='default'][showmarking='yes']
+{
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+glossaryTermRefLinkLayout[decoration][showmarking='yes']
+{
+	text-decoration:concatenate(attr(decoration));
+}
+glossaryTermRefLinkLayout[showmarking='yes']
+{
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+glossaryTermRefLinkLayout
+{
+	property-group:linkLayoutParameter("glossaryTermRef");
 	color: gray;
 	text-decoration:none;
 }

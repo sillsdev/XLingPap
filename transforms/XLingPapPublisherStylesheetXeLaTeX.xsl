@@ -3378,11 +3378,38 @@
                     </xsl:call-template>
                     <xsl:if test="$bInMarker!='Y'">
                         <xsl:call-template name="LinkAttributesEnd">
-                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/sectionRefLinkLayout"/>
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/abbrRefLinkLayout"/>
                         </xsl:call-template>
                         <xsl:call-template name="DoInternalHyperlinkEnd"/>
                     </xsl:if>
                 </tex:group>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- ===========================================================
+        glossaryTerms
+        =========================================================== -->
+    <xsl:template match="glossaryTermRef">
+        <xsl:choose>
+            <xsl:when test="ancestor::genericRef">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInternalHyperlinkBegin">
+                    <xsl:with-param name="sName" select="@glossaryTerm"/>
+                </xsl:call-template>
+                <xsl:call-template name="LinkAttributesBegin">
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/glossaryTermRefLinkLayout"/>
+                </xsl:call-template>
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                </xsl:call-template>
+                <xsl:call-template name="LinkAttributesEnd">
+                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/glossaryTermRefLinkLayout"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoInternalHyperlinkEnd"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

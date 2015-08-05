@@ -755,6 +755,154 @@
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
+    <!--
+        OutputGlossaryTerm
+    -->
+    <xsl:template name="OutputGlossaryTerm">
+        <xsl:param name="glossaryTerm"/>
+        <xsl:param name="bIsRef" select="'Y'"/>
+        <fo:inline>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$glossaryTerms"/>
+                <xsl:with-param name="ignoreFontFamily">
+                    <xsl:choose>
+                        <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
+                            <xsl:text>Y</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>N</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$bIsRef='Y' and string-length(.) &gt; 0">
+                    <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:when test="string-length($glossaryTermLang) &gt; 0">
+                    <xsl:choose>
+                        <xsl:when test="string-length($glossaryTerm//glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm) &gt; 0">
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm" mode="Use"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- a language is specified, but this glossary term does not have anything; try using the default;
+                                this assumes that something is better than nothing -->
+                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!--  no language specified; just use the first one -->
+                    <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fo:inline>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermInTable
+    -->
+    <xsl:template name="OutputGlossaryTermInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:param name="glossaryTermInSecondColumn"/>
+        <fo:table-row>
+            <xsl:if test="position() = last() -1 or position() = 1">
+                <xsl:attribute name="keep-with-next.within-page">1</xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="OutputGlossaryTermItemInTable">
+                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+            </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$glossaryTermInSecondColumn">
+                    <fo:table-cell>
+                        <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@doubleColumnSeparation)"/>
+                        <xsl:if test="string-length($sSep)&gt;0">
+                            <xsl:attribute name="padding-left">
+                                <xsl:value-of select="$sSep"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </fo:table-cell>
+                    <xsl:call-template name="OutputGlossaryTermItemInTable">
+                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </fo:table-row>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermItemInTable
+    -->
+    <xsl:template name="OutputGlossaryTermItemInTable">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <fo:table-cell border-collapse="collapse" padding=".2em" padding-top=".01em">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@glossaryTermWidth)"/>
+            </xsl:call-template>
+            <fo:block>
+                <fo:inline id="{@id}">
+                    <xsl:call-template name="OutputGlossaryTerm">
+                        <xsl:with-param name="glossaryTerm" select="."/>
+                        <xsl:with-param name="bIsRef" select="'N'"/>
+                    </xsl:call-template>
+                </fo:inline>
+            </fo:block>
+        </fo:table-cell>
+        <xsl:if test="not($contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/glossaryTermsInTableLayout/@useEqualSignsColumn!='no'">
+            <fo:table-cell border-collapse="collapse">
+                <xsl:attribute name="padding-left">.2em</xsl:attribute>
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@equalsWidth)"/>
+                </xsl:call-template>
+                <fo:block>
+                    <xsl:text> = </xsl:text>
+                </fo:block>
+            </fo:table-cell>
+        </xsl:if>
+        <fo:table-cell border-collapse="collapse">
+            <xsl:attribute name="padding-left">.2em</xsl:attribute>
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($glossaryTermsShownHere/@definitionWidth)"/>
+            </xsl:call-template>
+            <fo:block>
+                <xsl:call-template name="OutputGlossaryTermDefinition">
+                    <xsl:with-param name="glossaryTerm" select="."/>
+                </xsl:call-template>
+            </fo:block>
+        </fo:table-cell>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsInTable
+    -->
+    <xsl:template name="OutputGlossaryTermsInTable">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <fo:block>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInTableLayout"/>
+            </xsl:call-template>
+            <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/glossaryTermsInTableLayout/@start-indent)"/>
+            <xsl:if test="string-length($sStartIndent)&gt;0">
+                <xsl:attribute name="margin-left">
+                    <xsl:value-of select="$sStartIndent"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+                <fo:table space-before="12pt">
+                    <fo:table-body start-indent="0pt" end-indent="0pt">
+                        <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
+                            The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
+                            corresponding cell in the other column may skip a row (as far as what one would expect).
+                            So I'm going with just a single table here.
+                            <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
+                            <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
+                        -->
+                        <xsl:call-template name="SortGlossaryTermsInTable">
+                            <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                        </xsl:call-template>
+                    </fo:table-body>
+                </fo:table>
+            </xsl:if>
+        </fo:block>
+    </xsl:template>
     <!--  
         OutputInterlinearTextReference
     -->

@@ -17,11 +17,21 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.MissingResourceException;
+
+import com.xmlmind.guiutil.Alert;
 import com.xmlmind.util.Preferences;
+import com.xmlmind.xml.doc.Document;
+import com.xmlmind.xml.doc.Element;
 import com.xmlmind.xml.doc.Node;
+import com.xmlmind.xml.doc.XNode;
+import com.xmlmind.xml.name.Name;
+import com.xmlmind.xml.xpath.EvalException;
+import com.xmlmind.xml.xpath.ParseException;
+import com.xmlmind.xml.xpath.XPathUtil;
 import com.xmlmind.xmledit.stylesheet.StyleValue;
 import com.xmlmind.xmledit.stylesheet.StyleSpecsBase;
 import com.xmlmind.xmledit.styledview.StyledViewFactory;
+import com.xmlmind.xmledit.view.DocumentView;
 
 public class StyleSheetExtension extends StyleSpecsBase {
 
@@ -32,6 +42,98 @@ public class StyleSheetExtension extends StyleSpecsBase {
     }
 
     // -----------------------------------------------------------------------
+
+    public StyleValue capitalize(StyleValue[] args, Node contextNode, StyledViewFactory viewFactory) {
+	if (contextNode.name().localPart != "glossaryTermRef") {
+	    return StyleValue.createString("ERROR!");
+	}
+
+	try {
+	Element term = (Element) contextNode;
+	String text = term.getText();
+	String capitalizedText = "Original nothing";
+	if (text.length() > 0) {
+	    // nothing to return; user needs to capitalize it
+	    return StyleValue.createString("");
+	} else {
+	    Document doc = contextNode.getDocument();
+	    String sGlossaryTerm = contextNode.attributeValue(Name.get("glossaryTerm"));
+	    String sXpath = "(/xlingpaper/styledPaper/lingPaper|/lingPaper)";
+	    XNode[] results = null;
+	    try {
+		results = XPathUtil.evalAsNodeSet(sXpath, doc);
+	    } catch (ParseException e1) {
+		return StyleValue.createString("unexpectedPE for lingPaper element: " + e1.getMessage());
+	    } catch (EvalException e1) {
+		return StyleValue.createString("unexpectedE for lingPaper element: " + e1.getMessage());
+	    }
+	    if (results == null) {
+		return StyleValue.createString("Could not get lingPaper element");
+	    }
+	    String sGlossaryTermLang = results[0].attributeValue(Name.get("glossarytermlang"));
+
+	    if (sGlossaryTermLang != null && sGlossaryTermLang.length() > 0) {
+
+		sXpath = "id('" + sGlossaryTerm + "')/glossaryTermInLang[@lang='"
+			+ sGlossaryTermLang + "']/glossaryTermTerm";
+		try {
+		    results = XPathUtil.evalAsNodeSet(sXpath, doc);
+		} catch (ParseException e1) {
+		    return StyleValue.createString("unexpectedPE: " + e1.getMessage());
+		} catch (EvalException e1) {
+		    return StyleValue.createString("unexpectedE: " + e1.getMessage());
+		}
+		if (results != null && results.length > 0) {
+		    term = (Element) results[0];
+		    capitalizedText = capitalizeString(term.getText());
+		} else {
+		    capitalizedText = getDefaultTerm(doc, sGlossaryTerm);
+		}
+	    } else {
+		capitalizedText = getDefaultTerm(doc, sGlossaryTerm);
+	    }
+	}
+	return StyleValue.createString(capitalizedText);
+	}
+	catch (Exception e) {
+	    return StyleValue.createString("unexpectedE somewhere: " + e.toString() + e.getMessage());
+	}
+    }
+
+    private String getDefaultTerm(Document doc, String sGlossaryTerm) {
+	Element term;
+	XNode[] results = null;
+	String sXpath;
+	String capitalizedText = "default";
+	sXpath = "id('" + sGlossaryTerm + "')/glossaryTermInLang[1]/glossaryTermTerm";
+	try {
+	    results = XPathUtil.evalAsNodeSet(sXpath, doc);
+	} catch (ParseException e1) {
+	    capitalizedText = StyleValue.createString("expectedPE: " + e1.getMessage())
+		    .stringValue();
+	} catch (EvalException e1) {
+	    capitalizedText = StyleValue.createString("expectedE: " + e1.getMessage())
+		    .stringValue();
+	}
+	if (results != null) {
+	    term = (Element) results[0];
+	    capitalizedText = capitalizeString(term.getText());
+	}
+	return capitalizedText;
+    }
+
+    private String capitalizeString(String text) {
+	String capitalizedText = "";
+
+	if (text.length() >= 2) {
+	    capitalizedText = Character.toUpperCase(text.charAt(0)) + text.substring(1);
+	} else if (text.length() == 1) {
+	    capitalizedText = Character.toUpperCase(text.charAt(0)) + "";
+	}
+	return capitalizedText;
+    }
+    
+    /***** did not work
 
     public StyleValue localize(StyleValue[] args, Node contextNode, StyledViewFactory viewFactory) {
 	String text;
@@ -89,7 +191,7 @@ public class StyleSheetExtension extends StyleSpecsBase {
 		// System.err.println("before getBundle");
 		messages = ResourceBundle.getBundle("localizations/XLingPap", new Locale(lang));
 		if (messages == null) {
-		    //System.err.println("after getBundle and messages is null")
+		    // System.err.println("after getBundle and messages is null")
 		    // ;
 		    messages = ResourceBundle.getBundle("localizations/XLingPap_es.properties");
 		    // System.err.println("trying other getBundle");
@@ -104,5 +206,5 @@ public class StyleSheetExtension extends StyleSpecsBase {
 	}
 	return messages;
     }
-
+*****/
 }

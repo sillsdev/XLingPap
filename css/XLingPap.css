@@ -2021,7 +2021,7 @@ backMatter > glossaryTerms
 glossaryTerms 
 {
 	display:block;
-	property-group: isCollapsible( yes, 1);
+	property-group: isCollapsible( no, 1);
 }
 glossaryTermsShownHere
 {

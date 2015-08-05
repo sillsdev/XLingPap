@@ -12,7 +12,8 @@
     <cfg:template location="../templates/XLingPapLanguagesTemplate.xml" name="Languages (part of a modular document)" category="An XLingPaper File/Document Component" order="2050"/>
     <cfg:template location="../templates/XLingPapTypesTemplate.xml" name="Types (part of a modular document)" category="An XLingPaper File/Document Component" order="2060"/>
     <cfg:template location="../templates/XLingPapAuthorContactsTemplate.xml" name="Author Contacts (part of a modular document)" category="An XLingPaper File/Document Component" order="2065"/>
-    <cfg:template location="../templates/XLingPapIndexTermsTemplate.xml" name="Index Terms (part of a modular document)" category="An XLingPaper File/Document Component" order="2070"/>
+    <cfg:template location="../templates/XLingPapGlossaryTermsTemplate.xml" name="Glossary Terms (part of a modular document)" category="An XLingPaper File/Document Component" order="2070"/>
+    <cfg:template location="../templates/XLingPapIndexTermsTemplate.xml" name="Index Terms (part of a modular document)" category="An XLingPaper File/Document Component" order="2080"/>
     <cfg:template location="../templates/XLingPapPaperPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Paper" category="An XLingPaper File/Publisher Stylesheet" order="3010"/>
     <cfg:template location="../templates/XLingPapHandoutPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Handout" category="An XLingPaper File/Publisher Stylesheet" order="3020"/>
     <cfg:template location="../templates/XLingPapBookPublisherStylesheetTemplate.xml" name="Publisher stylesheet for Book" category="An XLingPaper File/Publisher Stylesheet" order="3030"/>

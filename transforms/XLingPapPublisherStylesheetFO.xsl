@@ -3351,6 +3351,7 @@ not using
             <xsl:when test="ancestor::genericRef">
                 <xsl:call-template name="OutputGlossaryTerm">
                     <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                    <xsl:with-param name="glossaryTermRef" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3364,6 +3365,7 @@ not using
                         </xsl:call-template>
                         <xsl:call-template name="OutputGlossaryTerm">
                             <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                            <xsl:with-param name="glossaryTermRef" select="."/>
                         </xsl:call-template>
                     </fo:basic-link>
                 </fo:inline>

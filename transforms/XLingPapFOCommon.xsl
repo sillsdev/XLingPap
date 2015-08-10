@@ -761,6 +761,7 @@
     <xsl:template name="OutputGlossaryTerm">
         <xsl:param name="glossaryTerm"/>
         <xsl:param name="bIsRef" select="'Y'"/>
+        <xsl:param name="glossaryTermRef"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$glossaryTerms"/>
@@ -775,27 +776,11 @@
                     </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
-            <xsl:choose>
-                <xsl:when test="$bIsRef='Y' and string-length(.) &gt; 0">
-                    <xsl:value-of select="."/>
-                </xsl:when>
-                <xsl:when test="string-length($glossaryTermLang) &gt; 0">
-                    <xsl:choose>
-                        <xsl:when test="string-length($glossaryTerm//glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm) &gt; 0">
-                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm" mode="Use"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- a language is specified, but this glossary term does not have anything; try using the default;
-                                this assumes that something is better than nothing -->
-                            <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!--  no language specified; just use the first one -->
-                    <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="OutputGlossaryTermContentInContext">
+                <xsl:with-param name="glossaryTerm" select="$glossaryTerm"/>
+                <xsl:with-param name="bIsRef" select="$bIsRef"/>
+                <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
+            </xsl:call-template>
         </fo:inline>
     </xsl:template>
     <!--

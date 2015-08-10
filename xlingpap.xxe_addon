@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-08-04</a:date
+>2015-08-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.3 4 August 2015<ul
+>2.27.3 10 August 2015<ul
 ><li
->Add glossary term capability so one can have a master list of glossary terms and then refer to them in the document.  The output will show only those used in the document in a table in either a preface or a glossary element.</li
+>Add glossary term capability so one can have a master list of glossary terms and then refer to them in the document. The output will show only those used in the document in a table in either a preface or a glossary element.</li
 ><li
 >Add brief history description to user documentation.</li
 ><li

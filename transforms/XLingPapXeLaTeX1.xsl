@@ -79,15 +79,16 @@
                     </xsl:if>
                 </tex:opt>
                 <tex:parm>
-<!--                    <xsl:text>article</xsl:text>-->
-                    <xsl:choose>  <!-- book limits PDF bookmarks to two levels, but we need book for starting on odd pages -->
+                    <!--                    <xsl:text>article</xsl:text>-->
+                    <xsl:choose>
+                        <!-- book limits PDF bookmarks to two levels, but we need book for starting on odd pages -->
                         <xsl:when test="$bHasChapter='Y'">
-                        <xsl:text>book</xsl:text>
+                            <xsl:text>book</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                        <xsl:text>article</xsl:text>
+                            <xsl:text>article</xsl:text>
                         </xsl:otherwise>
-                        </xsl:choose>
+                    </xsl:choose>
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="SetPageLayoutParameters"/>
@@ -1201,7 +1202,7 @@
                             <tex:spec cat="esc"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <tex:cmd name="par"/>        
+                            <tex:cmd name="par"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
@@ -1989,6 +1990,7 @@
             <xsl:when test="ancestor::genericRef">
                 <xsl:call-template name="OutputGlossaryTerm">
                     <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                    <xsl:with-param name="glossaryTermRef" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1998,13 +2000,14 @@
                     </xsl:call-template>
                     <xsl:call-template name="AddAnyLinkAttributes"/>
                     <xsl:call-template name="OutputGlossaryTerm">
-                            <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
-                        </xsl:call-template>
+                        <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                        <xsl:with-param name="glossaryTermRef" select="."/>
+                    </xsl:call-template>
                     <xsl:call-template name="DoInternalHyperlinkEnd"/>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>    
+    </xsl:template>
     <!-- ===========================================================
         LANGDATA
         =========================================================== -->

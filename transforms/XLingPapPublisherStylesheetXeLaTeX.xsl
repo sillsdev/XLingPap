@@ -3394,6 +3394,7 @@
             <xsl:when test="ancestor::genericRef">
                 <xsl:call-template name="OutputGlossaryTerm">
                     <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                    <xsl:with-param name="glossaryTermRef" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3405,6 +3406,7 @@
                 </xsl:call-template>
                 <xsl:call-template name="OutputGlossaryTerm">
                     <xsl:with-param name="glossaryTerm" select="id(@glossaryTerm)"/>
+                    <xsl:with-param name="glossaryTermRef" select="."/>
                 </xsl:call-template>
                 <xsl:call-template name="LinkAttributesEnd">
                     <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/glossaryTermRefLinkLayout"/>

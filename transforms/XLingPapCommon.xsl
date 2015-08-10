@@ -203,6 +203,19 @@
     <xsl:template match="glossaryTermRef" mode="Use">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
+    <xsl:template match="glossaryTermTerm" mode="Use">
+        <xsl:param name="glossaryTermRef"/>
+        <xsl:choose>
+            <xsl:when test="$glossaryTermRef and $glossaryTermRef/@capitalize='yes'">
+                <xsl:value-of select="translate(substring(.,1,1),'abcdefghijklmnñopqrstuvwxyzáéíóúü', 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚÜ')"/>
+                <xsl:value-of select="substring(.,2)"/>
+            </xsl:when>
+            <xsl:otherwise>
+<!--                <xsl:apply-templates select="self::*"/>    -->
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="glossaryTermsShownHere">
         <xsl:call-template name="HandleGlossaryTermsInTable"/>
     </xsl:template>
@@ -1149,7 +1162,8 @@
         <xsl:choose>
             <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
                 <xsl:call-template name="OutputGlossaryTermsInTable">
-                    <xsl:with-param name="glossaryTermsUsed" select="ancestor::chapterInCollection/backMatter/glossaryTerems/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
+                    <xsl:with-param name="glossaryTermsUsed"
+                        select="ancestor::chapterInCollection/backMatter/glossaryTerems/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1373,6 +1387,41 @@
             <xsl:with-param name="sDefault">Glossary</xsl:with-param>
             <xsl:with-param name="pLabel" select="@label"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermContentInContext
+    -->
+    <xsl:template name="OutputGlossaryTermContentInContext">
+        <xsl:param name="bIsRef"/>
+        <xsl:param name="glossaryTerm"/>
+        <xsl:param name="glossaryTermRef"/>
+        <xsl:choose>
+            <xsl:when test="$bIsRef='Y' and string-length(.) &gt; 0">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:when test="string-length($glossaryTermLang) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="string-length($glossaryTerm//glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm) &gt; 0">
+                        <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[@lang=$glossaryTermLang]/glossaryTermTerm" mode="Use">
+                            <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- a language is specified, but this glossary term does not have anything; try using the default;
+                            this assumes that something is better than nothing -->
+                        <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use">
+                            <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--  no language specified; just use the first one -->
+                <xsl:apply-templates select="$glossaryTerm/glossaryTermInLang[1]/glossaryTermTerm" mode="Use">
+                    <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputGlossaryTermDefinition

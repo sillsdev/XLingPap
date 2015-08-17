@@ -150,7 +150,7 @@
                 <xsl:text>singlespacing</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:variable>    
+    </xsl:variable>
     <!--
         citation (InMarker)
     -->
@@ -7436,6 +7436,25 @@
         <xsl:text>&#x0a;</xsl:text>
     </xsl:template>
     <!--  
+        HandleISO639-3CodesInTableColumnSpecColumns
+    -->
+    <xsl:template name="HandleISO639-3CodesInTableColumnSpecColumns">
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@codeWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
+        <xsl:if test="not($contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space(@equalsWidth)"/>
+                <xsl:with-param name="sDefaultSpec" select="'c'"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="HandleColumnWidth">
+            <xsl:with-param name="sWidth" select="normalize-space(@languageNameWidth)"/>
+            <xsl:with-param name="sDefaultSpec" select="'l'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
         HandleLangDataGlossInWordOrListWord
     -->
     <xsl:template name="HandleLangDataGlossInWordOrListWord">
@@ -8545,7 +8564,7 @@
     <xsl:template name="OutputGlossaryTermInTable">
         <xsl:param name="glossaryTermsShownHere"/>
         <xsl:param name="glossaryTermInSecondColumn"/>
-        
+
         <xsl:call-template name="OutputGlossaryTermItemInTable">
             <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
         </xsl:call-template>
@@ -8981,6 +9000,141 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    <!--
+        OutputISO639-3CodeInCommaSeparatedList
+    -->
+    <xsl:template name="OutputISO639-3CodeInCommaSeparatedList">
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:value-of select="@ISO639-3Code"/>
+        <xsl:text> = </xsl:text>
+        <xsl:call-template name="OutputISO639-3CodeLanguageName">
+            <xsl:with-param name="language" select="."/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <xsl:choose>
+            <xsl:when test="position() = last()">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeInTable
+    -->
+    <xsl:template name="OutputISO639-3CodeInTable">
+        <xsl:param name="codesShownHere"/>
+        <xsl:param name="codeInSecondColumn"/>
+
+        <!--  we do not use abbrsShownHere in this instance of OutputAbbreviationInTable  -->
+        <xsl:call-template name="OutputISO639-3CodeItemInTable"/>
+        <xsl:if test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">
+            <tex:spec cat="align"/>
+            <xsl:for-each select="$codeInSecondColumn">
+                <xsl:call-template name="OutputISO639-3CodeItemInTable"/>
+            </xsl:for-each>
+        </xsl:if>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc" nl2="1"/>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeItemInTable
+    -->
+    <xsl:template name="OutputISO639-3CodeItemInTable">
+        <xsl:param name="codesShownHere"/>
+
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:value-of select="@ISO639-3Code"/>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <tex:spec cat="align"/>
+        <xsl:if test="not($contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn!='no'">
+            <xsl:text> = </xsl:text>
+            <tex:spec cat="align"/>
+        </xsl:if>
+        <xsl:call-template name="OutputISO639-3CodeLanguageName">
+            <xsl:with-param name="language" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodesInTable
+    -->
+    <xsl:template name="OutputISO639-3CodesInTable">
+        <xsl:param name="codesUsed"
+            select="//language[//iso639-3codeRef[not(ancestor::chapterInCollection)]/@lang=@id or //lineGroup/line[1]/descendant::langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //word/langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //listWord/langData[1][not(ancestor::chapterInCollection)]/@lang=@id]"/>
+        <xsl:if test="count($codesUsed) &gt; 0">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/iso639-3CodesInTableLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+            </xsl:if>
+            <tex:spec cat="bg"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/iso639-3CodesInTableLayout"/>
+            </xsl:call-template>
+            <tex:env name="longtable">
+                <tex:opt>l</tex:opt>
+                <tex:parm>
+                    <xsl:text>@</xsl:text>
+                    <tex:group>
+                        <tex:cmd name="hspace*">
+                            <tex:parm>
+                                <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/iso639-3CodesInTableLayout/@start-indent)"/>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($sStartIndent)&gt;0">
+                                        <xsl:value-of select="$sStartIndent"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <tex:cmd name="parindent" gr="0" nl2="0"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </tex:parm>
+                        </tex:cmd>
+                    </tex:group>
+                    <xsl:call-template name="HandleISO639-3CodesInTableColumnSpecColumns"/>
+                    <xsl:if test="$contentLayoutInfo/iso63-3CodesInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:text>@</xsl:text>
+                        <tex:group>
+                            <tex:cmd name="hspace*">
+                                <tex:parm>
+                                    <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/iso639-3CodesInTableLayout/@doubleColumnSeparation)"/>
+                                    <xsl:choose>
+                                        <xsl:when test="string-length($sSep)&gt;0">
+                                            <xsl:value-of select="$sSep"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <tex:cmd name="parindent" gr="0" nl2="0"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </tex:parm>
+                            </tex:cmd>
+                        </tex:group>
+                        <xsl:call-template name="HandleISO639-3CodesInTableColumnSpecColumns"/>
+                    </xsl:if>
+                </tex:parm>
+                <!--  I'm not happy with how this poor man's attempt at getting double column works when there are long definitions.
+                    The table column widths may be long and short; if a cell in the second row needs to lap over a line, then the
+                    corresponding cell in the other column may skip a row (as far as what one would expect).
+                    So I'm going with just a single table here.
+                    <xsl:variable name="iHalfwayPoint" select="ceiling(count($abbrsUsed) div 2)"/>
+                    <xsl:for-each select="$abbrsUsed[position() &lt;= $iHalfwayPoint]">
+                -->
+                <xsl:call-template name="SortISO639-3CodesInTable">
+                    <xsl:with-param name="codesUsed" select="$codesUsed"/>
+                </xsl:call-template>
+            </tex:env>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$contentLayoutInfo/iso639-3CodesInTableLayout"/>
+            </xsl:call-template>
+            <tex:spec cat="eg"/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/iso39-3CodesInTableLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
     <!--  
         OutputISOCodeInExample
     -->
@@ -8994,7 +9148,24 @@
         <tex:cmd name="small">
             <tex:parm>
                 <xsl:text>[</xsl:text>
-                <xsl:value-of select="$sIsoCode"/>
+                <xsl:choose>
+                    <xsl:when test="$bShowISO639-3Codes='Y'">
+                        <xsl:call-template name="DoInternalHyperlinkBegin">
+                            <xsl:with-param name="sName" select="$languages[@ISO639-3Code=$sIsoCode][1]/@id"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="LinkAttributesBegin">
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                        </xsl:call-template>
+                        <xsl:value-of select="$sIsoCode"/>
+                        <xsl:call-template name="LinkAttributesEnd">
+                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sIsoCode"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:text>]</xsl:text>
             </tex:parm>
         </tex:cmd>
@@ -9473,7 +9644,8 @@
                             <tex:parm>
                                 <xsl:text>-</xsl:text>
                                 <xsl:choose>
-                                    <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+                                    <xsl:when
+                                        test="$contentLayoutInfo/tablenumberedLayout/@captionLocation='before' or not($contentLayoutInfo/tablenumberedLayout) and $lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
                                         <xsl:choose>
                                             <xsl:when test="$sLineSpacing='double'">
                                                 <xsl:text>3</xsl:text>

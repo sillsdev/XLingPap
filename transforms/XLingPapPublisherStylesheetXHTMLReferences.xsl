@@ -184,11 +184,18 @@
             </xsl:if>
             <xsl:value-of select="$iso639-3codeItem/@textbefore"/>
             <xsl:choose>
-                <xsl:when test="$iso639-3codeItem/@case='uppercase'">
-                    <xsl:value-of select="translate(.,'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+                <xsl:when test="$bShowISO639-3Codes='Y'">
+                    <xsl:variable name="sThisCode" select="."/>
+                    <a href="#{$languages[@ISO639-3Code=$sThisCode]/@id}">
+                        <xsl:call-template name="OutputISO639-3CodeCase">
+                            <xsl:with-param name="iso639-3codeItem" select="$iso639-3codeItem"/>
+                        </xsl:call-template>
+                    </a>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+                    <xsl:call-template name="OutputISO639-3CodeCase">
+                        <xsl:with-param name="iso639-3codeItem" select="$iso639-3codeItem"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$iso639-3codeItem/@text"/>

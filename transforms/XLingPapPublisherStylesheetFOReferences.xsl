@@ -44,11 +44,12 @@
                                             </xsl:choose>
                                         </xsl:variable>
                                         <xsl:choose>
-                                            <xsl:when test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
+                                            <xsl:when
+                                                test="$sAuthorName!='______' and $authorForm='full' and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout or not(refAuthorInitials) and $referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout">
                                                 <xsl:apply-templates select="$work/.."/>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="$sAuthorName"/>        
+                                                <xsl:value-of select="$sAuthorName"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -173,11 +174,18 @@
             </xsl:if>
             <xsl:value-of select="$iso639-3codeItem/@textbefore"/>
             <xsl:choose>
-                <xsl:when test="$iso639-3codeItem/@case='uppercase'">
-                    <xsl:value-of select="translate(.,'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+                <xsl:when test="$bShowISO639-3Codes='Y'">
+                    <xsl:variable name="sThisCode" select="."/>
+                    <fo:basic-link internal-destination="{$languages[@ISO639-3Code=$sThisCode]/@id}">
+                        <xsl:call-template name="OutputISO639-3CodeCase">
+                            <xsl:with-param name="iso639-3codeItem" select="$iso639-3codeItem"/>
+                        </xsl:call-template>
+                    </fo:basic-link>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+                    <xsl:call-template name="OutputISO639-3CodeCase">
+                        <xsl:with-param name="iso639-3codeItem" select="$iso639-3codeItem"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$iso639-3codeItem/@text"/>
@@ -236,8 +244,8 @@
         ReportNoPatternMatched
     -->
     <xsl:template name="ReportNoPatternMatched">
-        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet.  Please add  (or have someone add) the pattern.
-            <xsl:call-template name="ReportPattern"/>
+        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet. Please add (or have someone add) the pattern. <xsl:call-template
+                name="ReportPattern"/>
         </fo:inline>
     </xsl:template>
     <!--  
@@ -245,8 +253,8 @@
     -->
     <xsl:template name="ReportNoPatternMatchedForCollCitation">
         <xsl:param name="collCitation"/>
-        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet.  Please add  (or have someone add) the pattern.
-            <xsl:call-template name="ReportPatternForCollCitation">
+        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet. Please add (or have someone add) the pattern. <xsl:call-template
+                name="ReportPatternForCollCitation">
                 <xsl:with-param name="collCitation" select="$collCitation"/>
             </xsl:call-template>
         </fo:inline>
@@ -256,8 +264,8 @@
     -->
     <xsl:template name="ReportNoPatternMatchedForProcCitation">
         <xsl:param name="procCitation"/>
-        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet.  Please add  (or have someone add) the pattern.
-            <xsl:call-template name="ReportPatternForProcCitation">
+        <fo:inline background-color="yellow">Sorry, but there is no matching layout for this item in the publisher style sheet. Please add (or have someone add) the pattern. <xsl:call-template
+                name="ReportPatternForProcCitation">
                 <xsl:with-param name="procCitation" select="$procCitation"/>
             </xsl:call-template>
         </fo:inline>

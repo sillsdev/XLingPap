@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->5 August 2015</date
+>17 August 2015</date
 ><version
->2.27.3</version
+>2.27.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -9906,9 +9906,23 @@ type="tElement"
 ></dt
 ><dd
 >The <link
-href="http://www.sil.org/iso639-3/default.asp"
+href="http://www-01.sil.org/iso639-3/default.asp"
 >ISO 639-3 code</link
 > for a language included in a work in the references</dd
+><dt
+><object
+type="tElement"
+>iso6393-codeRef</object
+></dt
+><dd
+>A reference to an ISO 639-3 code (via the language element ID)</dd
+><dt
+><object
+type="tElement"
+>iso639-3codesShownHere</object
+></dt
+><dd
+>Show a list or table of the ISO 639-3 codes used in the document</dd
 ><dt
 ><object
 type="tElement"
@@ -11640,6 +11654,23 @@ type="tElement"
 ></dt
 ><dd
 >A reference place holder to the formattiing information for ISO 639-3 language codes (within references)</dd
+><dt
+><object
+type="tElement"
+>iso639-3codeRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>iso639-3CodeRef</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+></dt
+><dd
+>Layout info for showing ISO 639-3 codes used in a table</dd
 ><dt
 ><object
 type="tElement"

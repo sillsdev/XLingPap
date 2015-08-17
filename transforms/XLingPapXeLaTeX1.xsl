@@ -1761,6 +1761,22 @@
         </xsl:if>
     </xsl:template>
     <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoInternalHyperlinkBegin">
+                <xsl:with-param name="sName" select="@lang"/>
+            </xsl:call-template>
+            <xsl:call-template name="AddAnyLinkAttributes"/>
+        </xsl:if>
+        <xsl:call-template name="DoISO639-3codeRefContent"/>
+        <xsl:if test="$fDoHyperlink='Y'">
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         figure
     -->
     <xsl:template match="figure">
@@ -3386,7 +3402,19 @@
                     <xsl:if test="position() = 1">
                         <xsl:text>  [</xsl:text>
                     </xsl:if>
-                    <xsl:value-of select="."/>
+                    <xsl:choose>
+                        <xsl:when test="$bShowISO639-3Codes='Y'">
+                            <xsl:variable name="sThisCode" select="."/>
+                            <xsl:call-template name="DoInternalHyperlinkBegin">
+                                <xsl:with-param name="sName" select="$languages[@ISO639-3Code=$sThisCode]/@id"/>
+                            </xsl:call-template>
+                            <xsl:value-of select="."/>
+                            <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:if test="position() != last()">
                         <xsl:text>, </xsl:text>
                     </xsl:if>

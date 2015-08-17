@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->5 August 2015</date
+>17 August 2015</date
 ><version
->2.27.3</version
+>2.27.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -1196,583 +1196,10 @@ lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
 type="tElement"
 >type</object
-> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnote
-id="nXeLaTeXAttributes"
-><p
-><indexedItem
-term="iXeLaTeXSpecial"
-></indexedItem
->My experience in using the default <object
-type="tXeTeX"
-></object
-> way of producing PDF is that one does not usually need to use these very often. Currently there is a limited set of these attributes.</p
-><table
-border="1"
-><tr
-><th
->Attribute</th
-><th
->Possible values</th
-><th
->Meaning</th
-><th
->Examples</th
-></tr
-><tr
-><td
->border-left</td
-><td
->0, 1 or 2</td
-><td
->Add a vertical line to the left of the current <object
-type="tElement"
->td</object
-> or <object
-type="tElement"
->th</object
-> element. This will only work when the <object
-type="tAttribute"
->border</object
-> attribute of the <object
-type="tElement"
->table</object
-> element is set to 0 (zero).</td
-><td
->border-left=1</td
-></tr
-><tr
-><td
->border-right</td
-><td
->0, 1 or 2</td
-><td
->Add a vertical line to the right of the current <object
-type="tElement"
->td</object
-> or <object
-type="tElement"
->th</object
-> element. This will only work when the <object
-type="tAttribute"
->border</object
-> attribute of the <object
-type="tElement"
->table</object
-> element is set to 0 (zero).</td
-><td
->border-right=1</td
-></tr
-><tr
-><td
->break-before</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Force a line break before a <object
-type="tElement"
->link</object
-> element. This can be useful when the URL of the link is too long to fit on the line.</td
-><td
->break-before</td
-></tr
-><tr
-><td
-><indexedItem
-term="ifix-final-landscape"
-></indexedItem
->fix-final-landscape</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Fix incorrect table of contents page numbers caused by having the final main item be in landscape mode. See <genericRef
-gref="gfix-final-landscape"
->known limitations</genericRef
->.</td
-><td
->fix-final-landscape</td
-></tr
-><tr
-><td
-><indexedItem
-term="ifix-free-literal-footnote-placement"
-></indexedItem
->fix-free-literal-footnote-placement</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Fix incorrect footnote content placement. In rare cases, footnote material can appear on a following page. See <genericRef
-gref="gfix-free-literal-footnote-placement"
->known limitations</genericRef
->.</td
-><td
->fix-free-literal-footnote-placement</td
-></tr
-><tr
-><td
-><indexedItem
-term="iFontFeatures"
-></indexedItem
->font-feature</td
-><td
-><object
-type="tItalic"
->Font feature=value</object
->. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
-><td
->Tell <object
-type="tXeTeX"
-></object
-> to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
-type="tElement"
->langDataLayout</object
->, <object
-type="tElement"
->glossLayout</object
->, or <object
-type="tElement"
->freeLayout</object
->, it will only work if you also include the <object
-type="tAttribute"
->font-family</object
-> attribute. <indexedItem
-term="iXeLaTeXUpgrade"
-></indexedItem
->It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
->.</td
-><td
-><table
-><tr
-><td
->font-feature='Hide tone contour staves=True'</td
-></tr
-><tr
-><td
->font-feature='1050=1'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
-><indexedItem
-term="iGraphite"
-></indexedItem
->graphite</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Tell <object
-type="tXeTeX"
-></object
-> to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
-type="tElement"
->langDataLayout</object
->, <object
-type="tElement"
->glossLayout</object
->, or <object
-type="tElement"
->freeLayout</object
->, it will only work if you also include the <object
-type="tAttribute"
->font-family</object
-> attribute. <indexedItem
-term="iXeLaTeXUpgrade"
-></indexedItem
->It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
->.</td
-><td
->graphite</td
-></tr
-><tr
-><td
->interlinear-aligned-word-skip</td
-><td
->a TeX ‘glue’ value</td
-><td
->Provides the ‘glue’ value to use as the space between aligned interlinear word units (when the automatically wrap long interlinear option is set; see <sectionRef
-sec="sExInterlinear"
-></sectionRef
->). This only works on <object
-type="tElement"
->example</object
->, <object
-type="tElement"
->interlinear-text</object
->, and <object
-type="tElement"
->listInterlinear</object
-> elements. The default amount of ‘glue’ is <object
-type="tInstruction"
->6.66666pt plus 3.33333pt minus 2.22222pt</object
-> (this is what is used by <citation
-page="56"
-paren="none"
-ref="rITF"
-></citation
->).</td
-><td
-><table
-><tr
-><td
->interlinear-aligned-word-skip='7.66666pt plus 4.33333pt minus 3.22222pt'</td
-></tr
-><tr
-><td
->interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->language</td
-><td
->a three letter code</td
-><td
->For Open Type fonts, it sets the font language system tag to be the three letter code. See <link
-href="http://www.microsoft.com/typography/otspec/languagetags.htm"
->http://www.microsoft.com/typography/otspec/languagetags.htm</link
->. This only works on elements that have a <object
-type="tAttribute"
->font-family</object
-> attribute.</td
-><td
-><table
-><tr
-><td
->language='ARA'</td
-></tr
-><tr
-><td
->language='BEN'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->line-after</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Used in a <object
-type="tElement"
->tr</object
-> element within a table. This will output a horizontal line after the content of the row.</td
-><td
->line-after</td
-></tr
-><tr
-><td
->line-before</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Used in a <object
-type="tElement"
->tr</object
-> element within a table. This will output a horizontal line before the content of the row.</td
-><td
->line-before</td
-></tr
-><tr
-><td
->line-through</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Make the content of this <object
-type="tElement"
->object</object
-> element render with a line through the characters</td
-><td
->line-through</td
-></tr
-><tr
-><td
->needspace</td
-><td
->a numerical value</td
-><td
->Suggest that the example needs at least the specified number of lines (this only works on an <object
-type="tElement"
->example</object
-> element). For some reason, this helps keep sequences of examples from breaking a page too soon.</td
-><td
-><table
-><tr
-><td
->needspace='1'</td
-></tr
-><tr
-><td
->needspace='3'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->overfullhbox</td
-><td
->a numerical value followed immediately by pt (for points)</td
-><td
->If a line is too long (overfull), insert a black box with a width of the indicated number of points (this only works on a <object
-type="tElement"
->lingPaper</object
-> element).</td
-><td
-><table
-><tr
-><td
->overfullhbox='5pt'</td
-></tr
-><tr
-><td
->overfullhbox='15pt'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->pagebreak</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Force a page break before this point. If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
-><td
->pagebreak</td
-></tr
-><tr
-><td
->row-separation</td
-><td
->a numerical value followed immediately by pt (for points)</td
-><td
->Insert the indicated number of points between each row of the table (this only works on a <object
-type="tElement"
->table</object
-> or a <object
-type="tElement"
->tr</object
-> element).</td
-><td
-><table
-><tr
-><td
->row-separation='1pt'</td
-></tr
-><tr
-><td
->row-separation='30pt'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->scaled</td
-><td
->an integer value indicating a percentage; 1000 = 100%; 750 = 75%</td
-><td
->Adjust the scaling factor of the image. This only works on an <object
-type="tElement"
->img</object
-> element.</td
-><td
-><table
-><tr
-><td
->scaled='700'</td
-></tr
-><tr
-><td
->scaled='1250'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->script</td
-><td
->a four letter code</td
-><td
->For Open Type fonts, it sets the font script tag to be the four letter code. See <link
-href="http://www.microsoft.com/typography/otspec/scripttags.htm"
->http://www.microsoft.com/typography/otspec/scripttags.htm</link
->. This only works on elements that have a <object
-type="tAttribute"
->font-family</object
-> attribute.</td
-><td
-><table
-><tr
-><td
->script='arab'</td
-></tr
-><tr
-><td
->script='beng'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->singlespacing</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Force single spacing in a double spaced or space-and-a-half document. This only works in a <object
-type="tElement"
->chart</object
-> element containing text and when the <object
-type="tElement"
->chart</object
-> element is not in a <object
-type="tElement"
->table</object
-> or <object
-type="tElement"
->example</object
->.</td
-><td
->singlespacing</td
-></tr
-><tr
-><td
->subscript</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Make the content of this <object
-type="tElement"
->object</object
-> element render as a subscript</td
-><td
->subscript</td
-></tr
-><tr
-><td
->superscript</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Make the content of this <object
-type="tElement"
->object</object
-> element render as a superscript</td
-><td
->superscript</td
-></tr
-><tr
-><td
->underline</td
-><td
-><object
-type="tItalic"
->none</object
-></td
-><td
->Make the content of this <object
-type="tElement"
->object</object
-> element render with an underline</td
-><td
->underline</td
-></tr
-><tr
-><td
->valign-fixup</td
-><td
->a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
-><td
->Adjust the vertical position of the content of a cell in a table by the amount specified (this only works on <object
-type="tElement"
->td</object
-> and <object
-type="tElement"
->th</object
-> elements). A negative value makes the content appear lower; a positive value makes it appear higher.</td
-><td
-><table
-><tr
-><td
->valign-fixup='1pt'</td
-></tr
-><tr
-><td
->valign-fixup='-1.5ex'</td
-></tr
-></table
-></td
-></tr
-><tr
-><td
->vertical-adjustment</td
-><td
->a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
-><td
->Adjust the vertical position of an image by the amount specified (this only works on an <object
-type="tElement"
->img</object
-> element). A negative value makes the image appear higher; a positive value makes it appear lower.</td
-><td
-><table
-><tr
-><td
->vertical-adjustment='1pt'</td
-></tr
-><tr
-><td
->vertical-adjustment='-1.5ex'</td
-></tr
-></table
-></td
-></tr
-></table
-></endnote
-> </langData
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. </langData
 ></td
 ></tr
 ><tr
@@ -2151,7 +1578,24 @@ term="iVersion"
 >The <object
 type="tElement"
 >version</object
-> element may be included to provide a version number for the document. It is also optional.</p
+> element may be included to provide a version number for the document. It is also optional. You can type whatever you want in this element and it can be in whatever language you are writing in.<endnote
+id="nlingPaperVersionAttribute"
+><p
+>There is a <object
+type="tAttribute"
+>version</object
+> attribute on the <object
+type="tElement"
+>lingPaper</object
+> element, also, but this attribute is for documenting what version of <object
+type="tXLingPap"
+></object
+> that particular document's original "template" was from (the items you see when you use the <object
+type="tInstruction"
+>File / New</object
+> menu item). It is never output anywhere.</p
+></endnote
+></p
 ></section2
 ><section2
 id="sFMContents"
@@ -4140,6 +3584,9 @@ type="tElement"
 >, <object
 type="tElement"
 >glossaryTermRef</object
+>, <object
+type="tElement"
+>iso639-3codeRef</object
 >, and <object
 type="tElement"
 >mediaObject</object
@@ -6288,6 +5735,20 @@ type="tElement"
 type="tElement"
 >language</object
 > element for each such language.</p
+><p
+>Finally, there are some cases where you need to ignore the normal font family for a (small) subset of abbreviations. To do so, set the <object
+type="tAttribute"
+>ignoreabbreviationsfontfamily </object
+> attribute on these <object
+type="tElement"
+>abbreviation</object
+> elements to <object
+type="tAttrValue"
+>yes</object
+>. The default value is <object
+type="tAttrValue"
+>no</object
+>.</p
 ><section4
 id="sBMAbbreviationsMasterListMultipleLanguages"
 ><secTitle
@@ -7026,7 +6487,7 @@ type="tXLingPap"
 ></object
 > to sort the list of abbreviations in the output, you must set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute of the main <object
 type="tElement"
 >lingPaper</object
@@ -7041,7 +6502,7 @@ note="nAttributesToolReminder"
 ></endnoteRef
 > to set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object
@@ -13266,9 +12727,9 @@ type="tAttrValue"
 > and <object
 type="tAttrValue"
 >line-after</object
-> in endnote <endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
+> in endnote. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
 >.</p
 ><example
 num="xTableAttributes"
@@ -14070,9 +13531,9 @@ type="tAttribute"
 > attribute to use the <object
 type="tAttrValue"
 >scaled</object
-> parameter. See footnote <endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
+> parameter. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
 > for more.</td
 ></tr
 ><tr
@@ -14581,10 +14042,10 @@ lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
 type="tElement"
 >type</object
-> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> </langData
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. </langData
 ></td
 ></tr
 ><tr
@@ -15669,10 +15130,10 @@ lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
 type="tElement"
 >type</object
-> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> </langData
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. </langData
 ></td
 ></tr
 ><tr
@@ -18669,10 +18130,10 @@ lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
 type="tElement"
 >type</object
-> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> </langData
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. </langData
 ></td
 ></tr
 ><tr
@@ -20780,10 +20241,10 @@ type="tAttribute"
 >Sometimes pagebreaks seem to be made at odd places. Try using the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
-> attribute with a pagebreak command to fix it.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-></li
+> attribute with a pagebreak command to fix it. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>.</li
 ><li
 ><genericTarget
 id="gfix-free-literal-footnote-placement"
@@ -20809,10 +20270,10 @@ type="tElement"
 > element to <object
 type="tAttrValue"
 >fix-free-literal-footnote-placement</object
->.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> The footnote should then appear on the correct page. You can also just try and force the example to be on the next page by setting the <object
+>. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. The footnote should then appear on the correct page. You can also just try and force the example to be on the next page by setting the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute of the <object
@@ -20971,15 +20432,15 @@ type="tAttribute"
 > attribute of the main item element to <object
 type="tAttrValue"
 >fix-final-landscape</object
->.<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> The table of contents should then contain the correct page numbers on subsequent runs of producing the PDF (you may have to run it two or three times). Please note that this must only be on the very last main element. If it is on an earlier element, then the PDF may fail to be produced.</li
+>. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. The table of contents should then contain the correct page numbers on subsequent runs of producing the PDF (you may have to run it two or three times). Please note that this must only be on the very last main element. If it is on an earlier element, then the PDF may fail to be produced.</li
 ><li
->A page may have a footnote continuation line at the bottom, but no footnote content when the preceding page has one or more footnotes and the final item on that preceding page is a table or certain kinds of examples. Try forcing a page break<endnoteRef
-note="nXeLaTeXAttributes"
-></endnoteRef
-> on the last item on the preceding page (if it's a table, try it on one of the rows in the table).</li
+>A page may have a footnote continuation line at the bottom, but no footnote content when the preceding page has one or more footnotes and the final item on that preceding page is a table or certain kinds of examples. Try forcing a page break (see appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>) on the last item on the preceding page (if it's a table, try it on one of the rows in the table).</li
 ><li
 >In very rare circumstances, you may get a blank page before a table at the top of the page. Try settting the table's <object
 type="tAttribute"
@@ -26624,6 +26085,461 @@ type="tXLingPap"
 > Publisher Style Sheet User Documentation</link
 >.</p
 ></section1
+><section1
+id="sBMISO639-3Codess"
+><secTitle
+>ISO 639-3 Language Codes</secTitle
+><p
+><indexedItem
+term="iISOCodes"
+></indexedItem
+>If you wish, you can create a list of the ISO 639-3 codes that are used in a document. Just like references and citations, the idea here is that while the list of ISO 639-3 codes can be large, <object
+type="tXLingPap"
+></object
+> will only show those that are actually used somewhere within the document. You can thus maintain a master file that has the set of languages (and their ISO 639-3 code and language names), include it in your document, and then, make a reference to an ISO 639-3 code in the list. Besides only including the ISO 639-3 codes actually used somewhere in the document, <object
+type="tXLingPap"
+></object
+> will also create a hyperlink between the code and the actual code in the list of codes. Of course, the list will also include the language name of the code.</p
+><p
+>This master list of languages can also give the name of the language in multiple languages. So if you typically write your papers in either English or Spanish, say, you can maintain the list of language names in both languages. For a given paper, you indicate which language to use by setting the <object
+type="tAttribute"
+>iso639-3codelang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element. To find this attribute, click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to find and edit the <object
+type="tAttribute"
+>iso639-3codelang</object
+> attribute. You will need to key in the id of one of the <object
+type="tElement"
+>language</object
+> elements in your document (e.g. <object
+type="tAttrValue"
+>en</object
+> for English, <object
+type="tAttrValue"
+>es</object
+> for Spanish, or <object
+type="tAttrValue"
+>fr</object
+> for French). If you do not set this attribute, then the first language name item found will be used. Also, if you inadvertently do not have an id for the language you selected, but you do have one for another language, then the first language name found will be used, too. See section <sectionRef
+sec="sBMISO639-3CodesMasterList"
+></sectionRef
+> for more on creating master lists with two or more languages. Also see section <sectionRef
+sec="sBMISO639-3CodesSortingTheList"
+></sectionRef
+> for information on sorting the output list of ISO 639-3 codes.</p
+><p
+>One makes a reference to an ISO 639-3 code by inserting an <object
+type="tElement"
+>iso639-3codeRef</object
+> element and then setting its reference to one of the language elements in the master list. The easiest way to do this is described in section <sectionRef
+sec="sBMISO639-3CodesReferences"
+></sectionRef
+>.</p
+><p
+>Further, you can choose where you want this list of ISO 639-3 codes to appear. While one keys the list of language names in the <object
+type="tElement"
+>langName</object
+> element under each <object
+type="tElement"
+>language</object
+> element with an <object
+type="tAttribute"
+>ISO639-3Code</object
+> attribute filled in, you can elect to have the list appear within any of the following elements:</p
+><ul
+><li
+>in a <object
+type="tElement"
+>preface</object
+> element (front matter);</li
+><li
+>in an <object
+type="tElement"
+>endnote</object
+> element, either within a <object
+type="tElement"
+>p</object
+> (paragraph) or as a separate paragraph itself;</li
+><li
+>in an <object
+type="tElement"
+>appendix</object
+> element (back matter); or</li
+><li
+>in a <object
+type="tElement"
+>glossary</object
+> element (back matter).</li
+></ul
+><p
+>To get the list of ISO 639-3 codes to appear, one inserts an <object
+type="tElement"
+>iso639-3codesShownHere</object
+> element at the appropriate place in one of these elements. For all but in an <object
+type="tElement"
+>endnote</object
+>, <object
+type="tXLingPap"
+></object
+> will create a table showing the ISO 639-3 codes that have been used. For an <object
+type="tElement"
+>endnote</object
+>, <object
+type="tXLingPap"
+></object
+> will show the ISO 639-3 codes that have been used in a comma separated list.</p
+><p
+>The following sections explain how all of this can be done in more detail.</p
+><section2
+id="sBMISO639-3CodesMasterList"
+><secTitle
+>The Master List</secTitle
+><p
+>As mentioned in section <sectionRef
+sec="sIntroLang"
+></sectionRef
+>, one creates a list of <object
+type="tElement"
+>language</object
+> elements and one can set the <object
+type="tAttribute"
+>ISO639-3Code</object
+> attribute to the code of that language.  If you want to display a list of ISO 639-3 codes, then for each such <object
+type="tElement"
+>language</object
+> element, you also need to insert within it one or more <object
+type="tElement"
+>langName</object
+> elements.  Each <object
+type="tElement"
+>langName</object
+> element contains the name of the language.  You can have more than one <object
+type="tElement"
+>langName</object
+> element if you need the name to be in different languages.  Example <exampleRef
+letter="xLanguageWith2LangNames"
+num="xLanguageWith2LangNames"
+></exampleRef
+> shows one with both English and Spanish names for the <object
+type="tAttrValue"
+>lzai</object
+> language element.</p
+><example
+num="xLanguageWith2LangNames"
+><chart
+><img
+src="resources/LanguageWith2langNames.png"
+></img
+></chart
+></example
+></section2
+><section2
+id="sBMISO639-3CodesReferences"
+><secTitle
+>References to an ISO 639-3 Code</secTitle
+><p
+>To create a reference to an ISO 639-3 code, perform an insert operation<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+> and select <object
+type="tElement"
+>iso639-3codeRef</object
+>. Then press the <object
+type="tKey"
+>F11</object
+> key to bring up the chooser for languages. (An easier way is to press the <object
+type="tKey"
+>Shift</object
+> and <object
+type="tKey"
+>F11</object
+> keys together.) You then type the language ID you need or scroll down to find it.</p
+></section2
+><section2
+id="sBMISO639-3CodesShowingList"
+><secTitle
+>Showing the List of ISO 639-3 Codes</secTitle
+><p
+>As mentioned above, one can have the list of ISO 639-3 codes appear in various places.</p
+><ul
+><li
+>in a <object
+type="tElement"
+>preface</object
+> element (front matter);</li
+><li
+>in an <object
+type="tElement"
+>endnote</object
+> element, either within a <object
+type="tElement"
+>p</object
+> (paragraph) or as a separate paragraph itself;</li
+><li
+>in an <object
+type="tElement"
+>appendix</object
+> element (back matter); or</li
+><li
+>in a <object
+type="tElement"
+>glossary</object
+> element (back matter).</li
+></ul
+><p
+>Please note that unless you overtly tell <object
+type="tXLingPap"
+></object
+> to show the list of ISO 639-3 codes, no such list will appear in the formatted output.</p
+><p
+>We'll illustrate how to show the list of ISO 639-3 codes in an endnote first and then in a glossary.</p
+><p
+>To show the list in an endnote, first insert the <object
+type="tElement"
+>endnote</object
+> element (see section <sectionRef
+sec="sBMEndnotes"
+></sectionRef
+> for how to do this). Type any text you want and then insert the special <object
+type="tElement"
+>iso639-3codesShownHere</object
+> element. This is how it looked in one <object
+type="tXLingPap"
+></object
+> paper:</p
+><example
+num="xISO639-3CodesInEndnote"
+><chart
+><img
+src="resources/ISO639-3CodesInEndnote.png"
+></img
+></chart
+></example
+><p
+>In this paper, it was formatted as follows in the web page output:</p
+><example
+num="xISO639-3CodesInEndnoteHTML"
+><chart
+type="tHtmlOutput"
+>&lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="nShowISOCodes"&gt;[1]&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;p&gt;The ISO 639-3 codes used in this paper are: &lt;a name="lzai"&gt;zai = Isthmus Zapotec&lt;/a&gt;, &lt;a name="lzav"&gt;zav = Yatzachi Zapotec&lt;/a&gt;, &lt;a name="lzaw"&gt;zaw = Mitla Zapotec&lt;/a&gt;, &lt;a name="lzax"&gt;zax = Xadani Zapotec&lt;/a&gt;, &lt;a name="lzpi"&gt;zpi = Santa Mar&amp;iacute;a Quiegolani Zapotec&lt;/a&gt;, &lt;a name="lzpq"&gt;zpq = Zoogocho Zapotec&lt;/a&gt;, &lt;a name="lzpz"&gt;zpz = Texmelucan Zapotec&lt;/a&gt;. &lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;</chart
+></example
+><p
+>Turning now to showing the ISO 639-3 codes in a glossary, one needs to insert a <object
+type="tElement"
+>glossary</object
+> element in the back matter.  One can then open up the <object
+type="tElement"
+>glossary</object
+> element and type any prefatory material one might want (of course, one does not have to type anything). One then inserts the special <object
+type="tElement"
+>iso639-3codesShownHere</object
+> element. Note that since this will be formatted as a table, it needs to go after or before a paragraph (<object
+type="tElement"
+>p</object
+> element); it will not work to put it within a paragraph.</p
+><p
+>One should also change the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>glossary</object
+> element to something like “ISO 639-3 Codes” so the title of this section does not say “Glossary.” It might look like this:</p
+><example
+num="xISO639-3CodesInGlossary2"
+><chart
+><img
+src="resources/ISO639-3CodesInGlossary.png"
+></img
+></chart
+></example
+><p
+>When formatted in a web page, it might look like this:</p
+><example
+num="xISO639-3CodesInGlossary2Html"
+><chart
+type="tHtmlOutput"
+>&lt;hr&gt;&lt;a name="rXLingPapGlossary1"&gt;&lt;/a&gt;&lt;p style=""&gt;&lt;big&gt;&lt;big&gt;&lt;big&gt;&lt;b&gt;ISO 639-3 Codes&lt;/b&gt;&lt;/big&gt;&lt;/big&gt;&lt;/big&gt;&lt;/p&gt; &lt;div style="margin-left: 0.5in; margin-right: 0.5in"&gt; &lt;p&gt;ISO codes:&lt;/p&gt; &lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzai"&gt;zai&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Isthmus Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzav"&gt;zav&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Yatzachi Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzaw"&gt;zaw&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Mitla Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzax"&gt;zax&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Xadani Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzpi"&gt;zpi&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Santa Mar&amp;iacute;a Quiegolani Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzpq"&gt;zpq&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Zoogocho Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="lzpz"&gt;zpz&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt; = &lt;/td&gt; &lt;td valign="top"&gt;Texmelucan Zapotec&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt; &lt;hr size="3"&gt;</chart
+></example
+><p
+><indexedItem
+term="iISO639-3CodesColumnWidths"
+></indexedItem
+>When the list of ISO 639-3 codes is formatted as a table, you can control the width of the code column, the equals sign column, and/or the language name column via attributes on the <object
+type="tElement"
+>iso639-3codesShownHere</object
+> element. See example <exampleRef
+letter="xISO639-3CodeColumnWidthAttributes"
+num="xISO639-3CodeColumnWidthAttributes"
+></exampleRef
+>.</p
+><example
+num="xISO639-3CodeColumnWidthAttributes"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>codeWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the ISO 639-3 codes. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>equalsWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column of the equals sign. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>languageNameWidth</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Specifies the width of the column containing the language names. You can use inches (in), millimeters (mm), centimeters (cm), points (pt) or percentages (%). There should be no space between the number and the unit of measure abbreviation.</langData
+></td
+></tr
+></table
+></example
+></section2
+><section2
+id="sBMISO639-3CodesSortingTheList"
+><secTitle
+>Sorting the List of ISO 639-3 Codes</secTitle
+><p
+><indexedItem
+term="iISO639-3CodesSort"
+></indexedItem
+>If your document is not written in English or if your list of ISO 639-3 codes contains language names in multiple languages, you may well want to have the list of codes that <object
+type="tXLingPap"
+></object
+> outputs be sorted by a particular language. Note that the default behavior is for <object
+type="tXLingPap"
+></object
+> to not do any special sorting: the list of codes will occur in the same order they are given within the <object
+type="tElement"
+>languages</object
+> element.</p
+><p
+>To get <object
+type="tXLingPap"
+></object
+> to sort the list of codes in the output, you must set the <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element. To do so, click anywhere in the document (except in any part of an associated publisher style sheet). In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on <object
+type="tInstruction"
+>lingPaper</object
+>. Then use the Attributes Tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to set the <object
+type="tAttribute"
+>sortRefsAbbrsByDocumentLanguage</object
+> attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.</p
+><p
+>The sorting algorithm used depends on the language code you have indicated, if any. The default is ‘en’ (for English). If you have set the <object
+type="tAttribute"
+>iso639-3codeslang</object
+> attribute of the main <object
+type="tElement"
+>lingPaper</object
+> element of the document, then <object
+type="tXLingPap"
+></object
+> will use that code. If the <object
+type="tAttribute"
+>iso639-3codeslang</object
+> attribute is not set, <object
+type="tXLingPap"
+></object
+> will use the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element, if it is set. Some of the known language codes to use are shown in example <exampleRef
+letter="xLanguageCodesForSorting"
+num="xLanguageCodesForSorting"
+></exampleRef
+>.</p
+></section2
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -27499,9 +27415,23 @@ type="tElement"
 ></dt
 ><dd
 >The <link
-href="http://www.sil.org/iso639-3/default.asp"
+href="http://www-01.sil.org/iso639-3/default.asp"
 >ISO 639-3 code</link
 > for a language included in a work in the references</dd
+><dt
+><object
+type="tElement"
+>iso6393-codeRef</object
+></dt
+><dd
+>A reference to an ISO 639-3 code (via the language element ID)</dd
+><dt
+><object
+type="tElement"
+>iso639-3codesShownHere</object
+></dt
+><dd
+>Show a list or table of the ISO 639-3 codes used in the document</dd
 ><dt
 ><object
 type="tElement"
@@ -29274,6 +29204,23 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>iso639-3codeRefLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>iso639-3CodeRef</object
+> hyperlinks</dd
+><dt
+><object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+></dt
+><dd
+>Layout info for showing ISO 639-3 codes used in a table</dd
+><dt
+><object
+type="tElement"
 >jArticleNumberItem</object
 ></dt
 ><dd
@@ -30660,6 +30607,590 @@ border="1"
 >cy</td
 ><td
 >cym</td
+></tr
+></table
+></appendix
+><appendix
+id="aXeLaTeXSpecial"
+><secTitle
+>Special Attributes for the Default <object
+type="tXeTeX"
+></object
+> Way of Producing PDF</secTitle
+><p
+><indexedItem
+term="iXeLaTeXSpecial"
+></indexedItem
+>My experience in using the default <object
+type="tXeTeX"
+></object
+> way of producing PDF is that one does not usually need to use these very often. Currently there is a limited set of these attributes. They go in the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of various elements. Each one needs to be followed by a space.</p
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible values</th
+><th
+>Meaning</th
+><th
+>Examples</th
+></tr
+><tr
+><td
+>border-left</td
+><td
+>0, 1 or 2</td
+><td
+>Add a vertical line to the left of the current <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element. This will only work when the <object
+type="tAttribute"
+>border</object
+> attribute of the <object
+type="tElement"
+>table</object
+> element is set to 0 (zero).</td
+><td
+>border-left=1</td
+></tr
+><tr
+><td
+>border-right</td
+><td
+>0, 1 or 2</td
+><td
+>Add a vertical line to the right of the current <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element. This will only work when the <object
+type="tAttribute"
+>border</object
+> attribute of the <object
+type="tElement"
+>table</object
+> element is set to 0 (zero).</td
+><td
+>border-right=1</td
+></tr
+><tr
+><td
+>break-before</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force a line break before a <object
+type="tElement"
+>link</object
+> element. This can be useful when the URL of the link is too long to fit on the line.</td
+><td
+>break-before</td
+></tr
+><tr
+><td
+><indexedItem
+term="ifix-final-landscape"
+></indexedItem
+>fix-final-landscape</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Fix incorrect table of contents page numbers caused by having the final main item be in landscape mode. See <genericRef
+gref="gfix-final-landscape"
+>known limitations</genericRef
+>.</td
+><td
+>fix-final-landscape</td
+></tr
+><tr
+><td
+><indexedItem
+term="ifix-free-literal-footnote-placement"
+></indexedItem
+>fix-free-literal-footnote-placement</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Fix incorrect footnote content placement. In rare cases, footnote material can appear on a following page. See <genericRef
+gref="gfix-free-literal-footnote-placement"
+>known limitations</genericRef
+>.</td
+><td
+>fix-free-literal-footnote-placement</td
+></tr
+><tr
+><td
+><indexedItem
+term="iFontFeatures"
+></indexedItem
+>font-feature</td
+><td
+><object
+type="tItalic"
+>Font feature=value</object
+>. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote, the number of the font feature, an equals sign, the number of the value, and a single quote.</td
+><td
+>Tell <object
+type="tXeTeX"
+></object
+> to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
+type="tElement"
+>langDataLayout</object
+>, <object
+type="tElement"
+>glossLayout</object
+>, or <object
+type="tElement"
+>freeLayout</object
+>, it will only work if you also include the <object
+type="tAttribute"
+>font-family</object
+> attribute. <indexedItem
+term="iXeLaTeXUpgrade"
+></indexedItem
+>It also requires you to have installed the XeLaTeX Upgrade package. See <link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+>.</td
+><td
+><table
+><tr
+><td
+>font-feature='Hide tone contour staves=True'</td
+></tr
+><tr
+><td
+>font-feature='1050=1'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iGraphite"
+></indexedItem
+>graphite</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Tell <object
+type="tXeTeX"
+></object
+> to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this in a publisher style sheet <object
+type="tElement"
+>langDataLayout</object
+>, <object
+type="tElement"
+>glossLayout</object
+>, or <object
+type="tElement"
+>freeLayout</object
+>, it will only work if you also include the <object
+type="tAttribute"
+>font-family</object
+> attribute. <indexedItem
+term="iXeLaTeXUpgrade"
+></indexedItem
+>It also requires you to have installed the XeLaTeX Upgrade package. See <link
+href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
+>http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+>.</td
+><td
+>graphite</td
+></tr
+><tr
+><td
+>interlinear-aligned-word-skip</td
+><td
+>a TeX ‘glue’ value</td
+><td
+>Provides the ‘glue’ value to use as the space between aligned interlinear word units (when the automatically wrap long interlinear option is set; see <sectionRef
+sec="sExInterlinear"
+></sectionRef
+>). This only works on <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>interlinear-text</object
+>, and <object
+type="tElement"
+>listInterlinear</object
+> elements. The default amount of ‘glue’ is <object
+type="tInstruction"
+>6.66666pt plus 3.33333pt minus 2.22222pt</object
+> (this is what is used by <citation
+page="56"
+paren="none"
+ref="rITF"
+></citation
+>).</td
+><td
+><table
+><tr
+><td
+>interlinear-aligned-word-skip='7.66666pt plus 4.33333pt minus 3.22222pt'</td
+></tr
+><tr
+><td
+>interlinear-aligned-word-skip='5.66666pt plus 2.33333pt minus 1.22222pt'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>language</td
+><td
+>a three letter code</td
+><td
+>For Open Type fonts, it sets the font language system tag to be the three letter code. See <link
+href="http://www.microsoft.com/typography/otspec/languagetags.htm"
+>http://www.microsoft.com/typography/otspec/languagetags.htm</link
+>. This only works on elements that have a <object
+type="tAttribute"
+>font-family</object
+> attribute.</td
+><td
+><table
+><tr
+><td
+>language='ARA'</td
+></tr
+><tr
+><td
+>language='BEN'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>line-after</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Used in a <object
+type="tElement"
+>tr</object
+> element within a table. This will output a horizontal line after the content of the row.</td
+><td
+>line-after</td
+></tr
+><tr
+><td
+>line-before</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Used in a <object
+type="tElement"
+>tr</object
+> element within a table. This will output a horizontal line before the content of the row.</td
+><td
+>line-before</td
+></tr
+><tr
+><td
+>line-through</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render with a line through the characters</td
+><td
+>line-through</td
+></tr
+><tr
+><td
+>needspace</td
+><td
+>a numerical value</td
+><td
+>Suggest that the example needs at least the specified number of lines (this only works on an <object
+type="tElement"
+>example</object
+> element). For some reason, this helps keep sequences of examples from breaking a page too soon.</td
+><td
+><table
+><tr
+><td
+>needspace='1'</td
+></tr
+><tr
+><td
+>needspace='3'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>overfullhbox</td
+><td
+>a numerical value followed immediately by pt (for points)</td
+><td
+>If a line is too long (overfull), insert a black box with a width of the indicated number of points (this only works on a <object
+type="tElement"
+>lingPaper</object
+> element).</td
+><td
+><table
+><tr
+><td
+>overfullhbox='5pt'</td
+></tr
+><tr
+><td
+>overfullhbox='15pt'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>pagebreak</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force a page break before this point. If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
+><td
+>pagebreak</td
+></tr
+><tr
+><td
+>row-separation</td
+><td
+>a numerical value followed immediately by pt (for points)</td
+><td
+>Insert the indicated number of points between each row of the table (this only works on a <object
+type="tElement"
+>table</object
+> or a <object
+type="tElement"
+>tr</object
+> element).</td
+><td
+><table
+><tr
+><td
+>row-separation='1pt'</td
+></tr
+><tr
+><td
+>row-separation='30pt'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>scaled</td
+><td
+>an integer value indicating a percentage; 1000 = 100%; 750 = 75%</td
+><td
+>Adjust the scaling factor of the image. This only works on an <object
+type="tElement"
+>img</object
+> element.</td
+><td
+><table
+><tr
+><td
+>scaled='700'</td
+></tr
+><tr
+><td
+>scaled='1250'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>script</td
+><td
+>a four letter code</td
+><td
+>For Open Type fonts, it sets the font script tag to be the four letter code. See <link
+href="http://www.microsoft.com/typography/otspec/scripttags.htm"
+>http://www.microsoft.com/typography/otspec/scripttags.htm</link
+>. This only works on elements that have a <object
+type="tAttribute"
+>font-family</object
+> attribute.</td
+><td
+><table
+><tr
+><td
+>script='arab'</td
+></tr
+><tr
+><td
+>script='beng'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>singlespacing</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force single spacing in a double spaced or space-and-a-half document. This only works in a <object
+type="tElement"
+>chart</object
+> element containing text and when the <object
+type="tElement"
+>chart</object
+> element is not in a <object
+type="tElement"
+>table</object
+> or <object
+type="tElement"
+>example</object
+>.</td
+><td
+>singlespacing</td
+></tr
+><tr
+><td
+>subscript</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render as a subscript</td
+><td
+>subscript</td
+></tr
+><tr
+><td
+>superscript</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render as a superscript</td
+><td
+>superscript</td
+></tr
+><tr
+><td
+>underline</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Make the content of this <object
+type="tElement"
+>object</object
+> element render with an underline</td
+><td
+>underline</td
+></tr
+><tr
+><td
+>valign-fixup</td
+><td
+>a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
+><td
+>Adjust the vertical position of the content of a cell in a table by the amount specified (this only works on <object
+type="tElement"
+>td</object
+> and <object
+type="tElement"
+>th</object
+> elements). A negative value makes the content appear lower; a positive value makes it appear higher.</td
+><td
+><table
+><tr
+><td
+>valign-fixup='1pt'</td
+></tr
+><tr
+><td
+>valign-fixup='-1.5ex'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>vertical-adjustment</td
+><td
+>a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
+><td
+>Adjust the vertical position of an image by the amount specified (this only works on an <object
+type="tElement"
+>img</object
+> element). A negative value makes the image appear higher; a positive value makes it appear lower.</td
+><td
+><table
+><tr
+><td
+>vertical-adjustment='1pt'</td
+></tr
+><tr
+><td
+>vertical-adjustment='-1.5ex'</td
+></tr
+></table
+></td
 ></tr
 ></table
 ></appendix
@@ -32098,6 +32629,33 @@ type="tElement"
 id="iISOCodes"
 ><term
 >ISO 639-3 codes</term
+><indexTerms
+><indexTerm
+id="iISO639-3CodesColumnWidths"
+><term
+>Column widths in table of ISO 639-3 codes</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodesList"
+><term
+>Make a list in front or back matter</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodesMasterList"
+><term
+>Make a master list</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodesSort"
+><term
+>Sorting the output list</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodeSpacingAfter"
+><term
+>Spacing after</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iItalic"

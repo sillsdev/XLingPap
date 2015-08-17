@@ -24,6 +24,7 @@
     <xsl:param name="sPageHeight" select="'9in'"/>
     <xsl:param name="sPageInsideMargin" select="'1in'"/>
     <xsl:param name="sPageOutsideMargin" select="'.5in'"/>
+    <xsl:variable name="pageLayoutInfo"/>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -1101,23 +1102,6 @@
             </table>
         </div>
     </xsl:template>
-    <xsl:template name="OutputISOCodeInExample">
-        <xsl:param name="bOutputBreak" select="'Y'"/>
-        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
-        <xsl:if test="$firstLangData">
-            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            <xsl:if test="string-length($sIsoCode) &gt; 0">
-                <xsl:if test="$bOutputBreak='Y'">
-                    <br/>
-                </xsl:if>
-                <span style="font-size:smaller">
-                    <xsl:text>[</xsl:text>
-                    <xsl:value-of select="$sIsoCode"/>
-                    <xsl:text>]</xsl:text>
-                </span>
-            </xsl:if>
-        </xsl:if>
-    </xsl:template>
     <!--
       word
       -->
@@ -2010,6 +1994,14 @@
                 </xsl:choose>
             </xsl:attribute>
             <xsl:call-template name="DoExampleRefContent"/>
+        </a>
+    </xsl:template>
+    <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <a href="#{@lang}">
+            <xsl:call-template name="DoISO639-3codeRefContent"/>
         </a>
     </xsl:template>
     <!-- following borrowed and modified from work by John Thomson -->
@@ -3512,22 +3504,35 @@
             </xsl:if>
             <xsl:text>.</xsl:text>
         </xsl:if>
-        <xsl:for-each select="$path/iso639-3code">
-            <xsl:sort/>
-            <span style="font-size:smaller">
-                <xsl:if test="position() = 1">
-                    <xsl:text>  [</xsl:text>
-                </xsl:if>
-                <xsl:value-of select="."/>
-                <xsl:if test="position() != last()">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-                <xsl:if test="position() = last()">
-                    <xsl:text>]</xsl:text>
-                </xsl:if>
-            </span>
-        </xsl:for-each>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:for-each select="$path/iso639-3code">
+                <xsl:sort/>
+                <span style="font-size:smaller">
+                    <xsl:if test="position() = 1">
+                        <xsl:text>  [</xsl:text>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$bShowISO639-3Codes='Y'">
+                            <xsl:variable name="sThisCode" select="."/>
+                            <a href="#{$languages[@ISO639-3Code=$sThisCode]/@id}">
+                                <xsl:value-of select="."/>            
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                    <xsl:if test="position() = last()">
+                        <xsl:text>]</xsl:text>
+                    </xsl:if>
+                </span>
+            </xsl:for-each>
+        </xsl:if>
     </xsl:template>
+
     <!--  
         DoRefWork
     -->
@@ -4268,6 +4273,11 @@
             </table>
         </xsl:if>
     </xsl:template>
+    <!--
+        Dummy templates used in common file
+    -->
+    <xsl:template name="LinkAttributesBegin"/>
+    <xsl:template name="LinkAttributesEnd"/>
     <!--
       OutputAbbrDefinition
    -->
@@ -5243,6 +5253,102 @@
                 </xsl:choose>
                 <xsl:text>]</xsl:text>
             </td>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeInCommaSeparatedList
+    -->
+    <xsl:template name="OutputISO639-3CodeInCommaSeparatedList">
+        <a name="{@id}">
+            <xsl:value-of select="@ISO639-3Code"/>
+            <xsl:text> = </xsl:text>
+            <xsl:call-template name="OutputISO639-3CodeLanguageName">
+                <xsl:with-param name="language" select="."/>
+            </xsl:call-template>
+        </a>
+        <xsl:choose>
+            <xsl:when test="position() = last()">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeInTable
+    -->
+    <xsl:template name="OutputISO639-3CodeInTable">
+        <xsl:param name="codesShownHere"/>
+        <tr>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@codeWidth)"/>
+                </xsl:call-template>
+                <a name="{@id}">
+                    <xsl:value-of select="@ISO639-3Code"/>
+                </a>
+            </td>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@equalsWidth)"/>
+                </xsl:call-template>
+                <xsl:text> = </xsl:text>
+            </td>
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@languageNameWidth)"/>
+                </xsl:call-template>
+                <xsl:call-template name="OutputISO639-3CodeLanguageName">
+                    <xsl:with-param name="language" select="."/>
+                </xsl:call-template>
+            </td>
+        </tr>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodesInTable
+    -->
+    <xsl:template name="OutputISO639-3CodesInTable">
+        <xsl:param name="codesUsed"
+            select="//language[//iso639-3codeRef[not(ancestor::chapterInCollection)]/@lang=@id or //lineGroup/line[1]/descendant::langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //word/langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //listWord/langData[1][not(ancestor::chapterInCollection)]/@lang=@id]"/>
+        <xsl:if test="count($codesUsed) &gt; 0">
+            <table>
+                <xsl:call-template name="SortISO639-3CodesInTable">
+                    <xsl:with-param name="codesUsed" select="$codesUsed"/>
+                </xsl:call-template>
+            </table>
+        </xsl:if>
+    </xsl:template>
+
+    <!--
+        OutputISOCodeInExample
+    -->
+    <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="bOutputBreak" select="'Y'"/>
+        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
+        <xsl:if test="$firstLangData">
+            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+            <xsl:if test="string-length($sIsoCode) &gt; 0">
+                <xsl:if test="$bOutputBreak='Y'">
+                    <br/>
+                </xsl:if>
+                <span style="font-size:smaller">
+                    <xsl:choose>
+                        <xsl:when test="$bShowISO639-3Codes='Y'">
+                            <a href="#{$languages[@ISO639-3Code=$sIsoCode]/@id}">
+                                <xsl:text>[</xsl:text>
+                                <xsl:value-of select="$sIsoCode"/>
+                                <xsl:text>]</xsl:text>
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>[</xsl:text>
+                            <xsl:value-of select="$sIsoCode"/>
+                            <xsl:text>]</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </span>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--

@@ -22,6 +22,7 @@
 @property-value index-background-color() #ccffcc; /* #AFEEEE is paleturquoise */
 @property-value indexRange-background-color() #ccffaa; /* #AFEEEE is paleturquoise */
 @property-value interlinearSource-background-color() #F0D0B0; /* #F5DEB3 is wheat */
+@property-value iso639-3code-background-color() #B0E0E6; /* #B0E0E6 is powderblue */
 @property-value object-background-color() #CCCCCC; /* a light gray */
 @property-value part-background-color() #B0B0F0; /* #ADD8E6 is lightblue */
 @property-value section-background-color() #BFD0FF; /* #ADD8E6 is lightblue */
@@ -2267,6 +2268,71 @@ institution:after
 	content: ". ";
 }
 
+iso639-3codeRef[brackets='final']
+{
+	content: set-attribute-button(attribute, lang,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	         label(attribute, lang, text-decoration, underline)
+	        "]"
+	        ;
+	background-color:iso639-3code-background-color();
+}
+iso639-3codeRef[brackets='initial']
+{
+	content:"["
+			 set-attribute-button(attribute, lang,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	         label(attribute, lang, text-decoration, underline)
+	        ;
+	background-color:iso639-3code-background-color();
+}
+iso639-3codeRef[brackets='none']
+{
+	content: set-attribute-button(attribute, lang,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	         label(attribute, lang, text-decoration, underline)
+	        ;
+	background-color:iso639-3code-background-color();
+}
+iso639-3codeRef
+{
+	content: "["
+	         set-attribute-button(attribute, lang,
+						 unset-attribute, no,
+						 icon, icon(pop-down),
+						 color, black)
+	         label(attribute, lang, text-decoration, underline)
+	         "]";
+	background-color:iso639-3code-background-color();
+}
+
+endnote p iso639-3codesShownHere
+{
+	display:inline;
+	content: "The ISO 639-3 codes will appear here as a comma-separated list.";
+	font-style:italic;
+}
+p iso639-3codesShownHere
+{
+	display:inline;
+	content: "This will not do anything.  Please remove this element.  Instead, select the p element it is in and do an insert-after command to insert an iso639-3codesShownHere element.";
+	font-style:italic;
+}
+iso639-3codesShownHere
+{
+	display:block;
+	content: "The ISO 639-3 codes will appear here as a table.";
+	font-style:italic;
+	padding-bottom:1ex;
+}
+
+
 iword item
 {
 	display:block;
@@ -2705,13 +2771,16 @@ langData:after
 
 langName:before
 {
-	content:"  name: "
+	content:"\A            name: "
 	text-field(attribute, 'xml:lang', columns, 10, font-size, small)
 	" "
 }
 langName
 {
 	display:inline;
+	padding-left: 0.125in;
+	padding-top: 0.05in;
+	property-group: isCollapsible( yes, 1);
 }
 langName:after
 {
@@ -7234,6 +7303,41 @@ interlinearRefLinkLayout[showmarking='no']
 	color:Gray;
 	text-decoration:none;
 }
+
+iso639-3CodesLinkLayout[showmarking='no']
+{
+	color:Gray;
+	text-decoration:none;
+}
+linkLayout[color] iso639-3CodesLinkLayout[color='default'][showmarking='yes']
+{
+	color:concatenate(xpath("../@color"));
+}
+iso639-3CodesLinkLayout[color][showmarking='yes']
+{
+	color:concatenate(attr(color));
+}
+linkLayout[decoration] iso639-3CodesLinkLayout[decoration='default'][showmarking='yes']
+{
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+iso639-3CodesLinkLayout[decoration][showmarking='yes']
+{
+	text-decoration:concatenate(attr(decoration));
+}
+iso639-3CodesLinkLayout[showmarking='yes']
+{
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+iso639-3CodesLinkLayout
+{
+	property-group:linkLayoutParameter("iso639-3CodeRef");
+	color: gray;
+	text-decoration:none;
+}
+
+
 langDataLayout:before
 {
 	margin-top:12pt;

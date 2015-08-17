@@ -2550,6 +2550,22 @@ not using
         <xsl:call-template name="DoExampleRefContent"/>
     </xsl:template>
     <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <fo:inline>
+            <fo:basic-link internal-destination="{@lang}">
+                <fo:inline>
+                    <xsl:call-template name="AddAnyLinkAttributes">
+                        <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoISO639-3codeRefContent"/>
+                </fo:inline>
+            </fo:basic-link>
+        </fo:inline>
+    </xsl:template>
+
+    <!--
         figure
     -->
     <xsl:template match="figure">
@@ -6006,6 +6022,11 @@ not using
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        Dummy templates used in common file
+    -->
+    <xsl:template name="LinkAttributesBegin"/>
+    <xsl:template name="LinkAttributesEnd"/>
     <!--
       OutputAbbrDefinition
    -->

@@ -1514,7 +1514,6 @@
                 <xsl:with-param name="abbr" select="."/>
             </xsl:call-template>
         </td>
-
     </xsl:template>
     <!--
         OutputAbbreviationsInTable
@@ -1881,8 +1880,8 @@
             </table>
         </xsl:if>
     </xsl:template>
-    
-    
+
+
     <!--  
         OutputInterlinear
     -->
@@ -1920,7 +1919,23 @@
                 </xsl:if>
                 <span style="font-size:smaller">
                     <xsl:text>[</xsl:text>
-                    <xsl:value-of select="$sIsoCode"/>
+                    <xsl:choose>
+                        <xsl:when test="$bShowISO639-3Codes='Y'">
+                            <a>
+                                <xsl:attribute name="href">
+                                    <xsl:text>#</xsl:text>
+                                    <xsl:value-of select="$firstLangData/@lang"/>
+                                </xsl:attribute>
+                                <xsl:call-template name="AddAnyLinkAttributes">
+                                    <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                                </xsl:call-template>
+                                <xsl:value-of select="$sIsoCode"/>
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$sIsoCode"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:text>]</xsl:text>
                 </span>
             </xsl:if>

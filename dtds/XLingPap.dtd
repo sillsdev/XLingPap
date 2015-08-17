@@ -1,4 +1,4 @@
- <!-- XLingPap.dtd
+<!-- XLingPap.dtd
      XML/XSLT-based Linguistic paper document type definition
      Version 2.20.0
   -->
@@ -13,7 +13,7 @@
 
 <!-- Entity definitions -->
 <!ENTITY % embedded "langData | gloss | exampleRef | sectionRef | appendixRef | citation | comment | object | br | endnote | endnoteRef | figureRef | tablenumberedRef | q | img | genericRef | genericTarget | link | 
-    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject | abbrRef | glossaryTermRef">
+    indexedItem | indexedRangeBegin | indexedRangeEnd | interlinearRefCitation | mediaObject | abbrRef | glossaryTermRef | iso639-3codeRef">
 <!ENTITY % chunk "p | pc | example | table | tablenumbered | chart | figure | tree | blockquote | ol | ul | dl | prose-text | interlinear-text | hangingIndent | annotationRef">
 
 <!ENTITY % XLingPapPublisherStyleSheet SYSTEM  "XLingPapPublisherStylesheet.dtd">
@@ -100,6 +100,7 @@
     showiso639-3codeininterlinear (yes | no) "no"
     abbreviationlang IDREF #IMPLIED
     glossarytermlang IDREF #IMPLIED
+    iso639-3codeslang IDREF #IMPLIED
     indexlang IDREF #IMPLIED
     figureLabel CDATA #IMPLIED
     figureLabelAndCaptionLocation (before|after) "after"
@@ -208,7 +209,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere)+>
+<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
@@ -305,7 +306,7 @@
     showTitle (short | full | numberOnly) "numberOnly"
 >
 <!-- paragraph -->
-<!ELEMENT p (#PCDATA | %embedded; | definition| abbreviationsShownHere)*>
+<!ELEMENT p (#PCDATA | %embedded; | definition| abbreviationsShownHere | iso639-3codesShownHere)*>
 <!ATTLIST p
     xml:lang CDATA #IMPLIED
     %special;
@@ -850,6 +851,22 @@
 <!ATTLIST genericTarget
     id ID #REQUIRED
 >
+<!-- A reference to an ISO639-3 code in a language element -->
+<!ELEMENT iso639-3codeRef EMPTY >
+<!ATTLIST iso639-3codeRef
+    lang IDREF #REQUIRED
+    brackets (none | both | initial | final) "both"
+>
+<!-- an iso639-3codesShownHere element can be placed in an endnote, in a preface, in an appendix or in a glossary.
+    The ISO639-3 codes will be shown at that location; that is, those ISO 639-3 codes actually used in the document will be shown there.
+    If it is in an endnote, then the ISO639-3 codes will be listed one after the other within a paragraph.
+-->
+<!ELEMENT iso639-3codesShownHere EMPTY >
+<!ATTLIST iso639-3codesShownHere
+   codeWidth CDATA #IMPLIED
+   equalsWidth CDATA #IMPLIED
+   languageNameWidth CDATA #IMPLIED
+>
 <!-- a media-independent link -->
 <!ELEMENT link (#PCDATA | %embedded;)*>
 <!ATTLIST link
@@ -866,7 +883,7 @@
 >
 <!-- An endnote goes in the flow of the text.  One may refer to a footnote via
      an endnoteRef.  -->
-<!ELEMENT endnote (%chunk; | abbreviationsShownHere)*>
+<!ELEMENT endnote (%chunk; | abbreviationsShownHere | iso639-3codesShownHere)*>
 <!ATTLIST endnote
     id ID #REQUIRED
 >
@@ -876,7 +893,7 @@
     showNumberOnly (yes | no) "no"
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | iso639-3codesShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
@@ -886,7 +903,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere)+>
+<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

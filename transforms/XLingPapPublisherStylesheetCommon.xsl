@@ -4187,6 +4187,20 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
+        OutputISO639-3CodeCase
+    -->
+    <xsl:template name="OutputISO639-3CodeCase">
+        <xsl:param name="iso639-3codeItem"/>
+        <xsl:choose>
+            <xsl:when test="$iso639-3codeItem/@case='uppercase'">
+                <xsl:value-of select="translate(.,'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         OutputSectionNumberProper
     -->
     <xsl:template name="OutputSectionNumberProper">

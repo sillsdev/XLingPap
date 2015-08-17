@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  xmlns:xhtml="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="xhtml">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml" version="1.0" exclude-result-prefixes="xhtml">
     <!-- 
         Variables and templates common to all "canned" style sheets.
     -->
@@ -88,7 +88,7 @@
                 <xsl:apply-templates select="$figure/caption/child::node()[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
+                <!--                <xsl:apply-templates select="$figure" mode="figure"/>-->
                 <xsl:call-template name="GetFigureNumber">
                     <xsl:with-param name="figure" select="$figure"/>
                 </xsl:call-template>
@@ -159,7 +159,7 @@
                         <xsl:apply-templates select="$section/frontMatter/title/child::node()[name()!='endnote']"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>        
+                        <xsl:apply-templates select="$section/secTitle/child::node()[name()!='endnote']"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -191,7 +191,7 @@
                 <xsl:apply-templates select="$table/table/caption/child::node()[name()!='endnote']"/>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
+                <!--                <xsl:apply-templates select="$table" mode="tablenumbered"/>-->
                 <xsl:call-template name="GetTableNumberedNumber">
                     <xsl:with-param name="tablenumbered" select="$table"/>
                 </xsl:call-template>
@@ -220,8 +220,7 @@
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
-        <xsl:variable name="works"
-            select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:value-of select="$refer/refDate"/>
         </xsl:variable>

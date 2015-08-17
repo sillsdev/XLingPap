@@ -640,7 +640,7 @@ alt causes menu to be selected
                             <cfg:command name="insert" parameter="into abbrRef"/>
                         </cfg:pass>
                         <cfg:command name="LocalizeString" parameter="msg.insertReferenceElement"/>
-                        <cfg:command name="pick" parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss glossaryTermRef indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="pick" parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss glossaryTermRef indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
                         <cfg:command name="insert" parameter="into %_"/>
                         <cfg:command name="setReference"/>
                     </cfg:sequence>
@@ -649,7 +649,7 @@ alt causes menu to be selected
                             <cfg:command name="insert" parameter="into sectionRef"/>
                         </cfg:pass>
                         <cfg:command name="LocalizeString" parameter="msg.insertReferenceElement"/>
-                        <cfg:command name="pick" parameter="'%_' false appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="pick" parameter="'%_' false appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
                         <cfg:command name="insert" parameter="into %_"/>
                         <cfg:command name="setReference"/>
                     </cfg:sequence>
@@ -1197,7 +1197,7 @@ alt causes menu to be selected
         <cfg:macro>
             <cfg:sequence>
                 <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang glossaryTermInLang term seeDefinition"/>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] langData gloss wrd item index free prose-text abbrInLang glossaryTermInLang iso639-3codeRef term seeDefinition"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] lang"/>-->
                 </cfg:pass>
                 <cfg:get expression="join(//language/@id, ' ')"/>

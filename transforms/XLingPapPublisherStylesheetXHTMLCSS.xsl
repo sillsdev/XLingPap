@@ -732,6 +732,14 @@ li.lower-roman {
             <xsl:with-param name="name" select="'interlinearSourceStyle'"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        iso639-3CodesLinkLayout
+    -->
+    <xsl:template match="iso639-3CodesLinkLayout">
+        <xsl:call-template name="OutputLinkAttributes">
+            <xsl:with-param name="override" select="."/>
+        </xsl:call-template>
+    </xsl:template>
     <!-- 
         langDataInExampleLayout
     -->
@@ -1528,7 +1536,7 @@ li.lower-roman {
 </xsl:text>
     </xsl:template>
     <!-- ===========================================================
-        Attribute templates to ignore
+        Attribute and element templates to ignore
         =========================================================== -->
     <xsl:template match="@AddPeriodAfterFinalDigit"/>
     <xsl:template match="@after"/>
@@ -1618,6 +1626,7 @@ li.lower-roman {
     <xsl:template match="@xsl-foSpecial"/>
     <xsl:template match="hangingIndentInitialIndent"/>
     <xsl:template match="hangingIndentNormalIndent"/>
+    <xsl:template match="langName"/>
     <xsl:template match="literalLabelLayout"/>
     <!--
         AddAnyLinkAttributes
@@ -1708,12 +1717,24 @@ li.lower-roman {
         OutputAbbreviationsInTable (not needed here, but called from common)
     -->
     <xsl:template name="OutputAbbreviationsInTable"/>    
-    <!-- 
-        OutputContentLayoutFormatInfo
+    <!--
+        OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">
         <!-- to be done -->
     </xsl:template>
+    <!-- 
+        OutputISO639-3CodeInCommaSeparatedList (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputISO639-3CodeInCommaSeparatedList"/>
+    <!-- 
+        OutputISO639-3CodeInTable (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputISO639-3CodeInTable"/>
+    <!-- 
+        OutputISO639-3CodesInTable (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputISO639-3CodesInTable"/>
     <!-- 
         OutputTitleFormatInfo
     -->
@@ -1814,6 +1835,8 @@ li.lower-roman {
         =========================================================== -->
     <xsl:template name="DoRefWorks"/>
     <xsl:template name="HandleLiteralLabelLayoutInfo"/>
+    <xsl:template name="LinkAttributesBegin"/>
+    <xsl:template name="LinkAttributesEnd"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>
     <xsl:template name="OutputAbbreviationInTable"/>
     <xsl:template name="OutputGlossaryTermInTable"/>

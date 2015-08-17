@@ -1423,7 +1423,7 @@
     <xsl:template match="interlinearSource" mode="show">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <xsl:choose>
-            <xsl:when test="$interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFirstLine'">
+            <xsl:when test="$interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFirstLine' or $interlinearSourceStyleLayout/@interlinearsourcestyle='AfterFree'">
                 <span>
                     <xsl:call-template name="DoInterlinearSource">
                         <xsl:with-param name="interlinearSourceStyleLayout" select="$interlinearSourceStyleLayout"/>
@@ -2158,6 +2158,14 @@
             <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <a href="#{@lang}">
+            <xsl:call-template name="DoISO639-3codeRefContent"/>
+        </a>
     </xsl:template>
     <!-- ===========================================================
         FRAMEDUNIT
@@ -3493,9 +3501,9 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
         <table>
-            <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
+            <!--<xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
-            </xsl:if>
+            </xsl:if>-->
             <!-- add extra indent for when have an embedded interlinear; 
             be sure to allow for the case of when a listInterlinear begins with an interlinear -->
             <xsl:variable name="parent" select=".."/>
@@ -4034,6 +4042,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        Dummy templates used in common file
+    -->
+    <xsl:template name="LinkAttributesBegin"/>
+    <xsl:template name="LinkAttributesEnd"/>
     <!--
       OutputAbbreviationInCommaSeparatedList
    -->
@@ -5067,6 +5080,107 @@
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeInCommaSeparatedList
+    -->
+    <xsl:template name="OutputISO639-3CodeInCommaSeparatedList">
+        <span id="{@id}">
+            <xsl:value-of select="@ISO639-3Code"/>
+            <xsl:text> = </xsl:text>
+            <xsl:call-template name="OutputISO639-3CodeLanguageName">
+                <xsl:with-param name="language" select="."/>
+            </xsl:call-template>
+        </span>
+        <xsl:choose>
+            <xsl:when test="position() = last()">
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeInTable
+    -->
+    <xsl:template name="OutputISO639-3CodeInTable">
+        <xsl:param name="codesShownHere"/>
+        <xsl:param name="codeInSecondColumn"/>
+        <tr>
+            <xsl:call-template name="OutputISO639-3CodeItemInTable">
+                <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
+            </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">
+                <xsl:for-each select="$codeInSecondColumn">
+                    <td>
+                        <xsl:variable name="sSep" select="normalize-space($contentLayoutInfo/iso639-3CodesInTableLayout/@doubleColumnSeparation)"/>
+                        <xsl:if test="string-length($sSep)&gt;0">
+                            <xsl:attribute name="style">
+                                <xsl:text>padding-left:</xsl:text>
+                                <xsl:value-of select="$sSep"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </td>
+                    <xsl:call-template name="OutputISO639-3CodeItemInTable">
+                        <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </tr>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodeItemInTable
+    -->
+    <xsl:template name="OutputISO639-3CodeItemInTable">
+        <xsl:param name="codesShownHere"/>
+        <td valign="top" id="{@id}">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@codeWidth)"/>
+            </xsl:call-template>
+            <xsl:value-of select="@ISO639-3Code"/>
+        </td>
+        <xsl:if test="not($contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn) or $contentLayoutInfo/iso639-3CodesInTableLayout/@useEqualSignsColumn!='no'">
+            <td valign="top">
+                <xsl:call-template name="HandleColumnWidth">
+                    <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@equalsWidth)"/>
+                </xsl:call-template>
+                <xsl:text> = </xsl:text>
+            </td>
+        </xsl:if>
+        <td valign="top">
+            <xsl:call-template name="HandleColumnWidth">
+                <xsl:with-param name="sWidth" select="normalize-space($codesShownHere/@languageNameWidth)"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputISO639-3CodeLanguageName">
+                <xsl:with-param name="language" select="."/>
+            </xsl:call-template>
+        </td>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodesInTable
+    -->
+    <xsl:template name="OutputISO639-3CodesInTable">
+        <xsl:param name="codesUsed"
+            select="//language[//iso639-3codeRef[not(ancestor::chapterInCollection)]/@lang=@id or //lineGroup/line[1]/descendant::langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //word/langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //listWord/langData[1][not(ancestor::chapterInCollection)]/@lang=@id]"/>
+        <xsl:if test="count($codesUsed) &gt; 0">
+            <table>
+                <xsl:attribute name="style">
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$contentLayoutInfo/iso639-3CodesInTableLayout"/>
+                    </xsl:call-template>
+                    <xsl:variable name="sStartIndent" select="normalize-space($contentLayoutInfo/iso639-3CodesInTableLayout/@start-indent)"/>
+                    <xsl:if test="string-length($sStartIndent)&gt;0">
+                        <xsl:text>margin-left:</xsl:text>
+                        <xsl:value-of select="$sStartIndent"/>
+                        <xsl:text>;</xsl:text>
+                    </xsl:if>
+                </xsl:attribute>
+                <xsl:call-template name="SortISO639-3CodesInTable">
+                    <xsl:with-param name="codesUsed" select="$codesUsed"/>
+                </xsl:call-template>
+            </table>
+        </xsl:if>
     </xsl:template>
     <!--  
         OutputList

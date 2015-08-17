@@ -2201,6 +2201,24 @@
         </xsl:if>
     </xsl:template>
     <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <xsl:param name="fDoHyperlink" select="'Y'"/>
+        <xsl:choose>
+            <xsl:when test="$fDoHyperlink='Y'">
+                <xsl:call-template name="DoInternalHyperlinkBegin">
+                    <xsl:with-param name="sName" select="@lang"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoISO639-3codeRefContentXeLaTeX"/>
+                <xsl:call-template name="DoExternalHyperRefEnd"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoISO639-3codeRefContentXeLaTeX"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         figure
     -->
     <xsl:template match="figure">
@@ -4992,6 +5010,22 @@
             </xsl:otherwise>
         </xsl:choose>
         <!--        <xsl:text>&#xa0;</xsl:text>-->
+    </xsl:template>
+    <!--  
+        DoISO639-3codeRefContentXeLaTeX
+    -->
+    <xsl:template name="DoISO639-3codeRefContentXeLaTeX">
+        <xsl:if test="not(@brackets) or @brackets='both' or @brackets='initial'">[</xsl:if>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="GetISO639-3CodeFromLanguage">
+            <xsl:with-param name="language" select="id(@lang)"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesEnd">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+        </xsl:call-template>
+        <xsl:if test="not(@brackets) or @brackets='both' or @brackets='final'">]</xsl:if>
     </xsl:template>
     <!--  
         DoPageBreakFormatInfo

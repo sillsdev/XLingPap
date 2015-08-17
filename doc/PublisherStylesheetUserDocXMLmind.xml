@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->5 August 2015</date
+>15 August 2015</date
 ><version
->2.27.3</version
+>2.27.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -694,6 +694,9 @@ term="iIndexLink"
 ></indexedItem
 ><indexedItem
 term="iInterlinearRefLink"
+></indexedItem
+><indexedItem
+term="iISO639-3CodeRefLink"
 ></indexedItem
 ><indexedItem
 term="iLinkLink"
@@ -1790,7 +1793,22 @@ type="tElement"
 >How the <object
 type="tElement"
 >version</object
-> element is to be formatted.</td
+> element is to be formatted. Note that the content of the <object
+type="tElement"
+>version</object
+> element (and the <object
+type="tAttribute"
+>textbefore</object
+> and <object
+type="tAttribute"
+>textafter</object
+> attributes of this <object
+type="tElement"
+>versionLayout</object
+> element) can be in whatever language you are writing your <object
+type="tXLingPap"
+></object
+> document in.</td
 ><td
 >See section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
@@ -12159,6 +12177,240 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
+id="sISO639-3CodesInTables"
+><secTitle
+>Controlling the Display of ISO 639-3 Codes in a Table</secTitle
+><p
+><indexedItem
+term="iISO639-3CodesInTable"
+></indexedItem
+>Sometimes one wants to control how the list of ISO 639-3 codes come out when they are in a table. You do this via the <object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+> element. The <object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xISO639-3CodesInTableLayoutAttributes"
+num="xISO639-3CodesInTableLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xISO639-3CodesInTableLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+> Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iISO639-3CodeInTabledoubleColumnSeparation"
+></indexedItem
+><object
+type="tAttribute"
+>doubleColumnSeparation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert between the two sets of ISO 639-3 codes when using double columns. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iISO639-3CodeInTableStartIndent"
+></indexedItem
+><indexedItem
+term="iStartIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>start-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert before the table. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iISO639-3CodeInTableuseDoubleColumns"
+></indexedItem
+><object
+type="tAttribute"
+>useDoubleColumns</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of ISO 639-3 codes and their definitions should be in a single column or in double columns (i.e two sets of codes and their definitions). The default is to have only one such column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iISO639-3CodeInTableeuseEqualSignsColumn"
+></indexedItem
+><object
+type="tAttribute"
+>useEqualSignsColumn</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the table of ISO 639-3 codes should include a column consisting of an equal sign between the code and its definition. The default is to include this column.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+></section2
+><section2
 id="sProseText"
 ><secTitle
 >Controlling the Display of Prose Text</secTitle
@@ -14732,6 +14984,40 @@ id="iInterlinearText"
 id="iISO639-3Code"
 ><term
 >ISO 639-3 code of a referenced work</term
+><indexTerms
+></indexTerms
+></indexTerm
+><indexTerm
+id="iISO639-3CodeRefLink"
+><term
+>ISO 639-3 code reference link</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodesInTable"
+><term
+>ISO 693-3 codes in a table</term
+><indexTerms
+><indexTerm
+id="iISO639-3CodeInTabledoubleColumnSeparation"
+><term
+>doubleColumnSeparation</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodeInTableStartIndent"
+><term
+>start-indent</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodeInTableuseDoubleColumns"
+><term
+>useDoubleColumns</term
+></indexTerm
+><indexTerm
+id="iISO639-3CodeInTableeuseEqualSignsColumn"
+><term
+>useEqualSignsColumn</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iJArticalNumber"

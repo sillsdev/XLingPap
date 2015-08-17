@@ -72,6 +72,7 @@
         -->
     </xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
+    <xsl:variable name="pageLayoutInfo"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -2347,6 +2348,14 @@ not using
             <xsl:call-template name="DoExampleRefContent"/>
         </fo:basic-link>
     </xsl:template>
+    <!--
+        iso639-3codeRef
+    -->
+    <xsl:template match="iso639-3codeRef">
+        <fo:basic-link internal-destination="{@lang}">
+            <xsl:call-template name="DoISO639-3codeRefContent"/>
+        </fo:basic-link>
+    </xsl:template>
     <!-- ===========================================================
       ENDNOTES and ENDNOTEREFS
       =========================================================== -->
@@ -4012,13 +4021,24 @@ not using
             </xsl:if>
             <xsl:text>.</xsl:text>
         </xsl:if>
-        <xsl:for-each select="$path/iso639-3code">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:for-each select="$path/iso639-3code">
             <xsl:sort/>
             <fo:inline font-size="smaller">
                 <xsl:if test="position() = 1">
                     <xsl:text>  [</xsl:text>
                 </xsl:if>
-                <xsl:value-of select="."/>
+                <xsl:choose>
+                    <xsl:when test="$bShowISO639-3Codes='Y'">
+                        <xsl:variable name="sThisCode" select="."/>
+                        <fo:basic-link internal-destination="{$languages[@ISO639-3Code=$sThisCode]/@id}">
+                            <xsl:value-of select="."/>            
+                        </fo:basic-link>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="position() != last()">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
@@ -4026,7 +4046,8 @@ not using
                     <xsl:text>]</xsl:text>
                 </xsl:if>
             </fo:inline>
-        </xsl:for-each>
+            </xsl:for-each>
+            </xsl:if>
     </xsl:template>
     <!--  
         DoRefWorks
@@ -4689,6 +4710,11 @@ not using
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        Dummy templates used in common file
+    -->
+    <xsl:template name="LinkAttributesBegin"/>
+    <xsl:template name="LinkAttributesEnd"/>
     <!--
       OutputAbbrDefinition
    -->

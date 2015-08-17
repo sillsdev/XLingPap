@@ -58,6 +58,17 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="isoCodeLang">
+        <xsl:variable name="isoCodeLangTemp" select="normalize-space($lingPaper/@iso639-3codeslang) "/>
+        <xsl:choose>
+            <xsl:when test="string-length($isoCodeLangTemp) &gt; 0">
+                <xsl:value-of select="$isoCodeLangTemp"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$documentLang"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="indexSeeDefinition" select="$lingPaper/indexTerms/seeDefinitions/seeDefinition[@lang=$indexLang]"/>
     <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="glossaryTerms" select="$lingPaper/backMatter/glossaryTerms"/>
@@ -124,6 +135,17 @@
         </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="sAuthorNamesWordForAnd" select="$lingPaper/references/@authorNamesWordForAnd"/>
+    <xsl:variable name="languages" select="//language"/>
+    <xsl:variable name="bShowISO639-3Codes">
+        <xsl:choose>
+            <xsl:when test="//iso639-3codesShownHere">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- 
         appendixRef (contents) 
     -->
@@ -220,6 +242,29 @@
         <xsl:call-template name="HandleGlossaryTermsInTable"/>
     </xsl:template>
     <xsl:template match="glossaryTermTerm | glossaryTermDefinition"/>
+    <!--
+        iso639-3codesShownHere
+    -->
+    <xsl:template match="iso639-3codesShownHere">
+        <xsl:choose>
+            <xsl:when test="ancestor::endnote">
+                <xsl:choose>
+                    <xsl:when test="parent::p">
+                        <xsl:call-template name="HandleISO639-3CodesInCommaSeparatedList"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <p>
+                            <xsl:call-template name="HandleISO639-3CodesInCommaSeparatedList"/>
+                        </p>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="not(ancestor::p)">
+                <!-- ignore any other iso639-3codesShownHere in a p except when also in an endnote; everything else goes in a table -->
+                <xsl:call-template name="HandleISO639-3CodesInTable"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
     <!--
         keyword
     -->
@@ -575,6 +620,22 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+    </xsl:template>
+    <!--  
+        DoISO639-3codeRefContent
+    -->
+    <xsl:template name="DoISO639-3codeRefContent">
+        <xsl:if test="not(@brackets) or @brackets='both' or @brackets='initial'">[</xsl:if>
+        <xsl:call-template name="LinkAttributesBegin">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+        </xsl:call-template>
+        <xsl:call-template name="GetISO639-3CodeFromLanguage">
+            <xsl:with-param name="language" select="id(@lang)"/>
+        </xsl:call-template>
+        <xsl:call-template name="LinkAttributesEnd">
+            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+        </xsl:call-template>
+        <xsl:if test="not(@brackets) or @brackets='both' or @brackets='final'">]</xsl:if>
     </xsl:template>
     <!--  
         DoLiteralLabel
@@ -1009,6 +1070,34 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        GetISO639-3CodeFromLanguage
+    -->
+    <xsl:template name="GetISO639-3CodeFromLanguage">
+        <xsl:param name="language"/>
+        <xsl:value-of select="$language/@ISO639-3Code"/>
+    </xsl:template>
+    <!--  
+        GetISO639-3CodeLanguageCode
+    -->
+    <xsl:template name="GetISO639-3CodeLanguageCode">
+        <xsl:variable name="sLangCode">
+            <xsl:choose>
+                <xsl:when test="string-length($isoCodeLang) &gt; 0">
+                    <xsl:value-of select="$isoCodeLang"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$documentLang"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="string-length($sLangCode) &gt; 0">
+                <xsl:value-of select="$sLangCode"/>
+            </xsl:when>
+            <xsl:otherwise>en</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetLiInOlNumberOrLetter
     -->
     <xsl:template name="GetLiInOlNumberOrLetter">
@@ -1168,6 +1257,36 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputGlossaryTermsInTable"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        HandleISO639-3CodesInCommaSeparatedList
+    -->
+    <xsl:template name="HandleISO639-3CodesInCommaSeparatedList">
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection">
+                <xsl:call-template name="OutputISO639-3CodesInCommaSeparatedList">
+                    <xsl:with-param name="codeRefs" select="ancestor::chapterInCollection/descendant::iso639-3codeRef or ancestor::chapterInCollection/descendant::lineGroup/line[1]/descendant::langData[1] or ancestor::chapterInCollection/descendant::word/langData[1] or ancestor::chapterInCollection/descendant::listWord/langData[1]"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputISO639-3CodesInCommaSeparatedList"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        HandleISO639-3CodesInTable
+    -->
+    <xsl:template name="HandleISO639-3CodesInTable">
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
+                <xsl:call-template name="OutputISO639-3CodesInTable">
+                    <xsl:with-param name="codesUsed" select="//language[//iso639-3codeRef[ancestor::chapterInCollection]/@lang=@id or //lineGroup/line[1]/descendant::langData[1][ancestor::chapterInCollection]/@lang=@id or //word/langData[1][ancestor::chapterInCollection]/@lang=@id or //listWord/langData[1][ancestor::chapterInCollection]/@lang=@id]"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputISO639-3CodesInTable"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1579,6 +1698,55 @@
             <xsl:with-param name="indexTerm" select="$indexTerm"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        OutputISO639-3CodeLanguageName
+    -->
+    <xsl:template name="OutputISO639-3CodeLanguageName">
+        <xsl:param name="language"/>
+        <xsl:choose>
+            <xsl:when test="string-length($isoCodeLang) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="string-length($language/langName[@xml:lang=$isoCodeLang]) &gt; 0">
+                        <xsl:value-of select="$language/langName[@xml:lang=$isoCodeLang]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- a language is specified, but this ISO code does not have anything; try using the default;
+                            this assumes that something is better than nothing -->
+                        <xsl:value-of select="$language/langName[1]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--  no language specified; just use the first one -->
+                <xsl:value-of select="$language/langName[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputISO639-3CodesInCommaSeparatedList
+    -->
+    <xsl:template name="OutputISO639-3CodesInCommaSeparatedList">
+        <xsl:param name="codesUsed"
+            select="//language[//iso639-3codeRef[not(ancestor::chapterInCollection)]/@lang=@id or //lineGroup/line[1]/descendant::langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //word/langData[1][not(ancestor::chapterInCollection)]/@lang=@id or //listWord/langData[1][not(ancestor::chapterInCollection)]/@lang=@id]"/>
+        
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
+                </xsl:variable>
+                <xsl:for-each select="$codesUsed">
+                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>
+                    <xsl:call-template name="OutputISO639-3CodeInCommaSeparatedList"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$codesUsed">
+<!--                    <xsl:for-each select="$ISOcodes/langName[$codeRefs[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@xml:lang=@id]">-->
+                    <xsl:call-template name="OutputISO639-3CodeInCommaSeparatedList"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         OutputLabel
     -->
@@ -1790,6 +1958,60 @@
                         <xsl:for-each select="$glossaryTermsUsed">
                             <xsl:call-template name="OutputGlossaryTermInTable">
                                 <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        SortISO639-3CodesInTable
+    -->
+    <xsl:template name="SortISO639-3CodesInTable">
+        <xsl:param name="codesUsed"/>
+        <xsl:variable name="codesShownHere" select="."/>
+        <xsl:variable name="iHalfwayPoint" select="ceiling(count($codesUsed) div 2)"/>
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
+                </xsl:variable>
+                <xsl:for-each select="$codesUsed">
+                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">
+                            <xsl:if test="position() &lt;= $iHalfwayPoint">
+                                <xsl:variable name="iPos" select="position()"/>
+                                <xsl:call-template name="OutputISO639-3CodeInTable">
+                                    <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
+                                    <xsl:with-param name="codeInSecondColumn" select="$codesUsed[$iPos + $iHalfwayPoint]"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputISO639-3CodeInTable">
+                                <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">
+                        <xsl:for-each select="$codesUsed[position() &lt;= $iHalfwayPoint]">
+                            <xsl:variable name="iPos" select="position()"/>
+                            <xsl:call-template name="OutputISO639-3CodeInTable">
+                                <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
+                                <xsl:with-param name="codeInSecondColumn" select="$codesUsed[$iPos + $iHalfwayPoint]"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="$codesUsed">
+                            <xsl:call-template name="OutputISO639-3CodeInTable">
+                                <xsl:with-param name="codesShownHere" select="$codesShownHere"/>
                             </xsl:call-template>
                         </xsl:for-each>
                     </xsl:otherwise>

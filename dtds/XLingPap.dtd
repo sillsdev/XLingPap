@@ -481,11 +481,11 @@
     letter ID #REQUIRED
     %special;
 >
-<!ELEMENT single (langData | gloss)+>
+<!ELEMENT single ((langData | gloss)+, interlinearSource?)>
 <!ATTLIST single
     externalID CDATA #IMPLIED
 >
-<!ELEMENT listSingle (langData | gloss)+>
+<!ELEMENT listSingle ((langData | gloss)+, interlinearSource?)>
 <!ATTLIST listSingle
     externalID CDATA #IMPLIED
     letter ID #REQUIRED

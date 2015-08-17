@@ -1962,7 +1962,7 @@
     <!--
       interlinearSource
    -->
-    <xsl:template match="interlinearSource">
+    <xsl:template match="interlinearSource" mode="contents">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
         <fo:inline>
             <xsl:call-template name="OutputFontAttributes">
@@ -7066,7 +7066,7 @@ not using
         <xsl:param name="sRef"/>
         <xsl:choose>
             <xsl:when test="$sSource">
-                <xsl:apply-templates select="$sSource"/>
+                <xsl:apply-templates select="$sSource" mode="contents"/>
             </xsl:when>
             <xsl:when test="string-length(normalize-space($sRef)) &gt; 0">
                 <xsl:call-template name="DoInterlinearRefCitation">
@@ -7482,7 +7482,7 @@ not using
                 <fo:table-cell xsl:use-attribute-sets="ExampleCell">
                     <xsl:call-template name="DoDebugExamples"/>
                     <fo:block>
-                        <xsl:for-each select="langData | gloss">
+                        <xsl:for-each select="langData | gloss | interlinearSource">
                             <xsl:apply-templates select="self::*"/>
                         </xsl:for-each>
                     </fo:block>
@@ -7490,7 +7490,7 @@ not using
             </xsl:when>
             <xsl:otherwise>
                 <fo:block>
-                    <xsl:for-each select="langData | gloss">
+                    <xsl:for-each select="langData | gloss | interlinearSource">
                         <xsl:apply-templates select="self::*"/>
                         <xsl:if test="position()!=last()">
                             <fo:inline>&#xa0;&#xa0;</fo:inline>

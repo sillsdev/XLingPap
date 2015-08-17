@@ -5920,7 +5920,7 @@ not using
                 <fo:table-cell xsl:use-attribute-sets="ExampleCell">
                     <xsl:call-template name="DoDebugExamples"/>
                     <fo:block>
-                        <xsl:for-each select="langData | gloss">
+                        <xsl:for-each select="langData | gloss | interlinearSource">
                             <xsl:apply-templates select="self::*"/>
                         </xsl:for-each>
                     </fo:block>
@@ -5928,7 +5928,7 @@ not using
             </xsl:when>
             <xsl:otherwise>
                 <fo:block>
-                    <xsl:for-each select="langData | gloss">
+                    <xsl:for-each select="langData | gloss | interlinearSource">
                         <xsl:apply-templates select="self::*"/>
                         <xsl:if test="position()!=last()">
                             <fo:inline>&#xa0;&#xa0;</fo:inline>

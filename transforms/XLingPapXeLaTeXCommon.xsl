@@ -9901,7 +9901,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="HandleVerticalSpacingWhenExampleHeadingWithISOCode"/>
-                <xsl:for-each select="langData | gloss">
+                <xsl:for-each select="langData | gloss | interlinearSource">
                     <xsl:apply-templates select="self::*"/>
                     <tex:spec cat="esc"/>
                     <xsl:text>&#x20;</xsl:text>

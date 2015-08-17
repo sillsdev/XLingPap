@@ -8915,6 +8915,17 @@ num="xSingleLineHTML"
 type="tHtmlOutput"
 >&lt;div style="margin-left: 0.25in; margin-right: 0.25in"&gt; &lt;table&gt;&lt;a name="x102"&gt;(4)&lt;/a&gt; &lt;span class="english"&gt;This is an example of a single line.&lt;/span&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
+><p
+>One can include an indication of the source for the line by inserting an <object
+type="tElement"
+>interlinearSource</object
+> element after the <object
+type="tElement"
+>langData</object
+> element (note that you will need to click on “langData” in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then do an “Insert After” command).</p
 ></section3
 ><section3
 id="secExLineList"
@@ -9011,6 +9022,17 @@ type="tXLingPap"
 note="nExampleNumLetter"
 ></endnoteRef
 ></p
+><p
+>One can include an indication of the source for the line by inserting an <object
+type="tElement"
+>interlinearSource</object
+> element after the <object
+type="tElement"
+>langData</object
+> element (note that you will need to click on “langData” in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then do an “Insert After” command).</p
 ></section3
 ></section2
 ><section2
@@ -26215,19 +26237,19 @@ type="tElement"
 > elements and one can set the <object
 type="tAttribute"
 >ISO639-3Code</object
-> attribute to the code of that language.  If you want to display a list of ISO 639-3 codes, then for each such <object
+> attribute to the code of that language. If you want to display a list of ISO 639-3 codes, then for each such <object
 type="tElement"
 >language</object
 > element, you also need to insert within it one or more <object
 type="tElement"
 >langName</object
-> elements.  Each <object
+> elements. Each <object
 type="tElement"
 >langName</object
-> element contains the name of the language.  You can have more than one <object
+> element contains the name of the language. You can have more than one <object
 type="tElement"
 >langName</object
-> element if you need the name to be in different languages.  Example <exampleRef
+> element if you need the name to be in different languages. Example <exampleRef
 letter="xLanguageWith2LangNames"
 num="xLanguageWith2LangNames"
 ></exampleRef
@@ -26338,7 +26360,7 @@ type="tHtmlOutput"
 >Turning now to showing the ISO 639-3 codes in a glossary, one needs to insert a <object
 type="tElement"
 >glossary</object
-> element in the back matter.  One can then open up the <object
+> element in the back matter. One can then open up the <object
 type="tElement"
 >glossary</object
 > element and type any prefatory material one might want (of course, one does not have to type anything). One then inserts the special <object

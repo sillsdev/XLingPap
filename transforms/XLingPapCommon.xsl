@@ -243,6 +243,14 @@
     </xsl:template>
     <xsl:template match="glossaryTermTerm | glossaryTermDefinition"/>
     <!--
+        interlinearSource in single or listSingle
+    -->
+    <xsl:template match="interlinearSource[parent::single or parent::listSingle]">
+        <xsl:call-template name="OutputInterlinearTextReference">
+            <xsl:with-param name="sSource" select="."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         iso639-3codesShownHere
     -->
     <xsl:template match="iso639-3codesShownHere">

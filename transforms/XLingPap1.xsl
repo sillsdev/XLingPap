@@ -1206,7 +1206,7 @@
                 <xsl:attribute name="style">
                     <xsl:value-of select="$sExampleCellPadding"/>
                 </xsl:attribute>
-                <xsl:for-each select="(langData | gloss)">
+                <xsl:for-each select="(langData | gloss | interlinearSource)">
                     <xsl:apply-templates select="."/>
                     <xsl:if test="position()!=last()">
                         <xsl:text>&#xa0;&#xa0;</xsl:text>

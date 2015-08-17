@@ -1718,6 +1718,10 @@ li.lower-roman {
     -->
     <xsl:template name="OutputAbbreviationsInTable"/>    
     <!--
+        OutputInterlinearTextReference (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputInterlinearTextReference"/>
+    <!--
         OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">

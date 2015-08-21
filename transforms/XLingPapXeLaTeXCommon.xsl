@@ -151,6 +151,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sInitialGroupIndent" select="$contentLayoutInfo/interlinearTextLayout/@indentOfInitialGroup"/>
     <!--
         citation (InMarker)
     -->
@@ -4789,24 +4790,31 @@
             <tex:spec cat="esc"/>
             <xsl:text>hangindent</xsl:text>
             <xsl:choose>
-                <xsl:when test="$mode='NoTextRef'">
-                    <xsl:text>2</xsl:text>
-                </xsl:when>
-                <xsl:when test="contains($bListsShareSameCode,'N')">
-                    <!-- want 1 plus 2.75 -->
-                    <xsl:text>3.75</xsl:text>
-                </xsl:when>
-                <xsl:when test="ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
-                    <xsl:text>2</xsl:text>
-                </xsl:when>
-                <xsl:when test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1">
-                    <xsl:text>2</xsl:text>
+                <xsl:when test="string-length($sInitialGroupIndent) &gt; 0">
+                    <xsl:value-of select="$sInitialGroupIndent"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>1</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="$mode='NoTextRef'">
+                            <xsl:text>2</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="contains($bListsShareSameCode,'N')">
+                            <!-- want 1 plus 2.75 -->
+                            <xsl:text>3.75</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
+                            <xsl:text>2</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1">
+                            <xsl:text>2</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>1</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>em</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:text>em</xsl:text>
             <tex:cmd name="relax" gr="0" nl2="1"/>
             <tex:spec cat="esc"/>
             <xsl:text>hangafter1</xsl:text>
@@ -4815,16 +4823,23 @@
                 <xsl:when test="$mode='NoTextRef'">
                     <tex:cmd name="hspace*">
                         <tex:parm>
-                            <xsl:variable name="sThisName" select="name()"/>
                             <xsl:choose>
-                                <xsl:when test="../preceding-sibling::*[1][name()=$sThisName] or count(ancestor::interlinear) &gt; 1">
-                                    <xsl:text>1.65</xsl:text>
+                                <xsl:when test="string-length($sInitialGroupIndent) &gt; 0">
+                                    <xsl:value-of select="$sInitialGroupIndent"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:text>1</xsl:text>
+                                    <xsl:variable name="sThisName" select="name()"/>
+                                    <xsl:choose>
+                                        <xsl:when test="../preceding-sibling::*[1][name()=$sThisName] or count(ancestor::interlinear) &gt; 1">
+                                            <xsl:text>1.65</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>1</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                    <xsl:text>em</xsl:text>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:text>em</xsl:text>
                         </tex:parm>
                     </tex:cmd>
                 </xsl:when>
@@ -5838,17 +5853,24 @@
         </xsl:if>
         <xsl:variable name="sLeftIndent">
             <xsl:choose>
-                <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
-                    <xsl:text>1.65</xsl:text>
-                </xsl:when>
-                <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
-                    <xsl:text>2</xsl:text>
+                <xsl:when test="string-length($sInitialGroupIndent) &gt; 0">
+                    <xsl:value-of select="$sInitialGroupIndent"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>1</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="../preceding-sibling::*[1][name()='free' or name()='literal'] or count(ancestor::interlinear) &gt; 1">
+                            <xsl:text>1.65</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="preceding-sibling::*[1][name()='lineGroup']">
+                            <xsl:text>2</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>1</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>em</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:text>em</xsl:text>
         </xsl:variable>
         <xsl:if test="$mode='NoTextRef'">
             <tex:cmd name="raggedright" gr="0" nl2="0"/>

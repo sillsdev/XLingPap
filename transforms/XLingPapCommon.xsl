@@ -581,7 +581,14 @@
                     <xsl:apply-templates select="$interlinear/../textInfo/textTitle/child::node()[name()!='endnote']"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:text>:</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($contentLayoutInfo/interlinearTextLayout/@textbeforeReferenceNumber) &gt; 0">
+                    <!-- do nothing here; it is handled in DoInterlinearTextNumber -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>:</xsl:text>        
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:call-template name="DoInterlinearTextNumber">
             <xsl:with-param name="sRef" select="$sRef"/>
@@ -594,6 +601,11 @@
     <xsl:template name="DoInterlinearTextNumber">
         <xsl:param name="sRef"/>
         <xsl:param name="interlinear"/>
+        <xsl:variable name="sBefore" select="$contentLayoutInfo/interlinearTextLayout/@textbeforeReferenceNumber"/>
+        <xsl:variable name="sAfter" select="$contentLayoutInfo/interlinearTextLayout/@textafterReferenceNumber"/>
+        <xsl:if test="string-length($sBefore) &gt; 0">
+            <xsl:value-of select="$sBefore"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="substring($sRef,1,4)='T-ID'">
                 <xsl:value-of select="substring-after(substring-after($sRef,'-'),'-')"/>
@@ -602,6 +614,9 @@
                 <xsl:value-of select="count($interlinear/preceding-sibling::interlinear) + 1"/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="string-length($sAfter) &gt; 0">
+            <xsl:value-of select="$sAfter"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoInterlinearTextReferenceLink
@@ -1070,7 +1085,14 @@
         <xsl:variable name="sTextShortTitle" select="../textInfo/shortTitle"/>
         <xsl:if test="string-length($sTextShortTitle) &gt; 0">
             <xsl:value-of select="$sTextShortTitle"/>
-            <xsl:text>:</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($contentLayoutInfo/interlinearTextLayout/@textbeforeReferenceNumber) &gt; 0">
+                    <!-- do nothing here; it is handled in DoInterlinearTextNumber -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>:</xsl:text>        
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:call-template name="DoInterlinearTextNumber">
             <xsl:with-param name="interlinear" select="."/>

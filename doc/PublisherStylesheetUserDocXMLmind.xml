@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->15 August 2015</date
+>21 August 2015</date
 ><version
->2.27.4</version
+>2.27.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -8851,6 +8851,26 @@ letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
 >).</p
+><p
+>The amount to indent the first line of an interlinear text can be overridden by setting the <object
+type="tAttribute"
+>indentOfInitialGroup</object
+> attribute.  Use a number followed immediately by a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>).  This only works for the <object
+type="tXeTeX"
+></object
+> way of producing PDF and only when doing automatic wrapping of the interlinear.</p
+><p
+>One can also control the text that comes before and after the text reference number.  Use <object
+type="tAttribute"
+>textbeforeReferenceNumber</object
+> and <object
+type="tAttribute"
+>textbeforeReferenceNumber</object
+>, respectively.</p
 ></section2
 ><section2
 id="sEndnoteRefLayout"

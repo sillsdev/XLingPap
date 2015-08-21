@@ -634,7 +634,10 @@ Content Layout
  >
    <!ELEMENT interlinearTextLayout EMPTY  >
    <!ATTLIST interlinearTextLayout
+       indentOfInitialGroup CDATA #IMPLIED
        spaceBetweenUnits CDATA #IMPLIED
+       textafterReferenceNumber CDATA #IMPLIED
+       textbeforeReferenceNumber CDATA #IMPLIED
  >
     <!ELEMENT endnoteRefLayout EMPTY >
     <!ATTLIST endnoteRefLayout

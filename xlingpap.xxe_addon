@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.4</a:version
+>2.27.5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-08-17</a:date
+>2015-08-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.27.5 21 August 2015<ul
+><li
+>In the publisher style sheet, add textafterReferenceNumber and textbeforeReferenceNumber attributes to the interlinearTextLayout element.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>In the style sheet, add an indentOfInitialGroup attribute on the interlinearTextLayout element.  This controls how much to indent the first line of an interlinear text when using the automatic wrapping of interlinear text option.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.27.4 15 August 2015<ul
 ><li

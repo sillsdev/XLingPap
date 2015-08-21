@@ -5518,7 +5518,14 @@ not using
                         <xsl:call-template name="AddAnyLinkAttributes"/>
                         <xsl:variable name="interlinear" select="key('InterlinearReferenceID',$sRef)"/>
                         <xsl:value-of select="$interlinear/../textInfo/shortTitle"/>
-                        <xsl:text>:</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="string-length($contentLayoutInfo/interlinearTextLayout/@textbeforeReferenceNumber) &gt; 0">
+                                <!-- do nothing here; it is handled in DoInterlinearTextNumber -->
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>:</xsl:text>        
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:call-template name="DoInterlinearTextNumber">
                             <xsl:with-param name="interlinear" select="$interlinear"/>
                             <xsl:with-param name="sRef" select="$sRef"/>

@@ -8855,16 +8855,16 @@ num="xUnitsOfMeasure"
 >The amount to indent the first line of an interlinear text can be overridden by setting the <object
 type="tAttribute"
 >indentOfInitialGroup</object
-> attribute.  Use a number followed immediately by a unit of measure (see example <exampleRef
+> attribute. Use a number followed immediately by a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
->).  This only works for the <object
+>). This only works for the <object
 type="tXeTeX"
 ></object
 > way of producing PDF and only when doing automatic wrapping of the interlinear.</p
 ><p
->One can also control the text that comes before and after the text reference number.  Use <object
+>One can also control the text that comes before and after the text reference number. Use <object
 type="tAttribute"
 >textbeforeReferenceNumber</object
 > and <object

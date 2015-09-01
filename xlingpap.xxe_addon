@@ -32,13 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.27.6 31 August 2015<ul
+><li
+>Fix some typos in user documentation.</li
+></ul
+></li
+><li
 >2.27.5 21 August 2015<ul
 ><li
 >In the publisher style sheet, add textafterReferenceNumber and textbeforeReferenceNumber attributes to the interlinearTextLayout element.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->In the style sheet, add an indentOfInitialGroup attribute on the interlinearTextLayout element.  This controls how much to indent the first line of an interlinear text when using the automatic wrapping of interlinear text option.</li
+>In the style sheet, add an indentOfInitialGroup attribute on the interlinearTextLayout element. This controls how much to indent the first line of an interlinear text when using the automatic wrapping of interlinear text option.</li
 ></ul
 ></li
 ></ul

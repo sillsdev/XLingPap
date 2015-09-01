@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->31 August 2015</date
+>1 September 2015</date
 ><version
 >2.27.6</version
 ><contents
@@ -1735,7 +1735,7 @@ type="tAttribute"
 > attribute to the title you want to use.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-></p
+>  (Note that the more common spelling of this in North America is "Acknowledgments" so if you are in this area of the world, you may want to change it.)</p
 ><p
 >Note that one may put an <object
 type="tElement"
@@ -3083,7 +3083,7 @@ type="tAttribute"
 > attribute to the title you want to use.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-></p
+>  (Note that the more common spelling of this in North America is "Acknowledgments" so if you are in this area of the world, you may want to change it.)</p
 ><p
 >Note that one may put an <object
 type="tElement"

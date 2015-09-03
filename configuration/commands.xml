@@ -3281,4 +3281,48 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:copy files="XLingPaperTempTableCleaned.html" to="%{P}%{S}XLingPaperTempTableCleaned.html" quiet="true"/>
         </cfg:process>
     </cfg:command>
+
+    <cfg:command name="AbbreviationListAsWebPage">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:test expression="not(//abbreviations)"/>
+<!--                        <cfg:command name="alert" parameter="Sorry, there are no abbreviations in this document file."/>-->
+                        <cfg:command name="LocalizeString" parameter="msg.noAbbreviations"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="LocalizeString" parameter="param.abbreviationListTitle"/>
+                        <cfg:set variable="sTitle" expression="%_" plainString="true"/>
+                        <cfg:command name="LocalizeString" parameter="param.abbreviationListAbbreviation"/>
+                        <cfg:set variable="sAbbreviation" expression="%_" plainString="true"/>
+                        <cfg:command name="LocalizeString" parameter="param.abbreviationListDefinition"/>
+                        <cfg:set variable="sDefinition" expression="%_" plainString="true"/>
+                        <cfg:command name="LocalizeString" parameter="param.abbreviationListByAbbreviation"/>
+                        <cfg:set variable="sByAbbreviation" expression="%_" plainString="true"/>
+                        <cfg:command name="LocalizeString" parameter="param.abbreviationListByDefinition"/>
+                        <cfg:set variable="sByDefinition" expression="%_" plainString="true"/>
+                        <cfg:set variable="sParams" expression="concat('&quot;',$sTitle,'&quot;',' ','&quot;',$sAbbreviation,'&quot;',' ','&quot;',$sDefinition,'&quot;',' ','&quot;',$sByAbbreviation,'&quot;',' ','&quot;',$sByDefinition,'&quot;')"/>
+                        <cfg:get expression="$sParams"/>
+                        <cfg:command name="applyShowListOfAbbreviationsTransform" parameter="%_"/>
+                        <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}abbreviations.htm&quot;"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="applyShowListOfAbbreviationsTransform">
+        <cfg:process>
+            <cfg:copyDocument to="in.xml"/>
+            <cfg:transform file="in.xml" stylesheet="../transforms/ShowListOfAbbreviations.xsl" to="%{P}%{S}abbreviations.htm">
+                <cfg:parameter name="sTitle">%0</cfg:parameter>
+                <cfg:parameter name="sAbbreviation">%1</cfg:parameter>
+                <cfg:parameter name="sDefinition">%2</cfg:parameter>
+                <cfg:parameter name="sByAbbreviation">%3</cfg:parameter>
+                <cfg:parameter name="sByDefinition">%4</cfg:parameter>
+            </cfg:transform>
+        </cfg:process>
+    </cfg:command>
+    
 </cfg:configuration>

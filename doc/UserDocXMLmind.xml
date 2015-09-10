@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->3 September 2015</date
+>10 September 2015</date
 ><version
->2.27.6</version
+>2.27.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -6536,14 +6536,14 @@ num="xLanguageCodesForSorting"
 >.</p
 ></section3
 ><section3
-id="sBMAbbreviations"
+id="sBMAbbreviationsWebpage"
 ><secTitle
 >Producing a Webpage of the Master List of Abbreviations for Reference</secTitle
 ><p
 ><indexedItem
 term="iAbbreviationWebpage"
 ></indexedItem
->Sometimes, you may want to see a list of all the abbreviations you have defined.  There is a special command you can use to produce first a list of the abbreviations sorted by the abbreviation and then a list of the abbreviations sorted by definition.  The two lists are combined into one webpage output file.  This webpage will be displayed in your web browser.</p
+>Sometimes, you may want to see a list of all the abbreviations you have defined. There is a special command you can use to produce first a list of the abbreviations sorted by the abbreviation and then a list of the abbreviations sorted by definition. The two lists are combined into one webpage output file. This webpage will be displayed in your web browser.</p
 ><p
 >To do so, follow these steps:</p
 ><ol
@@ -6613,7 +6613,7 @@ type="tInstruction"
 >OK</object
 >.</li
 ><li
->This will then create a file called “abbreviations.htm” in the same directory where your main document is located.  <object
+>This will then create a file called “abbreviations.htm” in the same directory where your main document is located. <object
 type="tXLingPap"
 ></object
 > will also open this file in your web browser program.</li
@@ -23706,45 +23706,9 @@ type="tInstruction"
 > menu item / <object
 type="tInstruction"
 >Execute Command...</object
->.<endnote
-id="nToolMenuExecuteCommand"
-><p
->Some versions of the <object
-type="tXMLmindXMLEditor"
-></object
-> do not automatically include this menu item. To get it, do this:</p
-><ol
-><li
->Use <object
-type="tInstruction"
->Options</object
-> menu item / <object
-type="tInstruction"
->Preferences...</object
->.</li
-><li
->In the left hand pane, click on “Features" (under “General”).</li
-><li
->Scroll the right hand pane down until you see the “Enable the ‘Tools|Record Macro’ Submenu” item.</li
-><li
->Make sure the check box before it is checked.</li
-><li
->Click on the OK button.</li
-><li
->Exit the <object
-type="tXMLmindXMLEditor"
-></object
-> program.</li
-><li
->Restart the <object
-type="tXMLmindXMLEditor"
-></object
-> program. The <object
-type="tInstruction"
->Tools / Execute Command</object
-> menu item should now be available.</li
-></ol
-></endnote
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
 ></li
 ><li
 >In the dialog box that comes up, in the “Command” text box, type “Cr” (it should then fill in “CreateZipFile” for you).</li

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->21 August 2015</date
+>11 September 2015</date
 ><version
->2.27.5</version
+>2.27.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -7809,7 +7809,7 @@ type="tAttrValue"
 >9</object
 >.</td
 ><td
->For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection or proceedings volume to also be listed among the references. The reference for the article will refer to the volume reference. This attribute controls the number of cited articles which will trigger this to happen. (Some publishers only want this to happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume will not be listed as a separate reference.) Note that this will work only if you use a <object
+>For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection or proceedings volume to also be listed among the references when a certain number of cited articles are from that same volume. The reference for the article will refer to the volume reference. This attribute controls the number of cited articles which will trigger this to happen. (Some publishers only want this to happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume will not be listed as a separate reference.) Note that this will work only if you use a <object
 type="tElement"
 >collCitation</object
 > or <object
@@ -7818,7 +7818,7 @@ type="tElement"
 > element for the reference. See the documentation for this here: <link
 href="UserDocXMLmind.htm#sBMRefCollectionCitation"
 >Using a collCitation</link
->.</td
+>.  If this attribute is set to 0, then every article will include the full collection or proceedings volume information and the collection or proceedings volume will not be listed as a reference.</td
 ><td
 ><table
 ><tr

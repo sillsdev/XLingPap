@@ -11,8 +11,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>support@xlingpaper.org</i></center><br><center><small>21 August 2015</small></center>
-      <center><small>Version: 2.27.5</small></center>
+      <center><i>support@xlingpaper.org</i></center><br><center><small>11 September 2015</small></center>
+      <center><small>Version: 2.27.7</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -3242,10 +3242,12 @@
                            <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; font-style:italic; color:steelblue; ">0</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">1</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">2</span>, ..., <span style="font-family:Courier New; font-style:italic; color:steelblue; ">9</span>.
                            </td>
                            <td align="left" valign="top" style="padding-left:.2em">For collection and/or proceedings citations, sometimes publishers want the volume containing the article in the collection
-                              or proceedings volume to also be listed among the references. The reference for the article will refer to the volume reference.
-                              This attribute controls the number of cited articles which will trigger this to happen. (Some publishers only want this to
-                              happen when there are two or more cited articles from the same volume; if there is only one such article, then the volume
-                              will not be listed as a separate reference.) Note that this will work only if you use a <span style="font-family:Courier New; color:maroon; ">collCitation</span> or <span style="font-family:Courier New; color:maroon; ">procCitation</span> element for the reference. See the documentation for this here: <a href="UserDocXMLmind.htm#sBMRefCollectionCitation">Using a collCitation</a>.
+                              or proceedings volume to also be listed among the references when a certain number of cited articles are from that same volume.
+                              The reference for the article will refer to the volume reference. This attribute controls the number of cited articles which
+                              will trigger this to happen. (Some publishers only want this to happen when there are two or more cited articles from the
+                              same volume; if there is only one such article, then the volume will not be listed as a separate reference.) Note that this
+                              will work only if you use a <span style="font-family:Courier New; color:maroon; ">collCitation</span> or <span style="font-family:Courier New; color:maroon; ">procCitation</span> element for the reference. See the documentation for this here: <a href="UserDocXMLmind.htm#sBMRefCollectionCitation">Using a collCitation</a>.  If this attribute is set to 0, then every article will include the full collection or proceedings volume information and
+                              the collection or proceedings volume will not be listed as a reference.
                            </td>
                            <td align="left" valign="top" style="padding-left:.2em">
                               <div align="left">
@@ -3613,9 +3615,9 @@
       </p>
       <p>The vertical spacing between units is controlled by the <span style="font-family:Courier New; color:purple; ">spaceBetweenUnits</span> attribute. Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>).
       </p>
-      <p>The amount to indent the first line of an interlinear text can be overridden by setting the <span style="font-family:Courier New; color:purple; ">indentOfInitialGroup</span> attribute.  Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>).  This only works for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF and only when doing automatic wrapping of the interlinear.
+      <p>The amount to indent the first line of an interlinear text can be overridden by setting the <span style="font-family:Courier New; color:purple; ">indentOfInitialGroup</span> attribute. Use a number followed immediately by a unit of measure (see example <a href="#xUnitsOfMeasure">(2)</a>). This only works for the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF and only when doing automatic wrapping of the interlinear.
       </p>
-      <p>One can also control the text that comes before and after the text reference number.  Use <span style="font-family:Courier New; color:purple; ">textbeforeReferenceNumber</span> and <span style="font-family:Courier New; color:purple; ">textbeforeReferenceNumber</span>, respectively.
+      <p>One can also control the text that comes before and after the text reference number. Use <span style="font-family:Courier New; color:purple; ">textbeforeReferenceNumber</span> and <span style="font-family:Courier New; color:purple; ">textbeforeReferenceNumber</span>, respectively.
       </p>
       <h2 style=""><a name="sEndnoteRefLayout"></a>6.10&nbsp;Controlling the Display of Endnote References
       </h2>

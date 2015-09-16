@@ -3831,6 +3831,7 @@
     <xsl:template name="DoSectionAsTitle">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <div id="{@id}">
             <xsl:attribute name="class">
                 <xsl:text>sectionTitle</xsl:text>
@@ -3847,7 +3848,8 @@
 -->
             <span>
                 <xsl:call-template name="OutputSectionNumber">
-                    <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
                 <xsl:call-template name="OutputSectionTitle"/>
             </span>
@@ -3863,6 +3865,7 @@
     <xsl:template name="DoSectionBeginsParagraph">
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
+        <xsl:param name="layoutInfo"/>
         <p id="{@id}" class="paragraph_indent">
             <!-- put title in marker so it can show up in running header -->
             <!--            <fo:marker marker-class-name="section-title">
@@ -3871,7 +3874,8 @@
 -->
             <span class="number{name()}">
                 <xsl:call-template name="OutputSectionNumber">
-                    <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </span>
             <span class="sectionTitle{name()}">
@@ -4001,6 +4005,7 @@
     <xsl:template name="HandleSectionNumberOutput">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bAppendix"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:if test="$layoutInfo">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -4014,6 +4019,7 @@
                 <xsl:apply-templates select="." mode="number"/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:value-of select="$sContentsPeriod"/>
         <xsl:if test="$layoutInfo">
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -5323,8 +5329,14 @@
                   OutputSectionNumber
 -->
     <xsl:template name="OutputSectionNumber">
+        <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bIsForBookmark" select="'N'"/>
+        <xsl:variable name="sContentsPeriod">
+            <xsl:if test="$layoutInfo and not($numberLayoutInfo) and $layoutInfo/sectionTitleLayout/@useperiodafternumber='yes'">
+                <xsl:text>.</xsl:text>
+            </xsl:if>
+        </xsl:variable>
         <xsl:variable name="bAppendix">
             <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
@@ -5334,8 +5346,9 @@
             <xsl:when test="$bIsForBookmark='N'">
                 <span>
                     <xsl:call-template name="OutputSectionNumberProper">
-                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
                         <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                        <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                     </xsl:call-template>
                 </span>
             </xsl:when>
@@ -5343,6 +5356,7 @@
                 <xsl:call-template name="OutputSectionNumberProper">
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -5365,6 +5379,9 @@
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+            <xsl:text>.</xsl:text>
+        </xsl:if>
         <xsl:call-template name="OutputSectionTitleInContents"/>
     </xsl:template>
     <!--  

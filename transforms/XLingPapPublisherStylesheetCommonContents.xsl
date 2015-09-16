@@ -106,7 +106,9 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputChapterNumber"/>
+                <xsl:call-template name="OutputChapterNumber">
+                    <xsl:with-param name="fDoingContents" select="'Y'"/>
+                </xsl:call-template>
                 <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>

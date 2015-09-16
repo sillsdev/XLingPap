@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->10 September 2015</date
+>15 September 2015</date
 ><version
 >2.27.7</version
 ><contents
@@ -24764,6 +24764,26 @@ type="tXLingPap"
 ><td
 ><langData
 lang="lEng"
+> <indexedItem
+term="iStartingPageNumberInBook"
+></indexedItem
+><object
+type="tAttribute"
+>startingPageNumberInBook</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is to set the starting page number in the main body of a book, that is, where the normal value would be 1.  This can be used in the rare case when you are processing just a portion of a book document. It should use regular Arabic numerals (0-9). This attribute is ignored for papers.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
 > <object
 type="tAttribute"
 >version</object
@@ -33430,6 +33450,11 @@ id="iSpellingTool"
 id="iStartingPageNumber"
 ><term
 >Starting page number</term
+></indexTerm
+><indexTerm
+id="iStartingPageNumberInBook"
+><term
+>Starting page number in a book</term
 ></indexTerm
 ><indexTerm
 id="iStyleSheet"

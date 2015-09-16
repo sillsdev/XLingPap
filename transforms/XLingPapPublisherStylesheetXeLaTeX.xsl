@@ -1101,6 +1101,9 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
+            <xsl:call-template name="SetStartingPageNumberInBook"/>
+        </xsl:if>
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
@@ -5222,6 +5225,11 @@
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:variable name="sContentsPeriod">
+            <xsl:if test="not($numberLayoutInfo) and $layoutInfo/sectionTitleLayout/@useperiodafternumber='yes'">
+                <xsl:text>.</xsl:text>
+            </xsl:if>
+        </xsl:variable>
         <tex:group>
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -5245,6 +5253,7 @@
             </xsl:if>
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
             </xsl:call-template>
             <xsl:call-template name="OutputSectionTitle"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -5271,6 +5280,7 @@
                         <xsl:call-template name="DoSecTitleRunningHeader">
                             <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
                             <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                            <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                         </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
@@ -5373,6 +5383,7 @@
     -->
     <xsl:template name="DoSecNumberRunningHeader">
         <xsl:param name="number"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:if test="$number">
             <!-- format and output number -->
             <xsl:call-template name="OutputFontAttributes">
@@ -5384,7 +5395,9 @@
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="name($number)='sectionNumber'">
-                    <xsl:call-template name="OutputSectionNumber"/>
+                    <xsl:call-template name="OutputSectionNumber">
+                        <xsl:with-param name="layoutInfo" select="$number"/>
+                    </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:call-template name="OutputChapterNumber"/>
@@ -5405,10 +5418,12 @@
     <xsl:template name="DoSecTitleRunningHeader">
         <xsl:param name="number"/>
         <xsl:param name="bNumberIsBeforeTitle" select="'Y'"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:variable name="shortTitle" select="shortTitle"/>
         <xsl:if test="$bNumberIsBeforeTitle='Y'">
             <xsl:call-template name="DoSecNumberRunningHeader">
                 <xsl:with-param name="number" select="$number"/>
+                <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:choose>
@@ -5422,6 +5437,7 @@
         <xsl:if test="$bNumberIsBeforeTitle!='Y'">
             <xsl:call-template name="DoSecNumberRunningHeader">
                 <xsl:with-param name="number" select="$number"/>
+                <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -6040,9 +6056,12 @@
         <xsl:param name="sContentsPeriod"/>
         <tex:group>
             <xsl:if test="$layoutInfo">
-                <xsl:call-template name="DoTitleFormatInfo">
-                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-                </xsl:call-template>
+                <xsl:if test="name($layoutInfo)!='sectionNumber'">
+                    <!-- no need for this when it is a running header's section number -->
+                    <xsl:call-template name="DoTitleFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="$bAppendix='Y'">
@@ -6054,6 +6073,12 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
+                <xsl:when test="$layoutInfo and name($layoutInfo)='sectionNumber'">
+                    <!-- special case for running header -->
+                    <xsl:if test="string-length($layoutInfo/@textafter)=0 or $layoutInfo/@textafter=' '">
+                        <xsl:text>&#xa0;</xsl:text>
+                    </xsl:if>
+                </xsl:when>
                 <xsl:when test="$layoutInfo">
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -6628,16 +6653,17 @@
 -->
     <xsl:template name="OutputChapterNumber">
         <xsl:param name="fDoTextAfterLetter" select="'Y'"/>
+        <xsl:param name="fDoingContents" select="'N'"/>
         <xsl:choose>
             <xsl:when test="name()='chapter'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if test="not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                <xsl:if test="$fDoingContents='N' and not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
                     <xsl:value-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if test="not($bodyLayoutInfo/chapterInCollectionLayout/numberLayout) and string-length($bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                <xsl:if test="$fDoingContents='N' and not($bodyLayoutInfo/chapterInCollectionLayout/numberLayout) and string-length($bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber) &gt; 0">
                     <xsl:value-of select="$bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber"/>
                 </xsl:if>
             </xsl:when>
@@ -7399,7 +7425,7 @@
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="sContentsPeriod">
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:with-param>

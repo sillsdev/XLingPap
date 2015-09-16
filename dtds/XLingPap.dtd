@@ -990,6 +990,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
 <!ELEMENT publishingInfo (publishingBlurb?, authorContacts?, keywords?) >
 <!ATTLIST publishingInfo
  startingPageNumber CDATA #IMPLIED
+ startingPageNumberInBook CDATA #IMPLIED
  version CDATA #IMPLIED
  >
 <!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >

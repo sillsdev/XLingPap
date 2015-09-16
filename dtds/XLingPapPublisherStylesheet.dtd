@@ -498,6 +498,7 @@ Body Layout
     <!ELEMENT sectionTitleLayout EMPTY >
     <!ATTLIST sectionTitleLayout
           %titleformatinfo; 
+          useperiodafternumber (yes | no) "no"
     >
     <!ELEMENT numberLayout EMPTY >
     <!ATTLIST numberLayout 

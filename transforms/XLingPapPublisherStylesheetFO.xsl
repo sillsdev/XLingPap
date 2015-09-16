@@ -878,7 +878,15 @@
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
                     <xsl:when test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
-                        <xsl:text>1</xsl:text>
+                        <xsl:variable name="sStartingPageNumberInBook" select="normalize-space($lingPaper/publishingInfo/@startingPageNumberInBook)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sStartingPageNumberInBook) &gt; 0">
+                                <xsl:value-of select="$sStartingPageNumberInBook"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:when test="contains(name(),'chapter') and $bodyLayoutInfo/chapterInCollectionLayout/*[1]/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
@@ -5717,7 +5725,8 @@ not using
             </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">
-                    <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
                 <xsl:call-template name="OutputSectionTitle"/>
             </fo:inline>
@@ -5755,7 +5764,8 @@ not using
             </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">
-                    <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                 </xsl:call-template>
             </fo:inline>
             <fo:inline>
@@ -5959,6 +5969,7 @@ not using
     <xsl:template name="HandleSectionNumberOutput">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bAppendix"/>
+        <xsl:param name="sContentsPeriod"/>        
         <xsl:if test="$layoutInfo">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -5972,6 +5983,7 @@ not using
                 <xsl:apply-templates select="." mode="number"/>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:value-of select="$sContentsPeriod"/>
         <xsl:if test="$layoutInfo">
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
@@ -6427,10 +6439,11 @@ not using
     <xsl:template name="OutputChapterNumber">
         <xsl:param name="fDoTextAfterLetter" select="'Y'"/>
         <xsl:param name="fIgnoreTextAfterLetter" select="'N'"/>
+        <xsl:param name="fDoingContents" select="'N'"/>
         <xsl:choose>
             <xsl:when test="name()='chapter' or name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if test="not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                <xsl:if test="$fDoingContents='N' and not($bodyLayoutInfo/chapterLayout/numberLayout) and string-length($bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber) &gt; 0">
                     <xsl:value-of select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@textafternumber"/>
                 </xsl:if>
             </xsl:when>
@@ -7219,19 +7232,27 @@ not using
                   OutputSectionNumber
 -->
     <xsl:template name="OutputSectionNumber">
+        <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bIsForBookmark" select="'N'"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:variable name="bAppendix">
             <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
             </xsl:for-each>
         </xsl:variable>
+        <xsl:variable name="sContentsPeriodNonBookmark">
+            <xsl:if test="$layoutInfo and not($numberLayoutInfo) and $layoutInfo/sectionTitleLayout/@useperiodafternumber='yes'">
+                <xsl:text>.</xsl:text>
+            </xsl:if>
+        </xsl:variable>       
         <xsl:choose>
             <xsl:when test="$bIsForBookmark='N'">
                 <fo:inline>
                     <xsl:call-template name="OutputSectionNumberProper">
-                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
                         <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                        <xsl:with-param name="sContentsPeriod" select="$sContentsPeriodNonBookmark"/>
                     </xsl:call-template>
                 </fo:inline>
             </xsl:when>
@@ -7239,6 +7260,7 @@ not using
                 <xsl:call-template name="OutputSectionNumberProper">
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="bAppendix" select="$bAppendix"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -7261,6 +7283,9 @@ not using
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+            <xsl:text>.</xsl:text>
+        </xsl:if>
         <xsl:call-template name="OutputSectionTitleInContents"/>
     </xsl:template>
     <!--  

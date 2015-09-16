@@ -934,7 +934,17 @@
         <fo:page-sequence master-reference="Chapter">
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
-                    <xsl:when test="name()='chapter' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
+                    <xsl:when test="name()='chapter' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
+                        <xsl:variable name="sStartingPageNumberInBook" select="normalize-space($lingPaper/publishingInfo/@startingPageNumberInBook)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sStartingPageNumberInBook) &gt; 0">
+                                <xsl:value-of select="$sStartingPageNumberInBook"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
                     <xsl:when test="name()='chapterInCollection' and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">1</xsl:when>
                     <xsl:otherwise>auto-odd</xsl:otherwise>
                 </xsl:choose>

@@ -1617,6 +1617,7 @@ li.lower-roman {
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>
     <xsl:template match="@useperiodafterchapternumber"/>
+    <xsl:template match="@useperiodafternumber"/>
     <xsl:template match="@useperiodaftersectionnumber"/>
     <xsl:template match="@usetitleinheader"/>
     <xsl:template match="@version"/>

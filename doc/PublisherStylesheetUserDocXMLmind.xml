@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->11 September 2015</date
+>15 September 2015</date
 ><version
 >2.27.7</version
 ><contents
@@ -2954,6 +2954,24 @@ type="tElement"
 > element are given in section <sectionRef
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
+>.  <indexedItem
+term="iSectionNumber"
+></indexedItem
+>In addition, the <object
+type="tElement"
+>sectionTitleLayout</object
+> element has another attribute: <object
+type="tAttribute"
+>useperiodafternumber</object
+>.  If there is no <object
+type="tElement"
+>numberLayout</object
+> element and you need to have a period appear after the section number, set <object
+type="tAttribute"
+>useperiodafternumber</object
+> to <object
+type="tAttrValue"
+>yes</object
 >.</p
 ></section2
 ><section2
@@ -7818,7 +7836,7 @@ type="tElement"
 > element for the reference. See the documentation for this here: <link
 href="UserDocXMLmind.htm#sBMRefCollectionCitation"
 >Using a collCitation</link
->.  If this attribute is set to 0, then every article will include the full collection or proceedings volume information and the collection or proceedings volume will not be listed as a reference.</td
+>. If this attribute is set to 0, then every article will include the full collection or proceedings volume information and the collection or proceedings volume will not be listed as a reference.</td
 ><td
 ><table
 ><tr

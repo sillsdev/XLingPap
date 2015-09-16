@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-09-11</a:date
+>2015-09-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,17 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.7 11 September 2015<ul
+>2.27.7 15 September 2015<ul
 ><li
 >Fix bug: The convert gloss to abbreviation command failed to work in an embedded object and also if the gloss began with 1, 2, or 3 and the rest of the gloss was uppercase, but the abbreviation(s) for the rest of the gloss were lowercase in the abbreviation element, it failed to convert it to an abbrRef.</li
 ><li
 >Fix some typos in the user documentation.</li
 ><li
->Further clarify the usecitationformatwhennumberofsharedpaperis attribute on the referencesLayout element in the publisher style sheet documentation.  Also change its default value to 2.</li
+>Further clarify the usecitationformatwhennumberofsharedpaperis attribute on the referencesLayout element in the publisher style sheet documentation. Also change its default value to 2.</li
+><li
+>Add startingPageNumberInBook attribute to publishingInfo element.</li
+><li
+>Add useperiodafternumber attribute to sectionTitleLayout element in publisher style sheet to control period after section numbers when there is no overt numberLayout element.</li
 ></ul
 ></li
 ><li

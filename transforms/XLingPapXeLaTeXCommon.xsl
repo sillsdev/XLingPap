@@ -10926,6 +10926,22 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        SetStartingPageNumberInBook
+    -->
+    <xsl:template name="SetStartingPageNumberInBook">
+        <xsl:variable name="sStartingPageNumberInBook" select="normalize-space($lingPaper/publishingInfo/@startingPageNumberInBook)"/>
+        <xsl:if test="string-length($sStartingPageNumberInBook) &gt; 0">
+            <tex:cmd name="setcounter">
+                <tex:parm>
+                    <xsl:text>page</xsl:text>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sStartingPageNumberInBook"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         SetTableLengthWidths
     -->
     <xsl:template name="SetTableLengthWidths">

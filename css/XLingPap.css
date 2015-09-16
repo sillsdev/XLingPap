@@ -9179,6 +9179,10 @@ section1Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level One Section");
 }
+section1Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("1. Level One Section");
+}
 section1Layout sectionTitleLayout
 {
 	property-group: titledItem("1 Level One Section");
@@ -9186,6 +9190,10 @@ section1Layout sectionTitleLayout
 section2Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level Two Section");
+}
+section2Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("2. Level Two Section");
 }
 section2Layout sectionTitleLayout
 {
@@ -9195,6 +9203,10 @@ section3Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level Three Section");
 }
+section3Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("3. Level Three Section");
+}
 section3Layout sectionTitleLayout
 {
 	property-group: titledItem("3 Level Three Section");
@@ -9202,6 +9214,10 @@ section3Layout sectionTitleLayout
 section4Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level Four Section");
+}
+section4Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("4. Level Four Section");
 }
 section4Layout sectionTitleLayout
 {
@@ -9211,6 +9227,10 @@ section5Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level Five Section");
 }
+section5Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("5. Level Five Section");
+}
 section5Layout sectionTitleLayout
 {
 	property-group: titledItem("5 Level Five Section");
@@ -9218,6 +9238,10 @@ section5Layout sectionTitleLayout
 section6Layout numberLayout + sectionTitleLayout
 {
 	property-group: titledItem("Level Six Section");
+}
+section6Layout sectionTitleLayout[useperiodafternumber='yes']
+{
+	property-group: titledItem("6. Level Six Section");
 }
 section6Layout sectionTitleLayout
 {

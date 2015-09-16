@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
     <!--
         abstract  (bookmarks)
     -->
@@ -375,6 +375,25 @@
                     <tex:parm>
                         <xsl:call-template name="OutputSectionNumber">
                             <xsl:with-param name="bIsForBookmark" select="'Y'"/>
+                            <xsl:with-param name="sContentsPeriod">
+                                <xsl:choose>
+                                    <xsl:when test="name()='section1'">
+                                        <xsl:if test="not($bodyLayoutInfo/section1Layout/numberLayoutInfo) and $bodyLayoutInfo/section1Layout/sectionTitleLayout/@useperiodafternumber='yes'">
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:when test="name()='section2'">
+                                        <xsl:if test="not($bodyLayoutInfo/section2Layout/numberLayoutInfo) and $bodyLayoutInfo/section2Layout/sectionTitleLayout/@useperiodafternumber='yes'">
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="not($bodyLayoutInfo/section3Layout/numberLayoutInfo) and $bodyLayoutInfo/section3Layout/sectionTitleLayout/@useperiodafternumber='yes'">
+                                            <xsl:text>.</xsl:text>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:with-param>
                         </xsl:call-template>
                         <xsl:if test="not(count(//section1)=1 and count(//section2)=0)">
                             <xsl:text>&#xa0;</xsl:text>

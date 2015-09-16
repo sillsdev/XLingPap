@@ -847,6 +847,7 @@
                 <tex:cmd name="pagenumbering">
                     <tex:parm>arabic</tex:parm>
                 </tex:cmd>
+                    <xsl:call-template name="SetStartingPageNumberInBook"/>                
             </xsl:if>
             <tex:cmd name="thispagestyle">
                 <tex:parm>plain</tex:parm>

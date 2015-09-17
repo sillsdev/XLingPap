@@ -5894,8 +5894,10 @@
                         <xsl:text>XLingPapertempdim</xsl:text>
                     </tex:parm>
                     <tex:parm>
+                        <xsl:if test="ancestor::interlinear-text">
                         <xsl:value-of select="$sLeftIndent"/>
                         <xsl:text>+</xsl:text>
+                        </xsl:if>
                         <xsl:value-of select="$sIndentOfNonInitialGroup"/>
                     </tex:parm>
                 </tex:cmd>

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.7</a:version
+>2.27.8</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-09-15</a:date
+>2015-09-17</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.27.8 17 September 2015<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: the indentOfNonInitialGroup attribute of the interlinearMultipleLineGroupLayout element in a publisher style sheet did not work correctly for interlinear examples when the automaticallywrapinterlinears attribute of the lingPaper element was set to 'yes'.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.27.7 15 September 2015<ul
 ><li

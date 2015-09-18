@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->17 August 2015</date
+>18 September 2015</date
 ><version
->2.27.4</version
+>2.27.9</version
 ><contents
 showLevel="3"
 ></contents
@@ -10224,7 +10224,7 @@ type="tElement"
 >object</object
 ></dt
 ><dd
->An user-defined "object" which can have a class name that the user's CSS stylesheet defines (see Appendix ###)</dd
+>An user-defined "object"</dd
 ><dt
 ><object
 type="tElement"

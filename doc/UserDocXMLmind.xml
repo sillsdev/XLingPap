@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->15 September 2015</date
+>18 September 2015</date
 ><version
->2.27.7</version
+>2.27.9</version
 ><contents
 showLevel="4"
 ></contents
@@ -1507,7 +1507,7 @@ type="tElement"
 > element, if you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -2346,7 +2346,7 @@ src="resources/SectionRef.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -2397,10 +2397,10 @@ type="tElement"
 > element and set its content via the <object
 type="tInstruction"
 >F11</object
-> key or right-click, <object
+> key or click on the black drop-down arrow or right-click, <object
 type="tInstruction"
 > Set Reference F11</object
->as described above. This time the dialog box will only list the titles and identifiers for the appendices.</p
+> as described above. This time the dialog box will only list the titles and identifiers for the appendices.</p
 ><section3
 id="sSectionReferenceTextBefore"
 ><secTitle
@@ -3283,7 +3283,7 @@ src="resources/EndnoteRef.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -4038,7 +4038,7 @@ src="resources/CollectionCitationCSS.png"
 > If you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -7723,7 +7723,7 @@ src="resources/indexedItemPrompt.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -7749,7 +7749,7 @@ src="resources/IndexRangeBeginPrompt.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -7775,7 +7775,7 @@ src="resources/IndexRangeEndPrompt.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -11540,7 +11540,7 @@ src="resources/ExampleRef.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -14223,7 +14223,7 @@ src="resources/FigureRef.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -15311,7 +15311,7 @@ src="resources/TableNumberedRef.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -16525,7 +16525,7 @@ src="resources/Citation.png"
 >. If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -18439,7 +18439,7 @@ src="resources/GenericRefInsert.png"
 >If you immediately press the <object
 type="tInstruction"
 >F11 </object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -22672,7 +22672,7 @@ type="tAttrValue"
 >If you immediately press the <object
 type="tInstruction"
 >F11</object
-> key on your keyboard (or use menu items <object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
 type="tInstruction"
 >XLingPaper / Set Reference F11</object
 > or if you right-click on it and choose <object
@@ -24778,7 +24778,7 @@ lang="lEng"
 >(user control)</langData
 ></td
 ><td
->This is to set the starting page number in the main body of a book, that is, where the normal value would be 1.  This can be used in the rare case when you are processing just a portion of a book document. It should use regular Arabic numerals (0-9). This attribute is ignored for papers.</td
+>This is to set the starting page number in the main body of a book, that is, where the normal value would be 1. This can be used in the rare case when you are processing just a portion of a book document. It should use regular Arabic numerals (0-9). This attribute is ignored for papers.</td
 ></tr
 ><tr
 ><td
@@ -27823,7 +27823,7 @@ type="tElement"
 >object</object
 ></dt
 ><dd
->An user-defined "object" which can have a class name that the user's CSS stylesheet defines (see Appendix ###)</dd
+>An user-defined "object".</dd
 ><dt
 ><object
 type="tElement"

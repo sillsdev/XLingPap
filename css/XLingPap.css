@@ -60,6 +60,9 @@
 
 @property-value langDataProseOverrideAfter() label(xpath,"if(/xlingpaper/styledPaper/publisherStyleSheet and string-length(normalize-space(@textafter))>0,normalize-space(@textafter),/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout[string-length(normalize-space(@textafter))>0],/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/langDataLayout/langDataInProseLayout/@textafter, '')");
 
+@property-value drop-down-setReference() command-button(icon, icon(pop-down), color, black, command, "setReference");
+
+
 @property-group authorInitialsBefore( )
 {
 	content:" (Name(s) with initials: "
@@ -436,9 +439,7 @@ abbrInLang
 }
 abbrRef
 {
-	content: set-attribute-button(attribute, abbr,
-						 unset-attribute, no,
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@abbreviationlang))>0] and id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm,id(@abbr)/abbrInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@abbreviationlang=@lang]/abbrTerm, id(@abbr)/abbrInLang[1]/abbrTerm)");
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/abbreviations/@font-family,/lingPaper/backMatter/abbreviations[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/abbreviations/@font-family,'inherit')"),"'");
 
@@ -597,28 +598,19 @@ appendix
 
 appendixRef[showTitle='short']
 {
-	content: set-attribute-button(attribute, app,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('',id(@app)/shortTitle,''),string-length(id(@app)/secTitle)>0,concat('',id(@app)/secTitle,''),'unnamed')");
+	content: drop-down-setReference()
+	label(xpath, "if(string-length(id(@app)/shortTitle)>0,concat('�',id(@app)/shortTitle,'�'),string-length(id(@app)/secTitle)>0,concat('�',id(@app)/secTitle,'�'),'�unnamed�')");
 	background-color:appendix-background-color();
 }
 appendixRef[showTitle='full']
 {
-	content: set-attribute-button(attribute, app,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('',id(@app)/secTitle,''),'unnamed')");
+	content: drop-down-setReference()
+	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('�',id(@app)/secTitle,'�'),'�unnamed�')");
 	background-color:appendix-background-color();
 }
 appendixRef
 {
-	content: set-attribute-button(attribute, app,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, app, text-decoration, underline);
 	background-color:appendix-background-color();
 }
@@ -663,10 +655,7 @@ authorContactInfo + authorContactInfo:before
 }
 authorContactInfo
 {
-	content: set-attribute-button(attribute, author,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, author, text-decoration, underline)
 	        ;
 	background-color:authorContact-background-color();
@@ -840,10 +829,7 @@ chart
 }
 citation[author='no']
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
              ;
 	background-color:citation-background-color();
 }
@@ -851,11 +837,8 @@ citation[author='no']
 selectedBibliography > citation
 {
 	display: block;
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-			 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference()
+		 label(xpath, "id(@ref)/../@citename")
              ;
 	background-color:citation-background-color();
 	margin: indented-block();
@@ -863,53 +846,38 @@ selectedBibliography > citation
 
 citation[author='no'][paren='citationBoth']
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 		"("
              ;
 	background-color:citation-background-color();
 }
 citation[paren='citationBoth']
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 		"("
-                 	 label(xpath, "id(@ref)/../@citename")
+                 label(xpath, "id(@ref)/../@citename")
              ;
 	background-color:citation-background-color();
 }
 citation[author='no'][paren='citationInitial']
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 		"("
              ;
 	background-color:citation-background-color();
 }
 citation[paren='citationInitial']
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 		"("
-                 	 label(xpath, "id(@ref)/../@citename")
+                 label(xpath, "id(@ref)/../@citename")
              ;
 	background-color:citation-background-color();
 }
 citation
 {
-	content: set-attribute-button(attribute, ref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-			 label(xpath, "id(@ref)/../@citename")
+	content: drop-down-setReference()
+		 label(xpath, "id(@ref)/../@citename")
              ;
 	background-color:citation-background-color();
 }
@@ -1071,11 +1039,8 @@ collCitation:before
 }
 collCitation
 {
-	content: set-attribute-button(attribute, refToBook,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-			 label(xpath, "id(@refToBook)/../@citename")
+	content: drop-down-setReference()
+		 label(xpath, "id(@refToBook)/../@citename")
              ;
 	background-color:citation-background-color();
 }
@@ -1466,6 +1431,12 @@ endnote
 
 endnoteRef
 {
+	content: drop-down-setReference()
+		 label(attribute, note, text-decoration, underline);
+     	background-color:endnote-background-color();
+}
+/* original endnoteRef
+{
 	content: set-attribute-button(attribute, note,
 						 unset-attribute, no,
 						 icon, icon(pop-down),
@@ -1473,7 +1444,7 @@ endnoteRef
 	         label(attribute, note, text-decoration, underline);
 	background-color:endnote-background-color();
 }
-
+*/
 endnotes[label]:before
 {
 	content: text-field(attribute,label);
@@ -1559,10 +1530,7 @@ exampleRef[equal='yes']:before
 }
 exampleRef[letter][paren='final']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ")"
 	        ;
@@ -1571,20 +1539,14 @@ exampleRef[letter][paren='final']
 exampleRef[letter][paren='initial']
 {
 	content:"("
-			 set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
 exampleRef[letter][paren='none']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
@@ -1592,10 +1554,7 @@ exampleRef[letter][paren='none']
 exampleRef[letter]
 {
 	content: "("
-			 set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	         ")"
 	         ;
@@ -1603,10 +1562,7 @@ exampleRef[letter]
 }
 exampleRef[letter][paren='final']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ")"
 	        ;
@@ -1615,30 +1571,21 @@ exampleRef[letter][paren='final']
 exampleRef[letter][paren='initial']
 {
 	content:"("
-			 set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
 exampleRef[letter][paren='none']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, letter, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
 exampleRef[num][paren='final']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, num, text-decoration, underline)
 	        ")"
 	        ;
@@ -1647,20 +1594,14 @@ exampleRef[num][paren='final']
 exampleRef[num][paren='initial']
 {
 	content:"("
-			 set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, num, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
 }
 exampleRef[num][paren='none']
 {
-	content: set-attribute-button(attribute, letter,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, num, text-decoration, underline)
 	        ;
 	background-color:example-background-color();
@@ -1668,10 +1609,7 @@ exampleRef[num][paren='none']
 exampleRef[num]
 {
 	content: "("
-	         set-attribute-button(attribute, num,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	         drop-down-setReference()
 	         label(attribute, num, text-decoration, underline)
 	         ")";
 	background-color:example-background-color();
@@ -1730,28 +1668,19 @@ figureRef:before
 }
 figureRef[showCaption='short']
 {
-	content: set-attribute-button(attribute, figure,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('',id(@figure)/shortCaption,''),string-length(id(@figure)/caption)>0,concat('',id(@figure)/caption,''),'uncaptioned')");
 	background-color:figure-background-color();
 }
 figureRef[showCaption='full']
 {
-	content: set-attribute-button(attribute, figure,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('',id(@figure)/caption,''),'uncaptioned')");
 	background-color:figure-background-color();
 }
 figureRef
 {
-	content: set-attribute-button(attribute, figure,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, figure, text-decoration, underline);
 	background-color:figure-background-color();
 }
@@ -1834,10 +1763,7 @@ frontMatter
 
 genericRef:before
 {
-	content: set-attribute-button(attribute, gref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, gref, text-decoration, underline) " ";
 	background-color:generic-background-color();
 }
@@ -2053,10 +1979,7 @@ glossaryTermInLang
 }
 glossaryTermRef[capitalize='yes']:before
 {
-	content: set-attribute-button(attribute, glossaryTerm,
-						 unset-attribute, no,
-						 color, black)
-	invoke("capitalize", "null")
+	content: drop-down-setReference()
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
 
@@ -2064,10 +1987,7 @@ glossaryTermRef[capitalize='yes']:before
 }
 glossaryTermRef:before
 {
-	content: set-attribute-button(attribute, glossaryTerm,
-						 unset-attribute, no,
-						 color, black)
-	label(xpath,"if(string-length(.)>0,'',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@glossarytermlang))>0] and id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm,id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm, id(@glossaryTerm)/glossaryTermInLang[1]/glossaryTermTerm)")
+	content: drop-down-setReference()
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
 
@@ -2164,10 +2084,7 @@ lingPaper[showindexeditemsineditor="no"] indexedItem
 
 indexedItem:before
 {
-	content: set-attribute-button(attribute, term,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, term, text-decoration, underline) " ";
 	background-color:index-background-color();
 }
@@ -2187,10 +2104,7 @@ indexedRangeBegin:before
 	content: "("
   	         text-field(attribute, id, columns, 10, font-size, small) 
   	         " , "
-	         set-attribute-button(attribute, term,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	         drop-down-setReference()
 	         label(attribute, term, text-decoration, underline)
 	         ")[";
 	background-color:indexRange-background-color();
@@ -2209,10 +2123,7 @@ lingPaper[showindexeditemsineditor="no"] indexedRangeEnd
 indexedRangeEnd:before
 {
 	content: "]"
-			 set-attribute-button(attribute, begin,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, begin, text-decoration, underline) " ";
 	background-color:indexRange-background-color();
 }
@@ -2270,10 +2181,7 @@ institution:after
 
 iso639-3codeRef[brackets='final']
 {
-	content: set-attribute-button(attribute, lang,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, lang, text-decoration, underline)
 	        "]"
 	        ;
@@ -2282,20 +2190,14 @@ iso639-3codeRef[brackets='final']
 iso639-3codeRef[brackets='initial']
 {
 	content:"["
-			 set-attribute-button(attribute, lang,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+		 drop-down-setReference()
 	         label(attribute, lang, text-decoration, underline)
 	        ;
 	background-color:iso639-3code-background-color();
 }
 iso639-3codeRef[brackets='none']
 {
-	content: set-attribute-button(attribute, lang,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, lang, text-decoration, underline)
 	        ;
 	background-color:iso639-3code-background-color();
@@ -2303,10 +2205,7 @@ iso639-3codeRef[brackets='none']
 iso639-3codeRef
 {
 	content: "["
-	         set-attribute-button(attribute, lang,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	         drop-down-setReference()
 	         label(attribute, lang, text-decoration, underline)
 	         "]";
 	background-color:iso639-3code-background-color();
@@ -2408,20 +2307,14 @@ interlinearRef:before
 			 
 interlinearRefCitation[bracket='none']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	;
 	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='initial']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	"[" 
 	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	;
@@ -2429,10 +2322,7 @@ interlinearRefCitation[bracket='initial']:before
 }
 interlinearRefCitation[bracket='final']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	"]" 
 	;
@@ -2440,10 +2330,7 @@ interlinearRefCitation[bracket='final']:before
 }
 interlinearRefCitation[lineNumberOnly='yes']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	"[" 
 	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
 	"]" 
@@ -2452,20 +2339,14 @@ interlinearRefCitation[lineNumberOnly='yes']:before
 }
 interlinearRefCitation[bracket='none'][lineNumberOnly='yes']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
 	;
 	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[bracket='initial'][lineNumberOnly='yes']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	"[" 
 	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
 	;
@@ -2473,10 +2354,7 @@ interlinearRefCitation[bracket='initial'][lineNumberOnly='yes']:before
 }
 interlinearRefCitation[bracket='final'][lineNumberOnly='yes']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "count(id(@textref)/preceding-sibling::interlinear) + 1")
 	"]" 
 	;
@@ -2484,30 +2362,21 @@ interlinearRefCitation[bracket='final'][lineNumberOnly='yes']:before
 }
 interlinearRefCitation[showTitleOnly='short']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('',id(@textref)/../textInfo/shortTitle,''),string-length(id(@textref)/textInfo/shortTitle)>0,concat('',id(@textref)/textInfo/shortTitle,''),'unnamed')")
 	;
 	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[showTitleOnly='full']:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('',id(@textref)/../textInfo/textTitle,''),string-length(id(@textref)/textInfo/textTitle)>0,concat('',id(@textref)/textInfo/textTitle,''),'unnamed')")
 	;
 	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation:before
 {
-	content: set-attribute-button(attribute, textref,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	"[" 
 	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat(id(@textref)/../textInfo/shortTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/../textInfo/textTitle)>0,concat(id(@textref)/../textInfo/textTitle,':',count(id(@textref)/preceding-sibling::interlinear) + 1),string-length(id(@textref)/textInfo/shortTitle)>0,id(@textref)/textInfo/shortTitle,string-length(id(@textref)/textInfo/textTitle)>0,id(@textref)/textInfo/textTitle,concat('unnamed',':',count(id(@textref)/preceding-sibling::interlinear) + 1))")
 	"]" 
@@ -3194,11 +3063,8 @@ procCitation:before
 }
 procCitation
 {
-	content: set-attribute-button(attribute, refToBook,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-			 label(xpath, "id(@refToBook)/../@citename")
+	content: drop-down-setReference()
+		 label(xpath, "id(@refToBook)/../@citename")
              ;
 	background-color:citation-background-color();
 }
@@ -3981,28 +3847,19 @@ sectionRef:before
 }
 sectionRef[showTitle='short']
 {
-	content: set-attribute-button(attribute, sec,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('',id(@sec)/shortTitle,''),string-length(id(@sec)/secTitle)>0,concat('',id(@sec)/secTitle,''),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('',id(@sec)/frontMatter/shortTitle,''),string-length(id(@sec)/frontMatter/title)>0,concat('',id(@sec)/frontMatter/title,''),'unnamed')");
 	background-color:section-background-color();
 }
 sectionRef[showTitle='full']
 {
-	content: set-attribute-button(attribute, sec,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('',id(@sec)/frontMatter/title,''),'unnamed')");
 	background-color:section-background-color();
 }
 sectionRef
 {
-	content: set-attribute-button(attribute, sec,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, sec, text-decoration, underline);
 	background-color:section-background-color();
 }
@@ -4224,28 +4081,19 @@ tablenumberedRef:before
 }
 tablenumberedRef[showCaption='short']
 {
-	content: set-attribute-button(attribute, table,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('',id(@table)/shortCaption,''),string-length(id(@table)/table/caption)>0,concat('',id(@table)/table/caption,''),'uncaptioned')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef[showCaption='full']
 {
-	content: set-attribute-button(attribute, table,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('',id(@table)/table/caption,''),'uncaptioned')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef
 {
-	content: set-attribute-button(attribute, table,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
+	content: drop-down-setReference()
 	         label(attribute, table, text-decoration, underline);
 	background-color:tablenumbered-background-color();
 }

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.8</a:version
+>2.27.9</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-09-17</a:date
+>2015-09-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -37,6 +37,10 @@ href="mailto::andy_black@sil.org"
 >For all elements which set a reference (i.e., those for which the "Set Reference" or F11 command work), make it so that the black drop-down arrow also invokes the "Set Reference" command (it used to show *all* possible IDs in the document).</li
 ><li
 >Fix some typos in user documentation.</li
+><li
+>Remove cite attribute from blockquote element; we do not use it.</li
+><li
+>Fix bug in publisher style sheet: would get a "value is not a node-set" error if a document had both an email address and an affiliation and if the style sheet had the email address appearing before the affiliation.</li
 ></ul
 ></li
 ><li

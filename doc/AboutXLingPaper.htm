@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.27.8</span></p>
-      <p align="center">Date: 2015-09-17</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.27.9</span></p>
+      <p align="center">Date: 2015-09-22</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -40,6 +40,10 @@
                         black drop-down arrow also invokes the "Set Reference" command (it used to show *all* possible IDs in the document).
                      </li>
                      <li>Fix some typos in user documentation.</li>
+                     <li>Remove cite attribute from blockquote element; we do not use it.</li>
+                     <li>Fix bug in publisher style sheet: would get a "value is not a node-set" error if a document had both an email address and
+                        an affiliation and if the style sheet had the email address appearing before the affiliation.
+                     </li>
                   </ul>
                </li>
                <li>2.27.8 17 September 2015

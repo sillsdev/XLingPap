@@ -578,7 +578,9 @@
                     <xsl:when test="$thisAuthorLayout/following-sibling::*[1][name()='emailAddressLayout']">
                         <!-- format any email addresses first -->
                         <!--                        <xsl:for-each select="$thisEmailAddressLayout">-->
-                        <xsl:apply-templates select="$myEmailAddress"/>
+                        <xsl:apply-templates select="$myEmailAddress">
+                            <xsl:with-param name="emailAddressLayoutToUse" select="$thisEmailAddressLayout"/>
+                        </xsl:apply-templates>
                         <!--                        </xsl:for-each>-->
                         <!--                        <xsl:for-each select="$thisAffiliationLayout">-->
                         <xsl:apply-templates select="$myAffiliations">

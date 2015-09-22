@@ -332,7 +332,6 @@
 <!-- blockquote -->
 <!ELEMENT blockquote (#PCDATA | %embedded; | %chunk;)*>
 <!ATTLIST blockquote
-    cite CDATA #IMPLIED
     type IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
     %special;

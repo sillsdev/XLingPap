@@ -179,7 +179,7 @@
                 </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$bIsBook">
-                        <xsl:apply-templates>
+                        <xsl:apply-templates select="child::node()[name()!='publishingInfo']">
                             <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
                         </xsl:apply-templates>
                     </xsl:when>

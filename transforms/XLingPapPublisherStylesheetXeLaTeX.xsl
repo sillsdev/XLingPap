@@ -280,7 +280,7 @@
                                 <xsl:call-template name="DoBookmarksForPaper"/>
                             </xsl:if>
                             -->
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates select="child::node()[name()!='publishingInfo']"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">

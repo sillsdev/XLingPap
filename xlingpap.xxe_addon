@@ -32,15 +32,9 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.9 18 September 2015<ul
+>2,27,9 24 September 2015<ul
 ><li
->For all elements which set a reference (i.e., those for which the "Set Reference" or F11 command work), make it so that the black drop-down arrow also invokes the "Set Reference" command (it used to show *all* possible IDs in the document).</li
-><li
->Fix some typos in user documentation.</li
-><li
->Remove cite attribute from blockquote element; we do not use it.</li
-><li
->Fix bug in publisher style sheet: would get a "value is not a node-set" error if a document had both an email address and an affiliation and if the style sheet had the email address appearing before the affiliation.</li
+>Fix bug: Publishing info material would show at the end of a book when using a style sheet.</li
 ></ul
 ></li
 ><li

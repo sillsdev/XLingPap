@@ -867,55 +867,19 @@
         </xsl:choose>
     </xsl:template>
     <!--
-      preface (book)
-   -->
-    <xsl:template match="preface" mode="book">
-        <xsl:param name="iLayoutPosition" select="0"/>
-        <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
-        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-            <xsl:call-template name="DoFrontMatterItemNewPage">
-                <xsl:with-param name="id">
-                    <xsl:call-template name="GetIdToUse">
-                        <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
-                    </xsl:call-template>
-                </xsl:with-param>
-                <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputPrefaceLabel"/>
-                </xsl:with-param>
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/prefaceLayout"/>
-            </xsl:call-template>
-        </xsl:if>
-    </xsl:template>
-    <!--
         preface (paper)
     -->
-    <xsl:template match="preface" mode="paper">
+<!--    <xsl:template match="preface" mode="paper">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
         <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-            <xsl:if test="@showinlandscapemode='yes'">
-                <tex:cmd name="landscape" gr="0" nl2="1"/>
-            </xsl:if>
-            <xsl:call-template name="OutputFrontOrBackMatterTitle">
-                <xsl:with-param name="id">
-                    <xsl:call-template name="GetIdToUse">
-                        <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
-                    </xsl:call-template>
-                </xsl:with-param>
-                <xsl:with-param name="sTitle">
-                    <xsl:call-template name="OutputPrefaceLabel"/>
-                </xsl:with-param>
-                <xsl:with-param name="bIsBook" select="'N'"/>
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/prefaceLayout"/>
+            <xsl:call-template name="DoPrefacePerPaperLayout">
+                <xsl:with-param name="prefaceLayout" select="$prefaceLayout"/>
             </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:if test="@showinlandscapemode='yes'">
-                <tex:cmd name="endlandscape" gr="0" nl2="1"/>
-            </xsl:if>
         </xsl:if>
     </xsl:template>
-    <!-- ===========================================================
+-->    <!-- ===========================================================
       PARTS, CHAPTERS, SECTIONS, and APPENDICES
       =========================================================== -->
     <!--
@@ -3093,33 +3057,6 @@
         </xsl:if>
     </xsl:template>
     <!--
-      glossary
-      -->
-    <xsl:template match="glossary">
-        <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
-        <xsl:param name="iLayoutPosition" select="0"/>
-        <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-            <xsl:choose>
-                <xsl:when test="$bIsBook and not(ancestor::chapterInCollection)">
-                    <xsl:call-template name="DoPageBreakFormatInfo">
-                        <xsl:with-param name="layoutInfo" select="$backMatterLayout/glossaryLayout"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="DoGlossary">
-                        <xsl:with-param name="iPos" select="$iPos"/>
-                        <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="DoGlossary">
-                        <xsl:with-param name="iPos" select="$iPos"/>
-                        <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
-                    </xsl:call-template>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>
-    </xsl:template>
-    <!--
       index
       -->
     <xsl:template match="index">
@@ -4782,7 +4719,7 @@
 -->
     <xsl:template name="DoGlossary">
         <xsl:param name="iPos" select="'1'"/>
-        <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="glossaryLayout"/>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
@@ -4795,7 +4732,7 @@
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayout/glossaryLayout"/>
+            <xsl:with-param name="layoutInfo" select="$glossaryLayout"/>
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -4804,6 +4741,30 @@
             </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        DoGlossaryPerLayout
+    -->
+    <xsl:template name="DoGlossaryPerLayout">
+        <xsl:param name="iPos"/>
+        <xsl:param name="glossaryLayout"/>
+        <xsl:choose>
+            <xsl:when test="$bIsBook and not(ancestor::chapterInCollection)">
+                <xsl:call-template name="DoPageBreakFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$glossaryLayout"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoGlossary">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="glossaryLayout" select="$glossaryLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoGlossary">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="glossaryLayout" select="$glossaryLayout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       DoHeaderFooterItem
@@ -5051,6 +5012,48 @@
                 <tex:cmd name="clearpage" gr="0" nl2="1"/>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoPrefacePerBookLayout
+    -->
+    <xsl:template name="DoPrefacePerBookLayout">
+        <xsl:param name="prefaceLayout"/>
+        <xsl:call-template name="DoFrontMatterItemNewPage">
+            <xsl:with-param name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputPrefaceLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoPrefacePerPaperLayout
+    -->
+    <xsl:template name="DoPrefacePerPaperLayout">
+        <xsl:param name="prefaceLayout"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+            <xsl:with-param name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputPrefaceLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="bIsBook" select="'N'"/>
+            <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoReferences
@@ -6663,7 +6666,8 @@
             </xsl:when>
             <xsl:when test="name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
-                <xsl:if test="$fDoingContents='N' and not($bodyLayoutInfo/chapterInCollectionLayout/numberLayout) and string-length($bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber) &gt; 0">
+                <xsl:if
+                    test="$fDoingContents='N' and not($bodyLayoutInfo/chapterInCollectionLayout/numberLayout) and string-length($bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber) &gt; 0">
                     <xsl:value-of select="$bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@textafternumber"/>
                 </xsl:if>
             </xsl:when>

@@ -249,29 +249,39 @@
     <xsl:template match="glossary" mode="contents">
         <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
-        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-            <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink">
-                    <xsl:call-template name="GetIdToUse">
-                        <xsl:with-param name="sBaseId" select="concat($sGlossaryID,$iPos)"/>
-                    </xsl:call-template>
-                </xsl:with-param>
-                <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputGlossaryLabel"/>
-                </xsl:with-param>
-                <xsl:with-param name="sSpaceBefore">
-                    <xsl:call-template name="DoSpaceBeforeContentsLine"/>
-                </xsl:with-param>
-                <xsl:with-param name="sIndent">
-                    <xsl:choose>
-                        <xsl:when test="ancestor::chapterInCollection">
-                            <xsl:call-template name="GetFirstLevelContentsIdent"/>
-                        </xsl:when>
-                        <xsl:otherwise>0pt</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:with-param>
-            </xsl:call-template>
-        </xsl:if>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($backMatterLayoutInfo/glossaryLayout[number($iLayoutPosition)]/following-sibling::glossaryLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one glossaryLayout; use it -->
+                <xsl:call-template name="OutputGlossaryTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many glossaryLayouts; use the one that matches in position -->
+                <xsl:call-template name="OutputGlossaryTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many glossaryLayouts and there are more glossary elements than glossaryLayout elements; use the last layout -->
+                <xsl:call-template name="OutputGlossaryTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!--
         index  (contents)
@@ -295,30 +305,39 @@
     <xsl:template match="preface" mode="contents">
         <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
-        <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-            <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink">
-                    <xsl:variable name="sPos" select="$iPos"/>
-                    <xsl:call-template name="GetIdToUse">
-                        <xsl:with-param name="sBaseId" select="concat($sPrefaceID,$sPos)"/>
-                    </xsl:call-template>
-                </xsl:with-param>
-                <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputPrefaceLabel"/>
-                </xsl:with-param>
-                <xsl:with-param name="sSpaceBefore">
-                    <xsl:call-template name="DoSpaceBeforeContentsLine"/>
-                </xsl:with-param>
-                <xsl:with-param name="sIndent">
-                    <xsl:choose>
-                        <xsl:when test="ancestor::chapterInCollection">
-                            <xsl:call-template name="GetFirstLevelContentsIdent"/>
-                        </xsl:when>
-                        <xsl:otherwise>0pt</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:with-param>
-            </xsl:call-template>
-        </xsl:if>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]/following-sibling::prefaceLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one prefaceLayout; use it -->
+                <xsl:call-template name="OutputPrefaceTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many prefaceLayouts; use the one that matches in position -->
+                <xsl:call-template name="OutputPrefaceTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
+                <xsl:call-template name="OutputPrefaceTOCLine">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!--
         references (contents)
@@ -432,5 +451,60 @@
                 <xsl:text>0</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!-- 
+        OutputGlossaryTOCLine
+    -->
+    <xsl:template name="OutputGlossaryTOCLine">
+        <xsl:param name="iPos"/>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sGlossaryID,$iPos)"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputGlossaryLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:call-template name="GetFirstLevelContentsIdent"/>
+                    </xsl:when>
+                    <xsl:otherwise>0pt</xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        OutputPrefaceTOCLine
+    -->
+    <xsl:template name="OutputPrefaceTOCLine">
+        <xsl:param name="iPos"/>
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink">
+                <xsl:variable name="sPos" select="$iPos"/>
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sPrefaceID,$sPos)"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputPrefaceLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:call-template name="GetFirstLevelContentsIdent"/>
+                    </xsl:when>
+                    <xsl:otherwise>0pt</xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
     </xsl:template>
 </xsl:stylesheet>

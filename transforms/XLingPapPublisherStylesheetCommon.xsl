@@ -195,6 +195,54 @@
         <xsl:call-template name="DoFieldNotesLayout"/>
     </xsl:template>
     <!--
+        glossary
+    -->
+    <xsl:template match="glossary">
+        <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
+        <xsl:variable name="glossaryLayout" select="$backMatterLayout/glossaryLayout"/>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($glossaryLayout[number($iLayoutPosition)]/following-sibling::glossaryLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one glossaryLayout; use it -->
+                <xsl:call-template name="DoGlossaryPerLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="glossaryLayout" select="$glossaryLayout"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many glossaryLayouts; use the one that matches in position -->
+                <xsl:call-template name="DoGlossaryPerLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="glossaryLayout" select="$glossaryLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many glossaryLayouts and there are more glossary elements than glossaryLayout elements; use the last layout -->
+                <xsl:call-template name="DoGlossaryPerLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="glossaryLayout" select="$glossaryLayout[number(last())]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         ms
     -->
     <xsl:template match="ms">
@@ -205,6 +253,98 @@
     -->
     <xsl:template match="paper">
         <xsl:call-template name="DoPaperLayout"/>
+    </xsl:template>
+    <!--
+        preface (book)
+    -->
+    <xsl:template match="preface" mode="book">
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]/following-sibling::prefaceLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one prefaceLayout; use it -->
+                <xsl:call-template name="DoPrefacePerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many prefaceLayouts; use the one that matches in position -->
+                <xsl:call-template name="DoPrefacePerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
+                <xsl:call-template name="DoPrefacePerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number(last())]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        preface (paper)
+    -->
+    <xsl:template match="preface" mode="paper">
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]/following-sibling::prefaceLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one prefaceLayout; use it -->
+                <xsl:call-template name="DoPrefacePerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many prefaceLayouts; use the one that matches in position -->
+                <xsl:call-template name="DoPrefacePerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
+                <xsl:call-template name="DoPrefacePerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number(last())]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!--
         procCitation
@@ -3489,10 +3629,31 @@
                 <xsl:when test="name(.)='prefaceLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/preface" mode="paper">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                                    <xsl:value-of select="count(preceding-sibling::prefaceLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout' and not($bIsBook)">
-                    <xsl:apply-templates select="$frontMatter/preface" mode="paper"/>
+                    <xsl:apply-templates select="$frontMatter/preface" mode="paper">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                                    <xsl:value-of select="count(preceding-sibling::prefaceLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>

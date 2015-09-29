@@ -626,10 +626,20 @@ li.lower-roman {
         glossaryLayout
     -->
     <xsl:template match="glossaryLayout">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::glossaryLayout or following-sibling::glossaryLayout">
+                    <xsl:value-of select="count(preceding-sibling::glossaryLayout)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>                  
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sGlossary"/>
+                    <xsl:with-param name="sType" select="concat($sGlossary,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
@@ -986,10 +996,20 @@ li.lower-roman {
         prefaceLayout
     -->
     <xsl:template match="prefaceLayout">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::prefaceLayout or following-sibling::prefaceLayout">
+                    <xsl:value-of select="count(preceding-sibling::prefaceLayout)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>                 
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sPreface"/>
+                    <xsl:with-param name="sType" select="concat($sPreface,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>

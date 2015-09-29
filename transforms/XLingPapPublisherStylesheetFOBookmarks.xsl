@@ -119,6 +119,62 @@
    <xsl:template match="glossary" mode="bookmarks">
       <xsl:param name="iLayoutPosition" select="0"/>
       <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
+      <xsl:variable name="fLayoutIsLastOfMany">
+         <xsl:choose>
+            <xsl:when test="$iLayoutPosition=0">
+               <xsl:text>N</xsl:text>
+            </xsl:when>
+            <xsl:when test="count($backMatterLayoutInfo/glossaryLayout[number($iLayoutPosition)]/following-sibling::glossaryLayout)=0">
+               <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+         </xsl:choose>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="$iLayoutPosition = 0">
+            <!-- there's one and only one prefaceLayout; use it -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sGlossaryID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputGlossaryLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$iLayoutPosition = $iPos">
+            <!-- there are many prefaceLayouts; use the one that matches in position -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sGlossaryID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputGlossaryLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+            <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sGlossaryID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputGlossaryLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>            
+         </xsl:when>
+      </xsl:choose>
+<!--      
+      
       <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
          <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink">
@@ -130,7 +186,7 @@
                <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
          </xsl:call-template>
-      </xsl:if>
+      </xsl:if>-->
    </xsl:template>
    <!--
         index  (bookmarks)
@@ -178,18 +234,60 @@
    <xsl:template match="preface" mode="bookmarks">
       <xsl:param name="iLayoutPosition" select="0"/>
       <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
-      <xsl:if test="$iLayoutPosition = 0 or $iLayoutPosition = $iPos">
-         <xsl:call-template name="OutputBookmark">
-            <xsl:with-param name="sLink">
-               <xsl:call-template name="GetIdToUse">
-                  <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
-               </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="sLabel">
-               <xsl:call-template name="OutputPrefaceLabel"/>
-            </xsl:with-param>
-         </xsl:call-template>
-      </xsl:if>
+      <xsl:variable name="fLayoutIsLastOfMany">
+         <xsl:choose>
+            <xsl:when test="$iLayoutPosition=0">
+               <xsl:text>N</xsl:text>
+            </xsl:when>
+            <xsl:when test="count($frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]/following-sibling::prefaceLayout)=0">
+               <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+         </xsl:choose>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="$iLayoutPosition = 0">
+            <!-- there's one and only one prefaceLayout; use it -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputPrefaceLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+         </xsl:when>
+         <xsl:when test="$iLayoutPosition = $iPos">
+            <!-- there are many prefaceLayouts; use the one that matches in position -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputPrefaceLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>
+            </xsl:when>
+         <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+            <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
+            <xsl:call-template name="OutputBookmark">
+               <xsl:with-param name="sLink">
+                  <xsl:call-template name="GetIdToUse">
+                     <xsl:with-param name="sBaseId" select="concat($sPrefaceID,position())"/>
+                  </xsl:call-template>
+               </xsl:with-param>
+               <xsl:with-param name="sLabel">
+                  <xsl:call-template name="OutputPrefaceLabel"/>
+               </xsl:with-param>
+            </xsl:call-template>            
+         </xsl:when>
+      </xsl:choose>
    </xsl:template>
    <!--
         references (bookmarks)

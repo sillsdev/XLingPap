@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-09-29</a:date
+>2015-10-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.9 29 September 2015<ul
+>2.27.9 1 October 2015<ul
 ><li
 >Fix bug: Publishing info material would show at the end of a book when using a style sheet.</li
 ><li
@@ -43,6 +43,8 @@ href="mailto::andy_black@sil.org"
 >Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy.  The value entered will be subtracted from the normal indent of second and following lines in a long free translation.  This is only for the 'automatically wrap interlinears' case.</li
 ></ul
 ></li
+><li
+>(Remove some files in the set of configuration files we are no longer using.)</li
 ></ul
 ></li
 ><li

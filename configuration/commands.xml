@@ -1246,15 +1246,6 @@ alt causes menu to be selected
             <cfg:read encoding="UTF-8" file="out.xml"/>
         </cfg:process>
     </cfg:command>
-    <cfg:command name="getFontFamiliesAndImageFiles">
-        <cfg:process showProgress="false">
-            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
-            <cfg:copyDocument to="in.xml"/>
-            <cfg:transform cacheStylesheet="true" file="in.xml" stylesheet="../transforms/GetFontFamiliesAndImageFiles.xsl" to="out.xml"/>
-            <cfg:copy files="out.xml" quiet="true" to="%{P}%{S}XLingPaperPDFTemp%{S}%{R}.txt"/>
-            <!--            <cfg:read encoding="UTF-8" file="out.xml"/>-->
-        </cfg:process>
-    </cfg:command>
     <cfg:command name="setTableNumberedRef">
         <cfg:macro>
             <cfg:sequence>

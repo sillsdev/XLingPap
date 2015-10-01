@@ -36,7 +36,13 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug: Publishing info material would show at the end of a book when using a style sheet.</li
 ><li
->Fix bug: multiple preface elements with multiple prefaceLayout elements in a style sheet did not line up according to the documentation.  Same for multiple glossary elements with multiple glossaryLayout elements.</li
+>Fix bug: multiple preface elements with multiple prefaceLayout elements in a style sheet did not line up according to the documentation. Same for multiple glossary elements with multiple glossaryLayout elements.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy.  The value entered will be subtracted from the normal indent of second and following lines in a long free translation.  This is only for the 'automatically wrap interlinears' case.</li
+></ul
+></li
 ></ul
 ></li
 ><li

@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->15 September 2015</date
+>30 September 2015</date
 ><version
->2.27.7</version
+>2.27.9</version
 ><contents
 showLevel="6"
 ></contents
@@ -2954,7 +2954,7 @@ type="tElement"
 > element are given in section <sectionRef
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
->.  <indexedItem
+>. <indexedItem
 term="iSectionNumber"
 ></indexedItem
 >In addition, the <object
@@ -2963,7 +2963,7 @@ type="tElement"
 > element has another attribute: <object
 type="tAttribute"
 >useperiodafternumber</object
->.  If there is no <object
+>. If there is no <object
 type="tElement"
 >numberLayout</object
 > element and you need to have a period appear after the section number, set <object
@@ -11269,6 +11269,53 @@ showTitle="short"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iAdjustIndentOfNonInitialLineBy"
+></indexedItem
+><object
+type="tAttribute"
+>adjustIndentOfNonInitialLineBy</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to *subtract* for those cases where a long free translation line automatically wraps and indents.  This is only used in the <object
+type="tXeTeX"
+></object
+> way of producing PDF and also only when automatically wrapping interlinears. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+> (or ‘em’); there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.25in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1em</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iSpaceAfterAttribute"
 ></indexedItem
 ><object
@@ -14339,6 +14386,11 @@ id="iAbstactLayout"
 id="iAcknowledgementsLayout"
 ><term
 >Acknowledgements layout</term
+></indexTerm
+><indexTerm
+id="iAdjustIndentOfNonInitialLineBy"
+><term
+>Adjust indent of non initial line by attribute for free translations</term
 ></indexTerm
 ><indexTerm
 id="iAffiliationLayout"

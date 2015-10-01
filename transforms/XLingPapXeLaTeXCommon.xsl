@@ -152,6 +152,7 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sInitialGroupIndent" select="$contentLayoutInfo/interlinearTextLayout/@indentOfInitialGroup"/>
+    <xsl:variable name="sAdjustIndentOfNonInitialFreeLineBy" select="normalize-space($contentLayoutInfo/freeLayout/@adjustIndentOfNonInitialLineBy)"/>
     <!--
         citation (InMarker)
     -->
@@ -4787,32 +4788,56 @@
                 <tex:cmd name="pretolerance" gr="0"/>
                 <xsl:text>=100</xsl:text>
             </xsl:if>
-            <tex:spec cat="esc"/>
-            <xsl:text>hangindent</xsl:text>
+            <xsl:variable name="sHangingIndent">
+                <xsl:choose>
+                    <xsl:when test="string-length($sInitialGroupIndent) &gt; 0">
+                        <xsl:value-of select="$sInitialGroupIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="$mode='NoTextRef'">
+                                <xsl:text>2</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="contains($bListsShareSameCode,'N')">
+                                <!-- want 1 plus 2.75 -->
+                                <xsl:text>3.75</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
+                                <xsl:text>2</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1">
+                                <xsl:text>2</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <xsl:choose>
-                <xsl:when test="string-length($sInitialGroupIndent) &gt; 0">
-                    <xsl:value-of select="$sInitialGroupIndent"/>
+                <xsl:when test="string-length($sAdjustIndentOfNonInitialFreeLineBy) &gt; 0">
+                    <tex:cmd name="setlength">
+                        <tex:parm>
+                            <tex:cmd name="XLingPaperlongfreewrapindent" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:value-of select="$sHangingIndent"/>
+                            <xsl:text>-</xsl:text>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>XLingPaperlongfreewrapindentadjust</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>hangindent</xsl:text>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>XLingPaperlongfreewrapindent</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="$mode='NoTextRef'">
-                            <xsl:text>2</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="contains($bListsShareSameCode,'N')">
-                            <!-- want 1 plus 2.75 -->
-                            <xsl:text>3.75</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="ancestor::endnote and count(ancestor::interlinear[not(descendant::endnote)]) &gt; 1">
-                            <xsl:text>2</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="not(ancestor::endnote) and count(ancestor::interlinear) &gt; 1">
-                            <xsl:text>2</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>1</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:text>em</xsl:text>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>hangindent</xsl:text>
+                    <xsl:value-of select="$sHangingIndent"/>
                 </xsl:otherwise>
             </xsl:choose>
             <tex:cmd name="relax" gr="0" nl2="1"/>
@@ -5895,8 +5920,8 @@
                     </tex:parm>
                     <tex:parm>
                         <xsl:if test="ancestor::interlinear-text">
-                        <xsl:value-of select="$sLeftIndent"/>
-                        <xsl:text>+</xsl:text>
+                            <xsl:value-of select="$sLeftIndent"/>
+                            <xsl:text>+</xsl:text>
                         </xsl:if>
                         <xsl:value-of select="$sIndentOfNonInitialGroup"/>
                     </tex:parm>
@@ -12536,6 +12561,31 @@ What might go in a TeX package file
                 </tex:cmd>
             </tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetXLingPaperAdjustIndentOfNonInitialFreeLine
+    -->
+    <xsl:template name="SetXLingPaperAdjustIndentOfNonInitialFreeLine">
+        <xsl:if test="string-length($sAdjustIndentOfNonInitialFreeLineBy) &gt; 0">
+            <tex:cmd name="newlength">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperlongfreewrapindent" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="newlength">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperlongfreewrapindentadjust" gr="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperlongfreewrapindentadjust" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="$sAdjustIndentOfNonInitialFreeLineBy"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetXLingPaperNeedSpaceMacro

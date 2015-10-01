@@ -759,9 +759,10 @@ Content Layout
     >
    <!ELEMENT freeLayout EMPTY >
     <!ATTLIST freeLayout
-       textbeforeafterusesfontinfo (no | yes) 'no'
+      textbeforeafterusesfontinfo (no | yes) 'no'
       spaceafter CDATA #IMPLIED
       spacebefore CDATA #IMPLIED
+      adjustIndentOfNonInitialLineBy CDATA #IMPLIED
        %formatinfo;
     >
    <!ELEMENT literalLayout (literalLabelLayout, literalContentLayout) >

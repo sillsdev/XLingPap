@@ -250,6 +250,7 @@
                 </xsl:if>
                 <xsl:if test="$lingPaper/@automaticallywrapinterlinears='yes'">
                     <xsl:call-template name="SetXLingPaperAlignedWordSpacing"/>
+                    <xsl:call-template name="SetXLingPaperAdjustIndentOfNonInitialFreeLine"/>
                 </xsl:if>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                     <xsl:call-template name="SetFootnoteLayout"/>
@@ -869,7 +870,7 @@
     <!--
         preface (paper)
     -->
-<!--    <xsl:template match="preface" mode="paper">
+    <!--    <xsl:template match="preface" mode="paper">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
@@ -879,7 +880,8 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
--->    <!-- ===========================================================
+-->
+    <!-- ===========================================================
       PARTS, CHAPTERS, SECTIONS, and APPENDICES
       =========================================================== -->
     <!--

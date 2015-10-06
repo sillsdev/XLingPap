@@ -1435,16 +1435,6 @@ endnoteRef
 		 label(attribute, note, text-decoration, underline);
      	background-color:endnote-background-color();
 }
-/* original endnoteRef
-{
-	content: set-attribute-button(attribute, note,
-						 unset-attribute, no,
-						 icon, icon(pop-down),
-						 color, black)
-	         label(attribute, note, text-decoration, underline);
-	background-color:endnote-background-color();
-}
-*/
 endnotes[label]:before
 {
 	content: text-field(attribute,label);
@@ -1669,13 +1659,13 @@ figureRef:before
 figureRef[showCaption='short']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('Â“',id(@figure)/shortCaption,'Â”'),string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')");
+	label(xpath, "if(string-length(id(@figure)/shortCaption)>0,concat('“',id(@figure)/shortCaption,'”'),string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
 	background-color:figure-background-color();
 }
 figureRef[showCaption='full']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('Â“',id(@figure)/caption,'Â”'),'Â“uncaptionedÂ”')");
+	label(xpath, "if(string-length(id(@figure)/caption)>0,concat('“',id(@figure)/caption,'”'),'“uncaptioned”')");
 	background-color:figure-background-color();
 }
 figureRef
@@ -1980,6 +1970,7 @@ glossaryTermInLang
 glossaryTermRef[capitalize='yes']:before
 {
 	content: drop-down-setReference()
+	         invoke("capitalize", "null")
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
 
@@ -1988,6 +1979,7 @@ glossaryTermRef[capitalize='yes']:before
 glossaryTermRef:before
 {
 	content: drop-down-setReference()
+        label(xpath,"if(string-length(.)>0,'',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@glossarytermlang))>0] and id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm,id(@glossaryTerm)/glossaryTermInLang[(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@glossarytermlang=@lang]/glossaryTermTerm, id(@glossaryTerm)/glossaryTermInLang[1]/glossaryTermTerm)")
 	;
 	font-family: concatenate("'",xpath("if(/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/xlingpaper/styledPaper/lingPaper/backMatter/glossaryTerms/@font-family,/lingPaper/backMatter/glossaryTerms[string-length(normalize-space(@font-family))>0],/lingPaper/backMatter/glossaryTerms/@font-family,'inherit')"),"'");
 
@@ -2363,14 +2355,14 @@ interlinearRefCitation[bracket='final'][lineNumberOnly='yes']:before
 interlinearRefCitation[showTitleOnly='short']:before
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('Â“',id(@textref)/../textInfo/shortTitle,'Â”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('Â“',id(@textref)/textInfo/shortTitle,'Â”'),'Â“unnamedÂ”')")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/shortTitle)>0,concat('“',id(@textref)/../textInfo/shortTitle,'”'),string-length(id(@textref)/textInfo/shortTitle)>0,concat('“',id(@textref)/textInfo/shortTitle,'”'),'“unnamed”')")
 	;
 	background-color:interlinearSource-background-color();
 }
 interlinearRefCitation[showTitleOnly='full']:before
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('Â“',id(@textref)/../textInfo/textTitle,'Â”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('Â“',id(@textref)/textInfo/textTitle,'Â”'),'Â“unnamedÂ”')")
+	label(xpath, "if(string-length(id(@textref)/../textInfo/textTitle)>0,concat('“',id(@textref)/../textInfo/textTitle,'”'),string-length(id(@textref)/textInfo/textTitle)>0,concat('“',id(@textref)/textInfo/textTitle,'”'),'“unnamed”')")
 	;
 	background-color:interlinearSource-background-color();
 }
@@ -3848,13 +3840,13 @@ sectionRef:before
 sectionRef[showTitle='short']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('Â“',id(@sec)/shortTitle,'Â”'),string-length(id(@sec)/secTitle)>0,concat('Â“',id(@sec)/secTitle,'Â”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('Â“',id(@sec)/frontMatter/shortTitle,'Â”'),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')");
+	label(xpath, "if(string-length(id(@sec)/shortTitle)>0,concat('“',id(@sec)/shortTitle,'”'),string-length(id(@sec)/secTitle)>0,concat('“',id(@sec)/secTitle,'”'),string-length(id(@sec)/frontMatter/shortTitle)>0,concat('“',id(@sec)/frontMatter/shortTitle,'”'),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
 	background-color:section-background-color();
 }
 sectionRef[showTitle='full']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('Â“',id(@sec)/frontMatter/title,'Â”'),'Â“unnamedÂ”')");
+	label(xpath, "if(string-length(id(@sec)/secTitle)>0,concat(id(@sec)/secTitle),string-length(id(@sec)/frontMatter/title)>0,concat('“',id(@sec)/frontMatter/title,'”'),'“unnamed”')");
 	background-color:section-background-color();
 }
 sectionRef
@@ -4082,13 +4074,13 @@ tablenumberedRef:before
 tablenumberedRef[showCaption='short']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('Â“',id(@table)/shortCaption,'Â”'),string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')");
+	label(xpath, "if(string-length(id(@table)/shortCaption)>0,concat('“',id(@table)/shortCaption,'”'),string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef[showCaption='full']
 {
 	content: drop-down-setReference()
-	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('Â“',id(@table)/table/caption,'Â”'),'Â“uncaptionedÂ”')");
+	label(xpath, "if(string-length(id(@table)/table/caption)>0,concat('“',id(@table)/table/caption,'”'),'“uncaptioned”')");
 	background-color:tablenumbered-background-color();
 }
 tablenumberedRef

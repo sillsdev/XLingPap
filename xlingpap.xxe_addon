@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.9</a:version
+>2.27.10</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-10-01</a:date
+>2015-10-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.2.10 5 October 2015<ul
+><li
+>Fix bug introduced in version 2.27.9: in the UI, the glossaryTermRef element no longer defaulted to the glossary term; it showed an empty hash box.</li
+><li
+>Fix some typos in generated messages in UI.</li
+><li
+>For the web page output when using a publisher style sheet, make the align attribute on a table element apply.</li
+></ul
+></li
+><li
 >2.27.9 1 October 2015<ul
+><li
+>In the UI, change behavior of the black drop-down button on reference elements so that it invokes the SetReference command instead of showing all elements with IDs.</li
 ><li
 >Fix bug: Publishing info material would show at the end of a book when using a style sheet.</li
 ><li
@@ -40,7 +52,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy.  The value entered will be subtracted from the normal indent of second and following lines in a long free translation.  This is only for the 'automatically wrap interlinears' case.</li
+>Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy. The value entered will be subtracted from the normal indent of second and following lines in a long free translation. This is only for the 'automatically wrap interlinears' case.</li
 ></ul
 ></li
 ><li

@@ -37,8 +37,6 @@ href="mailto::andy_black@sil.org"
 >Fix bug introduced in version 2.27.9: in the UI, the glossaryTermRef element no longer defaulted to the glossary term; it showed an empty hash box.</li
 ><li
 >Fix some typos in generated messages in UI.</li
-><li
->For the web page output when using a publisher style sheet, make the align attribute on a table element apply.</li
 ></ul
 ></li
 ><li

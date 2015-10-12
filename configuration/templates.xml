@@ -5,6 +5,7 @@
     <cfg:template location="../templates/XLingPapPartsTemplate.xml" name="Multi-Part Book (Part-oriented)" category="An XLingPaper File/Complete Document" order="1030"/>
     <cfg:template location="../templates/XLingPapTomPayneGrammaticalDescription.xml" name="Tom Payne's Grammar Book Outline" category="An XLingPaper File/Complete Document" order="1040"/>
     <cfg:template location="../templates/XLingPapJIPAIllustrationSubmissionTemplate.xml" name="Journal of the International Phonetic Association Illustration article, submission format" category="An XLingPaper File/Complete Document" order="1050"/>
+    <cfg:template location="../templates/XLingPapSILEWPTemplate.xml" name="SIL International Electronic Working Paper" category="An XLingPaper File/Complete Document" order="1060"/>
     <cfg:template location="../templates/XLingPapReferencesTemplate.xml" name="References (part of a modular document)" category="An XLingPaper File/Document Component" order="2010"/>
     <cfg:template location="../templates/XLingPapInterlinearTextTemplate.xml" name="Interlinear text (part of a modular document)" category="An XLingPaper File/Document Component" order="2020"/>
     <cfg:template location="../templates/XLingPapAbbreviationsLowerCaseTemplate.xml" name="Abbreviations; all lower case; i.e. use small-caps (part of a modular document)" category="An XLingPaper File/Document Component" order="2030"/>

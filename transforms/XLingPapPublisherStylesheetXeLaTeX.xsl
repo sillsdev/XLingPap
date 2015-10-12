@@ -1035,7 +1035,7 @@
         </xsl:call-template>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" nl2="0"/>
-        </xsl:if>        
+        </xsl:if>
         <xsl:if test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
             <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
                 <tex:cmd name="pagestyle">
@@ -1048,9 +1048,16 @@
             </tex:cmd>
         </xsl:if>
         <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
-            <tex:cmd name="thispagestyle">
-                <tex:parm>bodyfirstpage</tex:parm>
-            </tex:cmd>
+            <xsl:choose>
+                <xsl:when test="contains(name(),'chapter') and not($bodyLayoutInfo/chapterLayout/numberLayout) and $bodyLayoutInfo/chapterLayout/chapterTitleLayout/@pagebreakbefore!='yes' and name(preceding-sibling::*[1])!='frontMatter'">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="thispagestyle">
+                        <tex:parm>bodyfirstpage</tex:parm>
+                    </tex:cmd>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>

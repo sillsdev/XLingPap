@@ -1033,6 +1033,9 @@
                 </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
+        </xsl:if>        
         <xsl:if test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
             <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
                 <tex:cmd name="pagestyle">

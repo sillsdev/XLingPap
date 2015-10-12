@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->30 September 2015</date
+>9 October 2015</date
 ><version
->2.27.9</version
+>2.27.10</version
 ><contents
 showLevel="6"
 ></contents
@@ -2684,6 +2684,27 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 >, then the first paragraph will not have any indent.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>resetEndnoteNumbering</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the endnote/footnote numbering should be reset at the beginning of each chapter. If the value is <object
+type="tAttrValue"
+>no</object
+>, then endnote/footnote numbering will be continuous through the document.  The default value is <object
+type="tAttrValue"
+>yes</object
+>.</td
 ></tr
 ></table
 ></example
@@ -11282,7 +11303,7 @@ lang="lEng"
 >(user control)</langData
 ></td
 ><td
->The amount of horizontal space to *subtract* for those cases where a long free translation line automatically wraps and indents.  This is only used in the <object
+>The amount of horizontal space to *subtract* for those cases where a long free translation line automatically wraps and indents. This is only used in the <object
 type="tXeTeX"
 ></object
 > way of producing PDF and also only when automatically wrapping interlinears. Use a number followed by one of the units of measure given in example <exampleRef

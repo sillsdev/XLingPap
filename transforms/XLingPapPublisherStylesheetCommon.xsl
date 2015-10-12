@@ -816,10 +816,17 @@
             <xsl:otherwise>
                 <xsl:variable name="chapterOrAppendixUnit"
                     select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
-                <xsl:call-template name="DoBookEndnotesLabeling">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="starts-with(name($chapterOrAppendixUnit),'chapter') and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                        <!-- do nothing -->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoBookEndnotesLabeling">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

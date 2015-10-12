@@ -5,7 +5,7 @@
      Version 2.20.0
      (Revision history is at the end.)
   -->
-<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
+<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
  >
@@ -480,6 +480,7 @@ Body Layout
     <!ELEMENT chapterLayout (chapterTitleLayout | numberLayout)+ >
     <!ATTLIST chapterLayout
          firstParagraphHasIndent (yes | no) 'yes' 
+         resetEndnoteNumbering (yes | no) 'yes'
      >
     <!ELEMENT  chapterTitleLayout EMPTY >
     <!ATTLIST chapterTitleLayout 

@@ -337,10 +337,16 @@
     <xsl:template mode="numberPart" match="*">
         <xsl:number level="multiple" count="part" format="I"/>
     </xsl:template>
+    <!--  
+        endnote
+    -->
     <xsl:template mode="endnote" match="*">
         <xsl:choose>
             <xsl:when test="$chapters">
                 <xsl:choose>
+                    <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                    </xsl:when>
                     <xsl:when test="ancestor::appendix">
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
                     </xsl:when>
@@ -871,11 +877,25 @@
             <xsl:variable name="iPreviousEndnotesPass1">
                 <xsl:choose>
                     <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
-                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
+                        <xsl:choose>
+                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>         
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
-                            from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
+                        <xsl:choose>
+                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
+                                    from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>

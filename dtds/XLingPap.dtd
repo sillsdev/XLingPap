@@ -232,6 +232,7 @@
 <!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
+    XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >

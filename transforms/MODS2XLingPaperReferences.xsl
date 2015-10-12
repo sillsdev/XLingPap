@@ -266,11 +266,23 @@
             <xsl:call-template name="DoAnyURL"/>
         </webPage>
     </xsl:template>
+
+    <xsl:template match="m:abstract">
+	<annotations>
+		<annotation annotype="atAbstract">
+                <xsl:attribute name="id">
+                    <xsl:call-template name="DoIDAbs"/>
+                </xsl:attribute>
+			<xsl:value-of select="."/>
+		</annotation>
+	</annotations>
+    </xsl:template>
+
     <!-- 
         ignore these
     -->
     <!--    <xsl:template match="m:titleInfo | m:typeOfResource | m:genre | m:name | m:originInfo | m:location | m:subject | m:relatedItem | m:part | m:identifier | m:abstract | m:accessCondition | m:language | m:physicalDescription | m:classification"/>-->
-    <xsl:template match="m:abstract"/>
+
     <xsl:template match="m:accessCondition"/>
     <xsl:template match="m:classification"/>
     <xsl:template match="m:extension"/>
@@ -450,6 +462,25 @@
             <xsl:call-template name="DoTitle"/>
         </xsl:variable>
         <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
+    </xsl:template>
+    <!-- 
+        DoIDAbs
+    -->
+    <xsl:template name="DoIDAbs">
+        <xsl:text>an</xsl:text>
+        <xsl:variable name="sName">
+            <xsl:call-template name="DoAuthorName"/>
+        </xsl:variable>
+        <xsl:value-of select="translate($sName,$sRemoveForID,'')"/>
+        <xsl:variable name="sDate">
+            <xsl:call-template name="DoDate"/>
+        </xsl:variable>
+        <xsl:value-of select="translate($sDate,$sRemoveForID,'')"/>
+        <xsl:variable name="sTitle">
+            <xsl:call-template name="DoTitle"/>
+        </xsl:variable>
+        <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
+        <xsl:text>Abstract</xsl:text>
     </xsl:template>
     <!-- 
         DoLocationAndPublisher

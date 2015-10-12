@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.12</a:version
+>2.27.10</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.2.10 12 October 2015<ul
+>2.27.10 12 October 2015<ul
 ><li
 >Fix bug introduced in version 2.27.9: in the UI, the glossaryTermRef element no longer defaulted to the glossary term; it showed an empty hash box.</li
 ><li
@@ -42,7 +42,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Add a resetEndnoteNumbering attribute to the chapterLayout element in a publisher style sheet. It controls whether endnote numbering should be reset at each chapter or not.</li
 ><li
->Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert a Zotero abstract to an XLingPaper annotation.  Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract'.</li
+>Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert a Zotero abstract to an XLingPaper annotation. Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract'.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

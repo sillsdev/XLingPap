@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->18 September 2015</date
+>13 October 2015</date
 ><version
->2.27.9</version
+>2.27.11</version
 ><contents
 showLevel="4"
 ></contents
@@ -1645,7 +1645,16 @@ src="resources/AttributesToolTab.png"
 ></img
 > to see it, though.</p
 ></endnote
-> It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters,</p
+> Please note that the number refers to the <object
+type="tBold"
+>section</object
+> level.  If you have a book with <object
+type="tElement"
+>chapter</object
+> elements, then the depth shown in the contents will be the number you choose plus one (the section level <object
+type="tBold"
+>plus</object
+> the chapter). It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters.</p
 ><p
 >The table of contents will also include acknowledgements (if any), the abstract (if present), endnotes (if needed), any indexes and references.</p
 ><p

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.27.10</a:version
+>2.27.11</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-10-12</a:date
+>2015-10-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.11 13 October 2015<ul
+>2.27.11 21 October 2015<ul
 ><li
 >Improve documentation on showLevel atrribute of contents element.</li
+><li
+>Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were in the document proper.</li
 ></ul
 ></li
 ><li

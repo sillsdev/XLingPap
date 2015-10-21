@@ -723,7 +723,7 @@
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
         <xsl:variable name="directlyCitedAuthors"
-            select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
+            select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::referencedInterlinearText)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
         <xsl:choose>

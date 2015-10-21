@@ -5073,7 +5073,7 @@
     <xsl:template name="DoReferences">
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:variable name="refAuthors" select="refAuthor"/>
-        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
         <xsl:if test="$directlyCitedAuthors">
             <xsl:if test="@showinlandscapemode='yes'">
                 <tex:cmd name="landscape" gr="0" nl2="1"/>
@@ -5185,7 +5185,7 @@
     <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works"
-            select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+            select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <xsl:for-each select="$works">
             <xsl:call-template name="DoRefWork">
                 <xsl:with-param name="works" select="$works"/>

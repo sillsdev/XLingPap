@@ -3300,7 +3300,7 @@
     -->
     <xsl:template name="DoReferences">
         <xsl:param name="bIsBook" select="'N'"/>
-        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
         <xsl:if test="$authors">
             <xsl:if test="@showinlandscapemode='yes'">
                 <tex:cmd name="landscape" gr="0" nl2="1"/>
@@ -3929,7 +3929,7 @@
     <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works"
-            select="refWork[@id=$citations[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
+            select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor]"/>
         <!--            <xsl:for-each select="$authors">
             <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
         -->

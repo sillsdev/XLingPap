@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-10-21</a:date
+>2015-10-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.27.11 21 October 2015<ul
+>2.27.11 23 October 2015<ul
 ><li
 >Improve documentation on showLevel atrribute of contents element.</li
 ><li
 >Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were in the document proper.</li
+><li
+>Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert one or more Zotero abstracts, notes, and keywords to an XLingPaper annotation. Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract' and one whose ID attribute is 'atNote'.</li
 ></ul
 ></li
 ><li

@@ -68,6 +68,21 @@
                     </xsl:for-each>
                 </xsl:attribute>
                 <xsl:apply-templates/>
+		 	<annotations>
+				<xsl:for-each select="m:abstract">
+					<xsl:call-template name="abstract"/>
+				</xsl:for-each>
+				<xsl:for-each select="m:note">
+					<xsl:call-template name="note"/>
+				</xsl:for-each>
+			</annotations>
+			<keywords>
+ 				<xsl:for-each select="m:subject">
+					<keyword>
+						<xsl:value-of select="."/>
+					</keyword>
+ 				</xsl:for-each>
+			</keywords>
             </refWork>
         </refAuthor>
     </xsl:template>
@@ -267,15 +282,24 @@
         </webPage>
     </xsl:template>
 
-    <xsl:template match="m:abstract">
-	<annotations>
+    <xsl:template name="abstract">
 		<annotation annotype="atAbstract">
                 <xsl:attribute name="id">
-                    <xsl:call-template name="DoIDAbs"/>
+                    <xsl:call-template name="DoIDAnnotation"/>
+		          <xsl:text>Abstract</xsl:text>
                 </xsl:attribute>
 			<xsl:value-of select="."/>
 		</annotation>
-	</annotations>
+    </xsl:template>
+
+    <xsl:template name="note">
+		<annotation annotype="atNote">
+                <xsl:attribute name="id">
+                    <xsl:call-template name="DoIDAnnotation"/>
+		          <xsl:text>Note</xsl:text><xsl:value-of select="position()"/>
+                </xsl:attribute>
+			<xsl:value-of select="."/>
+		</annotation>
     </xsl:template>
 
     <!-- 
@@ -283,6 +307,7 @@
     -->
     <!--    <xsl:template match="m:titleInfo | m:typeOfResource | m:genre | m:name | m:originInfo | m:location | m:subject | m:relatedItem | m:part | m:identifier | m:abstract | m:accessCondition | m:language | m:physicalDescription | m:classification"/>-->
 
+    <xsl:template match="m:abstract"/>
     <xsl:template match="m:accessCondition"/>
     <xsl:template match="m:classification"/>
     <xsl:template match="m:extension"/>
@@ -464,9 +489,9 @@
         <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
     </xsl:template>
     <!-- 
-        DoIDAbs
+        DoIDAnnotation
     -->
-    <xsl:template name="DoIDAbs">
+    <xsl:template name="DoIDAnnotation">
         <xsl:text>an</xsl:text>
         <xsl:variable name="sName">
             <xsl:call-template name="DoAuthorName"/>
@@ -480,7 +505,6 @@
             <xsl:call-template name="DoTitle"/>
         </xsl:variable>
         <xsl:value-of select="substring(translate($sTitle,$sRemoveForID,''),1,5)"/>
-        <xsl:text>Abstract</xsl:text>
     </xsl:template>
     <!-- 
         DoLocationAndPublisher

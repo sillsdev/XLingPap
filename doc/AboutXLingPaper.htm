@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.27.11</span></p>
-      <p align="center">Date: 2015-10-21</p>
+      <p align="center">Date: 2015-10-23</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,15 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.27.11 21 October 2015
+               <li>2.27.11 23 October 2015
                   <ul>
                      <li>Improve documentation on showLevel atrribute of contents element.</li>
                      <li>Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were
                         in the document proper.
+                     </li>
+                     <li>Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert one or more Zotero abstracts,
+                        notes, and keywords to an XLingPaper annotation. Note that the command does expect one to have an annotatedBibliographyType
+                        element whose ID attribute is 'atAbstract' and one whose ID attribute is 'atNote'.
                      </li>
                   </ul>
                </li>

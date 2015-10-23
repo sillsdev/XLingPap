@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->13 October 2015</date
+>23 October 2015</date
 ><version
 >2.27.11</version
 ><contents
@@ -1648,7 +1648,7 @@ src="resources/AttributesToolTab.png"
 > Please note that the number refers to the <object
 type="tBold"
 >section</object
-> level.  If you have a book with <object
+> level. If you have a book with <object
 type="tElement"
 >chapter</object
 > elements, then the depth shown in the contents will be the number you choose plus one (the section level <object
@@ -25666,6 +25666,23 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>dt</object
+></td
+><td
+><object
+type="tElement"
+>presentedAt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>acknowledgements</object
+></td
+><td
+><object
+type="tElement"
 >emailAddress</object
 ></td
 ><td
@@ -25678,7 +25695,7 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->acknowledgements</object
+>affiliation</object
 ></td
 ><td
 ><object
@@ -25695,7 +25712,7 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->affiliation</object
+>appendix</object
 ></td
 ><td
 ><object
@@ -25712,7 +25729,7 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->appendix</object
+>author</object
 ></td
 ><td
 ><object
@@ -25877,20 +25894,6 @@ type="tElement"
 type="tElement"
 >version</object
 ></td
-></tr
-><tr
-><td
-><object
-type="tElement"
->dt</object
-></td
-><td
-><object
-type="tElement"
->presentedAt</object
-></td
-><td
-> </td
 ></tr
 ></table
 ></example

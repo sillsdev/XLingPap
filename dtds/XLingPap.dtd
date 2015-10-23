@@ -161,6 +161,7 @@
 <!ATTLIST author
     ORCID CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
+    contentType IDREF #IMPLIED
 >
 <!ELEMENT affiliation (#PCDATA | %embedded;)*>
 <!ATTLIST affiliation

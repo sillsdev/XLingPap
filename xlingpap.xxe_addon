@@ -39,6 +39,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were in the document proper.</li
 ><li
 >Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert one or more Zotero abstracts, notes, and keywords to an XLingPaper annotation. Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract' and one whose ID attribute is 'atNote'.</li
+><li
+>Allow an author element to have a contentType attribute (so can easily leave it out when submitting a work anonymously).</li
 ></ul
 ></li
 ><li

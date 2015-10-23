@@ -31,6 +31,9 @@
    <xsl:template match="appendix">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="author">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="authorContactInfo">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>

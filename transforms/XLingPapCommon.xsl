@@ -74,6 +74,9 @@
     <xsl:variable name="glossaryTerms" select="$lingPaper/backMatter/glossaryTerms"/>
     <xsl:variable name="refWorks" select="//refWork"/>
     <xsl:variable name="citations" select="//citation"/>
+    <xsl:variable name="annotationRefs" select="//annotationRef"/>
+    <xsl:variable name="citationsInAnnotations" select="$citations[ancestor::annotation]"/>
+    <xsl:variable name="citationsInAnnotationsReferredTo" select="$citationsInAnnotations[ancestor::annotation/@id=$annotationRefs/@annotation]"/>
     <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
     <xsl:variable name="collOrProcVolumesToInclude">
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>

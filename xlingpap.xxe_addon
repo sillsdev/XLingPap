@@ -41,6 +41,8 @@ href="mailto::andy_black@sil.org"
 >Thanks to work by Kent Rasmussen, the Zotero to XLingPaper command now allows one to convert one or more Zotero abstracts, notes, and keywords to an XLingPaper annotation. Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract' and one whose ID attribute is 'atNote'.</li
 ><li
 >Allow an author element to have a contentType attribute (so can easily leave it out when submitting a work anonymously).</li
+><li
+>Add info about editing referenced style sheet in publisher style sheet documentation.</li
 ></ul
 ></li
 ><li

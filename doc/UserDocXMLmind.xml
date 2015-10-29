@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->23 October 2015</date
+>28 October 2015</date
 ><version
 >2.27.11</version
 ><contents
@@ -19526,10 +19526,16 @@ src="resources/ReferencesReferenced.png"
 ><p
 >You have now made the linkage between your main document and the master references document.</p
 ><p
+><genericTarget
+id="gEditReferencedDocument"
+></genericTarget
+><indexedItem
+term="iReferencedDocument"
+></indexedItem
 >When you are editing your main document and want to add a reference to your master references document, go to your master references document and make your additions. When you are done making the additions, click on the <object
 type="tInTextExample"
 >Edit Referencing Document</object
-> button in the upper left portion of the window. It looks like this: <img
+> button in the upper right portion of the window. It looks like this: <img
 src="resources/EditReferencingDocumentIcon.png"
 ></img
 > This will take you back to your main document.</p
@@ -31651,6 +31657,12 @@ id="iBackMatter"
 >Back Matter</term
 ></indexTerm
 ><indexTerm
+id="iBluishBackgroundColor"
+see="iReferencedDocument"
+><term
+>Bluish background color (referenced document)</term
+></indexTerm
+><indexTerm
 id="iBMP"
 see="iImageFiles"
 ><term
@@ -31978,6 +31990,11 @@ id="iDoulosSILFont"
 id="iEbook"
 ><term
 >EBook in EPUB format</term
+></indexTerm
+><indexTerm
+id="iReferencedDocument"
+><term
+>Edit referenced document</term
 ></indexTerm
 ><indexTerm
 id="iEditTool"

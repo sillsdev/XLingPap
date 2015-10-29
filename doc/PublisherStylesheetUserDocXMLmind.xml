@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->9 October 2015</date
+>28 October 2015</date
 ><version
->2.27.10</version
+>2.27.11</version
 ><contents
 showLevel="6"
 ></contents
@@ -99,6 +99,20 @@ href="UserDocXMLmind.htm"
 type="tXLingPap"
 ></object
 > document.</p
+><p
+>Also, when you need to make a change to a publisher style sheet from your main document, click in the publisher style sheet (it will have a bluish background color) and then click on the <object
+type="tInTextExample"
+>Edit Referenced Document</object
+> button which is in the upper right portion of the window. It looks like this: <img
+src="resources/EditReferencedDocumentIcon.png"
+></img
+>  After making your changes, save them and then click on the <object
+type="tInTextExample"
+>Edit Referencing Document</object
+> button in the upper right portion of the window. It looks like this: <img
+src="resources/EditReferencingDocumentIcon.png"
+></img
+> This will take you back to your main document.</p
 ><p
 >Please keep in mind that the way <object
 type="tXLingPap"
@@ -2701,7 +2715,7 @@ type="tAttrValue"
 >. This indicates whether or not the endnote/footnote numbering should be reset at the beginning of each chapter. If the value is <object
 type="tAttrValue"
 >no</object
->, then endnote/footnote numbering will be continuous through the document.  The default value is <object
+>, then endnote/footnote numbering will be continuous through the document. The default value is <object
 type="tAttrValue"
 >yes</object
 >.</td

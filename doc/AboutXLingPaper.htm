@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.27.11</span></p>
-      <p align="center">Date: 2015-10-23</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.28.0</span></p>
+      <p align="center">Date: 2015-11-09</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.27.11 23 October 2015
+               <li>2.28.0 9 November 2015
                   <ul>
                      <li>Improve documentation on showLevel atrribute of contents element.</li>
                      <li>Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were
@@ -46,13 +46,6 @@
                      </li>
                      <li>Allow an author element to have a contentType attribute (so can easily leave it out when submitting a work anonymously).</li>
                      <li>Add info about editing referenced style sheet in publisher style sheet documentation.</li>
-                  </ul>
-               </li>
-               <li>2.27.10 12 October 2015
-                  <ul>
-                     <li>Fix bug introduced in version 2.27.9: in the UI, the glossaryTermRef element no longer defaulted to the glossary term; it
-                        showed an empty hash box.
-                     </li>
                      <li>Fix some typos in generated messages in UI.</li>
                      <li>Update link to vowel chart download site in the "Journal of the International Phonetic Association Illustration article, submission
                         format" template.
@@ -64,17 +57,6 @@
                         annotation. Note that the command does expect one to have an annotatedBibliographyType element whose ID attribute is 'atAbstract'.
                      </li>
                      <li>Add SILEWP document template and update SILEWP publisher style sheet.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Add a XeLaTeXSpecial attribute to the chapter element so one can force a page break when chapters do not necessarily begin
-                              a new page.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.27.9 1 October 2015
-                  <ul>
                      <li>In the UI, change behavior of the black drop-down button on reference elements so that it invokes the SetReference command
                         instead of showing all elements with IDs.
                      </li>
@@ -82,31 +64,6 @@
                      <li>Fix bug: multiple preface elements with multiple prefaceLayout elements in a style sheet did not line up according to the
                         documentation. Same for multiple glossary elements with multiple glossaryLayout elements.
                      </li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy. The value entered
-                              will be subtracted from the normal indent of second and following lines in a long free translation. This is only for the 'automatically
-                              wrap interlinears' case.
-                           </li>
-                        </ul>
-                     </li>
-                     <li>(Remove some files in the set of configuration files we are no longer using.)</li>
-                  </ul>
-               </li>
-               <li>2.27.8 17 September 2015
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: the indentOfNonInitialGroup attribute of the interlinearMultipleLineGroupLayout element in a publisher style sheet
-                              did not work correctly for interlinear examples when the automaticallywrapinterlinears attribute of the lingPaper element
-                              was set to 'yes'.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.27.7 15 September 2015
-                  <ul>
                      <li>Fix bug: The convert gloss to abbreviation command failed to work in an embedded object and also if the gloss began with 1,
                         2, or 3 and the rest of the gloss was uppercase, but the abbreviation(s) for the rest of the gloss were lowercase in the abbreviation
                         element, it failed to convert it to an abbrRef.
@@ -119,39 +76,15 @@
                      <li>Add useperiodafternumber attribute to sectionTitleLayout element in publisher style sheet to control period after section
                         numbers when there is no overt numberLayout element.
                      </li>
-                  </ul>
-               </li>
-               <li>2.27.6 3 September 2015
-                  <ul>
                      <li>Add a special command to produce a web page of the master list of abbreviations.</li>
-                     <li>Fix some typos in user documentation.</li>
-                  </ul>
-               </li>
-               <li>2.27.5 21 August 2015
-                  <ul>
                      <li>In the publisher style sheet, add textafterReferenceNumber and textbeforeReferenceNumber attributes to the interlinearTextLayout
                         element.
                      </li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>In the style sheet, add an indentOfInitialGroup attribute on the interlinearTextLayout element. This controls how much to
-                              indent the first line of an interlinear text when using the automatic wrapping of interlinear text option.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.27.4 15 August 2015
-                  <ul>
                      <li>Add ignoreabbreviationsfontfamily attribute on abbreviation element to user documentation.</li>
                      <li>Add ability to create a list of ISO 639-3 codes used in a document with links from the code to the list; include a language
                         name.
                      </li>
                      <li>Add ability to include an interlinearSource element in a single or listSingle example.</li>
-                  </ul>
-               </li>
-               <li>2.27.3 10 August 2015
-                  <ul>
                      <li>Add glossary term capability so one can have a master list of glossary terms and then refer to them in the document. The output
                         will show only those used in the document in a table in either a preface or a glossary element.
                      </li>
@@ -163,19 +96,27 @@
                      <li>Add note to documentation about problems with duplicate fonts on Windows 7 causing XXE and default PDF to not show the font
                         correctly.
                      </li>
+                     <li>Add a missing collection pattern to the SIL-UNDThesisReferencesStylesheet.xml file.</li>
+                     <li>Fix IJAL publisher style sheets to show section numbers correctly.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Add a XeLaTeXSpecial attribute to the chapter element so one can force a page break when chapters do not necessarily begin
+                              a new page.
+                           </li>
+                           <li>Add new attribute to the freeLayout element in a publisher style sheet: adjustIndentOfNonInitialLineBy. The value entered
+                              will be subtracted from the normal indent of second and following lines in a long free translation. This is only for the 'automatically
+                              wrap interlinears' case.
+                           </li>
+                           <li>Fix bug: the indentOfNonInitialGroup attribute of the interlinearMultipleLineGroupLayout element in a publisher style sheet
+                              did not work correctly for interlinear examples when the automaticallywrapinterlinears attribute of the lingPaper element
+                              was set to 'yes'.
+                           </li>
+                           <li>In the style sheet, add an indentOfInitialGroup attribute on the interlinearTextLayout element. This controls how much to
+                              indent the first line of an interlinear text when using the automatic wrapping of interlinear text option.
+                           </li>
                            <li>Add ability to insert continuous line numbering in the PDF output. See section 2.10 'Add line numbers to output' in the publisher
                               style sheet documentation.
                            </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.27.2 8 July 2015
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
                            <li>Fix bug: when a publisher style sheet was set to use double spacing and endnotes and examples are set to be singlespaced,
                               an example in an endnote could come out in the wrong font size.
                            </li>
@@ -183,16 +124,6 @@
                               came out single-spaced anyway.
                            </li>
                            <li>Fix bug: table captions with style sheets were not always coming out in the correct position.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.27.1 24 June 2015
-                  <ul>
-                     <li>Add a missing collection pattern to the SIL-UNDThesisReferencesStylesheet.xml file.</li>
-                     <li>Fix IJAL publisher style sheets to show section numbers correctly.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
                            <li>Fix bug: an empty free element would cause the PDF to fail to be produced.</li>
                            <li>Fix bug: in an endnote embedded in an interlinear-text, the use of a gloss element whose language element had a font-family
                               could cause the rest of the endnote to be formatted using that gloss' font-family.
@@ -204,6 +135,7 @@
                            <li>Fix bug: A non-initial paragraph in an endnote did not indent.</li>
                         </ul>
                      </li>
+                     <li>(Remove some files in the set of configuration files we are no longer using.)</li>
                   </ul>
                </li>
                <li>2.27.0 8 June 2015

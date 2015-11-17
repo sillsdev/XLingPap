@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.27.0-xxe-4.8.0.zip"
+location="XLingPap-2.28.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -32,9 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.28.1 17 November 2015<ul
+><li
+>Add height and width attributes to the img element to control size of graphic in XXE.</li
+></ul
+></li
+><li
 >2.28.0 9 November 2015<ul
 ><li
->Improve documentation on showLevel atrribute of contents element.</li
+>Improve documentation on showLevel attribute of contents element.</li
 ><li
 >Fix bug: if an annotation in a refWork element contained a citation element, that citation element was treated as if it were in the document proper.</li
 ><li

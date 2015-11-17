@@ -2025,20 +2025,18 @@ figure chart img {
     display: block;
     content: image-viewport(attribute, src,
                             horizontal-align, xpath("../../@align"),
-			    data-type, anyURI
-			    /*,
-	                    content-width, attr(width),
-                            content-height, attr(height)*/ 
+			    data-type, anyURI,
+			    content-width, xpath("@width"),
+			    content-height, xpath("@height")
   		      );
 }
 
 img {
     display: inline;
     content: image-viewport(attribute, src,
-			    data-type, anyURI
-			    /*,
-	                    content-width, attr(width),
-                            content-height, attr(height)*/ 
+			    data-type, anyURI,
+			    content-width, xpath("@width"),
+			    content-height, xpath("@height")
   		      );
 }
 

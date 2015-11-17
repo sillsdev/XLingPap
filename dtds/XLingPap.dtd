@@ -788,6 +788,8 @@
 <!ATTLIST img
     src CDATA #REQUIRED
     description CDATA #IMPLIED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
     %special;
 >
 <!ELEMENT mediaObject EMPTY >

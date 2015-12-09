@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.28.0</a:version
+>2.28.2</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-11-09</a:date
+>2015-12-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.28.2 9 December 2015<ul
+><li
+>Allow content control for appendixRef, exampleRef, figureRef, genericRef, sectionRef, and tablenumberedRef elements.</li
+><li
+>Make PDF output work on Mac OS "El Capitan".</li
+><li
+>Fix a typo in English error message.</li
+></ul
+></li
 ><li
 >2.28.1 17 November 2015<ul
 ><li

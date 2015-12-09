@@ -31,6 +31,9 @@
    <xsl:template match="appendix">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="appendixRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="author">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
@@ -73,10 +76,19 @@
    <xsl:template match="example">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="exampleRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="figure">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="figureRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="framedUnit">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="genericRef">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="glossary">
@@ -130,6 +142,9 @@
    <xsl:template match="section6">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="sectionRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="selectedBibliography">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
@@ -137,6 +152,9 @@
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="tablenumbered">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="tablenumberedRef">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="tree">

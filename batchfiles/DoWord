@@ -6,6 +6,9 @@ else
   FOTO=foToWML
   EXTENSION=doc
 fi
+if [ `uname` = "Darwin" ]; then
+    PATH=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Commands:$PATH
+fi
 /usr/local/bin/xslutil/bin/xslutil $FOTO "$1.fo" "$1.$EXTENSION"
 exit 0
 

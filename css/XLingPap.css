@@ -1292,6 +1292,34 @@ contents
 	color:Silver;
 }
 
+appendixRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+appendixRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+exampleRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+figureRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+genericRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+sectionRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
+tablenumberedRef[contentType] 
+{
+	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','inline',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','inline')"));
+}
 [contentType] 
 {
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','block',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','block')"));

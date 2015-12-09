@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->17 November 2015</date
+>9 December 2015</date
 ><version
->2.28.1</version
+>2.28.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -13397,13 +13397,13 @@ term="iImageWidth"
 >Sometimes the graphic appears very large within the <object
 type="tXMLmindXMLEditor"
 ></object
->.  You can make it appear smaller by setting either the <object
+>. You can make it appear smaller by setting either the <object
 type="tAttribute"
 >height</object
 > or the <object
 type="tAttribute"
 >width</object
-> attribute (or both) to a number.  This value indicates the number of pixels to use for showing the graphic image.  Some possible values are on the order of <object
+> attribute (or both) to a number. This value indicates the number of pixels to use for showing the graphic image. Some possible values are on the order of <object
 type="tAttrValue"
 >300</object
 > or <object
@@ -13412,10 +13412,10 @@ type="tAttrValue"
 >, depending on your screen resolution and the size of the <object
 type="tXMLmindXMLEditor"
 ></object
-> window on your computer.  Please note that these values are just for showing the image within the <object
+> window on your computer. Please note that these values are just for showing the image within the <object
 type="tXMLmindXMLEditor"
 ></object
->.  They are not used when creating any of the <object
+>. They are not used when creating any of the <object
 type="tXLingPap"
 ></object
 > output formats.</p
@@ -25966,6 +25966,88 @@ sec="sFAQValidity"
 > for more on the Validity tool.</p
 ></endnote
 ></p
+><p
+>One way to avoid this problem is to set the <object
+type="tAttribute"
+>contentType</object
+> attribute of an <object
+type="tElement"
+>exampleRef</object
+> element to a content type so that it will only appear when that content type is used.  You could have two or more <object
+type="tElement"
+>exampleRef</object
+> elements one immediately after the other with each one referring to a the example that will appear with a given content type and each one having its <object
+type="tAttribute"
+>contentType</object
+> attribute set to the same content type as its referring example.  One can do this for any of the reference elements shown in example <exampleRef
+letter="xContentTypeRefElements"
+num="xContentTypeRefElements"
+></exampleRef
+>.</p
+><example
+num="xContentTypeRefElements"
+><table
+><tr
+><td
+><object
+type="tElement"
+>appendixRef</object
+></td
+><td
+><object
+type="tElement"
+>genericRef</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>exampleRef</object
+></td
+><td
+><object
+type="tElement"
+>sectionRef</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>figureRef</object
+></td
+><td
+><object
+type="tElement"
+>tablenumberedRef</object
+></td
+></tr
+></table
+></example
+><p
+>To set the <object
+type="tAttribute"
+>contentType</object
+> attribute of one of these elements, do this:</p
+><ol
+><li
+>Open up the Attributes Tool.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></li
+><li
+>Click on “contentType”.</li
+><li
+>Click on the Edit button in the Attributes Tool (it looks like this: <img
+src="resources/AttributesToolEditButton.png"
+></img
+>).</li
+><li
+>Click on “Edit...”.</li
+><li
+>Type in the content type ID.</li
+></ol
 ><p
 >When we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude the introductory material, then it would look like this:</p
 ><example

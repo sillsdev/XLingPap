@@ -301,11 +301,13 @@
     sec IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
     showTitle (short | full | numberOnly) "numberOnly"
+    contentType IDREF #IMPLIED
 >
 <!ELEMENT appendixRef EMPTY>
 <!ATTLIST appendixRef
     app IDREF #REQUIRED
     showTitle (short | full | numberOnly) "numberOnly"
+    contentType IDREF #IMPLIED
 >
 <!-- paragraph -->
 <!ELEMENT p (#PCDATA | %embedded; | definition| abbreviationsShownHere | iso639-3codesShownHere)*>
@@ -748,12 +750,14 @@
     figure IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
     showCaption (short | full | numberOnly) "numberOnly"
+    contentType IDREF #IMPLIED
 >
 <!ELEMENT tablenumberedRef EMPTY>
 <!ATTLIST tablenumberedRef
     table IDREF #REQUIRED
     textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
     showCaption (short | full | numberOnly) "numberOnly"
+    contentType IDREF #IMPLIED
 >
 <!-- a listOfFiguresShownHere or a listOfTablesShownHere can be placed in a preface or a glossary.
     The figures or tables will be given as a kind of table of contents, including (short)caption and page number
@@ -834,6 +838,7 @@
     punct CDATA #IMPLIED
     paren (none | both | initial | final) #IMPLIED
     letterOnly (no | yes) "no"
+    contentType IDREF #IMPLIED
 >
 <!-- generic references (to sections, examples, endnotes, etc.) 
         gref is the link
@@ -848,6 +853,7 @@
     gref IDREF #REQUIRED
     showlivalue (no | before | after | only) "no"
     xml:lang CDATA #IMPLIED
+    contentType IDREF #IMPLIED
 >
 <!-- generic target: an ID that can be embedded almost anywhere and then linked to via a genericRef -->
 <!ELEMENT genericTarget EMPTY>

@@ -1,7 +1,7 @@
 #!/bin/sh
 # following looks for XeLaTeX in the path and encloses the result in vertical bars
 # without the vertical bars, we get a syntax error in the if statement if XeLaTeX is not in the path
-PATH=$PATH:/usr/texbinxlingpaper
+PATH=$PATH:/usr/texbinxlingpaper:/usr/local/xlingpapertexbin
 if [ "$(which xelatex)" != "" ]; then
 	echo XLingPaper-Yes-XLingPaper
 else

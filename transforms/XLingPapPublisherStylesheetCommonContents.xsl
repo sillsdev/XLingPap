@@ -79,7 +79,9 @@
                     <xsl:call-template name="DoSpaceBeforeContentsLine"/>
                 </xsl:with-param>
             </xsl:call-template>
-            <xsl:apply-templates select="section1 | section2" mode="contents"/>
+            <xsl:if test="$frontMatterLayout/contentsLayout/@showsectionsinappendices!='no'">
+                <xsl:apply-templates select="section1 | section2" mode="contents"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <xsl:template match="appendix[ancestor::chapterInCollection]" mode="contents">

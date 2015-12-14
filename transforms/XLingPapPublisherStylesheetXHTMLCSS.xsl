@@ -1609,6 +1609,7 @@ li.lower-roman {
     <xsl:template match="@showmarking"/>
     <xsl:template match="@showNumber"/>
     <xsl:template match="@showpagenumber"/>
+    <xsl:template match="@showsectionsinappendices"/>
     <xsl:template match="@singlespaceeachcontentline"/>
     <xsl:template match="@spacebeforemainsection"/>
     <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>

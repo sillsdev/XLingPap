@@ -431,6 +431,7 @@ Front MatterLayout
      betweentitleandnumber (rule | space | dots) "dots"
      indentchapterline (yes | no) 'no'
      showappendices (yes | no) 'yes'
+     showsectionsinappendices (yes | no) 'yes'
      showbookmarks (yes | no) 'yes'
      showpagenumber (yes | no) 'yes'
      usechapterlabelbeforechapters (yes | no) 'no'

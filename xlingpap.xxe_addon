@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.28.2</a:version
+>2.28.3</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-12-09</a:date
+>2015-12-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,20 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.28.3 14 December 2015<ul
+><li
+>Allow publisher style sheet to control whether or not sections within appendices should be included in contents.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Make the options in the betweentitleandnumber attribute of the contentsLayout element work.</li
+><li
+>Note that cellpadding and cellspacing attributes do not work for tables using the default PDF output.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.28.2 9 December 2015<ul
 ><li

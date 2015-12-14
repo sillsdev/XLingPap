@@ -12435,25 +12435,46 @@ What might go in a TeX package file
             <tex:parm>
                 <tex:cmd name="XLingPaperdotfill" gr="0" nl2="0"/>
             </tex:parm>
-            <tex:parm>
-                <tex:cmd name="leaders" gr="0" nl2="0"/>
-                <tex:cmd name="hbox">
+            <xsl:choose>
+                <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@betweentitleandnumber='space'">
                     <tex:parm>
-                        <tex:spec cat="mshift"/>
-                        <tex:cmd name="mathsurround" gr="0" nl2="0"/>
-                        <xsl:text> 0pt</xsl:text>
-                        <tex:cmd name="mkern" gr="0" nl2="0"/>
-                        <xsl:text> 4.5 mu</xsl:text>
-                        <tex:cmd name="hbox">
-                            <tex:parm>.</tex:parm>
-                        </tex:cmd>
-                        <tex:cmd name="mkern" gr="0" nl2="0"/>
-                        <xsl:text> 4.5 mu</xsl:text>
-                        <tex:spec cat="mshift"/>
+                        <tex:cmd name="hfill" gr="0" nl2="0"/>
                     </tex:parm>
-                </tex:cmd>
-                <tex:cmd name="hfill" gr="0" nl2="0"/>
-            </tex:parm>
+                </xsl:when>
+                <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@betweentitleandnumber='rule'">
+                    <tex:parm>
+                        <xsl:text> </xsl:text>
+                        <tex:cmd name="leaders" gr="0" nl2="0"/>
+                        <tex:cmd name="hbox">
+                            <tex:parm>
+                                <xsl:text>_</xsl:text>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="hfill" gr="0" nl2="0"/>
+                    </tex:parm>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:parm>
+                        <tex:cmd name="leaders" gr="0" nl2="0"/>
+                        <tex:cmd name="hbox">
+                            <tex:parm>
+                                <tex:spec cat="mshift"/>
+                                <tex:cmd name="mathsurround" gr="0" nl2="0"/>
+                                <xsl:text> 0pt</xsl:text>
+                                <tex:cmd name="mkern" gr="0" nl2="0"/>
+                                <xsl:text> 4.5 mu</xsl:text>
+                                <tex:cmd name="hbox">
+                                    <tex:parm>.</tex:parm>
+                                </tex:cmd>
+                                <tex:cmd name="mkern" gr="0" nl2="0"/>
+                                <xsl:text> 4.5 mu</xsl:text>
+                                <tex:spec cat="mshift"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:cmd name="hfill" gr="0" nl2="0"/>
+                    </tex:parm>
+                </xsl:otherwise>
+            </xsl:choose>
         </tex:cmd>
     </xsl:template>
     <!--  

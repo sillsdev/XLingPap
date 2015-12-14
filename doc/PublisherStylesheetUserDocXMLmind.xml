@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->9 November 2015</date
+>11 December 2015</date
 ><version
->2.28.0</version
+>2.28.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -2032,6 +2032,27 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 ></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>showsectionsinappendices</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to show section titles which are in <object
+type="tElement"
+>appendix</object
+> elements in the table of contents. The default is <object
+type="tAttrValue"
+>yes</object
+>.</td
 ></tr
 ><tr
 ><td

@@ -7,7 +7,7 @@
 ><comment
 >As of October 2015, SILEWP has frontmatter material paged using lowercase roman numerals and the body using arabic numerals. The body must also start over at page 1. This is like a book, even though these are called papers. This style sheet attempts to match that. In addition, the very first chapter in the document must have a XeLaTeXSpecial attribute set to pagebreak in order to get the body to start on a new page.</comment
 ><publisherStyleSheetVersion
->0.4.5</publisherStyleSheetVersion
+>0.5.0</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -284,8 +284,11 @@ textalign="left"
 useemptyheaderfooter="yes"
 ></abstractLayout
 ><contentsLayout
+betweentitleandnumber="space"
 font-weight="bold"
 pagebreakbefore="yes"
+showpagenumber="no"
+showsectionsinappendices="no"
 spaceafter=".25in"
 spacebefore=".0625in"
 textalign="left"
@@ -294,16 +297,18 @@ useemptyheaderfooter="no"
 ><acknowledgementsLayout
 font-size="14pt"
 font-weight="bold"
-spaceafter="12pt"
-spacebefore="24pt"
-textalign="center"
+pagebreakbefore="yes"
+spaceafter=".25in"
+spacebefore=".0625in"
+textalign="left"
 ></acknowledgementsLayout
 ><prefaceLayout
 font-size="14pt"
 font-weight="bold"
-spaceafter="12pt"
-spacebefore="24pt"
-textalign="center"
+pagebreakbefore="yes"
+spaceafter=".25in"
+spacebefore=".0625in"
+textalign="left"
 ></prefaceLayout
 ></frontMatterLayout
 ><bodyLayout
@@ -412,6 +417,7 @@ font-size="10pt"
 ></headerFooterOddEvenPages
 ></headerFooterPageStyles
 ><chapterLayout
+firstParagraphHasIndent="no"
 resetEndnoteNumbering="no"
 ><chapterTitleLayout
 font-size="14pt"
@@ -423,6 +429,7 @@ textalign="center"
 ></chapterTitleLayout
 ></chapterLayout
 ><section1Layout
+firstParagraphHasIndent="no"
 ><sectionTitleLayout
 font-size="12pt"
 font-weight="bold"
@@ -484,9 +491,11 @@ spacebefore="24pt"
 textalign="center"
 ></acknowledgementsLayout
 ><appendixLayout
+firstParagraphHasIndent="no"
 ><appendixTitleLayout
 font-size="14pt"
 font-weight="bold"
+showletter="no"
 spaceafter="12pt"
 spacebefore="24pt"
 textafterletter=". "
@@ -587,6 +596,11 @@ textbeforeafterusesfontinfo="no"
 adjustIndentOfNonInitialLineBy="1em"
 textbeforeafterusesfontinfo="no"
 ></freeLayout
+><abbreviationsInTableLayout
+doubleColumnSeparation=".5in"
+useDoubleColumns="yes"
+useEqualSignsColumn="no"
+></abbreviationsInTableLayout
 ></contentLayout
 ></publisherStyleSheet
 >

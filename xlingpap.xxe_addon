@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2015-12-15</a:date
+>2015-12-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.28.4 15 December 2015<ul
+>2.28.4 23 December 2015<ul
 ><li
 >Update SILEWPPaperAsBookStylesheet file.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: if the stylesheet font size was less than 10 or more than 12, then the number in numbered lists would be too wide or too narrow, respectively.</li
+></ul
+></li
 ></ul
 ></li
 ><li

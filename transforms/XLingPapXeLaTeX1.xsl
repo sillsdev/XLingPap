@@ -4,7 +4,6 @@
     <!-- ===========================================================
       Parameters
       =========================================================== -->
-    <xsl:param name="sBasicPointSize" select="'10'"/>
     <xsl:param name="sSection1PointSize" select="'12'"/>
     <xsl:param name="sSection2PointSize" select="'10'"/>
     <xsl:param name="sSection3PointSize" select="'10'"/>

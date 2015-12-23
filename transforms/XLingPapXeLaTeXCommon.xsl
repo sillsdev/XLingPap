@@ -12,6 +12,16 @@
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
+    <xsl:variable name="sBasicPointSize">
+        <xsl:choose>
+            <xsl:when test="string-length($pageLayoutInfo/basicPointSize)&gt;0">
+                <xsl:value-of  select="string($pageLayoutInfo/basicPointSize)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>10</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
     <xsl:variable name="sIDcharsToMap" select="'_'"/>
@@ -7937,6 +7947,17 @@
         </xsl:if>
     </xsl:template>
     <!--
+        InsertFontSizeIfNeeded
+    -->
+    <xsl:template name="InsertFontSizeIfNeeded">
+        <xsl:if test="number($sBasicPointSize)&gt;12 or number($sBasicPointSize)&lt;10">
+            <xsl:call-template name="HandleFontSize">
+                <xsl:with-param name="sSize" select="concat($sBasicPointSize,'pt')"/>
+            </xsl:call-template>
+            <xsl:text>&#x20;</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OKToBreakHere
     -->
     <xsl:template name="OKToBreakHere">
@@ -10504,6 +10525,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPapersingledigitlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>8.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10518,6 +10540,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperdoubledigitlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>88.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10532,6 +10555,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPapertripledigitlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>888.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10546,6 +10570,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPapersingleletterlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>m.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10560,6 +10585,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperdoubleletterlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>mm.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10574,6 +10600,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPapertripleletterlistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>mmm.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10588,6 +10615,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperromanviilistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>vii.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10602,6 +10630,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperromanviiilistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>viii.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10616,6 +10645,7 @@
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperromanxviiilistitemwidth'"/>
             <xsl:with-param name="sValue">
+                <xsl:call-template name="InsertFontSizeIfNeeded"/>
                 <xsl:text>xviii.</xsl:text>
                 <tex:spec cat="esc"/>
                 <xsl:text>&#x20;</xsl:text>
@@ -10682,6 +10712,7 @@
             </tex:cmd>
         </xsl:if>
     </xsl:template>
+
     <!--  
         SetMetadata
     -->

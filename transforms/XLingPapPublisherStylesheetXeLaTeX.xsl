@@ -24,7 +24,6 @@
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
-    <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize)"/>
     <xsl:variable name="sLaTeXBasicPointSize">
         <xsl:choose>
             <xsl:when test="$sBasicPointSize='10'">10</xsl:when>

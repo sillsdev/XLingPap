@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->11 December 2015</date
+>2 January 2016</date
 ><version
->2.28.3</version
+>2.28.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -1128,6 +1128,36 @@ border="1"
 >Description</th
 ><th
 >Attributes</th
+></tr
+><tr
+><td
+><indexedItem
+term="iChapterInCollectionAuthor"
+></indexedItem
+><object
+type="tElement"
+>chapterInCollectionAuthor</object
+></td
+><td
+>When using <object
+type="tElement"
+>chapterInCollection</object
+> elements, if the frontmatter of the <object
+type="tElement"
+>chapterInCollection</object
+> element has a <object
+type="tElement"
+>shortauthor</object
+> element, use it; otherwise use what's in the <object
+type="tElement"
+>author</object
+> element(s).</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
 ></tr
 ><tr
 ><td
@@ -3000,6 +3030,29 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+><p
+><indexedItem
+term="iStartNumberAtZero"
+></indexedItem
+>In addition the <object
+type="tElement"
+>section1Layout</object
+> element has an attribute <object
+type="tAttribute"
+>startSection1NumberingAtZero</object
+> which can be set to either <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.  The default value is <object
+type="tAttrValue"
+>no</object
+>.  If it is set to <object
+type="tAttrValue"
+>yes</object
+>, then the first section level one element will have a number of 0 (zero), the second will have a number of 1, etc.</p
 ><p
 >The attributes for the embedded <object
 type="tElement"
@@ -14597,6 +14650,11 @@ id="iiChapterInCollectionFrontMatterLayout"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iChapterInCollectionAuthor"
+><term
+>Chapter in collection author</term
+></indexTerm
+><indexTerm
 id="iCitationOverrides"
 ><term
 >Citation special formatting</term
@@ -15749,6 +15807,13 @@ see="iProcVolumeNumber"
 id="iSection1Layout"
 ><term
 >Section level 1 layout</term
+><indexTerms
+><indexTerm
+id="iStartNumberAtZero"
+><term
+>Start section level 1 numbering at 0 (zero)</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSection2Layout"
@@ -16114,6 +16179,12 @@ id="iXeLaTeXSpecialAttribute"
 id="iXSLFOSpecialAttribute"
 ><term
 >Xsl‑foSpecial attribute</term
+></indexTerm
+><indexTerm
+id="iZeroForFirstSection1"
+see="iStartNumberAtZero"
+><term
+>Zero for first section level 1</term
 ></indexTerm
 ></indexTerms
 ></lingPaper

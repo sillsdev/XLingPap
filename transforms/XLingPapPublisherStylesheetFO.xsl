@@ -884,6 +884,18 @@
                         </xsl:call-template>
                     </fo:marker>
                 </xsl:if>
+                <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/descendant::chapterInCollectionAuthor">
+                    <fo:marker marker-class-name="chap-in-collection-author">
+                        <xsl:choose>
+                            <xsl:when test="string-length(normalize-space(frontMatter/shortAuthor)) &gt; 0">
+                                <xsl:apply-templates select="frontMatter/shortAuthor"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="frontMatter/author" mode="contentOnly"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </fo:marker>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$bodyLayoutInfo/chapterLayout/numberLayout or $bodyLayoutInfo/chapterInCollectionLayout/numberLayout">
                         <fo:block id="{@id}" span="all">
@@ -4726,6 +4738,13 @@ not using
                             <xsl:with-param name="layoutInfo" select="."/>
                         </xsl:call-template>
                         <xsl:choose>
+                            <xsl:when test="name()='chapterInCollectionAuthor'">
+                                <fo:retrieve-marker>
+                                    <xsl:attribute name="retrieve-class-name">
+                                        <xsl:text>chap-in-collection-author</xsl:text>
+                                    </xsl:attribute>
+                                </fo:retrieve-marker>
+                            </xsl:when>
                             <xsl:when test="name()='chapterTitle' or name()='chapterNumber' and not(following-sibling::chapterTitle) and not(preceding-sibling::chapterTitle)">
                                 <fo:retrieve-marker>
                                     <xsl:attribute name="retrieve-class-name">
@@ -5796,6 +5815,12 @@ not using
         <xsl:choose>
             <xsl:when test="string-length($shortTitle) &gt; 0">
                 <xsl:apply-templates select="$shortTitle" mode="InMarker"/>
+            </xsl:when>
+            <xsl:when test="string-length(frontMatter/shortTitle) &gt; 0">
+                <xsl:apply-templates select="frontMatter/shortTitle" mode="InMarker"/>
+            </xsl:when>
+            <xsl:when test="string-length(frontMatter/title) &gt; 0">
+                <xsl:apply-templates select="frontMatter/title" mode="InMarker"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle" mode="InMarker"/>

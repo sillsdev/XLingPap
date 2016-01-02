@@ -15,10 +15,13 @@
     <xsl:variable name="sBasicPointSize">
         <xsl:choose>
             <xsl:when test="string-length($pageLayoutInfo/basicPointSize)&gt;0">
-                <xsl:value-of  select="string($pageLayoutInfo/basicPointSize)"/>
+                <xsl:value-of select="string($pageLayoutInfo/basicPointSize)"/>
+            </xsl:when>
+            <xsl:when test="$bHasChapter='Y'">
+                <xsl:text>10</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>10</xsl:text>
+                <xsl:text>12</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -1242,24 +1245,34 @@
                                 </tex:parm>
                             </tex:cmd>
                         </xsl:if>
+                        <xsl:if test="$bAutomaticallyWrapInterlinears!='yes'">
+                            <tex:cmd name="XLingPaperneedspace" nl2="1">
+                                <tex:parm>
+                                    <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->
+                                    <xsl:value-of select="count(lineGroup[1]/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
+                                    <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>
+                        <!--                    now using \nobreak command to keep the title/number with what follows.  (2015.12.30)    
                         <tex:cmd name="XLingPaperneedspace" nl2="1">
                             <tex:parm>
-                                <!-- try to guess the number of lines in the first bundle and then add 1 for the title-->
+                                <!-\- try to guess the number of lines in the first bundle and then add 1 for the title-\->
                                 <xsl:variable name="iFirstSetOfLines">
                                     <xsl:choose>
                                         <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
-                                            <xsl:value-of select="count(exampleHeading) + count(lineGroup[1]/line) + 1"/>
+                                            <xsl:value-of select="count(exampleHeading) + count(lineGroup[1]/line)  + count(free) + count(literal) + 1"/>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:value-of select="count(lineGroup[1]/line) + count(free) + count(literal) + count(exampleHeading) + 1"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:variable>
-                                <!--                     <xsl:text>3</xsl:text>-->
+                                <!-\-                     <xsl:text>3</xsl:text>-\->
                                 <xsl:value-of select="$iFirstSetOfLines"/>
                                 <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                             </tex:parm>
-                        </tex:cmd>
+                        </tex:cmd>-->
                     </xsl:otherwise>
                 </xsl:choose>
                 <tex:cmd name="noindent" gr="0"/>
@@ -1280,7 +1293,15 @@
                 <xsl:call-template name="DoInternalTargetEnd"/>
                 <tex:spec cat="eg"/>
                 <tex:spec cat="eg"/>
-                <tex:cmd name="par" gr="0" nl2="1"/>
+                <xsl:choose>
+                    <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
+                        <tex:cmd name="par" gr="0"/>
+                        <tex:cmd name="nobreak" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="par" gr="0" nl2="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!--                <tex:cmd name="leftskip" gr="0" nl2="0"/>-->
                 <!--                <tex:spec cat="esc"/>-->
                 <!--                <tex:spec cat="esc"/>-->
@@ -2783,6 +2804,9 @@
     -->
     <xsl:template match="interlinear-text">
         <tex:spec cat="bg"/>
+        <xsl:call-template name="SetClubWidowPenalties">
+            <xsl:with-param name="iPenalty" select="'10'"/>
+        </xsl:call-template>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
@@ -2796,10 +2820,14 @@
         </xsl:if>
         <xsl:call-template name="SetFootnoteCounterIfNeeded"/>
         <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:apply-templates/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
         </xsl:if>
+        <xsl:call-template name="SetClubWidowPenalties"/>
         <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
@@ -4642,6 +4670,9 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="sCurrentLanguage" select="@lang"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak') and $bAutomaticallyWrapInterlinears='yes'">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="name()='literal'">
                 <xsl:if
@@ -10966,6 +10997,19 @@
             <tex:parm>EU1</tex:parm>
             <tex:parm>93</tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetClubWidowPenalties
+    -->
+    <xsl:template name="SetClubWidowPenalties">
+        <xsl:param name="iPenalty" select="'10000'"/>
+        <tex:cmd name="clubpenalty" gr="0" nl1="1"/>
+        <xsl:text>=</xsl:text>
+        <xsl:value-of select="$iPenalty"/>
+        <xsl:text>&#xa;</xsl:text>
+        <tex:cmd name="widowpenalty" gr="0"/>
+        <xsl:text>=</xsl:text>
+        <xsl:value-of select="$iPenalty"/>
     </xsl:template>
     <!--  
         SetStartingPageNumber

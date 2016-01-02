@@ -246,7 +246,8 @@ Page Layout
       ruleabovewidth CDATA #IMPLIED
     >
     <!-- what can go in a header or a footer -->
-<!ENTITY % headerFooterItem "chapterNumber | chapterTitle | nothing | pageNumber | paperAuthor | paperTitle | paperPublishingBlurb | sectionNumber | sectionTitle | volumeAuthorRef | volumeTitleRef | img | fixedText" >
+<!ENTITY % headerFooterItem "chapterNumber | chapterTitle | chapterInCollectionAuthor | nothing | pageNumber | paperAuthor | paperTitle | paperPublishingBlurb | sectionNumber | sectionTitle | 
+    volumeAuthorRef | volumeTitleRef | img | fixedText" >
 <!ELEMENT leftHeaderFooterItem ( %headerFooterItem;)+>
 <!ELEMENT centerHeaderFooterItem ( %headerFooterItem;)+>
 <!ELEMENT rightHeaderFooterItem ( %headerFooterItem;)+>
@@ -302,6 +303,10 @@ Page Layout
    -->
 <!ELEMENT paperAuthor EMPTY >
 <!ATTLIST paperAuthor
+       %formatinfo;
+>
+<!ELEMENT chapterInCollectionAuthor EMPTY >
+<!ATTLIST chapterInCollectionAuthor
        %formatinfo;
 >
 <!--

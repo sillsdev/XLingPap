@@ -166,11 +166,7 @@
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="CreateClearEmptyDoublePageCommand"/>
             <xsl:call-template name="DefineBlockQuoteWithIndent"/>
-            <tex:cmd name="clubpenalty" gr="0" nl1="1"/>
-            <xsl:text>=10000
-</xsl:text>
-            <tex:cmd name="widowpenalty" gr="0"/>
-            <xsl:text>=10000</xsl:text>
+            <xsl:call-template name="SetClubWidowPenalties"/>
             <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
                 <tex:cmd name="def" gr="0"/>
                 <tex:cmd name="linenumberfont" gr="0">
@@ -1048,7 +1044,8 @@
         </xsl:if>
         <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
             <xsl:choose>
-                <xsl:when test="contains(name(),'chapter') and not($bodyLayoutInfo/chapterLayout/numberLayout) and $bodyLayoutInfo/chapterLayout/chapterTitleLayout/@pagebreakbefore!='yes' and name(preceding-sibling::*[1])!='frontMatter'">
+                <xsl:when
+                    test="contains(name(),'chapter') and not($bodyLayoutInfo/chapterLayout/numberLayout) and $bodyLayoutInfo/chapterLayout/chapterTitleLayout/@pagebreakbefore!='yes' and name(preceding-sibling::*[1])!='frontMatter'">
                     <!-- do nothing -->
                 </xsl:when>
                 <xsl:otherwise>
@@ -1076,6 +1073,39 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="name()='chapterInCollection'">
+            <xsl:variable name="originalContext" select="."/>
+            <xsl:for-each select="$bodyLayoutInfo/headerFooterPageStyles/headerFooterPage/* | $bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage/*">
+                <!-- uses the same layout for all pages -->
+                <xsl:for-each select="*">
+                    <!-- for each left, center, right item -->
+                    <xsl:if test="*/chapterInCollectionAuthor">
+                        <xsl:call-template name="DoHeaderFooterItem">
+                            <xsl:with-param name="item" select="."/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:for-each select="$bodyLayoutInfo/headerFooterPageStyles/*[name()='headerFooterOddEvenPages']/*">
+                <!-- uses odd/even page layout -->
+                <xsl:for-each select="*">
+                    <xsl:for-each select="*[descendant::chapterInCollectionAuthor]">
+                        <!-- for each left, center, right item -->
+                        <xsl:call-template name="DoHeaderFooterItem">
+                            <xsl:with-param name="item" select="."/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="sOddEven">
+                                <xsl:choose>
+                                    <xsl:when test="ancestor::headerFooterEvenPage">E</xsl:when>
+                                    <xsl:otherwise>O</xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
         <xsl:if test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
             <xsl:call-template name="SetStartingPageNumberInBook"/>
         </xsl:if>
@@ -1243,6 +1273,24 @@
                 <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
             </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        chapterInCollectionAuthor
+    -->
+    <xsl:template match="chapterInCollectionAuthor" mode="header-footer">
+        <xsl:param name="originalContext"/>
+        <xsl:if test="name($originalContext)='chapterInCollection'">
+            <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
+            <xsl:choose>
+                <xsl:when test="string-length(normalize-space($originalContext/frontMatter/shortAuthor)) &gt; 0">
+                    <xsl:apply-templates select="$originalContext/frontMatter/shortAuthor"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="$originalContext/frontMatter/author" mode="contentOnly"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
         </xsl:if>
     </xsl:template>
     <!--
@@ -1900,11 +1948,11 @@
     <xsl:template match="paperAuthor" mode="header-footer">
         <xsl:call-template name="DoHeaderFooterItemFontInfo"/>
         <xsl:choose>
-            <xsl:when test="string-length(normalize-space(//frontMatter/shortAuthor)) &gt; 0">
-                <xsl:apply-templates select="//frontMatter/shortAuthor"/>
+            <xsl:when test="string-length(normalize-space($lingPaper/frontMatter/shortAuthor)) &gt; 0">
+                <xsl:apply-templates select="$lingPaper/frontMatter/shortAuthor"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="//author" mode="contentOnly"/>
+                <xsl:apply-templates select="$lingPaper/frontMatter/author" mode="contentOnly"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoHeaderFooterItemFontInfoEnd"/>
@@ -4803,7 +4851,9 @@
             <tex:parm>
                 <!-- the content of this part of the header/footer -->
                 <tex:parm>
-                    <xsl:apply-templates select="*" mode="header-footer"/>
+                    <xsl:apply-templates select="*" mode="header-footer">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:apply-templates>
                 </tex:parm>
             </tex:parm>
         </tex:cmd>
@@ -5443,6 +5493,9 @@
         <xsl:choose>
             <xsl:when test="string-length($shortTitle) &gt; 0">
                 <xsl:apply-templates select="$shortTitle" mode="InMarker"/>
+            </xsl:when>
+            <xsl:when test="string-length(frontMatter/title) &gt; 0">
+                <xsl:apply-templates select="frontMatter/title" mode="InMarker"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle" mode="InMarker"/>

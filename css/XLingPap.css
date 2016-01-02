@@ -5112,6 +5112,14 @@ chapterTitle
 {
 	content:"";
 }
+chapterInCollectionAuthor:before
+{
+	content:"chapter in collection author";
+}
+chapterInCollectionAuthor
+{
+	display:inline;
+}
 chapterInCollectionBackMatterLayout:before
 {
 	property-group: collasper( " Chapter in Collection Back Matter Layout: " );

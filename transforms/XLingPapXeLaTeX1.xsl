@@ -106,12 +106,7 @@
             </tex:cmd>
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="DefineBlockQuoteWithIndent"/>
-            <tex:cmd name="clubpenalty" gr="0"/>
-            <xsl:text>=10000
-            </xsl:text>
-            <tex:cmd name="widowpenalty" gr="0"/>
-            <xsl:text>=10000
-            </xsl:text>
+            <xsl:call-template name="SetClubWidowPenalties"/>
             <tex:env name="document">
                 <!-- add some glue to baselineskip -->
                 <tex:cmd name="baselineskip" gr="0"/>

@@ -884,7 +884,16 @@
       -->
     <xsl:template match="part">
         <xsl:call-template name="DoPageBreakFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+            <xsl:with-param name="layoutInfo">
+                <xsl:choose>
+                    <xsl:when test="name($bodyLayoutInfo/partLayout/*[1])='partTitleLayout'">
+                        <xsl:copy-of select="$bodyLayoutInfo/partLayout/partTitleLayout"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="$bodyLayoutInfo/partLayout/numberLayout"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:if test="not(preceding-sibling::part) and not(//chapterBeforePart)">
             <xsl:if test="$bodyLayoutInfo/titleHeaderFooterPageStyles">
@@ -6929,7 +6938,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote)]"/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote or descendant-or-self::indexedItem)]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

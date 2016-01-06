@@ -4957,6 +4957,31 @@
             <xsl:when test="ancestor::part">
                 <xsl:apply-templates select="ancestor::part" mode="numberPart"/>
             </xsl:when>
+            <xsl:when test="ancestor::abbreviations">
+                <xsl:for-each select="ancestor::abbreviations">
+                    <xsl:call-template name="OutputAbbreviationsLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::abstract">
+                <xsl:for-each select="ancestor::abstract">
+                    <xsl:call-template name="OutputAbstractLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::acknowledgements">
+                <xsl:for-each select="ancestor::acknowledgements">
+                    <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::glosary">
+                <xsl:for-each select="ancestor::glossary">
+                    <xsl:call-template name="OutputGlossaryLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::preface">
+                <xsl:for-each select="ancestor::preface">
+                    <xsl:call-template name="OutputPrefaceLabel"/>
+                </xsl:for-each>
+            </xsl:when>
         </xsl:choose>
         <xsl:if test="ancestor::endnote">
             <xsl:text>n</xsl:text>

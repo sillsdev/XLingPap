@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.28.4</a:version
+>2.28.5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-01-02</a:date
+>2016-01-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,31 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.28.5 6 January 2016<ul
+><li
+>Add ability to not show a title in references if the refTitle element is empty.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: if the stylesheet body layout has a part and the part starts with a numberLayout, the page numbering could be wrong for the first part (and the last part of the frontMatter).</li
+><li
+>Fix bug: If a caption to a figure or table included an index item, then the index would list the item using the page number of the list of figures or list of tables instead of the page where the caption appeared.</li
+></ul
+></li
+><li
+>For the web page output:<ul
+><li
+>If a preface, glossary, etc. item contained an index item, then the index did not show anything for the link to it.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.28.4 2 January 2016<ul
 ><li
 >Update SILEWPPaperAsBookStylesheet file.</li
 ><li
->Fix bug: when using chapterInCollection elements, there was no way to get the chapter title in a header or footer.  Also added chapterInCollectionAuthor element so that one could get the author(s) of a chapter in a collection to show in a header or footer.</li
+>Fix bug: when using chapterInCollection elements, there was no way to get the chapter title in a header or footer. Also added chapterInCollectionAuthor element so that one could get the author(s) of a chapter in a collection to show in a header or footer.</li
 ><li
 >Added startSection1NumberingAtZero to the publisher style sheet documentation.</li
 ><li
@@ -44,7 +64,9 @@ href="mailto::andy_black@sil.org"
 ><li
 >Fix bug: if the stylesheet font size was less than 10 or more than 12, then the number in numbered lists would be too wide or too narrow, respectively.</li
 ><li
->Improve page-breaking of interlinear texts, especially when using automatic wrapping.  In particular, the title/line number should no longer appear alone at the bottom of a page and also, longer interlinears should be split across the page boundary instead of sometimes being kept together.</li
+>Improve page-breaking of interlinear texts, especially when using automatic wrapping. In particular, the title/line number should no longer appear alone at the bottom of a page and also, longer interlinears should be split across the page boundary instead of sometimes being kept together.</li
+><li
+>Allow a free element to have a XeLaTeXspecial attribute of 'pagebreak'.</li
 ></ul
 ></li
 ></ul

@@ -2804,9 +2804,11 @@
     -->
     <xsl:template match="interlinear-text">
         <tex:spec cat="bg"/>
-        <xsl:call-template name="SetClubWidowPenalties">
-            <xsl:with-param name="iPenalty" select="'10'"/>
-        </xsl:call-template>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:call-template name="SetClubWidowPenalties">
+                <xsl:with-param name="iPenalty" select="'10'"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
@@ -2827,7 +2829,9 @@
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
         </xsl:if>
-        <xsl:call-template name="SetClubWidowPenalties"/>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:call-template name="SetClubWidowPenalties"/>
+        </xsl:if>
         <tex:spec cat="eg"/>
     </xsl:template>
     <!--  

@@ -841,7 +841,7 @@
                 <tex:cmd name="pagenumbering">
                     <tex:parm>arabic</tex:parm>
                 </tex:cmd>
-                    <xsl:call-template name="SetStartingPageNumberInBook"/>                
+                <xsl:call-template name="SetStartingPageNumberInBook"/>
             </xsl:if>
             <tex:cmd name="thispagestyle">
                 <tex:parm>plain</tex:parm>
@@ -2312,7 +2312,10 @@
       refTitle
       -->
     <xsl:template match="refTitle">
-        <xsl:apply-templates/>
+        <xsl:variable name="sTitle" select="normalize-space(.)"/>
+        <xsl:if test="string-length($sTitle) &gt; 0">
+            <xsl:apply-templates/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
       ABBREVIATION
@@ -2683,12 +2686,15 @@
         <xsl:param name="book"/>
         <xsl:param name="pages"/>
         <xsl:for-each select="$book">
-            <tex:cmd name="textit">
-                <tex:parm>
-                    <xsl:apply-templates select="../refTitle"/>
-                </tex:parm>
-            </tex:cmd>
-            <xsl:text>.  </xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(../refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <tex:cmd name="textit">
+                    <tex:parm>
+                        <xsl:apply-templates select="../refTitle"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:text>.  </xsl:text>
+            </xsl:if>
             <xsl:if test="../../@showAuthorName='no'">
                 <xsl:for-each select="..">
                     <xsl:call-template name="DoDate">
@@ -3461,10 +3467,11 @@
             collection
         -->
         <xsl:if test="collection">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -3573,12 +3580,15 @@
             dissertation
         -->
         <xsl:if test="dissertation">
-            <tex:cmd name="textit">
-                <tex:parm>
-                    <xsl:apply-templates select="refTitle"/>
-                </tex:parm>
-            </tex:cmd>
-            <xsl:text>.  </xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <tex:cmd name="textit">
+                    <tex:parm>
+                        <xsl:apply-templates select="refTitle"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:text>.  </xsl:text>
+            </xsl:if>
             <xsl:call-template name="OutputLabel">
                 <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
                 <xsl:with-param name="pLabel">
@@ -3622,9 +3632,12 @@
             journal article
         -->
         <xsl:if test="article">
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <tex:cmd name="textit">
                 <tex:parm>
                     <xsl:value-of select="normalize-space(article/jTitle)"/>
@@ -3661,11 +3674,12 @@
             field notes
         -->
         <xsl:if test="fieldNotes">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -3686,11 +3700,12 @@
             ms (manuscript)
         -->
         <xsl:if test="ms">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -3718,10 +3733,11 @@
             paper
         -->
         <xsl:if test="paper">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -3742,10 +3758,11 @@
             proceedings
         -->
         <xsl:if test="proceedings">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -3775,6 +3792,7 @@
                             <xsl:call-template name="DoEdPlural">
                                 <xsl:with-param name="editor" select="proceedings/procEd"/>
                             </xsl:call-template>
+                            <xsl:text>&#x20;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>&#x20;</xsl:text>
@@ -3820,12 +3838,15 @@
             thesis
         -->
         <xsl:if test="thesis">
-            <tex:cmd name="textit">
-                <tex:parm>
-                    <xsl:apply-templates select="refTitle"/>
-                </tex:parm>
-            </tex:cmd>
-            <xsl:text>.  </xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <tex:cmd name="textit">
+                    <tex:parm>
+                        <xsl:apply-templates select="refTitle"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:text>.  </xsl:text>
+            </xsl:if>
             <xsl:call-template name="OutputLabel">
                 <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
                 <xsl:with-param name="pLabel">
@@ -3869,11 +3890,12 @@
             webPage
         -->
         <xsl:if test="webPage">
-            <!--                <xsl:value-of select="$sLdquo"/>-->
-            <xsl:apply-templates select="refTitle"/>
-            <xsl:text>.</xsl:text>
-            <!--                <xsl:value-of select="$sRdquo"/>-->
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <xsl:apply-templates select="refTitle"/>
+                <xsl:text>.</xsl:text>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <xsl:if test="../@showAuthorName='no'">
                 <xsl:call-template name="DoDate">
                     <xsl:with-param name="works" select="$works"/>
@@ -4675,7 +4697,7 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote or descendant-or-self::indexedItem)]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4968,7 +4990,7 @@
                             <!-- do nothing here; it is handled in DoInterlinearTextNumber -->
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>:</xsl:text>        
+                            <xsl:text>:</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                     <xsl:call-template name="DoInterlinearTextNumber">

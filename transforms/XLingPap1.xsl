@@ -2363,7 +2363,10 @@
       refTitle
       -->
     <xsl:template match="refTitle">
-        <xsl:apply-templates/>
+        <xsl:variable name="sTitle" select="normalize-space(.)"/>
+        <xsl:if test="string-length($sTitle) &gt; 0">
+            <xsl:apply-templates/>
+        </xsl:if>
     </xsl:template>
     <!--
         authorContactInfo
@@ -2919,10 +2922,13 @@
         <xsl:param name="book"/>
         <xsl:param name="pages"/>
         <xsl:for-each select="$book">
-            <i>
-                <xsl:apply-templates select="../refTitle"/>
-            </i>
-            <xsl:text>.  </xsl:text>
+            <xsl:variable name="sTitle" select="normalize-space(../refTitle)"/>
+            <xsl:if test="string-length($sTitle) &gt; 0">
+                <i>
+                    <xsl:apply-templates select="../refTitle"/>
+                </i>
+                <xsl:text>.  </xsl:text>
+            </xsl:if>
             <xsl:if test="../../@showAuthorName='no'">
                 <xsl:for-each select="..">
                     <xsl:call-template name="DoDate">
@@ -3590,9 +3596,11 @@
                 collection
             -->
             <xsl:if test="collection">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3696,10 +3704,13 @@
                 dissertation
             -->
             <xsl:if test="dissertation">
-                <i>
-                    <xsl:apply-templates select="refTitle"/>
-                </i>
-                <xsl:text>. </xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <i>
+                        <xsl:apply-templates select="refTitle"/>
+                    </i>
+                    <xsl:text>. </xsl:text>
+                </xsl:if>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault" select="$sPhDDissertationDefaultLabel"/>
                     <xsl:with-param name="pLabel">
@@ -3743,11 +3754,12 @@
                 journal article
             -->
             <xsl:if test="article">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
-                <xsl:text>&#x20;</xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3782,11 +3794,12 @@
                 field notes
             -->
             <xsl:if test="fieldNotes">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
-                <xsl:text>&#x20;</xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3807,11 +3820,12 @@
                 ms (manuscript)
             -->
             <xsl:if test="ms">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
-                <xsl:text>&#x20;</xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3832,10 +3846,11 @@
                 paper
             -->
             <xsl:if test="paper">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3856,10 +3871,11 @@
                 proceedings
             -->
             <xsl:if test="proceedings">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -3889,6 +3905,7 @@
                                 <xsl:call-template name="DoEdPlural">
                                     <xsl:with-param name="editor" select="proceedings/procEd"/>
                                 </xsl:call-template>
+                                <xsl:text>&#x20;</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>&#x20;</xsl:text>
@@ -3932,10 +3949,13 @@
                 thesis
             -->
             <xsl:if test="thesis">
-                <i>
-                    <xsl:apply-templates select="refTitle"/>
-                </i>
-                <xsl:text>. </xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <i>
+                        <xsl:apply-templates select="refTitle"/>
+                    </i>
+                    <xsl:text>. </xsl:text>
+                </xsl:if>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault" select="$sMAThesisDefaultLabel"/>
                     <xsl:with-param name="pLabel">
@@ -3979,11 +3999,12 @@
                 webPage
             -->
             <xsl:if test="webPage">
-                <!--                    <xsl:value-of select="$sLdquo"/>-->
-                <xsl:apply-templates select="refTitle"/>
-                <xsl:text>.</xsl:text>
-                <!--                    <xsl:value-of select="$sRdquo"/>-->
-                <xsl:text>&#x20;</xsl:text>
+                <xsl:variable name="sTitle" select="normalize-space(refTitle)"/>
+                <xsl:if test="string-length($sTitle) &gt; 0">
+                    <xsl:apply-templates select="refTitle"/>
+                    <xsl:text>.</xsl:text>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:if>
                 <xsl:if test="../@showAuthorName='no'">
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
@@ -5071,6 +5092,31 @@
             </xsl:when>
             <xsl:when test="ancestor::part">
                 <xsl:apply-templates select="ancestor::part" mode="numberPart"/>
+            </xsl:when>
+            <xsl:when test="ancestor::abbreviations">
+                <xsl:for-each select="ancestor::abbreviations">
+                    <xsl:call-template name="OutputAbbreviationsLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::abstract">
+                <xsl:for-each select="ancestor::abstract">
+                    <xsl:call-template name="OutputAbstractLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::acknowledgements">
+                <xsl:for-each select="ancestor::acknowledgements">
+                    <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::glosary">
+                <xsl:for-each select="ancestor::glossary">
+                    <xsl:call-template name="OutputGlossaryLabel"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="ancestor::preface">
+                <xsl:for-each select="ancestor::preface">
+                    <xsl:call-template name="OutputPrefaceLabel"/>
+                </xsl:for-each>
             </xsl:when>
         </xsl:choose>
         <xsl:if test="ancestor::endnote">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE lingPaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
-"file://%SystemDrive%/Documents and Settings/%USERNAME%/Application Data/XMLmind/XMLEditor/addon/XLingPap/XLingPap.dtd">
+"XLingPap.dtd">
 <?xml-stylesheet type="text/xsl" href="file://%SystemDrive%//Documents and Settings/%USERNAME%/Application Data/XMLmind/XMLEditor/addon/XLingPap/XLingPap1.xsl"?>
 <lingPaper
 showindexeditemsineditor="yes"
@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->14 December 2015</date
+>4 January 2016</date
 ><version
->2.28.3</version
+>2.28.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -3617,6 +3617,14 @@ type="tElement"
 sec="sReferencesAttributes"
 ></sectionRef
 > below for more on this.</p
+><p
+>There are cases where a work has no author and one may want to follow the convention of using the title as an author.  One can do this, just be sure to leave the <object
+type="tElement"
+>refTitle</object
+> element empty and put the title in the <object
+type="tElement"
+>refAuthor</object
+> element.</p
 ><p
 >Any <object
 type="tElement"
@@ -12977,7 +12985,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->The spacing within table cells.  (This does not work for the default <object
+>The spacing within table cells. (This does not work for the default <object
 type="tXeTeX"
 ></object
 > way of producing PDF.)</langData
@@ -13000,7 +13008,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->The spacing between table cells.  (This does not work for the default <object
+>The spacing between table cells. (This does not work for the default <object
 type="tXeTeX"
 ></object
 > way of producing PDF.)</langData

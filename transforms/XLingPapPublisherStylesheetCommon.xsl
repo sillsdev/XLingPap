@@ -426,14 +426,17 @@
         refTitle
     -->
     <xsl:template match="refTitle">
-        <xsl:choose>
-            <xsl:when test="$titleForm='uppercase' or not(following-sibling::refTitleLowerCase)">
-                <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="following-sibling::refTitleLowerCase"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="sTitle" select="normalize-space(.)"/>
+        <xsl:if test="string-length($sTitle) &gt; 0">
+            <xsl:choose>
+                <xsl:when test="$titleForm='uppercase' or not(following-sibling::refTitleLowerCase)">
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="following-sibling::refTitleLowerCase"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
         Elements to ignore
@@ -538,7 +541,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/articleLayouts/*[position()=$articleLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -847,7 +850,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/bookLayouts/*[position()=$bookLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -987,7 +990,7 @@
                                     </xsl:call-template>
                                 </xsl:for-each>
                             </xsl:when>
-                            <xsl:when test="name(.)='collTitleItem'">
+                            <xsl:when test="name(.)='collTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($work/refTitle)"/>
                                 </xsl:call-template>
@@ -1114,7 +1117,7 @@
                                     </xsl:call-template>
                                 </xsl:for-each>
                             </xsl:when>
-                            <xsl:when test="name(.)='procTitleItem'">
+                            <xsl:when test="name(.)='procTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($work/refTitle)"/>
                                 </xsl:call-template>
@@ -1206,7 +1209,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/collectionLayouts/*[position()=$collectionLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -1369,7 +1372,7 @@
                 <xsl:for-each select="$layout/*[position()=$dissertationLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -1715,7 +1718,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/fieldNotesLayouts/*[position()=$fieldNotesLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -1793,7 +1796,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/msLayouts/*[position()=$msLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -1876,7 +1879,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/paperLayouts/*[position()=$paperLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -1969,7 +1972,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/proceedingsLayouts/*[position()=$proceedingsLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
@@ -2267,7 +2270,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/webPageLayouts/*[position()=$webPageLayoutToUsePosition]">
                     <xsl:for-each select="*">
                         <xsl:choose>
-                            <xsl:when test="name(.)='refTitleItem'">
+                            <xsl:when test="name(.)='refTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>

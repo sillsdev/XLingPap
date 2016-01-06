@@ -29,7 +29,7 @@
                     </xsl:call-template>
                 </a>
             </div>
-            <xsl:apply-templates select="child::*[name()!='secTitle']" mode="contents"/>
+            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents"/>
         </div>
     </xsl:template>
     <!-- 

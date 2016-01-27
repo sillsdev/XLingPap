@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.28.5</span></p>
-      <p align="center">Date: 2016-01-06</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.28.6</span></p>
+      <p align="center">Date: 2016-01-27</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,8 +34,13 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.28.6 6 January 2016
+               <li>2.28.6 27 January 2016
                   <ul>
+                     <li>For the case where collCitation and procCitation elements need to convert the names of editors of collection/proceedings volumes
+                        from a LastName, FirstName format to FirstName LastName format, we now allow one to use semi-colons between multiple editors'
+                        names.
+                     </li>
+                     <li>Update link to ISO 639-3 code site in documentation.</li>
                      <li>For the web page output:
                         <ul>
                            <li>Fix bug: when a style sheet was being used, the contents section for a part would show paragraphs, etc. in the part element.</li>

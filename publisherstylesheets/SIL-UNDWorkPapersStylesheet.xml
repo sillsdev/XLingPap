@@ -899,8 +899,7 @@ textafter=".  "
 >Paper in a Collection Layouts</comment
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -923,8 +922,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -944,8 +942,30 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
+></refTitleItem
+><collEdItem
+textbefore="In "
+></collEdItem
+><collTitleItem
+font-style="italic"
+textafter=", "
+textbefore="  "
+></collTitleItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><seriesItem
+textafter=".  "
+></seriesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -965,8 +985,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -983,8 +1002,7 @@ textbefore="  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1004,8 +1022,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1022,8 +1039,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1040,8 +1056,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collTitleItem
 font-style="italic"
@@ -1055,8 +1070,7 @@ textbefore="  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1076,8 +1090,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1094,8 +1107,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1112,8 +1124,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textbefore="In "
@@ -1127,8 +1138,7 @@ textbefore=", "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1145,8 +1155,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1160,8 +1169,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter=".  "
@@ -1175,8 +1183,7 @@ textafter="."
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collCitationItem
 textafter="."
@@ -1187,8 +1194,7 @@ textbefore="In "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -1214,8 +1220,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "
@@ -1238,8 +1243,7 @@ textafter=".  "
 ></collectionLayout
 ><collectionLayout
 ><refTitleItem
-textafter=".”  "
-textbefore="“"
+textafter=".  "
 ></refTitleItem
 ><collEdItem
 textbefore="In "

@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->4 January 2016</date
+>27 January 2016</date
 ><version
->2.28.5</version
+>2.28.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -792,8 +792,8 @@ lang="lEng"
 ><langData
 lang="lEng"
 >This is a standard language code that is useful for archiving purposes. It may be similar to the Ethnologue code. See <link
-href="http://www.sil.org/iso639-3/default.asp"
->http://www.sil.org/iso639-3/default.asp</link
+href="http://www-01.sil.org/iso639-3/codes.asp"
+>http://www-01.sil.org/iso639-3/codes.asp</link
 >.</langData
 ></td
 ></tr
@@ -3618,7 +3618,7 @@ sec="sReferencesAttributes"
 ></sectionRef
 > below for more on this.</p
 ><p
->There are cases where a work has no author and one may want to follow the convention of using the title as an author.  One can do this, just be sure to leave the <object
+>There are cases where a work has no author and one may want to follow the convention of using the title as an author. One can do this, just be sure to leave the <object
 type="tElement"
 >refTitle</object
 > element empty and put the title in the <object
@@ -3645,7 +3645,7 @@ type="tElement"
 type="tElement"
 >iso639-3code</object
 > elements. These indicate the <link
-href="http://www.sil.org/iso639-3/default.asp"
+href="http://www-01.sil.org/iso639-3/codes.asp"
 >ISO 639-3 code</link
 > for the language(s) discussed in the work.</p
 ><p
@@ -4013,7 +4013,7 @@ type="tXLingPap"
 > inserted the collection volume information for Browman &amp; Goldstein (1992), <object
 type="tXLingPap"
 ></object
-> converted “Docherty, Gerald J. &amp; D. Robert Ladd” to “Gerald J. Docherty &amp; D. Robert Ladd.”</p
+> converted “Docherty, Gerald J. &amp; D. Robert Ladd” to “Gerald J. Docherty &amp; D. Robert Ladd.”  If there are three or more authors, you may separate them by either a comma or a semi-colon.</p
 ></section5
 ><section5
 id="sBMRefCollectionCitationConversion"
@@ -11040,7 +11040,7 @@ term="iISOCodes"
 sec="sIntroLang"
 ></sectionRef
 >, it is possible to tag a given language with an <link
-href="http://www.sil.org/iso639-3/default.asp"
+href="http://www-01.sil.org/iso639-3/codes.asp"
 >ISO 639-3 code</link
 > for that language. <object
 type="tXLingPap"
@@ -27651,8 +27651,8 @@ type="tElement"
 ></dt
 ><dd
 >The <link
-href="http://www-01.sil.org/iso639-3/default.asp"
->ISO 639-3 code</link
+href="http://www-01.sil.org/iso639-3/codes.asp"
+>gISO 639-3 code</link
 > for a language included in a work in the references</dd
 ><dt
 ><object

@@ -8145,27 +8145,27 @@
     <!--
         OutputAbbrDefinition
     -->
-    <xsl:template name="OutputAbbrDefinition">
+<!--    <xsl:template name="OutputAbbrDefinition">
         <xsl:param name="abbr"/>
         <xsl:choose>
             <xsl:when test="string-length($abbrLang) &gt; 0">
                 <xsl:choose>
                     <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
-                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition" mode="Use"/>
+                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition/text() | $abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition/*" mode="Use"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!-- a language is specified, but this abbreviation does not have anything; try using the default;
-                            this assumes that something is better than nothing -->
-                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition" mode="Use"/>
+                        <!-\- a language is specified, but this abbreviation does not have anything; try using the default;
+                            this assumes that something is better than nothing -\->
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition/text() | $abbr/abbrInLang[1]/abbrDefinition/*" mode="Use"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <!--  no language specified; just use the first one -->
-                <xsl:value-of select="$abbr/abbrInLang[1]/abbrDefinition"/>
+                <!-\-  no language specified; just use the first one -\->
+                <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition/text() | $abbr/abbrInLang[1]/abbrDefinition/*"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
     <!--
         OutputAbbrTerm
     -->

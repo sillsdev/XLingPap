@@ -741,13 +741,35 @@
     -->
     <xsl:template name="DoRefAuthors">
         <xsl:param name="refAuthors" select="//refAuthor[not(ancestor::chapterInCollection/backMatter/references)]"/>
-        <xsl:param name="citations" select="//citation[not(ancestor::chapterInCollection/backMatter/references)]"/>
+        <xsl:param name="citations" select="//citation[not(ancestor::chapterInCollection/backMatter/references) and not(ancestor::abbrDefinition)]"/>
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
         <!--        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::refWork[@id!=$citations/@ref])]/@ref]]"/>-->
         <xsl:variable name="directlyCitedAuthors"
-            select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::referencedInterlinearText)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
+            select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::referencedInterlinearText) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
+            <xsl:variable name="abbreviations">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
+                        <xsl:copy-of select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation[descendant::citation[not(ancestor::comment)]]"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][descendant::citation[not(ancestor::comment)]]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="abbrRefs">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
+                        <xsl:copy-of select="ancestor::chapterInCollection/descendant::abbrRef"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable> 
+        <xsl:variable name="citationsInUsedAbbreviations" select="saxon:node-set($abbreviations)/abbreviation[saxon:node-set($abbrRefs)/abbrRef[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]/descendant::citation[not(ancestor::comment)]"/>
+        <xsl:variable name="worksCitedInUsedAbbreviationDefinitions" select="$refWorks[@id=$citationsInUsedAbbreviations/@ref]/parent::refAuthor"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">
@@ -759,14 +781,18 @@
                         <xsl:otherwise>en</xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
+                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors | saxon:node-set($worksCitedInUsedAbbreviationDefinitions)">
                     <xsl:sort lang="{$sLang}" select="@name"/>
-                    <xsl:call-template name="DoRefWorks"/>
+                    <xsl:call-template name="DoRefWorks">
+                        <xsl:with-param name="citations" select="$citations | $citationsInUsedAbbreviations"/>
+                    </xsl:call-template>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors">
-                    <xsl:call-template name="DoRefWorks"/>
+                <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors | saxon:node-set($worksCitedInUsedAbbreviationDefinitions)">
+                    <xsl:call-template name="DoRefWorks">
+                        <xsl:with-param name="citations" select="$citations | $citationsInUsedAbbreviations"/>
+                    </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
@@ -1375,7 +1401,7 @@
             <xsl:when test="ancestor::chapterInCollection">
                 <xsl:call-template name="DoRefAuthors">
                     <xsl:with-param name="refAuthors" select="descendant::refAuthor"/>
-                    <xsl:with-param name="citations" select="ancestor::chapterInCollection/descendant::citation"/>
+                    <xsl:with-param name="citations" select="ancestor::chapterInCollection/descendant::citation[not(ancestor::abbrDefinition)]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -1391,6 +1417,30 @@
             <!-- the immediately preceding element is also an endnote; separate the numbers by a comma and non-breaking space -->
             <xsl:text>,&#xa0;</xsl:text>
         </xsl:if>
+    </xsl:template>
+    <!--
+        OutputAbbrDefinition
+    -->
+    <xsl:template name="OutputAbbrDefinition">
+        <xsl:param name="abbr"/>
+        <xsl:choose>
+            <xsl:when test="string-length($abbrLang) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition/text() | $abbr/abbrInLang[@lang=$abbrLang]/abbrDefinition/*"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- a language is specified, but this abbreviation does not have anything; try using the default;
+                            this assumes that something is better than nothing -->
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition/text() | $abbr/abbrInLang[1]/abbrDefinition/*"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--  no language specified; just use the first one -->
+                <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrDefinition/text() | $abbr/abbrInLang[1]/abbrDefinition/*"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputAbbreviationsInCommaSeparatedList

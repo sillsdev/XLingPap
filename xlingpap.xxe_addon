@@ -36,6 +36,8 @@ href="mailto::andy_black@sil.org"
 ><li
 >For the case where collCitation and procCitation elements need to convert the names of editors of collection/proceedings volumes from a LastName, FirstName format to FirstName LastName format, we now allow one to use semi-colons between multiple editors' names.</li
 ><li
+>Make a citation element in an abbrDefinition element to work.</li
+><li
 >Update link to ISO 639-3 code site in documentation.</li
 ><li
 >For the web page output:<ul

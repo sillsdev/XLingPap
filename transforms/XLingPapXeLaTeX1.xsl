@@ -1790,15 +1790,17 @@
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="DoFigure"/>
-                <tex:cmd name="vspace">
-                    <tex:parm>
-                        <!--    <xsl:value-of select="$sBasicPointSize"/>
-                        <xsl:text>pt</xsl:text>-->
-                        <xsl:call-template name="GetCurrentPointSize">
-                            <xsl:with-param name="bAddGlue" select="'Y'"/>
-                        </xsl:call-template>
-                    </tex:parm>
-                </tex:cmd>
+                <xsl:if test="not(caption and descendant::img) or caption and descendant::img and not(following-sibling::*[1][name()='figure'])">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <!--    <xsl:value-of select="$sBasicPointSize"/>
+                                <xsl:text>pt</xsl:text>-->
+                            <xsl:call-template name="GetCurrentPointSize">
+                                <xsl:with-param name="bAddGlue" select="'Y'"/>
+                            </xsl:call-template>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <tex:spec cat="esc" nl1="1"/>
@@ -3074,6 +3076,12 @@
         <xsl:call-template name="CreateAddToContents">
             <xsl:with-param name="id" select="@id"/>
         </xsl:call-template>
+        <xsl:if test="caption and descendant::img">
+            <tex:cmd name="setbox0" gr="0"/>
+            <xsl:text>=</xsl:text>
+            <tex:cmd name="vbox" gr="0"/>
+            <!--            \setbox0=\vbox{-->
+        </xsl:if>
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <xsl:text>protect</xsl:text>
@@ -3136,6 +3144,11 @@
             <xsl:call-template name="HandleEndnotesInCaptionOfFigure"/>
         </xsl:if>
         <tex:spec cat="eg"/>
+        <xsl:if test="caption and descendant::img">
+            <tex:cmd name="box0" gr="0"/>
+            <tex:cmd name="par"/>
+            <!-- \box0\par -->
+        </xsl:if>
     </xsl:template>
     <!--  
         DoFootnoteTextAfterFree

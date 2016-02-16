@@ -34,6 +34,17 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
+               <li>2.28.8 16 February 2016
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: When a style sheet has a running header or footer with both a chapter title and a section title in it, if no section
+                              occurred before a page was output, then the header or footer would contain the chapter title two times.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.28.7 12 February 2016
                   <ul>
                      <li>Update SIL-UNDWorkPapersStylesheet per work by John Clifton.</li>

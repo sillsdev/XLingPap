@@ -1082,6 +1082,14 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/descendant::header[descendant::chapterTitle and descendant::sectionTitle] or $bodyLayoutInfo/headerFooterPageStyles/descendant::footer[descendant::chapterTitle and descendant::sectionTitle]">
+            <!-- either a header or a footer has both the chapter title and the section title; 
+                make the section be blank in case there is no section for a while (or at all) 
+                so that we do not get the chapter title repeated twice in the header/footer -->
+            <tex:cmd name="markright">
+                <tex:param/>
+            </tex:cmd>
+        </xsl:if>
         <xsl:if test="name()='chapterInCollection'">
             <xsl:variable name="originalContext" select="."/>
             <xsl:for-each select="$bodyLayoutInfo/headerFooterPageStyles/headerFooterPage/* | $bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage/*">

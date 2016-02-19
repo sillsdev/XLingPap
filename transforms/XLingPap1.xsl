@@ -2325,6 +2325,11 @@
     <!--
         citation
     -->
+    <xsl:template match="citation" mode="contents">
+        <xsl:call-template name="OutputCitationContents">
+            <xsl:with-param name="refer" select="id(@ref)"/>
+        </xsl:call-template>
+    </xsl:template>
     <xsl:template match="//citation[not(parent::selectedBibliography)]">
         <xsl:variable name="refer" select="id(@ref)"/>
         <xsl:element name="a">
@@ -2415,6 +2420,11 @@
     <!-- ===========================================================
       ABBREVIATION
       =========================================================== -->
+    <xsl:template match="abbrRef" mode="contents">
+        <xsl:call-template name="OutputAbbrTerm">
+            <xsl:with-param name="abbr" select="id(@abbr)"/>
+        </xsl:call-template>
+    </xsl:template>
     <xsl:template match="abbrRef">
         <xsl:choose>
             <xsl:when test="ancestor::genericRef">

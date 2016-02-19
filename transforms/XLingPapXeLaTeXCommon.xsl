@@ -167,31 +167,28 @@
     <xsl:variable name="sInitialGroupIndent" select="$contentLayoutInfo/interlinearTextLayout/@indentOfInitialGroup"/>
     <xsl:variable name="sAdjustIndentOfNonInitialFreeLineBy" select="normalize-space($contentLayoutInfo/freeLayout/@adjustIndentOfNonInitialLineBy)"/>
     <!--
+        citation (bookmarks)
+    -->
+    <xsl:template match="citation" mode="bookmarks">
+        <xsl:call-template name="OutputCitationContents">
+            <xsl:with-param name="refer" select="id(@ref)"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        citation (contents)
+    -->
+    <xsl:template match="citation" mode="contents">
+        <xsl:call-template name="OutputCitationContents">
+            <xsl:with-param name="refer" select="id(@ref)"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         citation (InMarker)
     -->
     <xsl:template match="citation" mode="InMarker">
-        <xsl:variable name="refer" select="id(@ref)"/>
-        <xsl:if test="@author='yes'">
-            <xsl:value-of select="$refer/../@citename"/>
-            <xsl:text>&#x20;</xsl:text>
-        </xsl:if>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">(</xsl:if>
-        <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
-        <xsl:variable name="date">
-            <xsl:value-of select="$refer/refDate"/>
-        </xsl:variable>
-        <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
-            <xsl:text>&#x20;</xsl:text>
-        </xsl:if>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date])>1">
-            <xsl:apply-templates select="$refer" mode="dateLetter">
-                <xsl:with-param name="date" select="$date"/>
-            </xsl:apply-templates>
-        </xsl:if>
-        <xsl:if test="@page">:<xsl:value-of select="@page"/>
-        </xsl:if>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='final'">)</xsl:if>
+        <xsl:call-template name="OutputCitationContents">
+            <xsl:with-param name="refer" select="id(@ref)"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         genericRef (InMarker)
@@ -2499,6 +2496,21 @@
     </xsl:template>
     <xsl:template match="abbrDefinition"/>
     <xsl:template match="abbrTerm"/>
+    <xsl:template match="abbrRef" mode="bookmarks">
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="bInMarker" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="abbrRef" mode="contents">
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="bInMarker" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="abbrRef" mode="InMarker">
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="bInMarker" select="'Y'"/>
+        </xsl:apply-templates>
+    </xsl:template>
     <!-- ===========================================================
         keyTerm
         =========================================================== -->
@@ -8145,7 +8157,7 @@
     <!--
         OutputAbbrDefinition
     -->
-<!--    <xsl:template name="OutputAbbrDefinition">
+    <!--    <xsl:template name="OutputAbbrDefinition">
         <xsl:param name="abbr"/>
         <xsl:choose>
             <xsl:when test="string-length($abbrLang) &gt; 0">

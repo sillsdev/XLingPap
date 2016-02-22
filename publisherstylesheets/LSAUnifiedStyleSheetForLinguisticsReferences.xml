@@ -869,6 +869,29 @@ font-style="italic"
 textafter=" "
 ></collTitleItem
 ><seriesItem
+textafter=" "
+textbefore="("
+></seriesItem
+><collVolItem
+textafter="). "
+></collVolItem
+><collPagesItem
+textafter=".  "
+></collPagesItem
+><locationPublisherLayoutsRef
+></locationPublisherLayoutsRef
+><urlDateAccessedLayoutsRef
+></urlDateAccessedLayoutsRef
+></collectionLayout
+><collectionLayout
+><refTitleItem
+textafter=".  "
+></refTitleItem
+><collTitleItem
+font-style="italic"
+textafter=" "
+></collTitleItem
+><seriesItem
 textafter="), "
 textbefore="("
 ></seriesItem

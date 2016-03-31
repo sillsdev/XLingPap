@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-02-22</a:date
+>2016-03-31</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,19 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.28.10 22 Februaru 2016<ul
+>2.28.10 31 March 2016<ul
 ><li
->Add one more collection patter to the LSAUnifiedStyleSheetForLinguisticsReferences.xml file (thanks to Kent Rasmussen).</li
+>Add one more collection pattern to the LSAUnifiedStyleSheetForLinguisticsReferences.xml file (thanks to Kent Rasmussen).</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: There was no way to set the default font family in a publisher style sheet to use Graphite.  Now the defaultFontFamily element has a XeLaTeXSpecial attribute where one can set grapite and font-feature values.</li
+><li
+>Fix bug: If a document had several font-family attributes where the corresponding XeLaTeXSpecial attribute used graphite (and maybe font-feature values), any instance of that font-family also used the set of graphite/font-features of only one defined set.  Now it uses each defined set in the appropriate places.</li
+><li
+>Fix bug: if a table had endnoteRef elements but no endnote elements, then the footnote number of the endnoteRef elements could be too high.</li
+></ul
+></li
 ></ul
 ></li
 ><li

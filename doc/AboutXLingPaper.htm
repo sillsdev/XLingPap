@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.28.10</span></p>
-      <p align="center">Date: 2016-02-22</p>
+      <p align="center">Date: 2016-03-31</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,9 +34,23 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.28.10 22 Februaru 2016
+               <li>2.28.10 31 March 2016
                   <ul>
-                     <li>Add one more collection patter to the LSAUnifiedStyleSheetForLinguisticsReferences.xml file (thanks to Kent Rasmussen).</li>
+                     <li>Add one more collection pattern to the LSAUnifiedStyleSheetForLinguisticsReferences.xml file (thanks to Kent Rasmussen).</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: There was no way to set the default font family in a publisher style sheet to use Graphite.  Now the defaultFontFamily
+                              element has a XeLaTeXSpecial attribute where one can set grapite and font-feature values.
+                           </li>
+                           <li>Fix bug: If a document had several font-family attributes where the corresponding XeLaTeXSpecial attribute used graphite (and
+                              maybe font-feature values), any instance of that font-family also used the set of graphite/font-features of only one defined
+                              set.  Now it uses each defined set in the appropriate places.
+                           </li>
+                           <li>Fix bug: if a table had endnoteRef elements but no endnote elements, then the footnote number of the endnoteRef elements could
+                              be too high.
+                           </li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>2.28.9 19 February 2016

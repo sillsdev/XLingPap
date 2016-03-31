@@ -71,6 +71,9 @@ Page Layout
     <!ELEMENT basicPointSize (#PCDATA) >
     <!ELEMENT blockQuoteIndent (#PCDATA) >
     <!ELEMENT defaultFontFamily (#PCDATA) >
+    <!ATTLIST defaultFontFamily
+        XeLaTeXSpecial CDATA #IMPLIED
+    >
     <!ELEMENT footnotePointSize (#PCDATA) >
     <!-- line between text and footnote(s)
              leaderlength and leaderwidth are used only when leaderpattern is also specified

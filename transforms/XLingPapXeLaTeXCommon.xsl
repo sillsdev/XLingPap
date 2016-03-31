@@ -2055,7 +2055,7 @@
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
         </xsl:call-template>
         <!-- Is this the right spot for this? -->
-        <xsl:if test="descendant-or-self::endnote and not(ancestor::table)">
+        <xsl:if test="descendant-or-self::endnote and not(ancestor::table) or descendant-or-self::endnoteRef and not(ancestor::table)">
             <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
                 then one cannot overtly say what the footnote number should be. 
                 Therefore, we must set the footnote counter here.
@@ -3433,7 +3433,7 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
-            <xsl:if test="descendant-or-self::endnote and not(ancestor::table)">
+            <xsl:if test="descendant-or-self::endnote and not(ancestor::table) or descendant-or-self::endnoteRef and not(ancestor::table)">
                 <!-- longtable allows \footnote, but if the column spec has a 'p' for the column a footnote is in, 
                     then one cannot overtly say what the footnote number should be. 
                     Therefore, we must set the footnote counter here.
@@ -7949,6 +7949,23 @@
                 <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
                     <xsl:with-param name="sList" select="$sRest"/>
                     <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        HandleXeLaTeXSpecialFontFeatureForFontName
+    -->
+    <xsl:template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+        <xsl:param name="sList"/>
+        <xsl:variable name="sCommandBeginning" select="substring-after($sList, $sFontFeature)"/>
+        <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
+        <xsl:variable name="sRest" select="substring-after($sCommandBeginning,' ')"/>
+        <xsl:if test="string-length($sCommandBeginning) &gt; 0">
+            <xsl:value-of select="translate($sCommand,' =','XY')"/>
+            <xsl:if test="$sRest">
+                <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+                    <xsl:with-param name="sList" select="$sRest"/>
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>

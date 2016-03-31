@@ -24,6 +24,7 @@
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
+    <xsl:variable name="sDefaultFontFamilyXeLaTeXSpecial" select="string($pageLayoutInfo/defaultFontFamily/@XeLaTeXSpecial)"/>
     <xsl:variable name="sLaTeXBasicPointSize">
         <xsl:choose>
             <xsl:when test="$sBasicPointSize='10'">10</xsl:when>
@@ -100,6 +101,7 @@
     </xsl:variable>
     <xsl:variable name="sSpaceBetweenDates" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntriesAuthorOverDateStyle)"/>
     <xsl:variable name="sSpaceBetweenEntryAndAuthor" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntryAndAuthorInAuthorOverDateStyle)"/>
+    <xsl:variable name="sGraphiteForFontName" select="'Graphite'"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -258,47 +260,28 @@
                 <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize and $sLineSpacing and $sLineSpacing!='single'">
                     <xsl:call-template name="SetXLingPaperSingleSpacingMacro"/>
                 </xsl:if>
-                <tex:env name="MainFont">
-                    <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+                <xsl:choose>
+                    <xsl:when test="contains($sDefaultFontFamilyXeLaTeXSpecial,'graphite')">
+                        <tex:spec cat="esc"/>
+                        <xsl:text>XLingPaper</xsl:text>
+                        <xsl:value-of select="translate($sDefaultFontFamily,$sDigits, $sLetters)"/>
+                        <xsl:text>FontFamily</xsl:text>
+                            <xsl:value-of select="$sGraphiteForFontName"/>
+                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+                                <xsl:with-param name="sList" select="$sDefaultFontFamilyXeLaTeXSpecial"/>
+                            </xsl:call-template>
                         <xsl:call-template name="HandleFontSize">
-                            <xsl:with-param name="sSize">
-                                <xsl:value-of select="$sBasicPointSize"/>
-                                <xsl:text>pt</xsl:text>
-                            </xsl:with-param>
+                            <xsl:with-param name="sSize" select="concat($sBasicPointSize,'pt')"/>
+                            <xsl:with-param name="sFontFamily" select="$sDefaultFontFamily"/>
                         </xsl:call-template>
-                    </xsl:if>
-                    <xsl:if test="//contents">
-                        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
-                    </xsl:if>
-                    <xsl:choose>
-                        <xsl:when test="$chapters">
-                            <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
-                                <xsl:call-template name="DoBookmarksForPaper"/>
-                            </xsl:if>
-                            -->
-                            <xsl:apply-templates select="child::node()[name()!='publishingInfo']"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
-                                <xsl:call-template name="DoBookmarksForPaper"/>
-                            </xsl:if>
--->
-                            <xsl:apply-templates select="frontMatter"/>
-                            <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
-                            <xsl:apply-templates select="//backMatter"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <!-- somewhere there's an opening bracket... -->
-                    <!--                    <tex:spec cat="eg"/>-->
-                    <xsl:if test="$bHasContents='Y'">
-                        <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
-                    </xsl:if>
-                    <xsl:if test="$bHasIndex='Y'">
-                        <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
-                    </xsl:if>
-                    <!-- every once in a great while, the running headers and footers will be wrong on the last page; this \pagebreak fixes it -->
-                    <tex:cmd name="pagebreak" gr="0"/>
-                </tex:env>
+                        <xsl:call-template name="ProcessDocument"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:env name="MainFont">
+                            <xsl:call-template name="ProcessDocument"/>
+                        </tex:env>
+                    </xsl:otherwise>
+                </xsl:choose>
             </tex:env>
         </tex:TeXML>
     </xsl:template>
@@ -1082,7 +1065,8 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
-        <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/descendant::header[descendant::chapterTitle and descendant::sectionTitle] or $bodyLayoutInfo/headerFooterPageStyles/descendant::footer[descendant::chapterTitle and descendant::sectionTitle]">
+        <xsl:if
+            test="$bodyLayoutInfo/headerFooterPageStyles/descendant::header[descendant::chapterTitle and descendant::sectionTitle] or $bodyLayoutInfo/headerFooterPageStyles/descendant::footer[descendant::chapterTitle and descendant::sectionTitle]">
             <!-- either a header or a footer has both the chapter title and the section title; 
                 make the section be blank in case there is no section for a while (or at all) 
                 so that we do not get the chapter title repeated twice in the header/footer -->
@@ -6033,6 +6017,12 @@
                 <xsl:text>XLingPaper</xsl:text>
                 <xsl:value-of select="translate($sFontFamily,$sDigits, $sLetters)"/>
                 <xsl:text>FontFamily</xsl:text>
+                <xsl:if test="$language and contains($language/@XeLaTeXSpecial,'graphite')">
+                    <xsl:value-of select="$sGraphiteForFontName"/>
+                    <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+                        <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
         <tex:spec cat="bg"/>
@@ -7657,34 +7647,48 @@
         <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
-        SetFootnoteRule
+        ProcessDocument
     -->
-    <xsl:template name="SetFootnoteRule">
-        <xsl:variable name="layoutInfo" select="$pageLayoutInfo/footnoteLine"/>
-        <xsl:if test="$layoutInfo">
-            <!-- the only thing I could find that did anything but hang xelatex was this:
-            \makeatletter\renewcommand\footnoterule{\kern-3\p@\hrule\@width4in\kern2.6\p@}\makeatother
-            
-            Note that the width is some special value;  we can change the length and that works (the 4in above).
-            -->
-            <!--<xsl:if test="$layoutInfo/@leaderpattern and $layoutInfo/@leaderpattern!='none'">
-                <!-\-                        <fo:leader>-\->
-                <xsl:attribute name="leader-pattern">
-                    <xsl:value-of select="$layoutInfo/@leaderpattern"/>
-                </xsl:attribute>
-                <xsl:if test="$layoutInfo/@leaderlength">
-                    <xsl:attribute name="leader-length">
-                        <xsl:value-of select="$layoutInfo/@leaderlength"/>
-                    </xsl:attribute>
-                </xsl:if>
-                <xsl:if test="$layoutInfo/@leaderwidth">
-                    <xsl:attribute name="leader-pattern-width">
-                        <xsl:value-of select="$layoutInfo/@leaderwidth"/>
-                    </xsl:attribute>
-                </xsl:if>
-                <!-\-                        </fo:leader>-\->
-            </xsl:if>-->
+    <xsl:template name="ProcessDocument">
+        <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+            <xsl:call-template name="HandleFontSize">
+                <xsl:with-param name="sSize">
+                    <xsl:value-of select="$sBasicPointSize"/>
+                    <xsl:text>pt</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
         </xsl:if>
+        <xsl:if test="//contents">
+            <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$chapters">
+                <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
+                    <xsl:call-template name="DoBookmarksForPaper"/>
+                    </xsl:if>
+                -->
+                <xsl:apply-templates select="child::node()[name()!='publishingInfo']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--                            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
+                    <xsl:call-template name="DoBookmarksForPaper"/>
+                    </xsl:if>
+                -->
+                <xsl:apply-templates select="frontMatter"/>
+                <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
+                <xsl:apply-templates select="//backMatter"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!-- somewhere there's an opening bracket... -->
+        <!--                    <tex:spec cat="eg"/>-->
+        <xsl:if test="$bHasContents='Y'">
+            <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:if test="$bHasIndex='Y'">
+            <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
+        </xsl:if>
+        <!-- every once in a great while, the running headers and footers will be wrong on the last page; this \pagebreak fixes it -->
+        <tex:cmd name="pagebreak" gr="0"/>
     </xsl:template>
     <!--  
         SetChapterNumberWidth
@@ -7708,36 +7712,55 @@
         SetFonts
     -->
     <xsl:template name="SetFonts">
-        <tex:cmd name="setmainfont" nl2="1">
-            <tex:parm>
-                <xsl:value-of select="$sDefaultFontFamily"/>
-            </tex:parm>
-        </tex:cmd>
-        <xsl:call-template name="DefineAFont">
-            <xsl:with-param name="sFontName" select="'MainFont'"/>
-            <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
-            <xsl:with-param name="sPointSize" select="$sBasicPointSize"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="contains($sDefaultFontFamilyXeLaTeXSpecial,'graphite')">
+                <tex:cmd name="setmainfont" nl2="1">
+                    <tex:opt>
+                        <xsl:value-of select="$sRendererIsGraphite"/>
+                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeature">
+                            <xsl:with-param name="sList" select="$sDefaultFontFamilyXeLaTeXSpecial"/>
+                            <xsl:with-param name="bIsFirstOpt" select="'N'"/>
+                        </xsl:call-template>
+                    </tex:opt>
+                    <tex:parm>
+                        <xsl:value-of select="$sDefaultFontFamily"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="setmainfont" nl2="1">
+                    <tex:parm>
+                        <xsl:value-of select="$sDefaultFontFamily"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:call-template name="DefineAFont">
+                    <xsl:with-param name="sFontName" select="'MainFont'"/>
+                    <xsl:with-param name="sBaseFontName" select="$sDefaultFontFamily"/>
+                    <xsl:with-param name="sPointSize" select="$sBasicPointSize"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:variable name="fontFamiliesWithGraphite" select="//@font-family[string-length(normalize-space(.)) &gt; 0][parent::*[contains(@XeLaTeXSpecial,'graphite')]]"/>
         <xsl:variable name="fontFamiliesWithoutGraphite" select="//@font-family[string-length(normalize-space(.)) &gt; 0][parent::*[not(contains(@XeLaTeXSpecial,'graphite'))]]"/>
         <xsl:variable name="fontFamilies" select="$fontFamiliesWithGraphite | $fontFamiliesWithoutGraphite"/>
-        <!-- Need to do graphite ones first because extra information needs to be added to the font family definition.
-       If we wait, then that extra information is missing and the result does not come out correctly.
-       This does imply, however, that every instance of this font family will be rendered via Graphite.  
-       Hopefully this is not an issue.  If it is, then we'll need to rework things so that we use separate 
-       font names for graphite-enabled and non-graphite-enabled fonts.
--->
         <xsl:for-each select="$fontFamiliesWithGraphite">
             <xsl:variable name="iPos" select="position()"/>
             <xsl:variable name="language" select=".."/>
             <xsl:variable name="thisOne">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:variable>
-            <xsl:variable name="seenBefore" select="$fontFamiliesWithGraphite[position() &lt; $iPos]/. = $thisOne"/>
+            <xsl:variable name="thisOneXeLaTeXSpecial">
+                <xsl:value-of select="normalize-space($language/@XeLaTeXSpecial)"/>
+            </xsl:variable>
+            <xsl:variable name="seenBefore" select="$fontFamiliesWithGraphite[position() &lt; $iPos][.=$thisOne and ../@XeLaTeXSpecial=$thisOneXeLaTeXSpecial]"/>
             <xsl:if test="not($seenBefore)">
                 <xsl:call-template name="DefineAFontFamily">
                     <xsl:with-param name="sFontFamilyName">
                         <xsl:call-template name="GetFontFamilyName"/>
+                        <xsl:value-of select="$sGraphiteForFontName"/>
+                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+                            <xsl:with-param name="sList" select="parent::*/@XeLaTeXSpecial"/>
+                        </xsl:call-template>
                     </xsl:with-param>
                     <xsl:with-param name="sBaseFontName" select="."/>
                 </xsl:call-template>
@@ -7749,7 +7772,10 @@
             <xsl:variable name="thisOne">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:variable>
-            <xsl:variable name="seenBefore" select="$fontFamiliesWithoutGraphite[position() &lt; $iPos]/. = $thisOne or $fontFamiliesWithGraphite/. = $thisOne"/>
+            <!--            
+    Used to ignore if there was one with Graphite; now we use distinct names.
+    <xsl:variable name="seenBefore" select="$fontFamiliesWithoutGraphite[position() &lt; $iPos]/. = $thisOne or $fontFamiliesWithGraphite/. = $thisOne"/>-->
+            <xsl:variable name="seenBefore" select="$fontFamiliesWithoutGraphite[position() &lt; $iPos]/. = $thisOne"/>
             <xsl:if test="not($seenBefore)">
                 <xsl:call-template name="DefineAFontFamily">
                     <xsl:with-param name="sFontFamilyName">
@@ -7759,6 +7785,36 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        SetFootnoteRule
+    -->
+    <xsl:template name="SetFootnoteRule">
+        <xsl:variable name="layoutInfo" select="$pageLayoutInfo/footnoteLine"/>
+        <xsl:if test="$layoutInfo">
+            <!-- the only thing I could find that did anything but hang xelatex was this:
+                \makeatletter\renewcommand\footnoterule{\kern-3\p@\hrule\@width4in\kern2.6\p@}\makeatother
+                
+                Note that the width is some special value;  we can change the length and that works (the 4in above).
+            -->
+            <!--<xsl:if test="$layoutInfo/@leaderpattern and $layoutInfo/@leaderpattern!='none'">
+                <!-\-                        <fo:leader>-\->
+                <xsl:attribute name="leader-pattern">
+                <xsl:value-of select="$layoutInfo/@leaderpattern"/>
+                </xsl:attribute>
+                <xsl:if test="$layoutInfo/@leaderlength">
+                <xsl:attribute name="leader-length">
+                <xsl:value-of select="$layoutInfo/@leaderlength"/>
+                </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$layoutInfo/@leaderwidth">
+                <xsl:attribute name="leader-pattern-width">
+                <xsl:value-of select="$layoutInfo/@leaderwidth"/>
+                </xsl:attribute>
+                </xsl:if>
+                <!-\-                        </fo:leader>-\->
+                </xsl:if>-->
+        </xsl:if>
     </xsl:template>
     <!--  
         SetHeaderFooter

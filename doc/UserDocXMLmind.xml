@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->27 January 2016</date
+>6 June 2016</date
 ><version
->2.28.6</version
+>2.29.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -4013,7 +4013,7 @@ type="tXLingPap"
 > inserted the collection volume information for Browman &amp; Goldstein (1992), <object
 type="tXLingPap"
 ></object
-> converted “Docherty, Gerald J. &amp; D. Robert Ladd” to “Gerald J. Docherty &amp; D. Robert Ladd.”  If there are three or more authors, you may separate them by either a comma or a semi-colon.</p
+> converted “Docherty, Gerald J. &amp; D. Robert Ladd” to “Gerald J. Docherty &amp; D. Robert Ladd.” If there are three or more authors, you may separate them by either a comma or a semi-colon.</p
 ></section5
 ><section5
 id="sBMRefCollectionCitationConversion"

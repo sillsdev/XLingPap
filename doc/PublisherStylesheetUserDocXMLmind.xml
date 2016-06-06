@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->31 March 2016</date
+>6 June 2016</date
 ><version
->2.28.10</version
+>2.29.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -394,13 +394,13 @@ id="nNoFontChooser"
 ><p
 >Sorry, but there is no font chooser for this. You have to type the font name by hand.</p
 ></endnote
->  If you need Graphite capability for the default font, set the <object
+> If you need Graphite capability for the default font, set the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute of the <object
 type="tElement"
 >defaultFontFamily</object
-> element to the appropriate values.  Note that points are assumed for the basic point size and for the footnote size (i.e. the number must be in terms of points).</p
+> element to the appropriate values. Note that points are assumed for the basic point size and for the footnote size (i.e. the number must be in terms of points).</p
 ></section2
 ><section2
 id="sFootnoteNumberAfter"

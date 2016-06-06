@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <a:addon
-location="XLingPap-2.28.0-xxe-4.8.0.zip"
+location="XLingPap-2.29.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.28.10</a:version
+>2.29.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-03-31</a:date
+>2016-06-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,51 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.28.10 31 March 2016<ul
+>2.29.0 6 June 2016<ul
+><li
+>Allow citation and abbrRef elements in content lines for all output formats and bookmarks for PDF output formats.</li
 ><li
 >Add one more collection pattern to the LSAUnifiedStyleSheetForLinguisticsReferences.xml file (thanks to Kent Rasmussen).</li
 ><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: There was no way to set the default font family in a publisher style sheet to use Graphite.  Now the defaultFontFamily element has a XeLaTeXSpecial attribute where one can set grapite and font-feature values.</li
-><li
->Fix bug: If a document had several font-family attributes where the corresponding XeLaTeXSpecial attribute used graphite (and maybe font-feature values), any instance of that font-family also used the set of graphite/font-features of only one defined set.  Now it uses each defined set in the appropriate places.</li
-><li
->Fix bug: if a table had endnoteRef elements but no endnote elements, then the footnote number of the endnoteRef elements could be too high.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.9 19 February 2016<ul
-><li
->Allow citation and abbrRef elements in content lines for all output formats and bookmarks for PDF output formats.</li
-></ul
-></li
-><li
->2.28.8 16 February 2016<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: When a style sheet has a running header or footer with both a chapter title and a section title in it, if no section occurred before a page was output, then the header or footer would contain the chapter title two times.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.7 12 February 2016<ul
-><li
 >Update SIL-UNDWorkPapersStylesheet per work by John Clifton.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Improve handling of figures with their captions so that they normally, if not always, occur on the same page.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.6 27 January 2016<ul
 ><li
 >For the case where collCitation and procCitation elements need to convert the names of editors of collection/proceedings volumes from a LastName, FirstName format to FirstName LastName format, we now allow one to use semi-colons between multiple editors' names.</li
 ><li
@@ -84,35 +46,7 @@ href="mailto::andy_black@sil.org"
 ><li
 >Update link to ISO 639-3 code site in documentation.</li
 ><li
->For the web page output:<ul
-><li
->Fix bug: when a style sheet was being used, the contents section for a part would show paragraphs, etc. in the part element.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.5 6 January 2016<ul
-><li
 >Add ability to not show a title in references if the refTitle element is empty.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: if the stylesheet body layout has a part and the part starts with a numberLayout, the page numbering could be wrong for the first part (and the last part of the frontMatter).</li
-><li
->Fix bug: If a caption to a figure or table included an index item, then the index would list the item using the page number of the list of figures or list of tables instead of the page where the caption appeared.</li
-></ul
-></li
-><li
->For the web page output:<ul
-><li
->If a preface, glossary, etc. item contained an index item, then the index did not show anything for the link to it.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.4 2 January 2016<ul
 ><li
 >Update SILEWPPaperAsBookStylesheet file.</li
 ><li
@@ -120,45 +54,53 @@ href="mailto::andy_black@sil.org"
 ><li
 >Added startSection1NumberingAtZero to the publisher style sheet documentation.</li
 ><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: if the stylesheet font size was less than 10 or more than 12, then the number in numbered lists would be too wide or too narrow, respectively.</li
-><li
->Improve page-breaking of interlinear texts, especially when using automatic wrapping. In particular, the title/line number should no longer appear alone at the bottom of a page and also, longer interlinears should be split across the page boundary instead of sometimes being kept together.</li
-><li
->Allow a free element to have a XeLaTeXspecial attribute of 'pagebreak'.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.3 14 December 2015<ul
-><li
 >Allow publisher style sheet to control whether or not sections within appendices should be included in contents.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Make the options in the betweentitleandnumber attribute of the contentsLayout element work.</li
-><li
->Note that cellpadding and cellspacing attributes do not work for tables using the default PDF output.</li
-></ul
-></li
-></ul
-></li
-><li
->2.28.2 9 December 2015<ul
 ><li
 >Allow content control for appendixRef, exampleRef, figureRef, genericRef, sectionRef, and tablenumberedRef elements.</li
 ><li
 >Make PDF output work on Mac OS "El Capitan".</li
 ><li
 >Fix a typo in English error message.</li
+><li
+>Add height and width attributes to the img element to control size of graphic in XXE.</li
+><li
+>For the web page output:<ul
+><li
+>Fix bug: when a style sheet was being used, the contents section for a part would show paragraphs, etc. in the part element.</li
+><li
+>If a preface, glossary, etc. item contained an index item, then the index did not show anything for the link to it.</li
 ></ul
 ></li
 ><li
->2.28.1 17 November 2015<ul
+>For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Add height and width attributes to the img element to control size of graphic in XXE.</li
+>Improve handling of figures with their captions so that they normally, if not always, occur on the same page.</li
+><li
+>Improve page-breaking of interlinear texts, especially when using automatic wrapping. In particular, the title/line number should no longer appear alone at the bottom of a page and also, longer interlinears should be split across the page boundary instead of sometimes being kept together.</li
+><li
+>Allow a free element to have a XeLaTeXspecial attribute of 'pagebreak'.</li
+><li
+>Make the options in the betweentitleandnumber attribute of the contentsLayout element work.</li
+><li
+>Note that cellpadding and cellspacing attributes do not work for tables using the default PDF output.</li
+><li
+>Fix bug: There was no way to set the default font family in a publisher style sheet to use Graphite. Now the defaultFontFamily element has a XeLaTeXSpecial attribute where one can set grapite and font-feature values.</li
+><li
+>Fix bug: If a document had several font-family attributes where the corresponding XeLaTeXSpecial attribute used graphite (and maybe font-feature values), any instance of that font-family also used the set of graphite/font-features of only one defined set. Now it uses each defined set in the appropriate places.</li
+><li
+>Fix bug: if a table had endnoteRef elements but no endnote elements, then the footnote number of the endnoteRef elements could be too high.</li
+><li
+>Fix bug: when a table had one or more "header" rows (i.e., a row with all th columns) and had rows with a th td+ pattern and the final row began with a td row, the header would not show.</li
+><li
+>Fix bug: When a style sheet has a running header or footer with both a chapter title and a section title in it, if no section occurred before a page was output, then the header or footer would contain the chapter title two times.</li
+><li
+>Fix bug: if the stylesheet body layout has a part and the part starts with a numberLayout, the page numbering could be wrong for the first part (and the last part of the frontMatter).</li
+><li
+>Fix bug: If a caption to a figure or table included an index item, then the index would list the item using the page number of the list of figures or list of tables instead of the page where the caption appeared.</li
+><li
+>Fix bug: if the stylesheet font size was less than 10 or more than 12, then the number in numbered lists would be too wide or too narrow, respectively.</li
+></ul
+></li
 ></ul
 ></li
 ><li

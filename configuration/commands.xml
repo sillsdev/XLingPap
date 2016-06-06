@@ -1675,8 +1675,8 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:command name="ConvertToEPUB" parameter="%_"/>
                         <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
                         <cfg:command name="status" parameter="%_ (4/4)"/>
-                        <cfg:get expression="$CalibreBookId"/>
-                        <cfg:command name="RemoveFileFromCalibreLibrary" parameter="%_"/>
+                        <!--<cfg:get expression="$CalibreBookId"/>
+                        <cfg:command name="RemoveFileFromCalibreLibrary" parameter="%_"/>-->
                         <cfg:command name="beep"/>
                         <cfg:choice>
                             <cfg:command name="start" parameter="[Windows] ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>

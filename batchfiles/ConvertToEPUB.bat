@@ -1,3 +1,4 @@
+@echo on
 if "%6" == "paper" goto paper
 set levelone=//h:div[contains(@class,'Title') and not(contains(@class, 'section')) and not(contains(@class, 'part'))  or @class='preface' or contains(@class,'acknowledgements')]
 set leveltwo=//h:body/h:div[contains(@class,'Titlesection1')]

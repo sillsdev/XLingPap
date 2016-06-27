@@ -2515,6 +2515,13 @@ What we want is to load IE independently and to do a refresh so it will show the
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="showXLingPapQuickReferenceGuideDocumentation">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{C}%{S}..%{S}doc%{S}XLingPaperQuickReferenceGuide.pdf&quot;"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
     <cfg:command name="showAboutXLingPaper">
         <cfg:macro>
             <cfg:sequence>

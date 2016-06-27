@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->6 June 2016</date
+>27 June 2016</date
 ><version
->2.29.0</version
+>2.29.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -20986,7 +20986,10 @@ type="tTool"
 >Microsoft Word 2003</object
 > format for your document. How does one do that?</p
 ><p
->There are actually two ways to do this.</p
+>There are actually two ways to do this.  (Some users who have the full version of <object
+type="tTool"
+>Adobe Acrobat</object
+> have said that its PDF to Word conversion works well.  I tried it on one file and it came out about the same as the first option below.)</p
 ><p
 >The first is to produce a PDF file using the default way of producing PDF. See section <sectionRef
 sec="sFAQProducePDF"

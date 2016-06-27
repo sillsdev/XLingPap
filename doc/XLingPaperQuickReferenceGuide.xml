@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xlingpaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
+"XLingPap.dtd">
+<xlingpaper
+version="2.8.0"
+><styledPaper
+><lingPaper
+automaticallywrapinterlinears="yes"
+version="2.10.0"
+><frontMatter
+><title
+><object
+type="tXLingPaper"
+></object
+> Quick Reference Guide</title
+><subtitle
+>using the <object
+type="tXMLmind"
+></object
+> XML Editor</subtitle
+><author
+>H. Andrew Black</author
+><date
+>27 June 2016</date
+><contents
+></contents
+></frontMatter
+><section1
+id="sIntro"
+><secTitle
+>Introduction</secTitle
+><p
+>This document lists a number of common tasks users often want to do when editing an <object
+type="tXLingPaper"
+></object
+> document. Each task is given as a section or subsection. Look through the section titles in the table of contents or look in the <genericRef
+gref="gIndex"
+>index</genericRef
+> and see if what you want to do is listed. If so, click on that section and then follow the instructions.</p
+><p
+>Some of the instructions refer to the Node Path Bar. Example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+> points out where that is:</p
+><example
+num="xNodePathBar"
+><chart
+><img
+src="resources/NodePathBarQRG.png"
+></img
+></chart
+></example
+></section1
+><section1
+id="sSaveAs"
+><secTitle
+>Save the file with a new name and/or in a new location</secTitle
+><p
+><indexedItem
+term="iFileRename"
+></indexedItem
+><indexedItem
+term="iSaveInNewLocation"
+></indexedItem
+>To save the file with a new name or to put the file in a new location, do this:</p
+><ol
+><li
+>Use <object
+type="tInstruction"
+>File</object
+> menu item / <object
+type="tInstruction"
+>Save As...</object
+></li
+><li
+>Change the file name in the “File name:” line, if needed.</li
+><li
+>Navigate to the new file location, if needed.</li
+><li
+>Click on the <object
+type="tInstruction"
+>Save</object
+> button.</li
+></ol
+></section1
+><section1
+id="sOpenSection"
+><secTitle
+>Open a section or subsection</secTitle
+><p
+><indexedItem
+term="iSectionOpen"
+></indexedItem
+><indexedItem
+term="iOpenSection"
+></indexedItem
+>Sections are initially collapsed. To open one, click on the blue boxed plus sign <img
+src="resources/BoxedPlusSign.png"
+></img
+> just to the left of the blue section number. This will open up the section.</p
+><p
+>Alternatively, you can click in the section title and then press the <object
+type="tInstruction"
+>Esc</object
+> key (let it go) and then type the slash <object
+type="tInstruction"
+>/</object
+> character.</p
+></section1
+><section1
+id="sCloseSection"
+><secTitle
+>Close a section or subsection</secTitle
+><p
+><indexedItem
+term="iSectionClose"
+></indexedItem
+><indexedItem
+term="iCloseSection"
+></indexedItem
+>To close a section, click on the blue boxed minus sign just to the left of the blue section number.</p
+><p
+>Alternatively, you can click in a paragraph and then press the <object
+type="tInstruction"
+>Esc</object
+> key (let it go) and then type the slash <object
+type="tInstruction"
+>/</object
+> character.</p
+></section1
+><section1
+id="sTable"
+><secTitle
+>Edit a table</secTitle
+><p
+><indexedItem
+term="iTable"
+></indexedItem
+>There may be times when you need to modify the size of the table. The following subsections outline ways to do that.</p
+><section2
+id="sTableDeleteRow"
+><secTitle
+>Delete a row</secTitle
+><p
+><indexedItem
+term="iTableDeleteRow"
+></indexedItem
+>If you need to delete a row in a table, do this:</p
+><ol
+><li
+>Click in a table cell in the row.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Row</object
+> / <object
+type="tInstruction"
+>Delete</object
+>.</li
+></ol
+></section2
+><section2
+id="sTableInsertRow"
+><secTitle
+>Insert a row</secTitle
+><p
+><indexedItem
+term="iTableInsertRow"
+></indexedItem
+>If you need to insert a row in a table, do this:</p
+><ol
+><li
+>Click in a table cell in the row before where you need to insert (if you need to insert a row at the beginning, click in a cell in the first row).</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Row</object
+> / <object
+type="tInstruction"
+>Copy</object
+>.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Row</object
+> / <object
+type="tInstruction"
+>Paste After</object
+> (if you need to insert a row at the beginning, use <object
+type="tInstruction"
+>Paste Before</object
+>).</li
+><li
+>Now edit the contents of each cell in the newly created row.</li
+></ol
+></section2
+><section2
+id="sTableDeleteColumn"
+><secTitle
+>Delete a column</secTitle
+><p
+><indexedItem
+term="iTableDeleteColumn"
+></indexedItem
+>In the unlikely situation that you need to delete a column in a table, do this:</p
+><ol
+><li
+>Click in a table cell in the column.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Column</object
+> / <object
+type="tInstruction"
+>Delete</object
+>.</li
+></ol
+></section2
+><section2
+id="sTableInsertColumn"
+><secTitle
+>Insert a column</secTitle
+><p
+><indexedItem
+term="iTableInsertColumn"
+></indexedItem
+>In the unlikely situation that you need to insert a column in a table, do this:</p
+><ol
+><li
+>Click in a table cell in the column before where you need to insert (if you need to insert a column at the beginning, click in a cell in the first column).</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Column</object
+> / <object
+type="tInstruction"
+>Copy</object
+>.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Table Column</object
+> / <object
+type="tInstruction"
+>Paste After</object
+> (if you need to insert a column at the beginning, use <object
+type="tInstruction"
+>Paste Before</object
+>).</li
+><li
+>Now edit the contents of each cell in the newly created column.</li
+></ol
+></section2
+><section2
+id="sTableIncreaseSize"
+><secTitle
+>Quickly increase size of the table</secTitle
+><p
+><indexedItem
+term="iTableChangeSize"
+></indexedItem
+>If you need to add many rows to a table, you can use the <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Increase Table Size</object
+> command. This brings up a dialog box where you can increase the number of non-header rows. (It does not work to decrease any of the sizes; it only works to increase the sizes.)</p
+></section2
+></section1
+><section1
+id="sInterlineat"
+><secTitle
+>Interlinear</secTitle
+><section2
+id="sInterlinearContent"
+><secTitle
+>Enter interlinear text content</secTitle
+><p
+><indexedItem
+term="iInterlinear"
+></indexedItem
+>When you are creating an interlinear example, type in the correct content for each line. Use spaces between each word for any portion that needs to be aligned.</p
+><p
+>Finally, do what is discussed in section <sectionRef
+sec="sConvertToWrd"
+></sectionRef
+>.</p
+></section2
+><section2
+id="sConvertToWrd"
+><secTitle
+>Convert interlinear to special <object
+type="tElement"
+>wrd</object
+> form</secTitle
+><p
+><indexedItem
+term="iInterlinearConvert"
+></indexedItem
+>In order to make good use of glossing abbreviations in the morpheme gloss, we have to convert all the lines which need to be aligned in each interlinear to use a special format (called <object
+type="tElement"
+>wrd</object
+> elements). This is even for those lines which do not have any glossing abbreviations in them. The idea is to overtly mark up each word that must be aligned in the interlinear with a <object
+type="tElement"
+>wrd</object
+> element.</p
+><p
+>To do this,</p
+><ol
+><li
+>Click in the example text you keyed (the first line).</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Convert interlinear line to wrd elements</object
+> or hold the <object
+type="tInstruction"
+>Shift</object
+> key down while pressing the <object
+type="tInstruction"
+>F10</object
+> key. After converting, this will put the cursor at the beginning of the next line in the interlinear. Note that sometimes it takes a while before the cursor will move.</li
+><li
+>Repeat step 2 until you have converted all the lines that need to be aligned.</li
+></ol
+><p
+><indexedItem
+term="iAbbreviationAutoConvert"
+></indexedItem
+>As you do this, note that any morpheme glosses which match an abbreviation will automatically be converted to a special <object
+type="tElement"
+>abbrRef</object
+> element. These have a yellowish background and show the abbreviation in small capital letters.</p
+></section2
+><section2
+id="sInsertNewWrd"
+><secTitle
+>Add words to an interlinear</secTitle
+><p
+><indexedItem
+term="iInterlinearAddNewWrd"
+></indexedItem
+><indexedItem
+term="iAddWrdInInterlinear"
+></indexedItem
+>Sometimes, after you have already entered an entire interlinear example you realize that you need to add another word or two. To add a new word, do this:</p
+><ol
+><li
+>In the first line, click in the word before where you want to add a new word (if you need to add a word at the beginning, click in the first word).</li
+><li
+>In the Node Path Bar (see example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+>), click on “wrd”.</li
+><li
+>Copy (<object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Copy</object
+>).</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Paste After</object
+> (if you need to add a word at the beginning, use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Paste Before</object
+>).</li
+><li
+>Replace the copied word content with the new content.</li
+><li
+>Repeat steps 1-5 for each line that needs to be aligned.</li
+></ol
+></section2
+><section2
+id="sDeleteWrd"
+><secTitle
+>Delete a word in an interlinear</secTitle
+><p
+><indexedItem
+term="iInterlinearDeleteNewWrd"
+></indexedItem
+><indexedItem
+term="iDeleteWrdInInterlinear"
+></indexedItem
+>Sometimes, after you have already entered an entire interlinear example you realize that you need to delete a word or two. To delete a word in an interlilnear, do this:</p
+><ol
+><li
+>In the first line, click in the word you want to delete.</li
+><li
+>In the Node Path Bar (see example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+>), click on “wrd”.</li
+><li
+>Delete (<object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Delete</object
+>).</li
+><li
+>Repeat steps 1-3 for each line that needs to be aligned.</li
+></ol
+></section2
+></section1
+><section1
+id="sAbbreviations"
+><secTitle
+>Abbreviations</secTitle
+><section2
+id="sGlossAbbrRef"
+><secTitle
+>Convert gloss text to use abbreviation(s)</secTitle
+><p
+><indexedItem
+term="iAbbreviation"
+></indexedItem
+><indexedItem
+term="iAbbreviationAutoConvert"
+></indexedItem
+>Sometimes you discover that a morpheme gloss did not get converted to an abbreviation when converting an interlinear to use <object
+type="tElement"
+>wrd</object
+> elements. This is probably because of a typo or because the abbreviation is not in the list of abbreviations (see section <sectionRef
+sec="sAddAbbreviation"
+></sectionRef
+>) or the spelling of the abbreviation in the list is not what you need (see section <sectionRef
+sec="sCorrectAbbreviation"
+></sectionRef
+>). Other times, you may have a morpheme gloss with an abbreviation in a prose paragraph. How do you get these to convert to the correct <object
+type="tElement"
+>abbrRef</object
+> element?</p
+><p
+>Do this:</p
+><ol
+><li
+>Click in the abbreviation that needs to be converted.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Convert any abbreviations in gloss to abbrRefs</object
+> or hold the <object
+type="tInstruction"
+>Shift</object
+> and <object
+type="tInstruction"
+>Ctrl</object
+> keys down while pressing the <object
+type="tInstruction"
+>F10</object
+> key. (You can also use the <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Convert interlinear line to wrd elements</object
+> or hold the <object
+type="tInstruction"
+>Shift</object
+> key down while pressing the <object
+type="tInstruction"
+>F10</object
+> key.)</li
+></ol
+></section2
+><section2
+id="sCorrectAbbreviation"
+><secTitle
+>Correct an abbreviation</secTitle
+><p
+><indexedItem
+term="iAbbreviationCorrect"
+></indexedItem
+>Sometimes the abbreviation in the list of abbreviations is not the one you need to use. To correct it, do this:</p
+><ol
+><li
+>Open up the second Abbreviations section (the first one is where the abbreviations used in your grammar will appear in the output). See section <sectionRef
+sec="sOpenSection"
+></sectionRef
+> for how to open up a section.</li
+><li
+>Scan down the list of abbreviations until you find the place where your abbreviation is.</li
+><li
+>Click in the abbreviation and change it.</li
+></ol
+></section2
+><section2
+id="sAddAbbreviation"
+><secTitle
+>Add a new abbreviation</secTitle
+><p
+><indexedItem
+term="iAbbreviationAdd"
+></indexedItem
+>Sometimes you find that an abbreviation you need is not in the list of abbreviations. To add a new one, do this:</p
+><ol
+><li
+>Open up the second Abbreviations section (the first one is where the abbreviations used in your grammar will appear in the output). See section <sectionRef
+sec="sOpenSection"
+></sectionRef
+> for how to open up a section.</li
+><li
+>Scan down the list of abbreviations until you find the place where your new abbreviation will alphabetize correctly.</li
+><li
+>Click on the yellow part of the abbreviation before it (if it's the first, click on the first one).</li
+><li
+>Copy (<object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Copy</object
+>.</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Paste After</object
+> (if you need to add an abbreviation at the beginning, use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Paste Before</object
+>).</li
+><li
+>Click in the yellow part, just after the v and type in a unique identifier (please note that this should use just a-z, A-Z, and number characters - no blanks and no punctuation and no accented or special characters). Replace the old one.</li
+><li
+>Click in the first part before the equals sign, type the abbreviation you need, replacing the old one.</li
+><li
+>Click in the part after the equals sign.</li
+><li
+>Type in the description of the abbreviation, replacing the old one.</li
+></ol
+></section2
+></section1
+><section1
+id="sOutput"
+><secTitle
+>Output</secTitle
+><section2
+id="sProduceWebPage"
+><secTitle
+>Produce web page output</secTitle
+><p
+><indexedItem
+term="iWebPageProduce"
+></indexedItem
+><indexedItem
+term="iOutputWebPage"
+></indexedItem
+>To produce the web page output for your grammar, use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Produce Webpage</object
+> or press the <object
+type="tInstruction"
+>F7</object
+> key.</p
+></section2
+><section2
+id="sSeeWebPage"
+><secTitle
+>See web page output</secTitle
+><p
+><indexedItem
+term="iWebPageSee"
+></indexedItem
+><indexedItem
+term="iOutputSeeWebPage"
+></indexedItem
+>To see the web page output for your grammar, use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Show Webpage</object
+> or press the <object
+type="tInstruction"
+>F8</object
+> key. This will show the web page in your browser. Note that if you already are viewing the web page in a browser, then you can reload (or refresh) the page in your browser after producing the web page again (see section <sectionRef
+sec="sProduceWebPage"
+></sectionRef
+>).</p
+></section2
+><section2
+id="sProducePDF"
+><secTitle
+>Produce PDF output</secTitle
+><p
+><indexedItem
+term="iPDF"
+></indexedItem
+><indexedItem
+term="iOutputPDF"
+></indexedItem
+>To produce the PDF output for your grammar, use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Produce PDF</object
+> or press the <object
+type="tInstruction"
+>F9</object
+> key.</p
+></section2
+></section1
+><section1
+id="sInsertingNewMaterial"
+><secTitle
+>Inserting new material</secTitle
+><p
+>This section is a reminder of how to insert a new paragraph, section, or interlinear example. Since <object
+type="tXLingPaper"
+></object
+> uses a structured editor, the process for doing this is often different from what you may be used to. The following sections outline how to do that.</p
+><section2
+id="sInsertParagraph"
+><secTitle
+>Insert new paragraph</secTitle
+><p
+><indexedItem
+term="iParagraph"
+></indexedItem
+><indexedItem
+term="iInsertParagraph"
+></indexedItem
+>The key thing to keep in mind is that you need to “select” the structure after which (or before which) a paragraph can go. Do this:</p
+><p
+>If you are inserting a paragraph immediately after another paragraph, merely click at the end of the paragraph and press the <object
+type="tInstruction"
+>Enter</object
+> key. This will start a new paragraph.</p
+><p
+>If, on the other hand, you want to insert a new paragraph after something like an example, do this:</p
+><ol
+><li
+>Click in the material before which you want to insert the new paragraph.</li
+><li
+>In the Node Path Bar (see example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+>), click on what comes immediately after the last “section” item (the section items have a number after them: 1-6 indicating the nesting depth of the section).</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Insert After</object
+> and choose “p” (for paragraph) in the Edit Tool (upper right hand corner).</li
+><li
+>Press the <object
+type="tInstruction"
+>Enter</object
+> key.</li
+></ol
+></section2
+><section2
+id="sInsertSection"
+><secTitle
+>Insert a new section or subsection</secTitle
+><p
+><indexedItem
+term="iSectionInsert"
+></indexedItem
+><indexedItem
+term="iInsertSection"
+></indexedItem
+>With a program like Microsoft Word, to start a new section, you merely need to insert a new header style. Since <object
+type="tXLingPaper"
+></object
+> is structured, that approach does not work. With <object
+type="tXLingPaper"
+></object
+>, you need to consider the structure of the document.</p
+><p
+>If you want to insert a section at the same level as the current section you are editing, do this:</p
+><ol
+><li
+>Click on the number in blue background of the current section.</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Insert After</object
+> and choose “section” in the Edit Tool (upper right hand corner). (Note that the word “section” will have a number after it which indicates the nesting level of this section.)</li
+><li
+>Press the <object
+type="tInstruction"
+>Enter</object
+> key.</li
+><li
+>You'll see something that will look a bit like this: <img
+src="resources/SectionNew.png"
+></img
+></li
+><li
+>Type the title of the section in the hash area.</li
+><li
+>Click in the blue section just after the “s” and enter a unique identification for this section. Use a-z, A-Z, and digits for this identification.</li
+><li
+>Open up the section (see section <sectionRef
+sec="sOpenSection"
+></sectionRef
+>).</li
+></ol
+><p
+>If you want to insert a subsection at the end of the current section, do this:</p
+><ol
+><li
+>Click in the last part of the current section (the last paragraph, example, etc.).</li
+><li
+>In the Node Path Bar (see example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+>), click on what comes immediately after the last “section” item (the section items have a number after them: 1-6 indicating the nesting depth of the section).</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Insert After</object
+> and choose “section” in the Edit Tool (upper right hand corner). (Note that the word “section” will have a number after it which indicates the nesting level of this section.)</li
+><li
+>Press the <object
+type="tInstruction"
+>Enter</object
+> key.</li
+><li
+>You'll see something that will look a bit like this: <img
+src="resources/Section2New.png"
+></img
+></li
+><li
+>Type the title of the section in the hash area.</li
+><li
+>Click in the blue section just after the “s” and enter a unique identification for this section. Use a-z, A-Z, and digits for this identification.</li
+><li
+>Open up the section (see section <sectionRef
+sec="sOpenSection"
+></sectionRef
+>).</li
+></ol
+></section2
+><section2
+id="sInsertInterlinear"
+><secTitle
+>Insert a new interlinear example</secTitle
+><p
+><indexedItem
+term="iInterlinearInsert"
+></indexedItem
+><indexedItem
+term="iInsertInterlinear"
+></indexedItem
+>Sometimes you realize that you need to insert a new interlinear example. Do this:</p
+><ol
+><li
+>Click in the material before which you want to insert the new interlinear example.</li
+><li
+>In the Node Path Bar (see example <exampleRef
+letter="xNodePathBar"
+num="xNodePathBar"
+></exampleRef
+>), click on what comes immediately after the last “section” item (the section items have a number after them: 1-6 indicating the nesting depth of the section).</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Insert After</object
+> and choose “<object
+type="tItalic"
+>example(interlinear_l_g_g_free)</object
+>” (for example which is an interlinear that has a line for the language, two lines of gloss, and a free translation) in the Edit Tool (upper right hand corner). Or possibly <object
+type="tItalic"
+>example(listInterlinear_l_g_g_free)</object
+> for a list of related interlinear examples.</li
+><li
+>Press the <object
+type="tInstruction"
+>Enter</object
+> key.</li
+><li
+>Type your language data in the first line with a space between each word.</li
+><li
+>Type the word gloss in the second line.</li
+><li
+>Type the morpheme gloss in the third line.</li
+><li
+>Type the free translation in the fourth line.</li
+><li
+>See section <sectionRef
+sec="sConvertToWrd"
+></sectionRef
+> for converting this to the special “wrd” format.</li
+></ol
+></section2
+></section1
+><section1
+id="sReferences"
+><secTitle
+>Citations and References</secTitle
+><p
+><indexedItem
+term="iCitation"
+></indexedItem
+><indexedItem
+term="iReferenceMaterial"
+></indexedItem
+>For complete details on how to enter reference material and citations to reference material, see sections 4.5 “References” and 8 “Citations” in the <object
+type="tXLingPaper"
+></object
+> User Documentation (see section <sectionRef
+sec="sSeeUserDoc"
+></sectionRef
+> for how to get this documentation). This documentation is currently only available in English.</p
+></section1
+><section1
+id="sSeeUserDoc"
+><secTitle
+>See the <object
+type="tXLingPaper"
+></object
+> user documentation</secTitle
+><p
+><indexedItem
+term="iXLingPaperDcoumentation"
+></indexedItem
+><indexedItem
+term="iDocumentation"
+></indexedItem
+>To see the <object
+type="tXLingPaper"
+></object
+> user documentation, use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Show XLingPaper User Documentation</object
+>.</p
+></section1
+><backMatter
+><endnotes
+></endnotes
+><references
+></references
+><index
+><p
+><genericTarget
+id="gIndex"
+></genericTarget
+></p
+></index
+></backMatter
+><languages
+><language
+id="lVernacular"
+name="vernacular"
+></language
+><language
+color="#446688"
+id="lGloss"
+name="gloss"
+></language
+><language
+id="en"
+></language
+></languages
+><types
+><comment
+>The following types are provided as pre-set examples. You may well want to create your own types that refer to one or more of these. You do that by typing in the names of the types in the types attribute of your type.</comment
+><type
+font-weight="bold"
+id="tBold"
+></type
+><type
+font-style="italic"
+font-weight="bold"
+id="tBoldItalic"
+></type
+><type
+font-weight="bold"
+id="tEmphasis"
+></type
+><type
+id="tGrammaticalGloss"
+types="tSmallCaps"
+></type
+><type
+font-style="italic"
+id="tItalic"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoOverline"
+xsl-foSpecial="text-decoration=&quot;no-overline&quot;"
+></type
+><type
+font-variant="normal"
+id="tNoSmallCaps"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoStrikethrough"
+xsl-foSpecial="text-decoration=&quot;no-line-through&quot;"
+></type
+><type
+cssSpecial="text-decoration:none"
+id="tNoUnderline"
+xsl-foSpecial="text-decoration=&quot;no-underline&quot;"
+></type
+><type
+cssSpecial="text-decoration:overline"
+id="tOverline"
+xsl-foSpecial="text-decoration=&quot;overline&quot;"
+></type
+><type
+font-style="normal"
+font-variant="normal"
+font-weight="normal"
+id="tRegular"
+></type
+><type
+font-family="Charis SIL CompactSmallCaps"
+id="tSmallCaps"
+></type
+><type
+XeLaTeXSpecial="line-through"
+cssSpecial="text-decoration:line-through"
+id="tStrikethrough"
+xsl-foSpecial="text-decoration=&quot;line-through&quot;"
+></type
+><type
+XeLaTeXSpecial="subscript"
+cssSpecial="vertical-align:sub;"
+font-size="65%"
+id="tSubscript"
+xsl-foSpecial="baseline-shift='sub'"
+></type
+><type
+XeLaTeXSpecial="superscript"
+cssSpecial="vertical-align:super;"
+font-size="65%"
+id="tSuperscript"
+xsl-foSpecial="baseline-shift='super'"
+></type
+><type
+XeLaTeXSpecial="underline"
+cssSpecial="text-decoration:underline"
+id="tUnderline"
+xsl-foSpecial="text-decoration=&quot;underline&quot;"
+></type
+><comment
+>Add your custom types here.</comment
+><type
+color="red"
+font-weight="bold"
+id="tComment"
+></type
+><type
+color="maroon"
+font-family="Courier New"
+font-size="90%"
+id="tElement"
+></type
+><type
+color="maroon"
+id="tInstruction"
+></type
+><type
+before="PAWS Starter Kit"
+id="tPAWS"
+></type
+><type
+before="XLingPaper"
+id="tXLingPaper"
+></type
+><type
+before="XMLmind"
+id="tXMLmind"
+></type
+></types
+><indexTerms
+><indexTerm
+id="iAbbreviation"
+><term
+>Abbreviation</term
+><indexTerms
+><indexTerm
+id="iAbbreviationAdd"
+><term
+>Add a new abbreviation</term
+></indexTerm
+><indexTerm
+id="iAbbreviationAutoConvert"
+><term
+>Automatic conversion to <object
+type="tElement"
+>abbrRef</object
+> element</term
+></indexTerm
+><indexTerm
+id="iAbbreviationCorrect"
+><term
+>Correct abbreviation</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iAddWrdInInterlinear"
+><term
+>Add a word in an interlinear</term
+></indexTerm
+><indexTerm
+id="iCitation"
+><term
+>Citation</term
+></indexTerm
+><indexTerm
+id="iCloseSection"
+><term
+>Close a section</term
+></indexTerm
+><indexTerm
+id="iDeleteWrdInInterlinear"
+><term
+>Delete a word in an interlinear</term
+></indexTerm
+><indexTerm
+id="iDocumentation"
+><term
+>Documentation</term
+></indexTerm
+><indexTerm
+id="iENTER..."
+><term
+>ENTER...</term
+></indexTerm
+><indexTerm
+id="iFile"
+><term
+>File</term
+><indexTerms
+><indexTerm
+id="iFileRename"
+><term
+>Rename</term
+></indexTerm
+><indexTerm
+id="iSaveInNewLocation"
+><term
+>Save in new location</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iInsert"
+><term
+>Insert</term
+><indexTerms
+><indexTerm
+id="iInsertInterlinear"
+><term
+>Interlinear example</term
+></indexTerm
+><indexTerm
+id="iInsertParagraph"
+><term
+>Paragraph</term
+></indexTerm
+><indexTerm
+id="iInsertSection"
+><term
+>Section</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iInterlinear"
+><term
+>Interlinear</term
+><indexTerms
+><indexTerm
+id="iInterlinearAddNewWrd"
+><term
+>Add a new word</term
+></indexTerm
+><indexTerm
+id="iInterlinearConvert"
+><term
+>Convert to <object
+type="tElement"
+>wrd</object
+> elements</term
+></indexTerm
+><indexTerm
+id="iInterlinearDeleteNewWrd"
+><term
+>Delete a word</term
+></indexTerm
+><indexTerm
+id="iInterlinearInsert"
+><term
+>Insert a new interlinear example</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iOpenSection"
+><term
+>Open a section</term
+></indexTerm
+><indexTerm
+id="iOutput"
+><term
+>Output</term
+><indexTerms
+><indexTerm
+id="iOutputPDF"
+><term
+>Produce PDF</term
+></indexTerm
+><indexTerm
+id="iOutputWebPage"
+><term
+>Produce Web page</term
+></indexTerm
+><indexTerm
+id="iOutputSeeWebPage"
+><term
+>See web page</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iParagraph"
+><term
+>Paragraph, insert a new</term
+></indexTerm
+><indexTerm
+id="iPDF"
+><term
+>PDF output</term
+></indexTerm
+><indexTerm
+id="iReferenceMaterial"
+><term
+>Reference material</term
+></indexTerm
+><indexTerm
+id="iRemovetComment"
+><term
+>Remove tComment item with red text</term
+></indexTerm
+><indexTerm
+id="iReplaceENTER..."
+><term
+>Replace ENTER... with content</term
+></indexTerm
+><indexTerm
+id="iSection"
+><term
+>Section</term
+><indexTerms
+><indexTerm
+id="iSectionClose"
+><term
+>Close</term
+></indexTerm
+><indexTerm
+id="iSectionInsert"
+><term
+>Insert a new section</term
+></indexTerm
+><indexTerm
+id="iSectionOpen"
+><term
+>Open</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iTable"
+><term
+>Table</term
+><indexTerms
+><indexTerm
+id="iTableChangeSize"
+><term
+>Change size</term
+></indexTerm
+><indexTerm
+id="iTableDeleteColumn"
+><term
+>Delete column</term
+></indexTerm
+><indexTerm
+id="iTableDeleteRow"
+><term
+>Delete row</term
+></indexTerm
+><indexTerm
+id="iTableInsertColumn"
+><term
+>Insert column</term
+></indexTerm
+><indexTerm
+id="iTableInsertRow"
+><term
+>Insert row</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="itComment"
+><term
+>tComment item with red text, how to delete it</term
+></indexTerm
+><indexTerm
+id="iWebPage"
+><term
+>Web page output</term
+><indexTerms
+><indexTerm
+id="iWebPageProduce"
+><term
+>Produce</term
+></indexTerm
+><indexTerm
+id="iWebPageSee"
+><term
+>See or show</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iXLingPaperDcoumentation"
+><term
+>XLingPaper documentation</term
+></indexTerm
+></indexTerms
+><contentControl
+><contentTypes
+><contentType
+id="ctPAWS"
+>PAWS output specific</contentType
+></contentTypes
+><contentControlChoices
+><contentControlChoice
+active="no"
+>PAWS output</contentControlChoice
+><contentControlChoice
+active="yes"
+exclude="ctPAWS"
+>General</contentControlChoice
+></contentControlChoices
+></contentControl
+></lingPaper
+><xi:include
+href="QuickReferenceGuideStyleSheet.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
+></styledPaper
+></xlingpaper
+>

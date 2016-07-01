@@ -12594,6 +12594,7 @@ What might go in a TeX package file
                 <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="0"/>
             </tex:parm>
             <tex:parm>
+                <tex:cmd name="immediate" gr="0"/>
                 <tex:cmd name="write8">
                     <tex:parm>
                         <tex:spec cat="lt"/>

@@ -12677,6 +12677,7 @@ What might go in a TeX package file
             </tex:parm>
             <tex:opt>1</tex:opt>
             <tex:parm>
+                <tex:cmd name="immediate" gr="0" nl2="0"/>
                 <tex:cmd name="{$sWriteNumber}">
                     <tex:parm>
                         <tex:spec cat="lt"/>

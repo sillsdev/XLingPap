@@ -266,10 +266,10 @@
                         <xsl:text>XLingPaper</xsl:text>
                         <xsl:value-of select="translate($sDefaultFontFamily,$sDigits, $sLetters)"/>
                         <xsl:text>FontFamily</xsl:text>
-                            <xsl:value-of select="$sGraphiteForFontName"/>
-                            <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
-                                <xsl:with-param name="sList" select="$sDefaultFontFamilyXeLaTeXSpecial"/>
-                            </xsl:call-template>
+                        <xsl:value-of select="$sGraphiteForFontName"/>
+                        <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
+                            <xsl:with-param name="sList" select="$sDefaultFontFamilyXeLaTeXSpecial"/>
+                        </xsl:call-template>
                         <xsl:call-template name="HandleFontSize">
                             <xsl:with-param name="sSize" select="concat($sBasicPointSize,'pt')"/>
                             <xsl:with-param name="sFontFamily" select="$sDefaultFontFamily"/>
@@ -845,6 +845,33 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        keywordsShownHere
+    -->
+    <xsl:template match="keywordsShownHere" mode="paper">
+        <xsl:param name="frontMatterLayout"/>
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="keywordsShownHere">
+        <xsl:param name="frontMatterLayout"/>
+        <xsl:choose>
+            <xsl:when test="parent::frontMatter">
+                <xsl:call-template name="OutputKeywordsTitleAndContent">
+                    <xsl:with-param name="sKeywordsID" select="$sKeywordsInFrontMatterID"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputKeywordsTitleAndContent">
+                    <xsl:with-param name="sKeywordsID" select="$sKeywordsInBackMatterID"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <!--
         preface (paper)
     -->
@@ -3646,6 +3673,9 @@
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="bookmarks"/>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="bookmarks"/>
+                </xsl:when>
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references" mode="bookmarks"/>
                 </xsl:when>
@@ -3698,6 +3728,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="contents"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$backMatter/references" mode="contents"/>
@@ -3783,6 +3816,11 @@
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere">
+                        <xsl:with-param name="frontMatterLayout" select="$backMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references">
@@ -4575,6 +4613,9 @@
                 <xsl:when test="name(.)='contentsLayout'">
                     <xsl:apply-templates select="$frontMatter/contents" mode="bookmarks"/>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere" mode="bookmarks"/>
+                </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="bookmarks">
                         <xsl:with-param name="iLayoutPosition">
@@ -4605,6 +4646,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="contents"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="contents">
@@ -7465,6 +7509,525 @@
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputKeywordsTitleAndContent
+    -->
+    <xsl:template name="OutputKeywordsTitleAndContent">
+        <xsl:param name="sKeywordsID"/>
+        <xsl:param name="layoutInfo"/>
+        <tex:group>
+
+            <!--<xsl:call-template name="OutputBackMatterItemTitle">
+                <xsl:with-param name="sId">
+                    <xsl:call-template name="GetIdToUse">
+                        <xsl:with-param name="sBaseId" select="$sKeywordsID"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputKeywordsLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/keywordsLayout"/>
+            </xsl:call-template>-->
+
+            <xsl:variable name="sId">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sKeywordsID"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:variable name="sLabel">
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </xsl:variable>
+            <xsl:variable name="keywordsLayoutInfo" select="$layoutInfo/keywordsLayout"/>
+
+            <tex:group>
+                <xsl:if test="$bIsBook">
+                    <xsl:call-template name="DoPageBreakFormatInfo">
+                        <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    </xsl:call-template>
+                    <xsl:if test="not(ancestor::chapterInCollection)">
+                        <tex:cmd name="thispagestyle">
+                            <tex:parm>
+                                <xsl:choose>
+                                    <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles">backmatterfirstpage</xsl:when>
+                                    <xsl:when test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">bodyfirstpage</xsl:when>
+                                    <xsl:otherwise>body</xsl:otherwise>
+                                </xsl:choose>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:call-template name="DoSpaceBefore">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                </xsl:call-template>
+
+                <!--<xsl:call-template name="DoTitleFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    <xsl:with-param name="originalContext" select="$sLabel"/>
+                    <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+                    <xsl:with-param name="fSpaceBeforeAlreadyDone" select="'Y'"/>
+                    <xsl:with-param name="sId" select="$sId"/>
+                    </xsl:call-template>-->
+
+                <!-- getting what we need from DoTitleFormatInfo... -->
+                <!-- We need to do the needspace here or we get too much extra vertical space or we can strand a title 
+                    at the bottom of a page. -->
+                <tex:cmd name="XLingPaperneedspace">
+                    <tex:parm>
+                        <xsl:text>3</xsl:text>
+                        <tex:cmd name="baselineskip" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:if test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left' or $keywordsLayoutInfo/@textalign='center'">
+                    <tex:cmd name="noindent" gr="0" nl2="1"/>
+                </xsl:if>
+                <xsl:if test="@showincontents='yes'">
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="$sId"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoInternalTargetEnd"/>
+                    <xsl:call-template name="DoBookMark"/>
+                    <xsl:call-template name="CreateAddToContents">
+                        <xsl:with-param name="id" select="$sId"/>
+                    </xsl:call-template>
+                    <tex:cmd name="markboth">
+                        <tex:parm>
+                            <xsl:copy-of select="$sLabel"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:copy-of select="$sLabel"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$keywordsLayoutInfo"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+                <xsl:if test="string-length($keywordsLayoutInfo/@textalign) &gt; 0">
+                    <xsl:call-template name="DoTextAlign">
+                        <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                </xsl:call-template>
+
+
+                <xsl:call-template name="OutputChapTitle">
+                    <xsl:with-param name="sTitle" select="$sLabel"/>
+                </xsl:call-template>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                </xsl:call-template>
+                <xsl:variable name="contentForThisElement">
+                    <xsl:call-template name="OutputChapTitle">
+                        <xsl:with-param name="sTitle" select="$sLabel"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                        <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <!--<xsl:call-template name="DoTitleFormatInfoEnd">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    <xsl:with-param name="originalContext" select="$sLabel"/>
+                    <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                    </xsl:call-template>-->
+
+                <xsl:if test="string-length($keywordsLayoutInfo/@textalign) &gt; 0">
+                    <!--<xsl:call-template name="DoTextAlignEnd">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="contentForThisElement" select="$contentOfThisElement"/>
+                        </xsl:call-template>-->
+                    <!-- Note: need to be sure to enclose this in a group or it will become the case from now until the next text align -->
+                    <xsl:choose>
+                        <xsl:when test="$keywordsLayoutInfo/@textalign='center' or $keywordsLayoutInfo/@textalign='right' or $keywordsLayoutInfo/@textalign='end'">
+                            <!-- must have \\ at end or it will not actually center -->
+                            <xsl:if test="string-length($contentForThisElement) &gt; 0">
+                                <xsl:if test="child::*[position()=last()][name()='br'][not(following-sibling::text())]">
+                                    <!-- cannot have two \\ in a row, so need to insert something; we'll use a non-breaking space -->
+                                    <xsl:text>&#xa0;</xsl:text>
+                                </xsl:if>
+                                <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords!='no'">
+                                    <tex:group>
+                                        <xsl:call-template name="OutputFontAttributes">
+                                            <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                        </xsl:call-template>
+                                        <xsl:call-template name="OutputKeywordsShownHere">
+                                            <xsl:with-param name="sTextBetweenKeywords">
+                                                <xsl:call-template name="GetTextBetweenKeywords">
+                                                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                                </xsl:call-template>
+                                            </xsl:with-param>
+                                        </xsl:call-template>
+                                        <xsl:call-template name="OutputFontAttributesEnd">
+                                            <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                        </xsl:call-template>
+                                    </tex:group>
+                                </xsl:if>
+                                <tex:spec cat="esc"/>
+                                <tex:spec cat="esc"/>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise/>
+                    </xsl:choose>
+                    <tex:spec cat="eg"/>
+
+                </xsl:if>
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="$keywordsLayoutInfo"/>
+                    <xsl:with-param name="originalContext" select="."/>
+                </xsl:call-template>
+
+                <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords='no'">
+                    <xsl:call-template name="DoSpaceAfter">
+                        <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    </xsl:call-template>
+                    <tex:group>
+                        <xsl:call-template name="OutputFontAttributes">
+                            <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputKeywordsShownHere">
+                            <xsl:with-param name="sTextBetweenKeywords">
+                                <xsl:call-template name="GetTextBetweenKeywords">
+                                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputFontAttributesEnd">
+                            <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                        </xsl:call-template>
+                    </tex:group>
+                </xsl:if>
+                <!--<xsl:if test="@showincontents='yes'">
+                    <xsl:call-template name="CreateAddToContents">
+                    <xsl:with-param name="id" select="$sId"/>
+                    </xsl:call-template>
+                    <tex:cmd name="markboth">
+                    <tex:parm>
+                    <xsl:copy-of select="$sLabel"/>
+                    </tex:parm>
+                    <tex:parm>
+                    <xsl:copy-of select="$sLabel"/>
+                    </tex:parm>
+                    </tex:cmd>
+                    </xsl:if>-->
+            </tex:group>
+            <!--                    <xsl:if test="$layoutInfo/keywordsLayout/@keywordLabelOnSameLineAsKeywords!='no'">
+                <tex:group>
+                <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                </xsl:call-template>
+                <xsl:call-template name="OutputKeywordsShownHere">
+                <xsl:with-param name="sTextBetweenKeywords">
+                <xsl:call-template name="GetTextBetweenKeywords">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                </xsl:call-template>
+                </xsl:with-param>
+                </xsl:call-template>
+                <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                </xsl:call-template>
+                </tex:group>
+                </xsl:if>
+            -->
+            <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords!='no'">
+                <xsl:call-template name="DoSpaceAfter">
+                    <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                </xsl:call-template>
+            </xsl:if>
+
+<!--            <xsl:choose>
+                <xsl:when test="$bIsBook">
+                    <tex:group>
+                        <xsl:call-template name="DoPageBreakFormatInfo">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+                        <xsl:if test="not(ancestor::chapterInCollection)">
+                            <tex:cmd name="thispagestyle">
+                                <tex:parm>
+                                    <xsl:choose>
+                                        <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles">backmatterfirstpage</xsl:when>
+                                        <xsl:when test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">bodyfirstpage</xsl:when>
+                                        <xsl:otherwise>body</xsl:otherwise>
+                                    </xsl:choose>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>
+                        <xsl:call-template name="DoSpaceBefore">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+
+                        <!-\-<xsl:call-template name="DoTitleFormatInfo">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="$sLabel"/>
+                            <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+                            <xsl:with-param name="fSpaceBeforeAlreadyDone" select="'Y'"/>
+                            <xsl:with-param name="sId" select="$sId"/>
+                        </xsl:call-template>-\->
+
+                        <!-\- getting what we need from DoTitleFormatInfo... -\->
+                        <!-\- We need to do the needspace here or we get too much extra vertical space or we can strand a title 
+                            at the bottom of a page. -\->
+                        <tex:cmd name="XLingPaperneedspace">
+                            <tex:parm>
+                                <xsl:text>3</xsl:text>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <xsl:if test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left' or $keywordsLayoutInfo/@textalign='center'">
+                            <tex:cmd name="noindent" gr="0" nl2="1"/>
+                        </xsl:if>
+                        <xsl:if test="@showincontents='yes'">
+                            <xsl:call-template name="DoInternalTargetBegin">
+                                <xsl:with-param name="sName" select="$sId"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="DoInternalTargetEnd"/>
+                            <xsl:call-template name="DoBookMark"/>
+                            <xsl:call-template name="CreateAddToContents">
+                                <xsl:with-param name="id" select="$sId"/>
+                            </xsl:call-template>
+                            <tex:cmd name="markboth">
+                                <tex:parm>
+                                    <xsl:copy-of select="$sLabel"/>
+                                </tex:parm>
+                                <tex:parm>
+                                    <xsl:copy-of select="$sLabel"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>
+                        <xsl:call-template name="OutputFontAttributes">
+                            <xsl:with-param name="language" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="."/>
+                        </xsl:call-template>
+                        <xsl:if test="string-length($keywordsLayoutInfo/@textalign) &gt; 0">
+                            <xsl:call-template name="DoTextAlign">
+                                <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+
+
+                        <xsl:call-template name="OutputChapTitle">
+                            <xsl:with-param name="sTitle" select="$sLabel"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+                        <xsl:variable name="contentForThisElement">
+                            <xsl:call-template name="OutputChapTitle">
+                                <xsl:with-param name="sTitle" select="$sLabel"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                                <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <!-\-<xsl:call-template name="DoTitleFormatInfoEnd">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="$sLabel"/>
+                            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                        </xsl:call-template>-\->
+
+                        <xsl:if test="string-length($keywordsLayoutInfo/@textalign) &gt; 0">
+                            <!-\-<xsl:call-template name="DoTextAlignEnd">
+                                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                <xsl:with-param name="contentForThisElement" select="$contentOfThisElement"/>
+                            </xsl:call-template>-\->
+                            <!-\- Note: need to be sure to enclose this in a group or it will become the case from now until the next text align -\->
+                            <xsl:choose>
+                                <xsl:when test="$keywordsLayoutInfo/@textalign='center' or $keywordsLayoutInfo/@textalign='right' or $keywordsLayoutInfo/@textalign='end'">
+                                    <!-\- must have \\ at end or it will not actually center -\->
+                                    <xsl:if test="string-length($contentForThisElement) &gt; 0">
+                                        <xsl:if test="child::*[position()=last()][name()='br'][not(following-sibling::text())]">
+                                            <!-\- cannot have two \\ in a row, so need to insert something; we'll use a non-breaking space -\->
+                                            <xsl:text>&#xa0;</xsl:text>
+                                        </xsl:if>
+                                        <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords!='no'">
+                                            <tex:group>
+                                                <xsl:call-template name="OutputFontAttributes">
+                                                    <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                                </xsl:call-template>
+                                                <xsl:call-template name="OutputKeywordsShownHere">
+                                                    <xsl:with-param name="sTextBetweenKeywords">
+                                                        <xsl:call-template name="GetTextBetweenKeywords">
+                                                            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                                        </xsl:call-template>
+                                                    </xsl:with-param>
+                                                </xsl:call-template>
+                                                <xsl:call-template name="OutputFontAttributesEnd">
+                                                    <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                                </xsl:call-template>
+                                            </tex:group>
+                                        </xsl:if>
+                                        <tex:spec cat="esc"/>
+                                        <tex:spec cat="esc"/>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:otherwise/>
+                            </xsl:choose>
+                            <tex:spec cat="eg"/>
+
+                        </xsl:if>
+                        <xsl:call-template name="OutputFontAttributesEnd">
+                            <xsl:with-param name="language" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="."/>
+                        </xsl:call-template>
+
+                        <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords='no'">
+                            <xsl:call-template name="DoSpaceAfter">
+                                <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            </xsl:call-template>
+                            <tex:group>
+                                <xsl:call-template name="OutputFontAttributes">
+                                    <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                </xsl:call-template>
+                                <xsl:call-template name="OutputKeywordsShownHere">
+                                    <xsl:with-param name="sTextBetweenKeywords">
+                                        <xsl:call-template name="GetTextBetweenKeywords">
+                                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                                        </xsl:call-template>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                                <xsl:call-template name="OutputFontAttributesEnd">
+                                    <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                </xsl:call-template>
+                            </tex:group>
+                        </xsl:if>
+                        <!-\-<xsl:if test="@showincontents='yes'">
+                            <xsl:call-template name="CreateAddToContents">
+                                <xsl:with-param name="id" select="$sId"/>
+                            </xsl:call-template>
+                            <tex:cmd name="markboth">
+                                <tex:parm>
+                                    <xsl:copy-of select="$sLabel"/>
+                                </tex:parm>
+                                <tex:parm>
+                                    <xsl:copy-of select="$sLabel"/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:if>-\->
+                    </tex:group>
+                    <!-\-                    <xsl:if test="$layoutInfo/keywordsLayout/@keywordLabelOnSameLineAsKeywords!='no'">
+                        <tex:group>
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="OutputKeywordsShownHere">
+                                <xsl:with-param name="sTextBetweenKeywords">
+                                    <xsl:call-template name="GetTextBetweenKeywords">
+                                        <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                    </xsl:call-template>
+                                </xsl:with-param>
+                            </xsl:call-template>
+                            <xsl:call-template name="OutputFontAttributesEnd">
+                                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                            </xsl:call-template>
+                        </tex:group>
+                    </xsl:if>
+-\->
+                    <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords!='no'">
+                        <xsl:call-template name="DoSpaceAfter">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:group>
+                        <!-\-                    <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-\->
+                        <xsl:if test="$keywordsLayoutInfo/@text-transform='uppercase' or $keywordsLayoutInfo/@text-transform='lowercase'">
+                            <xsl:call-template name="DoBookMark"/>
+                            <xsl:call-template name="DoInternalTargetBegin">
+                                <xsl:with-param name="sName" select="$sId"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="DoTitleFormatInfo">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="$sLabel"/>
+                        </xsl:call-template>
+                        <xsl:if test="not($keywordsLayoutInfo/@text-transform) or $keywordsLayoutInfo/@text-transform!='uppercase' and $keywordsLayoutInfo/@text-transform!='lowercase'">
+                            <xsl:call-template name="DoBookMark"/>
+                            <xsl:call-template name="DoInternalTargetBegin">
+                                <xsl:with-param name="sName" select="$sId"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <xsl:value-of select="$sLabel"/>
+                        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                        </xsl:call-template>
+                        <xsl:variable name="contentForThisElement">
+                            <xsl:value-of select="$sLabel"/>
+                            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                                <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:call-template name="DoTitleFormatInfoEnd">
+                            <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                            <xsl:with-param name="originalContext" select="$sLabel"/>
+                            <xsl:with-param name="contentOfThisElement" select="$contentForThisElement"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoTypeEnd"/>
+                        <xsl:call-template name="DoInternalTargetEnd"/>
+                        <tex:cmd name="markboth">
+                            <tex:parm>
+                                <xsl:copy-of select="$sLabel"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:copy-of select="$sLabel"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <xsl:call-template name="CreateAddToContents">
+                            <xsl:with-param name="id" select="$sId"/>
+                        </xsl:call-template>
+                    </tex:group>
+                    <tex:cmd name="par" nl2="1"/>
+                    <xsl:call-template name="DoSpaceAfter">
+                        <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+-->
+
+            <!--<xsl:choose>
+                <xsl:when test="$layoutInfo/keywordsLayout/@keywordLabelOnSameLineAsKeywords!='no'">
+                    <tex:group>
+                        <xsl:call-template name="OutputFontAttributes">
+                            <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputKeywordsShownHere">
+                            <xsl:with-param name="sTextBetweenKeywords">
+                                <xsl:call-template name="GetTextBetweenKeywords">
+                                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:call-template name="OutputFontAttributesEnd">
+                            <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                        </xsl:call-template>
+                    </tex:group>
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:cmd name="par"/>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputKeywordsShownHere">
+                        <xsl:with-param name="sTextBetweenKeywords">
+                            <xsl:call-template name="GetTextBetweenKeywords">
+                                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                            </xsl:call-template>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributesEnd">
+                        <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>-->
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo/keywordsLayout"/>
+            </xsl:call-template>
+        </tex:group>
     </xsl:template>
     <!--  
         OutputSectionNumber

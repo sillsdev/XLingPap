@@ -2529,7 +2529,12 @@ keyTerm
 	font-weight: concatenate(xpath("if(string-length(normalize-space(@font-weight))>0, @font-weight, string-length(normalize-space(id(@type)/@font-weight))>0, id(@type)/@font-weight, '')"));
 }
 
-keyword:before
+publishingInfo keyword:before
+{
+	content:"Keyword: " 
+	;
+}
+refWork keyword:before
 {
 	content:"Keyword: " 
 	;
@@ -2540,13 +2545,22 @@ publishingInfo keyword
 	padding-left: 0.25in;
 	padding-top: 0.05in;
 }
-keyword
+refWork keyword
 {
 	display:block;
 	padding-left: 0.125in;
 	padding-top: 0.05in;
 }
-keywords:before
+keyword
+{
+	display:inline;
+}
+publishingInfo keywords:before
+{
+	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
+	" Keywords: ";
+}
+refWork keywords:before
 {
 	content:collapser(collapsed-icon, icon(plus-box), expanded-icon, icon(minus-box))
 	" Keywords: ";
@@ -2559,7 +2573,22 @@ publishingInfo keywords
 	padding-top: 0.05in;
 }
 
-keywords
+keywordsShownHere[label]:before
+{
+	content:attr(label);
+}
+keywordsShownHere:before
+{
+	content:"Keywords: ";
+}
+keywordsShownHere
+{
+	display:block;
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+	content:text("The keywords listed under Publishing Info will appear here.",font-style,italic);
+}
+refWork keywords
 {
 	display:block;
 	property-group: isCollapsible( yes, 1);
@@ -7211,6 +7240,98 @@ iso639-3CodesLinkLayout
 	text-decoration:none;
 }
 
+keywordLayout[color]
+{
+	color:concatenate(attr(color));
+}
+keywordLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+keywordLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+keywordLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+keywordLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+keywordsLayout[keywordLabelOnSameLineAsKeywords="yes"] keywordLayout
+{
+        display:inline;
+}
+keywordsLayout[keywordLabelOnSameLineAsKeywords="no"] keywordLayout
+{
+        display:block;
+}
+keywordLayout
+{
+	content: "Keyword1"
+	         xpath("../@textBetweenKeywords")
+		 "Keyword2"
+	         xpath("../@textBetweenKeywords")
+		 "Keyword3";
+}
+keywordsLayout[keywordLabelOnSameLineAsKeywords="yes"] keywordLayout:first-child:before
+{
+        content: ": ";
+}
+keywordsLayout[color]
+{
+	color:concatenate(attr(color));
+}
+keywordsLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+keywordsLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+keywordsLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+keywordsLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+keywordsLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+keywordsLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+keywordsLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+keywordsLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+keywordsLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+keywordsLayout:before
+{
+	content: label(attribute, textbefore)
+	         "Keywords"
+	         label(attribute, textafter)
+	         ;
+}
+keywordsLayout
+{
+	display:block;
+	margin-left:.125in;
+}
 
 langDataLayout:before
 {

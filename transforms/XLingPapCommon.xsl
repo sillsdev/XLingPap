@@ -90,6 +90,8 @@
     <xsl:variable name="sEndnotesID" select="'rXLingPapEndnotes'"/>
     <xsl:variable name="sPrefaceID" select="'rXLingPapPreface'"/>
     <xsl:variable name="sReferencesID" select="'rXLingPapReferences'"/>
+    <xsl:variable name="sKeywordsInFrontMatterID" select="'rXLingPaperKeywordsInFrontMatter'"/>
+    <xsl:variable name="sKeywordsInBackMatterID" select="'rXLingPaperKeywordsInBackMatter'"/>
     <xsl:variable name="sAppendiciesPageID" select="'rXLingPapAppendiciesPage'"/>
     <xsl:variable name="endnotesToShow">
         <xsl:for-each select="//endnote[not(ancestor::referencedInterlinearText)][not(ancestor::chapterInCollection/backMatter/endnotes)][not(ancestor::comment)]">
@@ -1197,6 +1199,19 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        GetKeywordsID
+    -->
+    <xsl:template name="GetKeywordsID">
+        <xsl:choose>
+            <xsl:when test="parent::backMatter">
+                <xsl:value-of select="$sKeywordsInBackMatterID"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sKeywordsInFrontMatterID"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetLiInOlNumberOrLetter
     -->
     <xsl:template name="GetLiInOlNumberOrLetter">
@@ -1873,6 +1888,44 @@
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputKeywordsLabel
+    -->
+    <xsl:template name="OutputKeywordsLabel">
+        <xsl:choose>
+            <xsl:when test="@label and string-length(@label) &gt;= 0">
+                <xsl:value-of select="@label"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Keywords</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="ancestor::frontMatter">
+                        <xsl:text>: </xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+                
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputKeywordsShownHere
+    -->
+    <xsl:template name="OutputKeywordsShownHere">
+        <xsl:param name="sTextBetweenKeywords" select="', '"/>
+        <xsl:for-each select="../../publishingInfo/keywords/keyword">
+            <xsl:value-of select="."/>
+            <xsl:if test="position()!=last()">
+                <xsl:choose>
+                    <xsl:when test="string-length($sTextBetweenKeywords) &gt; 0">
+                        <xsl:value-of select="$sTextBetweenKeywords"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>, </xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         OutputLabel

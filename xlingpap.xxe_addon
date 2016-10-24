@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.29.3</a:version
+>2.29.4</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-09-02</a:date
+>2016-10-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,14 @@ href="mailto::andy_black@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.29.4 24 October 2016<ul
+><li
+>Improve user documentation on referencing interlinears.</li
+><li
+>Add ability to include list of keywords in front matter and/or back matter.  One can control their appearance and location in a publisher style sheet.</li
+></ul
+></li
 ><li
 >2.29.3 2 September 2016<ul
 ><li

@@ -179,7 +179,30 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
-    <!-- 
+    <!--
+        keywords (bookmarks)
+    -->
+    <xsl:template match="keywordsShownHere[@showincontents='yes']" mode="bookmarks">
+        <xsl:call-template name="OutputBookmark">
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId">
+                        <xsl:choose>
+                            <xsl:when test="parent::frontMatter">
+                                <xsl:value-of select="$sKeywordsInFrontMatterID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sKeywordsInBackMatterID"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>    <!-- 
         part (bookmarks) 
     -->
     <xsl:template match="part" mode="bookmarks">

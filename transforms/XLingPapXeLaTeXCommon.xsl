@@ -12793,6 +12793,7 @@ What might go in a TeX package file
                 <xsl:text> = </xsl:text>
                 <tex:cmd name="jobname.toc" gr="0" nl2="0"/>
                 <tex:cmd name="relax" gr="0" nl2="1"/>
+                <tex:cmd name="immediate" gr="0" nl2="0"/>
                 <tex:cmd name="write8">
                     <tex:parm>
                         <tex:spec cat="lt"/>

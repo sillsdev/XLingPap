@@ -192,20 +192,20 @@
                 <xsl:choose>
                     <xsl:when test="ancestor::chapterInCollection">
                         <xsl:apply-templates select="author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
-                        <xsl:apply-templates select="contents | acknowledgements | abstract | preface"/>
+                        <xsl:apply-templates select="contents | acknowledgements | abstract | keywordsShownHere | preface"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
                         <tex:cmd name="pagestyle" nl2="1">
                             <tex:parm>empty</tex:parm>
                         </tex:cmd>
-                        <xsl:apply-templates select="contents | acknowledgements | abstract | preface" mode="book"/>
+                        <xsl:apply-templates select="contents | acknowledgements | abstract | keywordsShownHere | preface" mode="book"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
-                <xsl:apply-templates select="contents | acknowledgements | abstract | preface"/>
+                <xsl:apply-templates select="contents | acknowledgements | abstract | keywordsShownHere | preface"/>
                 <xsl:apply-templates select="//section1[not(parent::appendix)]"/>
                 <xsl:apply-templates select="//backMatter"/>
                 <!--                <xsl:apply-templates select="//index" mode="Index"/> -->
@@ -539,6 +539,66 @@
                 </tex:parm>
             </tex:cmd>
         </tex:group>
+    </xsl:template>
+    <xsl:template match="keywordsShownHere" mode="book">
+        <xsl:apply-templates select="self::*"/>
+    </xsl:template>
+    <xsl:template match="keywordsShownHere">
+        <xsl:choose>
+            <xsl:when test="$chapters and parent::backMatter">
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">
+                        <xsl:call-template name="GetKeywordsID"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputKeywordsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'Y'"/>
+                    <xsl:with-param name="bForcePageBreak">
+                        <xsl:choose>
+                            <xsl:when test="$bIsBook!='Y' or ancestor::chapterInCollection">
+                                <xsl:text>N</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>Y</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <xsl:call-template name="OutputKeywordsShownHere"/>
+                <tex:cmd name="par" nl2="1"/>
+            </xsl:when>
+            <xsl:when test="not($chapters) and parent::backMatter">
+                <xsl:call-template name="OutputFrontOrBackMatterTitle">
+                    <xsl:with-param name="id">
+                        <xsl:call-template name="GetKeywordsID"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputKeywordsLabel"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="bIsBook" select="'N'"/>
+                </xsl:call-template>
+                <xsl:call-template name="OutputKeywordsShownHere"/>
+                <tex:cmd name="par" nl2="1"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:env name="center">
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="$sKeywordsInFrontMatterID"/>
+                    </xsl:call-template>
+                    <tex:cmd name="MainFont">
+                        <tex:parm>
+                            <xsl:call-template name="OutputKeywordsLabel"/>
+                            <xsl:call-template name="OutputKeywordsShownHere"/>
+                        </tex:parm>
+                    </tex:cmd>
+                    <xsl:call-template name="DoInternalTargetEnd"/>
+                    <xsl:call-template name="CreateAddToContents">
+                        <xsl:with-param name="id" select="$sKeywordsInFrontMatterID"/>
+                    </xsl:call-template>
+                </tex:env>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         publishingBlurb
@@ -2839,6 +2899,16 @@
         <xsl:variable name="nLevel">
             <xsl:value-of select="number(@showLevel)"/>
         </xsl:variable>
+        <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::frontMatter][not(ancestor::chapterInCollection)]">
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink">
+                    <xsl:value-of select="$sKeywordsInFrontMatterID"/>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputKeywordsLabel"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
         <!-- acknowledgements -->
         <xsl:if test="//frontMatter/acknowledgements[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
@@ -2954,6 +3024,16 @@
                 <xsl:with-param name="sLink" select="$sReferencesID"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
+            <xsl:call-template name="OutputTOCLine">
+                <xsl:with-param name="sLink" select="$sKeywordsInBackMatterID"/>
+                <xsl:with-param name="sLabel">
+                    <xsl:for-each select="//keywordsShownHere[parent::backMatter and not(ancestor::chapterInCollection)]">
+                        <xsl:call-template name="OutputKeywordsLabel"/>
+                    </xsl:for-each>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
@@ -5654,6 +5734,7 @@
         =========================================================== -->
     <xsl:template match="language"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
+    <xsl:template match="authorContacts"/>
     <xsl:template match="interlinearSource"/>
     <xsl:template match="textInfo/shortTitle"/>
     <xsl:template match="styles"/>

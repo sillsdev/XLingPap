@@ -74,6 +74,16 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        keywords (contents)
+    -->
+    <xsl:template match="keywords" mode="contents">
+        <xsl:call-template name="OutputCSSForTOC">
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
     <!-- 
         part (contents) 
     -->

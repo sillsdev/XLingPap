@@ -359,9 +359,9 @@ Front MatterLayout
 -->
 <!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | 
                                                        emailAddressLayout  | authorContactInfoLayout | publishingBlurbLayout |
-                                                       presentedAtLayout | dateLayout | versionLayout | (contentsLayout, authorLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
+                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | (contentsLayout, authorLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT chapterInCollectionFrontMatterLayout (comment?, subtitleLayout?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout | 
-                                                       presentedAtLayout | dateLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
+                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
 <!ATTLIST titleLayout
      %titleformatinfo;
@@ -423,6 +423,16 @@ Front MatterLayout
 <!ELEMENT dateLayout EMPTY >
 <!ATTLIST dateLayout
      %frontmatterformatinfo;
+    >
+<!ELEMENT keywordLayout EMPTY >
+<!ATTLIST keywordLayout
+     %fontinfo;
+    >
+<!ELEMENT keywordsLayout (keywordLayout) >
+<!ATTLIST keywordsLayout
+     %titleformatinfo;
+     keywordLabelOnSameLineAsKeywords (yes|no) "yes"
+     textBetweenKeywords CDATA #IMPLIED
     >
 <!ELEMENT versionLayout EMPTY >
 <!ATTLIST versionLayout
@@ -542,10 +552,10 @@ Back Matter Layout
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
 <!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
-                                                        (referencesTitleLayout, referencesLayout) | indexLayout | authorContactInfoLayout)*) >    
+                                                        (referencesTitleLayout, referencesLayout) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
 
 <!ELEMENT chapterInCollectionBackMatterLayout (comment?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
-                                                        referencesTitleLayout | authorContactInfoLayout)*) >    
+                                                        referencesTitleLayout | keywordsLayout | authorContactInfoLayout)*) >    
 <!ELEMENT appendicesTitlePageLayout EMPTY >
 <!ATTLIST appendicesTitlePageLayout
      label CDATA #IMPLIED    

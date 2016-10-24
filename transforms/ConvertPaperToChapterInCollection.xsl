@@ -20,13 +20,13 @@
                     <xsl:copy-of select="."/>
                 </xsl:for-each>
                 <xsl:copy-of select="backMatter"/>
+                <xsl:copy-of select="publishingInfo"/>
             </chapterInCollection>
             <xsl:copy-of select="referencedInterlinearTexts"/>
             <xsl:copy-of select="languages"/>
             <xsl:copy-of select="types"/>
             <xsl:copy-of select="framedTypes"/>
             <xsl:copy-of select="indexTerms"/>
-            <xsl:copy-of select="publishingInfo"/>
             <xsl:copy-of select="contentControl"/>
         </lingPaper>
     </xsl:template>

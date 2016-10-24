@@ -16,9 +16,9 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->6 June 2016</date
+>24 June 2016</date
 ><version
->2.29.0</version
+>2.29.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -1869,6 +1869,73 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iKeywordsLayout"
+></indexedItem
+><object
+type="tElement"
+>keywordsLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>keywordShownHere</object
+> element is to be formatted.  <indexedItem
+term="iKeywordLayout"
+></indexedItem
+>It also contains one instance of the <object
+type="tElement"
+>keywordLayout</object
+> element which has the attributes given in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has <table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>keywordLabelOnSameLineAsKeywords</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the list of keywords should appear on the same line as the "Keywords" label. The default is <object
+type="tAttrValue"
+>yes</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBetweenKeywords</object
+></td
+><td
+>(User control) Enter the text (including any whitespace) that is to appear between consecutive keywords.</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
 term="iPublishingBlurbLayout"
 ></indexedItem
 ><object
@@ -3337,6 +3404,73 @@ sec="sReferences"
 >.</td
 ><td
 > </td
+></tr
+><tr
+><td
+><indexedItem
+term="iKeywordsLayout"
+></indexedItem
+><object
+type="tElement"
+>keywordsLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>keywordShownHere</object
+> element is to be formatted. <indexedItem
+term="iKeywordLayout"
+></indexedItem
+>It also contains one instance of the <object
+type="tElement"
+>keywordLayout</object
+> element which has the attributes given in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has <table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>keywordLabelOnSameLineAsKeywords</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the list of keywords should appear on the same line as the "Keywords" label. The default is <object
+type="tAttrValue"
+>yes</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBetweenKeywords</object
+></td
+><td
+>(User control) Enter the text (including any whitespace) that is to appear between consecutive keywords.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -15254,6 +15388,16 @@ id="iJTitle"
 id="iJVol"
 ><term
 >Journal volume</term
+></indexTerm
+><indexTerm
+id="iKeywordLayout"
+><term
+>Keyword layout</term
+></indexTerm
+><indexTerm
+id="iKeywordsLayout"
+><term
+>Keywords layout</term
 ></indexTerm
 ><indexTerm
 id="iLabelFigure"

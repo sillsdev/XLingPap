@@ -222,6 +222,15 @@
                 <xsl:value-of select="number(@showLevel)"/>
             </xsl:variable>
             <ul>
+                <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::frontMatter][not(ancestor::chapterInCollection)]">
+                    <li>
+                        <a href="#{$sKeywordsInFrontMatterID}">
+                            <xsl:for-each select="//keywordsShownHere[@showincontents='yes' and parent::frontMatter and not(ancestor::chapterInCollection)]">
+                                <xsl:call-template name="OutputKeywordsLabel"/>
+                            </xsl:for-each>
+                        </a>
+                    </li>
+                </xsl:if>
                 <xsl:if test="//acknowledgements[parent::frontMatter][not(ancestor::chapterInCollection)]">
                     <li>
                         <a href="#{$sAcknowledgementsID}">
@@ -364,6 +373,15 @@
                     <li>
                         <a href="#{$sReferencesID}">
                             <xsl:call-template name="OutputReferencesLabel"/>
+                        </a>
+                    </li>
+                </xsl:if>
+                <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
+                    <li>
+                        <a href="#{$sKeywordsInBackMatterID}">
+                            <xsl:for-each select="//keywordsShownHere[parent::backMatter and not(ancestor::chapterInCollection)]">
+                                <xsl:call-template name="OutputKeywordsLabel"/>
+                            </xsl:for-each>
                         </a>
                     </li>
                 </xsl:if>
@@ -537,6 +555,45 @@
                 <xsl:call-template name="OutputPrefaceLabel"/>
             </a>
         </li>
+    </xsl:template>
+    <xsl:template match="keywordsShownHere">
+        <xsl:choose>
+            <xsl:when test="parent::frontMatter">
+                <div style="padding-top:12pt">
+                    <xsl:attribute name="align">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::chapterInCollection">
+                                <xsl:text>left</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>center</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:variable name="sId">
+                        <xsl:call-template name="GetKeywordsID"/>
+                    </xsl:variable>
+                    <a name="{$sId}"/>
+                    <xsl:call-template name="OutputKeywordsLabel"/>
+                    <xsl:call-template name="OutputKeywordsShownHere"/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <hr size="3"/>
+                <xsl:variable name="sId">
+                    <xsl:call-template name="GetKeywordsID"/>
+                </xsl:variable>
+                <a name="{$sId}"/>
+                <xsl:call-template name="OutputChapTitle">
+                    <xsl:with-param name="sTitle">
+                        <xsl:call-template name="OutputKeywordsLabel"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <div style="padding-top:12pt">
+                    <xsl:call-template name="OutputKeywordsShownHere"/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       index
@@ -3531,7 +3588,7 @@
                         <xsl:when test="$bShowISO639-3Codes='Y'">
                             <xsl:variable name="sThisCode" select="."/>
                             <a href="#{$languages[@ISO639-3Code=$sThisCode]/@id}">
-                                <xsl:value-of select="."/>            
+                                <xsl:value-of select="."/>
                             </a>
                         </xsl:when>
                         <xsl:otherwise>

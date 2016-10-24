@@ -142,7 +142,7 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, contents?, acknowledgements?, abstract?, preface*)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents?, acknowledgements?, abstract?, preface*)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -223,6 +223,15 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
+<!-- an keywordsShownHere element can be placed in front matter or back matter.
+    The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.
+-->
+<!ELEMENT keywordsShownHere EMPTY >
+<!ATTLIST keywordsShownHere
+    label CDATA #IMPLIED
+    showincontents (yes | no) "no"
+>
+
 <!-- Main content -->
 <!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
@@ -243,7 +252,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT chapterInCollection (frontMatter, (%chunk; | landscape | framedUnit)*, section1*, backMatter?) >
+<!ELEMENT chapterInCollection (frontMatter, (%chunk; | landscape | framedUnit)*, section1*, backMatter?, publishingInfo?) >
 <!ATTLIST chapterInCollection
     id ID #REQUIRED
     contentType IDREF #IMPLIED
@@ -884,7 +893,7 @@
     XeLaTeXSpecial CDATA #IMPLIED
 >
 <!-- backmatter includes appendices, endnotes and references -->
-<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, index*, authorContactInfo*)>
+<!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>
 <!-- endnotes -->
 <!ELEMENT endnotes EMPTY>
 <!ATTLIST endnotes

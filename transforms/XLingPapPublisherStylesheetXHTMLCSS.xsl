@@ -751,6 +751,24 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        keywordsLayout
+    -->
+    <xsl:template match="keywordsLayout">
+        <xsl:variable name="keywordsName">
+            <xsl:call-template name="CreateCSSName">
+                <xsl:with-param name="sBase">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sKeywords"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+                <xsl:with-param name="sLayout" select="parent::*"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="$keywordsName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         langDataInExampleLayout
     -->
     <xsl:template match="langDataInExampleLayout">
@@ -1581,6 +1599,7 @@ li.lower-roman {
     <xsl:template match="@indentchapterline"/>
     <xsl:template match="@interlinearsourcestyle"/>
     <xsl:template match="@ISO639-3Code"/>
+    <xsl:template match="@keywordLabelOnSameLineAsKeywords"/>
     <xsl:template match="@label"/>
     <xsl:template match="@leaderlength"/>
     <xsl:template match="@leaderpattern"/>
@@ -1625,6 +1644,7 @@ li.lower-roman {
     <xsl:template match="@textBeforePluralOverride"/>
     <xsl:template match="@textBeforeSingularOverride"/>
     <xsl:template match="@textbetweenchapterandnumber"/>
+    <xsl:template match="@textBetweenKeywords"/>
     <xsl:template match="@titleform"/>
     <xsl:template match="@types"/>
     <xsl:template match="@useappendixlabelbeforeappendixletter"/>

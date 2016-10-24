@@ -3413,6 +3413,21 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        GetTextBetweenKeywords
+    -->
+    <xsl:template name="GetTextBetweenKeywords">
+        <xsl:param name="layoutInfo" select="$frontMatterLayoutInfo"/>
+        <xsl:variable name="sLayoutText" select="$layoutInfo/keywordsLayout/@textBetweenKeywords"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sLayoutText) &gt; 0">
+                <xsl:value-of select="$sLayoutText"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>, </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetUrlEtcLayoutToUseInfo
     -->
     <xsl:template name="GetUrlEtcLayoutToUseInfo">
@@ -3609,6 +3624,11 @@
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='publishingBlurbLayout'">
                     <xsl:apply-templates select="$lingPaper/publishingInfo/publishingBlurb"/>
                 </xsl:when>
@@ -3627,6 +3647,16 @@
                 </xsl:when>
                 <xsl:when test="name(.)='acknowledgementsLayout' and not($bIsBook)">
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout' and $frontMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="paper">

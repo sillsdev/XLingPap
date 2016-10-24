@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->27 June 2016</date
+>24 October 2016</date
 ><version
->2.29.1</version
+>2.29.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -1598,6 +1598,51 @@ type="tInstruction"
 ></p
 ></section2
 ><section2
+id="sFMKeywords"
+><secTitle
+>Keywords</secTitle
+><p
+><indexedItem
+term="iKeywords"
+></indexedItem
+>The <object
+type="tElement"
+>keywordsShownHere</object
+> element may be included to provide a list of keywords for the document. It is also optional. When this element is present, it will show the list of keywords given in the <object
+type="tElement"
+>publishingInfo</object
+> element (see section <sectionRef
+sec="sKeywords"
+></sectionRef
+>). Use the <object
+type="tAttribute"
+>label</object
+> attribute to change the default “<object
+type="tInstruction"
+>Keywords: </object
+>” label which will show immediately before the list of keywords (each keyword will be separated by a comma and a space.<endnote
+id="nKeywordTextBetween"
+><p
+>To change the default comma and a space between each keyword, you will need to associate a publisher style sheet with your document (see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>) and to use a <object
+type="tElement"
+>keywordsLayout</object
+> element within that style sheet's <object
+type="tElement"
+>frontMatterLayout</object
+> element.</p
+></endnote
+>)  If you want the list of keywords to appear in the table of contents, set the <object
+type="tAttribute"
+>showincontents</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.</p
+></section2
+><section2
 id="sFMContents"
 ><secTitle
 >Table of Contents</secTitle
@@ -3066,7 +3111,7 @@ id="sBackMatter"
 id="bBackMatter"
 term="iBackMatter"
 ></indexedRangeBegin
->Back matter consists of acknowledgements, appendices, glossary, abbreviations, endnotes, references, author contact information and indexes. All of these are optional.</p
+>Back matter consists of acknowledgements, appendices, glossary, abbreviations, endnotes, references, author contact information, keywords and indexes. All of these are optional.</p
 ><section2
 id="sBMAcknowledgements"
 ><secTitle
@@ -3601,7 +3646,16 @@ type="tElement"
 >mediaObject</object
 >.</p
 ></endnote
-> You may also include a <object
+> Do not use a plain single quote <object
+type="tKey"
+>'</object
+> or a plain double quote <object
+type="tKey"
+>"</object
+>. Rather see section <sectionRef
+sec="sFAQQuotes"
+></sectionRef
+> for how to key ‘smart’ quotes for these. You may also include a <object
 type="tElement"
 >refTitleLowerCase</object
 > element for those cases where you need to use titles which are lower case (except for the first word and proper nouns). You control which of these two forms of the title shows in the <object
@@ -5325,10 +5379,10 @@ type="tElement"
 >This is for information only. <object
 type="tXLingPap"
 ></object
-> never outputs or processes the content of <object
+> never outputs or processes the content of these <object
 type="tElement"
 >keyword</object
-> elements.</p
+> elements within a reference entry.</p
 ></section3
 ><section3
 id="sBMRefAnnotatedBibliography"
@@ -7235,6 +7289,51 @@ sec="sFMAuthorContactInfo"
 type="tElement"
 >authorContactInfo</object
 > element in the back matter, then the contact information will appear in the back matter of your document.</p
+></section2
+><section2
+id="sBMKeywords"
+><secTitle
+>Keywords</secTitle
+><p
+><indexedItem
+term="iKeywords"
+></indexedItem
+>The <object
+type="tElement"
+>keywordsShownHere</object
+> element may be included to provide a list of keywords for the document. It is also optional. When this element is present, it will show the list of keywords given in the <object
+type="tElement"
+>publishingInfo</object
+> element (see section <sectionRef
+sec="sKeywords"
+></sectionRef
+>). Use the <object
+type="tAttribute"
+>label</object
+> attribute to change the default “<object
+type="tInstruction"
+>Keywords: </object
+>” label which will show on a line by itself mmediately before the list of keywords (each keyword will be separated by a comma and a space.<endnote
+id="nKeywordTextBetweenBM"
+><p
+>To change the default comma and a space between each keyword, you will need to associate a publisher style sheet with your document (see section <sectionRef
+sec="sFAQAssociatePublisherStyleSheet"
+></sectionRef
+>) and to use a <object
+type="tElement"
+>keywordsLayout</object
+> element within that style sheet's <object
+type="tElement"
+>backMatterLayout</object
+> element.</p
+></endnote
+>) If you want the list of keywords to appear in the table of contents, set the <object
+type="tAttribute"
+>showincontents</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.</p
 ></section2
 ><section2
 id="sBMIndex"
@@ -10746,6 +10845,8 @@ type="tInTextExample"
 sec="sExamples"
 ></sectionRef
 > above).</li
+><li
+>Click on the element beginning with 'T'.</li
 ><li
 >Immediately press the <object
 type="tInstruction"
@@ -17743,7 +17844,18 @@ type="tElement"
 > element as a reference by using menu items <object
 type="tInstruction"
 >Edit / Reference / Copy as Reference</object
->.</p
+>.<endnote
+id="nCopyByReferenceGrayed"
+><p
+>If the <object
+type="tInstruction"
+>Edit / Reference / Copy as Reference</object
+> is grayed out, then probably the <object
+type="tAttribute"
+>text</object
+> attribute is not set. Be sure to set it.</p
+></endnote
+></p
 ><p
 >Second, insert a <object
 type="tElement"
@@ -20456,6 +20568,8 @@ type="tXeTeX"
 ></object
 > tool has not seen before. Subsequent processing should be much faster.</li
 ><li
+>The first time you produce PDF for a given document, the page numbers in the table of contents may be shown as '??'. The next time you produce the PDF, the page numbers should show.</li
+><li
 >Some of the formatting process needs to be run more than once.<endnote
 id="nXeTeXMultiPass"
 ><p
@@ -20986,10 +21100,10 @@ type="tTool"
 >Microsoft Word 2003</object
 > format for your document. How does one do that?</p
 ><p
->There are actually two ways to do this.  (Some users who have the full version of <object
+>There are actually two ways to do this. (Some users who have the full version of <object
 type="tTool"
 >Adobe Acrobat</object
-> have said that its PDF to Word conversion works well.  I tried it on one file and it came out about the same as the first option below.)</p
+> have said that its PDF to Word conversion works well. I tried it on one file and it came out about the same as the first option below.)</p
 ><p
 >The first is to produce a PDF file using the default way of producing PDF. See section <sectionRef
 sec="sFAQProducePDF"
@@ -20997,7 +21111,9 @@ sec="sFAQProducePDF"
 >. Then go to <link
 href="http://www.pdftoword.com/"
 >http://www.pdftoword.com/</link
-> and use their free online converter service. This will produce a Word file that has the exact same formatting as the PDF. There are three drawbacks as of July 20, 2012:</p
+> and use their free online converter service. <comment
+>Also tried http://www.zamzar.com/, but it did not convert any diacritics at all.</comment
+>This will produce a Word file that has the exact same formatting as the PDF. There are three drawbacks as of July 20, 2012:</p
 ><ol
 ><li
 >If the website is very busy, it may take a while before you receive the converted file. If it is not, it will not take long.</li
@@ -25055,18 +25171,16 @@ term="iKeywords"
 >The optional <object
 type="tElement"
 >keywords</object
-> element can be used to include keyword phrases that will be included in the metadata for this document. Inside of this you can have one or more <object
+> element can be used to include keyword phrases that will be included in the metadata for this document.  The list of keywords can also be shown in the front matter and/or the back matter by inserting a <object
+type="tElement"
+>keywordsShownHere</object
+> element in the front matter or the back matter. Inside of the <object
+type="tElement"
+>keywords</object
+> element you can have one or more <object
 type="tElement"
 >keyword</object
 > elements.</p
-><p
->This is for information only. <object
-type="tXLingPap"
-></object
-> never outputs or processes the content of <object
-type="tElement"
->keyword</object
-> elements. It only shows up in the metadata embedded in the output file.</p
 ></section2
 ></section1
 ><section1
@@ -27776,6 +27890,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>keywordsShownHere</object
+></dt
+><dd
+>This indicates where the list of keywords is to appear</dd
+><dt
+><object
+type="tElement"
 >landscape</object
 ></dt
 ><dd
@@ -28991,7 +29112,7 @@ type="tElement"
 >dateLayout</object
 ></dt
 ><dd
->Layout info for the date of a publication (within references)</dd
+>Layout info for the date of the document</dd
 ><dt
 ><object
 type="tElement"
@@ -29492,6 +29613,20 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a journal volume number (within references)</dd
+><dt
+><object
+type="tElement"
+>keywordLayout</object
+></dt
+><dd
+>Layout info for listing individual keywords of a document</dd
+><dt
+><object
+type="tElement"
+>keywordsLayout</object
+></dt
+><dd
+>Layout info for keywords of a document</dd
 ><dt
 ><object
 type="tElement"

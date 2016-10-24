@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->6 June 2016</date
+>24 October 2016</date
 ><version
->2.29.0</version
+>2.29.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -10028,6 +10028,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>keywordsShownHere</object
+></dt
+><dd
+>This indicates where the list of keywords is to appear</dd
+><dt
+><object
+type="tElement"
 >landscape</object
 ></dt
 ><dd
@@ -11205,7 +11212,7 @@ type="tElement"
 >dateLayout</object
 ></dt
 ><dd
->Layout info for the date of a publication (within references)</dd
+>Layout info for the date of the document</dd
 ><dt
 ><object
 type="tElement"
@@ -11706,6 +11713,20 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for a journal volume number (within references)</dd
+><dt
+><object
+type="tElement"
+>keywordLayout</object
+></dt
+><dd
+>Layout info for listing individual keywords of a document</dd
+><dt
+><object
+type="tElement"
+>keywordsLayout</object
+></dt
+><dd
+>Layout info for keywords of a document</dd
 ><dt
 ><object
 type="tElement"

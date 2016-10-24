@@ -506,7 +506,7 @@
         </xsl:choose>
     </xsl:template>
     <!--
-      aknowledgements (frontmatter - book)
+      acknowledgements (frontmatter - book)
    -->
     <xsl:template match="acknowledgements" mode="frontmatter-book">
         <xsl:param name="frontMatterLayout"/>
@@ -534,7 +534,7 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-      aknowledgements (backmatter-book)
+      acknowledgements (backmatter-book)
    -->
     <xsl:template match="acknowledgements" mode="backmatter-book">
         <xsl:param name="backMatterLayout"/>
@@ -620,6 +620,88 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        keywordsShownHere (frontmatter - book)
+    -->
+<!--    <xsl:template match="keywordsShownHere" mode="frontmatter-book">
+        <xsl:param name="frontMatterLayout"/>
+        <xsl:call-template name="DoFrontMatterItemNewPage">
+            <xsl:with-param name="sHeaderTitleClassName" select="'keywords-title'"/>
+            <xsl:with-param name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sKeywordsInFrontMatterID"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="layoutInfo" select="$frontMatterLayout/keywordsLayout"/>
+            <xsl:with-param name="sMarkerClassName">
+                <xsl:call-template name="CreateCSSName">
+                    <xsl:with-param name="sBase">
+                        <xsl:call-template name="GetLayoutClassNameToUse">
+                            <xsl:with-param name="sType" select="$sKeywords"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                    <xsl:with-param name="sLayout" select="$frontMatterLayout"/>
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>-->
+    <!--
+        keywordsShownHere (backmatter-book)
+    -->
+<!--    <xsl:template match="keywordsShownHere" mode="backmatter-book">
+        <xsl:param name="backMatterLayout"/>
+        <xsl:call-template name="DoBackMatterItemNewPage">
+            <xsl:with-param name="sHeaderTitleClassName" select="'keywords-title'"/>
+            <xsl:with-param name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sKeywordsInBackMatterID"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="layoutInfo" select="$backMatterLayout/keywordsLayout"/>
+            <xsl:with-param name="sMarkerClassName">
+                <xsl:call-template name="CreateCSSName">
+                    <xsl:with-param name="sBase">
+                        <xsl:call-template name="GetLayoutClassNameToUse">
+                            <xsl:with-param name="sType" select="$sKeywords"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                    <xsl:with-param name="sLayout" select="$backMatterLayout"/>
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>-->
+    <!--
+        keywordsShownHere
+    -->
+    <xsl:template match="keywordsShownHere" mode="paper">
+        <xsl:param name="frontMatterLayout"/>
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+        </xsl:apply-templates>
+    </xsl:template>
+    <xsl:template match="keywordsShownHere">
+        <xsl:param name="frontMatterLayout"/>
+        <xsl:choose>
+            <xsl:when test="parent::frontMatter">
+                <xsl:call-template name="OutputKeywordsTitleAndContent">
+                    <xsl:with-param name="sKeywordsID" select="$sKeywordsInFrontMatterID"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputKeywordsTitleAndContent">
+                    <xsl:with-param name="sKeywordsID" select="$sKeywordsInBackMatterID"/>
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -2358,6 +2440,9 @@
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="bookmarks"/>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere" mode="bookmarks"/>
+                </xsl:when>
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references" mode="bookmarks"/>
                 </xsl:when>
@@ -2410,6 +2495,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="contents"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$backMatter/references" mode="contents"/>
@@ -2486,6 +2574,11 @@
                 <xsl:when test="name(.)='referencesLayout'">
                     <xsl:apply-templates select="$backMatter/references">
                         <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere">
+                        <xsl:with-param name="frontMatterLayout" select="$backMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
@@ -2992,6 +3085,9 @@
                 <xsl:when test="name(.)='contentsLayout'">
                     <xsl:apply-templates select="$frontMatter/contents" mode="bookmarks"/>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere" mode="bookmarks"/>
+                </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="bookmarks">
                         <xsl:with-param name="iLayoutPosition">
@@ -3021,6 +3117,9 @@
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="contents"/>
+                </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="contents">
@@ -3073,6 +3172,11 @@
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
+                <xsl:when test="name(.)='keywordsLayout'">
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
@@ -3100,7 +3204,6 @@
         <xsl:param name="sHeaderTitleClassName"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
-        <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id" select="$id"/>
             <xsl:with-param name="sTitle" select="$sTitle"/>
@@ -4787,12 +4890,6 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
         <xsl:if test="not($layoutInfo/@useLabel) or $layoutInfo/@useLabel='yes'">
-            <xsl:if test="$bIsBook='Y'">
-                <!--            <fo:marker marker-class-name="{$sMarkerClassName}">
-                <xsl:value-of select="$sTitle"/>
-            </fo:marker>
--->
-            </xsl:if>
             <div>
                 <xsl:attribute name="id">
                     <xsl:value-of select="$id"/>
@@ -5269,6 +5366,74 @@
                 </xsl:call-template>
             </table>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputKeywordsTitleAndContent
+    -->
+    <xsl:template name="OutputKeywordsTitleAndContent">
+        <xsl:param name="sKeywordsID"/>
+        <xsl:param name="layoutInfo"/>
+        <div>
+            <xsl:attribute name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sKeywordsID"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="class">
+                <xsl:call-template name="CreateCSSName">
+                    <xsl:with-param name="sBase">
+                        <xsl:call-template name="GetLayoutClassNameToUse">
+                            <xsl:with-param name="sType" select="$sKeywords"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
+                    <xsl:with-param name="sLayout" select="$layoutInfo"/>
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:call-template name="DoTitleFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/keywordsLayout"/>
+                <xsl:with-param name="bCheckPageBreakFormatInfo" select="'N'"/>
+            </xsl:call-template>
+            <span>
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </span>
+            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo/keywordsLayout"/>
+            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$layoutInfo/keywordsLayout/@keywordLabelOnSameLineAsKeywords!='no'">
+                    <span>
+                        <xsl:attribute name="style">
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:call-template name="OutputKeywordsShownHere">
+                            <xsl:with-param name="sTextBetweenKeywords">
+                                <xsl:call-template name="GetTextBetweenKeywords">
+                                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </span>
+                </xsl:when>
+                <xsl:otherwise>
+                    <div>
+                        <xsl:attribute name="style">
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="$layoutInfo/keywordsLayout/keywordLayout"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:call-template name="OutputKeywordsShownHere">
+                            <xsl:with-param name="sTextBetweenKeywords">
+                                <xsl:call-template name="GetTextBetweenKeywords">
+                                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </div>
+                </xsl:otherwise>
+            </xsl:choose>            
+        </div>
     </xsl:template>
     <!--  
         OutputList

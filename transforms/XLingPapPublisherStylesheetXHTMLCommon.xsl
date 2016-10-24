@@ -30,6 +30,7 @@
     <xsl:variable name="sDate" select="'date'"/>
     <xsl:variable name="sEmailAddress" select="'emailAddress'"/>
     <xsl:variable name="sGlossary" select="'glossaryTitle'"/>
+    <xsl:variable name="sKeywords" select="'keywords'"/>
     <xsl:variable name="sNumber" select="'number'"/>
     <xsl:variable name="sPreface" select="'preface'"/>
     <xsl:variable name="sPresentedAt" select="'presentedAt'"/>

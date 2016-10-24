@@ -286,6 +286,41 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        keywords (contents)
+    -->
+    <xsl:template match="keywordsShownHere[@showincontents='yes']" mode="contents">
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId">
+                        <xsl:choose>
+                            <xsl:when test="parent::frontMatter">
+                                    <xsl:value-of select="$sKeywordsInFrontMatterID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                    <xsl:value-of select="$sKeywordsInBackMatterID"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sLabel">
+                <xsl:call-template name="OutputKeywordsLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="sSpaceBefore">
+                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent">
+                <xsl:choose>
+                    <xsl:when test="ancestor::chapterInCollection">
+                        <xsl:call-template name="GetFirstLevelContentsIdent"/>
+                    </xsl:when>
+                    <xsl:otherwise>0pt</xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         index  (contents)
     -->
     <xsl:template match="index" mode="contents">

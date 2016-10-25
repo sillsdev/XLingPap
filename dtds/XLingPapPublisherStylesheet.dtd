@@ -616,6 +616,9 @@ Content Layout
        numberProperUseParens (no | yes) 'yes'
        listItemsHaveParenInsteadOfPeriod (no | yes) 'no'
        startNumberingOverAtEachChapter (no | yes) 'no'
+       showChapterNumberBeforeExampleNumber (no | yes) 'no'
+       textBetweenChapterNumberAndExampleNumber CDATA #IMPLIED
+       exampleNumberMaxWidthInEms CDATA #IMPLIED
    >
    <!ELEMENT listLayout EMPTY >
    <!ATTLIST listLayout

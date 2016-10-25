@@ -25,6 +25,7 @@
     <xsl:param name="sPageInsideMargin" select="'1in'"/>
     <xsl:param name="sPageOutsideMargin" select="'.5in'"/>
     <xsl:variable name="pageLayoutInfo"/>
+    <xsl:variable name="documentLayoutInfo"/>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->

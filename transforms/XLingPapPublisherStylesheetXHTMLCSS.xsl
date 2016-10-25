@@ -1590,6 +1590,7 @@ li.lower-roman {
     <xsl:template match="@doubleColumnSeparation"/>
     <xsl:template match="@useAuthorOverDateStyle"/>
     <xsl:template match="@ethnCode"/>
+    <xsl:template match="@exampleNumberMaxWidthInEms"/>
     <xsl:template match="@firstParagraphHasIndent"/>
     <xsl:template match="@fontissmallcaps"/>
     <xsl:template match="@format"/>
@@ -1623,6 +1624,7 @@ li.lower-roman {
     <xsl:template match="@showAsFootnoteAtEndOfAbstract"/>
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
+    <xsl:template match="@showChapterNumberBeforeExampleNumber"/>
     <xsl:template match="@showInHeader"/>
     <xsl:template match="@showletter"/>
     <xsl:template match="@showmarking"/>
@@ -1644,6 +1646,7 @@ li.lower-roman {
     <xsl:template match="@textBeforePluralOverride"/>
     <xsl:template match="@textBeforeSingularOverride"/>
     <xsl:template match="@textbetweenchapterandnumber"/>
+    <xsl:template match="@textBetweenChapterNumberAndExampleNumber"/>
     <xsl:template match="@textBetweenKeywords"/>
     <xsl:template match="@titleform"/>
     <xsl:template match="@types"/>

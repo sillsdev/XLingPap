@@ -18,7 +18,7 @@ type="tXLingPap"
 ><date
 >24 June 2016</date
 ><version
->2.29.4</version
+>2.29.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -1879,7 +1879,7 @@ type="tElement"
 >How the <object
 type="tElement"
 >keywordShownHere</object
-> element is to be formatted.  <indexedItem
+> element is to be formatted. <indexedItem
 term="iKeywordLayout"
 ></indexedItem
 >It also contains one instance of the <object
@@ -8533,6 +8533,129 @@ type="tAttrValue"
 ><td
 >No</td
 ></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleNumberingShowChapter"
+></indexedItem
+><object
+type="tAttribute"
+>showChapterNumberBeforeExampleNumber</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to show the chapter number (or appendix letter) before the example number. The default is to not show this.  One must also set the <object
+type="tAttribute"
+>startNumberingOverAtEachChapter</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> for this to take affect.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleNumberingShowChapterTextBetween"
+></indexedItem
+><object
+type="tAttribute"
+>textBetweenChapterNumberAndExampleNumber</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The text to insert between a chapter number (or appendix letter) and the example number.  The default is to use a period.  One must also set the <object
+type="tAttribute"
+>startNumberingOverAtEachChapter</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> and the <object
+type="tAttribute"
+>showChapterNumberBeforeExampleNumber</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> for this to take affect.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>-</object
+> <object
+type="tAttrValue"
+>:</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iExampleNumberingWidth"
+></indexedItem
+><object
+type="tAttribute"
+>exampleNumberMaxWidthInEms</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is only for the default <object
+type="tXeTeX"
+></object
+> way of producinfg PDF.  It is the amount of space to use for example numbers.  It should be a number and the units used will be ems.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>3.1</object
+> <object
+type="tAttrValue"
+>2.75</object
+></td
+><td
+>No</td
+></tr
 ></table
 ></example
 ></section2
@@ -15021,6 +15144,21 @@ id="iExampleUsePeriodAfter"
 id="iExampleNumberingInChapter"
 ><term
 >Restart example numbering in each chapter</term
+></indexTerm
+><indexTerm
+id="iExampleNumberingShowChapter"
+><term
+>Show chapter number</term
+></indexTerm
+><indexTerm
+id="iExampleNumberingShowChapterTextBetween"
+><term
+>Text between chapter number and example number</term
+></indexTerm
+><indexTerm
+id="iExampleNumberingWidth"
+><term
+>Width of example number</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

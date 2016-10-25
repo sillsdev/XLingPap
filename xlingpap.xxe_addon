@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.29.4</a:version
+>2.29.5</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-10-24</a:date
+>2016-10-25</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,29 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
+>2.29.5 25 October 2016<ul
+><li
+>Add more example numbering control via the exampleLayout element in a publisher style sheet:<ul
+><li
+>Allow showing chapter number as part of example number.</li
+><li
+>User control over what text appears between the chapter number and the example number (default is a period).</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Allow user to control how much space to allow for example numbers (instead of the default).</li
+></ul
+></li
+></ul
+></li
+></ul
+></li
+><li
 >2.29.4 24 October 2016<ul
 ><li
 >Improve user documentation on referencing interlinears.</li
 ><li
->Add ability to include list of keywords in front matter and/or back matter.  One can control their appearance and location in a publisher style sheet.</li
+>Add ability to include list of keywords in front matter and/or back matter. One can control their appearance and location in a publisher style sheet.</li
 ></ul
 ></li
 ><li

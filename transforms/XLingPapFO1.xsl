@@ -73,6 +73,7 @@
     </xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <xsl:variable name="pageLayoutInfo"/>
+    <xsl:variable name="documentLayoutInfo"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->

@@ -70,7 +70,24 @@
     <xsl:variable name="iExampleCount" select="count(//example)"/>
     <xsl:variable name="iNumberWidth">
         <xsl:choose>
-            <xsl:when test="$sFOProcessor='TeX' or $sFOProcessor='XEP'">
+            <xsl:when test="$sFOProcessor='TeX'">
+                <!-- units are ems so the font and font size can be taken into account -->
+                <xsl:choose>
+                    <xsl:when test="string-length($documentLayoutInfo/exampleLayout/@exampleNumberMaxWidthInEms) &gt; 0">
+                        <xsl:value-of select="$documentLayoutInfo/exampleLayout/@exampleNumberMaxWidthInEms"/>
+                    </xsl:when>
+                    <xsl:when test="$documentLayoutInfo/exampleLayout/@allowNumberingOver999='yes'">
+                        <xsl:text>3.0</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$documentLayoutInfo/exampleLayout/@showChapterNumberBeforeExampleNumber='yes' and $documentLayoutInfo/exampleLayout/@startNumberingOverAtEachChapter='yes'">
+                        <xsl:text>3.1</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>2.75</xsl:text>        
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$sFOProcessor='XEP'">
                 <!-- units are ems so the font and font size can be taken into account -->
                 <xsl:text>2.75</xsl:text>
             </xsl:when>

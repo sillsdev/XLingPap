@@ -151,6 +151,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sTextBetweenChapterNumberAndExampleNumber">
+        <xsl:if test="$documentLayoutInfo">
+            <xsl:value-of select="$documentLayoutInfo/exampleLayout/@textBetweenChapterNumberAndExampleNumber"/>
+        </xsl:if>
+    </xsl:variable>
     <!-- 
         appendixRef (contents) 
     -->
@@ -750,27 +755,28 @@
             select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::referencedInterlinearText) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <!--        //refWork[@id=//citation[not(ancestor::comment)][not(ancestor::refWork) or ancestor::refWork[@id=//citation[not(ancestor::refWork)]/@ref]]/@ref]-->
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>
-            <xsl:variable name="abbreviations">
-                <xsl:choose>
-                    <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
-                        <xsl:copy-of select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation[descendant::citation[not(ancestor::comment)]]"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][descendant::citation[not(ancestor::comment)]]"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:variable name="abbrRefs">
-                <xsl:choose>
-                    <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
-                        <xsl:copy-of select="ancestor::chapterInCollection/descendant::abbrRef"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable> 
-        <xsl:variable name="citationsInUsedAbbreviations" select="saxon:node-set($abbreviations)/abbreviation[saxon:node-set($abbrRefs)/abbrRef[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]/descendant::citation[not(ancestor::comment)]"/>
+        <xsl:variable name="abbreviations">
+            <xsl:choose>
+                <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
+                    <xsl:copy-of select="ancestor::chapterInCollection/backMatter/abbreviations/abbreviation[descendant::citation[not(ancestor::comment)]]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][descendant::citation[not(ancestor::comment)]]"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="abbrRefs">
+            <xsl:choose>
+                <xsl:when test="ancestor::chapterInCollection/backMatter/abbreviations">
+                    <xsl:copy-of select="ancestor::chapterInCollection/descendant::abbrRef"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="citationsInUsedAbbreviations"
+            select="saxon:node-set($abbreviations)/abbreviation[saxon:node-set($abbrRefs)/abbrRef[not(ancestor::referencedInterlinearText) or ancestor::interlinear[key('InterlinearRef',@text)]]/@abbr=@id]/descendant::citation[not(ancestor::comment)]"/>
         <xsl:variable name="worksCitedInUsedAbbreviationDefinitions" select="$refWorks[@id=$citationsInUsedAbbreviations/@ref]/parent::refAuthor"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
@@ -1011,6 +1017,26 @@
                     <xsl:value-of select="$iRelNumber + $iStartNumber"/>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:if test="$documentLayoutInfo">
+                        <xsl:if test="$documentLayoutInfo/exampleLayout/@showChapterNumberBeforeExampleNumber='yes' and $documentLayoutInfo/exampleLayout/@startNumberingOverAtEachChapter='yes'">
+                            <xsl:choose>
+                                <xsl:when test="ancestor-or-self::appendix">
+                                    <xsl:apply-templates select="." mode="numberAppendix"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="." mode="numberChapter"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:choose>
+                                <xsl:when test="string-length($sTextBetweenChapterNumberAndExampleNumber) &gt; 0">
+                                    <xsl:value-of select="$sTextBetweenChapterNumberAndExampleNumber"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>.</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:if>
+                    </xsl:if>
                     <xsl:apply-templates select="." mode="example"/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1904,7 +1930,7 @@
                         <xsl:text>: </xsl:text>
                     </xsl:when>
                 </xsl:choose>
-                
+
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

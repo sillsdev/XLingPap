@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->24 October 2016</date
+>26 October 2016</date
 ><version
->2.29.4</version
+>2.29.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -1634,7 +1634,7 @@ type="tElement"
 >frontMatterLayout</object
 > element.</p
 ></endnote
->)  If you want the list of keywords to appear in the table of contents, set the <object
+>) If you want the list of keywords to appear in the table of contents, set the <object
 type="tAttribute"
 >showincontents</object
 > attribute to <object
@@ -6318,6 +6318,65 @@ letter="xAbbrRefsExampleInterlinearPDF"
 num="xAbbrRefsExampleInterlinearPDF"
 ></exampleRef
 >, the abbreviated items are actually hyperlinks. They just are not underlined.</p
+><section5
+id="sBMAbbreviationsReferencesAutomatic"
+><secTitle
+>Automated Method in a Selection</secTitle
+><p
+>Sometimes you may find that you want to convert many abbreviations within a number of gloss elements in a portion of a document.</p
+><p
+>If you find that you need to do this, follow these steps while running the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><ol
+><li
+>Open up the <object
+type="tXLingPap"
+></object
+> document in which you want to convert abbreviations in many gloss elements in the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
+><li
+>Click in the top-most element containing all the material you want to convert.  For example, if it is within an interlinear text, click on the <object
+type="tElement"
+>interlinear-text</object
+> element (either in the UI or in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+>).  If you want to convert every gloss in the entire document, click on the <object
+type="tElement"
+>lingPaper</object
+> element in the node path bar.</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Tools / Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+> This opens up the Execute Command dialog box. It will look something like this:<br
+></br
+><img
+src="resources/ExecuteCommandDialogBox.png"
+></img
+></li
+><li
+>In the Command box, type <object
+type="tInstruction"
+>ConvertEveryGlossAbbreviationToAbbrRefInSelectionCmd</object
+> and click on the OK button.</li
+></ol
+><p
+>This command will find every <object
+type="tElement"
+>gloss</object
+> element in the selected portion and convert any abbreviations into their respective <object
+type="tElement"
+>abbrRef</object
+> elements.</p
+></section5
 ></section4
 ></section3
 ><section3
@@ -25171,7 +25230,7 @@ term="iKeywords"
 >The optional <object
 type="tElement"
 >keywords</object
-> element can be used to include keyword phrases that will be included in the metadata for this document.  The list of keywords can also be shown in the front matter and/or the back matter by inserting a <object
+> element can be used to include keyword phrases that will be included in the metadata for this document. The list of keywords can also be shown in the front matter and/or the back matter by inserting a <object
 type="tElement"
 >keywordsShownHere</object
 > element in the front matter or the back matter. Inside of the <object

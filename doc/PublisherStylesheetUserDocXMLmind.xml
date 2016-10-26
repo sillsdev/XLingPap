@@ -16,7 +16,7 @@ type="tXLingPap"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->24 June 2016</date
+>25 June 2016</date
 ><version
 >2.29.5</version
 ><contents
@@ -8559,7 +8559,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not to show the chapter number (or appendix letter) before the example number. The default is to not show this.  One must also set the <object
+>This indicates whether or not to show the chapter number (or appendix letter) before the example number. The default is to not show this. One must also set the <object
 type="tAttribute"
 >startNumberingOverAtEachChapter</object
 > attribute to <object
@@ -8595,7 +8595,7 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->The text to insert between a chapter number (or appendix letter) and the example number.  The default is to use a period.  One must also set the <object
+>The text to insert between a chapter number (or appendix letter) and the example number. The default is to use a period. One must also set the <object
 type="tAttribute"
 >startNumberingOverAtEachChapter</object
 > attribute to <object
@@ -8643,7 +8643,7 @@ lang="lEng"
 >This is only for the default <object
 type="tXeTeX"
 ></object
-> way of producinfg PDF.  It is the amount of space to use for example numbers.  It should be a number and the units used will be ems.</langData
+> way of producinfg PDF. It is the amount of space to use for example numbers. It should be a number and the units used will be ems.</langData
 ></td
 ><td
 ><object

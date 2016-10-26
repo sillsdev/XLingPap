@@ -275,6 +275,9 @@
     <cfg:command name="ConvertAnyAbbreviationsToAbbrRefsCmd">
         <cfg:class>xlingpaper.xxe.ConvertAnyAbbreviationsToAbbrRefs</cfg:class>
     </cfg:command>
+    <cfg:command name="ConvertEveryGlossAbbreviationToAbbrRefInSelectionCmd">
+        <cfg:class>xlingpaper.xxe.ConvertEveryGlossAbbreviationToAbbrRefInSelection</cfg:class>
+    </cfg:command>
     <cfg:command name="CheckPresenceOfFontsAndImagesCmd">
         <cfg:class>xlingpaper.xxe.CheckPresenceOfFontsAndImages</cfg:class>
     </cfg:command>

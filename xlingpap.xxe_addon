@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.29.5</a:version
+>2.29.6</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-10-25</a:date
+>2016-10-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -33,6 +33,8 @@ href="mailto::andy_black@sil.org"
 ><ul
 ><li
 >2.29.6 26 October 2016<ul
+><li
+>For citation elements in the UI, if the author/date combination occurs more than once, show an 'a', 'b', etc after the date.</li
 ><li
 >Added a command to convert abbreviations to abbrRef elements in every gloss element within a selected portion of the document.</li
 ></ul

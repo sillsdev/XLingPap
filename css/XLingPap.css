@@ -62,6 +62,7 @@
 
 @property-value drop-down-setReference() command-button(icon, icon(pop-down), color, black, command, "setReference");
 
+@property-value citationRefDate() label(xpath, "id(@ref)/refDate") invoke("citationRefDateAugment", "null");
 
 @property-group authorInitialsBefore( )
 {
@@ -884,7 +885,7 @@ citation
 citation[page][paren='both']:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ")"
@@ -893,14 +894,14 @@ citation[page][paren='both']:after
 citation[paren='both']:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ")"
 	        ;
 }
 citation[page][paren='citationBoth']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ")"
@@ -908,21 +909,21 @@ citation[page][paren='citationBoth']:after
 }
 citation[author='no'][paren='citationBoth']:after
 {
-	content:label(xpath, "id(@ref)/refDate")
+	content:citationRefDate()
 	        ")"
 	        ;
 }
 citation[paren='citationBoth']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ")"
 	        ;
 }
 citation[page][paren='final']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ")"
@@ -931,14 +932,14 @@ citation[page][paren='final']:after
 citation[paren='final']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ")"
 	        ;
 }
 citation[page][paren='citationBoth']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ")"
@@ -947,33 +948,33 @@ citation[page][paren='citationBoth']:after
 citation[paren='citationBoth']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ")"
 	        ;
 }
 citation[page][paren='citationInitial']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ;
 }
 citation[author='no'][paren='citationInitial']:after
 {
-	content:label(xpath, "id(@ref)/refDate")
+	content:citationRefDate()
 	        ;
 }
 citation[paren='citationInitial']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ;
 }
 citation[page][paren='initial']:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ;
@@ -981,13 +982,13 @@ citation[page][paren='initial']:after
 citation[paren='initial']:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ;
 }
 citation[page][paren='none']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ;
@@ -995,13 +996,13 @@ citation[page][paren='none']:after
 citation[paren='none']:after
 {
 	content:" "
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ;
 }
 citation[page]:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ":"
 	        label(attribute, page)
 	        ")"
@@ -1010,7 +1011,7 @@ citation[page]:after
 citation:after
 {
 	content:" ("
-	        label(xpath, "id(@ref)/refDate")
+	        citationRefDate()
 	        ")"
 	        ;
 }

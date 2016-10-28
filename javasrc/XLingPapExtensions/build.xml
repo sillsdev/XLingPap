@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<project basedir="." default="all">
+
+  <property name="xxe.bin.dir" value="C:/Program Files (x86)/XMLmind_XML_Editor/bin" />
+	<property name="xlingpaper.config.dir" value=".." />
+
+  <path id="cp">
+    <pathelement location="." />
+    <pathelement location="${xxe.bin.dir}/xxe.jar" />
+    <pathelement location="${xxe.bin.dir}/xerces.jar" />
+    <pathelement location="${xxe.bin.dir}/resolver.jar" />
+    <pathelement location="${xxe.bin.dir}/relaxng.jar" />
+    <pathelement location="${xxe.bin.dir}/xsc.jar" />
+    <pathelement location="${xxe.bin.dir}/jh.jar" />
+    <pathelement location="${xxe.bin.dir}/saxon.jar" />
+  	<pathelement location="./TagSoup/tagsoup-1.2.1.jar" />
+  </path>
+
+  <target name="init">
+    <tstamp />
+  </target>
+
+  <target name="compile" depends="init">
+    <javac debug="on" debuglevel="source,lines" deprecation="on" 
+           classpathref="cp" srcdir="src" destdir="class" 
+           includes="**/*.java" includeantruntime="false"/>
+  </target>
+
+  <target name="jar" depends="compile"> 
+  	 <copy todir="class/localizations">
+  	    <fileset dir="${xlingpaper.config.dir}/localizations"/>
+  	  </copy>
+
+    <jar jarfile="XLingPap.jar" basedir="class">
+      <include name="**/*.class" />
+        <include name="localizations/*.properties" />
+
+<!-- EDIT HERE: if needed, uncomment the "manifest" element and
+     add .jar filenames separated by spaces in the "value" attribute below.
+
+      <manifest>
+        <attribute name="Class-Path" value=""/>
+      </manifest>
+-->
+    </jar>
+  	<copy file="XLingPap.jar" todir="${xlingpaper.config.dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." defaultexcludes="no">
+        <patternset>
+          <include name="**/*~" />
+        </patternset>
+      </fileset>
+    </delete>
+
+    <delete includeemptydirs="true">
+      <fileset dir="class" includes="**/*" />
+    </delete>
+  </target>
+
+  <target name="distclean" depends="clean" /> 
+
+  <target name="realclean" depends="distclean">
+    <delete quiet="true" file="xlingpaper_ext.jar" />
+  </target>
+
+  <target name="all" depends="jar,distclean" />
+
+</project>

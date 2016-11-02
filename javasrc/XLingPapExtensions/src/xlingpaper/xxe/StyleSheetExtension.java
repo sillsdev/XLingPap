@@ -137,13 +137,13 @@ public class StyleSheetExtension extends StyleSpecsBase {
 
     public StyleValue citationRefDateAugment(StyleValue[] args, Node contextNode,
 	    StyledViewFactory viewFactory) {
+	    String augmentText = "";
 	if (contextNode.name().localPart != "citation") {
 	    return StyleValue.createString("ERROR:Not a citation element!");
 	}
 
 	try {
 	    final String alphabet = "abcdefghijklmnopqrstuvwxyz";
-	    String augmentText = "";
 	    Element citation = (Element) contextNode;
 
 	    XNode[] results = XPathUtil.evalAsNodeSet("id(@ref)/refDate", citation);
@@ -151,6 +151,10 @@ public class StyleSheetExtension extends StyleSpecsBase {
 		return StyleValue.createString("ERROR:Could not get refDate!");
 	    }
 
+	    //augmentText = "before results[0]; length=" + results.length; // for debugging
+	    if (results.length == 0) {
+		return StyleValue.createString(augmentText);
+	    }
 	    Element thisRefDate = (Element) results[0];
 	    String thisDate = thisRefDate.getText();
 
@@ -158,6 +162,7 @@ public class StyleSheetExtension extends StyleSpecsBase {
 		    + "']", thisRefDate);
 	    if (results != null) {
 		int index = Math.min(results.length, 25);
+		// augmentText = "index=" + index; // for debugging
 		augmentText = alphabet.substring(index, index + 1);
 		if (index == 0) {
 		    results = XPathUtil.evalAsNodeSet("../following-sibling::refWork[refDate='"
@@ -172,7 +177,7 @@ public class StyleSheetExtension extends StyleSpecsBase {
 	    return StyleValue.createString(augmentText);
 	} catch (Exception e) {
 	    return StyleValue.createString("unexpectedE somewhere: " + e.toString()
-		    + e.getMessage());
+		    + e.getMessage() + " text = " + augmentText);
 	}
     }
 

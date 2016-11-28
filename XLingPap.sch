@@ -30,6 +30,7 @@
         <active pattern="verticalspacing"/>
         <active pattern="contentTypeLocation"/>
         <active pattern="abbrRef"/>
+        <active pattern="endnoteInSecTitle"/>
     </phase>
     <pattern id="line">
         <title>
@@ -392,6 +393,12 @@
         <title>Check for ill-formed abbrRef elements in morpheme-aligned interlinear</title>
         <rule context="abbrRef[parent::item]">
             <report test="parent::item/@type!='gls'">There is an abbrRef in an item element that is not a gloss.  Please only use abbrRef elements in gloss lines.</report>
+        </rule>
+    </pattern>
+    <pattern id="endnoteInSecTitle">
+        <title><dir value="ltr">Check for embedded endnote in secTitle</dir></title>
+        <rule context="secTitle">
+            <report test="*/endnote">Using an endnote element embedded within another element here may fail to produce PDF output.  Put the endnote directly within the secTitle element, not inside the embedded element.</report>
         </rule>
     </pattern>
 </schema>

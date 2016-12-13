@@ -1347,7 +1347,7 @@ alt causes menu to be selected
                 <cfg:get expression="$refWork"/>
                 <cfg:choice>
                     <cfg:sequence>
-                        <cfg:test expression="not(//refWork[@id='%_']/annotations/annotation)"/>
+                        <cfg:test expression="not(//refWork[@id='%_']/descendant-or-self::annotations/annotation)"/>
                         <cfg:command name="LocalizeString" parameter="msg.refWorkHasNoAnnotations"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>

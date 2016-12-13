@@ -3,7 +3,7 @@
     <xsl:output method="text" encoding="UTF-8" indent="no"/>
    <xsl:param name="refWorkId"/>
     <xsl:template match="/">
-       <xsl:apply-templates select="//refWork[@id=$refWorkId]/annotations"/>
+       <xsl:apply-templates select="//refWork[@id=$refWorkId]/descendant-or-self::annotations"/>
     </xsl:template>
    <xsl:template match="annotation">
          <xsl:text>"</xsl:text>

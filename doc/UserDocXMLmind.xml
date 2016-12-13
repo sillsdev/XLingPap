@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->26 October 2016</date
+>7 December 2016</date
 ><version
->2.29.6</version
+>2.29.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -6319,7 +6319,7 @@ num="xAbbrRefsExampleInterlinearPDF"
 ></exampleRef
 >, the abbreviated items are actually hyperlinks. They just are not underlined.</p
 ><section5
-id="sBMAbbreviationsReferencesAutomatic"
+id="sBMAbbreviationsReferencesAutomaticInSelection"
 ><secTitle
 >Automated Method in a Selection</secTitle
 ><p
@@ -6339,13 +6339,13 @@ type="tXMLmindXMLEditor"
 ></object
 >.</li
 ><li
->Click in the top-most element containing all the material you want to convert.  For example, if it is within an interlinear text, click on the <object
+>Click in the top-most element containing all the material you want to convert. For example, if it is within an interlinear text, click on the <object
 type="tElement"
 >interlinear-text</object
 > element (either in the UI or in the node path bar<endnoteRef
 note="nNodePathBarReminder"
 ></endnoteRef
->).  If you want to convert every gloss in the entire document, click on the <object
+>). If you want to convert every gloss in the entire document, click on the <object
 type="tElement"
 >lingPaper</object
 > element in the node path bar.</li
@@ -21214,8 +21214,8 @@ type="tXMLmindXSLUtility"
 type="tXMLmindXSLUtility"
 ></object
 >, you can download the latest personal edition from <link
-href="http://www.xmlmind.com/archive/foconverter/4.6.1/"
->http://www.xmlmind.com/archive/foconverter/4.6.1/</link
+href="http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip"
+>http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip</link
 >. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.) If the Personal Edition License is not correct for you, please go to <link
 href="http://www.xmlmind.com/foconverter/buy.html"
 >http://www.xmlmind.com/foconverter/buy.html</link

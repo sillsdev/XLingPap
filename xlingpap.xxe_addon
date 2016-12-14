@@ -18,7 +18,7 @@ href="mailto::andy_black@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-12-13</a:date
+>2016-12-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.29.7 13 December 2016<ul
+>2.29.7 14 December 2016<ul
 ><li
 >Add a validity check for an endnote within an embedded element (e.g., langData) inside a secTitle element. This could cause the default PDF to fail to be produced.</li
 ><li
 >Fix bug in looking for annotations which could incorrectly not find some.</li
+><li
+>Fix bug which prevented the 'Jump to word in references' command from working in a master list of references document.</li
 ></ul
 ></li
 ><li

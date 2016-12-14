@@ -11,7 +11,7 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="//lingPaper/backMatter/descendant::refWork">
+                <xsl:apply-templates select="//lingPaper/backMatter/descendant::refWork | /references/descendant::refWork">
                     <xsl:sort select="../@citename"/>
                     <xsl:sort select="refTitle"/>
                 </xsl:apply-templates>

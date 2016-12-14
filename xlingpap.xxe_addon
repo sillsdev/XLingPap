@@ -39,6 +39,8 @@ href="mailto::andy_black@sil.org"
 >Fix bug in looking for annotations which could incorrectly not find some.</li
 ><li
 >Fix bug which prevented the 'Jump to word in references' command from working in a master list of references document.</li
+><li
+>Fix bug which caused the Zotero to XLingPaper conversion process to produce invalid structure.</li
 ></ul
 ></li
 ><li

@@ -68,21 +68,25 @@
                     </xsl:for-each>
                 </xsl:attribute>
                 <xsl:apply-templates/>
-		 	<annotations>
-				<xsl:for-each select="m:abstract">
-					<xsl:call-template name="abstract"/>
-				</xsl:for-each>
-				<xsl:for-each select="m:note">
-					<xsl:call-template name="note"/>
-				</xsl:for-each>
-			</annotations>
-			<keywords>
- 				<xsl:for-each select="m:subject">
-					<keyword>
-						<xsl:value-of select="."/>
-					</keyword>
- 				</xsl:for-each>
-			</keywords>
+                <xsl:if test="m:abstract or m:note">
+                    <annotations>
+                        <xsl:for-each select="m:abstract">
+                            <xsl:call-template name="abstract"/>
+                        </xsl:for-each>
+                        <xsl:for-each select="m:note">
+                            <xsl:call-template name="note"/>
+                        </xsl:for-each>
+                    </annotations>
+                </xsl:if>
+                <xsl:if test="m:subject">
+                    <keywords>
+                        <xsl:for-each select="m:subject">
+                            <keyword>
+                                <xsl:value-of select="."/>
+                            </keyword>
+                        </xsl:for-each>
+                    </keywords>
+                </xsl:if>                
             </refWork>
         </refAuthor>
     </xsl:template>

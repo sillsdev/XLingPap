@@ -323,22 +323,6 @@
     <cfg:command name="SetHtmlTableToClipboardCmd">
         <cfg:class>xlingpaper.xxe.SetHtmlTableToClipboard</cfg:class>
     </cfg:command>
-    <!-- no longer needed because XXE now has Search / Bookmarks
-   <cfg:binding>
-      <cfg:keyPressed code="F6"/>
-      <cfg:command name="SetMarkCmd"/>
-   </cfg:binding>
-   <cfg:binding>
-      <cfg:keyPressed code="F6" modifiers="shift"/>
-      <cfg:command name="MoveToMarkCmd"/>
-   </cfg:binding>
-   <cfg:command name="SetMarkCmd">
-      <cfg:class>xlingpaper.xxe.SetMarkCmd</cfg:class>
-   </cfg:command>
-   <cfg:command name="MoveToMarkCmd">
-      <cfg:class>xlingpaper.xxe.MoveToMarkCmd</cfg:class>
-   </cfg:command>
--->
     <cfg:binding>
         <cfg:keyPressed code="F7" modifiers="shift"/>
         <cfg:command name="demoteSelectionCmd"/>
@@ -472,17 +456,20 @@ Borrowed from xhtml
        like a word-processor. -->
     <cfg:binding>
         <cfg:keyPressed code="ENTER"/>
-        <cfg:command name="xhtml.splitOrInsertNewLine"/>
+<!--        <cfg:command name="xhtml.splitOrInsertNewLine"/> -->
+        <cfg:command name="insertNewlineOrSplitBlock"/>
     </cfg:binding>
     <cfg:binding>
         <cfg:keyPressed code="DELETE"/>
-        <cfg:command name="xhtml.joinOrDeleteChar"/>
+<!--        <cfg:command name="xhtml.joinOrDeleteChar"/>-->
+        <cfg:command name="deleteSelectionOrJoinBlockOrDeleteChar"/>
     </cfg:binding>
     <cfg:binding>
         <cfg:keyPressed code="BACK_SPACE"/>
-        <cfg:command name="xhtml.joinOrDeleteChar" parameter="backwards"/>
-    </cfg:binding>
-    <cfg:command name="xhtml.splitOrInsertNewLine">
+<!--        <cfg:command name="xhtml.joinOrDeleteChar" parameter="backwards"/>-->
+        <cfg:command name="deleteSelectionOrJoinBlockOrDeleteChar" parameter="backwards"/>
+    </cfg:binding>-->
+<!--    <cfg:command name="xhtml.splitOrInsertNewLine">
         <cfg:macro>
             <cfg:choice>
                 <cfg:command name="insertControlChar" parameter="\n"/>
@@ -503,7 +490,7 @@ Borrowed from xhtml
                 <cfg:command name="deleteSelectionOrDeleteChar" parameter="%0"/>
             </cfg:choice>
         </cfg:macro>
-    </cfg:command>
+    </cfg:command>-->
     <!-- Easy way to add p, li, dt+dd -->
     <cfg:binding>
         <cfg:keyPressed code="ENTER" modifiers="mod"/>
@@ -1426,7 +1413,7 @@ alt causes menu to be selected
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Jump to reference' true %_"/>
                 <cfg:set variable="refWork" expression="%_" plainString="true"/>
-                <cfg:command name="bookmark" parameter="add"/>
+<!--                <cfg:command name="bookmark" parameter="add"/>-->
                 <cfg:get expression="$refWork"/>
                 <!--  beginning with XXE 4.9, selectById is no longer supported.
         Hussein suggests using the following which not only works in XXE 4.9, but also in XXE 4.8, 4.7,4.5.2 and probably earlier

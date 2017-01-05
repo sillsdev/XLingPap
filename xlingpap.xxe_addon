@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
 location="XLingPap-2.29.0-xxe-4.8.0.zip"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -11,26 +9,36 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.29.7</a:version
+>3.0.0</a:version
 ><a:author
 ><a
 href="mailto::andy_black@sil.org"
+xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-12-14</a:date
+>2017-01-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
 ><p
+xmlns="http://www.w3.org/1999/xhtml"
 >This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).</p
 ><hr
-></hr
-><p
+xmlns="http://www.w3.org/1999/xhtml"
+/><p
+xmlns="http://www.w3.org/1999/xhtml"
 ><b
 >Revision History</b
 ></p
 ><ul
+xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.0.0 5 January 2017<ul
+><li
+>Make XLingPaper configuration files work with the XMLmind XML Editor version 7.2</li
+></ul
+></li
 ><li
 >2.29.7 14 December 2016<ul
 ><li
@@ -1595,7 +1603,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >While editing, have sectionRef elements automatically show any text before per the value of the textBefore attribute of the sectionRef element and also the related values in the lingPaper element.</li
 ><li
->Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the § symbol).</li
+>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the � symbol).</li
 ><li
 >Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element in a publisher style sheet.</li
 ></ul
@@ -1928,8 +1936,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed bugs that made the XeLaTeX way of producing PDF fail whenever a publisher style sheet had<ul
 ><li
 >sections that began a paragraph<br
-></br
-></li
+/></li
 ><li
 >interlinear source show underneath the free translation (and a given interlinear did not have any interlinear source element)</li
 ><li
@@ -2119,7 +2126,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li
 ><li
->Added a way to control the text that occurs before a sectionRef (some publications like to use the § symbol while others do not). See section 3.3.1 in the user documentation.</li
+>Added a way to control the text that occurs before a sectionRef (some publications like to use the � symbol while others do not). See section 3.3.1 in the user documentation.</li
 ><li
 >The interlinear free translation element can now be associated with a language.</li
 ><li
@@ -2265,9 +2272,9 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Allow promotion or demotion of sections</li
 ><li
->Added keyboard short cuts for quote characters ( ‘ ’ “ ” )</li
+>Added keyboard short cuts for quote characters ( &#8216; &#8217; &#8220; &#8221; )</li
 ><li
->Added command to mark selected text within a gloss as “grammatical gloss”</li
+>Added command to mark selected text within a gloss as &#8220;grammatical gloss&#8221;</li
 ><li
 >Improve references, including consistency in some element names and order:<ul
 ><li

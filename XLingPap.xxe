@@ -69,5 +69,12 @@ saveCharsAsEntityRefs="false"
 indent="none"
 ></saveOptions
 ><translation location="localizations/XLingPap_en.properties"/>
+  <property name="$c blockList">
+    p
+    pc
+    li
+    dl
+    hangingIndent
+  </property>
 </configuration
 >

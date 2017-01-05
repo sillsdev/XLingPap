@@ -104,12 +104,12 @@ public abstract class ConvertCollectionOrProceedingsToCitation extends Recordabl
 	return citeName;
     }
 
-    protected void setAuthorRole(Element newRefWork, Element newRefTitle, boolean fPlural) {
+    protected void setAuthorRole(Element newRefWork, boolean fPlural) {
 	Element newAuthorRole = new Element(Name.get(Namespace.NONE, "authorRole"));
 	Text newText = new Text();
 	newAuthorRole.appendChild(newText);
 	String sEditor = "ed" + (fPlural ? "s" : "");
 	newAuthorRole.setText(sEditor);
-	newRefWork.insertChild(newRefTitle, newAuthorRole);
+	newRefWork.appendChild(newAuthorRole);
     }
 }

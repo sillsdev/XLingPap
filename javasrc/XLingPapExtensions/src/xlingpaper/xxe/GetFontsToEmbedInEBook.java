@@ -55,8 +55,11 @@ public class GetFontsToEmbedInEBook extends RecordableCommand {
 	    // 2012.08.01 I do not know if it works or not
 	 // use reflection on Font2D (<B>PhysicalFont.platName</B>) e.g.
 	    Font f = new Font("Courier New", 0, 10);
+	    
+	    FontManager fm = FontManagerFactory.getInstance();
+	    Font2D f2d = fm.findFont2D(f.getFontName(), f.getStyle(), FontManager.LOGICAL_FALLBACK).handle.font2D;
 
-	    Font2D f2d = FontManager.findFont2D(f.getFontName(), f.getStyle(), FontManager.LOGICAL_FALLBACK).handle.font2D;
+	    //Font2D f2d = FontManager.findFont2D(f.getFontName(), f.getStyle(), FontManager.LOGICAL_FALLBACK).handle.font2D;
 
 	    Field platName = PhysicalFont.class.getDeclaredField("platName");
 	    platName.setAccessible(true);

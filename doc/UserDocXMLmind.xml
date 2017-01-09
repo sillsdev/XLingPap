@@ -15,7 +15,7 @@ type="tXLingPap"
 >Using the <object
 type="tXMLmindXMLEditor"
 ></object
-></subtitle
+> version 7.3+</subtitle
 ><author
 >H. Andrew Black</author
 ><affiliation
@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >support@xlingpaper.org</emailAddress
 ><date
->7 December 2016</date
+>9 January 2017</date
 ><version
->2.29.7</version
+>3.0.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -4995,22 +4995,11 @@ type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Bookmark / Go to Last Visited or Go Back</object
-> menu item command.<endnote
-id="nEnableBookmarksInXXE"
-><p
->Some more recent versions of the <object
-type="tXMLmindXMLEditor"
-></object
-> do not automatically show this menu item. If this is the case for you, then please turn it on by using the <object
-type="tInstruction"
->Options / Preferences</object
-> menu item and then in the <object
-type="tInstruction"
->General / Features</object
-> portion, make sure that “Enable the Search|Bookmark Submenu” is checked.</p
-></endnote
-></p
+>Select / Navigation / Go Back</object
+> menu item command or you can click on the <img
+src="resources/GoBack.png"
+></img
+> toolbar icon (on the far right).</p
 ></section3
 ><section3
 id="sReferencesSort"
@@ -18186,7 +18175,22 @@ type="tXMLmindXMLEditor"
 ></object
 >) replace XML character entities with the content of the entity.</p
 ></endnote
-></langData
+>  Please note that with the <object
+type="tXMLmindXMLEditor"
+></object
+> version 7.3+, when you first insert an <object
+type="tElement"
+>object</object
+> element with an <object
+type="tAttribute"
+>after</object
+> attribute, you will not see the content of the <object
+type="tAttribute"
+>after</object
+> attribute.  It will show the next time you open the document or if you use menu item <object
+type="tInstruction"
+>View / Redraw</object
+>.</langData
 ></td
 ></tr
 ><tr
@@ -19749,24 +19753,15 @@ id="gEditReferencedDocument"
 ><indexedItem
 term="iReferencedDocument"
 ></indexedItem
->When you are editing your main document and want to add a reference to your master references document, go to your master references document and make your additions. When you are done making the additions, click on the <object
-type="tInTextExample"
->Edit Referencing Document</object
-> button in the upper right portion of the window. It looks like this: <img
-src="resources/EditReferencingDocumentIcon.png"
-></img
-> This will take you back to your main document.</p
+>When you are editing your main document and want to add a reference to your master references document, go to your master references document and make your additions. When you are done making the additions, use menu item <object
+type="tInstruction"
+>Edit / Reference / Edit Referencing Document</object
+>. This will take you back to your main document.</p
 ><p
->The next time you need to make an addition to the master references document, you can click on the <object
-type="tInTextExample"
->Edit Referenced Document</object
-> button which is just to the right of the <object
-type="tInTextExample"
->Edit Referencing Document</object
-> button. It looks like this: <img
-src="resources/EditReferencedDocumentIcon.png"
-></img
-></p
+>The next time you need to make an addition to the master references document, you can use menu item <object
+type="tInstruction"
+>Edit / Reference / Edit Referenced Document</object
+>.</p
 ></section2
 ><section2
 id="sFAQFind"
@@ -19832,18 +19827,23 @@ id="sFAQSpellingCheck"
 ><indexedItem
 term="iCheckSpelling"
 ></indexedItem
->To perform a spelling check, use the Spell Tool. It is located in the same place that the Attributes Tool is,<endnoteRef
-note="nAttributesToolReminder"
-></endnoteRef
-> but is on a different tab. The Spell Tool's tab icon looks like this: <img
-src="resources/SpellToolIcon.png"
+>Unlike earlier versions of the <object
+type="tXMLmindXMLEditor"
+></object
+>, <object
+type="tXMLmindXMLEditor"
+></object
+> version 7.3+ has a way to dynamically indicate mis-spelled words. Like many other editors, it uses a red squiggle line underneath the word to indicate a word it does not recognize.</p
+><p
+>You control what language it uses, among other things, by clicking on the Check Spelling dropdown icon at the bottom of the screen. It looks like this: <img
+src="resources/CheckSpelling.png"
 ></img
-></p
+> If you click on the part to the left, it controls whether the dynamic spelling checking is done or not (the little check box is checked when it is set to do checking and it not checked when it is not). The dropdown arrow shows a dialog box where you can choose what language to use for the spelling checking and/or to perform a spelling check.</p
 ><p
 ><indexedItem
 term="iSpellingTool"
 ></indexedItem
->Click on the Spell Tool tab. You will see something like this:</p
+>The dialog box looks something like this:</p
 ><chart
 ><img
 src="resources/SpellTool.png"
@@ -19892,13 +19892,13 @@ id="sFAQSpellingAddon"
 ><secTitle
 >Adding a spelling checker language</secTitle
 ><p
->To add a spelling checker for French, German, or Spanish, go to the downloads page on the <object
-type="tXLingPap"
+>To add a spelling checker for <object
+type="tXMLmindXMLEditor"
 ></object
-> web site (<link
-href="http://www.xlingpaper.org/?page_id=4"
->http://www.xlingpaper.org/?page_id=4</link
->). Go to the section for getting the French, German, or Spanish files and follow the instructions. You will need to restart the <object
+> version 7.3+, use menu item <object
+type="tInstruction"
+>Options / Install Add-ons</object
+>. Note that you must be connected to the Internet for this to work. Look in the Category column for “Dictionary”. If you find the language you need, check the box at the beginning of the line and then click on the OK button. This will install the dictionary for you. You will need to restart the <object
 type="tXMLmindXMLEditor"
 ></object
 > after installing the dictionary files.</p
@@ -22712,7 +22712,7 @@ id="nCharacterTool"
 >The Character Tool is located in the lower right hand portion of the <object
 type="tXMLmindXMLEditor"
 ></object
->, near the spelling tool and the validity tool. It may look like this:</p
+>, near the validity tool. It may look like this:</p
 ><chart
 ><img
 src="resources/CharacterTool.png"
@@ -24908,11 +24908,11 @@ type="tXMLmindXMLEditor"
 ></object
 >'s <object
 type="tInstruction"
->Search / Bookmark / Go to Last Visited or Go Back</object
-> menu item command.<endnoteRef
-note="nEnableBookmarksInXXE"
-></endnoteRef
-></p
+>Select / Navigation / Go Back</object
+> menu item command or you can click on the <img
+src="resources/GoBack.png"
+></img
+> toolbar icon (on the far right).</p
 ><p
 >Use this command and the ability to jump back to where you were whenever you discover you need to add new reference information.</p
 ></section2

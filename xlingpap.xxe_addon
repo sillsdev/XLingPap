@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-2.29.0-xxe-4.8.0.zip"
+location="XLingPap-3.0.0-xxe-7.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -14,16 +14,22 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a
 href="mailto::andy_black@sil.org"
 xmlns="http://www.w3.org/1999/xhtml"
->Andy Black</a
+>Andy Black (andy_black@sil.org)</a
 ></a:author
 ><a:date
->2017-01-05</a:date
+>2017-01-10</a:date
 ><a:abstract
->A way to author and archive linguistic papers or books using XML.</a:abstract
+>A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
 ><p
 xmlns="http://www.w3.org/1999/xhtml"
->This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).</p
+>This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.  See <a
+href="http://software.sil.org/xlingpaper/"
+>http://software.sil.org/xlingpaper/</a
+>.  In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a
+>.</p
 ><hr
 xmlns="http://www.w3.org/1999/xhtml"
 /><p
@@ -34,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.0.0 5 January 2017<ul
+>3.0.0 10 January 2017<ul
 ><li
 >Make XLingPaper configuration files work with the XMLmind XML Editor version 7.2</li
 ></ul
@@ -2360,12 +2366,14 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ></ul
 ></a:documentation
 ><a:xxeVersion
->4.8.0+</a:xxeVersion
+>7.2.0+</a:xxeVersion
 ><a:platforms
 ><a:windows
 ></a:windows
 ><a:unix
 ></a:unix
+><a:mac
+></a:mac
 ></a:platforms
 ></a:addon
 >

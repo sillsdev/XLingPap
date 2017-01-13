@@ -12,9 +12,9 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 >3.0.0</a:version
 ><a:author
 ><a
-href="mailto::andy_black@sil.org"
+href="mailto::xlingpaper_support@sil.org"
 xmlns="http://www.w3.org/1999/xhtml"
->Andy Black (andy_black@sil.org)</a
+>Andy Black</a
 ></a:author
 ><a:date
 >2017-01-10</a:date
@@ -23,10 +23,10 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><a:documentation
 ><p
 xmlns="http://www.w3.org/1999/xhtml"
->This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.  See <a
+>This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows. See <a
 href="http://software.sil.org/xlingpaper/"
 >http://software.sil.org/xlingpaper/</a
->.  In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a
+>. In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a
 href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 >http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a
 >.</p

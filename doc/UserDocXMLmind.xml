@@ -21,9 +21,9 @@ type="tXMLmindXMLEditor"
 ><affiliation
 >SIL International</affiliation
 ><emailAddress
->support@xlingpaper.org</emailAddress
+>xlingpaper_support@sil.org</emailAddress
 ><date
->9 January 2017</date
+>12 January 2017</date
 ><version
 >3.0.0</version
 ><contents
@@ -226,7 +226,8 @@ id="nXMLmind"
 >See <link
 href="http://www.xmlmind.com/xmleditor/"
 >http://www.xmlmind.com/xmleditor/</link
-> for current information on this editor. For <object
+> for current information on this editor.<comment
+> For <object
 type="tXLingPap"
 ></object
 >, however, we use an older version of the <object
@@ -235,7 +236,8 @@ type="tXMLmindXMLEditor"
 >. See <link
 href="http://www.xlingpaper.org/?page_id=51"
 >http://www.xlingpaper.org/?page_id=51</link
-> for how to obtain it.</p
+> for how to obtain it.</comment
+></p
 ></endnote
 > is a freely downloadable editor that makes it quite easy to create not only <object
 type="tXLingPap"
@@ -287,8 +289,8 @@ type="tXLingPap"
 term="iXXEObtaining"
 ></indexedItem
 >There are two steps in getting the complete package. See <link
-href="http://www.xlingpaper.org/?page_id=51"
->http://www.xlingpaper.org/?page_id=51</link
+href="http://software.sil.org/xlingpaper/resources/how-to-install/"
+>http://software.sil.org/xlingpaper/resources/how-to-install/</link
 > for details and instructions on getting the package.</p
 ></section3
 ><section3
@@ -303,8 +305,8 @@ type="tXMLmindXMLEditor"
 term="iDemoMovies"
 ></indexedItem
 >I recommend if at possible that you go to <link
-href="http://www.xlingpaper.org/?page_id=14"
->http://www.xlingpaper.​org/​?page_id=​14</link
+href="http://software.sil.org/xlingpaper/resources/demo-movies/"
+>http://software.sil.org/xlingpaper/resources/demo-movies/</link
 > and download two of the movies: <indexedItem
 term="iDemoMovieOverview"
 ></indexedItem
@@ -5741,8 +5743,8 @@ type="tAttribute"
 > attribute using the Attributes Tool.</li
 ><li
 >If you do not have a true small caps font, you can download some at <link
-href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
->http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
+href="http://software.sil.org/xlingpaper/resources/small-caps-fonts/"
+>http://software.sil.org/xlingpaper/resources/small-caps-fonts/</link
 >. This is definitely the preferred way to go. If this is not possible for you, then set the <object
 type="tAttribute"
 >font-variant</object
@@ -18175,7 +18177,7 @@ type="tXMLmindXMLEditor"
 ></object
 >) replace XML character entities with the content of the entity.</p
 ></endnote
->  Please note that with the <object
+> Please note that with the <object
 type="tXMLmindXMLEditor"
 ></object
 > version 7.3+, when you first insert an <object
@@ -18187,7 +18189,7 @@ type="tAttribute"
 > attribute, you will not see the content of the <object
 type="tAttribute"
 >after</object
-> attribute.  It will show the next time you open the document or if you use menu item <object
+> attribute. It will show the next time you open the document or if you use menu item <object
 type="tInstruction"
 >View / Redraw</object
 >.</langData
@@ -18850,8 +18852,8 @@ type="tRenderX"
 type="tXeTeX"
 ></object
 >) way of producing PDF, you will need to get the free Symbola font and install it on your computer. You can get it at <link
-href="http://www.xlingpaper.org/?page_id=4#SymbolaFont"
->http://www.xlingpaper.org/?page_id=4#SymbolaFont</link
+href="http://software.sil.org/xlingpaper/resources/symbola-font/"
+>http://software.sil.org/xlingpaper/resources/symbola-font/</link
 >. If you installed <object
 type="tXLingPap"
 ></object
@@ -18859,8 +18861,8 @@ type="tXLingPap"
 type="tXeTeX"
 ></object
 > upgade package at <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
 ><p
 >The attributes of the <object
@@ -19617,8 +19619,8 @@ href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=Compl
 > for more on how to do this. (This link was valid on July 10, 2009.)</p
 ></endnote
 > There is also a set of Charis SIL Small Caps fonts at <link
-href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
->http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
+href="http://software.sil.org/xlingpaper/resources/small-caps-fonts/"
+>http://software.sil.org/xlingpaper/resources/small-caps-fonts/</link
 >.</p
 ></section2
 ><section2
@@ -20663,8 +20665,8 @@ href="http://xmlgraphics.apache.org/batik/tools/rasterizer.html"
 >.</p
 ></endnote
 > that will enable you to make this conversion. Go to <link
-href="http://www.xlingpaper.org/?page_id=4#SVGtoPDF"
->http://www.xlingpaper.org/?page_id=4#SVGtoPDF</link
+href="http://software.sil.org/xlingpaper/resources/svg-to-pdf/"
+>http://software.sil.org/xlingpaper/resources/svg-to-pdf/</link
 > and download the appropriate installer for your operating system:<table
 border="1"
 ><tr
@@ -21214,8 +21216,8 @@ type="tXMLmindXSLUtility"
 type="tXMLmindXSLUtility"
 ></object
 >, you can download the latest personal edition from <link
-href="http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip"
->http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip</link
+href="http://software.sil.org/xlingpaper/resources/xmlmind-xsl-utility/"
+>http://software.sil.org/xlingpaper/resources/xmlmind-xsl-utility/</link
 >. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.) If the Personal Edition License is not correct for you, please go to <link
 href="http://www.xmlmind.com/foconverter/buy.html"
 >http://www.xmlmind.com/foconverter/buy.html</link
@@ -21257,7 +21259,7 @@ border="1"
 ><th
 >Operating System</th
 ><th
->Installer to download</th
+>What to do</th
 ></tr
 ><tr
 ><td
@@ -21326,8 +21328,8 @@ type="tXMLmindXSLUtility"
 > tool does not pay attention to font metric information.</p
 ></endnote
 > This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by going to <link
-href="http://www.xlingpaper.org/?page_id=4#MSWord"
->http://www.xlingpaper.org/?page_id=4#MSWord</link
+href="http://software.sil.org/xlingpaper/resources/ms-word/"
+>http://software.sil.org/xlingpaper/resources/ms-word/</link
 >, downloading the file and following the instructions in that Word file.</li
 ><li
 >Tables and interlinear examples may be split across page boundaries.<endnote
@@ -21482,8 +21484,8 @@ note="nXFCNoFontMetics"
 ><ol
 ><li
 >Go to <link
-href="http://www.xlingpaper.org/?page_id=4#OOWriter"
->http://www.xlingpaper.org/?page_id=4#OOWriter</link
+href="http://software.sil.org/xlingpaper/resources/open-office-writer/"
+>http://software.sil.org/xlingpaper/resources/open-office-writer/</link
 > and download the XLingPaper.oxt file</li
 ><li
 >In Open Office, use <object
@@ -23182,22 +23184,14 @@ type="tXLingPap"
 >To use one of these non-English versions of the user interface, do the following steps:</p
 ><ol
 ><li
->Exit out of the <object
-type="tXMLmindXMLEditor"
-></object
->.</li
+>Use <object
+type="tInstruction"
+>Options menu item / Intall Add-ons</object
+></li
 ><li
->Go to the downloads page on the <object
-type="tXLingPap"
-></object
-> web site (<link
-href="http://www.xlingpaper.org/?page_id=4"
->http://www.xlingpaper.org/?page_id=4</link
->).</li
+>Look for the Transaltion you want and check the box before it.</li
 ><li
->Find the section for the French or Spanish user interface.</li
-><li
->Download and run the installer per the instructions.</li
+>Click OK.</li
 ><li
 >Restart the <object
 type="tXMLmindXMLEditor"
@@ -23261,8 +23255,8 @@ type="tXeTeX"
 type="tXLingPap"
 ></object
 >. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 > for more. If you do not have this update, trying to produce the PDF will fail when you also try to use hyphenation for a non-English language.</p
 ><p
 >Also, if you find that you need to have <object
@@ -25728,8 +25722,8 @@ type="tXeTeX"
 type="tXeTeX"
 ></object
 > Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
 ></section1
 ><section1
@@ -31202,8 +31196,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</td
 ><td
 ><table
@@ -31249,8 +31243,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</td
 ><td
 >graphite</td

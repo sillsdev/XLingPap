@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->12 January 2017</date
+>13 January 2017</date
 ><version
 >3.0.0</version
 ><contents
@@ -20409,8 +20409,8 @@ type="tXeTeX"
 ></object
 > tool has not seen before.</object
 > If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >. Also please see section <sectionRef
 sec="sFAQCreateZipFile"
 ></sectionRef
@@ -20540,8 +20540,8 @@ href="http://gnomecoder.wordpress.com/screenruler/"
 ></li
 ><li
 >If you have column and row spans in a table, you may find that the positioning that comes out is not quite ideal. Please send an email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 > and we'll work on a solution for you.</li
 ><li
 >Currently, the <object
@@ -20890,8 +20890,8 @@ type="tXLingPap"
 type="tRenderX"
 ></object
 > tool to complete its task. If you note any odd results or errors in the PDF output, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ><p
 >See the <genericRef
@@ -20920,8 +20920,8 @@ id="nApacheFOPBeta0.92"
 href="http://xmlgraphics.apache.org/fop/download.html"
 >Apache FOP</link
 >, Beta version 0.92 to see if it is as capable as the RenderX XEP tool is. Unfortunately, it does not yet handle the XSL-FO table-layout='auto' capability. This means that most tables and no interlinear examples come out correctly, given how I'm doing them in XSL-FO. (If you know of another way to handle these in XSL-FO, please let me know: <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.)</p
 ></endnote
 ></p
@@ -21380,8 +21380,8 @@ sec="sFAQProduceOOo"
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -21546,8 +21546,8 @@ sec="sTCTFloats"
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -23672,8 +23672,8 @@ type="tTool"
 > format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -23969,16 +23969,16 @@ type="tXLingPap"
 href="https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#"
 >https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#</link
 > and drag and drop your zip file to it. Then send an email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 > that you have put the file there. Please note that apparently you must have <object
 type="tTool"
 >Google Drive</object
 > installed on your computer in order for the dropping of your file to work.</li
 ><li
 >Change the extension of your zip file to something like “.piz” and send it via email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >. If you do not change the extension, the zip file will not be sent.</li
 ></ol
 ></section2

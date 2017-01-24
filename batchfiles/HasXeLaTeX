@@ -7,3 +7,4 @@ if [ "$(which xelatex)" != "" ]; then
 else
 	echo XLingPaper-No-XLingPaper
 fi
+

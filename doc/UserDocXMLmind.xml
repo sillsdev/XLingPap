@@ -15,17 +15,17 @@ type="tXLingPap"
 >Using the <object
 type="tXMLmindXMLEditor"
 ></object
-></subtitle
+> version 5.3</subtitle
 ><author
 >H. Andrew Black</author
 ><affiliation
 >SIL International</affiliation
 ><emailAddress
->support@xlingpaper.org</emailAddress
+>xlingpaper_support@sil.org</emailAddress
 ><date
->7 December 2016</date
+>13 January 2017</date
 ><version
->2.29.7</version
+>2.30.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -233,8 +233,8 @@ type="tXLingPap"
 type="tXMLmindXMLEditor"
 ></object
 >. See <link
-href="http://www.xlingpaper.org/?page_id=51"
->http://www.xlingpaper.org/?page_id=51</link
+href="http://software.sil.org/xlingpaper/resources/how-to-install/"
+>http://software.sil.org/xlingpaper/resources/how-to-install/</link
 > for how to obtain it.</p
 ></endnote
 > is a freely downloadable editor that makes it quite easy to create not only <object
@@ -287,8 +287,8 @@ type="tXLingPap"
 term="iXXEObtaining"
 ></indexedItem
 >There are two steps in getting the complete package. See <link
-href="http://www.xlingpaper.org/?page_id=51"
->http://www.xlingpaper.org/?page_id=51</link
+href="http://software.sil.org/xlingpaper/resources/how-to-install/"
+>http://software.sil.org/xlingpaper/resources/how-to-install/</link
 > for details and instructions on getting the package.</p
 ></section3
 ><section3
@@ -303,8 +303,8 @@ type="tXMLmindXMLEditor"
 term="iDemoMovies"
 ></indexedItem
 >I recommend if at possible that you go to <link
-href="http://www.xlingpaper.org/?page_id=14"
->http://www.xlingpaper.​org/​?page_id=​14</link
+href="http://software.sil.org/xlingpaper/resources/demo-movies/"
+>http://software.sil.org/xlingpaper/resources/demo-movies/</link
 > and download two of the movies: <indexedItem
 term="iDemoMovieOverview"
 ></indexedItem
@@ -5752,8 +5752,8 @@ type="tAttribute"
 > attribute using the Attributes Tool.</li
 ><li
 >If you do not have a true small caps font, you can download some at <link
-href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
->http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
+href="http://software.sil.org/xlingpaper/resources/small-caps-fonts/"
+>http://software.sil.org/xlingpaper/resources/small-caps-fonts/</link
 >. This is definitely the preferred way to go. If this is not possible for you, then set the <object
 type="tAttribute"
 >font-variant</object
@@ -18846,8 +18846,8 @@ type="tRenderX"
 type="tXeTeX"
 ></object
 >) way of producing PDF, you will need to get the free Symbola font and install it on your computer. You can get it at <link
-href="http://www.xlingpaper.org/?page_id=4#SymbolaFont"
->http://www.xlingpaper.org/?page_id=4#SymbolaFont</link
+href="http://software.sil.org/xlingpaper/resources/symbola-font/"
+>http://software.sil.org/xlingpaper/resources/symbola-font/</link
 >. If you installed <object
 type="tXLingPap"
 ></object
@@ -18855,8 +18855,8 @@ type="tXLingPap"
 type="tXeTeX"
 ></object
 > upgade package at <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
 ><p
 >The attributes of the <object
@@ -19613,8 +19613,8 @@ href="http://scripts.sil.org/cms/SCRIPTs/page.php?site_id=nrsi&amp;item_id=Compl
 > for more on how to do this. (This link was valid on July 10, 2009.)</p
 ></endnote
 > There is also a set of Charis SIL Small Caps fonts at <link
-href="http://www.xlingpaper.org/?page_id=4#SmallCapsFonts"
->http://www.xlingpaper.org/?page_id=4#SmallCapsFonts</link
+href="http://software.sil.org/xlingpaper/resources/small-caps-fonts/"
+>http://software.sil.org/xlingpaper/resources/small-caps-fonts/</link
 >.</p
 ></section2
 ><section2
@@ -19892,12 +19892,12 @@ id="sFAQSpellingAddon"
 ><secTitle
 >Adding a spelling checker language</secTitle
 ><p
->To add a spelling checker for French, German, or Spanish, go to the downloads page on the <object
+>To add a spelling checker for French, German, or Spanish, go to the resources page on the <object
 type="tXLingPap"
 ></object
 > web site (<link
-href="http://www.xlingpaper.org/?page_id=4"
->http://www.xlingpaper.org/?page_id=4</link
+href="http://software.sil.org/xlingpaper/resources/"
+>http://software.sil.org/xlingpaper/resources/</link
 >). Go to the section for getting the French, German, or Spanish files and follow the instructions. You will need to restart the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -20408,7 +20408,7 @@ type="tXeTeX"
 > tool has not seen before.</object
 > If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email message to <link
 href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+>xlingpaper_support@sil.org</link
 >. Also please see section <sectionRef
 sec="sFAQCreateZipFile"
 ></sectionRef
@@ -20538,8 +20538,8 @@ href="http://gnomecoder.wordpress.com/screenruler/"
 ></li
 ><li
 >If you have column and row spans in a table, you may find that the positioning that comes out is not quite ideal. Please send an email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 > and we'll work on a solution for you.</li
 ><li
 >Currently, the <object
@@ -20663,8 +20663,8 @@ href="http://xmlgraphics.apache.org/batik/tools/rasterizer.html"
 >.</p
 ></endnote
 > that will enable you to make this conversion. Go to <link
-href="http://www.xlingpaper.org/?page_id=4#SVGtoPDF"
->http://www.xlingpaper.org/?page_id=4#SVGtoPDF</link
+href="http://software.sil.org/xlingpaper/resources/svg-to-pdf/"
+>http://software.sil.org/xlingpaper/resources/svg-to-pdf/</link
 > and download the appropriate installer for your operating system:<table
 border="1"
 ><tr
@@ -20888,8 +20888,8 @@ type="tXLingPap"
 type="tRenderX"
 ></object
 > tool to complete its task. If you note any odd results or errors in the PDF output, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ><p
 >See the <genericRef
@@ -20918,8 +20918,8 @@ id="nApacheFOPBeta0.92"
 href="http://xmlgraphics.apache.org/fop/download.html"
 >Apache FOP</link
 >, Beta version 0.92 to see if it is as capable as the RenderX XEP tool is. Unfortunately, it does not yet handle the XSL-FO table-layout='auto' capability. This means that most tables and no interlinear examples come out correctly, given how I'm doing them in XSL-FO. (If you know of another way to handle these in XSL-FO, please let me know: <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.)</p
 ></endnote
 ></p
@@ -21214,8 +21214,8 @@ type="tXMLmindXSLUtility"
 type="tXMLmindXSLUtility"
 ></object
 >, you can download the latest personal edition from <link
-href="http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip"
->http://www.xlingpaper.org/wp-content/uploads/installers/xmlmindxsl-foconverter4.6.1/xslutil_perso-4_6_1.zip</link
+href="http://software.sil.org/xlingpaper/resources/xmlmind-xsl-utility/"
+>http://software.sil.org/xlingpaper/resources/xmlmind-xsl-utility/</link
 >. Be sure to read the license information in the installation program to determine if the Personal Edition License is appropriate for your situation. (SIL members can use the Personal Edition License.) If the Personal Edition License is not correct for you, please go to <link
 href="http://www.xmlmind.com/foconverter/buy.html"
 >http://www.xmlmind.com/foconverter/buy.html</link
@@ -21326,8 +21326,8 @@ type="tXMLmindXSLUtility"
 > tool does not pay attention to font metric information.</p
 ></endnote
 > This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's "auto-fit" table capability to all the tables in the document. You can obtain the macro by going to <link
-href="http://www.xlingpaper.org/?page_id=4#MSWord"
->http://www.xlingpaper.org/?page_id=4#MSWord</link
+href="http://software.sil.org/xlingpaper/resources/ms-word/"
+>http://software.sil.org/xlingpaper/resources/ms-word/</link
 >, downloading the file and following the instructions in that Word file.</li
 ><li
 >Tables and interlinear examples may be split across page boundaries.<endnote
@@ -21378,8 +21378,8 @@ sec="sFAQProduceOOo"
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -21482,8 +21482,8 @@ note="nXFCNoFontMetics"
 ><ol
 ><li
 >Go to <link
-href="http://www.xlingpaper.org/?page_id=4#OOWriter"
->http://www.xlingpaper.org/?page_id=4#OOWriter</link
+href="http://software.sil.org/xlingpaper/resources/open-office-writer/"
+>http://software.sil.org/xlingpaper/resources/open-office-writer/</link
 > and download the XLingPaper.oxt file</li
 ><li
 >In Open Office, use <object
@@ -21544,8 +21544,8 @@ sec="sTCTFloats"
 ></ul
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -23187,12 +23187,12 @@ type="tXMLmindXMLEditor"
 ></object
 >.</li
 ><li
->Go to the downloads page on the <object
+>Go to the resources page on the <object
 type="tXLingPap"
 ></object
 > web site (<link
-href="http://www.xlingpaper.org/?page_id=4"
->http://www.xlingpaper.org/?page_id=4</link
+href="http://software.sil.org/xlingpaper/resources/"
+>http://software.sil.org/xlingpaper/resources/</link
 >).</li
 ><li
 >Find the section for the French or Spanish user interface.</li
@@ -23261,8 +23261,8 @@ type="tXeTeX"
 type="tXLingPap"
 ></object
 >. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 > for more. If you do not have this update, trying to produce the PDF will fail when you also try to use hyphenation for a non-English language.</p
 ><p
 >Also, if you find that you need to have <object
@@ -23678,8 +23678,8 @@ type="tTool"
 > format is rather limited in what it can do so complicated tables and interlinears do not come out well.</p
 ><p
 >If you note any odd results or errors, please send an email message to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >.</p
 ></section2
 ><section2
@@ -23975,16 +23975,16 @@ type="tXLingPap"
 href="https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#"
 >https://drive.google.com/a/sil.org/folderview?id=0BxzG868ube1cald5TVFISGRKeTQ&amp;usp=docslist_api#</link
 > and drag and drop your zip file to it. Then send an email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 > that you have put the file there. Please note that apparently you must have <object
 type="tTool"
 >Google Drive</object
 > installed on your computer in order for the dropping of your file to work.</li
 ><li
 >Change the extension of your zip file to something like “.piz” and send it via email to <link
-href="mailto:support@xlingpaper.org"
->support@xlingpaper.org</link
+href="mailto:xlingpaper_support@sil.org"
+>xlingpaper_support@sil.org</link
 >. If you do not change the extension, the zip file will not be sent.</li
 ></ol
 ></section2
@@ -25728,8 +25728,8 @@ type="tXeTeX"
 type="tXeTeX"
 ></object
 > Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
 ></section1
 ><section1
@@ -31202,8 +31202,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</td
 ><td
 ><table
@@ -31249,8 +31249,8 @@ type="tAttribute"
 term="iXeLaTeXUpgrade"
 ></indexedItem
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</td
 ><td
 >graphite</td

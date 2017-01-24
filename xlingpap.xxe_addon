@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-2.29.0-xxe-4.8.0.zip"
+location="XLingPap-2.30.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.29.7</a:version
+>2.30.0</a:version
 ><a:author
 ><a
-href="mailto::andy_black@sil.org"
+href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2016-12-14</a:date
+>2017-01-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::andy_black@sil.org"
 ></p
 ><ul
 ><li
->2.29.7 14 December 2016<ul
+>2.30.0 14 January 2017<ul
 ><li
 >Add a validity check for an endnote within an embedded element (e.g., langData) inside a secTitle element. This could cause the default PDF to fail to be produced.</li
 ><li
@@ -41,18 +41,10 @@ href="mailto::andy_black@sil.org"
 >Fix bug which prevented the 'Jump to word in references' command from working in a master list of references document.</li
 ><li
 >Fix bug which caused the Zotero to XLingPaper conversion process to produce invalid structure.</li
-></ul
-></li
-><li
->2.29.6 2 November 2016<ul
 ><li
 >For citation elements in the UI, if the author/date combination occurs more than once, show an 'a', 'b', etc after the date.</li
 ><li
 >Added a command to convert abbreviations to abbrRef elements in every gloss element within a selected portion of the document.</li
-></ul
-></li
-><li
->2.29.5 25 October 2016<ul
 ><li
 >Add more example numbering control via the exampleLayout element in a publisher style sheet:<ul
 ><li
@@ -67,38 +59,18 @@ href="mailto::andy_black@sil.org"
 ></li
 ></ul
 ></li
-></ul
-></li
-><li
->2.29.4 24 October 2016<ul
 ><li
 >Improve user documentation on referencing interlinears.</li
 ><li
 >Add ability to include list of keywords in front matter and/or back matter. One can control their appearance and location in a publisher style sheet.</li
-></ul
-></li
-><li
->2.29.3 2 September 2016<ul
 ><li
 >Add last file/directory name tried in CreateZipFile so if the command fails, the user has an idea of which file/directory is causing the problem.</li
-></ul
-></li
-><li
->2.29.2 19 July 2016<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: the table of contents would not show page numbers in some cases (because I forgot to use an immediate command at a certain point, blush).</li
-></ul
-></li
-></ul
-></li
-><li
->2.29.1 1 July 2016<ul
 ><li
 >Add a quick reference guide.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: the table of contents would not show page numbers in some cases (because I forgot to use an immediate command at a certain point, blush).</li
 ><li
 >Fix bug: in certain circumstance while using double-spacing generally but single-spacing in references, the table of contents would not show page numbers.</li
 ></ul
@@ -1595,7 +1567,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >While editing, have sectionRef elements automatically show any text before per the value of the textBefore attribute of the sectionRef element and also the related values in the lingPaper element.</li
 ><li
->Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the § symbol).</li
+>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the � symbol).</li
 ><li
 >Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element in a publisher style sheet.</li
 ></ul
@@ -2119,7 +2091,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li
 ><li
->Added a way to control the text that occurs before a sectionRef (some publications like to use the § symbol while others do not). See section 3.3.1 in the user documentation.</li
+>Added a way to control the text that occurs before a sectionRef (some publications like to use the � symbol while others do not). See section 3.3.1 in the user documentation.</li
 ><li
 >The interlinear free translation element can now be associated with a language.</li
 ><li
@@ -2265,9 +2237,9 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Allow promotion or demotion of sections</li
 ><li
->Added keyboard short cuts for quote characters ( ‘ ’ “ ” )</li
+>Added keyboard short cuts for quote characters ( &#8216; &#8217; &#8220; &#8221; )</li
 ><li
->Added command to mark selected text within a gloss as “grammatical gloss”</li
+>Added command to mark selected text within a gloss as &#8220;grammatical gloss&#8221;</li
 ><li
 >Improve references, including consistency in some element names and order:<ul
 ><li
@@ -2359,6 +2331,8 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ></a:windows
 ><a:unix
 ></a:unix
+><a:mac
+></a:mac
 ></a:platforms
 ></a:addon
 >

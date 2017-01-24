@@ -14,11 +14,11 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><emailAddress
->support@xlingpaper.org</emailAddress
+>xlingpaper_support@sil.org</emailAddress
 ><date
->25 June 2016</date
+>13 January 2017</date
 ><version
->2.29.5</version
+>2.30.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -1596,8 +1596,8 @@ type="tXLingPap"
 type="tXeTeX"
 ></object
 > upgade package at <link
-href="http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade"
->http://www.xlingpaper.org/?page_id=4#XeLaTeXUpgrade</link
+href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
+>http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
 ></section2
 ></section1

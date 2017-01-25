@@ -1,0 +1,25 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+
+# Declare files that will always have CRLF line endings on checkout.
+AddFileToCalibreLibrary text eol=lf
+ConvertToEPUB text eol=lf
+DeletePdfFile text eol=lf
+DoBatikRasterizer text eol=lf
+DoPDF text eol=lf
+DoTeXPDF text eol=lf
+DoWord text eol=lf
+FileExists text eol=lf
+HasCalibre text eol=lf
+HasRenderX text eol=lf
+HasXeLaTeX text eol=lf
+HasXSL-FOConverter text eol=lf
+HaveBatikRasterrizer text eol=lf
+RemoveFileFromCalibreLibrary text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary

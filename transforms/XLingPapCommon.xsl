@@ -1903,7 +1903,8 @@
                     <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
                 </xsl:variable>
                 <xsl:for-each select="$codesUsed">
-                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>
+<!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
+                    <xsl:sort lang="{$sLang}" select="@ISO639-3Code"/>
                     <xsl:call-template name="OutputISO639-3CodeInCommaSeparatedList"/>
                 </xsl:for-each>
             </xsl:when>
@@ -2184,7 +2185,8 @@
                     <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
                 </xsl:variable>
                 <xsl:for-each select="$codesUsed">
-                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>
+<!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
+                    <xsl:sort lang="{$sLang}" select="@ISO639-3Code"/>
                     <xsl:choose>
                         <xsl:when test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">
                             <xsl:if test="position() &lt;= $iHalfwayPoint">

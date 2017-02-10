@@ -1,6 +1,7 @@
 *.classpath
 *~
 javasrc/XLingPapExtensions/bin
+javasrc/XLingPapExtensions/class
 javasrc/XLingPapExtensions/XLingPap.jar
-
+*.jao
 

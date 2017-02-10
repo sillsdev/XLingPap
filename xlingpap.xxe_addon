@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-01-27</a:date
+>2017-02-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.30.1 27 January 2017<ul
+>2.30.1 10 February 2017<ul
 ><li
 >Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li
+></ul
+></li
 ></ul
 ></li
 ><li

@@ -1735,7 +1735,8 @@
                             <tex:spec cat="esc"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <tex:cmd name="par"/>
+<!--  Turns out that when there are multiple endnotes in a list, that using \par creates extra vertical space between the footnotes.
+    <tex:cmd name="par"/>-->
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>

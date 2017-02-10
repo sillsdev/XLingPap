@@ -21,22 +21,27 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.0.1</span></p>
-      <p align="center">Date: 2017-01-27</p>
+      <p align="center">Date: 2017-02-10</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
       <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
       <div id="RevisionHistory" style="display:none">
-         <a:documentation>
-            <p xmlns="http://www.w3.org/1999/xhtml">This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.
+         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:ns="http://www.w3.org/1999/xhtml">
+            <p>This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.
                See <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a>. In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
             </p>
-            <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
-            <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
-            <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.0.1 27 January 2017
+            <hr></hr>
+            <p><b>Revision History</b></p>
+            <ul>
+               <li>3.0.1 10 February 2017
                   <ul>
                      <li>Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>3.0.0 10 January 2017

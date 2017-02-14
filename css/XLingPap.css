@@ -2897,7 +2897,7 @@ object:before
 	font-style: normal;
 	font-weight: normal;
 	content:text-field(attribute, type, columns, 8, font-size, small,background-color,object-background-color())
-	text(xpath("id(@type)/@before"),background-color,object-background-color())
+	text(xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@before"),background-color,object-background-color())
 	;
 }
 object
@@ -2914,7 +2914,7 @@ object
 }
 object:after
 {
-	content:text(xpath("id(@type)/@after"),background-color,object-background-color())
+	content:text(xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@after"),background-color,object-background-color())
 	;
 }
 

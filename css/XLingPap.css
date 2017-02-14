@@ -2966,7 +2966,7 @@ object:before
 	font-style: normal;
 	font-weight: normal;
 	content:text-field(attribute, type, columns, 8, font-size, small)
-	xpath("id(@type)/@before")
+	xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@before")
 	;
 }
 object
@@ -2983,7 +2983,7 @@ object
 }
 object:after
 {
-	content:xpath("id(@type)/@after");
+	content:xpath("(/xlingpaper/styledPaper/lingPaper|/lingPaper)/types/type[@id=current()/@type]/@after");
 }
 
 ol { 

@@ -36,6 +36,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li
 ><li
+>Improve loading time some.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li

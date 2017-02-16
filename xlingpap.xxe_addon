@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.0.1</a:version
+>3.0.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-02-15</a:date
+>2017-02-16</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.0.2 16 February 2017<ul
+><li
+>Improve mediaObject icon handling in the UI.</li
+></ul
+></li
 ><li
 >3.0.1 15 February 2017<ul
 ><li

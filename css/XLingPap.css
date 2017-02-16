@@ -2843,12 +2843,27 @@ location:after
 	content: ". ";
 }
 
+mediaObject[icon='cinema']:before
+{ 
+    content: icon(url(resources/cinema-icon.png));
+}
+mediaObject[icon='moviecamera']:before
+{ 
+    content: icon(url(resources/movie-camera-icon.png));
+}
+mediaObject[icon='opticaldisk']:before
+{ 
+    content: icon(url(resources//optical-disk-icon.png));
+}
+mediaObject[icon='sound']:before
+{ 
+    content: icon(url(resources/speaker-icon.png));
+}
 mediaObject:before
 { 
-    content: icon(file);
-/*    content: image("%c%Sdoc%Sresources%SAbbreviationArticle.png");
-    font-family: Quivira; */
+    content: icon(url(resources/speaker-icon.png));
 }
+
 morph
 {
 	display:table-cell;

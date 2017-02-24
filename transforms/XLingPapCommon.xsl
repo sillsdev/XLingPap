@@ -156,6 +156,8 @@
             <xsl:value-of select="$documentLayoutInfo/exampleLayout/@textBetweenChapterNumberAndExampleNumber"/>
         </xsl:if>
     </xsl:variable>
+    <xsl:variable name="sMediaObjectFontFamily" select="'Symbola'"/>
+
     <!-- 
         appendixRef (contents) 
     -->
@@ -1267,6 +1269,47 @@
         </xsl:for-each>
     </xsl:template>
     <!-- 
+        GetMediaObjectIconCode
+    -->
+    <xsl:template name="GetMediaObjectIconCode">
+        <xsl:param name="mode" select="'TeX'"/>
+        <xsl:choose>
+            <xsl:when test="$mode='TeX'">
+                <xsl:text>"</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="@icon='moviecamera'">
+                        <xsl:text>1F3A5</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='cinema'">
+                        <xsl:text>1F3A6</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='opticaldisk'">
+                        <xsl:text>1F4BF</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1F50A</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="@icon='moviecamera'">
+                        <xsl:text>&#x1F3A5;</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='cinema'">
+                        <xsl:text>&#x1F3A6;</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="@icon='opticaldisk'">
+                        <xsl:text>&#x1F4BF;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>&#x1F50A;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- 
         GetOrderedListItemNumberOrLetter
     -->
     <xsl:template name="GetOrderedListItemNumberOrLetter">
@@ -1903,7 +1946,7 @@
                     <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
                 </xsl:variable>
                 <xsl:for-each select="$codesUsed">
-<!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
+                    <!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
                     <xsl:sort lang="{$sLang}" select="@ISO639-3Code"/>
                     <xsl:call-template name="OutputISO639-3CodeInCommaSeparatedList"/>
                 </xsl:for-each>
@@ -2185,7 +2228,7 @@
                     <xsl:call-template name="GetISO639-3CodeLanguageCode"/>
                 </xsl:variable>
                 <xsl:for-each select="$codesUsed">
-<!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
+                    <!--                    <xsl:sort lang="{$sLang}" select="langName[@xml:lang=$sLang or position()=1 and not (following-sibling::langName[@xml:lang=$sLang])]"/>-->
                     <xsl:sort lang="{$sLang}" select="@ISO639-3Code"/>
                     <xsl:choose>
                         <xsl:when test="$contentLayoutInfo/iso639-3CodesInTableLayout/@useDoubleColumns='yes'">

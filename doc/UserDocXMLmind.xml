@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 January 2017</date
+>24 February 2017</date
 ><version
->2.30.0</version
+>2.30.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -18840,9 +18840,15 @@ type="tXeTeX"
 >) way of producing PDF and the <object
 type="tRenderX"
 ></object
-> way of producing PDF differs.</p
+> way of producing PDF differs.  (Any <object
+type="tElement"
+>mediaObject</object
+> elements will be converted to hyperlinks in webpage output.  The files will <object
+type="tBold"
+>not</object
+> be embedded in the resulting webpage file, however.)</p
 ><p
->For the default (<object
+>For webpage and the default (<object
 type="tXeTeX"
 ></object
 >) way of producing PDF, you will need to get the free Symbola font and install it on your computer. You can get it at <link
@@ -19038,7 +19044,7 @@ src="resources/CinemaIcon.png"
 ><td
 ><object
 type="tAttrValue"
->movicamera</object
+>moviecamera</object
 ></td
 ><td
 ><img
@@ -19073,28 +19079,7 @@ src="resources/SpeakerIcon.png"
 ></table
 ></example
 ><p
->For the <object
-type="tRenderX"
-></object
-> way of producing PDF, you will need to set the <object
-type="tAttribute"
->includemediaobjects</object
-> attribute of the <object
-type="tElement"
->lingPaper</object
-> element to be <object
-type="tAttrValue"
->yes</object
-> (the default is <object
-type="tAttrValue"
->no</object
->). To set the <object
-type="tAttribute"
->includemediaobjects</object
->, click on “lingPaper” in the node path bar.<endnoteRef
-note="nNodePathBarReminder"
-></endnoteRef
-> The attributes of the <object
+>The attributes of the <object
 type="tElement"
 >mediaObject</object
 > element used by the <object
@@ -19220,7 +19205,30 @@ lang="lEng"
 ></table
 ></example
 ><p
->Please be aware that including media objects can make the resulting PDF file very large.</p
+>Please be aware that including media objects can make the resulting PDF file very large, simply because the PDF file must include all the media object files.  Note that when a given media object file occurs more than once in the document, each occurrence will include that file again.</p
+><p
+>You can easily control whether to include or exclude all <object
+type="tElement"
+>mediaObject</object
+> elements in a given document by setting the <object
+type="tAttribute"
+>includemediaobjects</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to be <object
+type="tAttrValue"
+>no</object
+> (the default is <object
+type="tAttrValue"
+>yes</object
+>). To set the <object
+type="tAttribute"
+>includemediaobjects</object
+>, click on “lingPaper” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+></p
 ></section3
 ></section2
 ></section1

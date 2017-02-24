@@ -2636,6 +2636,26 @@
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
     <!-- ===========================================================
+        MEDIAOBJECT
+        =========================================================== -->
+    <xsl:template match="mediaObject">
+        <xsl:if test="//lingPaper/@includemediaobjects='yes'">
+            <a href="{@src}" style="font-family:{$sMediaObjectFontFamily};">
+                <xsl:attribute name="style">
+                    <xsl:text>font-family:</xsl:text>
+                    <xsl:value-of select="$sMediaObjectFontFamily"/>
+                    <xsl:text>; </xsl:text>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="."/>                    
+                    </xsl:call-template>
+                </xsl:attribute>
+                <xsl:call-template name="GetMediaObjectIconCode">
+                    <xsl:with-param name="mode" select="'html'"/>
+                </xsl:call-template>
+            </a>
+        </xsl:if>
+    </xsl:template>
+    <!-- ===========================================================
         FRAMEDUNIT
         =========================================================== -->
     <xsl:template match="framedUnit">

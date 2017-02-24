@@ -2238,14 +2238,19 @@
         =========================================================== -->
     <xsl:template match="mediaObject">
         <xsl:if test="//lingPaper/@includemediaobjects='yes'">
-            <rx:media-object content-height="{@contentheight}" content-width="{@contentwidth}" src="url({@src})">
-                <xsl:attribute name="show-controls">
-                    <xsl:choose>
-                        <xsl:when test="@showcontrols='yes'">true</xsl:when>
-                        <xsl:otherwise>false</xsl:otherwise>
-                    </xsl:choose>
+            <a href="{@src}" style="font-family:{$sMediaObjectFontFamily};">
+                <xsl:attribute name="style">
+                    <xsl:text>font-family:</xsl:text>
+                    <xsl:value-of select="$sMediaObjectFontFamily"/>
+                    <xsl:text>; </xsl:text>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="."/>                    
+                </xsl:call-template>
                 </xsl:attribute>
-            </rx:media-object>
+                <xsl:call-template name="GetMediaObjectIconCode">
+                    <xsl:with-param name="mode" select="'html'"/>
+                </xsl:call-template>
+            </a>
         </xsl:if>
     </xsl:template>
     <!-- ===========================================================

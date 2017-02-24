@@ -18840,10 +18840,10 @@ type="tXeTeX"
 >) way of producing PDF and the <object
 type="tRenderX"
 ></object
-> way of producing PDF differs.  (Any <object
+> way of producing PDF differs. (Any <object
 type="tElement"
 >mediaObject</object
-> elements will be converted to hyperlinks in webpage output.  The files will <object
+> elements will be converted to hyperlinks in webpage output. The files will <object
 type="tBold"
 >not</object
 > be embedded in the resulting webpage file, however.)</p
@@ -19205,7 +19205,7 @@ lang="lEng"
 ></table
 ></example
 ><p
->Please be aware that including media objects can make the resulting PDF file very large, simply because the PDF file must include all the media object files.  Note that when a given media object file occurs more than once in the document, each occurrence will include that file again.</p
+>Please be aware that including media objects can make the resulting PDF file very large, simply because the PDF file must include all the media object files. Note that when a given media object file occurs more than once in the document, each occurrence will include that file again.</p
 ><p
 >You can easily control whether to include or exclude all <object
 type="tElement"
@@ -20415,7 +20415,7 @@ type="tXeTeX"
 ></object
 > tool has not seen before.</object
 > If you note any odd results or errors in the PDF output (or if the PDF output process never finishes), please send an email message to <link
-href="mailto:support@xlingpaper.org"
+href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
 >. Also please see section <sectionRef
 sec="sFAQCreateZipFile"

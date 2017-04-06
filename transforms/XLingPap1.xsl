@@ -239,13 +239,13 @@
                         </a>
                     </li>
                 </xsl:if>
-                <xsl:if test="//abstract[not(ancestor::chapterInCollection)]">
+                <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
                     <li>
-                        <a href="#{$sAbstractID}">
+                        <a href="#{$sAbstractID}{count(preceding-sibling::abstract)}">
                             <xsl:call-template name="OutputAbstractLabel"/>
                         </a>
                     </li>
-                </xsl:if>
+                </xsl:for-each>
                 <xsl:if test="//preface[not(ancestor::chapterInCollection)]">
                     <xsl:for-each select="//preface">
                         <li>
@@ -452,7 +452,7 @@
                                     <xsl:when test="name(.)='abstract'">
                                         <xsl:variable name="sId">
                                             <xsl:call-template name="GetIdToUse">
-                                                <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                                                <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                                             </xsl:call-template>
                                         </xsl:variable>
                                         <a name="{$sId}">
@@ -525,7 +525,7 @@
         <li>
             <xsl:variable name="sId">
                 <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 </xsl:call-template>
             </xsl:variable>
             <a href="#{$sId}">
@@ -2646,7 +2646,7 @@
                     <xsl:value-of select="$sMediaObjectFontFamily"/>
                     <xsl:text>; </xsl:text>
                     <xsl:call-template name="OutputFontAttributes">
-                        <xsl:with-param name="language" select="."/>                    
+                        <xsl:with-param name="language" select="."/>
                     </xsl:call-template>
                 </xsl:attribute>
                 <xsl:call-template name="GetMediaObjectIconCode">

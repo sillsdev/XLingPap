@@ -843,7 +843,7 @@
     <xsl:template match="abstract" mode="contents">
         <xsl:variable name="sId">
             <xsl:call-template name="GetIdToUse">
-                <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:call-template name="OutputTOCLine">
@@ -3268,7 +3268,7 @@ not using
                 <xsl:call-template name="OutputFrontOrBackMatterTitle">
                     <xsl:with-param name="id">
                         <xsl:call-template name="GetIdToUse">
-                            <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                            <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                         </xsl:call-template>
                     </xsl:with-param>
                     <xsl:with-param name="sTitle">
@@ -3548,14 +3548,14 @@ not using
             </xsl:call-template>
         </xsl:if>
         <!-- abstract -->
-        <xsl:if test="//abstract[not(ancestor::chapterInCollection)]">
+            <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="$sAbstractID"/>
+                <xsl:with-param name="sLink" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAbstractLabel"/>
                 </xsl:with-param>
             </xsl:call-template>
-        </xsl:if>
+            </xsl:for-each>
         <!-- preface -->
         <xsl:if test="//preface">
             <xsl:for-each select="//preface[not(ancestor::chapterInCollection)]">

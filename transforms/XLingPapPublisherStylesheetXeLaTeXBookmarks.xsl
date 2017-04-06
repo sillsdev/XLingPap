@@ -7,7 +7,7 @@
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">

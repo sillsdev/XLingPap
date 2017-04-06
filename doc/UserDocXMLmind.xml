@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 January 2017</date
+>6 April 2017</date
 ><version
 >3.0.2</version
 ><contents
@@ -1824,10 +1824,12 @@ type="tXLingPap"
 > will use a title of "Abstract" for the abstract. If you wish to use some other title, set the <object
 type="tAttribute"
 >label</object
-> attribute to the title you want to use.<endnoteRef
-note="nAttributesToolReminder"
-></endnoteRef
-></p
+> attribute to the title you want to use.</p
+><p
+>It is possible to have more than one <object
+type="tElement"
+>abstract</object
+> element. This is intended to be for cases where one needs the same abstract to be in more than one language (e.g., for a conference paper where more than one presentation language is welcome).</p
 ></section2
 ><section2
 id="sFMPreface"
@@ -20065,6 +20067,14 @@ sec="sFAQQuotes"
 type="tKey"
 >nbsp</object
 > (for non-breaking space).</p
+><p
+>Another way to insert a non-breaking space is to use <object
+type="tKey"
+>Ctrl-Space</object
+>, that is, hold the <object
+type="tKey"
+>Ctrl</object
+> key down while simultaneously pressing the space bar.</p
 ></section2
 ><section2
 id="sFAQNbhy"

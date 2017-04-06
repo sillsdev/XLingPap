@@ -142,7 +142,8 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents?, acknowledgements?, abstract?, preface*)>
+<!-- We allow more than one abstract and more than one contents for cases where one needs the abstract or contents to be in more than one language. -->
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents*, acknowledgements?, abstract*, preface*)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED

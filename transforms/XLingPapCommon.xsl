@@ -1564,7 +1564,7 @@
     <xsl:template name="OutputAbstractLabel">
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Abstract</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//abstract/@label"/>
+            <xsl:with-param name="pLabel" select="@label"/>
         </xsl:call-template>
     </xsl:template>
     <!--

@@ -671,7 +671,7 @@
       -->
     <xsl:template match="abstract" mode="book">
         <xsl:call-template name="DoFrontMatterItemNewPage">
-            <xsl:with-param name="id" select="$sAbstractID"/>
+            <xsl:with-param name="id" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAbstractLabel"/>
             </xsl:with-param>
@@ -691,7 +691,7 @@
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id">
                 <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sAbstractID"/>
+                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sTitle">

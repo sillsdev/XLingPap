@@ -98,80 +98,94 @@
         LISTS
         =========================================================== -->
     <xsl:template match="ol">
-        <xsl:variable name="NestingLevel">
-            <xsl:choose>
-                <xsl:when test="ancestor::endnote">
-                    <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="count(ancestor::ol)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <ol>
-            <xsl:attribute name="style">
-                <xsl:text>list-style-type:</xsl:text>
-                <xsl:variable name="sNumberFormat" select="@numberFormat"/>
-                <xsl:choose>
-                    <xsl:when test="string-length($sNumberFormat) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="count(li) &gt; 0">
+                <xsl:variable name="NestingLevel">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::endnote">
+                            <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="count(ancestor::ol)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <ol>
+                    <xsl:attribute name="style">
+                        <xsl:text>list-style-type:</xsl:text>
+                        <xsl:variable name="sNumberFormat" select="@numberFormat"/>
                         <xsl:choose>
-                            <xsl:when test="$sNumberFormat='1'">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='A'">
-                                <xsl:text>upper-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='a'">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='I'">
-                                <xsl:text>upper-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='i'">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='01'">
-                                <xsl:text>decimal-leading-zero</xsl:text>
+                            <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                                <xsl:choose>
+                                    <xsl:when test="$sNumberFormat='1'">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='A'">
+                                        <xsl:text>upper-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='a'">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='I'">
+                                        <xsl:text>upper-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='i'">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='01'">
+                                        <xsl:text>decimal-leading-zero</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text>decimal</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="($NestingLevel mod 3)=0">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=1">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=2">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="($NestingLevel mod 3)=0">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=1">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=2">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>; </xsl:text>
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputCssSpecial">
-                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </ol>
+                        <xsl:text>; </xsl:text>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputCssSpecial">
+                            <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </ol>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- do nothing -->
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="ul">
-        <ul>
-            <xsl:attribute name="style">
-                <xsl:text>list-style-type:disc; </xsl:text>
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputCssSpecial">
-                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </ul>
+        <xsl:choose>
+            <xsl:when test="count(li) &gt; 0">
+                <ul>
+                    <xsl:attribute name="style">
+                        <xsl:text>list-style-type:disc; </xsl:text>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputCssSpecial">
+                            <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </ul>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- do nothing -->
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="li">
         <li>

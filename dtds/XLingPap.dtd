@@ -415,6 +415,7 @@
 <!ELEMENT object (#PCDATA | object | abbrRef)*>
 <!ATTLIST object
     type IDREF #REQUIRED
+    contentType IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 

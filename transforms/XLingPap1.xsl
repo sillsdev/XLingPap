@@ -981,76 +981,86 @@
       LISTS
       =========================================================== -->
     <xsl:template match="ol">
-        <xsl:variable name="NestingLevel">
-            <xsl:choose>
-                <xsl:when test="ancestor::endnote">
-                    <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="count(ancestor::ol)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:element name="ol">
-            <xsl:attribute name="style">
-                <xsl:text>list-style-type:</xsl:text>
-                <xsl:variable name="sNumberFormat" select="@numberFormat"/>
-                <xsl:choose>
-                    <xsl:when test="string-length($sNumberFormat) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <xsl:variable name="NestingLevel">
+                    <xsl:choose>
+                        <xsl:when test="ancestor::endnote">
+                            <xsl:value-of select="count(ancestor::ol[not(descendant::endnote)])"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="count(ancestor::ol)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:element name="ol">
+                    <xsl:attribute name="style">
+                        <xsl:text>list-style-type:</xsl:text>
+                        <xsl:variable name="sNumberFormat" select="@numberFormat"/>
                         <xsl:choose>
-                            <xsl:when test="$sNumberFormat='1'">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='A'">
-                                <xsl:text>upper-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='a'">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='I'">
-                                <xsl:text>upper-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='i'">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="$sNumberFormat='01'">
-                                <xsl:text>decimal-leading-zero</xsl:text>
+                            <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                                <xsl:choose>
+                                    <xsl:when test="$sNumberFormat='1'">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='A'">
+                                        <xsl:text>upper-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='a'">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='I'">
+                                        <xsl:text>upper-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='i'">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="$sNumberFormat='01'">
+                                        <xsl:text>decimal-leading-zero</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text>decimal</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="($NestingLevel mod 3)=0">
+                                        <xsl:text>decimal</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=1">
+                                        <xsl:text>lower-alpha</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="($NestingLevel mod 3)=2">
+                                        <xsl:text>lower-roman</xsl:text>
+                                    </xsl:when>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="($NestingLevel mod 3)=0">
-                                <xsl:text>decimal</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=1">
-                                <xsl:text>lower-alpha</xsl:text>
-                            </xsl:when>
-                            <xsl:when test="($NestingLevel mod 3)=2">
-                                <xsl:text>lower-roman</xsl:text>
-                            </xsl:when>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>; </xsl:text>
-                <xsl:call-template name="DoType"/>
-                <xsl:call-template name="OutputCssSpecial">
-                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </xsl:element>
+                        <xsl:text>; </xsl:text>
+                        <xsl:call-template name="DoType"/>
+                        <xsl:call-template name="OutputCssSpecial">
+                            <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </xsl:element>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="ul">
-        <ul>
-            <xsl:call-template name="OutputCssSpecial">
-                <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-        </ul>
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <ul>
+                    <xsl:call-template name="OutputCssSpecial">
+                        <xsl:with-param name="fDoStyleAttribute" select="'Y'"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                </ul>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="li">
         <li>
@@ -2639,63 +2649,78 @@
         FRAMEDUNIT
         =========================================================== -->
     <xsl:template match="framedUnit">
-        <div>
-            <xsl:attribute name="style">
-                <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
-                <xsl:text>background-color:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>
-                    <xsl:with-param name="sDefaultValue" select="'white'"/>
-                </xsl:call-template>
-                <xsl:text>;margin-top:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
-                    <xsl:with-param name="sDefaultValue" select="'.125in'"/>
-                </xsl:call-template>
-                <xsl:text>;margin-bottom:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;margin-left:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;margin-right:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;padding-top:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;padding-bottom:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;padding-left:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;padding-right:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;text-align:</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
-                    <xsl:with-param name="sDefaultValue">left</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>;border-width:.5pt;border-style:solid;border-color:black;</xsl:text>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-        </div>
+        <xsl:choose>
+            <xsl:when test="count(p)=0"/>
+            <xsl:otherwise>
+                <div>
+                    <xsl:attribute name="style">
+                        <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
+                        <xsl:text>background-color:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@backgroundcolor)"/>
+                            <xsl:with-param name="sDefaultValue" select="'white'"/>
+                        </xsl:call-template>
+                        <xsl:text>;margin-top:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spacebefore)"/>
+                            <xsl:with-param name="sDefaultValue" select="'.125in'"/>
+                        </xsl:call-template>
+                        <xsl:text>;margin-bottom:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spaceafter)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;margin-left:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-before)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;margin-right:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-after)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;padding-top:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innertopmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;padding-bottom:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerbottommargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;padding-left:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerleftmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;padding-right:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerrightmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;text-align:</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@align)"/>
+                            <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>;border-width:.5pt;border-style:solid;border-color:black;</xsl:text>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       IMG

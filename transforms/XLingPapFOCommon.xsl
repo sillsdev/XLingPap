@@ -154,73 +154,88 @@
         FRAMEDUNIT
         =========================================================== -->
     <xsl:template match="framedUnit">
-        <fo:block>
-            <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
-            <xsl:attribute name="background-color">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>
-                    <xsl:with-param name="sDefaultValue" select="'white'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="margin-top">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
-                    <xsl:with-param name="sDefaultValue" select="'.125in'"/>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="margin-bottom">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="margin-left">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="margin-right">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="padding-top">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="padding-bottom">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="padding-left">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="padding-right">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="text-align">
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
-                    <xsl:with-param name="sDefaultValue">left</xsl:with-param>
-                </xsl:call-template>
-            </xsl:attribute>
-            <xsl:attribute name="border-width">.5pt</xsl:attribute>
-            <xsl:attribute name="border-style">solid</xsl:attribute>
-            <xsl:attribute name="border-color">black</xsl:attribute>
-            <xsl:apply-templates/>
-        </fo:block>
+        <xsl:choose>
+            <xsl:when test="count(p)=0"/>
+            <xsl:otherwise>
+                <fo:block>
+                    <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
+                    <xsl:attribute name="background-color">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@backgroundcolor)"/>
+                            <xsl:with-param name="sDefaultValue" select="'white'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="margin-top">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spacebefore)"/>
+                            <xsl:with-param name="sDefaultValue" select="'.125in'"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="margin-bottom">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spaceafter)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="margin-left">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-before)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="margin-right">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-after)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="padding-top">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innertopmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="padding-bottom">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerbottommargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="padding-left">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerleftmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="padding-right">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerrightmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="text-align">
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@align)"/>
+                            <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                    <xsl:attribute name="border-width">.5pt</xsl:attribute>
+                    <xsl:attribute name="border-style">solid</xsl:attribute>
+                    <xsl:attribute name="border-color">black</xsl:attribute>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         ApplyTemplatesPerTextRefMode

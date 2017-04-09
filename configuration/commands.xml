@@ -736,8 +736,9 @@ alt causes menu to be selected
                     <cfg:command name="setCollOrProcCitation"/>
                     <cfg:command name="setAuthorContactInfo"/>
                     <cfg:command name="setFramedType"/>
-                    <cfg:command name="setContentType"/>
+                    <!--MRL Swapped priority of type and contentType after adding contentType to object -->
                     <cfg:command name="setType"/>
+                    <cfg:command name="setContentType"/>
                     <cfg:command name="setGlossaryTerm"/>
                     <cfg:command name="setAnnotation"/>
                     <cfg:command name="setAnnotatedBibliographyType"/>

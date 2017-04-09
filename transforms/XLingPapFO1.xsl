@@ -1367,10 +1367,20 @@
       LISTS
       =========================================================== -->
     <xsl:template match="ol">
-        <xsl:call-template name="DoOl"/>
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <xsl:call-template name="DoOl"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="ul">
-        <xsl:call-template name="DoUl"/>
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <xsl:call-template name="DoUl"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="li">
         <fo:list-item relative-align="baseline">

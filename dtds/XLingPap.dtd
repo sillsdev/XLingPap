@@ -142,7 +142,7 @@
     xml:lang CDATA #REQUIRED
 >
 <!-- Front matter -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents?, acknowledgements?, abstract?, preface*)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents*, acknowledgements?, abstract?, preface*)>
 <!ELEMENT title (#PCDATA | %embedded;)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -415,6 +415,7 @@
 <!ELEMENT object (#PCDATA | object | abbrRef)*>
 <!ATTLIST object
     type IDREF #REQUIRED
+    contentType IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 

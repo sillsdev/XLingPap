@@ -529,99 +529,106 @@
       LISTS
       =========================================================== -->
     <xsl:template match="ol">
-        <xsl:variable name="sThisItemWidth">
-            <xsl:call-template name="GetItemWidth"/>
-        </xsl:variable>
         <xsl:choose>
-            <xsl:when test="count(ancestor::ul | ancestor::ol) = 0 or parent::endnote">
-                <xsl:if test="parent::definition">
-                    <xsl:call-template name="DoTypeEnd">
-                        <xsl:with-param name="type" select="../@type"/>
-                    </xsl:call-template>
-                </xsl:if>
-                <tex:group>
-                    <tex:spec cat="esc"/>
-                    <xsl:text>parskip .5pt plus 1pt minus 1pt
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <xsl:variable name="sThisItemWidth">
+                    <xsl:call-template name="GetItemWidth"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="count(ancestor::ul | ancestor::ol) = 0 or parent::endnote">
+                        <xsl:if test="parent::definition">
+                            <xsl:call-template name="DoTypeEnd">
+                                <xsl:with-param name="type" select="../@type"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <tex:group>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>parskip .5pt plus 1pt minus 1pt
                     </xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="parent::definition and ancestor::p">
-                            <xsl:text>&#x0a;</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
-                            <!-- do nothing -->
-                        </xsl:when>
-                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="parent::definition and ancestor::p">
+                                    <xsl:text>&#x0a;</xsl:text>
+                                </xsl:when>
+                                <xsl:when
+                                    test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
+                                    <!-- do nothing -->
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tex:cmd name="vspace" nl1="1" nl2="1">
+                                        <tex:parm>
+                                            <xsl:call-template name="VerticalSkipAroundList"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="parent::definition">
+                                <xsl:call-template name="DoType">
+                                    <xsl:with-param name="type" select="../@type"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                            <xsl:if test="string-length(@numberFormat) &gt; 0">
+                                <xsl:call-template name="SetTeXCommand">
+                                    <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
+                                    <xsl:with-param name="sCommandToSet">
+                                        <xsl:call-template name="GetDynamicListItemName"/>
+                                    </xsl:with-param>
+                                    <xsl:with-param name="sValue">
+                                        <xsl:call-template name="GetListItemWidthPattern">
+                                            <xsl:with-param name="sNumberFormat"
+                                                select="@numberFormat"/>
+                                        </xsl:call-template>
+                                        <xsl:text>.</xsl:text>
+                                        <tex:spec cat="esc"/>
+                                        <xsl:text>&#x20;</xsl:text>
+                                    </xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:if>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="sListItemWidth">
+                                    <tex:spec cat="esc"/>
+                                    <xsl:value-of select="$sThisItemWidth"/>
+                                </xsl:with-param>
+                                <xsl:with-param name="sListItemIndent">
+                                    <xsl:choose>
+                                        <xsl:when test="ancestor::example">
+                                            <tex:spec cat="esc"/>
+                                            <xsl:text>XLingPaperlistinexampleindent</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                                            <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!--<tex:spec cat="esc"/>
+                                    <xsl:value-of select="$sThisItemWidth"/> default should be paragraph indent -->
+                                            <tex:cmd name="parindent"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:with-param>
+                            </xsl:apply-templates>
+                            <xsl:if test="parent::definition">
+                                <xsl:call-template name="DoTypeEnd">
+                                    <xsl:with-param name="type" select="../@type"/>
+                                </xsl:call-template>
+                            </xsl:if>
                             <tex:cmd name="vspace" nl1="1" nl2="1">
                                 <tex:parm>
                                     <xsl:call-template name="VerticalSkipAroundList"/>
                                 </tex:parm>
                             </tex:cmd>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="parent::definition">
-                        <xsl:call-template name="DoType">
-                            <xsl:with-param name="type" select="../@type"/>
+                        </tex:group>
+                        <xsl:if test="parent::definition">
+                            <xsl:call-template name="DoType">
+                                <xsl:with-param name="type" select="../@type"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleEmbeddedListItem">
+                            <xsl:with-param name="sThisItemWidth" select="$sThisItemWidth"/>
                         </xsl:call-template>
-                    </xsl:if>
-                    <xsl:if test="string-length(@numberFormat) &gt; 0">
-                        <xsl:call-template name="SetTeXCommand">
-                            <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
-                            <xsl:with-param name="sCommandToSet">
-                                <xsl:call-template name="GetDynamicListItemName"/>
-                            </xsl:with-param>
-                            <xsl:with-param name="sValue">
-                                <xsl:call-template name="GetListItemWidthPattern">
-                                    <xsl:with-param name="sNumberFormat" select="@numberFormat"/>
-                                </xsl:call-template>
-                                <xsl:text>.</xsl:text>
-                                <tex:spec cat="esc"/>
-                                <xsl:text>&#x20;</xsl:text>
-                            </xsl:with-param>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <xsl:apply-templates>
-                        <xsl:with-param name="sListItemWidth">
-                            <tex:spec cat="esc"/>
-                            <xsl:value-of select="$sThisItemWidth"/>
-                        </xsl:with-param>
-                        <xsl:with-param name="sListItemIndent">
-                            <xsl:choose>
-                                <xsl:when test="ancestor::example">
-                                    <tex:spec cat="esc"/>
-                                    <xsl:text>XLingPaperlistinexampleindent</xsl:text>
-                                </xsl:when>
-                                <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
-                                    <xsl:value-of select="$sListInitialHorizontalOffset"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <!--<tex:spec cat="esc"/>
-                                    <xsl:value-of select="$sThisItemWidth"/> default should be paragraph indent -->
-                                    <tex:cmd name="parindent"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:if test="parent::definition">
-                        <xsl:call-template name="DoTypeEnd">
-                            <xsl:with-param name="type" select="../@type"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <tex:cmd name="vspace" nl1="1" nl2="1">
-                        <tex:parm>
-                            <xsl:call-template name="VerticalSkipAroundList"/>
-                        </tex:parm>
-                    </tex:cmd>
-                </tex:group>
-                <xsl:if test="parent::definition">
-                    <xsl:call-template name="DoType">
-                        <xsl:with-param name="type" select="../@type"/>
-                    </xsl:call-template>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="HandleEmbeddedListItem">
-                    <xsl:with-param name="sThisItemWidth" select="$sThisItemWidth"/>
-                </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -863,75 +870,82 @@
     </xsl:template>
     <xsl:template match="ul">
         <xsl:choose>
-            <xsl:when test="count(ancestor::ul | ancestor::ol) = 0 or parent::endnote">
-                <xsl:if test="parent::definition">
-                    <xsl:call-template name="DoTypeEnd">
-                        <xsl:with-param name="type" select="../@type"/>
-                    </xsl:call-template>
-                </xsl:if>
-                <tex:group>
-                    <tex:spec cat="esc"/>
-                    <xsl:text>parskip .5pt plus 1pt minus 1pt
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="count(ancestor::ul | ancestor::ol) = 0 or parent::endnote">
+                        <xsl:if test="parent::definition">
+                            <xsl:call-template name="DoTypeEnd">
+                                <xsl:with-param name="type" select="../@type"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                        <tex:group>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>parskip .5pt plus 1pt minus 1pt
 </xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="parent::definition and ancestor::p">
-                            <xsl:text>&#x0a;</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
-                            <!-- do nothing -->
-                        </xsl:when>
-                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="parent::definition and ancestor::p">
+                                    <xsl:text>&#x0a;</xsl:text>
+                                </xsl:when>
+                                <xsl:when
+                                    test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
+                                    <!-- do nothing -->
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <tex:cmd name="vspace" nl1="1" nl2="1">
+                                        <tex:parm>
+                                            <xsl:call-template name="VerticalSkipAroundList"/>
+                                        </tex:parm>
+                                    </tex:cmd>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="parent::definition">
+                                <xsl:call-template name="DoType">
+                                    <xsl:with-param name="type" select="../@type"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="sListItemIndent">
+                                    <xsl:choose>
+                                        <xsl:when test="ancestor::example">
+                                            <tex:spec cat="esc"/>
+                                            <xsl:text>XLingPaperlistinexampleindent</xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
+                                            <xsl:value-of select="$sListInitialHorizontalOffset"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!--<tex:spec cat="esc"/>
+                                        <xsl:text>XLingPaperbulletlistitemwidth</xsl:text> default should be paragraph indent -->
+                                            <tex:cmd name="parindent"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:with-param>
+                            </xsl:apply-templates>
+                            <xsl:if test="parent::definition">
+                                <xsl:call-template name="DoTypeEnd">
+                                    <xsl:with-param name="type" select="../@type"/>
+                                </xsl:call-template>
+                            </xsl:if>
                             <tex:cmd name="vspace" nl1="1" nl2="1">
                                 <tex:parm>
                                     <xsl:call-template name="VerticalSkipAroundList"/>
                                 </tex:parm>
                             </tex:cmd>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="parent::definition">
-                        <xsl:call-template name="DoType">
-                            <xsl:with-param name="type" select="../@type"/>
+                            <xsl:if test="parent::definition">
+                                <xsl:call-template name="DoType">
+                                    <xsl:with-param name="type" select="../@type"/>
+                                </xsl:call-template>
+                            </xsl:if>
+                        </tex:group>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="HandleEmbeddedListItem">
+                            <xsl:with-param name="sThisItemWidth"
+                                select="'XLingPaperbulletlistitemwidth'"/>
                         </xsl:call-template>
-                    </xsl:if>
-                    <xsl:apply-templates>
-                        <xsl:with-param name="sListItemIndent">
-                            <xsl:choose>
-                                <xsl:when test="ancestor::example">
-                                    <tex:spec cat="esc"/>
-                                    <xsl:text>XLingPaperlistinexampleindent</xsl:text>
-                                </xsl:when>
-                                <xsl:when test="$sListInitialHorizontalOffset!='0pt'">
-                                    <xsl:value-of select="$sListInitialHorizontalOffset"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <!--<tex:spec cat="esc"/>
-                                        <xsl:text>XLingPaperbulletlistitemwidth</xsl:text> default should be paragraph indent -->
-                                    <tex:cmd name="parindent"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:if test="parent::definition">
-                        <xsl:call-template name="DoTypeEnd">
-                            <xsl:with-param name="type" select="../@type"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <tex:cmd name="vspace" nl1="1" nl2="1">
-                        <tex:parm>
-                            <xsl:call-template name="VerticalSkipAroundList"/>
-                        </tex:parm>
-                    </tex:cmd>
-                    <xsl:if test="parent::definition">
-                        <xsl:call-template name="DoType">
-                            <xsl:with-param name="type" select="../@type"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                </tex:group>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="HandleEmbeddedListItem">
-                    <xsl:with-param name="sThisItemWidth" select="'XLingPaperbulletlistitemwidth'"/>
-                </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -2558,69 +2572,84 @@
         FRAMEDUNIT
         =========================================================== -->
     <xsl:template match="framedUnit">
-        <tex:env name="mdframed">
-            <tex:opt>
-                <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
-                <xsl:text>backgroundcolor=</xsl:text>
-                <xsl:variable name="sColor" select="normalize-space($framedtype/@backgroundcolor)"/>
-                <xsl:choose>
-                    <xsl:when test="string-length($sColor) &gt; 0">
-                        <xsl:call-template name="GetFramedTypeBackgroundColorName">
-                            <xsl:with-param name="sId" select="@framedtype"/>
+        <xsl:choose>
+            <xsl:when test="count(p)=0"/>
+            <xsl:otherwise>
+                <tex:env name="mdframed">
+                    <tex:opt>
+                        <xsl:variable name="framedtype" select="key('FramedTypeID',@framedtype)"/>
+                        <xsl:text>backgroundcolor=</xsl:text>
+                        <xsl:variable name="sColor"
+                            select="normalize-space($framedtype/@backgroundcolor)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sColor) &gt; 0">
+                                <xsl:call-template name="GetFramedTypeBackgroundColorName">
+                                    <xsl:with-param name="sId" select="@framedtype"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>white</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>,skipabove=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spacebefore)"/>
+                            <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
                         </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>white</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>,skipabove=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spacebefore)"/>
-                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:text>,skipbelow=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@spaceafter)"/>
-                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:text>,innermargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-before)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>,outermargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@indent-after)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>,innertopmargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innertopmargin)"/>
-                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:text>,innerbottommargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerbottommargin)"/>
-                    <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
-                </xsl:call-template>
-                <xsl:text>,innerleftmargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerleftmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>,innerrightmargin=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@innerrightmargin)"/>
-                    <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
-                </xsl:call-template>
-                <xsl:text>,align=</xsl:text>
-                <xsl:call-template name="SetFramedTypeItem">
-                    <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@align)"/>
-                    <xsl:with-param name="sDefaultValue">left</xsl:with-param>
-                </xsl:call-template>
-            </tex:opt>
-            <xsl:apply-templates/>
-        </tex:env>
+                        <xsl:text>,skipbelow=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@spaceafter)"/>
+                            <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                        </xsl:call-template>
+                        <xsl:text>,innermargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-before)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>,outermargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@indent-after)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>,innertopmargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innertopmargin)"/>
+                            <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                        </xsl:call-template>
+                        <xsl:text>,innerbottommargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerbottommargin)"/>
+                            <xsl:with-param name="bUseBaselineskipAsDefault" select="'Y'"/>
+                        </xsl:call-template>
+                        <xsl:text>,innerleftmargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerleftmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>,innerrightmargin=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@innerrightmargin)"/>
+                            <xsl:with-param name="sDefaultValue">.125in</xsl:with-param>
+                        </xsl:call-template>
+                        <xsl:text>,align=</xsl:text>
+                        <xsl:call-template name="SetFramedTypeItem">
+                            <xsl:with-param name="sAttributeValue"
+                                select="normalize-space($framedtype/@align)"/>
+                            <xsl:with-param name="sDefaultValue">left</xsl:with-param>
+                        </xsl:call-template>
+                    </tex:opt>
+                    <xsl:apply-templates/>
+                </tex:env>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LANDSCAPE

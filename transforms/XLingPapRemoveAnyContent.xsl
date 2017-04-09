@@ -106,6 +106,9 @@
    <xsl:template match="ol">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="object">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="p">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>

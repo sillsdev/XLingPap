@@ -2202,9 +2202,14 @@
         FRAMEDUNIT
         =========================================================== -->
     <xsl:template match="framedUnit">
-        <div class="framedType{@framedtype}">
-            <xsl:apply-templates/>
-        </div>
+        <xsl:choose>
+            <xsl:when test="count(p)=0"/>
+            <xsl:otherwise>
+                <div class="framedType{@framedtype}">
+                    <xsl:apply-templates/>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
         LANDSCAPE

@@ -1575,10 +1575,20 @@
         LISTS
         =========================================================== -->
     <xsl:template match="ol">
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
         <xsl:call-template name="DoOl"/>
+        </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="ul">
+        <xsl:choose>
+            <xsl:when test="count(li)=0"/>
+            <xsl:otherwise>
         <xsl:call-template name="DoUl"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="li">
         <!-- insert a new line so we don't get everything all on one line -->

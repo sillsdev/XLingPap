@@ -567,7 +567,7 @@
                 <xsl:value-of select="number($iValue * 2.845275591)"/>
             </xsl:when>
             <xsl:when test="$sUnit='cm'">
-                <xsl:value-of select="number($iValue * .2845275591)"/>
+                <xsl:value-of select="number($iValue * 28.45275591)"/>
             </xsl:when>
             <xsl:otherwise>
                 <!-- if it's not inches and not millimeters and not centimeters, punt -->

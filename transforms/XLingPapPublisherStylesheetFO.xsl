@@ -5837,6 +5837,11 @@ not using
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+            <fo:block keep-with-next.within-page="always">
+                <fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="1pt"/>
+            </fo:block>
+        </xsl:if>
         <fo:block id="{@id}" keep-with-next.within-page="always">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>

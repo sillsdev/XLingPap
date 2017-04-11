@@ -63,6 +63,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the wrong position).</li
 ><li
 >Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric value.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: an empty ul or ol would insert vertical space.</li
+></ul
+></li
 ></ul
 ></li
 ><li

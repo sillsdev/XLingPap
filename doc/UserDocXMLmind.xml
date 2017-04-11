@@ -7,9 +7,6 @@ showindexeditemsineditor="yes"
 version="2.0.0"
 ><frontMatter
 ><title
-><object
-type="tXLingPap"
-></object
 > User Documentation</title
 ><subtitle
 >Using the <object
@@ -23,7 +20,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->6 April 2017</date
+>11 April 2017</date
 ><version
 >3.0.2</version
 ><contents
@@ -31105,7 +31102,7 @@ type="tElement"
 >table</object
 > element is set to 0 (zero).</td
 ><td
->border-left=1</td
+>border-left='1'</td
 ></tr
 ><tr
 ><td
@@ -31127,7 +31124,7 @@ type="tElement"
 >table</object
 > element is set to 0 (zero).</td
 ><td
->border-right=1</td
+>border-right='1'</td
 ></tr
 ><tr
 ><td

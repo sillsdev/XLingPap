@@ -5357,6 +5357,9 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+                <tex:cmd name="noindent" nl2="0"/><tex:cmd name="hrulefill" nl2="0"/><tex:cmd name="linebreak" nl2="0"/>
+            </xsl:if>
             <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">

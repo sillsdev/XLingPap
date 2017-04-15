@@ -14384,7 +14384,7 @@ id="sTitleFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used for controlling front matter format information.</p
+> plus the following are the attributes that can be used for controlling title format information. This applies to titles of parts, chapters, sections, and most front and back matter elements.</p
 ><example
 num="xTitleFormatInfjoAttributes"
 ><table

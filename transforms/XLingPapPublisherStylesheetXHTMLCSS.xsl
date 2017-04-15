@@ -1465,7 +1465,7 @@ li.lower-roman {
     <!-- 
         @pagebreakbefore
     -->
-    <xsl:template match="@pagebreakbefore | @startonoddpage">
+    <xsl:template match="@pagebreakbefore | @startonoddpage | @linebefore">
         <xsl:if test=".='yes'">
             <xsl:text>        border-top:1.5pt solid gray;
 </xsl:text>

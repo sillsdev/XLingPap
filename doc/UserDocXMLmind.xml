@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 April 2017</date
+>18 April 2017</date
 ><version
 >2.30.1</version
 ><contents
@@ -26965,6 +26965,193 @@ num="xLanguageCodesForSorting"
 >.</p
 ></section2
 ></section1
+><section1
+id="sMultilingualDcoument"
+><secTitle
+>Multilingual Document</secTitle
+><p
+><indexedItem
+term="iMultilingualDoc"
+></indexedItem
+><indexedItem
+term="iContentControl"
+></indexedItem
+>There may be times when you want to write a document which will be in more than one language. Using content control (see section <sectionRef
+sec="sContentControl"
+></sectionRef
+>) it was possible to create content types for each language. One would write each “chunk” item first in one language and then in the other. You would tag each “chunk” with its appropriate content type. The problem, though, was that there was not a way to create distinct title and label items for each language. For example, every chapter or section element has a <object
+type="tElement"
+>secTitle</object
+> element, but there was not a way to indicate a portion of this title as being for only a particular language. Similarly, if one uses a <object
+type="tElement"
+>contents</object
+> element or a <object
+type="tElement"
+>preface</object
+> or <object
+type="tElement"
+>glossary</object
+> element, there is a way to change the <object
+type="tAttribute"
+>label</object
+> attribute on these to be in a particular language, but there was only one choice. In both of these cases, when one switched from one language to another, one had to manually change all titles and all labels from the one language to the other.</p
+><p
+>Now <object
+type="tXLingPap"
+></object
+> has a way to use content control to determine separate titles and labels without having to manually change anything. As noted above, there are two kinds of items which would need this mechanism: titles and labels.</p
+><section2
+id="sMultilingualDcoumentTitles"
+><secTitle
+>Multilingual Titles</secTitle
+><p
+>The elements where one might need to have multilingual titles are <object
+type="tElement"
+>title</object
+>, <object
+type="tElement"
+>shortTitle</object
+>, <object
+type="tElement"
+>subtitle</object
+>, and <object
+type="tElement"
+>secTitle</object
+>. Normally, one just keys in the content material in each of these. For the multilingual case, that will not work. One must replace the text with a <object
+type="tElement"
+>titleContentChoices</object
+> element. This will have two instances of <object
+type="tElement"
+>titleContents</object
+> elements. Type the title in the first language in the first <object
+type="tElement"
+>titleContents</object
+> element. Then press the <object
+type="tInstruction"
+>F11</object
+> key on the keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+>), and a dialog box will pop up that lists all the content types you've defined. Choose the one for the language of this title. Now go to the second <object
+type="tElement"
+>titleContents</object
+> element, type in its title in its language, and then set its content type to its language.</p
+></section2
+><section2
+id="sMultilingualDcoumentLabels"
+><secTitle
+>Multilingual Labels</secTitle
+><p
+>The elements where one might need to have multilingual labels are given in example <exampleRef
+letter="xElementsWithLabelAttribute"
+num="xElementsWithLabelAttribute"
+></exampleRef
+>.</p
+><example
+num="xElementsWithLabelAttribute"
+><exampleHeading
+>Elements which have a <object
+type="tAttribute"
+>label</object
+> attribute</exampleHeading
+><chart
+><ul
+><li
+><object
+type="tElement"
+>abbreviations</object
+></li
+><li
+><object
+type="tElement"
+>abstract </object
+></li
+><li
+><object
+type="tElement"
+>acknowledgements </object
+></li
+><li
+><object
+type="tElement"
+>appendix</object
+></li
+><li
+><object
+type="tElement"
+>contents</object
+></li
+><li
+><object
+type="tElement"
+>endnotes</object
+></li
+><li
+><object
+type="tElement"
+>glossary</object
+></li
+><li
+><object
+type="tElement"
+>glossaryTerms</object
+></li
+><li
+><object
+type="tElement"
+>index</object
+></li
+><li
+><object
+type="tElement"
+>keywordsShownHere</object
+></li
+><li
+><object
+type="tElement"
+>preface</object
+></li
+><li
+><object
+type="tElement"
+>references</object
+></li
+><li
+><object
+type="tElement"
+>selectedBibliography</object
+></li
+></ul
+></chart
+></example
+><p
+>Normally, whenever you need a special label value for any of these, you just key that value in the <object
+type="tAttribute"
+>label</object
+> attribute. For the multilingual case, that will not work. One must click on the element and then do an <object
+type="tInstruction"
+>Insert</object
+> command. In the list of possible elements to insert, choose <object
+type="tElement"
+>labelContentChoices</object
+>. This will have two instances of <object
+type="tElement"
+>labelContents</object
+> elements. Type the label in the first language in the first <object
+type="tElement"
+>labelContents</object
+> element. Then press the <object
+type="tInstruction"
+>F11</object
+> key on the keyboard (or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+>), and a dialog box will pop up that lists all the content types you've defined. Choose the one for the language of this label. Now go to the second <object
+type="tElement"
+>labelContents</object
+> element, type in its label in its language, and then set its content type to its language.</p
+></section2
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -27110,6 +27297,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of appendices in endnotes in a book when using endnotes instead of footnotes</dd
+><dt
+><object
+type="tElement"
 >appendixRef</object
 ></dt
 ><dd
@@ -27226,6 +27420,13 @@ type="tElement"
 ></dt
 ><dd
 >A chapter in a collection volume</dd
+><dt
+><object
+type="tElement"
+>chapterLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of chapters in endnotes in a book when using endnotes instead of footnotes</dd
 ><dt
 ><object
 type="tElement"
@@ -27969,6 +28170,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>labelContent</object
+></dt
+><dd
+>Content to use for an element's label given a content choice</dd
+><dt
+><object
+type="tElement"
+>labelContentChoices</object
+></dt
+><dd
+>Two or more content items (labelContent) controlled by content control</dd
+><dt
+><object
+type="tElement"
 >landscape</object
 ></dt
 ><dd
@@ -28194,6 +28409,13 @@ type="tElement"
 ></dt
 ><dd
 >A part section which contains chapters</dd
+><dt
+><object
+type="tElement"
+>partLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of parts in endnotes in a book when using endnotes instead of footnotes</dd
 ><dt
 ><object
 type="tElement"
@@ -28673,6 +28895,20 @@ type="tElement"
 ></dt
 ><dd
 >The title of the paper</dd
+><dt
+><object
+type="tElement"
+>titleContent</object
+></dt
+><dd
+>Content to use for an element's title given a content choice</dd
+><dt
+><object
+type="tElement"
+>titleContentChoices</object
+></dt
+><dd
+>Two or more content items (titleContent) controlled by content control</dd
 ><dt
 ><object
 type="tElement"
@@ -32197,6 +32433,14 @@ id="iContactPhone"
 id="iContentControl"
 ><term
 >Content control</term
+><indexTerms
+><indexTerm
+id="iCTMultilingualDoc"
+see="iMultilingualDoc"
+><term
+>Multilingual document</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iConvertInterlinearToListInterlinear"
@@ -33314,6 +33558,11 @@ see="iMediaObject"
 id="iMSWord2003"
 ><term
 >Microsoft Word 2003 format</term
+></indexTerm
+><indexTerm
+id="iMultilingualDoc"
+><term
+>Multilingual document</term
 ></indexTerm
 ><indexTerm
 id="iMultivoumeWork"

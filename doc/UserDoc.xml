@@ -16,9 +16,9 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->13 January 2017</date
+>18 April 2017</date
 ><version
->2.30.0</version
+>2.30.1</version
 ><contents
 showLevel="3"
 ></contents
@@ -9295,6 +9295,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>chapterLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of chapters in endnotes in a book when using endnotes instead of footnotes</dd
+><dt
+><object
+type="tElement"
 >chart</object
 ></dt
 ><dd
@@ -10035,6 +10042,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>labelContent</object
+></dt
+><dd
+>Content to use for an element's label given a content choice</dd
+><dt
+><object
+type="tElement"
+>labelContentChoices</object
+></dt
+><dd
+>Two or more content items (labelContent) controlled by content control</dd
+><dt
+><object
+type="tElement"
 >landscape</object
 ></dt
 ><dd
@@ -10260,6 +10281,13 @@ type="tElement"
 ></dt
 ><dd
 >A part section which contains chapters</dd
+><dt
+><object
+type="tElement"
+>partLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of parts in endnotes in a book when using endnotes instead of footnotes</dd
 ><dt
 ><object
 type="tElement"
@@ -10710,6 +10738,20 @@ type="tElement"
 ></dt
 ><dd
 >The title of the paper</dd
+><dt
+><object
+type="tElement"
+>titleContent</object
+></dt
+><dd
+>Content to use for an element's title given a content choice</dd
+><dt
+><object
+type="tElement"
+>titleContentChoices</object
+></dt
+><dd
+>Two or more content items (titleContent) controlled by content control</dd
 ><dt
 ><object
 type="tElement"

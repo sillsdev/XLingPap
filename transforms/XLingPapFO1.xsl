@@ -3548,14 +3548,14 @@ not using
             </xsl:call-template>
         </xsl:if>
         <!-- abstract -->
-            <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
+        <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAbstractLabel"/>
                 </xsl:with-param>
             </xsl:call-template>
-            </xsl:for-each>
+        </xsl:for-each>
         <!-- preface -->
         <xsl:if test="//preface">
             <xsl:for-each select="//preface[not(ancestor::chapterInCollection)]">
@@ -3637,12 +3637,14 @@ not using
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="//references[not(ancestor::chapterInCollection)]">
-            <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="$sReferencesID"/>
-                <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputReferencesLabel"/>
-                </xsl:with-param>
-            </xsl:call-template>
+            <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
+                <xsl:call-template name="OutputTOCLine">
+                    <xsl:with-param name="sLink" select="$sReferencesID"/>
+                    <xsl:with-param name="sLabel">
+                        <xsl:call-template name="OutputReferencesLabel"/>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:for-each>
         </xsl:if>
         <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
@@ -5658,7 +5660,7 @@ not using
         </xsl:choose>
         <xsl:text>]</xsl:text>
     </xsl:template>
-<!--  
+    <!--  
                   OutputList
 -->
     <xsl:template name="OutputList">
@@ -6094,6 +6096,7 @@ not using
     <xsl:template match="interlinearSource"/>
     <xsl:template match="appendix/shortTitle"/>
     <xsl:template match="chapter/shortTitle"/>
+    <xsl:template match="part/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>

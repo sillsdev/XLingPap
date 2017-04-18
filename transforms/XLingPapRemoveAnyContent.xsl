@@ -100,6 +100,9 @@
    <xsl:template match="interlinear-text">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="labelContent">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="li">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
@@ -155,6 +158,9 @@
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="tablenumberedRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="titleContent">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="tree">

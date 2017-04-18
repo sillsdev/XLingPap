@@ -295,6 +295,10 @@
     <xsl:template match="langData" mode="contents">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
+    <!--
+        labelContent  (ignore it)
+    -->
+    <xsl:template match="labelContent"/>
     <!-- 
         object (contents) 
     -->
@@ -940,8 +944,15 @@
                                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:number level="any" count="endnote[not(parent::author)]" format="1"
-                                    from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
+                                <xsl:choose>
+                                    <xsl:when test="ancestor::part and not(ancestor::chapter) and not(ancestor::chapterInCollection)">
+                                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="part"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1"
+                                            from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -949,6 +960,9 @@
                         <xsl:choose>
                             <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::part and not(ancestor::chapter) and not(ancestor::chapterInCollection)">
+                                <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="part"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
@@ -1963,7 +1977,11 @@
         OutputKeywordsLabel
     -->
     <xsl:template name="OutputKeywordsLabel">
+        <xsl:variable name="labelContent" select="descendant-or-self::labelContent[1]"/>
         <xsl:choose>
+            <xsl:when test="string-length($labelContent) &gt; 0">
+                <xsl:value-of select="$labelContent"/>
+            </xsl:when>
             <xsl:when test="@label and string-length(@label) &gt;= 0">
                 <xsl:value-of select="@label"/>
             </xsl:when>
@@ -1974,7 +1992,6 @@
                         <xsl:text>: </xsl:text>
                     </xsl:when>
                 </xsl:choose>
-
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -2003,7 +2020,11 @@
     <xsl:template name="OutputLabel">
         <xsl:param name="sDefault"/>
         <xsl:param name="pLabel"/>
+        <xsl:variable name="labelContent" select="descendant-or-self::labelContent[1]"/>
         <xsl:choose>
+            <xsl:when test="string-length($labelContent) &gt; 0">
+                <xsl:value-of select="$labelContent"/>
+            </xsl:when>
             <xsl:when test="string-length($pLabel) &gt; 0">
                 <xsl:value-of select="$pLabel"/>
             </xsl:when>
@@ -2051,15 +2072,17 @@
         <xsl:variable name="selectedBibliography" select="//selectedBibliography"/>
         <xsl:choose>
             <xsl:when test="$selectedBibliography">
-                <xsl:call-template name="OutputLabel">
-                    <xsl:with-param name="sDefault">Selected Bibliography</xsl:with-param>
-                    <xsl:with-param name="pLabel" select="$selectedBibliography/@label"/>
-                </xsl:call-template>
+                <xsl:for-each select="$selectedBibliography">
+                    <xsl:call-template name="OutputLabel">
+                        <xsl:with-param name="sDefault">Selected Bibliography</xsl:with-param>
+                        <xsl:with-param name="pLabel" select="@label"/>
+                    </xsl:call-template>
+                </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault">References</xsl:with-param>
-                    <xsl:with-param name="pLabel" select="//references/@label"/>
+                    <xsl:with-param name="pLabel" select="@label"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

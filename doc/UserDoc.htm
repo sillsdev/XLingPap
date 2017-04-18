@@ -11,8 +11,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>13 January 2017</small></center>
-      <center><small>Version: 2.30.0</small></center>
+      <center><i>SIL International</i></center><br><center><small>18 April 2017</small></center>
+      <center><small>Version: 2.30.1</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -3427,6 +3427,8 @@
          <dd>A chapter section which occurs before a part</dd>
          <dt><span style="font-family:fixed; color:maroon; ">chapterInCollection</span></dt>
          <dd>A chapter in a collection volume</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">chapterLabelContentChoices</span></dt>
+         <dd>Used for controlling label of chapters in endnotes in a book when using endnotes instead of footnotes</dd>
          <dt><span style="font-family:fixed; color:maroon; ">chart</span></dt>
          <dd>A chart in the text; may also be included in an example</dd>
          <dt><span style="font-family:fixed; color:maroon; ">citation</span></dt>
@@ -3647,6 +3649,10 @@
          <dd>A set of keywords</dd>
          <dt><span style="font-family:fixed; color:maroon; ">keywordsShownHere</span></dt>
          <dd>This indicates where the list of keywords is to appear</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">labelContent</span></dt>
+         <dd>Content to use for an element's label given a content choice</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">labelContentChoices</span></dt>
+         <dd>Two or more content items (labelContent) controlled by content control</dd>
          <dt><span style="font-family:fixed; color:maroon; ">landscape</span></dt>
          <dd>In the PDF output, format the enclosed material in landscape instead of portrait mode; will start a new page in the output</dd>
          <dt><span style="font-family:fixed; color:maroon; ">langData</span></dt>
@@ -3709,6 +3715,8 @@
          <dd>Reference information for a paper presented at a conference</dd>
          <dt><span style="font-family:fixed; color:maroon; ">part</span></dt>
          <dd>A part section which contains chapters</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">partLabelContentChoices</span></dt>
+         <dd>Used for controlling label of parts in endnotes in a book when using endnotes instead of footnotes</dd>
          <dt><span style="font-family:fixed; color:maroon; ">pc</span></dt>
          <dd>A continuation paragraph (which never has an indented initial line)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">phrase</span></dt>
@@ -3841,6 +3849,10 @@
          <dd>Reference information for an M.A. thesis</dd>
          <dt><span style="font-family:fixed; color:maroon; ">title</span></dt>
          <dd>The title of the paper</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">titleContent</span></dt>
+         <dd>Content to use for an element's title given a content choice</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">titleContentChoices</span></dt>
+         <dd>Two or more content items (titleContent) controlled by content control</dd>
          <dt><span style="font-family:fixed; color:maroon; ">tr</span></dt>
          <dd>A row in a table. This is the same as <span style="font-family:fixed; color:maroon; ">headerRow</span> or <span style="font-family:fixed; color:maroon; ">row</span>, but is included for use in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sXMLmindXMLEditor">12</a>.
          </dd>

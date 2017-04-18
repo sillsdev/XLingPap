@@ -597,6 +597,11 @@ appendix
 	property-group: isCollapsible( yes, 1);
 }
 
+appendixLabelContentChoices
+{
+    display:inline;
+}
+
 appendixRef[showTitle='short']
 {
 	content: drop-down-setReference()
@@ -821,6 +826,11 @@ chapterInCollection:before
 chapterInCollection 
 {
 	property-group: section(  );
+}
+
+chapterLabelContentChoices
+{
+    display:inline;
 }
 
 chart
@@ -1274,23 +1284,29 @@ contentTypes
 	padding-left: 0.25in;
 }
 
-contents[label]:before
+contents[label]:empty:before
 {
-	content:text-field(attribute,label);
+	content:text-field(attribute,label)
+	" showLevel=" 
+	attr(showLevel)
+	;
 	color:Silver;
 }
 contents:before
 {
-	content:"contents: ";
-	color:Silver;
-}
-contents 
-{
-	display:block;
-	content: " showLevel=" 
+	content:"contents: "
+	" showLevel=" 
 	attr(showLevel)
 	;
 	color:Silver;
+}
+contents:empty 
+{
+	display:block;
+	color:Silver;
+}
+contents {
+    display:inline;
 }
 
 appendixRef[contentType] 
@@ -2271,6 +2287,22 @@ phrase > item {
 	font-weight: concatenate(xpath("id(@lang)/@font-weight"));
 }
 
+keywordsShownHere labelContentChoices:after {
+    content:text("The keywords listed under Publishing Info will appear here.",font-style,italic);}
+labelContentChoices
+{
+    display:inline;
+}
+labelContent:first-of-type:before {
+    content:"   ";
+}
+labelContent + labelContent:before {
+    content:" / ";
+}
+labelContent {
+    display:inline;
+}
+
 landscape
 {
 	display:block;
@@ -2582,13 +2614,21 @@ keywordsShownHere:before
 {
 	content:"Keywords: ";
 }
-keywordsShownHere
+keywordsShownHere:empty
 {
 	display:block;
 	padding-left: 0.25in;
 	padding-top: 0.05in;
 	content:text("The keywords listed under Publishing Info will appear here.",font-style,italic);
 }
+keywordsShownHere
+{
+	display:block;
+	padding-left: 0.25in;
+	padding-top: 0.05in;
+/*	content:text("The keywords listed under Publishing Info will appear here.",font-style,italic); */
+}
+
 refWork keywords
 {
 	display:block;
@@ -3050,6 +3090,11 @@ part
 	text-align:center;
 }
 
+
+partLabelContentChoices
+{
+    display:inline;
+}
 
 pc
 {
@@ -4208,6 +4253,20 @@ title {
     color: black;
     margin-top: .67ex;
     margin-bottom: .67ex;
+}
+
+titleContentChoices
+{
+    display:block;
+    padding-left: 0.25in;
+}
+
+secTitle titleContent {
+    display:inline;
+}
+
+titleContent {
+    display:block;
 }
 
 tr { 

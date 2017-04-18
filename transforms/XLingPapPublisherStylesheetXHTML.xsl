@@ -2283,6 +2283,7 @@
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="referencedInterlinearTexts"/>
+    <xsl:template match="shortTitle"/>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->
@@ -3177,11 +3178,6 @@
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test="name(.)='keywordsLayout'">
-                    <xsl:apply-templates select="$frontMatter/keywordsShownHere">
-                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
-                    </xsl:apply-templates>
-                </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
@@ -3558,7 +3554,7 @@
             <xsl:call-template name="OutputIndexTerms">
                 <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
                 <xsl:with-param name="lang" select="$indexLang"/>
-                <xsl:with-param name="terms" select="//lingPaper/indexTerms"/>
+                <xsl:with-param name="terms" select="$lingPaper/indexTerms"/>
             </xsl:call-template>
         </div>
     </xsl:template>
@@ -4619,6 +4615,9 @@
             <xsl:when test="name()='chapterBeforePart'">
                 <xsl:text>0</xsl:text>
             </xsl:when>
+            <xsl:when test="name()='part'">
+                <xsl:apply-templates select="." mode="numberPart"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$appLayout/@showletter!='no'">
                     <xsl:apply-templates select="." mode="numberAppendix"/>
@@ -5060,6 +5059,9 @@
             </xsl:when>
             <xsl:when test="ancestor::chapterBeforePart">
                 <xsl:text>0</xsl:text>
+            </xsl:when>
+            <xsl:when test="ancestor::appendix and not(ancestor::section1) and not(ancestor::section2)">
+                <xsl:apply-templates select="." mode="numberAppendix"/>
             </xsl:when>
             <xsl:when test="ancestor::appendix">
                 <xsl:for-each select="ancestor::appendix">

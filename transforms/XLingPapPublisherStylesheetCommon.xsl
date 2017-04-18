@@ -743,24 +743,79 @@
     -->
     <xsl:template name="DoBookEndnotesLabelingContent">
         <xsl:param name="chapterOrAppendixUnit"/>
+        <xsl:variable name="endnotes" select="//endnotes"/>
         <xsl:choose>
             <xsl:when test="name($chapterOrAppendixUnit)='chapter' or name($chapterOrAppendixUnit)='chapterInCollection' or name($chapterOrAppendixUnit)='chapterBeforePart'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
-                    <xsl:with-param name="sDefault" select="'Chapter'"/>
+                    <!--                    <xsl:with-param name="sDefault" select="'Chapter'"/>-->
+                    <xsl:with-param name="sDefault">
+                        <xsl:variable name="choices" select="$endnotes/chapterLabelContentChoices"/>
+                        <xsl:choose>
+                            <xsl:when test="$choices">
+                                <xsl:for-each select="$endnotes/chapterLabelContentChoices">
+                                    <xsl:call-template name="OutputLabel">
+                                        <xsl:with-param name="sDefault" select="'Chapter'"/>
+                                        <xsl:with-param name="pLabel" select="@label"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="OutputLabel">
+                                    <xsl:with-param name="sDefault" select="'Chapter'"/>
+                                    <xsl:with-param name="pLabel" select="@label"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="name($chapterOrAppendixUnit)='appendix'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
-                    <xsl:with-param name="sDefault" select="'Appendix'"/>
+                    <!--                    <xsl:with-param name="sDefault" select="'Appendix'"/>-->
+                    <xsl:with-param name="sDefault">
+                        <xsl:variable name="choices" select="$endnotes/appendixLabelContentChoices"/>
+                        <xsl:choose>
+                            <xsl:when test="$choices">
+                                <xsl:for-each select="$endnotes/appendixLabelContentChoices">
+                                    <xsl:call-template name="OutputLabel">
+                                        <xsl:with-param name="sDefault" select="'Appendix'"/>
+                                        <xsl:with-param name="pLabel" select="@label"/>
+                                    </xsl:call-template>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="OutputLabel">
+                                    <xsl:with-param name="sDefault" select="'Appendix'"/>
+                                    <xsl:with-param name="pLabel" select="@label"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="name($chapterOrAppendixUnit)='part'">
+                <xsl:call-template name="DoEndnoteSectionLabel">
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/partLayout/partTitleLayout"/>
+                    <!--                    <xsl:with-param name="sDefault" select="'Appendix'"/>-->
+                    <xsl:with-param name="sDefault">
+                        <xsl:for-each select="$endnotes/partLabelContentChoices">
+                            <xsl:call-template name="OutputLabel">
+                                <xsl:with-param name="sDefault" select="'Part'"/>
+                                <xsl:with-param name="pLabel" select="@label"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="name($chapterOrAppendixUnit)='glossary'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/glossaryLayout/glossaryTitleLayout"/>
                     <xsl:with-param name="sDefault">
-                        <xsl:call-template name="OutputGlossaryLabel"/>
+                        <xsl:for-each select="$chapterOrAppendixUnit">
+                            <xsl:call-template name="OutputGlossaryLabel"/>
+                        </xsl:for-each>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
@@ -769,13 +824,23 @@
                     <xsl:when test="ancestor::frontMatter">
                         <xsl:call-template name="DoEndnoteSectionLabel">
                             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
-                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
+                            <!--                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>-->
+                            <xsl:with-param name="sDefault">
+                                <xsl:for-each select="$chapterOrAppendixUnit">
+                                    <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                                </xsl:for-each>
+                            </xsl:with-param>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="DoEndnoteSectionLabel">
                             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout/acknowledgementsTitleLayout"/>
-                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>
+                            <!--                            <xsl:with-param name="sDefault" select="'Acknowledgements'"/>-->
+                            <xsl:with-param name="sDefault">
+                                <xsl:for-each select="$chapterOrAppendixUnit">
+                                    <xsl:call-template name="OutputAcknowledgementsLabel"/>
+                                </xsl:for-each>
+                            </xsl:with-param>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -795,7 +860,14 @@
             <xsl:when test="name($chapterOrAppendixUnit)='abstract'">
                 <xsl:call-template name="DoEndnoteSectionLabel">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout/abstractTitleLayout"/>
-                    <xsl:with-param name="sDefault" select="'Abstract'"/>
+                    <!--                    <xsl:with-param name="sDefault" select="'Abstract'"/>-->
+                    <xsl:with-param name="sDefault">
+                        <xsl:for-each select="$chapterOrAppendixUnit">
+                            <xsl:call-template name="OutputAbstractLabel">
+                                <xsl:with-param name="iPos" select="count($chapterOrAppendixUnit/preceding-sibling::abstract)+1"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
@@ -809,7 +881,7 @@
             <xsl:when test="$originalContext">
                 <xsl:for-each select="$originalContext">
                     <xsl:variable name="chapterOrAppendixUnit"
-                        select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
+                        select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection | ancestor::part"/>
                     <xsl:call-template name="DoBookEndnotesLabeling">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
                         <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
@@ -817,8 +889,9 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:variable name="thisEndnote" select="."/>
                 <xsl:variable name="chapterOrAppendixUnit"
-                    select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection"/>
+                    select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection | ancestor::part[not($thisEndnote[ancestor::chapter])]"/>
                 <xsl:choose>
                     <xsl:when test="starts-with(name($chapterOrAppendixUnit),'chapter') and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                         <!-- do nothing -->

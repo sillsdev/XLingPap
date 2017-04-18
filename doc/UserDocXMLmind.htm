@@ -12,7 +12,7 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> version 5.3</big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>11 April 2017</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>18 April 2017</small></center>
       <center><small>Version: 2.30.1</small></center>
       <hr>
       <div>
@@ -344,6 +344,11 @@
                <li><a href="#sBMISO639-3CodesShowingList">18.3&nbsp;Showing the List of ISO 639-3 Codes</a></li>
                <li><a href="#sBMISO639-3CodesSortingTheList">18.4&nbsp;Sorting the List of ISO 639-3 Codes</a></li>
             </ul>
+            <li><a href="#sMultilingualDcoument">19&nbsp;Multilingual Document</a></li>
+            <ul>
+               <li><a href="#sMultilingualDcoumentTitles">19.1&nbsp;Multilingual Titles</a></li>
+               <li><a href="#sMultilingualDcoumentLabels">19.2&nbsp;Multilingual Labels</a></li>
+            </ul>
             <li><a href="#aElements">A&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Element Reference Guide</a></li>
             <li><a href="#aStyleSheetElements">B&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet Element Reference Guide</a></li>
             <li><a href="#aLanguageCodes">C&nbsp;Language Codes</a></li>
@@ -351,7 +356,7 @@
             <li><a href="#aHistdory">E&nbsp;History</a></li>
             <li><a href="#rXLingPapEndnotes">Endnotes</a></li>
             <li><a href="#rXLingPapReferences">References</a></li>
-            <li><a href="#rXLingPapIndex.d0e24056">Index</a></li>
+            <li><a href="#rXLingPapIndex.d0e24234">Index</a></li>
          </ul>
       </div><br><hr>
       <center><b><big><big><a name="rXLingPapAbstract0">Abstract</a></big></big></b></center>
@@ -10841,6 +10846,67 @@
       <p>The sorting algorithm used depends on the language code you have indicated, if any. The default is &#8216;en&#8217; (for English). If
          you have set the <span style="font-family:Courier New; color:purple; ">iso639-3codeslang</span> attribute of the main <span style="font-family:Courier New; color:maroon; ">lingPaper</span> element of the document, then <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use that code. If the <span style="font-family:Courier New; color:purple; ">iso639-3codeslang</span> attribute is not set, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use the <span style="font-family:Courier New; color:purple; ">xml:lang</span> attribute of the <span style="font-family:Courier New; color:maroon; ">lingPaper</span> element, if it is set. Some of the known language codes to use are shown in example <a href="#xLanguageCodesForSorting">(37)</a>.
       </p>
+      <h1 style=""><a name="sMultilingualDcoument"></a>19&nbsp;Multilingual Document
+      </h1>
+      <p><a name="rXLingPapIndexedItem.iMultilingualDoc.d0e20431"></a><a name="rXLingPapIndexedItem.iContentControl.d0e20432"></a>There may be times when you want to write a document which will be in more than one language. Using content control (see section
+         <a href="#sContentControl">15</a>) it was possible to create content types for each language. One would write each &#8220;chunk&#8221; item first in one language and then
+         in the other. You would tag each &#8220;chunk&#8221; with its appropriate content type. The problem, though, was that there was not a
+         way to create distinct title and label items for each language. For example, every chapter or section element has a <span style="font-family:Courier New; color:maroon; ">secTitle</span> element, but there was not a way to indicate a portion of this title as being for only a particular language. Similarly,
+         if one uses a <span style="font-family:Courier New; color:maroon; ">contents</span> element or a <span style="font-family:Courier New; color:maroon; ">preface</span> or <span style="font-family:Courier New; color:maroon; ">glossary</span> element, there is a way to change the <span style="font-family:Courier New; color:purple; ">label</span> attribute on these to be in a particular language, but there was only one choice. In both of these cases, when one switched
+         from one language to another, one had to manually change all titles and all labels from the one language to the other.
+      </p>
+      <p>Now <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has a way to use content control to determine separate titles and labels without having to manually change anything. As noted
+         above, there are two kinds of items which would need this mechanism: titles and labels.
+      </p>
+      <h2 style=""><a name="sMultilingualDcoumentTitles"></a>19.1&nbsp;Multilingual Titles
+      </h2>
+      <p>The elements where one might need to have multilingual titles are <span style="font-family:Courier New; color:maroon; ">title</span>, <span style="font-family:Courier New; color:maroon; ">shortTitle</span>, <span style="font-family:Courier New; color:maroon; ">subtitle</span>, and <span style="font-family:Courier New; color:maroon; ">secTitle</span>. Normally, one just keys in the content material in each of these. For the multilingual case, that will not work. One must
+         replace the text with a <span style="font-family:Courier New; color:maroon; ">titleContentChoices</span> element. This will have two instances of <span style="font-family:Courier New; color:maroon; ">titleContents</span> elements. Type the title in the first language in the first <span style="font-family:Courier New; color:maroon; ">titleContents</span> element. Then press the <span style="color:maroon; ">F11</span> key on the keyboard (or use menu items <span style="color:maroon; ">XLingPaper / Set Reference F11</span>), and a dialog box will pop up that lists all the content types you've defined. Choose the one for the language of this title.
+         Now go to the second <span style="font-family:Courier New; color:maroon; ">titleContents</span> element, type in its title in its language, and then set its content type to its language.
+      </p>
+      <h2 style=""><a name="sMultilingualDcoumentLabels"></a>19.2&nbsp;Multilingual Labels
+      </h2>
+      <p>The elements where one might need to have multilingual labels are given in example <a href="#xElementsWithLabelAttribute">(273)</a>.
+      </p>
+      <div style="margin-left: 0.25in; margin-right: 0.25in">
+         <table>
+            <tr>
+               <td valign="top"><a name="xElementsWithLabelAttribute">(273)</a></td>
+               <td>
+                  <table cellpadding="0pt" cellspacing="0pt">
+                     <tr>
+                        <td>&nbsp;Elements which have a <span style="font-family:Courier New; color:purple; ">label</span> attribute
+                        </td>
+                     </tr>
+                  </table>
+                  <table>
+                     <tr>
+                        <td>
+                           <ul>
+                              <li><span style="font-family:Courier New; color:maroon; ">abbreviations</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">abstract </span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">acknowledgements </span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">appendix</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">contents</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">endnotes</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">glossary</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">glossaryTerms</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">index</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">keywordsShownHere</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">preface</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">references</span></li>
+                              <li><span style="font-family:Courier New; color:maroon; ">selectedBibliography</span></li>
+                           </ul>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <p>Normally, whenever you need a special label value for any of these, you just key that value in the <span style="font-family:Courier New; color:purple; ">label</span> attribute. For the multilingual case, that will not work. One must click on the element and then do an <span style="color:maroon; ">Insert</span> command. In the list of possible elements to insert, choose <span style="font-family:Courier New; color:maroon; ">labelContentChoices</span>. This will have two instances of <span style="font-family:Courier New; color:maroon; ">labelContents</span> elements. Type the label in the first language in the first <span style="font-family:Courier New; color:maroon; ">labelContents</span> element. Then press the <span style="color:maroon; ">F11</span> key on the keyboard (or use menu items <span style="color:maroon; ">XLingPaper / Set Reference F11</span>), and a dialog box will pop up that lists all the content types you've defined. Choose the one for the language of this label.
+         Now go to the second <span style="font-family:Courier New; color:maroon; ">labelContents</span> element, type in its label in its language, and then set its content type to its language.
+      </p>
       <hr size="3">
       <h1 style=""><a name="aElements"></a>A.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Element Reference Guide
       </h1>
@@ -10881,6 +10947,8 @@
          <dd>A set of annotations</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">appendix</span></dt>
          <dd>An appendix section of the paper</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">appendixLabelContentChoices</span></dt>
+         <dd>Used for controlling label of appendices in endnotes in a book when using endnotes instead of footnotes</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">appendixRef</span></dt>
          <dd>A reference to an appendix in the paper</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">article</span></dt>
@@ -10915,6 +10983,8 @@
          <dd>A chapter section which occurs before a part</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">chapterInCollection</span></dt>
          <dd>A chapter in a collection volume</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">chapterLabelContentChoices</span></dt>
+         <dd>Used for controlling label of chapters in endnotes in a book when using endnotes instead of footnotes</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">chart</span></dt>
          <dd>A chart in the text; may also be included in an example</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">citation</span></dt>
@@ -11136,6 +11206,10 @@
          <dd>A set of keywords</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">keywordsShownHere</span></dt>
          <dd>This indicates where the list of keywords is to appear</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">labelContent</span></dt>
+         <dd>Content to use for an element's label given a content choice</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">labelContentChoices</span></dt>
+         <dd>Two or more content items (labelContent) controlled by content control</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">landscape</span></dt>
          <dd>In the PDF output, format the enclosed material in landscape instead of portrait mode; will start a new page in the output</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">langData</span></dt>
@@ -11198,6 +11272,8 @@
          <dd>Reference information for a paper presented at a conference</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">part</span></dt>
          <dd>A part section which contains chapters</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">partLabelContentChoices</span></dt>
+         <dd>Used for controlling label of parts in endnotes in a book when using endnotes instead of footnotes</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">pc</span></dt>
          <dd>A continuation paragraph (which never has an indented initial line)</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">phrase</span></dt>
@@ -11302,7 +11378,7 @@
          <dd>A shortened form of an author. This is for aiding in publishing when the real author names are too long to appear in headers
             or footers.
          </dd>
-         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e21567"></a><a name="rXLingPapIndexedItem.iShortTitleElement.d0e21568"></a><span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e21735"></a><a name="rXLingPapIndexedItem.iShortTitleElement.d0e21736"></a><span style="font-family:Courier New; color:maroon; ">shortTitle</span></dt>
          <dd>A shortened form of a title. This is for aiding in publishing when the real title is too long to appear in headings. Within
             an interlinear text, it is used as the abbreviated name of the text.
          </dd>
@@ -11332,8 +11408,12 @@
          </dd>
          <dt><span style="font-family:Courier New; color:maroon; ">thesis</span></dt>
          <dd>Reference information for an M.A. thesis</dd>
-         <dt><a name="rXLingPapIndexedItem.iTitle.d0e21648"></a><span style="font-family:Courier New; color:maroon; ">title</span></dt>
+         <dt><a name="rXLingPapIndexedItem.iTitle.d0e21816"></a><span style="font-family:Courier New; color:maroon; ">title</span></dt>
          <dd>The title of the paper</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">titleContent</span></dt>
+         <dd>Content to use for an element's title given a content choice</dd>
+         <dt><span style="font-family:Courier New; color:maroon; ">titleContentChoices</span></dt>
+         <dd>Two or more content items (titleContent) controlled by content control</dd>
          <dt><span style="font-family:Courier New; color:maroon; ">tr</span></dt>
          <dd>A row in a table. This replaces both the <span style="font-family:Courier New; color:maroon; ">headerRow</span> and the <span style="font-family:Courier New; color:maroon; ">row</span> elements in order to show tables well in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sTCTTables">6.1</a>.
          </dd>
@@ -11363,7 +11443,7 @@
       <hr size="3">
       <h1 style=""><a name="aStyleSheetElements"></a>B.&nbsp;<span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet Element Reference Guide
       </h1>
-      <p><a name="rXLingPapIndexedItem.iPublisherStyleSheet.d0e21727"></a>This appendix lists the various elements available for an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet and briefly explains their usage. They are listed in alphabetical order. See the <a href="PublisherStylesheetUserDocXMLmind.htm"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</a> for more.
+      <p><a name="rXLingPapIndexedItem.iPublisherStyleSheet.d0e21905"></a>This appendix lists the various elements available for an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> publisher style sheet and briefly explains their usage. They are listed in alphabetical order. See the <a href="PublisherStylesheetUserDocXMLmind.htm"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> Publisher Style Sheet User Documentation</a> for more.
       </p>
       <dl>
          <dt><span style="font-family:Courier New; color:maroon; ">abbreviationsInTableLayout</span></dt>
@@ -12192,7 +12272,7 @@
       <hr size="3">
       <h1 style=""><a name="aXeLaTeXSpecial"></a>D.&nbsp;Special Attributes for the Default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> Way of Producing PDF
       </h1>
-      <p><a name="rXLingPapIndexedItem.iXeLaTeXSpecial.d0e23482"></a>My experience in using the default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF is that one does not usually need to use these very often. Currently there is a limited set of these
+      <p><a name="rXLingPapIndexedItem.iXeLaTeXSpecial.d0e23660"></a>My experience in using the default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF is that one does not usually need to use these very often. Currently there is a limited set of these
          attributes. They go in the <span style="font-family:Courier New; color:purple; ">XeLaTeXSpecial</span> attribute of various elements. Each one needs to be followed by a space.
       </p>
       <div align="left">
@@ -12225,7 +12305,7 @@
                <td align="left" valign="top" style="padding-left:.2em">break-before</td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.ifix-final-landscape.d0e23556"></a>fix-final-landscape
+               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.ifix-final-landscape.d0e23734"></a>fix-final-landscape
                </td>
                <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">none</span></td>
                <td align="left" valign="top" style="padding-left:.2em">Fix incorrect table of contents page numbers caused by having the final main item be in landscape mode. See <a href="#gfix-final-landscape">known limitations</a>.
@@ -12233,7 +12313,7 @@
                <td align="left" valign="top" style="padding-left:.2em">fix-final-landscape</td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.ifix-free-literal-footnote-placement.d0e23570"></a>fix-free-literal-footnote-placement
+               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.ifix-free-literal-footnote-placement.d0e23748"></a>fix-free-literal-footnote-placement
                </td>
                <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">none</span></td>
                <td align="left" valign="top" style="padding-left:.2em">Fix incorrect footnote content placement. In rare cases, footnote material can appear on a following page. See <a href="#gfix-free-literal-footnote-placement">known limitations</a>.
@@ -12241,14 +12321,14 @@
                <td align="left" valign="top" style="padding-left:.2em">fix-free-literal-footnote-placement</td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iFontFeatures.d0e23584"></a>font-feature
+               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iFontFeatures.d0e23762"></a>font-feature
                </td>
                <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">Font feature=value</span>. There are two ways to indicate the font feature and its value: First, a single quote, the name of the font feature (including
                   spaces), an equals sign, the name of the value (including spaces), and another single quote. Second is to use a single quote,
                   the number of the font feature, an equals sign, the number of the value, and a single quote.
                </td>
                <td align="left" valign="top" style="padding-left:.2em">Tell <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> to use the specified font feature for this font. This only makes sense for elements with font-related attributes. If you
-                  use this in a publisher style sheet <span style="font-family:Courier New; color:maroon; ">langDataLayout</span>, <span style="font-family:Courier New; color:maroon; ">glossLayout</span>, or <span style="font-family:Courier New; color:maroon; ">freeLayout</span>, it will only work if you also include the <span style="font-family:Courier New; color:purple; ">font-family</span> attribute. <a name="rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23606"></a>It also requires you to have installed the XeLaTeX Upgrade package. See <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
+                  use this in a publisher style sheet <span style="font-family:Courier New; color:maroon; ">langDataLayout</span>, <span style="font-family:Courier New; color:maroon; ">glossLayout</span>, or <span style="font-family:Courier New; color:maroon; ">freeLayout</span>, it will only work if you also include the <span style="font-family:Courier New; color:purple; ">font-family</span> attribute. <a name="rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23784"></a>It also requires you to have installed the XeLaTeX Upgrade package. See <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
                </td>
                <td align="left" valign="top" style="padding-left:.2em">
                   <div align="left">
@@ -12264,11 +12344,11 @@
                </td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iGraphite.d0e23621"></a>graphite
+               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iGraphite.d0e23799"></a>graphite
                </td>
                <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">none</span></td>
                <td align="left" valign="top" style="padding-left:.2em">Tell <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> to use the Graphite renderer for this font. This only makes sense for elements with font-related attributes. If you use this
-                  in a publisher style sheet <span style="font-family:Courier New; color:maroon; ">langDataLayout</span>, <span style="font-family:Courier New; color:maroon; ">glossLayout</span>, or <span style="font-family:Courier New; color:maroon; ">freeLayout</span>, it will only work if you also include the <span style="font-family:Courier New; color:purple; ">font-family</span> attribute. <a name="rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23642"></a>It also requires you to have installed the XeLaTeX Upgrade package. See <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
+                  in a publisher style sheet <span style="font-family:Courier New; color:maroon; ">langDataLayout</span>, <span style="font-family:Courier New; color:maroon; ">glossLayout</span>, or <span style="font-family:Courier New; color:maroon; ">freeLayout</span>, it will only work if you also include the <span style="font-family:Courier New; color:purple; ">font-family</span> attribute. <a name="rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23820"></a>It also requires you to have installed the XeLaTeX Upgrade package. See <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
                </td>
                <td align="left" valign="top" style="padding-left:.2em">graphite</td>
             </tr>
@@ -13755,7 +13835,7 @@
          </p>
       </div>
       <hr>
-      <a name="rXLingPapIndex.d0e24056"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
+      <a name="rXLingPapIndex.d0e24234"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
       <div style="margin-left: 0.5in; margin-right: 0.5in">
          .bmp files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
          .jpg (.jpeg) files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
@@ -13782,7 +13862,10 @@
             <a name="rXLingPapIndexTerm.iCollCitation">Citation to collection volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCollCitation.d0e2953">4.5.3.1</a>-<a href="#rXLingPapIndexedItem.bCollCitation.d0e3264">4.5.3.1.2</a><br><a name="rXLingPapIndexTerm.iCollCitationConvert">Convert from collection to collection citation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCollCitationConvert.d0e3071">4.5.3.1.2</a><br></div><a name="rXLingPapIndexTerm.iCollectionVolume">Collection volume (collection of papers by multiple authors)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCollectionVolume.d0e19996">17</a><br><a name="rXLingPapIndexTerm.iColor">Color&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iColor.d0e14517">11.3</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iColorLanguage">Language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iColorLanguage.d0e506">1.3</a><br></div><a name="rXLingPapIndexTerm.iComment">Comment&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iComment.d0e16771">11.24</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iCommentInPDF">in PDF&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCommentInPDF.d0e17036">11.30</a><br></div><a name="rXLingPapIndexTerm.iContactInformation">Contact information&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactInformation.d0e1078">2.4</a>, <a href="#rXLingPapIndexedItem.iContactInformation.d0e5585">4.8</a>, <a href="#rXLingPapIndexedItem.iContactInformation.d0e19066">13.2</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.iContactAddress">Contact address&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactAddress.d0e19112">13.2</a><br><a name="rXLingPapIndexTerm.iContactAffiliation">Contact affiliation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactAffiliation.d0e19105">13.2</a><br><a name="rXLingPapIndexTerm.iContactElectronic">Contact electronic&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactElectronic.d0e19136">13.2</a>, <a href="#rXLingPapIndexedItem.iContactElectronic.d0e19151">13.2</a><br><a name="rXLingPapIndexTerm.iContactEmail">Contact email&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactEmail.d0e19129">13.2</a><br><a name="rXLingPapIndexTerm.iContactName">Contact name&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactName.d0e19098">13.2</a><br><a name="rXLingPapIndexTerm.iContactPhone">Contact phone&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactPhone.d0e19122">13.2</a><br></div><a name="rXLingPapIndexTerm.iContentControl">Content control&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContentControl.d0e19533">15</a><br><a name="rXLingPapIndexTerm.iContents">Contents&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContents.d0e1207">2.11</a><br><a name="rXLingPapIndexTerm.iConvertInterlinearToListInterlinear">Convert <span style="font-family:Courier New; color:maroon; ">interlinear</span> to <span style="font-family:Courier New; color:maroon; ">listInterlinear</span> (or vice versa)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertInterlinearToListInterlinear.d0e18518">11.52</a><br><a name="rXLingPapIndexTerm.iConvertPaperToChapterInCollection">Convert paper for use in a collection volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertPaperToChapterInCollection.d0e20014">17</a><br><a name="rXLingPapIndexTerm.iConvertPaperToChapter">Convert paper to a chapter for use in a thesis or dissertation or book&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertPaperToChapter.d0e18270">11.47</a><br><a name="rXLingPapIndexTerm.iCreateNew">Create a new XLingPaper Document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCreateNew.d0e239">1.2.3</a><br><a name="rXLingPapIndexTerm.iCreateZipFile">Create a zip file containing all files in my document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCreateZipFile.d0e18150">11.45</a><br><a name="rXLingPapIndexTerm.iDate">Date&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.iContactAddress">Contact address&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactAddress.d0e19112">13.2</a><br><a name="rXLingPapIndexTerm.iContactAffiliation">Contact affiliation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactAffiliation.d0e19105">13.2</a><br><a name="rXLingPapIndexTerm.iContactElectronic">Contact electronic&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactElectronic.d0e19136">13.2</a>, <a href="#rXLingPapIndexedItem.iContactElectronic.d0e19151">13.2</a><br><a name="rXLingPapIndexTerm.iContactEmail">Contact email&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactEmail.d0e19129">13.2</a><br><a name="rXLingPapIndexTerm.iContactName">Contact name&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactName.d0e19098">13.2</a><br><a name="rXLingPapIndexTerm.iContactPhone">Contact phone&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContactPhone.d0e19122">13.2</a><br></div><a name="rXLingPapIndexTerm.iContentControl">Content control&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContentControl.d0e19533">15</a>, <a href="#rXLingPapIndexedItem.iContentControl.d0e20432">19</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            Multilingual document&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iMultilingualDoc">Multilingual document</a>.<br>
+            
+         </div><a name="rXLingPapIndexTerm.iContents">Contents&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iContents.d0e1207">2.11</a><br><a name="rXLingPapIndexTerm.iConvertInterlinearToListInterlinear">Convert <span style="font-family:Courier New; color:maroon; ">interlinear</span> to <span style="font-family:Courier New; color:maroon; ">listInterlinear</span> (or vice versa)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertInterlinearToListInterlinear.d0e18518">11.52</a><br><a name="rXLingPapIndexTerm.iConvertPaperToChapterInCollection">Convert paper for use in a collection volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertPaperToChapterInCollection.d0e20014">17</a><br><a name="rXLingPapIndexTerm.iConvertPaperToChapter">Convert paper to a chapter for use in a thesis or dissertation or book&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iConvertPaperToChapter.d0e18270">11.47</a><br><a name="rXLingPapIndexTerm.iCreateNew">Create a new XLingPaper Document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCreateNew.d0e239">1.2.3</a><br><a name="rXLingPapIndexTerm.iCreateZipFile">Create a zip file containing all files in my document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCreateZipFile.d0e18150">11.45</a><br><a name="rXLingPapIndexTerm.iDate">Date&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iDateOfCitedWork">Date of cited work&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDateOfCitedWork.d0e2611">4.5</a><br><a name="rXLingPapIndexTerm.iDateOfDocument">Date of document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDateOfDocument.d0e1137">2.8</a><br></div><a name="rXLingPapIndexTerm.iDefinitionLists">Definition lists&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDefinitionLists.d0e12524">7.3</a><br><a name="rXLingPapIndexTerm.iDemoMovies">Demo movies&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDemoMovies.d0e226">1.2.3</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iDemoMovieOverview">A tour of the XMLmind XML Editor that XLingPaper uses&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDemoMovieOverview.d0e231">1.2.3</a><br><a name="rXLingPapIndexTerm.iDemoMovieTypingText">How to type text in XLingPaper&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDemoMovieTypingText.d0e233">1.2.3</a><br></div>Diagram&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iChart">Chart</a>.<br>
          <a name="rXLingPapIndexTerm.iDissertation">Dissertation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iDissertation.d0e3271">4.5.4</a>, <a href="#rXLingPapIndexedItem.iDissertation.d0e19009">13</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -13808,18 +13891,18 @@
          </div>File, loading large&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iXXELoadLargeFile">Loading very large files</a>.<br>
          <a name="rXLingPapIndexTerm.iFindReplaceText">Find and replace text&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFindReplaceText.d0e14883">11.10</a>.  See also <a href="#rXLingPapIndexTerm.iSearchTool">Search Tool</a>.<br><a name="rXLingPapIndexTerm.iFindElement">Find element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFindElement.d0e18401">11.49</a>.  See also <a href="#rXLingPapIndexTerm.iSearchTool">Search Tool</a>.<br><a name="rXLingPapIndexTerm.iFind">Find text&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFind.d0e14858">11.9</a>.  See also <a href="#rXLingPapIndexTerm.iSearchTool">Search Tool</a>.<br><a name="rXLingPapIndexTerm.iFont">Font&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             Bold&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iBold">Bold</a>.<br>
-            <a name="rXLingPapIndexTerm.iFontFeatures">Font special features&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontFeatures.d0e23584">D.</a><br>Graphite&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
+            <a name="rXLingPapIndexTerm.iFontFeatures">Font special features&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontFeatures.d0e23762">D.</a><br>Graphite&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
             Italic&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iItalic">Italic</a>.<br>
             <a name="rXLingPapIndexTerm.iFontLanguage">Language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontLanguage.d0e494">1.3</a><br><a name="rXLingPapIndexTerm.iFontLanguageData">Language data&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontLanguageData.d0e16889">11.27</a><br><a name="rXLingPapIndexTerm.iFontSize">Size&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontSize.d0e14558">11.4</a><br>Subscript&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iSubscript">Subscript</a>.<br>
             Superscript&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iSuperscript">Superscript</a>.<br>
             
          </div><a name="rXLingPapIndexTerm.iFootnotes">Footnotes&nbsp;&nbsp;</a>see <a href="#rXLingPapIndexTerm.iEndnotes">Endnotes</a>.<br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.ifix-free-literal-footnote-placement">Footnote appears on next page in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span>-produced PDF&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.ifix-free-literal-footnote-placement.d0e23570">D.</a><br></div><a name="rXLingPapIndexTerm.iFramedUnit">Framed units&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFramedUnit.d0e19193">14</a><br><a name="rXLingPapIndexTerm.iFreeTranslation">Free translation&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.ifix-free-literal-footnote-placement">Footnote appears on next page in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span>-produced PDF&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.ifix-free-literal-footnote-placement.d0e23748">D.</a><br></div><a name="rXLingPapIndexTerm.iFramedUnit">Framed units&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFramedUnit.d0e19193">14</a><br><a name="rXLingPapIndexTerm.iFreeTranslation">Free translation&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iFreeTranslationChangeLanguage">Change language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFreeTranslationChangeLanguage.d0e9236">5.11</a><br></div><a name="rXLingPapIndexTerm.iFrenchUI">French version of user interface&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrenchUI.d0e17567">11.38</a><br><a name="rXLingPapIndexTerm.iFrontMatter">Front Matter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatter.d0e1028">2</a>-<a href="#rXLingPapIndexedItem.bFrontMatter.d0e1397">2.15</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iFrontMatterDissertation">Dissertation front matter (institution-specific)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterDissertation.d0e18003">11.44</a><br><a name="rXLingPapIndexTerm.iFrontMatterExample">Example&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterExample.d0e1385">2.15</a><br><a name="rXLingPapIndexTerm.iFrontMatterOfPublisher">Publisher-specific front matter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterOfPublisher.d0e18004">11.44</a><br><a name="rXLingPapIndexTerm.iFrontMatterThesis">Thesis front matter (institution-specific)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterThesis.d0e18002">11.44</a><br></div><a name="rXLingPapIndexTerm.iGloss">Gloss&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGloss.d0e17847">11.42</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iGlossChangeDefaultLanguage">Change default language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossChangeDefaultLanguage.d0e16925">11.28</a>, <a href="#rXLingPapIndexedItem.iGlossChangeDefaultLanguage.d0e17430">11.36</a><br><a name="rXLingPapIndexTerm.iGlossChangeLanguage">Change language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossChangeLanguage.d0e9174">5.10</a><br></div><a name="rXLingPapIndexTerm.iGlossary">Glossary&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossary.d0e2356">4.3</a><br><a name="rXLingPapIndexTerm.iGlossaryTerm">Glossary term&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTerm.d0e5136">4.7</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iGlossaryTermsColumnWidths">Column widths in table of glossary terms&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTermsColumnWidths.d0e5464">4.7.3</a><br><a name="rXLingPapIndexTerm.iGlossaryTermsSort">Sorting the output list&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTermsSort.d0e5526">4.7.4</a><br></div>Graphic file&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
-         <a name="rXLingPapIndexTerm.iGraphite">Graphite font renderer&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGraphite.d0e23621">D.</a><br>Handout, make from paper&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iTalkHandout">Talk handout</a>.<br>
+         <a name="rXLingPapIndexTerm.iGraphite">Graphite font renderer&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGraphite.d0e23799">D.</a><br>Handout, make from paper&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iTalkHandout">Talk handout</a>.<br>
          <a name="rXLingPapIndexTerm.iHangingIndentParagraph">Hanging indent paragraph&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHangingIndentParagraph.d0e19904">16</a><br>Hide some content&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iContentControl">Content control</a>.<br>
          Homograph numbers&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iFLExRemoveHomographNumbers">Remove homograph numbers from interllnear export</a>.<br>
          <a name="rXLingPapIndexTerm.iHypertextLinks">Hypertext links&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -13852,7 +13935,7 @@
          </div>Literal translation&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iInterlinearLiteral">Literal translation in</a>.<br>
          <a name="rXLingPapIndexTerm.iMAThesis">M.A. Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMAThesis.d0e3449">4.5.9</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iMAThesisLabel">M.A. Thesis label in reference entry&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMAThesisLabel.d0e3473">4.5.9</a><br></div><a name="rXLingPapIndexTerm.iMediaObject">Media file&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMediaObject.d0e14158">10.2.3</a><br><a name="rXLingPapIndexTerm.iMenus">Menu is too long&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMenus.d0e18218">11.46</a><br><a name="rXLingPapIndexTerm.iMSWord2003">Microsoft Word 2003 format&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMSWord2003.d0e135">1.2</a>, <b><a href="#rXLingPapIndexedItem.iMSWord2003.d0e15939">11.18</a></b><br>Movie File&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iMediaObject">Media file</a>.<br>
-         <a name="rXLingPapIndexTerm.iNonbreakingHyphen">Non-breaking hyphen&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNonbreakingHyphen.d0e15059">11.14</a><br><a name="rXLingPapIndexTerm.iNonbreakingSpace">Non-breaking space&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNonbreakingSpace.d0e15048">11.13</a><br>Numbered list&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iOrderedList">Ordered list</a>.<br>
+         <a name="rXLingPapIndexTerm.iMultilingualDoc">Multilingual document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iMultilingualDoc.d0e20431">19</a><br><a name="rXLingPapIndexTerm.iNonbreakingHyphen">Non-breaking hyphen&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNonbreakingHyphen.d0e15059">11.14</a><br><a name="rXLingPapIndexTerm.iNonbreakingSpace">Non-breaking space&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNonbreakingSpace.d0e15048">11.13</a><br>Numbered list&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iOrderedList">Ordered list</a>.<br>
          <a name="rXLingPapIndexTerm.iNumberedTables">Numbered table&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTables.d0e11398">6.4.3</a>.  See also <a href="#rXLingPapIndexTerm.iNumberedjTables">Numbered Tables</a>.<br><a name="rXLingPapIndexTerm.iOpenOfficeWriter">Open Office Writer format&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iOpenOfficeWriter.d0e140">1.2</a>, <b><a href="#rXLingPapIndexedItem.iOpenOfficeWriter.d0e16141">11.19</a></b><br>Open up a section&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iExpandSection">Expand a section</a>.<br>
          <a name="rXLingPapIndexTerm.iORCID">ORCID&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iORCID.d0e1063">2.3</a><br><a name="rXLingPapIndexTerm.iOrderedList">Ordered list&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iOrderedList.d0e12306">7.2</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iOrderedListControlling">Controlling letters or numbers used&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iOrderedListControlling.d0e12376">7.2.1</a><br><a name="rXLingPapIndexTerm.iOrderedListOutline">Creating an outline&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iOrderedListOutline.d0e12444">7.2.2</a><br></div>Page number, starting&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iStartingPageNumber">Starting page number</a>.<br>
@@ -13862,7 +13945,7 @@
             <a name="rXLingPapIndexTerm.iRenderXPDF"><span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> way&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iRenderXPDF.d0e15675">11.17.2</a>-<a href="#rXLingPapIndexedItem.bRenderX.d0e15934">11.17.2.2</a><br><a name="rXLingPapIndexTerm.iXeTexPDF"><span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeTexPDF.d0e15269">11.17.1</a>-<a href="#rXLingPapIndexedItem.bXeTeX.d0e15668">11.17.1.2</a><br><a name="rXLingPapIndexTerm.iPDFCommentIn">Comment in PDF&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPDFCommentIn.d0e17037">11.30</a><br><a name="rXLingPapIndexTerm.iPDFMergeTools">Merge tools&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPDFMergeTools.d0e18005">11.44</a><br></div>Ph.D. Dissertation&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iDissertation">Dissertation</a>.<br>
          <a name="rXLingPapIndexTerm.iPortrait">Portrait mode&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPortrait.d0e17234">11.34</a><br><a name="rXLingPapIndexTerm.iPosterSession">Poster session presentatiion&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPosterSession.d0e17117">11.32</a><br><a name="rXLingPapIndexTerm.iPreface">Preface&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPreface.d0e1363">2.14</a><br>Presentation handout&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iTalkHandout">Talk handout</a>.<br>
          <a name="rXLingPapIndexTerm.iPresentedAt">Presented at&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPresentedAt.d0e1131">2.7</a><br><a name="rXLingPapIndexTerm.iRefProceedings">Proceedings reference entry&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iRefProceedings.d0e3366">4.5.8</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.iProcCitation">Citation to proceedings volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitation.d0e3420">4.5.8</a><br><a name="rXLingPapIndexTerm.iProcCitationConvert">Convert from proceedings to proceedings citation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitationConvert.d0e3434">4.5.8</a><br></div><a name="rXLingPapIndexTerm.iPublisherStyleSheet">Publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e248">1.2.3</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e1828">3.3.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e2984">4.5.3.1.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e10978">6.4.2.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15176">11.16n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15615">11.17.1.1</a>, <b><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e16858">11.25</a></b>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e17152">11.32</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e17289">11.34</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e20054">17</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e21727">B.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.iProcCitation">Citation to proceedings volume&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitation.d0e3420">4.5.8</a><br><a name="rXLingPapIndexTerm.iProcCitationConvert">Convert from proceedings to proceedings citation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iProcCitationConvert.d0e3434">4.5.8</a><br></div><a name="rXLingPapIndexTerm.iPublisherStyleSheet">Publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e248">1.2.3</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e1828">3.3.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e2984">4.5.3.1.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e10978">6.4.2.1n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15176">11.16n</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e15615">11.17.1.1</a>, <b><a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e16858">11.25</a></b>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e17152">11.32</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e17289">11.34</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e20054">17</a>, <a href="#rXLingPapIndexedItem.iPublisherStyleSheet.d0e21905">B.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iPublisherStyleSheetAssociate">Associate a publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheetAssociate.d0e16798">11.25</a><br><a name="rXLingPapIndexTerm.iPublisherStyleSheetRemove">Remove a publisher style sheet&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublisherStyleSheetRemove.d0e16874">11.26</a><br>Unassociate a publisher style sheet&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iPublisherStyleSheetRemove">Remove a publisher style sheet</a>.<br>
             
          </div><a name="rXLingPapIndexTerm.iPublishingBlurb">Publishing blurb&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublishingBlurb.d0e19049">13.1</a><br><a name="rXLingPapIndexTerm.iPublishingInfo">Publishing information&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iPublishingInfo.d0e18970">13</a><br><span style="font-family:Courier New; font-weight:bold; color:navy; ">Pygal</span>&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iChartPygal"><span style="font-family:Courier New; font-weight:bold; color:navy; ">Pygal</span></a>.<br>
@@ -13892,12 +13975,12 @@
          <a name="rXLingPapIndexTerm.iSpacing">Spacing in output after periods&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSpacing.d0e17717">11.40</a><br><a name="rXLingPapIndexTerm.iSpanish">Spanish version of the user interface&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSpanish.d0e17568">11.38</a><br><a name="rXLingPapIndexTerm.iSpecialCharacterInsert">Special character/symbol, insert&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSpecialCharacterInsert.d0e17524">11.37</a>.  See also <a href="#rXLingPapIndexTerm.iSpecialSymbol">Special symbol</a>.<br>Spelling check&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iCheckSpelling">Check spelling</a>.<br>
          <a name="rXLingPapIndexTerm.iSpellingTool">Spelling tool&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSpellingTool.d0e14901">11.11</a><br><a name="rXLingPapIndexTerm.iStartingPageNumber">Starting page number&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iStartingPageNumber.d0e19008">13</a><br><a name="rXLingPapIndexTerm.iStartingPageNumberInBook">Starting page number in a book&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iStartingPageNumberInBook.d0e19025">13</a><br>Style sheet&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iPublisherStyleSheet">Publisher style sheet</a>.<br>
          <a name="rXLingPapIndexTerm.iSubscript">Subscript&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSubscript.d0e13528">10.1</a>, <b><a href="#rXLingPapIndexedItem.iSubscript.d0e14490">11.2</a></b><br><a name="rXLingPapIndexTerm.iSubtitle">Subtitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSubtitle.d0e1048">2.2</a><br><a name="rXLingPapIndexTerm.iSuperscript">Superscript&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSuperscript.d0e13529">10.1</a>, <b><a href="#rXLingPapIndexedItem.iSuperscript.d0e14488">11.2</a></b><br><a name="rXLingPapIndexTerm.iSymbolInsertSpecial">Symbol, insert special&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iSymbolInsertSpecial.d0e17525">11.37</a>.  See also <a href="#rXLingPapIndexTerm.iSpecialSymbol">Special symbol</a>.<br><a name="rXLingPapIndexTerm.iTableOfContents">Table of contents&nbsp;&nbsp;</a>see <a href="#rXLingPapIndexTerm.iContents">Contents</a>.<br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.ifix-final-landscape">Missing page numbers in table of contents when final item is in landscape mode (PDF produced by <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span>)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.ifix-final-landscape.d0e23556">D.</a><br></div><a name="rXLingPapIndexTerm.iTables">Tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTables.d0e8684">5.4</a>, <a href="#rXLingPapIndexedItem.iTables.d0e9302">6.1</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.ifix-final-landscape">Missing page numbers in table of contents when final item is in landscape mode (PDF produced by <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span>)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.ifix-final-landscape.d0e23734">D.</a><br></div><a name="rXLingPapIndexTerm.iTables">Tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTables.d0e8684">5.4</a>, <a href="#rXLingPapIndexedItem.iTables.d0e9302">6.1</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iTablesAttributes">Attributes used in tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesAttributes.d0e9887">6.1.5</a><br><a name="rXLingPapIndexTerm.iTablesCaption">Captions in tables&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesCaption.d0e9519">6.1.3</a><br><a name="rXLingPapIndexTerm.iCopyExternalTable">Copy a table from a word processing, spreadsheet, or web page program&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iCopyExternalTable.d0e18585">11.53</a><br><a name="rXLingPapIndexTerm.iIncreaseTableSize">Increase table size&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iIncreaseTableSize.d0e9412">6.1.1</a><br><a name="rXLingPapIndexTerm.iNumberedjTables">Numbered Tables&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
                <a name="rXLingPapIndexTerm.iNumberedTablesFloat">As a float&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesFloat.d0e11399">6.4.3</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferences">References&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferences.d0e11757">6.4.4</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
                   <a name="rXLingPapIndexTerm.iNumberedTableReferenceControlText">Controlling the text that appears before&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTableReferenceControlText.d0e11795">6.4.4.1</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferencesShowCaption">Show caption only&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferencesShowCaption.d0e12147">6.4.4.2</a><br></div>
-            </div><a name="rXLingPapIndexTerm.iTablesRowCounter">Row counter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesRowCounter.d0e9483">6.1.2</a><br><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e9390">6.1</a><br></div><a name="rXLingPapIndexTerm.iTalkHandout">Talk handout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTalkHandout.d0e17071">11.31</a><br><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e19010">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1034">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e21648">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-            <a name="rXLingPapIndexTerm.iAppendixTitle">Appendix Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixTitle.d0e2333">4.2</a><br><a name="rXLingPapIndexTerm.iGlossaryTitle">GlossaryTitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTitle.d0e2364">4.3</a><br><a name="rXLingPapIndexTerm.iTitleSection">Section Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitleSection.d0e1415">3.1</a><br><a name="rXLingPapIndexTerm.iShortTtileHeaderFooter">Shortened title for headers or footers&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e21567">A.</a><br><a name="rXLingPapIndexTerm.iShortTitleElement">shortTitle element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTitleElement.d0e21568">A.</a><br></div>Tone ligatures (require Graphite font renderer with Charis SIL fonts)&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
+            </div><a name="rXLingPapIndexTerm.iTablesRowCounter">Row counter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesRowCounter.d0e9483">6.1.2</a><br><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e9390">6.1</a><br></div><a name="rXLingPapIndexTerm.iTalkHandout">Talk handout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTalkHandout.d0e17071">11.31</a><br><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e19010">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1034">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e21816">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+            <a name="rXLingPapIndexTerm.iAppendixTitle">Appendix Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixTitle.d0e2333">4.2</a><br><a name="rXLingPapIndexTerm.iGlossaryTitle">GlossaryTitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTitle.d0e2364">4.3</a><br><a name="rXLingPapIndexTerm.iTitleSection">Section Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitleSection.d0e1415">3.1</a><br><a name="rXLingPapIndexTerm.iShortTtileHeaderFooter">Shortened title for headers or footers&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e21735">A.</a><br><a name="rXLingPapIndexTerm.iShortTitleElement">shortTitle element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTitleElement.d0e21736">A.</a><br></div>Tone ligatures (require Graphite font renderer with Charis SIL fonts)&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
          <a name="rXLingPapIndexTerm.iTools">Tools&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             Attributes Tool&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iAttributeTool">Attributes Tool</a>.<br>
             Characters Tool&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iCharactersTool">Characters Tool</a>.<br>
@@ -13914,7 +13997,7 @@
                <a name="rXLingPapIndexTerm.iWebpageAddressLong">Long address goes off page&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iWebpageAddressLong.d0e17167">11.33</a><br></div>
          </div>Word 2003 format&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iMSWord2003">Microsoft Word 2003 format</a>.<br>
          Word example&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iExampleWord">Word example</a>.<br>
-         <a name="rXLingPapIndexTerm.iXeLaTeXUpgrade">XeLaTeX Upgrade package&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e19520">14</a>, <a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23606">D.</a>, <a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23642">D.</a><br><a name="rXLingPapIndexTerm.iXeLaTeXSpecial">XeLaTeXSpecial attribute possible values&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeLaTeXSpecial.d0e23482">D.</a><br><a name="rXLingPapIndexTerm.iXXE">XMLmind XML Editor&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+         <a name="rXLingPapIndexTerm.iXeLaTeXUpgrade">XeLaTeX Upgrade package&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e19520">14</a>, <a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23784">D.</a>, <a href="#rXLingPapIndexedItem.iXeLaTeXUpgrade.d0e23820">D.</a><br><a name="rXLingPapIndexTerm.iXeLaTeXSpecial">XeLaTeXSpecial attribute possible values&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXeLaTeXSpecial.d0e23660">D.</a><br><a name="rXLingPapIndexTerm.iXXE">XMLmind XML Editor&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iXXEAdvantages">Advantages&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXXEAdvantages.d0e154">1.2.1</a><br><a name="rXLingPapIndexTerm.iXXEProductive">Be productive with&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXXEProductive.d0e18708">12</a><br><a name="rXLingPapIndexTerm.iXXELoadLargeFile">Loading very large files&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXXELoadLargeFile.d0e18495">11.51</a><br><a name="rXLingPapIndexTerm.iXXEObtaining">Obtaining&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iXXEObtaining.d0e214">1.2.2</a><br></div>Zip file, create&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iCreateZipFile">Create a zip file containing all files in my document</a>.<br>
          <a name="rXLingPapIndexTerm.iZotero">Zotero&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iZotero.d0e3894">4.5.15</a><br></div>
    </body>

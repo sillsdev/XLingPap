@@ -366,17 +366,19 @@
                 <xsl:if test="//endnote[not(ancestor::chapterInCollection)]">
                     <li>
                         <a href="#{$sEndnotesID}">
-                            <xsl:call-template name="OutputEndnotesLabel"/>
+                            <xsl:for-each select="//endnotes[not(ancestor::chapterInCollection)]">
+                                <xsl:call-template name="OutputEndnotesLabel"/>
+                </xsl:for-each>
                         </a>
                     </li>
                 </xsl:if>
-                <xsl:if test="//references[not(ancestor::chapterInCollection)]">
+                <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
                     <li>
                         <a href="#{$sReferencesID}">
                             <xsl:call-template name="OutputReferencesLabel"/>
                         </a>
                     </li>
-                </xsl:if>
+                </xsl:for-each>
                 <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
                     <li>
                         <a href="#{$sKeywordsInBackMatterID}">

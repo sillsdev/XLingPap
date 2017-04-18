@@ -143,18 +143,30 @@
 >
 <!-- Front matter -->
 <!-- We allow more than one abstract and more than one contents for cases where one needs the abstract or contents to be in more than one language. -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents*, acknowledgements?, abstract*, preface*)>
-<!ELEMENT title (#PCDATA | %embedded;)*>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version?, keywordsShownHere?, contents?, acknowledgements?, abstract*, preface*)>
+<!ELEMENT title (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
 >
 <!-- shortTitle is what can appear in a header or footer -->
-<!ELEMENT shortTitle (#PCDATA | %embedded;)*>
+<!ELEMENT shortTitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST shortTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT subtitle (#PCDATA | %embedded;)*>
+<!ELEMENT subtitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST subtitle
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT titleContentChoices (titleContent, titleContent+) >
+<!ELEMENT titleContent (#PCDATA | %embedded;)*>
+<!ATTLIST titleContent
+    contentType IDREF #REQUIRED
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT labelContentChoices (labelContent, labelContent+) >
+<!ELEMENT labelContent (#PCDATA)>
+<!ATTLIST labelContent
+    contentType IDREF #REQUIRED
     xml:lang CDATA #IMPLIED
 >
 <!-- ORCID is the Open Researcher and Contributor ID; see http://en.wikipedia.org/wiki/ORCID -->
@@ -198,26 +210,26 @@
     xml:lang CDATA #IMPLIED
     contentType IDREF #IMPLIED
 >
-<!ELEMENT acknowledgements (%chunk;)+>
+<!ELEMENT acknowledgements (labelContentChoices?, (%chunk;)+)>
 <!ATTLIST acknowledgements
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT abstract (%chunk;)+>
+<!ELEMENT abstract (labelContentChoices?, (%chunk;)+)>
 <!ATTLIST abstract
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
+<!ELEMENT preface (labelContentChoices?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT contents EMPTY>
+<!ELEMENT contents (labelContentChoices?)>
 <!ATTLIST contents
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
@@ -227,14 +239,14 @@
 <!-- an keywordsShownHere element can be placed in front matter or back matter.
     The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.
 -->
-<!ELEMENT keywordsShownHere EMPTY >
+<!ELEMENT keywordsShownHere (labelContentChoices?) >
 <!ATTLIST keywordsShownHere
     label CDATA #IMPLIED
     showincontents (yes | no) "no"
 >
 
 <!-- Main content -->
-<!ELEMENT part (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
+<!ELEMENT part (secTitle, shortTitle?,(%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
     id ID #REQUIRED
     contentType IDREF #IMPLIED
@@ -301,7 +313,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT secTitle (#PCDATA | %embedded;)*>
+<!ELEMENT secTitle (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST secTitle
     xml:lang CDATA #IMPLIED
 >
@@ -896,10 +908,15 @@
 <!-- backmatter includes appendices, endnotes and references -->
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>
 <!-- endnotes -->
-<!ELEMENT endnotes EMPTY>
+<!ELEMENT endnotes (labelContentChoices?, chapterLabelContentChoices?, appendixLabelContentChoices?, partLabelContentChoices?)>
 <!ATTLIST endnotes
     label CDATA #IMPLIED
 >
+<!-- following three are used for controlling label of each kind in endnotes in a book when using endnotes instead of footnotes -->
+<!ELEMENT chapterLabelContentChoices (labelContent, labelContent+) >
+<!ELEMENT appendixLabelContentChoices (labelContent, labelContent+) >
+<!ELEMENT partLabelContentChoices (labelContent, labelContent+) >
+
 <!-- An endnote goes in the flow of the text.  One may refer to a footnote via
      an endnoteRef.  -->
 <!ELEMENT endnote (%chunk; | abbreviationsShownHere | iso639-3codesShownHere)*>
@@ -922,7 +939,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+>
+<!ELEMENT glossary (labelContentChoices?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -933,7 +950,7 @@
 <!-- selected bibliography 
        This is a place to put citations in the few cases where one wants to have more references than are actually cited in the document body.
 -->
-<!ELEMENT selectedBibliography (citation+)>
+<!ELEMENT selectedBibliography (labelContentChoices?, (citation+))>
 <!ATTLIST selectedBibliography
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -999,7 +1016,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        the label attribute provides a way to give it a title 
        the kind attribute indicates which kind of index it is ('common' is used for a single, common index)
        -->
-<!ELEMENT index (%chunk; | landscape | framedUnit)*>
+<!ELEMENT index (labelContentChoices?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST index
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

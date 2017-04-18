@@ -6574,6 +6574,9 @@ not using
             <xsl:when test="name()='chapterBeforePart'">
                 <xsl:text>0</xsl:text>
             </xsl:when>
+            <xsl:when test="name()='part'">
+                <xsl:apply-templates select="." mode="numberPart"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
                 <xsl:if test="$appLayout/@showletter!='no'">
@@ -7729,6 +7732,7 @@ not using
     <xsl:template match="dd"/>
     <xsl:template match="fixedText"/>
     <xsl:template match="language"/>
+    <xsl:template match="part/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>

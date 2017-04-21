@@ -5057,6 +5057,7 @@ not using
    -->
     <xsl:template name="DoInterlinearFree">
         <xsl:param name="originalContext"/>
+        <xsl:param name="mode"/>
         <fo:block keep-with-previous.within-page="1">
             <xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
                 <xsl:attribute name="text-align-last">justify</xsl:attribute>
@@ -5107,7 +5108,7 @@ not using
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
                 <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                     <xsl:call-template name="OutputInterlinearTextReference">
                         <xsl:with-param name="sRef" select="../@textref"/>
@@ -5116,7 +5117,7 @@ not using
                 </xsl:if>
             </xsl:if>
         </fo:block>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal)">
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
             <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <fo:block keep-with-previous.within-page="1">
                     <xsl:call-template name="OutputInterlinearTextReference">

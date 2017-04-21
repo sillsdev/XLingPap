@@ -107,7 +107,9 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="free" mode="NoTextRef">
-        <xsl:call-template name="DoInterlinearFree"/>
+        <xsl:call-template name="DoInterlinearFree">
+            <xsl:with-param name="mode" select="'NoTextRef'"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         literal

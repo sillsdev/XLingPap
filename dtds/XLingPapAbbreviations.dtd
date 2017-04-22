@@ -8,7 +8,7 @@
          (or a faked small caps font).  This attribute is only used in the Java ConvertAnyAbbreviationsToAbbrRefs command
          which attempts to take what a user typed in a gloss and convert any of its abbeviations to abbrRef elements.
        -->
-<!ELEMENT abbreviations (comment?, abbreviation*, comment?)>
+<!ELEMENT abbreviations (labelContentChoices?, comment?, abbreviation*, comment?)>
 <!ATTLIST abbreviations
     label CDATA #IMPLIED
     version CDATA #IMPLIED

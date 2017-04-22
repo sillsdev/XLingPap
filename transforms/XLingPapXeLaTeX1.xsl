@@ -2922,14 +2922,14 @@
             </xsl:call-template>
         </xsl:if>
         <!-- abstract -->
-            <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
-                <xsl:call-template name="OutputTOCLine">
+        <xsl:for-each select="//abstract[not(ancestor::chapterInCollection)]">
+            <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
                 <xsl:with-param name="sLabel">
                     <xsl:call-template name="OutputAbstractLabel"/>
                 </xsl:with-param>
-                </xsl:call-template>
-                </xsl:for-each>
+            </xsl:call-template>
+        </xsl:for-each>
         <!-- preface -->
         <xsl:for-each select="//preface[not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
@@ -3024,7 +3024,9 @@
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="$sReferencesID"/>
                 <xsl:with-param name="sLabel">
-                    <xsl:call-template name="OutputReferencesLabel"/>
+                    <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
+                        <xsl:call-template name="OutputReferencesLabel"/>
+                    </xsl:for-each>
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:if>

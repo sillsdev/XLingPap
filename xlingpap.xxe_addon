@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.0.2</a:version
+>3.0.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-04-11</a:date
+>2017-04-21</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.0.2 1 April 2017<ul
+>3.0.3 21 April 2017<ul
+><li
+>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
+></ul
+></li
+><li
+>3.0.2 18 April 2017<ul
+><li
+>Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract, preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography, index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.</li
 ><li
 >Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li
-><li
->Add ability to have more than one contents: sometimes one needs them to be in two or more languages (when the document is using content control and one is controlling which language to use).</li
 ><li
 >For mediaObject elements<ul
 ><li
@@ -58,17 +64,23 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></ul
 ></li
 ><li
->Fix bug in the XHTML output: empty ul or ol elements shifted remaining text to the right.</li
+>In the web page output with a style sheet:<ul
+><li
+>Fix bug: keywords could show twice.</li
+><li
+>Fix bug: indexed item in appendix (but not in an embedded section1 or section2) failed to show the Appendix letter in the index output</li
+></ul
+></li
+><li
+>Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li
 ><li
 >Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the wrong position).</li
 ><li
+>Fix bug: in the FO PDF and in all style sheet outputs, any shortTitle in a part was coming out as content in the part.</li
+><li
+>Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li
+><li
 >Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric value.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: an empty ul or ol would insert vertical space.</li
-></ul
-></li
 ></ul
 ></li
 ><li

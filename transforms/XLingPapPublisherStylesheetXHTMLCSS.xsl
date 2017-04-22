@@ -1467,8 +1467,11 @@ li.lower-roman {
     -->
     <xsl:template match="@pagebreakbefore | @startonoddpage | @linebefore">
         <xsl:if test=".='yes'">
-            <xsl:text>        border-top:1.5pt solid gray;
-</xsl:text>
+            <xsl:choose>
+                <xsl:when test="./@linebefore-weight"><xsl:text>border-top:</xsl:text><xsl:value-of select="./@linebefore"/><xsl:text> black;</xsl:text></xsl:when>
+                <xsl:otherwise><xsl:text>border-top:1.5pt solid gray;</xsl:text></xsl:otherwise>
+            </xsl:choose>
+            
         </xsl:if>
     </xsl:template>
     <!-- 

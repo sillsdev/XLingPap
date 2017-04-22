@@ -5357,10 +5357,6 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
-                <tex:cmd name="noindent" nl2="0"/><tex:cmd name="hrulefill" nl2="0"/><tex:cmd name="linebreak" nl2="0"/>
-            </xsl:if>
-            <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoBookMark"/>
@@ -5371,6 +5367,18 @@
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+                <tex:cmd name="hrulefill" nl2="0">
+                    <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore-weight">
+                        <tex:parm><xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/></tex:parm>
+                    </xsl:if>
+                <!-- https://tex.stackexchange.com/questions/30973/how-do-i-insert-a-border-below-text -->
+                </tex:cmd>
+                <tex:cmd name="vspace" nl2="0">
+                    <tex:parm>2pt</tex:parm>
+                </tex:cmd><tex:cmd name="linebreak" nl2="0"/>
+                <xsl:call-template name="DoNotBreakHere"/>
+            </xsl:if>
             <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">

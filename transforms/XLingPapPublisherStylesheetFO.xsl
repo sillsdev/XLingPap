@@ -5840,7 +5840,16 @@ not using
         <xsl:param name="layoutInfo"/>
         <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
             <fo:block keep-with-next.within-page="always">
-                <fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="1pt"/>
+                <xsl:choose>
+                    <xsl:when test="$layoutInfo/sectionTitleLayout/@linebefore">
+                        <xsl:variable name="linebefore-weight"><xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore"/></xsl:variable>
+                        <fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="">
+                            <xsl:attribute name="rule-thickness"><xsl:value-of select="$linebefore-weight"/></xsl:attribute>
+                        </fo:leader>
+                    </xsl:when>
+                    <xsl:otherwise><fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="1pt"/></xsl:otherwise>
+                </xsl:choose>
+                
             </fo:block>
         </xsl:if>
         <fo:block id="{@id}" keep-with-next.within-page="always">

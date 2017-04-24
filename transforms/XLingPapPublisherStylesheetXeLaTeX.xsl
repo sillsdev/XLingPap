@@ -5367,7 +5367,7 @@
             <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
                 <tex:cmd name="XLingPaperneedspace" nl2="1">
                     <tex:parm>
-                        <xsl:value-of select="1"/>
+                        <xsl:value-of select="3"/>
                         <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                     </tex:parm>
                 </tex:cmd>

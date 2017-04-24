@@ -14384,7 +14384,7 @@ id="sTitleFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used for controlling title format information. </p
+> plus the following are the attributes that can be used for controlling title format information.</p
 ><example
 num="xTitleFormatInfjoAttributes"
 ><table
@@ -14516,7 +14516,7 @@ type="tAttribute"
 ></langData
 ></td
 ><td
-> <object
+><object
 type="tAttrValue"
 >yes</object
 > or <object
@@ -14554,10 +14554,9 @@ type="tAttribute"
 ><td
 >(user control)</td
 ><td
->The amount of vertical weight for this item. Use a number followed by one of the units of measure given in example <exampleRef
-letter="xUnitsOfMeasure"
-num="xUnitsOfMeasure"
-></exampleRef
+>The amount of vertical weight for this item. Use a number followed by <object
+type="tAttrValue"
+>pt</object
 >; there should be no space between the number and the unit of measure.</td
 ><td
 ><table

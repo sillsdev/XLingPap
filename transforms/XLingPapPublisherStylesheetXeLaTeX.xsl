@@ -5364,21 +5364,33 @@
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
             </xsl:if>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+                <tex:cmd name="XLingPaperneedspace" nl2="1">
+                    <tex:parm>
+                        <xsl:value-of select="1"/>
+                        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="noindent">
+                    <tex:cmd name="rule" nl2="1">
+                        <tex:parm>
+                            <tex:cmd name="textwidth" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:choose>
+                                <xsl:when test="$layoutInfo/sectionTitleLayout/@linebefore-weight">
+                                    <xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/>
+                                </xsl:when>
+                                <xsl:otherwise>0.4pt</xsl:otherwise>
+                            </xsl:choose>
+                        </tex:parm>
+                    </tex:cmd>
+                </tex:cmd>
+                <xsl:call-template name="DoNotBreakHere"/>
+            </xsl:if>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
-            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
-                <tex:cmd name="hrulefill" nl2="0">
-                    <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore-weight">
-                        <tex:parm><xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/></tex:parm>
-                    </xsl:if>
-                <!-- https://tex.stackexchange.com/questions/30973/how-do-i-insert-a-border-below-text -->
-                </tex:cmd>
-                <tex:cmd name="vspace" nl2="0">
-                    <tex:parm>2pt</tex:parm>
-                </tex:cmd><tex:cmd name="linebreak" nl2="0"/>
-                <xsl:call-template name="DoNotBreakHere"/>
-            </xsl:if>
             <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">

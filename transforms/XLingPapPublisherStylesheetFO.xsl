@@ -5838,20 +5838,6 @@ not using
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
-        <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
-            <fo:block keep-with-next.within-page="always">
-                <xsl:choose>
-                    <xsl:when test="$layoutInfo/sectionTitleLayout/@linebefore">
-                        <xsl:variable name="linebefore-weight"><xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore"/></xsl:variable>
-                        <fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="">
-                            <xsl:attribute name="rule-thickness"><xsl:value-of select="$linebefore-weight"/></xsl:attribute>
-                        </fo:leader>
-                    </xsl:when>
-                    <xsl:otherwise><fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="1pt"/></xsl:otherwise>
-                </xsl:choose>
-                
-            </fo:block>
-        </xsl:if>
         <fo:block id="{@id}" keep-with-next.within-page="always">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
@@ -5865,6 +5851,12 @@ not using
                         <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </fo:marker>
+            </xsl:if>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore">
+                <xsl:call-template name="DoHorizontalRule">
+                    <xsl:with-param name="line-weight" select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/>
+                    <xsl:with-param name="sFOProcessor" select="$sFOProcessor"/>
+                </xsl:call-template>
             </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">

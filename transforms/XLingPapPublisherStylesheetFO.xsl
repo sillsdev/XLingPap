@@ -5852,9 +5852,9 @@ not using
                     </xsl:call-template>
                 </fo:marker>
             </xsl:if>
-            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore">
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
                 <xsl:call-template name="DoHorizontalRule">
-                    <xsl:with-param name="line-weight" select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/>
+                    <xsl:with-param name="line-weight" select="normalize-space($layoutInfo/sectionTitleLayout/@linebefore-weight)"/>
                     <xsl:with-param name="sFOProcessor" select="$sFOProcessor"/>
                 </xsl:call-template>
             </xsl:if>

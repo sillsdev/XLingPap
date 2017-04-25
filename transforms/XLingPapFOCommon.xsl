@@ -276,8 +276,7 @@
                 <!-- XEP correctly processes the borderbefore -->
                 <xsl:choose>
                     <xsl:when test="$line-weight">
-                        <fo:block keep-with-next.within-page="always"
-                            border-after-width="1pt" border-after-style="solid">
+                        <fo:block keep-with-next.within-page="always">
                             <xsl:attribute name="border-after-width">
                                 <xsl:value-of select="$line-weight"/>
                             </xsl:attribute>

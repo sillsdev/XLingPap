@@ -5367,7 +5367,7 @@
             <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
                 <tex:cmd name="XLingPaperneedspace" nl2="1">
                     <tex:parm>
-                        <xsl:value-of select="3"/>
+                        <xsl:text>3</xsl:text>
                         <tex:cmd name="baselineskip" gr="0" nl2="0"/>
                     </tex:parm>
                 </tex:cmd>
@@ -5379,7 +5379,7 @@
                         <tex:parm>
                             <xsl:choose>
                                 <xsl:when test="$layoutInfo/sectionTitleLayout/@linebefore-weight">
-                                    <xsl:value-of select="$layoutInfo/sectionTitleLayout/@linebefore-weight"/>
+                                    <xsl:value-of select="normalize-space($layoutInfo/sectionTitleLayout/@linebefore-weight)"/>
                                 </xsl:when>
                                 <xsl:otherwise>0.4pt</xsl:otherwise>
                             </xsl:choose>

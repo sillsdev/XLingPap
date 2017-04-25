@@ -1471,7 +1471,7 @@ li.lower-roman {
             <xsl:when test="../@linebefore='yes'"> 
                 <xsl:choose>
                     <xsl:when test="string-length(../@linebefore-weight) &gt; 0">
-                        <xsl:text>        border-top:</xsl:text><xsl:value-of select="../@linebefore-weight"/><xsl:text> solid black;
+                        <xsl:text>        border-top:</xsl:text><xsl:value-of select="normalize-space(../@linebefore-weight)"/><xsl:text> solid black;
 </xsl:text>
                     </xsl:when>
                     <!--  -->

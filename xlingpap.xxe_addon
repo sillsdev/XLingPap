@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-04-21</a:date
+>2017-05-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.30.2 21 April 2017<ul
+>2.30.2 5 May 2017<ul
 ><li
 >For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
+><li
+>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of the embedded element was ignored.</li
 ></ul
 ></li
 ><li

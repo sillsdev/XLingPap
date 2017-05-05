@@ -44,6 +44,13 @@
                         element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of
                         the embedded element was ignored.
                      </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there
+                              was an authorRole and two or more works needed to be output, the author role was output where the date should be.
+                           </li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>3.0.2 18 April 2017

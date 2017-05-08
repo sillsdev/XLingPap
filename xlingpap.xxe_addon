@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
 location="XLingPap-3.0.1-xxe-7.2.0.zip"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ns="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -15,14 +13,16 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
+xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-05-05</a:date
+>2017-05-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
 ><p
+xmlns="http://www.w3.org/1999/xhtml"
 >This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows. See <a
 href="http://software.sil.org/xlingpaper/"
 >http://software.sil.org/xlingpaper/</a
@@ -31,18 +31,18 @@ href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 >http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a
 >.</p
 ><hr
-></hr
-><p
+xmlns="http://www.w3.org/1999/xhtml"
+/><p
+xmlns="http://www.w3.org/1999/xhtml"
 ><b
 >Revision History</b
 ></p
 ><ul
+xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.0.3 5 May 2017<ul
+>3.0.3 8 May 2017<ul
 ><li
->For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
-><li
->For XeLaTeX PDF, RenderX PDF, HTML and ODT Outputs: added linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections, parts, chapters, front and back matter.</li
+>Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections, parts, chapters, front and back matter.</li
 ><li
 >For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
 ><li
@@ -2010,8 +2010,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed bugs that made the XeLaTeX way of producing PDF fail whenever a publisher style sheet had<ul
 ><li
 >sections that began a paragraph<br
-></br
-></li
+/></li
 ><li
 >interlinear source show underneath the free translation (and a given interlinear did not have any interlinear source element)</li
 ><li

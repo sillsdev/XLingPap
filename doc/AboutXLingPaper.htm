@@ -20,28 +20,29 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.0.3
-      <p align="center">Date: 2017-05-05</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.0.3</span></p>
+      <p align="center">Date: 2017-05-08</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
       <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
       <div id="RevisionHistory" style="display:none">
-         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:ns="http://www.w3.org/1999/xhtml">
-            <p>This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.
+         <a:documentation>
+            <p xmlns="http://www.w3.org/1999/xhtml">This configuration makes it much easier to create and edit XLingPaper documents. It runs on Linux, Mac OS X, and Windows.
                See <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a>. In order to produce PDF via the default XeLaTeX method, you must also get and install the XeLaTeX upgrade package at <a href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/">http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</a>.
             </p>
-            <hr></hr>
-            <p><b>Revision History</b></p>
-            <ul>
-               <li>3.0.3 5 May 2017
+            <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
+            <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
+            <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.0.3 8 May 2017
                   <ul>
+                     <li>Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections,
+                        parts, chapters, front and back matter.
+                     </li>
                      <li>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set
                         to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or
                         under) the free in the interlinear text portion.
                      </li>
-                     <li>For XeLaTeX PDF, RenderX PDF, HTML and ODT Outputs: added linebefore and linebefore-width as an option to publisher stylesheets
-                        for elements with title elements, such as sections, parts, chapters, front and back matter.</li>
                      <li>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that
                         element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of
                         the embedded element was ignored.
@@ -1624,7 +1625,7 @@
                               sectionRef element and also the related values in the lingPaper element.
                            </li>
                            <li>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g.
-                              one does not always want a space when one uses the &sect; symbol).
+                              one does not always want a space when one uses the &Acirc;&sect; symbol).
                            </li>
                            <li>Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element
                               in a publisher style sheet.
@@ -2087,8 +2088,8 @@
                      </li>
                      <li>Added a book volume number element (bVol) for references. See section 4.5.2 in the user documentation.</li>
                      <li>Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li>
-                     <li>Added a way to control the text that occurs before a sectionRef (some publications like to use the &sect; symbol while others do
-                        not). See section 3.3.1 in the user documentation.
+                     <li>Added a way to control the text that occurs before a sectionRef (some publications like to use the &Acirc;&sect; symbol while others
+                        do not). See section 3.3.1 in the user documentation.
                      </li>
                      <li>The interlinear free translation element can now be associated with a language.</li>
                      <li>Added the ability to include ISO 639-3 codes to a refWork element to indicate which languages the work is about. See section

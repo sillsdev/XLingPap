@@ -241,13 +241,10 @@
         </rule>
     </pattern>
     <pattern id="linebefore-weight">
-        <title>Check for ill-formed c attribute values</title>
+        <title>Check for ill-formed linebefore-weight attribute values</title>
         <rule context="*/@linebefore-weight">
-            <report test="contains(normalize-space(.),' ')">The linebefore-weight attribute should not contain a space. 
-                Please remove it.</report>
-            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt'">Warning:
-                this linebefore-weight attribute does not end with 'pt'.  Please add
-                'pt' after the number.  The PDF may fail to be produced.</report>
+            <report test="contains(normalize-space(.),' ')">The linebefore-weight attribute should not contain a space. Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt'">Warning: this linebefore-weight attribute does not end with 'pt'.  Please add 'pt' after the number.  The PDF may fail to be produced.</report>
         </rule>
     </pattern>
     <pattern id="startpagenumber">

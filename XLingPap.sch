@@ -21,6 +21,7 @@
         <active pattern="deprecatedsmallcaps2"/>
         <active pattern="fontsize"/>
         <active pattern="index"/>
+        <active pattern="linebefore-weight"/>
         <active pattern="startpagenumber"/>
         <active pattern="graphics"/>
         <active pattern="pubstylesheets"/>
@@ -239,6 +240,13 @@
             <report test="@see=@id">The 'see' attribute of this indexTerm is referring to itself.  It should refer to a different indexTerm element.</report>
         </rule>
     </pattern>
+    <pattern id="linebefore-weight">
+        <title>Check for ill-formed linebefore-weight attribute values</title>
+        <rule context="*/@linebefore-weight">
+            <report test="contains(normalize-space(.),' ')">The linebefore-weight attribute should not contain a space. Please remove it.</report>
+            <report test="string-length(normalize-space(.)) &gt; 0 and substring(normalize-space(.),string-length(normalize-space(.))-1,2)!='pt'">Warning: this linebefore-weight attribute does not end with 'pt'.  Please add 'pt' after the number.  The PDF may fail to be produced.</report>
+        </rule>
+    </pattern>
     <pattern id="startpagenumber">
         <title>
             <dir value="ltr">Check for improper starting page number.</dir>
@@ -255,6 +263,7 @@
             <report test="substring(.,string-length(.)-3)='.odg'">Sorry, but .odg graphic files are not supported.  Producing the default PDF will fail.</report>
         </rule>
     </pattern>
+    
     <pattern id="pubstylesheets">
         <title>
             <dir value="ltr">Check for issues related to publisher style sheets</dir>

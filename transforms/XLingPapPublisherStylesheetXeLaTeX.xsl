@@ -5357,13 +5357,36 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <!--            <xsl:call-template name="DoTitleNeedsSpace"/> Now do this in DoTitleFormatInfo-->
             <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
+            </xsl:if>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+                <tex:cmd name="XLingPaperneedspace" nl2="1">
+                    <tex:parm>
+                        <xsl:text>3</xsl:text>
+                        <tex:cmd name="baselineskip" gr="0" nl2="0"/>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="noindent">
+                    <tex:cmd name="rule" nl2="1">
+                        <tex:parm>
+                            <tex:cmd name="textwidth" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:choose>
+                                <xsl:when test="$layoutInfo/sectionTitleLayout/@linebefore-weight">
+                                    <xsl:value-of select="normalize-space($layoutInfo/sectionTitleLayout/@linebefore-weight)"/>
+                                </xsl:when>
+                                <xsl:otherwise>0.4pt</xsl:otherwise>
+                            </xsl:choose>
+                        </tex:parm>
+                    </tex:cmd>
+                </tex:cmd>
+                <xsl:call-template name="DoNotBreakHere"/>
             </xsl:if>
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>

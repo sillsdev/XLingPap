@@ -265,6 +265,56 @@
             <xsl:with-param name="iAuthorPosition" select="$iAuthorPosition"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        DoHorizontalRule
+    -->
+    <xsl:template name="DoHorizontalRule">
+        <xsl:param name="line-weight"/>
+        <xsl:param name="sFOProcessor"/>
+        <xsl:choose>
+            <xsl:when test="$sFOProcessor = 'XEP'">
+                <!-- XEP correctly processes the borderbefore -->
+                <xsl:choose>
+                    <xsl:when test="$line-weight">
+                        <fo:block keep-with-next.within-page="always">
+                            <xsl:attribute name="border-after-width">
+                                <xsl:value-of select="$line-weight"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="border-after-style">
+                                <xsl:text>solid</xsl:text>
+                            </xsl:attribute>
+                        </fo:block>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <fo:block border-after-width="0.4pt" border-after-style="solid"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Word 2003/ODT ignores or filters my borderafter (not sure which), using a rule instead -->
+                <fo:block keep-with-next.within-page="always">
+                    <xsl:choose>
+                        <xsl:when test="$line-weight">
+                            <fo:leader leader-pattern="rule" leader-length="100%">
+                                <xsl:attribute name="rule-thickness">
+                                    <xsl:value-of
+                                        select="$line-weight"
+                                    />
+                                </xsl:attribute>
+                                <xsl:attribute name="rule-style">
+                                    <xsl:text>solid</xsl:text>
+                                </xsl:attribute>
+                            </fo:leader>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:leader leader-pattern="rule" leader-length="100%"
+                                rule-style="solid" rule-thickness="0.4pt"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:block>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         DoInterlinearLineGroup
     -->

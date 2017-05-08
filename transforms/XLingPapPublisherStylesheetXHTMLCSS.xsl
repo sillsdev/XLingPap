@@ -1463,6 +1463,23 @@ li.lower-roman {
         </xsl:if>
     </xsl:template>
     <!-- 
+        @linebefore
+    -->
+    <xsl:template match="@linebefore">
+        <xsl:if test=".='yes'">
+            <xsl:choose>
+                <xsl:when test="string-length(../@linebefore-weight) &gt; 0">
+                    <xsl:text>        border-top:</xsl:text><xsl:value-of select="normalize-space(../@linebefore-weight)"/><xsl:text> solid black;
+</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                        <xsl:text>        border-top:1.5pt solid gray;
+</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
         @pagebreakbefore
     -->
     <xsl:template match="@pagebreakbefore | @startonoddpage">
@@ -1605,6 +1622,7 @@ li.lower-roman {
     <xsl:template match="@leaderlength"/>
     <xsl:template match="@leaderpattern"/>
     <xsl:template match="@leaderwidth"/>
+    <xsl:template match="@linebefore-weight"/>
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
     <xsl:template match="@listItemsHaveParenInsteadOfPeriod"/>

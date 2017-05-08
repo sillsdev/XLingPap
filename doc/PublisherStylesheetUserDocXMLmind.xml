@@ -11,14 +11,16 @@ type="tXLingPap"
 > Publisher Style Sheet User Documentation</title
 ><author
 >H. Andrew Black</author
+><author
+>Matthew Lee</author
 ><affiliation
 >SIL International</affiliation
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 January 2017</date
+>25 April 2017</date
 ><version
->2.30.0</version
+>3.0.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -14384,7 +14386,7 @@ id="sTitleFormatInfoAttributes"
 >All of the attributes shown in section <sectionRef
 sec="sFrontMatterFormatInfoAttributes"
 ></sectionRef
-> plus the following are the attributes that can be used for controlling front matter format information.</p
+> plus the following are the attributes that can be used for controlling title format information.</p
 ><example
 num="xTitleFormatInfjoAttributes"
 ><table
@@ -14499,6 +14501,82 @@ lang="lEng"
 ><object
 type="tAttrValue"
 >yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+><indexedItem
+term="iLineBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>linebefore</object
+></langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>Whether or not a horizontal line should precede this title. <object
+type="tXeTeX"
+></object
+> and <object
+type="tRenderX"
+></object
+> will show a border-above, and ODT shows a leader line.</td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+><indexedItem
+term="iLineBefore-WeightAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>linebefore-weight</object
+></langData
+></td
+><td
+>(user control)</td
+><td
+>The amount of vertical weight for this item. Use a number followed by <object
+type="tAttrValue"
+>pt</object
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>0.4pt</object
+></td
+></tr
+></table
 ></td
 ><td
 >No</td
@@ -15553,6 +15631,16 @@ see="iTableNumberedLabel"
 id="iLangDataOverrides"
 ><term
 >Language data special formatting in prose, tables, or examples</term
+></indexTerm
+><indexTerm
+id="iLineBeforeAttribute"
+><term
+>Line before Attribute</term
+></indexTerm
+><indexTerm
+id="iLineBefore-WeightAttribute"
+><term
+>Line before weight Attribute</term
 ></indexTerm
 ><indexTerm
 id="iLineNumbering"

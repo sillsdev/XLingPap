@@ -72,6 +72,8 @@
 <!ENTITY % titleformatinfo "
      usetitleinheader (yes | no) 'yes'
      useemptyheaderfooter (yes | no) 'no'
+     linebefore (yes | no) 'no'
+     linebefore-weight CDATA #IMPLIED
      %pagebreakformatinfo;
      %frontmatterformatinfo;"
      >

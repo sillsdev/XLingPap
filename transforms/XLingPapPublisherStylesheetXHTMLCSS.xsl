@@ -1465,11 +1465,29 @@ li.lower-roman {
     <!-- 
         @pagebreakbefore
     -->
-    <xsl:template match="@pagebreakbefore | @startonoddpage">
-        <xsl:if test=".='yes'">
-            <xsl:text>        border-top:1.5pt solid gray;
+    <xsl:template match="@pagebreakbefore | @startonoddpage | @linebefore">
+        <xsl:choose>     
+            
+            <xsl:when test="../@linebefore='yes'"> 
+                <xsl:choose>
+                    <xsl:when test="string-length(../@linebefore-weight) &gt; 0">
+                        <xsl:text>        border-top:</xsl:text><xsl:value-of select="normalize-space(../@linebefore-weight)"/><xsl:text> solid black;
 </xsl:text>
-        </xsl:if>
+                    </xsl:when>
+                    <!--  -->
+                    <xsl:when test="not(string-length(../@linebefore-weight) &gt; 0)">
+                        <xsl:text>        border-top:1.5pt solid black;
+                    </xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="(name(.) = 'pagebreakbefore' or name(.) = 'startonoddpage') and .='yes'">
+                            <xsl:text>        border-top:1.5pt solid gray;
+</xsl:text></xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         @referencesUseParens
@@ -1605,6 +1623,7 @@ li.lower-roman {
     <xsl:template match="@leaderlength"/>
     <xsl:template match="@leaderpattern"/>
     <xsl:template match="@leaderwidth"/>
+    <xsl:template match="@linebefore-weight"/>
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
     <xsl:template match="@listItemsHaveParenInsteadOfPeriod"/>

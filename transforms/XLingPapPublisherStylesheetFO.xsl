@@ -5852,6 +5852,12 @@ not using
                     </xsl:call-template>
                 </fo:marker>
             </xsl:if>
+            <xsl:if test="$layoutInfo/sectionTitleLayout/@linebefore='yes'">
+                <xsl:call-template name="DoHorizontalRule">
+                    <xsl:with-param name="line-weight" select="normalize-space($layoutInfo/sectionTitleLayout/@linebefore-weight)"/>
+                    <xsl:with-param name="sFOProcessor" select="$sFOProcessor"/>
+                </xsl:call-template>
+            </xsl:if>
             <fo:inline>
                 <xsl:call-template name="OutputSectionNumber">
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>

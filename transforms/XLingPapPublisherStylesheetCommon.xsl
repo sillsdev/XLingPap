@@ -1065,7 +1065,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='collTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/refTitle)"/>
+                                    <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
@@ -1192,7 +1192,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='procTitleItem' and string-length($work/refTitle) &gt; 0">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($work/refTitle)"/>
+                                    <xsl:with-param name="item" select="$work/refTitle"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='procVolItem'">

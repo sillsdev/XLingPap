@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
     <xsl:variable name="authorForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="titleForm" select="//publisherStyleSheet/backMatterLayout/referencesLayout/@titleform"/>
     <xsl:variable name="iso639-3codeItem" select="//publisherStyleSheet/backMatterLayout/referencesLayout/iso639-3codeItem"/>
@@ -54,22 +54,20 @@
                                     </xsl:choose>
                                 </xsl:when>
                                 <xsl:when test="name(.)='authorRoleItem'">
-                                    <xsl:call-template name="OutputFontAttributes">
-                                        <xsl:with-param name="language" select="."/>
-                                        <xsl:with-param name="originalContext" select="$work/authorRole"/>
-                                    </xsl:call-template>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextBefore">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                    </xsl:call-template>
-                                    <xsl:apply-templates select="$work/authorRole"/>
-                                    <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                                        <xsl:with-param name="layoutInfo" select="."/>
-                                        <xsl:with-param name="sPrecedingText" select="$work/authorRole"/>
-                                    </xsl:call-template>
-                                    <xsl:call-template name="OutputFontAttributesEnd">
-                                        <xsl:with-param name="language" select="."/>
-                                        <xsl:with-param name="originalContext" select="$work/authorRole"/>
-                                    </xsl:call-template>
+                                    <xsl:choose>
+                                        <xsl:when test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                                            <xsl:if test="$work=$works[position()=1]">
+                                                <xsl:call-template name="DoAuthorRole">
+                                                    <xsl:with-param name="work" select="$work"/>
+                                                </xsl:call-template>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:call-template name="DoAuthorRole">
+                                                <xsl:with-param name="work" select="$work"/>
+                                            </xsl:call-template>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:when>
                                 <xsl:when test="name(.)='refDateItem'">
                                     <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
@@ -158,6 +156,28 @@
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="."/>
             <xsl:with-param name="originalContext" select="$work/.."/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoAuthorRole
+    -->
+    <xsl:template name="DoAuthorRole">
+        <xsl:param name="work"/>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="$work/authorRole"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoFormatLayoutInfoTextBefore">
+            <xsl:with-param name="layoutInfo" select="."/>
+        </xsl:call-template>
+        <xsl:apply-templates select="$work/authorRole"/>
+        <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+            <xsl:with-param name="layoutInfo" select="."/>
+            <xsl:with-param name="sPrecedingText" select="$work/authorRole"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="."/>
+            <xsl:with-param name="originalContext" select="$work/authorRole"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -295,7 +315,7 @@
         <xsl:call-template name="DoFormatLayoutInfoTextBefore">
             <xsl:with-param name="layoutInfo" select="."/>
         </xsl:call-template>
-        <xsl:value-of select="$item"/>
+        <xsl:apply-templates select="saxon:node-set($item)"/>
         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
             <xsl:with-param name="layoutInfo" select="."/>
             <xsl:with-param name="sPrecedingText" select="$item"/>

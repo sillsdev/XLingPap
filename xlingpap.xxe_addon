@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-04-26</a:date
+>2017-05-05</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -38,11 +38,21 @@ href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 ></p
 ><ul
 ><li
->3.0.3 24 April 2017<ul
+>3.0.3 5 May 2017<ul
 ><li
 >For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
 ><li
 >For XeLaTeX PDF, RenderX PDF, HTML and ODT Outputs: added linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections, parts, chapters, front and back matter.</li
+><li
+>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
+><li
+>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of the embedded element was ignored.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there was an authorRole and two or more works needed to be output, the author role was output where the date should be.</li
+></ul
+></li
 ></ul
 ></li
 ><li
@@ -1667,7 +1677,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >While editing, have sectionRef elements automatically show any text before per the value of the textBefore attribute of the sectionRef element and also the related values in the lingPaper element.</li
 ><li
->Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the ง symbol).</li
+>Remove automatically inserted non-breaking space when a publisher style sheet overrides the text before the sectionRef (e.g. one does not always want a space when one uses the ยง symbol).</li
 ><li
 >Add textBeforeCapitalizedSingularOverride and textBeforeCapitalizedPluralOverride attributes to the sectionRefLayout element in a publisher style sheet.</li
 ></ul
@@ -2191,7 +2201,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 ><li
 >Removed the requirement that a collection have an editor (collEd element). See section 4.5.3 in the user documentation.</li
 ><li
->Added a way to control the text that occurs before a sectionRef (some publications like to use the ง symbol while others do not). See section 3.3.1 in the user documentation.</li
+>Added a way to control the text that occurs before a sectionRef (some publications like to use the ยง symbol while others do not). See section 3.3.1 in the user documentation.</li
 ><li
 >The interlinear free translation element can now be associated with a language.</li
 ><li

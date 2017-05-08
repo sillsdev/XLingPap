@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.0.3</span></p>
-      <p align="center">Date: 2017-04-26</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.0.3
+      <p align="center">Date: 2017-05-05</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,14 +34,24 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>3.0.3 24 April 2017
+               <li>3.0.3 5 May 2017
                   <ul>
                      <li>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set
                         to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or
                         under) the free in the interlinear text portion.
                      </li>
                      <li>For XeLaTeX PDF, RenderX PDF, HTML and ODT Outputs: added linebefore and linebefore-width as an option to publisher stylesheets
-                        for elements with title elements, such as sections, parts, chapters, front and back matter.
+                        for elements with title elements, such as sections, parts, chapters, front and back matter.</li>
+                     <li>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that
+                        element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of
+                        the embedded element was ignored.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there
+                              was an authorRole and two or more works needed to be output, the author role was output where the date should be.
+                           </li>
+                        </ul>
                      </li>
                   </ul>
                </li>

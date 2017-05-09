@@ -20,7 +20,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 May 2017</date
+>9 May 2017</date
 ><version
 >3.0.2</version
 ><contents
@@ -6242,7 +6242,15 @@ type="tElement"
 > element for it by hand (as mentioned in section <sectionRef
 sec="sBMAbbreviationsReferencesManual"
 ></sectionRef
->). You cannot use this short-cut method.</p
+>). You cannot use this short-cut method.<endnote
+id="nSpecialPeriod"
+><p
+>There is a trick you can use to get the automated method to not split an abbreviation at (what appear to be) periods.  You do this by not keying periods in the <object
+type="tElement"
+>abbrTerm</object
+> element, but rather a “one dot leader” character (Unicode 0x2024).  It looks like this:․ (that is, it looks exactly like a period but is not).  Note that some fonts may not have a glyph for this Unicode code point.</p
+></endnote
+></p
 ><p
 >In addition, this method cannot recognize any word or abbreviation that contains an apostrophe character ( ' ). If you have an abbreviation that uses an apostrophe, you will need to create the <object
 type="tElement"

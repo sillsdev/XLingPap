@@ -20,7 +20,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 April 2017</date
+>8 May 2017</date
 ><version
 >3.0.2</version
 ><contents
@@ -31686,7 +31686,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a page break before this point. If the material preceding the forced page break is able to then fit on the preceding page (slipping into some free space there), it will go there.</td
+>Force a page break before this point.</td
 ><td
 >pagebreak</td
 ></tr

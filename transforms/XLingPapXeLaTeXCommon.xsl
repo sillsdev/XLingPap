@@ -551,6 +551,9 @@
                                 <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
                                     <!-- do nothing -->
                                 </xsl:when>
+                                <xsl:when test="name(preceding-sibling::*[1])='secTitle'">
+                                    <!-- Do nothing so there is not extra preceding space if list is first element in section/chapter/part (after secTitle) -->
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <tex:cmd name="vspace" nl1="1" nl2="1">
                                         <tex:parm>
@@ -887,6 +890,9 @@
                                 </xsl:when>
                                 <xsl:when test="parent::chart/preceding-sibling::*[1][name()='exampleHeading']">
                                     <!-- do nothing -->
+                                </xsl:when>
+                                <xsl:when test="name(preceding-sibling::*[1])='secTitle'">
+                                    <!-- Do nothing so there is not extra preceding space if list is first element in section/chapter/part (after secTitle) -->
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <tex:cmd name="vspace" nl1="1" nl2="1">

@@ -42,6 +42,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >3.0.3 10 May 2017<ul
 ><li
+>Fix Bug: Too much info showing up for Parts in Word/OpenOffice table of contents.</li
+><li
 >Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections, parts, chapters, front and back matter.</li
 ><li
 >For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li

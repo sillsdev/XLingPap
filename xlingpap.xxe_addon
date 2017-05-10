@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.0.1-xxe-7.2.0.zip"
+location="XLingPap-3.1.0-xxe-7.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.0.3</a:version
+>3.1.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -40,29 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.0.3 10 May 2017<ul
+>3.1.0 10 May 2017<ul
+><li
+>Improve loading time significantly.</li
+><li
+>Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li
+><li
+>Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract, preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography, index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.</li
 ><li
 >Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections, parts, chapters, front and back matter.</li
 ><li
 >For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or under) the free in the interlinear text portion.</li
-><li
->Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of the embedded element was ignored.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there was an authorRole and two or more works needed to be output, the author role was output where the date should be.</li
-><li
->Remove extra vertical spacing when an ol or ul element is the first element in a section, chapter, or appendix.</li
-></ul
-></li
-></ul
-></li
-><li
->3.0.2 18 April 2017<ul
-><li
->Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract, preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography, index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.</li
-><li
->Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li
 ><li
 >For mediaObject elements<ul
 ><li
@@ -76,35 +64,37 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></ul
 ></li
 ><li
+>Improve SILEWPPaperAsBookStylesheet.xml.</li
+><li
+>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of the embedded element was ignored.</li
+><li
+>Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li
+><li
+>Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li
+><li
+>Fix bug: in the FO PDF and in all style sheet outputs: any shortTitle in a part was coming out as content in the part.</li
+><li
+>Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the wrong position).</li
+><li
+>Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li
+><li
+>Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric value.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there was an authorRole and two or more works needed to be output, the author role was output where the date should be.</li
+><li
+>Remove extra vertical spacing when an ol or ul element is the first element in a section, chapter, or appendix.</li
+><li
+>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li
+></ul
+></li
+><li
 >In the web page output with a style sheet:<ul
 ><li
 >Fix bug: keywords could show twice.</li
 ><li
 >Fix bug: indexed item in appendix (but not in an embedded section1 or section2) failed to show the Appendix letter in the index output</li
-></ul
-></li
-><li
->Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li
-><li
->Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the wrong position).</li
-><li
->Fix bug: in the FO PDF and in all style sheet outputs, any shortTitle in a part was coming out as content in the part.</li
-><li
->Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li
-><li
->Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric value.</li
-></ul
-></li
-><li
->3.0.1 15 February 2017<ul
-><li
->Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li
-><li
->Improve loading time significantly.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li
 ></ul
 ></li
 ></ul

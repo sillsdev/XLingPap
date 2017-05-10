@@ -38,7 +38,7 @@
                 <hr/>
                 <div align="center">
                     <p>For more information, including contact email address, see:  
-                    <a href="http://www.xlingpaper.org">http://www.xlingpaper.org</a>
+                        <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a>
                     </p>
                 </div>
             </body>

@@ -4,10 +4,11 @@
 <referencesLayout
 defaultfontsize="10pt"
 hangingindentsize=".25in"
+usecitationformatwhennumberofsharedpaperis="0"
 ><publisherStyleSheetReferencesName
 >SIL International References Style Sheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
->0.1.1</publisherStyleSheetReferencesVersion
+>0.2.0</publisherStyleSheetReferencesVersion
 ><refAuthorLayouts
 ><comment
 >Author Layouts</comment
@@ -16,7 +17,7 @@ hangingindentsize=".25in"
 textafter=",  "
 ></refAuthorItem
 ><authorRoleItem
-textafter=".  "
+textafter=". "
 ></authorRoleItem
 ><refDateItem
 textafter=".  "
@@ -777,7 +778,7 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter=". "
+textafter=".​ "
 textbefore=", "
 ></authorRoleItem
 ><collVolItem
@@ -794,7 +795,7 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter=". "
+textafter=".​ "
 textbefore=", "
 ></authorRoleItem
 ><collPagesItem
@@ -1592,8 +1593,8 @@ textafter="."
 textbefore="  "
 ></urlItem
 ><dateAccessedItem
-textafter=")"
-textbefore="  (accessed "
+textafter="."
+textbefore=", accessed "
 ></dateAccessedItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout

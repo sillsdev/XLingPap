@@ -5,10 +5,11 @@
 ><publisherStyleSheetName
 >SIL Electronic Working Papers "Paper as Book" Stylesheet</publisherStyleSheetName
 ><comment
->As of October 2015, SILEWP has frontmatter material paged using lowercase roman numerals and the body using arabic numerals. The body must also start over at page 1. This is like a book, even though these are called papers. This style sheet attempts to match that. In addition, the very first chapter in the document must have a XeLaTeXSpecial attribute set to pagebreak in order to get the body to start on a new page.</comment
+>As of October 2015, SILEWP has frontmatter material paged using lowercase roman numerals and the body using arabic numerals. The body must also start over at page 1. This is like a book, even though these are called papers. This style sheet attempts to match that. In addition, the very first chapter in the document must have a XeLaTeXSpecial attribute set to pagebreak in order to get the body to start on a new page. As of 2016, they want footnotes to be flush left and to have a space between the footnote number and the content of the footnote.</comment
 ><publisherStyleSheetVersion
->0.5.0</publisherStyleSheetVersion
+>0.6.0</publisherStyleSheetVersion
 ><pageLayout
+contentBetweenFootnoteNumberAndFootnoteContent=" "
 ><pageWidth
 >8.5in</pageWidth
 ><pageHeight
@@ -39,6 +40,8 @@
 >12</basicPointSize
 ><footnotePointSize
 >10</footnotePointSize
+><footnoteIndent
+>0pt</footnoteIndent
 ><footnoteLine
 leaderlength="2in"
 leaderpattern="rule"

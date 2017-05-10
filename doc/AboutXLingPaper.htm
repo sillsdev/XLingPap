@@ -20,7 +20,7 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.30.2</span></p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.31.0</span></p>
       <p align="center">Date: 2017-05-10</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
@@ -36,6 +36,12 @@
             <ul>
                <li>2.30.2 10 May 2017
                   <ul>
+                     <li>Improve loading time some.</li>
+                     <li>Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li>
+                     <li>Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract,
+                        preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography,
+                        index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.
+                     </li>
                      <li>Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections,
                         parts, chapters, front and back matter.
                      </li>
@@ -43,9 +49,27 @@
                         to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or
                         under) the free in the interlinear text portion.
                      </li>
+                     <li>For mediaObject elements
+                        <ul>
+                           <li>Make web page output treat them as links.</li>
+                           <li>Change the default of the includemediaobjects attribute on the lingPaper element from 'no' to 'yes.</li>
+                           <li>Make the default PDF output pay attention to the includemediaobjects attribute on the lingPaper element.</li>
+                        </ul>
+                     </li>
+                     <li>Improve SILEWPPaperAsBookStylesheet.xml.</li>
                      <li>Fix bug: when a document using a style sheet had a refWork using either a collCitation or a procCitation element and that
                         element referred to a refBook whose refTitle had an embedded element (e.g., object, langData, or gloss), the formatting of
                         the embedded element was ignored.
+                     </li>
+                     <li>Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li>
+                     <li>Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li>
+                     <li>Fix bug: in the FO PDF and in all style sheet outputs, any shortTitle in a part was coming out as content in the part.</li>
+                     <li>Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the
+                        wrong position).
+                     </li>
+                     <li>Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li>
+                     <li>Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric
+                        value.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
@@ -53,24 +77,7 @@
                               was an authorRole and two or more works needed to be output, the author role was output where the date should be.
                            </li>
                            <li>Remove extra vertical spacing when an ol or ul element is the first element in a section, chapter, or appendix.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.30.1 18 April 2017
-                  <ul>
-                     <li>Add ability to use content control for titles (title, shortTitle, subTitle, secTitle) and labels (acknowledgements, abstract,
-                        preface, contents, keywordsShownHere, endnotes, appendix, glossary, references, glossaryTerms, abbreviations, appendix, selectedBibliography,
-                        index). This enables one to have a multi-lingual document and be able to choose which language is output via content control.
-                     </li>
-                     <li>Add ability to have more than one abstract: sometimes one needs them to be in two or more languages.</li>
-                     <li>Fix bug: sorting ISO 639-3 codes was by language name, not by the code.</li>
-                     <li>Improve loading time some.</li>
-                     <li>For mediaObject elements
-                        <ul>
-                           <li>Make web page output treat them as links.</li>
-                           <li>Change the default of the includemediaobjects attribute on the lingPaper element from 'no' to 'yes.</li>
-                           <li>Make the default PDF output pay attention to the includemediaobjects attribute on the lingPaper element.</li>
+                           <li>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li>
                         </ul>
                      </li>
                      <li>In the web page output with a style sheet:
@@ -81,20 +88,6 @@
                            </li>
                         </ul>
                      </li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: more than two endnotes in a list when formatted on the same page would have too much vertical space between the footnotes.</li>
-                        </ul>
-                     </li>
-                     <li>Fix bug: an empty ul or ol element could either shift remaining text to the right or insert a blank space.</li>
-                     <li>Fix bug: page layout sizes in cm units could be off by a factor of 100 (converting to points had the decimal place at the
-                        wrong position).
-                     </li>
-                     <li>Fix bug: in the FO PDF and in all style sheet outputs, any shortTitle in a part was coming out as content in the part.</li>
-                     <li>Fix typo in user documentation: XeLaTeXSpecial values of border-right and border-left need single quotes around the numeric
-                        value.
-                     </li>
-                     <li>Fix bug: when using endnotes, an endnote in a part could be listed with the endnotes in whatever came before the part.</li>
                   </ul>
                </li>
                <li>2.30.0 14 January 2017
@@ -2233,7 +2226,7 @@
       <hr>
       <div align="center">
          <p>For more information, including contact email address, see:  
-            <a href="http://www.xlingpaper.org">http://www.xlingpaper.org</a></p>
+            <a href="http://software.sil.org/xlingpaper/">http://software.sil.org/xlingpaper/</a></p>
       </div>
    </body>
 </html>

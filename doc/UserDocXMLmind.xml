@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 May 2017</date
+>10 May 2017</date
 ><version
->2.30.2</version
+>2.31.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -6260,11 +6260,10 @@ sec="sBMAbbreviationsReferencesManual"
 >). You cannot use this short-cut method.<endnote
 id="nSpecialPeriod"
 ><p
->There is a trick you can use to get the automated method to not split an abbreviation at (what appear to be) periods.  You do this by not keying periods in the 
-<object
+>There is a trick you can use to get the automated method to not split an abbreviation at (what appear to be) periods. You do this by not keying periods in the <object
 type="tElement"
 >abbrTerm</object
-> element, but rather a “one dot leader” character (Unicode 0x2024).  It looks like this:․ (that is, it looks exactly like a period but is not).  Note that some fonts may not have a glyph for this Unicode code point.</p
+> element, but rather a “one dot leader” character (Unicode 0x2024). It looks like this:․ (that is, it looks exactly like a period but is not). Note that some fonts may not have a glyph for this Unicode code point.</p
 ></endnote
 ></p
 ><p

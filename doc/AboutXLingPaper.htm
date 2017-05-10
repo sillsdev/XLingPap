@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.30.2</span></p>
-      <p align="center">Date: 2017-05-05</p>
+      <p align="center">Date: 2017-05-10</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,8 +34,11 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.30.2 5 May 2017
+               <li>2.30.2 10 May 2017
                   <ul>
+                     <li>Add linebefore and linebefore-width as an option to publisher stylesheets for elements with title elements, such as sections,
+                        parts, chapters, front and back matter.
+                     </li>
                      <li>For the Word, Open Office Writer, and RenderX PDF outputs: fix bug: when a style sheet has the interlinear source style set
                         to 'after free' or 'under free' and a interlinear text is part of the output, the text reference was still output after (or
                         under) the free in the interlinear text portion.
@@ -49,6 +52,7 @@
                            <li>Fix bug: when the useAuthorOverDateStyle attribute on the referencesLayout element in a style sheet was set to 'yes', if there
                               was an authorRole and two or more works needed to be output, the author role was output where the date should be.
                            </li>
+                           <li>Remove extra vertical spacing when an ol or ul element is the first element in a section, chapter, or appendix.</li>
                         </ul>
                      </li>
                   </ul>

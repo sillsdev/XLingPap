@@ -27,7 +27,7 @@
                     </xsl:with-param>
                 </xsl:call-template>
             </fo:basic-link>
-            <xsl:apply-templates select="child::node()[name()!='secTitle']" mode="contents">
+            <xsl:apply-templates select="child::*[secTitle]" mode="contents">
                 <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
             </xsl:apply-templates>
         </fo:block>

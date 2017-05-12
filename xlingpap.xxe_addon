@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-05-11</a:date
+>2017-05-12</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.1 11 May 2017<ul
+>3.1.1 12 May 2017<ul
 ><li
->Fix Bug: Too much info showing up for Parts in Word/OpenOffice table of contents.</li
+>Fix Bug: Too much info showing up for Parts in FO/Word/OpenOffice table of contents.</li
 ></ul
 ></li
 ><li

@@ -27,7 +27,7 @@
                     </xsl:with-param>
                 </xsl:call-template>
             </fo:basic-link>
-            <xsl:apply-templates select="child::*[secTitle]|child::chapterInCollection" mode="contents">
+            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
                 <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->
             </xsl:apply-templates>
         </fo:block>

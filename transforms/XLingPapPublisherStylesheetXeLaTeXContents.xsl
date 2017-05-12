@@ -34,7 +34,7 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:apply-templates select="chapter | chapterInCollection" mode="contents"/>
+        <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents"/>
     </xsl:template>
     <!-- 
         section1 (contents) 

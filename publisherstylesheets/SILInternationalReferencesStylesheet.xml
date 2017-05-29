@@ -4,7 +4,7 @@
 <referencesLayout
 defaultfontsize="10pt"
 hangingindentsize=".25in"
-usecitationformatwhennumberofsharedpaperis="0"
+usecitationformatwhennumberofsharedpaperis="2"
 ><publisherStyleSheetReferencesName
 >SIL International References Style Sheet</publisherStyleSheetReferencesName
 ><publisherStyleSheetReferencesVersion
@@ -612,7 +612,6 @@ textbefore="In "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collVolItem
 textafter=":"
@@ -635,7 +634,6 @@ textbefore="In "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collVolItem
 textafter=".  "
@@ -655,7 +653,6 @@ textbefore="In "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collPagesItem
 textafter=".  "
@@ -675,7 +672,6 @@ textbefore="In "
 ><collTitleItem
 font-style="italic"
 textafter=". "
-textbefore="  "
 ></collTitleItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -689,7 +685,6 @@ textafter=".  "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collVolItem
 textafter=":"
@@ -709,7 +704,6 @@ textafter=".  "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collVolItem
 textafter=".  "
@@ -726,7 +720,6 @@ textafter=".  "
 ><collTitleItem
 font-style="italic"
 textafter=", "
-textbefore="  "
 ></collTitleItem
 ><collPagesItem
 textafter=".  "
@@ -743,7 +736,6 @@ textafter=".  "
 ><collTitleItem
 font-style="italic"
 textafter=". "
-textbefore="  "
 ></collTitleItem
 ><locationPublisherLayoutsRef
 ></locationPublisherLayoutsRef
@@ -812,7 +804,7 @@ textafter=".  "
 textbefore="In "
 ></collCitationItem
 ><authorRoleItem
-textafter=". "
+textafter=".​ "
 textbefore=", "
 ></authorRoleItem
 ><urlDateAccessedLayoutsRef

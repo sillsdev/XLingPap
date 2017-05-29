@@ -18,9 +18,9 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 May 2017</date
+>26 May 2017</date
 ><version
->3.1.0</version
+>3.1.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -1597,7 +1597,7 @@ type="tXLingPap"
 > before version 2.27.0, you will also need to get and install the <object
 type="tXeTeX"
 ></object
-> upgade package at <link
+> upgrade package at <link
 href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 >http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
 >.</p
@@ -11315,7 +11315,7 @@ type="tElement"
 > item uses the same font information as the <object
 type="tElement"
 >langData</object
-> item itself will. For example, if you use openning and closing double quotes before and after the <object
+> item itself will. For example, if you use opening and closing double quotes before and after the <object
 type="tElement"
 >langData</object
 > item, do you want these quotes formatted the same as the <object
@@ -11485,7 +11485,7 @@ type="tElement"
 > item uses the same font information as the <object
 type="tElement"
 >gloss</object
-> item itself will. For example, if you use openning and closing double quotes before and after the <object
+> item itself will. For example, if you use opening and closing double quotes before and after the <object
 type="tElement"
 >gloss</object
 > item, do you want these quotes formatted the same as the <object
@@ -11805,7 +11805,7 @@ type="tElement"
 > item uses the same font information as the <object
 type="tElement"
 >free</object
-> item itself will. For example, if you use openning and closing double quotes before and after the <object
+> item itself will. For example, if you use opening and closing double quotes before and after the <object
 type="tElement"
 >free</object
 > item, do you want these quotes formatted the same as the <object
@@ -12058,7 +12058,7 @@ type="tElement"
 > item uses the same font information as the <object
 type="tElement"
 >literal</object
-> item itself will. For example, if you use openning and closing double quotes before and after the <object
+> item itself will. For example, if you use opening and closing double quotes before and after the <object
 type="tElement"
 >literal</object
 > item, do you want these quotes formatted the same as the <object

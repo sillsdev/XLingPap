@@ -1683,6 +1683,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:command name="beep"/>
                         <cfg:choice>
                             <cfg:command name="start" parameter="[Windows] ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>
+                            <cfg:command name="start" parameter="[Mac] /Applications/calibre.app/Contents/MacOS/ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>
                             <cfg:command name="start" parameter="[Unix] ebook-viewer --raise-window &quot;%{P}%{S}%{R}.epub&quot;"/>
                         </cfg:choice>
                     </cfg:sequence>

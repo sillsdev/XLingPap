@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 May 2017</date
+>30 May 2017</date
 ><version
->2.31.0</version
+>2.31.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -23625,7 +23625,10 @@ type="tXLingPap"
 > will know that you have installed <object
 type="tTool"
 >Calibre</object
->. When you have <object
+>. (This is for version 1.x of <object
+type="tTool"
+>Calibre</object
+>; version 2.x does not need this additional step.) When you have <object
 type="tTool"
 >Calibre</object
 > running, use <object
@@ -23701,7 +23704,12 @@ type="tTool"
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
->.</p
+>.<endnote
+id="nCalibreFailSpaceInDirectoryName"
+><p
+>Some have had the process fail when there was a space in a directory name on the path to your file.  Try putting your file(s) in a directory without a space in the name.</p
+></endnote
+></p
 ></section2
 ><section2
 id="sFAQHandleBookFrontMatter"

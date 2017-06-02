@@ -20,7 +20,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 May 2017</date
+>2 June 2017</date
 ><version
 >3.1.1</version
 ><contents
@@ -23624,7 +23624,7 @@ type="tTool"
 >. (This is for version 1.x of <object
 type="tTool"
 >Calibre</object
->; version 2.x does not need this additional step.)  When you have <object
+>; version 2.x does not need this additional step.) When you have <object
 type="tTool"
 >Calibre</object
 > running, use <object
@@ -25906,7 +25906,15 @@ type="tAttrValue"
 letter="xContentTypeChunkElements"
 num="xContentTypeChunkElements"
 ></exampleRef
->.</p
+>.<endnote
+id="nContentsLayoutContentControl"
+><p
+>In a publisher style sheet, a <object
+type="tElement"
+>contentsLayout</object
+> element can be tagged with a content type id.  This is the only element in a publisher style sheet which can be under content control.  This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
+></endnote
+></p
 ><example
 num="xContentTypeChunkElements"
 ><table

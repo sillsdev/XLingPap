@@ -58,6 +58,9 @@
    <xsl:template match="contents">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="contentsLayout">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="date">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>

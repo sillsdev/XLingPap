@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
         part (contents) 
@@ -47,8 +47,8 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
-                        <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
+                        <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>0</xsl:text>
@@ -143,7 +143,7 @@
         <xsl:param name="override"/>
         <xsl:param name="sNumWidth" select="'0pt'"/>
         <xsl:param name="fUseHalfSpacing"/>
-        <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:variable name="layout" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
@@ -153,7 +153,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
@@ -183,7 +183,7 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="eg"/>
         </xsl:if>
     </xsl:template>

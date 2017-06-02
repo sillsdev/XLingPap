@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->26 May 2017</date
+>2 June 2017</date
 ><version
 >3.1.1</version
 ><contents
@@ -1959,8 +1959,12 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+main="yes"
 term="iContentsLayout"
 ></indexedItem
+><genericTarget
+id="gContentsLayout"
+></genericTarget
 ><object
 type="tElement"
 >contentsLayout</object
@@ -3406,6 +3410,38 @@ sec="sReferences"
 >.</td
 ><td
 > </td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsLayout"
+></indexedItem
+><object
+type="tElement"
+>contentsLayout</object
+></td
+><td
+>How the <object
+type="tElement"
+>contents</object
+> element is to be formatted when it needs to appear in the back matter. (We expect that a given document will have at most one table of contents so you should either have a <object
+type="tElement"
+>contentsLayout</object
+> element in the <object
+type="tElement"
+>frontMatterLayout</object
+> element or in the <object
+type="tElement"
+>backMatterLayout</object
+> element, but not both.)</td
+><td
+>See <genericRef
+gref="gContentsLayout"
+>the information on contents layout in the front matter</genericRef
+>, section <sectionRef
+sec="sOtherFrontMatterLayoutElements"
+></sectionRef
+>.</td
 ></tr
 ><tr
 ><td

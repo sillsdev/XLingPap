@@ -26,8 +26,29 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
-    <xsl:variable name="sChapterLineIndent" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlineindent)"/>
-    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>
+<!--    <xsl:variable name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>-->
+    <xsl:variable name="contentsLayout">
+        <xsl:choose>
+            <xsl:when test="$backMatterLayoutInfo/contentsLayout">
+                <xsl:copy-of select="$backMatterLayoutInfo/contentsLayout"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$frontMatterLayoutInfo/contentsLayout"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="sChapterLineIndent" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlineindent)"/>
+<!--    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>-->
+    <xsl:variable name="authorInContentsLayoutInfo">
+        <xsl:choose>
+            <xsl:when test="$backMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
+                <xsl:copy-of select="$backMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->
@@ -3708,10 +3729,14 @@
                 <xsl:when test="name(.)='contentsLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/contents" mode="paper">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayout/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
-                    <xsl:apply-templates select="$frontMatter/contents" mode="paper"/>
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='acknowledgementsLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="paper">

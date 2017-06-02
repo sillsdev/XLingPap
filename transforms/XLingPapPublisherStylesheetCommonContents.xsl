@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon">
     <!--
         abstract  (contents)
     -->
@@ -97,7 +97,7 @@
     -->
     <xsl:template match="chapter | chapterBeforePart" mode="contents">
         <!--            <xsl:param name="nLevel"/>-->
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@usechapterlabelbeforechapters='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@usechapterlabelbeforechapters='yes'">
             <xsl:if test="name()='chapterBeforePart' or count(preceding-sibling::chapter)=0 and not(//chapterBeforePart)">
                 <xsl:call-template name="DoChapterLabelInContents"/>
             </xsl:if>
@@ -111,7 +111,7 @@
                 <xsl:call-template name="OutputChapterNumber">
                     <xsl:with-param name="fDoingContents" select="'Y'"/>
                 </xsl:call-template>
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>
@@ -156,7 +156,7 @@
     </xsl:template>
     <xsl:template match="chapterInCollection" mode="contents">
         <!--            <xsl:param name="nLevel"/>-->
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@usechapterlabelbeforechapters='yes'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@usechapterlabelbeforechapters='yes'">
             <xsl:if test="name()='chapterBeforePart' or count(preceding-sibling::chapterInCollection)=0 and not(//chapterBeforePart)">
                 <xsl:call-template name="DoChapterLabelInContents"/>
             </xsl:if>
@@ -168,7 +168,7 @@
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
                 <xsl:call-template name="OutputChapterNumber"/>
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>
@@ -481,8 +481,8 @@
    -->
     <xsl:template name="DoSpaceBeforeContentsLine">
         <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection">
-                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection">
+                <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>0</xsl:text>

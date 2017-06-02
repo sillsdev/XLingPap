@@ -440,8 +440,10 @@
       contents (for paper)
       -->
     <xsl:template match="contents" mode="paper">
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'N'"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -1976,6 +1978,7 @@
         <xsl:call-template name="DoBackMatterPerLayout">
             <xsl:with-param name="backMatter" select="."/>
             <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+            <xsl:with-param name="frontMatter" select="./preceding-sibling::frontMatter"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -2400,7 +2403,7 @@
         DoAuthorOfChapterInCollectionInContents
     -->
     <xsl:template name="DoAuthorOfChapterInCollectionInContents">
-        <xsl:if test="$authorInContentsLayoutInfo">
+        <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
             <xsl:if test="frontMatter/author">
                 <div style="text-indent:-2em;padding-left:3em" class="authorInContents">
                     <xsl:for-each select="frontMatter/author">
@@ -2527,6 +2530,7 @@
     <xsl:template name="DoBackMatterPerLayout">
         <xsl:param name="backMatter"/>
         <xsl:param name="backMatterLayout"/>
+        <xsl:param name="frontMatter"/>
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
@@ -2572,6 +2576,24 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $backMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$backMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayout/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $bIsBook">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="book">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
@@ -2729,6 +2751,7 @@
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <div>
             <xsl:attribute name="id">
                 <xsl:call-template name="GetIdToUse">
@@ -2741,7 +2764,7 @@
                 </xsl:call-template>
             </xsl:attribute>
             <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="$bIsBook='Y'">
@@ -2756,7 +2779,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
             </xsl:call-template>
         </div>
         <div>

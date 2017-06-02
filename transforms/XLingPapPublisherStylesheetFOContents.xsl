@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
         part (contents) 
@@ -44,8 +44,8 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
-                        <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
+                        <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>0</xsl:text>
@@ -91,7 +91,7 @@
         <xsl:param name="sIndent" select="'0'"/>
         <xsl:param name="override"/>
         <xsl:param name="fUseHalfSpacing"/>
-        <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:variable name="layout" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>

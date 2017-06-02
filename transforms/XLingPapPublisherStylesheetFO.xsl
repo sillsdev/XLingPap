@@ -522,64 +522,102 @@
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
-        <xsl:variable name="layoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
-        <!-- insert a new line so we don't get everything all on one line -->
-        <xsl:text>&#xa;</xsl:text>
-        <fo:page-sequence master-reference="FrontMatterTOC" format="i">
-            <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@startonoddpage='yes'">
-                <xsl:attribute name="initial-page-number">
-                    <xsl:text>auto-odd</xsl:text>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterFirstPage"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-                <xsl:with-param name="sFlowName" select="'FrontMatterTOCFirstPage'"/>
-                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterPage"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-                <xsl:with-param name="sFlowName" select="'FrontMatterTOCRegularPage'"/>
-                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-                <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
-                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoHeaderAndFooter">
-                <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
-                <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-                <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
-                <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
-            </xsl:call-template>
-            <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
-            <fo:flow flow-name="xsl-region-body">
-                <xsl:attribute name="font-family">
-                    <xsl:value-of select="$sDefaultFontFamily"/>
-                </xsl:attribute>
-                <xsl:attribute name="font-size">
-                    <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
-                <!-- put title in marker so it can show up in running header -->
-                <fo:marker marker-class-name="contents-title">
-                    <xsl:call-template name="OutputContentsLabel"/>
-                </fo:marker>
-                <xsl:call-template name="DoContents">
-                    <xsl:with-param name="bIsBook" select="'Y'"/>
-                </xsl:call-template>
-            </fo:flow>
-        </fo:page-sequence>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo"/>
+        <xsl:choose>
+            <xsl:when test="$contentsLayoutToUse[ancestor::backMatterLayout]">
+                <fo:page-sequence master-reference="Chapter">
+                    <xsl:attribute name="initial-page-number">
+                        <xsl:choose>
+                            <xsl:when test="$contentsLayoutToUse/@startonoddpage='yes'">
+                                <xsl:text>auto-odd</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>auto</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
+                    <fo:flow flow-name="xsl-region-body">
+                        <xsl:attribute name="font-family">
+                            <xsl:value-of select="$sDefaultFontFamily"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="font-size">
+                            <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
+                        <!-- put title in marker so it can show up in running header -->
+                        <fo:marker marker-class-name="contents-title">
+                            <xsl:call-template name="OutputContentsLabel"/>
+                        </fo:marker>
+                        <xsl:call-template name="DoContents">
+                            <xsl:with-param name="bIsBook" select="'Y'"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </fo:flow>
+                </fo:page-sequence>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="layoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
+                <!-- insert a new line so we don't get everything all on one line -->
+                <xsl:text>&#xa;</xsl:text>
+                <fo:page-sequence master-reference="FrontMatterTOC" format="i">
+                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@startonoddpage='yes'">
+                        <xsl:attribute name="initial-page-number">
+                            <xsl:text>auto-odd</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:call-template name="DoHeaderAndFooter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterFirstPage"/>
+                        <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="sFlowName" select="'FrontMatterTOCFirstPage'"/>
+                        <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoHeaderAndFooter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterPage"/>
+                        <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="sFlowName" select="'FrontMatterTOCRegularPage'"/>
+                        <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoHeaderAndFooter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
+                        <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="sFlowName" select="'FrontMatterTOCEvenPage'"/>
+                        <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoHeaderAndFooter">
+                        <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
+                        <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
+                        <xsl:with-param name="sFlowName" select="'FrontMatterTOCOddPage'"/>
+                        <xsl:with-param name="sRetrieveClassName" select="'contents-title'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
+                    <fo:flow flow-name="xsl-region-body">
+                        <xsl:attribute name="font-family">
+                            <xsl:value-of select="$sDefaultFontFamily"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="font-size">
+                            <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
+                        <!-- put title in marker so it can show up in running header -->
+                        <fo:marker marker-class-name="contents-title">
+                            <xsl:call-template name="OutputContentsLabel"/>
+                        </fo:marker>
+                        <xsl:call-template name="DoContents">
+                            <xsl:with-param name="bIsBook" select="'Y'"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
+                        </xsl:call-template>
+                    </fo:flow>
+                </fo:page-sequence>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       contents (for paper)
       -->
     <xsl:template match="contents" mode="paper">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -3174,6 +3212,7 @@ not using
         <xsl:call-template name="DoBackMatterPerLayout">
             <xsl:with-param name="backMatter" select="."/>
             <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+            <xsl:with-param name="frontMatter" select="./preceding-sibling::frontMatter"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -3661,16 +3700,16 @@ not using
         DoAuthorOfChapterInCollectionInContents
     -->
     <xsl:template name="DoAuthorOfChapterInCollectionInContents">
-        <xsl:if test="$authorInContentsLayoutInfo">
+        <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
             <xsl:if test="frontMatter/author">
                 <fo:block text-align-last="justify" text-indent="-2em" start-indent="3em">
                     <fo:inline font-style="italic">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language" select="$authorInContentsLayoutInfo"/>
+                            <xsl:with-param name="language" select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout"/>
                         </xsl:call-template>
-                        <xsl:value-of select="$authorInContentsLayoutInfo/@textbefore"/>
+                        <xsl:value-of select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout/@textbefore"/>
                         <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
-                        <xsl:value-of select="$authorInContentsLayoutInfo/@textafter"/>
+                        <xsl:value-of select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout/@textafter"/>
                         <xsl:text>&#xa0;</xsl:text>
                         <fo:leader leader-pattern="use-content">
                             <xsl:text>&#xa0;</xsl:text>
@@ -3804,6 +3843,7 @@ not using
     <xsl:template name="DoBackMatterPerLayout">
         <xsl:param name="backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="frontMatter"/>
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
@@ -3878,6 +3918,24 @@ not using
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $backMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$backMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayout/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and not($bIsBook)">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $bIsBook">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="book">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
@@ -4059,6 +4117,7 @@ not using
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <fo:block id="rXLingPapContents">
             <xsl:attribute name="id">
                 <xsl:call-template name="GetIdToUse">
@@ -4069,7 +4128,7 @@ not using
                 <xsl:attribute name="span">all</xsl:attribute>
             </xsl:if>
             <xsl:call-template name="DoTitleFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                 <xsl:with-param name="bCheckPageBreakFormatInfo">
                     <xsl:choose>
                         <xsl:when test="$bIsBook='N'">
@@ -4094,7 +4153,7 @@ not using
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
             </xsl:call-template>
         </fo:block>
         <fo:block>
@@ -7276,7 +7335,7 @@ not using
                         </xsl:call-template>
                     </fo:block>
                 </xsl:otherwise>
-            </xsl:choose>            
+            </xsl:choose>
         </fo:block>
     </xsl:template>
     <!--  

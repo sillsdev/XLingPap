@@ -648,12 +648,14 @@
       contents (for book)
       -->
     <xsl:template match="contents" mode="book">
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo"/>
         <xsl:call-template name="DoPageBreakFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/contentsLayout"/>
+            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
         </xsl:call-template>
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'Y'"/>
             <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -661,9 +663,11 @@
       -->
     <xsl:template match="contents" mode="paper">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -3277,6 +3281,7 @@
         <xsl:call-template name="DoBackMatterPerLayout">
             <xsl:with-param name="backMatter" select="."/>
             <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
+            <xsl:with-param name="frontMatter" select="./preceding-sibling::frontMatter"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -3590,7 +3595,7 @@
         DoAuthorOfChapterInCollectionInContents
     -->
     <xsl:template name="DoAuthorOfChapterInCollectionInContents">
-        <xsl:if test="$authorInContentsLayoutInfo">
+        <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
             <xsl:if test="frontMatter/author">
                 <xsl:if test="count(preceding-sibling::chapterInCollection)=0">
                     <tex:cmd name="settowidth">
@@ -3605,7 +3610,7 @@
                     </tex:cmd>
                 </xsl:if>
                 <xsl:call-template name="DoSpaceBefore">
-                    <xsl:with-param name="layoutInfo" select="$authorInContentsLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout"/>
                 </xsl:call-template>
                 <!-- do author(s) -->
                 <xsl:call-template name="OutputPlainTOCLine">
@@ -3614,18 +3619,18 @@
                     </xsl:with-param>
                     <xsl:with-param name="sLabel">
                         <xsl:call-template name="OutputFontAttributes">
-                            <xsl:with-param name="language" select="$authorInContentsLayoutInfo"/>
+                            <xsl:with-param name="language" select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout"/>
                         </xsl:call-template>
-                        <xsl:value-of select="$authorInContentsLayoutInfo/@textbefore"/>
+                        <xsl:value-of select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout/@textbefore"/>
                         <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
-                        <xsl:value-of select="$authorInContentsLayoutInfo/@textafter"/>
+                        <xsl:value-of select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout/@textafter"/>
                         <xsl:call-template name="OutputFontAttributesEnd">
-                            <xsl:with-param name="language" select="$authorInContentsLayoutInfo"/>
+                            <xsl:with-param name="language" select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout"/>
                         </xsl:call-template>
                     </xsl:with-param>
                 </xsl:call-template>
                 <xsl:call-template name="DoSpaceAfter">
-                    <xsl:with-param name="layoutInfo" select="$authorInContentsLayoutInfo"/>
+                    <xsl:with-param name="layoutInfo" select="saxon:node-set($authorInContentsLayoutInfo)/authorLayout"/>
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
@@ -3635,7 +3640,7 @@
    -->
     <xsl:template name="DoBackMatterBookmarksPerLayout">
         <xsl:param name="nLevel"/>
-        <xsl:param name="backMatter" select="//backMatter"/>
+        <xsl:param name="backMatter" select="$lingPaper/backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
@@ -3670,6 +3675,9 @@
                             </xsl:choose>
                         </xsl:with-param>
                     </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout'">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="bookmarks"/>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="bookmarks"/>
@@ -3751,6 +3759,7 @@
     <xsl:template name="DoBackMatterPerLayout">
         <xsl:param name="backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="frontMatter"/>
         <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
             <tex:cmd name="pagestyle">
                 <tex:parm>
@@ -3815,6 +3824,18 @@
                         </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
+                <xsl:when test="name(.)='contentsLayout' and $backMatter[ancestor::chapterInCollection]">
+                    <xsl:apply-templates select="$frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$backMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayout/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout'"> 
+                    <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="paper">
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
+                    </xsl:apply-templates>
+                </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index"/>
                 </xsl:when>
@@ -3845,7 +3866,7 @@
         DoChapterLabelInContents
     -->
     <xsl:template name="DoChapterLabelInContents">
-        <xsl:variable name="sLabel" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterlabel)"/>
+        <xsl:variable name="sLabel" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlabel)"/>
         <tex:spec cat="bg"/>
         <tex:cmd name="{$sSingleSpacingCommand}"/>
         <tex:cmd name="noindent"/>
@@ -3914,6 +3935,7 @@
     <xsl:template name="DoContents">
         <xsl:param name="bIsBook" select="'Y'"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <!--        <tex:cmd name="XLingPapertableofcontents" gr="0" nl2="0"/>-->
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
@@ -3930,7 +3952,7 @@
                         <xsl:call-template name="OutputContentsLabel"/>
                     </xsl:with-param>
                     <xsl:with-param name="bIsBook" select="'Y'"/>
-                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
                     <xsl:with-param name="sFirstPageStyle" select="'frontmatterfirstpage'"/>
                     <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
                         content of the hypertarget be empty, we suddenly got an extra page break here.
@@ -3949,7 +3971,7 @@
                         <xsl:call-template name="OutputContentsLabel"/>
                     </xsl:with-param>
                     <xsl:with-param name="bIsBook" select="'N'"/>
-                    <xsl:with-param name="layoutInfo" select="$frontMatterLayout/contentsLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -4744,7 +4766,7 @@
         DoBookMark
     -->
     <xsl:template name="DoBookMark">
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@showbookmarks!='no'">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@showbookmarks!='no'">
             <xsl:apply-templates select="." mode="bookmarks"/>
         </xsl:if>
     </xsl:template>
@@ -6846,7 +6868,7 @@
                         <xsl:when test="$fDoTextAfterLetter='Y'">
                             <xsl:value-of select="$appLayout/appendixTitleLayout/@textafterletter"/>
                         </xsl:when>
-                        <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterappendixletter='yes'">
+                        <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterappendixletter='yes'">
                             <xsl:text>.&#xa0;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -8103,7 +8125,7 @@
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="sContentsPeriod">
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodaftersectionnumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:with-param>
@@ -8289,7 +8311,7 @@
             <xsl:with-param name="sCommandToSet" select="'levelonewidth'"/>
             <xsl:with-param name="sValue">
                 <xsl:call-template name="OutputChapterNumber"/>
-                <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>

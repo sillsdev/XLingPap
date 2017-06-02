@@ -460,6 +460,7 @@ Front MatterLayout
      useperiodafterappendixletter (yes | no) 'no'
      useperiodafterchapternumber (yes | no) 'no'
      useperiodaftersectionnumber (yes | no) 'no'
+     contentType IDREF #IMPLIED
     >
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
@@ -551,10 +552,10 @@ Back Matter Layout
 
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
-<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
-                                                        (referencesTitleLayout, referencesLayout) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
+<!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout| glossaryLayout | useEndNotesLayout | 
+                                                        (referencesTitleLayout, referencesLayout) | (contentsLayout, authorLayout?) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
 
-<!ELEMENT chapterInCollectionBackMatterLayout (comment?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | useEndNotesLayout | 
+<!ELEMENT chapterInCollectionBackMatterLayout (comment?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | contentsLayout | useEndNotesLayout | 
                                                         referencesTitleLayout | keywordsLayout | authorContactInfoLayout)*) >    
 <!ELEMENT appendicesTitlePageLayout EMPTY >
 <!ATTLIST appendicesTitlePageLayout

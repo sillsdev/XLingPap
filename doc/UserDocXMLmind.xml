@@ -23,7 +23,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 May 2017</date
+>2 June 2017</date
 ><version
 >2.31.1</version
 ><contents
@@ -23707,7 +23707,7 @@ href="mailto:xlingpaper_support@sil.org"
 >.<endnote
 id="nCalibreFailSpaceInDirectoryName"
 ><p
->Some have had the process fail when there was a space in a directory name on the path to your file.  Try putting your file(s) in a directory without a space in the name.</p
+>Some have had the process fail when there was a space in a directory name on the path to your file. Try putting your file(s) in a directory without a space in the name.</p
 ></endnote
 ></p
 ></section2
@@ -25910,7 +25910,15 @@ type="tAttrValue"
 letter="xContentTypeChunkElements"
 num="xContentTypeChunkElements"
 ></exampleRef
->.</p
+>.<endnote
+id="nContentsLayoutContentControl"
+><p
+>In a publisher style sheet, a <object
+type="tElement"
+>contentsLayout</object
+> element can be tagged with a content type id. This is the only element in a publisher style sheet which can be under content control. This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
+></endnote
+></p
 ><example
 num="xContentTypeChunkElements"
 ><table

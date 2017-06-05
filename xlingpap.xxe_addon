@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-06-02</a:date
+>2017-06-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.1 2 June 2017<ul
+>2.31.1 5 June 2017<ul
 ><li
 >Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li
 ><li
@@ -43,6 +43,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Re-add Quick Reference Guide PDF that was inadvertently deleted.</li
 ><li
 >Fix bug which kept Calibre from running on Mac OS X; the result was that an EBook could not be produced.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when using an index, sometimes the page numbers would always be '??'.</li
+></ul
+></li
 ></ul
 ></li
 ><li

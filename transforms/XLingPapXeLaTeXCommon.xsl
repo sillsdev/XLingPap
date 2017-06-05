@@ -11994,6 +11994,7 @@ What might go in a TeX package file
                 <xsl:text> = </xsl:text>
                 <tex:cmd name="jobname.idx" gr="0" nl2="0"/>
                 <tex:cmd name="relax" gr="0" nl2="1"/>
+                <tex:cmd name="immediate" gr="0" nl2="0"/>
                 <tex:cmd name="write7">
                     <tex:parm>
                         <tex:spec cat="lt"/>
@@ -12642,6 +12643,7 @@ What might go in a TeX package file
                 <tex:cmd name="XLingPaperendindex" gr="0" nl2="0"/>
             </tex:parm>
             <tex:parm>
+                <tex:cmd name="immediate" gr="0" nl2="0"/>
                 <tex:cmd name="write7">
                     <tex:parm>
                         <tex:spec cat="lt"/>

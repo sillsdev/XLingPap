@@ -20,7 +20,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 June 2017</date
+>5 June 2017</date
 ><version
 >3.1.1</version
 ><contents
@@ -3684,7 +3684,7 @@ type="tElement"
 >Any <object
 type="tElement"
 >refWork</object
-> element may optiona lly contain a <object
+> element may optionally contain a <object
 type="tElement"
 >url</object
 > element and a <object
@@ -25912,7 +25912,7 @@ id="nContentsLayoutContentControl"
 >In a publisher style sheet, a <object
 type="tElement"
 >contentsLayout</object
-> element can be tagged with a content type id.  This is the only element in a publisher style sheet which can be under content control.  This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
+> element can be tagged with a content type id. This is the only element in a publisher style sheet which can be under content control. This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
 ></endnote
 ></p
 ><example

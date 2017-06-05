@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-06-02</a:date
+>2017-06-05</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.1 2 June 2017<ul
+>3.1.1 5 June 2017<ul
 ><li
 >Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li
 ><li
->Allow the presence of a contentsLayout element in a style sheet to be controlled by content control.  This helps to let one have a single document where the content is in different languages and one can control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</li
+>Allow the presence of a contentsLayout element in a style sheet to be controlled by content control. This helps to let one have a single document where the content is in different languages and one can control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</li
 ><li
 >Fix Bug: Too much info showing up for Parts in FO/Word/OpenOffice table of contents.</li
 ><li
@@ -53,6 +53,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix XLingPap.dtd location in SILInternationalPaperStylesheet.xml.</li
 ><li
 >Fix bug which kept Calibre from running on Mac OS X; the result was that an EBook could not be produced.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when using an index, sometimes the page numbers would always be '??'.</li
+></ul
+></li
 ></ul
 ></li
 ><li

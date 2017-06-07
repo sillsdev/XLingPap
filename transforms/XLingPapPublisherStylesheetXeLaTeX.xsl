@@ -5336,6 +5336,11 @@
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
         <xsl:call-template name="DoType"/>
+        <xsl:variable name="sContentsPeriod">
+            <xsl:if test="not($numberLayoutInfo) and $layoutInfo/sectionTitleLayout/@useperiodafternumber='yes'">
+                <xsl:text>.</xsl:text>
+            </xsl:if>
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="$layoutInfo/@ignore='yes'">
                 <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
@@ -5345,6 +5350,7 @@
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -5352,6 +5358,7 @@
                     <xsl:with-param name="formatTitleLayoutInfo" select="$formatTitleLayoutInfo"/>
                     <xsl:with-param name="numberLayoutInfo" select="$numberLayoutInfo"/>
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -5370,11 +5377,7 @@
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
-        <xsl:variable name="sContentsPeriod">
-            <xsl:if test="not($numberLayoutInfo) and $layoutInfo/sectionTitleLayout/@useperiodafternumber='yes'">
-                <xsl:text>.</xsl:text>
-            </xsl:if>
-        </xsl:variable>
+        <xsl:param name="sContentsPeriod"/>
         <tex:group>
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -5473,6 +5476,7 @@
         <xsl:param name="formatTitleLayoutInfo"/>
         <xsl:param name="numberLayoutInfo"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="sContentsPeriod"/>
         <xsl:call-template name="DoSpaceBefore">
             <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
         </xsl:call-template>
@@ -5493,6 +5497,7 @@
         </xsl:call-template>
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+            <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <xsl:call-template name="DoSpaceAfter">
@@ -5524,6 +5529,7 @@
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$sectionNumberInHeaderLayout"/>
                         <xsl:with-param name="bNumberIsBeforeTitle" select="$bSectionNumberIsBeforeTitle"/>
+                        <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
                     </xsl:call-template>
                 </tex:parm>
             </tex:cmd>

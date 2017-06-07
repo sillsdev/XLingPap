@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-06-06</a:date
+>2017-06-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.1 6 June 2017<ul
+>2.31.1 7 June 2017<ul
 ><li
 >Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li
 ><li
@@ -49,6 +49,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when using an index, sometimes the page numbers would always be '??'.</li
 ><li
 >Fix bug: in a style sheet, when a section layout had useperiodafternumber='yes' and also beginsparagraph='yes', the section number did not have a final period.</li
+><li
+>Fix bug: when a td or th cell had a width attribute set, any align attribute was ignored.</li
 ></ul
 ></li
 ></ul

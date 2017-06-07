@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.1.1</span></p>
-      <p align="center">Date: 2017-06-06</p>
+      <p align="center">Date: 2017-06-07</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.1.1 6 June 2017
+               <li>3.1.1 7 June 2017
                   <ul>
                      <li>Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li>
                      <li>Allow the presence of a contentsLayout element in a style sheet to be controlled by content control. This helps to let one
@@ -48,9 +48,10 @@
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: when using an index, sometimes the page numbers would always be '??'.</li>
-                           <li>Fix bug: in a style sheet, when a section layout had useperiodafternumber='yes' and also  beginsparagraph='yes', the section
+                           <li>Fix bug: in a style sheet, when a section layout had useperiodafternumber='yes' and also beginsparagraph='yes', the section
                               number did not have a final period.
                            </li>
+                           <li>Fix bug: when a td or th cell had a width attribute set, any align attribute was ignored.</li>
                         </ul>
                      </li>
                   </ul>

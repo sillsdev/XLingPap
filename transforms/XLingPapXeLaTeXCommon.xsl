@@ -2272,8 +2272,29 @@
             <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
                 force ragged right
             -->
-            <tex:spec cat="esc"/>
-            <xsl:text>raggedright </xsl:text>
+            <xsl:choose>
+                <xsl:when test="@align='right'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedleft </xsl:text>
+                </xsl:when>
+                <xsl:when test="@align='center'">
+                    <tex:cmd name="vspace">
+                        <tex:parm>
+                            <xsl:text>-1.7</xsl:text>
+                            <tex:cmd name="baselineskip" gr="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>center </xsl:text>
+                </xsl:when>
+                <xsl:when test="@align='justify'">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedright </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:call-template name="FormatTDContent">
             <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>

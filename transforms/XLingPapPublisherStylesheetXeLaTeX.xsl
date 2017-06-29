@@ -1739,7 +1739,7 @@
                             <tex:spec cat="esc"/>
                         </xsl:when>
                         <xsl:otherwise>
-<!--  Turns out that when there are multiple endnotes in a list, that using \par creates extra vertical space between the footnotes.
+                            <!--  Turns out that when there are multiple endnotes in a list, that using \par creates extra vertical space between the footnotes.
     <tex:cmd name="par"/>-->
                         </xsl:otherwise>
                     </xsl:choose>
@@ -3830,7 +3830,7 @@
                         <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayout/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test="name(.)='contentsLayout'"> 
+                <xsl:when test="name(.)='contentsLayout'">
                     <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="paper">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
                         <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
@@ -6252,7 +6252,9 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="." mode="number"/>
-                    <xsl:value-of select="$sContentsPeriod"/>
+                    <xsl:if test="count($chapters)!=0 or count(//section1)&gt;1 or count(//section1/section2)&gt;0">
+                        <xsl:value-of select="$sContentsPeriod"/>
+                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
@@ -6290,6 +6292,9 @@
                     <xsl:call-template name="DoSpaceAfter">
                         <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="count($chapters)=0 and count(//section1)=1 and count(//section1/section2)=0">
+                    <!-- do nothing: there is no number -->
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- make sure there's a (non-breaking) space between the number and the title -->
@@ -7791,7 +7796,7 @@
                 </xsl:call-template>
             </xsl:if>
 
-<!--            <xsl:choose>
+            <!--            <xsl:choose>
                 <xsl:when test="$bIsBook">
                     <tex:group>
                         <xsl:call-template name="DoPageBreakFormatInfo">

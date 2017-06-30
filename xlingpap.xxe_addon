@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-06-29</a:date
+>2017-06-30</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.2 29 June 2017<ul
+>3.1.2 30 June 2017<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Improve user documentation for table handling.</li
 ><li
 >Fix bug: when a blockquote was immediately followed by an ordered list (ol) or an unordered list (ul), there was too much blank space between the two.</li
 ><li

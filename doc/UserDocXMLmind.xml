@@ -23,9 +23,9 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->5 June 2017</date
+>30 June 2017</date
 ><version
->2.31.1</version
+>2.31.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -13372,6 +13372,64 @@ lang="lEng"
 ></table
 ></example
 ></section3
+><section3
+id="sTCTTablesPDF"
+><secTitle
+>Tables in Default PDF Output</secTitle
+><p
+>When using the default way of producing PDF (via <object
+type="tXeTeX"
+></object
+>), there are some special cases you may run into. See the first five bullet points in section <sectionRef
+sec="sXeTeXLimitations"
+></sectionRef
+>.</p
+><p
+>In addition, you may find you need to set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute sometimes to get certain special effects. The following lists them with links to where the content of the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute is found.</p
+><ul
+><li
+><genericRef
+gref="gXeLaTeXvalign-fixup"
+>Adjust the vertical position of a table cell's content.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXrow-separation"
+>Adjust the vertical spacing between rows in a table.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXline-after"
+>Insert a horizontal line after a row.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXline-before"
+>Insert a horizontal line before a row.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXpagebreak"
+>Insert a page break before a table or before a row in a table.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXborder-left"
+>Insert a vertical line to the left of a table cell.</genericRef
+></li
+><li
+><genericRef
+gref="gXeLaTeXborder-right"
+>Insert a vertical line to the right of a table cell.</genericRef
+></li
+></ul
+></section3
 ></section2
 ><section2
 id="sTCTCharts"
@@ -13685,8 +13743,19 @@ note="nNonBreakingSpace"
 type="tElement"
 >br</object
 > elements at the end of each line, for example) or you can use some tool to produce a tree image file (e.g. <link
-href="http://carla.sil.org/Corporate_Release/LingTree/"
+href="http://software.sil.org/lingtree/"
 >LingTree</link
+><endnote
+id="nLingTree"
+><p
+>When using <object
+type="tTool"
+>LingTree</object
+>, you can set it up so that its output is in SVG format. Then see <genericRef
+gref="gConvertSVGtoPDF"
+>converting SVG to PDF</genericRef
+>.</p
+></endnote
 >). I recommend using the latter.</p
 ><p
 ><object
@@ -20571,6 +20640,13 @@ type="tItalic"
 >unless you have overtly specified a width for the cell it is in</object
 >. If you have not specified a column width, you will need to embed tables within the cell to get the same effect.</li
 ><li
+>Background colors in a table cell that spans more than one row do not come out correctly. Only the first row will have the color.</li
+><li
+>While background colors can be used in tables, they will not show in other material (e.g. within a <object
+type="tElement"
+>chart</object
+> element).</li
+><li
 >Sometimes when you have a <object
 type="tElement"
 >link</object
@@ -20578,13 +20654,6 @@ type="tElement"
 sec="sFAQBreakLongURLs"
 ></sectionRef
 > for more on this.</li
-><li
->Background colors in a table cell that spans more than one row do not come out correctly. Only the first row will have the color.</li
-><li
->While background colors can be used in tables, they will not show in other material (e.g. within a <object
-type="tElement"
->chart</object
-> element).</li
 ><li
 >Font names must not have single quotes in them. The PDF may not even be tried if you have some <object
 type="tElement"
@@ -20675,6 +20744,12 @@ type="tTool"
 >Paint</object
 > program can do this conversion.</li
 ><li
+><genericTarget
+id="gConvertSVGtoPDF"
+></genericTarget
+><indexedItem
+term="iSVGtoPDF"
+></indexedItem
 >It does not handle graphic files with an .svg extension. You have to convert them to PDF first. There is a free downloadable package<endnote
 id="nBatikRasterizerOnLine"
 ><p
@@ -31348,6 +31423,12 @@ border="1"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXborder-left"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFborder-left"
+></indexedItem
 >border-left</td
 ><td
 >0, 1 or 2</td
@@ -31370,6 +31451,12 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXborder-right"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFborder-right"
+></indexedItem
 >border-right</td
 ><td
 >0, 1 or 2</td
@@ -31596,6 +31683,12 @@ type="tAttribute"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXline-after"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFline-after"
+></indexedItem
 >line-after</td
 ><td
 ><object
@@ -31612,6 +31705,12 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXline-before"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFline-before"
+></indexedItem
 >line-before</td
 ><td
 ><object
@@ -31690,6 +31789,12 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXpagebreak"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFpagebreak"
+></indexedItem
 >pagebreak</td
 ><td
 ><object
@@ -31703,6 +31808,12 @@ type="tItalic"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXrow-separation"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFrow-separation"
+></indexedItem
 >row-separation</td
 ><td
 >a numerical value followed immediately by pt (for points)</td
@@ -31851,6 +31962,12 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><genericTarget
+id="gXeLaTeXvalign-fixup"
+></genericTarget
+><indexedItem
+term="iTableXeLaTeXPDFvertical-fixup"
+></indexedItem
 >valign-fixup</td
 ><td
 >a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the lower case letter x) or by pt (for points)</td
@@ -33152,6 +33269,12 @@ id="iScaleGraphic"
 >Scale an image file (make it bigger or smaller)</term
 ></indexTerm
 ><indexTerm
+id="iImageSVG"
+see="iSVG"
+><term
+>SVG format</term
+></indexTerm
+><indexTerm
 id="iImageWidth"
 ><term
 >Width</term
@@ -34128,6 +34251,18 @@ id="iSuperscript"
 >Superscript</term
 ></indexTerm
 ><indexTerm
+id="iSVG"
+><term
+>SVG image files</term
+><indexTerms
+><indexTerm
+id="iSVGtoPDF"
+><term
+>Convert to PDF</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iSymbolInsertSpecial"
 see="iSpecialSymbol"
 ><term
@@ -34196,6 +34331,51 @@ id="iTablesRowCounter"
 id="iTablesSpan"
 ><term
 >Span column or row</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDF"
+><term
+>PDF via <object
+type="tXeTeX"
+></object
+> special features</term
+><indexTerms
+><indexTerm
+id="iTableXeLaTeXPDFvertical-fixup"
+><term
+>Adjust the vertical position of a cell's content</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFline-after"
+><term
+>Horizontal line after a row</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFline-before"
+><term
+>Horizontal line before a row</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFpagebreak"
+><term
+>Page break before this table or row</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFrow-separation"
+><term
+>Space between rows</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFborder-left"
+><term
+>Vertical line to the left of a table cell</term
+></indexTerm
+><indexTerm
+id="iTableXeLaTeXPDFborder-right"
+><term
+>Vertical line to the right of a table cell</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ></indexTerms
 ></indexTerm

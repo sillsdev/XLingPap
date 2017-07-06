@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-06-30</a:date
+>2017-07-02</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.2 30 June 2017<ul
+>3.1.2 6 July 2017<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: when a blockquote was immediately followed by an ordered list (ol) or an unordered list (ul), there was too much blank space between the two.</li
 ><li
 >Fix bug: in a style sheet, when a section1 element was the only section or chapter element in the document and the useperiodafternumber attribute of the sectionTitleLayout element was set to 'yes', there would be a period before the section title.</li
+><li
+>Fix bug: using text-transform set to 'uppercase' or 'lowercase' was not always applied.</li
 ></ul
 ></li
 ></ul

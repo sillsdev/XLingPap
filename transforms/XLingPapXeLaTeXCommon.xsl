@@ -383,6 +383,9 @@
                 <xsl:call-template name="OutputTypeAttributesEnd">
                     <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                 </xsl:call-template>
+                <xsl:if test="count(child::*)=1 and child::*[1][name()='langData' or name()='gloss' or name()='object']">
+                    <tex:cmd name="par"/>
+                </xsl:if>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                     <tex:spec cat="eg"/>
                 </xsl:if>

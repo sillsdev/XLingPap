@@ -4195,28 +4195,29 @@
       DoEndnotes
    -->
     <xsl:template name="DoEndnotes">
-        <xsl:call-template name="OutputBackMatterItemTitle">
-            <xsl:with-param name="sId" select="$sEndnotesID"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputEndnotesLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
-        </xsl:call-template>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
-            <xsl:choose>
-                <xsl:when test="$lineSpacing/@singlespaceendnotes='yes'">
-                    <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
-                </xsl:when>
-                <xsl:when test="$sLineSpacing='double'">
-                    <tex:cmd name="doublespacing" gr="0" nl2="1"/>
-                </xsl:when>
-                <xsl:when test="$sLineSpacing='spaceAndAHalf'">
-                    <tex:cmd name="onehalfspacing" gr="0" nl2="1"/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:if>
-        <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
-        <!--        <xsl:for-each select="//endnote">
+        <xsl:if test="contains($endnotesToShow,'X')">
+            <xsl:call-template name="OutputBackMatterItemTitle">
+                <xsl:with-param name="sId" select="$sEndnotesID"/>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputEndnotesLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
+            </xsl:call-template>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
+                <xsl:choose>
+                    <xsl:when test="$lineSpacing/@singlespaceendnotes='yes'">
+                        <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:when test="$sLineSpacing='double'">
+                        <tex:cmd name="doublespacing" gr="0" nl2="1"/>
+                    </xsl:when>
+                    <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                        <tex:cmd name="onehalfspacing" gr="0" nl2="1"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
+            <!--        <xsl:for-each select="//endnote">
             <tex:cmd name="indent" gr="0" sp="1"/>
             <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">
                 <xsl:call-template name="DoInternalTargetBegin">
@@ -4235,6 +4236,7 @@
             <xsl:apply-templates select="*[position() &gt; 1]"/>
             <tex:cmd name="par" nl2="1"/>
         </xsl:for-each>-->
+        </xsl:if>
     </xsl:template>
     <!--  
         DoEndnoteRefNumber

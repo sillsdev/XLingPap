@@ -4246,18 +4246,20 @@ not using
       DoEndnotes
    -->
     <xsl:template name="DoEndnotes">
-        <xsl:call-template name="OutputBackMatterItemTitle">
-            <xsl:with-param name="sId" select="$sEndnotesID"/>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputEndnotesLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
-        </xsl:call-template>
-        <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
-        <!--        <xsl:for-each select="//endnote">
+        <xsl:if test="contains($endnotesToShow,'X')">
+            <xsl:call-template name="OutputBackMatterItemTitle">
+                <xsl:with-param name="sId" select="$sEndnotesID"/>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputEndnotesLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
+            </xsl:call-template>
+            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
+            <!--        <xsl:for-each select="//endnote">
             <xsl:call-template name="DoFootnoteContent"/>
         </xsl:for-each>
 -->
+        </xsl:if>
     </xsl:template>
     <!--  
         DoFigure

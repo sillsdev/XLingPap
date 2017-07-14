@@ -7183,6 +7183,34 @@ interlinearRefLinkLayout[showmarking='no']
 	text-decoration:none;
 }
 
+iso639-3CodesInTableLayout[color]
+{
+	color:concatenate(attr(color));
+}
+iso639-3CodesInTableLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+iso639-3CodesInTableLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+iso639-3CodesInTableLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+iso639-3CodesInTableLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+iso639-3CodesInTableLayout
+{
+	display:block;
+	content:"ISO 639-3 codes in table layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 iso639-3CodesLinkLayout[showmarking='no']
 {
 	color:Gray;

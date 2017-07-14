@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-11</a:date
+>2017-07-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.3 11 July 2017<ul
+>2.31.3 14 July 2017<ul
+><li
+>Improve publisher style sheet documentation.</li
 ><li
 >Fix bug: When a publisher style sheet had "Use Endnotes" but the document had not endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
 ><li

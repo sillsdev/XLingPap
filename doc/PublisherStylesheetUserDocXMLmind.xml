@@ -18,9 +18,12 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 June 2017</date
-><version
->2.31.1</version
+>14 July 2017</date
+><xi:include
+href="PublisherStylesheetStub.xml"
+xpointer="element(/1/1/4)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><contents
 showLevel="6"
 ></contents
@@ -41,7 +44,10 @@ type="tPublisherStyleSheet"
 > without using the <object
 type="tXMLmindXMLEditor"
 ></object
->, this documentation assumes that you are using it. Since the normal way to control how particular items appear is by setting attributes of elements, this documentation assumes that the reader knows how to use the Attributes tool of the <object
+>, this documentation assumes that you are using it. Since the normal way to control how particular items appear is by setting attributes of elements, this documentation assumes that the reader knows how to use the <object
+type="tAttributesEditor"
+></object
+> of the <object
 type="tXMLmindXMLEditor"
 ></object
 >.</p
@@ -102,19 +108,19 @@ type="tXLingPap"
 ></object
 > document.</p
 ><p
->Also, when you need to make a change to a publisher style sheet from your main document, click in the publisher style sheet (it will have a bluish background color) and then click on the <object
-type="tInTextExample"
->Edit Referenced Document</object
-> button which is in the upper right portion of the window. It looks like this: <img
-src="resources/EditReferencedDocumentIcon.png"
-></img
-> After making your changes, save them and then click on the <object
-type="tInTextExample"
->Edit Referencing Document</object
-> button in the upper right portion of the window. It looks like this: <img
-src="resources/EditReferencingDocumentIcon.png"
-></img
-> This will take you back to your main document.</p
+>Also, when you need to make a change to a publisher style sheet from your main document, click in the publisher style sheet (it will have a bluish background color) and then use <object
+type="tInstruction"
+>Edit menu item / Reference / Edit Referenced Document</object
+> (or type <object
+type="tKey"
+>Ctrl+Shift+E</object
+>). After making your changes, save them and then use <object
+type="tInstruction"
+>Edit menu item / Reference / Edit Referencing Document</object
+> (or type <object
+type="tKey"
+>Ctrl+Shift+B</object
+>). This will take you back to your main document.</p
 ><p
 >Please keep in mind that the way <object
 type="tXLingPap"
@@ -148,10 +154,16 @@ sec="sPageLayout"
 > is given in section <sectionRef
 sec="sDocumentContentLayout"
 ></sectionRef
->. Finally, common sets of attributes are described in section <sectionRef
+>. Common sets of attributes are described in section <sectionRef
 sec="sCommonSetsOfAttributes"
 ></sectionRef
->.</p
+>. Finally, there is section <sectionRef
+sec="HowDoI"
+></sectionRef
+> which gives hints on how to do things users have asked about. In addition, you can use the Index to look for things. (If you are looking for how to do something and neither section <sectionRef
+sec="HowDoI"
+></sectionRef
+> nor the Index help, please write to us to we can add what you were looking for to the documentation.)</p
 ></section1
 ><section1
 id="sPageLayout"
@@ -8200,7 +8212,10 @@ id="sDocumentContentLayout"
 >This section discusses layout information for various items occurring within the content of a document. The only element in this section that is required is <object
 type="tElement"
 >exampleLayout</object
->. All others are optional. They are described in the order in which they must appear.</p
+>. All others are optional. They are described in the order in which they must appear. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints about where to insert a new element in this portion of a publisher style sheet.</p
 ><section2
 id="sParagraphLayout"
 ><secTitle
@@ -14747,7 +14762,743 @@ type="tAttrValue"
 ></example
 ></section2
 ></section1
+><section1
+id="HowDoI"
+><secTitle
+>How Do I...?</secTitle
+><p
+>This section lists some answers to some common questions on the order of “How do I do X?”.</p
+><section2
+id="sFAQAppendixContents"
+><secTitle
+>Make the word “Appendix” appear before the appendix letters in the Contents?</secTitle
+><p
+><indexedItem
+term="iContentsLayoutAppendixWord"
+></indexedItem
+><indexedItem
+term="iContentsLayoutAppendixPeriod"
+></indexedItem
+>What we have available is in the <object
+type="tElement"
+>contentsLayout</object
+> element in the front matter section in the publisher style sheet. There are two relevant attributes on the <object
+type="tElement"
+>contentsLayout</object
+> element:</p
+><ol
+><li
+><object
+type="tAttribute"
+>useappendixlabelbeforeappendixletter</object
+> set to <object
+type="tAttrValue"
+>yes</object
+> will put “Appendix” before the letter in the contents;</li
+><li
+><object
+type="tAttribute"
+>useperiodafterappendixletter</object
+> set to <object
+type="tAttrValue"
+>yes</object
+> will put a period after the appendix letter.</li
+></ol
+><p
+>Setting these two will give “Appendix A. ” followed by the title of the appendix.</p
+></section2
+><section2
+id="sFAQAppendix"
+><secTitle
+>Get the word ‘Appendix” to appear before the letter in the appendix portion itself?</secTitle
+><p
+><indexedItem
+term="iAppendixLayoutAppendixWord"
+></indexedItem
+><indexedItem
+term="iAppendixLayoutPeriodAfterLetter"
+></indexedItem
+>In the <object
+type="tElement"
+>appendixTitleLayout</object
+> element, set the <object
+type="tAttribute"
+>textbefore</object
+> attribute to have ‘<object
+type="tAttrValue"
+>Appendix</object
+> ’ (without the quotes). Assuming you want a period after the letter, set the <object
+type="tAttribute"
+>textafterletter</object
+> attribute to be ‘<object
+type="tAttrValue"
+>. </object
+>’ (without the quotes).</p
+></section2
+><section2
+id="sFAQCaptions"
+><secTitle
+>Get captions to appear correctly on numbered tables or figures?</secTitle
+><p
+><indexedItem
+term="iCaptionFigure"
+></indexedItem
+><indexedItem
+term="iCaptionTableNumbered"
+></indexedItem
+>In the Document Content Layout portion, add a <object
+type="tElement"
+>tableNumberedLayout</object
+> element and/or a <object
+type="tElement"
+>figureLayout</object
+> element (if not already there). See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. Then click on it.</p
+><p
+>Using the <object
+type="tAttributesEditor"
+></object
+>, set the <object
+type="tAttribute"
+>captionLocation</object
+> attribute to be either <object
+type="tAttrValue"
+>before</object
+> or <object
+type="tAttrValue"
+>after</object
+> to control whether the caption comes before or after the numbered table or figure.</p
+><p
+>To set how the caption appears with respect to the table or figure label, its number and the text of the caption, in the line that has ‘Caption goes here’ in it, click on the word ‘Table’ (or ‘Figure’). Set its attributes to be what you want (for example, make the <object
+type="tAttribute"
+>textafter</object
+> attribute have a single space in it or set the <object
+type="tAttribute"
+>font-weight</object
+> attribute to <object
+type="tAttrValue"
+>bold</object
+>).</p
+><p
+>Now click on the number ‘1’. Set the attributes here for how you want the number to be formatted, including any following period and/or space.</p
+><p
+>Then click on ‘Caption goes here’ to set how the caption is to be formatted.</p
+><p
+>See section <sectionRef
+sec="sTableNumberedRelated"
+></sectionRef
+> and <sectionRef
+sec="sFigureRelated"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sFAQFreeTranslation"
+><secTitle
+>Get free translation items to have single quotes around it?</secTitle
+><p
+><indexedItem
+term="iFreeOverrides"
+></indexedItem
+>In the Document Content Layout portion, add a <object
+type="tElement"
+>freeLayout</object
+> element. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. Set the <object
+type="tAttribute"
+>textbefore</object
+> and <object
+type="tAttribute"
+>textafter</object
+> attributes to have the opening and closing quotes. (You will probably need to key the quotes elsewhere in the document where text can be keyed and then copy and paste them into these attributes.)</p
+><p
+>See section <sectionRef
+sec="sFreeOverrides"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sFAQFrontMatterOrder"
+><secTitle
+>Get front matter order right?</secTitle
+><p
+><indexedItem
+term="iFrontMatterOrder"
+></indexedItem
+>Sometimes there are special front matter items such as a Dedication page, a List of Tables page, a List of Figures page, and maybe even also a real Preface page. One typically enters these using <object
+type="tElement"
+>preface</object
+> elements in the main document and set the <object
+type="tAttribute"
+>label</object
+> attribute to be the title of the page. If the front matter needs to be ordered in a way where one or more of these come, say, before the contents, and others come after the contents, how does one make this happen?</p
+><p
+>In the Front Matter Layout portion, you can have more than one <object
+type="tElement"
+>prefaceLayout</object
+> element. Put as many as you need before the <object
+type="tElement"
+>contentsLayout</object
+> element and as many as you need after the <object
+type="tElement"
+>contentsLayout</object
+> element. <object
+type="tXLingPap"
+></object
+> will use the first <object
+type="tElement"
+>prefaceLayout</object
+> element for the first <object
+type="tElement"
+>preface</object
+> element, the second for the second, etc. The order should come out correctly.</p
+></section2
+><section2
+id="sFAQGloss"
+><secTitle
+>Get gloss items to format differently in examples, tables, or prose?</secTitle
+><p
+><indexedItem
+term="iGlossOverrides"
+></indexedItem
+>In the Document Content Layout portion, add a <object
+type="tElement"
+>langDataLayout</object
+> element. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. This inserts three items:</p
+><ol
+><li
+>gloss in example</li
+><li
+>gloss in table</li
+><li
+>gloss in prose</li
+></ol
+><p
+>Click on the one you want to set the format information for and then use the <object
+type="tAttributesEditor"
+></object
+> to set the formatting attributes you need for when a <object
+type="tAttribute"
+>gloss</object
+> element appears in that context.</p
+><p
+>See section <sectionRef
+sec="sGlossOverrides"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sFAQInterlinearSpacing"
+><secTitle
+>Get interlinear lines to have different spacing or indenting?</secTitle
+><p
+><indexedItem
+term="iInterlinearMultipleLineGroupLayoutIndent"
+></indexedItem
+><indexedItem
+term="iInterlinearAlignedWordSpacing"
+></indexedItem
+><indexedItem
+term="iInterlinearMultipleLineGroupLayoutSpacing"
+></indexedItem
+>In the Document Content Layout portion, add an <object
+type="tElement"
+>interlinearMultipleLineGroupLayout </object
+> element. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. Set the <object
+type="tAttribute"
+>spaceBetweenGroups </object
+> attribute to have the vertical spacing you need between aligned groups. Set the <object
+type="tAttribute"
+>indentOfNonInitialGroup </object
+> attribute to have the indent spacing you need for the aligned groups which are wrapped over to a new ‘line.’</p
+><p
+>See section <sectionRef
+sec="sInterlinearMultipleGroup"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sFAQLangData"
+><secTitle
+>Get language data items to format differently in examples, tables, or prose?</secTitle
+><p
+><indexedItem
+term="iLangDataOverrides"
+></indexedItem
+>In the Document Content Layout portion, add a <object
+type="tElement"
+>langDataLayout</object
+> element. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. This inserts three items:</p
+><ol
+><li
+>langData in example</li
+><li
+>langData in table</li
+><li
+>langData in prose</li
+></ol
+><p
+>Click on the one you want to set the format information for and then use the <object
+type="tAttributesEditor"
+></object
+> to set the formatting attributes you need for when a <object
+type="tAttribute"
+>langData</object
+> element appears in that context.</p
+><p
+>See section <sectionRef
+sec="sLangDataOverrides"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sFAQInitialAppedixParagraphIndent"
+><secTitle
+>Get first paragraph of an appendix to not indent?</secTitle
+><p
+><indexedItem
+term="iParagraphIndent"
+></indexedItem
+><indexedItem
+term="iAppendixInitialParagraph"
+></indexedItem
+>In the Back Matter Layout portion, click on the appendix item. In the node path bar, click on the <object
+type="tElement"
+>appendixLayout</object
+> item. Set the <object
+type="tAttribute"
+>firstParagraphHasIndent</object
+> attribute to <object
+type="tAttrValue"
+>no</object
+>.</p
+></section2
+><section2
+id="sFAQInitialParagraphIndent"
+><secTitle
+>Get first paragraph of a chapter or section to not indent?</secTitle
+><p
+><indexedItem
+term="iParagraphIndent"
+></indexedItem
+><indexedItem
+term="iChapterInitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection1InitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection2InitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection3InitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection4InitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection5InitialParagraph"
+></indexedItem
+><indexedItem
+term="iSection6InitialParagraph"
+></indexedItem
+>In the Body Layout portion, click on the chapter (or section) item. In the node path bar, click on the <object
+type="tElement"
+>chapterLayout</object
+> (or <object
+type="tElement"
+>section1Layout</object
+> or <object
+type="tElement"
+>section2Layout</object
+>, etc.) item. Set the <object
+type="tAttribute"
+>firstParagraphHasIndent</object
+> attribute to <object
+type="tAttrValue"
+>no</object
+>.</p
+></section2
+><section2
+id="sFAQSpaceBetweenParagraphs"
+><secTitle
+>Increase the space between paragraphs?</secTitle
+><p
+><indexedItem
+term="iParagraphLayoutSpaceBetween"
+></indexedItem
+>In the Document Content Layout portion, add a <object
+type="tElement"
+>paragraphLayout</object
+> element. See appendix <appendixRef
+app="aDocumentLayoutOrderOfElements"
+></appendixRef
+> for hints on where to insert it. Set the <object
+type="tAttribute"
+>spacebefore</object
+> or the <object
+type="tAttribute"
+>spaceafter</object
+> attributes to have the extra vertical space you need. Be sure and include a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>).</p
+><p
+>See section <sectionRef
+sec="sParagraphLayout"
+></sectionRef
+> for more information.</p
+></section2
+><section2
+id="sSecTitleUppercase"
+><secTitle
+>Make some titles come out in all uppercase?</secTitle
+><p
+><indexedItem
+term="iTitleLowercase"
+></indexedItem
+><indexedItem
+term="iTitleUppercase"
+></indexedItem
+>Normally one keys the chapter, section, appendix, abstract, etc., titles in mixed case. If these must be in all upper case letters, you do not have to re-key them. Rather, for each item in your style sheet set the <object
+type="tAttribute"
+>text-transform</object
+> attribute of the title element to be <object
+type="tAttrValue"
+>uppercase</object
+>. You can also force them to be all lower case by using the <object
+type="tAttrValue"
+>lowercase</object
+> value.</p
+></section2
+><section2
+id="sFAQSectionNoNumber"
+><secTitle
+>Make a section or subsection not show its level number?</secTitle
+><p
+><indexedItem
+term="iSectionNumberNotShow"
+></indexedItem
+>Sometimes you need to have certain subsections show their title, but not show the level number. Use the following steps:</p
+><ol
+><li
+>In the Body Layout portion, find the subsection level needed.</li
+><li
+>Click on the section item.</li
+><li
+>In the node path bar, click on the <object
+type="tElement"
+>sectionNLayout</object
+> (where N is the digit 1, 2, 3, 4, 5 or 6).</li
+><li
+>Set the <object
+type="tAttribute"
+>showNumber</object
+> attribute to <object
+type="tAttrValue"
+>no</object
+>.</li
+></ol
+></section2
+></section1
 ><backMatter
+><appendix
+id="aDocumentLayoutOrderOfElements"
+><secTitle
+>Order of Elements in the Document Content Layout Portion</secTitle
+><p
+>When inserting a new element to the document content layout portion of a publisher style sheet, it can be hard to know exactly where to try and insert a new item. The following lists the order in which the elements can occur and shows what each might look like to help you identify where to try and do the insertion.</p
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Appearance</th
+></tr
+><tr
+><td
+><object
+type="tElement"
+>paragraphLayout</object
+></td
+><td
+>paragraph</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>exampleLayout</object
+></td
+><td
+>examples</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>listLayout</object
+></td
+><td
+>lists</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>sectionRefLayout</object
+></td
+><td
+>section reference</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>sectionRefTitleLayout</object
+></td
+><td
+>section reference title</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>interlinearSourceStyle</object
+></td
+><td
+>interlinear source style:</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>interlinearRefCitationTitleLayout</object
+></td
+><td
+>interlinear reference citation title</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>interlinearAlignedWordSpacing</object
+></td
+><td
+>interlinear aligned word spacing</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>interlinearMultipleLineGroupLayout</object
+></td
+><td
+>interlinear multiple aligned group spacing</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>interlinearTextLayout</object
+></td
+><td
+>interlinear text</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>endnoteRefLayout</object
+></td
+><td
+>endnote reference</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>figureLayout</object
+></td
+><td
+><img
+src="resources/FigureLayout.png"
+></img
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>figureRefLayout</object
+></td
+><td
+>figure reference</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>figureRefCaptionLayout</object
+></td
+><td
+>figure reference caption</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>tablenumberedLayout</object
+></td
+><td
+><img
+src="resources/TableNumberedLayout.png"
+></img
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>tablenumberedRefLayout</object
+></td
+><td
+>table reference</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>tablenumberedRefCaptionLayout</object
+></td
+><td
+>numbered table reference caption</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>magnificationFactor</object
+></td
+><td
+>magnification factor</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>langDataLayout</object
+></td
+><td
+>langData special overrides</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>glossLayout</object
+></td
+><td
+>gloss special overrides</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>freeLayout</object
+></td
+><td
+>free special override</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>literalLayout</object
+></td
+><td
+>literal special override</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>citationLayout</object
+></td
+><td
+>citation layout: Doe (2003:</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>abbreviationsInTableLayout</object
+></td
+><td
+>abbreviations in table layout</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>glossaryTermsInTableLayout</object
+></td
+><td
+>glossary terms in table layout</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>iso639-3CodesInTableLayout</object
+></td
+><td
+>ISO 639-3 codes in table layout</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>prose-textTextLayout</object
+></td
+><td
+>prose-text</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>quoteLayout</object
+></td
+><td
+>quoted material</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>blockQuoteLayout</object
+></td
+><td
+>block quote</td
+></tr
+></table
+></appendix
 ><endnotes
 ></endnotes
 ><references
@@ -14773,7 +15524,9 @@ id="rXlingPapSFLF"
 >004</jArticleNumber
 ></article
 ><url
->http://www.sil.org/​silepubs/​abstract.​asp?​id=​52286</url
+>https://www.sil.org/resources/publications/entry/7790</url
+><dateAccessed
+>12 July 2017</dateAccessed
 ></refWork
 ></refAuthor
 ><refAuthor
@@ -14813,7 +15566,9 @@ id="rSimonsAndBlackSFLF"
 >005</jArticleNumber
 ></article
 ><url
->http://www.sil.org/​silepubs/​abstract.​asp?​id=​52287</url
+>https://www.sil.org/resources/publications/entry/7783</url
+><dateAccessed
+>12 July 2017</dateAccessed
 ></refWork
 ></refAuthor
 ></references
@@ -14892,6 +15647,23 @@ id="iAppendicesTilePageLayout"
 id="iAppendixLayout"
 ><term
 >Appendix layout</term
+><indexTerms
+><indexTerm
+id="iAppendixInitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+><indexTerm
+id="iAppendixLayoutAppendixWord"
+><term
+>Include 'Appendix' before the appendix title</term
+></indexTerm
+><indexTerm
+id="iAppendixLayoutPeriodAfterLetter"
+><term
+>Include a period after the appendix letter</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iAppendixRefLink"
@@ -14994,6 +15766,11 @@ id="iChapterTitle"
 id="iChapterTitleLayout"
 ><term
 >Chapter title layout</term
+></indexTerm
+><indexTerm
+id="iChapterInitialParagraph"
+><term
+>Initial paragraph not indented</term
 ></indexTerm
 ><indexTerm
 id="iChapterFigureNumber"
@@ -15126,6 +15903,18 @@ id="iContactPhoneLayout"
 id="iContentsLayout"
 ><term
 >Contents layout</term
+><indexTerms
+><indexTerm
+id="iContentsLayoutAppendixWord"
+><term
+>Include “Appendix” before the appendix letter</term
+></indexTerm
+><indexTerm
+id="iContentsLayoutAppendixPeriod"
+><term
+>Include a period after the appendix letter</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iContentsLink"
@@ -15439,6 +16228,21 @@ see="iTableNumberedFormatOfNumber"
 id="iFreeOverrides"
 ><term
 >Free translation special formatting</term
+></indexTerm
+><indexTerm
+id="iFrontMatter"
+><term
+>Front matter</term
+><indexTerms
+><indexTerm
+id="iFrontMatterOrder"
+><term
+>Order of <object
+type="tElement"
+>preface</object
+> element before and after contents</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iGenericRefLink"
@@ -15889,6 +16693,13 @@ id="iParagraphIndent"
 id="iParagraphLayout"
 ><term
 >Paragraph layout</term
+><indexTerms
+><indexTerm
+id="iParagraphLayoutSpaceBetween"
+><term
+>Space between paragraphs</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPartLayout"
@@ -16221,6 +17032,11 @@ id="iSection1Layout"
 >Section level 1 layout</term
 ><indexTerms
 ><indexTerm
+id="iSection1InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+><indexTerm
 id="iStartNumberAtZero"
 ><term
 >Start section level 1 numbering at 0 (zero)</term
@@ -16231,31 +17047,73 @@ id="iStartNumberAtZero"
 id="iSection2Layout"
 ><term
 >Section level 2 layout</term
+><indexTerms
+><indexTerm
+id="iSection2InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSection3Layout"
 ><term
 >Section level 3 layout</term
+><indexTerms
+><indexTerm
+id="iSection3InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSection4Layout"
 ><term
 >Section level 4 layout</term
+><indexTerms
+><indexTerm
+id="iSection4InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSection5Layout"
 ><term
 >Section level 5 layout</term
+><indexTerms
+><indexTerm
+id="iSection5InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSection6Layout"
 ><term
 >Section level 6 layout</term
+><indexTerms
+><indexTerm
+id="iSection6InitialParagraph"
+><term
+>Initial paragraph not indented</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSectionNumber"
 ><term
 >Section number</term
+><indexTerms
+><indexTerm
+id="iSectionNumberNotShow"
+><term
+>Do not show the section level number</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSectionTitle"
@@ -16481,6 +17339,18 @@ id="iThesisSubmissionStyle"
 id="iTitleLayout"
 ><term
 >Title layout</term
+><indexTerms
+><indexTerm
+id="iTitleLowercase"
+><term
+>Title in all lower case letters</term
+></indexTerm
+><indexTerm
+id="iTitleUppercase"
+><term
+>Title in all upper case letters</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iCollTitle"

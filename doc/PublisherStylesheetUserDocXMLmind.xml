@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 July 2017</date
+>19 July 2017</date
 ><xi:include
 href="PublisherStylesheetStub.xml"
 xpointer="element(/1/1/4)"
@@ -154,13 +154,13 @@ sec="sPageLayout"
 > is given in section <sectionRef
 sec="sDocumentContentLayout"
 ></sectionRef
->.  Common sets of attributes are described in section <sectionRef
+>. Common sets of attributes are described in section <sectionRef
 sec="sCommonSetsOfAttributes"
 ></sectionRef
->.  Finally, there is section <sectionRef
+>. Finally, there is section <sectionRef
 sec="HowDoI"
 ></sectionRef
-> which gives hints on how to do things users have asked about.  In addition, you can use the Index to look for things.  (If you are looking for how to do something and neither section <sectionRef
+> which gives hints on how to do things users have asked about. In addition, you can use the Index to look for things. (If you are looking for how to do something and neither section <sectionRef
 sec="HowDoI"
 ></sectionRef
 > nor the Index help, please write to us to we can add what you were looking for to the documentation.)</p
@@ -4465,6 +4465,9 @@ border="1"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iRefSeriesE2AppendEditorAbbr"
+></indexedItem
 ><object
 type="tAttribute"
 >appendEdAbbreviation</object
@@ -4500,6 +4503,78 @@ type="tAttrValue"
 ></tr
 ></table
 ></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefSeriesEd2TextPlural"
+></indexedItem
+><object
+type="tAttribute"
+>edTextPlural</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the plural “eds” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefSeriesEd2TextSingualar"
+></indexedItem
+><object
+type="tAttribute"
+>edTextSingular</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the singular “ed” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefSeriesE2TextAfter"
+></indexedItem
+><object
+type="tAttribute"
+>edTextafter</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘after’ text material here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefSeriesEd2TextBefore"
+></indexedItem
+><object
+type="tAttribute"
+>edTextbefore</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘before’ text material here.</td
 ></tr
 ></table
 ></td
@@ -4807,6 +4882,9 @@ border="1"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iRefCollE2AppendEditorAbbr"
+></indexedItem
 ><object
 type="tAttribute"
 >appendEdAbbreviation</object
@@ -4825,7 +4903,7 @@ type="tAttribute"
 >plural</object
 > attribute of the <object
 type="tElement"
->collEd</object
+>seriesEd</object
 > element is set to <object
 type="tAttrValue"
 >no</object
@@ -4842,6 +4920,78 @@ type="tAttrValue"
 ></tr
 ></table
 ></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefCollEd2TextPlural"
+></indexedItem
+><object
+type="tAttribute"
+>edTextPlural</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the plural “eds” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefCollEd2TextSingualar"
+></indexedItem
+><object
+type="tAttribute"
+>edTextSingular</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the singular “ed” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefCollEd2TextAfter"
+></indexedItem
+><object
+type="tAttribute"
+>edTextafter</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘after’ text material here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefCollEd2TextBefore"
+></indexedItem
+><object
+type="tAttribute"
+>edTextbefore</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘before’ text material here.</td
 ></tr
 ></table
 ></td
@@ -6292,6 +6442,9 @@ border="1"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iRefProcE2AppendEditorAbbr"
+></indexedItem
 ><object
 type="tAttribute"
 >appendEdAbbreviation</object
@@ -6310,7 +6463,7 @@ type="tAttribute"
 >plural</object
 > attribute of the <object
 type="tElement"
->procEd</object
+>seriesEd</object
 > element is set to <object
 type="tAttrValue"
 >no</object
@@ -6327,6 +6480,78 @@ type="tAttrValue"
 ></tr
 ></table
 ></td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefProcEd2TextPlural"
+></indexedItem
+><object
+type="tAttribute"
+>edTextPlural</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the plural “eds” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefProcEd2TextSingualar"
+></indexedItem
+><object
+type="tAttribute"
+>edTextSingular</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what the singular “ed” text material is, put it here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefProcEd2TextAfter"
+></indexedItem
+><object
+type="tAttribute"
+>edTextafter</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘after’ text material here.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iRefProcEd2TextBefore"
+></indexedItem
+><object
+type="tAttribute"
+>edTextbefore</object
+></td
+><td
+>If <object
+type="tAttribute"
+>appendEdAbbreviation</object
+> is set to <object
+type="tAttrValue"
+>yes</object
+> and you need to control what comes before and after the “ed” or “eds”, put the ‘before’ text material here.</td
 ></tr
 ></table
 ></td
@@ -15971,16 +16196,97 @@ id="iEdition"
 id="iCollEd"
 ><term
 >Editor of a collection (part of a referenced work)</term
+><indexTerms
+><indexTerm
+id="iRefCollE2AppendEditorAbbr"
+><term
+>Append editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefCollEd2TextAfter"
+><term
+>Text after editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefCollEd2TextBefore"
+><term
+>Text before editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefCollEd2TextPlural"
+><term
+>Text of editor abbreviation (plural form)</term
+></indexTerm
+><indexTerm
+id="iRefCollEd2TextSingualar"
+><term
+>Text of editor abbreviation (singular form)</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iProcEd"
 ><term
 >Editor of a proceedings volume (part of a referenced work)</term
+><indexTerms
+><indexTerm
+id="iRefProcE2AppendEditorAbbr"
+><term
+>Append editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefProcEd2TextAfter"
+><term
+>Text after editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefProcEd2TextBefore"
+><term
+>Text before editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefProcEd2TextPlural"
+><term
+>Text of editor abbreviation (plural form)</term
+></indexTerm
+><indexTerm
+id="iRefProcEd2TextSingualar"
+><term
+>Text of editor abbreviation (singular form)</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iSeriesEd"
 ><term
 >Editor of a series (part of a referenced work)</term
+><indexTerms
+><indexTerm
+id="iRefSeriesE2AppendEditorAbbr"
+><term
+>Append editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefSeriesE2TextAfter"
+><term
+>Text after editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefSeriesEd2TextBefore"
+><term
+>Text before editor abbreviation</term
+></indexTerm
+><indexTerm
+id="iRefSeriesEd2TextPlural"
+><term
+>Text of editor abbreviation (plural form)</term
+></indexTerm
+><indexTerm
+id="iRefSeriesEd2TextSingualar"
+><term
+>Text of editor abbreviation (singular form)</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iEmailAddressLayout"

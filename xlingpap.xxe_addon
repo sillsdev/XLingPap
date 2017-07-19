@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-14</a:date
+>2017-07-19</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.3 14 July 2017<ul
+>3.1.3 19 July 2017<ul
+><li
+>In a publisher style sheet, add a way to control the editor abbreviation in collEd, procEd, and seriesEd elements.  Control is over text before and after the abbreviation as well as the content of the abbreviation itself.</li
+><li
+>Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
 ><li
 >Improve publisher style sheet documentation.</li
 ><li

@@ -970,6 +970,17 @@
                                     <xsl:with-param name="item" select="normalize-space($book/series)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='seriesEdItem'">
+                                <xsl:variable name="item" select="$book/seriesEd"/>
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
+                            </xsl:when>
                             <xsl:when test="name(.)='bVolItem'">
                                 <xsl:call-template name="OutputReferenceItem">
                                     <xsl:with-param name="item" select="normalize-space($book/bVol)"/>
@@ -1591,11 +1602,41 @@
         <xsl:param name="item"/>
         <xsl:if test="string-length(normalize-space($item)) &gt; 0">
             <xsl:choose>
-                <xsl:when test="$item/@plural='no'">
-                    <xsl:text>, ed. </xsl:text>
+                <xsl:when test="string-length(@edTextbefore) &gt; 0">
+                    <xsl:value-of select="@edTextbefore"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>, eds. </xsl:text>
+                    <xsl:text>, </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="$item/@plural='no'">
+                    <xsl:choose>
+                        <xsl:when test="string-length(@edTextSingular) &gt; 0">
+                            <xsl:value-of select="@edTextSingular"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>ed</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="string-length(@edTextPlural) &gt; 0">
+                            <xsl:value-of select="@edTextPlural"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>eds</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="string-length(@edTextafter) &gt; 0">
+                    <xsl:value-of select="@edTextafter"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>. </xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>

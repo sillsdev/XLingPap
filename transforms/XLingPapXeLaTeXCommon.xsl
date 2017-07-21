@@ -8545,25 +8545,10 @@
                 </tex:cmd>
             </xsl:for-each>
         </xsl:if>
-        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
-        <xsl:if test="string-length($sTextTransform) &gt; 0">
-            <!--  and $originalContext and name($originalContext/*)='' -->
-            <xsl:if test="not($originalContext) or name($originalContext/*)=''">
-                <xsl:choose>
-                    <xsl:when test="$sTextTransform='uppercase'">
-                        <tex:spec cat="bg"/>
-                        <tex:cmd name="MakeUppercase" gr="0"/>
-                        <tex:spec cat="bg"/>
-                    </xsl:when>
-                    <xsl:when test="$sTextTransform='lowercase'">
-                        <tex:spec cat="bg"/>
-                        <tex:cmd name="MakeLowercase" gr="0"/>
-                        <tex:spec cat="bg"/>
-                    </xsl:when>
-                    <!-- we ignore 'captialize' and 'none' -->
-                </xsl:choose>
-            </xsl:if>
-        </xsl:if>
+        <xsl:call-template name="OutputTextTransform">
+            <xsl:with-param name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
         </xsl:call-template>
@@ -8635,23 +8620,10 @@
         <xsl:call-template name="OutputTypeAttributesEnd">
             <xsl:with-param name="sList" select="$language/@XeLaTeXSpecial"/>
         </xsl:call-template>
-        <xsl:variable name="sTextTransform" select="normalize-space($language/@text-transform)"/>
-        <xsl:if test="string-length($sTextTransform) &gt; 0">
-            <!--  and $originalContext and name($originalContext/*)='' -->
-            <xsl:if test="not($originalContext) or name($originalContext/*)=''">
-                <xsl:choose>
-                    <xsl:when test="$sTextTransform='uppercase'">
-                        <tex:spec cat="eg"/>
-                        <tex:spec cat="eg"/>
-                    </xsl:when>
-                    <xsl:when test="$sTextTransform='lowercase'">
-                        <tex:spec cat="eg"/>
-                        <tex:spec cat="eg"/>
-                    </xsl:when>
-                    <!-- we ignore 'captialize' and 'none' -->
-                </xsl:choose>
-            </xsl:if>
-        </xsl:if>
+        <xsl:call-template name="OutputTextTransformEnd">
+            <xsl:with-param name="sTextTransform" select="normalize-space($language/@text-transform)"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
         <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
         <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
             <tex:spec cat="eg"/>
@@ -10003,6 +9975,54 @@
                     <tex:cmd name="baselineskip"/>
                 </tex:parm>
             </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputTextTransform
+    -->
+    <xsl:template name="OutputTextTransform">
+        <xsl:param name="sTextTransform"/>
+        <xsl:param name="originalContext"/>
+        <xsl:if test="string-length($sTextTransform) &gt; 0">
+            <!--  and $originalContext and name($originalContext/*)='' -->
+            <xsl:if test="not($originalContext) or name($originalContext/*)=''">
+                <xsl:choose>
+                    <xsl:when test="$sTextTransform='uppercase'">
+                        <tex:spec cat="bg"/>
+                        <tex:cmd name="MakeUppercase" gr="0"/>
+                        <tex:spec cat="bg"/>
+                    </xsl:when>
+                    <xsl:when test="$sTextTransform='lowercase'">
+                        <tex:spec cat="bg"/>
+                        <tex:cmd name="MakeLowercase" gr="0"/>
+                        <tex:spec cat="bg"/>
+                    </xsl:when>
+                    <!-- we ignore 'captialize' and 'none' -->
+                </xsl:choose>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputTextTransformEnd
+    -->
+    <xsl:template name="OutputTextTransformEnd">
+        <xsl:param name="sTextTransform"/>
+        <xsl:param name="originalContext"/>
+        <xsl:if test="string-length($sTextTransform) &gt; 0">
+            <!--  and $originalContext and name($originalContext/*)='' -->
+            <xsl:if test="not($originalContext) or name($originalContext/*)=''">
+                <xsl:choose>
+                    <xsl:when test="$sTextTransform='uppercase'">
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="eg"/>
+                    </xsl:when>
+                    <xsl:when test="$sTextTransform='lowercase'">
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="eg"/>
+                    </xsl:when>
+                    <!-- we ignore 'captialize' and 'none' -->
+                </xsl:choose>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  

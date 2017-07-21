@@ -4,6 +4,7 @@
         abstract  (contents)
     -->
     <xsl:template match="abstract" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
@@ -24,12 +25,14 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         acknowledgements (contents)
     -->
     <xsl:template match="acknowledgements" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
@@ -50,12 +53,14 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         appendix (contents)
     -->
     <xsl:template match="appendix[not(ancestor::chapterInCollection)]" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:variable name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:if test="$frontMatterLayout/contentsLayout/@showappendices!='no'">
             <xsl:call-template name="OutputTOCLine">
@@ -78,6 +83,7 @@
                 <xsl:with-param name="sSpaceBefore">
                     <xsl:call-template name="DoSpaceBeforeContentsLine"/>
                 </xsl:with-param>
+                <xsl:with-param name="text-transform" select="$text-transform"/>
             </xsl:call-template>
             <xsl:if test="$frontMatterLayout/contentsLayout/@showsectionsinappendices!='no'">
                 <xsl:apply-templates select="section1 | section2" mode="contents"/>
@@ -223,6 +229,7 @@
       endnotes (contents)
    -->
     <xsl:template match="endnotes" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
@@ -243,12 +250,14 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         glossary (contents)
     -->
     <xsl:template match="glossary" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:param name="iLayoutPosition" select="0"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:variable name="fLayoutIsLastOfMany">
@@ -269,18 +278,21 @@
                 <!-- there's one and only one glossaryLayout; use it -->
                 <xsl:call-template name="OutputGlossaryTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$iLayoutPosition = $iPos">
                 <!-- there are many glossaryLayouts; use the one that matches in position -->
                 <xsl:call-template name="OutputGlossaryTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
                 <!-- there are many glossaryLayouts and there are more glossary elements than glossaryLayout elements; use the last layout -->
                 <xsl:call-template name="OutputGlossaryTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
@@ -289,6 +301,7 @@
         keywords (contents)
     -->
     <xsl:template match="keywordsShownHere[@showincontents='yes']" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
@@ -318,12 +331,14 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!--
         index  (contents)
     -->
     <xsl:template match="index" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="CreateIndexID"/>
@@ -334,6 +349,7 @@
             <xsl:with-param name="sSpaceBefore">
                 <xsl:call-template name="DoSpaceBeforeContentsLine"/>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -341,6 +357,7 @@
     -->
     <xsl:template match="preface" mode="contents">
         <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:param name="text-transform"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
         <xsl:variable name="fLayoutIsLastOfMany">
             <xsl:choose>
@@ -360,18 +377,21 @@
                 <!-- there's one and only one prefaceLayout; use it -->
                 <xsl:call-template name="OutputPrefaceTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$iLayoutPosition = $iPos">
                 <!-- there are many prefaceLayouts; use the one that matches in position -->
                 <xsl:call-template name="OutputPrefaceTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
                 <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
                 <xsl:call-template name="OutputPrefaceTOCLine">
                     <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>
@@ -380,6 +400,7 @@
         references (contents)
     -->
     <xsl:template match="references" mode="contents">
+        <xsl:param name="text-transform"/>
         <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
         <xsl:if test="$authors">
             <xsl:call-template name="OutputTOCLine">
@@ -402,6 +423,7 @@
                         <xsl:otherwise>0pt</xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
+                <xsl:with-param name="text-transform" select="$text-transform"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -494,6 +516,7 @@
     -->
     <xsl:template name="OutputGlossaryTOCLine">
         <xsl:param name="iPos"/>
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:call-template name="GetIdToUse">
@@ -514,6 +537,7 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -521,6 +545,7 @@
     -->
     <xsl:template name="OutputPrefaceTOCLine">
         <xsl:param name="iPos"/>
+        <xsl:param name="text-transform"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink">
                 <xsl:variable name="sPos" select="$iPos"/>
@@ -542,6 +567,7 @@
                     <xsl:otherwise>0pt</xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="text-transform" select="$text-transform"/>
         </xsl:call-template>
     </xsl:template>
 </xsl:stylesheet>

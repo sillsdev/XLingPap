@@ -460,6 +460,7 @@ Front MatterLayout
      useperiodafterappendixletter (yes | no) 'no'
      useperiodafterchapternumber (yes | no) 'no'
      useperiodaftersectionnumber (yes | no) 'no'
+     usetext-transformofitem (yes | no) 'no'
      contentType IDREF #IMPLIED
     >
 <!ELEMENT acknowledgementsLayout EMPTY >

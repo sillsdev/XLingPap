@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc">
+<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
         part (contents) 
@@ -91,6 +92,7 @@
         <xsl:param name="sIndent" select="'0'"/>
         <xsl:param name="override"/>
         <xsl:param name="fUseHalfSpacing" select="'N'"/>
+        <xsl:param name="text-transform"/>
         <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
@@ -181,6 +183,7 @@
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
+                        <xsl:with-param name="text-transform" select="$text-transform"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
                     <xsl:if test="$layout/@showpagenumber!='no'">
@@ -225,6 +228,7 @@
     <xsl:template name="OutputTOCTitle">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
+        <xsl:param name="text-transform"/>
         <span>
             <!--            <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
@@ -232,6 +236,13 @@
                 </xsl:call-template>
             </xsl:if>
 -->
+            <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes' and string-length($text-transform) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:text>text-transform:</xsl:text>
+                    <xsl:value-of select="$text-transform"/>
+                    <xsl:text>;</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:copy-of select="$sLabel"/>
         </span>
     </xsl:template>

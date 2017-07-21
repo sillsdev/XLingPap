@@ -1681,6 +1681,7 @@ li.lower-roman {
     <xsl:template match="@useperiodafterchapternumber"/>
     <xsl:template match="@useperiodafternumber"/>
     <xsl:template match="@useperiodaftersectionnumber"/>
+    <xsl:template match="@usetext-transformofitem"/>
     <xsl:template match="@usetitleinheader"/>
     <xsl:template match="@version"/>
     <xsl:template match="@verticalfillafter"/>

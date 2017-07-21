@@ -91,6 +91,7 @@
         <xsl:param name="sIndent" select="'0'"/>
         <xsl:param name="override"/>
         <xsl:param name="fUseHalfSpacing"/>
+        <xsl:param name="text-transform"/>
         <xsl:variable name="layout" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
@@ -159,6 +160,7 @@
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
+                        <xsl:with-param name="text-transform" select="$text-transform"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
                     <xsl:if test="$layout/@showpagenumber!='no'">
@@ -201,11 +203,17 @@
     <xsl:template name="OutputTOCTitle">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
+        <xsl:param name="text-transform"/>
         <fo:inline>
             <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
+            </xsl:if>
+            <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes' and string-length(normalize-space($text-transform)) &gt; 0">
+                <xsl:attribute name="text-transform">
+                    <xsl:value-of select="$text-transform"/>
+                </xsl:attribute>
             </xsl:if>
             <xsl:copy-of select="$sLabel"/>
         </fo:inline>

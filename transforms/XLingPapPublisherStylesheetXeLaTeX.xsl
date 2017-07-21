@@ -3704,7 +3704,9 @@
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
-                    <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='appendicesTitlePageLayout'">
                     <xsl:if test="count(//appendix)&gt;1">
@@ -3713,12 +3715,14 @@
                             <xsl:with-param name="sLabel">
                                 <xsl:call-template name="OutputAppendiciesLabel"/>
                             </xsl:with-param>
+                            <xsl:with-param name="text-transform" select="@text-transform"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='appendixLayout'">
                     <xsl:apply-templates select="$backMatter/appendix" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevel"/>
+                        <xsl:with-param name="text-transform" select="appendixTitleLayout/@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
@@ -3733,22 +3737,33 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:with-param>
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
-                    <xsl:apply-templates select="$backMatter/index" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/index" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='keywordsLayout'">
-                    <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
-                    <xsl:apply-templates select="$backMatter/references" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/references" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesLayout' and not($backMatter[ancestor::chapterInCollection])">
-                    <xsl:apply-templates select="$backMatter/references" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/references" mode="contents">
+                        <xsl:with-param name="text-transform" select="../referencesTitleLayout/@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
-                    <xsl:apply-templates select="$backMatter/endnotes" mode="contents"/>
+                    <xsl:apply-templates select="$backMatter/endnotes" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
@@ -4667,13 +4682,19 @@
         <xsl:for-each select="$frontMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
-                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="contents"/>
+                    <xsl:apply-templates select="$frontMatter/acknowledgements" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
-                    <xsl:apply-templates select="$frontMatter/abstract" mode="contents"/>
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='keywordsLayout'">
-                    <xsl:apply-templates select="$frontMatter/keywordsShownHere[@showincontents='yes']" mode="contents"/>
+                    <xsl:apply-templates select="$frontMatter/keywordsShownHere[@showincontents='yes']" mode="contents">
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="contents">
@@ -4687,6 +4708,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:with-param>
+                        <xsl:with-param name="text-transform" select="@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>

@@ -47,7 +47,8 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
+                    <xsl:when
+                        test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
                         <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -113,7 +114,7 @@
                     <tex:cmd name="{$sLevelName}indent" gr="0"/>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:value-of select="$sChapterLineIndent"/>        
+                    <xsl:value-of select="$sChapterLineIndent"/>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
@@ -143,6 +144,7 @@
         <xsl:param name="override"/>
         <xsl:param name="sNumWidth" select="'0pt'"/>
         <xsl:param name="fUseHalfSpacing"/>
+        <xsl:param name="text-transform"/>
         <xsl:variable name="layout" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
@@ -171,6 +173,7 @@
                 <xsl:call-template name="OutputTOCTitle">
                     <xsl:with-param name="linkLayout" select="$linkLayout"/>
                     <xsl:with-param name="sLabel" select="$sLabel"/>
+                    <xsl:with-param name="text-transform" select="$text-transform"/>
                 </xsl:call-template>
             </tex:parm>
             <tex:parm>
@@ -217,12 +220,23 @@
     <xsl:template name="OutputTOCTitle">
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
+        <xsl:param name="text-transform"/>
         <xsl:if test="$linkLayout/@linktitle!='no'">
             <xsl:call-template name="LinkAttributesBegin">
                 <xsl:with-param name="override" select="$linkLayout"/>
             </xsl:call-template>
         </xsl:if>
+        <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes'">
+            <xsl:call-template name="OutputTextTransform">
+                <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:copy-of select="$sLabel"/>
+        <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes'">
+            <xsl:call-template name="OutputTextTransformEnd">
+                <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:if test="$linkLayout/@linktitle!='no'">
             <xsl:call-template name="LinkAttributesEnd">
                 <xsl:with-param name="override" select="$linkLayout"/>

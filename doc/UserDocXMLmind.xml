@@ -7,12 +7,26 @@ showindexeditemsineditor="yes"
 version="2.0.0"
 ><frontMatter
 ><title
->User Documentation</title
+><object
+type="tXLingPap"
+></object
+> User Documentation</title
 ><subtitle
+><titleContentChoices
+><titleContent
+contentType="ctVersion5.3"
 >Using the <object
 type="tXMLmindXMLEditor"
 ></object
-> version 7.3+</subtitle
+> version 5.3</titleContent
+><titleContent
+contentType="ctVersion7Plus"
+>Using the <object
+type="tXMLmindXMLEditor"
+></object
+> version 7.3+</titleContent
+></titleContentChoices
+></subtitle
 ><author
 >H. Andrew Black</author
 ><affiliation
@@ -20,9 +34,12 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 June 2017</date
-><version
->3.1.2</version
+>24 July 2017</date
+><xi:include
+href="VersionStub.xml"
+xpointer="element(/1/1/4)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><contents
 showLevel="4"
 ></contents
@@ -220,21 +237,30 @@ type="tXMLmindXMLEditor"
 ><endnote
 id="nXMLmind"
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3</comment
 >See <link
 href="http://www.xmlmind.com/xmleditor/"
 >http://www.xmlmind.com/xmleditor/</link
-> for current information on this editor.<comment
-> For <object
+> for current information on this editor. For <object
 type="tXLingPap"
 ></object
 >, however, we use an older version of the <object
 type="tXMLmindXMLEditor"
 ></object
 >. See <link
-href="http://www.xlingpaper.org/?page_id=51"
->http://www.xlingpaper.org/?page_id=51</link
-> for how to obtain it.</comment
-></p
+href="http://software.sil.org/xlingpaper/resources/how-to-install/"
+>http://software.sil.org/xlingpaper/resources/how-to-install/</link
+> for how to obtain it.</p
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+</comment
+>See <link
+href="http://www.xmlmind.com/xmleditor/"
+>http://www.xmlmind.com/xmleditor/</link
+> for current information on this editor.</p
 ></endnote
 > is a freely downloadable editor that makes it quite easy to create not only <object
 type="tXLingPap"
@@ -248,7 +274,7 @@ type="tXLingPap"
 ><li
 >There are templates which make it easy to start a new document and also to easily create various kinds of examples, lists, tables, etc.</li
 ><li
->As a structured editor, one can only insert elements (e.g. citations, examples, lists) when it is appropriate to do so.</li
+>As a structured editor, one can only insert elements (e.g., citations, examples, lists) when it is appropriate to do so.</li
 ><li
 >There are ways to easily set references to examples, sections, etc.</li
 ><li
@@ -1821,7 +1847,10 @@ type="tXLingPap"
 > will use a title of "Abstract" for the abstract. If you wish to use some other title, set the <object
 type="tAttribute"
 >label</object
-> attribute to the title you want to use.</p
+> attribute to the title you want to use.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></p
 ><p
 >It is possible to have more than one <object
 type="tElement"
@@ -4991,6 +5020,34 @@ sec="sReferencesSort"
 ><p
 >Select the work you want to see or edit (or add a new work before or after).</p
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3</comment
+>After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
+type="tXMLmindXMLEditor"
+></object
+>'s <object
+type="tInstruction"
+>Search / Bookmark / Go to Last Visited or Go Back</object
+> menu item command.<endnote
+id="nEnableBookmarksInXXE"
+><p
+>Some more recent versions of the <object
+type="tXMLmindXMLEditor"
+></object
+> do not automatically show this menu item. If this is the case for you, then please turn it on by using the <object
+type="tInstruction"
+>Options / Preferences</object
+> menu item and then in the <object
+type="tInstruction"
+>General / Features</object
+> portion, make sure that “Enable the Search|Bookmark Submenu” is checked.</p
+></endnote
+></p
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+</comment
 >After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -12775,7 +12832,16 @@ id="sTCTFootnotesInTables"
 >You can have footnotes in tables. <object
 type="tXLingPap"
 ></object
->'s default behavior is to show the footnotes in the table just like it does footnotes/endnotes in prose.</p
+>'s default behavior is to show the footnotes in the table just like it does footnotes/endnotes in prose. <indexedItem
+term="iEndnoteInTh"
+></indexedItem
+>Please note that if the table is long, you will most likely not want to have any <object
+type="tElement"
+>endnote</object
+> elements inside a <object
+type="tElement"
+>th</object
+> element that forms a part of the header for the table. This is because if the table goes across a page boundary, the PDF formatting programs will automatically repeat the header information, footnote and all, on the next page. Thus, you will get the same footnote repeated once for every page the long table is on.</p
 ><p
 >There are times, however, when you might need to have any footnotes in a given table show at the bottom of that table, not in the default location for general footnotes/endnotes. In such cases, the norm is not to use footnote numbers but rather a sequence of symbols such as an asterisk (*), a dagger (†), a double dagger (‡), a section symbol (§), and a paragraph symbol (¶). That is, the requirement is for the footnotes to stay with the table wherever that table appears and the footnote numbering is totally independent of the main footnote numbering elsewhere in the paper. How does one accomplish this with <object
 type="tXLingPap"
@@ -13008,7 +13074,7 @@ type="tAttrValue"
 > and <object
 type="tAttrValue"
 >line-after</object
-> in endnote. See appendix <appendixRef
+> in Appendix <appendixRef
 app="aXeLaTeXSpecial"
 ></appendixRef
 >.</p
@@ -13360,12 +13426,12 @@ lang="lEng"
 ><section3
 id="sTCTTablesPDF"
 ><secTitle
->Tables in Default PDF Output </secTitle
+>Tables in Default PDF Output</secTitle
 ><p
 >When using the default way of producing PDF (via <object
 type="tXeTeX"
 ></object
->), there are some special cases you may run into.  See the first five bullet points in section <sectionRef
+>), there are some special cases you may run into. See the first five bullet points in section <sectionRef
 sec="sXeTeXLimitations"
 ></sectionRef
 >.</p
@@ -13373,7 +13439,7 @@ sec="sXeTeXLimitations"
 >In addition, you may find you need to set the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
-> attribute sometimes to get certain special effects.  The following lists them with links to where the content of the <object
+> attribute sometimes to get certain special effects. The following lists them with links to where the content of the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute is found.</p
@@ -13736,7 +13802,7 @@ id="nLingTree"
 >When using <object
 type="tTool"
 >LingTree</object
->, you can set it up so that its output is in SVG format.  Then see <genericRef
+>, you can set it up so that its output is in SVG format. Then see <genericRef
 gref="gConvertSVGtoPDF"
 >converting SVG to PDF</genericRef
 >.</p
@@ -18186,6 +18252,9 @@ type="tElement"
 >The Type chooser dialog above will then be shown and you can select the type of this object.</li
 ></ol
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3 begins here</comment
 >The attributes of the <object
 type="tElement"
 >type</object
@@ -18197,6 +18266,7 @@ note="nAttributesToolReminder"
 ></endnoteRef
 ></p
 ><example
+contentType="ctVersion5.3"
 num="xTypeAttributes"
 ><table
 ><tr
@@ -18253,6 +18323,391 @@ type="tXMLmindXMLEditor"
 ></object
 >) replace XML character entities with the content of the entity.</p
 ></endnote
+></langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>before</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is the same as the <object
+type="tAttribute"
+>after</object
+> attribute, except the text appears before the object. Note that by using both the <object
+type="tAttribute"
+>before</object
+> and the <object
+type="tAttribute"
+>after</object
+> attributes, it is possible to surround the content of the <object
+type="tElement"
+>object</object
+> element with some text.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>cssSpecial</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is a way to allow the user to add Cascading Style Sheet attributes which are not defined in other attributes of a <object
+type="tElement"
+>type</object
+> element. CSS attributes only work for webpage output. Click <link
+href="http://msdn.microsoft.com/en-us/library/ms531209.aspx"
+>here</link
+> to see one webpage that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-family</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is the font name to use (e.g. <object
+type="tAttrValue"
+>Times New Roman</object
+> or <object
+type="tAttrValue"
+>Courier New</object
+>).</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-size</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> (user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is the font size. If it is expressed in points, it should have the value followed by <object
+type="tAttrValue"
+>pt</object
+>. Perhaps the wisest way to specify a font size is to use a percentage (e.g. <object
+type="tAttrValue"
+>120%</object
+>). Then, if you use this element in a <object
+type="tElement"
+>secTitle</object
+> or an <object
+type="tElement"
+>endnote</object
+> element, it should come out proportionately well in those contexts.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-style</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>normal</object
+>, <object
+type="tAttrValue"
+>italic</object
+>, <object
+type="tAttrValue"
+>oblique</object
+>, <object
+type="tAttrValue"
+>backslant</object
+>, or <object
+type="tAttrValue"
+>inherit</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>You can use this to set the font style. The most common usage will be to set it to <object
+type="tAttrValue"
+>italic</object
+>.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-variant</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>normal</object
+>, <object
+type="tAttrValue"
+>small-caps</object
+>, or <object
+type="tAttrValue"
+>inherit</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>You can use this to set the font variant. The most common usage will be to set it to <object
+type="tAttrValue"
+>small-caps</object
+>.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>font-weight</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>normal</object
+>, <object
+type="tAttrValue"
+>bold</object
+>, <object
+type="tAttrValue"
+>bolder</object
+>, <object
+type="tAttrValue"
+>lighter</object
+>, <object
+type="tAttrValue"
+>100</object
+>, ... <object
+type="tAttrValue"
+>900</object
+>, or <object
+type="tAttrValue"
+>inherit</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+>You can use this to set the font weight. The most common usage will be to set it to <object
+type="tAttrValue"
+>bold</object
+>.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>types</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> One or more references to other <object
+type="tElement"
+>type</object
+> elements.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is a way to define some basic special effects and then to combine them in another type.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. It is intended to be used only for attributes which are not defined in other attributes of a <object
+type="tElement"
+>type</object
+> element. XeLaTeX attributes only work for the “default” PDF output. Each one needs to be followed by a space. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. </langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>xsl‑foSpecial</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is a way to allow the user to add XSL-FO attributes which are not defined in other attributes of a <object
+type="tElement"
+>type</object
+> element. XSL-FO attributes only work for PDF and <object
+type="tTool"
+>Microsoft Word 2003</object
+> output. Each one needs to be followed by a space.<endnoteRef
+note="nXsl-FoAttributes"
+></endnoteRef
+> </langData
+></td
+></tr
+></table
+></example
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+ begins here</comment
+>The attributes of the <object
+type="tElement"
+>type</object
+> element are summarized in the table shown in <exampleRef
+num="xTypeAttributes2"
+></exampleRef
+>.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+></p
+><example
+contentType="ctVersion7Plus"
+num="xTypeAttributes2"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>after</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Text that is to appear after the <object
+type="tElement"
+></object
+> element. This is what I do here for the <object
+type="tXLingPap"
+></object
+> object: I never have to type “XLingPaper”. I just create an instance of an object whose type has the <object
+type="tAttribute"
+>after</object
+> attribute set to <object
+type="tAttrValue"
+>XLingPaper</object
+>.<endnote
+id="nTypeBeforeAfterAsEntity2"
+><p
+>This then acts rather like an XML character entity. Some XML editors (like the <object
+type="tXMLmindXMLEditor"
+></object
+>) replace XML character entities with the content of the entity.</p
+></endnote
 > Please note that with the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -18268,6 +18723,15 @@ type="tAttribute"
 > attribute. It will show the next time you open the document or if you use menu item <object
 type="tInstruction"
 >View / Redraw</object
+>.  Alternatively, as soon as you finish adding the new <object
+type="tElement"
+>object</object
+> element, type <object
+type="tKey"
+>Ctrl-z</object
+> and then <object
+type="tKey"
+>Ctrl-y</object
 >.</langData
 ></td
 ></tr
@@ -18582,6 +19046,8 @@ note="nXsl-FoAttributes"
 ></table
 ></example
 ><p
+><comment
+>Back to both versions</comment
 >You can also add highlights or other effects to a language data item by embedding an <object
 type="tElement"
 >object</object
@@ -19910,42 +20376,45 @@ id="sFAQSpellingCheck"
 ><secTitle
 >Do a spelling check?</secTitle
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3 begins here</comment
 ><indexedItem
 term="iCheckSpelling"
 ></indexedItem
->Unlike earlier versions of the <object
-type="tXMLmindXMLEditor"
-></object
->, <object
-type="tXMLmindXMLEditor"
-></object
-> version 7.3+ has a way to dynamically indicate mis-spelled words. Like many other editors, it uses a red squiggle line underneath the word to indicate a word it does not recognize.</p
-><p
->You control what language it uses, among other things, by clicking on the Check Spelling dropdown icon at the bottom of the screen. It looks like this: <img
-src="resources/CheckSpelling.png"
+>To perform a spelling check, use the Spell Tool. It is located in the same place that the Attributes Tool is,<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> but is on a different tab. The Spell Tool's tab icon looks like this: <img
+src="resources/SpellToolIcon.png"
 ></img
-> If you click on the part to the left, it controls whether the dynamic spelling checking is done or not (the little check box is checked when it is set to do checking and it not checked when it is not). The dropdown arrow shows a dialog box where you can choose what language to use for the spelling checking and/or to perform a spelling check.</p
+></p
 ><p
+contentType="ctVersion5.3"
 ><indexedItem
 term="iSpellingTool"
 ></indexedItem
->The dialog box looks something like this:</p
+>Click on the Spell Tool tab. You will see something like this:</p
 ><chart
+contentType="ctVersion5.3"
 ><img
 src="resources/SpellTool.png"
 ></img
 ></chart
 ><p
+contentType="ctVersion5.3"
 >Make sure that the default language is the language your document is written in. If you need a spelling checker for French, German, or Spanish and do not see these languages listed in the Default language drop down, you will need to install the correct addon spelling package. See section <sectionRef
 sec="sFAQSpellingAddon"
 ></sectionRef
 > below.</p
 ><p
+contentType="ctVersion5.3"
 >Click on the Start button. When the <object
 type="tXMLmindXMLEditor"
 ></object
 > finds a word that it does not recognize, it will show it to you in context. You can ignore it, have the spelling checker learn it, or replace it with one of the suggested corrections.</p
 ><p
+contentType="ctVersion5.3"
 >Note that beginning with version 3.4.0 of the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -19957,6 +20426,78 @@ type="tXMLmindXMLEditor"
 ></object
 > ignores these elements:</p
 ><ul
+contentType="ctVersion5.3"
+><li
+><object
+type="tElement"
+>langData</object
+></li
+><li
+><object
+type="tElement"
+>tree</object
+></li
+><li
+><object
+type="tElement"
+>url</object
+></li
+></ul
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+ begins here</comment
+><indexedItem
+term="iCheckSpelling"
+></indexedItem
+>Unlike earlier versions of the <object
+type="tXMLmindXMLEditor"
+></object
+>, <object
+type="tXMLmindXMLEditor"
+></object
+> version 7.3+ has a way to dynamically indicate mis-spelled words. Like many other editors, it uses a red squiggle line underneath the word to indicate a word it does not recognize.</p
+><p
+contentType="ctVersion7Plus"
+>You control what language it uses, among other things, by clicking on the Check Spelling dropdown icon at the bottom of the screen. It looks like this: <img
+src="resources/CheckSpelling.png"
+></img
+> If you click on the part to the left, it controls whether the dynamic spelling checking is done or not (the little check box is checked when it is set to do checking and it not checked when it is not). The dropdown arrow shows a dialog box where you can choose what language to use for the spelling checking and/or to perform a spelling check.</p
+><p
+contentType="ctVersion7Plus"
+><indexedItem
+term="iSpellingTool"
+></indexedItem
+>The dialog box looks something like this:</p
+><chart
+contentType="ctVersion7Plus"
+><img
+src="resources/SpellTool.png"
+></img
+></chart
+><p
+contentType="ctVersion7Plus"
+>Make sure that the default language is the language your document is written in. If you need a spelling checker for French, German, or Spanish and do not see these languages listed in the Default language drop down, you will need to install the correct addon spelling package. See section <sectionRef
+sec="sFAQSpellingAddon"
+></sectionRef
+> below.</p
+><p
+contentType="ctVersion7Plus"
+>Click on the Start button. When the <object
+type="tXMLmindXMLEditor"
+></object
+> finds a word that it does not recognize, it will show it to you in context. You can ignore it, have the spelling checker learn it, or replace it with one of the suggested corrections.</p
+><p
+contentType="ctVersion7Plus"
+>This version of <object
+type="tXLingPap"
+></object
+> for the <object
+type="tXMLmindXMLEditor"
+></object
+> ignores the contents of these elements while doing a spelling check:</p
+><ul
+contentType="ctVersion7Plus"
 ><li
 ><object
 type="tElement"
@@ -19978,6 +20519,23 @@ id="sFAQSpellingAddon"
 ><secTitle
 >Adding a spelling checker language</secTitle
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3</comment
+>To add a spelling checker for French, German, or Spanish, go to the resources page on the <object
+type="tXLingPap"
+></object
+> web site (<link
+href="http://software.sil.org/xlingpaper/resources/"
+>http://software.sil.org/xlingpaper/resources/</link
+>). Go to the section for getting the French, German, or Spanish files and follow the instructions. You will need to restart the <object
+type="tXMLmindXMLEditor"
+></object
+> after installing the dictionary files.</p
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+</comment
 >To add a spelling checker for <object
 type="tXMLmindXMLEditor"
 ></object
@@ -23282,6 +23840,38 @@ type="tXLingPap"
 >To use one of these non-English versions of the user interface, do the following steps:</p
 ><ol
 ><li
+contentType="ctVersion5.3"
+><comment
+>Version 5.3 begins here</comment
+>Exit out of the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
+><li
+contentType="ctVersion5.3"
+>Go to the resources page on the <object
+type="tXLingPap"
+></object
+> web site (<link
+href="http://software.sil.org/xlingpaper/resources/"
+>http://software.sil.org/xlingpaper/resources/</link
+>).</li
+><li
+contentType="ctVersion5.3"
+>Find the section for the French or Spanish user interface.</li
+><li
+contentType="ctVersion5.3"
+>Download and run the installer per the instructions.</li
+><li
+contentType="ctVersion5.3"
+>Restart the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
+><li
+contentType="ctVersion7Plus"
+><comment
+>Version 7+</comment
 >Use <object
 type="tInstruction"
 >Options menu item / Intall Add-ons</object
@@ -25003,6 +25593,23 @@ type="tElement"
 >refWork</object
 > that you selected.</p
 ><p
+contentType="ctVersion5.3"
+><comment
+>Version 5.3</comment
+>After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
+type="tXMLmindXMLEditor"
+></object
+>'s <object
+type="tInstruction"
+>Search / Bookmark / Go to Last Visited or Go Back</object
+> menu item command.<endnoteRef
+note="nEnableBookmarksInXXE"
+></endnoteRef
+></p
+><p
+contentType="ctVersion7Plus"
+><comment
+>Version 7+</comment
 >After you do whatever it is you need to do in the references, you can return to where you were when you jumped to the references section. You return by using the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -25974,8 +26581,6 @@ type="tInstruction"
 type="tAttrValue"
 >ctComparative</object
 >).</p
-><p
-></p
 ><p
 >The complete list of elements which can be tagged with a content type id is given in example <exampleRef
 letter="xContentTypeChunkElements"
@@ -32774,6 +33379,11 @@ type="tElement"
 > element</term
 ></indexTerm
 ><indexTerm
+id="iEndnoteInTh"
+><term
+>Footnote in table header</term
+></indexTerm
+><indexTerm
 id="iEndnoteReference"
 ><term
 >Reference to endnote</term
@@ -34649,5 +35259,25 @@ id="iZotero"
 >Zotero</term
 ></indexTerm
 ></indexTerms
+><contentControl
+><contentTypes
+><contentType
+id="ctVersion5.3"
+>Version 5.3 only</contentType
+><contentType
+id="ctVersion7Plus"
+>Version 7+ only</contentType
+></contentTypes
+><contentControlChoices
+><contentControlChoice
+active="no"
+exclude="ctVersion7Plus"
+>Version 5.3</contentControlChoice
+><contentControlChoice
+active="yes"
+exclude="ctVersion5.3"
+>Version 7+</contentControlChoice
+></contentControlChoices
+></contentControl
 ></lingPaper
 >

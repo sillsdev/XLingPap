@@ -11,7 +11,9 @@
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputAbstractLabel"/>
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sNestingLevel">
                 <xsl:choose>

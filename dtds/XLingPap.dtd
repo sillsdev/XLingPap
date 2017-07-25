@@ -210,26 +210,26 @@
     xml:lang CDATA #IMPLIED
     contentType IDREF #IMPLIED
 >
-<!ELEMENT acknowledgements (labelContentChoices?, (%chunk;)+)>
+<!ELEMENT acknowledgements (labelContentChoices?, shortTitle?, (%chunk;)+)>
 <!ATTLIST acknowledgements
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT abstract (labelContentChoices?, (%chunk;)+)>
+<!ELEMENT abstract (labelContentChoices?, shortTitle?, (%chunk;)+)>
 <!ATTLIST abstract
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (labelContentChoices?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
+<!ELEMENT preface (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT contents (labelContentChoices?)>
+<!ELEMENT contents (labelContentChoices?, shortTitle?)>
 <!ATTLIST contents
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
@@ -239,7 +239,7 @@
 <!-- an keywordsShownHere element can be placed in front matter or back matter.
     The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.
 -->
-<!ELEMENT keywordsShownHere (labelContentChoices?) >
+<!ELEMENT keywordsShownHere (labelContentChoices?, shortTitle?) >
 <!ATTLIST keywordsShownHere
     label CDATA #IMPLIED
     showincontents (yes | no) "no"
@@ -908,7 +908,7 @@
 <!-- backmatter includes appendices, endnotes and references -->
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>
 <!-- endnotes -->
-<!ELEMENT endnotes (labelContentChoices?, chapterLabelContentChoices?, appendixLabelContentChoices?, partLabelContentChoices?)>
+<!ELEMENT endnotes (labelContentChoices?, shortTitle?, chapterLabelContentChoices?, appendixLabelContentChoices?, partLabelContentChoices?)>
 <!ATTLIST endnotes
     label CDATA #IMPLIED
 >
@@ -939,7 +939,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (labelContentChoices?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
+<!ELEMENT glossary (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -950,7 +950,7 @@
 <!-- selected bibliography 
        This is a place to put citations in the few cases where one wants to have more references than are actually cited in the document body.
 -->
-<!ELEMENT selectedBibliography (labelContentChoices?, (citation+))>
+<!ELEMENT selectedBibliography (labelContentChoices?, shortTitle?, (citation+))>
 <!ATTLIST selectedBibliography
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
@@ -1016,7 +1016,7 @@ Can have more than one (for names, languages, and subjects, e.g.).
        the label attribute provides a way to give it a title 
        the kind attribute indicates which kind of index it is ('common' is used for a single, common index)
        -->
-<!ELEMENT index (labelContentChoices?, (%chunk; | landscape | framedUnit)*)>
+<!ELEMENT index (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST index
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

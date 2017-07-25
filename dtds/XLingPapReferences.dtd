@@ -5,7 +5,7 @@
        The version attribute can be used to keep track of which XLingPap version a master references file is (or was when it was created).
        This is a subcomponent of XLingPap
 -->
-<!ELEMENT references (labelContentChoices?, refAuthor*, annotatedBibliographyTypes?)>
+<!ELEMENT references (labelContentChoices?, shortTitle?, refAuthor*, annotatedBibliographyTypes?)>
 <!ATTLIST references
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

@@ -680,6 +680,11 @@
                 <xsl:call-template name="OutputAbstractLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -703,6 +708,11 @@
             </xsl:with-param>
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:choose>
             <xsl:when test="$frontMatterLayout/abstractTextFontInfo">
@@ -773,6 +783,11 @@
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAcknowledgementsLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -790,6 +805,11 @@
                 <xsl:call-template name="OutputAcknowledgementsLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayout/acknowledgementsLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAcknowledgementsLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -819,6 +839,11 @@
                             </xsl:with-param>
                             <xsl:with-param name="bIsBook" select="'N'"/>
                             <xsl:with-param name="layoutInfo" select="$frontMatterLayout/acknowledgementsLayout"/>
+                            <xsl:with-param name="sRunningHeader">
+                                <xsl:call-template name="OutputAcknowledgementsLabel">
+                                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
@@ -833,6 +858,11 @@
                             </xsl:with-param>
                             <xsl:with-param name="bIsBook" select="'N'"/>
                             <xsl:with-param name="layoutInfo" select="$backMatterLayout/acknowledgementsLayout"/>
+                            <xsl:with-param name="sRunningHeader">
+                                <xsl:call-template name="OutputAcknowledgementsLabel">
+                                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                                </xsl:call-template>
+                            </xsl:with-param>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -3582,6 +3612,9 @@
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAppendiciesLabel"/>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:call-template name="OutputBookmark">
             <xsl:with-param name="sLink" select="$sAppendiciesPageID"/>
@@ -3973,6 +4006,11 @@
                         content of the hypertarget be empty, we suddenly got an extra page break here.
                     -->
                     <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+                    <xsl:with-param name="sRunningHeader">
+                        <xsl:call-template name="OutputContentsLabel">
+                            <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -3987,6 +4025,11 @@
                     </xsl:with-param>
                     <xsl:with-param name="bIsBook" select="'N'"/>
                     <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
+                    <xsl:with-param name="sRunningHeader">
+                        <xsl:call-template name="OutputContentsLabel">
+                            <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -4217,6 +4260,11 @@
                     <xsl:call-template name="OutputEndnotesLabel"/>
                 </xsl:with-param>
                 <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
+                <xsl:with-param name="sRunningHeader">
+                    <xsl:call-template name="OutputEndnotesLabel">
+                        <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
                 <xsl:choose>
@@ -4801,6 +4849,7 @@
         <xsl:param name="id"/>
         <xsl:param name="sTitle"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:call-template name="DoPageBreakFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
@@ -4826,6 +4875,7 @@
                 content of the hypertarget be empty, we suddenly got an extra page break here.
             -->
             <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+            <xsl:with-param name="sRunningHeader" select="$sRunningHeader"/>
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -4842,6 +4892,7 @@
         <xsl:param name="id"/>
         <xsl:param name="sTitle"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:call-template name="DoPageBreakFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
@@ -4858,6 +4909,7 @@
                 content of the hypertarget be empty, we suddenly got an extra page break here.
             -->
             <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
+            <xsl:with-param name="sRunningHeader" select="$sRunningHeader"/>
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -4897,6 +4949,11 @@
                 <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$glossaryLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputGlossaryLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -5023,6 +5080,11 @@
             </xsl:with-param>
             <xsl:with-param name="sLabel" select="$sIndexLabel"/>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputIndexLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <!-- process any paragraphs, etc. that may be at the beginning -->
         <xsl:apply-templates/>
@@ -5194,6 +5256,11 @@
                 <xsl:call-template name="OutputPrefaceLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputPrefaceLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -5215,6 +5282,11 @@
             </xsl:with-param>
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputPrefaceLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
         <xsl:if test="@showinlandscapemode='yes'">
@@ -5242,6 +5314,11 @@
                     <xsl:call-template name="OutputReferencesLabel"/>
                 </xsl:with-param>
                 <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
+                <xsl:with-param name="sRunningHeader">
+                    <xsl:call-template name="OutputReferencesLabel">
+                        <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
                 <tex:spec cat="bg"/>
@@ -6741,6 +6818,7 @@
         <xsl:param name="sId"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:choose>
             <xsl:when test="$bIsBook">
                 <tex:group>
@@ -6792,10 +6870,10 @@
                     </xsl:call-template>
                     <tex:cmd name="markboth">
                         <tex:parm>
-                            <xsl:copy-of select="$sLabel"/>
+                            <xsl:copy-of select="$sRunningHeader"/>
                         </tex:parm>
                         <tex:parm>
-                            <xsl:copy-of select="$sLabel"/>
+                            <xsl:copy-of select="$sRunningHeader"/>
                         </tex:parm>
                     </tex:cmd>
                 </tex:group>
@@ -6843,10 +6921,10 @@
                     <xsl:call-template name="DoInternalTargetEnd"/>
                     <tex:cmd name="markboth">
                         <tex:parm>
-                            <xsl:copy-of select="$sLabel"/>
+                            <xsl:copy-of select="$sRunningHeader"/>
                         </tex:parm>
                         <tex:parm>
-                            <xsl:copy-of select="$sLabel"/>
+                            <xsl:copy-of select="$sRunningHeader"/>
                         </tex:parm>
                     </tex:cmd>
                     <xsl:call-template name="CreateAddToContents">
@@ -7314,6 +7392,7 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sFirstPageStyle" select="'fancyfirstpage'"/>
         <xsl:param name="fDoPageBreakFormatInfo" select="'Y'"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:choose>
             <xsl:when test="$bIsBook='Y'">
                 <xsl:if test="$bDoTwoColumns = 'Y'">
@@ -7425,12 +7504,22 @@
             <xsl:if test="$titlePart2">
                 <xsl:apply-templates select="$titlePart2"/>
             </xsl:if>
+            <xsl:variable name="sHeader">
+                <xsl:choose>
+                    <xsl:when test="string-length($sRunningHeader) &gt; 0">
+                        <xsl:value-of select="$sRunningHeader"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sTitle"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <tex:cmd name="markboth" nl2="1">
                 <tex:parm>
-                    <xsl:value-of select="$sTitle"/>
+                    <xsl:value-of select="$sHeader"/>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:value-of select="$sTitle"/>
+                    <xsl:value-of select="$sHeader"/>
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
@@ -8735,15 +8824,23 @@
       ELEMENTS TO IGNORE
       =========================================================== -->
     <xsl:template match="language"/>
+    <xsl:template match="abstract/shortTitle"/>
+    <xsl:template match="acknowledgements/shortTitle"/>
     <xsl:template match="appendix/shortTitle"/>
     <xsl:template match="chapter/shortTitle"/>
+    <xsl:template match="contents/shortTitle"/>
+    <xsl:template match="glossary/shortTitle"/>
+    <xsl:template match="index/shortTitle"/>
+    <xsl:template match="keywordsShownHere/shortTitle"/>
     <xsl:template match="part/shortTitle"/>
+    <xsl:template match="preface/shortTitle"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>
     <xsl:template match="section3/shortTitle"/>
     <xsl:template match="section4/shortTitle"/>
     <xsl:template match="section5/shortTitle"/>
     <xsl:template match="section6/shortTitle"/>
+    <xsl:template match="selectedBibliography/shortTitle"/>
     <xsl:template match="textInfo/shortTitle"/>
     <xsl:template match="styles"/>
     <xsl:template match="style"/>

@@ -1254,6 +1254,20 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        GetLabelOrShortTitle
+    -->
+    <xsl:template name="GetLabelOrShortTitle">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
+        <xsl:choose>
+            <xsl:when test="$fUseShortTitleIfExists='Y' and shortTitle and string-length(shortTitle) &gt; 0">
+                <xsl:value-of select="shortTitle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@label"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetLiInOlNumberOrLetter
     -->
     <xsl:template name="GetLiInOlNumberOrLetter">
@@ -1567,27 +1581,46 @@
         OutputAbbreviationsLabel
     -->
     <xsl:template name="OutputAbbreviationsLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Abbreviations</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//abbreviations/@label"/>
+            <!--            <xsl:with-param name="pLabel" select="//abbreviations/@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
         OutputAbstractLabel
     -->
     <xsl:template name="OutputAbstractLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Abstract</xsl:with-param>
-            <xsl:with-param name="pLabel" select="@label"/>
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
         OutputAcknowledgementsLabel
     -->
     <xsl:template name="OutputAcknowledgementsLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Acknowledgements</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//acknowledgements/@label"/>
+            <!--            <xsl:with-param name="pLabel" select="//acknowledgements/@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:for-each select="//acknowledgements">
+                    <xsl:call-template name="GetLabelOrShortTitle">
+                        <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -1648,18 +1681,30 @@
         OutputContentsLabel
     -->
     <xsl:template name="OutputContentsLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Contents</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//contents/@label"/>
+            <!--            <xsl:with-param name="pLabel" select="//contents/@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
         OutputEndnotesLabel
     -->
     <xsl:template name="OutputEndnotesLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Endnotes</xsl:with-param>
-            <xsl:with-param name="pLabel" select="//endnotes/@label"/>
+            <!--            <xsl:with-param name="pLabel" select="//endnotes/@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -1727,9 +1772,15 @@
         OutputGlossaryLabel
     -->
     <xsl:template name="OutputGlossaryLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Glossary</xsl:with-param>
-            <xsl:with-param name="pLabel" select="@label"/>
+            <!--            <xsl:with-param name="pLabel" select="@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -1795,6 +1846,7 @@
         OutputIndexLabel
     -->
     <xsl:template name="OutputIndexLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:variable name="sDefaultIndexLabel">
             <xsl:choose>
                 <xsl:when test="@kind='name'">
@@ -1813,7 +1865,12 @@
         </xsl:variable>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault" select="$sDefaultIndexLabel"/>
-            <xsl:with-param name="pLabel" select="@label"/>
+            <!--            <xsl:with-param name="pLabel" select="@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -2060,29 +2117,46 @@
         OutputPrefaceLabel
     -->
     <xsl:template name="OutputPrefaceLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Preface</xsl:with-param>
-            <xsl:with-param name="pLabel" select="@label"/>
+            <!--            <xsl:with-param name="pLabel" select="@label"/>-->
+            <xsl:with-param name="pLabel">
+                <xsl:call-template name="GetLabelOrShortTitle">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
         OutputReferencesLabel
     -->
     <xsl:template name="OutputReferencesLabel">
+        <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
         <xsl:variable name="selectedBibliography" select="//selectedBibliography"/>
         <xsl:choose>
             <xsl:when test="$selectedBibliography">
                 <xsl:for-each select="$selectedBibliography">
                     <xsl:call-template name="OutputLabel">
                         <xsl:with-param name="sDefault">Selected Bibliography</xsl:with-param>
-                        <xsl:with-param name="pLabel" select="@label"/>
+                        <!--                        <xsl:with-param name="pLabel" select="@label"/>-->
+                        <xsl:with-param name="pLabel">
+                            <xsl:call-template name="GetLabelOrShortTitle">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                            </xsl:call-template>
+                        </xsl:with-param>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="OutputLabel">
                     <xsl:with-param name="sDefault">References</xsl:with-param>
-                    <xsl:with-param name="pLabel" select="@label"/>
+                    <!--                    <xsl:with-param name="pLabel" select="@label"/>-->
+                    <xsl:with-param name="pLabel">
+                        <xsl:call-template name="GetLabelOrShortTitle">
+                            <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

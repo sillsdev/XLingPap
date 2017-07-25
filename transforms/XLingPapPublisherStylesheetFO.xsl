@@ -545,7 +545,9 @@
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <!-- put title in marker so it can show up in running header -->
                         <fo:marker marker-class-name="contents-title">
-                            <xsl:call-template name="OutputContentsLabel"/>
+                            <xsl:call-template name="OutputContentsLabel">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                            </xsl:call-template>
                         </fo:marker>
                         <xsl:call-template name="DoContents">
                             <xsl:with-param name="bIsBook" select="'Y'"/>
@@ -597,7 +599,9 @@
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <!-- put title in marker so it can show up in running header -->
                         <fo:marker marker-class-name="contents-title">
-                            <xsl:call-template name="OutputContentsLabel"/>
+                            <xsl:call-template name="OutputContentsLabel">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                            </xsl:call-template>
                         </fo:marker>
                         <xsl:call-template name="DoContents">
                             <xsl:with-param name="bIsBook" select="'Y'"/>
@@ -632,6 +636,11 @@
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
             <xsl:with-param name="sMarkerClassName" select="'abstract-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -653,6 +662,11 @@
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
             <xsl:with-param name="sMarkerClassName" select="'abstract-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:choose>
             <xsl:when test="$frontMatterLayoutInfo/abstractTextFontInfo">
@@ -702,6 +716,11 @@
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/acknowledgementsLayout"/>
             <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAcknowledgementsLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -718,6 +737,11 @@
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/acknowledgementsLayout"/>
             <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAcknowledgementsLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--
@@ -757,6 +781,11 @@
                     <xsl:with-param name="bIsBook" select="'N'"/>
                     <xsl:with-param name="layoutInfo" select="$layoutToUse/*"/>
                     <xsl:with-param name="sMarkerClassName" select="'acknowledgements-title'"/>
+                    <xsl:with-param name="sRunningHeader">
+                        <xsl:call-template name="OutputAcknowledgementsLabel">
+                            <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                 </xsl:call-template>
                 <!--<xsl:choose>
                     <xsl:when test="parent::frontMatter">
@@ -829,7 +858,9 @@
                                 <xsl:attribute name="font-size">
                                     <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                                 <fo:marker marker-class-name="chap-title">
-                                    <xsl:call-template name="OutputKeywordsLabel"/>
+                                    <xsl:call-template name="OutputKeywordsLabel">
+                                        <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                                    </xsl:call-template>
                                 </fo:marker>
                                 <xsl:call-template name="OutputKeywordsTitleAndContent">
                                     <xsl:with-param name="sKeywordsID" select="$sKeywordsInBackMatterID"/>
@@ -3090,7 +3121,9 @@ not using
                             <xsl:attribute name="font-size">
                                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                             <fo:marker marker-class-name="chap-title">
-                                <xsl:call-template name="OutputEndnotesLabel"/>
+                                <xsl:call-template name="OutputEndnotesLabel">
+                                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                                </xsl:call-template>
                             </fo:marker>
                             <xsl:call-template name="DoEndnotes"/>
                         </fo:flow>
@@ -3155,7 +3188,9 @@ not using
                         <xsl:attribute name="font-size">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <fo:marker marker-class-name="index-title">
-                            <xsl:call-template name="OutputIndexLabel"/>
+                            <xsl:call-template name="OutputIndexLabel">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                            </xsl:call-template>
                         </fo:marker>
                         <xsl:call-template name="DoIndex"/>
                         <xsl:if test="not(following-sibling::index)">
@@ -3238,7 +3273,9 @@ not using
                         <xsl:attribute name="font-size">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <fo:marker marker-class-name="chap-title">
-                            <xsl:call-template name="OutputReferencesLabel"/>
+                            <xsl:call-template name="OutputReferencesLabel">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                            </xsl:call-template>
                         </fo:marker>
                         <xsl:call-template name="DoReferences">
                             <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
@@ -3576,6 +3613,14 @@ not using
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="referencedInterlinearTexts"/>
+    <xsl:template match="abstract/shortTitle"/>
+    <xsl:template match="acknowledgements/shortTitle"/>
+    <xsl:template match="contents/shortTitle"/>
+    <xsl:template match="glossary/shortTitle"/>
+    <xsl:template match="index/shortTitle"/>
+    <xsl:template match="keywordsShownHere/shortTitle"/>
+    <xsl:template match="preface/shortTitle"/>
+    <xsl:template match="selectedBibliography/shortTitle"/>
     <!--    <xsl:template match="shortTitle"/>-->
     <!-- ===========================================================
       NAMED TEMPLATES
@@ -3693,6 +3738,9 @@ not using
                 <xsl:call-template name="OutputAppendiciesLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendicesTitlePageLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAppendiciesLabel"/>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -4266,6 +4314,11 @@ not using
                     <xsl:call-template name="OutputEndnotesLabel"/>
                 </xsl:with-param>
                 <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
+                <xsl:with-param name="sRunningHeader">
+                    <xsl:call-template name="OutputEndnotesLabel">
+                        <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
             </xsl:call-template>
             <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
             <!--        <xsl:for-each select="//endnote">
@@ -4669,13 +4722,14 @@ not using
         <xsl:param name="sHeaderTitleClassName"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
+        <xsl:param name="sRunningHeader"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="Chapter">
             <xsl:call-template name="DoInitialPageNumberAttribute">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
-            <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
+            <xsl:call-template name="OutputChapterStaticContentForBackMatter"/> 
             <fo:flow flow-name="xsl-region-body">
                 <xsl:attribute name="font-family">
                     <xsl:value-of select="$sDefaultFontFamily"/>
@@ -4688,6 +4742,7 @@ not using
                     <xsl:with-param name="bIsBook" select="'Y'"/>
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="sMarkerClassName" select="$sMarkerClassName"/>
+                    <xsl:with-param name="sRunningHeader" select="$sRunningHeader"/>
                 </xsl:call-template>
                 <xsl:apply-templates/>
                 <xsl:call-template name="HandleKeywordsLayoutWithoutPageBreak">
@@ -4706,6 +4761,7 @@ not using
         <xsl:param name="sHeaderTitleClassName"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
+        <xsl:param name="sRunningHeader"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="FrontMatterTOC" format="i">
@@ -4792,6 +4848,7 @@ not using
                     <xsl:with-param name="bIsBook" select="'Y'"/>
                     <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
                     <xsl:with-param name="sMarkerClassName" select="$sMarkerClassName"/>
+                    <xsl:with-param name="sRunningHeader" select="$sRunningHeader"/>
                 </xsl:call-template>
                 <xsl:apply-templates/>
             </fo:flow>
@@ -4824,6 +4881,11 @@ not using
                 <xsl:call-template name="OutputGlossaryLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$glossaryLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputGlossaryLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -4851,7 +4913,9 @@ not using
                         <xsl:attribute name="font-size">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <fo:marker marker-class-name="chap-title">
-                            <xsl:call-template name="OutputGlossaryLabel"/>
+                            <xsl:call-template name="OutputGlossaryLabel">
+                                <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                            </xsl:call-template>
                         </fo:marker>
                         <xsl:call-template name="DoGlossary">
                             <xsl:with-param name="iPos" select="$iPos"/>
@@ -5092,6 +5156,11 @@ not using
                 <xsl:call-template name="OutputIndexLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputIndexLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <!-- process any paragraphs, etc. that may be at the beginning -->
         <xsl:apply-templates/>
@@ -5742,6 +5811,11 @@ not using
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
             <xsl:with-param name="sMarkerClassName" select="'preface-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputPrefaceLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -5762,6 +5836,11 @@ not using
             <xsl:with-param name="bIsBook" select="'N'"/>
             <xsl:with-param name="layoutInfo" select="$prefaceLayout"/>
             <xsl:with-param name="sMarkerClassName" select="'preface-title'"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputPrefaceLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
@@ -5780,6 +5859,11 @@ not using
                 <xsl:call-template name="OutputReferencesLabel"/>
             </xsl:with-param>
             <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputReferencesLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
         </xsl:call-template>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
@@ -6609,6 +6693,7 @@ not using
         <xsl:param name="sId"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:choose>
             <xsl:when test="$bIsBook and not(ancestor::chapterInCollection)">
                 <fo:block id="{$sId}" span="all">
@@ -6632,7 +6717,7 @@ not using
                     </xsl:call-template>
                     <fo:inline>
                         <fo:marker marker-class-name="section-title">
-                            <xsl:value-of select="$sLabel"/>
+                            <xsl:value-of select="$sRunningHeader"/>
                         </fo:marker>
                     </fo:inline>
                     <fo:inline>
@@ -7000,9 +7085,10 @@ not using
         <xsl:param name="bForcePageBreak" select="'N'"/>
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sMarkerClassName"/>
+        <xsl:param name="sRunningHeader"/>
         <xsl:if test="$bIsBook='Y'">
             <fo:marker marker-class-name="{$sMarkerClassName}">
-                <xsl:value-of select="$sTitle"/>
+                <xsl:value-of select="$sRunningHeader"/>
             </fo:marker>
         </xsl:if>
         <fo:block>
@@ -7027,7 +7113,7 @@ not using
                     <fo:inline>
                         <!-- put title in marker so it can show up in running header -->
                         <fo:marker marker-class-name="{$sMarkerClassName}">
-                            <xsl:value-of select="$sTitle"/>
+                            <xsl:value-of select="$sRunningHeader"/>
                         </fo:marker>
                     </fo:inline>
                     <xsl:if test="not($layoutInfo/@useLabel) or $layoutInfo/@useLabel='yes'">

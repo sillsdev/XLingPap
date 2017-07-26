@@ -262,10 +262,20 @@ li.lower-roman {
         abstractLayout
     -->
     <xsl:template match="abstractLayout">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                    <xsl:value-of select="count(preceding-sibling::abstractLayout)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstract"/>
+                    <xsl:with-param name="sType" select="concat($sAbstract,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
@@ -274,10 +284,20 @@ li.lower-roman {
         abstractTextFontLayout
     -->
     <xsl:template match="abstractTextFontInfo">
+        <xsl:variable name="sPos">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::abstractTextFontInfo or following-sibling::abstractTextFontInfo">
+                    <xsl:value-of select="count(preceding-sibling::abstractTextFontInfo)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstractText"/>
+                    <xsl:with-param name="sType" select="concat($sAbstractText,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>

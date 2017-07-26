@@ -671,105 +671,6 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-      abstract (book)
-      -->
-    <xsl:template match="abstract" mode="book">
-        <xsl:call-template name="DoFrontMatterItemNewPage">
-            <xsl:with-param name="id" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputAbstractLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
-            <xsl:with-param name="sRunningHeader">
-                <xsl:call-template name="OutputAbstractLabel">
-                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-    <!--
-      abstract  (paper)
-      -->
-    <xsl:template match="abstract" mode="paper">
-        <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
-        <xsl:variable name="abstractLayoutInfo" select="$frontMatterLayout/abstractLayout"/>
-        <xsl:variable name="abstractTextLayoutInfo" select="$frontMatterLayout/abstractTextFontInfo"/>
-        <xsl:if test="@showinlandscapemode='yes'">
-            <tex:cmd name="landscape" gr="0" nl2="1"/>
-        </xsl:if>
-        <xsl:call-template name="OutputFrontOrBackMatterTitle">
-            <xsl:with-param name="id">
-                <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
-                </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputAbstractLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="bIsBook" select="'N'"/>
-            <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
-            <xsl:with-param name="sRunningHeader">
-                <xsl:call-template name="OutputAbstractLabel">
-                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
-        <xsl:choose>
-            <xsl:when test="$frontMatterLayout/abstractTextFontInfo">
-                <tex:group>
-                    <!-- Note: I do not know yet if these work well with RTL scripts or if they need to be flipped -->
-                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@start-indent)) &gt; 0">
-                        <tex:spec cat="esc"/>
-                        <xsl:text>leftskip</xsl:text>
-                        <xsl:value-of select="normalize-space($abstractTextLayoutInfo/@start-indent)"/>
-                        <xsl:text>&#x20;</xsl:text>
-                    </xsl:if>
-                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@end-indent)) &gt; 0">
-                        <tex:spec cat="esc"/>
-                        <xsl:text>rightskip</xsl:text>
-                        <xsl:value-of select="normalize-space($abstractTextLayoutInfo/@end-indent)"/>
-                        <xsl:text>&#x20;</xsl:text>
-                    </xsl:if>
-                    <xsl:if test="$abstractTextLayoutInfo/@textalign='start' or $abstractTextLayoutInfo/@textalign='left'">
-                        <tex:cmd name="noindent" gr="0" nl2="1"/>
-                    </xsl:if>
-                    <xsl:call-template name="OutputFontAttributesInAbstract">
-                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
-                        <xsl:with-param name="originalContext" select="."/>
-                    </xsl:call-template>
-                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
-                        <xsl:call-template name="DoTextAlign">
-                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <xsl:apply-templates/>
-                    <xsl:variable name="contentForThisElement">
-                        <xsl:apply-templates/>
-                    </xsl:variable>
-                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
-                        <xsl:call-template name="DoTextAlignEnd">
-                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
-                            <xsl:with-param name="contentForThisElement" select="$contentForThisElement"/>
-                        </xsl:call-template>
-                    </xsl:if>
-                    <xsl:call-template name="OutputFontAttributesInAbstractEnd">
-                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
-                        <xsl:with-param name="originalContext" select="."/>
-                    </xsl:call-template>
-                </tex:group>
-                <xsl:call-template name="DoSpaceAfter">
-                    <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="@showinlandscapemode='yes'">
-            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
-        </xsl:if>
-    </xsl:template>
-    <!--
       aknowledgements (frontmatter - book)
    -->
     <xsl:template match="acknowledgements" mode="frontmatter-book">
@@ -3602,6 +3503,105 @@
             <tex:cmd name="par" nl2="1"/>
         </xsl:if>
     </xsl:template>
+    <!--
+        DoAbstractPerBookLayout
+    -->
+    <xsl:template name="DoAbstractPerBookLayout">
+        <xsl:param name="abstractLayout"/>
+        <xsl:call-template name="DoFrontMatterItemNewPage">
+            <xsl:with-param name="id" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputAbstractLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="layoutInfo" select="$abstractLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        DoAbstractPerPaperLayout
+    -->
+    <xsl:template name="DoAbstractPerPaperLayout">
+        <xsl:param name="abstractLayout"/>
+        <xsl:variable name="abstractTextLayoutInfo" select="$abstractLayout/following-sibling::*[1][name()='abstractTextFontInfo']"/>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="landscape" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:call-template name="OutputFrontOrBackMatterTitle">
+            <xsl:with-param name="id">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="concat($sAbstractID,count(preceding-sibling::abstract))"/>
+                </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="sTitle">
+                <xsl:call-template name="OutputAbstractLabel"/>
+            </xsl:with-param>
+            <xsl:with-param name="bIsBook" select="'N'"/>
+            <xsl:with-param name="layoutInfo" select="$abstractLayout"/>
+            <xsl:with-param name="sRunningHeader">
+                <xsl:call-template name="OutputAbstractLabel">
+                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                </xsl:call-template>
+            </xsl:with-param>
+        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$abstractTextLayoutInfo">
+                <tex:group>
+                    <!-- Note: I do not know yet if these work well with RTL scripts or if they need to be flipped -->
+                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@start-indent)) &gt; 0">
+                        <tex:spec cat="esc"/>
+                        <xsl:text>leftskip</xsl:text>
+                        <xsl:value-of select="normalize-space($abstractTextLayoutInfo/@start-indent)"/>
+                        <xsl:text>&#x20;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test="string-length(normalize-space($abstractTextLayoutInfo/@end-indent)) &gt; 0">
+                        <tex:spec cat="esc"/>
+                        <xsl:text>rightskip</xsl:text>
+                        <xsl:value-of select="normalize-space($abstractTextLayoutInfo/@end-indent)"/>
+                        <xsl:text>&#x20;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test="$abstractTextLayoutInfo/@textalign='start' or $abstractTextLayoutInfo/@textalign='left'">
+                        <tex:cmd name="noindent" gr="0" nl2="1"/>
+                    </xsl:if>
+                    <xsl:call-template name="OutputFontAttributesInAbstract">
+                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
+                        <xsl:call-template name="DoTextAlign">
+                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:apply-templates/>
+                    <xsl:variable name="contentForThisElement">
+                        <xsl:apply-templates/>
+                    </xsl:variable>
+                    <xsl:if test="$abstractTextLayoutInfo/@textalign">
+                        <xsl:call-template name="DoTextAlignEnd">
+                            <xsl:with-param name="layoutInfo" select="$abstractTextLayoutInfo"/>
+                            <xsl:with-param name="contentForThisElement" select="$contentForThisElement"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:call-template name="OutputFontAttributesInAbstractEnd">
+                        <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
+                        <xsl:with-param name="originalContext" select="."/>
+                    </xsl:call-template>
+                </tex:group>
+                <xsl:call-template name="DoSpaceAfter">
+                    <xsl:with-param name="layoutInfo" select="$abstractLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="@showinlandscapemode='yes'">
+            <tex:cmd name="endlandscape" gr="0" nl2="1"/>
+        </xsl:if>
+    </xsl:template>
     <!--  
         DoAppendiciesTitlePage
     -->
@@ -4736,6 +4736,16 @@
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="contents">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
@@ -4815,7 +4825,18 @@
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="frontmatter-book"/>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
-                    <xsl:apply-templates select="$frontMatter/abstract" mode="book"/>
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="book">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
                     <xsl:apply-templates select="$frontMatter/preface" mode="book">

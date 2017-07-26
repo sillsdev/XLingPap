@@ -276,6 +276,99 @@
         <xsl:call-template name="DoPaperLayout"/>
     </xsl:template>
     <!--
+        abstract (book)
+    -->
+    <xsl:template match="abstract" mode="book">
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::abstract) + 1"/>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($frontMatterLayoutInfo/abstractLayout[number($iLayoutPosition)]/following-sibling::abstractLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one abstractLayout; use it -->
+                <xsl:call-template name="DoAbstractPerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayoutInfo/abstractLayout"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many abstractLayouts; use the one that matches in position -->
+                <xsl:call-template name="DoAbstractPerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayoutInfo/abstractLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many abstractLayouts and there are more abstract elements than abstractLayout elements; use the last layout -->
+                <xsl:call-template name="DoAbstractPerBookLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayoutInfo/abstractLayout[number(last())]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        abstract (paper)
+    -->
+    <xsl:template match="abstract" mode="paper">
+        <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:variable name="iPos" select="count(preceding-sibling::abstract) + 1"/>
+        <xsl:variable name="fLayoutIsLastOfMany">
+            <xsl:choose>
+                <xsl:when test="$iLayoutPosition=0">
+                    <xsl:text>N</xsl:text>
+                </xsl:when>
+                <xsl:when test="count($frontMatterLayout/abstractLayout[number($iLayoutPosition)]/following-sibling::abstractLayout)=0">
+                    <xsl:text>Y</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>N</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$iLayoutPosition = 0">
+                <!-- there's one and only one abstractLayout; use it -->
+                <xsl:call-template name="DoAbstractPerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayout/abstractLayout[1]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$iLayoutPosition = $iPos">
+                <!-- there are many abstractLayouts; use the one that matches in position -->
+                <xsl:call-template name="DoAbstractPerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayout/abstractLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fLayoutIsLastOfMany='Y' and $iPos &gt; $iLayoutPosition">
+                <!-- there are many abstractLayouts and there are more abstract elements than abstractLayout elements; use the last layout -->
+                <xsl:call-template name="DoAbstractPerPaperLayout">
+                    <xsl:with-param name="iPos" select="$iPos"/>
+                    <xsl:with-param name="abstractLayout" select="$frontMatterLayout/abstractLayout[number(last())]"/>
+                    <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         preface (book)
     -->
     <xsl:template match="preface" mode="book">
@@ -3800,10 +3893,31 @@
                 <xsl:when test="name(.)='abstractLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="paper">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout' and not($bIsBook)">
-                    <xsl:apply-templates select="$frontMatter/abstract" mode="paper"/>
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="paper">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout' and $frontMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$frontMatter/preface" mode="paper">

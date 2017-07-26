@@ -447,9 +447,15 @@
         </xsl:call-template>
     </xsl:template>
     <!--
-      abstract (book)
-      -->
-    <xsl:template match="abstract" mode="book">
+        abstract (book)
+    -->
+    <xsl:template name="DoAbstractPerBookLayout">
+        <xsl:param name="abstractLayout"/>
+        <xsl:variable name="sPos">
+            <xsl:call-template name="GetAbstractLayoutClassNumber">
+                <xsl:with-param name="abstractLayout" select="$abstractLayout"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:call-template name="DoFrontMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'abstract-title'"/>
             <xsl:with-param name="id">
@@ -460,10 +466,10 @@
             <xsl:with-param name="sTitle">
                 <xsl:call-template name="OutputAbstractLabel"/>
             </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
+            <xsl:with-param name="layoutInfo" select="$abstractLayout"/>
             <xsl:with-param name="sMarkerClassName">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstract"/>
+                    <xsl:with-param name="sType" select="concat($sAbstract,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
@@ -471,9 +477,14 @@
     <!--
       abstract  (paper)
       -->
-    <xsl:template match="abstract" mode="paper">
-        <xsl:variable name="abstractLayoutInfo" select="$frontMatterLayoutInfo/abstractLayout"/>
-        <xsl:variable name="abstractTextLayoutInfo" select="$frontMatterLayoutInfo/abstractTextFontInfo"/>
+    <xsl:template name="DoAbstractPerPaperLayout">
+        <xsl:param name="abstractLayout"/>
+        <xsl:variable name="abstractTextLayoutInfo" select="$abstractLayout/following-sibling::*[1][name()='abstractTextFontInfo']"/>
+        <xsl:variable name="sPos">
+            <xsl:call-template name="GetAbstractLayoutClassNumber">
+                <xsl:with-param name="abstractLayout" select="$abstractLayout"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:call-template name="OutputFrontOrBackMatterTitle">
             <xsl:with-param name="id">
                 <xsl:call-template name="GetIdToUse">
@@ -484,16 +495,19 @@
                 <xsl:call-template name="OutputAbstractLabel"/>
             </xsl:with-param>
             <xsl:with-param name="bIsBook" select="'N'"/>
-            <xsl:with-param name="layoutInfo" select="$abstractLayoutInfo"/>
+            <xsl:with-param name="layoutInfo" select="$abstractLayout"/>
             <xsl:with-param name="sMarkerClassName">
                 <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAbstract"/>
+                    <xsl:with-param name="sType" select="concat($sAbstract,$sPos)"/>
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
         <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/abstractTextFontInfo">
-                <div class="abstractText">
+            <xsl:when test="$abstractTextLayoutInfo">
+                <div>
+                    <xsl:attribute name="class">
+                        <xsl:value-of select="concat($sAbstractText,$sPos)"/>
+                    </xsl:attribute>
                     <xsl:attribute name="style">
                         <xsl:call-template name="OutputFontAttributes">
                             <xsl:with-param name="language" select="$abstractTextLayoutInfo"/>
@@ -628,7 +642,7 @@
     <!--
         keywordsShownHere (frontmatter - book)
     -->
-<!--    <xsl:template match="keywordsShownHere" mode="frontmatter-book">
+    <!--    <xsl:template match="keywordsShownHere" mode="frontmatter-book">
         <xsl:param name="frontMatterLayout"/>
         <xsl:call-template name="DoFrontMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'keywords-title'"/>
@@ -656,7 +670,7 @@
     <!--
         keywordsShownHere (backmatter-book)
     -->
-<!--    <xsl:template match="keywordsShownHere" mode="backmatter-book">
+    <!--    <xsl:template match="keywordsShownHere" mode="backmatter-book">
         <xsl:param name="backMatterLayout"/>
         <xsl:call-template name="DoBackMatterItemNewPage">
             <xsl:with-param name="sHeaderTitleClassName" select="'keywords-title'"/>
@@ -2246,9 +2260,9 @@
                     <xsl:text>font-family:</xsl:text>
                     <xsl:value-of select="$sMediaObjectFontFamily"/>
                     <xsl:text>; </xsl:text>
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="."/>                    
-                </xsl:call-template>
+                    <xsl:call-template name="OutputFontAttributes">
+                        <xsl:with-param name="language" select="."/>
+                    </xsl:call-template>
                 </xsl:attribute>
                 <xsl:call-template name="GetMediaObjectIconCode">
                     <xsl:with-param name="mode" select="'html'"/>
@@ -3122,7 +3136,18 @@
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="bookmarks"/>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
-                    <xsl:apply-templates select="$frontMatter/abstract" mode="bookmarks"/>
+                    <xsl:apply-templates select="$frontMatter/abstract" mode="bookmarks">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout'">
                     <xsl:apply-templates select="$frontMatter/contents" mode="bookmarks"/>
@@ -3161,6 +3186,16 @@
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="contents">
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
@@ -3219,6 +3254,16 @@
                 <xsl:when test="name(.)='abstractLayout'">
                     <xsl:apply-templates select="$frontMatter/abstract" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="iLayoutPosition">
+                            <xsl:choose>
+                                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                                    <xsl:value-of select="count(preceding-sibling::abstractLayout) + 1"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>0</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
@@ -4156,6 +4201,22 @@
         <xsl:call-template name="DoFrontMatterFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        GetAbstractLayoutClassNumber
+    -->
+    <xsl:template name="GetAbstractLayoutClassNumber">
+        <xsl:param name="abstractLayout"/>
+        <xsl:for-each select="$abstractLayout">
+            <xsl:choose>
+                <xsl:when test="preceding-sibling::abstractLayout or following-sibling::abstractLayout">
+                    <xsl:value-of select="count(preceding-sibling::abstractLayout)+1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
     </xsl:template>
     <!--  
         GetBestLayout
@@ -5482,7 +5543,7 @@
                         </xsl:call-template>
                     </div>
                 </xsl:otherwise>
-            </xsl:choose>            
+            </xsl:choose>
         </div>
     </xsl:template>
     <!--  

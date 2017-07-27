@@ -446,6 +446,17 @@
         <xsl:apply-templates select="."/>
     </xsl:template>
     <!--
+        AddAnyTitleAttribute
+    -->
+    <xsl:template name="AddAnyTitleAttribute">
+        <xsl:param name="sId"/>
+        <xsl:if test="$lingPaper/@showExampleIdOnHoverInWebpage='yes'">
+            <xsl:attribute name="title">
+                <xsl:value-of select="$sId"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!--
         ConvertLastNameFirstNameToFirstNameLastName
     -->
     <xsl:template name="ConvertLastNameFirstNameToFirstNameLastName">

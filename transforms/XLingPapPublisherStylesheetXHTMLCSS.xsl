@@ -1663,6 +1663,7 @@ li.lower-roman {
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
     <xsl:template match="@showChapterNumberBeforeExampleNumber"/>
+    <xsl:template match="@showExampleIdOnHoverInWebpage"/>
     <xsl:template match="@showInHeader"/>
     <xsl:template match="@showletter"/>
     <xsl:template match="@showmarking"/>

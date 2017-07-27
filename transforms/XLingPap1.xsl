@@ -1119,6 +1119,9 @@
                             <xsl:attribute name="name">
                                 <xsl:value-of select="@num"/>
                             </xsl:attribute>
+                            <xsl:call-template name="AddAnyTitleAttribute">
+                                <xsl:with-param name="sId" select="@num"/>
+                            </xsl:call-template>
                             <xsl:text>(</xsl:text>
                             <xsl:call-template name="GetExampleNumber">
                                 <xsl:with-param name="example" select="."/>
@@ -1216,6 +1219,9 @@
                     <xsl:attribute name="name">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
             <xsl:call-template name="HandleListWordLangDataOrGloss">
@@ -1251,6 +1257,9 @@
                     <xsl:attribute name="name">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
             <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
@@ -1540,6 +1549,9 @@
                                 <xsl:attribute name="name">
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
+                                <xsl:call-template name="AddAnyTitleAttribute">
+                                    <xsl:with-param name="sId" select="@letter"/>
+                                </xsl:call-template>
                                 <xsl:apply-templates select="." mode="letter"/>
                                 <xsl:text>.</xsl:text>
                             </xsl:element>
@@ -1606,6 +1618,9 @@
                     <xsl:attribute name="name">
                         <xsl:value-of select="@letter"/>
                     </xsl:attribute>
+                    <xsl:call-template name="AddAnyTitleAttribute">
+                        <xsl:with-param name="sId" select="@letter"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
             <xsl:for-each select="definition">

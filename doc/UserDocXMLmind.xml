@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 July 2017</date
+>27 July 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -882,10 +882,10 @@ lang="lEng"
 >This is a way to allow the user to add Cascading Style Sheet attributes which are not defined in other attributes of a <object
 type="tElement"
 >language</object
-> element. CSS attributes only work for webpage output. Click <link
+> element. CSS attributes only work for web page output. Click <link
 href="http://msdn.microsoft.com/en-us/library/ms531209.aspx"
 >here</link
-> to see one webpage that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
+> to see one web page that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
 ></td
 ></tr
 ><tr
@@ -3386,7 +3386,7 @@ src="resources/EndnoteRefDialog.png"
 >You can type in the name of the endnote or scroll down until you find the one you want. Note that capitalization is significant when typing. When your document is processed, a hyperlink is made between the reference and the endnote.<endnote
 id="nEndnoteRefNumber"
 ><p
->In the webpage output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote.</p
+>In the web page output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote.</p
 ></endnote
 ><indexedRangeEnd
 begin="bEndnotes"
@@ -6728,7 +6728,7 @@ id="sBMAbbreviationsWebpage"
 ><indexedItem
 term="iAbbreviationWebpage"
 ></indexedItem
->Sometimes, you may want to see a list of all the abbreviations you have defined. There is a special command you can use to produce first a list of the abbreviations sorted by the abbreviation and then a list of the abbreviations sorted by definition. The two lists are combined into one webpage output file. This webpage will be displayed in your web browser.</p
+>Sometimes, you may want to see a list of all the abbreviations you have defined. There is a special command you can use to produce first a list of the abbreviations sorted by the abbreviation and then a list of the abbreviations sorted by definition. The two lists are combined into one web page output file. This web page will be displayed in your web browser.</p
 ><p
 >To do so, follow these steps:</p
 ><ol
@@ -10227,7 +10227,7 @@ href="http://fieldworks.sil.org/flex/"
 >http://fieldworks.sil.org/flex/</link
 >.</p
 ><p
->Besides aligning the morphemes within words, this kind will also automatically wrap long interlinear examples when viewed in a webpage. It will not automatically wrap in PDF or <object
+>Besides aligning the morphemes within words, this kind will also automatically wrap long interlinear examples when viewed in a web page. It will not automatically wrap in PDF or <object
 type="tTool"
 >Microsoft Word 2003</object
 > format, though.<endnote
@@ -10739,7 +10739,7 @@ note="nXeLaTeXAutoWrap"
 ></endnoteRef
 ></li
 ><li
->For the morpheme-aligned ones when the output is a webpage.</li
+>For the morpheme-aligned ones when the output is a web page.</li
 ></ul
 ><p
 >Unless either of these two are the case, you have to break long lines yourself. This is not necessarily a negative thing. By breaking the interlinear examples by hand, you are able to control where the break occurs. For example, you may choose to only have an interlinear example break at a phrase boundary.</p
@@ -12990,7 +12990,7 @@ type="tAttribute"
 > attribute of the main <object
 type="tElement"
 >table</object
-> empty. For Word and webpage, one sets it to "1". (See footnote <endnoteRef
+> empty. For Word and web page, one sets it to "1". (See footnote <endnoteRef
 note="nControllingTableBorderLines"
 ></endnoteRef
 > for a partial discussion on this difference.)</li
@@ -13646,7 +13646,7 @@ src="resources/SrcBrowseButton.png"
 >If you want, you can also type in a text description of the image in the <object
 type="tAttribute"
 >description</object
-> attribute (on a webpage, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
+> attribute (on a web page, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
 type="tKey"
 >Enter</object
 > key), the image will appear within the <object
@@ -13894,7 +13894,7 @@ src="resources/SrcBrowseButton.png"
 >If you want, you can also type in a text description of the image in the <object
 type="tAttribute"
 >description</object
-> attribute (on a webpage, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
+> attribute (on a web page, this description will be used if the image file is not available). Once you type the name of the image file (and press the <object
 type="tKey"
 >Enter</object
 > key), the image will appear within the <object
@@ -14386,10 +14386,10 @@ lang="lEng"
 >This is a way to allow the user to add Cascading Style Sheet attributes which are not defined in other attributes of a <object
 type="tElement"
 >figure</object
-> element. CSS attributes only work for webpage output. Click <link
+> element. CSS attributes only work for web page output. Click <link
 href="http://msdn.microsoft.com/en-us/library/ms531209.aspx"
 >here</link
-> to see one webpage that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
+> to see one web page that defines these attributes. Note that each Cascading Style Sheet attribute needs to end with a semicolon (;) and should be followed by a space.</langData
 ></td
 ></tr
 ><tr
@@ -25623,6 +25623,51 @@ src="resources/GoBack.png"
 ><p
 >Use this command and the ability to jump back to where you were whenever you discover you need to add new reference information.</p
 ></section2
+><section2
+id="sUseWebPageOutputToFindExampleID"
+><secTitle
+>Use Webpage Output to Find Example ID</secTitle
+><p
+><indexedItem
+term="iIDSee"
+></indexedItem
+><object
+type="tXLingPap"
+></object
+> now has an option which allows you to see what the example ID is for a given example via the webpage output (see section <sectionRef
+sec="sFAQProduceWebpage"
+></sectionRef
+>). By hovering your mouse over the example number in the webpage showing in your browser, a small pop-up window will show you the corresponding example ID. You can also do this for the letter portion in a list kind of example (i.e., <object
+type="tElement"
+>listDefinition</object
+>, <object
+type="tElement"
+>listInterlinear</object
+>, <object
+type="tElement"
+>listSingle</object
+>, and <object
+type="tElement"
+>listWord</object
+> elements). The example (or letter) ID will appear for as long as your mouse remains over the example number or letter.</p
+><p
+>To get this behavior, you must set the <object
+type="tAttribute"
+>showExampleIdOnHoverInWebpage</object
+> attribute on the <object
+type="tElement"
+>lingPaper</object
+> element to <object
+type="tAttrValue"
+>yes</object
+>. To set it, click on “lingPaper” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> Then change it using the Attributes Tool.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> Note that if your document is large, it may take a while before the attribute value finishing changing.</p
+></section2
 ></section1
 ><section1
 id="sPublishingInfo"
@@ -33443,6 +33488,13 @@ id="iExampleHeading"
 id="iExampleID"
 ><term
 >ID</term
+><indexTerms
+><indexTerm
+id="iIDSee"
+><term
+>See example ID in web page output</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iExamplesInTable"

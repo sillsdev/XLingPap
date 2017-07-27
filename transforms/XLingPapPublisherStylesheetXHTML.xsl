@@ -5599,6 +5599,9 @@
                             <xsl:attribute name="id">
                                 <xsl:value-of select="@letter"/>
                             </xsl:attribute>
+                            <xsl:call-template name="AddAnyTitleAttribute">
+                                <xsl:with-param name="sId" select="@letter"/>
+                            </xsl:call-template>
                             <xsl:apply-templates select="." mode="letter"/>
                             <xsl:choose>
                                 <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">
@@ -5647,6 +5650,9 @@
                                 <xsl:attribute name="id">
                                     <xsl:value-of select="@letter"/>
                                 </xsl:attribute>
+                                <xsl:call-template name="AddAnyTitleAttribute">
+                                    <xsl:with-param name="sId" select="@letter"/>
+                                </xsl:call-template>
                                 <xsl:apply-templates select="." mode="letter"/>
                                 <xsl:choose>
                                     <xsl:when test="$contentLayoutInfo/exampleLayout/@listItemsHaveParenInsteadOfPeriod='yes'">

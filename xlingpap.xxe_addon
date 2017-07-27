@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-26</a:date
+>2017-07-27</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.3 26 July 2017<ul
+>2.31.3 27 July 2017<ul
 ><li
 >Allow shortTitle for elements with a label attribute.</li
 ><li
@@ -47,6 +47,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Improve user documentation and publisher style sheet documentation.</li
 ><li
 >Fix bug: When a publisher style sheet had "Use Endnotes" but the document had not endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
+><li
+>For web page output:<ul
+><li
+>Add a way to show an example ID by using a mouse in a web browser.</li
+></ul
+></li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -1627,7 +1627,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:command name="status" parameter="%_ (3/4)"/>
                         <cfg:command name="GetHighestCalibreBookIdCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:set variable="CalibreBookId" plainString="true" expression="%_"/>
-                        <!--<cfg:get expression="$CalibreBookId"/>
+<!--                        <cfg:get expression="$CalibreBookId"/>
                         <cfg:command name="alert" parameter="book id = %_"/>-->
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>

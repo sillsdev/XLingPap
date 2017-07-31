@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-27</a:date
+>2017-07-31</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.3 27 July 2017<ul
+>2.31.3 31 July 2017<ul
 ><li
 >Allow shortTitle for elements with a label attribute.</li
 ><li
@@ -43,6 +43,8 @@ href="mailto::xlingpaper_support@sil.org"
 >In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li
 ><li
 >Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
+><li
+>Fix bug: Failed to produce EBook with Calibre version 3.</li
 ><li
 >Improve user documentation and publisher style sheet documentation.</li
 ><li

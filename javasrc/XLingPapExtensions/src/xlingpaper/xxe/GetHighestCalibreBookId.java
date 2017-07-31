@@ -64,14 +64,12 @@ public class GetHighestCalibreBookId extends RecordableCommand {
 			fis = new FileInputStream(f);
 			br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
 			String lastLine = null;
-			String nextTolastLine = null;
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null && line.length() > 1) {
 				//Alert.showError(docView.getPanel(), "doExecute: line = |" + line + "|");
-			    nextTolastLine = lastLine;
 			    lastLine = line;
 			}
 				//Alert.showError(docView.getPanel(), "doExecute: lastLine = |" + nextTolastLine + "|");
-			String[] contents = nextTolastLine.split(" ");
+			String[] contents = lastLine.split(" ");
 				//Alert.showError(docView.getPanel(), "doExecute: contents[0] = |" + contents[0] + "|");
 			fis.close();
 			return contents[0];

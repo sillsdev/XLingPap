@@ -272,7 +272,7 @@
 >-->
 <!ELEMENT annotationRef EMPTY >
 <!ATTLIST annotationRef
-    annotation IDREF #REQUIRED
+    annotation IDREF #IMPLIED
     citation IDREF #REQUIRED
     %special;
 >

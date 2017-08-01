@@ -49,6 +49,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="annotationLayoutInfo" select="$contentLayoutInfo/annotationLayout"/>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->

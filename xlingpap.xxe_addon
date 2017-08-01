@@ -52,6 +52,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li
 ><li
+>Allow publisher style sheet to control formatting of annotated bibliography items.</li
+><li
 >Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
 ><li
 >Improve user documentation and publisher style sheet documentation.</li

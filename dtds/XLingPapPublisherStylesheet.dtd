@@ -602,7 +602,7 @@ Content Layout
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, glossaryTermsInTableLayout?, 
-                                                      iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?) >
+                                                      iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -848,6 +848,14 @@ Content Layout
    >
 <!ELEMENT blockQuoteLayout EMPTY>
 <!ATTLIST blockQuoteLayout
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+>
+<!ELEMENT annotationLayout EMPTY>
+<!ATTLIST annotationLayout 
+     %fontinfo;
+     start-indent CDATA #IMPLIED
+     end-indent CDATA #IMPLIED
      spaceafter CDATA #IMPLIED
      spacebefore CDATA #IMPLIED
 >

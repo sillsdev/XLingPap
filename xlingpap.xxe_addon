@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-31</a:date
+>2017-08-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.3 31 July 2017<ul
+>2.31.3 1 August 2017<ul
+><li
+>Allow an annotationRef to not have an annotation.</li
 ><li
 >Allow shortTitle for elements with a label attribute.</li
 ><li

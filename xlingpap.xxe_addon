@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-07-31</a:date
+>2017-08-01</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.3 31 July 2017<ul
+>3.1.3 1 August 2017<ul
+><li
+>Allow an annotationRef to not have an annotation.</li
 ><li
 >Allow shortTitle for elements with a label attribute.</li
 ><li

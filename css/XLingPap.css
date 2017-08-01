@@ -4752,6 +4752,46 @@ affiliationLayout
 {
 	property-group: titledItem("Author's Affiliation");
 }
+annotationLayout[color]
+{
+	color:concatenate(attr(color));
+}
+annotationLayout[end-indent]
+{
+	margin-right:concatenate(attr(end-indent));
+}
+annotationLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+annotationLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+annotationLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+annotationLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+annotationLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+annotationLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+annotationLayout[start-indent]
+{
+	margin-left:concatenate(attr(start-indent));
+}
+annotationLayout
+{
+	property-group: titledItem("annotation");
+}
 appendicesTitlePageLayout[color]
 {
 	color:concatenate(attr(color));

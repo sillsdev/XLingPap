@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 July 2017</date
+>1 August 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -13717,6 +13717,261 @@ type="tElement"
 >blockquote</object
 > elements.</p
 ></section2
+><section2
+id="sAnnotation"
+><secTitle
+>Controlling the Display of Annotations</secTitle
+><p
+><indexedItem
+term="iAnnotationLayout"
+></indexedItem
+>Sometimes one wants to override the default formatting for the paragraph in <object
+type="tElement"
+>annotation</object
+> elements (which appear via <object
+type="tElement"
+>annotationRef</object
+> elements).</p
+><p
+>The <object
+type="tElement"
+>annotationLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xAnnotationtLayoutAttributes"
+num="xAnnotationtLayoutAttributes"
+></exampleRef
+>. You use this to control formatting of the content of <object
+type="tElement"
+>annotation</object
+> elements.</p
+><example
+num="xAnnotationtLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>annotation</object
+> Content Overrides Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iEndIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>end-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert after the annotation. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert after this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert before this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iStartIndentAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>start-indent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space to insert before the annotation. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>Yes</td
+></tr
+></table
+></example
+></section2
 ></section1
 ><section1
 id="sCommonSetsOfAttributes"
@@ -15747,6 +16002,15 @@ type="tElement"
 ><td
 >block quote</td
 ></tr
+><tr
+><td
+><object
+type="tElement"
+>annotationLayout</object
+></td
+><td
+>annotation</td
+></tr
 ></table
 ></appendix
 ><endnotes
@@ -15887,6 +16151,11 @@ id="iAdjustIndentOfNonInitialLineBy"
 id="iAffiliationLayout"
 ><term
 >Affiliation Layout</term
+></indexTerm
+><indexTerm
+id="iAnnotationLayout"
+><term
+>Annotiation Layout</term
 ></indexTerm
 ><indexTerm
 id="iAppendicesTilePageLayout"

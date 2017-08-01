@@ -1281,9 +1281,24 @@
                 </xsl:call-template>
             </xsl:for-each>
         </div>
-        <p style="padding-left:0.25in">
-            <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-        </p>
+        <xsl:variable name="annotation" select="key('AnnotationID',@annotation)"/>
+        <xsl:if test="$annotation">
+            <p>
+                <xsl:choose>
+                    <xsl:when test="$annotationLayoutInfo">
+                        <xsl:attribute name="class">
+                            <xsl:text>annotation</xsl:text>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="style">
+                            <xsl:text>padding-left:0.25in</xsl:text>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
+            </p>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         QUOTES

@@ -332,6 +332,14 @@ li.lower-roman {
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    <!-- 
+        annotationLayout
+    -->
+    <xsl:template match="annotationLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'annotation'"/>
+        </xsl:call-template>
+    </xsl:template>
     <!--
         appendixRefLinkLayout
     -->

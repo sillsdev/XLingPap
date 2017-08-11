@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-08-01</a:date
+>2017-08-11</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.3 1 August 2017<ul
+>2.31.3 11 August 2017<ul
 ><li
 >Allow an annotationRef to not have an annotation.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li
 ><li
 >Allow publisher style sheet to control formatting of annotated bibliography items.</li
+><li
+>Allow two or more author names to be re-arranged using ' e ' as well as ' y ' for Spanish. (Spanish uses 'e' before an 'i'.) We already do this for ' and ' and ' &amp; ' for English and ' et ' for French.</li
 ><li
 >Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
 ><li

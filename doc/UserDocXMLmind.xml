@@ -17655,13 +17655,16 @@ term="iInterlinearTextFLEx"
 >One possible way to include an interlinear text is to use the <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
-> program to interlinearize a text and then export the text in <object
+> program to interlinearize a text and then export the entire interlinear text in <object
 type="tXLingPap"
 ></object
-> format. One can then merely copy and paste the resulting text into an <object
+> format. You can then merely copy and paste the resulting text into an <object
 type="tXLingPap"
 ></object
-> document. See <link
+> document. You will also probably need to copy and paste the <object
+type="tElement"
+>language</object
+> elements from the exported file into your document. Most likely you will need to do this one by one. See <link
 href="http://fieldworks.sil.org/flex/"
 >http://fieldworks.sil.org/flex/</link
 > for more on the <object

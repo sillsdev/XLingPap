@@ -168,6 +168,9 @@
          <cfg:item command="ConvertSelectedToEndnote" label="Convert selected item(s) to endnote">
             <cfg:accelerator code="F11" modifiers="ctrl alt"/>
          </cfg:item>
+         <cfg:item command="InsertBracketedConstituent" label="Convert selected text to bracketed constituent">
+            <cfg:accelerator code="F12" modifiers="shift"/>
+         </cfg:item>
          <cfg:item command="ConvertSVGFileToPDF" label="Convert .svg file to .pdf">
             <!--  rarely used, so no need for keyboard shortcut          <cfg:accelerator code="F10" modifiers="shift ctrl"/>-->
          </cfg:item>

@@ -66,7 +66,7 @@ public class ConvertAnyAbbreviationsToAbbrRefs extends RecordableCommand {
 	}
     }
 
-    protected Object convertAnyAbbreviations(DocumentView docView, Element gloss, Element parent)
+    public Object convertAnyAbbreviations(DocumentView docView, Element gloss, Element parent)
 	    throws ParseException, EvalException {
 	Document doc = docView.getDocument();
 	

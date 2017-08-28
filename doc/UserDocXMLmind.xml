@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 August 2017</date
+>28 August 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -5661,6 +5661,7 @@ id="sBMAbbreviations"
 >Abbreviations</secTitle
 ><p
 ><indexedItem
+main="yes"
 term="iAbbreviation"
 ></indexedItem
 >If you wish, you can create a list of abbreviations that are used in glossing text. Just like references and citations, the idea here is that while the list of abbreviations can be large, <object
@@ -11484,6 +11485,156 @@ sec="sFAQAssociatePublisherStyleSheet"
 href="PublisherStylesheetUserDocXMLmind.htm"
 >here</link
 > to see the documenation on publisher style sheets.)</p
+></section3
+><section3
+id="sExInterlinearBracketedConstrituents"
+><secTitle
+>Inserting bracketed constituents</secTitle
+><p
+><indexedItem
+term="iBracketedConstituents"
+></indexedItem
+>Sometimes one wants to insert bracketed constituents around items in an interlinear line. <object
+type="tXLingPap"
+></object
+> has a way to do this rather conveniently. One must, however, have already converted the interlinear to use the approach discussed in section <sectionRef
+sec="sExInterlinearWrd"
+></sectionRef
+>.</p
+><p
+>Once that is done, there are two ways to insert a bracketed constituent.</p
+><p
+>The first may be the easiest: select the text material that is to be in the constituent you are inserting. The text material should then have a reddish background color to it. Then press the <object
+type="tKey"
+>Shift</object
+> and <object
+type="tKey"
+>F12</object
+> keys on your keyboard at the same time (or use <object
+type="tInstruction"
+><object
+type="tXLingPap"
+></object
+> menu item / Convert selected text to bracketed constituent</object
+>). Next you will be asked to key the label you want for this bracketed constituent. After keying it and pressing either the <object
+type="tKey"
+>Enter</object
+> key or the <object
+type="tInstruction"
+>OK</object
+> button, <object
+type="tXLingPap"
+></object
+> will insert an <object
+type="tElement"
+>object</object
+> element at the beginning of the selection and two <object
+type="tElement"
+>object</object
+> elements at the end of the selection. These elements will have the <object
+type="tAttribute"
+>type</object
+> attributes shown in example <exampleRef
+letter="xBractedConstituentTypes"
+num="xBractedConstituentTypes"
+></exampleRef
+>.</p
+><example
+num="xBractedConstituentTypes"
+><table
+border="1"
+><tr
+><th
+>Type value</th
+><th
+>Description</th
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>tBracketOpen</object
+></td
+><td
+>The opening bracket</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>tBracketClose</object
+></td
+><td
+>The closing bracket</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>tBracketLabel</object
+></td
+><td
+>The label of the bracketing</td
+></tr
+></table
+></example
+><p
+>These three types will be added automatically by <object
+type="tXLingPap"
+></object
+> if you do not already have them. By default, <object
+type="tAttrValue"
+>tBracketOpen</object
+> has a “[” in its <object
+type="tAttribute"
+>before</object
+> attribute. <object
+type="tAttrValue"
+>tBracketClose</object
+> has a “]” in its <object
+type="tAttribute"
+>after</object
+> attribute. <object
+type="tAttrValue"
+>tBracketLabel</object
+> uses subscript formatting. Feel free to edit these <object
+type="tElement"
+>type</object
+> elements to format however you want. For example, you might want the label one to use a small caps font.</p
+><p
+><indexedItem
+term="iAbbreviation"
+></indexedItem
+>Further, if you are using abbreviations (see section <sectionRef
+sec="sBMAbbreviations"
+></sectionRef
+>), then <object
+type="tXLingPap"
+></object
+> will try and convert the label into any matching abbreviation.</p
+><p
+>The second way involves selecting one or more <object
+type="tElement"
+>wrd</object
+> elements.  One way to do this is to click on “wrd” in the node path bar and then use <object
+type="tInstruction"
+> Select menu item / Extend Selection to Following Sibling</object
+> repeatedly until you have the portion you want.  If you want to select the entire content of the line, you can click on “line” in the node path bar and then use <object
+type="tInstruction"
+>Select menu item / Select All Children</object
+>.  Once you have done this, you can press the <object
+type="tKey"
+>Shift</object
+> and <object
+type="tKey"
+>F12</object
+> keys on your keyboard at the same time (or use <object
+type="tInstruction"
+><object
+type="tXLingPap"
+></object
+> menu item / Convert selected text to bracketed constituent</object
+>) as noted above.  The rest is the same as above.</p
 ></section3
 ></section2
 ><section2
@@ -17664,7 +17815,7 @@ type="tXLingPap"
 > document. You will also probably need to copy and paste the <object
 type="tElement"
 >language</object
-> elements from the exported file into your document.  Most likely you will need to do this one by one. See <link
+> elements from the exported file into your document. Most likely you will need to do this one by one. See <link
 href="http://fieldworks.sil.org/flex/"
 >http://fieldworks.sil.org/flex/</link
 > for more on the <object
@@ -34121,6 +34272,11 @@ id="iInterlinear"
 id="iAutoWrapInterlinear"
 ><term
 >Automatically wrap long interlinears</term
+></indexTerm
+><indexTerm
+id="iBracketedConstituents"
+><term
+>Bracketed constituents</term
 ></indexTerm
 ><indexTerm
 id="iConvertToWrd"

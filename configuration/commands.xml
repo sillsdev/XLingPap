@@ -6,6 +6,42 @@
     </cfg:binding>
     <!-- following are customized cfg:commands written by hab -->
     <cfg:binding>
+        <cfg:keyPressed code="F12" modifiers="shift"/>
+        <cfg:command name="InsertBracketedConstituent"/>
+    </cfg:binding>
+    <cfg:command name="InsertBracketedConstituent">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitElement] wrd"/>
+                        </cfg:pass>
+                        <!-- ask for constituent abbreviation -->
+                        <cfg:command name="LocalizeString" parameter="msg.bracketedconstituentlabel"/>
+                        <cfg:command name="prompt" parameter="'%_'  ''"/>
+                        <!-- invoke Java code command -->
+                        <cfg:command name="InsertBracketedConstituentWhenWrdElementsSelectedCmd" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- First, check on what elements embedded in a wrd element can have text which is selected -->
+                        <!-- Then check that it is indeed in a wrd element -->
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitNode] langData gloss object wrd comment p"/>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitNode] wrd"/>
+                        </cfg:pass>
+                        <!-- ask for constituent abbreviation -->
+                        <cfg:command name="LocalizeString" parameter="msg.bracketedconstituentlabel"/>
+                        <cfg:command name="prompt" parameter="'%_'  ''"/>
+                        <!-- invoke Java code command -->
+                        <cfg:command name="InsertBracketedConstituentWhenTextSelectedCmd" parameter="%_"/>
+                        <cfg:command name="selectNode" parameter="self[implicitNode]"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
         <cfg:keyPressed code="F10" modifiers="shift"/>
         <cfg:command name="ConvertToWrdsOrGlossToAbbrRefs"/>
     </cfg:binding>
@@ -23,7 +59,7 @@
                 <cfg:pass>
                     <!-- need to be abbreviations and currently needs to be in gloss  -->
                     <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss item"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss item object"/>
                     <!-- but not with a parent line element -->
                     <cfg:fail>
                         <cfg:command name="selectNode" parameter="parent[implicitElement] line"/>
@@ -53,7 +89,8 @@
                         <!--                    <cfg:command name="selectNode" parameter="descendantOrSelf[implicitElement] object abbrRef"/>-->
                         <!--  -->
                         <!--                        <cfg:test context="$selectedElement" expression="descendant::object or descendant::abbrRef or descendant::endnote or descendant::endnoteRef or descendant::endnote"/>-->
-                        <cfg:test context="$selectedElement" expression="descendant::*[name()='object' or name()='abbrRef' or name()='endnote' or name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"/>
+                        <cfg:test context="$selectedElement"
+                            expression="descendant::*[name()='object' or name()='abbrRef' or name()='endnote' or name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']"/>
                         <!--                        <cfg:command name="alert" parameter="Sorry, but it is not possible to convert a line to wrd elements when there is an embedded element (e.g. object, endnote or abbrRef).  Please remove the embedded element(s) and try again."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.convertsToWrds"/>
                         <cfg:command name="alert" parameter="%_"/>
@@ -68,7 +105,7 @@
                                     <cfg:command name="SelectNextWordToConvert"/>
                                 </cfg:pass>
                                 <cfg:command name="ReplaceNextWordWithWrd"/>
-<!--  if you want it to recurse                              <cfg:command name="ConvertToWrds"/>-->
+                                <!--  if you want it to recurse                              <cfg:command name="ConvertToWrds"/>-->
                             </cfg:sequence>
                             <cfg:sequence>
                                 <!-- exceptional case where have only one word in the line;  
@@ -323,6 +360,12 @@
     <cfg:command name="SetHtmlTableToClipboardCmd">
         <cfg:class>xlingpaper.xxe.SetHtmlTableToClipboard</cfg:class>
     </cfg:command>
+    <cfg:command name="InsertBracketedConstituentWhenTextSelectedCmd">
+        <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenTextSelected</cfg:class>
+    </cfg:command>
+    <cfg:command name="InsertBracketedConstituentWhenWrdElementsSelectedCmd">
+        <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenWrdElementsSelected</cfg:class>
+    </cfg:command>
     <cfg:binding>
         <cfg:keyPressed code="F7" modifiers="shift"/>
         <cfg:command name="demoteSelectionCmd"/>
@@ -456,20 +499,19 @@ Borrowed from xhtml
        like a word-processor. -->
     <cfg:binding>
         <cfg:keyPressed code="ENTER"/>
-<!--        <cfg:command name="xhtml.splitOrInsertNewLine"/> -->
+        <!--        <cfg:command name="xhtml.splitOrInsertNewLine"/> -->
         <cfg:command name="insertNewlineOrSplitBlock"/>
     </cfg:binding>
     <cfg:binding>
         <cfg:keyPressed code="DELETE"/>
-<!--        <cfg:command name="xhtml.joinOrDeleteChar"/>-->
+        <!--        <cfg:command name="xhtml.joinOrDeleteChar"/>-->
         <cfg:command name="deleteSelectionOrJoinBlockOrDeleteChar"/>
     </cfg:binding>
     <cfg:binding>
         <cfg:keyPressed code="BACK_SPACE"/>
-<!--        <cfg:command name="xhtml.joinOrDeleteChar" parameter="backwards"/>-->
+        <!--        <cfg:command name="xhtml.joinOrDeleteChar" parameter="backwards"/>-->
         <cfg:command name="deleteSelectionOrJoinBlockOrDeleteChar" parameter="backwards"/>
-    </cfg:binding>-->
-<!--    <cfg:command name="xhtml.splitOrInsertNewLine">
+    </cfg:binding>--> <!--    <cfg:command name="xhtml.splitOrInsertNewLine">
         <cfg:macro>
             <cfg:choice>
                 <cfg:command name="insertControlChar" parameter="\n"/>
@@ -630,7 +672,8 @@ alt causes menu to be selected
                             <cfg:command name="insert" parameter="into abbrRef"/>
                         </cfg:pass>
                         <cfg:command name="LocalizeString" parameter="msg.insertReferenceElement"/>
-                        <cfg:command name="pick" parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss glossaryTermRef indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="pick"
+                            parameter="'%_' false abbrRef appendixRef citation endnoteRef exampleRef figureRef genericRef gloss glossaryTermRef indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
                         <cfg:command name="insert" parameter="into %_"/>
                         <cfg:command name="setReference"/>
                     </cfg:sequence>
@@ -639,7 +682,8 @@ alt causes menu to be selected
                             <cfg:command name="insert" parameter="into sectionRef"/>
                         </cfg:pass>
                         <cfg:command name="LocalizeString" parameter="msg.insertReferenceElement"/>
-                        <cfg:command name="pick" parameter="'%_' false appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
+                        <cfg:command name="pick"
+                            parameter="'%_' false appendixRef citation endnoteRef exampleRef figureRef genericRef gloss indexedItem indexedRangeBegin indexedRangeEnd interlinearRefCitation iso639-3codeRef langData object sectionRef tablenumberedRef"/>
                         <cfg:command name="insert" parameter="into %_"/>
                         <cfg:command name="setReference"/>
                     </cfg:sequence>
@@ -905,12 +949,14 @@ alt causes menu to be selected
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
-                                <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                                <cfg:get
+                                    expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
                                 <cfg:command name="pick" parameter="'%0 Example' false %_"/>
                             </cfg:sequence>
                             <cfg:sequence>
-                                <cfg:get expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
-<!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
+                                <cfg:get
+                                    expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
+                                <!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
                                 <cfg:command name="pick" parameter="'%0 Example' false %_"/>
                             </cfg:sequence>
                         </cfg:choice>
@@ -919,12 +965,14 @@ alt causes menu to be selected
                         <cfg:choice>
                             <cfg:sequence>
                                 <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
-                                <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                                <cfg:get
+                                    expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
                                 <cfg:command name="pick" parameter="Example false %_"/>
                             </cfg:sequence>
                             <cfg:sequence>
-                                <cfg:get expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
-<!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
+                                <cfg:get
+                                    expression="join(//example[not(ancestor::framedUnit)]/@num | //listWord[not(ancestor::framedUnit)]/@letter | //listSingle[not(ancestor::framedUnit)]/@letter | //listInterlinear[not(ancestor::framedUnit)]/@letter | //listDefinition[not(ancestor::framedUnit)]/@letter | //lineSet[not(ancestor::framedUnit)]/@letter, ' ')"/>
+                                <!--                                <cfg:command name="getExampleNumbersAndIds"/>-->
                                 <cfg:command name="pick" parameter="Example false %_"/>
                             </cfg:sequence>
                         </cfg:choice>
@@ -951,7 +999,8 @@ alt causes menu to be selected
                     <cfg:choice>
                         <cfg:sequence>
                             <cfg:test expression="$selectedElement/ancestor::framedUnit"/>
-                            <cfg:get expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
+                            <cfg:get
+                                expression="join($selectedElement/ancestor::framedUnit//example/@num | $selectedElement/ancestor::framedUnit//listWord/@letter | $selectedElement/ancestor::framedUnit//listSingle/@letter | $selectedElement/ancestor::framedUnit//listInterlinear/@letter | $selectedElement/ancestor::framedUnit//listDefinition/@letter | $selectedElement/ancestor::framedUnit//lineSet/@letter, ' ')"/>
                             <cfg:command name="pick" parameter="Example false %_"/>
                         </cfg:sequence>
                         <cfg:sequence>
@@ -1073,7 +1122,8 @@ alt causes menu to be selected
                     <cfg:command name="selectNode" parameter="self[implicitElement] genericRef"/>
                     <!--               <cfg:command name="putAttribute" parameter="[implicitElement] gref"/>-->
                 </cfg:pass>
-                <cfg:get expression="join(//*[name()!='language']/@id | //example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //lineSet/@letter | //interlinear/@text[string-length(.) != 0], ' ')"/>
+                <cfg:get
+                    expression="join(//*[name()!='language']/@id | //example/@num | //listWord/@letter | //listSingle/@letter | //listInterlinear/@letter | //lineSet/@letter | //interlinear/@text[string-length(.) != 0], ' ')"/>
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Generic Reference' false %_"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] gref %_"/>
@@ -1328,7 +1378,7 @@ alt causes menu to be selected
                 <cfg:command name="pick" parameter="Citation true %_"/>
                 <cfg:set variable="refWork" expression="%_" plainString="true"/>
                 <!-- we put in a bad citation value to avoid the macro from stopping when the new value is the same as the old value -->
-                <cfg:command name="putAttribute" parameter="[implicitElement] citation 'r'"/>                
+                <cfg:command name="putAttribute" parameter="[implicitElement] citation 'r'"/>
                 <cfg:get expression="$refWork"/>
                 <cfg:command name="putAttribute" parameter="[implicitElement] citation %_"/>
                 <cfg:get expression="$refWork"/>
@@ -1413,7 +1463,7 @@ alt causes menu to be selected
                 <cfg:command name="RemoveExtraDoubleQuotesFromPickLabelsCmd" parameter="%_"/>
                 <cfg:command name="pick" parameter="'Jump to reference' true %_"/>
                 <cfg:set variable="refWork" expression="%_" plainString="true"/>
-<!--                <cfg:command name="bookmark" parameter="add"/>-->
+                <!--                <cfg:command name="bookmark" parameter="add"/>-->
                 <cfg:get expression="$refWork"/>
                 <!--  beginning with XXE 4.9, selectById is no longer supported.
         Hussein suggests using the following which not only works in XXE 4.9, but also in XXE 4.8, 4.7,4.5.2 and probably earlier
@@ -1617,17 +1667,17 @@ What we want is to load IE independently and to do a refresh so it will show the
                         <cfg:set variable="safeXeLaTeXFileName" expression="%_" plainString="true"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="eBookPrepPublisherStyleSheet" parameter="%_"/>
-<!--                        <cfg:command name="alert" parameter="after eBookPrepPublisherStyleSheet"/>-->
+                        <!--                        <cfg:command name="alert" parameter="after eBookPrepPublisherStyleSheet"/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
                         <cfg:command name="status" parameter="%_ (2/4)"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
                         <cfg:command name="AddFileToCalibreLibrary" parameter="%_"/>
-<!--                        <cfg:command name="alert" parameter="after AddFileToCalibreLibrary"/>-->
+                        <!--                        <cfg:command name="alert" parameter="after AddFileToCalibreLibrary"/>-->
                         <cfg:command name="LocalizeString" parameter="msg.producingEBook"/>
                         <cfg:command name="status" parameter="%_ (3/4)"/>
                         <cfg:command name="GetHighestCalibreBookIdCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:set variable="CalibreBookId" plainString="true" expression="%_"/>
-<!--                        <cfg:get expression="$CalibreBookId"/>
+                        <!--                        <cfg:get expression="$CalibreBookId"/>
                         <cfg:command name="alert" parameter="book id = %_"/>-->
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperCalibreList.txt"/>
                         <cfg:get expression="$safeXeLaTeXFileName"/>
@@ -1698,7 +1748,8 @@ What we want is to load IE independently and to do a refresh so it will show the
     </cfg:command>
     <cfg:command name="ConvertToEPUB">
         <cfg:process>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}ConvertToEPUB.bat&quot; %0 &quot;%{P}%{S}%{R}&quot; %1 &quot;%2&quot; &quot;%3&quot; %4" platform="Windows"/>
+            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}ConvertToEPUB.bat&quot; %0 &quot;%{P}%{S}%{R}&quot; %1 &quot;%2&quot; &quot;%3&quot; %4"
+                platform="Windows"/>
             <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}ConvertToEPUB&quot; %0 &quot;%{P}%{S}%{R}&quot; %1 &quot;%2&quot; &quot;%3&quot; %4" platform="Unix"/>
         </cfg:process>
     </cfg:command>
@@ -1775,7 +1826,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                             <cfg:command name="LocalizeString" parameter="msg.producePDFViaXeLaTeXLookForProblems"/>
                             <cfg:command name="status" parameter="%_"/>
                             <cfg:command name="CheckPresenceOfFontsAndImagesCmd" parameter="%{P}"/>
-<!--                                                    <cfg:command name="alert" parameter="After, result = %_"/>-->
+                            <!--                                                    <cfg:command name="alert" parameter="After, result = %_"/>-->
                             <cfg:choice>
                                 <cfg:sequence>
                                     <cfg:pass>
@@ -2083,7 +2134,8 @@ What we want is to load IE independently and to do a refresh so it will show the
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:choice>
-                            <cfg:command name="run" parameter="[Windows] if exist &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot; del &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
+                            <cfg:command name="run"
+                                parameter="[Windows] if exist &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot; del &quot;%{P}%{S}XLingPaperPDFTemp%{S}xelatex.err&quot;"/>
                             <cfg:command name="run" parameter="[Unix] echo hi"/>
                         </cfg:choice>
                         <cfg:command name="producePDF"/>
@@ -2165,15 +2217,23 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="ProducePDFViaXeLaTeXInitialProcessing">
         <cfg:process>
             <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginTOC.toc&quot; toc" platform="Windows"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginIndex.idx&quot; idx" platform="Windows"/>
+            <cfg:shell
+                command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginTOC.toc&quot; toc"
+                platform="Windows"/>
+            <cfg:shell
+                command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoAuxFilePrep.bat&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%0&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}BeginIndex.idx&quot; idx"
+                platform="Windows"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="ProducePDFViaXeLaTeXPostProcessing">
         <cfg:process>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
-            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
+            <cfg:shell
+                command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
+                platform="Windows"/>
+            <cfg:shell
+                command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
+                platform="Unix"/>
             <!-- moved these to the batch file           <cfg:shell  command="copy &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Windows"/>
             <cfg:shell  command="cp &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;" platform="Unix"/>
             <cfg:shell  command="del &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot;" platform="Windows"/>
@@ -2222,7 +2282,7 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--                        <cfg:copy files="TeXML2.xml" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.xml"/>-->
             <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
-<!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
+            <!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="TeXML2.tex"/>
             <cfg:invoke method="xlingpaper.xxe.NonASCIIIDandIDREFConversion.convert"/>
             <cfg:copy quiet="true" files="TeXML3.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
@@ -2249,9 +2309,9 @@ What we want is to load IE independently and to do a refresh so it will show the
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--                        <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
-<!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
+            <!--            <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="TeXML2.tex"/>
-<!--            <cfg:copy quiet="true" files="TeXML2.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.tex"/>-->
+            <!--            <cfg:copy quiet="true" files="TeXML2.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}TeXML2.tex"/>-->
             <cfg:invoke method="xlingpaper.xxe.NonASCIIIDandIDREFConversion.convert"/>
             <cfg:copy quiet="true" files="TeXML3.tex" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>
@@ -2669,7 +2729,8 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:sequence>
                 <cfg:command name="selectFile" parameter="[Choose SVG File]openFile %{d}"/>
                 <cfg:choice>
-                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DoBatikRasterizer.bat&quot; &quot;%_&quot; &quot;%{C}%{S}..%{S}batchfiles&quot;"/>
+                    <cfg:command name="run"
+                        parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}DoBatikRasterizer.bat&quot; &quot;%_&quot; &quot;%{C}%{S}..%{S}batchfiles&quot;"/>
                     <cfg:command name="run" parameter="[Unix] &quot;%{C}%{S}..%{S}batchfiles%{S}DoBatikRasterizer&quot; &quot;%_&quot;"/>
                 </cfg:choice>
             </cfg:sequence>
@@ -3228,13 +3289,15 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:sequence>
                 <cfg:pass>
                     <cfg:command name="cut" parameter="[implicit_selection]"/>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] p pc secTitle hangingIndent li blockquote title subtitle q dt dd interlinearSource wrd free langData gloss literal th td exampleHeading textTitle source genre caption endCaption affiliation presentedAt chart definition keyTerm genericRef link publishingBlurb author item"/>
+                    <cfg:command name="selectNode"
+                        parameter="self[implicitElement] p pc secTitle hangingIndent li blockquote title subtitle q dt dd interlinearSource wrd free langData gloss literal th td exampleHeading textTitle source genre caption endCaption affiliation presentedAt chart definition keyTerm genericRef link publishingBlurb author item"
+                    />
                 </cfg:pass>
                 <cfg:command name="cut" parameter="[implicit_selection]"/>
                 <cfg:command name="insert" parameter="into endnote"/>
                 <cfg:command name="paste" parameter="into"/>
                 <cfg:command name="toggleCollapsed" parameter="expand"/>
-            </cfg:sequence> 
+            </cfg:sequence>
         </cfg:macro>
     </cfg:command>
     <cfg:command name="TableToXLingPaper">
@@ -3245,11 +3308,11 @@ NB actually it associates the stylesheet with the original file, not the new han
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="string-length($result) > 0"/>
-<!--                        <cfg:command name="alert" parameter="after command"/>-->
+                        <!--                        <cfg:command name="alert" parameter="after command"/>-->
                         <cfg:command name="CleanUpConvertedTable"/>
-<!--                        <cfg:command name="alert" parameter="After xsl"/>-->
+                        <!--                        <cfg:command name="alert" parameter="After xsl"/>-->
                         <cfg:command name="SetHtmlTableToClipboardCmd" parameter="%{P}%{S}XLingPaperTempTableCleaned.html"/>
-<!--                        <cfg:command name="alert" parameter="After set clipboard"/>-->
+                        <!--                        <cfg:command name="alert" parameter="After set clipboard"/>-->
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTable.html"/>
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTable.xhtml"/>
                         <cfg:command name="DeleteFileCmd" parameter="%{P}%{S}XLingPaperTempTableCleaned.html"/>
@@ -3270,14 +3333,13 @@ NB actually it associates the stylesheet with the original file, not the new han
             <cfg:copy files="XLingPaperTempTableCleaned.html" to="%{P}%{S}XLingPaperTempTableCleaned.html" quiet="true"/>
         </cfg:process>
     </cfg:command>
-
     <cfg:command name="AbbreviationListAsWebPage">
         <cfg:macro>
             <cfg:sequence>
                 <cfg:choice>
                     <cfg:sequence>
                         <cfg:test expression="not(//abbreviations)"/>
-<!--                        <cfg:command name="alert" parameter="Sorry, there are no abbreviations in this document file."/>-->
+                        <!--                        <cfg:command name="alert" parameter="Sorry, there are no abbreviations in this document file."/>-->
                         <cfg:command name="LocalizeString" parameter="msg.noAbbreviations"/>
                         <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
@@ -3292,7 +3354,8 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:set variable="sByAbbreviation" expression="%_" plainString="true"/>
                         <cfg:command name="LocalizeString" parameter="param.abbreviationListByDefinition"/>
                         <cfg:set variable="sByDefinition" expression="%_" plainString="true"/>
-                        <cfg:set variable="sParams" expression="concat('&quot;',$sTitle,'&quot;',' ','&quot;',$sAbbreviation,'&quot;',' ','&quot;',$sDefinition,'&quot;',' ','&quot;',$sByAbbreviation,'&quot;',' ','&quot;',$sByDefinition,'&quot;')"/>
+                        <cfg:set variable="sParams"
+                            expression="concat('&quot;',$sTitle,'&quot;',' ','&quot;',$sAbbreviation,'&quot;',' ','&quot;',$sDefinition,'&quot;',' ','&quot;',$sByAbbreviation,'&quot;',' ','&quot;',$sByDefinition,'&quot;')"/>
                         <cfg:get expression="$sParams"/>
                         <cfg:command name="applyShowListOfAbbreviationsTransform" parameter="%_"/>
                         <cfg:command name="start" parameter="helper(defaultViewer) &quot;%{P}%{S}abbreviations.htm&quot;"/>
@@ -3313,5 +3376,4 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:transform>
         </cfg:process>
     </cfg:command>
-    
 </cfg:configuration>

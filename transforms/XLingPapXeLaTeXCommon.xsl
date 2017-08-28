@@ -2517,6 +2517,9 @@
                 <tex:spec cat="align"/>
                 <tex:spec cat="bg"/>
             </xsl:when>
+            <xsl:when test="parent::li and preceding-sibling::*[1][name()='example' and child::*[1][name()='table']]">
+                <!-- do nothing -->
+            </xsl:when>
             <xsl:when test="not(ancestor-or-self::td) and not(ancestor-or-self::th) and not(preceding-sibling::*[1][name()='table'])">
                 <xsl:variable name="previousTextOrBr" select="preceding-sibling::text()[1] | preceding-sibling::*[1][name()='br']"/>
                 <xsl:if test="name($previousTextOrBr[2])='br'">

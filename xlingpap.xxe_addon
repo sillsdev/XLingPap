@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.31.3</a:version
+>2.31.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-08-11</a:date
+>2017-08-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.31.4 28 August 2017<ul
+><li
+>Add a way to insert bracketed constituents to a line in an interlinear. See section in the user documentation.</li
+><li
+>Improve validity warning about using font-variant small-caps.</li
+><li
+>Fix bug: the element template for procCitation used pages instead of page as the attribute.</li
+><li
+>Fix a typo in the publisher style sheet documentation</li
+></ul
+></li
 ><li
 >2.31.3 11 August 2017<ul
 ><li

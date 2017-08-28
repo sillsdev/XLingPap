@@ -475,7 +475,7 @@ citations
   </cfg:elementTemplate>
   <cfg:elementTemplate name="proceedingsCitation">
     <proceedings>
-      <procCitation pages="???"/>
+      <procCitation page="???"/>
     </proceedings>
   </cfg:elementTemplate>
   <cfg:elementTemplate name="thesis">

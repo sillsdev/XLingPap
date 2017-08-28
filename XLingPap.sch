@@ -229,7 +229,7 @@
             <dir value="ltr">Check for use of font-variant='small-caps'</dir>
         </title>
         <rule context="/lingPaper/languages/language | /lingPaper/types/type | /xlingpaper/styledPaper/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/types/type | /xlingpaper/styledPaper/publisherStyleSheet//* | /publisherStyleSheet//*">
-            <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.</report>
+            <report test="@font-variant='small-caps'">Warning: using a font-variant of 'small-caps' is now deprecated.  Please use a real, true-blue small-caps font and put its name in the font-family attribute.  Also be sure to either remove the font-variant attribute or at least set it to 'normal'.</report>
         </rule>
     </pattern>
     <pattern id="index">

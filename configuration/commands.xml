@@ -6,6 +6,42 @@
     </cfg:binding>
     <!-- following are customized cfg:commands written by hab -->
     <cfg:binding>
+        <cfg:keyPressed code="F12" modifiers="shift"/>
+        <cfg:command name="InsertBracketedConstituent"/>
+    </cfg:binding>
+    <cfg:command name="InsertBracketedConstituent">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitElement] wrd"/>
+                        </cfg:pass>
+                        <!-- ask for constituent abbreviation -->
+                        <cfg:command name="LocalizeString" parameter="msg.bracketedconstituentlabel"/>
+                        <cfg:command name="prompt" parameter="'%_'  ''"/>
+                        <!-- invoke Java code command -->
+                        <cfg:command name="InsertBracketedConstituentWhenWrdElementsSelectedCmd" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <!-- First, check on what elements embedded in a wrd element can have text which is selected -->
+                        <!-- Then check that it is indeed in a wrd element -->
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitNode] langData gloss object wrd comment p"/>
+                            <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitNode] wrd"/>
+                        </cfg:pass>
+                        <!-- ask for constituent abbreviation -->
+                        <cfg:command name="LocalizeString" parameter="msg.bracketedconstituentlabel"/>
+                        <cfg:command name="prompt" parameter="'%_'  ''"/>
+                        <!-- invoke Java code command -->
+                        <cfg:command name="InsertBracketedConstituentWhenTextSelectedCmd" parameter="%_"/>
+                        <cfg:command name="selectNode" parameter="self[implicitNode]"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:binding>
         <cfg:keyPressed code="F10" modifiers="shift"/>
         <cfg:command name="ConvertToWrdsOrGlossToAbbrRefs"/>
     </cfg:binding>
@@ -23,7 +59,7 @@
                 <cfg:pass>
                     <!-- need to be abbreviations and currently needs to be in gloss  -->
                     <cfg:test context="//abbreviations" expression="abbreviation/abbrInLang/abbrTerm"/>
-                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss item"/>
+                    <cfg:command name="selectNode" parameter="ancestorOrSelf[implicitElement] gloss item object"/>
                     <!-- but not with a parent line element -->
                     <cfg:fail>
                         <cfg:command name="selectNode" parameter="parent[implicitElement] line"/>
@@ -322,6 +358,12 @@
     </cfg:command>
     <cfg:command name="SetHtmlTableToClipboardCmd">
         <cfg:class>xlingpaper.xxe.SetHtmlTableToClipboard</cfg:class>
+    </cfg:command>
+    <cfg:command name="InsertBracketedConstituentWhenTextSelectedCmd">
+        <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenTextSelected</cfg:class>
+    </cfg:command>
+    <cfg:command name="InsertBracketedConstituentWhenWrdElementsSelectedCmd">
+        <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenWrdElementsSelected</cfg:class>
     </cfg:command>
     <!-- no longer needed because XXE now has Search / Bookmarks
    <cfg:binding>

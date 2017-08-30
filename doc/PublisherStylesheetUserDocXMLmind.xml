@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 August 2017</date
+>30 August 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -14042,7 +14042,10 @@ lang="lEng"
 >This is the name or special code for the color to use as the background when outputting the information.<endnoteRef
 note="nNoColorChooser"
 ></endnoteRef
-></td
+>  For the <object
+type="tXeTeX"
+></object
+>-way of producing PDF, this is ignored for all section titles.</td
 ><td
 ><table
 ><tr

@@ -4717,6 +4717,9 @@
                 </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="contains(@XeLaTeXSpecial,$sPatternVA) and $contentLayoutInfo/figureLayout/@captionLocation='after'">
+            <tex:cmd name="leavevmode"/>
+        </xsl:if>
         <tex:spec cat="bg"/>
         <tex:cmd name="{$sXeTeXGraphicFile}" gr="0" nl2="0">
             <xsl:text> "</xsl:text>
@@ -8530,7 +8533,8 @@
             </xsl:call-template>
         </xsl:if>
         <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
-        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+        <!-- we do not allow background color for titles; PDF fails to be produced -->
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0 and not($language/@usetitleinheader)">
             <xsl:for-each select="$language">
                 <tex:spec cat="bg"/>
                 <tex:cmd name="colorbox">
@@ -8628,7 +8632,8 @@
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
         <xsl:variable name="sBackgroundColor" select="normalize-space($language/@backgroundcolor)"/>
-        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0">
+        <!-- we do not allow background color for titles; PDF fails to be produced -->
+        <xsl:if test="not(name()='type') and  string-length($sBackgroundColor) &gt; 0 and not($language/@usetitleinheader)">
             <tex:spec cat="eg"/>
             <tex:spec cat="eg"/>
         </xsl:if>

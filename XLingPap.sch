@@ -403,6 +403,9 @@
         <rule context="abbrRef[parent::item]">
             <report test="parent::item/@type!='gls'">There is an abbrRef in an item element that is not a gloss.  Please only use abbrRef elements in gloss lines.</report>
         </rule>
+        <rule context="abbrRef[ancestor::secTitle]">
+            <report test="ancestor::langData">Using an abbrRef element embedded within a langData inside of a secTitle element may fail to produce PDF output.  Please use a gloss element instead of langData.</report>
+        </rule>
     </pattern>
     <pattern id="endnoteInSecTitle">
         <title><dir value="ltr">Check for embedded endnote in secTitle</dir></title>

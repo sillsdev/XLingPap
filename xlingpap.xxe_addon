@@ -36,6 +36,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Fix broken link in the JIPA Illustration submission template.</li
 ><li
+>Add warning for using an abbrRef inside a langData inside a secTitle: the langData should be a gloss element instead.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause the PDF to fail to be produced.</li

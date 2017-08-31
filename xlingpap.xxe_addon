@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-08-30</a:date
+>2017-08-31</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.5 30 August 2017<ul
+>3.1.5 31 August 2017<ul
 ><li
 >Fix broken link in the JIPA Illustration submission template.</li
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause the PDF to fail to be produced.</li
 ><li
 >Fix bug: when a publisher style sheet had a background color set for a title, the PDF could fail to be produced.</li
+><li
+>Fix bug: when an interlinear text has nothing in the textInfo element except for a shortTitle and the interlinear-text element has its text ID attribute filled-in, the first interlinear line label was indented when it should not be.</li
 ></ul
 ></li
 ></ul

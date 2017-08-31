@@ -1269,6 +1269,7 @@
     -->
     <xsl:template match="interlinear">
         <xsl:param name="originalContext"/>
+        <xsl:param name="sTextInfoContent"/>
         <xsl:call-template name="HandleAnyInterlinearAlignedWordSkipOverride"/>
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
@@ -1335,6 +1336,17 @@
                 <xsl:call-template name="DoInternalTargetEnd"/>
                 <tex:spec cat="eg"/>
                 <tex:spec cat="eg"/>
+                <xsl:if test="string-length($sTextInfoContent)=0 and preceding-sibling::*[1][name()='textInfo'] and string-length(../@text) &gt; 0">
+                    <!-- If the text info has nothing to output and the interlinear-text has a text ID and
+                         this is the very first line in the interlinear, insert the hyperlink to the interlinear-text text id.
+                         If we try and insert the interlinear-text text id before, then the first line gets indented for some reason.
+                         So we do it here.
+                    -->
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="../@text"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoInternalTargetEnd"/>
+                </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
                         <tex:cmd name="par" gr="0"/>
@@ -2908,7 +2920,10 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
-        <xsl:apply-templates/>
+        <xsl:variable name="sTextInfoContent" select="concat(string(textInfo/textTitle),string(textInfo/source),textInfo/genres/genre)"/>
+        <xsl:apply-templates>
+            <xsl:with-param name="sTextInfoContent" select="$sTextInfoContent"/>
+        </xsl:apply-templates>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
             <tex:spec cat="eg"/>
         </xsl:if>
@@ -2921,13 +2936,14 @@
         textInfo
     -->
     <xsl:template match="textInfo">
-        <xsl:if test="string-length(../@text) &gt; 0">
+        <xsl:param name="sTextInfoContent"/>
+        <xsl:if test="string-length(../@text) &gt; 0 and string-length($sTextInfoContent) &gt; 0">
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="../@text"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:apply-templates/>
-        <xsl:if test="string-length(../@text) &gt; 0">
+        <xsl:if test="string-length(../@text) &gt; 0 and string-length($sTextInfoContent) &gt; 0">
             <xsl:call-template name="DoInternalTargetEnd"/>
         </xsl:if>
     </xsl:template>

@@ -16,9 +16,12 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->10 May 2017</date
-><version
->2.31.0</version
+>7 September 2017</date
+><xi:include
+href="VersionStub.xml"
+xpointer="element(/1/1/4)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><contents
 showLevel="3"
 ></contents
@@ -9176,6 +9179,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixLabelContentChoices</object
+></dt
+><dd
+>Used for controlling label of appendices in endnotes in a book when using endnotes instead of footnotes</dd
+><dt
+><object
+type="tElement"
 >appendixRef</object
 ></dt
 ><dd
@@ -10486,6 +10496,13 @@ type="tElement"
 ></dt
 ><dd
 >The references section of the back matter</dd
+><dt
+><object
+type="tElement"
+>reprintInfo</object
+></dt
+><dd
+>Reference information for reprint information of a publication</dd
 ><dt
 ><object
 type="tElement"
@@ -12307,6 +12324,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the title of a references section in the document</dd
+><dt
+><object
+type="tElement"
+>reprintInfoItem</object
+></dt
+><dd
+>Layout info for reprint information within references</dd
 ><dt
 ><object
 type="tElement"

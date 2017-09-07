@@ -698,6 +698,11 @@
                                     <xsl:with-param name="item" select="normalize-space($article/jArticleNumber)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$article/reprintInfo"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$article"/>
@@ -1090,6 +1095,11 @@
                                     <xsl:with-param name="item" select="normalize-space($book/bookTotalPages)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$book/reprintInfo"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$book"/>
@@ -1236,6 +1246,11 @@
                                 </xsl:call-template>
                             </xsl:when>
 -->
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$book/reprintInfo"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$book"/>
@@ -1329,6 +1344,11 @@
                             <xsl:when test="name(.)='procPagesItem'">
                                 <xsl:call-template name="OutputCitationPages">
                                     <xsl:with-param name="citation" select="$citation"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$book/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
@@ -1506,6 +1526,11 @@
                                     <xsl:with-param name="item" select="normalize-space($collection/multivolumeWork)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$collection/reprintInfo"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$collection"/>
@@ -1647,6 +1672,11 @@
                             <xsl:when test="name(.)='publishedLayoutRef'">
                                 <xsl:call-template name="DoPublishedLayout">
                                     <xsl:with-param name="reference" select="$dissertation/published"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$dissertation/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
@@ -2268,6 +2298,11 @@
                                     </xsl:call-template>
                                 </xsl:if>
                             </xsl:when>
+                            <xsl:when test="name(.)='reprintInfoItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$proceedings/reprintInfo"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$proceedings"/>
@@ -2333,6 +2368,11 @@
                 <xsl:when test="name(.)='pubDateItem'">
                     <xsl:call-template name="OutputReferenceItem">
                         <xsl:with-param name="item" select="normalize-space($reference/pubDate)"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="name(.)='reprintInfoItem'">
+                    <xsl:call-template name="OutputReferenceItemNode">
+                        <xsl:with-param name="item" select="$reference/reprintInfo"/>
                     </xsl:call-template>
                 </xsl:when>
             </xsl:choose>
@@ -2647,6 +2687,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/articleLayouts/*">
@@ -2687,6 +2731,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -2695,7 +2743,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2786,6 +2834,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$referencesLayoutInfo/bookLayouts/*">
@@ -2834,6 +2886,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">11</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 13, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 13, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -2841,7 +2897,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 13">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2888,6 +2944,10 @@
                 <xsl:when test="edition">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -2929,18 +2989,22 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(editionItem)">x</xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
                         </xsl:choose>-->
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and editionItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(editionItem)">x</xsl:when>
-                    </xsl:choose>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2975,6 +3039,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -3008,6 +3076,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3015,7 +3087,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 9">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3077,6 +3149,10 @@
             </xsl:choose>
             <xsl:choose>
                 <xsl:when test="edition">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -3155,9 +3231,13 @@
                         <xsl:when test="substring($sOptionsPresent, 16, 1)='y' and editionItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 16, 1)='n' and not(editionItem)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 17, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 17, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                 </xsl:variable>
-                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 16">
+<!--                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>-->
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 17">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3235,6 +3315,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:for-each select="$layout/*">
@@ -3271,10 +3355,14 @@
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
                         </xsl:choose>-->
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 9">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3539,6 +3627,10 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="GetUrlEtcLayoutToUseInfo"/>
+            <xsl:choose>
+                <xsl:when test="reprintInfo">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sPosition">
             <xsl:variable name="refWork" select="."/>
@@ -3585,6 +3677,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                    </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3592,7 +3688,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>

@@ -75,12 +75,12 @@ References Layouts
 <!ELEMENT webPageLayouts (comment?, webPageLayout)+>
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
-                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
-                                               bookTotalPagesItem | locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
-                                               locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
+                                               locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+<!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | 
                                                urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
@@ -89,8 +89,8 @@ References Layouts
 <!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem |  procCitationItem | authorRoleItem |
-                                                locationPublisherLayoutsRef | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
-<!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | 
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+<!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
 <!ELEMENT webPageLayout (refTitleItem | editionItem |  locationItem |  institutionItem |  publisherItem | 
                                                urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
@@ -109,6 +109,8 @@ References Layouts
 <!ATTLIST jArticleNumberItem %formatinfo;>
 <!ELEMENT bVolItem EMPTY >
 <!ATTLIST bVolItem %formatinfo;>
+<!ELEMENT reprintInfoItem EMPTY >
+<!ATTLIST reprintInfoItem %formatinfo;>
 <!ELEMENT dissertationLabelItem EMPTY >
 <!ATTLIST dissertationLabelItem 
   label CDATA #IMPLIED
@@ -128,7 +130,7 @@ References Layouts
 <!ELEMENT dateAccessedItem EMPTY >
 <!ATTLIST dateAccessedItem %formatinfo;>
 
-<!ELEMENT publishedLayout (locationPublisherLayoutsRef  | pubDateItem)+ >
+<!ELEMENT publishedLayout (locationPublisherLayoutsRef | pubDateItem)+ >
 <!ELEMENT pubDateItem EMPTY >
 <!ATTLIST pubDateItem %formatinfo;>
 <!ELEMENT publishedLayoutRef EMPTY >

@@ -3516,6 +3516,15 @@ references
 	property-group: isCollapsible( no, 1);
 }
 
+reprintInfo
+{
+    display:inline;
+}
+reprintInfo:after
+{
+	content: ". ";
+}
+
 row { 
     display: table-row;
 }
@@ -9234,6 +9243,30 @@ referencesLayout
 {
 	display:block;
 	property-group: isCollapsible( no, 1 );
+}
+reprintInfoItem[color]
+{
+	color:concatenate(attr(color));
+}
+reprintInfoItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+reprintInfoItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+reprintInfoItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+reprintInfoItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+reprintInfoItem
+{
+	property-group: referencesItem("Reprint information");
 }
 /*
 rightHeaderFooterItem:before

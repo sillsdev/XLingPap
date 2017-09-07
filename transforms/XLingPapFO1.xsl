@@ -3421,6 +3421,9 @@ not using
                     </xsl:call-template>
                 </xsl:when>
             </xsl:choose>
+            <xsl:call-template name="DoReprintInfo">
+                <xsl:with-param name="reprintInfo" select="reprintInfo"/>
+            </xsl:call-template>
             <xsl:call-template name="DoRefUrlEtc">
                 <xsl:with-param name="path" select="."/>
             </xsl:call-template>
@@ -4332,6 +4335,9 @@ not using
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="DoReprintInfo">
+                    <xsl:with-param name="reprintInfo" select="collection/reprintInfo"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="collection"/>
                 </xsl:call-template>
@@ -4381,6 +4387,9 @@ not using
                     <xsl:text>, </xsl:text>
                     <xsl:value-of select="normalize-space(dissertation/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
+                    <xsl:call-template name="DoReprintInfo">
+                        <xsl:with-param name="reprintInfo" select="dissertation/published/reprintInfo"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="dissertation"/>
@@ -4422,6 +4431,9 @@ not using
                     </xsl:choose>
                 </fo:inline>
                 <xsl:text>.</xsl:text>
+                <xsl:call-template name="DoReprintInfo">
+                    <xsl:with-param name="reprintInfo" select="article/reprintInfo"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="article"/>
                 </xsl:call-template>
@@ -4591,6 +4603,9 @@ not using
                         </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="DoReprintInfo">
+                    <xsl:with-param name="reprintInfo" select="proceedings/reprintInfo"/>
+                </xsl:call-template>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="proceedings"/>
                 </xsl:call-template>
@@ -4640,6 +4655,9 @@ not using
                     <xsl:text>, </xsl:text>
                     <xsl:value-of select="normalize-space(thesis/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
+                    <xsl:call-template name="DoReprintInfo">
+                        <xsl:with-param name="reprintInfo" select="thesis/published/reprintInfo"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="thesis"/>

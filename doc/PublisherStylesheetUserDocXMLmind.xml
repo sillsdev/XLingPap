@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 August 2017</date
+>7 September 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -4191,6 +4191,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
+></tr
+><tr
+><td
+><indexedItem
 term="iLocation"
 ></indexedItem
 ><indexedItem
@@ -4673,6 +4696,29 @@ showTitle="short"
 >.</td
 ><td
 >456</td
+></tr
+><tr
+><td
+><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
 ></tr
 ><tr
 ><td
@@ -5302,6 +5348,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
+></tr
+><tr
+><td
+><indexedItem
 term="iLocation"
 ></indexedItem
 ><indexedItem
@@ -5588,6 +5657,29 @@ showTitle="short"
 >.</td
 ><td
 >University of My Home Town</td
+></tr
+><tr
+><td
+><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
 ></tr
 ><tr
 ><td
@@ -6700,6 +6792,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
+></tr
+><tr
+><td
+><indexedItem
 term="iLocation"
 ></indexedItem
 ><indexedItem
@@ -6986,6 +7101,29 @@ showTitle="short"
 >.</td
 ><td
 >University of My Home Town</td
+></tr
+><tr
+><td
+><indexedItem
+term="iReprintInfoItem"
+></indexedItem
+><object
+type="tElement"
+>reprintInfoItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>reprintInfo</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Reprint information</td
 ></tr
 ><tr
 ><td
@@ -14042,7 +14180,7 @@ lang="lEng"
 >This is the name or special code for the color to use as the background when outputting the information.<endnoteRef
 note="nNoColorChooser"
 ></endnoteRef
->  For the <object
+> For the <object
 type="tXeTeX"
 ></object
 >-way of producing PDF, this is ignored for all section titles.</td
@@ -16987,8 +17125,6 @@ id="iInterlinearText"
 id="iISO639-3Code"
 ><term
 >ISO 639-3 code of a referenced work</term
-><indexTerms
-></indexTerms
 ></indexTerm
 ><indexTerm
 id="iISO639-3CodeRefLink"
@@ -17560,6 +17696,11 @@ id="iReferencesLayout"
 id="iReferencesTitleLayout"
 ><term
 >References Title Layout</term
+></indexTerm
+><indexTerm
+id="iReprintInfoItem"
+><term
+>Reprint information layout</term
 ></indexTerm
 ><indexTerm
 id="iRefSeries"

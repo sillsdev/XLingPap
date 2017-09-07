@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 August 2017</date
+>7 September 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -3762,8 +3762,11 @@ type="tElement"
 >jArticleNumber</object
 > elements (for the journal title, the journal volume number, the journal issue number, and either the page numbers of the article in the journal or the article number; the latter two are optional). It may also have optional <object
 type="tElement"
+>reprintInfo</object
+>, <object
+type="tElement"
 >location</object
-> and <object
+>, and <object
 type="tElement"
 >publisher</object
 > elements.</p
@@ -3794,7 +3797,7 @@ type="tElement"
 >, <object
 type="tElement"
 >bVol</object
-> (book volume), and <indexedItem
+> (book volume), <indexedItem
 term="iMultivoumeWork"
 ></indexedItem
 ><object
@@ -3808,7 +3811,10 @@ type="tItalic"
 >Chicago Manual of Style</object
 > or see sections 14.124 and 14.131 of the 16th edtion.</p
 ></endnote
->) elements, a recommended <object
+>), and <object
+type="tElement"
+>reprintInfo</object
+> elements, a recommended <object
 type="tElement"
 >location</object
 > element and a recommended <object
@@ -3891,6 +3897,11 @@ type="tElement"
 note="nMultivolumeWork"
 ></endnoteRef
 >),</li
+><li
+>an optional <object
+type="tElement"
+>reprintInfo</object
+> element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -4402,6 +4413,9 @@ type="tElement"
 > element, a required <object
 type="tElement"
 >institution</object
+> element, an optional <object
+type="tElement"
+>reprintInfo</object
 > element, and an optional <object
 type="tElement"
 >published</object
@@ -4540,6 +4554,11 @@ type="tElement"
 ><li
 >an optional <object
 type="tElement"
+>reprintInfo</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
 >location</object
 > element, and</li
 ><li
@@ -4615,6 +4634,9 @@ type="tElement"
 > element, a required <object
 type="tElement"
 >institution</object
+> element, an optional <object
+type="tElement"
+>reprintInfo</object
 > element, and an optional <object
 type="tElement"
 >published</object
@@ -18294,7 +18316,69 @@ src="resources/ReferencedInterlinearTexts2.png"
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->. Note, however, that the interlinear text itself will not appear in the output.<indexedRangeEnd
+>. Note, however, that the interlinear text itself will not appear in the output.</p
+><p
+>While using the <object
+type="tXMLmindXMLEditor"
+></object
+> version 7.2+, you may get a validity message saying “element has no attribute “xml:lang” [cvc-complex-type.3]”. This error has a red background color. This is caused by a mismatch in the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element between the two documents (the master document and the document containing the interlinear text). If your document containing the text, say, has the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element set to <object
+type="tAttrValue"
+>es</object
+> but the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element of the master document either has the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element not set at all or set to something other than <object
+type="tAttrValue"
+>es</object
+>, then you will get this validity message. To fix it, make sure that both documents have the same value in the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. (If the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element is empty in both or in the document containing the interlinear text, then you will not get this message.) Note that after changing the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element in the master document, you may need to shut down the <object
+type="tXMLmindXMLEditor"
+></object
+> editor, restart it, and then reload the master document before it will stop showing the validity message. Further, if your master document is large, it may take a very long time for the change to the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to take effect.<indexedRangeEnd
 begin="bInterlinearText"
 ></indexedRangeEnd
 ></p
@@ -29612,6 +29696,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>reprintInfo</object
+></dt
+><dd
+>Reference information for reprint information of a publication</dd
+><dt
+><object
+type="tElement"
 >row</object
 ></dt
 ><dd
@@ -31421,6 +31512,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the title of a references section in the document</dd
+><dt
+><object
+type="tElement"
+>reprintInfoItem</object
+></dt
+><dd
+>Layout info for reprint information within references</dd
 ><dt
 ><object
 type="tElement"

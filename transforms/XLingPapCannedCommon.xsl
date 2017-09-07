@@ -132,6 +132,17 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoReprintInfo
+    -->
+    <xsl:template name="DoReprintInfo">
+        <xsl:param name="reprintInfo"/>
+        <xsl:if test="$reprintInfo">
+            <xsl:text>&#x20;</xsl:text>
+            <xsl:apply-templates select="$reprintInfo"/>
+            <xsl:text>.</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         DoSectionRef
     -->
     <xsl:template name="DoSectionRef">

@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-08-31</a:date
+>2017-09-07</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.5 31 August 2017<ul
+>3.1.5 7 September 2017<ul
 ><li
 >Fix broken link in the JIPA Illustration submission template.</li
 ><li
 >Add warning for using an abbrRef inside a langData inside a secTitle: the langData should be a gloss element instead.</li
+><li
+>Add a reprintInfo element in most reference elements to handle information about reprints.</li
+><li
+>Add information in user documentation about possible validity errors when using referencedInterlinearText elements.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -90,7 +94,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Improve user documentation and publisher style sheet documentation.</li
 ><li
->Fix bug: When a publisher style sheet had "Use Endnotes" but the document had not endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
+>Fix bug: When a publisher style sheet had "Use Endnotes" but the document had no endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
 ><li
 >Fix bug: Failed to produce EBook with Calibre version 3.</li
 ><li

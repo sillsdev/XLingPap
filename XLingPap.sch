@@ -16,7 +16,8 @@
         <active pattern="definitions"/>
         <active pattern="interlinears"/>
         <active pattern="lineembeded"/>
-        <active pattern="badbr"/>
+        <!-- following no longer relevant -->
+<!--        <active pattern="badbr"/>-->
         <active pattern="deprecatedsmallcaps"/>
         <active pattern="deprecatedsmallcaps2"/>
         <active pattern="fontsize"/>
@@ -207,6 +208,7 @@
             <report test="parent::line and descendant::*[name()='endnoteRef' or name()='citation' or name()='langData' or name()='gloss' or name()='exampleRef' or name()='sectionRef' or name()='appendixRef' or name()='comment' or name()='br' or name()='figureRef' or name()='tablenumberedRef' or name()='q' or name()='img' or name()='genericRef' or name()='genericTarget' or name()='link' or name()='indexedItem' or name()='indexedRangeBegin' or name()='indexedRangeEnd' or name()='interlinearRefCitation' or name()='mediaObject']">Warning: There is an interlinear using the space alignment and there is a gloss element with an embedded element (e.g. citation or endnoteRef).  This will not format correctly.  To fix this, please remove each such embedded element (you can cut and paste them in a paragraph somewhere to save your work).  Then see section 5.3.1.2 'Word-aligned, marking certain words or morphemes' of the user documentation for how to convert what you have to wrd elements. </report>
         </rule>
     </pattern>
+<!-- This no longer causes the PDF to fail. 
     <pattern id="badbr">
         <title>
             <dir value="ltr">Check for br elements within a line in an interlinear</dir>
@@ -215,7 +217,7 @@
             <report test="descendant::br"
                 >Warning: There is a br element within an interlinear.  This will not produce PDF output.  Please either use an example(chart) or a table to do what you have in mind. </report>
         </rule>
-    </pattern>
+    </pattern>-->
     <pattern id="deprecatedsmallcaps">
         <title>
             <dir value="ltr">Check for abbreviation element with @usesmallcaps='Y'</dir>

@@ -56,8 +56,12 @@
 <!ATTLIST refTitleLowerCase
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT reprintInfo (#PCDATA | %embedded;)*>
+<!ATTLIST reprintInfo
+    xml:lang CDATA #IMPLIED
+>
 <!-- journal article -->
-<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT jTitle (#PCDATA)>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
@@ -82,7 +86,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT translatedBy (#PCDATA)>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
@@ -128,7 +132,7 @@
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
 <!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
-                         url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+                         reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 
 <!ELEMENT collEd (#PCDATA)>
 <!ATTLIST collEd
@@ -157,7 +161,7 @@
 >
 
 <!-- PhD dissertation -->
-<!ELEMENT dissertation (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT dissertation (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST dissertation
     labelDissertation CDATA #IMPLIED
 >
@@ -186,7 +190,8 @@
        a one-off method that includes all the information about the proceedings volume itself
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
-<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation),
+                        reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT procEd (#PCDATA)>
 <!ATTLIST procEd
     plural (no | yes) "yes"
@@ -213,7 +218,7 @@
     page CDATA #IMPLIED
 >
 <!-- MA thesis -->
-<!ELEMENT thesis (location?, institution, published?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT thesis (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST thesis
     labelThesis CDATA #IMPLIED
 >

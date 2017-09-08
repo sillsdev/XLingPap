@@ -6406,7 +6406,7 @@ not using
             <xsl:call-template name="OutputAbbrTerm">
                 <xsl:with-param name="abbr" select="."/>
             </xsl:call-template>
-            <xsl:text> = </xsl:text>
+            <xsl:call-template name="DoAnyEqualsSignBetweenAbbrAndDefinition"/>            
             <xsl:call-template name="OutputAbbrDefinition">
                 <xsl:with-param name="abbr" select="."/>
             </xsl:call-template>

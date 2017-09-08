@@ -1342,10 +1342,10 @@
                          If we try and insert the interlinear-text text id before, then the first line gets indented for some reason.
                          So we do it here.
                     -->
-                        <xsl:call-template name="DoInternalTargetBegin">
-                            <xsl:with-param name="sName" select="../@text"/>
-                        </xsl:call-template>
-                        <xsl:call-template name="DoInternalTargetEnd"/>
+                    <xsl:call-template name="DoInternalTargetBegin">
+                        <xsl:with-param name="sName" select="../@text"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="DoInternalTargetEnd"/>
                 </xsl:if>
                 <xsl:choose>
                     <xsl:when test="$bAutomaticallyWrapInterlinears='yes'">
@@ -8123,7 +8123,7 @@
         <xsl:call-template name="OutputAbbrTerm">
             <xsl:with-param name="abbr" select="."/>
         </xsl:call-template>
-        <xsl:text> = </xsl:text>
+        <xsl:call-template name="DoAnyEqualsSignBetweenAbbrAndDefinition"/>
         <xsl:call-template name="OutputAbbrDefinition">
             <xsl:with-param name="abbr" select="."/>
         </xsl:call-template>

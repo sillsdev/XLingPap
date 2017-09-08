@@ -601,8 +601,8 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInTableLayout?, glossaryTermsInTableLayout?, 
-                                                      iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
+                                                      magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
+                                                      glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -805,6 +805,10 @@ Content Layout
     <!ELEMENT citationLayout (#PCDATA) >
     <!ATTLIST citationLayout
       textbeforepages CDATA #IMPLIED
+    >
+    <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>
+    <!ATTLIST abbreviationsInFootnoteLayout
+       textBetweenAbbreviationAndDefinition CDATA #IMPLIED
     >
     <!ELEMENT abbreviationsInTableLayout  EMPTY>
     <!ATTLIST abbreviationsInTableLayout

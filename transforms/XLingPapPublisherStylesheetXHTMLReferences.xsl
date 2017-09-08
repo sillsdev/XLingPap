@@ -125,6 +125,7 @@
             <span>
                 <a>
                     <xsl:attribute name="href">
+                        <xsl:text>#</xsl:text>
                         <xsl:value-of select="@refToBook"/>
                     </xsl:attribute>
                     <xsl:call-template name="AddAnyLinkAttributes">

@@ -4457,6 +4457,14 @@ tr > td[bgcolor] {
  * Publisher Stylesheet items
  */
 
+abbreviationsInFootnoteLayout
+{
+	display:block;
+	content:"abbreviations in footnote layout";
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
 abbreviationsInTableLayout[color]
 {
 	color:concatenate(attr(color));

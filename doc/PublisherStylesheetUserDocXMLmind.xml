@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 September 2017</date
+>8 September 2017</date
 ><xi:include
 href="VersionStub.xml"
 xpointer="element(/1/1/4)"
@@ -4829,6 +4829,29 @@ id="sRefCollectionLayouts"
 >The <object
 type="tElement"
 >collectionLayouts</object
+> element has one attribute: <object
+type="tAttribute"
+>flipFirstAuthorName</object
+> which can have one of two values: <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default is <object
+type="tAttrValue"
+>yes</object
+>. If the value is <object
+type="tAttrValue"
+>no</object
+>, then collection editors' names are not reversed, but will appear in the order they occur in the corresponding <object
+type="tElement"
+>refAuthor</object
+> element.</p
+><p
+>The <object
+type="tElement"
+>collectionLayouts</object
 > element contains one or more <object
 type="tElement"
 >collectionLayout</object
@@ -8473,6 +8496,68 @@ type="tXeTeX"
 > is only output that lets us know how much horizontal space is used by the content of the date. We use this to figure out how much space to insert after the date to get the beginning of the entry to line up properly.</p
 ></endnote
 ></td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
+term="iAuthorName"
+></indexedItem
+><object
+type="tAttribute"
+>useAuthorSurnameCommaGivenNameInCitations</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>When this is set to <object
+type="tAttrValue"
+>yes</object
+> , then the author names in the work referred to by a <object
+type="tElement"
+>collCitation</object
+> or a <object
+type="tElement"
+>procCitation </object
+>element are not reversed, but will appear in the order they occur in the corresponding <object
+type="tElement"
+>refAuthor</object
+> element. (This is for the case where <object
+type="tXLingPap"
+></object
+> automatically fills in the information for a collection or proceedings volume referred to by a <object
+type="tElement"
+>collCitation</object
+> or <object
+type="tElement"
+>procCitation</object
+> element.) The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
 ><td
 ><table
 ><tr
@@ -12606,6 +12691,28 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
+id="sAbbreviationsInFootnote"
+><secTitle
+>Controlling the Display of Abbreviations in a Footnote</secTitle
+><p
+><indexedItem
+term="iAbbreviationsInFootnote"
+></indexedItem
+>Sometimes one wants to control how the list of abbreviations come out when they are in a footnote. You do this via the <object
+type="tElement"
+>abbreviationsInFootnoteLayout</object
+> element. This element has one attribute: <object
+type="tAttribute"
+>textBetweenAbbreviationAndDefinition</object
+> which one can use to set the text that will be output between the abbreviation and its definition. If the <object
+type="tAttribute"
+>textBetweenAbbreviationAndDefinition</object
+> attribute is empty, then <object
+type="tXLingPap"
+></object
+> will use “ = ” as the text between an abbreviation and its definition.</p
+></section2
+><section2
 id="sAbbreviationsInTables"
 ><secTitle
 >Controlling the Display of Abbreviations in a Table</secTitle
@@ -16093,6 +16200,15 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>abbreviationsInFootnoteLayout</object
+></td
+><td
+>abbreviations in footnote layout</td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >abbreviationsInTableLayout</object
 ></td
 ><td
@@ -16247,6 +16363,11 @@ id="iAbbrRefLink"
 >Abbreviation reference link</term
 ></indexTerm
 ><indexTerm
+id="iAbbreviationsInFootnote"
+><term
+>Abbreviations in a footnote</term
+></indexTerm
+><indexTerm
 id="iAbbreviationsInTable"
 ><term
 >Abbreviations in a table</term
@@ -16350,6 +16471,17 @@ id="iAuthorLastNameLayout"
 id="iAuthorLayout"
 ><term
 >Author layout</term
+></indexTerm
+><indexTerm
+id="iAuthorName"
+><term
+>Authors' names in a work cited by a <object
+type="tElement"
+>collCitation</object
+> or <object
+type="tElement"
+>procCitation</object
+> element</term
 ></indexTerm
 ><indexTerm
 id="iAuthorRoleFormatting"

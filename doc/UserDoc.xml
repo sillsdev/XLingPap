@@ -10882,6 +10882,13 @@ type="tXLingPap"
 ><dt
 ><object
 type="tElement"
+>abbreviationsInFootnoteLayout</object
+></dt
+><dd
+>Layout info for showing abbreviations used in a footnote</dd
+><dt
+><object
+type="tElement"
 >abbreviationsInTableLayout</object
 ></dt
 ><dd

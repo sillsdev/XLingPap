@@ -461,116 +461,124 @@
     -->
     <xsl:template name="ConvertLastNameFirstNameToFirstNameLastName">
         <xsl:param name="sCitedWorkAuthor"/>
-        <xsl:variable name="sFirstAuthorLastName" select="substring-before($sCitedWorkAuthor,',')"/>
-        <xsl:variable name="sFirstAuthorFirstName">
-            <xsl:variable name="sTryOne" select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),','))"/>
-            <xsl:choose>
-                <xsl:when test="string-length($sTryOne) &gt; 0">
-                    <!-- there are three or more names (we assume), so what comes before the second comma should be the first name -->
-                    <xsl:value-of select="$sTryOne"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:variable name="sTryTwo" select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),';'))"/>
+        <xsl:choose>
+            <xsl:when test="$referencesLayoutInfo/@useAuthorSurnameCommaGivenNameInCitations='yes'">
+                <xsl:value-of select="$sCitedWorkAuthor"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="sFirstAuthorLastName" select="substring-before($sCitedWorkAuthor,',')"/>
+                <xsl:variable name="sFirstAuthorFirstName">
+                    <xsl:variable name="sTryOne" select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),','))"/>
                     <xsl:choose>
-                        <xsl:when test="string-length($sTryTwo) &gt; 0">
-                            <!-- there are three or more names (we assume), so what comes before the semi-colon should be the first name -->
-                            <xsl:value-of select="$sTryTwo"/>
+                        <xsl:when test="string-length($sTryOne) &gt; 0">
+                            <!-- there are three or more names (we assume), so what comes before the second comma should be the first name -->
+                            <xsl:value-of select="$sTryOne"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <!-- assume it is only one or two authors -->
+                            <xsl:variable name="sTryTwo" select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),';'))"/>
                             <xsl:choose>
-                                <xsl:when test="string-length($sAuthorNamesWordForAnd) &gt; 0 and contains($sCitedWorkAuthor,$sAuthorNamesWordForAnd)">
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),concat(' ',$sAuthorNamesWordForAnd,' ')))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
-                                    <!-- there is an ampersand, so assume there are two authors and the first name is what comes between the first comma and the ampersand -->
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' and ')">
-                                    <!-- there is an 'and', so assume there are two authors and the first name is what comes between the first comma and the 'and' -->
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' and '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' y ')">
-                                    <!-- there is an 'y' (Spanish), so assume there are two authors and the rest is what comes after the 'y' -->
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' y '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' e I') or contains($sCitedWorkAuthor,' e i')">
-                                    <!-- there is an 'e [Ii]' (Spanish), so assume there are two authors and the rest is what comes after the 'e' -->
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' e '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' et ')">
-                                    <!-- there is an 'et' (French), so assume there are two authors and the rest is what comes after the 'et' -->
-                                    <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' et '))"/>
+                                <xsl:when test="string-length($sTryTwo) &gt; 0">
+                                    <!-- there are three or more names (we assume), so what comes before the semi-colon should be the first name -->
+                                    <xsl:value-of select="$sTryTwo"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <!-- it must be only one author -->
-                                    <xsl:value-of select="normalize-space(substring-after($sCitedWorkAuthor,','))"/>
+                                    <!-- assume it is only one or two authors -->
+                                    <xsl:choose>
+                                        <xsl:when test="string-length($sAuthorNamesWordForAnd) &gt; 0 and contains($sCitedWorkAuthor,$sAuthorNamesWordForAnd)">
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),concat(' ',$sAuthorNamesWordForAnd,' ')))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
+                                            <!-- there is an ampersand, so assume there are two authors and the first name is what comes between the first comma and the ampersand -->
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' and ')">
+                                            <!-- there is an 'and', so assume there are two authors and the first name is what comes between the first comma and the 'and' -->
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' and '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' y ')">
+                                            <!-- there is an 'y' (Spanish), so assume there are two authors and the rest is what comes after the 'y' -->
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' y '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' e I') or contains($sCitedWorkAuthor,' e i')">
+                                            <!-- there is an 'e [Ii]' (Spanish), so assume there are two authors and the rest is what comes after the 'e' -->
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' e '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' et ')">
+                                            <!-- there is an 'et' (French), so assume there are two authors and the rest is what comes after the 'et' -->
+                                            <xsl:value-of select="normalize-space(substring-before(substring-after($sCitedWorkAuthor,','),' et '))"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- it must be only one author -->
+                                            <xsl:value-of select="normalize-space(substring-after($sCitedWorkAuthor,','))"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="sSecondAuthorEtc">
-            <xsl:variable name="sTryOne" select="substring-after(substring-after($sCitedWorkAuthor,','),',')"/>
-            <xsl:choose>
-                <xsl:when test="string-length($sTryOne) &gt; 0">
-                    <!-- there are three or more names (we assume), so what comes before the second comma should be the rest -->
-                    <xsl:text>, </xsl:text>
-                    <xsl:value-of select="$sTryOne"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:variable name="sTryTwo" select="substring-after(substring-after($sCitedWorkAuthor,','),';')"/>
+                </xsl:variable>
+                <xsl:variable name="sSecondAuthorEtc">
+                    <xsl:variable name="sTryOne" select="substring-after(substring-after($sCitedWorkAuthor,','),',')"/>
                     <xsl:choose>
-                        <xsl:when test="string-length($sTryTwo) &gt; 0">
-                            <!-- there are three or more names (we assume), so what comes before the semi-colon should be the first name -->
-                            <xsl:text>; </xsl:text>
-                            <xsl:value-of select="$sTryTwo"/>
+                        <xsl:when test="string-length($sTryOne) &gt; 0">
+                            <!-- there are three or more names (we assume), so what comes before the second comma should be the rest -->
+                            <xsl:text>, </xsl:text>
+                            <xsl:value-of select="$sTryOne"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <!-- assume it is only one or two authors -->
+                            <xsl:variable name="sTryTwo" select="substring-after(substring-after($sCitedWorkAuthor,','),';')"/>
                             <xsl:choose>
-                                <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
-                                    <!-- there is an ampersand, so assume there are two authors and the rest is what comes after the ampersand -->
-                                    <xsl:text> &amp; </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' and ')">
-                                    <!-- there is an 'and', so assume there are two authors and the rest is what comes after the 'and' -->
-                                    <xsl:text> and </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' and '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' y ')">
-                                    <!-- there is an 'y' (Spanish), so assume there are two authors and the rest is what comes after the 'y' -->
-                                    <xsl:text> y </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' y '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' e I') or contains($sCitedWorkAuthor,' e i')">
-                                    <!-- there is an 'e [Ii]' (Spanish), so assume there are two authors and the rest is what comes after the 'e' -->
-                                    <xsl:text> e </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' e '))"/>
-                                </xsl:when>
-                                <xsl:when test="contains($sCitedWorkAuthor,' et ')">
-                                    <!-- there is an 'et' (French), so assume there are two authors and the rest is what comes after the 'et' -->
-                                    <xsl:text> et </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' et '))"/>
+                                <xsl:when test="string-length($sTryTwo) &gt; 0">
+                                    <!-- there are three or more names (we assume), so what comes before the semi-colon should be the first name -->
+                                    <xsl:text>; </xsl:text>
+                                    <xsl:value-of select="$sTryTwo"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <!-- it must be only one author -->
+                                    <!-- assume it is only one or two authors -->
+                                    <xsl:choose>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' &amp; ')">
+                                            <!-- there is an ampersand, so assume there are two authors and the rest is what comes after the ampersand -->
+                                            <xsl:text> &amp; </xsl:text>
+                                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' &amp; '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' and ')">
+                                            <!-- there is an 'and', so assume there are two authors and the rest is what comes after the 'and' -->
+                                            <xsl:text> and </xsl:text>
+                                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' and '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' y ')">
+                                            <!-- there is an 'y' (Spanish), so assume there are two authors and the rest is what comes after the 'y' -->
+                                            <xsl:text> y </xsl:text>
+                                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' y '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' e I') or contains($sCitedWorkAuthor,' e i')">
+                                            <!-- there is an 'e [Ii]' (Spanish), so assume there are two authors and the rest is what comes after the 'e' -->
+                                            <xsl:text> e </xsl:text>
+                                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' e '))"/>
+                                        </xsl:when>
+                                        <xsl:when test="contains($sCitedWorkAuthor,' et ')">
+                                            <!-- there is an 'et' (French), so assume there are two authors and the rest is what comes after the 'et' -->
+                                            <xsl:text> et </xsl:text>
+                                            <xsl:value-of select="normalize-space(substring-after(substring-after($sCitedWorkAuthor,','),' et '))"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <!-- it must be only one author -->
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="$sFirstAuthorFirstName"/>
-        <xsl:text>&#x20;</xsl:text>
-        <xsl:value-of select="$sFirstAuthorLastName"/>
-        <xsl:if test="string-length($sSecondAuthorEtc) &gt; 0">
-            <xsl:value-of select="$sSecondAuthorEtc"/>
-        </xsl:if>
+                </xsl:variable>
+                <xsl:value-of select="$sFirstAuthorFirstName"/>
+                <xsl:text>&#x20;</xsl:text>
+                <xsl:value-of select="$sFirstAuthorLastName"/>
+                <xsl:if test="string-length($sSecondAuthorEtc) &gt; 0">
+                    <xsl:value-of select="$sSecondAuthorEtc"/>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+
     </xsl:template>
     <!--  
         ConvertToPoints
@@ -628,6 +636,19 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoAnyEqualsSignBetweenAbbrAndDefinition
+    -->
+    <xsl:template name="DoAnyEqualsSignBetweenAbbrAndDefinition">
+        <xsl:choose>
+            <xsl:when test="string-length($contentLayoutInfo/abbreviationsInFootnoteLayout/@textBetweenAbbreviationAndDefinition) &gt; 0">
+                <xsl:value-of select="$contentLayoutInfo/abbreviationsInFootnoteLayout/@textBetweenAbbreviationAndDefinition"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text> = </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         DoInterlinearRefCitationContent
     -->
     <xsl:template name="DoInterlinearRefCitationContent">

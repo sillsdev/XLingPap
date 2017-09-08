@@ -3901,7 +3901,7 @@ note="nMultivolumeWork"
 >an optional <object
 type="tElement"
 >reprintInfo</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -4555,7 +4555,7 @@ type="tElement"
 >an optional <object
 type="tElement"
 >reprintInfo</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -30087,6 +30087,13 @@ type="tXLingPap"
 > Publisher Style Sheet User Documentation</link
 > for more.</p
 ><dl
+><dt
+><object
+type="tElement"
+>abbreviationsInFootnoteLayout</object
+></dt
+><dd
+>Layout info for showing abbreviations used in a footnote</dd
 ><dt
 ><object
 type="tElement"

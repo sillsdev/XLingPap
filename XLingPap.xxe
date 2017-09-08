@@ -39,7 +39,7 @@ location="css/XLingPap.css"
 name="XLingPap"
 ></css
 ><!--  no longer needed  <cfg:preserveSpace elements="styles"/> --><spellCheckOptions
-languageAttribute="lang"
+languageAttribute="lang xml:lang"
 skippedElements="langData tree url"
 useAutomaticSpellChecker="true"
 ></spellCheckOptions

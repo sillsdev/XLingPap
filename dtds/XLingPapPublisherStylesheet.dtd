@@ -8,6 +8,7 @@
 <!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
+ contentType IDREF #IMPLIED
  >
 <!ENTITY % XLingPapPublisherStylesheetReferences SYSTEM  "XLingPapPublisherStylesheetReferences.dtd">
 %XLingPapPublisherStylesheetReferences;

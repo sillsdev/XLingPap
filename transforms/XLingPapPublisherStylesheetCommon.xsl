@@ -1013,7 +1013,7 @@
                 <xsl:variable name="chapterOrAppendixUnit"
                     select="ancestor::chapter | ancestor::chapterBeforePart | ancestor::appendix | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract | ancestor::chapterInCollection | ancestor::part[not($thisEndnote[ancestor::chapter])]"/>
                 <xsl:choose>
-                    <xsl:when test="starts-with(name($chapterOrAppendixUnit),'chapter') and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                    <xsl:when test="starts-with(name($chapterOrAppendixUnit),'chapter') and /xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                         <!-- do nothing -->
                     </xsl:when>
                     <xsl:otherwise>

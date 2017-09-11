@@ -34,12 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 September 2017</date
-><xi:include
-href="VersionStub.xml"
-xpointer="element(/1/1/4)"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-></xi:include
+>11 September 2017</date
+><version
+contentType="ctVersion5.3"
+>2.31.5</version
+><version
+contentType="ctVersion7Plus"
+>3.1.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -7670,7 +7671,10 @@ type="tElement"
 letter="xIndexTermsInsert"
 num="xIndexTermsInsert"
 ></exampleRef
->.</p
+> (if you have already inserted “Framed Types” as per section <sectionRef
+sec="sFramedUnits"
+></sectionRef
+>, then select "Framed Types”).</p
 ><example
 num="xIndexTermsInsert"
 ><chart
@@ -9827,7 +9831,10 @@ type="tElement"
 > and <object
 type="tElement"
 >gloss</object
-> line. If you are using abbreviations per section <sectionRef
+> line. If you have any multi-word units, see section <sectionRef
+sec="sExInterlinearMultiWordUnits"
+></sectionRef
+> for what to do. If you are using abbreviations per section <sectionRef
 sec="sBMAbbreviations"
 ></sectionRef
 >, you can key the abbreviation labels in your <object
@@ -11658,6 +11665,41 @@ type="tXLingPap"
 > menu item / Convert selected text to bracketed constituent</object
 >) as noted above. The rest is the same as above.</p
 ></section3
+><section3
+id="sExInterlinearMultiWordUnits"
+><secTitle
+>Multi-word units</secTitle
+><p
+><indexedItem
+term="iInterlinearMutltiWordUnits"
+></indexedItem
+>Sometimes when aligning words in an interlinear, you need to combine more than one word into an aligned unit. How does one do that?</p
+><p
+>What you want to do is to use the non-breaking space character instead of a regular space whenever you have two or more words that need to be kept together in an alignment unit/cell. See section <sectionRef
+sec="sFAQNbsp"
+></sectionRef
+> for one way to key a non-breaking space. This method sometimes does not work if you are using <object
+type="tTool"
+>Keyman</object
+>; if you are using <object
+type="tTool"
+>Keyman</object
+>, try turning <object
+type="tTool"
+>Keyman</object
+> off temporarily. If that still does not work, you can use the Character Tool (see section <sectionRef
+sec="sFAQSpecialSymbol"
+></sectionRef
+>, at the end). You will want to use character code 0x00a0 which is in the 0x0080 (Latin-1 Supplement) section relatively near the top (it looks like a blank just before the upside-down exclamation mark). When you have a non-breaking space, it will look like a very small raised period (and not like a regular blank).</p
+><p
+>Note that if you are using the word-aligned, marking certain words or morphemes approach as discussed in section <sectionRef
+sec="sExInterlinearWrd"
+></sectionRef
+>, then you will want to insert the non-breaking spaces before converting the lines into <object
+type="tElement"
+>wrd</object
+> elements.</p
+></section3
 ></section2
 ><section2
 id="sExTables"
@@ -12387,6 +12429,17 @@ src="resources/LanguageDialog.png"
 ><p
 >You can type in the name of the language or scroll down until you find the one you want. Note that capitalization is significant when typing.</p
 ><p
+>Alternatively, you can use the <object
+type="tTool"
+>Attributes Tool</object
+><endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to manually set the <object
+type="tAttribute"
+>lang</object
+> attribute to the value you need.</p
+><p
 >Besides the <object
 type="tAttribute"
 >lang</object
@@ -12443,6 +12496,17 @@ type="tInstruction"
 sec="sLangDataGloss"
 ></sectionRef
 > for more illustrations of this procedure.</p
+><p
+>Alternatively, you can use the <object
+type="tTool"
+>Attributes Tool</object
+><endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to manually set the <object
+type="tAttribute"
+>lang</object
+> attribute to the value you need.</p
 ><p
 >Besides the <object
 type="tAttribute"
@@ -18515,6 +18579,17 @@ src="resources/TypeDialog.png"
 ></example
 ><p
 >You can type the name you want or scroll down until you find the one you want. Note that when you type, capitalization is significant.</p
+><p
+>Alternatively, you can use the <object
+type="tTool"
+>Attributes Tool</object
+><endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> to manually set the <object
+type="tAttribute"
+>type</object
+> attribute to the value you need.</p
 ></li
 ></ol
 ><p
@@ -23223,7 +23298,18 @@ type="tInstruction"
 letter="xChoosePublisherStyleSheetJWALAssociated"
 num="xChoosePublisherStyleSheetJWALAssociated"
 ></exampleRef
->.<example
+>.<endnote
+id="nPubStyleSheetMultiple"
+><p
+>Note that if you are using multiple publisher style sheets and content control, this process will always replace the <object
+type="tBold"
+>last</object
+> publisher style sheet. See section <sectionRef
+sec="sContentControl"
+></sectionRef
+>.</p
+></endnote
+><example
 num="xChoosePublisherStyleSheetJWALAssociated"
 ><chart
 ><img
@@ -25973,10 +26059,19 @@ type="tElement"
 > element. To insert a <object
 type="tElement"
 >publishingInfo</object
-> element, click on the last element before any publisher style sheet (usually the <object
+> element, click on an element before any publisher style sheet (which will be the last of any of the following: <object
 type="tElement"
 >types</object
-> element) and do an <object
+>, <object
+type="tElement"
+>framedTypes</object
+>, <object
+type="tElement"
+>indexTerms</object
+>, <object
+type="tElement"
+>comment</object
+>) and do an <object
 type="tInstruction"
 >Insert After</object
 > command.<endnoteRef
@@ -26320,10 +26415,10 @@ type="tElement"
 > elements). To insert a <object
 type="tElement"
 >framedTypes</object
-> element, click on the last element before any publisher style sheet (usually the <object
+> element, click on the <object
 type="tElement"
 >types</object
-> element) and do an <object
+> element and do an <object
 type="tInstruction"
 >Insert After</object
 > command.<endnoteRef
@@ -26807,7 +26902,10 @@ type="tInstruction"
 > command.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
-> Select <object
+> (The order of elements in this portion of a file are: “Types,” "Framed Types," “Index Terms,” <object
+type="tElement"
+>comment</object
+> element, “Publishing Info,”, and then "Content Control.”) Select <object
 type="tElement"
 >contentControl</object
 >. This will look something like this:</p
@@ -26927,7 +27025,7 @@ id="nContentsLayoutContentControl"
 >In a publisher style sheet, a <object
 type="tElement"
 >contentsLayout</object
-> element can be tagged with a content type id. This is the only element in a publisher style sheet which can be under content control. This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
+> element can be tagged with a content type id. This is the only element inside a publisher style sheet which can be under content control. This capability is intended for the relatively rare case where one has a single document in multiple languages and one needs to control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</p
 ></endnote
 ></p
 ><example
@@ -26942,12 +27040,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->emailAddress</object
+>example</object
 ></td
 ><td
 ><object
 type="tElement"
->presentedAt</object
+>prose-text</object
 ></td
 ></tr
 ><tr
@@ -26959,12 +27057,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->example</object
+>exampleRef</object
 ></td
 ><td
 ><object
 type="tElement"
->prose-text</object
+>publisherStyleSheet</object
 ></td
 ></tr
 ><tr
@@ -26993,7 +27091,7 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->framedUnit</object
+>figureRef</object
 ></td
 ><td
 ><object
@@ -27005,12 +27103,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->author</object
+>appendixRef</object
 ></td
 ><td
 ><object
 type="tElement"
->glossary</object
+>framedUnit</object
 ></td
 ><td
 ><object
@@ -27022,12 +27120,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->authorContactInfo</object
+>author</object
 ></td
 ><td
 ><object
 type="tElement"
->index</object
+>genericRef</object
 ></td
 ><td
 ><object
@@ -27039,12 +27137,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->blockquote</object
+>authorContactInfo</object
 ></td
 ><td
 ><object
 type="tElement"
->interlinear-text</object
+>glossary</object
 ></td
 ><td
 ><object
@@ -27056,12 +27154,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->chapter</object
+>blockquote</object
 ></td
 ><td
 ><object
 type="tElement"
->labelContent</object
+>hangingIndent</object
 ></td
 ><td
 ><object
@@ -27073,12 +27171,29 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>chapter</object
+></td
+><td
+><object
+type="tElement"
+>index</object
+></td
+><td
+><object
+type="tElement"
+>sectionRef</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >chapterBeforePart</object
 ></td
 ><td
 ><object
 type="tElement"
->li</object
+>interlinear-text</object
 ></td
 ><td
 ><object
@@ -27090,12 +27205,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->chart</object
+>chapterInCollection</object
 ></td
 ><td
 ><object
 type="tElement"
->ol</object
+>labelContent</object
 ></td
 ><td
 ><object
@@ -27107,12 +27222,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->contents</object
+>chart</object
 ></td
 ><td
 ><object
 type="tElement"
->p</object
+>li</object
 ></td
 ><td
 ><object
@@ -27124,12 +27239,29 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>contents</object
+></td
+><td
+><object
+type="tElement"
+>line</object
+></td
+><td
+><object
+type="tElement"
+>tablenumberedRef</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >date</object
 ></td
 ><td
 ><object
 type="tElement"
->pc</object
+>ol</object
 ></td
 ><td
 ><object
@@ -27141,12 +27273,12 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->dd</object
+>contentsLayout</object
 ></td
 ><td
 ><object
 type="tElement"
->part</object
+>p</object
 ></td
 ><td
 ><object
@@ -27158,17 +27290,34 @@ type="tElement"
 ><td
 ><object
 type="tElement"
->dl</object
+>dd</object
 ></td
 ><td
 ><object
 type="tElement"
->preface</object
+>pc</object
 ></td
 ><td
 ><object
 type="tElement"
 >ul</object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>dl</object
+></td
+><td
+><object
+type="tElement"
+>part</object
+></td
+><td
+><object
+type="tElement"
+>version</object
 ></td
 ></tr
 ><tr
@@ -27183,9 +27332,20 @@ type="tElement"
 >preface</object
 ></td
 ><td
+></td
+></tr
+><tr
+><td
 ><object
 type="tElement"
->version</object
+>emailAddress</object
+></td
+><td
+><object
+type="tElement"
+>presentedAt</object
+></td
+><td
 ></td
 ></tr
 ></table
@@ -27303,6 +27463,29 @@ src="resources/AttributesToolEditButton.png"
 ><li
 >Type in the content type ID.</li
 ></ol
+><p
+><indexedItem
+term="iPublisherStyleSheetMultiple"
+></indexedItem
+>If you are trying to use content control to pick one of several <object
+type="tElement"
+>publisherStyleSheet</object
+> elements, you will need to manually insert the additional <object
+type="tElement"
+>publisherStyleSheet</object
+> elements. If you use the menu items <object
+type="tInstruction"
+>XLingPaper / Associate a publisher style sheet</object
+> command, it always replaces the <object
+type="tBold"
+>last</object
+> <object
+type="tElement"
+>publisherStyleSheet</object
+> element. Also, if content control actually allows more than one publisher style sheet, then <object
+type="tXLingPap"
+></object
+> will use only the first one allowed.</p
 ><p
 >When we are ready to produce an output, we would click on the radio button of the choice we wanted. If that was to exclude the introductory material, then it would look like this:</p
 ><example
@@ -34419,6 +34602,11 @@ id="iInterlinearMorphemeAligned"
 >Morpheme-aligned</term
 ></indexTerm
 ><indexTerm
+id="iInterlinearMutltiWordUnits"
+><term
+>Multi-word units</term
+></indexTerm
+><indexTerm
 id="iInterlinearObject"
 ><term
 >Object in</term
@@ -34911,6 +35099,11 @@ id="iPublisherStyleSheet"
 id="iPublisherStyleSheetAssociate"
 ><term
 >Associate a publisher style sheet</term
+></indexTerm
+><indexTerm
+id="iPublisherStyleSheetMultiple"
+><term
+>Multiple publisher style sheets controlled by content control</term
 ></indexTerm
 ><indexTerm
 id="iPublisherStyleSheetRemove"

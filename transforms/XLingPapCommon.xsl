@@ -77,7 +77,7 @@
     <xsl:variable name="annotationRefs" select="//annotationRef"/>
     <xsl:variable name="citationsInAnnotations" select="$citations[ancestor::annotation]"/>
     <xsl:variable name="citationsInAnnotationsReferredTo" select="$citationsInAnnotations[ancestor::annotation/@id=$annotationRefs/@annotation]"/>
-    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet/backMatterLayout/referencesLayout"/>
+    <xsl:variable name="referencesLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout"/>
     <xsl:variable name="collOrProcVolumesToInclude">
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
@@ -110,10 +110,10 @@
     <xsl:variable name="bIsBook" select="$chapters"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
-    <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet/contentLayout/literalLayout/literalLabelLayout"/>
-    <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
-    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
-    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet/contentLayout"/>
+    <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet[1]/contentLayout/literalLayout/literalLabelLayout"/>
+    <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet[1]/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
+    <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet[1]/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
+    <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <!-- Now we convert all of these to points -->
     <xsl:variable name="iPageWidth">
         <xsl:call-template name="ConvertToPoints">
@@ -360,7 +360,7 @@
         <xsl:choose>
             <xsl:when test="$chapters">
                 <xsl:choose>
-                    <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                    <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                         <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                     </xsl:when>
                     <xsl:when test="ancestor::appendix">
@@ -981,7 +981,7 @@
                 <xsl:choose>
                     <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
                         <xsl:choose>
-                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                             </xsl:when>
                             <xsl:otherwise>
@@ -999,7 +999,7 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
+                            <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
                                 <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                             </xsl:when>
                             <xsl:when test="ancestor::part and not(ancestor::chapter) and not(ancestor::chapterInCollection)">

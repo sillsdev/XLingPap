@@ -18,12 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 September 2017</date
-><xi:include
-href="VersionStub.xml"
-xpointer="element(/1/1/4)"
-xmlns:xi="http://www.w3.org/2001/XInclude"
-></xi:include
+>11 September 2017</date
+><version
+contentType="ctVersion5.3"
+>2.31.5</version
+><version
+contentType="ctVersion7Plus"
+>3.1.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -18345,5 +18346,25 @@ see="iStartNumberAtZero"
 >Zero for first section level 1</term
 ></indexTerm
 ></indexTerms
+><contentControl
+><contentTypes
+><contentType
+id="ctVersion5.3"
+>Version 5.3 only</contentType
+><contentType
+id="ctVersion7Plus"
+>Version 7+ only</contentType
+></contentTypes
+><contentControlChoices
+><contentControlChoice
+active="no"
+exclude="ctVersion7Plus"
+>Version 5.3</contentControlChoice
+><contentControlChoice
+active="yes"
+exclude="ctVersion5.3"
+>Version 7+</contentControlChoice
+></contentControlChoices
+></contentControl
 ></lingPaper
 >

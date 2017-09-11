@@ -97,7 +97,7 @@
             </xsl:variable>
             <xsl:value-of select="$iStart + $iThis"/>
          </xsl:when>-->
-         <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet/contentLayout/exampleLayout/@startNumberingOverAtEachChapter='yes'">
+         <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet[1]/contentLayout/exampleLayout/@startNumberingOverAtEachChapter='yes'">
             <xsl:number level="any" from="chapter | chapterInCollection | appendix" count="example[not(ancestor::endnote or ancestor::framedUnit)]" format="1"/>
          </xsl:when>
          <xsl:otherwise>

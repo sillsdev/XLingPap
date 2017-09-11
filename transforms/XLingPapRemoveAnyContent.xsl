@@ -109,6 +109,9 @@
    <xsl:template match="li">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="line">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="ol">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
@@ -129,6 +132,19 @@
    </xsl:template>
    <xsl:template match="prose-text">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="publisherStyleSheet">
+      <xsl:choose>
+         <xsl:when test="count(/xlingpaper/styledPaper/publisherStyleSheet) &gt; 1">
+            <xsl:call-template name="IgnoreOrCopyElement"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="section1">
       <xsl:call-template name="IgnoreOrCopyElement"/>

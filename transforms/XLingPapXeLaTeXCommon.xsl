@@ -8,10 +8,10 @@
         Variables
         =========================================================== -->
     <!-- following is here to get thesis submission style to get correct margins -->
-    <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet"/>
+    <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet[1]"/>
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
-    <xsl:variable name="pageLayoutInfo" select="//publisherStyleSheet/pageLayout"/>
+    <xsl:variable name="pageLayoutInfo" select="$publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sBasicPointSize">
         <xsl:choose>
             <xsl:when test="string-length($pageLayoutInfo/basicPointSize)&gt;0">

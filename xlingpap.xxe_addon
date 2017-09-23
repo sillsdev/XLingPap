@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-09-11</a:date
+>2017-09-23</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.5 11 September 2017<ul
+>3.1.5 23 September 2017<ul
 ><li
 >Add a reprintInfo element in most reference elements to handle information about reprints.</li
 ><li
@@ -61,6 +61,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Attempt to have the automatic spelling checker use the xml:lang attribute of the lingPaper element as a first attempt at determining what language to use for spelling checking.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when using a publisher style sheet, sometimes in a header or footer a section title was not shown correctly or the wrong one was shown.  Also in a collection volume, some headers or footers would have the wrong item.</li
 ><li
 >Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause the PDF to fail to be produced.</li
 ><li

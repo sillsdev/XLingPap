@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 September 2017</date
+>21 September 2017</date
 ><version
 contentType="ctVersion5.3"
 >2.31.5</version
@@ -32900,6 +32900,51 @@ type="tElement"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iFooterWrongOnPage"
+></indexedItem
+><indexedItem
+term="iHeaderWrongOnPage"
+></indexedItem
+>longtable-patch</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>In some rare cases, when using a <object
+type="tPublisherStyleSheet"
+></object
+> that uses <object
+type="tElement"
+>sectionTitle</object
+> elements on headers or footers for odd and/or even pages, the running headers or footers may not use the correct section title when there is also a table on the page. (Even pages should show the first section title; odd pages should show the last section title.)  You can put <object
+type="tAttribute"
+>longtable-patch</object
+> in the <object
+type="tAttrValue"
+>XeLaTeXSpecial</object
+> attribute of the <object
+type="tElement"
+>publisherStyleSheet</object
+> element of the <object
+type="tPublisherStyleSheet"
+></object
+>. Please note that while this will probably fix the incorrect section title, it may cause other issues in the PDF output where there are tables. (This is why this is an optional choice.)<endnote
+id="nLongtablePatch"
+><p
+>It is called “longtable-patch” because the <object
+type="tXeTeX"
+></object
+> package named “longtable” is causing the incorrect section title to appear. This “solution” is a patch to the “longtable” package.</p
+></endnote
+></td
+><td
+>longtable-patch</td
+></tr
+><tr
+><td
 >needspace</td
 ><td
 >a numerical value</td
@@ -34220,6 +34265,11 @@ id="iFontType"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iFooterWrongOnPage"
+><term
+>Footer has incorrect section title on page</term
+></indexTerm
+><indexTerm
 id="iFootnotes"
 see="iEndnotes"
 ><term
@@ -34370,6 +34420,11 @@ see="iTalkHandout"
 id="iHangingIndentParagraph"
 ><term
 >Hanging indent paragraph</term
+></indexTerm
+><indexTerm
+id="iHeaderWrongOnPage"
+><term
+>Header has incorrect section title on page</term
 ></indexTerm
 ><indexTerm
 id="iHideContent"

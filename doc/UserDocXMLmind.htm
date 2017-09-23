@@ -12,7 +12,7 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> version 7.3+</big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>11 September 2017</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>21 September 2017</small></center>
       <center><small>Version: 3.1.5</small></center>
       <hr>
       <div>
@@ -360,7 +360,7 @@
             <li><a href="#aHistdory">E&nbsp;History</a></li>
             <li><a href="#rXLingPapEndnotes">Endnotes</a></li>
             <li><a href="#rXLingPapReferences">References</a></li>
-            <li><a href="#rXLingPapIndex.d0e24782">Index</a></li>
+            <li><a href="#rXLingPapIndex.d0e24815">Index</a></li>
          </ul>
       </div><br><hr>
       <center><b><big><big><a name="rXLingPapAbstract0">Abstract</a></big></big></b></center>
@@ -12595,6 +12595,16 @@
                <td align="left" valign="top" style="padding-left:.2em">line-through</td>
             </tr>
             <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iFooterWrongOnPage.d0e24462"></a><a name="rXLingPapIndexedItem.iHeaderWrongOnPage.d0e24463"></a>longtable-patch
+               </td>
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">none</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">In some rare cases, when using a <span style="">publisher style sheet</span> that uses <span style="font-family:Courier New; color:maroon; ">sectionTitle</span> elements on headers or footers for odd and/or even pages, the running headers or footers may not use the correct section
+                  title when there is also a table on the page. (Even pages should show the first section title; odd pages should show the last
+                  section title.)  You can put <span style="font-family:Courier New; color:purple; ">longtable-patch</span> in the <span style="font-family:Courier New; font-style:italic; color:steelblue; ">XeLaTeXSpecial</span> attribute of the <span style="font-family:Courier New; color:maroon; ">publisherStyleSheet</span> element of the <span style="">publisher style sheet</span>. Please note that while this will probably fix the incorrect section title, it may cause other issues in the PDF output where
+                  there are tables. (This is why this is an optional choice.)<span style="font-size:65%; vertical-align:super">[<a href="#nLongtablePatch">125</a>]</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">longtable-patch</td>
+            </tr>
+            <tr style="">
                <td align="left" valign="top" style="padding-left:.2em">needspace</td>
                <td align="left" valign="top" style="padding-left:.2em">a numerical value</td>
                <td align="left" valign="top" style="padding-left:.2em">Suggest that the example needs at least the specified number of lines (this only works on an <span style="font-family:Courier New; color:maroon; ">example</span> element). For some reason, this helps keep sequences of examples from breaking a page too soon.
@@ -12632,14 +12642,14 @@
                </td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXpagebreak"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFpagebreak.d0e24499"></a>pagebreak
+               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXpagebreak"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFpagebreak.d0e24532"></a>pagebreak
                </td>
                <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">none</span></td>
                <td align="left" valign="top" style="padding-left:.2em">Force a page break before this point.</td>
                <td align="left" valign="top" style="padding-left:.2em">pagebreak</td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXrow-separation"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFrow-separation.d0e24511"></a>row-separation
+               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXrow-separation"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFrow-separation.d0e24544"></a>row-separation
                </td>
                <td align="left" valign="top" style="padding-left:.2em">a numerical value followed immediately by pt (for points)</td>
                <td align="left" valign="top" style="padding-left:.2em">Insert the indicated number of points between each row of the table (this only works on a <span style="font-family:Courier New; color:maroon; ">table</span> or a <span style="font-family:Courier New; color:maroon; ">tr</span> element).
@@ -12722,7 +12732,7 @@
                <td align="left" valign="top" style="padding-left:.2em">underline</td>
             </tr>
             <tr style="">
-               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXvalign-fixup"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFvertical-fixup.d0e24634"></a>valign-fixup
+               <td align="left" valign="top" style="padding-left:.2em"><a name="gXeLaTeXvalign-fixup"></a><a name="rXLingPapIndexedItem.iTableXeLaTeXPDFvertical-fixup.d0e24667"></a>valign-fixup
                </td>
                <td align="left" valign="top" style="padding-left:.2em">a numerical value followed immediately by ex (for the typesetter's vertical space unit called an ex, often the height of the
                   lower case letter x) or by pt (for points)
@@ -14039,6 +14049,14 @@
                </p>
             </td>
          </tr>
+         <tr>
+            <td valign="top"><a name="nLongtablePatch">[125]</a></td>
+            <td>
+               <p>It is called &#8220;longtable-patch&#8221; because the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> package named &#8220;longtable&#8221; is causing the incorrect section title to appear. This &#8220;solution&#8221; is a patch to the &#8220;longtable&#8221;
+                  package.
+               </p>
+            </td>
+         </tr>
       </table>
       <hr size="3"><a name="rXLingPapReferences"></a><p style=""><big><big><big><b>References</b></big></big></big></p>
       <div style="margin-left:0.25in">
@@ -14054,7 +14072,7 @@
          </p>
       </div>
       <hr>
-      <a name="rXLingPapIndex.d0e24782"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
+      <a name="rXLingPapIndex.d0e24815"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
       <div style="margin-left: 0.5in; margin-right: 0.5in">
          .bmp files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
          .jpg (.jpeg) files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
@@ -14116,14 +14134,14 @@
             <a name="rXLingPapIndexTerm.iFontLanguage">Language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontLanguage.d0e491">1.3</a><br><a name="rXLingPapIndexTerm.iFontLanguageData">Language data&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontLanguageData.d0e17287">11.27</a><br><a name="rXLingPapIndexTerm.iFontSize">Size&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFontSize.d0e14937">11.4</a><br>Subscript&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iSubscript">Subscript</a>.<br>
             Superscript&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iSuperscript">Superscript</a>.<br>
             
-         </div><a name="rXLingPapIndexTerm.iFootnotes">Footnotes&nbsp;&nbsp;</a>see <a href="#rXLingPapIndexTerm.iEndnotes">Endnotes</a>.<br><div style="margin-left: 0.5in; margin-right: 0.5in">
+         </div><a name="rXLingPapIndexTerm.iFooterWrongOnPage">Footer has incorrect section title on page&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFooterWrongOnPage.d0e24462">D.</a><br><a name="rXLingPapIndexTerm.iFootnotes">Footnotes&nbsp;&nbsp;</a>see <a href="#rXLingPapIndexTerm.iEndnotes">Endnotes</a>.<br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.ifix-free-literal-footnote-placement">Footnote appears on next page in <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span>-produced PDF&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.ifix-free-literal-footnote-placement.d0e24286">D.</a><br></div><a name="rXLingPapIndexTerm.iFramedUnit">Framed units&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFramedUnit.d0e19640">14</a><br><a name="rXLingPapIndexTerm.iFreeTranslation">Free translation&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iFreeTranslationChangeLanguage">Change language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFreeTranslationChangeLanguage.d0e9450">5.11</a><br></div><a name="rXLingPapIndexTerm.iFrenchUI">French version of user interface&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrenchUI.d0e17965">11.38</a><br><a name="rXLingPapIndexTerm.iFrontMatter">Front Matter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatter.d0e1025">2</a>-<a href="#rXLingPapIndexedItem.bFrontMatter.d0e1394">2.15</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iFrontMatterDissertation">Dissertation front matter (institution-specific)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterDissertation.d0e18402">11.44</a><br><a name="rXLingPapIndexTerm.iFrontMatterExample">Example&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterExample.d0e1382">2.15</a><br><a name="rXLingPapIndexTerm.iFrontMatterOfPublisher">Publisher-specific front matter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterOfPublisher.d0e18403">11.44</a><br><a name="rXLingPapIndexTerm.iFrontMatterThesis">Thesis front matter (institution-specific)&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iFrontMatterThesis.d0e18401">11.44</a><br></div><a name="rXLingPapIndexTerm.iGloss">Gloss&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGloss.d0e18240">11.42</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iGlossChangeDefaultLanguage">Change default language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossChangeDefaultLanguage.d0e17323">11.28</a>, <a href="#rXLingPapIndexedItem.iGlossChangeDefaultLanguage.d0e17828">11.36</a><br><a name="rXLingPapIndexTerm.iGlossChangeLanguage">Change language&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossChangeLanguage.d0e9379">5.10</a><br></div><a name="rXLingPapIndexTerm.iGlossary">Glossary&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossary.d0e2353">4.3</a><br><a name="rXLingPapIndexTerm.iGlossaryTerm">Glossary term&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTerm.d0e5191">4.7</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iGlossaryTermsColumnWidths">Column widths in table of glossary terms&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTermsColumnWidths.d0e5519">4.7.3</a><br><a name="rXLingPapIndexTerm.iGlossaryTermsSort">Sorting the output list&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTermsSort.d0e5581">4.7.4</a><br></div>Graphic file&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
          <a name="rXLingPapIndexTerm.iGraphite">Graphite font renderer&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGraphite.d0e24337">D.</a><br>Handout, make from paper&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iTalkHandout">Talk handout</a>.<br>
-         <a name="rXLingPapIndexTerm.iHangingIndentParagraph">Hanging indent paragraph&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHangingIndentParagraph.d0e20423">16</a><br>Hide some content&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iContentControl">Content control</a>.<br>
+         <a name="rXLingPapIndexTerm.iHangingIndentParagraph">Hanging indent paragraph&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHangingIndentParagraph.d0e20423">16</a><br><a name="rXLingPapIndexTerm.iHeaderWrongOnPage">Header has incorrect section title on page&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHeaderWrongOnPage.d0e24463">D.</a><br>Hide some content&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iContentControl">Content control</a>.<br>
          Homograph numbers&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iFLExRemoveHomographNumbers">Remove homograph numbers from interllnear export</a>.<br>
          <a name="rXLingPapIndexTerm.iHypertextLinks">Hypertext links&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iHypertextLinksWithin">in the document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHypertextLinksWithin.d0e14300">10.2.1</a><br><a name="rXLingPapIndexTerm.iHypertextLinksWithout">outside the document&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHypertextLinksWithout.d0e14440">10.2.2</a><br></div><a name="rXLingPapIndexTerm.iHyphenationi">Hyphenation&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iHyphenationi.d0e18014">11.39</a><br><a name="rXLingPapIndexTerm.iId">ID&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iId.d0e1439">3.1n</a>, <a href="#rXLingPapIndexedItem.iId.d0e1595">3.1n</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
@@ -14202,7 +14220,7 @@
                <a name="rXLingPapIndexTerm.iNumberedTablesFloat">As a float&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesFloat.d0e11678">6.4.3</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferences">References&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferences.d0e12036">6.4.4</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
                   <a name="rXLingPapIndexTerm.iNumberedTableReferenceControlText">Controlling the text that appears before&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTableReferenceControlText.d0e12074">6.4.4.1</a><br><a name="rXLingPapIndexTerm.iNumberedTablesReferencesShowCaption">Show caption only&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iNumberedTablesReferencesShowCaption.d0e12426">6.4.4.2</a><br></div>
             </div><a name="rXLingPapIndexTerm.iTableXeLaTeXPDF">PDF via <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> special features&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
-               <a name="rXLingPapIndexTerm.iTableXeLaTeXPDFvertical-fixup">Adjust the vertical position of a cell's content&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFvertical-fixup.d0e24634">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFline-after">Horizontal line after a row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFline-after.d0e24420">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFline-before">Horizontal line before a row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFline-before.d0e24435">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFpagebreak">Page break before this table or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFpagebreak.d0e24499">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFrow-separation">Space between rows&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFrow-separation.d0e24511">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFborder-left">Vertical line to the left of a table cell&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFborder-left.d0e24214">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFborder-right">Vertical line to the right of a table cell&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFborder-right.d0e24237">D.</a><br></div><a name="rXLingPapIndexTerm.iTablesRowCounter">Row counter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesRowCounter.d0e9706">6.1.2</a><br><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e9613">6.1</a><br></div><a name="rXLingPapIndexTerm.iTalkHandout">Talk handout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTalkHandout.d0e17469">11.31</a><br><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e19457">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1031">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e22340">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
+               <a name="rXLingPapIndexTerm.iTableXeLaTeXPDFvertical-fixup">Adjust the vertical position of a cell's content&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFvertical-fixup.d0e24667">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFline-after">Horizontal line after a row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFline-after.d0e24420">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFline-before">Horizontal line before a row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFline-before.d0e24435">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFpagebreak">Page break before this table or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFpagebreak.d0e24532">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFrow-separation">Space between rows&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFrow-separation.d0e24544">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFborder-left">Vertical line to the left of a table cell&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFborder-left.d0e24214">D.</a><br><a name="rXLingPapIndexTerm.iTableXeLaTeXPDFborder-right">Vertical line to the right of a table cell&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTableXeLaTeXPDFborder-right.d0e24237">D.</a><br></div><a name="rXLingPapIndexTerm.iTablesRowCounter">Row counter&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesRowCounter.d0e9706">6.1.2</a><br><a name="rXLingPapIndexTerm.iTablesSpan">Span column or row&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTablesSpan.d0e9613">6.1</a><br></div><a name="rXLingPapIndexTerm.iTalkHandout">Talk handout&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTalkHandout.d0e17469">11.31</a><br><a name="rXLingPapIndexTerm.iThesis">Thesis&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iThesis.d0e19457">13</a>.  See also <a href="#rXLingPapIndexTerm.iMAThesis">M.A. Thesis</a>.<br><a name="rXLingPapIndexTerm.iTitle">Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitle.d0e1031">2.1</a>, <a href="#rXLingPapIndexedItem.iTitle.d0e22340">A.</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             <a name="rXLingPapIndexTerm.iAppendixTitle">Appendix Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iAppendixTitle.d0e2330">4.2</a><br><a name="rXLingPapIndexTerm.iGlossaryTitle">GlossaryTitle&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iGlossaryTitle.d0e2361">4.3</a><br><a name="rXLingPapIndexTerm.iTitleSection">Section Title&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iTitleSection.d0e1412">3.1</a><br><a name="rXLingPapIndexTerm.iShortTtileHeaderFooter">Shortened title for headers or footers&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTtileHeaderFooter.d0e22259">A.</a><br><a name="rXLingPapIndexTerm.iShortTitleElement">shortTitle element&nbsp;&nbsp;</a><a href="#rXLingPapIndexedItem.iShortTitleElement.d0e22260">A.</a><br></div>Tone ligatures (require Graphite font renderer with Charis SIL fonts)&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iGraphite">Graphite font renderer</a>.<br>
          <a name="rXLingPapIndexTerm.iTools">Tools&nbsp;&nbsp;</a><br><div style="margin-left: 0.5in; margin-right: 0.5in">
             Attributes Tool&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iAttributeTool">Attributes Tool</a>.<br>

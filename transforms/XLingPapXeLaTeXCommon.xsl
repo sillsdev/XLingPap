@@ -12,19 +12,6 @@
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
     <xsl:variable name="pageLayoutInfo" select="$publisherStyleSheet/pageLayout"/>
-    <xsl:variable name="sBasicPointSize">
-        <xsl:choose>
-            <xsl:when test="string-length($pageLayoutInfo/basicPointSize)&gt;0">
-                <xsl:value-of select="string($pageLayoutInfo/basicPointSize)"/>
-            </xsl:when>
-            <xsl:when test="$bHasChapter='Y'">
-                <xsl:text>10</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>12</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
     <xsl:variable name="sIDcharsToMap" select="'_'"/>
@@ -39,6 +26,19 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="sBasicPointSize">
+        <xsl:choose>
+            <xsl:when test="string-length($pageLayoutInfo/basicPointSize)&gt;0">
+                <xsl:value-of select="string($pageLayoutInfo/basicPointSize)"/>
+            </xsl:when>
+            <xsl:when test="$bHasChapter='Y'">
+                <xsl:text>10</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>12</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -11738,6 +11738,31 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>longtable</tex:parm>
         </tex:cmd>
+        <xsl:if test="$publisherStyleSheet/@XeLaTeXSpecial[contains(.,'longtable-patch')]">
+            <!-- Following fixes a bug between longtable and fancyhdr.  It is from https://tex.stackexchange.com/questions/54671/longtable-changes-the-page-heading -->
+            <xsl:if test="not($bIsBook)">
+                <tex:cmd name="usepackage" nl2="1">
+                    <tex:parm>etoolbox</tex:parm>
+                </tex:cmd>
+            </xsl:if>
+            <tex:cmd name="makeatletter" gr="0" nl2="1"/>
+            <tex:cmd name="patchcmd" nl2="1">
+                <tex:parm>
+                    <tex:cmd name="LT@output" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <tex:cmd name="@colht" gr="0"/>
+                    <xsl:text>&#x20;</xsl:text>
+                    <tex:cmd name="vbox" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <tex:cmd name="@colht" gr="0"/>
+                </tex:parm>
+                <tex:parm/>
+                <tex:parm/>
+            </tex:cmd>
+            <tex:cmd name="makeatother" gr="0" nl2="1"/>
+        </xsl:if>
         <xsl:if test="//landscape or //*[@showinlandscapemode='yes']">
             <tex:cmd name="usepackage" nl2="1">
                 <tex:parm>lscape</tex:parm>

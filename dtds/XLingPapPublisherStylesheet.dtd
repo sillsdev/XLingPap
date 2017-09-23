@@ -9,6 +9,7 @@
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
  contentType IDREF #IMPLIED
+ XeLaTeXSpecial CDATA #IMPLIED
  >
 <!ENTITY % XLingPapPublisherStylesheetReferences SYSTEM  "XLingPapPublisherStylesheetReferences.dtd">
 %XLingPapPublisherStylesheetReferences;

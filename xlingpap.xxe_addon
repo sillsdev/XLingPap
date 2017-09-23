@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-09-11</a:date
+>2017-09-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.31.5 11 September 2017<ul
+>2.31.5 23 September 2017<ul
 ><li
 >Add a reprintInfo element in most reference elements to handle information about reprints.</li
 ><li
@@ -51,6 +51,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Improve user documentation: improve order of items which come after types; add information on handling multi-word items in interlinear, and how to use the Attributes Tool for langData, gloss, and object elements.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when using a publisher style sheet, sometimes in a header or footer a section title was not shown correctly or the wrong one was shown. Also in a collection volume, some headers or footers would have the wrong item.</li
 ><li
 >Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause the PDF to fail to be produced.</li
 ><li

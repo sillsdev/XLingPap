@@ -252,6 +252,7 @@
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    startingPageNumber CDATA #IMPLIED
 >
 <!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapter
@@ -259,6 +260,7 @@
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    startingPageNumber CDATA #IMPLIED
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
@@ -556,6 +558,7 @@
 >
 <!ELEMENT wrd (#PCDATA | %embedded;)*>
 <!ATTLIST wrd
+    XeLaTeXSpecial CDATA #IMPLIED
     lang IDREF #IMPLIED
     xml:lang CDATA #IMPLIED
 >

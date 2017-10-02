@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 September 2017</date
+>2 October 2017</date
 ><version
 contentType="ctVersion5.3"
 >2.31.5</version
@@ -33010,6 +33010,34 @@ type="tItalic"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iInterlinearPageBreak"
+></indexedItem
+>pagebreakafter</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force a page break after this point. This only works in a <object
+type="tElement"
+>wrd</object
+> element in the first <object
+type="tElement"
+>line</object
+> element of a <object
+type="tElement"
+>lineGroup</object
+> when using the automatically wrap interlinear option (which is 'on' by default for the <object
+type="tXeTeX"
+></object
+> way of producing PDF).</td
+><td
+>pagebreakafter</td
+></tr
+><tr
+><td
 ><genericTarget
 id="gXeLaTeXrow-separation"
 ></genericTarget
@@ -34665,6 +34693,11 @@ id="iInterlinearMutltiWordUnits"
 id="iInterlinearObject"
 ><term
 >Object in</term
+></indexTerm
+><indexTerm
+id="iInterlinearPageBreak"
+><term
+>Page break in automatically wrapping</term
 ></indexTerm
 ><indexTerm
 id="iInterlinearSource"

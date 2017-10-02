@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.1.5</span></p>
-      <p align="center">Date: 2017-09-23</p>
+      <p align="center">Date: 2017-10-02</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.1.5 23 September 2017
+               <li>3.1.5 2 October 2017
                   <ul>
                      <li>Add a reprintInfo element in most reference elements to handle information about reprints.</li>
                      <li>For abbreviations appearing in a footnote, add a way to control what text appears between the abbreviation and its definition
@@ -57,8 +57,16 @@
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Add a way to force a page break in an interlinear when using the automatically wrap interlinears option.</li>
+                           <li>Add attribute startingPageNumber to part and chapter elements to control the starting page number of a part or a chapter.</li>
+                           <li>Fix bug: an example would have too much space before it when following a paragraph if a style sheet had set the spaceafter
+                              attribute of the paragraphLayout element for paragraphs.
+                           </li>
+                           <li>Fix bug: Setting needspace in XeLaTeXSpecial attribute of an example element did not always work when the example contained
+                              a table.
+                           </li>
                            <li>Fix bug: when using a publisher style sheet, sometimes in a header or footer a section title was not shown correctly or the
-                              wrong one was shown.  Also in a collection volume, some headers or footers would have the wrong item.
+                              wrong one was shown. Also in a collection volume, some headers or footers would have the wrong item.
                            </li>
                            <li>Fix bug: when using a publisher style sheet, an img element with a XeLaTeXSpecial attribute of vertical-adjustment could cause
                               the PDF to fail to be produced.

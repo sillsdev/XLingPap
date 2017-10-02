@@ -748,6 +748,9 @@
         <tex:cmd name="thispagestyle">
             <tex:parm>empty</tex:parm>
         </tex:cmd>
+        <xsl:call-template name="SetStartingPageNumber">
+            <xsl:with-param name="startingPageNumber" select="@startingPageNumber"/>
+        </xsl:call-template>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
@@ -907,6 +910,9 @@
                 <tex:parm>plain</tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:call-template name="SetStartingPageNumber">
+            <xsl:with-param name="startingPageNumber" select="@startingPageNumber"/>
+        </xsl:call-template>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>

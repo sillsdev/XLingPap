@@ -863,6 +863,9 @@
                 <tex:parm>arabic</tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:call-template name="SetStartingPageNumber">
+            <xsl:with-param name="startingPageNumber" select="@startingPageNumber"/>
+        </xsl:call-template>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
@@ -1024,6 +1027,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+        <xsl:call-template name="SetStartingPageNumber">
+            <xsl:with-param name="startingPageNumber" select="@startingPageNumber"/>
+        </xsl:call-template>
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
@@ -1891,9 +1897,16 @@
             <!-- some chunk items come with space before them already so we do not want to add the extra space after a p/pc -->
             <xsl:variable name="nextChunkItem" select="following-sibling::*[1]"/>
             <xsl:if test="$nextChunkItem[name()!='blockquote' and name()!='ol' and name()!='ul' and name()!='dl']">
-                <xsl:call-template name="DoSpaceAfter">
-                    <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$nextChunkItem[name()='example']">
+                        <!-- do nothing -->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoSpaceAfter">
+                            <xsl:with-param name="layoutInfo" select="$contentLayoutInfo/paragraphLayout"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
         </xsl:if>
     </xsl:template>

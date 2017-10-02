@@ -3068,6 +3068,11 @@
     <xsl:template name="BoxUpWrdsInAllLinesInLineGroup">
         <xsl:param name="originalContext"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::wrd) + 1"/>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes' and @XeLaTeXSpecial='pagebreakafter' and count(ancestor::line[preceding-sibling::*[name()='line']])=0">
+            <!-- I'm not sure why, but putting a pagebreak here actually results in this and any other wrd items on the same line
+                to occur on the current page.  The pagebreak comes after the end of the line.  -->
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <tex:cmd name="hbox">
             <tex:parm>
                 <!--       cannot use a tex:env because it inserts a newline which causes alignment issues
@@ -10369,29 +10374,42 @@
             <xsl:when test="table">
                 <tex:cmd name="XLingPaperneedspace">
                     <tex:parm>
-                        <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)  + count(exampleHeading)"/>
-                        <xsl:variable name="iLines">
-                            <xsl:choose>
-                                <xsl:when test="table/@border=1">
-                                    <xsl:choose>
-                                        <xsl:when test="table/descendant::th">2</xsl:when>
-                                        <xsl:otherwise>1</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>0</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="iInterlinearLines" select="count(table/descendant-or-self::tr/td[1]/descendant::line)"/>
-                        <xsl:variable name="iInterlinearFrees" select="count(table/descendant-or-self::tr/td[1]/descendant::free) + count(table/descendant-or-self::tr/td[1]/descendant::literal)"/>
-                        <xsl:variable name="iMinLines" select="$iMinRows + $iLines + $iInterlinearLines + $iInterlinearFrees"/>
                         <xsl:choose>
-                            <!-- assume if it is greater than 10, then we will get a page break somewhere within the example -->
-                            <xsl:when test="$iMinLines &gt; 10">10</xsl:when>
+                            <xsl:when test="contains(@XeLaTeXSpecial,'needspace')">
+                                <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                                    <xsl:with-param name="sPattern" select="'needspace='"/>
+                                    <xsl:with-param name="default" select="'1'"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$iMinLines"/>
+                                <xsl:variable name="iMinRows" select="count(table/descendant-or-self::tr) + count(table/caption)  + count(exampleHeading)"/>
+                                <xsl:variable name="iLines">
+                                    <xsl:choose>
+                                        <xsl:when test="table/@border=1">
+                                            <xsl:choose>
+                                                <xsl:when test="table/descendant::th">2</xsl:when>
+                                                <xsl:otherwise>1</xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                        <xsl:otherwise>0</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:variable name="iInterlinearLines" select="count(table/descendant-or-self::tr/td[1]/descendant::line)"/>
+                                <xsl:variable name="iInterlinearFrees"
+                                    select="count(table/descendant-or-self::tr/td[1]/descendant::free) + count(table/descendant-or-self::tr/td[1]/descendant::literal)"/>
+                                <xsl:variable name="iMinLines" select="$iMinRows + $iLines + $iInterlinearLines + $iInterlinearFrees"/>
+                                <xsl:choose>
+                                    <!-- assume if it is greater than 10, then we will get a page break somewhere within the example -->
+                                    <xsl:when test="$iMinLines &gt; 10">10</xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$iMinLines"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <tex:spec cat="esc"/>baselineskip</tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>baselineskip</xsl:text>
+                    </tex:parm>
                 </tex:cmd>
             </xsl:when>
             <xsl:when test="chart/ul or chart/ol">
@@ -11154,7 +11172,8 @@
         SetStartingPageNumber
     -->
     <xsl:template name="SetStartingPageNumber">
-        <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
+        <xsl:param name="startingPageNumber" select="$lingPaper/publishingInfo/@startingPageNumber"/>
+        <xsl:variable name="sStartingPageNumber" select="normalize-space($startingPageNumber)"/>
         <xsl:if test="string-length($sStartingPageNumber) &gt; 0">
             <tex:cmd name="setcounter">
                 <tex:parm>

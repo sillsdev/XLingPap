@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.1.5</span></p>
-      <p align="center">Date: 2017-10-02</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.1.6</span></p>
+      <p align="center">Date: 2017-10-24</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,6 +34,17 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.1.6 24 October 2017
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: a tablenumbered and a figure would have too much space before it when following a paragraph if a style sheet had
+                              set the spaceafter attribute of the paragraphLayout element for paragraphs.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.1.5 2 October 2017
                   <ul>
                      <li>Add a reprintInfo element in most reference elements to handle information about reprints.</li>

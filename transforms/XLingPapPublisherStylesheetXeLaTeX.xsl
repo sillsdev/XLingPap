@@ -1898,7 +1898,7 @@
             <xsl:variable name="nextChunkItem" select="following-sibling::*[1]"/>
             <xsl:if test="$nextChunkItem[name()!='blockquote' and name()!='ol' and name()!='ul' and name()!='dl']">
                 <xsl:choose>
-                    <xsl:when test="$nextChunkItem[name()='example']">
+                    <xsl:when test="$nextChunkItem[name()='example' or name()='tablenumbered' or name()='figure']">
                         <!-- do nothing -->
                     </xsl:when>
                     <xsl:otherwise>

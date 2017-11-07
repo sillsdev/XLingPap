@@ -32,8 +32,8 @@
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
-    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
-    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
+<!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
+<!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
@@ -246,7 +246,7 @@
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                     <xsl:with-param name="bCheckPageBreakFormatInfo" select="'Y'"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="child::node()[name()!='endnote']"/>
                 <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 </xsl:call-template>
@@ -1747,7 +1747,7 @@
                             <xsl:text>&#xa0;</xsl:text>
                             <xsl:text>&#xa0;</xsl:text>
                             <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
-                            <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                            <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
                             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -1922,7 +1922,7 @@
         <xsl:if test="$endnotesToShow or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
             <xsl:choose>
                 <xsl:when test="$bIsBook">
-                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
+                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/> 
                     <xsl:call-template name="DoEndnotes"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -2435,12 +2435,7 @@
         <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
             <xsl:if test="frontMatter/author">
                 <div style="text-indent:-2em;padding-left:3em" class="authorInContents">
-                    <xsl:for-each select="frontMatter/author">
-                        <xsl:value-of select="."/>
-                        <xsl:if test="position()!=last()">
-                            <xsl:text>, </xsl:text>
-                        </xsl:if>
-                    </xsl:for-each>
+                    <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
                 </div>
             </xsl:if>
         </xsl:if>
@@ -2830,7 +2825,6 @@
                     <xsl:call-template name="DoSinglespacing"/>
                 </xsl:attribute>
             </xsl:if>
-
             <xsl:call-template name="DoFrontMatterContentsPerLayout">
                 <xsl:with-param name="frontMatter" select=".."/>
                 <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>

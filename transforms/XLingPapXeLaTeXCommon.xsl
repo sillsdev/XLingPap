@@ -4350,7 +4350,10 @@
         DoAuthorFootnoteNumber
     -->
     <xsl:template name="DoAuthorFootnoteNumber">
-        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + 1"/>
+        <xsl:variable name="iTitleEndnote">
+            <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
+        </xsl:variable>
+        <xsl:variable name="iAuthorPosition" select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>
         <xsl:choose>
             <xsl:when test="$iAuthorPosition &lt; 10">
                 <xsl:value-of select="$iAuthorPosition"/>
@@ -7948,6 +7951,8 @@
         HandleSmallCapsEnd
     -->
     <xsl:template name="HandleSmallCapsEnd">
+        <!-- may need to protect \\ so we always do it -->
+        <tex:cmd name="protect" gr="0"/>
         <tex:spec cat="eg"/>
         <tex:spec cat="eg"/>
         <!--        <xsl:call-template name="HandleSmallCapsEndDoNestedTypes">

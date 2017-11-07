@@ -774,7 +774,7 @@ part chapterInCollection:before
     " " 
     text-field(attribute, id, columns, 10, font-size, small,background-color,chapter-background-color()) 
     " "
-    label(xpath, "frontMatter/title",background-color,chapter-background-color())
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']",background-color,chapter-background-color())
     ;
 	font-weight: bold;
 	font-size:large;
@@ -808,7 +808,7 @@ chapterInCollection:before
     text-field(attribute, id, columns, 10, font-size, small,background-color,chapter-background-color()) 
     " "
 /*    concatenate(frontMatter/title)*/
-    label(xpath, "frontMatter/title",background-color,chapter-background-color())
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']",background-color,chapter-background-color())
     ;
 	font-weight: bold;
 	font-size:large;

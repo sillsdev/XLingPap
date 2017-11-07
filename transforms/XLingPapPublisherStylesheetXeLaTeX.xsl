@@ -35,8 +35,8 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize)"/>
-    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>
-    <xsl:variable name="bodyLayoutInfo" select="$publisherStyleSheet/bodyLayout"/>
+    <!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
+    <!--    <xsl:variable name="bodyLayoutInfo" select="$publisherStyleSheet/bodyLayout"/>-->
     <xsl:variable name="chapterTitleOnEvenPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='chapterTitle' or name()='chapterNumber'][ancestor::headerFooterEvenPage]"/>
     <xsl:variable name="chapterTitleOnOddPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='chapterTitle' or name()='chapterNumber'][ancestor::headerFooterOddPage]"/>
     <xsl:variable name="sectionTitleOnEvenPage" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::*[name()='sectionTitle' or name()='sectionNumber'][ancestor::headerFooterEvenPage]"/>
@@ -363,7 +363,10 @@
                 <xsl:call-template name="DoTitleFormatInfo">
                     <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:if test="descendant::endnote and $frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes'">
+                    <xsl:call-template name="UseFootnoteSymbols"/>
+                </xsl:if>
+                <xsl:apply-templates select="child::node()[name()!='endnote']"/>
                 <xsl:variable name="contentForThisElement">
                     <xsl:apply-templates/>
                 </xsl:variable>
@@ -386,6 +389,9 @@
                 <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/titleLayout"/>
                 <xsl:with-param name="originalContext" select="."/>
             </xsl:call-template>
+            <xsl:if test="descendant::endnote and $frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes'">
+                <xsl:call-template name="UseFootnoteSymbols"/>
+            </xsl:if>
             <xsl:apply-templates/>
             <xsl:variable name="contentForThisElement">
                 <xsl:apply-templates/>
@@ -1194,6 +1200,9 @@
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                     </xsl:call-template>
+                    <xsl:if test="frontMatter/title/child::node()[name()='endnote'] and $titleLayoutToUse/chapterTitleLayout/@useFootnoteSymbols='yes'">
+                        <xsl:call-template name="UseFootnoteSymbols"/>
+                    </xsl:if>
                     <xsl:apply-templates select="secTitle | frontMatter/title"/>
                     <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                         <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
@@ -1613,8 +1622,8 @@
         <xsl:call-template name="DoExternalHyperRefEnd"/>
     </xsl:template>
     <!-- ===========================================================
-      PARAGRAPH
-      =========================================================== -->
+        PARAGRAPH
+        =========================================================== -->
     <xsl:template match="p | pc" mode="endnote-content">
         <xsl:param name="originalContext"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
@@ -1630,8 +1639,7 @@
             <tex:spec cat="esc"/>
             <xsl:text>textsuperscript</xsl:text>
             <tex:spec cat="bg"/>
-            <xsl:call-template name="GetFootnoteNumber">
-                <xsl:with-param name="iAdjust" select="1"/>
+            <xsl:call-template name="GetFootnoteMarkWhenUsingEndnotes">
                 <xsl:with-param name="originalContext" select="$originalContext"/>
                 <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
             </xsl:call-template>
@@ -2637,7 +2645,7 @@
                             <xsl:text>&#xa0;</xsl:text>
                             <xsl:text>&#xa0;</xsl:text>
                             <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
-                            <xsl:apply-templates select="table/caption | table/endCaption" mode="contents"/>
+                            <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
                             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -3553,7 +3561,10 @@
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:if test="$sFootnoteNumber='1'">
+        <!-- need to consider case of a footnote in a title or author of a chapter in a collection -->
+        <xsl:variable name="firstEndnote" select="ancestor::chapterInCollection/descendant::endnote[1]"/>
+        <!--  and ancestor::frontMatter -->
+        <xsl:if test="$sFootnoteNumber='1' and not(ancestor::chapterInCollection) or $sFootnoteNumber='1' and .=$firstEndnote">
             <tex:cmd name="vspace" nl2="1">
                 <tex:parm>
                     <tex:cmd name="baselineskip"/>
@@ -4620,9 +4631,9 @@
                         <xsl:value-of select="$sPrecalculatedNumber"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="GetFootnoteNumber">
+                        <xsl:call-template name="GetFootnoteMarkWhenUsingEndnotes">
                             <xsl:with-param name="originalContext" select="$originalContext"/>
-                            <xsl:with-param name="iAdjust" select="1"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="0"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -6190,6 +6201,8 @@
                         <!-- cannot have two \\ in a row, so need to insert something; we'll use a non-breaking space -->
                         <xsl:text>&#xa0;</xsl:text>
                     </xsl:if>
+                    <!-- may need to protect the following with MakeUppercase, etc. so we just always do it-->
+                    <tex:cmd name="protect" gr="0"/>
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
                 </xsl:if>
@@ -6341,6 +6354,44 @@
             'FontFamily'.
             This should guarantee a unique name. -->
         <xsl:value-of select="concat(concat('XLingPaper',translate(.,$sDigits,$sLetters)),'FontFamily')"/>
+    </xsl:template>
+    <!--
+        GetFootnoteMarkWhenUsingEndnotes
+    -->
+    <xsl:template name="GetFootnoteMarkWhenUsingEndnotes">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::title and $frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes' or ancestor::author">
+                <tex:cmd name="renewcommand">
+                    <tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>thefootnote</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <tex:cmd name="fnsymbol">
+                            <tex:parm>footnote</tex:parm>
+                        </tex:cmd>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="footnotemark">
+                    <tex:opt>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="iAdjust" select="1"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                        </xsl:call-template>
+                    </tex:opt>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="GetFootnoteNumber">
+                    <xsl:with-param name="iAdjust" select="1"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleFreeTextAfterAndFontOverrides

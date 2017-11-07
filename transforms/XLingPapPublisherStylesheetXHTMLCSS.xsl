@@ -1704,6 +1704,7 @@ li.lower-roman {
     <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
     <xsl:template match="@useEqualSignsColumn"/>
+    <xsl:template match="@useFootnoteSymbols"/>
     <xsl:template match="@useLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>

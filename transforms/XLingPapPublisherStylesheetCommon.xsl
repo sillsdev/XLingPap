@@ -3847,7 +3847,7 @@
     <xsl:template name="HandleBasicFrontMatterPerLayout">
         <xsl:param name="frontMatter"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
-        <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayout/authorLayout)"/>
+        <xsl:variable name="iAuthorLayouts" select="count($frontMatterLayout/authorLayout[count(preceding-sibling::*[1])=0 or preceding-sibling::*[1][name()!='contentsLayout']])"/>
         <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayout/affiliationLayout)"/>
         <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayout/emailAddressLayout)"/>
         <xsl:for-each select="$frontMatterLayout/*">
@@ -3858,10 +3858,10 @@
                 <xsl:when test="name(.)='subtitleLayout'">
                     <xsl:apply-templates select="$frontMatter/subtitle"/>
                 </xsl:when>
-                <xsl:when test="name(.)='authorLayout'">
+                <xsl:when test="name(.)='authorLayout' and count(preceding-sibling::*[1])=0 or name(.)='authorLayout' and preceding-sibling::*[1][name()!='contentsLayout']">
                     <xsl:variable name="iPos" select="count(preceding-sibling::authorLayout) + 1"/>
                     <xsl:choose>
-                        <xsl:when test="following-sibling::authorLayout ">
+                        <xsl:when test="following-sibling::authorLayout[preceding-sibling::*[1][name()!='contentsLayout']]">
                             <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
                                 <xsl:with-param name="authors" select="$frontMatter/author"/>
                                 <xsl:with-param name="currentAuthors" select="$frontMatter/author[$iPos]"/>
@@ -3869,7 +3869,7 @@
                                 <xsl:with-param name="thisEmailAddressLayout" select="following-sibling::*[name()='emailAddressLayout' and count(preceding-sibling::authorLayout) = $iPos]"/>
                             </xsl:call-template>
                         </xsl:when>
-                        <xsl:when test="preceding-sibling::authorLayout and not(following-sibling::authorLayout)">
+                        <xsl:when test="preceding-sibling::authorLayout and not(following-sibling::authorLayout[preceding-sibling::*[1][name()!='contentsLayout']])">
                             <xsl:call-template name="DoAuthorRelatedElementsPerSingleSetOfLayouts">
                                 <xsl:with-param name="authors" select="$frontMatter/author"/>
                                 <xsl:with-param name="currentAuthors" select="$frontMatter/author[position() &gt;= $iPos]"/>

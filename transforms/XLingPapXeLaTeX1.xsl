@@ -54,7 +54,7 @@
     <xsl:variable name="sXLingPaperGlossaryTerm" select="'XLingPaperGlossaryTerm'"/>
     <xsl:variable name="iMagnificationFactor">1</xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
-    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>
+<!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
     <xsl:variable name="chapterBeforePart" select="//chapterBeforePart"/>
     <!-- ===========================================================
         MAIN BODY

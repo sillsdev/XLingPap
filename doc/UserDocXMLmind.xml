@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 October 2017</date
+>7 November 2017</date
 ><version
 contentType="ctVersion5.3"
->2.31.5</version
+>2.31.7</version
 ><version
 contentType="ctVersion7Plus"
->3.1.5</version
+>3.1.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -431,7 +431,7 @@ type="tTool"
 >Keyman</object
 > off temporarily to get the sequence to work.</p
 ></endnote
-></pc
+> If you double-click on the plus sign inside a box, it will open up that item plus all other items embedded within it.</pc
 ><p
 ><indexedItem
 term="iInsertElement"
@@ -33020,7 +33020,7 @@ type="tItalic"
 >none</object
 ></td
 ><td
->Force a page break after this point.  This only works in a <object
+>Force a page break after this point. This only works in a <object
 type="tElement"
 >wrd</object
 > element in the first <object

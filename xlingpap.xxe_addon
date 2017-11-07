@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.1.6</a:version
+>3.1.7</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-10-24</a:date
+>2017-11-07</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,20 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.1.7 7 November 2017<ul
+><li
+>Add ability to use asterisk in a footnote on a title; controlled by the publisher style sheet.</li
+><li
+>Fix bug in documents with a publisher style sheet: a caption used in a tablenumbered with an image did not show in the list of tables.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a text-transform of uppercase could make the PDF fail to be produced.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.1.6 24 October 2017<ul
 ><li

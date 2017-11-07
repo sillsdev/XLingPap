@@ -782,7 +782,7 @@ part chapterInCollection:before
     " " 
     text-field(attribute, id, columns, 10, font-size, small) 
     " "
-    label(xpath, "frontMatter/title")
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']")
     ;
 	font-weight: bold;
 	font-size:large;
@@ -817,7 +817,7 @@ chapterInCollection:before
     text-field(attribute, id, columns, 10, font-size, small) 
     " "
 /*    concatenate(frontMatter/title)*/
-    label(xpath, "frontMatter/title")
+    label(xpath, "frontMatter/title/child::node()[name()!='endnote']")
     ;
 	font-weight: bold;
 	font-size:large;

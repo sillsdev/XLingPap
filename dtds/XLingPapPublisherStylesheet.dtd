@@ -367,6 +367,7 @@ Front MatterLayout
 <!ELEMENT titleLayout EMPTY >
 <!ATTLIST titleLayout
      %titleformatinfo;
+     useFootnoteSymbols (no|yes) 'no'
     >
 <!ELEMENT subtitleLayout EMPTY >
 <!ATTLIST subtitleLayout
@@ -509,6 +510,7 @@ Body Layout
     <!ATTLIST chapterTitleLayout 
     %titleformatinfo; 
     textafternumber CDATA #IMPLIED
+    useFootnoteSymbols (no|yes) 'no'
     >
     <!ELEMENT chapterInCollectionLayout (chapterTitleLayout | numberLayout)+ >
     <!ATTLIST chapterInCollectionLayout

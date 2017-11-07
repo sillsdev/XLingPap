@@ -1174,7 +1174,7 @@
                 <xsl:with-param name="originalContext" select="$originalContext"/>
             </xsl:call-template>
         </xsl:variable>
-        <xsl:if test="$sFootnoteNumber='1'">
+        <xsl:if test="$sFootnoteNumber='1' and not(ancestor::chapterInCollection[descendant::title[descendant::endnote] or descendant::author[descendant::endnote]]) or $sFootnoteNumber='*'">
             <tr>
                 <td colspan="2" style="font-style:italic; font-size:larger; font-weight:bold">
                     <xsl:call-template name="DoBookEndnotesLabelingContent">

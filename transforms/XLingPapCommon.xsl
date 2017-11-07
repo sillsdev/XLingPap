@@ -113,7 +113,9 @@
     <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet[1]/contentLayout/literalLayout/literalLabelLayout"/>
     <xsl:variable name="sIndentOfNonInitialGroup" select="normalize-space(//publisherStyleSheet[1]/contentLayout/interlinearMultipleLineGroupLayout/@indentOfNonInitialGroup)"/>
     <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet[1]/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
+    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
+    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
     <!-- Now we convert all of these to points -->
     <xsl:variable name="iPageWidth">
         <xsl:call-template name="ConvertToPoints">
@@ -877,7 +879,7 @@
         GetAuthorsAsCommaSeparatedList
     -->
     <xsl:template name="GetAuthorsAsCommaSeparatedList">
-        <xsl:for-each select="frontMatter/author">
+        <xsl:for-each select="frontMatter/author/child::node()[name()!='endnote']">
             <xsl:value-of select="."/>
             <xsl:if test="position()!=last()">
                 <xsl:text>, </xsl:text>
@@ -939,12 +941,15 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
+            <xsl:variable name="iEndnoteInTitle">
+                <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
+            </xsl:variable>
             <xsl:choose>
                 <xsl:when test="$iPreviousEndnotesPass1!=''">
-                    <xsl:value-of select="$iPreviousEndnotesPass1"/>
+                    <xsl:value-of select="$iPreviousEndnotesPass1 - $iEndnoteInTitle"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>0</xsl:text>
+                    <xsl:value-of select="$iEndnoteInTitle"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -1013,12 +1018,15 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
+            <xsl:variable name="iEndnoteInTitle">
+                <xsl:call-template name="GetCountOfEndnoteInTitleUsingSymbol"/>
+            </xsl:variable>
             <xsl:choose>
                 <xsl:when test="$iPreviousEndnotesPass1!=''">
-                    <xsl:value-of select="$iPreviousEndnotesPass1"/>
+                    <xsl:value-of select="$iPreviousEndnotesPass1 - $iEndnoteInTitle"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:text>0</xsl:text>
+                    <xsl:value-of select="$iEndnoteInTitle"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -1047,6 +1055,19 @@
         <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
+        GetCountOfEndnoteInTitleUsingSymbol
+    -->
+    <xsl:template name="GetCountOfEndnoteInTitleUsingSymbol">
+        <xsl:choose>
+            <xsl:when test="$frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes' and not(parent::title)">
+                <xsl:value-of select="count(ancestor::lingPaper/frontMatter/title[endnote])"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetExampleNumber
     -->
     <xsl:template name="GetExampleNumber">
@@ -1140,6 +1161,9 @@
         <xsl:param name="iAdjust" select="1"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
         <xsl:choose>
+            <xsl:when test="parent::title and $frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes'">
+                <xsl:call-template name="DoAuthorFootnoteNumber"/>
+            </xsl:when>
             <xsl:when test="parent::author">
                 <xsl:call-template name="DoAuthorFootnoteNumber"/>
             </xsl:when>

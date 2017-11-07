@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 September 2017</date
+>7 November 2017</date
 ><version
 contentType="ctVersion5.3"
->2.31.5</version
+>2.31.7</version
 ><version
 contentType="ctVersion7Plus"
->3.1.5</version
+>3.1.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -1679,7 +1679,21 @@ type="tElement"
 > element either before or after the <object
 type="tElement"
 >titleLayout</object
-> element. After this, you can put the normal front matter header/footer page style information. See section <sectionRef
+> element. <indexedItem
+term="iFootnoteSymbolInTitle"
+></indexedItem
+>The <object
+type="tElement"
+>titleLayout</object
+> has an <object
+type="tAttribute"
+>useFootnoteSymbols</object
+> attribute. If you set it to <object
+type="tAttrValue"
+>yes</object
+>, then any footnote in the title will use a symbol instead of a number.</p
+><p
+>After these, you can put the normal front matter header/footer page style information. See section <sectionRef
 sec="sHeaderFooterLayout"
 ></sectionRef
 > for more on these.</p
@@ -2886,6 +2900,63 @@ type="tAttrValue"
 type="tAttrValue"
 >yes</object
 >.</td
+></tr
+></table
+></example
+><p
+>The <object
+type="tElement"
+>chapterTitleLayout</object
+> element also has the attributes given in <exampleRef
+letter="xChapterTitleLayoutAttribute"
+num="xChapterTitleLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xChapterTitleLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textafternumber</object
+></td
+><td
+>Enter any custom text material you need to appear after the chapter number.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iFootnoteSymbolInTitle"
+></indexedItem
+><object
+type="tAttribute"
+>useFootnoteSymbols</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the endnote/footnote numbering should use symbols instead of numbers. If the value is <object
+type="tAttrValue"
+>no</object
+>, then endnote/footnote numbering will use digits. Otherwise, it will use symbols. The default value is <object
+type="tAttrValue"
+>no</object
+>. This only works within a <object
+type="tElement"
+>chapterInCollection</object
+> element.</td
 ></tr
 ></table
 ></example
@@ -17083,6 +17154,11 @@ id="iFootnoteIndentr"
 id="iFootnoteSpaceAfterNumber"
 ><term
 >Spacing between footnote number and footnote content</term
+></indexTerm
+><indexTerm
+id="iFootnoteSymbolInTitle"
+><term
+>Using symbols instead of numbers in a title</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

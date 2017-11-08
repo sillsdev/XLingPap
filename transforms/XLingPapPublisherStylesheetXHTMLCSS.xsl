@@ -1028,13 +1028,36 @@ li.lower-roman {
         </xsl:call-template>
         <xsl:text>.partContents {
         margin-top:</xsl:text>
-        <xsl:value-of select="$sBasicPointSize"/>
+        <xsl:choose>
+            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partSpaceBefore">
+                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@partSpaceBefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:text>pt;
-</xsl:text>
-        <xsl:text>        margin-bottom:</xsl:text>
-        <xsl:value-of select="$sBasicPointSize"/>
+        </xsl:text>
+<xsl:text>margin-bottom:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partSpaceAfter">
+                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@partSpaceAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:text>pt;
-        text-align:center;
+        text-align:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partCentered!='no'">
+                <xsl:text>center;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>left;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>
 }
 </xsl:text>
     </xsl:template>
@@ -1658,6 +1681,12 @@ li.lower-roman {
     <xsl:template match="@numberProperAddPeriodAfterFinalDigit"/>
     <xsl:template match="@numberProperUseParens"/>
     <xsl:template match="@ORCID"/>
+    <xsl:template match="@partCentered"/>
+    <xsl:template match="@partContentBetweenLabelAndNumber"/>
+    <xsl:template match="@partContentBetweenNumberAndTitle"/>
+    <xsl:template match="@partShowPageNumber"/>
+    <xsl:template match="@partSpaceAfter"/>
+    <xsl:template match="@partSpaceBefore"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
     <xsl:template match="@rtl"/>
     <xsl:template match="@ruleabovelength"/>

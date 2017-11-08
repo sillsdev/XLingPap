@@ -22,18 +22,50 @@
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
-        <tex:cmd name="centering">
-            <tex:parm>
-                <xsl:call-template name="OutputPartLabel"/>
-                <xsl:text>&#x20;</xsl:text>
-                <xsl:apply-templates select="." mode="numberPart"/>
-                <xsl:text>&#xa0;</xsl:text>
-                <xsl:apply-templates select="secTitle"/>
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc"/>
-            </tex:parm>
-        </tex:cmd>
+        <xsl:choose>
+            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='yes'">
+                <tex:cmd name="centering">
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine"/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber='yes'">
+                <tex:cmd name="XLingPaperdottedtocline" nl2="1">
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine"/>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">
+                            <xsl:call-template name="OutputTOCPageNumber">
+                                <xsl:with-param name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                                <xsl:with-param name="sLink" select="@id"/>
+                            </xsl:call-template>
+                        </xsl:if>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputPartTOCLine"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter"/>
+                    <xsl:text>pt</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents"/>
     </xsl:template>
     <!-- 
@@ -61,7 +93,20 @@
             <xsl:apply-templates select="section2" mode="contents"/>
         </xsl:if>
     </xsl:template>
-    <!--  
+    <!--
+        OutputPartTOCLine
+    -->
+    <xsl:template name="OutputPartTOCLine">
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
+        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputSectionTOC
     -->
     <xsl:template name="OutputSectionTOC">

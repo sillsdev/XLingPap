@@ -1679,16 +1679,16 @@ type="tElement"
 > element either before or after the <object
 type="tElement"
 >titleLayout</object
-> element.  <indexedItem
+> element. <indexedItem
 term="iFootnoteSymbolInTitle"
 ></indexedItem
->The  <object
+>The <object
 type="tElement"
 >titleLayout</object
 > has an <object
 type="tAttribute"
 >useFootnoteSymbols</object
-> attribute.  If you set it to <object
+> attribute. If you set it to <object
 type="tAttrValue"
 >yes</object
 >, then any footnote in the title will use a symbol instead of a number.</p
@@ -2115,6 +2115,105 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 >.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsCentered"
+></indexedItem
+><object
+type="tAttribute"
+>partCentered</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to center part lines. The default is <object
+type="tAttrValue"
+>yes</object
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsContentBetweenLabelAndNumber"
+></indexedItem
+><object
+type="tAttribute"
+>partContentBetweenLabelAndNumber</object
+></td
+><td
+>(User control) What to put between the part label and its number.  The default is a space.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsContentBeteenNumberAndTitle"
+></indexedItem
+><object
+type="tAttribute"
+>partContentBetweenNumberAndTitle</object
+></td
+><td
+>(User control) What to put between the part number and its title. The default is a space.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsShowPageNumber"
+></indexedItem
+><object
+type="tAttribute"
+>partShowPageNumber</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to show the page number in part lines. The default is <object
+type="tAttrValue"
+>no</object
+>.  A value of <object
+type="tAttrValue"
+>yes</object
+> only works when <object
+type="tAttribute"
+>partCentered</object
+> is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsSpaceAfter"
+></indexedItem
+><object
+type="tAttribute"
+>partSpaceAfter</object
+></td
+><td
+>(User control) How many points of vertical space to use after the part line.  Do not include 'pt'.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsPartsSpaceBefore"
+></indexedItem
+><object
+type="tAttribute"
+>partSpaceBefore</object
+></td
+><td
+>(User control) How many points of vertical space to use before the part line. Do not include 'pt'.</td
 ></tr
 ><tr
 ><td
@@ -2950,10 +3049,10 @@ type="tAttrValue"
 >. This indicates whether or not the endnote/footnote numbering should use symbols instead of numbers. If the value is <object
 type="tAttrValue"
 >no</object
->, then endnote/footnote numbering will use digits.  Otherwise, it will use symbols. The default value is <object
+>, then endnote/footnote numbering will use digits. Otherwise, it will use symbols. The default value is <object
 type="tAttrValue"
 >no</object
->.  This only works within a <object
+>. This only works within a <object
 type="tElement"
 >chapterInCollection</object
 > element.</td
@@ -16777,6 +16876,43 @@ id="iContentsLayoutAppendixWord"
 id="iContentsLayoutAppendixPeriod"
 ><term
 >Include a period after the appendix letter</term
+></indexTerm
+><indexTerm
+id="iContentsParts"
+><term
+>Parts</term
+><indexTerms
+><indexTerm
+id="iContentsPartsCentered"
+><term
+>Centered</term
+></indexTerm
+><indexTerm
+id="iContentsPartsContentBetweenLabelAndNumber"
+><term
+>Content between label and number</term
+></indexTerm
+><indexTerm
+id="iContentsPartsContentBeteenNumberAndTitle"
+><term
+>Content between number and title</term
+></indexTerm
+><indexTerm
+id="iContentsPartsShowPageNumber"
+><term
+>Show page number</term
+></indexTerm
+><indexTerm
+id="iContentsPartsSpaceAfter"
+><term
+>Space after</term
+></indexTerm
+><indexTerm
+id="iContentsPartsSpaceBefore"
+><term
+>Space before</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ></indexTerms
 ></indexTerm

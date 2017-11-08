@@ -519,6 +519,9 @@
    -->
     <xsl:template name="DoSpaceBeforeContentsLine">
         <xsl:choose>
+            <xsl:when test="name()='part' and saxon:node-set($contentsLayout)/contentsLayout/@partSpaceBefore">
+                <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceBefore"/>
+            </xsl:when>
             <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection">
                 <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
             </xsl:when>
@@ -586,6 +589,30 @@
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        OutputPartLabelNumberAndTitle
+    -->
+    <xsl:template name="OutputPartLabelNumberAndTitle">
+        <xsl:call-template name="OutputPartLabel"/>
+        <xsl:choose>
+            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partContentBetweenLabelAndNumber">
+                <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partContentBetweenLabelAndNumber"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates select="." mode="numberPart"/>
+        <xsl:choose>
+            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partContentBetweenNumberAndTitle">
+                <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partContentBetweenNumberAndTitle"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#160;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:apply-templates select="secTitle"/>
+    </xsl:template>
+    <!--
         OutputPrefaceTOCLine
     -->
     <xsl:template name="OutputPrefaceTOCLine">

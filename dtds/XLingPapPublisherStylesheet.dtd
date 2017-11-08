@@ -464,6 +464,12 @@ Front MatterLayout
      useperiodafterchapternumber (yes | no) 'no'
      useperiodaftersectionnumber (yes | no) 'no'
      usetext-transformofitem (yes | no) 'no'
+     partCentered (yes | no) 'yes'
+     partContentBetweenLabelAndNumber CDATA #IMPLIED
+     partContentBetweenNumberAndTitle CDATA #IMPLIED
+     partShowPageNumber (yes | no) 'yes'
+     partSpaceAfter CDATA #IMPLIED
+     partSpaceBefore CDATA #IMPLIED
      contentType IDREF #IMPLIED
     >
 <!ELEMENT acknowledgementsLayout EMPTY >

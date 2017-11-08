@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.1.0-xxe-7.2.0.zip"
+location="XLingPap-3.2.0-xxe-7.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.1.7</a:version
+>3.2.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -40,35 +40,33 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.7 8 November 2017<ul
+>3.2.0 8 November 2017<ul
+><li
+>Add a way to insert bracketed constituents to a line in an interlinear. See section 5.3.7 "Inserting bracketed constituents" in the user documentation.</li
 ><li
 >Add ability to use asterisk in a footnote on a title; controlled by the publisher style sheet.</li
 ><li
 >Add ability to control how part items are formatted in the contents via a publisher style sheet.</li
 ><li
->Fix bug in documents with a publisher style sheet: a caption used in a tablenumbered with an image did not show in the list of tables.</li
+>Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li
 ><li
->For the default way of producing PDF (via XeLaTeX):<ul
+>Allow the presence of a contentsLayout element in a style sheet to be controlled by content control. This helps to let one have a single document where the content is in different languages and one can control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</li
 ><li
->Fix bug: a text-transform of uppercase could make the PDF fail to be produced.</li
+>Allow an annotationRef to not have an annotation.</li
 ><li
->Fix bug: an interlinear text where each interlinear has a lineGroup but no free could run off the page of the PDF when using the automatically wrap option.</li
-></ul
-></li
-></ul
-></li
+>Allow shortTitle for elements with a label attribute.</li
 ><li
->3.1.6 24 October 2017<ul
+>Allow multiple abstractLayout elements in publisher style sheet.</li
 ><li
->For the default way of producing PDF (via XeLaTeX):<ul
+>In a publisher style sheet, add a way to control the editor abbreviation in collEd, procEd, and seriesEd elements. Control is over text before and after the abbreviation as well as the content of the abbreviation itself.</li
 ><li
->Fix bug: a tablenumbered and a figure would have too much space before it when following a paragraph if a style sheet had set the spaceafter attribute of the paragraphLayout element for paragraphs.</li
-></ul
-></li
-></ul
-></li
+>In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li
 ><li
->3.1.5 2 October 2017<ul
+>Allow publisher style sheet to control formatting of annotated bibliography items.</li
+><li
+>Allow two or more author names to be re-arranged using ' e ' as well as ' y ' for Spanish. (Spanish uses 'e' before an 'i'.) We already do this for ' and ' and ' &amp; ' for English and ' et ' for French.</li
+><li
+>Improve validity warning about using font-variant small-caps.</li
 ><li
 >Add a reprintInfo element in most reference elements to handle information about reprints.</li
 ><li
@@ -88,7 +86,33 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Attempt to have the automatic spelling checker use the xml:lang attribute of the lingPaper element as a first attempt at determining what language to use for spelling checking.</li
 ><li
+>Fix bug: the element template for procCitation used pages instead of page as the attribute.</li
+><li
+>Fix a typo in the publisher style sheet documentation</li
+><li
+>Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
+><li
+>Improve user documentation and publisher style sheet documentation.</li
+><li
+>Fix bug: When a publisher style sheet had "Use Endnotes" but the document had no endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
+><li
+>Fix bug: Failed to produce EBook with Calibre version 3.</li
+><li
+>Fix bug: Failed to produce EBook on Linux and Mac when a directory name had spaces in it.</li
+><li
+>Fix Bug: Too much info showing up for Parts in FO/Word/OpenOffice table of contents.</li
+><li
+>Re-add Quick Reference Guide PDF that was inadvertently deleted.</li
+><li
+>Fix XLingPap.dtd location in SILInternationalPaperStylesheet.xml.</li
+><li
+>Fix bug which kept Calibre from running on Mac OS X; the result was that an EBook could not be produced.</li
+><li
+>Fix bug in documents with a publisher style sheet: a caption used in a tablenumbered with an image did not show in the list of tables.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Improve user documentation for table handling.</li
 ><li
 >Add a way to force a page break in an interlinear when using the automatically wrap interlinears option.</li
 ><li
@@ -105,102 +129,34 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: when a publisher style sheet had a background color set for a title, the PDF could fail to be produced.</li
 ><li
 >Fix bug: when an interlinear text has nothing in the textInfo element except for a shortTitle and the interlinear-text element has its text ID attribute filled-in, the first interlinear line label was indented when it should not be.</li
-></ul
-></li
-></ul
-></li
-><li
->3.1.4 28 August 2017<ul
-><li
->Add a way to insert bracketed constituents to a line in an interlinear. See section in the user documentation.</li
-><li
->Improve validity warning about using font-variant small-caps.</li
-><li
->Fix bug: the element template for procCitation used pages instead of page as the attribute.</li
-><li
->Fix a typo in the publisher style sheet documentation</li
-></ul
-></li
-><li
->3.1.3 11 August 2017<ul
-><li
->Allow an annotationRef to not have an annotation.</li
-><li
->Allow shortTitle for elements with a label attribute.</li
-><li
->Allow multiple abstractLayout elements in publisher style sheet.</li
-><li
->In a publisher style sheet, add a way to control the editor abbreviation in collEd, procEd, and seriesEd elements. Control is over text before and after the abbreviation as well as the content of the abbreviation itself.</li
-><li
->In a publisher style sheet, add a way to apply text-transform to front and back matter item titles in the contents.</li
-><li
->Allow publisher style sheet to control formatting of annotated bibliography items.</li
-><li
->Allow two or more author names to be re-arranged using ' e ' as well as ' y ' for Spanish. (Spanish uses 'e' before an 'i'.) We already do this for ' and ' and ' &amp; ' for English and ' et ' for French.</li
-><li
->Fix bug: with a publisher style sheet, the seriesEdItem was found for a book, but not processed.</li
-><li
->Improve user documentation and publisher style sheet documentation.</li
-><li
->Fix bug: When a publisher style sheet had "Use Endnotes" but the document had no endnote elements, the Endnotes section still showed in XeLaTeX and FO outputs.</li
-><li
->Fix bug: Failed to produce EBook with Calibre version 3.</li
-><li
->Fix bug: Failed to produce EBook on Linux and Mac when a directory name had spaces in it.</li
-><li
->For web page output:<ul
-><li
->Add a way to show an example ID by using a mouse in a web browser.</li
-></ul
-></li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: when a blockquote consisted of, say, langData material, it was not indented.</li
-><li
->Fix bug: when a url in a reference item or in a link element contained a tilde (~), the URL would appear correctly in the PDF, but when following the link, the URL would not be found.</li
-></ul
-></li
-></ul
-></li
-><li
->3.1.2 6 July 2017<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Improve user documentation for table handling.</li
 ><li
 >Fix bug: when a blockquote was immediately followed by an ordered list (ol) or an unordered list (ul), there was too much blank space between the two.</li
 ><li
 >Fix bug: in a style sheet, when a section1 element was the only section or chapter element in the document and the useperiodafternumber attribute of the sectionTitleLayout element was set to 'yes', there would be a period before the section title.</li
 ><li
 >Fix bug: using text-transform set to 'uppercase' or 'lowercase' was not always applied.</li
-></ul
-></li
-></ul
-></li
 ><li
->3.1.1 7 June 2017<ul
+>Fix bug: when a blockquote consisted of, say, langData material, it was not indented.</li
 ><li
->Add ability to have contents in the back matter instead of in the front matter. This is controlled by a publisher style sheet.</li
-><li
->Allow the presence of a contentsLayout element in a style sheet to be controlled by content control. This helps to let one have a single document where the content is in different languages and one can control whether the table of contents appears in the front matter (e.g., English) or in the back matter (e.g., French) via the content control for that language.</li
-><li
->Fix Bug: Too much info showing up for Parts in FO/Word/OpenOffice table of contents.</li
-><li
->Re-add Quick Reference Guide PDF that was inadvertently deleted.</li
-><li
->Fix XLingPap.dtd location in SILInternationalPaperStylesheet.xml.</li
-><li
->Fix bug which kept Calibre from running on Mac OS X; the result was that an EBook could not be produced.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
+>Fix bug: when a url in a reference item or in a link element contained a tilde (~), the URL would appear correctly in the PDF, but when following the link, the URL would not be found.</li
 ><li
 >Fix bug: when using an index, sometimes the page numbers would always be '??'.</li
 ><li
 >Fix bug: in a style sheet, when a section layout had useperiodafternumber='yes' and also beginsparagraph='yes', the section number did not have a final period.</li
 ><li
 >Fix bug: when a td or th cell had a width attribute set, any align attribute was ignored.</li
+><li
+>Fix bug: a text-transform of uppercase could make the PDF fail to be produced.</li
+><li
+>Fix bug: an interlinear text where each interlinear has a lineGroup but no free could run off the page of the PDF when using the automatically wrap option.</li
+><li
+>Fix bug: a tablenumbered and a figure would have too much space before it when following a paragraph if a style sheet had set the spaceafter attribute of the paragraphLayout element for paragraphs.</li
+></ul
+></li
+><li
+>For web page output:<ul
+><li
+>Add a way to show an example ID by using a mouse in a web browser.</li
 ></ul
 ></li
 ></ul

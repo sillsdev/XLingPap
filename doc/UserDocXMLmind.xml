@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 November 2017</date
+>8 November 2017</date
 ><version
 contentType="ctVersion5.3"
->2.31.7</version
+>2.32.0</version
 ><version
 contentType="ctVersion7Plus"
->3.1.7</version
+>3.2.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -21336,7 +21336,7 @@ type="tRenderX"
 > (see section <sectionRef
 sec="sRenderX2PDF"
 ></sectionRef
->).</p
+>).  In both cases, the resulting PDF has the fonts used embedded in it.</p
 ><p
 ><genericTarget
 id="gPDFReading"

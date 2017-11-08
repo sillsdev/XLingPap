@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 November 2017</date
+>8 November 2017</date
 ><version
 contentType="ctVersion5.3"
->2.31.7</version
+>2.32.0</version
 ><version
 contentType="ctVersion7Plus"
->3.1.7</version
+>3.2.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -2147,7 +2147,7 @@ type="tAttribute"
 >partContentBetweenLabelAndNumber</object
 ></td
 ><td
->(User control) What to put between the part label and its number.  The default is a space.</td
+>(User control) What to put between the part label and its number. The default is a space.</td
 ></tr
 ><tr
 ><td
@@ -2180,7 +2180,7 @@ type="tAttrValue"
 >. This indicates whether or not to show the page number in part lines. The default is <object
 type="tAttrValue"
 >no</object
->.  A value of <object
+>. A value of <object
 type="tAttrValue"
 >yes</object
 > only works when <object
@@ -2201,7 +2201,7 @@ type="tAttribute"
 >partSpaceAfter</object
 ></td
 ><td
->(User control) How many points of vertical space to use after the part line.  Do not include 'pt'.</td
+>(User control) How many points of vertical space to use after the part line. Do not include 'pt'.</td
 ></tr
 ><tr
 ><td

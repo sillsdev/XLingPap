@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-11-07</a:date
+>2017-11-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.1.7 7 November 2017<ul
+>3.1.7 8 November 2017<ul
 ><li
 >Add ability to use asterisk in a footnote on a title; controlled by the publisher style sheet.</li
 ><li
@@ -51,6 +51,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: a text-transform of uppercase could make the PDF fail to be produced.</li
+><li
+>Fix bug: an interlinear text where each interlinear has a lineGroup but no free could run off the page of the PDF when using the automatically wrap option.</li
 ></ul
 ></li
 ></ul

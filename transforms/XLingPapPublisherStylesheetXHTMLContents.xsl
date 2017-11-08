@@ -21,11 +21,7 @@
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel">
-                            <xsl:call-template name="OutputPartLabel"/>
-                            <xsl:text>&#x20;</xsl:text>
-                            <xsl:apply-templates select="." mode="numberPart"/>
-                            <xsl:text>&#xa0;</xsl:text>
-                            <xsl:apply-templates select="secTitle"/>
+                            <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
                         </xsl:with-param>
                     </xsl:call-template>
                 </a>

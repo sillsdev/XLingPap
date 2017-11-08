@@ -36,6 +36,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Add ability to use asterisk in a footnote on a title; controlled by the publisher style sheet.</li
 ><li
+>Add ability to control how part items are formatted in the contents via a publisher style sheet.</li
+><li
 >Fix bug in documents with a publisher style sheet: a caption used in a tablenumbered with an image did not show in the list of tables.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul

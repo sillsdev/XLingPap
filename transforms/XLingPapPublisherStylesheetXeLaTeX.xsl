@@ -883,6 +883,12 @@
                 <tex:parm>empty</tex:parm>
             </tex:cmd>
             <xsl:call-template name="DoBookMark"/>
+            <xsl:if test="$contentsLayout/contentsLayout/@partCentered='no' and $contentsLayout/contentsLayout/@partShowPageNumber!='no'">
+<!--                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='no' and saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">-->
+                    <xsl:call-template name="CreateAddToContents">
+                    <xsl:with-param name="id" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="@id"/>
             </xsl:call-template>

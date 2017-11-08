@@ -13,19 +13,59 @@
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
-        <fo:block text-align="center" space-before="{$sBasicPointSize - 4}pt" space-after="{$sBasicPointSize}pt" keep-with-next.within-page="2">
+        <fo:block keep-with-next.within-page="2">
+            <xsl:attribute name="text-align">
+                <xsl:choose>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered!='no'">
+                        <xsl:text>center</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>left</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="space-before">
+                <xsl:choose>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceBefore">
+                        <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceBefore"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBasicPointSize - 4"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="space-after">
+                <xsl:choose>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter">
+                        <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBasicPointSize"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>pt</xsl:text>
+            </xsl:attribute>
             <fo:basic-link internal-destination="{@id}">
                 <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-                <xsl:call-template name="OutputTOCTitle">
-                    <xsl:with-param name="linkLayout" select="$linkLayout"/>
-                    <xsl:with-param name="sLabel">
-                        <xsl:call-template name="OutputPartLabel"/>
-                        <xsl:text>&#x20;</xsl:text>
-                        <xsl:apply-templates select="." mode="numberPart"/>
-                        <xsl:text>&#xa0;</xsl:text>
-                        <xsl:apply-templates select="secTitle"/>
-                    </xsl:with-param>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='no' and saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">
+                        <xsl:call-template name="OutputTOCLine">
+                            <xsl:with-param name="sLink" select="@id"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputTOCTitle">
+                            <xsl:with-param name="linkLayout" select="$linkLayout"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </fo:basic-link>
             <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
                 <!--                <xsl:with-param name="nLevel" select="$nLevel"/>-->

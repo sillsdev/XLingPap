@@ -1389,6 +1389,11 @@
                 </xsl:call-template>
                 <tex:cmd name="par" gr="0" nl2="1"/>
                 <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+                    <xsl:if test="not(free)">
+                        <!-- when there is no free, then we need to set the penalty low so it won't try and
+                             keep this and all similar interlinears on the same page -->
+                        <tex:cmd name="penalty1" gr="0" nl2="1"/>
+                    </xsl:if>
                     <!-- this needs to be after the \par or a long final free will not wrap correctly -->
                     <tex:spec cat="eg"/>
                 </xsl:if>

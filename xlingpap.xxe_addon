@@ -32,6 +32,12 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
+>2.32.1 13 November 2017<ul
+><li
+>When creating a zip file, add a warning message for when an image file has a bad file name and will not be included in the zip file.</li
+></ul
+></li
+><li
 >2.32.0 8 November 2017<ul
 ><li
 >Add a way to insert bracketed constituents to a line in an interlinear. See section 5.3.7 "Inserting bracketed constituents" in the user documentation.</li

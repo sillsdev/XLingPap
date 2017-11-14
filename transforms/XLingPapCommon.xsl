@@ -614,7 +614,7 @@
     -->
     <xsl:template name="DetermineIfListsShareSameISOCode">
         <xsl:choose>
-            <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:when test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
                 <xsl:choose>
                     <xsl:when test="listInterlinear or listWord or listSingle">
                         <xsl:variable name="sIsoCodeOfFirst"
@@ -1305,6 +1305,19 @@
             <xsl:otherwise>en</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- 
+        GetISOCode
+    -->
+    <xsl:template name="GetISOCode">
+        <xsl:param name="originalContext"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
+            <xsl:variable name="firstLangData"
+                select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
+            <xsl:if test="$firstLangData">
+                <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
     <!--
         GetKeywordsID
     -->
@@ -1778,7 +1791,7 @@
     <xsl:template name="OutputExampleLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="sIsoCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:choose>
                 <xsl:when test="listInterlinear or listWord or listSingle">
                     <xsl:if test="not(contains($bListsShareSameCode,'N'))">

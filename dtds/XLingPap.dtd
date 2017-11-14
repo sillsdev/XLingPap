@@ -497,6 +497,7 @@
 <!ATTLIST example
     num ID #IMPLIED
     %special;
+    showiso639-3codes (yes | no) "no"
     contentType IDREF #IMPLIED
 >
 <!ELEMENT word ((langData | gloss)+, word?)>

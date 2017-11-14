@@ -1905,6 +1905,11 @@
                                 <xsl:if test="not(listDefinition) and not(definition)">
                                     <xsl:call-template name="OutputExampleLevelISOCode">
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        <xsl:with-param name="sIsoCode">
+                                            <xsl:call-template name="GetISOCode">
+                                                <xsl:with-param name="originalContext" select="."/>
+                                            </xsl:call-template>
+                                        </xsl:with-param>
                                     </xsl:call-template>
                                 </xsl:if>
                             </fo:block>

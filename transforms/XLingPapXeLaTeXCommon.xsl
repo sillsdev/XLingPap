@@ -664,7 +664,7 @@
     -->
     <xsl:template name="HandleAnyExampleHeadingAdjustWithISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N'))">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N')) or ancestor-or-self::example/@showiso639-3codes='yes' and not(contains($bListsShareSameCode,'N'))">
             <xsl:choose>
                 <xsl:when test="exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear]">
                     <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
@@ -3746,62 +3746,20 @@
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
         <!-- when we're showing ISO codes in an example/interlinearRef and the depth of the example number and ISO code is more than what's in the lineGroup,
-                 then we need to move any following material up       
+            then we need to move any following material up
         -->
         <xsl:choose>
             <xsl:when
                 test="$lingPaper/@showiso639-3codeininterlinear='yes' and  $bAutomaticallyWrapInterlinears!='yes' and $originalContext and parent::interlinear and ancestor::interlinear-text and count(preceding-sibling::*)=0">
-                <xsl:choose>
-                    <xsl:when test="$originalContext[parent::example]">
-                        <xsl:variable name="iLineCount" select="count(line)"/>
-                        <xsl:variable name="sIsoCode">
-                            <xsl:call-template name="GetISOCode"/>
-                        </xsl:variable>
-                        <xsl:choose>
-                            <xsl:when test="string-length($sIsoCode) &gt; 3">
-                                <!-- the ISO code takes two extra lines -->
-                                <xsl:choose>
-                                    <xsl:when test="$iLineCount &lt; 3">
-                                        <xsl:choose>
-                                            <xsl:when test="$iLineCount=1">
-                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
-                                                    <xsl:with-param name="iAdjust" select="'1.65'"/>
-                                                </xsl:call-template>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
-                                                    <xsl:with-param name="iAdjust" select="'.65'"/>
-                                                </xsl:call-template>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>*
-</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <!-- the ISO code takes one extra line -->
-                                <xsl:choose>
-                                    <xsl:when test="$iLineCount=1">
-                                        <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
-                                            <xsl:with-param name="iAdjust" select="'.65'"/>
-                                        </xsl:call-template>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>*
-</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>*
-</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="HandleISO639-3CodesInBreakAfter">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when
+                test="ancestor-or-self::example/@showiso639-3codes='yes' and  $bAutomaticallyWrapInterlinears!='yes' and $originalContext and parent::interlinear and ancestor::interlinear-text and count(preceding-sibling::*)=0">
+                <xsl:call-template name="HandleISO639-3CodesInBreakAfter">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>*
@@ -5446,7 +5404,9 @@
             </tex:parm>
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <xsl:variable name="sListIsoCode">
-                    <xsl:call-template name="GetISOCode"/>
+                    <xsl:call-template name="GetISOCode">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                 </xsl:variable>
                 <xsl:if test="string-length($sListIsoCode) &gt; 3">
                     <xsl:variable name="iRowCount" select="count(line)"/>
@@ -5476,6 +5436,7 @@
                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                     <xsl:with-param name="sIsoCode" select="$sListIsoCode"/>
                     <xsl:with-param name="bCloseOffMultirow" select="'Y'"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
                 <xsl:if test="string-length($sListIsoCode) &gt; 3">
                     <tex:cat spec="eg"/>
@@ -6122,6 +6083,14 @@
                 <!-- if we use 2, then longer interlinears are aligned incorrectly -->
                 <xsl:text>1</xsl:text>
             </xsl:when>
+            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
+                <!-- if we use 2, then longer interlinears are aligned incorrectly -->
+                <xsl:text>1</xsl:text>
+            </xsl:when>
+            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
+                <!-- if we use 2, then longer interlinears are aligned incorrectly -->
+                <xsl:text>1</xsl:text>
+            </xsl:when>
             <xsl:when test="../preceding-sibling::*[1][name()='exampleHeading'] or preceding-sibling::*[1][name()='exampleHeading'] or $bHasExampleHeading='Y'">
                 <xsl:text>2</xsl:text>
             </xsl:when>
@@ -6130,9 +6099,11 @@
             </xsl:otherwise>
         </xsl:choose>
         <tex:cmd name="relax" gr="0" nl2="1"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N')">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N') or ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N') or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
             <xsl:variable name="sListIsoCode">
-                <xsl:call-template name="GetISOCode"/>
+                <xsl:call-template name="GetISOCode">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
             </xsl:variable>
             <xsl:if test="$sListIsoCode!=''">
                 <xsl:choose>
@@ -6918,18 +6889,6 @@
         </xsl:choose>
     </xsl:template>
     <!--  
-        GetISOCode
-    -->
-    <xsl:template name="GetISOCode">
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
-            <xsl:variable name="firstLangData"
-                select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
-            <xsl:if test="$firstLangData">
-                <xsl:value-of select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            </xsl:if>
-        </xsl:if>
-    </xsl:template>
-    <!--  
         GetItemWidth
     -->
     <xsl:template name="GetItemWidth">
@@ -7652,6 +7611,63 @@
         </xsl:call-template>
     </xsl:template>
     <!--  
+        HandleISO639-HandleISOCodesInBreakAfter
+    -->
+    <xsl:template name="HandleISO639-3CodesInBreakAfter">
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$originalContext[parent::example]">
+                <xsl:variable name="iLineCount" select="count(line)"/>
+                <xsl:variable name="sIsoCode">
+                    <xsl:call-template name="GetISOCode"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="string-length($sIsoCode) &gt; 3">
+                        <!-- the ISO code takes two extra lines -->
+                        <xsl:choose>
+                            <xsl:when test="$iLineCount &lt; 3">
+                                <xsl:choose>
+                                    <xsl:when test="$iLineCount=1">
+                                        <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                            <xsl:with-param name="iAdjust" select="'1.65'"/>
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                            <xsl:with-param name="iAdjust" select="'.65'"/>
+                                        </xsl:call-template>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>*
+</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- the ISO code takes one extra line -->
+                        <xsl:choose>
+                            <xsl:when test="$iLineCount=1">
+                                <xsl:call-template name="AdjustForLongerISOCodeInInterlinearRef">
+                                    <xsl:with-param name="iAdjust" select="'.65'"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>*
+</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>*
+</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         HandleLangDataGlossInWordOrListWord
     -->
     <xsl:template name="HandleLangDataGlossInWordOrListWord">
@@ -9640,7 +9656,8 @@
         <xsl:param name="bListsShareSameCode"/>
         <xsl:param name="sIsoCode"/>
         <xsl:param name="bCloseOffMultirow" select="'N'"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:param name="originalContext"/>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <xsl:variable name="sISOCodeTeXOutput">
                     <xsl:call-template name="OutputISOCodeInExample">
@@ -12544,7 +12561,7 @@ What might go in a TeX package file
         SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes
     -->
     <xsl:template name="SetXLingPaperAdjustHeaderInListInterlinearWithISOCodes">
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or //example/@showiso639-3codes='yes'">
             <xsl:if
                 test="//example/exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear] or //example/child::*[1][name()='interlinear' and child::*[1][name()='exampleHeading']]">
                 <tex:cmd name="newdimen" gr="0"/>

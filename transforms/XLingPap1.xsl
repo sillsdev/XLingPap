@@ -368,7 +368,7 @@
                         <a href="#{$sEndnotesID}">
                             <xsl:for-each select="//endnotes[not(ancestor::chapterInCollection)]">
                                 <xsl:call-template name="OutputEndnotesLabel"/>
-                </xsl:for-each>
+                            </xsl:for-each>
                         </a>
                     </li>
                 </xsl:if>
@@ -1130,6 +1130,11 @@
                             <xsl:if test="not(listDefinition) and not(definition)">
                                 <xsl:call-template name="OutputExampleLevelISOCode">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                    <xsl:with-param name="sIsoCode">
+                                        <xsl:call-template name="GetISOCode">
+                                            <xsl:with-param name="originalContext" select="."/>
+                                        </xsl:call-template>
+                                    </xsl:with-param>
                                 </xsl:call-template>
                             </xsl:if>
                         </xsl:element>
@@ -1262,7 +1267,7 @@
                     </xsl:call-template>
                     <xsl:apply-templates select="." mode="letter"/>.</xsl:element>
             </td>
-            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+            <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
                 <xsl:if test="contains($bListsShareSameCode,'N')">
                     <td>
                         <xsl:call-template name="OutputISOCodeInExample">
@@ -1556,7 +1561,7 @@
                                 <xsl:text>.</xsl:text>
                             </xsl:element>
                         </td>
-                        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+                        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
                             <xsl:if test="contains($bListsShareSameCode,'N')">
                                 <td>
                                     <xsl:call-template name="OutputISOCodeInExample">
@@ -3618,7 +3623,7 @@
             </xsl:if>
             <xsl:text>.</xsl:text>
         </xsl:if>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::refWork/@showiso639-3codes='yes'">
             <xsl:for-each select="$path/iso639-3code">
                 <xsl:sort/>
                 <span style="font-size:smaller">
@@ -5470,11 +5475,10 @@
         OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="sIsoCode"/>
         <xsl:param name="bOutputBreak" select="'Y'"/>
-        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
-        <xsl:if test="$firstLangData">
-            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            <xsl:if test="string-length($sIsoCode) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="string-length($sIsoCode) &gt; 0">
                 <xsl:if test="$bOutputBreak='Y'">
                     <br/>
                 </xsl:if>
@@ -5494,15 +5498,42 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </span>
-            </xsl:if>
-        </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
+                <xsl:if test="$firstLangData">
+                    <xsl:variable name="sIsoCode2" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+                    <xsl:if test="string-length($sIsoCode2) &gt; 0">
+                        <xsl:if test="$bOutputBreak='Y'">
+                            <br/>
+                        </xsl:if>
+                        <span style="font-size:smaller">
+                            <xsl:choose>
+                                <xsl:when test="$bShowISO639-3Codes='Y'">
+                                    <a href="#{$languages[@ISO639-3Code=$sIsoCode2]/@id}">
+                                        <xsl:text>[</xsl:text>
+                                        <xsl:value-of select="$sIsoCode2"/>
+                                        <xsl:text>]</xsl:text>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>[</xsl:text>
+                                    <xsl:value-of select="$sIsoCode2"/>
+                                    <xsl:text>]</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </span>
+                    </xsl:if>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputListLevelISOCode
     -->
     <xsl:template name="OutputListLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <td>
                     <xsl:call-template name="OutputISOCodeInExample">

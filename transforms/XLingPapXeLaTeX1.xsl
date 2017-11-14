@@ -3501,6 +3501,7 @@
             </xsl:if>
             <xsl:text>.</xsl:text>
         </xsl:if>
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::refWork/@showiso639-3codes='yes'">
         <xsl:for-each select="$path/iso639-3code">
             <xsl:sort/>
             <tex:cmd name="small">
@@ -3530,6 +3531,7 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:for-each>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoRefWork

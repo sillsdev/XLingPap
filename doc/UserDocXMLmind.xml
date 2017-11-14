@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 November 2017</date
+>14 November 2017</date
 ><version
 contentType="ctVersion5.3"
->2.32.0</version
+>2.32.1</version
 ><version
 contentType="ctVersion7Plus"
->3.2.0</version
+>3.2.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -3720,7 +3720,9 @@ type="tElement"
 > element and a <object
 type="tElement"
 >dateAccessed</object
-> element. This allows you to provide the URL where the work is available online and the date when you accessed that URL, respectively. <indexedItem
+> element. This allows you to provide the URL where the work is available online and the date when you accessed that URL, respectively.</p
+><p
+><indexedItem
 term="iISOCodes"
 ></indexedItem
 >In addition, any <object
@@ -3732,7 +3734,34 @@ type="tElement"
 > elements. These indicate the <link
 href="http://www-01.sil.org/iso639-3/codes.asp"
 >ISO 639-3 code</link
-> for the language(s) discussed in the work.</p
+> for the language(s) discussed in the work. Unless you are using a <object
+type="tPublisherStyleSheet"
+></object
+>, these codes will only appear in the output if you have set the <object
+type="tAttribute"
+>showiso639-3codeininterlinear</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to <object
+type="tAttrValue"
+>yes</object
+> or if you have set the <object
+type="tAttribute"
+>showiso639-3codes</object
+> attribute of the <object
+type="tElement"
+>refWork</object
+> elements to <object
+type="tAttrValue"
+>yes</object
+>. Set this latter attribute for those works for which you want the ISO 639-3 codes to show. If you are using a <object
+type="tPublisherStyleSheet"
+></object
+>, then you control whether or not these codes appear via the style sheet. See the documentation <link
+href="PublisherStylesheetUserDocXMLmind.htm/#sRefISO639-3CodeItem"
+>here</link
+>.</p
 ><p
 >The rest of the information about the citation depends on the type of citation it is. <object
 type="tXLingPap"
@@ -11353,7 +11382,7 @@ type="tElement"
 >In order for <object
 type="tXLingPap"
 ></object
-> to show these codes, you must set the <object
+> to show these codes throughout your document, you must set the <object
 type="tAttribute"
 >showiso639-3codeininterlinear</object
 > attribute of the main <object
@@ -11372,6 +11401,17 @@ note="nAttributesToolReminder"
 type="tAttribute"
 >showiso639-3codeininterlinear</object
 > attribute to a value of <object
+type="tAttrValue"
+>yes</object
+>.</p
+><p
+>If, on the other hand, you want to show the ISO 639-3 codes for only certain examples, set the <object
+type="tAttribute"
+>showiso639-3codes</object
+> attribute of those <object
+type="tElement"
+>example</object
+> elements to <object
 type="tAttrValue"
 >yes</object
 >.</p

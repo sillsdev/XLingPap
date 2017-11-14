@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.32.0</a:version
+>2.32.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-11-08</a:date
+>2017-11-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.32.1 13 November 2017<ul
+>2.32.1 14 November 2017<ul
+><li
+>Enable showing ISO 639-3 codes in examples be on a per example basis as well as document wide.</li
 ><li
 >When creating a zip file, add a warning message for when an image file has a bad file name and will not be included in the zip file.</li
 ></ul

@@ -3766,7 +3766,9 @@
         </xsl:choose>
         <xsl:choose>
             <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
+            <xsl:when test="../iso639-3code and ancestor-or-self::refWork/@showiso639-3codes='yes'">y</xsl:when>
             <xsl:when test="iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
+            <xsl:when test="iso639-3code and ancestor-or-self::refWork/@showiso639-3codes='yes'">y</xsl:when>
             <xsl:otherwise>n</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -4876,7 +4878,7 @@
         <xsl:if test="../dateAccessed">
             <xsl:text>, dateAccessed</xsl:text>
         </xsl:if>
-        <xsl:if test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes' or ../iso639-3code and ancestor-or-self::refWork/@showiso639-3codes='yes'">
             <xsl:text>, iso639-3code</xsl:text>
         </xsl:if>
         <xsl:text>.</xsl:text>
@@ -4910,7 +4912,7 @@
         <xsl:if test="../dateAccessed">
             <xsl:text>, dateAccessed</xsl:text>
         </xsl:if>
-        <xsl:if test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes' or ../iso639-3code and ancestor-or-self::refWork/@showiso639-3codes='yes'">
             <xsl:text>, iso639-3code</xsl:text>
         </xsl:if>
         <xsl:text>.</xsl:text>

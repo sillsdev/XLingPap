@@ -37,6 +37,7 @@
 <!ATTLIST refWork
     id ID #REQUIRED
     %special;
+    showiso639-3codes (yes | no) "no"
 >
 <!-- An author's role in the work.  For example, editor, illustrator, author and illustrator, etc. -->
 <!ELEMENT authorRole (#PCDATA)>

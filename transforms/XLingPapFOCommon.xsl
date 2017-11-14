@@ -1099,11 +1099,10 @@
         OutputISOCodeInExample
     -->
     <xsl:template name="OutputISOCodeInExample">
+        <xsl:param name="sIsoCode"/>
         <xsl:param name="bOutputBreak" select="'Y'"/>
-        <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
-        <xsl:if test="$firstLangData">
-            <xsl:variable name="sIsoCode" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
-            <xsl:if test="string-length($sIsoCode) &gt; 0">
+        <xsl:choose>
+            <xsl:when test="string-length($sIsoCode) &gt; 0">
                 <xsl:if test="$bOutputBreak='Y'">
                     <fo:block/>
                 </xsl:if>
@@ -1124,15 +1123,43 @@
                     </xsl:choose>
                     <xsl:text>]</xsl:text>
                 </fo:inline>
-            </xsl:if>
-        </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="firstLangData" select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1]"/>
+                <xsl:if test="$firstLangData">
+                    <xsl:variable name="sIsoCode2" select="key('LanguageID',$firstLangData/@lang)/@ISO639-3Code"/>
+                    <xsl:if test="string-length($sIsoCode2) &gt; 0">
+                        <xsl:if test="$bOutputBreak='Y'">
+                            <fo:block/>
+                        </xsl:if>
+                        <fo:inline font-size="smaller">
+                            <xsl:text>[</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="$bShowISO639-3Codes='Y'">
+                                    <fo:basic-link internal-destination="{$languages[@ISO639-3Code=$sIsoCode2]/@id}">
+                                        <xsl:call-template name="AddAnyLinkAttributes">
+                                            <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/iso639-3CodesLinkLayout"/>
+                                        </xsl:call-template>
+                                        <xsl:value-of select="$sIsoCode2"/>
+                                    </fo:basic-link>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$sIsoCode2"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>]</xsl:text>
+                        </fo:inline>
+                    </xsl:if>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputListLevelISOCode
     -->
     <xsl:template name="OutputListLevelISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <fo:table-cell padding-end=".5em">
                     <fo:block>

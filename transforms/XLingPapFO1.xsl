@@ -1551,6 +1551,11 @@
                                 <xsl:if test="not(listDefinition) and not(definition)">
                                     <xsl:call-template name="OutputExampleLevelISOCode">
                                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                                        <xsl:with-param name="sIsoCode">
+                                            <xsl:call-template name="GetISOCode">
+                                                <xsl:with-param name="originalContext" select="."/>
+                                            </xsl:call-template>
+                                        </xsl:with-param>
                                     </xsl:call-template>
                                 </xsl:if>
                             </fo:block>
@@ -4156,7 +4161,7 @@ not using
             </xsl:if>
             <xsl:text>.</xsl:text>
         </xsl:if>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes'">
+        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::refWork/@showiso639-3codes='yes'">
             <xsl:for-each select="$path/iso639-3code">
                 <xsl:sort/>
                 <fo:inline font-size="smaller">

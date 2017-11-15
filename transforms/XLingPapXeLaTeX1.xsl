@@ -54,7 +54,7 @@
     <xsl:variable name="sXLingPaperGlossaryTerm" select="'XLingPaperGlossaryTerm'"/>
     <xsl:variable name="iMagnificationFactor">1</xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
-<!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
+    <!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
     <xsl:variable name="chapterBeforePart" select="//chapterBeforePart"/>
     <!-- ===========================================================
         MAIN BODY
@@ -1304,12 +1304,18 @@
                 </xsl:if>
                 <xsl:choose>
                     <xsl:when test="name()='pc'">
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                        </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
                     <xsl:when test="parent::blockquote and count(preceding-sibling::node())=0">
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                        </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1319,6 +1325,9 @@
                         <xsl:if test="preceding-sibling::*[1][name()='example' or name()='blockquote']">
                             <!-- lose paragraph indent unless we do this when an example precedes; adding \par to the example macro does not work -->
                             <tex:cmd name="par" gr="0" nl2="0"/>
+                        </xsl:if>
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
                         </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -1379,6 +1388,9 @@
         Annotation reference (part of an annotated bibliography)
         =========================================================== -->
     <xsl:template match="annotationRef">
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -1503,6 +1515,9 @@
                 </xsl:if>
                 <tex:cmd name="raggedright"/>
                 <xsl:call-template name="SetExampleKeepWithNext"/>
+            </xsl:if>
+            <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                <tex:cmd name="clearpage" gr="0" nl2="0"/>
             </xsl:if>
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -3161,6 +3176,12 @@
         DoFigure
     -->
     <xsl:template name="DoFigure">
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -3502,35 +3523,35 @@
             <xsl:text>.</xsl:text>
         </xsl:if>
         <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::refWork/@showiso639-3codes='yes'">
-        <xsl:for-each select="$path/iso639-3code">
-            <xsl:sort/>
-            <tex:cmd name="small">
-                <tex:parm>
-                    <xsl:if test="position() = 1">
-                        <xsl:text>  [</xsl:text>
-                    </xsl:if>
-                    <xsl:choose>
-                        <xsl:when test="$bShowISO639-3Codes='Y'">
-                            <xsl:variable name="sThisCode" select="."/>
-                            <xsl:call-template name="DoInternalHyperlinkBegin">
-                                <xsl:with-param name="sName" select="$languages[@ISO639-3Code=$sThisCode]/@id"/>
-                            </xsl:call-template>
-                            <xsl:value-of select="."/>
-                            <xsl:call-template name="DoInternalHyperlinkEnd"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="position() != last()">
-                        <xsl:text>, </xsl:text>
-                    </xsl:if>
-                    <xsl:if test="position() = last()">
-                        <xsl:text>]</xsl:text>
-                    </xsl:if>
-                </tex:parm>
-            </tex:cmd>
-        </xsl:for-each>
+            <xsl:for-each select="$path/iso639-3code">
+                <xsl:sort/>
+                <tex:cmd name="small">
+                    <tex:parm>
+                        <xsl:if test="position() = 1">
+                            <xsl:text>  [</xsl:text>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="$bShowISO639-3Codes='Y'">
+                                <xsl:variable name="sThisCode" select="."/>
+                                <xsl:call-template name="DoInternalHyperlinkBegin">
+                                    <xsl:with-param name="sName" select="$languages[@ISO639-3Code=$sThisCode]/@id"/>
+                                </xsl:call-template>
+                                <xsl:value-of select="."/>
+                                <xsl:call-template name="DoInternalHyperlinkEnd"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="."/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:if test="position() != last()">
+                            <xsl:text>, </xsl:text>
+                        </xsl:if>
+                        <xsl:if test="position() = last()">
+                            <xsl:text>]</xsl:text>
+                        </xsl:if>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:for-each>
         </xsl:if>
     </xsl:template>
     <!--  
@@ -4140,6 +4161,9 @@
         <tex:cmd name="vspace" nl1="1" nl2="1">
             <tex:parm><xsl:value-of select="$sVerticalSpaceBefore"/>pt</tex:parm>
         </tex:cmd>
+        <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -4316,6 +4340,9 @@
                     </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
         </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>

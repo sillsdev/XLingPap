@@ -239,6 +239,9 @@
     <xsl:template match="hangingIndent">
         <xsl:variable name="sThisInitialIndent" select="normalize-space(@initialIndent)"/>
         <xsl:variable name="sThisHangingIndent" select="normalize-space(@hangingIndent)"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -347,6 +350,9 @@
             <tex:cmd name="small">
                 <tex:parm>
 -->
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -664,7 +670,8 @@
     -->
     <xsl:template name="HandleAnyExampleHeadingAdjustWithISOCode">
         <xsl:param name="bListsShareSameCode"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N')) or ancestor-or-self::example/@showiso639-3codes='yes' and not(contains($bListsShareSameCode,'N'))">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' and not(contains($bListsShareSameCode,'N')) or ancestor-or-self::example/@showiso639-3codes='yes' and not(contains($bListsShareSameCode,'N'))">
             <xsl:choose>
                 <xsl:when test="exampleHeading[following-sibling::listInterlinear or following-sibling::interlinear]">
                     <xsl:call-template name="CalculateExampleAndExampleHeadingHeights">
@@ -1274,6 +1281,9 @@
         <xsl:choose>
             <xsl:when test="parent::interlinear-text">
                 <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial,'clearpage')">
+                        <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                    </xsl:when>
                     <xsl:when test="contains(@XeLaTeXSpecial,'pagebreak')">
                         <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                     </xsl:when>
@@ -2047,6 +2057,9 @@
                     <tex:parm><xsl:value-of select="$sBasicPointSize"/>
                     <xsl:text>pt</xsl:text></tex:parm>
                     </tex:cmd> -->
+                <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                    <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                </xsl:if>
                 <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                     <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                 </xsl:if>
@@ -4748,6 +4761,9 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="sCurrentLanguage" select="@lang"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage') and $bAutomaticallyWrapInterlinears='yes'">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak') and $bAutomaticallyWrapInterlinears='yes'">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -6083,11 +6099,13 @@
                 <!-- if we use 2, then longer interlinears are aligned incorrectly -->
                 <xsl:text>1</xsl:text>
             </xsl:when>
-            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
+            <xsl:when
+                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
                 <!-- if we use 2, then longer interlinears are aligned incorrectly -->
                 <xsl:text>1</xsl:text>
             </xsl:when>
-            <xsl:when test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
+            <xsl:when
+                test="name(..)='listInterlinear' and ../preceding-sibling::*[1][name()='exampleHeading'] and $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
                 <!-- if we use 2, then longer interlinears are aligned incorrectly -->
                 <xsl:text>1</xsl:text>
             </xsl:when>
@@ -6099,7 +6117,8 @@
             </xsl:otherwise>
         </xsl:choose>
         <tex:cmd name="relax" gr="0" nl2="1"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N') or ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N') or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' and contains($bListsShareSameCode,'N') or ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N') or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes' and contains($bListsShareSameCode,'N')">
             <xsl:variable name="sListIsoCode">
                 <xsl:call-template name="GetISOCode">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -9623,6 +9642,9 @@
                         <xsl:for-each select="following-sibling::listWord | following-sibling::listSingle | following-sibling::listDefinition">
                             <tex:spec cat="esc"/>
                             <tex:spec cat="esc" nl2="1"/>
+                            <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                                <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                            </xsl:if>
                             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                             </xsl:if>
@@ -9657,7 +9679,8 @@
         <xsl:param name="sIsoCode"/>
         <xsl:param name="bCloseOffMultirow" select="'N'"/>
         <xsl:param name="originalContext"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:if test="contains($bListsShareSameCode,'N')">
                 <xsl:variable name="sISOCodeTeXOutput">
                     <xsl:call-template name="OutputISOCodeInExample">

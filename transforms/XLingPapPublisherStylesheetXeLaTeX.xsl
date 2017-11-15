@@ -884,8 +884,8 @@
             </tex:cmd>
             <xsl:call-template name="DoBookMark"/>
             <xsl:if test="$contentsLayout/contentsLayout/@partCentered='no' and $contentsLayout/contentsLayout/@partShowPageNumber!='no'">
-<!--                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='no' and saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">-->
-                    <xsl:call-template name="CreateAddToContents">
+                <!--                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='no' and saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">-->
+                <xsl:call-template name="CreateAddToContents">
                     <xsl:with-param name="id" select="@id"/>
                 </xsl:call-template>
             </xsl:if>
@@ -1362,6 +1362,9 @@
         <xsl:if test="@showinlandscapemode='yes'">
             <tex:cmd name="landscape" gr="0" nl2="1"/>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
@@ -1755,12 +1758,18 @@
                 </xsl:if>
                 <xsl:choose>
                     <xsl:when test="name()='pc'">
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                        </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                     </xsl:when>
                     <xsl:when test="parent::blockquote and count(preceding-sibling::node())=0">
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                        </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
                         </xsl:if>
@@ -1770,6 +1779,9 @@
                         <xsl:if test="preceding-sibling::*[1][name()='example' or name()='blockquote']">
                             <!-- lose paragraph indent unless we do this when an example precedes; adding \par to the example macro does not work -->
                             <tex:cmd name="par" gr="0" nl2="0"/>
+                        </xsl:if>
+                        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
                         </xsl:if>
                         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -2129,6 +2141,9 @@
                 </xsl:if>
                 <tex:cmd name="raggedright"/>
                 <xsl:call-template name="SetExampleKeepWithNext"/>
+            </xsl:if>
+            <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+                <tex:cmd name="clearpage" gr="0" nl2="0"/>
             </xsl:if>
             <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
@@ -4476,6 +4491,9 @@
         DoFigure
     -->
     <xsl:template name="DoFigure">
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
@@ -5547,6 +5565,9 @@
         <xsl:param name="layoutInfo"/>
         <xsl:variable name="formatTitleLayoutInfo" select="$layoutInfo/*[name()!='numberLayout'][1]"/>
         <xsl:variable name="numberLayoutInfo" select="$layoutInfo/numberLayout"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
@@ -5597,6 +5618,9 @@
         <xsl:param name="layoutInfo"/>
         <xsl:param name="sContentsPeriod"/>
         <tex:group>
+            <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'clearpage')">
+                <tex:cmd name="clearpage" gr="0" nl2="0"/>
+            </xsl:if>
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
@@ -6059,6 +6083,9 @@
                     </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
         </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>

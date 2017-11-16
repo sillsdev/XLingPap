@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.32.1</a:version
+>2.32.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-11-15</a:date
+>2017-11-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>3.2.2 16 November 2017<ul
+><li
+>In the user documentation, add an appendix to show the order of elements after the back matter.</li
+></ul
+></li
 ><li
 >2.32.1 15 November 2017<ul
 ><li

@@ -12,8 +12,8 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> version 5.3</big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>15 November 2017</small></center>
-      <center><small>Version: 2.32.1</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>16 November 2017</small></center>
+      <center><small>Version: 2.32.2</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -358,9 +358,10 @@
             <li><a href="#aLanguageCodes">C&nbsp;Language Codes</a></li>
             <li><a href="#aXeLaTeXSpecial">D&nbsp;Special Attributes for the Default <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> Way of Producing PDF</a></li>
             <li><a href="#aHistdory">E&nbsp;History</a></li>
+            <li><a href="#aOrderOfElementsAtEnd">F&nbsp;Order of Elements at the End of the Document</a></li>
             <li><a href="#rXLingPapEndnotes">Endnotes</a></li>
             <li><a href="#rXLingPapReferences">References</a></li>
-            <li><a href="#rXLingPapIndex.d0e24896">Index</a></li>
+            <li><a href="#rXLingPapIndex.d0e24968">Index</a></li>
          </ul>
       </div><br><hr>
       <center><b><big><big><a name="rXLingPapAbstract0">Abstract</a></big></big></b></center>
@@ -12807,6 +12808,56 @@
       <p>In 2009, I made it work on Mac and Linux and also added the XeLaTeX way of producing PDF.</p>
       <p>See the <span style="color:maroon; ">XLingPaper / About XLingPaper</span> menu item for more details.
       </p>
+      <hr size="3">
+      <h1 style=""><a name="aOrderOfElementsAtEnd"></a>F.&nbsp;Order of Elements at the End of the Document
+      </h1>
+      <p>When inserting a new element at the end of a document (under the <span style="font-family:Courier New; color:maroon; ">lingPaper</span> element and after the <span style="font-family:Courier New; color:maroon; ">backMatter</span> element), it can be hard to know exactly where to try and insert the new item. The following lists the order in which the
+         elements can occur and shows what each might look like to help you identify where to try and do the insertion.
+      </p>
+      <div align="left">
+         <table style="" border="1">
+            <tr style="">
+               <th align="left" valign="top" style="padding-left:.2em; ">Element</th>
+               <th align="left" valign="top" style="padding-left:.2em; ">Appearance</th>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">referencedInterlinearTexts</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Referenced Interlinear Texts:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">languages</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Languages:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">types</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Types:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">framedTypes</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Framed Types:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">indexTerms</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Index Terms:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">comment</span></td>
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-style:italic; ">(has a yellow background)</span></td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">publishingInfo</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Publishing info:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">contentControl</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Content control:</td>
+            </tr>
+            <tr style="">
+               <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; color:maroon; ">validation</span></td>
+               <td align="left" valign="top" style="padding-left:.2em">Validation status:</td>
+            </tr>
+         </table>
+      </div>
       <hr size="3"><a name="rXLingPapEndnotes"></a><p style=""><big><big><big><b>Endnotes</b></big></big></big></p>
       <table>
          <tr>
@@ -14098,7 +14149,7 @@
          </p>
       </div>
       <hr>
-      <a name="rXLingPapIndex.d0e24896"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
+      <a name="rXLingPapIndex.d0e24968"></a><p style=""><big><big><big><b>Index</b></big></big></big></p>
       <div style="margin-left: 0.5in; margin-right: 0.5in">
          .bmp files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>
          .jpg (.jpeg) files&nbsp;&nbsp;see <a href="#rXLingPapIndexTerm.iImageFiles">Image files</a>.<br>

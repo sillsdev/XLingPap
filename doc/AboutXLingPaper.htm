@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.32.1</span></p>
-      <p align="center">Date: 2017-11-14</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.32.2</span></p>
+      <p align="center">Date: 2017-11-16</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,23 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.32.1 14 November 2017
+               <li>3.2.2 16 November 2017
+                  <ul>
+                     <li>In the user documentation, add an appendix to show the order of elements after the back matter.</li>
+                  </ul>
+               </li>
+               <li>2.32.1 15 November 2017
                   <ul>
                      <li>Enable showing ISO 639-3 codes in examples be on a per example basis as well as document wide.</li>
                      <li>When creating a zip file, add a warning message for when an image file has a bad file name and will not be included in the
                         zip file.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Add a new XeLaTeXSpecial attribute of clearpage. It is like pagebreak, but it will also force any footnotes on the current
+                              page to appear at the bottom of that page.
+                           </li>
+                        </ul>
                      </li>
                   </ul>
                </li>

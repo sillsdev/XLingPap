@@ -78,7 +78,6 @@
     <!-- ===========================================================
       Variables
       =========================================================== -->
-    <xsl:variable name="contents" select="//contents"/>
     <xsl:variable name="references" select="//references"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
@@ -426,6 +425,9 @@ li.lower-roman {
                 <xsl:call-template name="GetLayoutClassNameToUse">
                     <xsl:with-param name="sType" select="$sContents"/>
                 </xsl:call-template>
+                <xsl:if test="ancestor-or-self::backMatterLayout">
+                    <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+                </xsl:if>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -1647,6 +1649,8 @@ li.lower-roman {
     <xsl:template match="@AddPeriodAfterFinalDigit"/>
     <xsl:template match="@after"/>
     <xsl:template match="@authorform"/>
+    <xsl:template match="@backmatterlabel"/>
+    <xsl:template match="@backmattershowLevel"/>
     <xsl:template match="@before"/>
     <xsl:template match="@beginsparagraph"/>
     <xsl:template match="@betweentitleandnumber"/>
@@ -1700,6 +1704,7 @@ li.lower-roman {
     <xsl:template match="@showbookmarks"/>
     <xsl:template match="@showchapternumber"/>
     <xsl:template match="@showChapterNumberBeforeExampleNumber"/>
+    <xsl:template match="@showcontents"/>
     <xsl:template match="@showExampleIdOnHoverInWebpage"/>
     <xsl:template match="@showInHeader"/>
     <xsl:template match="@showletter"/>

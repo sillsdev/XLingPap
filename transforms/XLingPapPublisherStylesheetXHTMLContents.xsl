@@ -6,7 +6,7 @@
         part (contents) 
     -->
     <xsl:template match="part" mode="contents">
-        <!--        <xsl:param name="nLevel"/>-->
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:if test="position()=1">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select="." mode="contents">
@@ -33,6 +33,7 @@
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter) + count(ancestor::chapterBeforePart) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>

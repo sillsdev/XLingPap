@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-11-16</a:date
+>2017-12-04</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.2.2 16 November 2017<ul
+>3.2.2 4 December 2017<ul
+><li
+>Add ability to have two contents, one in the front matter and one in the back matter, with differing labels and levels of detail.  (Only via a publisher style sheet.)</li
+><li
+>Add ability to show (or not show) the contents itself in a table of contents.  (Only via a publisher style sheet.)</li
 ><li
 >In the user documentation, add an appendix to show the order of elements after the back matter.</li
 ></ul

@@ -70,6 +70,7 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="indexSeeDefinition" select="$lingPaper/indexTerms/seeDefinitions/seeDefinition[@lang=$indexLang]"/>
+    <xsl:variable name="contents" select="//contents"/>
     <xsl:variable name="abbreviations" select="//abbreviations"/>
     <xsl:variable name="glossaryTerms" select="$lingPaper/backMatter/glossaryTerms"/>
     <xsl:variable name="refWorks" select="//refWork"/>
@@ -159,6 +160,7 @@
         </xsl:if>
     </xsl:variable>
     <xsl:variable name="sMediaObjectFontFamily" select="'Symbola'"/>
+    <xsl:variable name="sBackMatterContentsIdAddOn" select="'BM'"/>
 
     <!-- 
         appendixRef (contents) 
@@ -609,7 +611,19 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!--  
+    <!--
+        CreateContentsID
+    -->
+    <xsl:template name="CreateContentsID">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:call-template name="GetIdToUse">
+            <xsl:with-param name="sBaseId" select="$sContentsID"/>
+        </xsl:call-template>
+        <xsl:if test="$contentsLayoutToUse[ancestor-or-self::backMatterLayout]">
+            <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         DetermineIfListsShareSameISOCode
     -->
     <xsl:template name="DetermineIfListsShareSameISOCode">
@@ -1760,13 +1774,30 @@
     -->
     <xsl:template name="OutputContentsLabel">
         <xsl:param name="fUseShortTitleIfExists" select="'N'"/>
+        <xsl:param name="layoutInfo"/>
         <xsl:call-template name="OutputLabel">
             <xsl:with-param name="sDefault">Contents</xsl:with-param>
-            <!--            <xsl:with-param name="pLabel" select="//contents/@label"/>-->
             <xsl:with-param name="pLabel">
-                <xsl:call-template name="GetLabelOrShortTitle">
-                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="$layoutInfo and $layoutInfo/parent::backMatterLayout">
+                        <xsl:variable name="sBackMatterLabel" select="normalize-space(@backmatterlabel)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sBackMatterLabel) &gt; 0">
+                                <xsl:value-of select="$sBackMatterLabel"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="GetLabelOrShortTitle">
+                                    <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="GetLabelOrShortTitle">
+                            <xsl:with-param name="fUseShortTitleIfExists" select="$fUseShortTitleIfExists"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>

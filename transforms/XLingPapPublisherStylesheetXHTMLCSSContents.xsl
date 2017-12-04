@@ -120,7 +120,7 @@
             <xsl:text>pt;
             text-align:</xsl:text>
         <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partCentered='yes'">
+            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partCentered!='no'">
                 <xsl:text>center;</xsl:text>
             </xsl:when>
             <xsl:otherwise>

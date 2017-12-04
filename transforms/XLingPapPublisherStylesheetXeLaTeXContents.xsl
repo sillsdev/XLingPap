@@ -5,7 +5,7 @@
         part (contents) 
     -->
     <xsl:template match="part" mode="contents">
-        <!--        <xsl:param name="nLevel"/>-->
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:if test="count(preceding-sibling::part)=0">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select="." mode="contents">
@@ -72,6 +72,7 @@
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::appendix) + 1"/>
         </xsl:variable>
@@ -90,7 +91,9 @@
             </xsl:with-param>
         </xsl:call-template>
         <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section2" mode="contents"/>
+            <xsl:apply-templates select="section2" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!--

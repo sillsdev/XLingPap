@@ -50,6 +50,22 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="annotationLayoutInfo" select="$contentLayoutInfo/annotationLayout"/>
+    <xsl:variable name="nLevel">
+        <xsl:choose>
+            <xsl:when test="$contents/@showLevel">
+                <xsl:value-of select="number($contents/@showLevel)"/>
+            </xsl:when>
+            <xsl:otherwise>3</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="nBackMatterLevel">
+        <xsl:choose>
+            <xsl:when test="$contents/@backmattershowLevel">
+                <xsl:value-of select="number($contents/@backmattershowLevel)"/>
+            </xsl:when>
+            <xsl:otherwise>3</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->

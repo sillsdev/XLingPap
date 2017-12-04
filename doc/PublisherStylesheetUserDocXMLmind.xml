@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 November 2017</date
+>4 December 2017</date
 ><version
 contentType="ctVersion5.3"
->2.32.0</version
+>2.32.2</version
 ><version
 contentType="ctVersion7Plus"
->3.2.0</version
+>3.2.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -2234,6 +2234,24 @@ id="nWebPageIgnoresPDFBookmarks"
 >This is ignored by the Web Page output.</p
 ></endnote
 ></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>showcontents</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to include a line for the contents itself in the output. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
 ></tr
 ><tr
 ><td

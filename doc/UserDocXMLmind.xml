@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 November 2017</date
+>4 December 2017</date
 ><version
 contentType="ctVersion5.3"
 >2.32.2</version
@@ -1684,7 +1684,7 @@ type="tXLingPap"
 ></object
 > to automatically generate a table of contents.</p
 ><p
->The default situation is for the table of contents to include sections up to three levels deep (i.e. it will include the titles for all of the following: <object
+>The default situation is for the table of contents to include sections up to three levels deep (i.e., it will include the titles for all of the following: <object
 type="tElement"
 >part</object
 >, <object
@@ -1739,6 +1739,22 @@ type="tAttribute"
 note="nAttributesToolReminder"
 ></endnoteRef
 ></p
+><p
+>Finally, if you use a <object
+type="tPublisherStyleSheet"
+></object
+> to have both a table of contents in the front matter and a (slightly) different one in the back matter,<endnote
+id="nFrontBackContetns"
+><p
+>Some Spanish conventions use “Contendio” for the front matter (and a level of one) and “Índice” for the back matter (and a level of three).</p
+></endnote
+> then you can set the label for the one in the back matter by setting the <object
+type="tAttribute"
+>backmatterlabel</object
+> attribute. You also set the <object
+type="tAttribute"
+>backmattershowLevel</object
+> attribute to set the level depth for the table of contents that appears in the back matter.</p
 ></section2
 ><section2
 id="sFMAcknowledgements"

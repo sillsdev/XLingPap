@@ -234,6 +234,8 @@
 <!ATTLIST contents
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
+    backmattershowLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
+    backmatterlabel CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >

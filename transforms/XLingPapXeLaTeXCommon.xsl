@@ -44,7 +44,7 @@
     </xsl:variable>
     <xsl:variable name="bHasContents">
         <xsl:choose>
-            <xsl:when test="//contents">
+            <xsl:when test="$contents">
                 <xsl:text>Y</xsl:text>
             </xsl:when>
             <xsl:otherwise>

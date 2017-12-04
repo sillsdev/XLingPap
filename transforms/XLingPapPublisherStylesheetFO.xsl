@@ -40,14 +40,6 @@
     <xsl:variable name="lineSpacing" select="$pageLayoutInfo/lineSpacing"/>
     <xsl:variable name="sLineSpacing" select="$lineSpacing/@linespacing"/>
     <xsl:variable name="sSinglespacingLineHeight">1.2</xsl:variable>
-    <xsl:variable name="nLevel">
-        <xsl:choose>
-            <xsl:when test="$contents/@showLevel">
-                <xsl:value-of select="number($contents/@showLevel)"/>
-            </xsl:when>
-            <xsl:otherwise>3</xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable>
     <xsl:variable name="sSection1PointSize" select="'12'"/>
     <xsl:variable name="sSection2PointSize" select="'10'"/>
     <xsl:variable name="sSection3PointSize" select="'10'"/>
@@ -80,7 +72,6 @@
     <!-- ===========================================================
       Variables
       =========================================================== -->
-    <xsl:variable name="contents" select="//contents"/>
     <xsl:variable name="references" select="//references"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
@@ -544,8 +535,9 @@
                         <xsl:attribute name="font-size">
                             <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                         <!-- put title in marker so it can show up in running header -->
-                        <fo:marker marker-class-name="contents-title">
+                        <fo:marker marker-class-name="chap-title">
                             <xsl:call-template name="OutputContentsLabel">
+                                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                                 <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
                             </xsl:call-template>
                         </fo:marker>
@@ -600,6 +592,7 @@
                         <!-- put title in marker so it can show up in running header -->
                         <fo:marker marker-class-name="contents-title">
                             <xsl:call-template name="OutputContentsLabel">
+                                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
                                 <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
                             </xsl:call-template>
                         </fo:marker>
@@ -3940,6 +3933,14 @@ not using
                         <xsl:with-param name="text-transform" select="../referencesTitleLayout/@text-transform"/>
                     </xsl:apply-templates>
                 </xsl:when>
+                <xsl:when test="name(.)='contentsLayout'">
+                    <xsl:if test="@showcontents='yes' and $frontMatterLayoutInfo/contentsLayout and $backMatterLayout/contentsLayout">
+                        <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="contents">
+                            <xsl:with-param name="text-transform" select="@text-transform"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="."/>
+                        </xsl:apply-templates>
+                    </xsl:if>
+                </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
                     <xsl:apply-templates select="$backMatter/endnotes" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
@@ -4229,10 +4230,10 @@ not using
         <xsl:param name="bIsBook" select="'Y'"/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
-        <fo:block id="rXLingPapContents">
+        <fo:block>
             <xsl:attribute name="id">
-                <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sContentsID"/>
+                <xsl:call-template name="CreateContentsID">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
             </xsl:attribute>
             <xsl:if test="$bIsBook='Y'">
@@ -4255,16 +4256,20 @@ not using
                 <xsl:when test="$bIsBook='Y'">
                     <xsl:call-template name="OutputChapTitle">
                         <xsl:with-param name="sTitle">
-                            <xsl:call-template name="OutputContentsLabel"/>
+                            <xsl:call-template name="OutputContentsLabel">
+                                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
+                            </xsl:call-template>
                         </xsl:with-param>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="OutputContentsLabel"/>
+                    <xsl:call-template name="OutputContentsLabel">
+                        <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
+                <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
             </xsl:call-template>
         </fo:block>
         <fo:block>
@@ -4277,23 +4282,39 @@ not using
                 <xsl:with-param name="frontMatter" select=".."/>
                 <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
             </xsl:call-template>
+            <xsl:variable name="nLevelToUse">
+                <xsl:choose>
+                    <xsl:when test="$contentsLayoutToUse[ancestor-or-self::backMatterLayout]">
+                        <xsl:value-of select="$nBackMatterLevel"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$nLevel"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <xsl:variable name="chapterInCollection" select="ancestor::chapterInCollection"/>
             <xsl:choose>
                 <xsl:when test="$chapterInCollection">
                     <xsl:apply-templates select="$chapterInCollection/section1" mode="contents"/>
                     <xsl:call-template name="DoBackMatterContentsPerLayout">
-                        <xsl:with-param name="nLevel" select="$nLevel"/>
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
                         <xsl:with-param name="backMatter" select="$chapterInCollection/backMatter"/>
                         <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- part -->
-                    <xsl:apply-templates select="$lingPaper/part" mode="contents"/>
+                    <xsl:apply-templates select="$lingPaper/part" mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    </xsl:apply-templates>
                     <!--                 chapter, no parts -->
-                    <xsl:apply-templates select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]" mode="contents"/>
+                    <xsl:apply-templates select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]" mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    </xsl:apply-templates>
                     <!-- section, no chapters -->
-                    <xsl:apply-templates select="//lingPaper/section1" mode="contents"/>
+                    <xsl:apply-templates select="//lingPaper/section1" mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    </xsl:apply-templates>
                     <xsl:call-template name="DoBackMatterContentsPerLayout"/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -4686,6 +4707,14 @@ not using
                         </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
                     </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="name(.)='contentsLayout'">
+                    <xsl:if test="@showcontents='yes'">
+                        <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="contents">
+                            <xsl:with-param name="text-transform" select="@text-transform"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="."/>
+                        </xsl:apply-templates>
+                    </xsl:if>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>

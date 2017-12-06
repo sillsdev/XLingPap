@@ -73,6 +73,7 @@
     -->
     <xsl:template match="section1" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::appendix) + 1"/>
         </xsl:variable>
@@ -89,10 +90,12 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:with-param>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
             <xsl:apply-templates select="section2" mode="contents">
                 <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
@@ -115,6 +118,7 @@
     <xsl:template name="OutputSectionTOC">
         <xsl:param name="sLevel"/>
         <xsl:param name="sSpaceBefore" select="'0'"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <!-- set level command name -->
         <xsl:variable name="sLevelName">
             <xsl:choose>
@@ -170,7 +174,9 @@
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputSectionNumberAndTitleInContents"/>
+                <xsl:call-template name="OutputSectionNumberAndTitleInContents">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent">
                 <tex:cmd name="{$sLevelName}indent" gr="0" nl2="0"/>

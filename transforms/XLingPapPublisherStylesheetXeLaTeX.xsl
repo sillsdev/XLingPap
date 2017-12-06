@@ -659,9 +659,9 @@
       -->
     <xsl:template match="contents" mode="book">
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
-        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:call-template name="DoPageBreakFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
+            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:call-template name="DoContents">
             <xsl:with-param name="bIsBook" select="'Y'"/>
@@ -3840,9 +3840,10 @@
         DoBackMatterContentsPerLayout
     -->
     <xsl:template name="DoBackMatterContentsPerLayout">
-        <xsl:param name="nLevel"/>
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:param name="backMatter" select="$lingPaper/backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="."/>
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
@@ -3865,6 +3866,7 @@
                     <xsl:apply-templates select="$backMatter/appendix" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevel"/>
                         <xsl:with-param name="text-transform" select="appendixTitleLayout/@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
@@ -3998,7 +4000,7 @@
                 <xsl:when test="name(.)='contentsLayout' and ancestor::backMatterLayout and $chapters">
                     <xsl:apply-templates select="$lingPaper/frontMatter/contents" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
-                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$backMatterLayoutInfo/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout'">
@@ -4130,11 +4132,11 @@
                     </xsl:with-param>
                     <xsl:with-param name="sTitle">
                         <xsl:call-template name="OutputContentsLabel">
-                            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                         </xsl:call-template>
                     </xsl:with-param>
                     <xsl:with-param name="bIsBook" select="'Y'"/>
-                    <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
+                    <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                     <xsl:with-param name="sFirstPageStyle" select="'frontmatterfirstpage'"/>
                     <!-- page break stuff has already been done; when we changed to use raisebox for hypertarget and made the
                         content of the hypertarget be empty, we suddenly got an extra page break here.
@@ -4143,7 +4145,7 @@
                     <xsl:with-param name="sRunningHeader">
                         <xsl:call-template name="OutputContentsLabel">
                             <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
-                            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse/contentsLayout"/>
+                            <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
                         </xsl:call-template>
                     </xsl:with-param>
                 </xsl:call-template>
@@ -4194,6 +4196,7 @@
             <xsl:when test="$chapterInCollection">
                 <xsl:apply-templates select="$chapterInCollection/section1" mode="contents">
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
                 <xsl:call-template name="DoBackMatterContentsPerLayout">
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
@@ -4205,16 +4208,22 @@
                 <!-- part -->
                 <xsl:apply-templates select="$lingPaper/part" mode="contents">
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
                 <!--                 chapter, no parts -->
                 <xsl:apply-templates select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]" mode="contents">
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
                 <!-- section, no chapters -->
                 <xsl:apply-templates select="//lingPaper/section1" mode="contents">
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
-                <xsl:call-template name="DoBackMatterContentsPerLayout"/>
+                <xsl:call-template name="DoBackMatterContentsPerLayout">
+                    <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
@@ -6748,11 +6757,11 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="." mode="number"/>
-                    <xsl:if test="count($chapters)!=0 or count(//section1)&gt;1 or count(//section1/section2)&gt;0">
-                        <xsl:value-of select="$sContentsPeriod"/>
-                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:if test="count($chapters)!=0 or count(//section1)&gt;1 or count(//section1/section2)&gt;0">
+                <xsl:value-of select="$sContentsPeriod"/>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="$layoutInfo and name($layoutInfo)='sectionNumber'">
                     <!-- special case for running header -->
@@ -7204,7 +7213,9 @@
                 <tex:cmd name="levelonewidth" gr="0" nl2="0"/>
             </xsl:with-param>
         </xsl:call-template>
-        <xsl:apply-templates select="section1 | section2" mode="contents"/>
+        <xsl:apply-templates select="section1 | section2" mode="contents">
+            <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayout/contentsLayout"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!--
                    OutputBackMatterItemTitle
@@ -7329,6 +7340,7 @@
     <xsl:template name="OutputChapterNumber">
         <xsl:param name="fDoTextAfterLetter" select="'Y'"/>
         <xsl:param name="fDoingContents" select="'N'"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <xsl:choose>
             <xsl:when test="name()='chapter'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
@@ -7366,7 +7378,7 @@
                         <xsl:when test="$fDoTextAfterLetter='Y'">
                             <xsl:value-of select="$appLayout/appendixTitleLayout/@textafterletter"/>
                         </xsl:when>
-                        <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterappendixletter='yes'">
+                        <xsl:when test="saxon:node-set($contentsLayoutToUse)/@useperiodafterappendixletter='yes'">
                             <xsl:text>.&#xa0;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -8265,11 +8277,12 @@
       OutputSectionNumberAndTitleInContents
    -->
     <xsl:template name="OutputSectionNumberAndTitleInContents">
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <xsl:param name="layoutInfo"/>
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             <xsl:with-param name="sContentsPeriod">
-                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodaftersectionnumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodaftersectionnumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
             </xsl:with-param>

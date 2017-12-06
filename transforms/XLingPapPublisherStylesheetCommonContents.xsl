@@ -77,12 +77,14 @@
     -->
     <xsl:template match="appendix[not(ancestor::chapterInCollection)]" mode="contents">
         <xsl:param name="text-transform"/>
+        <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:if test="$frontMatterLayout/contentsLayout/@showappendices!='no'">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
-                    <xsl:if test="$frontMatterLayout/contentsLayout/@useappendixlabelbeforeappendixletter='yes'">
+                    <xsl:if test="$contentsLayoutToUse/@useappendixlabelbeforeappendixletter='yes'">
                         <xsl:choose>
                             <xsl:when test="string-length(@label) &gt; 0">
                                 <xsl:value-of select="@label"/>
@@ -93,6 +95,7 @@
                     </xsl:if>
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:call-template>
                     <xsl:apply-templates select="secTitle" mode="contents"/>
                 </xsl:with-param>
@@ -101,8 +104,11 @@
                 </xsl:with-param>
                 <xsl:with-param name="text-transform" select="$text-transform"/>
             </xsl:call-template>
-            <xsl:if test="$frontMatterLayout/contentsLayout/@showsectionsinappendices!='no'">
-                <xsl:apply-templates select="section1 | section2" mode="contents"/>
+            <xsl:if test="$contentsLayoutToUse/@showsectionsinappendices!='no' and $nLevel!=0">
+                <xsl:apply-templates select="section1 | section2" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
             </xsl:if>
         </xsl:if>
     </xsl:template>
@@ -119,6 +125,7 @@
     -->
     <xsl:template match="chapter | chapterBeforePart" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout"/>
         <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@usechapterlabelbeforechapters='yes'">
             <xsl:if test="name()='chapterBeforePart' or count(preceding-sibling::chapter)=0 and not(//chapterBeforePart)">
                 <xsl:call-template name="DoChapterLabelInContents"/>
@@ -133,7 +140,7 @@
                 <xsl:call-template name="OutputChapterNumber">
                     <xsl:with-param name="fDoingContents" select="'Y'"/>
                 </xsl:call-template>
-                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>
@@ -173,6 +180,7 @@
         <xsl:if test="$nLevel!=0">
             <xsl:apply-templates select="section1 | section2" mode="contents">
                 <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
@@ -232,7 +240,8 @@
                 <xsl:with-param name="frontMatter" select="frontMatter"/>
             </xsl:call-template>
             <xsl:apply-templates select="section1" mode="contents">
-                <!--            <xsl:with-param name="nLevel" select="$nLevel"/>-->
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayout"/>
             </xsl:apply-templates>
             <xsl:call-template name="DoBackMatterContentsPerLayout">
                 <xsl:with-param name="nLevel" select="$nLevel"/>
@@ -471,14 +480,19 @@
     -->
     <xsl:template match="section2" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section3" mode="contents"/>
+            <xsl:apply-templates select="section3" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -486,14 +500,19 @@
     -->
     <xsl:template match="section3" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="1 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section4" mode="contents"/>
+            <xsl:apply-templates select="section4" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -501,14 +520,19 @@
     -->
     <xsl:template match="section4" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="2 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section5" mode="contents"/>
+            <xsl:apply-templates select="section5" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -516,14 +540,19 @@
     -->
     <xsl:template match="section5" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="3 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section6" mode="contents"/>
+            <xsl:apply-templates select="section6" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -531,11 +560,13 @@
     -->
     <xsl:template match="section6" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="4 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
         <xsl:call-template name="OutputSectionTOC">
             <xsl:with-param name="sLevel" select="$iLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 

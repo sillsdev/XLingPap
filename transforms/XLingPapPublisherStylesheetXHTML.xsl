@@ -2482,9 +2482,10 @@
         DoBackMatterContentsPerLayout
     -->
     <xsl:template name="DoBackMatterContentsPerLayout">
-        <xsl:param name="nLevel"/>
+        <xsl:param name="nLevel" select="$nLevel"/>
         <xsl:param name="backMatter" select="$lingPaper/backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="."/>
         <xsl:for-each select="$backMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
@@ -2507,6 +2508,7 @@
                     <xsl:apply-templates select="$backMatter/appendix" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevel"/>
                         <xsl:with-param name="text-transform" select="appendixTitleLayout/@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='glossaryLayout'">
@@ -2850,7 +2852,10 @@
             <xsl:variable name="chapterInCollection" select="ancestor::chapterInCollection"/>
             <xsl:choose>
                 <xsl:when test="$chapterInCollection">
-                    <xsl:apply-templates select="$chapterInCollection/section1" mode="contents"/>
+                    <xsl:apply-templates select="$chapterInCollection/section1" mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                    </xsl:apply-templates>
                     <xsl:call-template name="DoBackMatterContentsPerLayout">
                         <xsl:with-param name="nLevel" select="$nLevelToUse"/>
                         <xsl:with-param name="backMatter" select="$chapterInCollection/backMatter"/>
@@ -2861,16 +2866,22 @@
                     <!-- part -->
                     <xsl:apply-templates select="$lingPaper/part" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                     <!--                 chapter, no parts -->
                     <xsl:apply-templates select="$lingPaper/chapter[not($parts)] | $lingPaper//chapterInCollection[not($parts)]" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                     <!-- section, no chapters -->
                     <xsl:apply-templates select="//lingPaper/section1" mode="contents">
                         <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
-                    <xsl:call-template name="DoBackMatterContentsPerLayout"/>
+                    <xsl:call-template name="DoBackMatterContentsPerLayout">
+                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
@@ -3285,6 +3296,7 @@
                 <xsl:when test="name(.)='contentsLayout'">
                     <xsl:apply-templates select="$frontMatter/contents" mode="book">
                         <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayout/contentsLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
@@ -4686,7 +4698,9 @@
                 </xsl:choose>
             </xsl:with-param>
         </xsl:call-template>
-        <xsl:apply-templates select="section1 | section2" mode="contents"/>
+        <xsl:apply-templates select="section1 | section2" mode="contents">
+            <xsl:with-param name="contentsLayoutToUse" select="$frontMatterLayout/contentsLayout"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!--
                    OutputBackMatterItemTitle
@@ -4753,6 +4767,7 @@
         <xsl:param name="fDoTextAfterLetter" select="'Y'"/>
         <xsl:param name="fIgnoreTextAfterLetter" select="'N'"/>
         <xsl:param name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:choose>
             <xsl:when test="name()='chapter' or name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
@@ -4773,7 +4788,7 @@
                         <xsl:when test="$fDoTextAfterLetter='Y'">
                             <xsl:value-of select="$appLayout/@textafterletter"/>
                         </xsl:when>
-                        <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@useperiodafterappendixletter='yes'">
+                        <xsl:when test="$contentsLayoutToUse/@useperiodafterappendixletter='yes'">
                             <xsl:text>.&#xa0;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
@@ -5781,10 +5796,11 @@
    -->
     <xsl:template name="OutputSectionNumberAndTitleInContents">
         <xsl:param name="layoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:call-template name="OutputSectionNumber">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
-        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
+        <xsl:if test="$contentsLayoutToUse/@useperiodaftersectionnumber='yes'">
             <xsl:text>.</xsl:text>
         </xsl:if>
         <xsl:call-template name="OutputSectionTitleInContents"/>

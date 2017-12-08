@@ -876,12 +876,9 @@
                 <tex:parm>empty</tex:parm>
             </tex:cmd>
             <xsl:call-template name="DoBookMark"/>
-            <xsl:if test="$contentsLayout/contentsLayout/@partCentered='no' and $contentsLayout/contentsLayout/@partShowPageNumber!='no'">
-                <!--                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='no' and saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">-->
                 <xsl:call-template name="CreateAddToContents">
                     <xsl:with-param name="id" select="@id"/>
                 </xsl:call-template>
-            </xsl:if>
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="@id"/>
             </xsl:call-template>
@@ -3849,6 +3846,7 @@
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$backMatter/acknowledgements" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='appendicesTitlePageLayout'">
@@ -3859,6 +3857,7 @@
                                 <xsl:call-template name="OutputAppendiciesLabel"/>
                             </xsl:with-param>
                             <xsl:with-param name="text-transform" select="@text-transform"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:when>
@@ -3882,31 +3881,37 @@
                             </xsl:choose>
                         </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='indexLayout'">
                     <xsl:apply-templates select="$backMatter/index" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='keywordsLayout'">
                     <xsl:apply-templates select="$backMatter/keywordsShownHere[@showincontents='yes']" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
                     <xsl:apply-templates select="$backMatter/references" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesLayout' and not($backMatter[ancestor::chapterInCollection])">
                     <xsl:apply-templates select="$backMatter/references" mode="contents">
                         <xsl:with-param name="text-transform" select="../referencesTitleLayout/@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
                     <xsl:apply-templates select="$backMatter/endnotes" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout'">
@@ -4048,7 +4053,8 @@
         DoChapterLabelInContents
     -->
     <xsl:template name="DoChapterLabelInContents">
-        <xsl:variable name="sLabel" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlabel)"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:variable name="sLabel" select="normalize-space($contentsLayoutToUse/@chapterlabel)"/>
         <tex:spec cat="bg"/>
         <tex:cmd name="{$sSingleSpacingCommand}"/>
         <tex:cmd name="noindent"/>
@@ -4180,6 +4186,7 @@
         <xsl:call-template name="DoFrontMatterContentsPerLayout">
             <xsl:with-param name="frontMatter" select=".."/>
             <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:variable name="nLevelToUse">
             <xsl:choose>
@@ -4202,6 +4209,7 @@
                     <xsl:with-param name="nLevel" select="$nLevelToUse"/>
                     <xsl:with-param name="backMatter" select="$chapterInCollection/backMatter"/>
                     <xsl:with-param name="backMatterLayout" select="$bodyLayoutInfo/chapterInCollectionBackMatterLayout"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -4895,11 +4903,13 @@
     <xsl:template name="DoFrontMatterContentsPerLayout">
         <xsl:param name="frontMatter" select=".."/>
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:for-each select="$frontMatterLayout/*">
             <xsl:choose>
                 <xsl:when test="name(.)='acknowledgementsLayout'">
                     <xsl:apply-templates select="$frontMatter/acknowledgements" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='abstractLayout'">
@@ -4915,11 +4925,13 @@
                             </xsl:choose>
                         </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='keywordsLayout'">
                     <xsl:apply-templates select="$frontMatter/keywordsShownHere[@showincontents='yes']" mode="contents">
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='prefaceLayout'">
@@ -4935,6 +4947,7 @@
                             </xsl:choose>
                         </xsl:with-param>
                         <xsl:with-param name="text-transform" select="@text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='contentsLayout'">

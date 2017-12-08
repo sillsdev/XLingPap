@@ -7,10 +7,12 @@
     -->
     <xsl:template match="part" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:if test="position()=1">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select="." mode="contents">
-                    <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
@@ -21,12 +23,17 @@
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel">
-                            <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
+                            <xsl:call-template name="OutputPartLabelNumberAndTitle">
+                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                            </xsl:call-template>
                         </xsl:with-param>
                     </xsl:call-template>
                 </a>
             </div>
-            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents"/>
+            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
     <!-- 
@@ -98,9 +105,9 @@
         <xsl:param name="override"/>
         <xsl:param name="fUseHalfSpacing" select="'N'"/>
         <xsl:param name="text-transform"/>
-        <xsl:variable name="layout" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <div>
                 <xsl:attribute name="style">
                     <xsl:choose>
@@ -130,17 +137,6 @@
             </div>
         </xsl:if>
         <div>
-            <!--            <xsl:attribute name="text-align-last">
-                <xsl:choose>
-                    <xsl:when test="$layout/@showpagenumber!='no'">
-                        <xsl:text>justify</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>start</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:attribute>
-            -->
             <xsl:choose>
                 <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
                     <xsl:attribute name="style">
@@ -163,7 +159,7 @@
                                 <xsl:text>; </xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
                             <xsl:text>line-height:</xsl:text>
                             <xsl:value-of select="$sSinglespacingLineHeight"/>
                             <xsl:text>;</xsl:text>
@@ -171,7 +167,7 @@
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+                    <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
                         <xsl:attribute name="style">
                             <xsl:text>line-height:</xsl:text>
                             <xsl:value-of select="$sSinglespacingLineHeight"/>
@@ -189,25 +185,9 @@
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
                         <xsl:with-param name="text-transform" select="$text-transform"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
-                    <xsl:if test="$layout/@showpagenumber!='no'">
-                        <!--                        <fo:leader leader-pattern="{$layout/@betweentitleandnumber}">
-                            <xsl:if test="$sFileName='XFC'">
-                                <xsl:attribute name="xfc:tab-position">-30pt</xsl:attribute>
-                                <xsl:attribute name="xfc:tab-align">right</xsl:attribute>
-                            </xsl:if>
-                        </fo:leader>
--->
-                        <!--                        <xsl:text>&#xa0;</xsl:text>
-                        <span>
-                            <xsl:call-template name="OutputTOCPageNumber">
-                                <xsl:with-param name="linkLayout" select="$linkLayout"/>
-                                <xsl:with-param name="sLink" select="$sLink"/>
-                            </xsl:call-template>
-                        </span>
--->
-                    </xsl:if>
                 </span>
             </a>
         </div>
@@ -234,6 +214,7 @@
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="text-transform"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <span>
             <!--            <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">
@@ -241,7 +222,7 @@
                 </xsl:call-template>
             </xsl:if>
 -->
-            <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes' and string-length($text-transform) &gt; 0">
+            <xsl:if test="$contentsLayoutToUse/@usetext-transformofitem='yes' and string-length($text-transform) &gt; 0">
                 <xsl:attribute name="style">
                     <xsl:text>text-transform:</xsl:text>
                     <xsl:value-of select="$text-transform"/>

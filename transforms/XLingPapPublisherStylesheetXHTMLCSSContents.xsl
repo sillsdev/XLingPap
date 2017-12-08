@@ -4,9 +4,12 @@
         abstract  (contents)
     -->
     <xsl:template match="abstract" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -14,9 +17,12 @@
         acknowledgements (contents)
     -->
     <xsl:template match="acknowledgements" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -24,9 +30,12 @@
         appendix (contents)
     -->
     <xsl:template match="appendix" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="section1 | section2" mode="contents"/>
@@ -35,9 +44,12 @@
         chapter (contents) 
     -->
     <xsl:template match="chapter | chapterBeforePart | chapterInCollection" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates select="section1 | section2" mode="contents"> 
@@ -47,9 +59,12 @@
       endnotes (contents)
    -->
     <xsl:template match="endnotes" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -57,10 +72,13 @@
         glossary (contents)
     -->
     <xsl:template match="glossary" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::glossary) + 1"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -68,9 +86,12 @@
         index  (contents)
     -->
     <xsl:template match="index" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -78,9 +99,12 @@
         keywords (contents)
     -->
     <xsl:template match="keywords" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -135,9 +159,12 @@
         preface (contents)
     -->
     <xsl:template match="preface" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -145,9 +172,12 @@
         references (contents)
     -->
     <xsl:template match="references" mode="contents">
+        <xsl:param name="contentsLayoutToUse"/>
         <xsl:call-template name="OutputCSSForTOC">
             <xsl:with-param name="sSpaceBefore">
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -155,6 +185,7 @@
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::chapter) + count(ancestor::chapterBeforePart) + count(ancestor::appendix) + count(ancestor::chapterInCollection)"/>
         </xsl:variable>
@@ -162,8 +193,8 @@
             <xsl:with-param name="sLevel" select="$iLevel"/>
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
-                    <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
-                        <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+                    <xsl:when test="$contentsLayoutToUse/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterInCollection)">
+                        <xsl:value-of select="$contentsLayoutToUse/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>0</xsl:text>
@@ -246,9 +277,10 @@
       DoSpaceBeforeContentsLine
    -->
     <xsl:template name="DoSpaceBeforeContentsLine">
+        <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection">
-                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@spacebeforemainsection"/>
+            <xsl:when test="$contentsLayoutToUse/@spacebeforemainsection">
+                <xsl:value-of select="$contentsLayoutToUse/@spacebeforemainsection"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>0</xsl:text>

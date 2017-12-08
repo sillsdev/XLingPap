@@ -6,16 +6,20 @@
     -->
     <xsl:template match="part" mode="contents">
         <xsl:param name="nLevel" select="$nLevel"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:if test="count(preceding-sibling::part)=0">
             <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
                 <xsl:apply-templates select="." mode="contents">
-                    <!--                    <xsl:with-param name="nLevel" select="$nLevel"/>-->
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
         <tex:cmd name="vspace">
             <tex:parm>
-                <xsl:call-template name="DoSpaceBeforeContentsLine"/>
+                <xsl:call-template name="DoSpaceBeforeContentsLine">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
                 <xsl:text>pt</xsl:text>
             </tex:parm>
         </tex:cmd>
@@ -23,7 +27,7 @@
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
         <xsl:choose>
-            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partCentered='yes'">
+            <xsl:when test="$contentsLayoutToUse/@partCentered='yes'">
                 <tex:cmd name="centering">
                     <tex:parm>
                         <xsl:call-template name="OutputPartTOCLine"/>
@@ -32,7 +36,7 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
-            <xsl:when test="saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber='yes'">
+            <xsl:when test="$contentsLayoutToUse/@partShowPageNumber='yes'">
                 <tex:cmd name="XLingPaperdottedtocline" nl2="1">
                     <tex:parm>
                         <xsl:text>0pt</xsl:text>
@@ -44,7 +48,7 @@
                         <xsl:call-template name="OutputPartTOCLine"/>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partShowPageNumber!='no'">
+                        <xsl:if test="$contentsLayoutToUse/@partShowPageNumber!='no'">
                             <xsl:call-template name="OutputTOCPageNumber">
                                 <xsl:with-param name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
                                 <xsl:with-param name="sLink" select="@id"/>
@@ -58,7 +62,7 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
-        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter">
+        <xsl:if test="$contentsLayoutToUse/@partSpaceAfter">
             <tex:cmd name="vspace">
                 <tex:parm>
                     <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter"/>
@@ -66,7 +70,10 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
-        <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents"/>
+        <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
+            <xsl:with-param name="nLevel" select="$nLevel"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!-- 
         section1 (contents) 
@@ -82,8 +89,8 @@
             <xsl:with-param name="sSpaceBefore">
                 <xsl:choose>
                     <xsl:when
-                        test="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
-                        <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@spacebeforemainsection"/>
+                        test="saxon:node-set($contentsLayoutToUse)/@spacebeforemainsection and not(ancestor::chapter) and not(ancestor::appendix) and not(ancestor::chapterBeforePart and not(ancestor::chapterInCollection))">
+                        <xsl:value-of select="saxon:node-set($contentsLayoutToUse)/@spacebeforemainsection"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>0</xsl:text>
@@ -103,12 +110,15 @@
         OutputPartTOCLine
     -->
     <xsl:template name="OutputPartTOCLine">
-        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"></xsl:param>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
         </xsl:if>
-        <xsl:call-template name="OutputPartLabelNumberAndTitle"/>
-        <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
+        <xsl:call-template name="OutputPartLabelNumberAndTitle">
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+        </xsl:call-template>
+        <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <tex:spec cat="eg"/>
         </xsl:if>
     </xsl:template>
@@ -185,6 +195,7 @@
                 <tex:cmd name="{$sLevelName}width" gr="0" nl2="0"/>
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
+            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -199,7 +210,7 @@
         <xsl:param name="sNumWidth" select="'0pt'"/>
         <xsl:param name="fUseHalfSpacing"/>
         <xsl:param name="text-transform"/>
-        <xsl:variable name="layout" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
@@ -228,10 +239,11 @@
                     <xsl:with-param name="linkLayout" select="$linkLayout"/>
                     <xsl:with-param name="sLabel" select="$sLabel"/>
                     <xsl:with-param name="text-transform" select="$text-transform"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                 </xsl:call-template>
             </tex:parm>
             <tex:parm>
-                <xsl:if test="$layout/@showpagenumber!='no'">
+                <xsl:if test="$contentsLayoutToUse/@showpagenumber!='no'">
                     <xsl:call-template name="OutputTOCPageNumber">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLink" select="$sLink"/>
@@ -275,18 +287,19 @@
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="text-transform"/>
+        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <xsl:if test="$linkLayout/@linktitle!='no'">
             <xsl:call-template name="LinkAttributesBegin">
                 <xsl:with-param name="override" select="$linkLayout"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes'">
+        <xsl:if test="$contentsLayoutToUse/@usetext-transformofitem='yes'">
             <xsl:call-template name="OutputTextTransform">
                 <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:copy-of select="$sLabel"/>
-        <xsl:if test="$contentsLayout/contentsLayout/@usetext-transformofitem='yes'">
+        <xsl:if test="$contentsLayoutToUse/@usetext-transformofitem='yes'">
             <xsl:call-template name="OutputTextTransformEnd">
                 <xsl:with-param name="sTextTransform" select="normalize-space($text-transform)"/>
             </xsl:call-template>

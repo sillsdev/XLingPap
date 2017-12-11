@@ -142,8 +142,11 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
         <xsl:if test="string-length($sChapterLineIndent)&gt;0">
-            <xsl:call-template name="SetChapterNumberWidth"/>
+            <xsl:call-template name="SetChapterNumberWidth">
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
@@ -174,7 +177,9 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="sNumWidth">
-                <xsl:call-template name="DoChapterNumberWidth"/>
+                <xsl:call-template name="DoChapterNumberWidth">
+                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="fUseHalfSpacing">
                 <xsl:choose>
@@ -206,6 +211,7 @@
                 </xsl:call-template>
             </xsl:if>
         </xsl:if>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
         <xsl:if test="string-length($sChapterLineIndent)&gt;0">
             <xsl:call-template name="SetChapterNumberWidth"/>
         </xsl:if>
@@ -238,7 +244,9 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="sNumWidth">
-                <xsl:call-template name="DoChapterNumberWidth"/>
+                <xsl:call-template name="DoChapterNumberWidth">
+                    <xsl:with-param name="sChapterLineIndent" select="$sChapterLineIndent"/>
+                </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="fUseHalfSpacing">
                 <xsl:choose>

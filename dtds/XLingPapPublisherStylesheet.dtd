@@ -468,7 +468,7 @@ Front MatterLayout
      partCentered (yes | no) 'yes'
      partContentBetweenLabelAndNumber CDATA #IMPLIED
      partContentBetweenNumberAndTitle CDATA #IMPLIED
-     partShowPageNumber (yes | no) 'yes'
+     partShowPageNumber (yes | no) 'no'
      partSpaceAfter CDATA #IMPLIED
      partSpaceBefore CDATA #IMPLIED
      contentType IDREF #IMPLIED

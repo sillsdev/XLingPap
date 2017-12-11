@@ -430,6 +430,46 @@ li.lower-roman {
                 </xsl:if>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="$parts">
+        <xsl:text>.partContents</xsl:text>
+        <xsl:if test="ancestor-or-self::backMatterLayout">
+            <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+        </xsl:if>
+        <xsl:text> {
+        margin-top:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partSpaceBefore">
+                <xsl:value-of select="@partSpaceBefore"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>pt;
+        </xsl:text>
+        <xsl:text>margin-bottom:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partSpaceAfter">
+                <xsl:value-of select="@partSpaceAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sBasicPointSize"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>pt;
+        text-align:</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@partCentered!='no'">
+                <xsl:text>center;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>left;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>
+}
+</xsl:text>
+        </xsl:if>
     </xsl:template>
     <!--
         contentsLinkLayout
@@ -1028,40 +1068,6 @@ li.lower-roman {
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="'partTitle'"/>
         </xsl:call-template>
-        <xsl:text>.partContents {
-        margin-top:</xsl:text>
-        <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partSpaceBefore">
-                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@partSpaceBefore"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$sBasicPointSize"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>pt;
-        </xsl:text>
-<xsl:text>margin-bottom:</xsl:text>
-        <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partSpaceAfter">
-                <xsl:value-of select="$frontMatterLayoutInfo/contentsLayout/@partSpaceAfter"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$sBasicPointSize"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>pt;
-        text-align:</xsl:text>
-        <xsl:choose>
-            <xsl:when test="$frontMatterLayoutInfo/contentsLayout/@partCentered!='no'">
-                <xsl:text>center;</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>left;</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>
-}
-</xsl:text>
     </xsl:template>
     <!-- 
         prefaceLayout

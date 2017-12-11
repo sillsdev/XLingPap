@@ -2824,6 +2824,7 @@ not using
                     </xsl:choose>
                 </xsl:with-param>
                 <xsl:with-param name="sIndent" select="'1em'"/>
+                <xsl:with-param name="fInListOfItems" select="'yes'"/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
@@ -2938,6 +2939,7 @@ not using
                     </xsl:choose>
                 </xsl:with-param>
                 <xsl:with-param name="sIndent" select="'1em'"/>
+                <xsl:with-param name="fInListOfItems" select="'yes'"/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>

@@ -127,9 +127,21 @@
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent">
+                <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
+                <xsl:variable name="sUnits" select="substring($sChapterLineIndent,string-length($sChapterLineIndent)-1)"/>
                 <xsl:choose>
-                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
-                        <xsl:value-of select="$sLevel + 1"/>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0 and $sChapterLineIndent!='0pt'">
+                        <xsl:choose>
+                            <xsl:when test="$sUnits='pt' or $sUnits='in' or $sUnits='mm' or $sUnits='cm'">
+                                <xsl:variable name="sAmount" select="substring($sChapterLineIndent,1,string-length($sChapterLineIndent)-2)"/>
+                                <xsl:value-of select="$sAmount * ($sLevel + 1)"/>
+                                <xsl:value-of select="$sUnits"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sLevel + 1"/>
+                                <xsl:value-of select="$sUnits"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$sLevel"/>
@@ -151,6 +163,7 @@
         <xsl:param name="fUseHalfSpacing"/>
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:param name="fInListOfItems" select="'no'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
@@ -186,8 +199,9 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="$sIndent!='0' and $sIndent!='0pt'">
+                <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
                 <xsl:choose>
-                    <xsl:when test="string(number($sIndent))!='NaN'">
+                    <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
                         <xsl:attribute name="text-indent">
                             <xsl:text>-</xsl:text>
                             <xsl:value-of select="$sIndent div 2 + 1.5"/>
@@ -195,6 +209,17 @@
                         </xsl:attribute>
                         <xsl:attribute name="start-indent">
                             <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                            <xsl:text>em</xsl:text>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
+                        <xsl:attribute name="text-indent">
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                            <xsl:text>em</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="start-indent">
+                            <xsl:value-of select="1.5 * $indentValue + 1.5"/>
                             <xsl:text>em</xsl:text>
                         </xsl:attribute>
                     </xsl:when>

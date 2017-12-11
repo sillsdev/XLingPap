@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-    xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc">
+<xsl:stylesheet version="1.1" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc saxon" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
         part (contents) 
@@ -17,8 +17,14 @@
             </xsl:for-each>
         </xsl:if>
         <div>
-            <div class="partContents">
-                <a href="#{@id}">
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:text>partContents</xsl:text>
+                    <xsl:if test="$contentsLayoutToUse[ancestor::backMatterLayout]">
+                        <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+                    </xsl:if>
+                </xsl:attribute>
+                <a href="#{@id}" class="contentsLinkLayout">
                     <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
@@ -81,9 +87,21 @@
                 </xsl:call-template>
             </xsl:with-param>
             <xsl:with-param name="sIndent">
+                <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
+                <xsl:variable name="sUnits" select="substring($sChapterLineIndent,string-length($sChapterLineIndent)-1)"/>
                 <xsl:choose>
-                    <xsl:when test="string-length($sChapterLineIndent)&gt;0">
-                        <xsl:value-of select="$sLevel + 1"/>
+                    <xsl:when test="string-length($sChapterLineIndent)&gt;0 and $sChapterLineIndent!='0pt'">
+                        <xsl:choose>
+                            <xsl:when test="$sUnits='pt' or $sUnits='in' or $sUnits='mm' or $sUnits='cm'">
+                                <xsl:variable name="sAmount" select="substring($sChapterLineIndent,1,string-length($sChapterLineIndent)-2)"/>
+                                <xsl:value-of select="$sAmount * ($sLevel + 1)"/>
+                                <xsl:value-of select="$sUnits"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$sLevel + 1"/>
+                                <xsl:value-of select="$sUnits"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$sLevel"/>
@@ -106,6 +124,7 @@
         <xsl:param name="fUseHalfSpacing" select="'N'"/>
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:param name="fInListOfItems" select="'no'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <div>
@@ -145,12 +164,20 @@
                             <xsl:value-of select="$sSpaceBefore"/>
                             <xsl:text>; </xsl:text>
                         </xsl:if>
+                        <xsl:variable name="indentValue" select="substring($sIndent,1,string-length($sIndent)-2)"/>
                         <xsl:choose>
-                            <xsl:when test="string(number($sIndent))!='NaN'">
+                            <xsl:when test="$indentValue='' and string(number($sIndent))!='NaN' and $fInListOfItems='no'">
                                 <xsl:text>text-indent:-</xsl:text>
                                 <xsl:value-of select="$sIndent div 2 + 1.5"/>
                                 <xsl:text>em; padding-left:</xsl:text>
                                 <xsl:value-of select="1.5 * $sIndent + 1.5"/>
+                                <xsl:text>em;</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="string(number($indentValue))!='NaN' and $fInListOfItems='no' and substring($sIndent,string-length($sIndent)-1)='em'">
+                                <xsl:text>text-indent:-</xsl:text>
+                                <xsl:value-of select="$indentValue div 2 + 1.5"/>
+                                <xsl:text>em; padding-left:</xsl:text>
+                                <xsl:value-of select="1.5 * $indentValue + 1.5"/>
                                 <xsl:text>em;</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
@@ -214,7 +241,7 @@
         <xsl:param name="linkLayout"/>
         <xsl:param name="sLabel"/>
         <xsl:param name="text-transform"/>
-        <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <span>
             <!--            <xsl:if test="$linkLayout/@linktitle!='no'">
                 <xsl:call-template name="AddAnyLinkAttributes">

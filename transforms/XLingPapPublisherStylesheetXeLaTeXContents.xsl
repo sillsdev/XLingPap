@@ -27,10 +27,12 @@
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
         <xsl:choose>
-            <xsl:when test="$contentsLayoutToUse/@partCentered='yes'">
+            <xsl:when test="$contentsLayoutToUse/@partCentered='yes' and $contentsLayoutToUse/@partShowPageNumber!='yes'">
                 <tex:cmd name="centering">
                     <tex:parm>
-                        <xsl:call-template name="OutputPartTOCLine"/>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
                     </tex:parm>
@@ -45,20 +47,32 @@
                         <xsl:text>0pt</xsl:text>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:call-template name="OutputPartTOCLine"/>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:if test="$contentsLayoutToUse/@partShowPageNumber!='no'">
-                            <xsl:call-template name="OutputTOCPageNumber">
-                                <xsl:with-param name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-                                <xsl:with-param name="sLink" select="@id"/>
-                            </xsl:call-template>
-                        </xsl:if>
+                        <xsl:call-template name="OutputTOCPageNumber">
+                            <xsl:with-param name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                            <xsl:with-param name="sLink" select="@id"/>
+                        </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="OutputPartTOCLine"/>
+                <tex:cmd name="XLingPaperplaintocline" nl2="1">
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:text>0pt</xsl:text>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="OutputPartTOCLine">
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>
@@ -110,7 +124,7 @@
         OutputPartTOCLine
     -->
     <xsl:template name="OutputPartTOCLine">
-        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"></xsl:param>
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
@@ -170,6 +184,7 @@
             <xsl:with-param name="sCommandToSet" select="concat($sLevelName,'width')"/>
             <xsl:with-param name="sValue" select="$sSectionNumberWidthFormula"/>
         </xsl:call-template>
+        <xsl:variable name="sChapterLineIndent" select="normalize-space($contentsLayoutToUse/@chapterlineindent)"/>
         <xsl:if test="string-length($sChapterLineIndent)&gt;0">
             <tex:cmd name="addtolength">
                 <tex:parm>

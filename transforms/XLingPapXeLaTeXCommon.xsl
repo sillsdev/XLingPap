@@ -12512,7 +12512,7 @@ What might go in a TeX package file
                 </tex:group>
             </tex:parm>
         </tex:cmd>
-        <xsl:if test="//chapterInCollection">
+        <xsl:if test="//chapterInCollection or $parts and //contentsLayout[@partCentered='no' and @partShowPageNumber!='yes']">
             <tex:cmd name="newcommand" nl2="1">
                 <tex:parm>
                     <tex:cmd name="XLingPaperplaintocline" gr="0" nl2="0"/>

@@ -4073,6 +4073,7 @@
         DoChapterNumberWidth
     -->
     <xsl:template name="DoChapterNumberWidth" priority="10">
+        <xsl:param name="sChapterLineIndent"/>
         <xsl:choose>
             <xsl:when test="string-length($sChapterLineIndent)&gt;0">
                 <tex:cmd name="levelonewidth" gr="0" nl2="0"/>
@@ -8476,12 +8477,13 @@
         SetChapterNumberWidth
     -->
     <xsl:template name="SetChapterNumberWidth" priority="10">
+        <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
             <xsl:with-param name="sCommandToSet" select="'levelonewidth'"/>
             <xsl:with-param name="sValue">
                 <xsl:call-template name="OutputChapterNumber"/>
-                <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@useperiodafterchapternumber='yes'">
+                <xsl:if test="$contentsLayoutToUse/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
                 <xsl:text>&#xa0;</xsl:text>

@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->4 December 2017</date
+>15 December 2017</date
 ><version
 contentType="ctVersion5.3"
->2.32.2</version
+>2.32.3</version
 ><version
 contentType="ctVersion7Plus"
->3.2.2</version
+>3.2.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -9937,7 +9937,7 @@ num="xUnitsOfMeasure"
 ><section2
 id="sInterlinearText"
 ><secTitle
->Controlling the Formating of Interlinear Texts</secTitle
+>Controlling the Formatting of Interlinear Texts</secTitle
 ><p
 ><indexedItem
 term="iInterlinearText"

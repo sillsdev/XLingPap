@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.32.2</a:version
+>2.32.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2017-12-04</a:date
+>2018-01-29</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>3.2.3 29 January 2018<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a gloss in a caption element would not show in the generated contents if the gloss had an embedded indexedItem element.</li
+><li
+>Fix bug: Page numbers for generated contents and indicies could be off by one or two pages.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.2.2 4 December 2017<ul
 ><li

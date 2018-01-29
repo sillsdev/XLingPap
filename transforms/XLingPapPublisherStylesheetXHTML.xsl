@@ -1678,6 +1678,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
+                <xsl:with-param name="fInListOfItems" select="'yes'"/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
@@ -1760,6 +1761,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
+                <xsl:with-param name="fInListOfItems" select="'yes'"/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>

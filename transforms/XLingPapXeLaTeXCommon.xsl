@@ -2489,6 +2489,8 @@
         indexedItem or indexedRangeBegin
     -->
     <xsl:template match="indexedItem | indexedRangeBegin">
+        <xsl:param name="bInMarker" select="'N'"/>
+        <xsl:if test="$bInMarker='N'">
         <xsl:call-template name="CreateAddToIndex">
             <xsl:with-param name="id">
                 <xsl:call-template name="CreateIndexedItemID">
@@ -2496,6 +2498,7 @@
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--
         indexedRangeEnd
@@ -12879,7 +12882,7 @@ What might go in a TeX package file
             </tex:parm>
             <tex:opt>1</tex:opt>
             <tex:parm>
-                <tex:cmd name="immediate" gr="0" nl2="0"/>
+<!--   No: outputs too soon             <tex:cmd name="immediate" gr="0" nl2="0"/>-->
                 <tex:cmd name="{$sWriteNumber}">
                     <tex:parm>
                         <tex:spec cat="lt"/>

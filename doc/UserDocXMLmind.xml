@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->4 December 2017</date
+>29 January 2018</date
 ><version
 contentType="ctVersion5.3"
->2.32.2</version
+>2.32.3</version
 ><version
 contentType="ctVersion7Plus"
->3.2.2</version
+>3.2.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -1751,7 +1751,7 @@ id="nFrontBackContetns"
 > then you can set the label for the one in the back matter by setting the <object
 type="tAttribute"
 >backmatterlabel</object
-> attribute.  You also set the <object
+> attribute. You also set the <object
 type="tAttribute"
 >backmattershowLevel</object
 > attribute to set the level depth for the table of contents that appears in the back matter.</p
@@ -9842,6 +9842,18 @@ type="tElement"
 >endnote</object
 > element, then you need to use this second method for keying interlinear examples.</p
 ><p
+contentType="ctVersion7Plus"
+>If you find that you have already entered, say, an <object
+type="tElement"
+>object</object
+> element and then remember you need to use this method, you can manually select the content of the line (by selecting the line using the mouse), use <object
+type="tInstruction"
+>Edit menu item / Copy as Text</object
+>, and then do a <object
+type="tInstruction"
+>Paste</object
+> command.</p
+><p
 ><indexedItem
 term="iConvertToWrd"
 ></indexedItem
@@ -13667,7 +13679,10 @@ type="tAttrValue"
 >) or to just let the formatter decide (<object
 type="tAttrValue"
 >letFormatterDecide</object
->). The default is to let the formatter decide.</langData
+>). The default is to let the formatter decide. (This only works with the <object
+type="tRenderX"
+></object
+> way of producing PDF.)</langData
 ></td
 ></tr
 ><tr

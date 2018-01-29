@@ -2772,6 +2772,7 @@
     <xsl:template match="langData">
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
+        <xsl:param name="bInMarker" select="'N'"/>
         <!-- if we are using \mbox{} to deal with unwanted hyphenation, and the langData begins with a space, we need to insert a space here -->
         <xsl:if test="substring(.,1,1)=' ' and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0">
             <xsl:if test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
@@ -2804,6 +2805,7 @@
             <xsl:with-param name="language" select="$language"/>
             <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
+            <xsl:with-param name="bInMarker" select="$bInMarker"/>
         </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
@@ -7566,7 +7568,9 @@
                 <xsl:apply-templates select="ancestor::tablenumbered/shortCaption"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="text() | *[not(descendant-or-self::endnote or descendant-or-self::indexedItem)]"/>
+                <xsl:apply-templates select="text() | *[not(self::indexedItem)][not(self::endnote)]">
+                    <xsl:with-param name="bInMarker" select="'Y'"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -8464,6 +8468,9 @@
         </xsl:choose>
         <!-- somewhere there's an opening bracket... -->
         <!--                    <tex:spec cat="eg"/>-->
+        <xsl:if test="$bHasContents='Y' or $bHasIndex='Y'">
+            <tex:cmd name="clearpage" gr="0"/>
+        </xsl:if>
         <xsl:if test="$bHasContents='Y'">
             <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
         </xsl:if>

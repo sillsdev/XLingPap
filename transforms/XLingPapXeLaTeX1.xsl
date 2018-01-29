@@ -166,6 +166,9 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </tex:env>
+                <xsl:if test="$bHasContents='Y' or $bHasIndex='Y'">
+                    <tex:cmd name="clearpage" gr="0"/>
+                </xsl:if>
                 <xsl:if test="$bHasContents='Y'">
                     <tex:cmd name="XLingPaperendtableofcontents" gr="0" nl2="1"/>
                 </xsl:if>

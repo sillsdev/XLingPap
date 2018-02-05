@@ -11719,17 +11719,24 @@
                 <tex:cmd name="XLingPapertocrmarg" gr="0" nl2="0"/>
             </tex:parm>
         </tex:cmd>
-        <xsl:variable name="sMaxPageNumberInContents" select="document($sTableOfContentsFile)/toc/tocline[last()]/@page"/>
+        <xsl:variable name="sMaxPageNumberLengthInContents">
+            <xsl:for-each select="document($sTableOfContentsFile)/toc/tocline">
+                <xsl:sort data-type="number" order="descending" select="string-length(@page)"/>
+                <xsl:if test="position()=1">
+                    <xsl:value-of select="string-length(@page)"/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'setlength'"/>
             <xsl:with-param name="sCommandToSet" select="'XLingPaperpnumwidth'"/>
             <xsl:with-param name="sValue">
                 <xsl:choose>
-                    <xsl:when test="$sMaxPageNumberInContents">
+                    <xsl:when test="$sMaxPageNumberLengthInContents &gt; 0">
                         <xsl:choose>
-                            <xsl:when test="$sMaxPageNumberInContents &lt; 10">1.05em</xsl:when>
-                            <xsl:when test="$sMaxPageNumberInContents &lt; 100">1.55em</xsl:when>
-                            <xsl:when test="$sMaxPageNumberInContents &lt; 1000">2.05em</xsl:when>
+                            <xsl:when test="$sMaxPageNumberLengthInContents = 1">1.05em</xsl:when>
+                            <xsl:when test="$sMaxPageNumberLengthInContents = 2">1.55em</xsl:when>
+                            <xsl:when test="$sMaxPageNumberLengthInContents = 3">2.05em</xsl:when>
                             <xsl:otherwise>2.55em</xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>

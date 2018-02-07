@@ -1124,11 +1124,11 @@
         </xsl:choose>
         <tex:cmd name="item" nl2="1">
             <tex:opt>
-                <xsl:if test="indexedItem or indexedRangeBegin or indexedRangeEnd">
+                <xsl:if test="indexedItem[not(ancestor::comment)] or indexedRangeBegin[not(ancestor::comment)] or indexedRangeEnd[not(ancestor::comment)]">
                     <tex:spec cat="bg"/>
                 </xsl:if>
                 <xsl:apply-templates/>
-                <xsl:if test="indexedItem or indexedRangeBegin or indexedRangeEnd">
+                <xsl:if test="indexedItem[not(ancestor::comment)] or indexedRangeBegin[not(ancestor::comment)] or indexedRangeEnd[not(ancestor::comment)]">
                     <tex:spec cat="eg"/>
                 </xsl:if>
             </tex:opt>
@@ -2488,7 +2488,7 @@
     <!--
         indexedItem or indexedRangeBegin
     -->
-    <xsl:template match="indexedItem | indexedRangeBegin">
+    <xsl:template match="indexedItem[not(ancestor::comment)] | indexedRangeBegin[not(ancestor::comment)]">
         <xsl:param name="bInMarker" select="'N'"/>
         <xsl:if test="$bInMarker='N'">
         <xsl:call-template name="CreateAddToIndex">
@@ -2503,7 +2503,7 @@
     <!--
         indexedRangeEnd
     -->
-    <xsl:template match="indexedRangeEnd">
+    <xsl:template match="indexedRangeEnd[not(ancestor::comment)]">
         <xsl:call-template name="CreateAddToIndex">
             <xsl:with-param name="id">
                 <xsl:call-template name="CreateIndexedItemID">
@@ -8933,7 +8933,7 @@
         </xsl:call-template>
         <xsl:if test="beginId">
             <xsl:variable name="sBeginId" select="beginId"/>
-            <xsl:for-each select="$lingPaper//indexedRangeEnd[@begin=$sBeginId][1]">
+            <xsl:for-each select="$lingPaper//indexedRangeEnd[@begin=$sBeginId][not(ancestor::comment)][1]">
                 <!-- only use first one because that's all there should be -->
                 <xsl:variable name="sIndexedRangeEndID">
                     <xsl:call-template name="CreateIndexedItemID">
@@ -8969,7 +8969,7 @@
                 <xsl:variable name="bHasCitedDescendant">
                     <xsl:for-each select="descendant::indexTerm">
                         <xsl:variable name="sDescendantTermId" select="@id"/>
-                        <xsl:if test="//indexedItem[@term=$sDescendantTermId] or //indexedRangeBegin[@term=$sDescendantTermId]">
+                        <xsl:if test="//indexedItem[@term=$sDescendantTermId][not(ancestor::comment)] or //indexedRangeBegin[@term=$sDescendantTermId][not(ancestor::comment)]">
                             <xsl:text>Y</xsl:text>
                         </xsl:if>
                         <xsl:if test="@see">
@@ -8977,7 +8977,7 @@
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:variable>
-                <xsl:variable name="indexedItems" select="//indexedItem[@term=$sTermId] | //indexedRangeBegin[@term=$sTermId]"/>
+                <xsl:variable name="indexedItems" select="//indexedItem[@term=$sTermId][not(ancestor::comment)] | //indexedRangeBegin[@term=$sTermId][not(ancestor::comment)]"/>
                 <xsl:variable name="bHasSeeAttribute">
                     <xsl:if test="string-length(@see) &gt; 0">
                         <xsl:text>Y</xsl:text>

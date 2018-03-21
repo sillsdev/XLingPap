@@ -157,7 +157,7 @@
                 <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodafterchapternumber='yes'">
                     <xsl:text>.</xsl:text>
                 </xsl:if>
-                <xsl:text>&#xa0;</xsl:text>
+                <xsl:text>&#xa0; </xsl:text>
                 <xsl:if test="string-length($sChapterLineIndent)&gt;0">
                     <xsl:call-template name="AddWordSpace"/>
                 </xsl:if>

@@ -3492,12 +3492,27 @@
         CalculateSectionNumberIndent
     -->
     <xsl:template name="CalculateSectionNumberIndent">
+        <xsl:param name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:for-each select="ancestor::*[contains(name(),'section') or name()='appendix' or name()='chapter' or name()='chapterBeforePart' or name()='chapterInCollection']">
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="sContentsPeriod">
-                    <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@useperiodaftersectionnumber='yes'">
-                        <xsl:text>.</xsl:text>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="starts-with(name(),'chapter')">
+                            <xsl:if test="$contentsLayout/@useperiodafterchapternumber='yes'">
+                                <xsl:text>.</xsl:text>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:when test="name()='appendix'">
+                            <xsl:if test="$contentsLayout/@useperiodafterappendixletter='yes'">
+                                <xsl:text>.</xsl:text>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="$contentsLayout/@useperiodaftersectionnumber='yes'">
+                                <xsl:text>.</xsl:text>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
             <tex:spec cat="esc"/>

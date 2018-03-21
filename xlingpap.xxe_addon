@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-02-07</a:date
+>2018-03-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.32.4 7 February 2018<ul
+>2.32.4 21 March 2018<ul
 ><li
 >Fix bug: indexedItem elements in a comment were being skipped in the main body but were showing up in the index. They should always be skipped in both places.</li
+><li
+>Fix typo in user documentation.</li
+><li
+>Include publishing blurb in JIPA Illustration template.</li
+><li
+>Improve spacing and alignment in contents for chapters and appendices. </li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

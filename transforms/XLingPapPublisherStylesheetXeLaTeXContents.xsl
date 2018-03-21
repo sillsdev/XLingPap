@@ -168,7 +168,9 @@
         </xsl:variable>
         <!-- figure out what the new value of the indent based on the section number itself -->
         <xsl:variable name="sSectionNumberIndentFormula">
-            <xsl:call-template name="CalculateSectionNumberIndent"/>
+            <xsl:call-template name="CalculateSectionNumberIndent">
+                <xsl:with-param name="contentsLayout" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>

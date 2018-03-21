@@ -7185,7 +7185,9 @@
         <xsl:param name="frontMatterLayout"/>
         <!-- figure out what the new value of the indent based on the section number itself -->
         <xsl:variable name="sSectionNumberIndentFormula">
-            <xsl:call-template name="CalculateSectionNumberIndent"/>
+            <xsl:call-template name="CalculateSectionNumberIndent">
+                <xsl:with-param name="contentsLayout" select="$frontMatterLayout/contentsLayout"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:call-template name="SetTeXCommand">
             <xsl:with-param name="sTeXCommand" select="'settowidth'"/>
@@ -7395,10 +7397,10 @@
                             <xsl:value-of select="$appLayout/appendixTitleLayout/@textafterletter"/>
                         </xsl:when>
                         <xsl:when test="saxon:node-set($contentsLayoutToUse)/@useperiodafterappendixletter='yes'">
-                            <xsl:text>.&#xa0;</xsl:text>
+                            <xsl:text>.&#xa0; </xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>&#xa0;</xsl:text>
+                            <xsl:text>&#xa0; </xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>
@@ -8260,9 +8262,12 @@
         <xsl:param name="bIsForBookmark" select="'N'"/>
         <xsl:param name="sContentsPeriod"/>
         <xsl:variable name="bAppendix">
-            <xsl:for-each select="ancestor::*">
+            <xsl:if test="ancestor-or-self::*[name()='appendix']">
+                <xsl:text>Y</xsl:text>
+            </xsl:if>
+<!--            <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
-            </xsl:for-each>
+            </xsl:for-each>-->
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="$bIsForBookmark='N'">

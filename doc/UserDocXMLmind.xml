@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->29 January 2018</date
+>15 March 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.32.3</version
@@ -26257,10 +26257,10 @@ term="iPublishingBlurb"
 >The optional <object
 type="tElement"
 >publishingBlurb</object
-> element can be used to indicate the particulars of a publication, such as the particular issue of journal a paper is a part of, copyright notice, links to online versions of the paper, etc. The content of a <object
+> element can be used to indicate the particulars of a publication, such as the particular issue of a journal a paper is a part of, copyright notice, links to online versions of the paper, etc. The content of a <object
 type="tElement"
 >publishingBlurb</object
-> element is plain text and any of the embedded elements.<endnoteRef
+> element is plain text and/or any of the embedded elements.<endnoteRef
 note="nEmbedded"
 ></endnoteRef
 > When you need multiple lines in the blurb, separate each part by a <object

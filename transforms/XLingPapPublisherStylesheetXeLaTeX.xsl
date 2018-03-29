@@ -1374,9 +1374,12 @@
                 </xsl:call-template>
             </tex:parm>
         </tex:cmd>
-        <xsl:call-template name="CreateAddToContents">
-            <xsl:with-param name="id" select="@id"/>
-        </xsl:call-template>
+        <xsl:if test="$lingPaper/section1">
+            <!-- normal case -->
+            <xsl:call-template name="CreateAddToContents">
+                <xsl:with-param name="id" select="@id"/>
+            </xsl:call-template>
+        </xsl:if>
         <tex:group>
             <xsl:variable name="sTextTransform" select="$appLayout/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
@@ -1393,6 +1396,15 @@
                 <xsl:with-param name="layoutInfo" select="$appLayout"/>
                 <xsl:with-param name="originalContext" select="secTitle"/>
             </xsl:call-template>
+            <xsl:if test="not($lingPaper/section1)">
+                <!-- Special case for when there are no chapters and no sections, just appendices.
+                     It is used by Mexico branch linguistics publications for a grammar in a dictionary;
+                     it is a book format (including appendices starting on an odd page) but since there
+                     are no chapters, it is treated as a paper. -->
+                <xsl:call-template name="CreateAddToContents">
+                    <xsl:with-param name="id" select="@id"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">

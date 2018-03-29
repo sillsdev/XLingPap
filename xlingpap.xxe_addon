@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.2.4</a:version
+>3.2.5</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-03-21</a:date
+>2018-03-29</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,6 +40,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.2.5 29 March 2018<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a document has only appendices and its publisher style sheet has the appendices tstartig on an odd page, then the contents would not have the correct page for the appendices.</li
+></ul
+></li
+></ul
+></li
+><li
 >3.2.4 21 March 2018<ul
 ><li
 >Fix bug: indexedItem elements in a comment were being skipped in the main body but were showing up in the index. They should always be skipped in both places.</li
@@ -48,7 +58,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Include publishing blurb in JIPA Illustration template.</li
 ><li
->Improve spacing and alignment in contents for chapters and appendices. </li
+>Improve spacing and alignment in contents for chapters and appendices.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

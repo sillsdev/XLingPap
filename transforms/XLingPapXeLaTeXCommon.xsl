@@ -2307,9 +2307,13 @@
                 </xsl:for-each>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="string-length(normalize-space(@width)) &gt; 0">
+        <xsl:variable name="parentTablesFirstRow" select="ancestor::table[1]/tr[1]"/>
+        <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/td[@colspan] | $parentTablesFirstRow/th[@colspan]"/>
+        <xsl:variable name="rowSpansInTable" select="$parentTablesFirstRow/td[@rowspan] | $parentTablesFirstRow/th[@rowspan]"/>
+        <xsl:variable name="widthsInFirstRowOfTable" select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
+        <xsl:if test="string-length(normalize-space(@width)) &gt; 0 or not(count($colSpansInTable) &gt; 0 or count($rowSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0)">
             <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
-                force ragged right
+                force ragged right as default
             -->
             <xsl:choose>
                 <xsl:when test="@align='right'">

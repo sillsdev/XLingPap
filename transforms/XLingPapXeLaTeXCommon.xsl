@@ -2321,6 +2321,7 @@
                     <xsl:text>raggedleft </xsl:text>
                 </xsl:when>
                 <xsl:when test="@align='center'">
+                    <xsl:if test="not(@colspan) or @colspan=1 or @width">
                     <tex:cmd name="vspace">
                         <tex:parm>
                             <xsl:text>-1.7</xsl:text>
@@ -2329,6 +2330,7 @@
                     </tex:cmd>
                     <tex:spec cat="esc"/>
                     <xsl:text>center </xsl:text>
+                    </xsl:if>
                 </xsl:when>
                 <xsl:when test="@align='justify'">
                     <!-- do nothing -->
@@ -3997,7 +3999,7 @@
                             <xsl:when test="th[following-sibling::td] and preceding-sibling::tr[1][th[not(following-sibling::td)]]">
                                 <tex:cmd name="midrule" gr="0"/>
                                 <xsl:if
-                                    test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[not(following-sibling::td)]]) and not(ancestor::framedUnit)">
+                                    test="not(ancestor::example) and not(../ancestor::table) and not(preceding-sibling::tr[position() &gt; 1][th[following-sibling::td]]) and not(ancestor::framedUnit)">
                                     <tex:cmd name="endhead" gr="0" sp="1" nl2="0"/>
                                 </xsl:if>
                             </xsl:when>

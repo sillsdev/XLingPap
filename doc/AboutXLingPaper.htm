@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.2.6</span></p>
-      <p align="center">Date: 2018-03-30</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.2.7</span></p>
+      <p align="center">Date: 2018-04-09</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,6 +34,20 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.2.7 9 April 2018
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a table's header was more than one row long and the first non-header row used a th in the first column, the
+                              header would not show when the table spanned multiple pages.
+                           </li>
+                           <li>Fix bug: when a table cell spanned two or more columns, was centered, and did not have a width specified, the PDF failed to
+                              be produced.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.2.6 30 March 2018
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):
@@ -49,7 +63,7 @@
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
-                           <li>Fix bug: when a document has only appendices and its publisher style sheet has the appendices tstartig on an odd page, then
+                           <li>Fix bug: when a document has only appendices and its publisher style sheet has the appendices starting on an odd page, then
                               the contents would not have the correct page for the appendices.
                            </li>
                         </ul>

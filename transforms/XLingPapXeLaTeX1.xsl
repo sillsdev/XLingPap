@@ -3262,6 +3262,11 @@
         <tex:spec cat="eg"/>
         <xsl:if test="caption and descendant::img">
             <tex:cmd name="box0" gr="0"/>
+            <xsl:for-each select="caption/endnote">
+                <xsl:call-template name="DoEndnote">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                </xsl:call-template>
+            </xsl:for-each>
             <tex:cmd name="par"/>
             <!-- \box0\par -->
         </xsl:if>

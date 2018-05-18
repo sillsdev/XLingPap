@@ -876,9 +876,9 @@
                 <tex:parm>empty</tex:parm>
             </tex:cmd>
             <xsl:call-template name="DoBookMark"/>
-                <xsl:call-template name="CreateAddToContents">
-                    <xsl:with-param name="id" select="@id"/>
-                </xsl:call-template>
+            <xsl:call-template name="CreateAddToContents">
+                <xsl:with-param name="id" select="@id"/>
+            </xsl:call-template>
             <xsl:call-template name="DoInternalTargetBegin">
                 <xsl:with-param name="sName" select="@id"/>
             </xsl:call-template>
@@ -4042,12 +4042,12 @@
                     </xsl:apply-templates>
                     <xsl:if test="@defaultfontsize != concat($sBasicPointSize,'pt') and count($refWorks) &gt; 0">
                         <!-- references changed the font size and there might be something after them; reset font size -->
-                    <xsl:call-template name="HandleFontSize">
-                        <xsl:with-param name="sSize">
-                            <xsl:value-of select="$sBasicPointSize"/>
-                            <xsl:text>pt</xsl:text>
-                        </xsl:with-param>
-                    </xsl:call-template>
+                        <xsl:call-template name="HandleFontSize">
+                            <xsl:with-param name="sSize">
+                                <xsl:value-of select="$sBasicPointSize"/>
+                                <xsl:text>pt</xsl:text>
+                            </xsl:with-param>
+                        </xsl:call-template>
                     </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='referencesTitleLayout' and $backMatter[ancestor::chapterInCollection]">
@@ -4681,6 +4681,13 @@
         <tex:spec cat="eg"/>
         <xsl:if test="caption and descendant::img">
             <tex:cmd name="box0" gr="0"/>
+            <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout) and caption/endnote">
+                <xsl:for-each select="caption/endnote">
+                    <xsl:call-template name="DoEndnote">
+                        <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
             <tex:cmd name="par"/>
             <!-- \box0\par -->
         </xsl:if>
@@ -8277,7 +8284,7 @@
             <xsl:if test="ancestor-or-self::*[name()='appendix']">
                 <xsl:text>Y</xsl:text>
             </xsl:if>
-<!--            <xsl:for-each select="ancestor::*">
+            <!--            <xsl:for-each select="ancestor::*">
                 <xsl:if test="name(.)='appendix'">Y</xsl:if>
             </xsl:for-each>-->
         </xsl:variable>

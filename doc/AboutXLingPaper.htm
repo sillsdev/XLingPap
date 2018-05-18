@@ -20,20 +20,31 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.32.7</span></p>
-      <p align="center">Date: 2018-04-09</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.32.8</span></p>
+      <p align="center">Date: 2018-05-18</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
       <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
       <div id="RevisionHistory" style="display:none">
-         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:ns="http://www.w3.org/1999/xhtml">
-            <p>This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
+         <a:documentation>
+            <p xmlns="http://www.w3.org/1999/xhtml">This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
                been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).
             </p>
-            <hr></hr>
-            <p><b>Revision History</b></p>
-            <ul>
+            <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
+            <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
+            <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.2.7 18 May 2018
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a chart has an image with a caption and that caption has one or more endnotes, the endnote text did not show
+                              on the page.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.2.7 9 April 2018
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):

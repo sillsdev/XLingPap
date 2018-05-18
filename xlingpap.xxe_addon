@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
 location="XLingPap-2.32.0-xxe-4.8.0.zip"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ns="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -11,26 +9,40 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.32.7</a:version
+>2.32.8</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
+xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-04-09</a:date
+>2018-05-18</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
 ><p
+xmlns="http://www.w3.org/1999/xhtml"
 >This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).</p
 ><hr
-></hr
-><p
+xmlns="http://www.w3.org/1999/xhtml"
+/><p
+xmlns="http://www.w3.org/1999/xhtml"
 ><b
 >Revision History</b
 ></p
 ><ul
+xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.2.7 18 May 2018<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a chart has an image with a caption and that caption has one or more endnotes, the endnote text did not show on the page.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.2.7 9 April 2018<ul
 ><li
@@ -2166,8 +2178,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed bugs that made the XeLaTeX way of producing PDF fail whenever a publisher style sheet had<ul
 ><li
 >sections that began a paragraph<br
-></br
-></li
+/></li
 ><li
 >interlinear source show underneath the free translation (and a given interlinear did not have any interlinear source element)</li
 ><li

@@ -20,68 +20,21 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.32.8</span></p>
-      <p align="center">Date: 2018-05-18</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.33.0</span></p>
+      <p align="center">Date: 2018-05-21</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
       <p style="margin-left:.5in"><input type="button" value="Show Details" name="BDetails" id="ShowDetailsButton" onclick="ButtonShowDetails()" style="width: 88px; height: 24px"></p>
       <div id="RevisionHistory" style="display:none">
-         <a:documentation>
-            <p xmlns="http://www.w3.org/1999/xhtml">This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
+         <a:documentation xmlns="http://www.w3.org/1999/xhtml" xmlns:ns="http://www.w3.org/1999/xhtml">
+            <p>This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has
                been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).
             </p>
-            <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
-            <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
-            <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.2.7 18 May 2018
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when a chart has an image with a caption and that caption has one or more endnotes, the endnote text did not show
-                              on the page.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.2.7 9 April 2018
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when a table's header was more than one row long and the first non-header row used a th in the first column, the
-                              header would not show when the table spanned multiple pages.
-                           </li>
-                           <li>Fix bug: when a table cell spanned two or more columns, was centered, and did not have a width specified, the PDF failed to
-                              be produced.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.2.6 30 March 2018
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when a table's headers specified column widths, individual table cells could be rendered justified instead of ragged
-                              right.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.2.5 29 March 2018
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when a document has only appendices and its publisher style sheet has the appendices starting on an odd page, then
-                              the contents would not have the correct page for the appendices.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.32.4 21 March 2018
+            <hr></hr>
+            <p><b>Revision History</b></p>
+            <ul>
+               <li>2.33.0 21 May 2018
                   <ul>
                      <li>Fix bug: indexedItem elements in a comment were being skipped in the main body but were showing up in the index. They should
                         always be skipped in both places.
@@ -89,40 +42,35 @@
                      <li>Fix typo in user documentation.</li>
                      <li>Include publishing blurb in JIPA Illustration template.</li>
                      <li>Improve spacing and alignment in contents for chapters and appendices.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Improve width in contents by considering width of front matter pages as well as body pages.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.32.3 29 January 2018
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: a gloss in a caption element would not show in the generated contents if the gloss had an embedded indexedItem element.</li>
-                           <li>Fix bug: Page numbers for generated contents and indicies could be off by one or two pages.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.32.2 4 December 2017
-                  <ul>
                      <li>Add ability to have two contents, one in the front matter and one in the back matter, with differing labels and levels of
                         detail. (Only via a publisher style sheet.)
                      </li>
                      <li>Add ability to show (or not show) the contents itself in a table of contents. (Only via a publisher style sheet.)</li>
                      <li>In the user documentation, add an appendix to show the order of elements after the back matter.</li>
-                  </ul>
-               </li>
-               <li>2.32.1 15 November 2017
-                  <ul>
                      <li>Enable showing ISO 639-3 codes in examples be on a per example basis as well as document wide.</li>
                      <li>When creating a zip file, add a warning message for when an image file has a bad file name and will not be included in the
                         zip file.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Improve width in contents by considering width of front matter pages as well as body pages.</li>
+                           <li>Fix bug: when a chart has an image with a caption and that caption has one or more endnotes, the endnote text did not show
+                              on the page.
+                           </li>
+                           <li>Fix bug: when a table's header was more than one row long and the first non-header row used a th in the first column, the
+                              header would not show when the table spanned multiple pages.
+                           </li>
+                           <li>Fix bug: when a table cell spanned two or more columns, was centered, and did not have a width specified, the PDF failed to
+                              be produced.
+                           </li>
+                           <li>Fix bug: when a table's headers specified column widths, individual table cells could be rendered justified instead of ragged
+                              right.
+                           </li>
+                           <li>Fix bug: when a document has only appendices and its publisher style sheet has the appendices starting on an odd page, then
+                              the contents would not have the correct page for the appendices.
+                           </li>
+                           <li>Fix bug: a gloss in a caption element would not show in the generated contents if the gloss had an embedded indexedItem element.</li>
+                           <li>Fix bug: Page numbers for generated contents and indexes could be off by one or two pages.</li>
                            <li>Add a new XeLaTeXSpecial attribute of clearpage. It is like pagebreak, but it will also force any footnotes on the current
                               page to appear at the bottom of that page.
                            </li>

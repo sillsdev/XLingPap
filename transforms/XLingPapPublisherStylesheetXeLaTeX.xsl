@@ -1359,23 +1359,23 @@
             <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
         <xsl:variable name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
-        <!-- put title in marker so it can show up in running header -->
-        <tex:cmd name="markboth" nl2="1">
-            <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
-                </xsl:call-template>
-            </tex:parm>
-            <tex:parm>
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
-                </xsl:call-template>
-            </tex:parm>
-        </tex:cmd>
         <xsl:if test="$lingPaper/section1">
-            <!-- normal case -->
+            <!-- Normal case for a paper. -->
+            <!-- put title in marker so it can show up in running header -->
+            <tex:cmd name="markboth" nl2="1">
+                <tex:parm>
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                    </xsl:call-template>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="DoSecTitleRunningHeader">
+                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
                 <xsl:with-param name="id" select="@id"/>
             </xsl:call-template>
@@ -1401,6 +1401,21 @@
                      It is used by Mexico branch linguistics publications for a grammar in a dictionary;
                      it is a book format (including appendices starting on an odd page) but since there
                      are no chapters, it is treated as a paper. -->
+                <!-- put title in marker so it can show up in running header -->
+                <tex:cmd name="markboth" nl2="1">
+                    <tex:parm>
+                        <xsl:call-template name="DoSecTitleRunningHeader">
+                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        </xsl:call-template>
+                    </tex:parm>
+                    <tex:parm>
+                        <xsl:call-template name="DoSecTitleRunningHeader">
+                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
                 <xsl:call-template name="CreateAddToContents">
                     <xsl:with-param name="id" select="@id"/>
                 </xsl:call-template>

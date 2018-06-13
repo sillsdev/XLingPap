@@ -1590,6 +1590,11 @@
             -->
             <!--        </tex:env>-->
             <xsl:variable name="followingSibling" select="following-sibling::*[1]"/>
+            <xsl:if test="interlinear and $bAutomaticallyWrapInterlinears='yes' and $followingSibling[name()='example' and child::interlinear]">
+                <!-- When there are many example/interlinears in a row, we need to tell TeX it's OK to break between them.
+                    Otherwise, we get awful page breaking. -->
+                <tex:cmd name="smallbreak" gr="0"/>
+            </xsl:if>
             <xsl:if
                 test="name($followingSibling)='p' or name($followingSibling)='pc' or name($followingSibling)='table' or name($followingSibling)='chart' or name($followingSibling)='tree' or name($followingSibling)='interlinear-text' or parent::li and not(name($followingSibling)='example')">
                 <tex:cmd name="vspace">

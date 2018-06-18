@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 May 2018</date
+>18 June 2018</date
 ><version
 contentType="ctVersion5.3"
->2.33.0</version
+>2.33.3</version
 ><version
 contentType="ctVersion7Plus"
->3.3.0</version
+>3.3.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -2407,6 +2407,48 @@ type="tElement"
 ><li
 >Sub sections.</li
 ></ul
+><p
+><indexedItem
+term="iBlockQuote"
+></indexedItem
+>When you use a block quote and try to control the indent via a publisher style sheet, if the quote contains anything other than plain text material (e.g., a <object
+type="tElement"
+>citation</object
+> element or an <object
+type="tElement"
+>object</object
+> element), then you will need to convert the text material into a <object
+type="tElement"
+>p</object
+> element (if you want the first line of the block quote to be indented) or into a <object
+type="tElement"
+>pc</object
+> element (if you do not want an indent on the first line). You can do this as follows:</p
+><ol
+><li
+>Click in the <object
+type="tElement"
+>blockquote</object
+> element.</li
+><li
+>In the node path bar,<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> click on “blockquote.”</li
+><li
+>Use <object
+type="tInstruction"
+>Select</object
+> menu item / <object
+type="tInstruction"
+>Select All Children</object
+>.</li
+><li
+>Do a <object
+type="tInstruction"
+>Convert Wrap</object
+> and choose either “p” or “pc”.</li
+></ol
 ></section2
 ><section2
 id="sSectionReference"
@@ -33803,6 +33845,11 @@ id="iAuthorCited"
 id="iBackMatter"
 ><term
 >Back Matter</term
+></indexTerm
+><indexTerm
+id="iBlockQuote"
+><term
+>Block quote</term
 ></indexTerm
 ><indexTerm
 id="iBluishBackgroundColor"

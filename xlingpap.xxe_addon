@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-06-18</a:date
+>2018-06-25</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -41,6 +41,10 @@ xmlns="http://www.w3.org/1999/xhtml"
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >3.3.3 18 June 2018<ul
+><li
+>Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
+><li
+>Add to endnoteRefLayout portion of publisher style sheet documentation that one uses the textbefore attribute to change the default "See footnote ".</li
 ><li
 >Add information to user documentation on handling a blockquote element that has embedded elements since the indent may not work unless the material is embedded within a p or pc element.</li
 ></ul

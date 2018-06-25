@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 May 2018</date
+>25 June 2018</date
 ><version
 contentType="ctVersion5.3"
->2.33.0</version
+>2.33.3</version
 ><version
 contentType="ctVersion7Plus"
->3.3.0</version
+>3.3.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -10000,7 +10000,10 @@ type="tXMLmindXMLEditor"
 > for the <object
 type="tElement"
 >endnoteRefLayout</object
-> element.</p
+> element. In particular, if you want to change the text that comes before the referred to endnote number, use the <object
+type="tAttribute"
+>textbefore</object
+> attribute (the default value is “See footnote ”).</p
 ></section2
 ><section2
 id="sFigureRelated"

@@ -43,7 +43,13 @@
          <xsl:apply-templates/>
       </section5>
    </xsl:template>
-      <xsl:template match="@*|node()">
+   <xsl:template match="processing-instruction('xxe-sn')">
+      <!-- remove -->
+   </xsl:template>
+   <xsl:template match="processing-instruction('xxe-revisions')">
+      <!-- remove -->
+   </xsl:template>
+   <xsl:template match="@*|node()">
       <xsl:copy>
          <xsl:apply-templates select="@*"/>
          <xsl:apply-templates/>

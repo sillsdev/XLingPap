@@ -33,6 +33,7 @@
         <active pattern="contentTypeLocation"/>
         <active pattern="abbrRef"/>
         <active pattern="endnoteInSecTitle"/>
+        <active pattern="indexRangeInSecTitle"/>
     </phase>
     <pattern id="line">
         <title>
@@ -413,6 +414,12 @@
         <title><dir value="ltr">Check for embedded endnote in secTitle</dir></title>
         <rule context="secTitle">
             <report test="*/endnote">Using an endnote element embedded within another element here may fail to produce PDF output.  Put the endnote directly within the secTitle element, not inside the embedded element.</report>
+        </rule>
+    </pattern>
+    <pattern id="indexRangeInSecTitle">
+        <title><dir value="ltr">Check for index range items in secTitle</dir></title>
+        <rule context="secTitle">
+            <report test="indexedRangeBegin | indexedRangeEnd">Using an indexedRangeBegin and/or indexedRangeEnd element within a secTitle element may fail to create the page in the index portion of the PDF output.  Put the indexedRangeBegin element at the beginning of the first paragraph of the chapter/section/appendix, not inside the secTitle element.</report>
         </rule>
     </pattern>
 </schema>

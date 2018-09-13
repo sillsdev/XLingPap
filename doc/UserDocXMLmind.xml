@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 June 2018</date
+>13 September 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.3</version
@@ -2423,7 +2423,7 @@ type="tElement"
 > element (if you want the first line of the block quote to be indented) or into a <object
 type="tElement"
 >pc</object
-> element (if you do not want an indent on the first line).  You can do this as follows:</p
+> element (if you do not want an indent on the first line). You can do this as follows:</p
 ><ol
 ><li
 >Click in the <object
@@ -8203,6 +8203,32 @@ type="tXLingPap"
 > will not show the end range section if the end section is the same as the begin range section.</p
 ></endnote
 ></p
+><p
+><indexedItem
+term="iIndexesIndexRangeBeginInSecTitle"
+></indexedItem
+>Please note that you should <object
+type="tBold"
+>not</object
+> put an <object
+type="tElement"
+>indexedRangeBegin</object
+> (or <object
+type="tElement"
+>indexedRangeEnd</object
+>) element in a <object
+type="tElement"
+>secTitle</object
+> element.  Doing so may cause the default PDF to not have the correct page number in the index output.  Also there will be a warning message about this in the Validity tool.  Rather than putting these elements in the <object
+type="tElement"
+>secTitle</object
+> element, put the <object
+type="tElement"
+>indexedRangeBegin</object
+> element at the beginning of the first paragraph of the chapter or section or appendix that the <object
+type="tElement"
+>secTitle</object
+> element is a part of.</p
 ><p
 ><indexedItem
 term="iIndexesIndexItemAttributes"
@@ -34818,6 +34844,16 @@ id="iIndexesIndexRangeBeginAttributes"
 type="tElement"
 >indexRangeBegin</object
 > attributes</term
+><indexTerms
+><indexTerm
+id="iIndexesIndexRangeBeginInSecTitle"
+><term
+>Avoid using in a <object
+type="tElement"
+>secTtitle</object
+> element</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iIndexesKinds"

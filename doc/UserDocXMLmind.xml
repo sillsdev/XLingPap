@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 September 2018</date
+>28 September 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.3</version
@@ -8219,7 +8219,7 @@ type="tElement"
 >) element in a <object
 type="tElement"
 >secTitle</object
-> element.  Doing so may cause the default PDF to not have the correct page number in the index output.  Also there will be a warning message about this in the Validity tool.  Rather than putting these elements in the <object
+> element. Doing so may cause the default PDF to not have the correct page number in the index output. Also there will be a warning message about this in the Validity tool. Rather than putting these elements in the <object
 type="tElement"
 >secTitle</object
 > element, put the <object
@@ -19215,7 +19215,7 @@ type="tXMLmindXMLEditor"
 > Please note that with the <object
 type="tXMLmindXMLEditor"
 ></object
-> version 7.3+, when you first insert an <object
+> version 7.3-7.6, when you first insert an <object
 type="tElement"
 >object</object
 > element with an <object
@@ -19236,7 +19236,10 @@ type="tKey"
 > and then <object
 type="tKey"
 >Ctrl-y</object
->.</langData
+>.  Version 8.2 of the <object
+type="tXMLmindXMLEditor"
+></object
+> does not have this issue.</langData
 ></td
 ></tr
 ><tr

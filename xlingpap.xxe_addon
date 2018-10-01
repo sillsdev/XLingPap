@@ -41,6 +41,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Add information to user documentation on handling a blockquote element that has embedded elements since the indent may not work unless the material is embedded within a p or pc element.</li
 ><li
 >Add semantic validity check for indexedRangeBegin in a secTitle element. It can cause the default PDF to not show a page number for it in the index output. Also added a note about this in the user documentation.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a section level title that was supposed to begin a paragraph was on a line by itself.</li
+></ul
+></li
 ></ul
 ></li
 ><li

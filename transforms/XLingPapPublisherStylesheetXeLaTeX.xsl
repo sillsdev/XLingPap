@@ -5899,10 +5899,18 @@
         <xsl:call-template name="DoSpaceAfter">
             <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
         </xsl:call-template>
-        <xsl:apply-templates select="child::node()[name()!='secTitle'][1][name()='p']" mode="contentOnly"/>
-        <tex:cmd name="par"/>
+        <xsl:variable name="firstParagraph" select="child::node()[name()!='secTitle'][1][name()='p' or name()='pc']"/>
         <xsl:choose>
-            <xsl:when test="child::node()[name()!='secTitle'][1][name()='p']">
+            <xsl:when test="$firstParagraph">
+                <xsl:apply-templates select="child::node()[name()!='secTitle'][1][name()='p' or name()='pc']" mode="contentOnly"/>
+                <tex:cmd name="par"/>
+            </xsl:when>
+            <xsl:when test="child::node()[name()!='secTitle'][1][name()='table']">
+                <tex:cmd name="par"/>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="child::node()[name()!='secTitle'][1][name()='p' or name()='pc']">
                 <xsl:apply-templates select="child::node()[name()!='secTitle'][position()&gt;1]"/>
             </xsl:when>
             <xsl:otherwise>

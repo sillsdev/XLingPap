@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 September 2018</date
+>8 October 2018</date
 ><version
 contentType="ctVersion5.3"
->2.33.3</version
+>2.33.4</version
 ><version
 contentType="ctVersion7Plus"
->3.3.3</version
+>3.3.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -3527,10 +3527,19 @@ type="tAttribute"
 > attribute is how you want the author's name to appear in the references (usually last name first for single authors; see the examples below in section <sectionRef
 sec="sBMExample"
 ></sectionRef
->). You may also include a <object
+>). <indexedItem
+term="iAuthorFirstNameInitials"
+></indexedItem
+>You may also include a <object
 type="tElement"
 >refAuthorInitials</object
-> element for those cases where you need to use initials for the author(s) first, etc. names. You control which of these two forms of the name(s) of the author(s) shows in the <object
+> element for those cases where you need to use initials for the author(s) first, etc., names. To insert a <object
+type="tElement"
+>refAuthorInitials</object
+> element, click on the first <object
+type="tElement"
+>refWork</object
+> element of this author and then do an insert before operation. You control which of these two forms of the name(s) of the author(s) shows in the <object
 type="tXMLmindXMLEditor"
 ></object
 > by setting the <object
@@ -13133,6 +13142,9 @@ src="resources/TableSampleCaption.png"
 ></chart
 ></example
 ><p
+><indexedItem
+term="iTableBorders"
+></indexedItem
 >One can then remove the border lines by setting the <object
 type="tAttribute"
 >border</object
@@ -13146,9 +13158,32 @@ num="xTableSampleCaptionNoBorder"
 >. It is possible to have finer control over the border lines within a table, but it is not recommended that you do so.<endnote
 id="nControllingTableBorderLines"
 ><p
+><indexedItem
+term="iTableBorders"
+></indexedItem
 >There are two reasons why it is not recommended. First and foremost, from my research in producing the default way of producing PDF, typesetters argue strongly against using any vertical lines at all in a table. In fact, they (practically) insist on only having some horizontal lines and that, sparingly. When I saw this, I was surprised. But then I found some linguistic books containing tables and, sure enough, these books followed this way - only horizontal lines, if any. I understand that the motivation for this is to make the tables easy to read. The more “noise” there is, the harder it is for the reader to quickly see the pertinent data.</p
 ><p
->The second reason is that it is relatively difficult to do, even for just the web page output. For example, here is a way to get started:</p
+>The second reason is that it is relatively difficult to do, even for just the web page output. For the default way of producing PDF via <object
+type="tXeTeX"
+></object
+>, see appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>, especially the <object
+type="tAttribute"
+>border-left</object
+>, <object
+type="tAttribute"
+>border-right</object
+>, <object
+type="tAttribute"
+>line-after</object
+> and <object
+type="tAttribute"
+>line-before</object
+> attributes.</p
+><p
+>For an example using the web page output, here is a way to get started:</p
 ><ol
 ><li
 ><genericTarget
@@ -19215,7 +19250,7 @@ type="tXMLmindXMLEditor"
 > Please note that with the <object
 type="tXMLmindXMLEditor"
 ></object
-> version 7.3+, when you first insert an <object
+> version 7.3-7.6, when you first insert an <object
 type="tElement"
 >object</object
 > element with an <object
@@ -19236,7 +19271,10 @@ type="tKey"
 > and then <object
 type="tKey"
 >Ctrl-y</object
->.</langData
+>. Version 8.2 of the <object
+type="tXMLmindXMLEditor"
+></object
+> does not have this issue.</langData
 ></td
 ></tr
 ><tr
@@ -25632,7 +25670,7 @@ type="tInstruction"
 ><section2
 id="sFAQConvertTableToXLingPaper"
 ><secTitle
->Copy <object
+>Convert <object
 type="tTool"
 >Word</object
 > or <object
@@ -33854,6 +33892,13 @@ id="iAuthorCiteName"
 id="iAuthorReferencesName"
 ><term
 >name used in references section</term
+><indexTerms
+><indexTerm
+id="iAuthorFirstNameInitials"
+><term
+>Use initials for first name</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iAuthorPaper"
@@ -34104,6 +34149,12 @@ type="tElement"
 type="tElement"
 >listInterlinear</object
 > (or vice versa)</term
+></indexTerm
+><indexTerm
+id="iConvertExternalTable"
+see="iCopyExternalTable"
+><term
+>Convert a table from a word processing, spreadsheet, or web page program</term
 ></indexTerm
 ><indexTerm
 id="iColor"
@@ -34813,6 +34864,12 @@ id="iImageWidth"
 >Width</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iImportExternalTable"
+see="iCopyExternalTable"
+><term
+>Import a table from a word processing, spreadsheet, or web page program</term
 ></indexTerm
 ><indexTerm
 id="iIndexes"
@@ -35842,6 +35899,11 @@ id="iTablesAttributes"
 >Attributes used in tables</term
 ></indexTerm
 ><indexTerm
+id="iTableBorders"
+><term
+>Borders</term
+></indexTerm
+><indexTerm
 id="iTablesCaption"
 ><term
 >Captions in tables</term
@@ -35849,7 +35911,7 @@ id="iTablesCaption"
 ><indexTerm
 id="iCopyExternalTable"
 ><term
->Copy a table from a word processing, spreadsheet, or web page program</term
+>Convert a table from a word processing, spreadsheet, or web page program</term
 ></indexTerm
 ><indexTerm
 id="iIncreaseTableSize"

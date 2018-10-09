@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-10-08</a:date
+>2018-10-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.3 8 October 2018<ul
+>3.3.3 9 October 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -51,6 +51,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Change "Copy a table from..." to "Convert a table from..."</li
 ></ul
 ></li
+><li
+>Correct email address for "Oh, Dear!" messages.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -868,7 +868,7 @@ Content Layout
 >
 <!ELEMENT annotationLayout EMPTY>
 <!ATTLIST annotationLayout 
-     %fontinfo;
+     %formatinfo;
      start-indent CDATA #IMPLIED
      end-indent CDATA #IMPLIED
      spaceafter CDATA #IMPLIED

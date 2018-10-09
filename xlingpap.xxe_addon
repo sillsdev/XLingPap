@@ -42,6 +42,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Add semantic validity check for indexedRangeBegin in a secTitle element. It can cause the default PDF to not show a page number for it in the index output. Also added a note about this in the user documentation.</li
 ><li
+>Allow annotationLayout element to have textbefore and textafter attributes.</li
+><li
 >Documentation improvements:<ul
 ><li
 >Tell how to add a refAuthorInitials element</li

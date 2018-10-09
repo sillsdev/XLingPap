@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->25 June 2018</date
+>9 October 2018</date
 ><version
 contentType="ctVersion5.3"
->2.33.3</version
+>2.33.4</version
 ><version
 contentType="ctVersion7Plus"
->3.3.3</version
+>3.3.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -14217,7 +14217,7 @@ type="tXMLmindXMLEditor"
 ><tr
 ><td
 >All attributes in section <sectionRef
-sec="sFontInfoAttributes"
+sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
 ></td

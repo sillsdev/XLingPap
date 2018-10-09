@@ -4676,6 +4676,15 @@
             <xsl:with-param name="pLabel" select="$backMatterLayoutInfo/appendicesTitlePageLayout/@label"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        OutputCannedText
+    -->
+    <xsl:template name="OutputCannedText">
+        <xsl:param name="sCannedText"/>
+        <xsl:if test="string-length($sCannedText)&gt;0">
+            <xsl:value-of select="$sCannedText"/>
+        </xsl:if>
+    </xsl:template>
     <!--  
         OutputCitation
     -->

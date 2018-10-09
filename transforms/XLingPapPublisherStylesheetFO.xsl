@@ -1553,7 +1553,14 @@
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="$annotationLayoutInfo"/>
                 </xsl:call-template>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
+                </xsl:call-template>
                 <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
+                <xsl:variable name="sTextAfter" select="$annotationLayoutInfo/@textafter"/>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
+                </xsl:call-template>
             </fo:block>
         </xsl:if>
     </xsl:template>

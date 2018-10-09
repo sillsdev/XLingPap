@@ -1289,7 +1289,13 @@
                         </xsl:attribute>
                     </xsl:otherwise>
                 </xsl:choose>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
+                </xsl:call-template>
                 <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
+                </xsl:call-template>
             </p>
         </xsl:if>
     </xsl:template>

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-10-09</a:date
+>2018-10-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.3 9 October 2018<ul
+>3.3.3 10 October 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -41,6 +41,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Add information to user documentation on handling a blockquote element that has embedded elements since the indent may not work unless the material is embedded within a p or pc element.</li
 ><li
 >Add semantic validity check for indexedRangeBegin in a secTitle element. It can cause the default PDF to not show a page number for it in the index output. Also added a note about this in the user documentation.</li
+><li
+>Allow referenceLayout element to have spacebefore and spaceafter attributes.</li
 ><li
 >Allow annotationLayout element to have textbefore and textafter attributes.</li
 ><li

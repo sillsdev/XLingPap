@@ -5617,6 +5617,14 @@
                 </tex:cmd>
             </xsl:if>
         </xsl:if>
+        <xsl:variable name="sSpaceBefore" select="normalize-space($referencesLayoutInfo/@spacebefore)"/>
+        <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpaceBefore"/>
+                </tex:parm>
+             </tex:cmd>
+        </xsl:if>
         <tex:cmd name="hangindent" gr="0"/>
         <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
         <tex:cmd name="relax" gr="0" nl2="1"/>
@@ -5640,6 +5648,14 @@
         </xsl:call-template>
         <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
         <tex:cmd name="par" gr="0" nl2="1"/>
+        <xsl:variable name="sSpaceAfter" select="normalize-space($referencesLayoutInfo/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpaceAfter"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes' and position()=last()">
             <xsl:if test="string-length($sSpaceBetweenEntryAndAuthor)&gt;0">
                 <tex:cmd name="vspace">

@@ -6055,6 +6055,12 @@ not using
                     <xsl:text>pt</xsl:text>
                 </xsl:attribute>
             </xsl:if>
+            <xsl:variable name="sSpaceBefore" select="normalize-space($referencesLayoutInfo/@spacebefore)"/>
+            <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                <xsl:attribute name="space-before">
+                    <xsl:value-of select="$sSpaceBefore"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="DoAuthorLayout">
                 <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
                 <xsl:with-param name="work" select="$work"/>
@@ -6063,6 +6069,10 @@ not using
             </xsl:call-template>
             <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
         </fo:block>
+        <xsl:variable name="sSpaceAfter" select="normalize-space($referencesLayoutInfo/@spaceafter)"/>
+        <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+            <fo:block space-after="{$sSpaceAfter}"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoRefWorks

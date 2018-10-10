@@ -37,6 +37,8 @@ References Layouts
    dateToEntrySpaceAuthorOverDateStyle CDATA #IMPLIED
    spaceBetweenEntryAndAuthorInAuthorOverDateStyle CDATA #IMPLIED
    spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
+   spaceafter CDATA #IMPLIED
+   spacebefore CDATA #IMPLIED
    >
 
 <!-- Name and version of this references stylesheet -->

@@ -4080,6 +4080,22 @@
                     <xsl:text>pt</xsl:text>
                 </xsl:attribute>
             </xsl:if>
+            <xsl:variable name="sSpaceBefore" select="normalize-space($referencesLayoutInfo/@spacebefore)"/>
+            <xsl:variable name="sSpaceAfter" select="normalize-space($referencesLayoutInfo/@spaceafter)"/>
+            <xsl:if test="string-length($sSpaceBefore) &gt; 0 or string-length($sSpaceAfter) &gt; 0">
+                <xsl:attribute name="style">
+                    <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                        <xsl:text>padding-top:</xsl:text>
+                        <xsl:value-of select="$sSpaceBefore"/>
+                        <xsl:text>;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test="string-length($sSpaceAfter) &gt; 0">
+                        <xsl:text>padding-bottom:</xsl:text>
+                        <xsl:value-of select="$sSpaceAfter"/>
+                        <xsl:text>;</xsl:text>
+                    </xsl:if>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:call-template name="DoAuthorLayout">
                 <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
                 <xsl:with-param name="work" select="$work"/>

@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 October 2018</date
+>10 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -8512,6 +8512,90 @@ type="tAttrValue"
 ><object
 type="tAttrValue"
 >no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceAfterAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spaceafter</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert after this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iSpaceBeforeAttribute"
+></indexedItem
+><object
+type="tAttribute"
+>spacebefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert before this item. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
 ></td
 ></tr
 ></table

@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 October 2018</date
+>19 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -3539,7 +3539,10 @@ type="tElement"
 > element, click on the first <object
 type="tElement"
 >refWork</object
-> element of this author and then do an insert before operation. You control which of these two forms of the name(s) of the author(s) shows in the <object
+> element of this author and then do an insert before operation. Note that you will need to key the full author name(s) with initials in the <object
+type="tElement"
+>refAuthorInitials</object
+> element just as it should appear in the output. You control which of these two forms of the name(s) of the author(s) shows in the <object
 type="tXMLmindXMLEditor"
 ></object
 > by setting the <object
@@ -13163,7 +13166,7 @@ term="iTableBorders"
 ></indexedItem
 >There are two reasons why it is not recommended. First and foremost, from my research in producing the default way of producing PDF, typesetters argue strongly against using any vertical lines at all in a table. In fact, they (practically) insist on only having some horizontal lines and that, sparingly. When I saw this, I was surprised. But then I found some linguistic books containing tables and, sure enough, these books followed this way - only horizontal lines, if any. I understand that the motivation for this is to make the tables easy to read. The more “noise” there is, the harder it is for the reader to quickly see the pertinent data.</p
 ><p
->The second reason is that it is relatively difficult to do, even for just the web page output.  For the default way of producing PDF via <object
+>The second reason is that it is relatively difficult to do, even for just the web page output. For the default way of producing PDF via <object
 type="tXeTeX"
 ></object
 >, see appendix <appendixRef

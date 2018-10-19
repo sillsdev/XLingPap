@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 October 2018</date
+>19 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -3539,7 +3539,10 @@ type="tElement"
 > element, click on the first <object
 type="tElement"
 >refWork</object
-> element of this author and then do an insert before operation. You control which of these two forms of the name(s) of the author(s) shows in the <object
+> element of this author and then do an insert before operation. Note that you will need to key the full author name(s) with initials in the <object
+type="tElement"
+>refAuthorInitials</object
+> element just as it should appear in the output. You control which of these two forms of the name(s) of the author(s) shows in the <object
 type="tXMLmindXMLEditor"
 ></object
 > by setting the <object

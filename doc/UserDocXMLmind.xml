@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 October 2018</date
+>22 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -13946,6 +13946,34 @@ gref="gXeLaTeXborder-right"
 >Insert a vertical line to the right of a table cell.</genericRef
 ></li
 ></ul
+></section3
+><section3
+id="sTCTEpigraph"
+><secTitle
+>Epigraph</secTitle
+><p
+><indexedItem
+term="iEpigraph"
+></indexedItem
+>As <citation
+ref="rEpigraph"
+></citation
+> notes,</p
+><blockquote
+>An epigraph is a stylistic device a writer uses – a quote, phrase, a poem, etc.—placed at the beginning of a work that serves as a kind of summary or preface that links the work to something greater in the literary canon. A writer usually intends to put his work within a context or to invite comparison with other literary works.</blockquote
+><p
+>While <object
+type="tXLingPap"
+></object
+> does not have an element specifically for an epigraph, you can use a <object
+type="tElement"
+>table</object
+> element to produce an epigraph. You can use the various attributes to center, align it to the left or right, produce the spacing and content, etc., you need.</p
+><p
+>Alternatively, you can use a <object
+type="tElement"
+>blockquote</object
+> element.</p
 ></section3
 ></section2
 ><section2
@@ -33635,6 +33663,23 @@ id="an"
 ></refWork
 ></refAuthor
 ><refAuthor
+citename="Judicial Accountability Institute"
+name="Judicial Accountability Institute"
+><refWork
+id="rEpigraph"
+><refDate
+>2018</refDate
+><refTitle
+>Using An Epigraph In A Dissertation: 5 Points To Consider</refTitle
+><webPage
+><url
+>http://www.judicialaccountabilityinstitute.com/5-points-to-know-when-using-an-epigraph-in-a-dissertation/</url
+><dateAccessed
+>22 October 2018</dateAccessed
+></webPage
+></refWork
+></refAuthor
+><refAuthor
 citename="Kew &amp; McConnel"
 name="Kew, Jonathan and Stephen McConnel"
 ><refWork
@@ -34336,6 +34381,11 @@ id="iEndnoteReference"
 >Reference to endnote</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iEpigraph"
+><term
+>Epigraph</term
 ></indexTerm
 ><indexTerm
 id="iExamples"

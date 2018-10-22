@@ -74,6 +74,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Correct email address for "Oh, Dear!" messages.</li
 ><li
+>Produce warning when a chapterInCollection document is associated to a style sheet that does not have layout info for chapter in collection.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: a section level title that was supposed to begin a paragraph was on a line by itself.</li

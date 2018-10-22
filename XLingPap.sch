@@ -368,13 +368,16 @@
     </pattern>
     <pattern id="chapterInCollection">
         <rule context="chapterInCollectionBackMatterLayout">
-            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
+            <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionBackMatterLayout element in a publisher style sheet but no chapterInCollectionLayout element.  The chapterInCollectionBackMatterLayout will be ignored.</assert>
         </rule>
         <rule context="chapterInCollectionFrontMatterLayout">
             <assert test="preceding-sibling::chapterInCollectionLayout ">There is a chapterInCollectionFrontMatterLayout element in a publisher style sheet but no chapterInCollectionLayout  element.  The chapterInCollectionFrontMatterLayout will be ignored.</assert>
         </rule>
         <rule context="authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
             <assert test="//chapterInCollectionLayout">There is an authorLayout element immediately after a contentsLayout element, but no chapterInCollectionLayout.  This authorLayout will be ignored.</assert>
+        </rule>
+        <rule context="chapterInCollection">
+            <report test="/xlingpaper/styledPaper and not(/xlingpaper/styledPaper/publisherStyleSheet/bodyLayout/chapterInCollectionLayout)">This document has a chapterInCollection element and a publisher style sheet, but there is no chapterInCollectionLayout element in the body layout of the publisher style sheet.  The output will probably be incorrect.  Please add a chapterInCollectionLayout element.</report>
         </rule>
     </pattern>
     <pattern id="fontsize">

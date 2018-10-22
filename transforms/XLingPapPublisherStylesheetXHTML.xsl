@@ -5079,10 +5079,36 @@
                     </xsl:attribute>
                     <td colspan="30">
                         <xsl:call-template name="DoCellAttributes"/>
-                        <b>
-                            <!-- default is bold -->
-                            <xsl:apply-templates/>
-                        </b>
+                        <xsl:choose>
+                            <xsl:when test="$contentLayoutInfo/tableCaptionLayout">
+                                <xsl:attribute name="class">tableCaptionLayout</xsl:attribute>
+                                <xsl:variable name="sTableCaptionSeparation" select="normalize-space($contentLayoutInfo/tableCaptionLayout/@spaceBetweenTableAndCaption)"/>
+                                <xsl:if test="string-length($sTableCaptionSeparation) &gt; 0">
+                                    <xsl:variable name="sBeforeOrAfter">
+                                        <xsl:choose>
+                                            <xsl:when test="name()='caption'">bottom</xsl:when>
+                                            <xsl:otherwise>top</xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:variable>
+                                    <xsl:attribute name="style">
+                                        <xsl:text>padding-</xsl:text>
+                                        <xsl:value-of select="$sBeforeOrAfter"/>
+                                        <xsl:text>:</xsl:text>
+                                        <xsl:value-of select="$sTableCaptionSeparation"/>
+                                        <xsl:text>;</xsl:text>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textbefore"/>
+                                <xsl:apply-templates/>
+                                <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textafter"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <b>
+                                    <!-- default is bold -->
+                                    <xsl:apply-templates/>
+                                </b>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </td>
                 </tr>
             </xsl:otherwise>

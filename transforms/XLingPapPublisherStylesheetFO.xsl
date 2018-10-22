@@ -30,8 +30,8 @@
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
-<!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
-<!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
+    <!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
+    <!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
@@ -2639,8 +2639,11 @@ not using
       -->
     <xsl:template match="caption | endCaption">
         <xsl:if test="not(ancestor::tablenumbered)">
-            <fo:block font-weight="bold">
+            <fo:block>
                 <xsl:call-template name="DoCellAttributes"/>
+                <xsl:if test="not($contentLayoutInfo/tableCaptionLayout)">
+                    <xsl:attribute name="font-weight">bold</xsl:attribute>
+                </xsl:if>
                 <xsl:if test="not(@align)">
                     <!-- default to centered -->
                     <xsl:attribute name="text-align">center</xsl:attribute>
@@ -2656,7 +2659,33 @@ not using
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:call-template name="DoType"/>
-                <xsl:apply-templates/>
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/tableCaptionLayout">
+                        <xsl:call-template name="OutputFontAttributes">
+                            <xsl:with-param name="language" select="$contentLayoutInfo/tableCaptionLayout"/>
+                        </xsl:call-template>
+                        <xsl:if test="not(ancestor::figure) and name()='caption' or name()='endCaption'">
+                            <xsl:variable name="sTableCaptionSeparation" select="normalize-space($contentLayoutInfo/tableCaptionLayout/@spaceBetweenTableAndCaption)"/>
+                            <xsl:if test="string-length($sTableCaptionSeparation) &gt; 0">
+                                <xsl:variable name="sBeforeOrAfter">
+                                    <xsl:choose>
+                                        <xsl:when test="name()='caption'">after</xsl:when>
+                                    <xsl:otherwise>before</xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:variable>
+                                <xsl:attribute name="space-{$sBeforeOrAfter}">
+                                    <xsl:value-of select="$sTableCaptionSeparation"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </xsl:if>
+                        <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textbefore"/>
+                        <xsl:apply-templates/>
+                        <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textafter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </fo:block>
         </xsl:if>
     </xsl:template>
@@ -6487,7 +6516,7 @@ not using
             <xsl:call-template name="OutputAbbrTerm">
                 <xsl:with-param name="abbr" select="."/>
             </xsl:call-template>
-            <xsl:call-template name="DoAnyEqualsSignBetweenAbbrAndDefinition"/>            
+            <xsl:call-template name="DoAnyEqualsSignBetweenAbbrAndDefinition"/>
             <xsl:call-template name="OutputAbbrDefinition">
                 <xsl:with-param name="abbr" select="."/>
             </xsl:call-template>

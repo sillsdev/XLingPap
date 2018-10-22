@@ -1233,6 +1233,14 @@ li.lower-roman {
             <xsl:with-param name="name" select="$subtitleName"/>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        tableCaptionLayout
+    -->
+    <xsl:template match="tableCaptionLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'tableCaptionLayout'"/>
+        </xsl:call-template>
+    </xsl:template>
     <!-- 
         tablenumberedCaptionLayout
     -->
@@ -1722,6 +1730,7 @@ li.lower-roman {
     <xsl:template match="@spacebeforemainsection"/>
     <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>
     <xsl:template match="@spaceBetweenEntryAndAuthorInAuthorOverDateStyle"/>
+    <xsl:template match="@spaceBetweenTableAndCaption[parent::tableCaptionLayout]"/>
     <xsl:template match="@spaceBetweenUnits"/>
     <xsl:template match="@startNumberingOverAtEachChapter"/>
     <xsl:template match="@startSection1NumberingAtZero"/>
@@ -1762,6 +1771,7 @@ li.lower-roman {
     <xsl:template match="hangingIndentNormalIndent"/>
     <xsl:template match="langName"/>
     <xsl:template match="literalLabelLayout"/>
+    <xsl:template match="tablenCaptionLayout"/>
     <!--
         AddAnyLinkAttributes
     -->

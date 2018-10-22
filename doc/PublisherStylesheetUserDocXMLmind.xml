@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 October 2018</date
+>22 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -11985,6 +11985,127 @@ type="tElement"
 ></section3
 ></section2
 ><section2
+id="sTableCaptionLayout"
+><secTitle
+>Table Caption Layout</secTitle
+><p
+><indexedItem
+term="iTableCaption"
+></indexedItem
+>The <object
+type="tElement"
+>tableCaptionLayout</object
+> element describes how the caption in a <object
+type="tElement"
+>table</object
+> element should appear. Note that this is not for numbered tables, but is for “plain” tables and for tables in examples. The attributes for this <object
+type="tElement"
+>tableCaptionLayout</object
+> element are given in example <exampleRef
+letter="xTableCaptionLayoutAttributes"
+num="xTableCaptionLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xTableCaptionLayoutAttributes"
+><table
+border="1"
+><caption
+>Table Caption Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableCaptionSpace"
+></indexedItem
+><object
+type="tAttribute"
+>spaceBetweenTableAndCaption</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of vertical space to insert between the <object
+type="tElement"
+>caption</object
+> and the table (or between the table and the <object
+type="tElement"
+>endCaption</object
+>). Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.125in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+></table
+></example
+></section2
+><section2
 id="sMagnificationFactor"
 ><secTitle
 >Magnification Factor</secTitle
@@ -16428,6 +16549,15 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>tableCaptionLayout</object
+></td
+><td
+>Table caption (or end caption)</td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >magnificationFactor</object
 ></td
 ><td
@@ -17872,6 +18002,23 @@ type="tElement"
 ><td
 >no attributes have defaults</td
 ><td
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>tableCaptionLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>spaceBetweenTableAndCaption</object
+></td
+><td
+><object
+type="tAttrValue"
+>0pt</object
 ></td
 ></tr
 ><tr
@@ -19948,6 +20095,18 @@ id="iStartOnOddPageAttribute"
 id="iSubtitleLayout"
 ><term
 >Subtitle layout</term
+></indexTerm
+><indexTerm
+id="iTableCaption"
+><term
+>Table caption</term
+><indexTerms
+><indexTerm
+id="iTableCaptionSpace"
+><term
+>Space between caption and table or between table and end caption</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iTableNumbered"

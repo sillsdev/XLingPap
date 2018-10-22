@@ -2322,14 +2322,14 @@
                 </xsl:when>
                 <xsl:when test="@align='center'">
                     <xsl:if test="not(@colspan) or @colspan=1 or @width">
-                    <tex:cmd name="vspace">
-                        <tex:parm>
-                            <xsl:text>-1.7</xsl:text>
-                            <tex:cmd name="baselineskip" gr="0"/>
-                        </tex:parm>
-                    </tex:cmd>
-                    <tex:spec cat="esc"/>
-                    <xsl:text>center </xsl:text>
+                        <tex:cmd name="vspace">
+                            <tex:parm>
+                                <xsl:text>-1.7</xsl:text>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>center </xsl:text>
                     </xsl:if>
                 </xsl:when>
                 <xsl:when test="@align='justify'">
@@ -2370,6 +2370,16 @@
     <xsl:template match="caption | endCaption">
         <xsl:param name="iNumCols" select="2"/>
         <xsl:if test="not(ancestor::tablenumbered)">
+            <xsl:if test="not(ancestor::figure) and name()='endCaption'">
+                <xsl:variable name="sTableCaptionSeparation" select="normalize-space($contentLayoutInfo/tableCaptionLayout/@spaceBetweenTableAndCaption)"/>
+                <xsl:if test="string-length($sTableCaptionSeparation) &gt; 0">
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="lsb"/>
+                    <xsl:value-of select="$sTableCaptionSeparation"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:if>
+            </xsl:if>
             <tex:cmd name="multicolumn">
                 <tex:parm>
                     <xsl:value-of select="$iNumCols"/>
@@ -2381,16 +2391,39 @@
                 </tex:parm>
                 <tex:parm>
                     <xsl:call-template name="DoType"/>
-                    <tex:cmd name="textbf">
-                        <tex:parm>
+                    <xsl:choose>
+                        <xsl:when test="$contentLayoutInfo/tableCaptionLayout">
+                            <xsl:call-template name="OutputFontAttributes">
+                                <xsl:with-param name="language" select="$contentLayoutInfo/tableCaptionLayout"/>
+                            </xsl:call-template>
+                            <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textbefore"/>
                             <xsl:apply-templates/>
-                        </tex:parm>
-                    </tex:cmd>
+                            <xsl:value-of select="$contentLayoutInfo/tableCaptionLayout/@textafter"/>
+                            <xsl:call-template name="OutputFontAttributesEnd">
+                                <xsl:with-param name="language" select="$contentLayoutInfo/tableCaptionLayout"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <tex:cmd name="textbf">
+                                <tex:parm>
+                                    <xsl:apply-templates/>
+                                </tex:parm>
+                            </tex:cmd>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:call-template name="DoTypeEnd"/>
                 </tex:parm>
             </tex:cmd>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
+            <xsl:if test="not(ancestor::figure) and name()='caption'">
+                <xsl:variable name="sTableCaptionSeparation" select="normalize-space($contentLayoutInfo/tableCaptionLayout/@spaceBetweenTableAndCaption)"/>
+                <xsl:if test="string-length($sTableCaptionSeparation) &gt; 0">
+                    <tex:spec cat="lsb"/>
+                            <xsl:value-of select="$sTableCaptionSeparation"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:if>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--
@@ -2497,13 +2530,13 @@
     <xsl:template match="indexedItem[not(ancestor::comment)] | indexedRangeBegin[not(ancestor::comment)]">
         <xsl:param name="bInMarker" select="'N'"/>
         <xsl:if test="$bInMarker='N'">
-        <xsl:call-template name="CreateAddToIndex">
-            <xsl:with-param name="id">
-                <xsl:call-template name="CreateIndexedItemID">
-                    <xsl:with-param name="sTermId" select="@term"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
+            <xsl:call-template name="CreateAddToIndex">
+                <xsl:with-param name="id">
+                    <xsl:call-template name="CreateIndexedItemID">
+                        <xsl:with-param name="sTermId" select="@term"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--
@@ -12910,7 +12943,7 @@ What might go in a TeX package file
             </tex:parm>
             <tex:opt>1</tex:opt>
             <tex:parm>
-<!--   No: outputs too soon             <tex:cmd name="immediate" gr="0" nl2="0"/>-->
+                <!--   No: outputs too soon             <tex:cmd name="immediate" gr="0" nl2="0"/>-->
                 <tex:cmd name="{$sWriteNumber}">
                     <tex:parm>
                         <tex:spec cat="lt"/>

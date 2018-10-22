@@ -9939,6 +9939,34 @@ subtitleLayout
 {
 	property-group: titledItem("Subtitle of the Document");
 }
+tableCaptionLayout[color]
+{
+	color:concatenate(attr(color));
+}
+tableCaptionLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+tableCaptionLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+tableCaptionLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+tableCaptionLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+tableCaptionLayout
+{
+	display:inline;
+	content: label(attribute, textbefore)
+	         "Table caption (or end caption)"
+	         label(attribute, textafter)
+	         ;
+}
 tablenumberedCaptionLayout[color]
 {
 	color:concatenate(attr(color));

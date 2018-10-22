@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-10-19</a:date
+>2018-10-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.4 19 October 2018<ul
+>3.3.4 22 October 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Allow referenceLayout element to have spacebefore and spaceafter attributes.</li
 ><li
 >Allow annotationLayout element to have textbefore and textafter attributes.</li
+><li
+>Add layout information for table caption (or endCaption) in publisher style sheet.</li
 ><li
 >Documentation improvements:<ul
 ><li

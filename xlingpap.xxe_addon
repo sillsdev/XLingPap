@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-10-22</a:date
+>2018-10-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.4 22 October 2018<ul
+>3.3.4 23 October 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -71,6 +71,8 @@ href="mailto::xlingpaper_support@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: a section level title that was supposed to begin a paragraph was on a line by itself.</li
+><li
+>Fix bug: when showing abbreviations in a table, if the abbreviations had a non-default font, then the hyperlink from the abbreviation in the text to the table was off by about a line.</li
 ></ul
 ></li
 ></ul

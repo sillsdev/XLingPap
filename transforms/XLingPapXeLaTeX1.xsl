@@ -107,6 +107,7 @@
             <xsl:call-template name="SetZeroWidthSpaceHandling"/>
             <xsl:call-template name="DefineBlockQuoteWithIndent"/>
             <xsl:call-template name="SetClubWidowPenalties"/>
+            <xsl:call-template name="SetAbbrInTableBaselineskip"/>
             <tex:env name="document">
                 <!-- add some glue to baselineskip -->
                 <tex:cmd name="baselineskip" gr="0"/>

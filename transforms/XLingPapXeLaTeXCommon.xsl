@@ -148,6 +148,7 @@
     <xsl:variable name="sInterlinearInitialHorizontalOffset">-.5pt</xsl:variable>
     <xsl:variable name="sTeXInterlinearSourceWidth" select="'XLingPaperinterlinearsourcewidth'"/>
     <xsl:variable name="sTeXInterlinearSourceGapWidth" select="'XLingPaperinterlinearsourcegapwidth'"/>
+    <xsl:variable name="sTeXAbbrBaselineskip" select="'XLingPaperabbrbaselineskip'"/>
     <xsl:variable name="sRendererIsGraphite" select="'Renderer=Graphite'"/>
     <xsl:variable name="sGraphite" select="'graphite'"/>
     <xsl:variable name="sFontFeature" select="'font-feature='"/>
@@ -8265,6 +8266,16 @@
         OutputAbbreviationItemInTable
     -->
     <xsl:template name="OutputAbbreviationItemInTable">
+        <tex:cmd name="setlength">
+            <tex:parm>
+                <tex:spec cat="esc"/>
+                <xsl:text>baselineskip</xsl:text>
+            </tex:parm>
+            <tex:parm>
+                <tex:spec cat="esc"/>
+                <xsl:value-of select="$sTeXAbbrBaselineskip"/>
+            </tex:parm>
+        </tex:cmd>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -8296,6 +8307,16 @@
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>
             </xsl:call-template>
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:spec cat="esc"/>
+                    <xsl:value-of select="$sTeXAbbrBaselineskip"/>
+                </tex:parm>
+                <tex:parm>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>baselineskip</xsl:text>
+                </tex:parm>
+            </tex:cmd>
             <tex:env name="longtable">
                 <tex:opt>l</tex:opt>
                 <tex:parm>
@@ -11261,6 +11282,19 @@
             <tex:parm>EU1</tex:parm>
             <tex:parm>93</tex:parm>
         </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetAbbrInTableBaselineskip
+    -->
+    <xsl:template name="SetAbbrInTableBaselineskip">
+        <xsl:if test="descendant::abbreviationsShownHere[not(ancestor::p)]">
+            <tex:cmd name="newlength">
+                <tex:parm>
+                    <tex:spec cat="esc"/>
+                    <xsl:value-of select="$sTeXAbbrBaselineskip"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!--  
         SetClubWidowPenalties

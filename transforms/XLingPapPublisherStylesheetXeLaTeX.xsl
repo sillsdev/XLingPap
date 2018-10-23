@@ -165,6 +165,7 @@
             <xsl:call-template name="CreateClearEmptyDoublePageCommand"/>
             <xsl:call-template name="DefineBlockQuoteWithIndent"/>
             <xsl:call-template name="SetClubWidowPenalties"/>
+            <xsl:call-template name="SetAbbrInTableBaselineskip"/>
             <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
                 <tex:cmd name="def" gr="0"/>
                 <tex:cmd name="linenumberfont" gr="0">

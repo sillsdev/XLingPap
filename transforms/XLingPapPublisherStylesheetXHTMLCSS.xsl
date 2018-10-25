@@ -842,24 +842,33 @@ li.lower-roman {
         langDataInExampleLayout
     -->
     <xsl:template match="langDataInExampleLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInExampleLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInExampleLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
         langDataInProseLayout
     -->
     <xsl:template match="langDataInProseLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInProseLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInProseLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
         langDataInTableLayout
     -->
     <xsl:template match="langDataInTableLayout">
+        <xsl:variable name="sLanguageSpecific">
+            <xsl:call-template name="GetLangDataLayoutLanguage"/>
+        </xsl:variable>
         <xsl:call-template name="OutputTitleFormatInfo">
-            <xsl:with-param name="name" select="'langDataInTableLayout'"/>
+            <xsl:with-param name="name" select="concat('langDataInTableLayout',$sLanguageSpecific)"/>
         </xsl:call-template>
     </xsl:template>
     <!-- 
@@ -1946,6 +1955,15 @@ li.lower-roman {
             <xsl:text>";
 }
 </xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        GetLangDataLayoutLanguage
+    -->
+    <xsl:template name="GetLangDataLayoutLanguage">
+        <xsl:variable name="sLanguage" select="normalize-space(../@language)"/>
+        <xsl:if test="string-length($sLanguage) &gt; 0">
+            <xsl:value-of select="$sLanguage"/>
         </xsl:if>
     </xsl:template>
     <!-- ===========================================================

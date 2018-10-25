@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 October 2018</date
+>24 October 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -11998,7 +11998,7 @@ type="tElement"
 > element describes how the caption in a <object
 type="tElement"
 >table</object
-> element should appear.  Note that this is not for numbered tables, but is for “plain” tables and for tables in examples. The attributes for this <object
+> element should appear. Note that this is not for numbered tables, but is for “plain” tables and for tables in examples. The attributes for this <object
 type="tElement"
 >tableCaptionLayout</object
 > element are given in example <exampleRef
@@ -12152,7 +12152,57 @@ src="resources/LangDataSpecialOverrides.png"
 ></chart
 ></example
 ><p
->The top line has no attributes. The other three use the attributes shown in example <exampleRef
+>The top line has one attribute: <object
+type="tAttribute"
+>language</object
+>. Normally this attribute is empty.  If you have a case where you need some <object
+type="tElement"
+>langData</object
+> elements to be formatted one way (say, as phonetic data) and others to be formatted another way (say, as phonemic data), then you can create two or more  <object
+type="tElement"
+>langDataLayout</object
+> elements and set the <object
+type="tAttribute"
+>language</object
+> attribute of them to the <object
+type="tAttribute"
+>id</object
+> attribute of the <object
+type="tElement"
+>language</object
+> element designed for it.  (This will be the same value as you use for the <object
+type="tAttribute"
+>lang</object
+> attribute of the <object
+type="tElement"
+>langData</object
+> element.)  <object
+type="tXLingPap"
+></object
+> will use the first <object
+type="tElement"
+>langDataLayout</object
+> element that has its <object
+type="tAttribute"
+>language</object
+> attribute set to the <object
+type="tAttribute"
+>lang</object
+> attribute of the current <object
+type="tElement"
+>langData</object
+> element being formatted. If there is no <object
+type="tElement"
+>langDataLayout</object
+> element with a corresponding <object
+type="tAttribute"
+>language</object
+> attribute, then the first <object
+type="tElement"
+>langDataLayout</object
+> element is used.</p
+><p
+> The other three use the attributes shown in example <exampleRef
 letter="xLangDataOverrideLayoutAttributes"
 num="xLangDataOverrideLayoutAttributes"
 ></exampleRef
@@ -16570,7 +16620,10 @@ type="tElement"
 >langDataLayout</object
 ></td
 ><td
->langData special overrides</td
+>langData special overrides; you can have more than one of these; see section <sectionRef
+sec="sLangDataOverrides"
+></sectionRef
+></td
 ></tr
 ><tr
 ><td
@@ -17720,9 +17773,12 @@ type="tElement"
 >langDataLayout</object
 ></td
 ><td
->no attributes have defaults</td
-><td
+><object
+type="tAttribute"
+>language</object
 ></td
+><td
+>nothing</td
 ></tr
 ><tr
 ><td

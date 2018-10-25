@@ -1750,6 +1750,9 @@
             <xsl:when test="$bIsOverride='Y'">
                 <xsl:attribute name="class">
                     <xsl:value-of select="name($language)"/>
+                    <xsl:if test="name($language/..)='langDataLayout'">
+                        <xsl:value-of select="normalize-space($language/../@language)"/>
+                    </xsl:if>
                 </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>

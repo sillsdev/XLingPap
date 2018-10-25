@@ -612,7 +612,7 @@ Content Layout
    <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
-                                                      tableCaptionLayout?, magnificationFactor?, langDataLayout?, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
+                                                      tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
                                                       glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
@@ -762,6 +762,9 @@ Content Layout
     <!ELEMENT magnificationFactor (#PCDATA) >
    
     <!ELEMENT langDataLayout (langDataInExampleLayout, langDataInTableLayout, langDataInProseLayout) >
+    <!ATTLIST langDataLayout
+       language IDREF #IMPLIED
+    >
     <!ELEMENT langDataInExampleLayout EMPTY >
     <!ATTLIST langDataInExampleLayout
        textbeforeafterusesfontinfo (no | yes) 'no'

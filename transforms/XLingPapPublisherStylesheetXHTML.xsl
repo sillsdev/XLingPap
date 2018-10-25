@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
+<xsl:stylesheet version="1.1" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
     xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" xmlns:saxon="http://icl.com/saxon" exclude-result-prefixes="fo rx xfc saxon ">
     <xsl:output method="xml" version="1.0" encoding="utf-8" indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
     <!-- ===========================================================
@@ -2198,28 +2198,30 @@
         <xsl:variable name="sLangDataContext">
             <xsl:call-template name="GetContextOfItem"/>
         </xsl:variable>
-        <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+        <xsl:variable name="langDataLayout">
+            <xsl:call-template name="GetBestLangDataLayout"/>
+        </xsl:variable>
         <xsl:call-template name="HandleLangDataTextBeforeOutside">
-            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
         <span class="language{@lang}">
             <span>
                 <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
-                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
                 </xsl:call-template>
                 <xsl:apply-templates>
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:apply-templates>
                 <xsl:call-template name="HandleLangDataTextAfterInside">
-                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
                 </xsl:call-template>
             </span>
         </span>
         <xsl:call-template name="HandleLangDataTextAfterOutside">
-            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
     </xsl:template>
@@ -5904,12 +5906,14 @@
             <xsl:variable name="sContext">
                 <xsl:call-template name="GetContextOfItem"/>
             </xsl:variable>
-            <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+            <xsl:variable name="langDataLayout">
+                <xsl:call-template name="GetBestLangDataLayout"/>
+            </xsl:variable>
             <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
             <xsl:choose>
                 <xsl:when test="langData">
                     <xsl:call-template name="HandleLangDataTextBeforeOutside">
-                        <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                        <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                         <xsl:with-param name="sLangDataContext" select="$sContext"/>
                     </xsl:call-template>
                 </xsl:when>
@@ -5925,7 +5929,7 @@
                     <xsl:choose>
                         <xsl:when test="langData">
                             <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
-                                <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                                 <xsl:with-param name="sLangDataContext" select="$sContext"/>
                             </xsl:call-template>
                         </xsl:when>
@@ -5940,7 +5944,7 @@
                     <xsl:choose>
                         <xsl:when test="langData">
                             <xsl:call-template name="HandleLangDataTextAfterInside">
-                                <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                                 <xsl:with-param name="sLangDataContext" select="$sContext"/>
                             </xsl:call-template>
                         </xsl:when>
@@ -5956,7 +5960,7 @@
             <xsl:choose>
                 <xsl:when test="langData">
                     <xsl:call-template name="HandleLangDataTextAfterOutside">
-                        <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                        <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                         <xsl:with-param name="sLangDataContext" select="$sContext"/>
                     </xsl:call-template>
                 </xsl:when>

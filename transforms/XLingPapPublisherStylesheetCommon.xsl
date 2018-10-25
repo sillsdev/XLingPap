@@ -2809,6 +2809,24 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
+        GetBestLangDataLayout
+    -->
+    <xsl:template name="GetBestLangDataLayout">
+        <xsl:variable name="sThisLang">
+            <xsl:value-of select="@lang"/>
+        </xsl:variable>
+        <xsl:variable name="layoutSpecificToThisLanguage" select="$contentLayoutInfo/langDataLayout[@language=$sThisLang]"/>
+        <xsl:variable name="firstLayout" select="$contentLayoutInfo/langDataLayout[1]"/>
+        <xsl:choose>
+            <xsl:when test="$layoutSpecificToThisLanguage">
+                <xsl:copy-of select="$layoutSpecificToThisLanguage"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$firstLayout"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!--  
         GetBookLayoutToUsePosition
     -->

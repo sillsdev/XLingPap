@@ -3591,9 +3591,11 @@ not using
         <xsl:variable name="sLangDataContext">
             <xsl:call-template name="GetContextOfItem"/>
         </xsl:variable>
-        <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+        <xsl:variable name="langDataLayout">
+            <xsl:call-template name="GetBestLangDataLayout"/>
+        </xsl:variable>
         <xsl:call-template name="HandleLangDataTextBeforeOutside">
-            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
         <fo:inline>
@@ -3605,20 +3607,20 @@ not using
             <!--            <xsl:text>&#xa; no, it inserts and extra space</xsl:text>-->
             <fo:inline>
                 <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
-                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
                 </xsl:call-template>
                 <xsl:apply-templates>
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:apply-templates>
                 <xsl:call-template name="HandleLangDataTextAfterInside">
-                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
                 </xsl:call-template>
             </fo:inline>
         </fo:inline>
         <xsl:call-template name="HandleLangDataTextAfterOutside">
-            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
             <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
         </xsl:call-template>
     </xsl:template>
@@ -7952,12 +7954,14 @@ not using
                 <xsl:variable name="sContext">
                     <xsl:call-template name="GetContextOfItem"/>
                 </xsl:variable>
-                <xsl:variable name="langDataLayout" select="$contentLayoutInfo/langDataLayout"/>
+                <xsl:variable name="langDataLayout">
+                    <xsl:call-template name="GetBestLangDataLayout"/>
+                </xsl:variable>
                 <xsl:variable name="glossLayout" select="$contentLayoutInfo/glossLayout"/>
                 <xsl:choose>
                     <xsl:when test="langData">
                         <xsl:call-template name="HandleLangDataTextBeforeOutside">
-                            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                             <xsl:with-param name="sLangDataContext" select="$sContext"/>
                         </xsl:call-template>
                     </xsl:when>
@@ -7977,7 +7981,7 @@ not using
                         <xsl:choose>
                             <xsl:when test="langData">
                                 <xsl:call-template name="HandleLangDataTextBeforeAndFontOverrides">
-                                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                                     <xsl:with-param name="sLangDataContext" select="$sContext"/>
                                 </xsl:call-template>
                             </xsl:when>
@@ -7992,7 +7996,7 @@ not using
                         <xsl:choose>
                             <xsl:when test="langData">
                                 <xsl:call-template name="HandleLangDataTextAfterInside">
-                                    <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                                    <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                                     <xsl:with-param name="sLangDataContext" select="$sContext"/>
                                 </xsl:call-template>
                             </xsl:when>
@@ -8008,7 +8012,7 @@ not using
                 <xsl:choose>
                     <xsl:when test="langData">
                         <xsl:call-template name="HandleLangDataTextAfterOutside">
-                            <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                            <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                             <xsl:with-param name="sLangDataContext" select="$sContext"/>
                         </xsl:call-template>
                     </xsl:when>

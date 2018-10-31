@@ -3026,6 +3026,63 @@
         </xsl:if>
     </xsl:template>
     <!--
+        endnote in secTitle
+    -->
+    <xsl:template match="endnote[parent::secTitle]">
+        <xsl:param name="sTeXFootnoteKind" select="'footnote'"/>
+        <xsl:param name="originalContext"/>
+        <!-- need to end any font attributes in effect, do the endnote, and then re-start any font attributes-->
+        <xsl:variable name="secTitleParent" select="../.."/>
+        <xsl:variable name="layoutToUse">
+            <xsl:choose>
+                <xsl:when test="name($secTitleParent)='appendix'">
+                    <xsl:copy-of select="$backMatterLayoutInfo/appendixLayout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='chapter'">
+                    <xsl:copy-of select="$bodyLayoutInfo/chapterLayout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='chapterInCollection'">
+                    <xsl:copy-of select="$bodyLayoutInfo/chapterInCollectionLayout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section1'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section1Layout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section2'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section2Layout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section3'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section3Layout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section4'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section4Layout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section5'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section5Layout/sectionTitleLayout"/>
+                </xsl:when>
+                <xsl:when test="name($secTitleParent)='section6'">
+                    <xsl:copy-of select="$bodyLayoutInfo/section6Layout/sectionTitleLayout"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="language" select="$layoutToUse/*"/>
+        <xsl:if test="$sTeXFootnoteKind='footnote' and $language/@text-transform='uppercase'">
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="DoEndnote">
+            <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
+            <xsl:with-param name="originalContext" select="$originalContext"/>
+        </xsl:call-template>
+        <xsl:if test="$sTeXFootnoteKind='footnote' and $language/@text-transform='uppercase'">
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$language"/>
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--
       endnoteRef
       -->
     <xsl:template match="endnoteRef">

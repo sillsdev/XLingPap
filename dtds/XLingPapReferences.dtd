@@ -62,7 +62,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- journal article -->
-<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, reprintInfo?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT jTitle (#PCDATA)>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
@@ -87,7 +87,7 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT translatedBy (#PCDATA)>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
@@ -133,7 +133,7 @@
        a reference to a book element (for the collection volume) and a possible set of pages for this paper
 -->
 <!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
-                         reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+                         reprintInfo?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 
 <!ELEMENT collEd (#PCDATA)>
 <!ATTLIST collEd
@@ -162,7 +162,7 @@
 >
 
 <!-- PhD dissertation -->
-<!ELEMENT dissertation (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT dissertation (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ATTLIST dissertation
     labelDissertation CDATA #IMPLIED
 >
@@ -176,12 +176,12 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- field notes -->
-<!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!-- ms (manuscript) -->
-<!ELEMENT ms (((location?, institution) | empty), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT ms (((location?, institution) | empty), url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT empty EMPTY>
 <!-- paper presented at a conference -->
-<!ELEMENT paper (conference, location?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT paper (conference, location?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT conference (#PCDATA)>
 <!ATTLIST conference
     xml:lang CDATA #IMPLIED
@@ -192,7 +192,7 @@
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
 <!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation),
-                        reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+                        reprintInfo?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT procEd (#PCDATA)>
 <!ATTLIST procEd
     plural (no | yes) "yes"
@@ -219,12 +219,12 @@
     page CDATA #IMPLIED
 >
 <!-- MA thesis -->
-<!ELEMENT thesis (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT thesis (location?, institution, published?, reprintInfo?, url?, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ATTLIST thesis
     labelThesis CDATA #IMPLIED
 >
 <!-- web page -->
-<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT webPage (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, doi?, comment?, annotations?, keywords?)>
 <!ELEMENT url (#PCDATA)>
 <!ATTLIST url
     xml:lang CDATA #IMPLIED
@@ -237,6 +237,9 @@
      in the work.
 -->
 <!ELEMENT iso639-3code (#PCDATA)>
+<!-- One may optionally add a DOI (digital object identifier) for a work.
+-->
+<!ELEMENT doi (#PCDATA)>
 <!-- One may optionally add any number of keywords associated with the work; XLingPaper does not use this.
 -->
 <!ELEMENT keywords (keyword+) >

@@ -111,6 +111,19 @@
         </fo:inline>
     </xsl:template>
     <!--  
+        DoDoiLayout
+    -->
+    <xsl:template name="DoDoiLayout">
+        <!-- remove any zero width spaces in the hyperlink -->
+        <fo:basic-link external-destination="url(http://doai.io/{normalize-space(translate(.,'&#x200b;',''))})">
+            <xsl:call-template name="AddAnyLinkAttributes">
+                <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/doiLinkLayout"/>
+            </xsl:call-template>
+            <!--            <xsl:text>&#x20;</xsl:text>-->
+            <xsl:value-of select="normalize-space(.)"/>
+        </fo:basic-link>
+    </xsl:template>
+    <!--  
         DoRefCitation
     -->
     <xsl:template name="DoRefCitation">

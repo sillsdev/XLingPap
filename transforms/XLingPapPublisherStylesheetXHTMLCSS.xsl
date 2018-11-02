@@ -491,6 +491,14 @@ li.lower-roman {
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    <!--
+        doiLinkLayout
+    -->
+    <xsl:template match="doiLinkLayout">
+        <xsl:call-template name="OutputLinkAttributes">
+            <xsl:with-param name="override" select="."/>
+        </xsl:call-template>
+    </xsl:template>
     <!-- 
         emailAddressLayout
     -->

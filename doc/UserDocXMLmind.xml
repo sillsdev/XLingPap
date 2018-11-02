@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 October 2018</date
+>2 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -3866,9 +3866,21 @@ type="tElement"
 >, <object
 type="tElement"
 >location</object
->, and <object
+>, <object
 type="tElement"
 >publisher</object
+>, <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and <object
+type="tElement"
+>doi</object
 > elements.</p
 ></section3
 ><section3
@@ -3920,7 +3932,19 @@ type="tElement"
 > element and a recommended <object
 type="tElement"
 >publisher</object
-> element.</p
+> element. It can optionally include <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and/or <object
+type="tElement"
+>doi</object
+> elements.</p
 ></section3
 ><section3
 id="sBMRefCollection"
@@ -4006,11 +4030,31 @@ type="tElement"
 >an optional <object
 type="tElement"
 >location</object
-> element, and</li
+> element,</li
 ><li
 >a recommended <object
 type="tElement"
 >publisher</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>url</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>dateAccessed</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>iso639-3code</object
+> element, and</li
+><li
+>an optional <object
+type="tElement"
+>doi</object
 > element.</li
 ></ol
 ><p
@@ -4531,7 +4575,19 @@ type="tElement"
 > elements, and a required <object
 type="tElement"
 >pubDate</object
-> element.</p
+> element. It can also have optional <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and/or <object
+type="tElement"
+>doi</object
+> elements.</p
 ><p
 ><indexedItem
 term="iDissertationLabel"
@@ -4576,7 +4632,19 @@ type="tElement"
 > element and a required <object
 type="tElement"
 >institution</object
-> element.</p
+> element. It can also have optional <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and <object
+type="tElement"
+>doi</object
+> elements.</p
 ></section3
 ><section3
 id="sBMRefMs"
@@ -4595,7 +4663,19 @@ type="tElement"
 > element or it has a required <object
 type="tElement"
 >empty</object
-> element.</p
+> element. It may also have optional <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and/or <object
+type="tElement"
+>doi</object
+> elements.</p
 ></section3
 ><section3
 id="sBMRefPaper"
@@ -4611,7 +4691,19 @@ type="tElement"
 > element and an optional <object
 type="tElement"
 >location</object
-> element.</p
+> element. It may also have optional <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and/or <object
+type="tElement"
+>doi</object
+> elements.</p
 ></section3
 ><section3
 id="sBMRefProceedings"
@@ -4660,11 +4752,31 @@ type="tElement"
 >an optional <object
 type="tElement"
 >location</object
-> element, and</li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >publisher</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>url</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>dateAccessed</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>iso639-3code</object
+> element, and</li
+><li
+>an optional <object
+type="tElement"
+>doi</object
 > element.</li
 ></ol
 ><p
@@ -4752,7 +4864,19 @@ type="tElement"
 > elements, and a required <object
 type="tElement"
 >pubDate</object
-> element.</p
+> element. It may also have optional <object
+type="tElement"
+>url</object
+>, <object
+type="tElement"
+>dateAccessed</object
+>, <object
+type="tElement"
+>iso639-3code</object
+>, and/or <object
+type="tElement"
+>doi</object
+> elements.</p
 ><p
 ><indexedItem
 term="iMAThesisLabel"
@@ -4815,11 +4939,31 @@ type="tElement"
 >a required <object
 type="tElement"
 >url</object
-> element, and</li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >dateAccessed</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>url</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>dateAccessed</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>iso639-3code</object
+> element, and</li
+><li
+>an optional <object
+type="tElement"
+>doi</object
 > element.</li
 ></ol
 ><p
@@ -29120,6 +29264,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>doi</object
+></dt
+><dd
+>Reference information for a DOI (Digital Object Identifier)</dd
+><dt
+><object
+type="tElement"
 >dt</object
 ></dt
 ><dd
@@ -30906,6 +31057,26 @@ type="tElement"
 ></dt
 ><dd
 >Collection of dissertation layouts (within references)</dd
+><dt
+><object
+type="tElement"
+>doiItem</object
+></dt
+><dd
+>Layout info for a <object
+type="tElement"
+>doi</object
+> element (within references)</dd
+><dt
+><object
+type="tElement"
+>doiLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>doi</object
+> hyperlinks</dd
 ><dt
 ><object
 type="tElement"

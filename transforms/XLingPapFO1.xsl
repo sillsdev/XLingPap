@@ -4708,8 +4708,16 @@ not using
             <xsl:call-template name="DoRefUrlEtc">
                 <xsl:with-param name="path" select="."/>
             </xsl:call-template>
+            <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
+            <xsl:if test="string-length($sDOI) &gt; 0">
+                <xsl:text> doi:</xsl:text>
+                <fo:basic-link external-destination="url(http://doai.io/{$sDOI})">
+                    <xsl:call-template name="AddAnyLinkAttributes"/>
+                    <xsl:value-of select="$sDOI"/>
+                </fo:basic-link>
+                <xsl:text>.</xsl:text>
+            </xsl:if>
         </fo:block>
-
     </xsl:template>
     <!--  
                   DoSecTitleRunningHeader

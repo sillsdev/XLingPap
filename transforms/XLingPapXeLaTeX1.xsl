@@ -4096,8 +4096,18 @@
         <xsl:call-template name="DoRefUrlEtc">
             <xsl:with-param name="path" select="."/>
         </xsl:call-template>
+        <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
+        <xsl:if test="string-length($sDOI) &gt; 0">
+            <xsl:text> doi:</xsl:text>
+            <xsl:call-template name="AddAnyLinkAttributes"/>
+            <xsl:call-template name="DoExternalHyperRefBegin">
+                <xsl:with-param name="sName" select="concat('http://doai.io/',$sDOI)"/>
+            </xsl:call-template>
+            <xsl:value-of select="$sDOI"/>
+            <xsl:call-template name="DoExternalHyperRefEnd"/>
+            <xsl:text>.</xsl:text>
+        </xsl:if>
         <tex:cmd name="par" gr="0" nl2="1"/>
-
     </xsl:template>
     <!--  
         DoRefWorks

@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 October 2018</date
+>2 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -708,6 +708,9 @@ term="iCitationLink"
 ></indexedItem
 ><indexedItem
 term="iContentsLink"
+></indexedItem
+><indexedItem
+term="iDOILink"
 ></indexedItem
 ><indexedItem
 term="iEndnoteRefLink"
@@ -4440,6 +4443,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -4451,6 +4457,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -4949,6 +4958,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -4960,6 +4972,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -5620,6 +5635,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -5631,6 +5649,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -5927,6 +5948,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -5938,6 +5962,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -6144,6 +6171,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -6155,6 +6185,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -6361,6 +6394,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -6372,6 +6408,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -6578,6 +6617,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -6589,6 +6631,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -7064,6 +7109,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -7075,6 +7123,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -7371,6 +7422,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -7382,6 +7436,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -7634,6 +7691,9 @@ term="iDateAccessed"
 ><indexedItem
 term="iUrl"
 ></indexedItem
+><indexedItem
+term="iDOI"
+></indexedItem
 ><object
 type="tElement"
 >urlDateAccessedLayoutsRef</object
@@ -7645,6 +7705,9 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
+> and/or <object
+type="tElement"
+>doi</object
 > elements, if any. See section <sectionRef
 sec="sRefUrlDateAccessedLayouts"
 showTitle="short"
@@ -7922,7 +7985,10 @@ type="tElement"
 > and/or <object
 type="tElement"
 >dateAccessed</object
-> element or neither. A <object
+> element and/or <object
+type="tElement"
+>doi</object
+> element or none of these. A <object
 type="tElement"
 >urlDateAccessedLayout</object
 > can consist of one or more of the elements given in example <exampleRef
@@ -7996,6 +8062,30 @@ showTitle="short"
 >.</td
 ><td
 >October 5, 2007</td
+></tr
+><tr
+><td
+><indexedItem
+main="yes"
+term="iDOI"
+></indexedItem
+><object
+type="tElement"
+>doiItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>doi</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>10.2345/6789</td
 ></tr
 ><tr
 ><td
@@ -18799,6 +18889,16 @@ id="iDissertationLabel2"
 see="iDissertationLabel"
 ><term
 >Dissertation label (Ph.D dissertation) in a referenced work</term
+></indexTerm
+><indexTerm
+id="iDOI"
+><term
+>DOI of a referenced work</term
+></indexTerm
+><indexTerm
+id="iDOILink"
+><term
+>DOI link</term
 ></indexTerm
 ><indexTerm
 id="iDoubleColumn"

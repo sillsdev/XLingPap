@@ -1389,6 +1389,19 @@ dl {
     margin-bottom: 1.33ex;
 }
 
+doi:before
+{
+	content: " doi:";
+}
+doi
+{
+	display:inline;
+}
+doi:after
+{
+	content: ".";
+}
+
 dt {
     display: block;
     font-weight: bold; 
@@ -5964,6 +5977,62 @@ dissertationLayouts:before
 dissertationLayouts
 {
 	property-group: referencesLayouts();
+}
+doiItem[color]
+{
+	color:concatenate(attr(color));
+}
+doiItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+doiItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+doiItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+doiItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+doiItem
+{
+	property-group: referencesItem("10.2345/6789");
+}
+doiLinkLayout[showmarking='no']
+{
+	color:Gray;
+	text-decoration:none;
+}
+linkLayout[color] doiLinkLayout[color='default'][showmarking='yes']
+{
+	color:concatenate(xpath("../@color"));
+}
+doiLinkLayout[color][showmarking='yes']
+{
+	color:concatenate(attr(color));
+}
+linkLayout[decoration] doiLinkLayout[decoration='default'][showmarking='yes']
+{
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+doiLinkLayout[decoration][showmarking='yes']
+{
+	text-decoration:concatenate(attr(decoration));
+}
+doiLinkLayout[showmarking='yes']
+{
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
+}
+doiLinkLayout
+{
+	property-group:linkLayoutParameter("doi");
+	color: concatenate(xpath("../@color"));
+	text-decoration:concatenate(xpath("../@decoration"));
 }
 editionItem[color]
 {

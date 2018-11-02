@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-10-31</a:date
+>2018-11-02</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.3.4 31 October 2018<ul
+>3.3.4 2 November 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -57,6 +57,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Allow multiple layout sets for langData items in the publisher style sheet (e.g., for phonetic and phonemic data)</li
 ><li
 >Add layout information for table caption (or endCaption) in publisher style sheet.</li
+><li
+>Add ability to include DOI information in references.</li
 ><li
 >Documentation improvements:<ul
 ><li

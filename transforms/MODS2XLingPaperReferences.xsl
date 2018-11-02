@@ -306,6 +306,11 @@
 		</annotation>
     </xsl:template>
 
+    <xsl:template match="m:identifier[@type='doi']">
+        <doi>
+            <xsl:value-of select="."/>
+        </doi>
+    </xsl:template>
     <!-- 
         ignore these
     -->

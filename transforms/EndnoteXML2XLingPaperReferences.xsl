@@ -54,6 +54,14 @@
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        electronic-resource-num (DOI)
+    -->
+    <xsl:template match="electronic-resource-num">
+        <doi>
+            <xsl:value-of select="."/>
+        </doi>
+    </xsl:template>
+    <!-- 
         publisher
     -->
     <xsl:template match="publisher">

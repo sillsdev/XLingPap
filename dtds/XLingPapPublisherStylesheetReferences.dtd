@@ -78,25 +78,25 @@ References Layouts
 <!ELEMENT webPageLayouts (comment?, webPageLayout)+>
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
-                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef |  urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT bookLayout (refTitleItem | translatedByItem  |  bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
-                                               bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
-                                               locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | 
-                                               urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | 
-                                               urlDateAccessedLayoutsRef | urlItem  |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem |  procCitationItem | authorRoleItem |
-                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT thesisLayout (refTitleItem | thesisLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT webPageLayout (refTitleItem | editionItem |  locationItem |  institutionItem |  publisherItem | 
-                                               urlDateAccessedLayoutsRef | urlItem |  dateAccessedItem | iso639-3codeItemRef)+>
+                                               urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 
 <!ELEMENT emptyItem EMPTY >
 <!ATTLIST emptyItem %formatinfo;>
@@ -211,10 +211,13 @@ References Layouts
 <!ELEMENT  locationPublisherLayoutsRef EMPTY >
 <!-- the following is a way to create a common set of url and dateAccessed layouts; it reduces the number of patterns needed -->
 <!ELEMENT urlDateAccessedLayouts (comment?, urlDateAccessedLayout)+ >
-<!ELEMENT  urlDateAccessedLayout (urlItem | dateAccessedItem | missingItem)+>
+<!ELEMENT  urlDateAccessedLayout (urlItem | dateAccessedItem | doiItem | missingItem)+>
 <!ELEMENT  urlDateAccessedLayoutsRef EMPTY >
 <!-- following indicates that the location/publisher or url/dateAccessed items are not present -->
 <!ELEMENT missingItem EMPTY >
+<!ELEMENT doiItem EMPTY >
+<!ATTLIST doiItem %formatinfo;>
+
 
 <!ELEMENT  iso639-3codeItemRef EMPTY >
 <!-- REVISION HISTORY

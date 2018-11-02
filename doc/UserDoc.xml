@@ -16,13 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->21 May 2018</date
+>2 November 2018</date
 ><version
 contentType="ctVersion5.3"
->2.33.0</version
+>2.33.4</version
 ><version
 contentType="ctVersion7Plus"
->3.3.0</version
+>3.3.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -9560,6 +9560,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>doi</object
+></dt
+><dd
+>Reference information for a DOI (Digital Object Identifier)</dd
+><dt
+><object
+type="tElement"
 >dt</object
 ></dt
 ><dd
@@ -11308,6 +11315,26 @@ type="tElement"
 ></dt
 ><dd
 >Collection of dissertation layouts (within references)</dd
+><dt
+><object
+type="tElement"
+>doiItem</object
+></dt
+><dd
+>Layout info for a <object
+type="tElement"
+>doi</object
+> element (within references)</dd
+><dt
+><object
+type="tElement"
+>doiLinkLayout</object
+></dt
+><dd
+>Layout info for special link formatting for <object
+type="tElement"
+>doi</object
+> hyperlinks</dd
 ><dt
 ><object
 type="tElement"

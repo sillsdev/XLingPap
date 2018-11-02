@@ -501,6 +501,12 @@
         </xsl:call-template>
     </xsl:template>
     <!--
+        doi
+    -->
+    <xsl:template match="doi">
+        <xsl:call-template name="DoDoiLayout"/>
+    </xsl:template>
+    <!--
         iso639-3code
     -->
     <xsl:template match="iso639code">
@@ -583,6 +589,23 @@
             <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='y' and dateAccessedItem">x</xsl:when>
             <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='y' and urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/dateAccessedItem">x</xsl:when>
             <xsl:when test="substring($sOptionsPresent, $dateAccessedPos, 1)='n' and not(dateAccessedItem)">
+                <xsl:choose>
+                    <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
+                    <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/missingItem">x</xsl:when>
+                </xsl:choose>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DetermineIfDoiMatchesLayoutPattern
+    -->
+    <xsl:template name="DetermineIfDoiMatchesLayoutPattern">
+        <xsl:param name="sOptionsPresent"/>
+        <xsl:param name="doiPos"/>
+        <xsl:choose>
+            <xsl:when test="substring($sOptionsPresent, $doiPos, 1)='y' and doiItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $doiPos, 1)='y' and urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/doiItem">x</xsl:when>
+            <xsl:when test="substring($sOptionsPresent, $doiPos, 1)='n' and not(doiItem)">
                 <xsl:choose>
                     <xsl:when test="not(urlDateAccessedLayoutsRef)">x</xsl:when>
                     <xsl:when test="urlDateAccessedLayoutsRef and $urlDateAccessedLayouts/urlDateAccessedLayout/missingItem">x</xsl:when>
@@ -719,6 +742,15 @@
                                     <xsl:with-param name="item" select="$article/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$article"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$article"/>
@@ -736,6 +768,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$article"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$article"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -1116,6 +1154,15 @@
                                     <xsl:with-param name="item" select="$book/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$book"/>
@@ -1133,6 +1180,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$book"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -1267,6 +1320,15 @@
                                     <xsl:with-param name="item" select="$book/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$book"/>
@@ -1284,6 +1346,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$book"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -1367,6 +1435,15 @@
                                     <xsl:with-param name="item" select="$book/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$book"/>
@@ -1384,6 +1461,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$book"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$book"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -1547,6 +1630,15 @@
                                     <xsl:with-param name="item" select="$collection/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$collection"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$collection"/>
@@ -1564,6 +1656,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$collection"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$collection"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -1695,6 +1793,15 @@
                                     <xsl:with-param name="item" select="$dissertation/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$dissertation"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$dissertation"/>
@@ -1712,6 +1819,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$dissertation"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$dissertation"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2014,6 +2127,15 @@
                                     <xsl:with-param name="item" select="normalize-space($fieldNotes/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$fieldNotes"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$fieldNotes"/>
@@ -2031,6 +2153,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$fieldNotes"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$fieldNotes"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2097,6 +2225,15 @@
                                     <xsl:with-param name="item" select="normalize-space($ms/empty)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$ms"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$ms"/>
@@ -2114,6 +2251,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$ms"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$ms"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2175,6 +2318,15 @@
                                     <xsl:with-param name="item" select="normalize-space($paper/location)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$paper"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$paper"/>
@@ -2192,6 +2344,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$paper"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$paper"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2319,6 +2477,15 @@
                                     <xsl:with-param name="item" select="$proceedings/reprintInfo"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$proceedings"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$proceedings"/>
@@ -2336,6 +2503,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$proceedings"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$proceedings"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2500,8 +2673,31 @@
     <xsl:template name="DoUrlDateAccessedLayout">
         <xsl:param name="reference"/>
         <xsl:choose>
-            <xsl:when test="$reference/url and $reference/dateAccessed">
-                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and dateAccessedItem]">
+            <xsl:when test="$reference/url and $reference/dateAccessed and $reference/doi">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and dateAccessedItem and doiItem]">
+                    <xsl:for-each select="*">
+                        <xsl:choose>
+                            <xsl:when test="name(.)='urlItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/url"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='dateAccessedItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($reference/dateAccessed)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/doi"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$reference/url and $reference/dateAccessed and not($reference/doi)">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and dateAccessedItem and not(doiItem)]">
                     <xsl:for-each select="*">
                         <xsl:choose>
                             <xsl:when test="name(.)='urlItem'">
@@ -2518,8 +2714,44 @@
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:when>
-            <xsl:when test="$reference/url and not($reference/dateAccessed)">
-                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and not(dateAccessedItem)]">
+            <xsl:when test="$reference/url and not($reference/dateAccessed) and $reference/doi">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and not(dateAccessedItem) and doiItem]">
+                    <xsl:for-each select="*">
+                        <xsl:choose>
+                            <xsl:when test="name()='urlItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/url"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name()='doiItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/doi"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$reference/dateAccessed and not($reference/url) and $reference/doi">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[not(urlItem) and dateAccessedItem and doiItem]">
+                    <xsl:for-each select="*">
+                        <xsl:choose>
+                            <xsl:when test="name()='dateAccessedItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/dateAccessed"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name()='doiItem'">
+                                <xsl:call-template name="OutputReferenceItemNode">
+                                    <xsl:with-param name="item" select="$reference/doi"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$reference/url and not($reference/dateAccessed) and not($reference/doi)">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[urlItem and not(dateAccessedItem) and not(doiItem)]">
                     <xsl:for-each select="*">
                         <xsl:call-template name="OutputReferenceItemNode">
                             <xsl:with-param name="item" select="$reference/url"/>
@@ -2527,11 +2759,20 @@
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:when>
-            <xsl:when test="not($reference/url) and $reference/dateAccessed">
+            <xsl:when test="$reference/doi and not($reference/url) and not($reference/dateAccessed)">
+                <xsl:for-each select="$urlDateAccessedLayouts/*[doiItem and not(urlItem) and not(dateAccessedItem)]">
+                    <xsl:for-each select="*">
+                        <xsl:call-template name="OutputReferenceItemNode">
+                            <xsl:with-param name="item" select="$reference/doi"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="not($reference/url) and $reference/dateAccessed and not($reference/doi)">
                 <xsl:for-each select="$urlDateAccessedLayouts/*[not(urlItem) and dateAccessedItem]">
                     <xsl:for-each select="*">
                         <xsl:call-template name="OutputReferenceItem">
-                            <xsl:with-param name="item" select="normalize-space($reference/dateAccessed)"/>
+                            <xsl:with-param name="item" select="$reference/dateAccessed"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:for-each>
@@ -2586,6 +2827,15 @@
                                     <xsl:with-param name="item" select="normalize-space($webPage/publisher)"/>
                                 </xsl:call-template>
                             </xsl:when>
+                            <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
+                                <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
+                                    <xsl:with-param name="typeOfWork" select="$webPage"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(preceding-sibling::*[2])='urlItem' and name(preceding-sibling::*[1])='dateAccessedItem' and name(.)='doi'">
+                                <!-- do nothing; was handled above -->
+                            </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem'">
                                 <xsl:call-template name="HandleUrlAndDateAccessedLayouts">
                                     <xsl:with-param name="typeOfWork" select="$webPage"/>
@@ -2603,6 +2853,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='dateAccessedItem'">
                                 <xsl:call-template name="HandleDateAccessedLayout">
+                                    <xsl:with-param name="kindOfWork" select="$webPage"/>
+                                    <xsl:with-param name="work" select="$work"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='doiItem'">
+                                <xsl:call-template name="HandleDoiLayout">
                                     <xsl:with-param name="kindOfWork" select="$webPage"/>
                                     <xsl:with-param name="work" select="$work"/>
                                 </xsl:call-template>
@@ -2747,9 +3003,13 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">10</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -2759,7 +3019,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -2920,9 +3180,13 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">11</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">12</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 13, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 13, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 14, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 14, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,11, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -2931,7 +3195,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 13">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 14">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3023,13 +3287,17 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">10</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and editionItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(editionItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(editionItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 13, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 13, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -3038,7 +3306,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 13">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3110,9 +3378,13 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">8</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 10, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 10, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--                    <xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -3121,7 +3393,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 9">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3251,6 +3523,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">13</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">14</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent,13, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3258,20 +3534,20 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent,15, 1)='y' and authorRoleItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent,15, 1)='n' and not(authorRoleItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent,16, 1)='y' and authorRoleItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent,16, 1)='n' and not(authorRoleItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 16, 1)='y' and editionItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 16, 1)='n' and not(editionItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 17, 1)='y' and editionItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 17, 1)='n' and not(editionItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 17, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 17, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 18, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 18, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                 </xsl:variable>
 <!--                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>-->
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 17">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 18">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3385,18 +3661,22 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">8</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
                         </xsl:choose>-->
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 10, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 10, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 9">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 10">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3444,6 +3724,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">6</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3451,7 +3735,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 7">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3559,6 +3843,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">6</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">7</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3566,7 +3854,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 7">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3614,6 +3902,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">5</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">6</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3621,7 +3913,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 6">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 7">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3711,9 +4003,13 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">10</xsl:with-param>
+                    </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -3722,7 +4018,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 11">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -3799,6 +4095,10 @@
             <xsl:otherwise>n</xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
+            <xsl:when test="doi">y</xsl:when>
+            <xsl:otherwise>n</xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
             <xsl:when test="../iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
             <xsl:when test="../iso639-3code and ancestor-or-self::refWork/@showiso639-3codes='yes'">y</xsl:when>
             <xsl:when test="iso639-3code and $lingPaper/@showiso639-3codeininterlinear='yes'">y</xsl:when>
@@ -3863,6 +4163,10 @@
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
                         <xsl:with-param name="dateAccessedPos">7</xsl:with-param>
                     </xsl:call-template>
+                    <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
+                        <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
+                        <xsl:with-param name="doiPos">8</xsl:with-param>
+                    </xsl:call-template>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and iso639-3codeItemRef">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(iso639-3codeItemRef)">x</xsl:when>
@@ -3870,7 +4174,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 8">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 9">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>
@@ -4095,6 +4399,22 @@
             <xsl:variable name="item" select="."/>
             <xsl:for-each select="$currentItem">
                 <xsl:call-template name="OutputReferenceItem">
+                    <xsl:with-param name="item" select="$item"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
+        HandleDoiLayout
+    -->
+    <xsl:template name="HandleDoiLayout">
+        <xsl:param name="kindOfWork"/>
+        <xsl:param name="work"/>
+        <xsl:variable name="currentItem" select="."/>
+        <xsl:for-each select="$kindOfWork/doi | $work/doi">
+            <xsl:variable name="item" select="."/>
+            <xsl:for-each select="$currentItem">
+                <xsl:call-template name="OutputReferenceItemNode">
                     <xsl:with-param name="item" select="$item"/>
                 </xsl:call-template>
             </xsl:for-each>
@@ -4667,6 +4987,16 @@
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:if>
+        </xsl:if>
+        <xsl:if test="$typeOfWork/doi">
+            <xsl:call-template name="OutputReferenceItemNode">
+                <xsl:with-param name="item" select="$typeOfWork/doi"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="$work/doi">
+            <xsl:call-template name="OutputReferenceItemNode">
+                <xsl:with-param name="item" select="$work/doi"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
     <!--  

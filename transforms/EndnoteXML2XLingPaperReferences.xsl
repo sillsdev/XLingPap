@@ -144,6 +144,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </collection>
     </xsl:template>
@@ -159,6 +160,7 @@
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </paper>
     </xsl:template>
@@ -192,6 +194,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </proceedings>
     </xsl:template>
@@ -316,6 +319,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </article>
     </xsl:template>
@@ -455,6 +459,7 @@
             <xsl:apply-templates select="../publisher"/>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </book>
     </xsl:template>
@@ -482,6 +487,7 @@
         </institution>
         <xsl:apply-templates select="../urls/related-urls"/>
         <xsl:apply-templates select="../dates/access-date"/>
+        <xsl:apply-templates select="../electronic-resource-num"/>
         <xsl:apply-templates select="../custom7"/>
     </xsl:template>
     <!-- 
@@ -541,6 +547,7 @@
             </institution>
             <xsl:apply-templates select="../urls/related-urls"/>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </ms>
     </xsl:template>
@@ -587,6 +594,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="../dates/access-date"/>
+            <xsl:apply-templates select="../electronic-resource-num"/>
             <xsl:apply-templates select="../custom7"/>
         </webPage>
     </xsl:template>

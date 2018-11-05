@@ -2835,33 +2835,27 @@ not using
                 </fo:block>
             </xsl:if>
         </xsl:if>
-        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
-            <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="@id"/>
-                <xsl:with-param name="sLabel">
+            <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
+            <xsl:choose>
+                <xsl:when test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                    <fo:block line-height="1.2">
+                        <xsl:call-template name="OutputListOfFiguresTOCLine"/>
                     <xsl:choose>
-                        <xsl:when test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
-                            <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
-                            <xsl:call-template name="GetFigureNumber">
-                                <xsl:with-param name="figure" select="."/>
-                            </xsl:call-template>
-                            <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
-                            <xsl:text>&#xa0;</xsl:text>
-                            <xsl:text>&#xa0;</xsl:text>
-                            <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
-                            <xsl:apply-templates select="caption" mode="contents"/>
-                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textafter"/>
+                        <xsl:when test="$sLineSpacing='double'">
+                            <fo:block>&#xa0;</fo:block>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:call-template name="OutputFigureLabelAndCaption">
-                                <xsl:with-param name="bDoStyles" select="'N'"/>
-                            </xsl:call-template>
+                            <fo:block line-height=".6">
+                                <fo:block>&#xa0;</fo:block>
+                            </fo:block>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:with-param>
-                <xsl:with-param name="sIndent" select="'1em'"/>
-                <xsl:with-param name="fInListOfItems" select="'yes'"/>
-            </xsl:call-template>
+                    </fo:block>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputListOfFiguresTOCLine"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -2951,32 +2945,26 @@ not using
             </xsl:if>
         </xsl:if>
         <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
-            <xsl:call-template name="OutputTOCLine">
-                <xsl:with-param name="sLink" select="@id"/>
-                <xsl:with-param name="sLabel">
-                    <xsl:choose>
-                        <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
-                            <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
-                            <xsl:call-template name="GetTableNumberedNumber">
-                                <xsl:with-param name="tablenumbered" select="."/>
-                            </xsl:call-template>
-                            <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
-                            <xsl:text>&#xa0;</xsl:text>
-                            <xsl:text>&#xa0;</xsl:text>
-                            <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
-                            <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
-                            <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="OutputTableNumberedLabelAndCaption">
-                                <xsl:with-param name="bDoStyles" select="'N'"/>
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:with-param>
-                <xsl:with-param name="sIndent" select="'1em'"/>
-                <xsl:with-param name="fInListOfItems" select="'yes'"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                    <fo:block line-height="1.2">
+                        <xsl:call-template name="OutputListOfTablenumberedTOCLine"/>
+                        <xsl:choose>
+                            <xsl:when test="$sLineSpacing='double'">
+                                <fo:block>&#xa0;</fo:block>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <fo:block line-height=".6">
+                                    <fo:block>&#xa0;</fo:block>
+                                </fo:block>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </fo:block>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputListOfTablenumberedTOCLine"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!-- ===========================================================
@@ -7768,6 +7756,68 @@ not using
                 </fo:table-body>
             </fo:table>
         </fo:block>
+    </xsl:template>
+    <!--  
+        OutputListOfFiguresTOCLine
+    -->
+    <xsl:template name="OutputListOfFiguresTOCLine">
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="@id"/>
+            <xsl:with-param name="sLabel">
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
+                        <xsl:value-of select="$styleSheetFigureNumberLayout/@textbefore"/>
+                        <xsl:call-template name="GetFigureNumber">
+                            <xsl:with-param name="figure" select="."/>
+                        </xsl:call-template>
+                        <xsl:value-of select="$styleSheetFigureNumberLayout/@textafter"/>
+                        <xsl:text>&#xa0;</xsl:text>
+                        <xsl:text>&#xa0;</xsl:text>
+                        <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
+                        <xsl:apply-templates select="caption" mode="contents"/>
+                        <xsl:value-of select="$styleSheetFigureCaptionLayout/@textafter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputFigureLabelAndCaption">
+                            <xsl:with-param name="bDoStyles" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent" select="'1em'"/>
+            <xsl:with-param name="fInListOfItems" select="'yes'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--  
+        OutputListOfTablenumberedTOCLine
+    -->
+    <xsl:template name="OutputListOfTablenumberedTOCLine">
+        <xsl:call-template name="OutputTOCLine">
+            <xsl:with-param name="sLink" select="@id"/>
+            <xsl:with-param name="sLabel">
+                <xsl:choose>
+                    <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
+                        <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbefore"/>
+                        <xsl:call-template name="GetTableNumberedNumber">
+                            <xsl:with-param name="tablenumbered" select="."/>
+                        </xsl:call-template>
+                        <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textafter"/>
+                        <xsl:text>&#xa0;</xsl:text>
+                        <xsl:text>&#xa0;</xsl:text>
+                        <!--                            <xsl:value-of select="$styleSheetFigureCaptionLayout/@textbefore"/>-->
+                        <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="contents"/>
+                        <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="OutputTableNumberedLabelAndCaption">
+                            <xsl:with-param name="bDoStyles" select="'N'"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="sIndent" select="'1em'"/>
+            <xsl:with-param name="fInListOfItems" select="'yes'"/>
+        </xsl:call-template>
     </xsl:template>
     <!--  
                   OutputSectionNumber

@@ -2502,6 +2502,10 @@
                     <xsl:with-param name="figure" select="."/>
                 </xsl:call-template>
             </xsl:variable>
+            <xsl:if test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -2547,6 +2551,9 @@
                     </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:for-each>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="eg"/>
@@ -2684,6 +2691,10 @@
                     <xsl:with-param name="tablenumbered" select="."/>
                 </xsl:call-template>
             </xsl:variable>
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink" select="@id"/>
                 <xsl:with-param name="sLabel">
@@ -2729,6 +2740,9 @@
                     </xsl:choose>
                 </xsl:with-param>
             </xsl:call-template>
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </xsl:for-each>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="eg"/>

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-02</a:date
+>2018-11-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.4 2 November 2018<ul
+>3.3.4 6 November 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -65,6 +65,10 @@ href="mailto::xlingpaper_support@sil.org"
 >Clarify the use of using reference author initials.</li
 ><li
 >Add information on how to create an epigraph.</li
+><li
+>Tell how to control the formatting of glossary terms.</li
+><li
+>Describe the text interlinear ID used by the export from FLEx process so a user can control the line number used in the output for an interlinear text.</li
 ></ul
 ></li
 ><li

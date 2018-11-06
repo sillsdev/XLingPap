@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 November 2018</date
+>6 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -7277,6 +7277,11 @@ type="tElement"
 type="tElement"
 >language</object
 > element for each such language.</p
+><p
+>You can control how glossary terms are rendered in your document by setting the format-related attributes on the <object
+type="tElement"
+>glossaryTerms</object
+> element.</p
 ><section4
 id="sBMGlossaryTermsMasterListMultipleLanguages"
 ><secTitle
@@ -18258,6 +18263,26 @@ type="tTool"
 >SIL FieldWorks Language Explorer</object
 > program.</p
 ><p
+><genericTarget
+id="gFLExTextID"
+></genericTarget
+>The IDs for the exported text have a pattern of  “T-ID<object
+type="tItalic"
+>something</object
+>-<object
+type="tItalic"
+>line_number</object
+>” where <object
+type="tItalic"
+>something</object
+> is usually a sequence of letters and/or digits and <object
+type="tItalic"
+>line_number</object
+> is the line number that shows in <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+>.</p
+><p
 >Note that if you use this option, then most of what is described in the next section has already been done for you.</p
 ></section2
 ><section2
@@ -18372,7 +18397,16 @@ sec="sInterlinearTextFLEx"
 >, then the line number will be the one given by <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
->.)</p
+>.)  See <genericRef
+gref="gFLExTextID"
+>here</genericRef
+> for what the text ID looks like for a text taken from <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+>.  You can simulate this pattern to control the line number <object
+type="tXLingPap"
+></object
+> will produce in the output.</p
 ></section2
 ><section2
 id="sInterlinearTextReference"

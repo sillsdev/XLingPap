@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->6 November 2018</date
+>7 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -18266,7 +18266,16 @@ type="tTool"
 ><genericTarget
 id="gFLExTextID"
 ></genericTarget
->The IDs for the exported text have a pattern of  “T-ID<object
+>The ID in the <object
+type="tAttribute"
+>text</object
+> and <object
+type="tAttribute"
+>textref</object
+> attributes of the <object
+type="tElement"
+>interlinear</object
+> elements in the exported text have a pattern of  “T-ID<object
 type="tItalic"
 >something</object
 >-<object
@@ -18400,7 +18409,16 @@ type="tTool"
 >.)  See <genericRef
 gref="gFLExTextID"
 >here</genericRef
-> for what the text ID looks like for a text taken from <object
+> for what the ID in the <object
+type="tAttribute"
+>text</object
+> and <object
+type="tAttribute"
+>textref</object
+> attributes of the <object
+type="tElement"
+>interlinear</object
+> element looks like for a text taken from <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
 >.  You can simulate this pattern to control the line number <object

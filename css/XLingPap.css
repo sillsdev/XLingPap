@@ -1324,6 +1324,62 @@ tablenumberedRef[contentType]
 	display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','block',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','block')"));
 }
 
+table[counterNumberFormat='A'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='A'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='a'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='a'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-alpha)
+	"."
+	;
+}
+table[counterNumberFormat='I'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-roman)
+	"."
+	;
+}
+table[counterNumberFormat='I'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, upper-roman)
+	"."
+	;
+}
+table[counterNumberFormat='i'] > tr > td > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-roman)
+	"."
+	;
+}
+table[counterNumberFormat='i'] > tr > th > counter:before
+{
+        counter-increment:row-counter;
+	content: counter(row-counter, lower-roman)
+	"."
+	;
+}
 counter:before
 {
         counter-increment:row-counter;

@@ -657,6 +657,7 @@
     %special;
     pagecontrol (keepAllOnSamePage | letFormatterDecide) "letFormatterDecide"
     contentType IDREF #IMPLIED
+    counterNumberFormat CDATA #IMPLIED
 >
 <!ELEMENT tablenumbered (shortCaption?, (table | (caption?, img)))>
 <!ATTLIST tablenumbered
@@ -706,7 +707,7 @@
     width CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT th (#PCDATA | %embedded; | table)*>
+<!ELEMENT th (#PCDATA | %embedded; | table | counter)*>
 <!ATTLIST th
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED

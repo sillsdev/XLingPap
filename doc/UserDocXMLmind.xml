@@ -13157,13 +13157,16 @@ type="tElement"
 > element within a <object
 type="tElement"
 >td</object
+> or <object
+type="tElement"
+>th</object
 > element. It will automatically keep track of the count of this and all previous <object
 type="tElement"
 >counter</object
 > elements within the current <object
 type="tElement"
 >table</object
-> element. It displays the count as a number with a following period. If you have more than 9 such rows, you may well want to set the <object
+> element at the same level in the table. By default, it displays the count as a number with a following period. If you have more than 9 such rows, you may well want to set the <object
 type="tAttribute"
 >align</object
 > attribute of each enclosing <object
@@ -13173,6 +13176,93 @@ type="tElement"
 type="tAttrValue"
 >right</object
 > so that the numbers align.</p
+><p
+>You can have the counter appear in other formats by setting the <object
+type="tAttribute"
+>counterNumberFormat</object
+> attribute of the closest containing <object
+type="tElement"
+>table</object
+> element. Example <exampleRef
+letter="xCounterNumberFormatBasic"
+num="xCounterNumberFormatBasic"
+></exampleRef
+> shows the possible values you can use. We attempt to show the formated results in the <object
+type="tXMLmindXMLEditor"
+></object
+>, except that the <object
+type="tAttrValue"
+>01</object
+> value shows just like the <object
+type="tAttrValue"
+>1</object
+> does.</p
+><example
+num="xCounterNumberFormatBasic"
+><table
+border="1"
+><tr
+><th
+>Format</th
+><th
+>Results</th
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1</object
+></td
+><td
+>1, 2, 3, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>01</object
+></td
+><td
+>01, 02, 03, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>A</object
+></td
+><td
+>A, B, C, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>a</object
+></td
+><td
+>a, b, c, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>I</object
+></td
+><td
+>I, II, III, IV, V, VI, ...</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>i</object
+></td
+><td
+>i, ii, iii, iv, v, vi, ...</td
+></tr
+></table
+></example
 ><p
 >Example <exampleRef
 letter="xDataDisplayWithCounterElements"

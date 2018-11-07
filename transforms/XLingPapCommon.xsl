@@ -205,7 +205,22 @@
         <!-- First tried setting the from attrbute to just table, but then if there was a table embedded within a sister td of
             a td containing a counter, the numbering started over at one.  Using 'table[descendant::counter]' seemed to work, too.
         -->
-        <xsl:number from="table[descendant::counter]" level="any"/>
+        <xsl:variable name="sNumberFormat" select="normalize-space(ancestor::table[1]/@counterNumberFormat)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sNumberFormat) &gt; 0">
+                <xsl:number from="table[descendant::counter]" level="any" format="{$sNumberFormat}"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="ancestor::table[1]/tr/*/table[descendant::counter]">
+                        <xsl:value-of select="count(ancestor::tr[1]/preceding-sibling::tr[*/counter]) + 1"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:number from="table[descendant::counter]" level="any"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:text>.</xsl:text>
     </xsl:template>
     <!-- 

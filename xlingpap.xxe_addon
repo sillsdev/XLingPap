@@ -52,6 +52,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Add ability to include DOI information in references.</li
 ><li
+>Allow counter element in th elements. Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha, lower roman, or upper roman.</li
+><li
 >Documentation improvements:<ul
 ><li
 >Tell how to add a refAuthorInitials element</li

@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.3.4</span></p>
-      <p align="center">Date: 2018-11-07</p>
+      <p align="center">Date: 2018-11-08</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.3.4 7 November 2018
+               <li>3.3.4 8 November 2018
                   <ul>
                      <li>Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous
                         material would appear.
@@ -53,7 +53,7 @@
                      <li>Allow multiple layout sets for langData items in the publisher style sheet (e.g., for phonetic and phonemic data)</li>
                      <li>Add layout information for table caption (or endCaption) in publisher style sheet.</li>
                      <li>Add ability to include DOI information in references.</li>
-                     <li>Allow counter element in th elements.  Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha,
+                     <li>Allow counter element in th elements. Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha,
                         lower roman, or upper roman.
                      </li>
                      <li>Documentation improvements:
@@ -76,6 +76,9 @@
                      </li>
                      <li>Fix bug: setting the useSingleSpacingForLongCaptions attribute to 'yes' of either the figureLayout or the tablenumberedLayout
                         element in a publisher style sheet did nothing.
+                     </li>
+                     <li>Fix bug: when converting Endnote XML references file to XLingPaper format, if the first two or more works were by the same
+                        author, it only output the first work.  Also if the title contained an equals sign, it was not removed for the refWork ID.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>

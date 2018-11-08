@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-07</a:date
+>2018-11-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.3.4 7 November 2018<ul
+>3.3.4 8 November 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -60,7 +60,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Add ability to include DOI information in references.</li
 ><li
->Allow counter element in th elements.  Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha, lower roman, or upper roman.</li
+>Allow counter element in th elements. Add ability to show counter as decimal, zero-initial decimal, lower alpha, upper alpha, lower roman, or upper roman.</li
 ><li
 >Documentation improvements:<ul
 ><li
@@ -87,6 +87,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Produce warning when a chapterInCollection document is associated to a style sheet that does not have layout info for chapter in collection.</li
 ><li
 >Fix bug: setting the useSingleSpacingForLongCaptions attribute to 'yes' of either the figureLayout or the tablenumberedLayout element in a publisher style sheet did nothing.</li
+><li
+>Fix bug: when converting Endnote XML references file to XLingPaper format, if the first two or more works were by the same author, it only output the first work.  Also if the title contained an equals sign, it was not removed for the refWork ID.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

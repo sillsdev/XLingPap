@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-08</a:date
+>2018-11-09</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.4 8 November 2018<ul
+>3.3.4 9 November 2018<ul
 ><li
 >Fix bug: when using the promote or demote section commands while also having set the Store All Revisions option, extraneous material would appear.</li
 ><li
@@ -81,6 +81,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: setting the useSingleSpacingForLongCaptions attribute to 'yes' of either the figureLayout or the tablenumberedLayout element in a publisher style sheet did nothing.</li
 ><li
 >Fix bug: when converting Endnote XML references file to XLingPaper format, if the first two or more works were by the same author, it only output the first work. Also if the title contained an equals sign, it was not removed for the refWork ID.</li
+><li
+>Fix bug: Glossary term definitions did not output citation elements, among others.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

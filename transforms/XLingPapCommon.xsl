@@ -253,6 +253,9 @@
     <!-- 
         glossary terms
     -->
+    <xsl:template match="glossaryTermDefinition" mode="Use">
+        <xsl:apply-templates/>
+    </xsl:template>
     <xsl:template match="glossaryTermRef" mode="Use">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>

@@ -2061,6 +2061,13 @@ glossaryTermsShownHere
 	font-style:italic;
 	padding-bottom:1ex;
 }
+glossaryTermsShownHereAsDefinitionList
+{
+	display:block;
+	content: "The glossary terms will appear here as a definition list.";
+	font-style:italic;
+	padding-bottom:1ex;
+}
 glossaryTermDefinition:before
 {
 	content:" = ";
@@ -6790,6 +6797,73 @@ genericRefLinkLayout
 	text-decoration:none;
 }
 
+glossaryTermDefinitionInDefinitionListLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossaryTermDefinitionInDefinitionListLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossaryTermDefinitionInDefinitionListLayout
+{
+        display:inline;
+	content: label(attribute, textbefore)
+	         "glossary definition"
+		 label(attribute, textafter);
+}
+glossaryTermsInDefinitionListLayout:before
+{
+	content:"glossary terms in definition list layout:\A";
+}
+glossaryTermsInDefinitionListLayout
+{
+	display:block;
+/*	content:"glossary terms in definition list layout"; */
+	margin-bottom:12pt;
+	margin-top:12pt;
+	margin-left:.125in;
+}
+glossaryTermTermInDefinitionListLayout[color]
+{
+	color:concatenate(attr(color));
+}
+glossaryTermTermInDefinitionListLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+glossaryTermTermInDefinitionListLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+glossaryTermTermInDefinitionListLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+glossaryTermTermInDefinitionListLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+glossaryTermTermInDefinitionListLayout
+{
+        display:inline;
+	content: "   "
+                 label(attribute, textbefore)
+	         "glossary term"
+		 label(attribute, textafter);
+}
 glossaryTermsInTableLayout[color]
 {
 	color:concatenate(attr(color));

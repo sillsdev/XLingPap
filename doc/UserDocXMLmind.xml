@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 November 2018</date
+>13 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -7513,10 +7513,19 @@ src="resources/GlossaryWithGlossaryTerms.png"
 >One can then open up the <object
 type="tElement"
 >glossary</object
-> element and type any prefatory material one might want (of course, one does not have to type anything). One then inserts the special <object
+> element and type any prefatory material one might want (of course, one does not have to type anything). <indexedItem
+term="iGlossaryTermsAsDefinitionList"
+></indexedItem
+><indexedItem
+term="iGlossaryTermsAsTable"
+></indexedItem
+>One then inserts either the special <object
 type="tElement"
 >glossaryTermsShownHere</object
-> element. Note that since this will be formatted as a table, it needs to go after or before a paragraph (<object
+> element (to show the list as a table) or the special <object
+type="tElement"
+>glossaryTermsShownHereAsDefinitionList</object
+> element (to show the list as a series of hanging indent paragraphs). Note that since the glossary terms will be formatted either as a table or as a sequence of paragraphs, it needs to go after or before a paragraph (<object
 type="tElement"
 >p</object
 > element); it will not work to put it within a paragraph.</p
@@ -28024,6 +28033,7 @@ note="nChunk"
 ></endnoteRef
 ></p
 ><p
+contentType="ctVersion5.3"
 >Due to a bug in the <object
 type="tXMLmindXMLEditor"
 ></object
@@ -28045,6 +28055,7 @@ type="tElement"
 >hangingIndent</object
 > paragraph from a regular paragraph. (The hope is that the icon suggests that the first line is longer than the other lines.)</p
 ><example
+contentType="ctVersion5.3"
 num="xHangingIndenParagraph"
 ><chart
 ><img
@@ -29646,6 +29657,13 @@ type="tElement"
 ></dt
 ><dd
 >This indicates where the table of glossary terms is to appear</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsShownHereAsDefinitionList</object
+></dt
+><dd
+>This indicates where the list of glossary terms is to appear as a series of hanging indent paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -31473,6 +31491,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermDefinitionInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term definition when using a definition list</dd
+><dt
+><object
+type="tElement"
+>glossaryTermTermInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term when using a definition list</dd
+><dt
+><object
+type="tElement"
 >glossaryTermRefLinkLayout</object
 ></dt
 ><dd
@@ -31480,6 +31512,13 @@ type="tElement"
 type="tElement"
 >glossaryTermRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing glossary terms used in a series of hanging indent paragraphs</dd
 ><dt
 ><object
 type="tElement"
@@ -35102,6 +35141,16 @@ id="iGlossaryTermsList"
 id="iGlossaryTermsMasterList"
 ><term
 >Make a master list</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsAsDefinitionList"
+><term
+>Show as a definition list (hanging indent paragraphs)</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsAsTable"
+><term
+>Show as a table</term
 ></indexTerm
 ><indexTerm
 id="iGlossaryTermSmallCaps"

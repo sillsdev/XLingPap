@@ -32,8 +32,8 @@
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
-<!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
-<!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
+    <!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
+    <!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
@@ -1650,27 +1650,27 @@
                 <xsl:call-template name="OutputFigureLabel"/>
             </div>
         </xsl:if>
-            <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
-                <xsl:choose>
-                    <xsl:when test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
-                            <div style="line-height:100%;">
-                                <xsl:call-template name="OutputListOfFiguresTOCLine"/>
-                                <xsl:choose>
-                                    <xsl:when test="$sLineSpacing='double'">
-                                        <br/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <div style="line-height:50%;">
-                                            <br/>
-                                        </div>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </div>
-                    </xsl:when>
-                    <xsl:otherwise>
+        <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
+            <xsl:choose>
+                <xsl:when test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                    <div style="line-height:100%;">
                         <xsl:call-template name="OutputListOfFiguresTOCLine"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="$sLineSpacing='double'">
+                                <br/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <div style="line-height:50%;">
+                                    <br/>
+                                </div>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputListOfFiguresTOCLine"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!--
@@ -1720,7 +1720,8 @@
         </xsl:if>
         <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:choose>
-                <xsl:when test="$contentLayoutInfo/tablenumberedLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
+                <xsl:when
+                    test="$contentLayoutInfo/tablenumberedLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
                     <div style="line-height:100%;">
                         <xsl:call-template name="OutputListOfTablenumberedTOCLine"/>
                         <xsl:choose>
@@ -1893,7 +1894,7 @@
         <xsl:if test="$endnotesToShow or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
             <xsl:choose>
                 <xsl:when test="$bIsBook">
-                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/> 
+                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
                     <xsl:call-template name="DoEndnotes"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -4934,6 +4935,26 @@
             <xsl:value-of select="$styleSheetTableNumberedCaptionLayout/@textafter"/>
         </span>
     </xsl:template>
+    <!--
+        OutputGlossaryTermInDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermInDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <div>
+            <a name="{@id}">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="."/>
+                    <xsl:with-param name="bIsRef" select="'N'"/>
+                    <xsl:with-param name="kind" select="'DefinitionList'"/>
+                </xsl:call-template>
+            </a>
+            <span class="glossaryTermDefinitionInDefinitionList">
+                <xsl:call-template name="OutputGlossaryTermDefinition">
+                    <xsl:with-param name="glossaryTerm" select="."/>
+                </xsl:call-template>
+            </span>
+        </div>
+    </xsl:template>
     <!--  
                   OutputTypeAttributes
 -->
@@ -5151,27 +5172,8 @@
         <xsl:param name="glossaryTerm"/>
         <xsl:param name="bIsRef" select="'Y'"/>
         <xsl:param name="glossaryTermRef"/>
-        <span>
-            <xsl:variable name="sFontAttributes">
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="$glossaryTerms"/>
-                    <xsl:with-param name="ignoreFontFamily">
-                        <xsl:choose>
-                            <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
-                                <xsl:text>Y</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>N</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </xsl:variable>
-            <xsl:if test="string-length($sFontAttributes) &gt; 0">
-                <xsl:attribute name="style">
-                    <xsl:value-of select="$sFontAttributes"/>
-                </xsl:attribute>
-            </xsl:if>
+        <xsl:param name="kind" select="'Table'"/>
+        <span class="glossaryTermIn{$kind}">
             <xsl:call-template name="OutputGlossaryTermContentInContext">
                 <xsl:with-param name="glossaryTerm" select="$glossaryTerm"/>
                 <xsl:with-param name="bIsRef" select="$bIsRef"/>

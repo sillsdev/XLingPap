@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 November 2018</date
+>13 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -13487,6 +13487,254 @@ type="tAttrValue"
 ></example
 ></section2
 ><section2
+id="sGlossaryTermssInDefinitionList"
+><secTitle
+>Controlling the Display of Glossary Terms in a Definition List</secTitle
+><p
+><indexedItem
+term="iGlossaryTermsInDefinitionList"
+></indexedItem
+>Sometimes one wants to control how the list of glossary terms come out when they are in a definition list (each term in a hanging indent paragraph, with the term appearing first, followed by the definition). You do this via the <object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+> element. It shows as shown in example <exampleRef
+letter="xGlossaryTermsInDefinitionListLayout"
+num="xGlossaryTermsInDefinitionListLayout"
+></exampleRef
+>.</p
+><example
+num="xGlossaryTermsInDefinitionListLayout"
+><chart
+><img
+src="resources/GlossryTermsInDefinitionList.png"
+></img
+></chart
+></example
+><p
+>The <object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+> element has the attributes shown in example <exampleRef
+letter="xGlossaryTermsInDefinitionListLayoutAttributes"
+num="xGlossaryTermsInDefinitionListLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xGlossaryTermsInDefinitionListLayoutAttributes"
+><table
+border="1"
+><caption
+><object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+> Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInDefinitionListhangingIndentInitialIndent"
+></indexedItem
+><object
+type="tAttribute"
+>hangingIndentInitialIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space before the beginning of the glossary term paragraph. It can be something like <object
+type="tAttrValue"
+>0pt</object
+> if you want the hanging indent paragraph to begin at the left margin. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInDefinitionListhangingIndentNormalIndent"
+></indexedItem
+><object
+type="tAttribute"
+>hangingIndentNormalIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of horizontal space that the second and following lines of the glossary term paragraph should be indented. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1.5in</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInDefinitionListspaceBetweenParagraphs"
+></indexedItem
+><object
+type="tAttribute"
+>spaceBetweenParagraphs</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>The amount of vertical space to insert between each glossary term paragraph. The default is to insert no extra space. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>12pt</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iGlossaryTermInDefinitionListuseSingleSpacing"
+></indexedItem
+><object
+type="tAttribute"
+>useSingleSpacing</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the content of each glossary term paragraph should be single spaced. The default value is <object
+type="tAttrValue"
+>yes</object
+>. </langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><p
+>Inside of the <object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+> are two others: <object
+type="tElement"
+>glossaryTermTermInDefinitionListLayout</object
+> and <object
+type="tElement"
+>glossaryTermDefinitionInDefinitionListLayout</object
+>. These allow you to control the formatting of the glossary term itself and also its definition. Both of them use the attributes in section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</p
+></section2
+><section2
 id="sGlossaryTermssInTables"
 ><secTitle
 >Controlling the Display of Glossary Terms in a Table</secTitle
@@ -16773,6 +17021,15 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+></td
+><td
+>glossary terms in definition list layout</td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >glossaryTermsInTableLayout</object
 ></td
 ><td
@@ -17444,6 +17701,58 @@ type="tAttribute"
 ><object
 type="tAttrValue"
 >no</object
+></td
+></tr
+><tr
+><td
+rowspan="4"
+valign="top"
+><object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>hangingIndentInitialIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>1em</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>hangingIndentNormalIndent</object
+></td
+><td
+>paragraph indent</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spaceBetweenParagraphs</object
+></td
+><td
+><object
+type="tAttrValue"
+>0pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>useSingleSpacing</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
 ></td
 ></tr
 ><tr
@@ -19297,6 +19606,33 @@ id="iGlossaryLayout"
 id="iGlossaryTermsRefLink"
 ><term
 >Glossary term reference link</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermsInDefinitionList"
+><term
+>Glossary terms in a definition list</term
+><indexTerms
+><indexTerm
+id="iGlossaryTermInDefinitionListhangingIndentInitialIndent"
+><term
+>hangingIndentInitialIndent</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInDefinitionListhangingIndentNormalIndent"
+><term
+>hangingIndentNormalIndent</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInDefinitionListspaceBetweenParagraphs"
+><term
+>spaceBetweenParagraphs</term
+></indexTerm
+><indexTerm
+id="iGlossaryTermInDefinitionListuseSingleSpacing"
+><term
+>useSingleSpacing</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iGlossaryTermsInTable"

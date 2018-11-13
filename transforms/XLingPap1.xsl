@@ -5069,6 +5069,56 @@
         </span>
     </xsl:template>
     <!--
+        OutputGlossaryTermInDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermInDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:variable name="sThisHangingIndent"/>
+        <xsl:variable name="sThisInitialIndent"/>
+        <p>
+            <xsl:attribute name="style">
+                <xsl:call-template name="OutputCssSpecial">
+                    <xsl:with-param name="fDoStyleAttribute" select="'N'"/>
+                </xsl:call-template>
+                <xsl:text>; padding-left:</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>; text-indent:-</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                        <xsl:value-of select="$sThisInitialIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                                <xsl:value-of select="$sThisHangingIndent"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1em</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <a name="{@id}">
+                <xsl:call-template name="OutputGlossaryTerm">
+                    <xsl:with-param name="glossaryTerm" select="."/>
+                    <xsl:with-param name="bIsRef" select="'N'"/>
+                </xsl:call-template>
+            </a>
+            <xsl:text>: </xsl:text>
+            <xsl:call-template name="OutputGlossaryTermDefinition">
+                <xsl:with-param name="glossaryTerm" select="."/>
+            </xsl:call-template>
+        </p>
+    </xsl:template>
+    <!--
         OutputGlossaryTermInTable
     -->
     <xsl:template name="OutputGlossaryTermInTable">
@@ -5100,6 +5150,20 @@
                 </xsl:call-template>
             </td>
         </tr>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <div>
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputGlossaryTermsInTable

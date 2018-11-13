@@ -617,7 +617,7 @@ Content Layout
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
-                                                      glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
+                                                      glossaryTermsInDefinitionListLayout?, glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -842,6 +842,21 @@ Content Layout
        useDoubleColumns (yes | no) "no"
        doubleColumnSeparation CDATA #IMPLIED
        useSingleSpacing (yes | no) "yes"
+    >
+    <!ELEMENT glossaryTermsInDefinitionListLayout (glossaryTermTermInDefinitionListLayout, glossaryTermDefinitionInDefinitionListLayout)>
+    <!ATTLIST glossaryTermsInDefinitionListLayout
+       hangingIndentInitialIndent CDATA #IMPLIED
+       hangingIndentNormalIndent CDATA #IMPLIED
+       spaceBetweenParagraphs CDATA #IMPLIED
+       useSingleSpacing (yes | no) "yes"
+    >
+    <!ELEMENT glossaryTermTermInDefinitionListLayout  EMPTY>
+    <!ATTLIST glossaryTermTermInDefinitionListLayout
+       %formatinfo;
+    >
+    <!ELEMENT glossaryTermDefinitionInDefinitionListLayout  EMPTY>
+    <!ATTLIST glossaryTermDefinitionInDefinitionListLayout
+       %formatinfo;
     >
     <!ELEMENT glossaryTermsInTableLayout  EMPTY>
     <!ATTLIST glossaryTermsInTableLayout

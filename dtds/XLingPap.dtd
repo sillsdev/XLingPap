@@ -224,7 +224,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT preface (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
+<!ELEMENT preface (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere)+)>
 <!ATTLIST preface
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
@@ -940,7 +940,7 @@
     showNumberOnly (yes | no) "no"
 >
 <!-- appendices are handled like chapters -->
-<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | iso639-3codesShownHere | section1 | section2)*)>
+<!ELEMENT appendix (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere | section1 | section2)*)>
 <!ATTLIST appendix
     id ID #REQUIRED
     label CDATA #IMPLIED
@@ -950,7 +950,7 @@
     contentType IDREF #IMPLIED
 >
 <!-- glossary -->
-<!ELEMENT glossary (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | iso639-3codesShownHere)+)>
+<!ELEMENT glossary (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere)+)>
 <!ATTLIST glossary
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED

@@ -275,6 +275,9 @@
     <xsl:template match="glossaryTermsShownHere">
         <xsl:call-template name="HandleGlossaryTermsInTable"/>
     </xsl:template>
+    <xsl:template match="glossaryTermsShownHereAsDefinitionList">
+        <xsl:call-template name="HandleGlossaryTermsAsDefinitionList"/>
+    </xsl:template>
     <xsl:template match="glossaryTermTerm | glossaryTermDefinition"/>
     <!--
         interlinearSource in single or listSingle
@@ -1342,7 +1345,8 @@
     -->
     <xsl:template name="GetISOCode">
         <xsl:param name="originalContext"/>
-        <xsl:if test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
+        <xsl:if
+            test="$lingPaper/@showiso639-3codeininterlinear='yes' or ancestor-or-self::example/@showiso639-3codes='yes' or $originalContext and $originalContext/ancestor-or-self::example/@showiso639-3codes='yes'">
             <xsl:variable name="firstLangData"
                 select="descendant::langData[1] | key('InterlinearReferenceID',interlinearRef/@textref)[1]/descendant::langData[1] | key('InterlinearReferenceID',child::*[substring(name(),1,4)='list'][1]/interlinearRef/@textref)[1]/descendant::langData[1]"/>
             <xsl:if test="$firstLangData">
@@ -1566,6 +1570,22 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        HandleGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="HandleGlossaryTermsAsDefinitionList">
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
+                <xsl:call-template name="OutputGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed"
+                        select="ancestor::chapterInCollection/backMatter/glossaryTerms/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputGlossaryTermsAsDefinitionList"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         HandleGlossaryTermsInTable
     -->
     <xsl:template name="HandleGlossaryTermsInTable">
@@ -1573,7 +1593,7 @@
             <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
                 <xsl:call-template name="OutputGlossaryTermsInTable">
                     <xsl:with-param name="glossaryTermsUsed"
-                        select="ancestor::chapterInCollection/backMatter/glossaryTerems/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
+                        select="ancestor::chapterInCollection/backMatter/glossaryTerms/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -2382,6 +2402,33 @@
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        SortGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="SortGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"/>
+        <xsl:variable name="glossaryTermsShownHere" select="."/>
+        <xsl:choose>
+            <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
+                <xsl:variable name="sLang">
+                    <xsl:call-template name="GetGlossaryTermLanguageCode"/>
+                </xsl:variable>
+                <xsl:for-each select="$glossaryTermsUsed">
+                    <xsl:sort lang="{$sLang}" select="glossaryTermInLang[@lang=$sLang or position()=1 and not (following-sibling::glossaryTermInLang[@lang=$sLang])]/glossaryTermTerm"/>
+                    <xsl:call-template name="OutputGlossaryTermInDefinitionList">
+                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$glossaryTermsUsed">
+                    <xsl:call-template name="OutputGlossaryTermInDefinitionList">
+                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                    </xsl:call-template>
+                </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

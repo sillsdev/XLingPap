@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" version="1.1">
     <!-- 
     XLingPapXeLaTeXCommon.xsl
     Contains called templates common to many of the XeLaTeX-oriented transforms.
@@ -2421,7 +2421,7 @@
                 <xsl:variable name="sTableCaptionSeparation" select="normalize-space($contentLayoutInfo/tableCaptionLayout/@spaceBetweenTableAndCaption)"/>
                 <xsl:if test="string-length($sTableCaptionSeparation) &gt; 0">
                     <tex:spec cat="lsb"/>
-                            <xsl:value-of select="$sTableCaptionSeparation"/>
+                    <xsl:value-of select="$sTableCaptionSeparation"/>
                     <tex:spec cat="rsb"/>
                 </xsl:if>
             </xsl:if>
@@ -8854,9 +8854,28 @@
         <xsl:param name="glossaryTerm"/>
         <xsl:param name="bIsRef" select="'Y'"/>
         <xsl:param name="glossaryTermRef"/>
+        <xsl:param name="kind" select="'Table'"/>
+        <xsl:variable name="fontInfoToUse">
+            <xsl:choose>
+                <xsl:when test="$kind='DefinitionList'">
+                    <xsl:variable name="stylesheetInfo" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout/glossaryTermTermInDefinitionListLayout"/>
+                    <xsl:choose>
+                        <xsl:when test="$stylesheetInfo">
+                            <xsl:copy-of select="$stylesheetInfo"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:copy-of select="$glossaryTerms"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="$glossaryTerms"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <tex:group>
             <xsl:call-template name="OutputFontAttributes">
-                <xsl:with-param name="language" select="$glossaryTerms"/>
+                <xsl:with-param name="language" select="$fontInfoToUse/*"/>
                 <xsl:with-param name="ignoreFontFamily">
                     <xsl:choose>
                         <xsl:when test="$glossaryTerm/@ignoreglossarytermsfontfamily='yes'">
@@ -8874,9 +8893,61 @@
                 <xsl:with-param name="glossaryTermRef" select="$glossaryTermRef"/>
             </xsl:call-template>
             <xsl:call-template name="OutputFontAttributesEnd">
-                <xsl:with-param name="language" select="$glossaryTerms"/>
+                <xsl:with-param name="language" select="$fontInfoToUse/*"/>
             </xsl:call-template>
         </tex:group>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermInDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermInDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:variable name="defnListLayout" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+        <xsl:variable name="sThisHangingIndent" select="normalize-space($defnListLayout/@hangingIndentNormalIndent)"/>
+        <xsl:variable name="sThisInitialIndent" select="normalize-space($defnListLayout/@hangingIndentInitialIndent)"/>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
+        <tex:spec cat="bg"/>
+        <tex:cmd name="hangafter" gr="0"/>
+        <xsl:text>1</xsl:text>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <tex:cmd name="hangindent" gr="0"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                <xsl:value-of select="$sThisHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sParagraphIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                <tex:cmd name="parindent" gr="0"/>
+                <xsl:value-of select="$sThisInitialIndent"/>
+                <tex:cmd name="indent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="noindent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:call-template name="OutputGlossaryTermItemAsDefinitionList">
+            <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+        </xsl:call-template>
+        <tex:cmd name="par" nl2="1"/>
+        <xsl:variable name="sSpaceBetween" select="normalize-space($defnListLayout/@spaceBetweenParagraphs)"/>
+        <xsl:if test="string-length($sSpaceBetween) &gt; 0">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpaceBetween"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--
         OutputGlossaryTermInTable
@@ -8902,6 +8973,76 @@
     <!--
         OutputGlossaryTermItemInTable
     -->
+    <xsl:template name="OutputGlossaryTermItemAsDefinitionList">
+        <xsl:param name="glossaryTermsShownHere"/>
+        <xsl:variable name="defnListLayout" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+        <xsl:call-template name="DoInternalTargetBegin">
+            <xsl:with-param name="sName" select="@id"/>
+        </xsl:call-template>
+        <xsl:variable name="sBefore" select="$defnListLayout/glossaryTermTermInDefinitionListLayout/@textbefore"/>
+        <xsl:if test="string-length($sBefore) &gt; 0">
+            <xsl:value-of select="$sBefore"/>
+        </xsl:if>
+        <xsl:call-template name="OutputGlossaryTerm">
+            <xsl:with-param name="glossaryTerm" select="."/>
+            <xsl:with-param name="bIsRef" select="'N'"/>
+            <xsl:with-param name="kind" select="'DefinitionList'"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoInternalTargetEnd"/>
+        <xsl:variable name="sAfter" select="$defnListLayout/glossaryTermTermInDefinitionListLayout/@textafter"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sAfter) &gt; 0">
+                <xsl:value-of select="$sAfter"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>: </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:variable name="sDefnColor" select="normalize-space($defnListLayout/glossaryTermDefinitionInDefinitionListLayout/@color)"/>
+        <xsl:if test="string-length($sDefnColor) &gt; 0">
+            <tex:cmd name="definecolor">
+                <tex:parm>defnColor</tex:parm>
+                <tex:parm>rgb</tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetColorDecimalCodesFromHexCode">
+                        <xsl:with-param name="sColorHexCode">
+                            <xsl:call-template name="GetColorHexCode">
+                                <xsl:with-param name="sColor" select="$sDefnColor"/>
+                            </xsl:call-template>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="hypersetup">
+                <tex:parm>linkcolor=defnColor</tex:parm>
+            </tex:cmd>
+        </xsl:if>
+        <xsl:call-template name="OutputFontAttributes">
+            <xsl:with-param name="language" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout"/>
+        </xsl:call-template>
+        <xsl:variable name="sBeforeDefn" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout/@textbefore"/>
+        <xsl:if test="string-length($sBeforeDefn) &gt; 0">
+            <xsl:value-of select="$sBeforeDefn"/>
+        </xsl:if>
+        <xsl:call-template name="OutputGlossaryTermDefinition">
+            <xsl:with-param name="glossaryTerm" select="."/>
+        </xsl:call-template>
+        <xsl:variable name="sAfterDefn" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout/@textafter"/>
+        <xsl:if test="string-length($sAfterDefn) &gt; 0">
+            <xsl:value-of select="$sAfterDefn"/>
+        </xsl:if>
+        <xsl:call-template name="OutputFontAttributesEnd">
+            <xsl:with-param name="language" select="$defnListLayout/glossaryTermDefinitionInDefinitionListLayout"/>
+        </xsl:call-template>
+        <xsl:if test="string-length($sDefnColor) &gt; 0">
+            <tex:cmd name="hypersetup">
+                <tex:parm>linkcolor=black</tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermItemInTable
+    -->
     <xsl:template name="OutputGlossaryTermItemInTable">
         <xsl:param name="glossaryTermsShownHere"/>
         <xsl:call-template name="DoInternalTargetBegin">
@@ -8920,6 +9061,33 @@
         <xsl:call-template name="OutputGlossaryTermDefinition">
             <xsl:with-param name="glossaryTerm" select="."/>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/glossaryTermsInDefinitionListLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+            </xsl:if>
+            <tex:spec cat="bg"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+            </xsl:call-template>
+            <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$contentLayoutInfo/glossaryTermsInDefinitionListLayout"/>
+            </xsl:call-template>
+            <tex:spec cat="eg"/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/glossaryTermsInDefinitionListLayout/@useSingleSpacing!='no'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputGlossaryTermsInTable

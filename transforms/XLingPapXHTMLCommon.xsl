@@ -1864,6 +1864,20 @@
         </td>
     </xsl:template>
     <!--
+        OutputGlossaryTermsAsDefinitionList
+    -->
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList">
+        <xsl:param name="glossaryTermsUsed"
+            select="//glossaryTerm[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)]/@glossaryTerm=@id]"/>
+        <xsl:if test="count($glossaryTermsUsed) &gt; 0">
+            <div class="glossaryTermsInDefinitionListLayout">
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
+    </xsl:template>
+    <!--
         OutputGlossaryTermsInTable
     -->
     <xsl:template name="OutputGlossaryTermsInTable">

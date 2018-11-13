@@ -46,3 +46,4 @@ It only shows if there is an instance of a referring glossaryTermRef element in 
    equalsWidth CDATA #IMPLIED
    definitionWidth CDATA #IMPLIED
 >
+<!ELEMENT glossaryTermsShownHereAsDefinitionList EMPTY >

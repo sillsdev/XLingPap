@@ -724,6 +724,36 @@ li.lower-roman {
     </xsl:template>
 
     <!--
+        glossaryTermDefinitionInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermDefinitionInDefinitionListLayout">
+        <xsl:variable name="sName" select="'glossaryTermDefinitionInDefinitionList'"/>
+        <xsl:call-template name="DoTextBefore">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoTextAfter">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        glossaryTermTermInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermTermInDefinitionListLayout">
+        <xsl:variable name="sName" select="'glossaryTermInDefinitionList'"/>
+        <xsl:call-template name="DoTextBefore">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+        <xsl:call-template name="DoTextAfter">
+            <xsl:with-param name="name" select="$sName"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
         glossaryTermRefLinkLayout
     -->
     <xsl:template match="glossaryTermRefLinkLayout">
@@ -735,6 +765,11 @@ li.lower-roman {
         glossaryTerms
     -->
     <xsl:template match="glossaryTerms">
+        <xsl:text>.glossaryTermInTable {
+</xsl:text>
+        <xsl:apply-templates select="$glossaryTerms/@*"/>
+        <xsl:text>}
+</xsl:text>
         <xsl:text>.glossaryTerms {
 </xsl:text>
         <xsl:apply-templates select="@*"/>
@@ -747,6 +782,58 @@ li.lower-roman {
 </xsl:text>
     </xsl:template>
     
+    <!--
+        glossaryTermsInDefinitionListLayout
+    -->
+    <xsl:template match="glossaryTermsInDefinitionListLayout">
+        <xsl:variable name="sThisHangingIndent" select="@hangingIndentNormalIndent"/>
+        <xsl:variable name="sThisInitialIndent" select="@hangingIndentInitialIndent"/>
+        <xsl:text>.glossaryTermsInDefinitionListLayout {
+</xsl:text>
+            <xsl:text>padding-left:</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                    <xsl:value-of select="$sThisHangingIndent"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>1em</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>;
+                text-indent:-</xsl:text>
+        <xsl:choose>
+            <xsl:when test="string-length($sThisInitialIndent) &gt; 0">
+                <xsl:variable name="iValue" select="substring($sThisInitialIndent,1, string-length($sThisInitialIndent)-2)"/>
+                <xsl:choose>
+                    <xsl:when test="$iValue=0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sThisInitialIndent"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="string-length($sThisHangingIndent) &gt; 0">
+                        <xsl:value-of select="$sThisHangingIndent"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>1em</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>;
+</xsl:text>
+        <xsl:if test="@useSingleSpacing='yes'">
+                <xsl:text>line-height:100%;
+</xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates/>
+</xsl:template>
     
     <!-- 
         glossInExampleLayout
@@ -2013,7 +2100,9 @@ li.lower-roman {
     <xsl:template name="LinkAttributesEnd"/>
     <xsl:template name="OutputAbbreviationInCommaSeparatedList"/>
     <xsl:template name="OutputAbbreviationInTable"/>
+    <xsl:template name="OutputGlossaryTermInDefinitionList"/>
     <xsl:template name="OutputGlossaryTermInTable"/>
+    <xsl:template name="OutputGlossaryTermsAsDefinitionList"/>
     <xsl:template name="OutputGlossaryTermsInTable"/>
     <!-- ===========================================================
         TRANSFORMS TO INCLUDE

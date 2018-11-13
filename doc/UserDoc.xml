@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->2 November 2018</date
+>13 November 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.33.4</version
@@ -9803,6 +9803,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermsShownHereAsDefinitionList</object
+></dt
+><dd
+>This indicates where the list of glossary terms is to appear as a series of hanging indent paragraphs</dd
+><dt
+><object
+type="tElement"
 >hangingIndent</object
 ></dt
 ><dd
@@ -11589,6 +11596,20 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>glossaryTermDefinitionInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term definition when using a definition list</dd
+><dt
+><object
+type="tElement"
+>glossaryTermTermInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing a glossary term when using a definition list</dd
+><dt
+><object
+type="tElement"
 >glossaryTermRefLinkLayout</object
 ></dt
 ><dd
@@ -11596,6 +11617,13 @@ type="tElement"
 type="tElement"
 >glossaryTermRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>glossaryTermsInDefinitionListLayout</object
+></dt
+><dd
+>Layout info for showing glossary terms used in a series of hanging indent paragraphs</dd
 ><dt
 ><object
 type="tElement"

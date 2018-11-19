@@ -34,7 +34,17 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >2.34.1 19 November 2018<ul
 ><li
->Fix bug: when converting Endnote XML references file to XLingPaper format, if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID</li
+>Converting Endnote XML references file to XLingPaper format:<ul
+><li
+>Allow for a video reference.</li
+><li
+>Allow for a blog post reference</li
+><li
+>Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li
+><li
+>Fix bug: a doi element could get put in the wrong place, giving a validation error.</li
+></ul
+></li
 ></ul
 ></li
 ><li

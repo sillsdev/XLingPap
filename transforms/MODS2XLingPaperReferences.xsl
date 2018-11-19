@@ -103,8 +103,8 @@
                     <xsl:value-of select="$sBookTotalPages"/>
                 </bookTotalPages>
             </xsl:if>
+            <xsl:call-template name="DoAnyURL"/>
         </book>
-        <xsl:call-template name="DoAnyURL"/>
     </xsl:template>
     <!-- 
         bookSection
@@ -190,8 +190,8 @@
                 </jPages>
             </xsl:if>
             <!-- location and publisher go here,if such exist -->
+            <xsl:call-template name="DoAnyURL"/>
         </article>
-        <xsl:call-template name="DoAnyURL"/>
     </xsl:template>
     <!-- 
         conferencePaper
@@ -242,8 +242,8 @@
             <institution>
                 <xsl:value-of select="../m:originInfo/m:publisher"/>
             </institution>
+            <xsl:call-template name="DoAnyURL"/>
         </dissertation>
-        <xsl:call-template name="DoAnyURL"/>
     </xsl:template>
     <!-- 
         manuscript
@@ -271,13 +271,13 @@
                     <xsl:value-of select="$sBookTotalPages"/>
                 </bookTotalPages>
             </xsl:if>
+            <xsl:call-template name="DoAnyURL"/>
         </book>
-        <xsl:call-template name="DoAnyURL"/>
     </xsl:template>
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='webpage']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='webpage' or @authority='local' and string(.)='blogPost' or @authority='local' and string(.)='videoRecording']">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
@@ -306,7 +306,7 @@
 		</annotation>
     </xsl:template>
 
-    <xsl:template match="m:identifier[@type='doi']">
+    <xsl:template match="m:identifier[@type='doi']" mode="afterURLEtc">
         <doi>
             <xsl:value-of select="."/>
         </doi>
@@ -352,6 +352,7 @@
                 <xsl:value-of select="$accessed"/>
             </dateAccessed>
         </xsl:if>
+        <xsl:apply-templates select="../m:identifier[@type='doi']" mode="afterURLEtc"/>
     </xsl:template>
     <!-- 
         DoAuthor

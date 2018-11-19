@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.34.0</a:version
+>2.34.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-15</a:date
+>2018-11-19</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.34.1 19 November 2018<ul
+><li
+>Fix bug: when converting Endnote XML references file to XLingPaper format, if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID</li
+></ul
+></li
 ><li
 >2.34.0 15 November 2018<ul
 ><li

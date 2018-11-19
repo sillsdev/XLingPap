@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-2.33.0-xxe-4.8.0.zip"
+location="XLingPap-2.34.0-xxe-4.8.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ns="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.33.4</a:version
+>2.34.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-13</a:date
+>2018-11-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.3.4 13 November 2018<ul
+>2.34.0 15 November 2018<ul
 ><li
 >Add ability to show glossary terms as a "definition list" (each term and its definition in a hanging indent styled paragraph).</li
 ><li
@@ -93,26 +93,10 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when showing abbreviations in a table, if the abbreviations had a non-default font, then the hyperlink from the abbreviation in the text to the table was off by about a line.</li
 ><li
 >Fix bug: when a section title had an endnote and the section title was formatted as all uppercase, the endnote content also came out in all uppercase.</li
-></ul
-></li
-></ul
-></li
-><li
->2.33.2 13 June 2018<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: when there were many example(interlinear) items in a row, page breaking could be awful.</li
-></ul
-></li
-></ul
-></li
-><li
->2.33.1 30 May 2018<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >When a paper had no sections but does have appendices, if the style sheet had those appendices starting on a new page, the running headers could be incorrect.</li
+><li
+>Fix bug: when there were many example(interlinear) items in a row, page breaking could be awful.</li
 ></ul
 ></li
 ></ul

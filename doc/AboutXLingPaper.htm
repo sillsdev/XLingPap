@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.4.1</span></p>
-      <p align="center">Date: 2018-11-19</p>
+      <p align="center">Date: 2018-11-20</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.4.1 19 November 2018
+               <li>3.4.1 20 November 2018
                   <ul>
                      <li>Converting Endnote XML references file to XLingPaper format:
                         <ul>
@@ -42,6 +42,11 @@
                            <li>Allow for a blog post reference</li>
                            <li>Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li>
                            <li>Fix bug: a doi element could get put in the wrong place, giving a validation error.</li>
+                        </ul>
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a figure had a comment after the img element and captions show after the figure, "[0pt] could show in the output.</li>
                         </ul>
                      </li>
                   </ul>

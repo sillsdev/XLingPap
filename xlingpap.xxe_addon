@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-19</a:date
+>2018-11-20</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.1 19 November 2018<ul
+>3.4.1 20 November 2018<ul
 ><li
 >Converting Endnote XML references file to XLingPaper format:<ul
 ><li
@@ -51,6 +51,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li
 ><li
 >Fix bug: a doi element could get put in the wrong place, giving a validation error.</li
+></ul
+></li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a figure had a comment after the img element and captions show after the figure, "[0pt] could show in the output.</li
 ></ul
 ></li
 ></ul

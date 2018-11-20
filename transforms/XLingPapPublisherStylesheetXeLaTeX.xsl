@@ -4750,7 +4750,7 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$contentLayoutInfo/figureLayout/@captionLocation='after' or not($contentLayoutInfo/figureLayout) and $lingPaper/@figureLabelAndCaptionLocation='after'">
-            <xsl:for-each select="chart/*">
+            <xsl:for-each select="chart/*[name()!='comment']">
                 <xsl:if test="position()=last() and name()='img'">
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>

@@ -261,7 +261,7 @@
     <!-- 
         videoRecording (which we will treat as a book for now)
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='videoRecording']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='videoRecording' or @authority='local' and string(.)='audioRecording' and not(../m:location/m:url)]">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
             <xsl:call-template name="DoLocationAndPublisher"/>
@@ -277,7 +277,7 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='webpage' or @authority='local' and string(.)='blogPost' or @authority='local' and string(.)='videoRecording']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='webpage' or @authority='local' and string(.)='blogPost' or @authority='local' and string(.)='videoRecording' or @authority='local' and string(.)='audioRecording' and ../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>

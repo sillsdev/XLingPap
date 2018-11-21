@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-20</a:date
+>2018-11-21</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,13 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.1 20 November 2018<ul
+>3.4.1 21 November 2018<ul
 ><li
->Converting Endnote XML references file to XLingPaper format:<ul
+>Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
+><li
+>Allow for a audio reference.</li
 ><li
 >Allow for a video reference.</li
 ><li
 >Allow for a blog post reference</li
+><li
+>Allow for a dictionary reference</li
 ><li
 >Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li
 ><li

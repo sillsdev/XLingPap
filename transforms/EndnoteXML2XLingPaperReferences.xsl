@@ -8,7 +8,7 @@
     <xsl:template match="//records">
         <references>
             <xsl:for-each
-                select="record[ref-type[@name='Book' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
                 <xsl:sort lang="en"
                     select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
@@ -83,10 +83,16 @@
     <xsl:template match="ref-type">
         <!-- ignore all others -->
     </xsl:template>
+    <!--
+        ref-type Audiovisual Material
+    -->
+    <xsl:template match="ref-type[@name='Audiovisual Material']">
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
     <!-- 
         ref-type Book
     -->
-    <xsl:template match="ref-type[@name='Book']">
+    <xsl:template match="ref-type[@name='Book' or @name='Dictionary']">
         <xsl:call-template name="DoBook"/>
     </xsl:template>
     <!-- 

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-20</a:date
+>2018-11-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,17 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.1 20 November 2018<ul
+>2.34.1 21 November 2018<ul
 ><li
->Converting Endnote XML references file to XLingPaper format:<ul
+>Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
+><li
+>Allow for a audio reference.</li
 ><li
 >Allow for a video reference.</li
 ><li
 >Allow for a blog post reference</li
+><li
+>Allow for a dictionary reference</li
 ><li
 >Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li
 ><li

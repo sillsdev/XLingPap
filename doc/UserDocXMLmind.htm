@@ -12,8 +12,8 @@
       <center><b><big><big>Using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> version 7.3+</big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>15 November 2018</small></center>
-      <center><small>Version: 3.4.0</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>23 November 2018</small></center>
+      <center><small>Version: 3.4.1</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -8723,7 +8723,7 @@
       <h4 style=""><a name="sXeTeXLimitations"></a>11.17.1.1&nbsp;Known limitations of using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span></h4>
       <p>There are some known limitations with the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> approach:
       </p>
-      <ul>
+      <ol style="list-style-type:decimal; ">
          <li>Table column widths can be a problem. For very simple tables (i.e., those without any embedded tables or column spans or row
             spans or overt width specifications), we try to get <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> to calculate the width of each column. The algorithm used, however, is only approximate and may or may not work well for
             a given table.<br>Therefore, you may well need to adjust column widths by hand. The default is for each column to be as wide as the material
@@ -8871,7 +8871,7 @@
             delete them, and re-install the one version of the font desired. TypoGraf can be obtained from <a href="http://www.neuber.com/typograph/index.html">http://www.neuber.com/typograph/index</a>. Please note that it is *crucial* that you run TypoGraf as Administrator when you try and delete a duplicate font. If you
             do not, it will look like the font is deleted but it will not be.
          </li>
-      </ul>
+      </ol>
       <h4 style=""><a name="sInstallingXeTeX"></a>11.17.1.2&nbsp;Installing <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span></h4>
       <p>If you used the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> configuration installation package, then you already have what you need to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> approach to producing PDF.
       </p>
@@ -9042,7 +9042,7 @@
       <p>Please note that this process of producing a Word 2003 document is not as mature and stable as the process to produce a webpage
          and PDF is. Here are the known limitations:
       </p>
-      <ul>
+      <ol style="list-style-type:decimal; ">
          <li>Any display which is rendered as a table may have oddly spaced columns.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCNoFontMetics">110</a>]</span> This includes many example elements. There is a Word macro package I have written to help with this. The macro applies Word's
             "auto-fit" table capability to all the tables in the document. You can obtain the macro by going to <a href="http://software.sil.org/xlingpaper/resources/ms-word/">http://software.sil.org/xlingpaper/resources/ms-word/</a>, downloading the file and following the instructions in that Word file.
          </li>
@@ -9063,7 +9063,7 @@
          <li>Multiple <span style="font-family:Courier New; color:maroon; ">endnote</span> elements in the same paragraph sometimes will not get formatted at all. If you have one of the newer versions of the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XSL Utility</span>, you can run it on the resulting .fo file and choose to use the RTF output. It will then handle the footnotes correctly.
             Alternatively, you can use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">Open Office Writer</span> output (see section <a href="#sFAQProduceOOo">11.19</a>) and then convert that to Word format.
          </li>
-      </ul>
+      </ol>
       <p>If you note any odd results or errors, please send an email message to <a href="mailto:xlingpaper_support@sil.org">xlingpaper_support@sil.org</a>.
       </p>
       <h2 style=""><a name="sFAQProduceOOo"></a>11.19&nbsp;Produce an Open Office Version?
@@ -9096,13 +9096,13 @@
       </p>
       <p>Please note that this process of producing an <span style="font-family:Courier New; font-weight:bold; color:navy; ">Open Office Writer</span> document is not as mature and stable as the process to produce a webpage or PDF is. Here are the known issues:
       </p>
-      <ul>
+      <ol style="list-style-type:decimal; ">
          <li>
             <p>Any display which is rendered as a table may have oddly spaced columns.<span style="font-size:65%; vertical-align:super">[<a href="#nXFCNoFontMetics">110</a>]</span> This includes many example elements. There is an Open Office Extension package I have written to help with this. The macro
                attempts to apply the "auto-fit" table capability to all the tables in the document. You can obtain the macro by performing
                these steps:
             </p>
-            <ol style="list-style-type:decimal; ">
+            <ol style="list-style-type:lower-alpha; ">
                <li>Go to <a href="http://software.sil.org/xlingpaper/resources/open-office-writer/">http://software.sil.org/xlingpaper/resources/open-office-writer/</a> and download the XLingPaper.oxt file
                </li>
                <li>In Open Office, use <span style="color:maroon; ">Tools / Extension Manager</span></li>
@@ -9131,7 +9131,7 @@
          </li>
          <li>Floats (see section <a href="#sTCTFloats">6.4</a>) are not handled as floats. They will appear exactly in place.
          </li>
-      </ul>
+      </ol>
       <p>If you note any odd results or errors, please send an email message to <a href="mailto:xlingpaper_support@sil.org">xlingpaper_support@sil.org</a>.
       </p>
       <h2 style=""><a name="sFAQInsertSection2WhleInSection3"></a>11.20&nbsp;Insert a section level 2 while in a section level 3?

@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-21</a:date
+>2018-11-23</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -41,6 +41,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >3.4.1 21 November 2018<ul
+><li
+>Improve documentation:<ul
+><li
+>Change the bulleted list to an ordered list in known issues items to make referring to them easier.</li
+></ul
+></li
 ><li
 >Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
 ><li

@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->15 November 2018</date
+>23 November 2018</date
 ><version
 contentType="ctVersion5.3"
->2.34.0</version
+>2.34.1</version
 ><version
 contentType="ctVersion7Plus"
->3.4.0</version
+>3.4.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -21950,7 +21950,7 @@ type="tXeTeX"
 type="tXeTeX"
 ></object
 > approach:</p
-><ul
+><ol
 ><li
 >Table column widths can be a problem. For very simple tables (i.e., those without any embedded tables or column spans or row spans or overt width specifications), we try to get <object
 type="tXeTeX"
@@ -22322,7 +22322,7 @@ type="tAttrValue"
 href="http://www.neuber.com/typograph/index.html"
 >http://www.neuber.com/typograph/index</link
 >. Please note that it is *crucial* that you run TypoGraf as Administrator when you try and delete a duplicate font. If you do not, it will look like the font is deleted but it will not be.</li
-></ul
+></ol
 ></section4
 ><section4
 id="sInstallingXeTeX"
@@ -22841,7 +22841,7 @@ type="tXLingPap"
 >By the way, you can also invoke this tool by itself and use it to convert to some other formats, too. You will need to use the .fo version of your file (that this process also produces) as your input file. Then you will need to select the output format you wish. Ones that make the most sense are to map from FO to .docx, .odt, or .rtf.</p
 ><p
 >Please note that this process of producing a Word 2003 document is not as mature and stable as the process to produce a webpage and PDF is. Here are the known limitations:</p
-><ul
+><ol
 ><li
 >Any display which is rendered as a table may have oddly spaced columns.<endnote
 id="nXFCNoFontMetics"
@@ -22901,7 +22901,7 @@ type="tOpenOfficeWriter"
 sec="sFAQProduceOOo"
 ></sectionRef
 >) and then convert that to Word format.</li
-></ul
+></ol
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"
@@ -22998,7 +22998,7 @@ type="tXLingPap"
 type="tOpenOfficeWriter"
 ></object
 > document is not as mature and stable as the process to produce a webpage or PDF is. Here are the known issues:</p
-><ul
+><ol
 ><li
 ><p
 >Any display which is rendered as a table may have oddly spaced columns.<endnoteRef
@@ -23067,7 +23067,7 @@ type="tXMLmindXSLUtility"
 sec="sTCTFloats"
 ></sectionRef
 >) are not handled as floats. They will appear exactly in place.</li
-></ul
+></ol
 ><p
 >If you note any odd results or errors, please send an email message to <link
 href="mailto:xlingpaper_support@sil.org"

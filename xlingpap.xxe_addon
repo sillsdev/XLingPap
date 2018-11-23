@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-21</a:date
+>2018-11-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.1 21 November 2018<ul
+>2.34.1 23 November 2018<ul
+><li
+>Improve documentation:<ul
+><li
+>Change the bulleted list to an ordered list in known issues items to make referring to them easier.</li
+></ul
+></li
 ><li
 >Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
 ><li

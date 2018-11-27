@@ -4101,7 +4101,7 @@
             <xsl:text> doi:</xsl:text>
             <xsl:call-template name="AddAnyLinkAttributes"/>
             <xsl:call-template name="DoExternalHyperRefBegin">
-                <xsl:with-param name="sName" select="concat('http://doai.io/',$sDOI)"/>
+                <xsl:with-param name="sName" select="concat('https://doi.org/',$sDOI)"/>
             </xsl:call-template>
             <xsl:value-of select="$sDOI"/>
             <xsl:call-template name="DoExternalHyperRefEnd"/>

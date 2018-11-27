@@ -4166,7 +4166,7 @@
             <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
             <xsl:if test="string-length($sDOI) &gt; 0">
                 <xsl:text> doi:</xsl:text>
-                <a href="http://doai.io/{$sDOI}">
+                <a href="https://doi.org/{$sDOI}">
                     <xsl:value-of select="$sDOI"/>
                 </a>
                 <xsl:text>.</xsl:text>

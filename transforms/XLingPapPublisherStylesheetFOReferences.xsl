@@ -115,7 +115,7 @@
     -->
     <xsl:template name="DoDoiLayout">
         <!-- remove any zero width spaces in the hyperlink -->
-        <fo:basic-link external-destination="url(http://doai.io/{normalize-space(translate(.,'&#x200b;',''))})">
+        <fo:basic-link external-destination="url(https://doi.org/{normalize-space(translate(.,'&#x200b;',''))})">
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/doiLinkLayout"/>
             </xsl:call-template>

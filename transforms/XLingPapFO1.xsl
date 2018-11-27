@@ -4711,7 +4711,7 @@ not using
             <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
             <xsl:if test="string-length($sDOI) &gt; 0">
                 <xsl:text> doi:</xsl:text>
-                <fo:basic-link external-destination="url(http://doai.io/{$sDOI})">
+                <fo:basic-link external-destination="url(https://doi.org/{$sDOI})">
                     <xsl:call-template name="AddAnyLinkAttributes"/>
                     <xsl:value-of select="$sDOI"/>
                 </fo:basic-link>

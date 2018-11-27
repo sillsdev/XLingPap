@@ -248,7 +248,7 @@
     <!-- 
         manuscript
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='manuscript']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='manuscript' or @authority='local' and string(.)='document']">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>

@@ -238,6 +238,20 @@
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
+        <thesis>
+            <institution>
+                <xsl:value-of select="../m:originInfo/m:publisher"/>
+            </institution>
+            <xsl:call-template name="DoAnyURL"/>
+        </thesis>
+    </xsl:template>
+    <!--
+        dissertation
+    -->
+    <xsl:template match="m:genre[@authority='local' and string(.)='thesis'][following-sibling::*[name()='genre' and .='Ph.D Dissertation']]" priority="1">
+        <xsl:call-template name="DoDateAndTitle">
+            <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
+        </xsl:call-template>
         <dissertation>
             <institution>
                 <xsl:value-of select="../m:originInfo/m:publisher"/>
@@ -248,7 +262,7 @@
     <!-- 
         manuscript
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='manuscript' or @authority='local' and string(.)='document']">
+    <xsl:template match="m:genre[@authority='local'][string(.)='manuscript' or string(.)='document']">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
@@ -261,7 +275,7 @@
     <!-- 
         videoRecording (which we will treat as a book for now)
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='videoRecording' or @authority='local' and string(.)='audioRecording' and not(../m:location/m:url)]">
+    <xsl:template match="m:genre[@authority='local'and not(../m:location/m:url)][string(.)='videoRecording' or string(.)='audioRecording']">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
             <xsl:call-template name="DoLocationAndPublisher"/>
@@ -277,7 +291,7 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='webpage' or @authority='local' and string(.)='blogPost' or @authority='local' and string(.)='videoRecording' or @authority='local' and string(.)='audioRecording' and ../m:location/m:url]">
+    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='audioRecording' and ../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>

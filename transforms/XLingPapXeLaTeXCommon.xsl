@@ -10523,6 +10523,8 @@
     -->
     <xsl:template name="ReportTeXCannotHandleThisMessage">
         <xsl:param name="sMessage"/>
+        <tex:spec cat="esc"/>
+        <tex:spec cat="esc"/>
         <tex:cmd name="colorbox">
             <tex:parm>yellow</tex:parm>
             <tex:parm>

@@ -96,6 +96,57 @@
     <xsl:template match="m:genre[@authority='local' and string(.)='book']">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
+            <xsl:variable name="sBookVolume" select="../m:part/m:detail[@type='volume']/m:number"/>
+            <xsl:variable name="sSeriesTitle" select="../m:relatedItem[@type='series']/m:titleInfo/m:title"/>
+            <xsl:variable name="sSeriesVol" select="../m:relatedItem[@type='series']/m:part/m:detail[@type='volume']/m:number"/>
+            <xsl:if test="$sSeriesTitle">
+                <xsl:variable name="sSeriesEd" select="../m:relatedItem[@type='series']/m:name[@type='personal']"/>
+                <xsl:if test="$sSeriesEd">
+                    <xsl:variable name="sEditors">
+                        <xsl:for-each select="../m:relatedItem[@type='series']">
+                            <xsl:call-template name="GetEditorsNames">
+                                <xsl:with-param name="sKind" select="'pbd'"/>
+                            </xsl:call-template>
+                        </xsl:for-each>
+                    </xsl:variable>
+                    <xsl:if test="string-length($sEditors) &gt; 0">
+                        <seriesEd>
+                            <xsl:attribute name="plural">
+                                <xsl:for-each select="../m:relatedItem[@type='series']">
+                                    <xsl:choose>
+                                    <xsl:when test="count(m:name[m:role/m:roleTerm='pbd']) &gt; 1">
+                                        <xsl:text>yes</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>no</xsl:text>
+                                    </xsl:otherwise>
+                                    </xsl:choose>
+                                    </xsl:for-each>
+                            </xsl:attribute>
+                            <xsl:value-of select="$sEditors"/>
+                        </seriesEd>
+                    </xsl:if>
+                </xsl:if>
+                <series>
+                    <xsl:value-of select="$sSeriesTitle"/>
+                    <xsl:if test="$sSeriesVol and $sBookVolume">
+                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:value-of select="$sSeriesVol"/>
+                    </xsl:if>
+                </series>
+            </xsl:if>
+            <xsl:if test="$sBookVolume or $sSeriesVol">
+                <bVol>
+                    <xsl:choose>
+                        <xsl:when test="$sBookVolume">
+                            <xsl:value-of select="$sBookVolume"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$sSeriesVol"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </bVol>
+            </xsl:if>
             <xsl:call-template name="DoLocationAndPublisher"/>
             <xsl:variable name="sBookTotalPages" select="../m:physicalDescription/m:extent[@unit='pages']/m:total"/>
             <xsl:if test="$sBookTotalPages">
@@ -267,9 +318,13 @@
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
         <ms>
+            <xsl:call-template name="DoLocationAndPublisher">
+                <xsl:with-param name="sPublisher" select="''"/>
+            </xsl:call-template>
             <institution>
                 <xsl:text>**No Institution**</xsl:text>
             </institution>
+            <xsl:call-template name="DoAnyURL"/>
         </ms>
     </xsl:template>
     <!-- 
@@ -299,7 +354,9 @@
             <xsl:call-template name="DoAnyURL"/>
         </webPage>
     </xsl:template>
-
+    <!--
+        abstract
+    -->
     <xsl:template name="abstract">
 		<annotation annotype="atAbstract">
                 <xsl:attribute name="id">
@@ -309,7 +366,9 @@
 			<xsl:value-of select="."/>
 		</annotation>
     </xsl:template>
-
+    <!--
+        note
+    -->
     <xsl:template name="note">
 		<annotation annotype="atNote">
                 <xsl:attribute name="id">
@@ -319,7 +378,9 @@
 			<xsl:value-of select="."/>
 		</annotation>
     </xsl:template>
-
+    <!--
+        doi
+    -->
     <xsl:template match="m:identifier[@type='doi']" mode="afterURLEtc">
         <doi>
             <xsl:value-of select="."/>

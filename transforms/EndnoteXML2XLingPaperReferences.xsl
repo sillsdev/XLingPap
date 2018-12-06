@@ -252,15 +252,15 @@
     -->
     <xsl:template match="ref-type[@name='Thesis']">
         <xsl:choose>
-            <xsl:when test="contains(../work-type,'M.A.') or contains(../volume,'M.A.')">
-                <thesis>
-                    <xsl:call-template name="DoDissertationOrThesis"/>
-                </thesis>
-            </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="contains(../work-type,'Ph.D.') or contains(../volume,'Ph.D.')">
                 <dissertation>
                     <xsl:call-template name="DoDissertationOrThesis"/>
                 </dissertation>
+            </xsl:when>
+            <xsl:otherwise>
+                <thesis>
+                    <xsl:call-template name="DoDissertationOrThesis"/>
+                </thesis>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

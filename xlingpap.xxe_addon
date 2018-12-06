@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-11-28</a:date
+>2018-12-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.1 28 November 2018<ul
+>2.34.1 6 December 2018<ul
 ><li
 >Improve documentation:<ul
 ><li
@@ -54,9 +54,13 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Improve thesis vs. dissertation handling</li
 ><li
+>Improve manuscript handling</li
+><li
 >Fix bug: if the title contained a /, &lt; or &gt;, it was not removed for the refWork ID.</li
 ><li
 >Fix bug: a doi element could get put in the wrong place, giving a validation error.</li
+><li
+>Fix bug: books did not handle volume, series, and series volumes correctly.</li
 ></ul
 ></li
 ><li

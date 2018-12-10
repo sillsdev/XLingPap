@@ -8,7 +8,7 @@
     <xsl:template match="//records">
         <references>
             <xsl:for-each
-                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Standard' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
                 <xsl:sort lang="en"
                     select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
@@ -245,7 +245,13 @@
         ref-type Report
     -->
     <xsl:template match="ref-type[@name='Report']">
-        <xsl:call-template name="DoArticle"/>
+        <xsl:call-template name="DoBook"/>
+    </xsl:template>
+    <!-- 
+        ref-type Standard
+    -->
+    <xsl:template match="ref-type[@name='Standard']">
+        <xsl:call-template name="DoBook"/>
     </xsl:template>
     <!-- 
         ref-type Thesis
@@ -441,6 +447,11 @@
                     <xsl:value-of select="normalize-space(../edition)"/>
                 </edition>
             </xsl:if>
+            <xsl:if test="@name='Report' and ../number">
+                <edition>
+                    <xsl:value-of select="normalize-space(../number)"/>
+                </edition>
+            </xsl:if>
             <xsl:if test="../contributors/secondary-authors">
                 <seriesEd>
                     <xsl:for-each select="../contributors/secondary-authors">
@@ -584,11 +595,18 @@
     <xsl:template name="DoWebPage">
         <webPage>
             <!-- (edition?, location?, (institution | publisher)?, url, dateAccessed?, iso639-3code*, comment?) -->
-            <xsl:if test="../edition">
-                <edition>
-                    <xsl:value-of select="normalize-space(../edition)"/>
-                </edition>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="../edition">
+                    <edition>
+                        <xsl:value-of select="normalize-space(../edition)"/>
+                    </edition>
+                </xsl:when>
+                <xsl:when test="../number">
+                    <edition>
+                        <xsl:value-of select="normalize-space(../number)"/>
+                    </edition>
+                </xsl:when>
+            </xsl:choose>
             <xsl:apply-templates select="../pub-location"/>
             <xsl:apply-templates select="../publisher"/>
             <xsl:choose>

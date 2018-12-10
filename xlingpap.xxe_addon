@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-12-06</a:date
+>2018-12-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.1 6 December 2018<ul
+>2.34.1 10 December 2018<ul
 ><li
 >Improve documentation:<ul
 ><li
@@ -51,6 +51,10 @@ href="mailto::xlingpaper_support@sil.org"
 >Allow for a dictionary reference</li
 ><li
 >Allow for a document reference</li
+><li
+>Allow for a report reference</li
+><li
+>Allow for a standards reference</li
 ><li
 >Improve thesis vs. dissertation handling</li
 ><li

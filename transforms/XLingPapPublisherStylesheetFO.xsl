@@ -1586,7 +1586,14 @@
                 <xsl:with-param name="sList" select="@xsl-foSpecial"/>
             </xsl:call-template>
             <xsl:attribute name="start-indent">
-                <xsl:value-of select="$sBlockQuoteIndent"/>
+                <xsl:choose>
+                    <xsl:when test="parent::li">
+                        <xsl:text>body-start()</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:attribute>
             <xsl:attribute name="end-indent">
                 <xsl:value-of select="$sBlockQuoteIndent"/>

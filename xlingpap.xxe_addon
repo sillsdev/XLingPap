@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-12-06</a:date
+>2018-12-10</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.1 6 December 2018<ul
+>3.4.1 10 December 2018<ul
 ><li
 >Improve documentation:<ul
 ><li
@@ -59,6 +59,10 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Allow for a dictionary reference</li
 ><li
 >Allow for a document reference</li
+><li
+>Allow for a report reference</li
+><li
+>Allow for a standards reference</li
 ><li
 >Improve thesis vs. dissertation handling</li
 ><li

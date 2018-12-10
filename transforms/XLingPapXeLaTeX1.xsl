@@ -4185,10 +4185,10 @@
         <tex:cmd name="vspace" nl1="1" nl2="1">
             <tex:parm><xsl:value-of select="$sVerticalSpaceBefore"/>pt</tex:parm>
         </tex:cmd>
-        <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'clearpage')">
+        <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'clearpage') or contains(@XeLaTeXSpecial,'clearpage')">
             <tex:cmd name="clearpage" gr="0" nl2="0"/>
         </xsl:if>
-        <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
+        <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak') or contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
         <xsl:call-template name="OKToBreakHere"/>

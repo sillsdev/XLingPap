@@ -358,7 +358,35 @@
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
         <!--        <tex:env name="quotation">-->
+        <xsl:if test="parent::li">
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                    <xsl:text>+</xsl:text>
+                    <tex:cmd name="XLingPaperlistitemindent" gr="0" nl2="0"/>
+                    <xsl:text>+</xsl:text>
+                    <xsl:value-of select="$sBlockQuoteIndent"/>
+                    <xsl:if test="count(ancestor::*[name()='ol' or name()='ul'])=1">
+                        <xsl:text>+</xsl:text>
+                        <tex:cmd name="parindent" gr="0" nl2="0"/>
+                    </xsl:if>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <tex:cmd name="XLingPaperblockquote">
+            <tex:parm>
+                <xsl:choose>
+                    <xsl:when test="parent::li">
+                        <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </tex:parm>
             <tex:parm>
                 <xsl:value-of select="$sBlockQuoteIndent"/>
             </tex:parm>
@@ -12949,29 +12977,20 @@ What might go in a TeX package file
     -->
     <xsl:template name="SetXLingPaperBlockQuoteMacro">
         <!-- based on the borrowed set toc macro from LaTeX's latex.ltx file 
-            #1 is the blockquote indent
-            #2 is the content of the block quote
+            #1 is the blockquote left indent
+            #2 is the blockquote right indent
+            #3 is the content of the block quote
         -->
         <xsl:if test="//blockquote">
-            <!--            \newcommand{\XLingPaperblockquote}[2]{
-            \vskip\baselineskip{
-            \leftskip#1\relax% left glue for indent
-            \rightskip#1\relax% right glue for indent
-            \interlinepenalty10000
-            \leavevmode
-            \hskip-\parindent
-            {#2}\nobreak
-            }\vskip\baselineskip}
--->
             <tex:cmd name="newcommand" nl2="1">
                 <tex:parm>
                     <tex:cmd name="XLingPaperblockquote" gr="0" nl2="0"/>
                 </tex:parm>
-                <tex:opt>4</tex:opt>
+                <tex:opt>5</tex:opt>
                 <tex:parm>
                     <tex:cmd name="vskip" gr="0" nl2="0"/>
                     <tex:spec cat="parm"/>
-                    <xsl:text>3</xsl:text>
+                    <xsl:text>4</xsl:text>
                     <tex:group>
                         <tex:cmd name="leftskip" gr="0" nl1="1" nl2="0"/>
                         <tex:spec cat="parm"/>
@@ -12982,7 +13001,7 @@ What might go in a TeX package file
                         <tex:cmd name="relax" gr="0" nl2="0"/>
                         <tex:cmd name="rightskip" gr="0" nl1="1" nl2="0"/>
                         <tex:spec cat="parm"/>
-                        <xsl:text>1</xsl:text>
+                        <xsl:text>2</xsl:text>
                         <tex:cmd name="relax" gr="0" nl2="0"/>
                         <tex:spec cat="comment"/>
                         <xsl:text> right glue for indent</xsl:text>
@@ -12993,13 +13012,13 @@ What might go in a TeX package file
                         <tex:cmd name="parindent" gr="0" nl2="0"/>
                         <tex:spec cat="bg"/>
                         <tex:spec cat="parm"/>
-                        <xsl:text>2</xsl:text>
+                        <xsl:text>3</xsl:text>
                         <tex:spec cat="eg"/>
                         <tex:cmd name="nobreak" gr="0" nl2="1"/>
                     </tex:group>
                     <tex:cmd name="vskip" gr="0" nl2="0"/>
                     <tex:spec cat="parm"/>
-                    <xsl:text>4</xsl:text>
+                    <xsl:text>5</xsl:text>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>

@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->23 November 2018</date
+>11 December 2018</date
 ><version
 contentType="ctVersion5.3"
 >2.34.1</version
@@ -22472,7 +22472,7 @@ type="tXeTeX"
 > approach.</p
 ></endnote
 ></p
-><ul
+><ol
 ><li
 >It is extremely hard to install.<endnote
 id="nRenderXBetterInstaller"
@@ -22519,7 +22519,15 @@ type="tElement"
 > element.)</li
 ><li
 >An interlinear example in footnotes may come out with the words having too much space between them.</li
-></ul
+><li
+>Any <object
+type="tElement"
+>blockquote</object
+> elements within an <object
+type="tElement"
+>li</object
+> element will not be indented properly.</li
+></ol
 ></section4
 ><section4
 id="sInstallingRenderXXep"

@@ -361,7 +361,7 @@
         <xsl:if test="parent::li">
             <tex:cmd name="setlength">
                 <tex:parm>
-                    <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                    <tex:cmd name="XLingPaperbqtemp" gr="0" nl2="0"/>
                 </tex:parm>
                 <tex:parm>
                     <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
@@ -380,7 +380,7 @@
             <tex:parm>
                 <xsl:choose>
                     <xsl:when test="parent::li">
-                        <tex:cmd name="XLingPapertempdim" gr="0" nl2="0"/>
+                        <tex:cmd name="XLingPaperbqtemp" gr="0" nl2="0"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$sBlockQuoteIndent"/>
@@ -12982,6 +12982,13 @@ What might go in a TeX package file
             #3 is the content of the block quote
         -->
         <xsl:if test="//blockquote">
+            <xsl:if test="//blockquote[parent::li]">
+                <tex:cmd name="newlength">
+                    <tex:parm>
+                        <tex:cmd name="XLingPaperbqtemp" gr="0"/>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <tex:cmd name="newcommand" nl2="1">
                 <tex:parm>
                     <tex:cmd name="XLingPaperblockquote" gr="0" nl2="0"/>

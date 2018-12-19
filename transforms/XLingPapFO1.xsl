@@ -4195,6 +4195,7 @@ not using
                 </fo:inline>
             </xsl:for-each>
         </xsl:if>
+        <xsl:apply-templates select="descendant-or-self::comment"/>
     </xsl:template>
     <!--  
         DoRefWorks

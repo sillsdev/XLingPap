@@ -4107,6 +4107,7 @@
             <xsl:call-template name="DoExternalHyperRefEnd"/>
             <xsl:text>.</xsl:text>
         </xsl:if>
+        <xsl:apply-templates select="descendant-or-self::comment"/>
         <tex:cmd name="par" gr="0" nl2="1"/>
     </xsl:template>
     <!--  

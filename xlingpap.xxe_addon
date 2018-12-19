@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2018-12-10</a:date
+>2018-12-19</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.1 10 December 2018<ul
+>3.4.1 19 December 2018<ul
 ><li
 >Improve documentation:<ul
 ><li
@@ -81,6 +81,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Change DOI links from http://doai.io to https://doi.org.</li
 ><li
 >Fix bug: a blockquote within a bulleted or ordered list did not indent correctly.</li
+><li
+>Fix bug: when showing comments in the output, any comments in references were not showing.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -4171,6 +4171,7 @@
                 </a>
                 <xsl:text>.</xsl:text>
             </xsl:if>
+            <xsl:apply-templates select="descendant-or-self::comment"/>
         </p>
     </xsl:template>
     <!--  

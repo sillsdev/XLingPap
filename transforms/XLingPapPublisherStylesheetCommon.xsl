@@ -26,7 +26,7 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
-<!--    <xsl:variable name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>-->
+    <!--    <xsl:variable name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>-->
     <xsl:variable name="contentsLayout">
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/contentsLayout">
@@ -37,8 +37,8 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-<!--    <xsl:variable name="sChapterLineIndent" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlineindent)"/>-->
-<!--    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>-->
+    <!--    <xsl:variable name="sChapterLineIndent" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlineindent)"/>-->
+    <!--    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>-->
     <xsl:variable name="authorInContentsLayoutInfo">
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]">
@@ -196,6 +196,7 @@
     -->
     <xsl:template match="book">
         <xsl:call-template name="DoBookLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         collCitation
@@ -211,6 +212,7 @@
     -->
     <xsl:template match="collection">
         <xsl:call-template name="DoCollectionLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         dissertation
@@ -219,18 +221,21 @@
         <xsl:call-template name="DoDissertationLayout">
             <xsl:with-param name="layout" select="$referencesLayoutInfo/dissertationLayouts"/>
         </xsl:call-template>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         article
     -->
     <xsl:template match="article">
         <xsl:call-template name="DoArticleLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         field notes
     -->
     <xsl:template match="fieldNotes">
         <xsl:call-template name="DoFieldNotesLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         glossary
@@ -285,12 +290,14 @@
     -->
     <xsl:template match="ms">
         <xsl:call-template name="DoMsLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         paper
     -->
     <xsl:template match="paper">
         <xsl:call-template name="DoPaperLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         abstract (book)
@@ -491,6 +498,7 @@
     -->
     <xsl:template match="proceedings">
         <xsl:call-template name="DoProceedingsLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         thesis
@@ -499,6 +507,7 @@
         <xsl:call-template name="DoDissertationLayout">
             <xsl:with-param name="layout" select="$referencesLayoutInfo/thesisLayouts"/>
         </xsl:call-template>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         doi
@@ -523,6 +532,7 @@
     -->
     <xsl:template match="webPage">
         <xsl:call-template name="DoWebPageLayout"/>
+        <xsl:apply-templates select="comment"/>
     </xsl:template>
     <!--
         refAuthor
@@ -3546,7 +3556,7 @@
                         <xsl:when test="substring($sOptionsPresent, 18, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                 </xsl:variable>
-<!--                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>-->
+                <!--                <xsl:variable name="iLen" select="string-length($sItemsWhichMatchOptions)"/>-->
                 <xsl:if test="string-length($sItemsWhichMatchOptions) = 18">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>

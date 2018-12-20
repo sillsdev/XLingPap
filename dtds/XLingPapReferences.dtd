@@ -30,7 +30,7 @@
 <!-- Every work has a date and a title.
      There are a number of kinds of references, each of which has different
      content. -->
-<!ELEMENT  refAuthorInitials (#PCDATA) >     
+<!ELEMENT  refAuthorInitials (#PCDATA | %embedded;)* >
 <!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
 <!ELEMENT  refAuthorLastName (#PCDATA) >     
 <!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>

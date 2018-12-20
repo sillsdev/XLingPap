@@ -58,8 +58,12 @@
                         </ul>
                      </li>
                      <li>Change DOI links from http://doai.io to https://doi.org.</li>
+                     <li>Allow a refAuthorInitials element to contain langData, etc., elements.</li>
                      <li>Fix bug: a blockquote within a bulleted or ordered list did not indent correctly.</li>
                      <li>Fix bug: when showing comments in the output, any comments in references were not showing.</li>
+                     <li>Fix bug: when using a publisher style sheet which controls formatting of langData elements, any langData element in a refAuthorInitial
+                        or refWork used the prose style instead of no special styling.
+                     </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Improve layout of missing reference pattern message so that it all shows in the PDF.</li>

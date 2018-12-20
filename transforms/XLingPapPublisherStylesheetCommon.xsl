@@ -550,7 +550,8 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="normalize-space(refAuthorInitials)"/>
+                <xsl:apply-templates select="refAuthorInitials"/>
+<!--                <xsl:value-of select="normalize-space(refAuthorInitials)"/>-->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -3568,7 +3569,7 @@
         GetContextOfItem
     -->
     <xsl:template name="GetContextOfItem">
-        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='listWord' or name()='word' or name()='example' or name()='table' or name()='interlinear-text'][1]"/>
+        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='listWord' or name()='word' or name()='example' or name()='table' or name()='interlinear-text' or name()='annotation' or name()='refWork'][1]"/>
         <xsl:choose>
             <xsl:when test="name()='gloss' and name($closestRelevantAncestor)='listWord' or name()='gloss' and name($closestRelevantAncestor)='word'">
                 <xsl:choose>
@@ -3605,6 +3606,9 @@
             </xsl:when>
             <xsl:when test="name($closestRelevantAncestor)='table'">
                 <xsl:text>table</xsl:text>
+            </xsl:when>
+            <xsl:when test="name($closestRelevantAncestor)='refWork'">
+                <xsl:text>reference</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>prose</xsl:text>

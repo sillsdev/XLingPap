@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.34.1</a:version
+>2.34.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -31,6 +31,16 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.34.2 21 December 2018<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when an endnote was embedded in a langData (or gloss) element, there could be no space between the footnote number and any following text.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.34.1 21 December 2018<ul
 ><li

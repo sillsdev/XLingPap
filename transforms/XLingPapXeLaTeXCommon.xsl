@@ -7607,7 +7607,19 @@
                         <xsl:value-of select="number($sSizeOnly) * 1.2"/>
                     </tex:parm>
                 </tex:cmd>
-                <tex:cmd name="selectfont" gr="0" sp="1"/>
+                <xsl:choose>
+                    <xsl:when test="name()='endnote' and parent::langData">
+                        <!-- need {} after selectfont or following text gets jammed up to footnote number -->
+                        <tex:cmd name="selectfont" />
+                    </xsl:when>
+                    <xsl:when test="name()='endnote' and parent::gloss">
+                        <!-- need {} after selectfont or following text gets jammed up to footnote number -->
+                        <tex:cmd name="selectfont" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:cmd name="selectfont" gr="0" sp="1"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

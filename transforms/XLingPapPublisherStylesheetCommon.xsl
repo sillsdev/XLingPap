@@ -3569,7 +3569,7 @@
         GetContextOfItem
     -->
     <xsl:template name="GetContextOfItem">
-        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='listWord' or name()='word' or name()='example' or name()='table' or name()='interlinear-text' or name()='annotation' or name()='refWork'][1]"/>
+        <xsl:variable name="closestRelevantAncestor" select="ancestor::*[name()='endnote' or name()='listWord' or name()='word' or name()='example' or name()='table' or name()='interlinear-text' or name()='annotation' or name()='refAuthor'][1]"/>
         <xsl:choose>
             <xsl:when test="name()='gloss' and name($closestRelevantAncestor)='listWord' or name()='gloss' and name($closestRelevantAncestor)='word'">
                 <xsl:choose>
@@ -3607,7 +3607,7 @@
             <xsl:when test="name($closestRelevantAncestor)='table'">
                 <xsl:text>table</xsl:text>
             </xsl:when>
-            <xsl:when test="name($closestRelevantAncestor)='refWork'">
+            <xsl:when test="name($closestRelevantAncestor)='refAuthor'">
                 <xsl:text>reference</xsl:text>
             </xsl:when>
             <xsl:otherwise>

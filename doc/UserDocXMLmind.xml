@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 December 2018</date
+>4 January 2019</date
 ><version
 contentType="ctVersion5.3"
->2.34.1</version
+>2.34.3</version
 ><version
 contentType="ctVersion7Plus"
->3.4.1</version
+>3.4.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -3247,7 +3247,13 @@ term="iAppendix"
 >Appendices are similar to chapters. One merely adds an <object
 type="tElement"
 >appendix</object
-> element. <indexedItem
+> element by clicking on “Endnotes” near the bottom and doing an <object
+type="tInstruction"
+>Insert Before</object
+> command.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+>   <indexedItem
 term="iAppendixTitle"
 ></indexedItem
 >It has its title and one may include sections and subsections. The appendix will automatically be given a letter. Its sections and subsections will be numbered like other sections, only they will begin with the appropriate appendix letter. See the example back matter section (<sectionRef
@@ -3288,7 +3294,22 @@ term="iGlossary"
 >A glossary for the paper may be included by using the <object
 type="tElement"
 >glossary</object
-> element. The content of the glossary may be a sequence of any "chunk" elements,<endnoteRef
+> element. You can insert a <object
+type="tElement"
+>glossary</object
+> element by clicking on the last <object
+type="tElement"
+>appendix</object
+> element and doing an <object
+type="tInstruction"
+>Insert After</object
+> command or by clicking on “Endnotes" and doing an <object
+type="tInstruction"
+>Insert Before</object
+> command.<endnoteRef
+note="nInsertElementReminder"
+></endnoteRef
+>  The content of the glossary may be a sequence of any "chunk" elements,<endnoteRef
 note="nChunk"
 ></endnoteRef
 > although including either a table or a definition list is the most likely.</p

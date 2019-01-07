@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-01-04</a:date
+>2019-01-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.3 4 January 2019<ul
+>2.34.3 7 January 2019<ul
 ><li
 >Improve documentation on inserting an appendix and a glossary.</li
+><li
+>Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: if an editor's name did not have a type attribute, it was missing.</li
+></ul
+></li
 ></ul
 ></li
 ><li

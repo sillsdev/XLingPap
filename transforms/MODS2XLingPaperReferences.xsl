@@ -693,9 +693,16 @@
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
-            <xsl:value-of select="m:namePart[@type='given']"/>
-            <xsl:text>&#x20;</xsl:text>
-            <xsl:value-of select="m:namePart[@type='family']"/>
+            <xsl:choose>
+                <xsl:when test="m:namePart/@type">
+                    <xsl:value-of select="m:namePart[@type='given']"/>
+                    <xsl:text>&#x20;</xsl:text>
+                    <xsl:value-of select="m:namePart[@type='family']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="m:namePart"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!-- 

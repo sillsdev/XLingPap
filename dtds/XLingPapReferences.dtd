@@ -63,7 +63,7 @@
 >
 <!-- journal article -->
 <!ELEMENT article (jTitle, jVol, jIssueNumber?, (jPages | jArticleNumber)?, location?, publisher?, reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT jTitle (#PCDATA)>
+<!ELEMENT jTitle (#PCDATA | %embedded;)*>
 <!ATTLIST jTitle
     xml:lang CDATA #IMPLIED
 >
@@ -88,38 +88,38 @@
 >
 <!-- book -->
 <!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT translatedBy (#PCDATA)>
+<!ELEMENT translatedBy (#PCDATA | %embedded;)*>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT edition (#PCDATA)>
+<!ELEMENT edition (#PCDATA | %embedded;)*>
 <!ATTLIST edition
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT series (#PCDATA)>
+<!ELEMENT series (#PCDATA | %embedded;)*>
 <!ATTLIST series
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT seriesEd (#PCDATA)>
+<!ELEMENT seriesEd (#PCDATA | %embedded;)*>
 <!ATTLIST seriesEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT seriesEdInitials (#PCDATA)>
+<!ELEMENT seriesEdInitials (#PCDATA | %embedded;)*>
 
 <!ELEMENT bVol (#PCDATA)>
 <!ATTLIST bVol
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT multivolumeWork (#PCDATA)>
+<!ELEMENT multivolumeWork (#PCDATA | %embedded;)*>
 <!ATTLIST multivolumeWork
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT publisher (#PCDATA)>
+<!ELEMENT publisher (#PCDATA | %embedded;)*>
 <!ATTLIST publisher
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT location (#PCDATA)>
+<!ELEMENT location (#PCDATA | %embedded;)*>
 <!ATTLIST location
     xml:lang CDATA #IMPLIED
 >
@@ -135,17 +135,17 @@
 <!ELEMENT collection ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | collCitation),
                          reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 
-<!ELEMENT collEd (#PCDATA)>
+<!ELEMENT collEd (#PCDATA | %embedded;)*>
 <!ATTLIST collEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT collEdInitials (#PCDATA)>
-<!ELEMENT collTitle (#PCDATA)>
+<!ELEMENT collEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT collTitle (#PCDATA | %embedded;)*>
 <!ATTLIST collTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT collTitleLowerCase (#PCDATA)>
+<!ELEMENT collTitleLowerCase (#PCDATA | %embedded;)*>
 <!ELEMENT collVol (#PCDATA)>
 <!ATTLIST collVol
     xml:lang CDATA #IMPLIED
@@ -166,7 +166,7 @@
 <!ATTLIST dissertation
     labelDissertation CDATA #IMPLIED
 >
-<!ELEMENT institution (#PCDATA)>
+<!ELEMENT institution (#PCDATA | %embedded;)*>
 <!ATTLIST institution
     xml:lang CDATA #IMPLIED
 >
@@ -193,17 +193,17 @@
 -->
 <!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation),
                         reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
-<!ELEMENT procEd (#PCDATA)>
+<!ELEMENT procEd (#PCDATA | %embedded;)*>
 <!ATTLIST procEd
     plural (no | yes) "yes"
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT procEdInitials (#PCDATA)>
-<!ELEMENT procTitle (#PCDATA)>
+<!ELEMENT procEdInitials (#PCDATA | %embedded;)*>
+<!ELEMENT procTitle (#PCDATA | %embedded;)*>
 <!ATTLIST procTitle
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT procTitleLowerCase (#PCDATA)>
+<!ELEMENT procTitleLowerCase (#PCDATA | %embedded;)*>
 <!ELEMENT procVol (#PCDATA)>
 <!ATTLIST procVol
     xml:lang CDATA #IMPLIED

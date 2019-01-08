@@ -3354,21 +3354,21 @@ not using
             </xsl:if>
             <xsl:if test="translatedBy">
                 <xsl:text>Translated by </xsl:text>
-                <xsl:value-of select="normalize-space(translatedBy)"/>
+                <xsl:apply-templates select="translatedBy"/>
                 <xsl:call-template name="OutputPeriodIfNeeded">
                     <xsl:with-param name="sText" select="translatedBy"/>
                 </xsl:call-template>
                 <xsl:text>&#x20;</xsl:text>
             </xsl:if>
             <xsl:if test="edition">
-                <xsl:value-of select="normalize-space(edition)"/>
+                <xsl:apply-templates select="edition"/>
                 <xsl:call-template name="OutputPeriodIfNeeded">
                     <xsl:with-param name="sText" select="edition"/>
                 </xsl:call-template>
                 <xsl:text>&#x20;</xsl:text>
             </xsl:if>
             <xsl:if test="seriesEd">
-                <xsl:value-of select="normalize-space(seriesEd)"/>
+                <xsl:apply-templates select="seriesEd"/>
                 <xsl:call-template name="OutputPeriodIfNeeded">
                     <xsl:with-param name="sText" select="seriesEd"/>
                 </xsl:call-template>
@@ -3376,7 +3376,7 @@ not using
             </xsl:if>
             <xsl:if test="series">
                 <fo:inline font-style="italic">
-                    <xsl:value-of select="normalize-space(series)"/>
+                    <xsl:apply-templates select="series"/>
                 </fo:inline>
                 <xsl:if test="not(bVol)">
                     <xsl:call-template name="OutputPeriodIfNeeded">
@@ -3407,27 +3407,27 @@ not using
             </xsl:choose>
             <xsl:if test="multivolumeWork">
                 <fo:inline font-style="italic">
-                    <xsl:value-of select="normalize-space(multivolumeWork)"/>
+                    <xsl:apply-templates select="multivolumeWork"/>
                 </fo:inline>
                 <xsl:text>.&#x20;</xsl:text>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="location and publisher">
-                    <xsl:value-of select="normalize-space(location)"/>
+                    <xsl:apply-templates select="location"/>
                     <xsl:text>: </xsl:text>
-                    <xsl:value-of select="normalize-space(publisher)"/>
+                    <xsl:apply-templates select="publisher"/>
                     <xsl:call-template name="OutputPeriodIfNeeded">
                         <xsl:with-param name="sText" select="publisher"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="location">
-                    <xsl:value-of select="normalize-space(location)"/>
+                    <xsl:apply-templates select="location"/>
                     <xsl:call-template name="OutputPeriodIfNeeded">
                         <xsl:with-param name="sText" select="location"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="publisher">
-                    <xsl:value-of select="normalize-space(publisher)"/>
+                    <xsl:apply-templates select="publisher"/>
                     <xsl:call-template name="OutputPeriodIfNeeded">
                         <xsl:with-param name="sText" select="publisher"/>
                     </xsl:call-template>
@@ -3767,7 +3767,7 @@ not using
     -->
     <xsl:template name="DoEdPlural">
         <xsl:param name="editor"/>
-        <xsl:value-of select="normalize-space($editor)"/>
+        <xsl:apply-templates select="$editor"/>
         <xsl:text>, ed</xsl:text>
         <xsl:if test="$editor/@plural='yes'">
             <xsl:text>s</xsl:text>
@@ -4282,7 +4282,7 @@ not using
                         </xsl:call-template>
                         <xsl:text>&#x20;</xsl:text>
                         <fo:inline font-style="italic">
-                            <xsl:value-of select="normalize-space(collection/collTitle)"/>
+                            <xsl:apply-templates select="collection/collTitle"/>
                         </fo:inline>
                         <xsl:text>.</xsl:text>
                         <xsl:call-template name="DoCollectionEdition"/>
@@ -4315,7 +4315,7 @@ not using
                         </xsl:if>
                         <xsl:if test="collection/series">
                             <fo:inline font-style="italic">
-                                <xsl:value-of select="normalize-space(collection/series)"/>
+                                <xsl:apply-templates select="collection/series"/>
                             </fo:inline>
                             <xsl:if test="not(bVol)">
                                 <xsl:call-template name="OutputPeriodIfNeeded">
@@ -4326,14 +4326,14 @@ not using
                         </xsl:if>
                         <xsl:if test="collection/multivolumeWork">
                             <fo:inline font-style="italic">
-                                <xsl:value-of select="normalize-space(collection/multivolumeWork)"/>
+                                <xsl:apply-templates select="collection/multivolumeWork"/>
                             </fo:inline>
                             <xsl:text>.&#x20;</xsl:text>
                         </xsl:if>
                         <xsl:choose>
                             <xsl:when test="collection/location">
                                 <xsl:text>&#x20;</xsl:text>
-                                <xsl:value-of select="normalize-space(collection/location)"/>
+                                <xsl:apply-templates select="collection/location"/>
                                 <xsl:text>: </xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
@@ -4341,7 +4341,7 @@ not using
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:if test="collection/publisher">
-                            <xsl:value-of select="normalize-space(collection/publisher)"/>
+                            <xsl:apply-templates select="collection/publisher"/>
                             <xsl:call-template name="OutputPeriodIfNeeded">
                                 <xsl:with-param name="sText" select="collection/publisher"/>
                             </xsl:call-template>
@@ -4387,16 +4387,16 @@ not using
                 </xsl:if>
                 <xsl:if test="dissertation/location">
                     <xsl:text>(</xsl:text>
-                    <xsl:value-of select="normalize-space(dissertation/location)"/>
+                    <xsl:apply-templates select="dissertation/location"/>
                     <xsl:text>).  </xsl:text>
                 </xsl:if>
-                <xsl:value-of select="normalize-space(dissertation/institution)"/>
+                <xsl:apply-templates select="dissertation/institution"/>
                 <xsl:text>.</xsl:text>
                 <xsl:if test="dissertation/published">
                     <xsl:text>  Published by </xsl:text>
-                    <xsl:value-of select="normalize-space(dissertation/published/location)"/>
+                    <xsl:apply-templates select="dissertation/published/location"/>
                     <xsl:text>: </xsl:text>
-                    <xsl:value-of select="normalize-space(dissertation/published/publisher)"/>
+                    <xsl:apply-templates select="dissertation/published/publisher"/>
                     <xsl:text>, </xsl:text>
                     <xsl:value-of select="normalize-space(dissertation/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
@@ -4424,7 +4424,7 @@ not using
                     </xsl:call-template>
                 </xsl:if>
                 <fo:inline font-style="italic">
-                    <xsl:value-of select="normalize-space(article/jTitle)"/>
+                    <xsl:apply-templates select="article/jTitle"/>
                     <xsl:text>&#x20;</xsl:text>
                     <xsl:value-of select="normalize-space(article/jVol)"/>
                     <xsl:if test="article/jIssueNumber">
@@ -4474,10 +4474,10 @@ not using
                     </xsl:if>
                     <xsl:if test="fieldNotes/location">
                         <xsl:text> (</xsl:text>
-                        <xsl:value-of select="normalize-space(fieldNotes/location)"/>
+                        <xsl:apply-templates select="fieldNotes/location"/>
                         <xsl:text>).  </xsl:text>
                     </xsl:if>
-                    <xsl:value-of select="normalize-space(fieldNotes/institution)"/>
+                    <xsl:apply-templates select="fieldNotes/institution"/>
                     <xsl:text>.</xsl:text>
                 </fo:inline>
                 <xsl:call-template name="DoRefUrlEtc">
@@ -4501,10 +4501,10 @@ not using
                 </xsl:if>
                 <xsl:if test="ms/location">
                     <xsl:text> (</xsl:text>
-                    <xsl:value-of select="normalize-space(ms/location)"/>
+                    <xsl:apply-templates select="ms/location"/>
                     <xsl:text>).  </xsl:text>
                 </xsl:if>
-                <xsl:value-of select="normalize-space(ms/institution)"/>
+                <xsl:apply-templates select="ms/institution"/>
                 <xsl:choose>
                     <xsl:when test="ms">
                         <xsl:text> Manuscript.</xsl:text>
@@ -4535,7 +4535,7 @@ not using
                 <xsl:value-of select="normalize-space(paper/conference)"/>
                 <xsl:if test="paper/location">
                     <xsl:text>, </xsl:text>
-                    <xsl:value-of select="normalize-space(paper/location)"/>
+                    <xsl:apply-templates select="paper/location"/>
                 </xsl:if>
                 <xsl:text>.</xsl:text>
                 <xsl:call-template name="DoRefUrlEtc">
@@ -4607,10 +4607,10 @@ not using
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:if test="proceedings/location or proceedings/publisher">
-                            <xsl:value-of select="normalize-space(proceedings/location)"/>
+                            <xsl:apply-templates select="proceedings/location"/>
                             <xsl:if test="proceedings/publisher">
                                 <xsl:text>: </xsl:text>
-                                <xsl:value-of select="normalize-space(proceedings/publisher)"/>
+                                <xsl:apply-templates select="proceedings/publisher"/>
                             </xsl:if>
                             <xsl:text>.</xsl:text>
                         </xsl:if>
@@ -4655,16 +4655,16 @@ not using
                 </xsl:if>
                 <xsl:if test="thesis/location">
                     <xsl:text> (</xsl:text>
-                    <xsl:value-of select="normalize-space(thesis/location)"/>
+                    <xsl:apply-templates select="thesis/location"/>
                     <xsl:text>).  </xsl:text>
                 </xsl:if>
-                <xsl:value-of select="normalize-space(thesis/institution)"/>
+                <xsl:apply-templates select="thesis/institution"/>
                 <xsl:text>.</xsl:text>
                 <xsl:if test="thesis/published">
                     <xsl:text>  Published by </xsl:text>
                     <xsl:value-of select="normalize-space(thesis/published/location)"/>
                     <xsl:text>: </xsl:text>
-                    <xsl:value-of select="normalize-space(thesis/published/publisher)"/>
+                    <xsl:apply-templates select="thesis/published/publisher"/>
                     <xsl:text>, </xsl:text>
                     <xsl:value-of select="normalize-space(thesis/published/pubDate)"/>
                     <xsl:text>.</xsl:text>
@@ -4692,22 +4692,22 @@ not using
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:if test="webPage/edition">
-                    <xsl:value-of select="normalize-space(webPage/edition)"/>
+                    <xsl:apply-templates select="webPage/edition"/>
                     <xsl:call-template name="OutputPeriodIfNeeded">
                         <xsl:with-param name="sText" select="webPage/edition"/>
                     </xsl:call-template>
                     <xsl:text>&#x20;</xsl:text>
                 </xsl:if>
                 <xsl:if test="webPage/location">
-                    <xsl:value-of select="normalize-space(webPage/location)"/>
+                    <xsl:apply-templates select="webPage/location"/>
                     <xsl:text>: </xsl:text>
                 </xsl:if>
                 <xsl:if test="webPage/institution">
-                    <xsl:value-of select="normalize-space(webPage/institution)"/>
+                    <xsl:value-of select="webPage/institution"/>
                     <xsl:text>. </xsl:text>
                 </xsl:if>
                 <xsl:if test="webPage/publisher">
-                    <xsl:value-of select="normalize-space(webPage/publisher)"/>
+                    <xsl:apply-templates select="webPage/publisher"/>
                 </xsl:if>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="webPage"/>

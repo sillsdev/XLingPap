@@ -719,7 +719,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='jTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($article/jTitle)"/>
+                                    <xsl:with-param name="item" select="$article/jTitle"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='jVolItem'">
@@ -1121,23 +1121,23 @@
                             </xsl:when>
                             <xsl:when test="name(.)='translatedByItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/translatedBy)"/>
+                                    <xsl:with-param name="item" select="$book/translatedBy"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/edition)"/>
+                                    <xsl:with-param name="item" select="$book/edition"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/series)"/>
+                                    <xsl:with-param name="item" select="$book/series"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$book/seriesEd"/>
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                    <xsl:with-param name="item" select="$book/seriesEd"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
                                     <xsl:call-template name="DoEditorAbbreviation">
@@ -1152,7 +1152,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='multivolumeWorkItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/multivolumeWork)"/>
+                                    <xsl:with-param name="item" select="$book/multivolumeWork"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='bookTotalPagesItem'">
@@ -1275,7 +1275,7 @@
                             <xsl:when test="name(.)='collEdItem'">
                                 <xsl:for-each select="$citationLayout/authorRoleItem">
                                     <xsl:call-template name="OutputReferenceItem">
-                                        <xsl:with-param name="item" select="normalize-space($work/authorRole)"/>
+                                        <xsl:with-param name="item" select="$work/authorRole"/>
                                     </xsl:call-template>
                                 </xsl:for-each>
                             </xsl:when>
@@ -1286,7 +1286,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/edition)"/>
+                                    <xsl:with-param name="item" select="$book/edition"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='collVolItem'">
@@ -1302,7 +1302,7 @@
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$book/seriesEd"/>
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                    <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
                                     <xsl:call-template name="DoEditorAbbreviation">
@@ -1312,12 +1312,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/series)"/>
+                                    <xsl:with-param name="item" select="$book/series"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='multivolumeWorkItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($book/multivolumeWork)"/>
+                                    <xsl:with-param name="item" select="$book/multivolumeWork"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <!--        in a series??                    <xsl:when test="name(.)='bVolItem'">
@@ -1422,7 +1422,7 @@
                             <xsl:when test="name(.)='procEdItem'">
                                 <xsl:for-each select="$citationLayout/authorRoleItem">
                                     <xsl:call-template name="OutputReferenceItem">
-                                        <xsl:with-param name="item" select="normalize-space($work/authorRole)"/>
+                                        <xsl:with-param name="item" select="$work/authorRole"/>
                                     </xsl:call-template>
                                 </xsl:for-each>
                             </xsl:when>
@@ -1557,14 +1557,14 @@
                             <xsl:when test="name(.)='authorRoleItem'">
                                 <xsl:if test="$bHasCollCitation='Y' and $bUseCitationAsLink='Y'">
                                     <xsl:call-template name="OutputReferenceItem">
-                                        <xsl:with-param name="item" select="normalize-space(key('RefWorkID',$collection/collCitation/@refToBook)/authorRole)"/>
+                                        <xsl:with-param name="item" select="key('RefWorkID',$collection/collCitation/@refToBook)/authorRole"/>
                                     </xsl:call-template>
                                 </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='collEdItem'">
                                 <xsl:variable name="item" select="$collection/collEd"/>
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                    <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
                                     <xsl:call-template name="DoEditorAbbreviation">
@@ -1574,12 +1574,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='collTitleItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($collection/collTitle)"/>
+                                    <xsl:with-param name="item" select="$collection/collTitle"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($collection/edition)"/>
+                                    <xsl:with-param name="item" select="$collection/edition"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='collVolItem'">
@@ -1613,7 +1613,7 @@
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$collection/seriesEd"/>
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                    <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
                                     <xsl:call-template name="DoEditorAbbreviation">
@@ -1623,7 +1623,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($collection/series)"/>
+                                    <xsl:with-param name="item" select="$collection/series"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='bVolItem'">
@@ -1633,7 +1633,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='multivolumeWorkItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($collection/multivolumeWork)"/>
+                                    <xsl:with-param name="item" select="$collection/multivolumeWork"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='reprintInfoItem'">
@@ -1786,12 +1786,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($dissertation/institution)"/>
+                                    <xsl:with-param name="item" select="$dissertation/institution"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($dissertation/location)"/>
+                                    <xsl:with-param name="item" select="$dissertation/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='publishedLayoutRef'">
@@ -2019,12 +2019,12 @@
                         <xsl:choose>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($reference/location)"/>
+                                    <xsl:with-param name="item" select="$reference/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='publisherItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($reference/publisher)"/>
+                                    <xsl:with-param name="item" select="$reference/publisher"/>
                                 </xsl:call-template>
                             </xsl:when>
                         </xsl:choose>
@@ -2035,7 +2035,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/locationPublisherLayouts/*[locationItem and not(publisherItem)]">
                     <xsl:for-each select="*">
                         <xsl:call-template name="OutputReferenceItem">
-                            <xsl:with-param name="item" select="normalize-space($reference/location)"/>
+                            <xsl:with-param name="item" select="$reference/location"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:for-each>
@@ -2044,7 +2044,7 @@
                 <xsl:for-each select="$referencesLayoutInfo/locationPublisherLayouts/*[not(locationItem) and publisherItem]">
                     <xsl:for-each select="*">
                         <xsl:call-template name="OutputReferenceItem">
-                            <xsl:with-param name="item" select="normalize-space($reference/publisher)"/>
+                            <xsl:with-param name="item" select="$reference/publisher"/>
                         </xsl:call-template>
                     </xsl:for-each>
                 </xsl:for-each>
@@ -2130,12 +2130,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($fieldNotes/institution)"/>
+                                    <xsl:with-param name="item" select="$fieldNotes/institution"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($fieldNotes/location)"/>
+                                    <xsl:with-param name="item" select="$fieldNotes/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
@@ -2223,12 +2223,12 @@
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($ms/institution)"/>
+                                    <xsl:with-param name="item" select="$ms/institution"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($ms/location)"/>
+                                    <xsl:with-param name="item" select="$ms/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='emptyItem'">
@@ -2326,7 +2326,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($paper/location)"/>
+                                    <xsl:with-param name="item" select="$paper/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">
@@ -2435,14 +2435,14 @@
                             <xsl:when test="name(.)='authorRoleItem'">
                                 <xsl:if test="$bHasProcCitation='Y' and $bUseCitationAsLink='Y'">
                                     <xsl:call-template name="OutputReferenceItem">
-                                        <xsl:with-param name="item" select="normalize-space(key('RefWorkID',$proceedings/procCitation/@refToBook)/authorRole)"/>
+                                        <xsl:with-param name="item" select="key('RefWorkID',$proceedings/procCitation/@refToBook)/authorRole"/>
                                     </xsl:call-template>
                                 </xsl:if>
                             </xsl:when>
                             <xsl:when test="name(.)='procEdItem'">
                                 <xsl:variable name="item" select="$proceedings/procEd"/>
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($item)"/>
+                                    <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
                                     <xsl:call-template name="DoEditorAbbreviation">
@@ -2557,12 +2557,12 @@
             <xsl:choose>
                 <xsl:when test="name(.)='locationItem'">
                     <xsl:call-template name="OutputReferenceItem">
-                        <xsl:with-param name="item" select="normalize-space($reference/location)"/>
+                        <xsl:with-param name="item" select="$reference/location"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="name(.)='publisherItem'">
                     <xsl:call-template name="OutputReferenceItem">
-                        <xsl:with-param name="item" select="normalize-space($reference/publisher)"/>
+                        <xsl:with-param name="item" select="$reference/publisher"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="name(.)='pubDateItem'">
@@ -2820,22 +2820,22 @@
                             </xsl:when>
                             <xsl:when test="name(.)='editionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($webPage/edition)"/>
+                                    <xsl:with-param name="item" select="$webPage/edition"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='locationItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($webPage/location)"/>
+                                    <xsl:with-param name="item" select="$webPage/location"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='institutionItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($webPage/institution)"/>
+                                    <xsl:with-param name="item" select="$webPage/institution"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='publisherItem'">
                                 <xsl:call-template name="OutputReferenceItem">
-                                    <xsl:with-param name="item" select="normalize-space($webPage/publisher)"/>
+                                    <xsl:with-param name="item" select="$webPage/publisher"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='urlItem' and name(following-sibling::*[1])='dateAccessedItem' and name(following-sibling::*[2])='doiItem'">

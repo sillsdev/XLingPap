@@ -33,7 +33,7 @@
     <xsl:template name="DoCollectionEdition">
         <xsl:if test="collection/edition">
             <xsl:text>&#x20;</xsl:text>
-            <xsl:value-of select="normalize-space(collection/edition)"/>
+            <xsl:apply-templates select="collection/edition"/>
             <xsl:call-template name="OutputPeriodIfNeeded">
                 <xsl:with-param name="sText" select="collection/edition"/>
             </xsl:call-template>

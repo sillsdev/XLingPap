@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->4 January 2019</date
+>22 January 2019</date
 ><version
 contentType="ctVersion5.3"
->2.34.3</version
+>2.34.4</version
 ><version
 contentType="ctVersion7Plus"
->3.4.3</version
+>3.4.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -3253,7 +3253,7 @@ type="tInstruction"
 > command.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->   <indexedItem
+> <indexedItem
 term="iAppendixTitle"
 ></indexedItem
 >It has its title and one may include sections and subsections. The appendix will automatically be given a letter. Its sections and subsections will be numbered like other sections, only they will begin with the appropriate appendix letter. See the example back matter section (<sectionRef
@@ -3309,7 +3309,7 @@ type="tInstruction"
 > command.<endnoteRef
 note="nInsertElementReminder"
 ></endnoteRef
->  The content of the glossary may be a sequence of any "chunk" elements,<endnoteRef
+> The content of the glossary may be a sequence of any "chunk" elements,<endnoteRef
 note="nChunk"
 ></endnoteRef
 > although including either a table or a definition list is the most likely.</p
@@ -25425,6 +25425,24 @@ colspan="5"
 type="tItalic"
 >Commercial</object
 ></td
+></tr
+><tr
+><td
+>Able2Extract</td
+><td
+><link
+href="https://www.investintech.com/prod_a2e.htm"
+>https://www.investintech.com/prod_a2e.htm</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
 ></tr
 ><tr
 ><td

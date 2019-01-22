@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->4 January 2019</date
+>22 January 2019</date
 ><version
 contentType="ctVersion5.3"
->2.34.3</version
+>2.34.4</version
 ><version
 contentType="ctVersion7Plus"
->3.4.3</version
+>3.4.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -25425,6 +25425,24 @@ colspan="5"
 type="tItalic"
 >Commercial</object
 ></td
+></tr
+><tr
+><td
+>Able2Extract</td
+><td
+><link
+href="https://www.investintech.com/prod_a2e.htm"
+>https://www.investintech.com/prod_a2e.htm</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
 ></tr
 ><tr
 ><td

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.34.3</a:version
+>2.34.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-01-08</a:date
+>2019-01-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.34.4 22 January 2019<ul
+><li
+>Add Able2Extract PDF tool to list of PDF tools for combining PDF files in section 11.44 of user documentation.</li
+></ul
+></li
 ><li
 >2.34.3 8 January 2019<ul
 ><li

@@ -1700,7 +1700,7 @@
             <xsl:when test="string-length(.)=0 and count(*)=0">
                 <!-- this paragraph is empty; do nothing -->
             </xsl:when>
-            <xsl:when test="count(child::node())=1 and name(child::node())='comment'">
+            <xsl:when test="count(child::node())=1 and name(child::node())='comment' and $lingPaper/@showcommentinoutput!='yes'">
                 <!-- this paragraph is effectively empty since all it has is a comment; do nothing -->
             </xsl:when>
             <xsl:when test="parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">

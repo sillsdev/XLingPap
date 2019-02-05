@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.34.4</span></p>
-      <p align="center">Date: 2019-01-22</p>
+      <p align="center">Date: 2019-05-02</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,9 +34,16 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.34.4 22 January 2019
+               <li>2.34.4 5 February 2019
                   <ul>
                      <li>Add Able2Extract PDF tool to list of PDF tools for combining PDF files in section 11.44 of user documentation.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a p element consisted solely of a comment element and the showcommentinoutput option was set, the comment did
+                              not appear in the output.
+                           </li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>2.34.3 8 January 2019

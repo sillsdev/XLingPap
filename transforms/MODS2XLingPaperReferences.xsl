@@ -621,7 +621,10 @@
         <xsl:param name="sHostTitle"/>
         <xsl:param name="sElementPrefix" select="'coll'"/>
         <xsl:param name="sVolume" select="../m:relatedItem[@type='series']/m:titleInfo/m:partNumber"/>
+        <xsl:param name="sVolume2" select="../m:relatedItem[@type='host']/m:part/m:detail[@type='volume']/m:number"/>
         <xsl:param name="pages" select="../m:relatedItem[@type='host']/m:part/m:extent[@unit='pages']"/>
+        <xsl:variable name="series" select="../m:relatedItem[@type='host']/m:relatedItem[@type='series']/m:titleInfo/m:title"/>
+        <xsl:variable name="seriesNumber" select="../m:relatedItem[@type='host']/m:relatedItem[@type='series']/m:part/m:detail[@type='volume']/m:number"/>
         <xsl:element name="{$sElementPrefix}Title">
             <xsl:choose>
                 <xsl:when test="string-length($sHostTitle) &gt; 0">
@@ -632,17 +635,34 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>
-        <xsl:if test="string-length($sVolume) &gt; 0">
-            <xsl:element name="{$sElementPrefix}Vol">
-                <xsl:value-of select="$sVolume"/>
-            </xsl:element>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="string-length($sVolume) &gt; 0">
+                <xsl:element name="{$sElementPrefix}Vol">
+                    <xsl:value-of select="$sVolume"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="string-length($sVolume2) &gt; 0">
+                <xsl:element name="{$sElementPrefix}Vol">
+                    <xsl:value-of select="$sVolume2"/>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
         <xsl:if test="$pages">
             <xsl:element name="{$sElementPrefix}Pages">
                 <xsl:value-of select="$pages/m:start"/>
                 <xsl:text>-</xsl:text>
                 <xsl:value-of select="$pages/m:end"/>
             </xsl:element>
+        </xsl:if>
+        <xsl:if test="$series">
+            <series>
+                <xsl:value-of select="$series"/>
+            </series>
+            <xsl:if test="$seriesNumber">
+                <bVol>
+                    <xsl:value-of select="$seriesNumber"/>
+                </bVol>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 

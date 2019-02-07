@@ -49,6 +49,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
 ><li
 >Fix bug: allow collection/proceedings to have series and bVol. Improve finding of collVol/procVol.</li
+><li
+>Fix bug: url information was not being processed for collection, paper, and proceedings items.</li
 ></ul
 ></li
 ></ul

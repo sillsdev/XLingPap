@@ -196,6 +196,9 @@
         <rule context="interlinear">
             <report test="ancestor::table and descendant::endnote and not(parent::example)">Warning: There is an interlinear within a table and that interlinear contains an endnote somewhere.  This will fail to produce the PDF using the XeLaTex method.  Furthermore, the other outputs will probably not format correctly.  Please consider Convert/wrapping the interlinear within an example or using something else for the interlinear.</report>
         </rule>
+        <rule context="interlinearSource">
+            <report test="ancestor::interlinear-text">Warning: There is an interlinearSource element within an interlinear inside an interlinear-text.  This is not appropriate and not needed.  Please remove the interlinearSource element.</report>
+        </rule>
     </pattern>
     <pattern id="lineembeded">
         <title>

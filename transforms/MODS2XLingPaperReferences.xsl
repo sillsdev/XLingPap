@@ -182,6 +182,7 @@
                         <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
                         <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoAnyURL"/>
                 </proceedings>
             </xsl:when>
             <xsl:otherwise>
@@ -194,6 +195,7 @@
                         <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
                         <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoAnyURL"/>
                 </collection>
             </xsl:otherwise>
         </xsl:choose>
@@ -267,6 +269,7 @@
                         <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
                         <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoAnyURL"/>
                 </proceedings>
             </xsl:when>
             <xsl:otherwise>
@@ -278,6 +281,7 @@
                         <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
                         <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
                     </xsl:call-template>
+                    <xsl:call-template name="DoAnyURL"/>
                 </paper>
             </xsl:otherwise>
         </xsl:choose>

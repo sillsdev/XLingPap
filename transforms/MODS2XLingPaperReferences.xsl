@@ -350,7 +350,7 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='audioRecording' and ../m:location/m:url]">
+    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='computerProgram' or string(.)='audioRecording'][../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>

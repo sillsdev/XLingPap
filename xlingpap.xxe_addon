@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-02-07</a:date
+>2019-02-11</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.4 7 February 2019<ul
+>3.4.4 11 February 2019<ul
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
@@ -59,6 +59,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: allow collection/proceedings to have series and bVol. Improve finding of collVol/procVol.</li
 ><li
 >Fix bug: url information was not being processed for collection, paper, and proceedings items.</li
+><li
+>Fix bug: computerProgram genre produced nothing.</li
 ></ul
 ></li
 ></ul

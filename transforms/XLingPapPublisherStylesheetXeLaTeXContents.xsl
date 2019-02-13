@@ -79,7 +79,7 @@
         <xsl:if test="$contentsLayoutToUse/@partSpaceAfter">
             <tex:cmd name="vspace">
                 <tex:parm>
-                    <xsl:value-of select="saxon:node-set($contentsLayout)/contentsLayout/@partSpaceAfter"/>
+                    <xsl:value-of select="$contentsLayoutToUse/@partSpaceAfter"/>
                     <xsl:text>pt</xsl:text>
                 </tex:parm>
             </tex:cmd>

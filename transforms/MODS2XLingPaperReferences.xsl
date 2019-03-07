@@ -96,6 +96,15 @@
     <xsl:template match="m:genre[@authority='local' and string(.)='book']">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
+            <xsl:if test="../m:name[@type='personal']/m:role/m:roleTerm='trl'">
+                <translatedBy>
+                    <xsl:for-each select="..">
+                    <xsl:call-template name="GetEditorsNames">
+                        <xsl:with-param name="sKind" select="'trl'"/>
+                    </xsl:call-template>
+                    </xsl:for-each>
+                </translatedBy>
+            </xsl:if>
             <xsl:variable name="sBookVolume" select="../m:part/m:detail[@type='volume']/m:number"/>
             <xsl:variable name="sSeriesTitle" select="../m:relatedItem[@type='series']/m:titleInfo/m:title"/>
             <xsl:variable name="sSeriesVol" select="../m:relatedItem[@type='series']/m:part/m:detail[@type='volume']/m:number"/>

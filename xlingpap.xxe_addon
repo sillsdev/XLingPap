@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-02-13</a:date
+>2019-03-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.4 13 February 2019<ul
+>2.34.4 7 March 2019<ul
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
@@ -55,6 +55,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: url information was not being processed for collection, paper, and proceedings items.</li
 ><li
 >Fix bug: computerProgram genre produced nothing.</li
+><li
+>Fix bug: handle translators in a book</li
 ></ul
 ></li
 ></ul

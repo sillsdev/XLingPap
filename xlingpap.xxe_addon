@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-03-07</a:date
+>2019-03-21</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.4 7 March 2019<ul
+>2.34.4 21 March 2019<ul
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when a p element consisted solely of a comment element and the showcommentinoutput option was set, the comment did not appear in the output.</li
 ><li
 >Fix bug: space after a part in contents did not always work.</li
+><li
+>Fix bug: when calculating table cell width, the default formatting was justify instead of left.</li
 ></ul
 ></li
 ><li

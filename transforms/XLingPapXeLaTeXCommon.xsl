@@ -3957,6 +3957,15 @@
                             <tex:cmd name="raggedleft" gr="0"/>
                         </tex:group>
                     </xsl:when>
+                    <xsl:when test="@align='justify'">
+                        <!-- do nothing; it defaults to justify -->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <tex:spec cat="gt"/>
+                        <tex:group>
+                            <tex:cmd name="raggedright" gr="0"/>
+                        </tex:group>
+                    </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text>p</xsl:text>
                 <tex:spec cat="bg"/>

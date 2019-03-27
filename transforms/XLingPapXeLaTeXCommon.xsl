@@ -2025,6 +2025,9 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak"/>
+        </xsl:if>
         <xsl:call-template name="DoType"/>
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>

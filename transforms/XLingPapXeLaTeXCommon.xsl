@@ -2028,6 +2028,9 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak"/>
         </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage"/>
+        </xsl:if>
         <xsl:call-template name="DoType"/>
         <xsl:call-template name="OutputTypeAttributes">
             <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
@@ -10575,8 +10578,10 @@
     -->
     <xsl:template name="ReportTeXCannotHandleThisMessage">
         <xsl:param name="sMessage"/>
+        <xsl:if test="name()!='img'">
         <tex:spec cat="esc"/>
         <tex:spec cat="esc"/>
+        </xsl:if>
         <tex:cmd name="colorbox">
             <tex:parm>yellow</tex:parm>
             <tex:parm>

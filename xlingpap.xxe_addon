@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-03-27</a:date
+>2019-03-28</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.4 27 March 2019<ul
+>2.34.4 28 March 2019<ul
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
@@ -42,13 +42,15 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Allow a chart element to have a XeLaTeXSpecial attribute of pagebreak.</li
+>Allow a chart element to have a XeLaTeXSpecial attribute of either pagebreak or clearpage.</li
 ><li
 >Fix bug: when a p element consisted solely of a comment element and the showcommentinoutput option was set, the comment did not appear in the output.</li
 ><li
 >Fix bug: space after a part in contents did not always work.</li
 ><li
 >Fix bug: when calculating table cell width, the default formatting was justify instead of left.</li
+><li
+>Fix bug: when a graphic could not be found, the PDF might fail to be produced.</li
 ></ul
 ></li
 ><li

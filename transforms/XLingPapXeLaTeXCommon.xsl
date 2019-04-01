@@ -2056,7 +2056,7 @@
                 <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and contains(@XeLaTeXSpecial,'singlespacing')">
                     <tex:cmd name="par"/>
                 </xsl:when>
-                <xsl:when test="dl">
+                <xsl:when test="dl|ol|ul">
                     <!-- do nothing or PDF will fail to be produced -->
                 </xsl:when>
                 <xsl:otherwise>

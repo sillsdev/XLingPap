@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-03-28</a:date
+>2019-04-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.4 28 March 2019<ul
+>2.34.4 1 April 2019<ul
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
@@ -51,6 +51,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when calculating table cell width, the default formatting was justify instead of left.</li
 ><li
 >Fix bug: when a graphic could not be found, the PDF might fail to be produced.</li
+><li
+>Fix bug: an ol (or ul) in a chart in a figure could cause the PDF to fail to be produced.</li
 ></ul
 ></li
 ><li

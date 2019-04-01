@@ -4756,7 +4756,7 @@
                     <tex:spec cat="esc"/>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:if test="not(chart/dl)">
+            <xsl:if test="not(chart/dl) and not(chart/ol) and not(chart/ul)">
                 <tex:spec cat="lsb"/>
                 <xsl:choose>
                     <xsl:when test="string-length($sSpaceBetweenFigureAndCaption) &gt; 0">

@@ -258,7 +258,7 @@
     <!-- 
         conferencePaper
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='conferencePaper']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='conferencePaper' or @authority='local' and string(.)='presentation']">
         <xsl:call-template name="DoDateAndTitle"/>
         <xsl:variable name="sHostTitle" select="../m:relatedItem/m:titleInfo/m:title"/>
         <xsl:variable name="bIsProceedings">
@@ -286,10 +286,20 @@
                     <conference>
                         <xsl:value-of select="../m:relatedItem/m:titleInfo/m:title"/>
                     </conference>
-                    <xsl:call-template name="DoLocationAndPublisher">
-                        <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
-                        <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="../m:relatedItem[@type='host']">
+                            <xsl:call-template name="DoLocationAndPublisher">
+                                <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
+                                <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoLocationAndPublisher">
+                                <xsl:with-param name="sLocation" select="../m:originInfo/m:place/m:placeTerm"/>
+                                <xsl:with-param name="sPublisher" select="../m:originInfo/m:publisher"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:call-template name="DoAnyURL"/>
                 </paper>
             </xsl:otherwise>

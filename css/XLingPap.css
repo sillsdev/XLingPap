@@ -5375,7 +5375,8 @@ chapterInCollectionLayout chapterTitleLayout
 citationLayout
 {
 	display:block;
-	content:"citation layout:  Doe (2003:"
+	content:"citation layout:  Doe (2003"
+	   label(xpath,"if(string-length(@replacecolonwith)>0,@replacecolonwith,':')")
            label(attribute, textbeforepages)
             "23-45)";
 	margin-bottom:12pt;

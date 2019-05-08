@@ -5097,8 +5097,16 @@
         </xsl:if>
         <xsl:variable name="sPage" select="normalize-space(@page)"/>
         <xsl:if test="string-length($sPage) &gt; 0">
-            <xsl:text>:</xsl:text>
             <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
+            <xsl:variable name="sColon" select="$citationLayout/@replacecolonwith"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sColon) &gt; 0">
+                    <xsl:value-of select="$sColon"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>:</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:if test="string-length($citationLayout/@textbeforepages) &gt; 0">
                 <xsl:value-of select="$citationLayout/@textbeforepages"/>
             </xsl:if>

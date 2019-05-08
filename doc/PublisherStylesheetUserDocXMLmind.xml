@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->15 November 2018</date
+>8 May 2019</date
 ><version
 contentType="ctVersion5.3"
->2.34.0</version
+>2.34.4</version
 ><version
 contentType="ctVersion7Plus"
->3.4.0</version
+>3.4.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -13151,12 +13151,12 @@ type="tElement"
 ><indexedItem
 term="iCitationOverrides"
 ></indexedItem
->Sometimes one wants to override the default formatting for data in citations. Currently we have only one such override and it is for what appears between the colon after the date and the page number(s).</p
+>Sometimes one wants to override the default formatting for data in citations.</p
 ><p
 >The <object
 type="tElement"
 >citationLayout</object
-> element has the attribute shown in example <exampleRef
+> element has the attributes shown in example <exampleRef
 letter="xCitationOverrideLayoutAttributes"
 num="xCitationOverrideLayoutAttributes"
 ></exampleRef
@@ -13206,6 +13206,36 @@ term="iPageNumbersInCitation"
 ></indexedItem
 ><object
 type="tAttribute"
+>replacecolonwith</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear between the date and the page(s).</langData
+></td
+><td
+><object
+type="tAttrValue"
+>, </object
+></td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iPageNumbersInCitation"
+></indexedItem
+><object
+type="tAttribute"
 >textbeforepages</object
 > </langData
 ></td
@@ -13217,7 +13247,10 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
->Type the text you want to appear between the colon after the date and the page(s).</langData
+>Type the text you want to appear between the colon (or whatever is in the <object
+type="tAttribute"
+>replacecolonwith</object
+> attribute) after the date and the page(s).</langData
 ></td
 ><td
 ><object

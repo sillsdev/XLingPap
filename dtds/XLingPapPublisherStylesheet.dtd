@@ -828,6 +828,7 @@ Content Layout
     >
     <!ELEMENT citationLayout (#PCDATA) >
     <!ATTLIST citationLayout
+      replacecolonwith CDATA #IMPLIED
       textbeforepages CDATA #IMPLIED
     >
     <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>

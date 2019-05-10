@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 January 2019</date
+>10 May 2019</date
 ><version
 contentType="ctVersion5.3"
 >2.34.4</version
@@ -23746,7 +23746,13 @@ note="nNodePathBarReminder"
 > and then use the Attributes Tool.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
->)</p
+>) In all outputs except the default <object
+type="tXeTeX"
+></object
+> PDF output, the comment will appear with a yellow background. For the default <object
+type="tXeTeX"
+></object
+> PDF output, the comment will begin with [[ in a yellow box and will end with ]] in a yellow box.</p
 ></section2
 ><section2
 id="sFAQAssociatePublisherStyleSheet"

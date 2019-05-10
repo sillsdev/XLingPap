@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-05-08</a:date
+>2019-05-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.34.4 8 May 2019<ul
+>2.34.4 10 May 2019<ul
 ><li
 >Add replacecolonwith attribute to citationLayout element to allow something other than a colon between date and page number(s) in a citation.</li
 ><li
@@ -55,6 +55,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when a graphic could not be found, the PDF might fail to be produced.</li
 ><li
 >Fix bug: an ol (or ul) in a chart in a figure could cause the PDF to fail to be produced.</li
+><li
+>Change output formatting of comment contents from a box with yellow background (that often went off the page) to [[ in a yellow box at the beginning and ]] in a yellow box at the end.</li
 ></ul
 ></li
 ><li

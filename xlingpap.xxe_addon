@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.4.4</a:version
+>3.5.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-05-10</a:date
+>2019-05-14</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,15 +40,37 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.4.4 10 May 2019<ul
+>3.5.0 14 May 2019<ul
+><li
+>Improve loading speed for object elements via CSS.</li
+><li
+>Change DOI links from http://doai.io to https://doi.org.</li
+><li
+>Allow a refAuthorInitials element to contain langData, etc., elements.</li
 ><li
 >Add replacecolonwith attribute to citationLayout element to allow something other than a colon between date and page number(s) in a citation.</li
 ><li
 >Fix bug: Make the chooser for interlinearRefCitation elements handle the T-ID identifier output the same as the regular outputs do.</li
 ><li
+>Fix bug: a blockquote within a bulleted or ordered list did not indent correctly.</li
+><li
+>Fix bug: when showing comments in the output, any comments in references were not showing.</li
+><li
+>Fix bug: when using a publisher style sheet which controls formatting of langData elements, any langData element in a refAuthorInitial or refWork used the prose style instead of no special styling.</li
+><li
 >Add a Schematron check for an interlinearSource element within an interlinear inside an interlinear-text. Warn that it is not needed.</li
 ><li
+>Allow more reference elements to contain embedded elements: jTtile, translatedBy, edition, series, seriesEd, multivolumeWork, publisher, location, collEd, institution, procEd.</li
+><li
+>Improve documentation:<ul
+><li
+>Change the bulleted list to an ordered list in known issues items to make referring to them easier.</li
+><li
 >Add Able2Extract PDF tool to list of PDF tools for combining PDF files in section 11.44 of user documentation.</li
+><li
+>Improve documentation on inserting an appendix and a glossary.</li
+></ul
+></li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -65,58 +87,26 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: an ol (or ul) in a chart in a figure could cause the PDF to fail to be produced.</li
 ><li
 >Change output formatting of comment contents from a box with yellow background (that often went off the page) to [[ in a yellow box at the beginning and ]] in a yellow box at the end.</li
-></ul
-></li
 ><li
->Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
+>Improve layout of missing reference pattern message so that it all shows in the PDF.</li
 ><li
->Fix bug: allow collection/proceedings to have series and bVol. Improve finding of collVol/procVol.</li
-><li
->Fix bug: url information was not being processed for collection, paper, and proceedings items.</li
-><li
->Fix bug: computerProgram genre produced nothing.</li
-><li
->Fix bug: handle translators in a book</li
-><li
->Fix bug: handle presentation genre.</li
-></ul
-></li
-></ul
-></li
-><li
->3.4.3 8 January 2019<ul
-><li
->Allow more reference elements to contain embedded elements: jTtile, translatedBy, edition, series, seriesEd, multivolumeWork, publisher, location, collEd, institution, procEd.</li
-><li
->Improve documentation on inserting an appendix and a glossary.</li
-><li
->Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
-><li
->Fix bug: if an editor's name did not have a type attribute, it was missing.</li
-></ul
-></li
-></ul
-></li
-><li
->3.4.2 21 December 2018<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
+>Fix bug: when a figure had a comment after the img element and captions show after the figure, "[0pt] could show in the output.</li
 ><li
 >Fix bug: when an endnote was embedded in a langData (or gloss) element, there could be no space between the footnote number and any following text.</li
 ></ul
 ></li
-></ul
-></li
-><li
->3.4.1 21 December 2018<ul
-><li
->Improve documentation:<ul
-><li
->Change the bulleted list to an ordered list in known issues items to make referring to them easier.</li
-></ul
-></li
 ><li
 >Converting Endnote XML references file and Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: handle presentation genre.</li
+><li
+>Fix bug: handle translators in a book</li
+><li
+>Fix bug: computerProgram genre produced nothing.</li
+><li
+>Fix bug: url information was not being processed for collection, paper, and proceedings items.</li
+><li
+>Fix bug: allow collection/proceedings to have series and bVol. Improve finding of collVol/procVol.</li
 ><li
 >Allow for a audio reference.</li
 ><li
@@ -141,26 +131,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: a doi element could get put in the wrong place, giving a validation error.</li
 ><li
 >Fix bug: books did not handle volume, series, and series volumes correctly.</li
-></ul
-></li
 ><li
->Improve loading speed for object elements via CSS.</li
-><li
->Change DOI links from http://doai.io to https://doi.org.</li
-><li
->Allow a refAuthorInitials element to contain langData, etc., elements.</li
-><li
->Fix bug: a blockquote within a bulleted or ordered list did not indent correctly.</li
-><li
->Fix bug: when showing comments in the output, any comments in references were not showing.</li
-><li
->Fix bug: when using a publisher style sheet which controls formatting of langData elements, any langData element in a refAuthorInitial or refWork used the prose style instead of no special styling.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Improve layout of missing reference pattern message so that it all shows in the PDF.</li
-><li
->Fix bug: when a figure had a comment after the img element and captions show after the figure, "[0pt] could show in the output.</li
+>Fix bug: if an editor's name did not have a type attribute, it was missing.</li
 ></ul
 ></li
 ></ul

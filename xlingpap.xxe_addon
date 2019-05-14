@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.4.0-xxe-7.3.0.zip"
+location="XLingPap-3.5.0-xxe-7.3.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.5.0</a:version
+>3.5.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -39,6 +39,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.5.1 14 May 2019<ul
+><li
+>In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li
+></ul
+></li
 ><li
 >3.5.0 14 May 2019<ul
 ><li

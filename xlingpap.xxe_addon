@@ -11,7 +11,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.35.0</a:version
+>2.35.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.35.1 14 May 2019<ul
+><li
+>In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li
+></ul
+></li
 ><li
 >2.35.0 14 May 2019<ul
 ><li

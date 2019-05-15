@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-05-14</a:date
+>2019-05-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.35.1 14 May 2019<ul
+>2.35.1 15 May 2019<ul
 ><li
 >In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: interlinear text could appear in a smaller font than it should.</li
+></ul
+></li
 ></ul
 ></li
 ><li

@@ -1358,11 +1358,11 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <tex:cmd name="noindent" gr="0"/>
-                <xsl:choose>
-                    <xsl:when test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                    <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                        <!-- need a group to prevent text fonts from being small, too -->
+                        <tex:spec cat="bg"/>
                         <tex:cmd name="small" gr="0"/>
-                    </xsl:when>
-                </xsl:choose>
+                    </xsl:if>
                 <tex:spec cat="bg"/>
                 <!-- default formatting is bold -->
                 <tex:spec cat="esc"/>
@@ -1395,6 +1395,9 @@
                         <tex:cmd name="par" gr="0" nl2="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                    <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                        <tex:spec cat="eg"/>
+                    </xsl:if>
                 <!--                <tex:cmd name="leftskip" gr="0" nl2="0"/>-->
                 <!--                <tex:spec cat="esc"/>-->
                 <!--                <tex:spec cat="esc"/>-->

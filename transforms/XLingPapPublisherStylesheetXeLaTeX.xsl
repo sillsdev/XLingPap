@@ -3367,6 +3367,7 @@
     -->
     <xsl:template match="interlinearRefCitation">
         <xsl:variable name="interlinearSourceStyleLayout" select="$contentLayoutInfo/interlinearSourceStyle"/>
+        <tex:spec cat="bg"/>
         <xsl:call-template name="OutputFontAttributes">
             <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
         </xsl:call-template>
@@ -3417,6 +3418,7 @@
         <xsl:call-template name="OutputFontAttributesEnd">
             <xsl:with-param name="language" select="$interlinearSourceStyleLayout"/>
         </xsl:call-template>
+        <tex:spec cat="eg"/>
     </xsl:template>
     <!--
         backMatter

@@ -53,7 +53,17 @@
                                         <xsl:value-of select="$sCiteName3"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                        <xsl:variable name="sCorporateName">
+                                            <xsl:value-of select="m:name[1][@type='corporate' and m:role/m:roleTerm='aut']/m:namePart"/>
+                                        </xsl:variable>
+                                        <xsl:choose>
+                                            <xsl:when test="$sCorporateName != ''">
+                                                <xsl:value-of select="$sCorporateName"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:otherwise>
@@ -93,7 +103,7 @@
     <!-- 
         book
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='book']">
+    <xsl:template match="m:genre[@authority='local'][string(.)='book' or string(.)='report' and not(../m:location/m:url)]">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
             <xsl:if test="../m:name[@type='personal']/m:role/m:roleTerm='trl'">
@@ -258,7 +268,7 @@
     <!-- 
         conferencePaper
     -->
-    <xsl:template match="m:genre[@authority='local' and string(.)='conferencePaper' or @authority='local' and string(.)='presentation']">
+    <xsl:template match="m:genre[@authority='local' and string(.)='conferencePaper' or @authority='local' and string(.)='presentation' and not(../m:genre='Presentation Video')]">
         <xsl:call-template name="DoDateAndTitle"/>
         <xsl:variable name="sHostTitle" select="../m:relatedItem/m:titleInfo/m:title"/>
         <xsl:variable name="bIsProceedings">
@@ -290,13 +300,13 @@
                         <xsl:when test="../m:relatedItem[@type='host']">
                             <xsl:call-template name="DoLocationAndPublisher">
                                 <xsl:with-param name="sLocation" select="../m:relatedItem[@type='host']/m:originInfo/m:place/m:placeTerm"/>
-                                <xsl:with-param name="sPublisher" select="../m:relatedItem[@type='host']/m:originInfo/m:publisher"/>
+                                <xsl:with-param name="sPublisher" select="''"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="DoLocationAndPublisher">
                                 <xsl:with-param name="sLocation" select="../m:originInfo/m:place/m:placeTerm"/>
-                                <xsl:with-param name="sPublisher" select="../m:originInfo/m:publisher"/>
+                                <xsl:with-param name="sPublisher" select="''"/>
                             </xsl:call-template>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -369,11 +379,19 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='computerProgram' or string(.)='audioRecording'][../m:location/m:url]">
+    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='computerProgram' or string(.)='audioRecording' or string(.)='report' or string(.)='magazineArticle' or string(.)='newspaperArticle' or string(.)='encyclopediaArticle' or string(.)='presentation' and ../m:genre='Presentation Video'][../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
         <webPage>
+            <xsl:if test="../m:relatedItem[@type='host'][m:genre[@authority='marcgt']='web site']">
+                <xsl:variable name="sPublisher" select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
+                <xsl:if test="string-length($sPublisher) &gt; 0">
+                    <publisher>
+                        <xsl:value-of select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
+                    </publisher>
+                </xsl:if>
+            </xsl:if>
             <xsl:call-template name="DoAnyURL"/>
         </webPage>
     </xsl:template>
@@ -445,11 +463,21 @@
             </url>
         </xsl:if>
         <xsl:variable name="accessed" select="../m:originInfo/m:dateCaptured"/>
-        <xsl:if test="string-length($accessed) &gt; 0">
-            <dateAccessed>
-                <xsl:value-of select="$accessed"/>
-            </dateAccessed>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="string-length($accessed) &gt; 0">
+                <dateAccessed>
+                    <xsl:value-of select="$accessed"/>
+                </dateAccessed>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="accessed2" select="../m:location/m:url/@dateLastAccessed"/>
+                <xsl:if test="string-length($accessed2) &gt; 0">
+                    <dateAccessed>
+                        <xsl:value-of select="$accessed2"/>
+                    </dateAccessed>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates select="../m:identifier[@type='doi']" mode="afterURLEtc"/>
     </xsl:template>
     <!-- 
@@ -460,7 +488,7 @@
             <xsl:call-template name="GetAuthorsNames"/>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="$sAuthorName != ', '">
+            <xsl:when test="not(starts-with($sAuthorName,', '))">
                 <xsl:value-of select="$sAuthorName"/>
             </xsl:when>
             <xsl:otherwise>
@@ -470,7 +498,7 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$sContributorName != ', '">
+                    <xsl:when test="not(starts-with($sContributorName,', '))">
                         <xsl:value-of select="$sContributorName"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -480,11 +508,21 @@
                             </xsl:call-template>
                         </xsl:variable>
                         <xsl:choose>
-                            <xsl:when test="$sEditorName != ', '">
+                            <xsl:when test="not(starts-with($sEditorName,', '))">
                                 <xsl:value-of select="$sEditorName"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                <xsl:variable name="sCorporateName">
+                                    <xsl:value-of select="m:name[1][@type='corporate' and m:role/m:roleTerm='aut']/m:namePart"/>
+                                </xsl:variable>
+                                <xsl:choose>
+                                    <xsl:when test="not(starts-with($sCorporateName,', ')) and string-length($sCorporateName) &gt; 0">
+                                        <xsl:value-of select="$sCorporateName"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>

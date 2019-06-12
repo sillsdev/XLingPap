@@ -53,17 +53,7 @@
                                         <xsl:value-of select="$sCiteName3"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:variable name="sCorporateName">
-                                            <xsl:value-of select="m:name[1][@type='corporate' and m:role/m:roleTerm='aut']/m:namePart"/>
-                                        </xsl:variable>
-                                        <xsl:choose>
-                                            <xsl:when test="$sCorporateName != ''">
-                                                <xsl:value-of select="$sCorporateName"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="$sMissingAuthorsMessage"/>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
+                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:otherwise>
@@ -103,7 +93,7 @@
     <!-- 
         book
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='book' or string(.)='report' and not(../m:location/m:url)]">
+    <xsl:template match="m:genre[@authority='local'][string(.)='book' or string(.)='report' and not(../m:location/m:url) or string(.)='document' and ../m:originInfo/m:publisher]">
         <xsl:call-template name="DoDateAndTitle"/>
         <book>
             <xsl:if test="../m:name[@type='personal']/m:role/m:roleTerm='trl'">
@@ -346,7 +336,7 @@
     <!-- 
         manuscript
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='manuscript' or string(.)='document']">
+    <xsl:template match="m:genre[@authority='local'][string(.)='manuscript' or string(.)='document' and not(../m:originInfo/m:publisher)]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
@@ -488,7 +478,7 @@
             <xsl:call-template name="GetAuthorsNames"/>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="not(starts-with($sAuthorName,', '))">
+            <xsl:when test="string-length($sAuthorName) &gt; 0 and not(starts-with($sAuthorName,', '))">
                 <xsl:value-of select="$sAuthorName"/>
             </xsl:when>
             <xsl:otherwise>
@@ -498,7 +488,7 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="not(starts-with($sContributorName,', '))">
+                    <xsl:when test="string-length($sContributorName) &gt; 0 and not(starts-with($sContributorName,', '))">
                         <xsl:value-of select="$sContributorName"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -508,21 +498,11 @@
                             </xsl:call-template>
                         </xsl:variable>
                         <xsl:choose>
-                            <xsl:when test="not(starts-with($sEditorName,', '))">
+                            <xsl:when test="string-length($sEditorName) &gt; 0 and not(starts-with($sEditorName,', '))">
                                 <xsl:value-of select="$sEditorName"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:variable name="sCorporateName">
-                                    <xsl:value-of select="m:name[1][@type='corporate' and m:role/m:roleTerm='aut']/m:namePart"/>
-                                </xsl:variable>
-                                <xsl:choose>
-                                    <xsl:when test="not(starts-with($sCorporateName,', ')) and string-length($sCorporateName) &gt; 0">
-                                        <xsl:value-of select="$sCorporateName"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:value-of select="$sMissingAuthorsMessage"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -731,14 +711,37 @@
     -->
     <xsl:template name="GetAuthorsNames">
         <xsl:param name="sKind" select="'aut'"/>
-        <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='family']"/>
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='given']"/>
+        <xsl:variable name="sNamePart1" select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart/@type"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sNamePart1) &gt; 0">
+                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='family']"/>
+                <xsl:text>, </xsl:text>
+                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='given']"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:for-each select="m:name[position() &gt; 1][m:role/m:roleTerm=$sKind]">
-            <xsl:text>, </xsl:text>
-            <xsl:value-of select="m:namePart[@type='given']"/>
-            <xsl:text>&#x20;</xsl:text>
-            <xsl:value-of select="m:namePart[@type='family']"/>
+            <xsl:choose>
+                <xsl:when test="position()=last()">
+                    <xsl:text> and </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>, </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:variable name="sNamePart" select="m:namePart/@type"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sNamePart) &gt; 0">
+                    <xsl:value-of select="m:namePart[@type='given']"/>
+                    <xsl:text>&#x20;</xsl:text>
+                    <xsl:value-of select="m:namePart[@type='family']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="m:namePart"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
     <!-- 
@@ -746,7 +749,7 @@
     -->
     <xsl:template name="GetCiteName">
         <xsl:param name="sKind" select="'aut'"/>
-        <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind][m:namePart/@type='family']">
+        <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind][m:namePart/@type='family' or m:namePart[not(@type)]]">
             <xsl:choose>
                 <xsl:when test="position()=last() and count(preceding-sibling::m:name) &gt; 0">
                     <xsl:text> and </xsl:text>

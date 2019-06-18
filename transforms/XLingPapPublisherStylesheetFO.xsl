@@ -3008,6 +3008,9 @@ not using
             </xsl:choose>
         </xsl:variable>
         <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
             <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
                 <xsl:call-template name="DoFootnoteNumberInText">
                     <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -3079,6 +3082,11 @@ not using
     -->
     <xsl:template match="endnoteRef" mode="backMatter">
         <xsl:param name="originalContext"/>
+        <xsl:if test="$bIsBook">
+            <xsl:call-template name="DoBookEndnoteSectionLabel">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="DoEndnoteRefContent">
             <xsl:with-param name="sFootnoteNumber">
                 <xsl:call-template name="GetFootnoteNumber">
@@ -4449,7 +4457,7 @@ not using
                     </xsl:call-template>
                 </xsl:with-param>
             </xsl:call-template>
-            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
+            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" mode="backMatter"/>
             <!--        <xsl:for-each select="//endnote">
             <xsl:call-template name="DoFootnoteContent"/>
         </xsl:for-each>

@@ -5121,6 +5121,7 @@
             <xsl:when test="@lang">
                 <xsl:call-template name="HandleFreeLanguageFontInfo">
                     <xsl:with-param name="freeLayout" select="$freeLayout"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>

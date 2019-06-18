@@ -48,10 +48,17 @@
     -->
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="OutputEndnoteNumber">
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputEndnoteNumber">
             <xsl:with-param name="attr" select="@id"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         endnote in back matter
@@ -1587,29 +1594,36 @@
     <xsl:template name="HandleEndnoteInBackMatter">
         <xsl:param name="originalContext"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
-        <xsl:if test="$bIsBook">
-            <xsl:call-template name="DoBookEndnoteSectionLabel">
-                <xsl:with-param name="originalContext" select="$originalContext"/>
-            </xsl:call-template>
-        </xsl:if>
-        <tr>
-            <td style="vertical-align:baseline">
-                <a>
-                    <xsl:attribute name="name">
-                        <xsl:value-of select="@id"/>
-                    </xsl:attribute>
-                    <xsl:text>[</xsl:text>
-                    <xsl:call-template name="GetFootnoteNumber">
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$bIsBook">
+                    <xsl:call-template name="DoBookEndnoteSectionLabel">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                     </xsl:call-template>
-                    <xsl:text>]</xsl:text>
-                </a>
-            </td>
-            <td style="vertical-align:baseline">
-                <xsl:apply-templates/>
-            </td>
-        </tr>
+                </xsl:if>
+                <tr>
+                    <td style="vertical-align:baseline">
+                        <a>
+                            <xsl:attribute name="name">
+                                <xsl:value-of select="@id"/>
+                            </xsl:attribute>
+                            <xsl:text>[</xsl:text>
+                            <xsl:call-template name="GetFootnoteNumber">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                            </xsl:call-template>
+                            <xsl:text>]</xsl:text>
+                        </a>
+                    </td>
+                    <td style="vertical-align:baseline">
+                        <xsl:apply-templates/>
+                    </td>
+                </tr>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleListWordLangDataOrGloss

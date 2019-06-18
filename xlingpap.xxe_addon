@@ -7,7 +7,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ></a:configuration
 ></a:category
 ><a:name
->A configuration for creating XLingPaper documents.</a:name
+>testA configuration for creating XLingPaper documents.</a:name
 ><a:version
 >3.5.3</a:version
 ><a:author
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-06-12</a:date
+>2019-06-18</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.5.3 12 June 2019<ul
+>3.5.3 18 June 2019<ul
+><li
+>If an interlinear referred to via an interlinearRef element has an endnote, do not show the endnote.</li
 ><li
 >Converting Zotero references file to XLingPaper format:<ul
 ><li

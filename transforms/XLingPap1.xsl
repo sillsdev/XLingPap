@@ -2334,10 +2334,17 @@
     -->
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="OutputEndnoteNumber">
-            <xsl:with-param name="attr" select="@id"/>
-            <xsl:with-param name="originalContext" select="$originalContext"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputEndnoteNumber">
+                    <xsl:with-param name="attr" select="@id"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         endnote in back matter
@@ -4297,46 +4304,53 @@
     <xsl:template name="HandleEndnoteInBackMatter">
         <xsl:param name="originalContext"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
-        <xsl:if test="$bIsBook">
-            <xsl:choose>
-                <xsl:when test="$originalContext">
-                    <xsl:for-each select="$originalContext">
-                        <xsl:variable name="chapterOrAppendixUnit"
-                            select="ancestor::chapter | ancestor::appendix | ancestor::chapterInCollection | ancestor::chapterBeforePart | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
-                        <xsl:call-template name="DoBookEndnotesLabeling">
-                            <xsl:with-param name="originalContext" select="$originalContext"/>
-                            <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:variable name="chapterOrAppendixUnit"
-                        select="ancestor::chapter | ancestor::appendix | ancestor::chapterInCollection | ancestor::chapterBeforePart | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
-                    <xsl:call-template name="DoBookEndnotesLabeling">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
-                    </xsl:call-template>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:if>
-        <tr>
-            <td valign="top">
-                <a>
-                    <xsl:attribute name="name">
-                        <xsl:value-of select="@id"/>
-                    </xsl:attribute>
-                    <xsl:text>[</xsl:text>
-                    <xsl:call-template name="GetFootnoteNumber">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
-                    </xsl:call-template>
-                    <xsl:text>]</xsl:text>
-                </a>
-            </td>
-            <td>
-                <xsl:apply-templates/>
-            </td>
-        </tr>
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="$bIsBook">
+                    <xsl:choose>
+                        <xsl:when test="$originalContext">
+                            <xsl:for-each select="$originalContext">
+                                <xsl:variable name="chapterOrAppendixUnit"
+                                    select="ancestor::chapter | ancestor::appendix | ancestor::chapterInCollection | ancestor::chapterBeforePart | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                                <xsl:call-template name="DoBookEndnotesLabeling">
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                    <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:variable name="chapterOrAppendixUnit"
+                                select="ancestor::chapter | ancestor::appendix | ancestor::chapterInCollection | ancestor::chapterBeforePart | ancestor::glossary | ancestor::acknowledgements | ancestor::preface | ancestor::abstract"/>
+                            <xsl:call-template name="DoBookEndnotesLabeling">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="chapterOrAppendixUnit" select="$chapterOrAppendixUnit"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+                <tr>
+                    <td valign="top">
+                        <a>
+                            <xsl:attribute name="name">
+                                <xsl:value-of select="@id"/>
+                            </xsl:attribute>
+                            <xsl:text>[</xsl:text>
+                            <xsl:call-template name="GetFootnoteNumber">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                            </xsl:call-template>
+                            <xsl:text>]</xsl:text>
+                        </a>
+                    </td>
+                    <td>
+                        <xsl:apply-templates/>
+                    </td>
+                </tr>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleListWordLangDataOrGloss

@@ -1656,6 +1656,9 @@
             <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
         </xsl:if>
         <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
             <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
                 <tex:cmd name="footnotemark">
                     <xsl:if test="not(ancestor::interlinear-text)">
@@ -4435,6 +4438,7 @@
         HandleFreeLanguageFontInfo
     -->
     <xsl:template name="HandleFreeLanguageFontInfo">
+        <xsl:param name="originalContext"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <tex:cmd name="Lang{translate(@lang,$sDigits, $sLetters)}FontFamily">
             <tex:parm>
@@ -4444,7 +4448,9 @@
                         <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>
                     <xsl:call-template name="DoLiteralLabel"/>
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:apply-templates>
                     <xsl:call-template name="OutputFontAttributesEnd">
                         <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>

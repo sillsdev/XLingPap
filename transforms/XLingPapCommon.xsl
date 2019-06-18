@@ -988,7 +988,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="iIncludeCurrentInterlinearRef">
+        <!-- Following was original attempt at keeping track of endnotes in interlinears referred to by interlinearRef elements.
+            Beginning with version 3.5.3 (2.35.3) we always ignore endnotes in interlinears referred to by interlinearRef elements. -->
+        <!--<xsl:variable name="iIncludeCurrentInterlinearRef">
             <xsl:choose>
                 <xsl:when test="name()='interlinearRef'">
                     <xsl:value-of select="$iAdjust"/>
@@ -997,8 +999,8 @@
                     <xsl:text>0</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="endnotesInPrecedingInterlinearRefs" select="(descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
+        </xsl:variable>-->
+     <!--   <xsl:variable name="endnotesInPrecedingInterlinearRefs" select="(descendant::interlinearRef[ancestor::referencedInterlinearTexts] | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)[ancestor::referencedInterlinearTexts]/descendant::endnote]"/>
         <xsl:variable name="sCount">
             <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
                 <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
@@ -1006,9 +1008,10 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
-        <!--        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
-        <!--        <xsl:variable name="i2CountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-->
-        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"/>
+        <!-\-        <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-\->
+        <!-\-        <xsl:variable name="i2CountOfEndnotesInPrecedingInterlinearRefs" select="count((descendant::interlinearRef | preceding::interlinearRef)[key('InterlinearReferenceID',@textref)/descendant::endnote])"/>-\->
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"/>-->
+        <xsl:value-of select="$iPreviousEndnotes + $iPreviousEndnotesInCurrentInterlinearRef+$iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetCountOfEndnotesIncludingAnyInInterlinearRefsBook
@@ -1065,7 +1068,9 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="iIncludeCurrentInterlinearRef">
+        <!-- Following was original attempt at keeping track of endnotes in interlinears referred to by interlinearRef elements.
+            Beginning with version 3.5.3 (2.35.3) we always ignore endnotes in interlinears referred to by interlinearRef elements. -->
+        <!--<xsl:variable name="iIncludeCurrentInterlinearRef">
             <xsl:choose>
                 <xsl:when test="name()='interlinearRef'">
                     <xsl:value-of select="$iAdjust"/>
@@ -1074,12 +1079,12 @@
                     <xsl:text>0</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:variable>
-        <!-- we use the following for efficiency sake even though we treat some elments the same (i.e. they do not have an @id) -->
+        </xsl:variable>-->
+         <!--we use the following for efficiency sake even though we treat some elments the same (i.e. they do not have an @id)
         <xsl:variable name="sCurrentAncestorId"
             select="ancestor::chapter/@id | ancestor::chapterInCollection/@id | ancestor::appendix/@id | ancestor::glossary/@id | ancestor::acknowledgements/@id | ancestor::preface/@id | ancestor::abstract/@id"/>
         <xsl:variable name="endnotesInPrecedingInterlinearRefs"
-            select="(descendant::interlinearRef | preceding::interlinearRef)[ancestor::*[@id=$sCurrentAncestorId]][key('InterlinearReferenceID',@textref)/descendant::endnote]"/>
+            select="(descendant::interlinearRef[ancestor::referencedInterlinearTexts] | preceding::interlinearRef)[ancestor::*[@id=$sCurrentAncestorId]][key('InterlinearReferenceID',@textref)[ancestor::referencedInterlinearTexts]/descendant::endnote]"/>
         <xsl:variable name="sCount">
             <xsl:for-each select="$endnotesInPrecedingInterlinearRefs">
                 <xsl:variable name="iCountOfEndnotes" select="count(key('InterlinearReferenceID',@textref)/descendant::endnote)"/>
@@ -1087,7 +1092,8 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="iCountOfEndnotesInPrecedingInterlinearRefs" select="string-length($sCount)"/>
-        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"/>
+        <xsl:value-of select="$iPreviousEndnotes + $iCountOfEndnotesInPrecedingInterlinearRefs + $iIncludeCurrentInterlinearRef+$iTablenumberedAdjust"/>-->
+        <xsl:value-of select="$iPreviousEndnotes + $iTablenumberedAdjust"/>
     </xsl:template>
     <!--  
         GetCountOfEndnoteInTitleUsingSymbol

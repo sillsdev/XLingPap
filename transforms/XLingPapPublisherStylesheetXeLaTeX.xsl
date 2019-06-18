@@ -3197,6 +3197,9 @@
         endnoteRef when using endnotes (not footnotes)
     -->
     <xsl:template match="endnoteRef" mode="backMatter">
+        <xsl:if test="$bIsBook">
+            <xsl:call-template name="DoBookEndnoteSectionLabel"/>
+        </xsl:if>
         <tex:cmd name="indent" gr="0" sp="1"/>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@note"/>
@@ -4407,6 +4410,9 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="sPrecalculatedNumber" select="''"/>
         <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
             <xsl:when test="$backMatterLayoutInfo/useEndNotesLayout">
                 <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 <xsl:choose>
@@ -4571,7 +4577,7 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:if>
-            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')] | //interlinearRef" mode="backMatter"/>
+            <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" mode="backMatter"/>
             <!--        <xsl:for-each select="//endnote">
             <tex:cmd name="indent" gr="0" sp="1"/>
             <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">
@@ -6671,6 +6677,7 @@
     -->
     <xsl:template name="HandleFreeLanguageFontInfo">
         <xsl:param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+        <xsl:param name="originalContext"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sFontFamily" select="normalize-space($language/@font-family)"/>
         <xsl:choose>
@@ -6687,7 +6694,9 @@
                 <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
                     <xsl:with-param name="freeLayout" select="$freeLayout"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
                 <xsl:call-template name="HandleFreeTextAfterAndFontOverrides">
                     <xsl:with-param name="freeLayout" select="$freeLayout"/>
                 </xsl:call-template>
@@ -6710,7 +6719,9 @@
                 <xsl:call-template name="HandleFreeTextBeforeAndFontOverrides">
                     <xsl:with-param name="freeLayout" select="$freeLayout"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:apply-templates>
                 <xsl:call-template name="HandleFreeTextAfterAndFontOverrides">
                     <xsl:with-param name="freeLayout" select="$freeLayout"/>
                 </xsl:call-template>

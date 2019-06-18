@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 May 2019</date
+>18 June 2019</date
 ><version
 contentType="ctVersion5.3"
->2.35.1</version
+>2.35.3</version
 ><version
 contentType="ctVersion7Plus"
->3.5.1</version
+>3.5.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -11372,10 +11372,35 @@ type="tInstruction"
 >), a dialog box will pop up that lists all the interlinear text portions in your paper. Choose the interlinear text portion you want.</li
 ></ol
 ><p
+contentType="ctVersion7Plus"
 ><object
 type="tXLingPap"
 ></object
-> will insert the content of the referenced interlinear in the formatted output.</p
+> will insert the content of the referenced interlinear in the formatted output. Starting with version 3.5.3, if the referred to interlinear contains any <object
+type="tElement"
+>endnote</object
+> elements, those endnotes will not appear in the output for the example containing an <object
+type="tElement"
+>interlinearRef</object
+> element (they will, however, appear in the interlinear text output itself). If you want those <object
+type="tElement"
+>endnote</object
+> elements to appear in the output within the example, then follow the second way mentioned next.</p
+><p
+contentType="ctVersion5.3"
+><object
+type="tXLingPap"
+></object
+> will insert the content of the referenced interlinear in the formatted output. Starting with version 2.35.3, if the referred to interlinear contains any <object
+type="tElement"
+>endnote</object
+> elements, those endnotes will not appear in the output for the example containing an <object
+type="tElement"
+>interlinearRef</object
+> element (they will, however, appear in the interlinear text output itself). If you want those <object
+type="tElement"
+>endnote</object
+> elements to appear in the output within the example, then follow the second way mentioned next.</p
 ><p
 >The second way is to make a copy of the portion. The advantage of making a copy is that then you can highlight individual words or morphemes that you are discussing in the context. To make the copy, follow these steps:</p
 ><ol

@@ -2473,39 +2473,46 @@ not using
       -->
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
-        <fo:footnote>
-            <xsl:variable name="iTablenumberedAdjust">
-                <xsl:choose>
-                    <xsl:when test="ancestor::tablenumbered and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+        <xsl:choose>
+            <xsl:when test="$originalContext and ancestor::interlinear-text">
+                <!-- do nothing for an interlinearRef containing an endnote -->
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:footnote>
+                    <xsl:variable name="iTablenumberedAdjust">
                         <xsl:choose>
-                            <xsl:when test="ancestor::caption">
-                                <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
-                            </xsl:when>
-                            <xsl:when test="ancestor::table">
-                                <xsl:value-of select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                            <xsl:when test="ancestor::tablenumbered and $lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
+                                <xsl:choose>
+                                    <xsl:when test="ancestor::caption">
+                                        <xsl:value-of select="count(ancestor::tablenumbered/table/descendant::*[name()!='caption']/descendant::endnote)"/>
+                                    </xsl:when>
+                                    <xsl:when test="ancestor::table">
+                                        <xsl:value-of select="-count(ancestor::tablenumbered/table/caption/descendant::endnote)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>0</xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>0</xsl:otherwise>
                         </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>0</xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
-                <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
-                <xsl:call-template name="GetFootnoteNumber">
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
-                </xsl:call-template>
-            </fo:inline>
-            <fo:footnote-body>
-                <fo:block xsl:use-attribute-sets="FootnoteBody">
-                    <xsl:apply-templates>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
-                    </xsl:apply-templates>
-                </fo:block>
-            </fo:footnote-body>
-        </fo:footnote>
+                    </xsl:variable>
+                    <fo:inline baseline-shift="super" id="{@id}" xsl:use-attribute-sets="FootnoteMarker">
+                        <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
+                        <xsl:call-template name="GetFootnoteNumber">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                        </xsl:call-template>
+                    </fo:inline>
+                    <fo:footnote-body>
+                        <fo:block xsl:use-attribute-sets="FootnoteBody">
+                            <xsl:apply-templates>
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                            </xsl:apply-templates>
+                        </fo:block>
+                    </fo:footnote-body>
+                </fo:footnote>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       endnoteRef

@@ -6100,6 +6100,7 @@
     -->
     <xsl:template name="DoRunningHeader">
         <xsl:param name="sHeader"/>
+        <xsl:param name="fNewlineAfterMarkBoth" select="'Y'"/>
         <xsl:choose>
             <xsl:when test="ancestor-or-self::*[starts-with(name(),'chapter') or name()='appendix']">
                 <xsl:variable name="chapterAncestor" select="ancestor-or-self::*[starts-with(name(),'chapter')]"/>
@@ -6145,7 +6146,12 @@
                 </xsl:for-each>-->
             </xsl:when>
             <xsl:otherwise>
-                <tex:cmd name="markboth" nl2="1">
+                <tex:cmd name="markboth">
+                    <xsl:if test="$fNewlineAfterMarkBoth='Y'">
+                        <xsl:attribute name="nl2">
+                            <xsl:text>1</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
                     <tex:parm>
                         <xsl:value-of select="$sHeader"/>
                     </tex:parm>
@@ -8303,7 +8309,7 @@
                     </tex:parm>
                 </tex:cmd>
                 <xsl:if test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left' or $keywordsLayoutInfo/@textalign='center'">
-                    <tex:cmd name="noindent" gr="0" nl2="1"/>
+                    <tex:cmd name="noindent"/>
                 </xsl:if>
                 <xsl:if test="@showincontents='yes'">
                     <xsl:call-template name="DoInternalTargetBegin">
@@ -8316,6 +8322,7 @@
                     </xsl:call-template>
                     <xsl:call-template name="DoRunningHeader">
                         <xsl:with-param name="sHeader" select="$sLabel"/>
+                        <xsl:with-param name="fNewlineAfterMarkBoth" select="'N'"/>
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:call-template name="OutputFontAttributes">
@@ -8375,6 +8382,26 @@
                                 <tex:spec cat="esc"/>
                             </xsl:if>
                         </xsl:when>
+                        <xsl:when test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left'">
+                            <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords!='no'">
+                                <tex:group>
+                                    <xsl:call-template name="OutputFontAttributes">
+                                        <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="OutputKeywordsShownHere">
+                                        <xsl:with-param name="sTextBetweenKeywords">
+                                            <xsl:call-template name="GetTextBetweenKeywords">
+                                                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                                            </xsl:call-template>
+                                        </xsl:with-param>
+                                    </xsl:call-template>
+                                    <xsl:call-template name="OutputFontAttributesEnd">
+                                        <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
+                                    </xsl:call-template>
+                                </tex:group>
+                            </xsl:if>
+                            <tex:cmd name="par"/>
+                        </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
                     <tex:spec cat="eg"/>
@@ -8384,13 +8411,22 @@
                     <xsl:with-param name="originalContext" select="."/>
                 </xsl:call-template>
                 <xsl:if test="$keywordsLayoutInfo/@keywordLabelOnSameLineAsKeywords='no'">
+                    <xsl:if test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left'">
+                        <tex:cmd name="par"/>
+                    </xsl:if>
                     <xsl:call-template name="DoSpaceAfter">
                         <xsl:with-param name="layoutInfo" select="$keywordsLayoutInfo"/>
                     </xsl:call-template>
                     <tex:group>
+                        <xsl:if test="$keywordsLayoutInfo/@textalign='right' or $keywordsLayoutInfo/@textalign='end'">
+                            <tex:cmd name="raggedleft"/>
+                        </xsl:if>
                         <xsl:call-template name="OutputFontAttributes">
                             <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
                         </xsl:call-template>
+                        <xsl:if test="$keywordsLayoutInfo/@textalign='start' or $keywordsLayoutInfo/@textalign='left'">
+                            <tex:cmd name="noindent"/>
+                        </xsl:if>
                         <xsl:call-template name="OutputKeywordsShownHere">
                             <xsl:with-param name="sTextBetweenKeywords">
                                 <xsl:call-template name="GetTextBetweenKeywords">
@@ -8401,6 +8437,9 @@
                         <xsl:call-template name="OutputFontAttributesEnd">
                             <xsl:with-param name="language" select="$keywordsLayoutInfo/keywordLayout"/>
                         </xsl:call-template>
+                        <xsl:if test="$keywordsLayoutInfo/@textalign!='center'">
+                            <tex:cmd name="par"/>
+                        </xsl:if>
                     </tex:group>
                 </xsl:if>
             </tex:group>

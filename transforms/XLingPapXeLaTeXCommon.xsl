@@ -8658,6 +8658,7 @@
         </xsl:if>
         <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
         <xsl:if test="string-length($sFontSize) &gt; 0">
+            <tex:spec cat="bg"/>
             <xsl:call-template name="HandleFontSize">
                 <xsl:with-param name="sSize" select="$sFontSize"/>
                 <xsl:with-param name="sFontFamily" select="$language/@font-family"/>
@@ -8864,12 +8865,10 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>
-        <!-- font size does not end with an open brace 
             <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
             <xsl:if test="string-length($sFontSize) &gt; 0">
             <tex:spec cat="eg"/>
             </xsl:if>
-        -->
         <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
         <xsl:if test="string-length($sFontStyle) &gt; 0">
             <tex:spec cat="eg"/>

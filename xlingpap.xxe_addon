@@ -39,6 +39,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: fix all instances where a font size change could cause following text material to be in the wrong font size.</li
 ><li
 >Fix bug: keywords did not always align correctly.</li
+><li
+>Fix bug: allow pagebreak/clearpage XeLaTeXSpecial attribute values on listInterlinear elements.</li
 ></ul
 ></li
 ></ul

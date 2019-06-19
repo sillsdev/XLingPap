@@ -9818,6 +9818,14 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
+                    <xsl:choose>
+                        <xsl:when test="contains(@XeLaTeXSpecial,'clearpage')">
+                            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+                        </xsl:when>
+                        <xsl:when test="contains(@XeLaTeXSpecial,'pagebreak')">
+                            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+                        </xsl:when>
+                    </xsl:choose>
                     <tex:cmd name="{$sXLingPaperListInterlinear}" nl1="0" nl2="1">
                         <tex:parm>
                             <xsl:value-of select="$sExampleIndentBefore"/>

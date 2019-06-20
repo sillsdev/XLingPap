@@ -3,6 +3,13 @@
     <!-- 
         Variables and templates common to all "canned" style sheets.
     -->
+    <!--  
+        dateLetter
+    -->
+    <xsl:template mode="dateLetter" match="*">
+        <xsl:param name="date"/>
+        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date or refDate/@citedate=$date]" format="a"/>
+    </xsl:template>
     <!--
         DoAppendixRef
     -->
@@ -233,13 +240,21 @@
         </xsl:if>
         <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
-            <xsl:value-of select="$refer/refDate"/>
+            <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sCiteDate) &gt; 0">
+                    <xsl:value-of select="$sCiteDate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$refer/refDate"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
             <xsl:text>&#x20;</xsl:text>
         </xsl:if>
         <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date])>1">
+        <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
             <xsl:apply-templates select="$refer" mode="dateLetter">
                 <xsl:with-param name="date" select="$date"/>
             </xsl:apply-templates>

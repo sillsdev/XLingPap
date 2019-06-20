@@ -62,7 +62,7 @@
 
 @property-value drop-down-setReference(background-color-in) command-button(icon, icon(pop-down), color, black, command, "setReference", background-color, background-color-in);
 
-@property-value citationRefDate() label(xpath, "id(@ref)/refDate",background-color,citation-background-color()) invoke("citationRefDateAugment", "null");
+@property-value citationRefDate() label(xpath, "if(id(@ref)/refDate/@citedate and string-length(id(@ref)/refDate/@citedate)>0,id(@ref)/refDate/@citedate,id(@ref)/refDate)",background-color,citation-background-color()) invoke("citationRefDateAugment", "null");
 
 @property-group authorInitialsBefore( )
 {
@@ -5375,7 +5375,9 @@ chapterInCollectionLayout chapterTitleLayout
 citationLayout
 {
 	display:block;
-	content:"citation layout:  Doe (2003"
+	content:"citation layout:  Doe"
+	   label(xpath,"if(string-length(@textbetweenauthoranddate)>0,@textbetweenauthoranddate,' ')")
+	   "(2003"
 	   label(xpath,"if(string-length(@replacecolonwith)>0,@replacecolonwith,':')")
            label(attribute, textbeforepages)
             "23-45)";

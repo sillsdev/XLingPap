@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 May 2019</date
+>20 June 2019</date
 ><version
 contentType="ctVersion5.3"
->2.35.0</version
+>2.35.5</version
 ><version
 contentType="ctVersion7Plus"
->3.5.0</version
+>3.5.5</version
 ><contents
 showLevel="6"
 ></contents
@@ -13202,7 +13202,7 @@ type="tXMLmindXMLEditor"
 ><langData
 lang="lEng"
 > <indexedItem
-term="iPageNumbersInCitation"
+term="iReplaceColonWith"
 ></indexedItem
 ><object
 type="tAttribute"
@@ -13234,6 +13234,9 @@ lang="lEng"
 > <indexedItem
 term="iPageNumbersInCitation"
 ></indexedItem
+><indexedItem
+term="iTextBeforePages"
+></indexedItem
 ><object
 type="tAttribute"
 >textbeforepages</object
@@ -13257,6 +13260,36 @@ type="tAttribute"
 type="tAttrValue"
 > </object
 > (a space)</td
+><td
+>Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTextBetweenAuthorAndDate"
+></indexedItem
+><object
+type="tAttribute"
+>textbetweenauthoranddate</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear between the author and the date.</langData
+></td
+><td
+><object
+type="tAttrValue"
+> </object
+> , (a space)</td
 ><td
 >Yes</td
 ></tr
@@ -19045,6 +19078,23 @@ id="iChapterInCollectionAuthor"
 id="iCitationOverrides"
 ><term
 >Citation special formatting</term
+><indexTerms
+><indexTerm
+id="iReplaceColonWith"
+><term
+>Replace colon with something else</term
+></indexTerm
+><indexTerm
+id="iTextBeforePages"
+><term
+>Text to use before page number(s)</term
+></indexTerm
+><indexTerm
+id="iTextBetweenAuthorAndDate"
+><term
+>Text to use between author and date</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iCitationLink"

@@ -46,6 +46,7 @@
 >
 <!ELEMENT refDate (#PCDATA)>
 <!ATTLIST refDate
+    citedate CDATA #IMPLIED
     xml:lang CDATA #IMPLIED
 >
 <!-- There are two versions of a title: one with capitals and one the is lower case (except for the first word and any proper nouns -->

@@ -183,7 +183,7 @@
     -->
     <xsl:template match="*" mode="dateLetter">
         <xsl:param name="date"/>
-        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date]" format="a"/>
+        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date or refDate/@citedate=$date]" format="a"/>
     </xsl:template>
     <!--
         authorRole
@@ -5072,32 +5072,55 @@
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
+        <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
+        <xsl:variable name="sTextBetweenAuthorAndDate" select="$citationLayout/@textbetweenauthoranddate"/>
         <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
             <xsl:value-of select="$refer/../@citename"/>
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0">
+                    <xsl:value-of select="$citationLayout/@textbetweenauthoranddate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
-            <xsl:value-of select="$refer/refDate"/>
+            <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sCiteDate) &gt; 0">
+                    <xsl:value-of select="$sCiteDate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$refer/refDate"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0">
+                    <!-- do nothing; it's already there -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date])>1">
+        <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
             <xsl:apply-templates select="$refer" mode="dateLetter">
                 <xsl:with-param name="date" select="$date"/>
             </xsl:apply-templates>
         </xsl:if>
         <xsl:variable name="sPage" select="normalize-space(@page)"/>
         <xsl:if test="string-length($sPage) &gt; 0">
-            <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
             <xsl:variable name="sColon" select="$citationLayout/@replacecolonwith"/>
             <xsl:choose>
                 <xsl:when test="string-length($sColon) &gt; 0">

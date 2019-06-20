@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 June 2019</date
+>20 June 2019</date
 ><version
 contentType="ctVersion5.3"
->2.35.3</version
+>2.35.5</version
 ><version
 contentType="ctVersion7Plus"
->3.5.3</version
+>3.5.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -3653,7 +3653,16 @@ type="tElement"
 > element contains the date (i.e. year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
 type="tXLingPap"
 ></object
-> will automatically append a letter after the year as appropriate. <indexedItem
+> will automatically append a letter after the year as appropriate. If you want any citations to use a different date than what is in the <object
+type="tElement"
+>refDate</object
+> element, set the <object
+type="tAttribute"
+>citedate</object
+> attribute of the <object
+type="tElement"
+>refDate</object
+> element to that value. <indexedItem
 term="iURL"
 ></indexedItem
 >The <object

@@ -3190,13 +3190,6 @@ not using
     <xsl:template mode="letter" match="*">
         <xsl:number level="single" count="listWord | listSingle | listInterlinear | listDefinition | lineSet" format="a"/>
     </xsl:template>
-    <!--  
-                  dateLetter
--->
-    <xsl:template mode="dateLetter" match="*">
-        <xsl:param name="date"/>
-        <xsl:number level="single" count="refWork[@id=//citation/@ref][refDate=$date]" format="a"/>
-    </xsl:template>
     <!-- ===========================================================
       NAMED TEMPLATES
       =========================================================== -->

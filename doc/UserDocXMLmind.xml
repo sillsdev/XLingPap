@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->20 June 2019</date
+>21 June 2019</date
 ><version
 contentType="ctVersion5.3"
 >2.35.5</version
@@ -5425,7 +5425,7 @@ type="tElement"
 ><p
 >To use sorting by author names, you must set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute of <genericTarget
 id="gSetAttributeInLingPaperElement"
 ></genericTarget
@@ -5443,7 +5443,7 @@ note="nAttributesToolReminder"
 ></endnoteRef
 > to set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object

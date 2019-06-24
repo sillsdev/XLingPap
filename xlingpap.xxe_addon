@@ -45,6 +45,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix typo in user documentation</li
 ><li
 >Improve efficiency of publisher style sheet processing slightly</li
+><li
+>Improve textbetweenauthoranddate handling</li
 ></ul
 ></li
 ><li

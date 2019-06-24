@@ -26,6 +26,8 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
+    <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
+    <xsl:variable name="sTextBetweenAuthorAndDate" select="$citationLayout/@textbetweenauthoranddate"/>
     <!--    <xsl:variable name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>-->
     <xsl:variable name="contentsLayout">
         <xsl:choose>
@@ -5072,8 +5074,6 @@
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
-        <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
-        <xsl:variable name="sTextBetweenAuthorAndDate" select="$citationLayout/@textbetweenauthoranddate"/>
         <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
             <xsl:text>(</xsl:text>
         </xsl:if>

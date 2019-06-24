@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->20 June 2019</date
+>21 June 2019</date
 ><version
 contentType="ctVersion5.3"
 >2.35.5</version
@@ -3653,7 +3653,7 @@ type="tElement"
 > element contains the date (i.e. year) of the work. If there is more than one work by the same author within a given year, merely list the year for each such work. <object
 type="tXLingPap"
 ></object
-> will automatically append a letter after the year as appropriate.  If you want any citations to use a different date than what is in the <object
+> will automatically append a letter after the year as appropriate. If you want any citations to use a different date than what is in the <object
 type="tElement"
 >refDate</object
 > element, set the <object
@@ -3662,7 +3662,7 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >refDate</object
-> element to that value.  <indexedItem
+> element to that value. <indexedItem
 term="iURL"
 ></indexedItem
 >The <object
@@ -5425,7 +5425,7 @@ type="tElement"
 ><p
 >To use sorting by author names, you must set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute of <genericTarget
 id="gSetAttributeInLingPaperElement"
 ></genericTarget
@@ -5443,7 +5443,7 @@ note="nAttributesToolReminder"
 ></endnoteRef
 > to set the <object
 type="tAttribute"
->sortRefsAbbrsGlossarytermsByDocumentLanguage</object
+>sortRefsAbbrsByDocumentLanguage</object
 > attribute to a value of <object
 type="tAttrValue"
 >yes</object

@@ -37,6 +37,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix typo in user documentation</li
 ><li
 >Improve efficiency of publisher style sheet processing slightly</li
+><li
+>Improve textbetweenauthoranddate handling</li
 ></ul
 ></li
 ><li

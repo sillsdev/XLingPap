@@ -5080,7 +5080,7 @@
         <xsl:if test="@author='yes'">
             <xsl:value-of select="$refer/../@citename"/>
             <xsl:choose>
-                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0">
+                <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0 and @paren!='both' and @paren!='initial'">
                     <xsl:value-of select="$citationLayout/@textbetweenauthoranddate"/>
                 </xsl:when>
                 <xsl:otherwise>

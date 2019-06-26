@@ -1958,6 +1958,12 @@
         Annotation reference (part of an annotated bibliography)
         =========================================================== -->
     <xsl:template match="annotationRef">
+        <xsl:if test="contains(@XeLaTeXSpecial,'clearpage')">
+            <tex:cmd name="clearpage" gr="0" nl2="0"/>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+            <tex:cmd name="pagebreak" gr="0" nl2="0"/>
+        </xsl:if>
         <xsl:for-each select="key('RefWorkID',@citation)">
             <tex:cmd name="noindent"/>
             <xsl:call-template name="DoRefWork">

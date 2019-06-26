@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.35.6</a:version
+>2.35.7</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-06-24</a:date
+>2019-06-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.35.7 26 June 2019<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Allow pagebreak and clearpage XeLaTeXSpecial attributes on annotationRef elements when using a publisher style sheet.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.35.6 24 June 2019<ul
 ><li

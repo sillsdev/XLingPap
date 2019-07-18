@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 June 2019</date
+>18 July 2019</date
 ><version
 contentType="ctVersion5.3"
->2.35.5</version
+>2.35.6</version
 ><version
 contentType="ctVersion7Plus"
->3.5.5</version
+>3.5.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -1746,7 +1746,7 @@ type="tPublisherStyleSheet"
 > to have both a table of contents in the front matter and a (slightly) different one in the back matter,<endnote
 id="nFrontBackContetns"
 ><p
->Some Spanish conventions use “Contendio” for the front matter (and a level of one) and “Índice” for the back matter (and a level of three).</p
+>Some Spanish conventions use “Contenido” for the front matter (and a level of one) and “Índice” for the back matter (and a level of three).</p
 ></endnote
 > then you can set the label for the one in the back matter by setting the <object
 type="tAttribute"
@@ -7420,7 +7420,7 @@ type="tElement"
 ><section3
 id="sBMAGlossaryTermsReferences"
 ><secTitle
->References to an glossary term</secTitle
+>References to a glossary term</secTitle
 ><p
 >To create references to glossary terms, perform an insert operation<endnoteRef
 note="nInsertElementReminder"

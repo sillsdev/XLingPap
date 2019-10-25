@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 July 2019</date
+>25 October 2019</date
 ><version
 contentType="ctVersion5.3"
 >2.35.6</version
 ><version
 contentType="ctVersion7Plus"
->3.5.6</version
+>3.5.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -10389,6 +10389,38 @@ sec="secExInterlinearContinuation"
 ></sectionRef
 > below.</p
 ><p
+><indexedItem
+term="iFLEx"
+></indexedItem
+><indexedItem
+term="iInterlinearTextFLEx"
+></indexedItem
+>If you are using the <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+> program to interlinearize texts, you can create a text that consists of several examples you want to include in your <object
+type="tXLingPap"
+></object
+> document and then export that text from <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+>.  Use the “XLingPaper as examples, align words” option.  Open the exported file into the <object
+type="tXMLmindXMLEditor"
+></object
+> and copy and paste the examples to where you want them to go in your <object
+type="tXLingPap"
+></object
+> document.  You will also probably need to copy and paste the <object
+type="tElement"
+>language</object
+> elements from the exported file into your document. Most likely you will need to do this one by one. See <link
+href="http://fieldworks.sil.org/flex/"
+>http://fieldworks.sil.org/flex/</link
+> for more on the <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+> program.</p
+><p
 >You have probably noticed that there are many types of interlinear examples listed in the Edit tool.<endnoteRef
 note="nEditTool"
 ></endnoteRef
@@ -10756,6 +10788,41 @@ num="xLInterHTML"
 type="tHtmlOutput"
 >&lt;table&gt; &lt;tr&gt; &lt;td valign="top"&gt;&lt;a name="x16"&gt;(7)&lt;/a&gt;&lt;/td&gt; &lt;td valign="top"&gt;&lt;a name="x16d"&gt;a.&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="nahuatl"&gt;In&lt;/td&gt; &lt;td class="nahuatl"&gt;Wan&lt;/td&gt; &lt;td class="nahuatl"&gt;onikitak&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;kowat.&lt;/td&gt; &lt;td class="nahuatl"&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;Wan&lt;/td&gt; &lt;td class="nahuatl"&gt;o-ni-k-ita-k&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;kowa-t&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="english"&gt;the&lt;/td&gt; &lt;td class="english"&gt;John&lt;/td&gt; &lt;td class="english"&gt;PST-1-3O-see-PRET&lt;/td&gt; &lt;td class="english"&gt;the&lt;/td&gt; &lt;td class="english"&gt;snake-ABS&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:150%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td colspan="30" class="english"&gt; "John saw the snake." &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td valign="top"&gt; &lt;/td&gt; &lt;td valign="top"&gt;&lt;a name="x16g"&gt;b.&lt;/a&gt;&lt;/td&gt; &lt;td&gt; &lt;table&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="nahuatl"&gt;Onikitak&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;Wan&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;kowat.&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="nahuatl"&gt;o-ni-k-ita-k&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;Wan&lt;/td&gt; &lt;td class="nahuatl"&gt;in&lt;/td&gt; &lt;td class="nahuatl"&gt;kowa-t&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:87.5%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td class="english"&gt;PST-1-3O-see-PRET&lt;/td&gt; &lt;td class="english"&gt;the&lt;/td&gt; &lt;td class="english"&gt;John&lt;/td&gt; &lt;td class="english"&gt;the&lt;/td&gt; &lt;td class="english"&gt;snake-ABS&lt;/td&gt; &lt;/tr&gt; &lt;tr style="line-height:150%"&gt; &lt;td&gt; &lt;/td&gt; &lt;td colspan="30" class="english"&gt; "John saw the snake." &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; &lt;/div&gt;</chart
 ></example
+><p
+><indexedItem
+term="iFLEx"
+></indexedItem
+><indexedItem
+term="iInterlinearTextFLEx"
+></indexedItem
+>If you are using the <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+> program to interlinearize texts, you can create a text that consists of a single example containing the text segments you want to include in this example in your <object
+type="tXLingPap"
+></object
+> document and then export that text from <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+>. Use the “XLingPaper, as a single example, align words” option. There will be one example containing <object
+type="tElement"
+>listInterlinear</object
+> elements, one for each text segment.  Open the exported file into the <object
+type="tXMLmindXMLEditor"
+></object
+> and copy and paste the example to where you want it to go in your <object
+type="tXLingPap"
+></object
+> document. You will also probably need to copy and paste the <object
+type="tElement"
+>language</object
+> elements from the exported file into your document. Most likely you will need to do this one by one. See <link
+href="http://fieldworks.sil.org/flex/"
+>http://fieldworks.sil.org/flex/</link
+> for more on the <object
+type="tTool"
+>SIL FieldWorks Language Explorer</object
+> program.</p
 ><p
 >You have probably noticed that there are many types of list interlinear examples listed in the Edit tool.<endnoteRef
 note="nEditTool"
@@ -18403,7 +18470,10 @@ type="tTool"
 > program to interlinearize a text and then export the entire interlinear text in <object
 type="tXLingPap"
 ></object
-> format. You can then merely copy and paste the resulting text into an <object
+> format. We suggest you use the “XLingPaper, align words" option. You can then open the exported file into the <object
+type="tXMLmindXMLEditor"
+></object
+> and merely copy and paste the resulting text into an <object
 type="tXLingPap"
 ></object
 > document. You will also probably need to copy and paste the <object

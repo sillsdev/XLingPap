@@ -2,6 +2,7 @@ package xlingpaper.xxe;
 
 import java.io.*;
 import java.nio.*;
+
 import com.xmlmind.guiutil.Alert;
 import com.xmlmind.xml.doc.Document;
 import com.xmlmind.xml.doc.Element;
@@ -56,10 +57,10 @@ public final class TeXMLLikeCharacterConversion {
 		    out.write("\\textdollar{}");
 		    break;
 		case '[':
-		    out.write("\\textsquarebracketleft{}");
+			out.write("{[}");
 		    break;
 		case ']':
-		    out.write("\\textsquarebracketright{}");
+			out.write("{]}");
 		    break;
 		case '&':
 		    c1 = in.read();

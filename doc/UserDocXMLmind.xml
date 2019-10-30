@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->25 October 2019</date
+>30 October 2019</date
 ><version
 contentType="ctVersion5.3"
 >2.35.6</version
@@ -10404,13 +10404,13 @@ type="tXLingPap"
 > document and then export that text from <object
 type="tTool"
 >SIL FieldWorks Language Explorer</object
->.  Use the “XLingPaper as examples, align words” option.  Open the exported file into the <object
+>. Use the “XLingPaper as examples, align words” option. Open the exported file into the <object
 type="tXMLmindXMLEditor"
 ></object
 > and copy and paste the examples to where you want them to go in your <object
 type="tXLingPap"
 ></object
-> document.  You will also probably need to copy and paste the <object
+> document. You will also probably need to copy and paste the <object
 type="tElement"
 >language</object
 > elements from the exported file into your document. Most likely you will need to do this one by one. See <link
@@ -10807,7 +10807,7 @@ type="tTool"
 >. Use the “XLingPaper, as a single example, align words” option. There will be one example containing <object
 type="tElement"
 >listInterlinear</object
-> elements, one for each text segment.  Open the exported file into the <object
+> elements, one for each text segment. Open the exported file into the <object
 type="tXMLmindXMLEditor"
 ></object
 > and copy and paste the example to where you want it to go in your <object
@@ -17090,6 +17090,113 @@ type="tElement"
 ></table
 ></example
 ></section4
+></section3
+><section3
+id="sTCTFloatsConvertTableToNumberedTable"
+><secTitle
+>Convert Regular Table to a Numbered Table</secTitle
+><p
+><indexedItem
+term="iTableConvertToNumberedTable"
+></indexedItem
+>There are two cases where you might want to convert a table into a numbered table.  As mentioned above in section <sectionRef
+sec="sTCTFloatsNumberedTables"
+></sectionRef
+>, one case is when you have a <object
+type="tElement"
+>table</object
+> element that stands alone.   To convert such existing <object
+type="tElement"
+>table</object
+> elements into <object
+type="tElement"
+>tablenumbered</object
+> elements, do the steps outlined in example <exampleRef
+letter="xConvertTableToNumberedTable2"
+num="xConvertTableToNumberedTable2"
+></exampleRef
+> for each such <object
+type="tElement"
+>table</object
+> element.</p
+><example
+num="xConvertTableToNumberedTable2"
+><chart
+><ol
+><li
+>Click in the <object
+type="tElement"
+>table</object
+> element.</li
+><li
+>Click on “table” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+></li
+><li
+>Do a "Convert [Wrap]" operation via <object
+type="tInstruction"
+>Edit / Convert [wrap]</object
+>, pressing <object
+type="tKey"
+>Ctrl-Shift-T</object
+>, or by clicking on the convert [wrap] icon in the Edit tool.<endnoteRef
+note="nEditTool"
+></endnoteRef
+></li
+><li
+>Select <object
+type="tInTextExample"
+>tablenumbered</object
+>.</li
+></ol
+></chart
+></example
+><p
+>For the case where you have a <object
+type="tElement"
+>table</object
+> element in an <object
+type="tElement"
+>example</object
+>, do the steps outlined in example <exampleRef
+letter="xConvertTableInExampleToNumberedTable"
+num="xConvertTableInExampleToNumberedTable"
+></exampleRef
+>.</p
+><example
+num="xConvertTableInExampleToNumberedTable"
+><chart
+><ol
+><li
+>Click in the <object
+type="tElement"
+>table</object
+> element.</li
+><li
+>Click on “example” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+></li
+><li
+>Do a "Convert" operation via <object
+type="tInstruction"
+>Edit / Convert</object
+>, pressing <object
+type="tKey"
+>Ctrl-T</object
+>, or by clicking on the convert icon in the Edit tool.<endnoteRef
+note="nEditTool"
+></endnoteRef
+></li
+><li
+>Select <object
+type="tInTextExample"
+>tablenumbered</object
+>.</li
+></ol
+></chart
+></example
 ></section3
 ></section2
 ></section1
@@ -36479,6 +36586,11 @@ id="iTableBorders"
 id="iTablesCaption"
 ><term
 >Captions in tables</term
+></indexTerm
+><indexTerm
+id="iTableConvertToNumberedTable"
+><term
+>Convert a table to a numbered table</term
 ></indexTerm
 ><indexTerm
 id="iCopyExternalTable"

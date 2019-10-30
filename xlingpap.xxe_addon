@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-10-25</a:date
+>2019-10-30</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.5.7 25 October 2019<ul
+>3.5.7 30 October 2019<ul
 ><li
 >Fix some minor typos in user documentation.</li
+><li
+>Add more information in the user documentation on converting a table element into a tablenumbered element.</li
 ><li
 >Improve information about using FLEx to interlinearize examples and texts and export them in XLingPaper format.</li
 ><li

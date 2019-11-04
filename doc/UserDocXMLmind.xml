@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 October 2019</date
+>5 November 2019</date
 ><version
 contentType="ctVersion5.3"
->2.35.6</version
+>2.36.0</version
 ><version
 contentType="ctVersion7Plus"
->3.5.7</version
+>3.6.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -17099,13 +17099,13 @@ id="sTCTFloatsConvertTableToNumberedTable"
 ><indexedItem
 term="iTableConvertToNumberedTable"
 ></indexedItem
->There are two cases where you might want to convert a table into a numbered table.  As mentioned above in section <sectionRef
+>There are two cases where you might want to convert a table into a numbered table. As mentioned above in section <sectionRef
 sec="sTCTFloatsNumberedTables"
 ></sectionRef
 >, one case is when you have a <object
 type="tElement"
 >table</object
-> element that stands alone.   To convert such existing <object
+> element that stands alone. To convert such existing <object
 type="tElement"
 >table</object
 > elements into <object

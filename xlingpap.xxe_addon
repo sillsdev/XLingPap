@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.5.0-xxe-7.3.0.zip"
+location="XLingPap-3.6.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
 ></a:configuration
 ></a:category
 ><a:name
->testA configuration for creating XLingPaper documents.</a:name
+>A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.5.7</a:version
+>3.6.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-10-30</a:date
+>2019-11-05</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.5.7 30 October 2019<ul
+>3.6.0 5 November 2019<ul
 ><li
->Fix some minor typos in user documentation.</li
+>Fix some typos in user documentation.</li
 ><li
 >Add more information in the user documentation on converting a table element into a tablenumbered element.</li
 ><li
@@ -50,49 +50,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Improve TeX handling of left square brackets and right square brackets.</li
 ><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Allow pagebreak and clearpage XeLaTeXSpecial attributes on annotationRef elements when using a publisher style sheet.</li
-></ul
-></li
-></ul
-></li
-><li
->3.5.6 24 June 2019<ul
-><li
->Fix typo in user documentation</li
-><li
 >Improve efficiency of publisher style sheet processing slightly</li
 ><li
 >Improve textbetweenauthoranddate handling</li
-></ul
-></li
-><li
->3.5.5 20 June 2019<ul
 ><li
 >Add citedate attribute to refDate element</li
 ><li
 >Allow citations to have text material between author and date, controlled by textbetweenauthoranddate attribute on citationLayout element in a style sheet.</li
-></ul
-></li
-><li
->3.5.4 19 June 2019<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: fix all instances where a font size change could cause following text material to be in the wrong font size.</li
-><li
->Fix bug: keywords did not always align correctly.</li
-><li
->Fix bug: allow pagebreak/clearpage XeLaTeXSpecial attribute values on listInterlinear elements.</li
-></ul
-></li
-></ul
-></li
-><li
->3.5.3 18 June 2019<ul
 ><li
 >If an interlinear referred to via an interlinearRef element has an endnote, do not show the endnote.</li
+><li
+>In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li
 ><li
 >Converting Zotero references file to XLingPaper format:<ul
 ><li
@@ -117,24 +85,18 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: an ID could have a plus sign.</li
 ></ul
 ></li
-></ul
-></li
-><li
->3.5.2 3 June 2019<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Allow pagebreak and clearpage XeLaTeXSpecial attributes on annotationRef elements when using a publisher style sheet.</li
+><li
+>Fix bug: fix all instances where a font size change could cause following text material to be in the wrong font size.</li
+><li
+>Fix bug: keywords did not always align correctly.</li
+><li
+>Fix bug: allow pagebreak/clearpage XeLaTeXSpecial attribute values on listInterlinear elements.</li
 ><li
 >Fix bug: a reference to an interlinear text could cause following text material to be in the wrong font size.</li
-></ul
-></li
-></ul
-></li
-><li
->3.5.1 15 May 2019<ul
-><li
->In section 11.45 of user documentation, change location of Google Drive for uploading zip files.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: interlinear text could appear in a smaller font than it should.</li
 ></ul

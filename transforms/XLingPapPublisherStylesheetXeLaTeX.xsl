@@ -6236,7 +6236,7 @@
         <xsl:param name="number"/>
         <xsl:param name="bNumberIsBeforeTitle" select="'Y'"/>
         <xsl:param name="sContentsPeriod"/>
-        <xsl:variable name="shortTitle" select="shortTitle"/>
+        <xsl:variable name="shortTitle" select="shortTitle | frontMatter/shortTitle"/>
         <xsl:if test="$bNumberIsBeforeTitle='Y'">
             <xsl:call-template name="DoSecNumberRunningHeader">
                 <xsl:with-param name="number" select="$number"/>

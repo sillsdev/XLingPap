@@ -4341,6 +4341,9 @@
             <xsl:when test="string-length(shortTitle) &gt; 0">
                 <xsl:apply-templates select="shortTitle" mode="InMarker"/>
             </xsl:when>
+            <xsl:when test="string-length(frontMatter/shortTitle) &gt; 0">
+                <xsl:apply-templates select="frontMatter/shortTitle" mode="InMarker"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="secTitle | frontMatter/title" mode="InMarker"/>
             </xsl:otherwise>

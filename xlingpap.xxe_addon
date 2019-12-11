@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2019-12-09</a:date
+>2019-12-11</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.6.1 9 December 2019<ul
+>3.6.1 11 December 2019<ul
+><li
+>Improve figure/table listing information in the publisher style sheet documentation.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

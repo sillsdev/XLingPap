@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->5 November 2019</date
+>11 December 2019</date
 ><version
 contentType="ctVersion5.3"
->2.36.0</version
+>2.36.1</version
 ><version
 contentType="ctVersion7Plus"
->3.6.0</version
+>3.6.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -10325,7 +10325,10 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->Whether or not the automatically generated list of figures uses a "Figure" and "Page" heading.</langData
+>Whether or not the automatically generated list of figures uses a "Figure" and "Page" heading. If set to <object
+type="tAttrValue"
+>yes</object
+>, then the “Figure” label will not appear before the figure number in each row of the listing.</langData
 ></td
 ><td
 ><object
@@ -11271,7 +11274,10 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->Whether or not the automatically generated list of tables uses a "Table" and "Page" heading.</langData
+>Whether or not the automatically generated list of tables uses a "Table" and "Page" heading. If set to <object
+type="tAttrValue"
+>yes</object
+>, then the “Table” label will not appear before the table number in each row of the listing.</langData
 ></td
 ><td
 ><object

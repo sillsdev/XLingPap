@@ -2606,7 +2606,7 @@
     <xsl:template name="CalculateColumnPosition">
         <xsl:param name="iColspan" select="0"/>
         <xsl:param name="iBorder" select="0"/>
-        <xsl:param name="sAlignDefault" select="'j'"/>
+        <xsl:param name="sAlignDefault" select="'l'"/>
         <xsl:call-template name="CreateVerticalLine">
             <xsl:with-param name="iBorder" select="$iBorder"/>
         </xsl:call-template>

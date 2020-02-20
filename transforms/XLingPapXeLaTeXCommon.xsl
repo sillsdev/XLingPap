@@ -3895,7 +3895,7 @@
     <xsl:template name="CreateColumnSpec">
         <xsl:param name="iColspan" select="0"/>
         <xsl:param name="iBorder" select="0"/>
-        <xsl:param name="sAlignDefault" select="'j'"/>
+        <xsl:param name="sAlignDefault" select="'l'"/>
         <xsl:param name="bUseWidth" select="'Y'"/>
         <xsl:param name="sWidth" select="normalize-space(@width)"/>
         <xsl:call-template name="CreateVerticalLine">

@@ -14,7 +14,6 @@ import com.xmlmind.xml.xpath.EvalException;
 import com.xmlmind.xml.xpath.ParseException;
 import com.xmlmind.xml.xpath.XPathUtil;
 import com.xmlmind.xmledit.view.DocumentView;
-
 import com.xmlmind.xmledit.cmd.RecordableCommand;
 import com.xmlmind.xmledit.cmd.validate.CheckValidityDialog;
 import com.xmlmind.xmledit.edit.MarkManager;
@@ -94,7 +93,7 @@ public class CheckPresenceOfFontsAndImages extends RecordableCommand {
 	    String imageFile = node.attributeValue(Name.get("src"));
 	    String originalImageFile = imageFile;
 	    showAlert(docView, "image file before os check:" + imageFile);
-	    imageFile = fixupImageFile(docView, sDocumentPath, imageFile);
+	    imageFile = XLingPaperUtils.fixupImageFile(sDocumentPath, imageFile);
 	    showAlert(docView, "imgage file before checking File: " + imageFile);
 	    File f = new File(imageFile.trim());
 

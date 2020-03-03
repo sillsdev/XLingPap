@@ -4,6 +4,10 @@
 /* Custom Java extension for XXE so we can handle feature paths */
 @extension "xlingpaper.xxe.StyleSheetExtension";
 
+/* Do not report an error if the "MathML support" add-on
+   has not been installed. */
+@import url(---mathml-config:common/mathml.css);
+
 @property-value abbreviation-background-color() #FFFFBB; /* a light yellow */
 @property-value appendix-background-color() #D8BFD8; /* #D8BFD8 is thistle */
 @property-value annotatedbibliographytype-background-color() #FBDFFB;

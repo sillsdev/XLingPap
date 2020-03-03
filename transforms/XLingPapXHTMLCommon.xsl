@@ -399,6 +399,22 @@
         <xsl:variable name="sSrc" select="normalize-space(@src)"/>
         <xsl:variable name="sDescription" select="normalize-space(@description)"/>
         <xsl:choose>
+            <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
+                <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <xsl:copy-of select="document(concat($sMainSourcePath, '/', $sSvg))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <embed src="{$sSvg}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
+                            <xsl:call-template name="OutputCssSpecial"/>
+                            <xsl:call-template name="DoImgDescription">
+                                <xsl:with-param name="sDescription" select="$sDescription"/>
+                            </xsl:call-template>
+                        </embed>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.svg'">
                 <xsl:choose>
                     <xsl:when test="$bEBook='Y'">

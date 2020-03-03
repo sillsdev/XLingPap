@@ -95,6 +95,10 @@ font-size="95%"
 id="tLocationPublisherLayoutsRef"
 ></type
 ><type
+before="MathML"
+id="tMathML"
+></type
+><type
 after="Open Office Writer"
 id="tOpenOfficeWriter"
 types="tTool"

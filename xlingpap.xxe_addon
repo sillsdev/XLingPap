@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-02-20</a:date
+>2020-03-03</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.6.1 20 February 2020<ul
+>3.6.1 3 March 2020<ul
+><li
+>Add ability to have an img element's src attribute refer to a MathML file (.mml).</li
 ><li
 >Improve figure/table listing information in the publisher style sheet documentation.</li
 ><li

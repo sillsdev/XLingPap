@@ -24,18 +24,25 @@ public final class XLingPaperUtils {
     final static public String fixupImageFile(String sDocumentPath, String imageFile) {
 	String operatingSystem = System.getProperty("os.name");
 	if (operatingSystem.contains("Windows")) {
-	    // need to change any '/' to '\' in file name
-	    imageFile = imageFile.replace("/", "\\");
+		// need to change any '/' to '\' in file name
+		imageFile = imageFile.replace("/", "\\");
 	}
-	if (imageFile.startsWith("..")) {
-	    imageFile = sDocumentPath + System.getProperty("file.separator") + imageFile;
+	if (imageFile.startsWith("..") || imageFile.startsWith("./") || imageFile.startsWith(".\\")) {
+		imageFile = sDocumentPath + System.getProperty("file.separator") + imageFile;
 	}
 	if (imageFile.startsWith("file:\\\\\\")) {
-	    imageFile = imageFile.substring(8);
+		imageFile = imageFile.substring(8);
 	}
 	imageFile = imageFile.replace("%20", " ");
+	imageFile = imageFile.replace("%23", "#");
+	imageFile = imageFile.replace("%25", "%");
 	imageFile = imageFile.replace("%27", "'");
 	imageFile = imageFile.replace("%7E", "~");
+	imageFile = imageFile.replace("%5B", "[");
+	imageFile = imageFile.replace("%5D", "]");
+	imageFile = imageFile.replace("%5E", "^");
+	imageFile = imageFile.replace("%7B", "{");
+	imageFile = imageFile.replace("%7D", "}");
 	return imageFile;
     }
     final static public void fixID(Element element, String id, String idName, String initialId) {

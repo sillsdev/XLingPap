@@ -3643,21 +3643,6 @@ not using
         </fo:inline>
     </xsl:template>
     <!-- ===========================================================
-      IMG
-      =========================================================== -->
-    <xsl:template match="img">
-        <fo:external-graphic scaling="uniform">
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:attribute name="src">
-                <xsl:text>url(</xsl:text>
-                <xsl:value-of select="@src"/>
-                <xsl:text>)</xsl:text>
-            </xsl:attribute>
-        </fo:external-graphic>
-    </xsl:template>
-    <!-- ===========================================================
         MEDIAOBJECT
         =========================================================== -->
     <xsl:template match="mediaObject">

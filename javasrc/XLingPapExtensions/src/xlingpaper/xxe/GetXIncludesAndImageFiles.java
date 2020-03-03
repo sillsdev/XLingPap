@@ -28,7 +28,6 @@ import com.xmlmind.xml.xpath.EvalException;
 import com.xmlmind.xml.xpath.ParseException;
 import com.xmlmind.xml.xpath.XPathUtil;
 import com.xmlmind.xmledit.view.DocumentView;
-
 import com.xmlmind.xmledit.cmd.RecordableCommand;
 import com.xmlmind.xmledit.cmd.validate.CheckValidityDialog;
 import com.xmlmind.xmledit.edit.MarkManager;
@@ -191,29 +190,10 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	String sFilePath = line.substring(iBegin, iEnd);
 	// showAlert(docView, "sFilePath = '" + sFilePath + "'");
 	asFileNames[iCount++] = sDocumentPath + File.separator
-		+ fixupImageFile(sDocumentPath, sFilePath);
+		+ XLingPaperUtils.fixupImageFile(sDocumentPath, sFilePath);
 	// showAlert(docView, "asFileNames[iCount] = '" + asFileNames[iCount-1]
 	// + "'");
 	return iCount;
-    }
-
-    private String fixupImageFile(String sDocumentPath, String imageFile) {
-	String operatingSystem = System.getProperty("os.name");
-	if (operatingSystem.contains("Windows")) {
-	    // need to change any '/' to '\' in file name
-	    imageFile = imageFile.replace("/", "\\");
-	}
-	/*
-	 * if (imageFile.startsWith("..")) { imageFile = sDocumentPath +
-	 * System.getProperty("file.separator") + imageFile; }
-	 */
-	if (imageFile.startsWith("file:\\\\\\")) {
-	    imageFile = imageFile.substring(8);
-	}
-	imageFile = imageFile.replace("%20", " ");
-	imageFile = imageFile.replace("%27", "'");
-	imageFile = imageFile.replace("%7E", "~");
-	return imageFile;
     }
 
     private int findAnyImageFiles(DocumentView docView, int iCount, String sDocumentPath)
@@ -234,7 +214,7 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
     }
 
     private int processImageFile(int iCount, String sDocumentPath, String imageFile) {
-	imageFile = fixupImageFile(sDocumentPath, imageFile);
+	imageFile = XLingPaperUtils.fixupImageFile(sDocumentPath, imageFile);
 	// showAlert(docView, "image file before checking File: " +
 	// imageFile);
 	asFileNames[iCount++] = sDocumentPath + File.separator + imageFile;
@@ -294,7 +274,7 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	for (XNode node : results) {
 	    String hyphenationExceptionsFile = node.data();
 	    // showAlert(docView, "image file before os check:" + imageFile);
-	    hyphenationExceptionsFile = fixupImageFile(sDocumentPath, hyphenationExceptionsFile);
+	    hyphenationExceptionsFile = XLingPaperUtils.fixupImageFile(sDocumentPath, hyphenationExceptionsFile);
 	    // showAlert(docView, "image file before checking File: " +
 	    // imageFile);
 	    asFileNames[iCount++] = sDocumentPath + File.separator + hyphenationExceptionsFile;

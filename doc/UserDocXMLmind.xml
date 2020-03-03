@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->5 November 2019</date
+>3 March 2020</date
 ><version
 contentType="ctVersion5.3"
->2.36.0</version
+>2.36.1</version
 ><version
 contentType="ctVersion7Plus"
->3.6.0</version
+>3.6.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -14397,7 +14397,7 @@ href="http://pygal.org/"
 >http://pygal.org/</link
 >). While it is powerful and produces amazing SVG graphs, it can be a challenge to install and use for the non-computer programmer. It also requires you to have Python installed.</p
 ></endnote
-> In additon, you can use any list element (<object
+> In addition, you can use any list element (<object
 type="tElement"
 >ol</object
 >, <object
@@ -20883,7 +20883,7 @@ note="nNodePathBarReminder"
 ><section1
 id="sHowDoI"
 ><secTitle
->How Do I...</secTitle
+>How Do I...3</secTitle
 ><p
 >This section lists some answers to some common questions on the order of “How do I do X?”. Some of these are not addressed elsewhere.</p
 ><section2
@@ -22406,6 +22406,7 @@ type="tTool"
 >Paint</object
 > program can do this conversion.</li
 ><li
+contentType="ctVersion5.3"
 ><genericTarget
 id="gConvertSVGtoPDF"
 ></genericTarget
@@ -22494,10 +22495,31 @@ type="tInstruction"
 > menu item. This will allow you to navigate to where you have an .svg file and it will then convert it to a .pdf form. You then need to set any <object
 type="tElement"
 >img</object
-> elements using this graphic file to refer to the .pdf form. Note that the image will not display correctly within the <object
+> elements using this graphic file to refer to the .svg form. It will display correctly within the <object
 type="tXMLmindXMLEditor"
 ></object
-> since, to my knowledge, there is no add-on package that will display .pdf files within the <object
+>.</li
+><li
+contentType="ctVersion7Plus"
+><genericTarget
+id="gConvertSVGtoPDF"
+></genericTarget
+><indexedItem
+term="iSVGtoPDF"
+></indexedItem
+>It does not handle graphic files with an .svg extension. You have to convert them to PDF first. To do so, start the <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> document, and then you can use the <object
+type="tInstruction"
+>XLingPaper / Convert .svg file to .pdf</object
+> menu item. This will allow you to navigate to where you have an .svg file and it will then convert it to a .pdf form. You then need to set any <object
+type="tElement"
+>img</object
+> elements using this graphic file to refer to the .svg form. It will display correctly within the <object
 type="tXMLmindXMLEditor"
 ></object
 >.</li
@@ -22508,12 +22530,18 @@ term="iPDFFile"
 >While it will handle PDF files included as graphic files, these PDF files must be PDF version 1.4 or older. Newer PDF file versions will not work (the PDF for the <object
 type="tXLingPap"
 ></object
-> document will fail to be produced).</li
+> document will fail to be produced). Note that the image will not display correctly within the <object
+type="tXMLmindXMLEditor"
+></object
+> since, to my knowledge, there is no add-on package that will display .pdf files within the <object
+type="tXMLmindXMLEditor"
+></object
+>.</li
 ><li
 ><indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
->Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
+> Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for more on publisher style sheets or click <link
@@ -26407,6 +26435,61 @@ id="nXLingPaperTempTable"
 >I have tried to avoid having this file show but so far have been unsuccessful for some very technical reasons.</p
 ></endnote
 ></p
+></section2
+><section2
+contentType="ctVersion7Plus"
+id="sFAQUseMathML"
+><secTitle
+>Use <object
+type="tMathML"
+></object
+> files?</secTitle
+><p
+><indexedItem
+term="iMathML"
+></indexedItem
+>Newer versions of the <object
+type="tXMLmindXMLEditor"
+> </object
+> come with the ability to create and edit <object
+type="tMathML"
+></object
+> files (with an extension of .mml). If you need mathematical formulas or matrices, using <object
+type="tMathML"
+></object
+> can be helpful. <object
+type="tXLingPap"
+></object
+> now allows you to insert an <object
+type="tElement"
+>img</object
+> element and set its <object
+type="tAttribute"
+>src</object
+> attribute to a <object
+type="tMathML"
+></object
+> file (note that it must have an extension of ".mml”). The <object
+type="tMathML"
+></object
+> file will be displayed in the <object
+type="tXLingPap"
+></object
+> document just like it is in the <object
+type="tXMLmindXMLEditor"
+></object
+>.</p
+><p
+>Whenever you produce an output in <object
+type="tXLingPap"
+></object
+>, <object
+type="tXLingPap"
+></object
+> will automatically produce an SVG file (with extension .svg) and a PDF file (with extension .pdf) of that <object
+type="tMathML"
+></object
+> file. The output will then use the SVG or the PDF version as appropriate and the mathematical formula or matrix will show in the output.</p
 ></section2
 ></section1
 ><section1
@@ -35527,6 +35610,12 @@ id="iImageHeight"
 >Height</term
 ></indexTerm
 ><indexTerm
+id="iImageMathML"
+see="iMathML"
+><term
+>MathML format</term
+></indexTerm
+><indexTerm
 id="iScaleGraphic"
 ><term
 >Scale an image file (make it bigger or smaller)</term
@@ -35978,6 +36067,11 @@ id="iMAThesisReferenceEntry"
 >Refererence entry</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iMathML"
+><term
+>MathML format</term
 ></indexTerm
 ><indexTerm
 id="iMediaObject"

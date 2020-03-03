@@ -2752,6 +2752,12 @@
     <xsl:template match="img">
         <xsl:variable name="sSrc" select="normalize-space(@src)"/>
         <xsl:choose>
+            <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
+                <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                <embed src="{$sSvg}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
+                    <xsl:call-template name="OutputCssSpecial"/>
+                </embed>
+            </xsl:when>
             <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.svg'">
                 <embed src="{$sSrc}" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/">
                     <xsl:call-template name="OutputCssSpecial"/>

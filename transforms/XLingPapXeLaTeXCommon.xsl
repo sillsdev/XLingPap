@@ -2886,6 +2886,12 @@
                     <xsl:with-param name="sImgFile" select="$sPDFFile"/>
                 </xsl:call-template>
             </xsl:when>
+            <xsl:when test="$sExtension='.mml'">
+                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
+                </xsl:call-template>
+            </xsl:when>
             <xsl:when test="$sExtension='.pdf'">
                 <xsl:call-template name="HandlePDFImageFile">
                     <xsl:with-param name="sImgFile" select="$sImgFile"/>

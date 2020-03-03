@@ -2726,28 +2726,6 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="ConvertSVGFileToPDF">
         <cfg:macro>
             <cfg:sequence>
-                <cfg:choice>
-                    <cfg:command name="run" parameter="[Windows] &quot;%{C}%{S}..%{S}batchfiles%{S}HaveBatikRasterrizer.bat&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot;"/>
-                    <cfg:command name="run" parameter="[Unix] &quot;%{C}%{S}..%{S}batchfiles%{S}HaveBatikRasterrizer&quot;"/>
-                </cfg:choice>
-                <cfg:set variable="exists" plainString="true" expression="%_"/>
-                <!--                <cfg:get expression="$exists"/>-->
-                <!--                <cfg:command name="alert" parameter="$exists = %_"/>-->
-                <cfg:choice>
-                    <cfg:sequence>
-                        <cfg:test expression="contains($exists, 'XLingPaper-No-XLingPaper')"/>
-                        <!--                        <cfg:command name="alert" parameter="It appears you do not have the .svg to .pdf conversion package installed.  Please see section 11.17.1.1 of the user documentation."/>-->
-                        <cfg:command name="LocalizeString" parameter="msg.svgToPDFMissing"/>
-                        <cfg:command name="alert" parameter="%_"/>
-                    </cfg:sequence>
-                    <cfg:command name="ConvertSVGFileToPDFViaBatikRasterizer"/>
-                </cfg:choice>
-            </cfg:sequence>
-        </cfg:macro>
-    </cfg:command>
-    <cfg:command name="ConvertSVGFileToPDFViaBatikRasterizer">
-        <cfg:macro trace="false">
-            <cfg:sequence>
                 <cfg:command name="selectFile" parameter="[Choose SVG File]openFile %{d}"/>
                 <cfg:command name="ConvertSvgFileToPdfCmd" parameter="%_"/>
             </cfg:sequence>

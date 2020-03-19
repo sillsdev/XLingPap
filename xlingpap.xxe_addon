@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.36.1</a:version
+>2.36.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-03-03</a:date
+>2020-03-18</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.6.1 3 March 2020<ul
+>2.36.2 18 March 2020<ul
+><li
+>Add ability for citation elements to have a time stamp attribute (for referring to audio/visual media)</li
+></ul
+></li
+><li
+>2.36.1 3 March 2020<ul
 ><li
 >Add transform changes for ability to have an img element's src attribute refer to a MathML file (.mml). Does not really work wth this version..</li
 ><li
@@ -48,7 +54,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></ul
 ></li
 ><li
->3.6.0 5 November 2019<ul
+>2.36.0 5 November 2019<ul
 ><li
 >Fix some typos in user documentation.</li
 ><li

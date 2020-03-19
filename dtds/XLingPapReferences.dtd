@@ -256,6 +256,7 @@
 <!ATTLIST citation
     ref IDREF #REQUIRED
     page CDATA #IMPLIED
+    timestamp CDATA #IMPLIED
     author (yes | no) "yes"
     paren (both | none | initial | final | citationBoth | citationInitial) #IMPLIED
 >

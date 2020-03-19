@@ -264,6 +264,11 @@
             <xsl:text>:</xsl:text>
             <xsl:value-of select="$sPage"/>
         </xsl:if>
+        <xsl:variable name="sTimestamp" select="normalize-space(@timestamp)"/>
+        <xsl:if test="string-length($sTimestamp) &gt; 0">
+            <xsl:text>&#x20;</xsl:text>
+            <xsl:value-of select="$sTimestamp"/>
+        </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
             <xsl:text>)</xsl:text>
         </xsl:if>

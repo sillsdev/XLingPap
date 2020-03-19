@@ -901,6 +901,15 @@ citation[page][paren='both']:after
 	        ")"
 	        ;
 }
+citation[timestamp][paren='both']:after
+{
+	content:" ("
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
+	        ")"
+	        ;
+}
 citation[paren='both']:after
 {
 	content:" ("
@@ -914,6 +923,15 @@ citation[page][paren='citationBoth']:after
 	        citationRefDate()
 	        ":"
 	        label(attribute, page)
+	        ")"
+	        ;
+}
+citation[timestamp][paren='citationBoth']:after
+{
+	content:" "
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
 	        ")"
 	        ;
 }
@@ -939,6 +957,15 @@ citation[page][paren='final']:after
 	        ")"
 	        ;
 }
+citation[timestamp][paren='final']:after
+{
+	content:" "
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
+	        ")"
+	        ;
+}
 citation[paren='final']:after
 {
 	content:" "
@@ -955,6 +982,15 @@ citation[page][paren='citationBoth']:after
 	        ")"
 	        ;
 }
+citation[timestamp][paren='citationBoth']:after
+{
+	content:" "
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
+	        ")"
+	        ;
+}
 citation[paren='citationBoth']:after
 {
 	content:" "
@@ -968,6 +1004,14 @@ citation[page][paren='citationInitial']:after
 	        citationRefDate()
 	        ":"
 	        label(attribute, page)
+	        ;
+}
+citation[timestamp][paren='citationInitial']:after
+{
+	content:" "
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
 	        ;
 }
 citation[author='no'][paren='citationInitial']:after
@@ -989,6 +1033,14 @@ citation[page][paren='initial']:after
 	        label(attribute, page)
 	        ;
 }
+citation[timestamp][paren='initial']:after
+{
+	content:" ("
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
+	        ;
+}
 citation[paren='initial']:after
 {
 	content:" ("
@@ -1003,6 +1055,14 @@ citation[page][paren='none']:after
 	        label(attribute, page)
 	        ;
 }
+citation[timestamp][paren='none']:after
+{
+	content:" "
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
+	        ;
+}
 citation[paren='none']:after
 {
 	content:" "
@@ -1015,6 +1075,15 @@ citation[page]:after
 	        citationRefDate()
 	        ":"
 	        label(attribute, page)
+	        ")"
+	        ;
+}
+citation[timestamp]:after
+{
+	content:" ("
+	        citationRefDate()
+	        " "
+	        label(attribute, timestamp)
 	        ")"
 	        ;
 }

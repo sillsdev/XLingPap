@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 March 2020</date
+>18 March 2020</date
 ><version
 contentType="ctVersion5.3"
->2.36.1</version
+>2.36.2</version
 ><version
 contentType="ctVersion7Plus"
->3.6.1</version
+>3.6.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -14663,6 +14663,16 @@ href="http://software.sil.org/lingtree/"
 ><endnote
 id="nLingTree"
 ><p
+contentType="ctVersion5.3"
+>When using <object
+type="tTool"
+>LingTree</object
+>, you can set it up so that its output is in SVG format. Then see <genericRef
+gref="gConvertSVGtoPDFOld"
+>converting SVG to PDF</genericRef
+>.</p
+><p
+contentType="ctVersion7Plus"
 >When using <object
 type="tTool"
 >LingTree</object
@@ -18270,6 +18280,47 @@ type="tElement"
 > element is inserted after the date with an intervening colon. Any string of characters (not just digits) can be used as a page number.</p
 ></section2
 ><section2
+id="sCitationsTimestamp"
+><secTitle
+>Controlling Time Stamps</secTitle
+><p
+><indexedItem
+term="iCitationsTimeStamp"
+></indexedItem
+>Sometimes a writer wishes to include a time stamp with the citation for when the referenced material is audio or visual material. <object
+type="tXLingPap"
+></object
+> provides a means for doing this. You set the <object
+type="tAttribute"
+>timestamp</object
+> attribute of the <object
+type="tElement"
+>citation</object
+> element to do this.</p
+><p
+>The contents of the <object
+type="tAttribute"
+>timestamp</object
+> attribute<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> of the <object
+type="tElement"
+>citation</object
+> element is inserted after the date with an intervening space. Any string of characters can be used as a time stamp.</p
+><p
+>The expectation is that you will not set both the <object
+type="tAttribute"
+>page</object
+> and <object
+type="tAttribute"
+>timestamp</object
+> attributes for a given <object
+type="tElement"
+>citation</object
+> element. If you do, the page number will always appear first.</p
+></section2
+><section2
 id="sCitationsAttributes"
 ><secTitle
 >Attribute Summary</secTitle
@@ -20883,7 +20934,7 @@ note="nNodePathBarReminder"
 ><section1
 id="sHowDoI"
 ><secTitle
->How Do I...3</secTitle
+>How Do I...</secTitle
 ><p
 >This section lists some answers to some common questions on the order of “How do I do X?”. Some of these are not addressed elsewhere.</p
 ><section2
@@ -22408,7 +22459,7 @@ type="tTool"
 ><li
 contentType="ctVersion5.3"
 ><genericTarget
-id="gConvertSVGtoPDF"
+id="gConvertSVGtoPDFOld"
 ></genericTarget
 ><indexedItem
 term="iSVGtoPDF"
@@ -34794,6 +34845,11 @@ id="iCitationsDate"
 id="iCitationsPageNumber"
 ><term
 >Page number</term
+></indexTerm
+><indexTerm
+id="iCitationsTimeStamp"
+><term
+>Time stamp</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 March 2020</date
+>18 March 2020</date
 ><version
 contentType="ctVersion5.3"
->2.36.1</version
+>2.36.2</version
 ><version
 contentType="ctVersion7Plus"
->3.6.1</version
+>3.6.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -14663,6 +14663,16 @@ href="http://software.sil.org/lingtree/"
 ><endnote
 id="nLingTree"
 ><p
+contentType="ctVersion5.3"
+>When using <object
+type="tTool"
+>LingTree</object
+>, you can set it up so that its output is in SVG format. Then see <genericRef
+gref="gConvertSVGtoPDFOld"
+>converting SVG to PDF</genericRef
+>.</p
+><p
+contentType="ctVersion7Plus"
 >When using <object
 type="tTool"
 >LingTree</object
@@ -18268,6 +18278,47 @@ note="nAttributesToolReminder"
 type="tElement"
 >citation</object
 > element is inserted after the date with an intervening colon. Any string of characters (not just digits) can be used as a page number.</p
+></section2
+><section2
+id="sCitationsTimestamp"
+><secTitle
+>Controlling Time Stamps</secTitle
+><p
+><indexedItem
+term="iCitationsTimeStamp"
+></indexedItem
+>Sometimes a writer wishes to include a time stamp with the citation for when the referenced material is audio or visual material. <object
+type="tXLingPap"
+></object
+> provides a means for doing this. You set the <object
+type="tAttribute"
+>timestamp</object
+> attribute of the <object
+type="tElement"
+>citation</object
+> element to do this.</p
+><p
+>The contents of the <object
+type="tAttribute"
+>timestamp</object
+> attribute<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> of the <object
+type="tElement"
+>citation</object
+> element is inserted after the date with an intervening space. Any string of characters can be used as a time stamp.</p
+><p
+>The expectation is that you will not set both the <object
+type="tAttribute"
+>page</object
+> and <object
+type="tAttribute"
+>timestamp</object
+> attributes for a given <object
+type="tElement"
+>citation</object
+> element.  If you do, the page number will always appear first.</p
 ></section2
 ><section2
 id="sCitationsAttributes"
@@ -22408,7 +22459,7 @@ type="tTool"
 ><li
 contentType="ctVersion5.3"
 ><genericTarget
-id="gConvertSVGtoPDF"
+id="gConvertSVGtoPDFOld"
 ></genericTarget
 ><indexedItem
 term="iSVGtoPDF"
@@ -22530,7 +22581,7 @@ term="iPDFFile"
 >While it will handle PDF files included as graphic files, these PDF files must be PDF version 1.4 or older. Newer PDF file versions will not work (the PDF for the <object
 type="tXLingPap"
 ></object
-> document will fail to be produced).  Note that the image will not display correctly within the <object
+> document will fail to be produced). Note that the image will not display correctly within the <object
 type="tXMLmindXMLEditor"
 ></object
 > since, to my knowledge, there is no add-on package that will display .pdf files within the <object
@@ -22541,7 +22592,7 @@ type="tXMLmindXMLEditor"
 ><indexedItem
 term="iPublisherStyleSheet"
 ></indexedItem
->  Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
+> Currently, it is not possible to control the footnote line length or style ( that is, the publisher style sheet parameters for this do not work; see section <sectionRef
 sec="sFAQAssociatePublisherStyleSheet"
 ></sectionRef
 > for more on publisher style sheets or click <link
@@ -26454,10 +26505,10 @@ type="tXMLmindXMLEditor"
 > come with the ability to create and edit <object
 type="tMathML"
 ></object
-> files (with an extension of .mml).  If you need mathematical formulas or matrices, using <object
+> files (with an extension of .mml). If you need mathematical formulas or matrices, using <object
 type="tMathML"
 ></object
-> can be helpful.  <object
+> can be helpful. <object
 type="tXLingPap"
 ></object
 > now allows you to insert an <object
@@ -26469,7 +26520,7 @@ type="tAttribute"
 > attribute to a <object
 type="tMathML"
 ></object
-> file (note that it must have an extension of ".mml”).  The <object
+> file (note that it must have an extension of ".mml”). The <object
 type="tMathML"
 ></object
 > file will be displayed in the <object
@@ -26489,7 +26540,7 @@ type="tXLingPap"
 > will automatically produce an SVG file (with extension .svg) and a PDF file (with extension .pdf) of that <object
 type="tMathML"
 ></object
-> file.  The output will then use the SVG or the PDF version as appropriate and the mathematical formula or matrix will show in the output.</p
+> file. The output will then use the SVG or the PDF version as appropriate and the mathematical formula or matrix will show in the output.</p
 ></section2
 ></section1
 ><section1
@@ -34794,6 +34845,11 @@ id="iCitationsDate"
 id="iCitationsPageNumber"
 ><term
 >Page number</term
+></indexTerm
+><indexTerm
+id="iCitationsTimeStamp"
+><term
+>Time stamp</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

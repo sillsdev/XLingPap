@@ -830,6 +830,8 @@ Content Layout
     <!ATTLIST citationLayout
       replacecolonwith CDATA #IMPLIED
       textbeforepages CDATA #IMPLIED
+      textaftertimestamp CDATA #IMPLIED
+      textbeforetimestamp CDATA #IMPLIED
       textbetweenauthoranddate CDATA #IMPLIED
     >
     <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>

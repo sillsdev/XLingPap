@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 December 2019</date
+>18 March 2020</date
 ><version
 contentType="ctVersion5.3"
->2.36.1</version
+>2.36.2</version
 ><version
 contentType="ctVersion7Plus"
->3.6.1</version
+>3.6.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -13238,6 +13238,39 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iTimeStampsInCitation"
+></indexedItem
+><indexedItem
+term="iTextAfterTimeStamp"
+></indexedItem
+><object
+type="tAttribute"
+>textaftertimestamp</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear after the timestamp material.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>] </object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iPageNumbersInCitation"
 ></indexedItem
 ><indexedItem
@@ -13268,6 +13301,39 @@ type="tAttrValue"
 > (a space)</td
 ><td
 >Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTimeStampsInCitation"
+></indexedItem
+><indexedItem
+term="iTextBeforeTimeStamp"
+></indexedItem
+><object
+type="tAttribute"
+>textbeforetimestamp</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Type the text you want to appear between the date and the timestamp material.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>  [</object
+> (a space, followed by an open square bracket)</td
+><td
+>No</td
 ></tr
 ><tr
 ><td
@@ -19091,9 +19157,19 @@ id="iReplaceColonWith"
 >Replace colon with something else</term
 ></indexTerm
 ><indexTerm
+id="iTextAfterTimeStamp"
+><term
+>Text to use after a time stamp</term
+></indexTerm
+><indexTerm
 id="iTextBeforePages"
 ><term
 >Text to use before page number(s)</term
+></indexTerm
+><indexTerm
+id="iTextBeforeTimeStamp"
+><term
+>Text to use before a time stamp</term
 ></indexTerm
 ><indexTerm
 id="iTextBetweenAuthorAndDate"
@@ -20808,6 +20884,11 @@ see="iThesisLabel"
 id="iThesisSubmissionStyle"
 ><term
 >Thesis submission style</term
+></indexTerm
+><indexTerm
+id="iTimeStampsInCitation"
+><term
+>Time stamp in citation</term
 ></indexTerm
 ><indexTerm
 id="iTitleLayout"

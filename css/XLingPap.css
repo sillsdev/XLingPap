@@ -888,6 +888,15 @@ citation[page][paren='both']:after
 	        text(")",background-color,citation-background-color())
 	        ;
 }
+citation[timestamp][paren='both']:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
 citation[paren='both']:after
 {
 	content:text(" (",background-color,citation-background-color())
@@ -901,6 +910,15 @@ citation[page][paren='citationBoth']:after
 	        citationRefDate()
 	        text(":",background-color,citation-background-color())
 	        label(attribute, page,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='citationBoth']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        text(")",background-color,citation-background-color())
 	        ;
 }
@@ -926,6 +944,15 @@ citation[page][paren='final']:after
 	        text(")",background-color,citation-background-color())
 	        ;
 }
+citation[timestamp][paren='final']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
 citation[paren='final']:after
 {
 	content:text(" ",background-color,citation-background-color())
@@ -942,6 +969,15 @@ citation[page][paren='citationBoth']:after
 	        text(")",background-color,citation-background-color())
 	        ;
 }
+citation[timestamp][paren='citationBoth']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        text(")",background-color,citation-background-color())
+	        ;
+}
 citation[paren='citationBoth']:after
 {
 	content:text(" ",background-color,citation-background-color())
@@ -955,6 +991,14 @@ citation[page][paren='citationInitial']:after
 	        citationRefDate()
 	        text(":",background-color,citation-background-color())
 	        label(attribute, page,background-color,citation-background-color())
+	        ;
+}
+citation[timestamp][paren='citationInitial']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ;
 }
 citation[author='no'][paren='citationInitial']:after
@@ -976,6 +1020,14 @@ citation[page][paren='initial']:after
 	        label(attribute, page,background-color,citation-background-color())
 	        ;
 }
+citation[timestamp][paren='initial']:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        ;
+}
 citation[paren='initial']:after
 {
 	content:text(" (",background-color,citation-background-color())
@@ -990,6 +1042,14 @@ citation[page][paren='none']:after
 	        label(attribute, page,background-color,citation-background-color())
 	        ;
 }
+citation[timestamp][paren='none']:after
+{
+	content:text(" ",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        ;
+}
 citation[paren='none']:after
 {
 	content:text(" ",background-color,citation-background-color())
@@ -1000,8 +1060,17 @@ citation[page]:after
 {
 	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
-	        text(":",background-color,citation-background-color())
-	        label(attribute, page,background-color,citation-background-color())
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
+	        ")"
+	        ;
+}
+citation[timestamp]:after
+{
+	content:text(" (",background-color,citation-background-color())
+	        citationRefDate()
+	        text(" ",background-color,citation-background-color())
+	        label(attribute, timestamp,background-color,citation-background-color())
 	        ")"
 	        ;
 }

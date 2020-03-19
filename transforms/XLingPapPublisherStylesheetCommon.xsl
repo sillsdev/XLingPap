@@ -5135,8 +5135,22 @@
             </xsl:if>
             <xsl:value-of select="$sPage"/>
         </xsl:if>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
-            <xsl:text>)</xsl:text>
+        <xsl:variable name="sTimestamp" select="normalize-space(@timestamp)"/>
+        <xsl:if test="string-length($sTimestamp) &gt; 0">
+            <xsl:variable name="sBefore" select="$citationLayout/@textbeforetimestamp"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sBefore) &gt; 0">
+                    <xsl:value-of select="$sBefore"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="$sTimestamp"/>
+            <xsl:variable name="sAfter" select="$citationLayout/@textaftertimestamp"/>
+            <xsl:if test="string-length($sAfter) &gt; 0">
+                <xsl:value-of select="$sAfter"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!--  

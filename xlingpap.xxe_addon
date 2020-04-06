@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.36.2</a:version
+>2.36.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-03-18</a:date
+>2020-04-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>3.6.3 6 April 2020<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: missing ) in dates in citations</li
+><li
+>Fix bug: letter-oriented list elements had wrong indent when there were more than 9 items.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.36.2 18 March 2020<ul
 ><li

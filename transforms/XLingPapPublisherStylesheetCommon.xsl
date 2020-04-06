@@ -5152,6 +5152,9 @@
                 <xsl:value-of select="$sAfter"/>
             </xsl:if>
         </xsl:if>
+        <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
+            <xsl:text>)</xsl:text>
+         </xsl:if>
     </xsl:template>
     <!--  
         OutputCitationPages

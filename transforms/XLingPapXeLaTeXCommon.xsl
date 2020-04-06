@@ -7300,10 +7300,10 @@
                     </xsl:when>
                     <xsl:when test="($NestingLevel mod 3)=2">
                         <xsl:choose>
-                            <xsl:when test="$iSize &lt; 10">
+                            <xsl:when test="$iSize &lt; 27">
                                 <xsl:text>XLingPapersingleletterlistitemwidth</xsl:text>
                             </xsl:when>
-                            <xsl:when test="$iSize &lt; 100">
+                            <xsl:when test="$iSize &lt; 53">
                                 <xsl:text>XLingPaperdoubleletterlistitemwidth</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>

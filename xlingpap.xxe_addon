@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.36.3</a:version
+>2.36.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-04-06</a:date
+>2020-04-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.6.3 6 April 2020<ul
+>2.36.4 7 April 2020<ul
+><li
+>Fix bug: when using chapterInCollection elements, it was not possible to override the show level for a table of contents within a given chapterInCollection.</li
+></ul
+></li
+><li
+>2.36.3 6 April 2020<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

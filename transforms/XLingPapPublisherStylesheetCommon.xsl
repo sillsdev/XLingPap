@@ -3568,6 +3568,23 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        GetContentsLevelToUse
+    -->
+    <xsl:template name="GetContentsLevelToUse">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:choose>
+            <xsl:when test="$contentsLayoutToUse[ancestor-or-self::backMatterLayout]">
+                <xsl:value-of select="$nBackMatterLevel"/>
+            </xsl:when>
+            <xsl:when test="name(.)='contents'">
+                <xsl:value-of select="@showLevel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$nLevel"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetContextOfItem
     -->
     <xsl:template name="GetContextOfItem">

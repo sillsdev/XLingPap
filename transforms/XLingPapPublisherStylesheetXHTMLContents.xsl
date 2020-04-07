@@ -68,7 +68,8 @@
         </xsl:call-template>
         <xsl:if test="$nLevel>=2 and $bodyLayoutInfo/section2Layout/@ignore!='yes'">
             <xsl:apply-templates select="section2" mode="contents">
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:apply-templates>
         </xsl:if>
     </xsl:template>

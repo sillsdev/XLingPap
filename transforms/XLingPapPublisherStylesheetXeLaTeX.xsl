@@ -4317,14 +4317,9 @@
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
         </xsl:call-template>
         <xsl:variable name="nLevelToUse">
-            <xsl:choose>
-                <xsl:when test="$contentsLayoutToUse[ancestor-or-self::backMatterLayout]">
-                    <xsl:value-of select="$nBackMatterLevel"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$nLevel"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="GetContentsLevelToUse">
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="chapterInCollection" select="ancestor::chapterInCollection"/>
         <xsl:choose>

@@ -2407,7 +2407,7 @@
     -->
     <xsl:template name="DoAuthorOfChapterInCollectionInContents">
         <xsl:if test="saxon:node-set($authorInContentsLayoutInfo)/authorLayout">
-            <xsl:if test="frontMatter/author">
+            <xsl:if test="frontMatter/author[string-length(normalize-space(.)) &gt; 0]">
                 <div style="text-indent:-2em;padding-left:3em" class="authorInContents">
                     <xsl:call-template name="GetAuthorsAsCommaSeparatedList"/>
                 </div>
@@ -2834,14 +2834,9 @@
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:call-template>
             <xsl:variable name="nLevelToUse">
-                <xsl:choose>
-                    <xsl:when test="$contentsLayoutToUse[ancestor-or-self::backMatterLayout]">
-                        <xsl:value-of select="$nBackMatterLevel"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$nLevel"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="GetContentsLevelToUse">
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:call-template>
             </xsl:variable>
             <xsl:variable name="chapterInCollection" select="ancestor::chapterInCollection"/>
             <xsl:choose>

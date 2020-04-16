@@ -1061,7 +1061,7 @@ citation[page]:after
 	content:text(" (",background-color,citation-background-color())
 	        citationRefDate()
 	        text(" ",background-color,citation-background-color())
-	        label(attribute, timestamp,background-color,citation-background-color())
+	        label(attribute, page,background-color,citation-background-color())
 	        ")"
 	        ;
 }

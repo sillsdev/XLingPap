@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.6.4</a:version
+>3.6.5</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-04-07</a:date
+>2020-04-16</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,18 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.6.5 16 April 2020<ul
+><li
+>Fix bug: citation element with just a page number did not display correctly in XXE</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Improve handling of right-to-left script in interlinear when using wrd elements and autowrap.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.6.4 7 April 2020<ul
 ><li

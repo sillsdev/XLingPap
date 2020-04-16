@@ -3191,7 +3191,13 @@
                     <xsl:text>@</xsl:text>
                     <tex:spec cat="bg"/>
                     <tex:spec cat="eg"/>
-                    <xsl:text>l@</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="id(../../line/@lang)/@rtl='yes'">r</xsl:when>
+                        <xsl:when test="id(langData[1]/@lang)/@rtl='yes'">r</xsl:when>
+                        <xsl:when test="id(@lang)/@rtl='yes'">r</xsl:when>
+                        <xsl:otherwise>l</xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text>@</xsl:text>
                     <tex:spec cat="bg"/>
                     <tex:spec cat="eg"/>
                 </tex:parm>
@@ -5382,36 +5388,15 @@
         <xsl:if test="contains($bListsShareSameCode,'N') and count(preceding-sibling::line) &gt; 0">
             <tex:spec cat="align"/>
         </xsl:if>
-        <xsl:variable name="bRtl">
-            <xsl:choose>
-                <xsl:when test="id(parent::lineGroup/line[1]/wrd/langData[1]/@lang)/@rtl='yes'">Y</xsl:when>
-                <xsl:otherwise>N</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
         <xsl:choose>
             <xsl:when test="wrd">
                 <xsl:for-each select="wrd">
-                    <!-- 
-                        <fo:table-cell xsl:use-attribute-sets="ExampleCell">
-                        <xsl:if test="$bRtl='Y'">
-                        <xsl:attribute name="text-align">right</xsl:attribute>
-                        </xsl:if>
-                        <xsl:call-template name="DoDebugExamples"/>
-                        <fo:block>
-                        <xsl:call-template name="OutputFontAttributes">
-                        <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
-                        </xsl:call-template>
-                    -->
                     <xsl:if test="position() &gt; 1">
                         <tex:spec cat="align"/>
                     </xsl:if>
                     <xsl:call-template name="DoWrd">
                         <xsl:with-param name="originalContext" select="$originalContext"/>
                     </xsl:call-template>
-                    <!--  
-                        </fo:block>
-                        </fo:table-cell>
-                    -->
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
@@ -5664,7 +5649,13 @@
         <tex:spec cat="eg"/>
         <tex:spec cat="bg"/>
         <xsl:call-template name="CreateColumnSpecDefaultAtExpression"/>
-        <xsl:text>l@</xsl:text>
+        <xsl:choose>
+            <xsl:when test="id(line[1]/@lang)/@rtl='yes'">r</xsl:when>
+            <xsl:when test="id(line[1]/wrd[1]/@lang)/@rtl='yes'">r</xsl:when>
+            <xsl:when test="id(line[1]/wrd/langData[1]/@lang)/@rtl='yes'">r</xsl:when>
+            <xsl:otherwise>l</xsl:otherwise>
+        </xsl:choose>
+        <xsl:text>@</xsl:text>
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <tex:spec cat="space"/>
@@ -6155,6 +6146,9 @@
                 </tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:if test="id(line[1]/@lang)/@rtl='yes' or id(line[1]/wrd/langData[1]/@lang)/@rtl='yes' or id(line[1]/wrd[1]/@lang)/@rtl='yes'">
+            <tex:cmd name="beginR" gr="0"/>
+        </xsl:if>
         <tex:cmd name="XLingPaperraggedright" gr="0"/>
         <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
             <tex:spec cat="bg"/>
@@ -6399,6 +6393,9 @@
             <xsl:otherwise>
                 <xsl:if test="preceding-sibling::lineGroup or following-sibling::*[1][name()='lineGroup']">
                     <tex:spec cat="eg"/>
+                </xsl:if>
+                <xsl:if test="id(line[1]/@lang)/@rtl='yes' or id(line[1]/wrd/langData[1]/@lang)/@rtl='yes' or id(line[1]/wrd[1]/@lang)/@rtl='yes'">
+                    <tex:cmd name="endR" gr="0"/>
                 </xsl:if>
                 <tex:cmd name="par" nl2="1"/>
             </xsl:otherwise>
@@ -12214,6 +12211,9 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
+        <xsl:if test="//language[@rtl='yes'] and $lingPaper/@automaticallywrapinterlinears='yes'">
+            <tex:cmd name="TeXXeTstate=1" gr="0" nl2="1"/>
+        </xsl:if>
         <tex:cmd name="hypersetup" nl2="1">
             <tex:parm>
                 <xsl:text>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true, </xsl:text>

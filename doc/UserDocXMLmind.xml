@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 March 2020</date
+>27 May 2020</date
 ><version
 contentType="ctVersion5.3"
->2.36.2</version
+>2.37.0</version
 ><version
 contentType="ctVersion7Plus"
->3.6.2</version
+>3.7.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -18318,7 +18318,7 @@ type="tAttribute"
 > attributes for a given <object
 type="tElement"
 >citation</object
-> element.  If you do, the page number will always appear first.</p
+> element. If you do, the page number will always appear first.</p
 ></section2
 ><section2
 id="sCitationsAttributes"

@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.36.5</a:version
+>2.37.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-04-16</a:date
+>2020-05-27</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,47 +32,23 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.36.5 16 April 2020<ul
+>2.37.0 27 May 2020<ul
+><li
+>Add ability for citation elements to have a time stamp attribute (for referring to audio/visual media)</li
+><li
+>Improve figure/table listing information in the publisher style sheet documentation.</li
+><li
+>Add transform changes for ability to have an img element's src attribute refer to a MathML file (.mml). Does not really work wth this version..</li
+><li
+>Fix bug: when using chapterInCollection elements, it was not possible to override the show level for a table of contents within a given chapterInCollection.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Improve handling of right-to-left script in interlinear when using wrd elements and autowrap.</li
-></ul
-></li
-></ul
-></li
-><li
->2.36.4 7 April 2020<ul
-><li
->Fix bug: when using chapterInCollection elements, it was not possible to override the show level for a table of contents within a given chapterInCollection.</li
-></ul
-></li
-><li
->2.36.3 6 April 2020<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: missing ) in dates in citations</li
 ><li
 >Fix bug: letter-oriented list elements had wrong indent when there were more than 9 items.</li
-></ul
-></li
-></ul
-></li
-><li
->2.36.2 18 March 2020<ul
-><li
->Add ability for citation elements to have a time stamp attribute (for referring to audio/visual media)</li
-></ul
-></li
-><li
->2.36.1 3 March 2020<ul
-><li
->Add transform changes for ability to have an img element's src attribute refer to a MathML file (.mml). Does not really work wth this version..</li
-><li
->Improve figure/table listing information in the publisher style sheet documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: shortTitle elements were not being used for running headers in a chapterInCollection</li
 ><li

@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->27 May 2020</date
+>6 June 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.0</version
+>2.37.1</version
 ><version
 contentType="ctVersion7Plus"
->3.7.0</version
+>3.7.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -432,6 +432,82 @@ type="tAttribute"
 type="tElement"
 >pageLayout</object
 > element to contain, say, a space, then this space will appear between the footnote number and the content of the footnote.</p
+></section2
+><section2
+id="sContentBetweenFootnotesInText"
+><secTitle
+>Content between consecutive footnote numbers in text</secTitle
+><p
+><indexedItem
+term="iFootnoteContentBetweenConsecutiveFootnotesInText"
+></indexedItem
+>On the rare occasions when there are two consecutive footnote numbers in text, the default is to insert a comma followed immediately by a non-breaking space character. Some publishers prefer to have just the comma. If you set the <object
+type="tAttribute"
+>contentBetweenMultipleFootnoteNumbersInText</object
+> attribute of the <object
+type="tElement"
+>pageLayout</object
+> element to contain, say, a comma, then only this comma will appear between the consecutive footnote numbers.  We recommend, however, that you use a comma followed by a word joiner character.  This is so that no output formatter will break a line after the comma, resulting in the following footnote number showing at the beginning of the next line.  Doing this is a bit tricky, however:</p
+><ol
+><li
+>Click somewhere where you can type text.</li
+><li
+>Using the Character Tool of the <object
+type="tXMLmindXMLEditor"
+></object
+>,<endnote
+id="nCharacterTool"
+><p
+>The Character Tool is located in the lower right hand portion of the <object
+type="tXMLmindXMLEditor"
+></object
+>, near the validity tool. It may look like this:</p
+><chart
+><img
+src="resources/CharacterTool.png"
+></img
+></chart
+></endnote
+> click on the drop-down box and select the “0x2000 (General Punctuation)” section.</li
+><li
+>Hover your mouse over each blank box near the middle. The tool hint message should be blank, but at the bottom when it begins with “0x2060”, click.</li
+><li
+>This inserts a word joiner special character at the cursor. Be aware that you will not see anything different!</li
+><li
+>Immediately press the <object
+type="tKey"
+>Shift</object
+> key and then the <object
+type="tKey"
+>Left Arrow</object
+> key.</li
+><li
+>Cut.  This will put the word joiner character on the clipboard.</li
+><li
+>Click on the <object
+type="tElement"
+>pageLayout</object
+> element.</li
+><li
+>Using the Attributes Tool of the <object
+type="tXMLmindXMLEditor"
+></object
+>, click on <object
+type="tAttribute"
+>contentBetweenMultipleFootnoteNumbersInText</object
+> in the Attribute column.</li
+><li
+>In the text box above the Attribute/Value table portion of the Attributes Tool, click after the comma.</li
+><li
+>Paste.</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key.</li
+></ol
+><pc
+>This should then have the (invisible to us) word joiner character after the comma.</pc
 ></section2
 ><section2
 id="sFootnoteIndent"
@@ -19703,6 +19779,11 @@ see="iUseEndnotesLayout"
 ><term
 >Footnotes</term
 ><indexTerms
+><indexTerm
+id="iFootnoteContentBetweenConsecutiveFootnotesInText"
+><term
+>Content between consecutive footnote numbers in text</term
+></indexTerm
 ><indexTerm
 id="iFootnoteIndentr"
 ><term

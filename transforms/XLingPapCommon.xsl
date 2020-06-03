@@ -117,6 +117,7 @@
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
+    <xsl:variable name="sContentBetweenMultipleFootnoteNumbersInText" select="//publisherStyleSheet[1]/pageLayout/@contentBetweenMultipleFootnoteNumbersInText"/>
     <!-- Now we convert all of these to points -->
     <xsl:variable name="iPageWidth">
         <xsl:call-template name="ConvertToPoints">
@@ -1662,8 +1663,19 @@
     -->
     <xsl:template name="InsertCommaBetweenConsecutiveEndnotes">
         <xsl:if test="preceding-sibling::node()[1][name()='endnote' or name()='endnoteRef']">
-            <!-- the immediately preceding element is also an endnote; separate the numbers by a comma and non-breaking space -->
-            <xsl:text>,&#xa0;</xsl:text>
+            <!-- the immediately preceding element is also an endnote; separate the numbers by a comma and non-breaking space
+                 unless overridden by what's in style sheet -->
+            <xsl:variable name="sAfterComma">
+                <xsl:choose>
+                    <xsl:when test="string-length($sContentBetweenMultipleFootnoteNumbersInText) &gt; 0">
+                        <xsl:value-of select="$sContentBetweenMultipleFootnoteNumbersInText"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>,&#xa0;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:value-of select="$sAfterComma"/>
         </xsl:if>
     </xsl:template>
     <!--

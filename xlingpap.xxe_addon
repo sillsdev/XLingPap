@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.37.0</a:version
+>2.37.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-05-27</a:date
+>2020-06-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.37.1 6 June 2020<ul
+><li
+>Add ability to control what text occurs between consecutive footnote numbers in text via a publisher style sheet (using the contentBetweenMultipleFootnoteNumbersInText attribute on the pageLayout element).</li
+></ul
+></li
 ><li
 >2.37.0 27 May 2020<ul
 ><li

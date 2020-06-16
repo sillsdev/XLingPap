@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->6 June 2020</date
+>15 June 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.1</version
+>2.37.2</version
 ><version
 contentType="ctVersion7Plus"
->3.7.1</version
+>3.7.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -447,7 +447,7 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >pageLayout</object
-> element to contain, say, a comma, then only this comma will appear between the consecutive footnote numbers.  We recommend, however, that you use a comma followed by a word joiner character.  This is so that no output formatter will break a line after the comma, resulting in the following footnote number showing at the beginning of the next line.  Doing this is a bit tricky, however:</p
+> element to contain, say, a comma, then only this comma will appear between the consecutive footnote numbers. We recommend, however, that you use a comma followed by a word joiner character. This is so that no output formatter will break a line after the comma, resulting in the following footnote number showing at the beginning of the next line. Doing this is a bit tricky, however:</p
 ><ol
 ><li
 >Click somewhere where you can type text.</li
@@ -482,7 +482,7 @@ type="tKey"
 >Left Arrow</object
 > key.</li
 ><li
->Cut.  This will put the word joiner character on the clipboard.</li
+>Cut. This will put the word joiner character on the clipboard.</li
 ><li
 >Click on the <object
 type="tElement"
@@ -16969,6 +16969,103 @@ type="tAttrValue"
 >.</li
 ></ol
 ></section2
+><section2
+id="sFAQSavePublisherStyleSheetToNewLocation"
+><secTitle
+>Save a publisher style sheet and all its parts to a new location?</secTitle
+><p
+contentType="ctVersion5.3"
+>There is no special command for this in this version.</p
+><p
+contentType="ctVersion7Plus"
+><indexedItem
+term="iSaveStyleSheet"
+></indexedItem
+>When you need to edit a publisher style sheet (and especially when you have used one of the style sheets that come with <object
+type="tXLingPap"
+></object
+>), it is a good idea to save that style sheet in a location near where your main document is located. This way you can use it for other documents, have it backed up with your other documents (assuming you have an automatic way to back up your files), and avoid losing your changes to the style sheet when you upgrade to a new version of <object
+type="tXLingPap"
+></object
+> if you started by using one of the style sheets that come with <object
+type="tXLingPap"
+></object
+>.</p
+><p
+contentType="ctVersion7Plus"
+>To do this, use the following steps:</p
+><ol
+contentType="ctVersion7Plus"
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open an <object
+type="tXLingPap"
+></object
+> document that has the associated publisher style sheet in it.</li
+><li
+>Click on the associated publisher style sheet.</li
+><li
+>Use <object
+type="tInstruction"
+>Edit</object
+> menu item / <object
+type="tInstruction"
+>Reference</object
+> / <object
+type="tInstruction"
+>Edit Referenced Document</object
+>.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.</li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “S” (it should then fill in “SavePublisherStyleSheetToNewLocation” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will bring up a file chooser that lets you navigate to where you want to save your publisher style sheet. You can keep its name or change its name.</li
+><li
+>Click on <object
+type="tInstruction"
+>Save</object
+> or press the <object
+type="tKey"
+>Enter</object
+> key.</li
+><li
+><object
+type="tXLingPap"
+></object
+> will then save the publisher style sheet and all of its embedded pieces to the new location.</li
+><li
+>Click on your original document.</li
+><li
+>Use <object
+type="tInstruction"
+>XLingPaper</object
+> menu item / <object
+type="tInstruction"
+>Associate a publisher style sheet</object
+>.</li
+><li
+>Navigate to where you saved the publisher style sheet.</li
+><li
+>Select the file and click on Open.</li
+></ol
+></section2
 ></section1
 ><backMatter
 ><appendix
@@ -20644,6 +20741,11 @@ see="iProcVolumeNumber"
 >Volume number of a proceedings volume in a referenced work</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iSaveStyleSheet"
+><term
+>Save a publisher style sheet and all its pieces</term
 ></indexTerm
 ><indexTerm
 id="iSection1Layout"

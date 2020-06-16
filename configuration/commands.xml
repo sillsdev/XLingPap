@@ -382,6 +382,9 @@
     <cfg:command name="InsertBracketedConstituentWhenWrdElementsSelectedCmd">
         <cfg:class>xlingpaper.xxe.InsertBracketedConstituentWhenWrdElementsSelected</cfg:class>
     </cfg:command>
+    <cfg:command name="cmdForSavePublisherStyleSheetToNewLocation">
+        <cfg:class>xlingpaper.xxe.SavePublisherStyleSheetToNewLocation</cfg:class>
+    </cfg:command>
     <cfg:binding>
         <cfg:keyPressed code="F7" modifiers="shift"/>
         <cfg:command name="demoteSelectionCmd"/>
@@ -3370,5 +3373,15 @@ NB actually it associates the stylesheet with the original file, not the new han
                 <cfg:parameter name="sByDefinition">%4</cfg:parameter>
             </cfg:transform>
         </cfg:process>
+    </cfg:command>
+    <cfg:command name="SavePublisherStyleSheetToNewLocation">
+        <cfg:macro trace="true">
+            <cfg:sequence>
+                <cfg:test expression="/publisherStyleSheet"/>
+                <cfg:command name="XXE.saveAs"/>
+                <cfg:command name="cmdForSavePublisherStyleSheetToNewLocation"/>
+                <cfg:command name="XXE.open" parameter="[reopen]"/>
+            </cfg:sequence>
+        </cfg:macro>
     </cfg:command>
 </cfg:configuration>

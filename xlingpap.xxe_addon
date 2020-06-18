@@ -35,6 +35,12 @@ href="mailto::xlingpaper_support@sil.org"
 >3.7.2 18 June 2020<ul
 ><li
 >Add sample paper and book publisher style sheets that contain all possibilities as a reference or starting point.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a genericRef in a dt element would cause the PDF to fail to be produced.</li
+></ul
+></li
 ></ul
 ></li
 ><li

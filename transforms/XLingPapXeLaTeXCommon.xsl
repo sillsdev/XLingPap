@@ -227,10 +227,20 @@
         <xsl:text>0pt</xsl:text>
         <tex:spec cat="rsb"/>
         <tex:spec cat="bg"/>
--->
-        <xsl:call-template name="DoInternalTargetBegin">
-            <xsl:with-param name="sName" select="@id"/>
-        </xsl:call-template>
+        -->
+        <xsl:choose>
+            <xsl:when test="ancestor::dt">
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                    <xsl:with-param name="fDoRaisebox" select="'N'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoInternalTargetBegin">
+                    <xsl:with-param name="sName" select="@id"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <!--        <tex:spec cat="eg"/>-->
     </xsl:template>

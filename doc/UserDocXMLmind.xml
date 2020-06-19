@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->27 May 2020</date
+>19 June 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.0</version
+>2.37.2</version
 ><version
 contentType="ctVersion7Plus"
->3.7.0</version
+>3.7.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -28398,7 +28398,7 @@ src="resources/ContentControlChoiceChosen.png"
 ></chart
 ></example
 ><p
->Finally, you may sometimes want the “chunks” to show in the <object
+>You may sometimes want the “chunks” to show in the <object
 type="tXMLmindXMLEditor"
 ></object
 > for all possible content types and sometimes you may not. You control this by setting the <object
@@ -28414,6 +28414,29 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 > (which is the default).</p
+><p
+>When it comes to lines in an interlinear text, there may also be times when you wish only certain lines to be included in the output. You can do this by first making sure that the <object
+type="tElement"
+>interlinear-text</object
+> element is tagged with a <object
+type="tAttribute"
+>contentType</object
+> attribute set so that the entire text will be included. Then set the <object
+type="tAttribute"
+>linesToInclude</object
+> attribute of the <object
+type="tElement"
+>interlinear-text</object
+> element to have the line numbers to include. You must set these as a comma followed by the line number followed by a comma. For example, if you want lines 1, 2, and 4 to show, then use <object
+type="tAttrValue"
+>,1,2,4,</object
+> whereas if you want lines 2 and 3 to show use <object
+type="tAttrValue"
+>,2,3,</object
+>. Notice that each number is preceded and followed by a comma. This is to deal with (possibly rare) cases where there are 10 or more lines in an interlinear. If we just used a following comma, say, then 1 would match <object
+type="tAttrValue"
+>11,</object
+> and we might not want to include the first line. By using both a preceding and a following comma, we avoid this issue.</p
 ></section1
 ><section1
 id="sHangingIndentParagraph"
@@ -34935,6 +34958,11 @@ id="iContentControl"
 >Content control</term
 ><indexTerms
 ><indexTerm
+id="iCTInterlinearTextLines"
+><term
+>Interlinear text lines</term
+></indexTerm
+><indexTerm
 id="iCTMultilingualDoc"
 see="iMultilingualDoc"
 ><term
@@ -35897,6 +35925,11 @@ id="iInterlinearTextModularDocument"
 id="iInterlinearTextFLEx"
 ><term
 >Get from FLEx</term
+></indexTerm
+><indexTerm
+id="iInterlinearTextIncludeLines"
+><term
+>Include only some lines</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

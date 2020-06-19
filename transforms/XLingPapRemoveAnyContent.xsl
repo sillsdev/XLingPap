@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- transform to remove any needed content  from XLingPaper file
+<!-- transform to remove any needed content from XLingPaper file
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no" doctype-public="-//XMLmind//DTD XLingPap//EN" doctype-system="XLingPap.dtd"/>
@@ -110,7 +110,14 @@
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
    <xsl:template match="line">
-      <xsl:call-template name="IgnoreOrCopyElement"/>
+      <xsl:choose>
+         <xsl:when test="ancestor::interlinear-text">
+            <xsl:call-template name="IgnoreOrCopyLineInInterlinearText"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:call-template name="IgnoreOrCopyElement"/>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:template>
    <xsl:template match="ol">
       <xsl:call-template name="IgnoreOrCopyElement"/>
@@ -207,6 +214,39 @@
       <xsl:choose>
          <xsl:when test="string-length($inSet) &gt; 0">
             <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <!-- 
+      Figure out if we need to ignore or copy this line in an interlinear-text
+   -->
+   <xsl:template name="IgnoreOrCopyLineInInterlinearText">
+      <xsl:variable name="text" select="ancestor::interlinear-text"/>
+      <xsl:variable name="contentType" select="id($text/@contentType)/@id"/>
+      <xsl:variable name="inSet">
+         <xsl:if test="$chosenContentTypes">
+            <xsl:for-each select="$chosenContentTypes">
+               <xsl:if test="@id = $contentType">x</xsl:if>
+            </xsl:for-each>
+         </xsl:if>
+      </xsl:variable>
+      <xsl:choose>
+         <xsl:when test="string-length($inSet) &gt; 0">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:when test="string-length($text/@linesToInclude) &gt; 0">
+            <xsl:if test="contains($text/@linesToInclude,concat(',',position(),','))">
+               <xsl:copy>
+                  <xsl:apply-templates select="@*"/>
+                  <xsl:apply-templates/>
+               </xsl:copy>
+            </xsl:if>
          </xsl:when>
          <xsl:otherwise>
             <xsl:copy>

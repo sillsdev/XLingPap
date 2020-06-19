@@ -623,6 +623,7 @@
     text ID #IMPLIED
     %special;
     contentType IDREF #IMPLIED
+    linesToInclude CDATA #IMPLIED
 >
 <!ELEMENT textInfo (textTitle*, shortTitle*, source*, genres?)>
 <!ATTLIST textInfo

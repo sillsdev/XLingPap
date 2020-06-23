@@ -3375,7 +3375,7 @@ NB actually it associates the stylesheet with the original file, not the new han
         </cfg:process>
     </cfg:command>
     <cfg:command name="SavePublisherStyleSheetToNewLocation">
-        <cfg:macro trace="true">
+        <cfg:macro trace="false">
             <cfg:sequence>
                 <cfg:test expression="/publisherStyleSheet"/>
                 <cfg:command name="XXE.saveAs"/>

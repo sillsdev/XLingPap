@@ -1,35 +1,24 @@
 package xlingpaper.xxe;
 
-import java.awt.GraphicsEnvironment;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import com.xmlmind.guiutil.Alert;
-import com.xmlmind.xml.doc.Constants;
 import com.xmlmind.xml.doc.Document;
 import com.xmlmind.xml.doc.Element;
-import com.xmlmind.xml.doc.Inclusion;
-import com.xmlmind.xml.doc.InclusionException;
-import com.xmlmind.xml.doc.Traversal;
 import com.xmlmind.xml.doc.XNode;
 import com.xmlmind.xml.name.Name;
-import com.xmlmind.xml.wxs.validate.ValidationErrors;
-import com.xmlmind.xml.xinclude.XInclude;
 import com.xmlmind.xml.xpath.EvalException;
 import com.xmlmind.xml.xpath.ParseException;
 import com.xmlmind.xml.xpath.XPathUtil;
 import com.xmlmind.xmledit.view.DocumentView;
 import com.xmlmind.xmledit.cmd.RecordableCommand;
-import com.xmlmind.xmledit.cmd.validate.CheckValidityDialog;
 import com.xmlmind.xmledit.edit.MarkManager;
 
 public class GetXIncludesAndImageFiles extends RecordableCommand {
@@ -190,9 +179,8 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	String sFilePath = line.substring(iBegin, iEnd);
 	// showAlert(docView, "sFilePath = '" + sFilePath + "'");
 	asFileNames[iCount++] = sDocumentPath + File.separator
-		+ XLingPaperUtils.fixupImageFile(sDocumentPath, sFilePath);
-	// showAlert(docView, "asFileNames[iCount] = '" + asFileNames[iCount-1]
-	// + "'");
+		+ fixupImageFile(sDocumentPath, sFilePath);
+	// showAlert(docView, "asFileNames[iCount] = '" + asFileNames[iCount-1] + "'");
 	return iCount;
     }
 
@@ -211,6 +199,25 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	    iCount = processImageFile(iCount, sDocumentPath, imageFile);
 	}
 	return iCount;
+    }
+
+    private String fixupImageFile(String sDocumentPath, String imageFile) {
+	String operatingSystem = System.getProperty("os.name");
+	if (operatingSystem.contains("Windows")) {
+	    // need to change any '/' to '\' in file name
+	    imageFile = imageFile.replace("/", "\\");
+	}
+	/*
+	 * if (imageFile.startsWith("..")) { imageFile = sDocumentPath +
+	 * System.getProperty("file.separator") + imageFile; }
+	 */
+	if (imageFile.startsWith("file:\\\\\\")) {
+	    imageFile = imageFile.substring(8);
+	}
+	imageFile = imageFile.replace("%20", " ");
+	imageFile = imageFile.replace("%27", "'");
+	imageFile = imageFile.replace("%7E", "~");
+	return imageFile;
     }
 
     private int processImageFile(int iCount, String sDocumentPath, String imageFile) {

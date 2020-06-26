@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-06-23</a:date
+>2020-06-26</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.2 23 June 2020<ul
+>3.7.2 26 June 2020<ul
 ><li
 >Add a way to save a publisher style sheet and all its pieces to a new location. See section 8.14 "Save a publisher style sheet and all its parts to a new location" in the publisher style sheet documentation.</li
 ><li
@@ -55,6 +55,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: a genericRef in a dt element would cause the PDF to fail to be produced.</li
 ><li
 >Add a check for using PDF files which are newer than version 1.5. (XeLaTeX will not process newer PDFs.)</li
+></ul
+></li
+><li
+>Converting Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: location and publisher can be in another spot for a web page.</li
 ></ul
 ></li
 ></ul

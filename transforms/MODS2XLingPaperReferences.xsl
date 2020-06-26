@@ -374,14 +374,19 @@
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
         <webPage>
-            <xsl:if test="../m:relatedItem[@type='host'][m:genre[@authority='marcgt']='web site']">
-                <xsl:variable name="sPublisher" select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
-                <xsl:if test="string-length($sPublisher) &gt; 0">
-                    <publisher>
-                        <xsl:value-of select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
-                    </publisher>
-                </xsl:if>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="../m:relatedItem[@type='host'][m:genre[@authority='marcgt']='web site']">
+                    <xsl:variable name="sPublisher" select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
+                    <xsl:if test="string-length($sPublisher) &gt; 0">
+                        <publisher>
+                            <xsl:value-of select="../m:relatedItem[@type='host']/m:titleInfo/m:title"/>
+                        </publisher>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="../m:originInfo/m:place or ../m:originInfo/m:publisher">
+                    <xsl:call-template name="DoLocationAndPublisher"/>
+                </xsl:when>
+            </xsl:choose>
             <xsl:call-template name="DoAnyURL"/>
         </webPage>
     </xsl:template>

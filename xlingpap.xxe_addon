@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-06-26</a:date
+>2020-06-29</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.7.2 26 June 2020<ul
+>3.7.2 29 June 2020<ul
 ><li
 >Add sample paper and book publisher style sheets that contain all possibilities as a reference or starting point.</li
 ><li
 >Add a way to use content control to have only certain lines in an interlinear-text be output.</li
+><li
+>Fix bug: when using the seeDefinition elements for an index, the content of the elements would appear at the end of the output.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

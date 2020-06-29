@@ -164,11 +164,19 @@
     <xsl:variable name="sBackMatterContentsIdAddOn" select="'BM'"/>
 
     <!-- 
+        afterTerm 
+    -->
+    <xsl:template match="afterTerm"/>
+    <!-- 
         appendixRef (contents) 
     -->
     <xsl:template match="appendixRef" mode="contents">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
+    <!-- 
+        beforeTerm 
+    -->
+    <xsl:template match="beforeTerm"/>
     <!-- 
         br (bookmarks) 
     -->

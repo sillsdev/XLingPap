@@ -2932,10 +2932,8 @@
     <!-- ===========================================================
         ELEMENTS TO IGNORE
         =========================================================== -->
-    <xsl:template match="afterTerm"/>
     <xsl:template match="authorContacts"/>
     <xsl:template match="basicPointSize"/>
-    <xsl:template match="beforeTerm"/>
     <xsl:template match="blockQuoteIndent"/>
     <xsl:template match="citation[parent::selectedBibliography]"/>
     <xsl:template match="contentControlChoice"/>

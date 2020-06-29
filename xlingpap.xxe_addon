@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-06-26</a:date
+>2020-06-29</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.2 26 June 2020<ul
+>3.7.2 29 June 2020<ul
 ><li
 >Add a way to save a publisher style sheet and all its pieces to a new location. See section 8.14 "Save a publisher style sheet and all its parts to a new location" in the publisher style sheet documentation.</li
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add a way to use content control to have only certain lines in an interlinear-text be output.</li
 ><li
 >Fix bug in create zip file command which could cause it to fail.</li
+><li
+>Fix bug: when using the seeDefinition elements for an index, the content of the elements would appear at the end of the output.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

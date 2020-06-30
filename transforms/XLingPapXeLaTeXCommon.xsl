@@ -2213,9 +2213,14 @@
                     <xsl:text>pt</xsl:text></tex:parm>
                     </tex:cmd> -->
                 <xsl:if test="not(ancestor::tablenumbered) and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes'">
-                    <xsl:if test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
-                        <tex:spec cat="eg"/>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="ancestor::framedUnit">
+                            <!-- do nothing -->
+                        </xsl:when>
+                        <xsl:when test="not(ancestor::endnote and $lineSpacing/@singlespaceendnotes='yes')">
+                            <tex:spec cat="eg"/>
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:if>
                 <tex:spec cat="nl"/>
             </xsl:when>

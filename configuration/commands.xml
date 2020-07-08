@@ -1886,9 +1886,17 @@ What we want is to load IE independently and to do a refresh so it will show the
                                         </cfg:sequence>
                                     </cfg:choice>
                                     <!--                                </cfg:sequence>-->
+                                    <cfg:set variable="producePDFParameters1" expression="%_" plainString="true"/>
+                                    <cfg:command name="getXeLaTeXVersion"/>
+                                    <cfg:set variable="xeLaTeXVersion" expression="%_" plainString="true"/>
+                                    <!--<cfg:get expression="$xeLaTeXVersion"/>
+                                    <cfg:command name="alert" parameter="xeLaTeXVersion = |%_|"/>-->
+                                    <!--<cfg:get expression="$producePDFParameters1"/>
+                                    <cfg:command name="alert" parameter="producePDFParameters1 = |%_|"/>-->
+                                    <cfg:get expression="concat($producePDFParameters1,' ', $xeLaTeXVersion)"/>
                                     <cfg:set variable="producePDFParameters" expression="%_" plainString="true"/>
-                                    <!--   <cfg:get expression="$producePDFParameters"/>
-                                <cfg:command name="alert" parameter="producePDFParameters = |%_|"/> -->
+                                    <!--<cfg:get expression="$producePDFParameters"/>
+                                    <cfg:command name="alert" parameter="producePDFParameters = |%_|"/>-->
                                     <cfg:choice>
                                         <cfg:sequence>
                                             <cfg:test expression="//styledPaper"/>
@@ -2251,8 +2259,11 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="ProducePDFViaXeLaTeXPostProcessing">
         <cfg:process>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
-            <cfg:shell
+<!--            <cfg:shell
                 command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
+                platform="Windows"/>-->
+            <cfg:shell
+                command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; %1.tex &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
                 platform="Windows"/>
             <cfg:shell
                 command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF&quot; &quot;%1.tex&quot;  &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
@@ -2291,6 +2302,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <cfg:parameter name="sXeLaTeXVersion">%2</cfg:parameter>
                 <!--
                     sInterlinearSourceStyle:
                     The default is AfterFirstLine (immediately after the last item in the first line)
@@ -2327,6 +2339,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <cfg:parameter name="sXeLaTeXVersion">%2</cfg:parameter>
             </cfg:transform>
             <!--                        <cfg:copy quiet="true" files="TeXML.xml" to="%{P}%{S}TeXML.xml"/>-->
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXMLLikeCharConv.bat&quot; TeXML.xml TeXML2.xml &quot;%{C}%{S}..%{S}bin%{S}TeXMLLikeCharConv.exe&quot;" platform="Windows"/>-->
@@ -2345,6 +2358,23 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="getXeLaTeXVersion">
+        <cfg:process>
+            <cfg:read file="%C%SXeLaTeXVersion.txt" encoding="UTF-8"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="UseXeLaTeXVersion2010">
+        <cfg:process>
+            <cfg:copy files="%C%SXeLaTeXVersion2010.txt" to="%C%SXeLaTeXVersion.txt" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2010.bat" to="%C%S..%Sbatchfiles%SDoTeXPDF.bat" quiet="true"/>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="UseXeLaTeXVersion2020">
+        <cfg:process>
+            <cfg:copy files="%C%SXeLaTeXVersion2020.txt" to="%C%SXeLaTeXVersion.txt" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2020.bat" to="%C%S..%Sbatchfiles%SDoTeXPDF.bat" quiet="true"/>
+        </cfg:process>
+    </cfg:command>
     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX">
         <cfg:process>
             <!--            <cfg:mkdir quiet="true" dir="%{P}%{S}XLingPaperPDFTemp"/>
@@ -2358,6 +2388,7 @@ What we want is to load IE independently and to do a refresh so it will show the
                 <cfg:parameter name="sFOProcessor">TeX</cfg:parameter>
                 <cfg:parameter name="sMainSourcePath">%{p}</cfg:parameter>
                 <cfg:parameter name="sMainSourceFile">%1</cfg:parameter>
+                <cfg:parameter name="sXeLaTeXVersion">%2</cfg:parameter>
                 <!--
                     sInterlinearSourceStyle:
                     The default is AfterFirstLine (immediately after the last item in the first line)
@@ -2371,7 +2402,8 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--            <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
-            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>
+<!--            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>-->
+            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 %1"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="producePaperPDFFromCannedStylesheetViaFO">

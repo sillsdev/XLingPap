@@ -12825,6 +12825,15 @@ What might go in a TeX package file
             </tex:parm>
             <tex:opt>4</tex:opt>
             <tex:parm>
+                <xsl:if test="contains($sXeLaTeXVersion,'2020')">
+                    <!-- following vspace* command needed for TeX Live 2020 hyperlink command; not sure why  -->
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:text>-</xsl:text>
+                            <tex:cmd name="baselineskip" gr="0" nl1="1" nl2="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <tex:cmd name="newdimen" gr="0" nl1="1" nl2="0"/>
                 <tex:cmd name="XLingPapertempdim" gr="0" nl2="1"/>
                 <tex:cmd name="vskip" gr="0" nl2="0"/>

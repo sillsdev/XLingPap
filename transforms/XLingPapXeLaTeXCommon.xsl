@@ -8225,7 +8225,7 @@
         <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
         <xsl:variable name="sRest" select="substring-after($sCommandBeginning,' ')"/>
         <xsl:if test="string-length($sCommandBeginning) &gt; 0">
-            <xsl:value-of select="translate($sCommand,' =','XY')"/>
+            <xsl:value-of select="translate(translate($sCommand,' =','XY'),$sDigits, $sLetters)"/>
             <xsl:if test="$sRest">
                 <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
                     <xsl:with-param name="sList" select="$sRest"/>

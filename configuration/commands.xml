@@ -2367,12 +2367,16 @@ What we want is to load IE independently and to do a refresh so it will show the
         <cfg:process>
             <cfg:copy files="%C%SXeLaTeXVersion2010.txt" to="%C%SXeLaTeXVersion.txt" quiet="true"/>
             <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2010.bat" to="%C%S..%Sbatchfiles%SDoTeXPDF.bat" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2010" to="%C%S..%Sbatchfiles%SDoTeXPDF" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SHasXeLaTeX2010" to="%C%S..%Sbatchfiles%SHasXeLaTeX" quiet="true"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="UseXeLaTeXVersion2020">
         <cfg:process>
             <cfg:copy files="%C%SXeLaTeXVersion2020.txt" to="%C%SXeLaTeXVersion.txt" quiet="true"/>
             <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2020.bat" to="%C%S..%Sbatchfiles%SDoTeXPDF.bat" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SDoTeXPDF2020" to="%C%S..%Sbatchfiles%SDoTeXPDF" quiet="true"/>
+            <cfg:copy files="%C%S..%Sbatchfiles%SHasXeLaTeX2020" to="%C%S..%Sbatchfiles%SHasXeLaTeX" quiet="true"/>
         </cfg:process>
     </cfg:command>
     <cfg:command name="produceBookPDFFromCannedStylesheetViaXeLaTeX">

@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->15 June 2020</date
+>10 July 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.37.2</version
@@ -15702,7 +15702,7 @@ lang="lEng"
 ><langData
 lang="lEng"
 >This is a way to allow the user to add special attributes for the included XeLaTeX processor that produces PDF. See <link
-href="UserDocXMLmind.htm/#nXeLaTeXAttributes"
+href="UserDocXMLmind.htm/#aXeLaTeXSpecial"
 >here</link
 > for more.</langData
 ></td

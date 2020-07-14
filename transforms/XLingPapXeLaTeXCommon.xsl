@@ -8225,7 +8225,7 @@
         <xsl:variable name="sCommand" select="substring-before(substring($sCommandBeginning,2),$sSingleQuote)"/>
         <xsl:variable name="sRest" select="substring-after($sCommandBeginning,' ')"/>
         <xsl:if test="string-length($sCommandBeginning) &gt; 0">
-            <xsl:value-of select="translate($sCommand,' =','XY')"/>
+            <xsl:value-of select="translate(translate($sCommand,' =','XY'),$sDigits, $sLetters)"/>
             <xsl:if test="$sRest">
                 <xsl:call-template name="HandleXeLaTeXSpecialFontFeatureForFontName">
                     <xsl:with-param name="sList" select="$sRest"/>
@@ -12825,6 +12825,15 @@ What might go in a TeX package file
             </tex:parm>
             <tex:opt>4</tex:opt>
             <tex:parm>
+                <xsl:if test="contains($sXeLaTeXVersion,'2020')">
+                    <!-- following vspace* command needed for TeX Live 2020 hyperlink command; not sure why  -->
+                    <tex:cmd name="vspace*">
+                        <tex:parm>
+                            <xsl:text>-</xsl:text>
+                            <tex:cmd name="baselineskip" gr="0" nl1="1" nl2="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <tex:cmd name="newdimen" gr="0" nl1="1" nl2="0"/>
                 <tex:cmd name="XLingPapertempdim" gr="0" nl2="1"/>
                 <tex:cmd name="vskip" gr="0" nl2="0"/>

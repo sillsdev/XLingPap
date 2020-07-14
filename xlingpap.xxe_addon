@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-06-30</a:date
+>2020-07-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -34,9 +34,13 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >2.37.3 30 June 2020<ul
 ><li
+>Fix broken link in publisher style sheet documentation, section 7.1.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when using framed units and double spacing, a table within a framed unit could cause the PDF to not be produced.</li
+><li
+>Fix bug: using a number in a font feature caused PDF to fail.</li
 ></ul
 ></li
 ></ul

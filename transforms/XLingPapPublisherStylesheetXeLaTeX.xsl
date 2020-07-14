@@ -12,6 +12,7 @@
     <xsl:param name="sTableOfContentsFile" select="concat($sMainSourcePath, $sDirectorySlash, 'XLingPaperPDFTemp', $sDirectorySlash, $sMainSourceFile,'.toc')"/>
     <xsl:param name="sIndexFile" select="concat($sMainSourcePath, $sDirectorySlash, 'XLingPaperPDFTemp', $sDirectorySlash, $sMainSourceFile,'.idx')"/>
     <xsl:param name="sFOProcessor">XEP</xsl:param>
+    <xsl:param name="sXeLaTeXVersion">2010</xsl:param>
     <xsl:param name="bUseBookTabs" select="'Y'"/>
     <xsl:variable name="sPageWidth" select="string($pageLayoutInfo/pageWidth)"/>
     <xsl:variable name="sPageHeight" select="string($pageLayoutInfo/pageHeight)"/>

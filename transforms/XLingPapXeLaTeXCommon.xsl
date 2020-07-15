@@ -7606,32 +7606,32 @@
             </xsl:when>
             <!-- relative sizes -->
             <xsl:when test="$sSize='smaller'">
-                <tex:cmd name="small" gr="0"/>
+                <tex:cmd name="small" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='larger'">
-                <tex:cmd name="large" gr="0"/>
+                <tex:cmd name="large" gr="1"/>
             </xsl:when>
             <!-- key term absolute values -->
             <xsl:when test="$sSize='large'">
-                <tex:cmd name="large" gr="0"/>
+                <tex:cmd name="large" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='medium'">
-                <tex:cmd name="normalsize" gr="0"/>
+                <tex:cmd name="normalsize" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='small'">
-                <tex:cmd name="small" gr="0"/>
+                <tex:cmd name="small" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='x-large'">
-                <tex:cmd name="Large" gr="0"/>
+                <tex:cmd name="Large" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='xx-large'">
-                <tex:cmd name="LARGE" gr="0"/>
+                <tex:cmd name="LARGE" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='x-small'">
-                <tex:cmd name="footnotesize" gr="0"/>
+                <tex:cmd name="footnotesize" gr="1"/>
             </xsl:when>
             <xsl:when test="$sSize='xx-small'">
-                <tex:cmd name="scriptsize" gr="0"/>
+                <tex:cmd name="scriptsize" gr="1"/>
             </xsl:when>
             <!-- assume is a number and probably in points -->
             <xsl:otherwise>

@@ -5597,6 +5597,7 @@ not using
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:text>,</xsl:text>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                                 <fo:inline>
                                     <fo:basic-link>

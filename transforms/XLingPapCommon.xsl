@@ -116,6 +116,7 @@
     <xsl:variable name="sSpaceBetweenGroups" select="normalize-space(//publisherStyleSheet[1]/contentLayout/interlinearMultipleLineGroupLayout/@spaceBetweenGroups)"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
+    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
     <xsl:variable name="sContentBetweenMultipleFootnoteNumbersInText" select="//publisherStyleSheet[1]/pageLayout/@contentBetweenMultipleFootnoteNumbersInText"/>
     <!-- Now we convert all of these to points -->
@@ -2333,6 +2334,15 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputTextAfterIndexTerm
+    -->
+    <xsl:template name="OutputTextAfterIndexTerm">
+        <xsl:variable name="sTextAfterTerm" select="$backMatterLayoutInfo/indexLayout/@textafterterm"/>
+        <xsl:if test="string-length($sTextAfterTerm) &gt; 0">
+            <xsl:value-of select="$sTextAfterTerm"/>
+        </xsl:if>
     </xsl:template>
     <!--
         SetMetadataAuthor

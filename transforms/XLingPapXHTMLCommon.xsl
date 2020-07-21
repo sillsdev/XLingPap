@@ -1316,7 +1316,7 @@
                         <xsl:when test="name($myFirstChild) = 'exampleHeading' and substring(name(child::*[position()=2]), 1, 4)='list'">
                             <xsl:apply-templates select="exampleHeading" mode="NoTextRef"/>
                             <xsl:element name="table" use-attribute-sets="TablePaddingSpacing">
-                                <xsl:apply-templates select="listInterlinear | listWord | listSingle">
+                                <xsl:apply-templates select="listInterlinear | listWord | listSingle | listDefinition">
                                     <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
                                 </xsl:apply-templates>
                             </xsl:element>

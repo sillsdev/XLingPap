@@ -10,7 +10,7 @@
     <!-- following is here to get thesis submission style to get correct margins -->
     <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet[1]"/>
     <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
-    <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>
+    <!--    <xsl:variable name="backMatterLayoutInfo" select="$publisherStyleSheet/backMatterLayout"/>-->
     <xsl:variable name="pageLayoutInfo" select="$publisherStyleSheet/pageLayout"/>
     <xsl:variable name="sDigits" select="'1234567890 _-'"/>
     <xsl:variable name="sLetters" select="'ABCDEFGHIJZYX'"/>
@@ -9346,7 +9346,7 @@
                                     <xsl:with-param name="indexTerm" select="."/>
                                 </xsl:call-template>
                                 <xsl:if test="$indexedItems or $bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
-                                    <xsl:text>,</xsl:text>
+                                    <xsl:call-template name="OutputTextAfterIndexTerm"/>
                                 </xsl:if>
                                 <xsl:text>&#x20;&#x20;</xsl:text>
                                 <!-- When a given item is on the same page more than once, we want to show only one occurrence.
@@ -9485,7 +9485,7 @@
                             </tex:parm>
                             <tex:parm>
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
-                                <xsl:text>&#x20;&#x20;See </xsl:text>-->
+                                    <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
                                 <xsl:text>,</xsl:text>
                                 <tex:spec cat="esc"/>

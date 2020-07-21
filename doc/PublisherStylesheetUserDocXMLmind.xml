@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 July 2020</date
+>21 July 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.2</version
+>2.37.4</version
 ><version
 contentType="ctVersion7Plus"
->3.7.2</version
+>3.7.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -3871,6 +3871,15 @@ type="tAttribute"
 type="tAttrValue"
 >no</object
 >.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textafterterm</object
+></td
+><td
+>This contains any text you want to occur after the term (such as a comma).</td
 ></tr
 ><tr
 ><td

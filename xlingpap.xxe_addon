@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-07-15</a:date
+>2020-07-21</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,21 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.4 15 July 2020<ul
+>3.7.4 21 July 2020<ul
+><li
+>Add ability to control what text, if any, comes after an index term in the index output via the (new) textafterterm attribute of the indexLayout element in a publisher style sheet.  Also, fix an inconsistency: the default XeLaTeX PDF used to use a comma after a term while the other outputs did not.  Now all outputs show a space after the term unless this new attribute is set to something (like a comma).  In addition, when outputting a "see" index item, there is now always a comma before the "see".</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: using a word description for font-size (like 'smaller') for a footer/header item could cause the PDF to fail to be produced.</li
+></ul
+></li
+><li
+>For the web page output using a publisher style sheet:<ul
+><li
+>Fix bug: if the date element is formatted as being centered and there is nothing in the date element, then all following materials were centered.</li
+><li
+>Fix bug: when an example has an exampleHeading and listDefinition elements, the listDefinition elements were not output.</li
 ></ul
 ></li
 ></ul

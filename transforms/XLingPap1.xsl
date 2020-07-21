@@ -5418,6 +5418,7 @@
                             <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
                             <!--                            <xsl:apply-templates select="term[1]" mode="InIndex"/>-->
                             <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                            <xsl:text>,</xsl:text>
                             <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                             <a>
                                 <xsl:attribute name="href">

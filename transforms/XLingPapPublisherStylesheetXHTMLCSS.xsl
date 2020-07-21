@@ -33,7 +33,7 @@
     <xsl:variable name="sContentBetweenMultipleFootnoteNumbersInText" select="$pageLayoutInfo/@contentBetweenMultipleFootnoteNumbersInText"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
     <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>
-    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
+    <!--    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>-->
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
@@ -1841,6 +1841,7 @@ li.lower-roman {
     <xsl:template match="@startSection1NumberingAtZero"/>
     <xsl:template match="@textafterletter"/>
     <xsl:template match="@textafternumber"/>
+    <xsl:template match="@textafterterm"/>
     <xsl:template match="@textbeforeafterusesfontinfo"/>
     <xsl:template match="@textBeforeCapitalizedPluralOverride"/>
     <xsl:template match="@textBeforeCapitalizedSingularOverride"/>

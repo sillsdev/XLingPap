@@ -32,7 +32,7 @@
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
     <!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
     <!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
-    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
+    <!--    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>-->
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
@@ -7428,6 +7428,7 @@ not using
                                         <xsl:with-param name="lang" select="$lang"/>
                                         <xsl:with-param name="indexTerm" select="."/>
                                     </xsl:call-template>
+                                    <xsl:call-template name="OutputTextAfterIndexTerm"/>
                                     <xsl:text>&#x20;&#x20;</xsl:text>
                                 </fo:inline>
                                 <xsl:for-each select="$indexedItems">
@@ -7493,6 +7494,7 @@ not using
                                 <!--<xsl:apply-templates select="term[1]" mode="InIndex"/>
                                 <xsl:text>&#x20;&#x20;See </xsl:text>-->
                                 <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                                <xsl:text>,</xsl:text>
                                 <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                                 <fo:inline>
                                     <fo:basic-link>

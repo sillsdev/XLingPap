@@ -34,7 +34,7 @@
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
     <!--    <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>-->
     <!--    <xsl:variable name="bodyLayoutInfo" select="//publisherStyleSheet[1]/bodyLayout"/>-->
-    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
+    <!--    <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>-->
     <xsl:variable name="documentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="iAffiliationLayouts" select="count($frontMatterLayoutInfo/affiliationLayout)"/>
     <xsl:variable name="iEmailAddressLayouts" select="count($frontMatterLayoutInfo/emailAddressLayout)"/>
@@ -351,20 +351,22 @@
         date
     -->
     <xsl:template match="date">
-        <div>
-            <xsl:attribute name="class">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sDate"/>
+        <xsl:if test="string-length(.) &gt; 0">
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sDate"/>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <xsl:call-template name="DoFrontMatterFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
                 </xsl:call-template>
-            </xsl:attribute>
-            <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
-            </xsl:call-template>
-        </div>
+                <xsl:apply-templates/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/dateLayout"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
         presentedAt
@@ -5352,6 +5354,7 @@
                                     <xsl:with-param name="lang" select="$lang"/>
                                     <xsl:with-param name="indexTerm" select="."/>
                                 </xsl:call-template>
+                                <xsl:call-template name="OutputTextAfterIndexTerm"/>
                                 <xsl:text>&#xa0;&#xa0;</xsl:text>
                             </a>
                             <xsl:for-each select="$indexedItems">
@@ -5408,6 +5411,7 @@
                             <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->
                             <!--                            <xsl:apply-templates select="term[1]" mode="InIndex"/>-->
                             <xsl:apply-templates select="term[@lang=$lang or position()=1 and not (following-sibling::term[@lang=$lang])]" mode="InIndex"/>
+                            <xsl:text>,</xsl:text>
                             <xsl:call-template name="OutputIndexTermSeeAloneBefore"/>
                             <a>
                                 <xsl:attribute name="href">

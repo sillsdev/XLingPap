@@ -604,6 +604,7 @@ Back Matter Layout
      defaultfontize CDATA #IMPLIED
      useDoubleColumns (yes | no) "no"
      doubleColumnSeparation CDATA #IMPLIED
+     textafterterm CDATA #IMPLIED
     >
 <!ELEMENT referencesTitleLayout EMPTY >
 <!ATTLIST referencesTitleLayout

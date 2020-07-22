@@ -22,7 +22,7 @@
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">2.31.0</xsl:variable>
+    <xsl:variable name="sVersion">3.7.4</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">
@@ -2361,7 +2361,7 @@
     <xsl:template name="SetMetadataCreator">
         <xsl:text>XLingPaper version </xsl:text>
         <xsl:value-of select="$sVersion"/>
-        <xsl:text> (www.xlingpaper.org)</xsl:text>
+        <xsl:text> (https://software.sil.org/xlingpaper/)</xsl:text>
     </xsl:template>
     <!--
         SetMetadataKeywords

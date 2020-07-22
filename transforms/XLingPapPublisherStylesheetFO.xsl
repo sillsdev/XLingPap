@@ -111,6 +111,7 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sListLayoutSpaceBetween" select="normalize-space($contentLayoutInfo/listLayout/@spacebetween)"/>
+    <xsl:variable name="bodyPageNumber" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->
@@ -237,6 +238,7 @@
                     <!-- insert a new line so we don't get everything all on one line -->
                     <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence master-reference="Chapter">
+                        <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                         <xsl:attribute name="initial-page-number">
                             <xsl:variable name="sStartingPageNumber" select="normalize-space($lingPaper/publishingInfo/@startingPageNumber)"/>
                             <xsl:choose>
@@ -305,7 +307,12 @@
             <xsl:when test="$bIsBook and not(ancestor::chapterInCollection)">
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
-                <fo:page-sequence master-reference="FrontMatter" format="i">
+                <fo:page-sequence master-reference="FrontMatter">
+                    <xsl:attribute name="format">
+                        <xsl:call-template name="GetPageNumberingFormat">
+                            <xsl:with-param name="sPageFormat" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
                     <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
                     <fo:flow flow-name="xsl-region-body">
                         <xsl:attribute name="font-family">
@@ -552,7 +559,12 @@
                 <xsl:variable name="layoutInfo" select="$frontMatterLayoutInfo/headerFooterPageStyles"/>
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
-                <fo:page-sequence master-reference="FrontMatterTOC" format="i">
+                <fo:page-sequence master-reference="FrontMatterTOC">
+                    <xsl:attribute name="format">
+                        <xsl:call-template name="GetPageNumberingFormat">
+                            <xsl:with-param name="sPageFormat" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
                     <xsl:if test="$frontMatterLayoutInfo/contentsLayout/@startonoddpage='yes'">
                         <xsl:attribute name="initial-page-number">
                             <xsl:text>auto-odd</xsl:text>
@@ -840,6 +852,7 @@
                         <!-- insert a new line so we don't get everything all on one line -->
                         <xsl:text>&#xa;</xsl:text>
                         <fo:page-sequence master-reference="Chapter">
+                            <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                             <xsl:call-template name="DoInitialPageNumberAttribute">
                                 <xsl:with-param name="layoutInfo" select="$frontMatterLayout/keywordsLayout"/>
                             </xsl:call-template>
@@ -873,19 +886,27 @@
         </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
-      PARTS, CHAPTERS, SECTIONS, and APPENDICES
-      =========================================================== -->
+        PARTS, CHAPTERS, SECTIONS, and APPENDICES
+        =========================================================== -->
     <!--
-      Part
-      -->
+        Part
+    -->
     <xsl:template match="part">
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="Chapter">
+            <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
                     <xsl:when test="contains(name(),'chapter') and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
-                        <xsl:text>1</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="$bodyPageNumber and $bodyPageNumber/@restartCount!='yes'">
+                                <xsl:text>auto-odd</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>1</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:when test="$bodyLayoutInfo/partLayout/partTitleLayout/@startonoddpage='yes'">
                         <xsl:text>auto-odd</xsl:text>
@@ -945,6 +966,7 @@
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="Chapter">
+            <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
             <xsl:attribute name="initial-page-number">
                 <xsl:choose>
                     <xsl:when test="contains(name(),'chapter') and not(parent::part) and position()=1 or preceding-sibling::*[1][name(.)='frontMatter']">
@@ -954,7 +976,14 @@
                                 <xsl:value-of select="$sStartingPageNumberInBook"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text>1</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="$bodyPageNumber and $bodyPageNumber/@restartCount!='yes'">
+                                        <xsl:text>auto-odd</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>1</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -3194,6 +3223,7 @@ not using
                     <!-- insert a new line so we don't get everything all on one line -->
                     <xsl:text>&#xa;</xsl:text>
                     <fo:page-sequence master-reference="Chapter">
+                        <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                         <xsl:call-template name="DoInitialPageNumberAttribute">
                             <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
                         </xsl:call-template>
@@ -3259,6 +3289,7 @@ not using
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Index">
+                    <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                     <xsl:call-template name="DoInitialPageNumberAttribute">
                         <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/indexLayout"/>
                     </xsl:call-template>
@@ -3346,6 +3377,7 @@ not using
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Chapter">
+                    <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                     <xsl:call-template name="DoInitialPageNumberAttribute">
                         <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
                     </xsl:call-template>
@@ -4877,6 +4909,7 @@ not using
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
         <fo:page-sequence master-reference="Chapter">
+            <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
             <xsl:call-template name="DoInitialPageNumberAttribute">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
@@ -4915,7 +4948,12 @@ not using
         <xsl:param name="sRunningHeader"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
-        <fo:page-sequence master-reference="FrontMatterTOC" format="i">
+        <fo:page-sequence master-reference="FrontMatterTOC">
+            <xsl:attribute name="format">
+                <xsl:call-template name="GetPageNumberingFormat">
+                    <xsl:with-param name="sPageFormat" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
+                </xsl:call-template>
+            </xsl:attribute>
             <xsl:call-template name="DoInitialPageNumberAttribute">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
@@ -5053,6 +5091,7 @@ not using
                 <!-- insert a new line so we don't get everything all on one line -->
                 <xsl:text>&#xa;</xsl:text>
                 <fo:page-sequence master-reference="Chapter">
+                    <xsl:call-template name="SetPageNumberFormatInBodyEtc"/>
                     <xsl:call-template name="DoInitialPageNumberAttribute">
                         <xsl:with-param name="layoutInfo" select="$glossaryLayout"/>
                     </xsl:call-template>
@@ -6401,6 +6440,39 @@ not using
     -->
     <xsl:template name="GetFirstLevelContentsIdent">
         <xsl:text>1</xsl:text>
+    </xsl:template>
+    <!--  
+        GetPageNumberingFormat
+    -->
+    <xsl:template name="GetPageNumberingFormat">
+        <xsl:param name="sPageFormat"/>
+        <xsl:param name="sDefault" select="'i'"/>
+        <xsl:choose>
+            <xsl:when test="$sPageFormat='1'">
+                <xsl:text>1</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='01'">
+                <xsl:text>01</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='001'">
+                <xsl:text>001</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='i'">
+                <xsl:text>i</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='I'">
+                <xsl:text>I</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='a'">
+                <xsl:text>a</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='A'">
+                <xsl:text>A</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefault"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleEndnoteInBackMatter
@@ -8131,6 +8203,19 @@ not using
         </xsl:if>
         <xsl:value-of select="$sFirst"/>
         <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <!--  
+        SetPageNumberFormatInBodyEtc
+    -->
+    <xsl:template name="SetPageNumberFormatInBodyEtc">
+        <xsl:if test="$bodyPageNumber and string-length($bodyPageNumber/@format) &gt; 0">
+            <xsl:attribute name="format">
+                <xsl:call-template name="GetPageNumberingFormat">
+                    <xsl:with-param name="sPageFormat" select="$bodyPageNumber/@format"/>
+                    <xsl:with-param name="sDefault" select="1"/>
+                </xsl:call-template>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE

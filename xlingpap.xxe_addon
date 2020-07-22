@@ -46,6 +46,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Fix bug: the format and restartCount attributes of the pageNumber element in a publisher style sheet were never implemented.</li
 ><li
+>Update XLingPaper URL in metadata and also version number.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: using a word description for font-size (like 'smaller') for a footer/header item could cause the PDF to fail to be produced.</li

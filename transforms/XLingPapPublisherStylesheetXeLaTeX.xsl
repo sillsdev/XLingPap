@@ -859,10 +859,7 @@
                     <tex:parm>body</tex:parm>
                 </tex:cmd>
             </xsl:if>
-            <!-- start using arabic page numbers -->
-            <tex:cmd name="pagenumbering">
-                <tex:parm>arabic</tex:parm>
-            </tex:cmd>
+            <xsl:call-template name="SetPageNumberingForBody"/>
         </xsl:if>
         <xsl:call-template name="SetStartingPageNumber">
             <xsl:with-param name="startingPageNumber" select="@startingPageNumber"/>
@@ -1010,10 +1007,7 @@
                     <tex:parm>body</tex:parm>
                 </tex:cmd>
             </xsl:if>
-            <!-- start using arabic page numbers -->
-            <tex:cmd name="pagenumbering">
-                <tex:parm>arabic</tex:parm>
-            </tex:cmd>
+            <xsl:call-template name="SetPageNumberingForBody"/>
         </xsl:if>
         <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
             <xsl:choose>
@@ -5103,7 +5097,11 @@
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:if test="not(ancestor::chapterInCollection)">
             <tex:cmd name="pagenumbering" nl2="1">
-                <tex:parm>roman</tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetPageNumberingFormat">
+                        <xsl:with-param name="sPageFormat" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
+                    </xsl:call-template>
+                </tex:parm>
             </tex:cmd>
         </xsl:if>
         <xsl:call-template name="SetStartingPageNumber"/>
@@ -5709,7 +5707,7 @@
                 <tex:parm>
                     <xsl:value-of select="$sSpaceBefore"/>
                 </tex:parm>
-             </tex:cmd>
+            </tex:cmd>
         </xsl:if>
         <tex:cmd name="hangindent" gr="0"/>
         <xsl:value-of select="$referencesLayoutInfo/@hangingindentsize"/>
@@ -6662,6 +6660,33 @@
                     <xsl:with-param name="originalContext" select="$originalContext"/>
                     <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                 </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        GetPageNumberingFormat
+    -->
+    <xsl:template name="GetPageNumberingFormat">
+        <xsl:param name="sPageFormat"/>
+        <xsl:param name="sDefault" select="'roman'"/>
+        <xsl:choose>
+            <xsl:when test="contains($sPageFormat,'1')">
+                <xsl:text>arabic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='i'">
+                <xsl:text>roman</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='I'">
+                <xsl:text>Roman</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='a'">
+                <xsl:text>alph</xsl:text>
+            </xsl:when>
+            <xsl:when test="$sPageFormat='A'">
+                <xsl:text>Alph</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefault"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -9005,6 +9030,60 @@
             </xsl:when>
             <xsl:otherwise>
                 <tex:cmd name="rightmark" gr="0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetPageNumberingForBody
+    -->
+    <xsl:template name="SetPageNumberingForBody">
+        <xsl:variable name="pageNumber" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]"/>
+        <xsl:variable name="sPageNumberFrontMatter" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
+        <xsl:choose>
+            <xsl:when test="$pageNumber and $sPageNumberFrontMatter">
+                <xsl:if test="$pageNumber/@restartCount!='yes'">
+                    <!-- save current page number -->
+                    <tex:cmd name="newcounter" nl1="0" nl2="0">
+                        <tex:parm>XLingPaperpagecount</tex:parm>
+                    </tex:cmd>
+                    <tex:cmd name="setcounter" nl1="0" nl2="0">
+                        <tex:parm>
+                            <xsl:text>XLingPaperpagecount</xsl:text>
+                        </tex:parm>
+                        <tex:parm>
+                            <tex:cmd name="thepage" gr="0" nl1="0" nl2="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+                <tex:cmd name="pagenumbering">
+                    <tex:parm>
+                        <xsl:call-template name="GetPageNumberingFormat">
+                            <xsl:with-param name="sPageFormat" select="normalize-space($pageNumber/@format)"/>
+                            <xsl:with-param name="sDefault" select="'arabic'"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
+                <xsl:if test="$pageNumber/@restartCount!='yes'">
+                    <!-- reset page number -->
+                    <tex:cmd name="setcounter" nl1="0" nl2="0">
+                        <tex:parm>
+                            <xsl:text>page</xsl:text>
+                        </tex:parm>
+                        <tex:parm>
+                            <tex:cmd name="theXLingPaperpagecount" gr="0" nl1="0" nl2="0"/>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="pagenumbering">
+                    <tex:parm>
+                        <xsl:call-template name="GetPageNumberingFormat">
+                            <xsl:with-param name="sPageFormat" select="normalize-space($pageNumber/@format)"/>
+                            <xsl:with-param name="sDefault" select="'arabic'"/>
+                        </xsl:call-template>
+                    </tex:parm>
+                </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

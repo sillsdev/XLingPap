@@ -301,7 +301,7 @@ Page Layout
 <!ELEMENT pageNumber EMPTY> 
 <!ATTLIST pageNumber 
    format CDATA #IMPLIED
-   restartCount (yes | no) "no"
+   restartCount (yes | no) "yes"
        %formatinfo;
 >
    <!-- 

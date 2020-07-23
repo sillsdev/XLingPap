@@ -1957,11 +1957,39 @@ textbefore="  "
 textafter=")"
 textbefore="  ("
 ></dateAccessedItem
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
 ><urlItem
 textbefore="  "
 ></urlItem
+><dateAccessedItem
+textafter=")"
+textbefore="  ("
+></dateAccessedItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><urlItem
+textbefore="  "
+></urlItem
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><urlItem
+textbefore="  "
+></urlItem
+></urlDateAccessedLayout
+><urlDateAccessedLayout
+><doiItem
+textafter="."
+textbefore="  doi:"
+></doiItem
 ></urlDateAccessedLayout
 ><urlDateAccessedLayout
 ><missingItem

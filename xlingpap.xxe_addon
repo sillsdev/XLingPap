@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-07-22</a:date
+>2020-07-23</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,13 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.4 21 July 2020<ul
+>3.7.4 23 July 2020<ul
 ><li
 >Add ability to control what text, if any, comes after an index term in the index output via the (new) textafterterm attribute of the indexLayout element in a publisher style sheet. Also, fix an inconsistency: the default XeLaTeX PDF used to use a comma after a term while the other outputs did not. Now all outputs show a space after the term unless this new attribute is set to something (like a comma). In addition, when outputting a "see" index item, there is now always a comma before the "see".</li
 ><li
 >Fix bug: the format and restartCount attributes of the pageNumber element in a publisher style sheet were never implemented.</li
 ><li
 >Update XLingPaper URL in metadata and also version number.</li
+><li
+>Add doi formatting to SIL-UND references style sheets.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

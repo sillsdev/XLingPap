@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 June 2020</date
+>24 July 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.2</version
+>2.37.5</version
 ><version
 contentType="ctVersion7Plus"
->3.7.2</version
+>3.7.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -22578,10 +22578,13 @@ type="tXMLmindXMLEditor"
 ><indexedItem
 term="iPDFFile"
 ></indexedItem
->While it will handle PDF files included as graphic files, these PDF files must be PDF version 1.4 or older. Newer PDF file versions will not work (the PDF for the <object
+>While it will handle PDF files included as graphic files, these PDF files must be PDF version 1.5 or older. Newer PDF file versions will not work (the PDF for the <object
 type="tXLingPap"
 ></object
-> document will fail to be produced). Note that the image will not display correctly within the <object
+> document will fail to be produced). See <link
+href="https://docupub.com/pdfconvert/"
+>https://docupub.com/pdfconvert/</link
+> for one possible way to do the conversion. Note that the image will not display correctly within the <object
 type="tXMLmindXMLEditor"
 ></object
 > since, to my knowledge, there is no add-on package that will display .pdf files within the <object
@@ -24391,8 +24394,8 @@ term="iPDFCommentIn"
 >How can one do this with <object
 type="tXLingPap"
 ></object
->? There are at least two ways:</p
-><ul
+>? There are at least three ways:</p
+><ol
 ><li
 >Produce a webpage version (see section <sectionRef
 sec="sFAQProduceWebpage"
@@ -24418,7 +24421,12 @@ type="tTool"
 href="http://www.foxitsoftware.com/"
 >http://www.foxitsoftware.com/</link
 >.</li
-></ul
+><li
+><indexedItem
+term="iPDFCommentInGoogleDrive"
+></indexedItem
+>If you have access to Google Drive, upload your PDF to that drive. Open the PDF (do not convert it to a Google Doc). You and your colleagues can then use the commenting capability in Google Drive to add comments, reply to comments, etc.</li
+></ol
 ></section2
 ><section2
 id="sFAQCreateHandout"
@@ -35601,6 +35609,12 @@ id="iGlossaryTermSpacingAfter"
 ></indexTerms
 ></indexTerm
 ><indexTerm
+id="iGoogleDrive"
+see="iPDFCommentInGoogleDrive"
+><term
+>Google Drive</term
+></indexTerm
+><indexTerm
 id="iGraphicFile"
 see="iImageFiles"
 ><term
@@ -36295,6 +36309,11 @@ id="iPDF"
 id="iPDFCommentIn"
 ><term
 >Comment in PDF</term
+></indexTerm
+><indexTerm
+id="iPDFCommentInGoogleDrive"
+><term
+>Comment in PDF with Google Drive</term
 ></indexTerm
 ><indexTerm
 id="iPDFMergeTools"

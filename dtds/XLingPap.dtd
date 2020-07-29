@@ -122,6 +122,7 @@
     defaultVernacularLanguage IDREF #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
     showExampleIdOnHoverInWebpage (yes | no) "no"
+    useImageWidthSetToWidthOfExampleFigureOrChart (yes | no) "no"
 >
 <!-- Languages groups a set of language definitions.  This is at the end because it looks better in a tool like XMLMind -->
 <!ELEMENT languages (language+)>

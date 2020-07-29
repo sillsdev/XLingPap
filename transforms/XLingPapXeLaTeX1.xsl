@@ -177,6 +177,9 @@
                 <xsl:if test="$bHasIndex='Y'">
                     <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
                 </xsl:if>
+                <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
+                    <xsl:call-template name="SetImgWidths"/>
+                </xsl:if>
             </tex:env>
         </tex:TeXML>
     </xsl:template>

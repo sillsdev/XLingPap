@@ -2,10 +2,11 @@
 <!DOCTYPE xlingpaper PUBLIC "-//XMLmind//DTD XLingPap//EN"
 "XLingPap.dtd">
 <xlingpaper
-version="2.28.0"
 ><styledPaper
 ><lingPaper
-version="2.28.0"
+automaticallywrapinterlinears="yes"
+useImageWidthSetToWidthOfExampleFigureOrChart="yes"
+version="3.8.0"
 ><comment
 >Template for producing an illustration article for submission to the Journal of the IPA.</comment
 ><frontMatter

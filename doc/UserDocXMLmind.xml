@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->24 July 2020</date
+>29 July 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.37.5</version
@@ -14618,6 +14618,62 @@ note="nAttributesToolReminder"
 ></endnoteRef
 ></p
 ><p
+><indexedItem
+term="iImageWidth"
+></indexedItem
+><indexedItem
+term="iLandscape"
+></indexedItem
+>Beginning with version 3.7.5 of <object
+type="tXLingPap"
+></object
+>, it is possible to have the <object
+type="tXeTeX"
+></object
+> way of producing PDF attempt to fit an image within an <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>chart</object
+>, or <object
+type="tElement"
+>figure</object
+>. To make this fitting happen, you click on <object
+type="tInstruction"
+>lingPaper</object
+> in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and then set the <object
+type="tAttribute"
+>useImageWidthSetToWidthOfExampleFigureOrChart</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> via the Attributes Tool.  Note that if an <object
+type="tElement"
+>example</object
+>, <object
+type="tElement"
+>chart</object
+> or <object
+type="tElement"
+>figure</object
+> occurs within a <object
+type="tElement"
+>landscape</object
+> element, you may well need to manually set the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of the <object
+type="tElement"
+>img</object
+> element to use a “width” value.  See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>.</p
+><p
 >Note that if you try to use “plain” text instead of an image in a chart, you will probably want to use non-breaking spaces<endnote
 id="nNonBreakingSpace"
 ><p
@@ -14853,13 +14909,28 @@ type="tXeTeX"
 ></object
 > way of producing PDF (the default method)</td
 ><td
+><indexedItem
+term="iImageWidth"
+></indexedItem
 >Set the <object
 type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute to use the <object
 type="tAttrValue"
 >scaled</object
-> parameter. See appendix <appendixRef
+> parameter or, if you have set the <object
+type="tAttribute"
+>useImageWidthSetToWidthOfExampleFigureOrChart</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> on the <object
+type="tElement"
+>lingPaper</object
+> element, use the <object
+type="tAttrValue"
+>width</object
+> parameter.  See appendix <appendixRef
 app="aXeLaTeXSpecial"
 ></appendixRef
 > for more.</td
@@ -22622,7 +22693,7 @@ app="aXeLaTeXSpecial"
 ></appendixRef
 >) on the last item on the preceding page (if it's a table, try it on one of the rows in the table).</li
 ><li
->In very rare circumstances, you may get a blank page before a table at the top of the page. Try settting the table's <object
+>In very rare circumstances, you may get a blank page before a table at the top of the page. Try setting the table's <object
 type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute to <object
@@ -22636,6 +22707,17 @@ type="tAttrValue"
 href="http://www.neuber.com/typograph/index.html"
 >http://www.neuber.com/typograph/index</link
 >. Please note that it is *crucial* that you run TypoGraf as Administrator when you try and delete a duplicate font. If you do not, it will look like the font is deleted but it will not be.</li
+><li
+>If you are processing a language that needs a special script (such as one where you would use the “script” <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute value as described in appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>) and you are using the <object
+type="tTeXLive2020XeLaTeX"
+></object
+>, you must change all "script” values to be “Script” and you must use the appropriate value that polyglossia expects.  Otherwise, the PDF will fail to be produced.</li
 ></ol
 ></section4
 ><section4
@@ -24425,7 +24507,7 @@ href="http://www.foxitsoftware.com/"
 ><indexedItem
 term="iPDFCommentInGoogleDrive"
 ></indexedItem
->If you have access to Google Drive, upload your PDF to that drive.  Open the PDF (do not convert it to a Google Doc). You and your colleagues can then use the commenting capability in Google Drive to add comments, reply to comments, etc.</li
+>If you have access to Google Drive, upload your PDF to that drive. Open the PDF (do not convert it to a Google Doc). You and your colleagues can then use the commenting capability in Google Drive to add comments, reply to comments, etc.</li
 ></ol
 ></section2
 ><section2
@@ -33732,7 +33814,10 @@ term="iXeLaTeXUpgrade"
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
 href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 >http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
->.</td
+>.  If you are using the <object
+type="tTeXLive2020XeLaTeX"
+></object
+>, only the name version of the font feature will work.</td
 ><td
 ><table
 ><tr
@@ -34092,7 +34177,10 @@ type="tElement"
 >Adjust the scaling factor of the image. This only works on an <object
 type="tElement"
 >img</object
-> element.</td
+> element.  Note also that this does not work at all when using the <object
+type="tTeXLive2020XeLaTeX"
+></object
+>.  Use the “width” value instead, if needed.</td
 ><td
 ><table
 ><tr
@@ -34128,6 +34216,32 @@ type="tAttribute"
 ><tr
 ><td
 >script='beng'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>Script</td
+><td
+>script code</td
+><td
+>For Open Type fonts, it sets the font script tag to what the polyglossia LaTeX package needs. This only works on elements that have a <object
+type="tAttribute"
+>font-family</object
+> attribute.  Use this for the <object
+type="tTeXLive2020XeLaTeX"
+></object
+> (such as on Mac OS X Catalina).</td
+><td
+><table
+><tr
+><td
+>Script='Arabic'</td
+></tr
+><tr
+><td
+>Script='Bengali'</td
 ></tr
 ></table
 ></td
@@ -34256,6 +34370,41 @@ type="tElement"
 ><tr
 ><td
 >vertical-adjustment='-1.5ex'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+>width</td
+><td
+>a numerical value followed immediately by a unit of measure (such as pt, in, cm, em, or mm).</td
+><td
+>The image will be produced using the width specified (this only works on an <object
+type="tElement"
+>img</object
+> element).  This is always available when using the <object
+type="tTeXLive2020XeLaTeX"
+></object
+>.  You can also set the <object
+type="tAttribute"
+>useImageWidthSetToWidthOfExampleFigureOrChart</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> on the <object
+type="tElement"
+>lingPaper</object
+> element and then this value will be used to override any other default value.</td
+><td
+><table
+><tr
+><td
+>width='4in'</td
+></tr
+><tr
+><td
+>width='5cm'</td
 ></tr
 ></table
 ></td

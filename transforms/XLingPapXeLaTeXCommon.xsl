@@ -4857,14 +4857,44 @@
             <xsl:value-of select="$sAdjustedImageFile"/>
             <xsl:text>" </xsl:text>
         </tex:cmd>
-        <!-- I'm not sure why, but it sure appears that all graphics need to be scaled down by 75% or so;  allow the user to fine tune this-->
-        <xsl:text>scaled </xsl:text>
-        <xsl:variable name="default" select="750"/>
-        <xsl:variable name="sPattern" select="'scaled='"/>
-        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
-            <xsl:with-param name="sPattern" select="$sPattern"/>
-            <xsl:with-param name="default" select="$default"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
+                <xsl:choose>
+                    <xsl:when test="contains(@XeLaTeXSpecial,'width=')">
+                        <xsl:text>width </xsl:text>
+                        <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                            <xsl:with-param name="sPattern" select="'width='"/>
+                            <xsl:with-param name="default" select="'4in'"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="ancestor::p or ancestor::pc or ancestor::table">
+                        <!-- do nothing; user will need to adjust -->
+                    </xsl:when>
+                    <xsl:when test="ancestor::example">
+                        <xsl:text>width </xsl:text>
+                        <tex:cmd name="XLingPaperImgInExampleWidth" gr="0" nl2="0"/>
+                    </xsl:when>
+                    <xsl:when test="ancestor::figure or ancestor::chart">
+                        <xsl:text>width </xsl:text>
+                        <tex:cmd name="XLingPaperImgInFigureWidth" gr="0" nl2="0"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>width </xsl:text>
+                        <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- I'm not sure why, but it sure appears that all graphics need to be scaled down by 75% or so;  allow the user to fine tune this-->
+                <xsl:text>scaled </xsl:text>
+                <xsl:variable name="default" select="750"/>
+                <xsl:variable name="sPattern" select="'scaled='"/>
+                <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                    <xsl:with-param name="sPattern" select="$sPattern"/>
+                    <xsl:with-param name="default" select="$default"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <tex:spec cat="eg"/>
     </xsl:template>
     <!--  
@@ -10980,6 +11010,45 @@
                 <tex:cmd name="footrulewidth" gr="0"/>
             </tex:parm>
             <tex:parm>0pt</tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
+        SetImgWidths
+    -->
+    <xsl:template name="SetImgWidths">
+        <!-- img elements are handled differently -->
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPaperImgInExampleWidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="newlength">
+            <tex:parm>
+                <tex:cmd name="XLingPaperImgInFigureWidth" gr="0"/>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="setlength">
+            <tex:parm>
+                <tex:cmd name="XLingPaperImgInExampleWidth" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="$sExampleIndentBefore"/>
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="$sExampleIndentAfter"/>
+                <xsl:text> - </xsl:text>
+                <xsl:value-of select="$iNumberWidth"/>
+                <xsl:text>em</xsl:text>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="setlength">
+            <tex:parm>
+                <tex:cmd name="XLingPaperImgInFigureWidth" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="textwidth" gr="0" nl2="0"/>
+            </tex:parm>
         </tex:cmd>
     </xsl:template>
     <!--  

@@ -128,6 +128,11 @@ cssSpecial="margin-left:.5in;"
 id="tTableCSS"
 ></type
 ><type
+after="TeX Live 2020 version of XeLaTeX"
+id="tTeXLive2020XeLaTeX"
+types="tTool"
+></type
+><type
 color="navy"
 font-family="Courier New"
 font-weight="bold"

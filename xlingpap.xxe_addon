@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-07-24</a:date
+>2020-07-29</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -35,6 +35,18 @@ href="mailto::xlingpaper_support@sil.org"
 >2.37.5 24 July 2020<ul
 ><li
 >In the user documentation, add use of Google Drive as a way to collaboratively comment on a PDF file.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Allow use of TeX Live 2020 versions of XeLaTeX and LaTeX macros. This is especially needed for Mac OS X Catalina and higher.</li
+><li
+>Allow img elements to have a XeLaTeXSpecial value of width='xyz'; the image will be formatted to scale to that width. (TeX Live 2020 XeLaTeX ignores the scaled option.</li
+><li
+>Allow img elements to default to using the width of an example, figure, or chart via the useImageWidthSetToWidthOfExampleFigureOrChart attribute on the lingPaper element.</li
+><li
+>Allow font-related elements to have a XeLaTeXSpecial attribute value of Script='Arabic' as well as script='arab'. (TeX Live 2020 does not recognize script='arab'; actually, it causes the PDF to fail to be produced.)</li
+></ul
+></li
 ></ul
 ></li
 ><li

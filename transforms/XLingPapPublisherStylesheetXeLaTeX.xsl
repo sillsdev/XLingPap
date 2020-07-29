@@ -250,6 +250,9 @@
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                     <xsl:call-template name="SetFootnoteLayout"/>
                 </xsl:if>
+                <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
+                    <xsl:call-template name="SetImgWidths"/>
+                </xsl:if>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>

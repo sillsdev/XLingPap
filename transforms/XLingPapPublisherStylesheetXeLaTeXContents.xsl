@@ -23,6 +23,9 @@
                 <xsl:text>pt</xsl:text>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="contains(@XeLaTeXSpecial,'contentsbreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
+        </xsl:if>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="@id"/>
         </xsl:call-template>
@@ -240,6 +243,9 @@
         <xsl:if test="saxon:node-set($contentsLayout)/contentsLayout/@singlespaceeachcontentline='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:if test="contains(@XeLaTeXSpecial,'contentsbreak')">
+            <tex:cmd name="pagebreak" nl2="0"/>
         </xsl:if>
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="$sLink"/>

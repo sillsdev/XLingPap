@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->29 July 2020</date
+>5 August 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.5</version
+>2.37.6</version
 ><version
 contentType="ctVersion7Plus"
->3.7.5</version
+>3.7.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -14651,7 +14651,7 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
-> via the Attributes Tool.  Note that if an <object
+> via the Attributes Tool. Note that if an <object
 type="tElement"
 >example</object
 >, <object
@@ -14669,7 +14669,7 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >img</object
-> element to use a “width” value.  See appendix <appendixRef
+> element to use a “width” value. See appendix <appendixRef
 app="aXeLaTeXSpecial"
 ></appendixRef
 >.</p
@@ -14930,7 +14930,7 @@ type="tElement"
 > element, use the <object
 type="tAttrValue"
 >width</object
-> parameter.  See appendix <appendixRef
+> parameter. See appendix <appendixRef
 app="aXeLaTeXSpecial"
 ></appendixRef
 > for more.</td
@@ -22717,7 +22717,7 @@ app="aXeLaTeXSpecial"
 >) and you are using the <object
 type="tTeXLive2020XeLaTeX"
 ></object
->, you must change all "script” values to be “Script” and you must use the appropriate value that polyglossia expects.  Otherwise, the PDF will fail to be produced.</li
+>, you must change all "script” values to be “Script” and you must use the appropriate value that polyglossia expects. Otherwise, the PDF will fail to be produced.</li
 ></ol
 ></section4
 ><section4
@@ -33746,6 +33746,23 @@ gref="gXeLaTeXpagebreak"
 ><tr
 ><td
 ><indexedItem
+main="yes"
+term="iPageBreak"
+></indexedItem
+>contentsbreak</td
+><td
+><object
+type="tItalic"
+>none</object
+></td
+><td
+>Force a page break before this item in the table of contents.</td
+><td
+>contentsbreak</td
+></tr
+><tr
+><td
+><indexedItem
 term="ifix-final-landscape"
 ></indexedItem
 >fix-final-landscape</td
@@ -33814,7 +33831,7 @@ term="iXeLaTeXUpgrade"
 >It also requires you to have installed the XeLaTeX Upgrade package. See <link
 href="http://software.sil.org/xlingpaper/resources/xelatex-upgrade/"
 >http://software.sil.org/xlingpaper/resources/xelatex-upgrade/</link
->.  If you are using the <object
+>. If you are using the <object
 type="tTeXLive2020XeLaTeX"
 ></object
 >, only the name version of the font feature will work.</td
@@ -34177,10 +34194,10 @@ type="tElement"
 >Adjust the scaling factor of the image. This only works on an <object
 type="tElement"
 >img</object
-> element.  Note also that this does not work at all when using the <object
+> element. Note also that this does not work at all when using the <object
 type="tTeXLive2020XeLaTeX"
 ></object
->.  Use the “width” value instead, if needed.</td
+>. Use the “width” value instead, if needed.</td
 ><td
 ><table
 ><tr
@@ -34229,7 +34246,7 @@ type="tAttribute"
 >For Open Type fonts, it sets the font script tag to what the polyglossia LaTeX package needs. This only works on elements that have a <object
 type="tAttribute"
 >font-family</object
-> attribute.  Use this for the <object
+> attribute. Use this for the <object
 type="tTeXLive2020XeLaTeX"
 ></object
 > (such as on Mac OS X Catalina).</td
@@ -34383,10 +34400,10 @@ type="tElement"
 >The image will be produced using the width specified (this only works on an <object
 type="tElement"
 >img</object
-> element).  This is always available when using the <object
+> element). This is always available when using the <object
 type="tTeXLive2020XeLaTeX"
 ></object
->.  You can also set the <object
+>. You can also set the <object
 type="tAttribute"
 >useImageWidthSetToWidthOfExampleFigureOrChart</object
 > attribute to <object
@@ -35165,6 +35182,13 @@ id="iColorType"
 id="iContents"
 ><term
 >Contents</term
+><indexTerms
+><indexTerm
+id="iPageBreak"
+><term
+>Force a page break</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iConvertPaperToChapterInCollection"

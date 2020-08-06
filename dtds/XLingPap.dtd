@@ -221,18 +221,21 @@
 >
 <!ELEMENT abstract (labelContentChoices?, shortTitle?, (%chunk;)+)>
 <!ATTLIST abstract
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT preface (labelContentChoices?, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere | listOfFiguresShownHere | listOfTablesShownHere | glossaryTermsShownHere | glossaryTermsShownHereAsDefinitionList | iso639-3codesShownHere)+)>
 <!ATTLIST preface
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT contents (labelContentChoices?, shortTitle?)>
 <!ATTLIST contents
+    XeLaTeXSpecial CDATA #IMPLIED
     showLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
     label CDATA #IMPLIED
     backmattershowLevel (1 | 2 | 3 | 4 | 5 | 6 | 0) "3"
@@ -245,6 +248,7 @@
 -->
 <!ELEMENT keywordsShownHere (labelContentChoices?, shortTitle?) >
 <!ATTLIST keywordsShownHere
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     showincontents (yes | no) "no"
 >
@@ -252,6 +256,7 @@
 <!-- Main content -->
 <!ELEMENT part (secTitle, shortTitle?,(%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
@@ -267,12 +272,14 @@
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
 <!ELEMENT chapterInCollection (frontMatter, (%chunk; | landscape | framedUnit)*, section1*, backMatter?, publishingInfo?) >
 <!ATTLIST chapterInCollection
+    XeLaTeXSpecial CDATA #IMPLIED
     id ID #REQUIRED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
@@ -923,6 +930,7 @@
 <!-- endnotes -->
 <!ELEMENT endnotes (labelContentChoices?, shortTitle?, chapterLabelContentChoices?, appendixLabelContentChoices?, partLabelContentChoices?)>
 <!ATTLIST endnotes
+    XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
 >
 <!-- following three are used for controlling label of each kind in endnotes in a book when using endnotes instead of footnotes -->

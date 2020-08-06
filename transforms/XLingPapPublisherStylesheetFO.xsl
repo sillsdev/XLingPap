@@ -6206,6 +6206,7 @@ not using
         <fo:block id="{@id}" keep-with-next.within-page="always">
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
+                <xsl:with-param name="bCHeckLineBefore" select="'N'"/>
             </xsl:call-template>
             <xsl:call-template name="DoType"/>
             <xsl:if test="$layoutInfo/@showInHeader!='no'">
@@ -6401,6 +6402,12 @@ not using
         <xsl:call-template name="DoFrontMatterFormatInfo">
             <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
         </xsl:call-template>
+        <xsl:if test="$layoutInfo/@linebefore='yes'">
+            <xsl:call-template name="DoHorizontalRule">
+                <xsl:with-param name="line-weight" select="normalize-space($layoutInfo/@linebefore-weight)"/>
+                <xsl:with-param name="sFOProcessor" select="$sFOProcessor"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--  
                   DoType

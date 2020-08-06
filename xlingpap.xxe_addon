@@ -32,6 +32,18 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
+>2.37.6 6 August 2020<ul
+><li
+>Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li
+></ul
+></li
+></ul
+></li
+><li
 >2.37.5 24 July 2020<ul
 ><li
 >In the user documentation, add use of Google Drive as a way to collaboratively comment on a PDF file.</li

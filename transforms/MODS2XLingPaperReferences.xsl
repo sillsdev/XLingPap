@@ -246,9 +246,16 @@
             <xsl:variable name="pages" select="../m:relatedItem[@type='host']/m:part/m:extent[@unit='pages']"/>
             <xsl:if test="$pages">
                 <jPages>
-                    <xsl:value-of select="$pages/m:start"/>
-                    <xsl:text>-</xsl:text>
-                    <xsl:value-of select="$pages/m:end"/>
+                    <xsl:choose>
+                        <xsl:when test="$pages/m:list">
+                            <xsl:value-of select="$pages/m:list"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$pages/m:start"/>
+                            <xsl:text>-</xsl:text>
+                            <xsl:value-of select="$pages/m:end"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </jPages>
             </xsl:if>
             <!-- location and publisher go here,if such exist -->

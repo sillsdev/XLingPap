@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-06</a:date
+>2020-08-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,13 +32,19 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.6 6 August 2020<ul
+>2.37.6 14 August 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li
+></ul
+></li
+><li
+>Converting Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: jPages could end up being just a dash.</li
 ></ul
 ></li
 ></ul

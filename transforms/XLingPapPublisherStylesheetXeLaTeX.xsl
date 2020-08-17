@@ -5886,22 +5886,29 @@
             <xsl:if test="contains(key('TypeID',@type)/@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
-            <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
+            <!-- 2020.08.17
+                We used to put the book mark info here because of there was a text transform, PDF would fail.
+                It also caused some cases of section items to format incorrectly.
+                Now it seems to work fine for sections.  Not sure what changed.
+                (Maybe thr ptoblem was for chapter, appendix, front and back matter titles and not sections??)
+                So we are just using the normal case for sections for now.
+            -->
+<!--            <xsl:variable name="sTextTransform" select="$formatTitleLayoutInfo/@text-transform"/>
             <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
-            </xsl:if>
+            </xsl:if>-->
             <xsl:call-template name="DoTitleFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
             </xsl:call-template>
-            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+<!--            <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">-->
                 <xsl:call-template name="DoBookMark"/>
                 <xsl:call-template name="DoInternalTargetBegin">
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
-            </xsl:if>
+<!--            </xsl:if>-->
             <xsl:call-template name="OutputSectionNumber">
                 <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
                 <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>

@@ -4640,6 +4640,12 @@ not using
                             <xsl:value-of select="$layoutInfo/@textalign"/>
                         </xsl:attribute>
                     </xsl:if>
+                    <xsl:variable name="sSpaceBetweenTextAndLine" select="normalize-space($pageLayoutInfo/footnoteLine/@spacebetweentextandline)"/>
+                    <xsl:if test="string-length($sSpaceBetweenTextAndLine) &gt; 0">
+                        <xsl:attribute name="space-before">
+                            <xsl:value-of select="$sSpaceBetweenTextAndLine"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:if test="$layoutInfo/@leaderpattern and $layoutInfo/@leaderpattern!='none'">
                         <fo:leader>
                             <xsl:attribute name="leader-pattern">

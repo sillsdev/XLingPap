@@ -253,6 +253,19 @@
                 <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
                     <xsl:call-template name="SetImgWidths"/>
                 </xsl:if>
+                <xsl:variable name="sSpaceBetweenTextAndLine" select="normalize-space($pageLayoutInfo/footnoteLine/@spacebetweentextandline)"/>
+                <xsl:if test="string-length($sSpaceBetweenTextAndLine) &gt; 0">
+                    <tex:cmd name="setlength">
+                        <tex:parm>
+                            <tex:cmd name="skip" gr="0"/>
+                            <tex:cmd name="footins" gr="0"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:value-of select="$sSpaceBetweenTextAndLine"/>
+                            <xsl:text> plus 5pt minus 2pt</xsl:text>
+                        </tex:parm>
+                    </tex:cmd>
+                </xsl:if>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:cmd name="pagestyle">
                     <tex:parm>fancy</tex:parm>

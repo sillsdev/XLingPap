@@ -87,6 +87,7 @@ Page Layout
       leaderpattern (space | rule | dots | none) "none"
       leaderlength CDATA #IMPLIED
       leaderwidth CDATA #IMPLIED
+      spacebetweentextandline CDATA #IMPLIED
     >
     <!ELEMENT footnoteIndent (#PCDATA) >
     <!ELEMENT hangingIndentInitialIndent (#PCDATA) >

@@ -606,6 +606,7 @@ Back Matter Layout
      useDoubleColumns (yes | no) "no"
      doubleColumnSeparation CDATA #IMPLIED
      textafterterm CDATA #IMPLIED
+     textBeforeSeeAlso CDATA #IMPLIED
     >
 <!ELEMENT referencesTitleLayout EMPTY >
 <!ATTLIST referencesTitleLayout

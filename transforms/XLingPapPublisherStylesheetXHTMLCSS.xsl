@@ -1847,6 +1847,7 @@ li.lower-roman {
     <xsl:template match="@textBeforeCapitalizedPluralOverride"/>
     <xsl:template match="@textBeforeCapitalizedSingularOverride"/>
     <xsl:template match="@textBeforePluralOverride"/>
+    <xsl:template match="@textBeforeSeeAlso"/>
     <xsl:template match="@textBeforeSingularOverride"/>
     <xsl:template match="@textbetweenchapterandnumber"/>
     <xsl:template match="@textBetweenChapterNumberAndExampleNumber"/>

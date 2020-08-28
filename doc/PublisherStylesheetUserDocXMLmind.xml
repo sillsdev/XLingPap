@@ -3955,6 +3955,15 @@ type="tAttribute"
 ></tr
 ><tr
 ><td
+><object
+type="tAttribute"
+>textBeforeSeeAlso</object
+></td
+><td
+>This contains any text you want to occur before any ‘see’ or ‘see also’ items in the index. The default is two non-breaking spaces.</td
+></tr
+><tr
+><td
 ><indexedItem
 term="iDoubleColumn"
 ></indexedItem

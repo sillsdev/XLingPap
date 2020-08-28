@@ -44,7 +44,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
->Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet.  It specifies the amount of vertical space between the text and any footnote line.</li
+>Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet. It specifies the amount of vertical space between the text and any footnote line.</li
+><li
+>Add the textBeforeSeeAlso attribute to the indexLayout element to control what comes between the last page number and any 'see' or 'see also' items.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

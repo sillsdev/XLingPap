@@ -163,7 +163,9 @@
     </xsl:variable>
     <xsl:variable name="sMediaObjectFontFamily" select="'Symbola'"/>
     <xsl:variable name="sBackMatterContentsIdAddOn" select="'BM'"/>
-
+    <xsl:variable name="sTextAfterTerm" select="$backMatterLayoutInfo/indexLayout/@textafterterm"/>
+    <xsl:variable name="sTextBeforeSeeAlso" select="$backMatterLayoutInfo/indexLayout/@textBeforeSeeAlso"/>
+    
     <!-- 
         afterTerm 
     -->
@@ -2060,7 +2062,14 @@
         OutputIndexTermSeeAloneBefore
     -->
     <xsl:template name="OutputIndexTermSeeAloneBefore">
-        <xsl:text>&#xa0;&#xa0;</xsl:text>
+        <xsl:choose>
+            <xsl:when test="string-length($sTextBeforeSeeAlso) &gt; 0">
+                <xsl:value-of select="$sTextBeforeSeeAlso"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#xa0;&#xa0;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:choose>
             <xsl:when test="$indexSeeDefinition">
                 <xsl:value-of select="$indexSeeDefinition/seeTerm/beforeTerm"/>

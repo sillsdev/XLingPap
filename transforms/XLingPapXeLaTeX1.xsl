@@ -159,6 +159,9 @@
                 <xsl:call-template name="HandleHyphenationExceptionsFile"/>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:env name="MainFont">
+                    <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
+                        <xsl:call-template name="SetImgWidths"/>
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="$chapters">
                             <xsl:apply-templates/>
@@ -176,9 +179,6 @@
                 </xsl:if>
                 <xsl:if test="$bHasIndex='Y'">
                     <tex:cmd name="XLingPaperendindex" gr="0" nl2="1"/>
-                </xsl:if>
-                <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
-                    <xsl:call-template name="SetImgWidths"/>
                 </xsl:if>
             </tex:env>
         </tex:TeXML>

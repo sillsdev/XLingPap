@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-17</a:date
+>2020-08-28</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.6 17 August 2020<ul
+>3.7.6 28 August 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li
 ><li
 >Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li
+><li
+>Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li
 ></ul
 ></li
 ><li

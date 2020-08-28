@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 July 2020</date
+>28 August 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.4</version
+>2.37.6</version
 ><version
 contentType="ctVersion7Plus"
->3.7.4</version
+>3.7.6</version
 ><contents
 showLevel="6"
 ></contents
@@ -567,13 +567,16 @@ src="resources/FootnoteLineSeparator.png"
 ></chart
 ></example
 ><p
->Only the <object
+>The <object
 type="tRenderX"
 ></object
-> way of producing PDF pays attention to these attributes. Neither the <object
+> way of producing PDF pays attention to these attributes. The <object
 type="tXeTeX"
 ></object
-> way of producing PDF nor the XHTML way pay attention to them. The attributes are described in example <exampleRef
+> way of producing PDF can only process the <object
+type="tAttribute"
+>spacebetweentextandline</object
+> attribute. The XHTML way ignores them all. The attributes are described in example <exampleRef
 letter="xFootnoteLineSeparatorAttributes"
 num="xFootnoteLineSeparatorAttributes"
 ></exampleRef
@@ -711,6 +714,45 @@ type="tAttrValue"
 ><object
 type="tAttrValue"
 >.0125in</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>spacebetweentextandline</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is the approximate space between the text and the footnote line given in terms of one of the standard units of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>14pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>.125in</object
 ></td
 ></tr
 ></table

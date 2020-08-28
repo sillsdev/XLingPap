@@ -1836,6 +1836,7 @@ li.lower-roman {
     <xsl:template match="@spaceBetweenEntriesAuthorOverDateStyle"/>
     <xsl:template match="@spaceBetweenEntryAndAuthorInAuthorOverDateStyle"/>
     <xsl:template match="@spaceBetweenTableAndCaption[parent::tableCaptionLayout]"/>
+    <xsl:template match="@spacebetweentextandline"/>
     <xsl:template match="@spaceBetweenUnits"/>
     <xsl:template match="@startNumberingOverAtEachChapter"/>
     <xsl:template match="@startSection1NumberingAtZero"/>

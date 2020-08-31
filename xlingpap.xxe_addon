@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-28</a:date
+>2020-08-31</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.6 28 August 2020<ul
+>2.37.6 31 August 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
 >Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet. It specifies the amount of vertical space between the text and any footnote line.</li
+><li
+>Add the italicizeetal attribute to the citationLayout element in a publisher style sheet. It makes any instance of 'et al.' in a citation name come out in italics.</li
 ><li
 >Add the textBeforeSeeAlso attribute to the indexLayout element to control what comes between the last page number and any 'see' or 'see also' items.</li
 ><li

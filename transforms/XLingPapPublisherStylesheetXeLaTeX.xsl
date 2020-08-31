@@ -7095,6 +7095,21 @@
         </xsl:if>
     </xsl:template>
     <!--
+        ItalicizeString
+    -->
+    <xsl:template name="ItalicizeString">
+        <xsl:param name="contents"/>
+        <xsl:if test="string-length($contents) &gt; 0">
+            <tex:spec cat="bg"/>
+            <tex:spec cat="esc"/>
+            <xsl:text>textit</xsl:text>
+            <tex:spec cat="bg"/>
+            <xsl:value-of select="$contents"/>
+            <tex:spec cat="eg"/>
+            <tex:spec cat="eg"/>
+        </xsl:if>
+    </xsl:template>
+    <!--
         LinkAttributesBegin
     -->
     <xsl:template name="LinkAttributesBegin">

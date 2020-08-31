@@ -837,6 +837,7 @@ Content Layout
       textaftertimestamp CDATA #IMPLIED
       textbeforetimestamp CDATA #IMPLIED
       textbetweenauthoranddate CDATA #IMPLIED
+      italicizeetal (no | yes) 'no'
     >
     <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>
     <!ATTLIST abbreviationsInFootnoteLayout

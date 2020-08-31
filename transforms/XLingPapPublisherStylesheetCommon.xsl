@@ -68,6 +68,8 @@
             <xsl:otherwise>3</xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="sEtAl" select="'et al.'"/>
+    <xsl:variable name="sEtAlSpaces" select="' et al. '"/>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->
@@ -5095,7 +5097,9 @@
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
-            <xsl:value-of select="$refer/../@citename"/>
+            <xsl:call-template name="OutputCitationName">
+                <xsl:with-param name="citeName" select="$refer/../@citename"/>
+            </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="string-length($sTextBetweenAuthorAndDate) &gt; 0 and @paren!='both' and @paren!='initial'">
                     <xsl:value-of select="$citationLayout/@textbetweenauthoranddate"/>
@@ -5172,6 +5176,25 @@
         <xsl:if test="not(@paren) or @paren='both' or @paren='final' or @paren='citationBoth'">
             <xsl:text>)</xsl:text>
          </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputCitationName
+    -->
+    <xsl:template name="OutputCitationName">
+        <xsl:param name="citeName"/>
+        <xsl:variable name="sNameWithSpaces" select="concat(' ',$citeName,' ')"/>
+        <xsl:choose>
+            <xsl:when test="$citationLayout/@italicizeetal='yes' and contains($sNameWithSpaces,$sEtAlSpaces)">
+                <xsl:value-of select="substring-before($citeName, $sEtAl)"/>
+                <xsl:call-template name="ItalicizeString">
+                    <xsl:with-param name="contents" select="$sEtAl"/>
+                </xsl:call-template>
+                <xsl:value-of select="substring-after($citeName,$sEtAl)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$citeName"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         OutputCitationPages

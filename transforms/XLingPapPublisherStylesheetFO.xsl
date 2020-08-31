@@ -6579,6 +6579,17 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--
+        ItalicizeString
+    -->
+    <xsl:template name="ItalicizeString">
+        <xsl:param name="contents"/>
+        <xsl:if test="string-length($contents) &gt; 0">
+            <fo:inline font-style="italic">
+                <xsl:value-of select="$contents"/>
+            </fo:inline>
+        </xsl:if>
+    </xsl:template>
+    <!--
       OutputAbbreviationInCommaSeparatedList
    -->
     <xsl:template name="OutputAbbreviationInCommaSeparatedList">

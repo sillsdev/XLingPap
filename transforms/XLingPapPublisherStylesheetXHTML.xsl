@@ -4369,6 +4369,17 @@
         </xsl:choose>
     </xsl:template>
     <!--
+        ItalicizeString
+    -->
+    <xsl:template name="ItalicizeString">
+        <xsl:param name="contents"/>
+        <xsl:if test="string-length($contents) &gt; 0">
+            <span style="font-style:italic;">
+                <xsl:value-of select="$contents"/>
+            </span>
+        </xsl:if>
+    </xsl:template>
+    <!--
         Dummy templates used in common file
     -->
     <xsl:template name="LinkAttributesBegin"/>

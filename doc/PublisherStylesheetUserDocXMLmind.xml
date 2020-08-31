@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 August 2020</date
+>31 August 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.37.6</version
@@ -3960,7 +3960,7 @@ type="tAttribute"
 >textBeforeSeeAlso</object
 ></td
 ><td
->This contains any text you want to occur before any ‘see’ or ‘see also’ items in the index.  The default is two non-breaking spaces.</td
+>This contains any text you want to occur before any ‘see’ or ‘see also’ items in the index. The default is two non-breaking spaces.</td
 ></tr
 ><tr
 ><td
@@ -13374,6 +13374,42 @@ type="tXMLmindXMLEditor"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iItalicizeEtAl."
+></indexedItem
+><object
+type="tAttribute"
+>italicizeetal</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not the sequence “et al.” should be output in italics or not.  The default is to *not* use italics (i.e., to be regular).</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iReplaceColonWith"
 ></indexedItem
 ><object
@@ -19414,6 +19450,11 @@ id="iCitationOverrides"
 ><term
 >Citation special formatting</term
 ><indexTerms
+><indexTerm
+id="iItalicizeEtAl."
+><term
+>Italicize “et al.”</term
+></indexTerm
 ><indexTerm
 id="iReplaceColonWith"
 ><term

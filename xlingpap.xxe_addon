@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-28</a:date
+>2020-08-31</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.6 28 August 2020<ul
+>3.7.6 31 August 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
 >Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet. It specifies the amount of vertical space between the text and any footnote line.</li
+><li
+>Add the italicizeetal attribute to the citationLayout element in a publisher style sheet. It makes any instance of 'et al.' in a citation name come out in italics.</li
 ><li
 >Add the textBeforeSeeAlso attribute to the indexLayout element to control what comes between the last page number and any 'see' or 'see also' items.</li
 ><li

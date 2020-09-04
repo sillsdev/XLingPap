@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-31</a:date
+>2020-09-04</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.6 31 August 2020<ul
+>2.37.6 4 September 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
@@ -49,6 +49,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li
 ><li
 >Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li
+><li
+>Fix bug: header/footer content could be wrong when using chapterInCollectionAuthor.</li
 ></ul
 ></li
 ><li

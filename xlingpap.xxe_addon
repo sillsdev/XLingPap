@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-08-31</a:date
+>2020-09-04</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.6 31 August 2020<ul
+>3.7.6 4 September 2020<ul
 ><li
 >Implement the linebefore attribute of a publisher style sheet for front and back matter.</li
 ><li
@@ -57,6 +57,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li
 ><li
 >Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li
+><li
+>Fix bug: header/footer content could be wrong when using chapterInCollectionAuthor.</li
 ></ul
 ></li
 ><li

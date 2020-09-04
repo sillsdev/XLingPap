@@ -870,7 +870,7 @@
             </xsl:with-param>
         </xsl:call-template>
         <xsl:if test="not(preceding-sibling::part) and not(//chapterBeforePart)">
-            <xsl:if test="$bodyLayoutInfo/titleHeaderFooterPageStyles">
+            <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
                 <tex:cmd name="pagestyle">
                     <tex:parm>body</tex:parm>
                 </tex:cmd>
@@ -1033,6 +1033,11 @@
                 </xsl:when>
                 <xsl:when test="name()='appendix' and ancestor::chapterInCollection">
                     <!-- do nothing -->
+                </xsl:when>
+                <xsl:when test="name()='appendix' and $backMatterLayoutInfo/headerFooterPageStyles/headerFooterFirstPage">
+                    <tex:cmd name="thispagestyle">
+                        <tex:parm>backmatterfirstpage</tex:parm>
+                    </tex:cmd>
                 </xsl:when>
                 <xsl:otherwise>
                     <tex:cmd name="thispagestyle">
@@ -4070,13 +4075,84 @@
         <xsl:param name="backMatter"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:param name="frontMatter"/>
-        <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles">
+        <xsl:if test="$lingPaper/chapterInCollection | $lingPaper/part/chapterInCollection">
+            <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/descendant::chapterInCollectionAuthor and not(ancestor::chapterInCollection)">
+                <!-- Following is a bit of a trick; find out which layout item is the first with real content by creating a variable
+                    containing the position and a comma.  When done, the first one is the number before the first comma. -->
+                <xsl:variable name="sItemsWithContent">
+                    <xsl:for-each select="$backMatterLayout/*">
+                        <xsl:choose>
+                            <xsl:when test="name(.)='acknowledgementsLayout'">
+                                <xsl:if test="$backMatter/acknowledgements">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='appendicesTitlePageLayout'">
+                                <xsl:if test="$backMatter/appendix">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='appendixLayout'">
+                                <xsl:if test="$backMatter/appendix">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='authorContactInfoLayout'">
+                                <xsl:if test="$backMatter/authorContactInfo">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='glossaryLayout'">
+                                <xsl:if test="$backMatter/glossary">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='contentsLayout' and ancestor::backMatterLayout and $chapters">
+                                <xsl:value-of select="position()"/>
+                                <xsl:text>,</xsl:text>
+                            </xsl:when>
+                            <xsl:when test="name(.)='indexLayout'">
+                                <xsl:if test="$backMatter/index">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='keywordsLayout'">
+                                <xsl:if test="$backMatter/keywordsShownHere">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='referencesTitleLayout'">
+                                <xsl:if test="$backMatter/references">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='useEndNotesLayout'">
+                                <xsl:if test="$backMatter/endnotes">
+                                    <xsl:value-of select="position()"/>
+                                    <xsl:text>,</xsl:text>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:variable name="firstLayout" select="substring-before($sItemsWithContent,',')"/>
+                <xsl:call-template name="DoPageBreakFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$backMatterLayout/*[position()=$firstLayout]"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
+        <xsl:if test="not(parent::chapterInCollection) and $backMatterLayout/headerFooterPageStyles">
             <tex:cmd name="pagestyle">
                 <tex:parm>
-                    <xsl:choose>
-                        <xsl:when test="$backMatterLayout/headerFooterPageStyles">backmatter</xsl:when>
-                        <xsl:otherwise>body</xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:text>backmatter</xsl:text>
                 </tex:parm>
             </tex:cmd>
         </xsl:if>

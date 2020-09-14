@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.37.6</a:version
+>2.37.7</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-09-04</a:date
+>2020-09-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History</b
 ></p
 ><ul
+><li
+>2.37.7 14 September 2020<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Improve documentation on the row-separation XeLaTeXSpecial attribute value.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.37.6 4 September 2020<ul
 ><li

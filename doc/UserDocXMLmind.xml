@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->5 August 2020</date
+>14 September 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.6</version
+>2.37.7</version
 ><version
 contentType="ctVersion7Plus"
->3.7.6</version
+>3.7.7</version
 ><contents
 showLevel="4"
 ></contents
@@ -34163,15 +34163,15 @@ term="iTableXeLaTeXPDFrow-separation"
 ></indexedItem
 >row-separation</td
 ><td
->a numerical value followed immediately by pt (for points)</td
+>a numerical value followed immediately by pt (for points) or ex (for the vertical height of a lower-case letter x)</td
 ><td
->Insert the indicated number of points between each row of the table (this only works on a <object
+>Insert the indicated number of points (or ex units) between each row of the table (this only works on a <object
 type="tElement"
 >table</object
 > or a <object
 type="tElement"
 >tr</object
-> element).</td
+> element). Note that if a row is formatted containing multiple lines, the space inserted is calculated from the first/top line in the row.</td
 ><td
 ><table
 ><tr

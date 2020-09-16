@@ -43,7 +43,7 @@ public class RemoveExtraDoubleQuotesFromPickLabels extends RecordableCommand {
 		String[] quoteSegments = line.split("\"");
 		//Alert.showError(docView.getPanel(), "line:'" + line + "' is split " + quoteSegments.length + " ways.");
 		if (quoteSegments.length > 2) {
-		    String noQuotes = line.replace("\"", "''");
+		    String noQuotes = line.substring(1, line.length()-1).replace("\"", "''");
 		    sb.append('\"');
 		    sb.append(noQuotes);
 		    sb.append('\"');

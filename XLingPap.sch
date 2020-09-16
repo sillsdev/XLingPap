@@ -266,6 +266,7 @@
             <dir value="ltr">Check for graphic formats that will not work.</dir>
         </title>
         <rule context="img/@src">
+            <report test="contains(.,'  ') or contains(.,'%20%20')">Graphic file names containing two spaces in a row are not supported.  Producing the default PDF will fail.</report>
             <report test="substring(.,string-length(.)-3)='.odg'">Sorry, but .odg graphic files are not supported.  Producing the default PDF will fail.</report>
         </rule>
     </pattern>

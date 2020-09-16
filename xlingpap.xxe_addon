@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-09-14</a:date
+>2020-09-16</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.7 14 September 2020<ul
+>2.37.7 16 September 2020<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Improve documentation on the row-separation XeLaTeXSpecial attribute value.</li
+><li
+>Add warning to Schematron for image files containing two spaces in a row.  XeLaTeX cannot process them.</li
 ></ul
 ></li
 ></ul

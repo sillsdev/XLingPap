@@ -1147,6 +1147,9 @@
                 <xsl:call-template name="DoType"/>
                 <xsl:apply-templates/>
             </tex:env>
+            <xsl:if test="following-sibling::*[1][name()='p']">
+                <tex:cmd name="par" nl2="1"/>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <xsl:template match="dt">
@@ -12230,6 +12233,12 @@
             <tex:cmd name="usepackage" nl2="1">
                 <tex:parm>footmisc</tex:parm>
             </tex:cmd>
+            <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+            <xsl:if test="string-length($sFootnoteIndent)&gt;0">
+                <tex:cmd name="footnotemargin" gr="0"/>
+                <xsl:value-of select="$sFootnoteIndent"/>
+                <xsl:text>&#xa;</xsl:text>
+            </xsl:if>
         </xsl:if>
         <tex:cmd name="usepackage" nl2="1">
             <tex:opt>normalem</tex:opt>

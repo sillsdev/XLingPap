@@ -6155,6 +6155,11 @@ defaultFontFamily
 	property-group: layoutParameter(.67ex);
 }
 
+definitionListLayout
+{
+	property-group: titledItem("definition list");
+}
+
 dissertationLabelItem[color]
 {
 	color:concatenate(attr(color));

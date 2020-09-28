@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->31 August 2020</date
+>28 September 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.6</version
+>2.37.7</version
 ><version
 contentType="ctVersion7Plus"
->3.7.6</version
+>3.7.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -13395,7 +13395,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This indicates whether or not the sequence “et al.” should be output in italics or not.  The default is to *not* use italics (i.e., to be regular).</langData
+>This indicates whether or not the sequence “et al.” should be output in italics or not. The default is to *not* use italics (i.e., to be regular).</langData
 ></td
 ><td
 ><object
@@ -15344,6 +15344,31 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+></section2
+><section2
+id="sDefinitionLists"
+><secTitle
+>Controlling the Display of Definition Lists</secTitle
+><p
+><indexedItem
+term="iDefintionListLayout"
+></indexedItem
+>For the <object
+type="tXeTeX"
+></object
+> way of producing PDF, the items in a definition list are justified by default.  If you want them to be formatted as ragged right, then use the <object
+type="tElement"
+>definitionListLayout</object
+> element and set its <object
+type="tAttribute"
+>useRaggedRight</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.  The default value is <object
+type="tAttrValue"
+>no</object
+>.  The other output formats already treat these as ragged right.</p
 ></section2
 ></section1
 ><section1
@@ -17517,6 +17542,15 @@ type="tElement"
 ><td
 >annotation</td
 ></tr
+><tr
+><td
+><object
+type="tElement"
+>definitionListLayout</object
+></td
+><td
+>definition list</td
+></tr
 ></table
 ></appendix
 ><appendix
@@ -17715,6 +17749,23 @@ type="tAttribute"
 ></td
 ><td
 >nothing</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>definitionLiastLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>useRaggedRight</object
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
 ></tr
 ><tr
 ><td
@@ -19262,7 +19313,7 @@ id="iAffiliationLayout"
 ><indexTerm
 id="iAnnotationLayout"
 ><term
->Annotiation Layout</term
+>Annotation Layout</term
 ></indexTerm
 ><indexTerm
 id="iAppendicesTilePageLayout"
@@ -19661,6 +19712,11 @@ id="iDateLayout"
 id="iPubDate"
 ><term
 >Date of a published dissertation or thesis (part of a referenced work)</term
+></indexTerm
+><indexTerm
+id="iDefintionListLayout"
+><term
+>Definition List Layout</term
 ></indexTerm
 ><indexTerm
 id="iDissertationLabel2"

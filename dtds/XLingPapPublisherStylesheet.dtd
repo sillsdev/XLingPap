@@ -621,7 +621,8 @@ Content Layout
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
-                                                      glossaryTermsInDefinitionListLayout?, glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?, annotationLayout?) >
+                                                      glossaryTermsInDefinitionListLayout?, glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?,
+                                                      annotationLayout?, definitionListLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -910,6 +911,10 @@ Content Layout
      end-indent CDATA #IMPLIED
      spaceafter CDATA #IMPLIED
      spacebefore CDATA #IMPLIED
+>
+<!ELEMENT definitionListLayout EMPTY>
+<!ATTLIST definitionListLayout 
+     useRaggedRight (yes | no) "no"
 >
    <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.

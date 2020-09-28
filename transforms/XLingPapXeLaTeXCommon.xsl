@@ -1145,6 +1145,9 @@
          -->
                 <xsl:call-template name="SetListLengths"/>
                 <xsl:call-template name="DoType"/>
+                <xsl:if test="$contentLayoutInfo/definitionListLayout/@useRaggedRight='yes'">
+                    <tex:cmd name="raggedright" gr="0"/>
+                </xsl:if>
                 <xsl:apply-templates/>
             </tex:env>
             <xsl:if test="following-sibling::*[1][name()='p']">

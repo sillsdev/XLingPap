@@ -9945,6 +9945,9 @@
                         <xsl:choose>
                             <xsl:when test="parent::example[parent::td]">tabular</xsl:when>
                             <xsl:when test="parent::example[parent::endnote[parent::td]]">tabular</xsl:when>
+                            <xsl:when test="name()='listDefinition' and parent::example[parent::endnote[ancestor::listWord or ancestor::listDefinition or ancestor::listSingle]]">tabular</xsl:when>
+                            <xsl:when test="name()='listSingle' and parent::example[parent::endnote[ancestor::listWord or ancestor::listDefinition or ancestor::listSingle]]">tabular</xsl:when>
+                            <xsl:when test="name()='listWord' and parent::example[parent::endnote[ancestor::listWord or ancestor::listDefinition or ancestor::listSingle]]">tabular</xsl:when>
                             <xsl:otherwise>longtable</xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>

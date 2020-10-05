@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-09-28</a:date
+>2020-10-05</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.7 28 September 2020<ul
+>2.37.7 5 October 2020<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: when not using single spacing and not using endnotes i.e., using footnotes) and when footnotes are not single spaced, if one also set the footnoteIndent value, that value was ignored.</li
 ><li
 >Fix bug: if a p element immediately followed a dl element, the paragraph would not be indented.</li
+><li
+>Fix bug: if a listWord contained an endnote with a listWord in it, the PDF failed to be produced.</li
 ></ul
 ></li
 ></ul

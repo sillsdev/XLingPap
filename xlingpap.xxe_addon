@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-10-05</a:date
+>2020-10-13</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.7.7 5 October 2020<ul
+>3.7.7 13 October 2020<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
@@ -55,6 +55,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: if a p element immediately followed a dl element, the paragraph would not be indented.</li
 ><li
 >Fix bug: if a listWord contained an endnote with a listWord in it, the PDF failed to be produced.</li
+><li
+>Fix bug: when using an annotationRef in a document without an associated publisher style sheet, the formatting after the annotationRef would be indented.</li
 ></ul
 ></li
 ></ul

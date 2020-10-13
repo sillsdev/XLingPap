@@ -1405,6 +1405,7 @@
         <tex:spec cat="esc"/>
         <xsl:text>leftskip0in</xsl:text>
         <tex:cmd name="relax" gr="0" nl2="1"/>
+        <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <xsl:text>hangindent.25in</xsl:text>
         <tex:cmd name="relax" gr="0" nl2="1"/>
@@ -1421,6 +1422,7 @@
         <tex:spec cat="esc"/>
         <xsl:text>leftskip.25in</xsl:text>
         <tex:cmd name="relax" gr="0" nl2="1"/>
+        <tex:spec cat="eg"/>
         <tex:cmd name="vspace">
             <tex:parm>
                 <xsl:text>3pt</xsl:text>

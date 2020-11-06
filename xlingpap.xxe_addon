@@ -34,6 +34,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >2.37.7 6 November 2020<ul
 ><li
+>Enable annotationRef elements to be under content control.</li
+><li
 >Add ability for the annotation attribute of an annotationRef element to refer to more than one annotationType.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul

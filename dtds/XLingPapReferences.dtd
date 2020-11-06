@@ -285,5 +285,6 @@
 <!ATTLIST annotationRef
     annotation IDREFS #IMPLIED
     citation IDREF #REQUIRED
+    contentType IDREF #IMPLIED
     %special;
 >

@@ -786,11 +786,11 @@ alt causes menu to be selected
                     <cfg:command name="setCollOrProcCitation"/>
                     <cfg:command name="setAuthorContactInfo"/>
                     <cfg:command name="setFramedType"/>
+                    <cfg:command name="setAnnotation"/>
+                    <cfg:command name="setAnnotatedBibliographyType"/>
                     <cfg:command name="setContentType"/>
                     <cfg:command name="setType"/>
                     <cfg:command name="setGlossaryTerm"/>
-                    <cfg:command name="setAnnotation"/>
-                    <cfg:command name="setAnnotatedBibliographyType"/>
                 </cfg:choice>
             </cfg:sequence>
         </cfg:macro>

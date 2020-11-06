@@ -28,6 +28,9 @@
    <xsl:template match="affiliation">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>
+   <xsl:template match="annotationRef">
+      <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
    <xsl:template match="appendix">
       <xsl:call-template name="IgnoreOrCopyElement"/>
    </xsl:template>

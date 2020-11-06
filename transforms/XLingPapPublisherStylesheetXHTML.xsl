@@ -1276,30 +1276,9 @@
                 </xsl:call-template>
             </xsl:for-each>
         </div>
-        <xsl:variable name="annotation" select="key('AnnotationID',@annotation)"/>
-        <xsl:if test="$annotation">
-            <p>
-                <xsl:choose>
-                    <xsl:when test="$annotationLayoutInfo">
-                        <xsl:attribute name="class">
-                            <xsl:text>annotation</xsl:text>
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="style">
-                            <xsl:text>padding-left:0.25in</xsl:text>
-                        </xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
-                </xsl:call-template>
-                <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
-                </xsl:call-template>
-            </p>
-        </xsl:if>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
         QUOTES
@@ -2385,6 +2364,35 @@
         <xsl:param name="sTermId"/>
         <xsl:text>rXLingPapIndexTerm.</xsl:text>
         <xsl:value-of select="$sTermId"/>
+    </xsl:template>
+    <!--
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+        <xsl:param name="sAnnotation"/>
+        <xsl:if test="$sAnnotation">
+            <p>
+                <xsl:choose>
+                    <xsl:when test="$annotationLayoutInfo">
+                        <xsl:attribute name="class">
+                            <xsl:text>annotation</xsl:text>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="style">
+                            <xsl:text>padding-left:0.25in</xsl:text>
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
+                </xsl:call-template>
+            </p>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoAppendiciesTitlePage

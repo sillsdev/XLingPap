@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-10-13</a:date
+>2020-11-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.37.7 13 October 2020<ul
+>2.37.7 6 November 2020<ul
+><li
+>Add ability for the annotation attribute of an annotationRef element to refer to more than one annotationType.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

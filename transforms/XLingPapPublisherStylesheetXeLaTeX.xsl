@@ -1987,71 +1987,9 @@
                 <xsl:with-param name="bDoTarget" select="'N'"/>
             </xsl:call-template>
         </xsl:for-each>
-        <xsl:variable name="annotation" select="key('AnnotationID',@annotation)"/>
-        <xsl:if test="$annotation">
-            <tex:group>
-                <xsl:variable name="sStartIndent" select="normalize-space($annotationLayoutInfo/@start-indent)"/>
-                <tex:spec cat="esc"/>
-                <xsl:text>leftskip</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="string-length($sStartIndent) &gt; 0">
-                        <xsl:value-of select="$sStartIndent"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>.25in</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <tex:cmd name="relax" gr="0" nl2="1"/>
-                <xsl:variable name="sEndIndent" select="normalize-space($annotationLayoutInfo/@end-indent)"/>
-                <xsl:if test="string-length($sEndIndent) &gt; 0">
-                    <tex:spec cat="esc"/>
-                    <xsl:text>rightskip</xsl:text>
-                    <xsl:value-of select="$sEndIndent"/>
-                    <tex:cmd name="relax" gr="0" nl2="1"/>
-                </xsl:if>
-                <tex:cmd name="vspace">
-                    <tex:parm>
-                        <xsl:variable name="sSpaceBefore" select="normalize-space($annotationLayoutInfo/@spacebefore)"/>
-                        <xsl:choose>
-                            <xsl:when test="string-length($sSpaceBefore) &gt; 0">
-                                <xsl:value-of select="$sSpaceBefore"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>3pt</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </tex:parm>
-                </tex:cmd>
-                <tex:cmd name="noindent"/>
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="$annotationLayoutInfo"/>
-                </xsl:call-template>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
-                </xsl:call-template>
-                <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
-                </xsl:call-template>
-                <xsl:call-template name="OutputFontAttributesEnd">
-                    <xsl:with-param name="language" select="$annotationLayoutInfo"/>
-                </xsl:call-template>
-                <tex:cmd name="par"/>
-                <tex:cmd name="vspace">
-                    <tex:parm>
-                        <xsl:variable name="sSpaceAfter" select="normalize-space($annotationLayoutInfo/@spaceafter)"/>
-                        <xsl:choose>
-                            <xsl:when test="string-length($sSpaceAfter) &gt; 0">
-                                <xsl:value-of select="$sSpaceAfter"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>3pt</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </tex:parm>
-                </tex:cmd>
-            </tex:group>
-        </xsl:if>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
 
     <!--
@@ -3873,6 +3811,76 @@
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>
+    <!--  
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+    <xsl:param name="sAnnotation"/>
+    <xsl:if test="$sAnnotation">
+        <tex:group>
+            <xsl:variable name="sStartIndent" select="normalize-space($annotationLayoutInfo/@start-indent)"/>
+            <tex:spec cat="esc"/>
+            <xsl:text>leftskip</xsl:text>
+            <xsl:choose>
+                <xsl:when test="string-length($sStartIndent) &gt; 0">
+                    <xsl:value-of select="$sStartIndent"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>.25in</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <tex:cmd name="relax" gr="0" nl2="1"/>
+            <xsl:variable name="sEndIndent" select="normalize-space($annotationLayoutInfo/@end-indent)"/>
+            <xsl:if test="string-length($sEndIndent) &gt; 0">
+                <tex:spec cat="esc"/>
+                <xsl:text>rightskip</xsl:text>
+                <xsl:value-of select="$sEndIndent"/>
+                <tex:cmd name="relax" gr="0" nl2="1"/>
+            </xsl:if>
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:variable name="sSpaceBefore" select="normalize-space($annotationLayoutInfo/@spacebefore)"/>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceBefore) &gt; 0">
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>3pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="noindent"/>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$annotationLayoutInfo"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputCannedText">
+                <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
+            </xsl:call-template>
+            <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+            <xsl:call-template name="OutputCannedText">
+                <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
+            </xsl:call-template>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$annotationLayoutInfo"/>
+            </xsl:call-template>
+            <tex:cmd name="par"/>
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:variable name="sSpaceAfter" select="normalize-space($annotationLayoutInfo/@spaceafter)"/>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceAfter) &gt; 0">
+                            <xsl:value-of select="$sSpaceAfter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>3pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </tex:parm>
+            </tex:cmd>
+        </tex:group>
+    </xsl:if>
+</xsl:template>
     <!--  
         DoAuthorOfChapterInCollectionInContents
     -->

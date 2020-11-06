@@ -1306,9 +1306,9 @@
                 <xsl:with-param name="bDoTarget" select="'N'"/>
             </xsl:call-template>
         </xsl:for-each>
-        <fo:block start-indent="0.25in" space-before="3pt" space-after="3pt">
-            <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-        </fo:block>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       QUOTES
@@ -3315,6 +3315,15 @@ not using
             </xsl:otherwise>
         </xsl:choose>
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+        <xsl:param name="sAnnotation"/>
+        <fo:block start-indent="0.25in" space-before="3pt" space-after="3pt">
+            <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+        </fo:block>
     </xsl:template>
     <!--
         DoBook

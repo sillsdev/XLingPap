@@ -946,9 +946,9 @@
                 </xsl:call-template>
             </xsl:for-each>
         </div>
-        <p style="padding-left:0.25in">
-            <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-        </p>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       QUOTES
@@ -3021,6 +3021,15 @@
         <xsl:value-of select="$sTermId"/>
     </xsl:template>
     <!--
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+        <xsl:param name="sAnnotation"/>
+        <p style="padding-left:0.25in">
+            <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+        </p>
+    </xsl:template>
+    <!--
         DoAuthorFootnoteNumber
     -->
     <xsl:template name="DoAuthorFootnoteNumber">
@@ -4238,8 +4247,8 @@
         <xsl:text>&#xa0;</xsl:text>
     </xsl:template>
     <!--  
-                  DoNestedTypes
--->
+        DoNestedTypes
+    -->
     <xsl:template name="DoNestedTypes">
         <xsl:param name="sList"/>
         <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>

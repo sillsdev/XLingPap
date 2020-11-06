@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 September 2020</date
+>6 November 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.37.7</version
@@ -5911,7 +5911,16 @@ type="tXLingPap"
 > menu item / <object
 type="tInstruction"
 >Set Reference</object
->). This will first show a dialog box where you select the referenced work. If this work has an annotation, it will then show a dialog box where you choose the annotation you want to appear in this context. If the referenced work does not have an annotation, there will be a message saying that this work does not have any annotations. Either choose a different work, go add annotations to the work, or leave it without an annotation if that work is not supposed to have an annotation.</p
+>). This will first show a dialog box where you select the referenced work. If this work has an annotation, it will then show a dialog box where you choose the annotation you want to appear in this context. If the referenced work does not have an annotation, there will be a message saying that this work does not have any annotations. Either choose a different work, go add annotations to the work, or leave it without an annotation if that work is not supposed to have an annotation. You can also add more than one annotation by manually adding additional annotations to the <object
+type="tAttribute"
+>annotation</object
+> attribute using the <object
+type="tAttributesEditor"
+></object
+>. The easiest way to do this is to right-click on “annotation” in the <object
+type="tAttributesEditor"
+></object
+> and choose “Edit.” This will bring up a tool that lets you choose the correct annotations by ID.</p
 ><p
 >As an example, suppose you add the <object
 type="tElement"

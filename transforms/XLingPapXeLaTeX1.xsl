@@ -1423,19 +1423,9 @@
         <xsl:text>leftskip.25in</xsl:text>
         <tex:cmd name="relax" gr="0" nl2="1"/>
         <tex:spec cat="eg"/>
-        <tex:cmd name="vspace">
-            <tex:parm>
-                <xsl:text>3pt</xsl:text>
-            </tex:parm>
-        </tex:cmd>
-        <tex:cmd name="noindent"/>
-        <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-        <tex:cmd name="par"/>
-        <tex:cmd name="vspace">
-            <tex:parm>
-                <xsl:text>3pt</xsl:text>
-            </tex:parm>
-        </tex:cmd>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       QUOTES
@@ -2773,6 +2763,25 @@
             </xsl:if>
             <tex:cmd name="endlandscape" gr="0" nl2="1"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+        <xsl:param name="sAnnotation"/>
+        <tex:cmd name="vspace">
+            <tex:parm>
+                <xsl:text>3pt</xsl:text>
+            </tex:parm>
+        </tex:cmd>
+        <tex:cmd name="noindent"/>
+        <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+        <tex:cmd name="par"/>
+        <tex:cmd name="vspace">
+            <tex:parm>
+                <xsl:text>3pt</xsl:text>
+            </tex:parm>
+        </tex:cmd>
     </xsl:template>
     <!--
         DoBook

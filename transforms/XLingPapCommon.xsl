@@ -812,6 +812,25 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoNestedAnnotations
+    -->
+    <xsl:template name="DoNestedAnnotations">
+        <xsl:param name="sList"/>
+        <xsl:variable name="sNewList" select="concat(normalize-space($sList),' ')"/>
+        <xsl:variable name="sFirst" select="substring-before($sNewList,' ')"/>
+        <xsl:variable name="sRest" select="substring-after($sNewList,' ')"/>
+        <xsl:if test="string-length($sFirst) &gt; 0">
+            <xsl:call-template name="DoAnnotation">
+                <xsl:with-param name="sAnnotation" select="$sFirst"/>
+            </xsl:call-template>
+            <xsl:if test="$sRest">
+                <xsl:call-template name="DoNestedAnnotations">
+                    <xsl:with-param name="sList" select="$sRest"/>
+                </xsl:call-template>
+            </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         DoQuoteTextAfter
     -->
     <xsl:template name="DoQuoteTextAfter">

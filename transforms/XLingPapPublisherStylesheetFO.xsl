@@ -1537,61 +1537,9 @@
                 <xsl:with-param name="bDoTarget" select="'N'"/>
             </xsl:call-template>
         </xsl:for-each>
-        <xsl:variable name="annotation" select="key('AnnotationID',@annotation)"/>
-        <xsl:if test="$annotation">
-            <fo:block>
-                <xsl:variable name="sStartIndent" select="normalize-space($annotationLayoutInfo/@start-indent)"/>
-                <xsl:attribute name="start-indent">
-                    <xsl:choose>
-                        <xsl:when test="string-length($sStartIndent) &gt; 0">
-                            <xsl:value-of select="$sStartIndent"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>.25in</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                <xsl:variable name="sEndIndent" select="normalize-space($annotationLayoutInfo/@end-indent)"/>
-                <xsl:if test="string-length($sEndIndent) &gt; 0">
-                    <xsl:attribute name="end-indent">
-                        <xsl:value-of select="$sEndIndent"/>
-                    </xsl:attribute>
-                </xsl:if>
-                <xsl:variable name="sSpaceBefore" select="normalize-space($annotationLayoutInfo/@spacebefore)"/>
-                <xsl:attribute name="space-before">
-                    <xsl:choose>
-                        <xsl:when test="string-length($sSpaceBefore) &gt; 0">
-                            <xsl:value-of select="$sSpaceBefore"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>3pt</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                <xsl:variable name="sSpaceAfter" select="normalize-space($annotationLayoutInfo/@spaceafter)"/>
-                <xsl:attribute name="space-after">
-                    <xsl:choose>
-                        <xsl:when test="string-length($sSpaceAfter) &gt; 0">
-                            <xsl:value-of select="$sSpaceAfter"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>3pt</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                <xsl:call-template name="OutputFontAttributes">
-                    <xsl:with-param name="language" select="$annotationLayoutInfo"/>
-                </xsl:call-template>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
-                </xsl:call-template>
-                <xsl:apply-templates select="key('AnnotationID',@annotation)"/>
-                <xsl:variable name="sTextAfter" select="$annotationLayoutInfo/@textafter"/>
-                <xsl:call-template name="OutputCannedText">
-                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
-                </xsl:call-template>
-            </fo:block>
-        </xsl:if>
+        <xsl:call-template name="DoNestedAnnotations">
+            <xsl:with-param name="sList" select="@annotation"/>
+        </xsl:call-template>
     </xsl:template>
     <!-- ===========================================================
       QUOTES
@@ -3846,6 +3794,66 @@ not using
             </xsl:with-param>
         </xsl:call-template>
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--  
+        DoAnnotation
+    -->
+    <xsl:template name="DoAnnotation">
+        <xsl:param name="sAnnotation"/>
+        <xsl:if test="$sAnnotation">
+            <fo:block>
+                <xsl:variable name="sStartIndent" select="normalize-space($annotationLayoutInfo/@start-indent)"/>
+                <xsl:attribute name="start-indent">
+                    <xsl:choose>
+                        <xsl:when test="string-length($sStartIndent) &gt; 0">
+                            <xsl:value-of select="$sStartIndent"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>.25in</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:variable name="sEndIndent" select="normalize-space($annotationLayoutInfo/@end-indent)"/>
+                <xsl:if test="string-length($sEndIndent) &gt; 0">
+                    <xsl:attribute name="end-indent">
+                        <xsl:value-of select="$sEndIndent"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:variable name="sSpaceBefore" select="normalize-space($annotationLayoutInfo/@spacebefore)"/>
+                <xsl:attribute name="space-before">
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceBefore) &gt; 0">
+                            <xsl:value-of select="$sSpaceBefore"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>3pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:variable name="sSpaceAfter" select="normalize-space($annotationLayoutInfo/@spaceafter)"/>
+                <xsl:attribute name="space-after">
+                    <xsl:choose>
+                        <xsl:when test="string-length($sSpaceAfter) &gt; 0">
+                            <xsl:value-of select="$sSpaceAfter"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>3pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$annotationLayoutInfo"/>
+                </xsl:call-template>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textbefore"/>
+                </xsl:call-template>
+                <xsl:apply-templates select="key('AnnotationID',$sAnnotation)"/>
+                <xsl:variable name="sTextAfter" select="$annotationLayoutInfo/@textafter"/>
+                <xsl:call-template name="OutputCannedText">
+                    <xsl:with-param name="sCannedText" select="$annotationLayoutInfo/@textafter"/>
+                </xsl:call-template>
+            </fo:block>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoAuthorOfChapterInCollectionInContents

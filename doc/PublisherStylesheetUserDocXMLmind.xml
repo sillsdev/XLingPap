@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 September 2020</date
+>9 November 2020</date
 ><version
 contentType="ctVersion5.3"
->2.37.7</version
+>2.38.0</version
 ><version
 contentType="ctVersion7Plus"
->3.7.7</version
+>3.8.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -15356,7 +15356,7 @@ term="iDefintionListLayout"
 >For the <object
 type="tXeTeX"
 ></object
-> way of producing PDF, the items in a definition list are justified by default.  If you want them to be formatted as ragged right, then use the <object
+> way of producing PDF, the items in a definition list are justified by default. If you want them to be formatted as ragged right, then use the <object
 type="tElement"
 >definitionListLayout</object
 > element and set its <object
@@ -15365,10 +15365,10 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
->.  The default value is <object
+>. The default value is <object
 type="tAttrValue"
 >no</object
->.  The other output formats already treat these as ragged right.</p
+>. The other output formats already treat these as ragged right.</p
 ></section2
 ></section1
 ><section1

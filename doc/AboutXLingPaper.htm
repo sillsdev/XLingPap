@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.7.7</span></p>
-      <p align="center">Date: 2020-11-06</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.8.0</span></p>
+      <p align="center">Date: 2020-11-09</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,31 +34,14 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.7.7 6 November 2020
+               <li>3.8.0 9 November 2020
                   <ul>
                      <li>Enable annotationRef elements to be under content control.</li>
-                     <li>Add ability for the annotation attribute of an annotationRef element to refer to more than one annotationType.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Improve documentation on the row-separation XeLaTeXSpecial attribute value.</li>
-                           <li>Add warning to Schematron checks for image files containing two spaces in a row. XeLaTeX cannot process them.</li>
-                           <li>Add ability to make definition list items format as ragged right via a useRaggedRight attribute on a new definitionListLayout
-                              element in a publisher style sheet.
-                           </li>
-                           <li>Fix bug: when not using single spacing and not using endnotes i.e., using footnotes) and when footnotes are not single spaced,
-                              if one also set the footnoteIndent value, that value was ignored.
-                           </li>
-                           <li>Fix bug: if a p element immediately followed a dl element, the paragraph would not be indented.</li>
-                           <li>Fix bug: if a listWord contained an endnote with a listWord in it, the PDF failed to be produced.</li>
-                           <li>Fix bug: when using an annotationRef in a document without an associated publisher style sheet, the formatting after the annotationRef
-                              would be indented.
-                           </li>
-                        </ul>
+                     <li>Add a way to use content control to have only certain lines in an interlinear-text be output.</li>
+                     <li>Add a way to save a publisher style sheet and all its pieces to a new location. See section 8.14 "Save a publisher style sheet
+                        and all its parts to a new location" in the publisher style sheet documentation.
                      </li>
-                  </ul>
-               </li>
-               <li>3.7.6 4 September 2020
-                  <ul>
+                     <li>Add ability for the annotation attribute of an annotationRef element to refer to more than one annotationType.</li>
                      <li>Implement the linebefore attribute of a publisher style sheet for front and back matter.</li>
                      <li>Add the spacebetweentextandline attribute to the footnoteLine element in a publisher style sheet. It specifies the amount
                         of vertical space between the text and any footnote line.
@@ -69,26 +52,31 @@
                      <li>Add the textBeforeSeeAlso attribute to the indexLayout element to control what comes between the last page number and any
                         'see' or 'see also' items.
                      </li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li>
-                           <li>Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li>
-                           <li>Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li>
-                           <li>Fix bug: header/footer content could be wrong when using chapterInCollectionAuthor.</li>
-                        </ul>
+                     <li>Add ability to control what text, if any, comes after an index term in the index output via the (new) textafterterm attribute
+                        of the indexLayout element in a publisher style sheet. Also, fix an inconsistency: the default XeLaTeX PDF used to use a comma
+                        after a term while the other outputs did not. Now all outputs show a space after the term unless this new attribute is set
+                        to something (like a comma). In addition, when outputting a "see" index item, there is now always a comma before the "see".
                      </li>
-                     <li>Converting Zotero references file to XLingPaper format:
-                        <ul>
-                           <li>Fix bug: jPages could end up being just a dash.</li>
-                        </ul>
+                     <li>Add ability to use XLingPaper-specific TeX Live 2020 files (for Windows and Linux).</li>
+                     <li>Add ability to control what text occurs between consecutive footnote numbers in text via a publisher style sheet (using the
+                        contentBetweenMultipleFootnoteNumbersInText attribute on the pageLayout element).
                      </li>
-                  </ul>
-               </li>
-               <li>3.7.5 29 July 2020
-                  <ul>
+                     <li>Add doi formatting to SIL-UND references style sheets.</li>
                      <li>In the user documentation, add use of Google Drive as a way to collaboratively comment on a PDF file.</li>
+                     <li>Fix broken link in publisher style sheet documentation, section 7.1.</li>
+                     <li>Update XLingPaper URL in metadata and also version number.</li>
+                     <li>Add sample paper and book publisher style sheets that contain all possibilities as a reference or starting point.</li>
+                     <li>Fix bug: the format and restartCount attributes of the pageNumber element in a publisher style sheet were never implemented.</li>
+                     <li>Fix bug in create zip file command which could cause it to fail.</li>
+                     <li>Fix bug: when using the seeDefinition elements for an index, the content of the elements would appear at the end of the output.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Improve documentation on the row-separation XeLaTeXSpecial attribute value.</li>
+                           <li>Add warning to Schematron checks for image files containing two spaces in a row. XeLaTeX cannot process them.</li>
+                           <li>Add ability to make definition list items format as ragged right via a useRaggedRight attribute on a new definitionListLayout
+                              element in a publisher style sheet.
+                           </li>
+                           <li>Add a XeLaTeXSpecial attribute value of 'contentsbreak' to force a page break in the automatically generated table of contents.</li>
                            <li>Allow use of TeX Live 2020 versions of XeLaTeX and LaTeX macros. This is especially needed for Mac OS X Catalina and higher.</li>
                            <li>Allow img elements to have a XeLaTeXSpecial value of width='xyz'; the image will be formatted to scale to that width. (TeX
                               Live 2020 XeLaTeX ignores the scaled option.
@@ -99,25 +87,24 @@
                            <li>Allow font-related elements to have a XeLaTeXSpecial attribute value of Script='Arabic' as well as script='arab'. (TeX Live
                               2020 does not recognize script='arab'; actually, it causes the PDF to fail to be produced.)
                            </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.7.4 23 July 2020
-                  <ul>
-                     <li>Add ability to control what text, if any, comes after an index term in the index output via the (new) textafterterm attribute
-                        of the indexLayout element in a publisher style sheet. Also, fix an inconsistency: the default XeLaTeX PDF used to use a comma
-                        after a term while the other outputs did not. Now all outputs show a space after the term unless this new attribute is set
-                        to something (like a comma). In addition, when outputting a "see" index item, there is now always a comma before the "see".
-                     </li>
-                     <li>Fix bug: the format and restartCount attributes of the pageNumber element in a publisher style sheet were never implemented.</li>
-                     <li>Update XLingPaper URL in metadata and also version number.</li>
-                     <li>Add doi formatting to SIL-UND references style sheets.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
+                           <li>Fix bug: when not using single spacing and not using endnotes i.e., using footnotes) and when footnotes are not single spaced,
+                              if one also set the footnoteIndent value, that value was ignored.
+                           </li>
+                           <li>Fix bug: if a p element immediately followed a dl element, the paragraph would not be indented.</li>
+                           <li>Fix bug: if a listWord contained an endnote with a listWord in it, the PDF failed to be produced.</li>
+                           <li>Fix bug: when using an annotationRef in a document without an associated publisher style sheet, the formatting after the annotationRef
+                              would be indented.
+                           </li>
+                           <li>Fix bug: Using text-transform on a section level item could cause it to format incorrectly.</li>
+                           <li>Fix bug: for a document without a style sheet, if an img occurred in a figure, the PDF could fail to be produced.</li>
+                           <li>Fix bug: header/footer content could be wrong when using chapterInCollectionAuthor.</li>
                            <li>Fix bug: using a word description for font-size (like 'smaller') for a footer/header item could cause the PDF to fail to be
                               produced.
                            </li>
+                           <li>Fix bug: when using framed units and double spacing, a table within a framed unit could cause the PDF to not be produced.</li>
+                           <li>Fix bug: using a number in a font feature caused PDF to fail.</li>
+                           <li>Fix bug: a genericRef in a dt element would cause the PDF to fail to be produced.</li>
+                           <li>Add a check for using PDF files which are newer than version 1.5. (XeLaTeX will not process newer PDFs.)</li>
                         </ul>
                      </li>
                      <li>For the web page output using a publisher style sheet:
@@ -128,46 +115,11 @@
                            <li>Fix bug: when an example has an exampleHeading and listDefinition elements, the listDefinition elements were not output.</li>
                         </ul>
                      </li>
-                  </ul>
-               </li>
-               <li>3.7.3 14 July 2020
-                  <ul>
-                     <li>Fix broken link in publisher style sheet documentation, section 7.1.</li>
-                     <li>Add ability to use XLingPaper-specific TeX Live 2020 files (for Windows and Linux).</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when using framed units and double spacing, a table within a framed unit could cause the PDF to not be produced.</li>
-                           <li>Fix bug: using a number in a font feature caused PDF to fail.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.7.2 29 June 2020
-                  <ul>
-                     <li>Add a way to save a publisher style sheet and all its pieces to a new location. See section 8.14 "Save a publisher style sheet
-                        and all its parts to a new location" in the publisher style sheet documentation.
-                     </li>
-                     <li>Add sample paper and book publisher style sheets that contain all possibilities as a reference or starting point.</li>
-                     <li>Add a way to use content control to have only certain lines in an interlinear-text be output.</li>
-                     <li>Fix bug in create zip file command which could cause it to fail.</li>
-                     <li>Fix bug: when using the seeDefinition elements for an index, the content of the elements would appear at the end of the output.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: a genericRef in a dt element would cause the PDF to fail to be produced.</li>
-                           <li>Add a check for using PDF files which are newer than version 1.5. (XeLaTeX will not process newer PDFs.)</li>
-                        </ul>
-                     </li>
                      <li>Converting Zotero references file to XLingPaper format:
                         <ul>
+                           <li>Fix bug: jPages could end up being just a dash.</li>
                            <li>Fix bug: location and publisher can be in another spot for a web page.</li>
                         </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.7.1 6 June 2020
-                  <ul>
-                     <li>Add ability to control what text occurs between consecutive footnote numbers in text via a publisher style sheet (using the
-                        contentBetweenMultipleFootnoteNumbersInText attribute on the pageLayout element).
                      </li>
                   </ul>
                </li>

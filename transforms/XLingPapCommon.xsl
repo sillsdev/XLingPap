@@ -165,6 +165,7 @@
     <xsl:variable name="sBackMatterContentsIdAddOn" select="'BM'"/>
     <xsl:variable name="sTextAfterTerm" select="$backMatterLayoutInfo/indexLayout/@textafterterm"/>
     <xsl:variable name="sTextBeforeSeeAlso" select="$backMatterLayoutInfo/indexLayout/@textBeforeSeeAlso"/>
+    <xsl:variable name="sStripFromUrl" select="'&#x200b;&#x200d;'"/>
     
     <!-- 
         afterTerm 

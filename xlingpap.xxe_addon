@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.8.0</a:version
+>3.8.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-11-09</a:date
+>2020-11-11</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,18 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>2.38.1 11 November 2020<ul
+><li
+>For URLs, remove any zero width joiner characters when showing the URL.</li
+></ul
+></li
+><li
+>3.8.1 11 November 2020<ul
+><li
+>For URLs, remove any zero width joiner characters when showing the URL.</li
+></ul
+></li
 ><li
 >3.8.0 9 November 2020<ul
 ><li

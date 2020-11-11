@@ -4150,7 +4150,7 @@ not using
         <xsl:param name="path"/>
         <xsl:if test="$path/url">
             <xsl:text> (</xsl:text>
-            <fo:basic-link external-destination="url({normalize-space($path/url)})">
+            <fo:basic-link external-destination="url({normalize-space(translate($path/url,$sStripFromUrl,''))})">
                 <xsl:call-template name="AddAnyLinkAttributes"/>
                 <xsl:value-of select="normalize-space($path/url)"/>
             </fo:basic-link>
@@ -4713,7 +4713,7 @@ not using
             <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
             <xsl:if test="string-length($sDOI) &gt; 0">
                 <xsl:text> doi:</xsl:text>
-                <fo:basic-link external-destination="url(https://doi.org/{$sDOI})">
+                <fo:basic-link external-destination="url(https://doi.org/{translate($sDOI,$sStripFromUrl,'')})">
                     <xsl:call-template name="AddAnyLinkAttributes"/>
                     <xsl:value-of select="$sDOI"/>
                 </fo:basic-link>

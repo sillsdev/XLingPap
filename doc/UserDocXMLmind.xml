@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 November 2020</date
+>11 November 2020</date
 ><version
 contentType="ctVersion5.3"
->2.38.0</version
+>2.38.1</version
 ><version
 contentType="ctVersion7Plus"
->3.8.0</version
+>3.8.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -24689,7 +24689,15 @@ src="resources/CharacterTool.png"
 >Repeat this process until you think you have inserted enough potential line breaking points to make your output come out well.</li
 ></ol
 ><p
->Please note that you do *not* want to insert any of these zero width spaces in the <object
+><indexedItem
+term="iHyphenInURL"
+></indexedItem
+>If when using the <object
+type="tXeTeX"
+></object
+> way of producing PDF, you find a word in a URL being hyphenated, you can follow the above procedure but instead of inserting a zero width space, insert a zero width joiner character (“0x200d”) at the place where the hyphen occurs. Alternatively, you could insert a zero space width at that point. In this case, the line should break at that point but there will be no hyphen.</p
+><p
+>Please note that you do *not* want to insert any of these zero width characters in the <object
 type="tAttribute"
 >href</object
 > attribute of a <object
@@ -35864,6 +35872,13 @@ id="iHypertextLinksWithout"
 id="iHyphenationi"
 ><term
 >Hyphenation</term
+><indexTerms
+><indexTerm
+id="iHyphenInURL"
+><term
+>Hyphenation in a word in a URL</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iId"

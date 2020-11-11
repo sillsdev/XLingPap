@@ -120,7 +120,7 @@
     -->
     <xsl:template name="DoDoiLayout">
         <!-- remove any zero width spaces in the hyperlink -->
-        <a href="https://doi.org/{normalize-space(translate(.,'&#x200b;',''))}">
+        <a href="https://doi.org/{normalize-space(translate(.,$sStripFromUrl,''))}">
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/doiLinkLayout"/>
             </xsl:call-template>
@@ -155,8 +155,7 @@
     -->
     <xsl:template name="DoUrlLayout">
         <!-- remove any zero width spaces in the hyperlink -->
-        <a href="{normalize-space(translate(.,'&#x200b;',''))}">
-            <!--            <a href="url({normalize-space(translate(.,'&#x200b;',''))})">-->
+        <a href="{normalize-space(translate(.,$sStripFromUrl,''))}">
             <xsl:call-template name="AddAnyLinkAttributes">
                 <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/urlLinkLayout"/>
             </xsl:call-template>

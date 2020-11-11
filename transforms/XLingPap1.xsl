@@ -3624,7 +3624,7 @@
             <xsl:text> (</xsl:text>
             <xsl:element name="a">
                 <xsl:attribute name="href">
-                    <xsl:value-of select="normalize-space($path/url)"/>
+                    <xsl:value-of select="normalize-space(translate($path/url,$sStripFromUrl,''))"/>
                 </xsl:attribute>
                 <xsl:value-of select="normalize-space($path/url)"/>
             </xsl:element>
@@ -4179,7 +4179,7 @@
             <xsl:variable name="sDOI" select="normalize-space(descendant::doi)"/>
             <xsl:if test="string-length($sDOI) &gt; 0">
                 <xsl:text> doi:</xsl:text>
-                <a href="https://doi.org/{$sDOI}">
+                <a href="https://doi.org/{translate($sDOI,$sStripFromUrl,'')}">
                     <xsl:value-of select="$sDOI"/>
                 </a>
                 <xsl:text>.</xsl:text>

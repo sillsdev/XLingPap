@@ -213,7 +213,7 @@
     <xsl:template name="DoDoiLayout">
         <xsl:call-template name="DoExternalHyperRefBegin">
             <!-- remove any zero width spaces in the hyperlink -->
-            <xsl:with-param name="sName" select="concat('https://doi.org/',normalize-space(translate(.,'&#x200b;','')))"/>
+            <xsl:with-param name="sName" select="concat('https://doi.org/',normalize-space(translate(.,$sStripFromUrl,'')))"/>
         </xsl:call-template>
         <xsl:call-template name="LinkAttributesBegin">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/doiLinkLayout"/>
@@ -252,7 +252,7 @@
     <xsl:template name="DoUrlLayout">
         <xsl:call-template name="DoExternalHyperRefBegin">
             <!-- remove any zero width spaces in the hyperlink -->
-            <xsl:with-param name="sName" select="normalize-space(translate(.,'&#x200b;',''))"/>
+            <xsl:with-param name="sName" select="normalize-space(translate(.,$sStripFromUrl,''))"/>
         </xsl:call-template>
         <xsl:call-template name="LinkAttributesBegin">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/urlLinkLayout"/>

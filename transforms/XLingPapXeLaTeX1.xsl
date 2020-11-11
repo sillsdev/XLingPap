@@ -3543,7 +3543,7 @@
             <xsl:text> (</xsl:text>
             <xsl:call-template name="AddAnyLinkAttributes"/>
             <xsl:call-template name="DoExternalHyperRefBegin">
-                <xsl:with-param name="sName" select="normalize-space($path/url)"/>
+                <xsl:with-param name="sName" select="normalize-space(translate($path/url,$sStripFromUrl,''))"/>
             </xsl:call-template>
             <xsl:value-of select="normalize-space($path/url)"/>
             <xsl:call-template name="DoExternalHyperRefEnd"/>
@@ -4120,7 +4120,7 @@
             <xsl:text> doi:</xsl:text>
             <xsl:call-template name="AddAnyLinkAttributes"/>
             <xsl:call-template name="DoExternalHyperRefBegin">
-                <xsl:with-param name="sName" select="concat('https://doi.org/',$sDOI)"/>
+                <xsl:with-param name="sName" select="concat('https://doi.org/',translate($sDOI,$sStripFromUrl,''))"/>
             </xsl:call-template>
             <xsl:value-of select="$sDOI"/>
             <xsl:call-template name="DoExternalHyperRefEnd"/>

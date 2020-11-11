@@ -547,7 +547,8 @@ annotationRef
 {
 	display:block;
 	margin: 1.33ex 0;
-	content: label(xpath, "if(string-length(id(@annotation))<51,id(@annotation),concat(substring(id(@annotation),1,50),'...'))")
+	content: drop-down-setReference()
+                 label(xpath, "if(string-length(id(@annotation))<51,id(@annotation),concat(substring(id(@annotation),1,50),'...'))")
              " ";
 	background-color:annotation-background-color();
 }

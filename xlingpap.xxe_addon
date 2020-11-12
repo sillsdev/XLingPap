@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-11-11</a:date
+>2020-11-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.1 11 November 2020<ul
+>2.38.1 12 November 2020<ul
 ><li
 >For URLs, remove any zero width joiner characters when showing the URL.</li
 ><li
 >Add drop-down arrow processing for annotationRef elements.</li
+><li
+>Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li
 ></ul
 ></li
 ><li

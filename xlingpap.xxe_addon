@@ -39,6 +39,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Add drop-down arrow processing for annotationRef elements.</li
 ><li
 >Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li
+><li
+>Fix bug: When an annotationRef element referred to an annotation that contains a citation element, that citation might not appear in the references.</li
 ></ul
 ></li
 ><li

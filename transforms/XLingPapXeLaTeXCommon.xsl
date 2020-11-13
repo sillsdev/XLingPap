@@ -1374,11 +1374,11 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <tex:cmd name="noindent" gr="0"/>
-                    <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
-                        <!-- need a group to prevent text fonts from being small, too -->
-                        <tex:spec cat="bg"/>
-                        <tex:cmd name="small" gr="0"/>
-                    </xsl:if>
+                <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                    <!-- need a group to prevent text fonts from being small, too -->
+                    <tex:spec cat="bg"/>
+                    <tex:cmd name="small" gr="0"/>
+                </xsl:if>
                 <tex:spec cat="bg"/>
                 <!-- default formatting is bold -->
                 <tex:spec cat="esc"/>
@@ -1411,9 +1411,9 @@
                         <tex:cmd name="par" gr="0" nl2="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                    <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
-                        <tex:spec cat="eg"/>
-                    </xsl:if>
+                <xsl:if test="$sBasicPointSize=$sLaTeXBasicPointSize">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
                 <!--                <tex:cmd name="leftskip" gr="0" nl2="0"/>-->
                 <!--                <tex:spec cat="esc"/>-->
                 <!--                <tex:spec cat="esc"/>-->
@@ -5208,17 +5208,30 @@
                 </xsl:if>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and ../interlinearSource">
-            <xsl:if test="ancestor::example or ancestor::listInterlinear">
-                <tex:spec cat="esc"/>
-                <tex:spec cat="esc" nl2="1"/>
-                <tex:group>
-                    <xsl:call-template name="OutputInterlinearTextReference">
-                        <xsl:with-param name="sRef" select="../@textref"/>
-                        <xsl:with-param name="sSource" select="../interlinearSource"/>
-                    </xsl:call-template>
-                </tex:group>
-            </xsl:if>
+        <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal)">
+            <xsl:choose>
+                <xsl:when test="../interlinearSource">
+                    <xsl:if test="ancestor::example or ancestor::listInterlinear">
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc" nl2="1"/>
+                        <tex:group>
+                            <xsl:call-template name="OutputInterlinearTextReference">
+                                <xsl:with-param name="sRef" select="../@textref"/>
+                                <xsl:with-param name="sSource" select="../interlinearSource"/>
+                            </xsl:call-template>
+                        </tex:group>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="$mode!='NoTextRef' and ancestor::interlinear-text">
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc" nl2="1"/>
+                    <tex:group>
+                        <xsl:call-template name="OutputInterlinearTextReference">
+                            <xsl:with-param name="sRef" select="../@textref"/>
+                        </xsl:call-template>
+                    </tex:group>
+                </xsl:when>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="$fIsListInterlinearButNotInTable='Y'">
             <tex:spec cat="eg"/>
@@ -5228,6 +5241,10 @@
                 <!--                <tex:cmd name="par"/> \par makes the hanging indent work, but causes bad page breaks and does not work in tables, etc.-->
                 <xsl:choose>
                     <xsl:when test="following-sibling::*[1][name()='free' or name()='literal']">
+                        <xsl:if test="$mode!='NoTextRef' and not(ancestor::listInterlinear) and $sInterlinearSourceStyle='AfterFirstLine'">
+                            <!-- finish overriding XLingPaperraggedright stuff -->
+                            <tex:spec cat="eg"/>
+                        </xsl:if>
                         <!-- we want to keep this free with the following free or literal; using this will still wrap a long line -->
                         <tex:spec cat="esc"/>
                         <tex:spec cat="esc"/>
@@ -5276,8 +5293,23 @@
         </xsl:if>
         <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
             <xsl:if test="$mode!='NoTextRef' and not(ancestor::listInterlinear)">
-                <!-- finish overriding XLingPaperraggedright stuff -->
-                <tex:spec cat="eg"/>
+                <xsl:choose>
+                    <xsl:when test="not(ancestor::td) and count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
+                        <xsl:choose>
+                            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] and $sInterlinearSourceStyle='AfterFirstLine'">
+                                <!-- do nothing because already done above -->
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- finish overriding XLingPaperraggedright stuff -->
+                                <tex:spec cat="eg"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- finish overriding XLingPaperraggedright stuff -->
+                        <tex:spec cat="eg"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="following-sibling::*[1][name()='interlinear'] ">
@@ -7683,11 +7715,11 @@
                 <xsl:choose>
                     <xsl:when test="name()='endnote' and parent::langData">
                         <!-- need {} after selectfont or following text gets jammed up to footnote number -->
-                        <tex:cmd name="selectfont" />
+                        <tex:cmd name="selectfont"/>
                     </xsl:when>
                     <xsl:when test="name()='endnote' and parent::gloss">
                         <!-- need {} after selectfont or following text gets jammed up to footnote number -->
-                        <tex:cmd name="selectfont" />
+                        <tex:cmd name="selectfont"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <tex:cmd name="selectfont" gr="0" sp="1"/>
@@ -8919,10 +8951,10 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
         </xsl:if>
-            <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
-            <xsl:if test="string-length($sFontSize) &gt; 0">
+        <xsl:variable name="sFontSize" select="normalize-space($language/@font-size)"/>
+        <xsl:if test="string-length($sFontSize) &gt; 0">
             <tex:spec cat="eg"/>
-            </xsl:if>
+        </xsl:if>
         <xsl:variable name="sFontStyle" select="normalize-space($language/@font-style)"/>
         <xsl:if test="string-length($sFontStyle) &gt; 0">
             <tex:spec cat="eg"/>
@@ -10664,8 +10696,8 @@
     <xsl:template name="ReportTeXCannotHandleThisMessage">
         <xsl:param name="sMessage"/>
         <xsl:if test="name()!='img'">
-        <tex:spec cat="esc"/>
-        <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
+            <tex:spec cat="esc"/>
         </xsl:if>
         <tex:cmd name="colorbox">
             <tex:parm>yellow</tex:parm>

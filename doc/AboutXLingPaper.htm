@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.38.1</span></p>
-      <p align="center">Date: 2020-11-12</p>
+      <p align="center">Date: 2020-11-13</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,13 +34,23 @@
             <hr></hr>
             <p><b>Revision History</b></p>
             <ul>
-               <li>2.38.1 12 November 2020
+               <li>2.38.1 13 November 2020
                   <ul>
                      <li>For URLs, remove any zero width joiner characters when showing the URL.</li>
                      <li>Add drop-down arrow processing for annotationRef elements.</li>
                      <li>Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li>
                      <li>Fix bug: When an annotationRef element referred to an annotation that contains a citation element, that citation might not
                         appear in the references.
+                     </li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one
+                              is using the "After first line" interlinear source method, the second interlinear would be indented.
+                           </li>
+                           <li>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one
+                              is using the "Under free translation" interlinear source method, the interlinear source would not appear.
+                           </li>
+                        </ul>
                      </li>
                   </ul>
                </li>

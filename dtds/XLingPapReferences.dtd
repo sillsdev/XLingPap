@@ -88,11 +88,17 @@
     xml:lang CDATA #IMPLIED
 >
 <!-- book -->
-<!ELEMENT book (translatedBy?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT book (translatedBy?, (editor, editorInitials?)?, edition?, (seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?, reprintInfo?, bookTotalPages?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT translatedBy (#PCDATA | %embedded;)*>
 <!ATTLIST translatedBy
     xml:lang CDATA #IMPLIED
 >
+<!ELEMENT editor (#PCDATA | %embedded;)*>
+<!ATTLIST editor
+    xml:lang CDATA #IMPLIED
+>
+<!ELEMENT editorInitials (#PCDATA | %embedded;)*>
+
 <!ELEMENT edition (#PCDATA | %embedded;)*>
 <!ATTLIST edition
     xml:lang CDATA #IMPLIED

@@ -11,8 +11,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>9 November 2020</small></center>
-      <center><small>Version: 2.38.0</small></center>
+      <center><i>SIL International</i></center><br><center><small>16 November 2020</small></center>
+      <center><small>Version: 2.38.2</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -582,7 +582,7 @@
          have optional <span style="font-family:fixed; color:maroon; ">location</span> and <span style="font-family:fixed; color:maroon; ">publisher</span> elements.
       </p>
       <h3 style=""><a name="sBMRefBook"></a>4.5.2&nbsp;<span style="font-family:fixed; color:maroon; ">book</span></h3>
-      <p>This is for a book. Besides the date and the title, a book also has optional <span style="font-family:fixed; color:maroon; ">translatedBy</span>, <span style="font-family:fixed; color:maroon; ">edition</span>, <span style="font-family:fixed; color:maroon; ">series</span>, and <span style="font-family:fixed; color:maroon; ">bVol</span> (book volume) elements, a recommended <span style="font-family:fixed; color:maroon; ">location</span> element and a recommended <span style="font-family:fixed; color:maroon; ">publisher</span> element.
+      <p>This is for a book. Besides the date and the title, a book also has optional <span style="font-family:fixed; color:maroon; ">translatedBy</span>, <span style="font-family:fixed; color:maroon; ">editor</span>, <span style="font-family:fixed; color:maroon; ">edition</span>, <span style="font-family:fixed; color:maroon; ">series</span>, and <span style="font-family:fixed; color:maroon; ">bVol</span> (book volume) elements, a recommended <span style="font-family:fixed; color:maroon; ">location</span> element and a recommended <span style="font-family:fixed; color:maroon; ">publisher</span> element.
       </p>
       <h3 style=""><a name="sBMRefCollection"></a>4.5.3&nbsp;<span style="font-family:fixed; color:maroon; ">collection</span></h3>
       <p>This is for a paper included in a volume or collection of papers. Besides the date and the title, a collection paper also
@@ -3509,6 +3509,8 @@
          <dd>A definition list term</dd>
          <dt><span style="font-family:fixed; color:maroon; ">edition</span></dt>
          <dd>The edition of the book or webpage</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">editor</span></dt>
+         <dd>The editor of a book that has authors and is not a collection</dd>
          <dt><span style="font-family:fixed; color:maroon; ">emailAddress</span></dt>
          <dd>The email address of an author</dd>
          <dt><span style="font-family:fixed; color:maroon; ">empty</span></dt>
@@ -4026,6 +4028,8 @@
          <dd>Layout info for the email address of an author</dd>
          <dt><span style="font-family:fixed; color:maroon; ">editionItem</span></dt>
          <dd>Layout info for edition information (within references)</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">editorItem</span></dt>
+         <dd>Layout info for editor information (within references)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">endnoteRefLayout</span></dt>
          <dd>Layout info for an endnote reference; in particular you can override the default text of &#8220;See footnote &#8221;</dd>
          <dt><span style="font-family:fixed; color:maroon; ">endnoteRefLinkLayout</span></dt>

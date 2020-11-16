@@ -1560,6 +1560,27 @@ edition:after
 	content:".  ";
 }
 
+editor
+{
+	display:inline;
+}
+editor:after
+{
+	content:".  ";
+}
+editorInitials:before
+{
+	property-group: authorInitialsBefore();
+}
+editorInitials
+{
+	property-group: authorInitials();
+}
+editorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
+
 emailAddress { 
     display: block;
     text-align: center;
@@ -6281,6 +6302,30 @@ editionItem[font-weight]
 editionItem
 {
 	property-group: referencesItem("2nd");
+}
+editorItem[color]
+{
+	color:concatenate(attr(color));
+}
+editorItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+editorItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+editorItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+editorItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+editorItem
+{
+	property-group: referencesItem("Samuel Jones, ed.");
 }
 emailAddressLayout[color]
 {

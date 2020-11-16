@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 November 2020</date
+>16 November 2020</date
 ><version
 contentType="ctVersion5.3"
->2.38.1</version
+>2.38.2</version
 ><version
 contentType="ctVersion7Plus"
->3.8.1</version
+>3.8.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -3924,6 +3924,9 @@ type="tElement"
 >This is for a book. Besides the date and the title, a book also has optional <object
 type="tElement"
 >translatedBy</object
+>, <object
+type="tElement"
+>editor</object
 >, <object
 type="tElement"
 >edition</object
@@ -29969,6 +29972,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>editor</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection</dd
+><dt
+><object
+type="tElement"
 >emailAddress</object
 ></dt
 ><dd
@@ -31775,6 +31785,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for edition information (within references)</dd
+><dt
+><object
+type="tElement"
+>editorItem</object
+></dt
+><dd
+>Layout info for editor information (within references)</dd
 ><dt
 ><object
 type="tElement"

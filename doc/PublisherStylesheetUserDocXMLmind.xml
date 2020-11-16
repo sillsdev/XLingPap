@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 November 2020</date
+>16 November 2020</date
 ><version
 contentType="ctVersion5.3"
->2.38.0</version
+>2.38.2</version
 ><version
 contentType="ctVersion7Plus"
->3.8.0</version
+>3.8.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -4823,6 +4823,29 @@ showTitle="short"
 >.</td
 ><td
 >Volume II</td
+></tr
+><tr
+><td
+><indexedItem
+term="iEditor"
+></indexedItem
+><object
+type="tElement"
+>editorItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>editor</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Samuel Jones, ed.</td
 ></tr
 ><tr
 ><td
@@ -19748,6 +19771,11 @@ id="iDoubleSpace"
 id="iEdition"
 ><term
 >Edition of a referenced work</term
+></indexTerm
+><indexTerm
+id="iEditor"
+><term
+>Editor of a book with authors that is not a collection</term
 ></indexTerm
 ><indexTerm
 id="iCollEd"

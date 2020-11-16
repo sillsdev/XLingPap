@@ -3067,6 +3067,13 @@
                 </xsl:call-template>
                 <xsl:text>&#x20;</xsl:text>
             </xsl:if>
+            <xsl:if test="editor">
+                <xsl:apply-templates select="editor"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="editor"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <xsl:if test="edition">
                 <xsl:apply-templates select="edition"/>
                 <xsl:call-template name="OutputPeriodIfNeeded">

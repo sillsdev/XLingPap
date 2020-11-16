@@ -99,11 +99,20 @@
             <xsl:if test="../m:name[@type='personal']/m:role/m:roleTerm='trl'">
                 <translatedBy>
                     <xsl:for-each select="..">
-                    <xsl:call-template name="GetEditorsNames">
-                        <xsl:with-param name="sKind" select="'trl'"/>
-                    </xsl:call-template>
+                        <xsl:call-template name="GetEditorsNames">
+                            <xsl:with-param name="sKind" select="'trl'"/>
+                        </xsl:call-template>
                     </xsl:for-each>
                 </translatedBy>
+            </xsl:if>
+            <xsl:if test="../m:name[@type='personal']/m:role/m:roleTerm='edt' and ../m:name[@type='personal']/m:role/m:roleTerm='aut'">
+                <editor>
+                    <xsl:for-each select="..">
+                        <xsl:call-template name="GetEditorsNames">
+                            <xsl:with-param name="sKind" select="'edt'"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </editor>
             </xsl:if>
             <xsl:variable name="sBookVolume" select="../m:part/m:detail[@type='volume']/m:number"/>
             <xsl:variable name="sSeriesTitle" select="../m:relatedItem[@type='series']/m:titleInfo/m:title"/>
@@ -376,7 +385,7 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='computerProgram' or string(.)='audioRecording' or string(.)='report' or string(.)='magazineArticle' or string(.)='newspaperArticle' or string(.)='encyclopediaArticle' or string(.)='presentation' and ../m:genre='Presentation Video'][../m:location/m:url]">
+    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='film' or string(.)='computerProgram' or string(.)='audioRecording' or string(.)='report' or string(.)='magazineArticle' or string(.)='newspaperArticle' or string(.)='encyclopediaArticle' or string(.)='presentation' and ../m:genre='Presentation Video'][../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>

@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 November 2020</date
+>19 November 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.38.2</version
@@ -570,13 +570,19 @@ src="resources/FootnoteLineSeparator.png"
 >The <object
 type="tRenderX"
 ></object
-> way of producing PDF pays attention to these attributes. The <object
+> way of producing PDF pays attention to these attributes, except <object
+type="tAttribute"
+>forcefootnotestobottomofpage</object
+>. The <object
 type="tXeTeX"
 ></object
 > way of producing PDF can only process the <object
 type="tAttribute"
 >spacebetweentextandline</object
-> attribute. The XHTML way ignores them all. The attributes are described in example <exampleRef
+> and <object
+type="tAttribute"
+>forcefootnotestobottomofpage</object
+> attributes. The XHTML way ignores them all. The attributes are described in example <exampleRef
 letter="xFootnoteLineSeparatorAttributes"
 num="xFootnoteLineSeparatorAttributes"
 ></exampleRef
@@ -603,6 +609,46 @@ lang="lEng"
 ></th
 ><th
 >Examples</th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFootnotesAtBottom"
+></indexedItem
+><object
+type="tAttribute"
+>forcefootnotestobottomofpage</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default is <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>When set to <object
+type="tAttrValue"
+>yes</object
+>, this forces all footnotes to appear at the bottom of their page.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
 ></tr
 ><tr
 ><td
@@ -20234,6 +20280,11 @@ see="iUseEndnotesLayout"
 id="iFootnoteContentBetweenConsecutiveFootnotesInText"
 ><term
 >Content between consecutive footnote numbers in text</term
+></indexTerm
+><indexTerm
+id="iFootnotesAtBottom"
+><term
+>Force footnotes to appear at the bottom of the page</term
 ></indexTerm
 ><indexTerm
 id="iFootnoteIndentr"

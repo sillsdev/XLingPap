@@ -88,6 +88,7 @@ Page Layout
       leaderlength CDATA #IMPLIED
       leaderwidth CDATA #IMPLIED
       spacebetweentextandline CDATA #IMPLIED
+      forcefootnotestobottomofpage (yes | no) "no"
     >
     <!ELEMENT footnoteIndent (#PCDATA) >
     <!ELEMENT hangingIndentInitialIndent (#PCDATA) >

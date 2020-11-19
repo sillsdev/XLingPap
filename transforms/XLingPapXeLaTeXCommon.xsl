@@ -2810,7 +2810,22 @@
         =========================================================== -->
     <xsl:template match="landscape">
         <tex:cmd name="landscape" gr="0" nl2="1"/>
+        <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+            <tex:spec cat="bg"/>
+            <tex:cmd name="fontsize">
+                <tex:parm>
+                    <xsl:value-of select="$sBasicPointSize"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:value-of select="number($sBasicPointSize) * 1.2"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="selectfont" gr="0" sp="1"/>
+        </xsl:if>
         <xsl:apply-templates/>
+        <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:if test="contains(../@XeLaTeXSpecial,'fix-final-landscape')">
             <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
         </xsl:if>
@@ -12267,17 +12282,28 @@
         <tex:cmd name="usepackage" nl2="1">
             <tex:parm>setspace</tex:parm>
         </tex:cmd>
-        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
-            <tex:cmd name="usepackage" nl2="1">
-                <tex:parm>footmisc</tex:parm>
-            </tex:cmd>
-            <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
-            <xsl:if test="string-length($sFootnoteIndent)&gt;0">
-                <tex:cmd name="footnotemargin" gr="0"/>
-                <xsl:value-of select="$sFootnoteIndent"/>
-                <xsl:text>&#xa;</xsl:text>
-            </xsl:if>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
+                <tex:cmd name="usepackage" nl2="1">
+                    <xsl:if test="$pageLayoutInfo/footnoteLine/@forcefootnotestobottomofpage='yes'">
+                        <tex:opt>bottom</tex:opt>
+                    </xsl:if>
+                    <tex:parm>footmisc</tex:parm>
+                </tex:cmd>
+                <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+                <xsl:if test="string-length($sFootnoteIndent)&gt;0">
+                    <tex:cmd name="footnotemargin" gr="0"/>
+                    <xsl:value-of select="$sFootnoteIndent"/>
+                    <xsl:text>&#xa;</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="$pageLayoutInfo/footnoteLine/@forcefootnotestobottomofpage='yes'">
+                <tex:cmd name="usepackage" nl2="1">
+                    <tex:opt>bottom</tex:opt>
+                    <tex:parm>footmisc</tex:parm>
+                </tex:cmd>
+            </xsl:when>
+        </xsl:choose>
         <tex:cmd name="usepackage" nl2="1">
             <tex:opt>normalem</tex:opt>
             <tex:parm>ulem</tex:parm>

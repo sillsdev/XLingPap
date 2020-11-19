@@ -46,6 +46,14 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Allow a proceedings reference element to have series and volume.</li
 ><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add ability to control whether or not footnotes should be forced to appear at the bottom of their page. See the forcefootnotestobottomofpage attribute of the footnoteLine element of the publisher style sheet.</li
+><li
+>Fix bug: landscape mode could be formatted in a different font size when using a non-standard basic point size in a style sheet.</li
+></ul
+></li
+><li
 >Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Find editor content in a book when there are also authors.</li

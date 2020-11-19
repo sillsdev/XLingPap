@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-11-16</a:date
+>2020-11-19</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,15 +40,19 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.2 16 November 2020<ul
+>3.8.2 19 November 2020<ul
 ><li
 >Add a book-level editor to references and editorItem to references portion of a style sheet.</li
+><li
+>Allow a proceedings reference element to have series and volume.</li
 ><li
 >Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Find editor content in a book when there are also authors.</li
 ><li
 >Treat a film as a web page.</li
+><li
+>Fix bug: remove backslash from IDs.</li
 ></ul
 ></li
 ></ul

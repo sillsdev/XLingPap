@@ -3707,12 +3707,19 @@
                                 <xsl:apply-templates select="collection/series"/>
                             </tex:parm>
                         </tex:cmd>
-                        <xsl:if test="not(bVol)">
-                            <xsl:call-template name="OutputPeriodIfNeeded">
-                                <xsl:with-param name="sText" select="collection/series"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                        <xsl:text>&#x20;</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="collection/bVol">
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:apply-templates select="collection/bVol"/>
+                                <xsl:text>. </xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="OutputPeriodIfNeeded">
+                                    <xsl:with-param name="sText" select="collection/series"/>
+                                </xsl:call-template>
+                                <xsl:text>&#x20;</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
                     <xsl:if test="collection/multivolumeWork">
                         <tex:cmd name="textit">
@@ -3997,6 +4004,32 @@
                             <xsl:text>. </xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:if test="collection/seriesEd">
+                        <xsl:call-template name="DoEdPlural">
+                            <xsl:with-param name="editor" select="proceedings/seriesEd"/>
+                        </xsl:call-template>
+                        <xsl:text>&#x20;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test="proceedings/series">
+                        <tex:cmd name="textit">
+                            <tex:parm>
+                                <xsl:apply-templates select="proceedings/series"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <xsl:choose>
+                            <xsl:when test="proceedings/bVol">
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:apply-templates select="proceedings/bVol"/>
+                                <xsl:text>. </xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="OutputPeriodIfNeeded">
+                                    <xsl:with-param name="sText" select="proceedings/series"/>
+                                </xsl:call-template>
+                                <xsl:text>&#x20;</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
                     <xsl:if test="proceedings/location or proceedings/publisher">
                         <xsl:apply-templates select="proceedings/location"/>
                         <xsl:if test="proceedings/publisher">

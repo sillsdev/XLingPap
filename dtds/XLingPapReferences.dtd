@@ -198,7 +198,7 @@
        a one-off method that includes all the information about the proceedings volume itself
        a reference to a book element (for the proceedings volume) and a possible set of pages for this paper
 -->
-<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?, location?, publisher?) | procCitation),
+<!ELEMENT proceedings ((((procEd, procEdInitials?)?, procTitle, procTitleLowerCase?, procVol?, procPages?,(seriesEd?, seriesEdInitials?, series)?, bVol?, multivolumeWork?, location?, publisher?) | procCitation),
                         reprintInfo?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ELEMENT procEd (#PCDATA | %embedded;)*>
 <!ATTLIST procEd

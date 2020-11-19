@@ -4318,12 +4318,21 @@ not using
                             <fo:inline font-style="italic">
                                 <xsl:apply-templates select="collection/series"/>
                             </fo:inline>
-                            <xsl:if test="not(bVol)">
-                                <xsl:call-template name="OutputPeriodIfNeeded">
-                                    <xsl:with-param name="sText" select="collection/series"/>
-                                </xsl:call-template>
-                            </xsl:if>
-                            <xsl:text>&#x20;</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="collection/bVol">
+                                    <fo:inline>
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:apply-templates select="collection/bVol"/>
+                                        <xsl:text>. </xsl:text>
+                                    </fo:inline>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="OutputPeriodIfNeeded">
+                                        <xsl:with-param name="sText" select="collection/series"/>
+                                    </xsl:call-template>
+                                    <xsl:text>&#x20;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:if>
                         <xsl:if test="collection/multivolumeWork">
                             <fo:inline font-style="italic">
@@ -4607,6 +4616,32 @@ not using
                                 <xsl:text>. </xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
+                        <xsl:if test="proceedings/seriesEd">
+                            <xsl:call-template name="DoEdPlural">
+                                <xsl:with-param name="editor" select="proceedings/seriesEd"/>
+                            </xsl:call-template>
+                            <xsl:text>&#x20;</xsl:text>
+                        </xsl:if>
+                        <xsl:if test="proceedings/series">
+                            <fo:inline font-style="italic">
+                                <xsl:apply-templates select="proceedings/series"/>
+                            </fo:inline>
+                            <xsl:choose>
+                                <xsl:when test="proceedings/bVol">
+                                    <fo:inline>
+                                        <xsl:text>&#x20;</xsl:text>
+                                        <xsl:apply-templates select="proceedings/bVol"/>
+                                        <xsl:text>. </xsl:text>
+                                    </fo:inline>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="OutputPeriodIfNeeded">
+                                        <xsl:with-param name="sText" select="proceedings/series"/>
+                                    </xsl:call-template>
+                                    <xsl:text>&#x20;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:if>
                         <xsl:if test="proceedings/location or proceedings/publisher">
                             <xsl:apply-templates select="proceedings/location"/>
                             <xsl:if test="proceedings/publisher">

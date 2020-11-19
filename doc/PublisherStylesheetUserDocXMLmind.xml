@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 November 2020</date
+>18 November 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.38.2</version
@@ -7234,6 +7234,145 @@ showTitle="short"
 >.</td
 ><td
 >Illustrator</td
+></tr
+><tr
+><td
+><indexedItem
+term="iVolumeNumber"
+></indexedItem
+><object
+type="tElement"
+>bVolItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>bVol</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Volume II</td
+></tr
+><tr
+><td
+><indexedItem
+term="iSeriesEd"
+></indexedItem
+><object
+type="tElement"
+>seriesEdItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>seriesEd</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has <table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>appendEdAbbreviation</object
+></td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>Append “, ed.” or “, eds.” automatically. The first one is used if the <object
+type="tAttribute"
+>plural</object
+> attribute of the <object
+type="tElement"
+>seriesEd</object
+> element is set to <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>Do not append any text.</td
+></tr
+></table
+></td
+></tr
+></table
+></td
+><td
+>Patok, Mary Anne and James Verdun</td
+></tr
+><tr
+><td
+><indexedItem
+term="iSeries"
+></indexedItem
+><object
+type="tElement"
+>seriesItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>series</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Occasional Publications in Academic Computing No. 16</td
+></tr
+><tr
+><td
+><indexedItem
+term="iMultivolumeWork"
+></indexedItem
+><object
+type="tElement"
+>multivolumeWorkItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>multivolumeWork</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Languages of Iberia</td
 ></tr
 ><tr
 ><td

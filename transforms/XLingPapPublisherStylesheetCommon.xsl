@@ -2492,6 +2492,32 @@
                                     </xsl:call-template>
                                 </xsl:if>
                             </xsl:when>
+                            <xsl:when test="name(.)='seriesEdItem'">
+                                <xsl:variable name="item" select="$proceedings/seriesEd"/>
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="$item"/>
+                                </xsl:call-template>
+                                <xsl:if test="@appendEdAbbreviation != 'no'">
+                                    <xsl:call-template name="DoEditorAbbreviation">
+                                        <xsl:with-param name="item" select="$item"/>
+                                    </xsl:call-template>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="name(.)='seriesItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="$proceedings/series"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='bVolItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="normalize-space($proceedings/bVol)"/>
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:when test="name(.)='multivolumeWorkItem'">
+                                <xsl:call-template name="OutputReferenceItem">
+                                    <xsl:with-param name="item" select="$proceedings/multivolumeWork"/>
+                                </xsl:call-template>
+                            </xsl:when>
                             <xsl:when test="name(.)='reprintInfoItem'">
                                 <xsl:call-template name="OutputReferenceItemNode">
                                     <xsl:with-param name="item" select="$proceedings/reprintInfo"/>
@@ -3993,6 +4019,22 @@
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
+                <xsl:when test="seriesEd">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="series">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="bVol">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="multivolumeWork">y</xsl:when>
+                <xsl:otherwise>n</xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
                 <xsl:when test="location or publisher">y</xsl:when>
                 <xsl:otherwise>n</xsl:otherwise>
             </xsl:choose>
@@ -4030,34 +4072,50 @@
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='y' and procPagesItem">x</xsl:when>
                         <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and not(procPagesItem)">x</xsl:when>
                     </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 6, 1)='y' and seriesEdItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 6, 1)='n' and not(seriesEdItem)">x</xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and seriesItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(seriesItem)">x</xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 8, 1)='y' and bVolItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 8, 1)='n' and not(bVolItem)">x</xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='y' and multivolumeWorkItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 9, 1)='n' and not(multivolumeWorkItem)">x</xsl:when>
+                    </xsl:choose>
                     <xsl:call-template name="DetermineIfLocationPublisherMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="locationPublisherPos">6</xsl:with-param>
+                        <xsl:with-param name="locationPublisherPos">10</xsl:with-param>
                     </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='y' and procCitationItem">
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='y' and procCitationItem">
                             <xsl:choose>
                                 <xsl:when test="substring($sOptionsPresent, 5, 1)='n' and procPagesItem and string-length(normalize-space($refWork/procCitation/@page)) &gt; 0">xx</xsl:when>
                                 <xsl:otherwise>x</xsl:otherwise>
                             </xsl:choose>
                         </xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 7, 1)='n' and not(procCitationItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 11, 1)='n' and not(procCitationItem)">x</xsl:when>
                     </xsl:choose>
                     <xsl:call-template name="DetermineIfUrlMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="urlPos">8</xsl:with-param>
+                        <xsl:with-param name="urlPos">12</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfDateAccessedMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="dateAccessedPos">9</xsl:with-param>
+                        <xsl:with-param name="dateAccessedPos">13</xsl:with-param>
                     </xsl:call-template>
                     <xsl:call-template name="DetermineIfDoiMatchesLayoutPattern">
                         <xsl:with-param name="sOptionsPresent" select="$sOptionsPresent"/>
-                        <xsl:with-param name="doiPos">10</xsl:with-param>
+                        <xsl:with-param name="doiPos">14</xsl:with-param>
                     </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="substring($sOptionsPresent, 12, 1)='y' and reprintInfoItem">x</xsl:when>
-                        <xsl:when test="substring($sOptionsPresent, 12, 1)='n' and not(reprintInfoItem)">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 16, 1)='y' and reprintInfoItem">x</xsl:when>
+                        <xsl:when test="substring($sOptionsPresent, 16, 1)='n' and not(reprintInfoItem)">x</xsl:when>
                     </xsl:choose>
                     <!--<xsl:choose>
                         <xsl:when test="substring($sOptionsPresent,10, 1)='y' and iso639-3codeItemRef">x</xsl:when>
@@ -4066,7 +4124,7 @@
                     <!-- now we always set the x for the ISO whether the pattern is there or not; it all comes out in the wash -->
                     <xsl:text>x</xsl:text>
                 </xsl:variable>
-                <xsl:if test="string-length($sItemsWhichMatchOptions) = 12">
+                <xsl:if test="string-length($sItemsWhichMatchOptions) = 16">
                     <xsl:call-template name="RecordPosition"/>
                 </xsl:if>
             </xsl:for-each>

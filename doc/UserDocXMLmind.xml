@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 November 2020</date
+>18 November 2020</date
 ><version
 contentType="ctVersion5.3"
 >2.38.2</version
@@ -4776,6 +4776,31 @@ type="tElement"
 type="tElement"
 >procPages</object
 > (page numbers in the volume) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEd</object
+> (series editor(s) of the series that the volume is in) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEdInitials</object
+> (series editor(s) of the series that the volume is in, using initials instead of first name, etc.) element,</li
+><li
+>an optional <object
+type="tElement"
+>series</object
+> (series title that the volume is in) element,</li
+><li
+>an optional <object
+type="tElement"
+>bVol</object
+> (volume number of the series that the volume is in) element,</li
+><li
+><indexedItem
+term="iMultivoumeWork"
+></indexedItem
+></li
 ><li
 >an optional <object
 type="tElement"

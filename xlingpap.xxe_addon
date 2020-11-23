@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.8.3</a:version
+>3.8.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -40,6 +40,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.8.4 23 November 2020<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li
+></ul
+></li
+></ul
+></li
+><li
 >3.8.3 23 November 2020<ul
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
@@ -59,8 +69,6 @@ xmlns="http://www.w3.org/1999/xhtml"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add ability to control whether or not footnotes should be forced to appear at the bottom of their page. See the forcefootnotestobottomofpage attribute of the footnoteLine element of the publisher style sheet.</li
-><li
->Fix bug: landscape mode could be formatted in a different font size when using a non-standard basic point size in a style sheet.</li
 ></ul
 ></li
 ><li

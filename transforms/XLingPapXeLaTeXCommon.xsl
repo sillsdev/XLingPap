@@ -2810,22 +2810,7 @@
         =========================================================== -->
     <xsl:template match="landscape">
         <tex:cmd name="landscape" gr="0" nl2="1"/>
-        <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
-            <tex:spec cat="bg"/>
-            <tex:cmd name="fontsize">
-                <tex:parm>
-                    <xsl:value-of select="$sBasicPointSize"/>
-                </tex:parm>
-                <tex:parm>
-                    <xsl:value-of select="number($sBasicPointSize) * 1.2"/>
-                </tex:parm>
-            </tex:cmd>
-            <tex:cmd name="selectfont" gr="0" sp="1"/>
-        </xsl:if>
         <xsl:apply-templates/>
-        <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
-            <tex:spec cat="eg"/>
-        </xsl:if>
         <xsl:if test="contains(../@XeLaTeXSpecial,'fix-final-landscape')">
             <tex:cmd name="XLingPaperendtableofcontents" gr="0"/>
         </xsl:if>

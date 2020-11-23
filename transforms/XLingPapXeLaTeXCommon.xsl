@@ -12302,6 +12302,12 @@
                     <tex:opt>bottom</tex:opt>
                     <tex:parm>footmisc</tex:parm>
                 </tex:cmd>
+                <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+                <xsl:if test="string-length($sFootnoteIndent)&gt;0">
+                    <tex:cmd name="footnotemargin" gr="0"/>
+                    <xsl:value-of select="$sFootnoteIndent"/>
+                    <xsl:text>&#xa;</xsl:text>
+                </xsl:if>
             </xsl:when>
         </xsl:choose>
         <tex:cmd name="usepackage" nl2="1">

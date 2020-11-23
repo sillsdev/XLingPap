@@ -2564,7 +2564,22 @@
                     <xsl:when test="@location='topOfPage'">thp</xsl:when>
                 </xsl:choose>
                 <tex:spec cat="rsb" nl2="1"/>
+                <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+                    <tex:spec cat="bg"/>
+                    <tex:cmd name="fontsize">
+                        <tex:parm>
+                            <xsl:value-of select="$sBasicPointSize"/>
+                        </tex:parm>
+                        <tex:parm>
+                            <xsl:value-of select="number($sBasicPointSize) * 1.2"/>
+                        </tex:parm>
+                    </tex:cmd>
+                    <tex:cmd name="selectfont" gr="0" sp="1"/>
+                </xsl:if>
                 <xsl:call-template name="DoTableNumbered"/>
+                <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
+                    <tex:spec cat="eg"/>
+                </xsl:if>
                 <tex:spec cat="esc" nl1="1"/>
                 <xsl:text>end</xsl:text>
                 <tex:spec cat="bg"/>

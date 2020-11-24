@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 November 2020</date
+>24 November 2020</date
 ><version
 contentType="ctVersion5.3"
->2.38.2</version
+>2.38.4</version
 ><version
 contentType="ctVersion7Plus"
->3.8.2</version
+>3.8.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -13699,6 +13699,9 @@ id="sTCTFootnotesInTables"
 ><secTitle
 >Footnotes in Tables</secTitle
 ><p
+><indexedItem
+term="iTableFootnotes"
+></indexedItem
 >You can have footnotes in tables. <object
 type="tXLingPap"
 ></object
@@ -35717,6 +35720,12 @@ type="tXeTeX"
 ></object
 >-produced PDF</term
 ></indexTerm
+><indexTerm
+id="iFootnotesInTable"
+see="iTableFootnotes"
+><term
+>In tables</term
+></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
@@ -37040,6 +37049,11 @@ id="iTableConvertToNumberedTable"
 id="iCopyExternalTable"
 ><term
 >Convert a table from a word processing, spreadsheet, or web page program</term
+></indexTerm
+><indexTerm
+id="iTableFootnotes"
+><term
+>Footnotes in a table</term
 ></indexTerm
 ><indexTerm
 id="iIncreaseTableSize"

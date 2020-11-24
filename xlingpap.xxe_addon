@@ -34,6 +34,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >2.38.4 23 November 2020<ul
 ><li
+>Add index items for footnotes in tables to the user documentation.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li

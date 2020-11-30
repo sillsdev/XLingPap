@@ -5293,7 +5293,7 @@ not using
                                 </xsl:choose>
                             </xsl:when>
                             <xsl:when test="name()='img'">
-                                <xsl:apply-templates select="."/>
+                                <xsl:call-template name="HandleImg"/>
                             </xsl:when>
                             <!--  we ignore the 'nothing' case -->
                         </xsl:choose>

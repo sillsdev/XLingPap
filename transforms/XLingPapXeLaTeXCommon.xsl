@@ -2878,86 +2878,17 @@
             <xsl:with-param name="bInMarker" select="'Y'"/>
         </xsl:apply-templates>
     </xsl:template>
-
+    
     <!-- ===========================================================
         IMG
         =========================================================== -->
     <xsl:template match="img" mode="InMarker">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
-    <xsl:template match="img">
-        <xsl:variable name="sImgFile" select="normalize-space(translate(@src,'\','/'))"/>
-        <xsl:variable name="sExtension" select="substring($sImgFile,string-length($sImgFile)-3,4)"/>
-        <xsl:choose>
-            <xsl:when test="translate($sExtension,'GIF','gif')='.gif'">
-                <xsl:if test="not(ancestor::example)">
-                    <tex:cmd name="par"/>
-                </xsl:if>
-                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
-                    <xsl:with-param name="sMessage">
-                        <xsl:text>We're sorry, but the graphic file </xsl:text>
-                        <xsl:value-of select="$sImgFile"/>
-                        <xsl:text> is in GIF format and this processor cannot handle GIF format.  You will need to convert the file to a different format.  We suggest using PNG format or JPG format.  Also see section 11.17.1.1 in the XLingPaper user documentation.</xsl:text>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:when test="$sExtension='.svg'">
-                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
-                <xsl:call-template name="HandlePDFImageFile">
-                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:when test="$sExtension='.mml'">
-                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
-                <xsl:call-template name="HandlePDFImageFile">
-                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:when test="$sExtension='.pdf'">
-                <xsl:call-template name="HandlePDFImageFile">
-                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="ancestor::example">
-                        <tex:cmd name="parbox">
-                            <tex:opt>t</tex:opt>
-                            <tex:parm>
-                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sExampleIndentBefore"/>
-                                <xsl:text> - </xsl:text>
-                                <xsl:value-of select="$sExampleIndentAfter"/>
-                            </tex:parm>
-                            <tex:parm>
-                                <xsl:call-template name="DoImageFile">
-                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
-                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:when test="parent::chart and not(ancestor::figure)">
-                        <tex:cmd name="hbox">
-                            <tex:parm>
-                                <xsl:call-template name="DoImageFile">
-                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
-                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="DoImageFile">
-                            <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
-                            <xsl:with-param name="sImgFile" select="$sImgFile"/>
-                        </xsl:call-template>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
+    <xsl:template match="img[not(ancestor::headerFooterPageStyles)]">
+        <xsl:call-template name="HandleImg"/>
     </xsl:template>
+
     <!-- ===========================================================
         mediaObject
         =========================================================== -->
@@ -7812,6 +7743,82 @@
         <xsl:text>3pt</xsl:text>
         <tex:spec cat="rsb"/>
         <xsl:text>&#x0a;</xsl:text>
+    </xsl:template>
+    <!--  
+        HandleImg
+    -->
+    <xsl:template name="HandleImg">
+        <xsl:variable name="sImgFile" select="normalize-space(translate(@src,'\','/'))"/>
+        <xsl:variable name="sExtension" select="substring($sImgFile,string-length($sImgFile)-3,4)"/>
+        <xsl:choose>
+            <xsl:when test="translate($sExtension,'GIF','gif')='.gif'">
+                <xsl:if test="not(ancestor::example)">
+                    <tex:cmd name="par"/>
+                </xsl:if>
+                <xsl:call-template name="ReportTeXCannotHandleThisMessage">
+                    <xsl:with-param name="sMessage">
+                        <xsl:text>We're sorry, but the graphic file </xsl:text>
+                        <xsl:value-of select="$sImgFile"/>
+                        <xsl:text> is in GIF format and this processor cannot handle GIF format.  You will need to convert the file to a different format.  We suggest using PNG format or JPG format.  Also see section 11.17.1.1 in the XLingPaper user documentation.</xsl:text>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$sExtension='.svg'">
+                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$sExtension='.mml'">
+                <xsl:variable name="sPDFFile" select="concat(substring-before($sImgFile,$sExtension),'.pdf')"/>
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sPDFFile"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$sExtension='.pdf'">
+                <xsl:call-template name="HandlePDFImageFile">
+                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="ancestor::example">
+                        <tex:cmd name="parbox">
+                            <tex:opt>t</tex:opt>
+                            <tex:parm>
+                                <tex:cmd name="textwidth" gr="0" nl2="0"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$sExampleIndentBefore"/>
+                                <xsl:text> - </xsl:text>
+                                <xsl:value-of select="$sExampleIndentAfter"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="DoImageFile">
+                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
+                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:when test="parent::chart and not(ancestor::figure)">
+                        <tex:cmd name="hbox">
+                            <tex:parm>
+                                <xsl:call-template name="DoImageFile">
+                                    <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
+                                    <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                                </xsl:call-template>
+                            </tex:parm>
+                        </tex:cmd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoImageFile">
+                            <xsl:with-param name="sXeTeXGraphicFile" select="'XeTeXpicfile'"/>
+                            <xsl:with-param name="sImgFile" select="$sImgFile"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleISO639-3CodesInTableColumnSpecColumns

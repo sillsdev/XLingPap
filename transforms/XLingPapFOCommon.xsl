@@ -18,26 +18,8 @@
     <!-- ===========================================================
         IMG
         =========================================================== -->
-    <xsl:template match="img">
-        <fo:external-graphic scaling="uniform">
-            <xsl:call-template name="OutputTypeAttributes">
-                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
-            </xsl:call-template>
-            <xsl:attribute name="src">
-                <xsl:text>url(</xsl:text>
-                <xsl:variable name="sSrc" select="normalize-space(@src)"/>
-                <xsl:choose>
-                    <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
-                        <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
-                        <xsl:value-of select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="@src"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:text>)</xsl:text>
-            </xsl:attribute>
-        </fo:external-graphic>
+    <xsl:template match="img[not(ancestor::headerFooterPageStyles)]">
+        <xsl:call-template name="HandleImg"/>
     </xsl:template>
     <!-- ===========================================================
         INTERLINEAR TEXT
@@ -499,6 +481,30 @@
             </xsl:call-template>
             <xsl:text> + </xsl:text>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleImg
+    -->
+    <xsl:template name="HandleImg">
+        <fo:external-graphic scaling="uniform">
+            <xsl:call-template name="OutputTypeAttributes">
+                <xsl:with-param name="sList" select="@xsl-foSpecial"/>
+            </xsl:call-template>
+            <xsl:attribute name="src">
+                <xsl:text>url(</xsl:text>
+                <xsl:variable name="sSrc" select="normalize-space(@src)"/>
+                <xsl:choose>
+                    <xsl:when test="substring($sSrc,string-length($sSrc)-3) ='.mml'">
+                        <xsl:variable name="sSvg" select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                        <xsl:value-of select="concat(substring($sSrc,0,string-length($sSrc)-3),'.svg')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@src"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>)</xsl:text>
+            </xsl:attribute>
+        </fo:external-graphic>
     </xsl:template>
     <!--  
         HandleLangDataGlossInWordOrListWord

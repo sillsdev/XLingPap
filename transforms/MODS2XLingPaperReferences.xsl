@@ -329,6 +329,11 @@
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
         <thesis>
+            <xsl:if test="following-sibling::m:genre[not(@authority)]">
+                <xsl:attribute name="labelThesis">
+                    <xsl:value-of select="following-sibling::m:genre[not(@authority)]"/>
+                </xsl:attribute>
+            </xsl:if>
             <institution>
                 <xsl:value-of select="../m:originInfo/m:publisher"/>
             </institution>

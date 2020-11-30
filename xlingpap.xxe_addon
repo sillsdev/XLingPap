@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-11-24</a:date
+>2020-11-30</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,13 +40,23 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.4 24 November 2020<ul
+>3.8.4 30 November 2020<ul
+><li
+>Fix typo in thesis section of user documentation.</li
 ><li
 >Add index items for footnotes in tables to the user documentation.</li
+><li
+>Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li
+></ul
+></li
+><li
+>Converting Zotero references file to XLingPaper format:<ul
+><li
+>Set labelThesis attribute of thesis element when available.</li
 ></ul
 ></li
 ></ul

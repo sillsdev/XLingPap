@@ -3252,6 +3252,9 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    <xsl:template match="img" mode="header-footer">
+        <xsl:call-template name="HandleImg"/>
+    </xsl:template>
     <!-- ===========================================================
       CITATIONS, Glossary, Indexes and REFERENCES 
       =========================================================== -->

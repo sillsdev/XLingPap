@@ -2885,7 +2885,7 @@
     <xsl:template match="img" mode="InMarker">
         <xsl:apply-templates select="self::*"/>
     </xsl:template>
-    <xsl:template match="img[not(ancestor::headerFooterPageStyles)]">
+    <xsl:template match="img[not(ancestor::headerFooterPageStyles) or parent::fixedText]">
         <xsl:call-template name="HandleImg"/>
     </xsl:template>
 

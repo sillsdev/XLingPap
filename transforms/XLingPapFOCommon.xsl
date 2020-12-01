@@ -18,7 +18,7 @@
     <!-- ===========================================================
         IMG
         =========================================================== -->
-    <xsl:template match="img[not(ancestor::headerFooterPageStyles)]">
+    <xsl:template match="img[not(ancestor::headerFooterPageStyles) or parent::fixedText]">
         <xsl:call-template name="HandleImg"/>
     </xsl:template>
     <!-- ===========================================================

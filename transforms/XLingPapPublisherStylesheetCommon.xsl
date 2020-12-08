@@ -595,6 +595,35 @@
     -->
     <xsl:template match="literalLabelLayout"/>
     <!--  
+        AdjustPageNumbers
+    -->
+    <xsl:template name="AdjustPageNumbers">
+        <xsl:param name="normalizedPages"/>
+        <xsl:param name="sSeparator" select="'-'"/>
+        <xsl:variable name="startPage" select="substring-before($normalizedPages,$sSeparator)"/>
+        <xsl:variable name="endPage" select="substring-after($normalizedPages,$sSeparator)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($startPage) = 3 and string-length($endPage) = 3 and substring($startPage,1,1)=substring($endPage,1,1)">
+                <xsl:value-of select="$startPage"/>
+                <xsl:value-of select="$sSeparator"/>
+                <xsl:value-of select="substring($endPage,2)"/>
+            </xsl:when>
+            <xsl:when test="string-length($startPage) = 4 and string-length($endPage) = 4 and substring($startPage,1,2)=substring($endPage,1,2)">
+                <xsl:value-of select="$startPage"/>
+                <xsl:value-of select="$sSeparator"/>
+                <xsl:value-of select="substring($endPage,3)"/>
+            </xsl:when>
+            <xsl:when test="string-length($startPage) = 5 and string-length($endPage) = 5 and substring($startPage,1,3)=substring($endPage,1,3)">
+                <xsl:value-of select="$startPage"/>
+                <xsl:value-of select="$sSeparator"/>
+                <xsl:value-of select="substring($endPage,4)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$normalizedPages"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DetermineIfDateAccessedMatchesLayoutPattern
     -->
     <xsl:template name="DetermineIfDateAccessedMatchesLayoutPattern">
@@ -3823,26 +3852,18 @@
         <xsl:param name="normalizedPages"/>
         <xsl:choose>
             <xsl:when test="$referencesLayoutInfo/@removecommonhundredsdigitsinpages='yes'">
-                <xsl:variable name="startPage" select="substring-before($normalizedPages,'-')"/>
-                <xsl:variable name="endPage" select="substring-after($normalizedPages,'-')"/>
+                <xsl:variable name="sSeparator" select="normalize-space($references/@pageRangeSeparator)"/>
                 <xsl:choose>
-                    <xsl:when test="string-length($startPage) = 3 and string-length($endPage) = 3 and substring($startPage,1,1)=substring($endPage,1,1)">
-                        <xsl:value-of select="$startPage"/>
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="substring($endPage,2)"/>
-                    </xsl:when>
-                    <xsl:when test="string-length($startPage) = 4 and string-length($endPage) = 4 and substring($startPage,1,2)=substring($endPage,1,2)">
-                        <xsl:value-of select="$startPage"/>
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="substring($endPage,3)"/>
-                    </xsl:when>
-                    <xsl:when test="string-length($startPage) = 5 and string-length($endPage) = 5 and substring($startPage,1,3)=substring($endPage,1,3)">
-                        <xsl:value-of select="$startPage"/>
-                        <xsl:text>-</xsl:text>
-                        <xsl:value-of select="substring($endPage,4)"/>
+                    <xsl:when test="string-length($sSeparator) &gt; 0">
+                        <xsl:call-template name="AdjustPageNumbers">
+                            <xsl:with-param name="normalizedPages" select="$normalizedPages"/>
+                            <xsl:with-param name="sSeparator" select="$sSeparator"/>
+                        </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="$normalizedPages"/>
+                        <xsl:call-template name="AdjustPageNumbers">
+                            <xsl:with-param name="normalizedPages" select="$normalizedPages"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

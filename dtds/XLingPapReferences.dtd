@@ -16,6 +16,7 @@
     titleformtoshowineditor (uppercase | lowercase | both) "uppercase"
     showinlandscapemode (yes | no) "no"
     authorNamesWordForAnd CDATA #IMPLIED
+    pageRangeSeparator CDATA #IMPLIED
 >
 <!-- the citename is the string to use in a citation within the text body -->
 <!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, refWork+)>

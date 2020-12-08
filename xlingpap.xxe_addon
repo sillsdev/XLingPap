@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-12-01</a:date
+>2020-12-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,13 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.4 1 December 2020<ul
+>2.38.4 8 December 2020<ul
 ><li
 >Fix typo in thesis section of user documentation.</li
 ><li
 >Add index items for footnotes in tables to the user documentation.</li
+><li
+>Add the pageRangeSeparator attribute to the references element so a user can specify what to use between starting and ending page numbers.</li
 ><li
 >Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li
 ><li

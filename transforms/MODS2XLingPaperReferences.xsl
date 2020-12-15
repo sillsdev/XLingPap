@@ -53,7 +53,28 @@
                                         <xsl:value-of select="$sCiteName3"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                        <xsl:choose>
+                                            <xsl:when test="m:relatedItem">
+                                                <xsl:for-each select="m:relatedItem">
+                                                    <xsl:variable name="sCiteName4">
+                                                        <xsl:call-template name="GetCiteName">
+                                                            <xsl:with-param name="sKind" select="'edt'"/>
+                                                        </xsl:call-template>
+                                                    </xsl:variable>
+                                                    <xsl:choose>
+                                                        <xsl:when test="string-length($sCiteName4) &gt; 0">
+                                                            <xsl:value-of select="$sCiteName4"/>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:for-each>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:otherwise>
@@ -86,7 +107,7 @@
                             </keyword>
                         </xsl:for-each>
                     </keywords>
-                </xsl:if>                
+                </xsl:if>
             </refWork>
         </refAuthor>
     </xsl:template>
@@ -132,14 +153,14 @@
                             <xsl:attribute name="plural">
                                 <xsl:for-each select="../m:relatedItem[@type='series']">
                                     <xsl:choose>
-                                    <xsl:when test="count(m:name[m:role/m:roleTerm='pbd']) &gt; 1">
-                                        <xsl:text>yes</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>no</xsl:text>
-                                    </xsl:otherwise>
+                                        <xsl:when test="count(m:name[m:role/m:roleTerm='pbd']) &gt; 1">
+                                            <xsl:text>yes</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text>no</xsl:text>
+                                        </xsl:otherwise>
                                     </xsl:choose>
-                                    </xsl:for-each>
+                                </xsl:for-each>
                             </xsl:attribute>
                             <xsl:value-of select="$sEditors"/>
                         </seriesEd>
@@ -205,7 +226,9 @@
             </xsl:when>
             <xsl:otherwise>
                 <collection>
-                    <xsl:call-template name="DoEditors"/>
+                    <xsl:if test="../m:name[1]/m:role[m:roleTerm='aut' or m:roleTerm='ctb']">
+                        <xsl:call-template name="DoEditors"/>
+                    </xsl:if>
                     <xsl:call-template name="DoTitleVolumePages">
                         <xsl:with-param name="sHostTitle" select="$sHostTitle"/>
                     </xsl:call-template>
@@ -390,7 +413,8 @@
     <!-- 
         webpage
     -->
-    <xsl:template match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='film' or string(.)='computerProgram' or string(.)='audioRecording' or string(.)='report' or string(.)='magazineArticle' or string(.)='newspaperArticle' or string(.)='encyclopediaArticle' or string(.)='presentation' and ../m:genre='Presentation Video'][../m:location/m:url]">
+    <xsl:template
+        match="m:genre[@authority='local'][string(.)='webpage' or string(.)='blogPost' or string(.)='videoRecording' or string(.)='film' or string(.)='computerProgram' or string(.)='audioRecording' or string(.)='report' or string(.)='magazineArticle' or string(.)='newspaperArticle' or string(.)='encyclopediaArticle' or string(.)='presentation' and ../m:genre='Presentation Video'][../m:location/m:url]">
         <xsl:call-template name="DoDateAndTitle">
             <xsl:with-param name="mydate" select="../m:originInfo/m:dateCreated"/>
         </xsl:call-template>
@@ -415,25 +439,26 @@
         abstract
     -->
     <xsl:template name="abstract">
-		<annotation annotype="atAbstract">
-                <xsl:attribute name="id">
-                    <xsl:call-template name="DoIDAnnotation"/>
-		          <xsl:text>Abstract</xsl:text>
-                </xsl:attribute>
-			<xsl:value-of select="."/>
-		</annotation>
+        <annotation annotype="atAbstract">
+            <xsl:attribute name="id">
+                <xsl:call-template name="DoIDAnnotation"/>
+                <xsl:text>Abstract</xsl:text>
+            </xsl:attribute>
+            <xsl:value-of select="."/>
+        </annotation>
     </xsl:template>
     <!--
         note
     -->
     <xsl:template name="note">
-		<annotation annotype="atNote">
-                <xsl:attribute name="id">
-                    <xsl:call-template name="DoIDAnnotation"/>
-		          <xsl:text>Note</xsl:text><xsl:value-of select="position()"/>
-                </xsl:attribute>
-			<xsl:value-of select="."/>
-		</annotation>
+        <annotation annotype="atNote">
+            <xsl:attribute name="id">
+                <xsl:call-template name="DoIDAnnotation"/>
+                <xsl:text>Note</xsl:text>
+                <xsl:value-of select="position()"/>
+            </xsl:attribute>
+            <xsl:value-of select="."/>
+        </annotation>
     </xsl:template>
     <!--
         doi
@@ -528,7 +553,33 @@
                                 <xsl:value-of select="$sEditorName"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                <xsl:choose>
+                                    <xsl:when test="m:relatedItem">
+                                        <xsl:for-each select="m:relatedItem">
+                                            <xsl:variable name="sEditorName2">
+                                                <xsl:call-template name="GetAuthorsNames">
+                                                    <xsl:with-param name="sKind" select="'edt'"/>
+                                                </xsl:call-template>
+                                            </xsl:variable>
+                                            <xsl:choose>
+                                                <xsl:when test="string-length($sEditorName2) &gt; 0 and not(starts-with($sEditorName2,', '))">
+                                                    <xsl:value-of select="$sEditorName2"/>
+                                                    <xsl:text> (ed</xsl:text>
+                                                    <xsl:if test="contains($sEditorName2,' and ')">
+                                                        <xsl:text>s</xsl:text>
+                                                    </xsl:if>
+                                                    <xsl:text>.)</xsl:text>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:for-each>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$sMissingAuthorsMessage"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -716,9 +767,17 @@
         </xsl:choose>
         <xsl:if test="$pages">
             <xsl:element name="{$sElementPrefix}Pages">
-                <xsl:value-of select="$pages/m:start"/>
-                <xsl:text>-</xsl:text>
-                <xsl:value-of select="$pages/m:end"/>
+                <xsl:variable name="sList" select="$pages/m:list"/>
+                <xsl:choose>
+                    <xsl:when test="string-length($sList) &gt; 0">
+                        <xsl:value-of select="$sList"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$pages/m:start"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$pages/m:end"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:element>
         </xsl:if>
         <xsl:if test="$series">

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
 location="XLingPap-2.38.0-xxe-5.3.0.zip"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:ns="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -15,24 +13,28 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
+xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-12-08</a:date
+>2020-12-15</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
 ><p
+xmlns="http://www.w3.org/1999/xhtml"
 >This configuration makes it much easy to create and edit XLingPaper documents. It has been tested mainly on Windows. It has been tested some on Unix (Ubuntu 8.0.4, 9.0.4, and 9.10) and Mac OS X 10.5 (Leopard) and 10.6 (Snow Leopard).</p
 ><hr
-></hr
-><p
+xmlns="http://www.w3.org/1999/xhtml"
+/><p
+xmlns="http://www.w3.org/1999/xhtml"
 ><b
 >Revision History2.</b
 ></p
 ><ul
+xmlns="http://www.w3.org/1999/xhtml"
 ><li
->2.38.4 8 December 2020<ul
+>2.38.4 15 December 2020<ul
 ><li
 >Fix typo in thesis section of user documentation.</li
 ><li
@@ -51,6 +53,10 @@ href="mailto::xlingpaper_support@sil.org"
 >Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Set labelThesis attribute of thesis element when available.</li
+><li
+>Fix bug: when no author but there is an editor, use the editor as the author.</li
+><li
+>Fix bug: when the pages have a list, the pages came out empty.</li
 ></ul
 ></li
 ></ul
@@ -2560,8 +2566,7 @@ href="http://www.und.edu/dept/linguistics/wp/2008.htm"
 >Fixed bugs that made the XeLaTeX way of producing PDF fail whenever a publisher style sheet had<ul
 ><li
 >sections that began a paragraph<br
-></br
-></li
+/></li
 ><li
 >interlinear source show underneath the free translation (and a given interlinear did not have any interlinear source element)</li
 ><li

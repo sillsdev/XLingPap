@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-12-15</a:date
+>2020-12-16</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.4 15 December 2020<ul
+>3.8.4 16 December 2020<ul
 ><li
 >Fix typo in thesis section of user documentation.</li
 ><li
@@ -63,6 +63,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Fix bug: when no author but there is an editor, use the editor as the author.</li
 ><li
 >Fix bug: when the pages have a list, the pages came out empty.</li
+></ul
+></li
+><li
+>Converting Endnote references file to XLingPaper format:<ul
+><li
+>Enable processing of Artwork, Computer Program, Electronic Book Section, Grant, and Newspaper Article types.</li
+><li
+>Add tertiary titles to refTitle.</li
+><li
+>Remove superscript numbers from IDs</li
 ></ul
 ></li
 ></ul

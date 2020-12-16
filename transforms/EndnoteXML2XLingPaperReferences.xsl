@@ -8,7 +8,7 @@
     <xsl:template match="//records">
         <references>
             <xsl:for-each
-                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Standard' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page']]">
+                select="record[ref-type[@name='Audiovisual Material' or @name='Book' or @name='Dictionary' or @name='Book Section' or @name='Conference Paper' or @name='Conference Proceedings' or @name='Edited Book' or @name='Electronic Article' or @name='Government Document' or @name='Journal Article' or @name='Manuscript' or @name='Online Multimedia' or @name='Report' or @name='Standard' or @name='Thesis' or @name='Unpublished Work' or @name='Web Page' or @name='Electronic Book' or @name='Artwork' or @name='Computer Program' or @name='Electronic Book Section' or @name='Grant' or @name='Newspaper Article']]">
                 <xsl:sort lang="en"
                     select="concat(contributors/authors/author[1],contributors/authors/author[2],contributors/authors/author[3],contributors/authors/author[4],contributors/authors/author[5],contributors/authors/author[6],contributors/authors/author[7],contributors/authors/author[8],contributors/authors/author[9],contributors/authors/author[10])"/>
                 <xsl:sort select="dates/year"/>
@@ -84,6 +84,12 @@
         <!-- ignore all others -->
     </xsl:template>
     <!--
+        ref-type Artwork
+    -->
+    <xsl:template match="ref-type[@name='Artwork']">
+        <xsl:call-template name="DoWebPage"/>
+    </xsl:template>
+    <!--
         ref-type Audiovisual Material
     -->
     <xsl:template match="ref-type[@name='Audiovisual Material']">
@@ -92,13 +98,13 @@
     <!-- 
         ref-type Book
     -->
-    <xsl:template match="ref-type[@name='Book' or @name='Dictionary']">
+    <xsl:template match="ref-type[@name='Book' or @name='Dictionary' or @name='Electronic Book' or @name='Computer Program' or @name='Grant']">
         <xsl:call-template name="DoBook"/>
     </xsl:template>
     <!-- 
         ref-type Book Section
     -->
-    <xsl:template match="ref-type[@name='Book Section']">
+    <xsl:template match="ref-type[@name='Book Section' or @name='Electronic Book Section']">
         <collection>
             <!--        ((((collEd, collEdInitials?)?, collTitle, collTitleLowerCase?, edition?, collVol?, collPages?, (seriesEd?, seriesEdInitials?, series)?, bVol?, location?, publisher?) | collCitation), url?, dateAccessed?, iso639-3code*, comment?)-->
             <xsl:if test="../contributors/secondary-authors">
@@ -234,6 +240,12 @@
     -->
     <xsl:template match="ref-type[@name='Manuscript']">
         <xsl:call-template name="DoMs"/>
+    </xsl:template>
+    <!--
+        ref-type Newspaper Article
+    -->
+    <xsl:template match="ref-type[@name='Newspaper Article']">
+        <xsl:call-template name="DoWebPage"/>
     </xsl:template>
     <!-- 
         ref-type Online Multimedia
@@ -583,6 +595,11 @@
         <xsl:choose>
             <xsl:when test="titles/title">
                 <xsl:apply-templates select="titles/title"/>
+                <xsl:if test="titles/tertiary-title">
+                    <xsl:text> (</xsl:text>
+                    <xsl:apply-templates select="titles/tertiary-title"/>
+                    <xsl:text>)</xsl:text>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>** There was no title for this work! **</xsl:text>

@@ -399,18 +399,18 @@
             <xsl:when test="$chapters">
                 <xsl:choose>
                     <xsl:when test="/xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author or ancestor::framedUnit)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                     </xsl:when>
                     <xsl:when test="ancestor::appendix">
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="appendix" format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author or ancestor::framedUnit)] | endnoteRef" from="appendix" format="1"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef" from="chapter | chapterInCollection" format="1"/>
+                        <xsl:number level="any" count="endnote[not(parent::author or ancestor::framedUnit)] | endnoteRef" from="chapter | chapterInCollection" format="1"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                <xsl:number level="any" count="endnote[not(parent::author or ancestor::framedUnit)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1072,13 +1072,13 @@
                     <xsl:otherwise>
                         <xsl:choose>
                             <xsl:when test="$chapters and /xlingpaper/styledPaper/publisherStyleSheet[1]/bodyLayout/chapterLayout/@resetEndnoteNumbering='no'">
-                                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
+                                <xsl:number level="any" count="endnote[not(parent::author or ancestor::framedUnit)] | endnoteRef[not(ancestor::endnote)]" format="1"/>
                             </xsl:when>
                             <xsl:when test="ancestor::part and not(ancestor::chapter) and not(ancestor::chapterInCollection)">
-                                <xsl:number level="any" count="endnote[not(parent::author)]" format="1" from="part"/>
+                                <xsl:number level="any" count="endnote[not(parent::autho or ancestor::framedUnitr)]" format="1" from="part"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:number level="any" count="endnote[not(ancestor::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
+                                <xsl:number level="any" count="endnote[not(ancestor::author or ancestor::framedUnit)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"
                                     from="chapter | chapterInCollection | appendix | glossary | acknowledgements | preface | abstract"/>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -1236,6 +1236,10 @@
             </xsl:when>
             <xsl:when test="parent::author">
                 <xsl:call-template name="DoAuthorFootnoteNumber"/>
+            </xsl:when>
+            <xsl:when test="ancestor::framedUnit">
+                <xsl:variable name="thisFramedUnit" select="ancestor::framedUnit"/>
+                <xsl:number level="any" count="endnote[ancestor::framedUnit=$thisFramedUnit]"/>
             </xsl:when>
             <xsl:when test="$bIsBook">
                 <xsl:choose>

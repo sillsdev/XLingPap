@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2020-12-16</a:date
+>2021-01-25</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.4 16 December 2020<ul
+>2.38.4 25 January 2021<ul
 ><li
 >Fix typo in thesis section of user documentation.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li
+><li
+>Fix bug: endnote numbers within a framedUnit were not reset at the beginning of each framedUnit; endnote numbers after framedUnits that had endnotes included the endnotes in framedUnits and should not have.</li
 ></ul
 ></li
 ><li

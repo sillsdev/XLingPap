@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-01-25</a:date
+>2021-01-26</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.4 25 January 2021<ul
+>2.38.4 26 January 2021<ul
 ><li
 >Fix typo in thesis section of user documentation.</li
 ><li
@@ -41,6 +41,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Add the pageRangeSeparator attribute to the references element so a user can specify what to use between starting and ending page numbers.</li
 ><li
 >Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li
+><li
+>Fix bug: when a publisher style sheet had acknowledgments in both front matter and back matter, the front matter one had the showAsFootnoteAtEndOfAbstract attribute set to 'yes,' and there was an acknowledgements element in the back matter of the document, the acknowledgments element in the back matter was not processed.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -42,6 +42,10 @@
                         page numbers.
                      </li>
                      <li>Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li>
+                     <li>Fix bug: when a publisher style sheet had acknowledgments in both front matter and back matter, the front matter one had the
+                        showAsFootnoteAtEndOfAbstract attribute set to 'yes,' and there was an acknowledgements element in the back matter of the
+                        document, the acknowledgments element in the back matter was not processed.
+                     </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard,

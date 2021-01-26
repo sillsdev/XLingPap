@@ -749,7 +749,7 @@
         <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:choose>
-            <xsl:when test="$frontMatterLayout/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
+            <xsl:when test="ancestor::frontMatter and $frontMatterLayout/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes'">
                 <!-- do nothing; the content of the acknowledgements are to appear in a footnote at the end of the abstract -->
             </xsl:when>
             <xsl:otherwise>

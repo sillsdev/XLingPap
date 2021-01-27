@@ -6764,7 +6764,7 @@
                 <xsl:choose>
                     <xsl:when test="string-length($sColor) = 7">
                         <!-- skip the initial # -->
-                        <xsl:value-of select="substring($sColor, 2)"/>
+                        <xsl:value-of select="substring(translate($sColor,'abcdef','ABCDEF'), 2)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- somehow it came through as an invalid number; use black -->

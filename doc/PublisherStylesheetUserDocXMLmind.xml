@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 November 2020</date
+>29 January 2021</date
 ><version
 contentType="ctVersion5.3"
->2.38.2</version
+>2.38.6</version
 ><version
 contentType="ctVersion7Plus"
->3.8.2</version
+>3.8.6</version
 ><contents
 showLevel="6"
 ></contents
@@ -415,7 +415,30 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >defaultFontFamily</object
-> element to the appropriate values. Note that points are assumed for the basic point size and for the footnote size (i.e. the number must be in terms of points).</p
+> element to the appropriate values. It is <object
+type="tBold"
+>crucial</object
+> that you also have at least one <object
+type="tElement"
+>language</object
+> or <object
+type="tElement"
+>type</object
+> element with the exact same font family name and the exact same value of the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute. Otherwise, <object
+type="tXLingPap"
+></object
+> will fail to produce the default PDF output. You do not have to actually use such a <object
+type="tElement"
+>language</object
+> or <object
+type="tElement"
+>type</object
+> element, but it must be present.</p
+><p
+>Note that points are assumed for the basic point size and for the footnote size (i.e., the number must be in terms of points).</p
 ></section2
 ><section2
 id="sFootnoteNumberAfter"

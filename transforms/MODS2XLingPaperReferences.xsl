@@ -796,18 +796,18 @@
     -->
     <xsl:template name="GetAuthorsNames">
         <xsl:param name="sKind" select="'aut'"/>
-        <xsl:variable name="sNamePart1" select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart/@type"/>
+        <xsl:variable name="sNamePart1" select="m:name[m:role/m:roleTerm=$sKind][1]/m:namePart/@type"/>
         <xsl:choose>
             <xsl:when test="string-length($sNamePart1) &gt; 0">
-                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='family']"/>
+                <xsl:value-of select="m:name[m:role/m:roleTerm=$sKind][1]/m:namePart[@type='family']"/>
                 <xsl:text>, </xsl:text>
-                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart[@type='given']"/>
+                <xsl:value-of select="m:name[m:role/m:roleTerm=$sKind][1]/m:namePart[@type='given']"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="m:name[1][m:role/m:roleTerm=$sKind]/m:namePart"/>
+                <xsl:value-of select="m:name[m:role/m:roleTerm=$sKind][1]/m:namePart"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:for-each select="m:name[position() &gt; 1][m:role/m:roleTerm=$sKind]">
+        <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind][position() &gt; 1]">
             <xsl:choose>
                 <xsl:when test="position()=last()">
                     <xsl:text> and </xsl:text>
@@ -835,11 +835,12 @@
     <xsl:template name="GetCiteName">
         <xsl:param name="sKind" select="'aut'"/>
         <xsl:for-each select="m:name[m:role/m:roleTerm=$sKind][m:namePart/@type='family' or m:namePart[not(@type)]]">
+            <xsl:variable name="precedingSiblings" select="preceding-sibling::m:name[m:role/m:roleTerm=$sKind]"/>
             <xsl:choose>
-                <xsl:when test="position()=last() and count(preceding-sibling::m:name) &gt; 0">
+                <xsl:when test="position()=last() and count($precedingSiblings) &gt; 0">
                     <xsl:text> and </xsl:text>
                 </xsl:when>
-                <xsl:when test="count(preceding-sibling::m:name) &gt; 0">
+                <xsl:when test="count($precedingSiblings) &gt; 0">
                     <xsl:text>, </xsl:text>
                 </xsl:when>
                 <xsl:otherwise/>

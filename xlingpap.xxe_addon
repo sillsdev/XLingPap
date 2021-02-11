@@ -49,6 +49,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to be produced.</li
 ></ul
 ></li
+><li
+>Converting Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: when the MODS input file had a translator or contributor listed before an author, the author name and cite name began with an "and".</li
+></ul
+></li
 ></ul
 ></li
 ><li

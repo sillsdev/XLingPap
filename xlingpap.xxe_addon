@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-01-29</a:date
+>2021-02-11</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.6 29 January 2021<ul
+>3.8.6 11 February 2021<ul
+><li
+>Fix bug: zip creation could fail when an img element's src attribute began with ".."</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
->Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element.  Otherwise the PDF will fail to be produced.</li
+>Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to be produced.</li
 ></ul
 ></li
 ></ul

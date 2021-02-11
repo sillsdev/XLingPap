@@ -201,33 +201,40 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	return iCount;
     }
 
-    private String fixupImageFile(String sDocumentPath, String imageFile) {
-	String operatingSystem = System.getProperty("os.name");
-	if (operatingSystem.contains("Windows")) {
-	    // need to change any '/' to '\' in file name
-	    imageFile = imageFile.replace("/", "\\");
+	private String fixupImageFile(String sDocumentPath, String imageFile) {
+		String operatingSystem = System.getProperty("os.name");
+		if (operatingSystem.contains("Windows")) {
+			// need to change any '/' to '\' in file name
+			imageFile = imageFile.replace("/", "\\");
+		}
+		/*
+		 * if (imageFile.startsWith("..")) { imageFile = sDocumentPath +
+		 * System.getProperty("file.separator") + imageFile; }
+		 */
+		if (imageFile.startsWith("file:\\\\\\")) {
+			imageFile = imageFile.substring(8);
+		}
+		imageFile = imageFile.replace("%20", " ");
+		imageFile = imageFile.replace("%23", "#");
+		imageFile = imageFile.replace("%25", "%");
+		imageFile = imageFile.replace("%27", "'");
+		imageFile = imageFile.replace("%7E", "~");
+		imageFile = imageFile.replace("%5B", "[");
+		imageFile = imageFile.replace("%5D", "]");
+		imageFile = imageFile.replace("%5E", "^");
+		imageFile = imageFile.replace("%7B", "{");
+		imageFile = imageFile.replace("%7D", "}");
+		return imageFile;
 	}
-	/*
-	 * if (imageFile.startsWith("..")) { imageFile = sDocumentPath +
-	 * System.getProperty("file.separator") + imageFile; }
-	 */
-	if (imageFile.startsWith("file:\\\\\\")) {
-	    imageFile = imageFile.substring(8);
-	}
-	imageFile = imageFile.replace("%20", " ");
-	imageFile = imageFile.replace("%27", "'");
-	imageFile = imageFile.replace("%7E", "~");
-	return imageFile;
-    }
 
-    private int processImageFile(int iCount, String sDocumentPath, String imageFile) {
-	imageFile = XLingPaperUtils.fixupImageFile(sDocumentPath, imageFile);
-	// showAlert(docView, "image file before checking File: " +
-	// imageFile);
-	asFileNames[iCount++] = sDocumentPath + File.separator + imageFile;
-	iCount = handleSVGFile(iCount, sDocumentPath, imageFile);
-	return iCount;
-    }
+	private int processImageFile(int iCount, String sDocumentPath, String imageFile) {
+		imageFile = fixupImageFile(sDocumentPath, imageFile);
+		// showAlert(docView, "image file before checking File: " +
+		// imageFile);
+		asFileNames[iCount++] = sDocumentPath + File.separator + imageFile;
+		iCount = handleSVGFile(iCount, sDocumentPath, imageFile);
+		return iCount;
+	}
 
     private int handleSVGFile(int iCount, String sDocumentPath, String imageFile) {
 	if (imageFile.endsWith(".svg")) {
@@ -281,7 +288,7 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 	for (XNode node : results) {
 	    String hyphenationExceptionsFile = node.data();
 	    // showAlert(docView, "image file before os check:" + imageFile);
-	    hyphenationExceptionsFile = XLingPaperUtils.fixupImageFile(sDocumentPath, hyphenationExceptionsFile);
+	    hyphenationExceptionsFile = fixupImageFile(sDocumentPath, hyphenationExceptionsFile);
 	    // showAlert(docView, "image file before checking File: " +
 	    // imageFile);
 	    asFileNames[iCount++] = sDocumentPath + File.separator + hyphenationExceptionsFile;

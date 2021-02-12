@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-02-11</a:date
+>2021-02-12</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.6 11 February 2021<ul
+>2.38.6 12 February 2021<ul
+><li
+>Improve hanging indent portion of the publisher style sheet documentation.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to be produced.</li
+><li
+>Fix bug: default indent for hanging indent should be 1em.</li
 ></ul
 ></li
 ><li

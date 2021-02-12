@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->29 January 2021</date
+>12 February 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.6</version
@@ -329,7 +329,10 @@ term="iHangingIndent"
 letter="xHangingIndents"
 num="xHangingIndents"
 ></exampleRef
->. These can be overridden by the <object
+>. These values are not normally shown. You will need to click on the <object
+type="tElement"
+>blockQuoteIndent</object
+> element and do an insert after command. You can then insert these elements. These can be overridden by the <object
 type="tAttribute"
 >initialIndent</object
 > and <object

@@ -277,7 +277,7 @@
                 <xsl:value-of select="$sHangingIndentNormalIndent"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$sParagraphIndent"/>
+                <xsl:text>1em</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <tex:cmd name="relax" gr="0" nl2="1"/>

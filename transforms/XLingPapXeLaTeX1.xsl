@@ -1747,6 +1747,26 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoEndnoteRefCannedText
+    -->
+    <xsl:template name="DoEndnoteRefCannedText">
+        <xsl:text>See footnote </xsl:text>
+        <xsl:call-template name="DoEndnoteRefNumber"/>
+        <xsl:choose>
+            <xsl:when test="$chapters">
+                <xsl:text> in chapter </xsl:text>
+                <xsl:variable name="sNoteId" select="@note"/>
+                <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
+                    <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
+                </xsl:for-each>
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>.</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoEndnoteRefNumber
     -->
     <xsl:template name="DoEndnoteRefNumber">
@@ -2197,12 +2217,19 @@
         </xsl:if>
     </xsl:template>
     <!--
-      endnoteRef
-      -->
+        endnoteRef
+    -->
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                <xsl:call-template name="DoEndnoteRefNumber"/>
+                <xsl:choose>
+                    <xsl:when test="@showNumberOnly!='yes'">
+                        <xsl:call-template name="DoEndnoteRefCannedText"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoEndnoteRefNumber"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="@showNumberOnly='yes'">
                 <xsl:call-template name="DoEndnoteRefNumber"/>
@@ -2222,27 +2249,14 @@
                         </tex:opt>
                     </xsl:if>
                     <tex:parm>
-                        <xsl:text>See footnote </xsl:text>
-                        <xsl:call-template name="DoEndnoteRefNumber"/>
-                        <xsl:choose>
-                            <xsl:when test="$chapters">
-                                <xsl:text> in chapter </xsl:text>
-                                <xsl:variable name="sNoteId" select="@note"/>
-                                <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
-                                    <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
-                                </xsl:for-each>
-                                <xsl:text>.</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>.</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:call-template name="DoEndnoteRefCannedText"/>
                         <xsl:apply-templates/>
                     </tex:parm>
                 </tex:cmd>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
     <!-- ===========================================================
       CITATIONS, Glossary, Indexes and REFERENCES 
       =========================================================== -->

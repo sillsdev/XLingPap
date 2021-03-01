@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.8.7</span></p>
-      <p align="center">Date: 2021-02-17</p>
+      <p align="center">Date: 2021-03-01</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,11 +34,14 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.8.7 17 February 2021
+               <li>3.8.7 1 March 2021
                   <ul>
                      <li>Fix three typos in user documentation.</li>
                      <li>Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter
                         could show in XXE.
+                     </li>
+                     <li>Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly
+                        attribute.  Also, this attribute was not mentioned in the user documentation.
                      </li>
                   </ul>
                </li>

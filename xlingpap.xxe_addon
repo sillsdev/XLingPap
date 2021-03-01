@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-02-17</a:date
+>2021-03-01</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.7 17 February 2021<ul
+>3.8.7 1 March 2021<ul
 ><li
 >Fix three typos in user documentation.</li
 ><li
 >Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter could show in XXE.</li
+><li
+>Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly attribute.  Also, this attribute was not mentioned in the user documentation.</li
 ></ul
 ></li
 ><li

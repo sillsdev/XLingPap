@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->17 February 2021</date
+>1 March 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.7</version
@@ -3463,12 +3463,16 @@ src="resources/EndnoteRefDialog.png"
 ></chart
 ></example
 ><p
->You can type in the name of the endnote or scroll down until you find the one you want. Note that capitalization is significant when typing. When your document is processed, a hyperlink is made between the reference and the endnote.<endnote
-id="nEndnoteRefNumber"
-><p
->In the web page output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote.</p
-></endnote
-><indexedRangeEnd
+>You can type in the name of the endnote or scroll down until you find the one you want. Note that capitalization is significant when typing. When your document is processed, a hyperlink is made between the reference and the endnote. In the web page output, the number of the endnote will be the same as the endnote it references. In the PDF output, the number used depends on whether the endnote reference was made within an endnote or not. If the endnote reference was made within another endnote, the number of the endnote will be the same as the endnote it references. Otherwise, it will be the number you would expect for a regular endnote. In this latter case, the text of the endnote will refer to the original endnote. If the attribute: <object
+type="tAttribute"
+>showNumberOnly</object
+> of the <object
+type="tElement"
+>endnoteRef</object
+> element is set to <object
+type="tAttrValue"
+>yes</object
+>, just the referred to footnote number is output. Otherwise, the number is preceded by “See footnote ” and the number is followed by a period.<indexedRangeEnd
 begin="bEndnotes"
 ></indexedRangeEnd
 ></p

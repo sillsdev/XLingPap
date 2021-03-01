@@ -2520,7 +2520,14 @@ not using
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                <xsl:call-template name="DoEndnoteRefNumber"/>
+                <xsl:choose>
+                     <xsl:when test="@showNumberOnly!='yes'">
+                        <xsl:call-template name="DoEndnoteRefCannedText"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoEndnoteRefNumber"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="@showNumberOnly='yes'">
                 <xsl:call-template name="DoEndnoteRefNumber"/>
@@ -2551,36 +2558,39 @@ not using
                                 </xsl:attribute>
                                 <xsl:value-of select="$sFootnoteNumber"/>
                                 <!--
-                                <xsl:for-each select="parent::endnote">
+                                    <xsl:for-each select="parent::endnote">
                                     <xsl:choose>
-                                        <xsl:when test="$chapters">
-                                            <xsl:number level="any" count="endnote" from="chapter"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:number level="any" count="endnote" format="1"/>
-                                        </xsl:otherwise>
+                                    <xsl:when test="$chapters">
+                                    <xsl:number level="any" count="endnote" from="chapter"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                    <xsl:number level="any" count="endnote" format="1"/>
+                                    </xsl:otherwise>
                                     </xsl:choose>
-                                </xsl:for-each>
+                                    </xsl:for-each>
                                 -->
                             </fo:inline>
-                            <xsl:text>See footnote </xsl:text>
-                            <xsl:call-template name="DoEndnoteRefNumber"/>
-                            <xsl:choose>
-                                <xsl:when test="$chapters">
-                                    <xsl:text> in chapter </xsl:text>
-                                    <xsl:variable name="sNoteId" select="@note"/>
-                                    <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
-                                        <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
-                                    </xsl:for-each>
-                                    <xsl:text>.</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>.</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="DoEndnoteRefCannedText"/>
                         </fo:block>
                     </fo:footnote-body>
                 </fo:footnote>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template name="DoEndnoteRefCannedText">
+        <xsl:text>See footnote </xsl:text>
+        <xsl:call-template name="DoEndnoteRefNumber"/>
+        <xsl:choose>
+            <xsl:when test="$chapters">
+                <xsl:text> in chapter </xsl:text>
+                <xsl:variable name="sNoteId" select="@note"/>
+                <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
+                    <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
+                </xsl:for-each>
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>.</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

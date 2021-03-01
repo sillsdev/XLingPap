@@ -3073,11 +3073,18 @@
     </xsl:template>
     <!--
       endnoteRef
-      -->
+    -->
     <xsl:template match="endnoteRef">
         <xsl:choose>
             <xsl:when test="ancestor::endnote">
-                <xsl:call-template name="DoEndnoteRefNumber"/>
+                <xsl:choose>
+                    <xsl:when test="@showNumberOnly!='yes'">
+                        <xsl:call-template name="DoEndnoteRefCannedText"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoEndnoteRefNumber"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="@showNumberOnly='yes'">
                 <xsl:call-template name="DoEndnoteRefNumber"/>
@@ -3121,48 +3128,7 @@
                         </tex:opt>
                     </xsl:if>
                     <tex:parm>
-                        <xsl:variable name="endnoteRefLayout" select="$contentLayoutInfo/endnoteRefLayout"/>
-                        <tex:group>
-                            <xsl:call-template name="OutputFontAttributes">
-                                <xsl:with-param name="language" select="$endnoteRefLayout"/>
-                            </xsl:call-template>
-                            <xsl:choose>
-                                <xsl:when test="string-length($endnoteRefLayout/@textbefore) &gt; 0">
-                                    <xsl:value-of select="$endnoteRefLayout/@textbefore"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text>See footnote </xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:call-template name="OutputFontAttributesEnd">
-                                <xsl:with-param name="language" select="$endnoteRefLayout"/>
-                            </xsl:call-template>
-                        </tex:group>
-                        <xsl:call-template name="DoEndnoteRefNumber"/>
-                        <xsl:choose>
-                            <xsl:when test="$chapters">
-                                <xsl:text> in chapter </xsl:text>
-                                <xsl:variable name="sNoteId" select="@note"/>
-                                <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
-                                    <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
-                                </xsl:for-each>
-                                <xsl:text>.</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>.</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="string-length($endnoteRefLayout/@textafter) &gt; 0">
-                            <tex:group>
-                                <xsl:call-template name="OutputFontAttributes">
-                                    <xsl:with-param name="language" select="$endnoteRefLayout"/>
-                                </xsl:call-template>
-                                <xsl:value-of select="$endnoteRefLayout/@textafter"/>
-                                <xsl:call-template name="OutputFontAttributesEnd">
-                                    <xsl:with-param name="language" select="$endnoteRefLayout"/>
-                                </xsl:call-template>
-                            </tex:group>
-                        </xsl:if>
+                        <xsl:call-template name="DoEndnoteRefCannedText"/>
                     </tex:parm>
                 </tex:cmd>
             </xsl:otherwise>
@@ -4711,6 +4677,53 @@
             <xsl:apply-templates select="*[position() &gt; 1]"/>
             <tex:cmd name="par" nl2="1"/>
         </xsl:for-each>-->
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        DoEndnoteRefCannedText
+    -->
+    <xsl:template name="DoEndnoteRefCannedText">
+        <xsl:variable name="endnoteRefLayout" select="$contentLayoutInfo/endnoteRefLayout"/>
+        <tex:group>
+            <xsl:call-template name="OutputFontAttributes">
+                <xsl:with-param name="language" select="$endnoteRefLayout"/>
+            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="string-length($endnoteRefLayout/@textbefore) &gt; 0">
+                    <xsl:value-of select="$endnoteRefLayout/@textbefore"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>See footnote </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:call-template name="OutputFontAttributesEnd">
+                <xsl:with-param name="language" select="$endnoteRefLayout"/>
+            </xsl:call-template>
+        </tex:group>
+        <xsl:call-template name="DoEndnoteRefNumber"/>
+        <xsl:choose>
+            <xsl:when test="$chapters">
+                <xsl:text> in chapter </xsl:text>
+                <xsl:variable name="sNoteId" select="@note"/>
+                <xsl:for-each select="$chapters[descendant::endnote[@id=$sNoteId]]">
+                    <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
+                </xsl:for-each>
+                <xsl:text>.</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>.</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="string-length($endnoteRefLayout/@textafter) &gt; 0">
+            <tex:group>
+                <xsl:call-template name="OutputFontAttributes">
+                    <xsl:with-param name="language" select="$endnoteRefLayout"/>
+                </xsl:call-template>
+                <xsl:value-of select="$endnoteRefLayout/@textafter"/>
+                <xsl:call-template name="OutputFontAttributesEnd">
+                    <xsl:with-param name="language" select="$endnoteRefLayout"/>
+                </xsl:call-template>
+            </tex:group>
         </xsl:if>
     </xsl:template>
     <!--  

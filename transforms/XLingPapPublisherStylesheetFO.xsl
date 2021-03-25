@@ -5325,6 +5325,10 @@ not using
         <xsl:param name="headerOrFooter"/>
         <xsl:param name="sFlowDisplayAlign"/>
         <xsl:param name="sRetrieveClassName"/>
+        <xsl:variable name="headrulepattern" select="$headerOrFooter/@rulebelowpattern"/>
+        <xsl:variable name="headrulewidth" select="$headerOrFooter/@rulebelowwidth"/>
+        <xsl:variable name="footrulepattern" select="$headerOrFooter/@ruleabovepattern"/>
+        <xsl:variable name="footrulewidth" select="$headerOrFooter/@ruleabovewidth"/>
         <fo:static-content display-align="{$sFlowDisplayAlign}">
             <xsl:attribute name="flow-name">
                 <xsl:value-of select="$sFlowName"/>
@@ -5336,6 +5340,40 @@ not using
                     <xsl:attribute name="margin-top">
                         <xsl:text>6pt</xsl:text>
                     </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="string-length($headrulewidth) &gt; 0">
+                    <xsl:if test="$headrulepattern='rule' or $headrulepattern='dots'">
+                        <xsl:attribute name="border-after-style">
+                            <xsl:choose>
+                                <xsl:when test="$headrulepattern='rule'">
+                                    <xsl:text>solid</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>dotted</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                        <xsl:attribute name="border-after-width">
+                            <xsl:value-of select="$headrulewidth"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="string-length($footrulewidth) &gt; 0">
+                    <xsl:if test="$footrulepattern='rule' or $footrulepattern='dots'">
+                        <xsl:attribute name="border-before-style">
+                            <xsl:choose>
+                                <xsl:when test="$footrulepattern='rule'">
+                                    <xsl:text>solid</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>dotted</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                        <xsl:attribute name="border-before-width">
+                            <xsl:value-of select="$footrulewidth"/>
+                        </xsl:attribute>
+                    </xsl:if>
                 </xsl:if>
                 <xsl:call-template name="OutputFontAttributes">
                     <xsl:with-param name="language" select="$layoutInfoParentWithFontInfo"/>

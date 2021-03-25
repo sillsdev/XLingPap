@@ -42,17 +42,13 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >3.8.7 25 March 2021<ul
 ><li
+>Enable showing rules in headers and footers. See the end of section 2.10 of the publisher style sheet documentation.</li
+><li
 >Fix three typos in user documentation.</li
 ><li
 >Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter could show in XXE.</li
 ><li
 >Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly attribute. Also, this attribute was not mentioned in the user documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Enable showing rules in headers and footers.  See the end of section 2.10 of the publisher style sheet documentation.</li
-></ul
-></li
 ></ul
 ></li
 ><li

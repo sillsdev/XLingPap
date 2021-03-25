@@ -1816,7 +1816,7 @@ term="iFooterRule"
 ><indexedItem
 term="iHeaderRule"
 ></indexedItem
->You can also have a horizontal line appear between the header and text or between the text and the footer.  You enable this by setting the attributes shown in examples <exampleRef
+>You can also have a horizontal line appear between the header and text or between the text and the footer. You enable this by setting the attributes shown in examples <exampleRef
 letter="xHeaderRule"
 num="xHeaderRule"
 ></exampleRef
@@ -1839,12 +1839,30 @@ type="tAttribute"
 > and <object
 type="tAttribute"
 >ruleabovelength</object
-> are not implemented.  When using the <object
+> are not implemented. When using the <object
 type="tAttrValue"
 >dots</object
 > option for a header, the dots may run into the text.</p
 ></endnote
-></p
+> An easy way to select the <object
+type="tElement"
+>header</object
+> (or <object
+type="tElement"
+>footer</object
+> element) is to click on some item in it and then click on “header” (or “footer”) in the node path bar. Please note that if you are using even/odd paging, then you will need to set these on the first <object
+type="tElement"
+>header</object
+> and/or the first <object
+type="tElement"
+>footer</object
+> element (that is, for the even page). The rule will appear for both odd and even pages for the default <object
+type="tXeTeX"
+></object
+> way of producing PDF.  For the <object
+type="tRenderX"
+></object
+> way of producing PDF, you will need to set these for both even and odd pages.</p
 ><example
 num="xHeaderRule"
 ><table
@@ -1905,10 +1923,10 @@ lang="lEng"
 >For <object
 type="tAttrValue"
 >rule</object
->, a horizontal line will appear between the header and the following text.  For <object
+>, a horizontal line will appear between the header and the following text. For <object
 type="tAttrValue"
 >dots</object
->, a row of dots will appear between the header and the following text.  The others are ignored.</langData
+>, a row of dots will appear between the header and the following text. The others are ignored.</langData
 ></td
 ><td
 ><object
@@ -1928,11 +1946,11 @@ type="tAttribute"
 > </langData
 ></td
 ><td
->Under user control.  Use a number followed by a unit of measure shown in example <exampleRef
+>Under user control. Use a number followed by a unit of measure shown in example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
->.  For example: <object
+>. For example: <object
 type="tAttrValue"
 >0.5pt</object
 >, <object

@@ -183,6 +183,8 @@
     </xsl:variable>
     <xsl:variable name="sInitialGroupIndent" select="$contentLayoutInfo/interlinearTextLayout/@indentOfInitialGroup"/>
     <xsl:variable name="sAdjustIndentOfNonInitialFreeLineBy" select="normalize-space($contentLayoutInfo/freeLayout/@adjustIndentOfNonInitialLineBy)"/>
+    <xsl:variable name="fFooterUsesDots" select="//headerFooterPageStyles[descendant::footer/@ruleabovepattern='dots']"/>
+    <xsl:variable name="fHeaderUsesDots" select="//headerFooterPageStyles[descendant::header/@rulebelowpattern='dots']"/>
     <!--
         citation (bookmarks)
     -->
@@ -11044,21 +11046,142 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        SetHeaderFooterRuleWidth
+    -->
+    <xsl:template name="SetHeaderFooterRuleWidth">
+        <xsl:param name="rulepattern"/>
+        <xsl:param name="rulewidth"/>
+        <tex:parm>
+            <xsl:choose>
+                <xsl:when test="not($rulepattern)">
+                    <xsl:text>0pt</xsl:text>
+                </xsl:when>
+                <xsl:when test="$rulepattern='rule' or $rulepattern='dots'">
+                    <xsl:choose>
+                        <xsl:when test="string-length($rulewidth) &gt; 0">
+                            <xsl:value-of select="$rulewidth"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>0pt</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </tex:parm>
+    </xsl:template>
+    <!--  
+        SetHeaderFooterRuleDots
+    -->
+    <xsl:template name="SetHeaderFooterRuleDots">
+        <xsl:param name="rulepattern"/>
+        <xsl:param name="rule"/>
+        <xsl:param name="fDoDots" select="'Y'"/>
+        <xsl:choose>
+            <xsl:when test="$rulepattern='dots'">
+                <xsl:call-template name="SetHeaderFooterRuleDotsProper">
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="fDoDots" select="$fDoDots"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fFooterUsesDots and $rule='footrule'">
+                <xsl:call-template name="SetHeaderFooterRuleDotsProper">
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="fDoDots" select="'N'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="$fHeaderUsesDots and $rule='headrule'">
+                <xsl:call-template name="SetHeaderFooterRuleDotsProper">
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="fDoDots" select="'N'"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        SetHeaderFooterRuleDotsProper
+    -->
+    <xsl:template name="SetHeaderFooterRuleDotsProper">
+        <xsl:param name="rule"/>
+        <xsl:param name="fDoDots"/>
+        <tex:cmd name="renewcommand" nl2="1">
+            <tex:parm>
+                <tex:cmd name="{$rule}" gr="0"/>
+            </tex:parm>
+            <tex:parm>
+                <tex:cmd name="vbox" gr="0"/>
+                <xsl:text> to 0pt</xsl:text>
+                <tex:parm>
+                    <tex:cmd name="hbox" gr="0"/>
+                    <xsl:text> to</xsl:text>
+                    <tex:cmd name="headwidth" gr="0"/>
+                    <tex:parm>
+                        <xsl:choose>
+                            <xsl:when test="$fDoDots='Y'">
+                                <tex:cmd name="dotfill" gr="0"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </tex:parm>
+                    <tex:cmd name="vss" gr="0"/>
+                </tex:parm>
+            </tex:parm>
+        </tex:cmd>
+    </xsl:template>
+    <!--  
         SetHeaderFooterRuleWidths
     -->
     <xsl:template name="SetHeaderFooterRuleWidths">
-        <tex:cmd name="renewcommand" nl2="1">
-            <tex:parm>
-                <tex:cmd name="headrulewidth" gr="0"/>
-            </tex:parm>
-            <tex:parm>0pt</tex:parm>
-        </tex:cmd>
-        <tex:cmd name="renewcommand" nl2="1">
-            <tex:parm>
-                <tex:cmd name="footrulewidth" gr="0"/>
-            </tex:parm>
-            <tex:parm>0pt</tex:parm>
-        </tex:cmd>
+        <xsl:param name="layoutInfo"/>
+        <xsl:choose>
+            <xsl:when test="$layoutInfo">
+                <xsl:variable name="headrulepattern" select="$layoutInfo/descendant::header[1]/@rulebelowpattern"/>
+                <xsl:variable name="footrulepattern" select="$layoutInfo/descendant::footer[1]/@ruleabovepattern"/>
+                <tex:cmd name="renewcommand" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="headrulewidth" gr="0"/>
+                    </tex:parm>
+                    <xsl:variable name="rulewidth" select="$layoutInfo/descendant::header[1]/@rulebelowwidth"/>
+                    <xsl:call-template name="SetHeaderFooterRuleWidth">
+                        <xsl:with-param name="rulepattern" select="$headrulepattern"/>
+                        <xsl:with-param name="rulewidth" select="$rulewidth"/>
+                    </xsl:call-template>
+                </tex:cmd>
+                <xsl:call-template name="SetHeaderFooterRuleDots">
+                    <xsl:with-param name="rulepattern" select="$headrulepattern"/>
+                    <xsl:with-param name="rule" select="'headrule'"/>
+                </xsl:call-template>
+                <tex:cmd name="renewcommand" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="footrulewidth" gr="0"/>
+                    </tex:parm>
+                    <xsl:variable name="rulewidth" select="$layoutInfo/descendant::footer[1]/@ruleabovewidth"/>
+                    <xsl:call-template name="SetHeaderFooterRuleWidth">
+                        <xsl:with-param name="rulepattern" select="$footrulepattern"/>
+                        <xsl:with-param name="rulewidth" select="$rulewidth"/>
+                    </xsl:call-template>
+                </tex:cmd>
+                <xsl:call-template name="SetHeaderFooterRuleDots">
+                    <xsl:with-param name="rulepattern" select="$footrulepattern"/>
+                    <xsl:with-param name="rule" select="'footrule'"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:cmd name="renewcommand" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="headrulewidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>0pt</tex:parm>
+                </tex:cmd>
+                <tex:cmd name="renewcommand" nl2="1">
+                    <tex:parm>
+                        <tex:cmd name="footrulewidth" gr="0"/>
+                    </tex:parm>
+                    <tex:parm>0pt</tex:parm>
+                </tex:cmd>
+            </xsl:otherwise>
+        </xsl:choose>       
     </xsl:template>
     <!--  
         SetImgWidths

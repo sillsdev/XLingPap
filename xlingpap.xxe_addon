@@ -34,13 +34,9 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >2..38.7 25 March 2021<ul
 ><li
->Fix three typos in user documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
 >Enable showing rules in headers and footers. See the end of section 2.10 of the publisher style sheet documentation.</li
-></ul
-></li
+><li
+>Fix three typos in user documentation.</li
 ></ul
 ></li
 ><li

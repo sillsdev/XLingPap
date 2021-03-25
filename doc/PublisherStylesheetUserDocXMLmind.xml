@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->12 February 2021</date
+>25 March 2021</date
 ><version
 contentType="ctVersion5.3"
->2.38.6</version
+>2.38.7</version
 ><version
 contentType="ctVersion7Plus"
->3.8.6</version
+>3.8.7</version
 ><contents
 showLevel="6"
 ></contents
@@ -329,10 +329,10 @@ term="iHangingIndent"
 letter="xHangingIndents"
 num="xHangingIndents"
 ></exampleRef
->.  These values are not normally shown.  You will need to click on the <object
+>. These values are not normally shown. You will need to click on the <object
 type="tElement"
 >blockQuoteIndent</object
-> element and do an insert after command.  You can then insert these elements. These can be overridden by the <object
+> element and do an insert after command. You can then insert these elements. These can be overridden by the <object
 type="tAttribute"
 >initialIndent</object
 > and <object
@@ -1808,6 +1808,260 @@ num="xHeaderFooterFirstEvenOdd"
 src="resources/HeaderFooterFirstEvenOdd.png"
 ></img
 ></chart
+></example
+><p
+><indexedItem
+term="iFooterRule"
+></indexedItem
+><indexedItem
+term="iHeaderRule"
+></indexedItem
+>You can also have a horizontal line appear between the header and text or between the text and the footer.  You enable this by setting the attributes shown in examples <exampleRef
+letter="xHeaderRule"
+num="xHeaderRule"
+></exampleRef
+> (for the <object
+type="tElement"
+>header</object
+> element) and <exampleRef
+letter="xFooterRule"
+num="xFooterRule"
+></exampleRef
+> (for the <object
+type="tElement"
+>footer</object
+> element).<endnote
+id="nHeaderDots"
+><p
+>The <object
+type="tAttribute"
+>rulebelowlength</object
+> and <object
+type="tAttribute"
+>ruleabovelength</object
+> are not implemented.  When using the <object
+type="tAttrValue"
+>dots</object
+> option for a header, the dots may run into the text.</p
+></endnote
+></p
+><example
+num="xHeaderRule"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>rulebelowpattern</object
+> </langData
+></td
+><td
+><object
+type="tAttrValue"
+>rule</object
+>, <langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>dots</object
+>, <object
+type="tAttrValue"
+>space</object
+>, or <object
+type="tAttrValue"
+>none</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>For <object
+type="tAttrValue"
+>rule</object
+>, a horizontal line will appear between the header and the following text.  For <object
+type="tAttrValue"
+>dots</object
+>, a row of dots will appear between the header and the following text.  The others are ignored.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>none</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>rulebelowwidth</object
+> </langData
+></td
+><td
+>Under user control.  Use a number followed by a unit of measure shown in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>.  For example: <object
+type="tAttrValue"
+>0.5pt</object
+>, <object
+type="tAttrValue"
+>1pt</object
+>.</td
+><td
+><langData
+lang="lEng"
+>It indicates how thick the line should be.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>0pt</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><example
+num="xFooterRule"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>ruleabovepattern</object
+> </langData
+></td
+><td
+><object
+type="tAttrValue"
+>rule</object
+>, <langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>dots</object
+>, <object
+type="tAttrValue"
+>space</object
+>, or <object
+type="tAttrValue"
+>none</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>For <object
+type="tAttrValue"
+>rule</object
+>, a horizontal line will appear between the text and the footer. For <object
+type="tAttrValue"
+>dots</object
+>, a row of dots will appear between the text and the footer. The others are ignored.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>none</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>ruleabovewidth</object
+> </langData
+></td
+><td
+>Under user control. Use a number followed by a unit of measure shown in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>. For example: <object
+type="tAttrValue"
+>0.5pt</object
+>, <object
+type="tAttrValue"
+>1pt</object
+>.</td
+><td
+><langData
+lang="lEng"
+>It indicates how thick the line should be.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>0pt</object
+></td
+><td
+>No</td
+></tr
+></table
 ></example
 ></section2
 ><section2
@@ -20297,6 +20551,11 @@ id="iFooterMargin"
 >Footer margin</term
 ></indexTerm
 ><indexTerm
+id="iFooterRule"
+><term
+>Footer rule</term
+></indexTerm
+><indexTerm
 id="iFootnotes"
 see="iUseEndnotesLayout"
 ><term
@@ -20449,6 +20708,11 @@ id="iHeaderFooterLayout"
 id="iHeaderMargin"
 ><term
 >Header margin</term
+></indexTerm
+><indexTerm
+id="iHeaderRule"
+><term
+>Header rule</term
 ></indexTerm
 ><indexTerm
 id="iImg"

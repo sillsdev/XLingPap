@@ -9116,7 +9116,9 @@
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:for-each>
-            <xsl:call-template name="SetHeaderFooterRuleWidths"/>
+            <xsl:call-template name="SetHeaderFooterRuleWidths">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
             <xsl:if test="$sPageStyle='fancypagestyle'">
                 <tex:spec cat="eg"/>
             </xsl:if>

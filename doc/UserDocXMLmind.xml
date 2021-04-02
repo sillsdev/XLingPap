@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->1 March 2021</date
+>2 April 2021</date
 ><version
 contentType="ctVersion5.3"
->2.38.7</version
+>2.38.8</version
 ><version
 contentType="ctVersion7Plus"
->3.8.7</version
+>3.8.8</version
 ><contents
 showLevel="4"
 ></contents
@@ -24895,8 +24895,172 @@ sec="sBMAbbreviations"
 ></sectionRef
 >) and that you used the wrong abbreviation for the gloss. How do you go back and change them?</p
 ><p
+contentType="ctVersion7Plus"
+>Here is one way, but the details depend on which version of the <object
+type="tXMLmindXMLEditor"
+></object
+> editor you are using. Example <exampleRef
+letter="xAbbrChange8"
+num="xAbbrChange8"
+></exampleRef
+> is for version 8 and example <exampleRef
+letter="xAbbrChange7"
+num="xAbbrChange7"
+></exampleRef
+> is for version 7.</p
+><example
+contentType="ctVersion7Plus"
+num="xAbbrChange8"
+><chart
+><ol
+><li
+>Place the cursor at the beginning of your document (for example, in the <object
+type="tElement"
+>title</object
+> element).</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Search / Find and Replace Element / Find and Replace Element...</object
+>.</li
+><li
+>This brings up a dialog box that looks like this:<chart
+><img
+src="resources/FindAndReplaceElement.png"
+></img
+></chart
+></li
+><li
+>Make it look something like this:<chart
+><img
+src="resources/FindAndReplaceElementAbbrRefChange.png"
+></img
+></chart
+></li
+><li
+>You'll want to replace <object
+type="tAttrValue"
+>vIMP</object
+> and <object
+type="tAttrValue"
+>vIMPV</object
+> with the <object
+type="tAttribute"
+>abbr</object
+> IDs of the <object
+type="tElement"
+>abbreviation</object
+> elements you want. You may have to check your list of abbreviations to find the exact value you need.</li
+><li
+>Click on the <object
+type="tInstruction"
+>Find</object
+> button and the <object
+type="tXMLmindXMLEditor"
+></object
+> will find the first instance of an <object
+type="tElement"
+>abbrRef</object
+> element that has its <object
+type="tAttribute"
+>abbr</object
+> attribute set to <object
+type="tAttrValue"
+>vIMP</object
+> (or whatever value you used).</li
+><li
+>Click on the <object
+type="tInstruction"
+>Replace</object
+> button. The <object
+type="tXMLmindXMLEditor"
+></object
+> will make the replacement and find the next instance.</li
+><li
+>Repeat step 7 until all the changes have been made or click on the <object
+type="tInstruction"
+>Replace All</object
+> button.</li
+></ol
+></chart
+></example
+><example
+contentType="ctVersion7Plus"
+num="xAbbrChange7"
+><chart
+><ol
+><li
+>Place the cursor at the beginning of your document (for example, in the <object
+type="tElement"
+>title</object
+> element).</li
+><li
+>Use menu items <object
+type="tInstruction"
+>Search / Find Element</object
+>.</li
+><li
+>Make it look something like this:<chart
+><img
+src="resources/ChangeAbbreviationFindElementDialog.png"
+></img
+></chart
+></li
+><li
+>You'll want to replace <object
+type="tAttrValue"
+>vAGR</object
+> with the <object
+type="tAttribute"
+>abbr</object
+> ID of the <object
+type="tElement"
+>abbreviation</object
+> element you want. You may have to check your list of abbreviations to find the exact value you need.</li
+><li
+>Click on OK and the <object
+type="tXMLmindXMLEditor"
+></object
+> will find the first instance of an <object
+type="tElement"
+>abbrRef</object
+> element that has its <object
+type="tAttribute"
+>abbr</object
+> attribute set to <object
+type="tAttrValue"
+>vAGR</object
+> (or whatever value you used).</li
+><li
+>If you immediately press the <object
+type="tInstruction"
+>F11</object
+> key on your keyboard (or click on the black drop-down arrow or use menu items <object
+type="tInstruction"
+>XLingPaper / Set Reference F11</object
+> or if you right-click on it and choose <object
+type="tInstruction"
+>Set Reference</object
+>), then you will get the chooser for the abbreviations. Select the one you want to change to.</li
+><li
+>To repeat the search command use <object
+type="tKey"
+>Esc-g</object
+> (which means press the <object
+type="tKey"
+>Esc</object
+> key, release it, and then press the <object
+type="tKey"
+>g</object
+> key).</li
+></ol
+></chart
+></example
+><p
+contentType="ctVersion5.3"
 >Here is one way:</p
 ><ol
+contentType="ctVersion5.3"
 ><li
 >Place the cursor at the beginning of your document (for example, in the <object
 type="tElement"

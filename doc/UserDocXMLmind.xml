@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 April 2021</date
+>6 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -5478,10 +5478,10 @@ term="iReferencesSort"
 >It is now possible in <object
 type="tXLingPap"
 ></object
-> to have the cited authors sorted when you produce any kind of output. The default situation is to not do this dynamic sorting - the cited authors will appear in the same order they occur in the <object
+> to have the cited authors sorted when you produce any kind of output. The works of a given author will also be sorted by date and when two or more works have the same date, they will be sorted by title. The default situation is to not do this dynamic sorting - the cited authors will appear in the same order they occur in the <object
 type="tElement"
 >references</object
-> element.</p
+> element and their works will also appear in the order in which they occur.</p
 ><p
 >To use sorting by author names, you must set the <object
 type="tAttribute"
@@ -24899,7 +24899,7 @@ contentType="ctVersion7Plus"
 >Here is one way, but the details depend on which version of the <object
 type="tXMLmindXMLEditor"
 ></object
-> editor you are using.  Example <exampleRef
+> editor you are using. Example <exampleRef
 letter="xAbbrChange8"
 num="xAbbrChange8"
 ></exampleRef

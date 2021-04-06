@@ -4023,10 +4023,15 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoRefWorkPrep
+    -->
+    <xsl:template name="DoRefWorkPrep"/>
+    <!--  
         DoRefWork
     -->
     <xsl:template name="DoRefWork">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:param name="bDoTarget" select="'Y'"/>
         <xsl:variable name="work" select="."/>
         <div>
@@ -4079,6 +4084,7 @@
                 <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
                 <xsl:with-param name="work" select="$work"/>
                 <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
                 <xsl:with-param name="iPos" select="position()"/>
             </xsl:call-template>
             <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
@@ -4087,7 +4093,7 @@
     <!--  
         DoRefWorks
     -->
-    <xsl:template name="DoRefWorks">
+<!--    <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works"
             select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
@@ -4097,7 +4103,7 @@
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
-    <!--  
+-->    <!--  
         DoSection
     -->
     <xsl:template name="DoSection">

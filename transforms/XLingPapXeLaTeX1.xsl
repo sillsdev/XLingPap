@@ -3613,6 +3613,7 @@
     -->
     <xsl:template name="DoRefWork">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:param name="bDoTarget" select="'Y'"/>
         <xsl:if test="$bDoTarget='Y'">
             <xsl:call-template name="DoInternalTargetBegin">
@@ -3632,6 +3633,7 @@
             </xsl:if>
             <xsl:call-template name="DoDate">
                 <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="$bDoTarget='Y'">
@@ -4186,15 +4188,16 @@
     <!--  
         DoRefWorks
     -->
-    <xsl:template name="DoRefWorks">
-        <xsl:variable name="thisAuthor" select="."/>
+    <xsl:template name="DoRefWorkPrep">
+<!--        <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works"
             select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
-        <!--            <xsl:for-each select="$authors">
+        <!-\-            <xsl:for-each select="$authors">
             <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
-        -->
+        -\->
         <xsl:for-each select="$works">
-            <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
+--> 
+        <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
                 <tex:cmd name="pagebreak" gr="0" nl2="0"/>
             </xsl:if>
             <tex:spec cat="esc"/>
@@ -4209,24 +4212,27 @@
             </tex:cmd>
             <tex:cmd name="selectfont" gr="0" nl2="1"/>
             <!--                        <tex:cmd name="item" gr="0" nl2="1"/>-->
-            <xsl:call-template name="DoRefWork">
+<!--            <xsl:call-template name="DoRefWork">
                 <xsl:with-param name="works" select="$works"/>
             </xsl:call-template>
         </xsl:for-each>
-    </xsl:template>
+-->    </xsl:template>
+    <!--  
+        DoDate
+    -->
     <xsl:template name="DoDate">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:variable name="date">
             <xsl:value-of select="refDate"/>
         </xsl:variable>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="../@showAuthorName!='no'">
-            <xsl:if test="count($works[refDate=$date])>1">
-                <xsl:apply-templates select="." mode="dateLetter">
-                    <xsl:with-param name="date" select="$date"/>
-                </xsl:apply-templates>
-            </xsl:if>
-        </xsl:if>
+        <xsl:for-each select="refDate">
+            <xsl:call-template name="OutputRefDateValue">
+                <xsl:with-param name="date" select="$date"/>
+                <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+            </xsl:call-template>
+        </xsl:for-each>
         <xsl:text>. </xsl:text>
     </xsl:template>
     <!--  

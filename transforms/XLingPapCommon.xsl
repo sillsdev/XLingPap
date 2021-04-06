@@ -905,6 +905,7 @@
                 <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors | saxon:node-set($worksCitedInUsedAbbreviationDefinitions)">
                     <xsl:sort lang="{$sLang}" select="@name"/>
                     <xsl:call-template name="DoRefWorks">
+                        <xsl:with-param name="sLang" select="$sLang"/>
                         <xsl:with-param name="citations" select="$citations | $citationsInUsedAbbreviations"/>
                     </xsl:call-template>
                 </xsl:for-each>
@@ -913,6 +914,45 @@
                 <xsl:for-each select="$directlyCitedAuthors | $impliedAuthors | saxon:node-set($worksCitedInUsedAbbreviationDefinitions)">
                     <xsl:call-template name="DoRefWorks">
                         <xsl:with-param name="citations" select="$citations | $citationsInUsedAbbreviations"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoRefWorks
+    -->
+    <xsl:template name="DoRefWorks">
+        <xsl:param name="sLang"/>
+        <xsl:param name="citations"/>
+        <xsl:variable name="thisAuthor" select="."/>
+        <xsl:variable name="works"
+        select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sLang) &gt; 0">
+                <xsl:variable name="sortedWorks">
+                    <xsl:for-each select="$works">
+                        <xsl:sort lang="{$sLang}" select="refDate"/>
+                        <xsl:sort lang="{$sLang}" select="refTitle"/>
+                        <xsl:copy-of select="."/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:for-each select="$works">
+                    <xsl:sort lang="{$sLang}" select="refDate"/>
+                    <xsl:sort lang="{$sLang}" select="refTitle"/>
+                    <xsl:call-template name="DoRefWorkPrep"/>
+                    <xsl:call-template name="DoRefWork">
+                        <xsl:with-param name="works" select="$works"/>
+                        <xsl:with-param name="author" select="$thisAuthor"/>
+                        <xsl:with-param name="sortedWorks" select="saxon:node-set($sortedWorks)"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$works">
+                    <xsl:call-template name="DoRefWorkPrep"/>
+                    <xsl:call-template name="DoRefWork">
+                        <xsl:with-param name="works" select="$works"/>
                     </xsl:call-template>
                 </xsl:for-each>
             </xsl:otherwise>
@@ -2331,6 +2371,41 @@
                 </xsl:call-template>
             </xsl:with-param>
         </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputRefDateValue
+    -->
+    <xsl:template name="OutputRefDateValue">
+        <xsl:param name="date"/>
+        <xsl:param name="sortedWorks"/>
+        <xsl:param name="works"/>
+        <xsl:value-of select="$date"/>
+        <xsl:if test="../../@showAuthorName!='no'">
+            <xsl:choose>
+                <xsl:when test="$sortedWorks">
+                    <xsl:if test="count($sortedWorks/refWork[refDate=$date])>1">
+                        <xsl:variable name="thisRef" select=".."/>
+                        <xsl:variable name="pos">
+                            <xsl:for-each select="$sortedWorks/refWork[refDate=$date]">
+                                <xsl:if test=".=$thisRef">
+                                    <xsl:value-of select="position()"/>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:variable>
+                        <xsl:if test="string-length($pos) &gt; 0">
+                            <xsl:value-of select="substring('abcdefghijklmnñopqrstuvwxyz',$pos,1)"/>
+                        </xsl:if>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="count($works[refDate=$date])>1">
+                        <xsl:apply-templates select="." mode="dateLetter">
+                            <xsl:with-param name="date" select="$date"/>
+                        </xsl:apply-templates>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
     <!--
         OutputReferencesLabel

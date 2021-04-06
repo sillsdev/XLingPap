@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-02</a:date
+>2021-04-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->3.8.8 2 April 2021<ul
+>3.8.8 6 April 2021<ul
+><li
+>When dynamically sorting references by author, also sort the works by date and, if more than one work has the same date, by title.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

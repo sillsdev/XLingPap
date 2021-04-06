@@ -10,6 +10,7 @@
         <xsl:param name="referencesLayoutInfo"/>
         <xsl:param name="work"/>
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:param name="iPos" select="'0'"/>
         <xsl:variable name="authorLayoutToUsePosition">
             <xsl:call-template name="GetAuthorLayoutToUsePosition">
@@ -81,6 +82,7 @@
                                         <xsl:with-param name="refDateItem" select="."/>
                                         <xsl:with-param name="work" select="$work"/>
                                         <xsl:with-param name="works" select="$works"/>
+                                        <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
                                     </xsl:call-template>
                                 </xsl:when>
                             </xsl:choose>
@@ -97,6 +99,7 @@
         <xsl:param name="refDateItem"/>
         <xsl:param name="work"/>
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <span>
             <xsl:attribute name="style">
                 <xsl:call-template name="OutputFontAttributes">
@@ -108,6 +111,7 @@
             </xsl:call-template>
             <xsl:apply-templates select="$work/refDate">
                 <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
             </xsl:apply-templates>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$refDateItem"/>

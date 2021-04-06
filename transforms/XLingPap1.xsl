@@ -3303,17 +3303,17 @@
     -->
     <xsl:template name="DoDate">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:variable name="date">
             <xsl:value-of select="refDate"/>
         </xsl:variable>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="../@showAuthorName!='no'">
-            <xsl:if test="count($works[refDate=$date])>1">
-                <xsl:apply-templates select="." mode="dateLetter">
-                    <xsl:with-param name="date" select="$date"/>
-                </xsl:apply-templates>
-            </xsl:if>
-        </xsl:if>
+        <xsl:for-each select="refDate">
+            <xsl:call-template name="OutputRefDateValue">
+                <xsl:with-param name="date" select="$date"/>
+                <xsl:with-param name="works" select="$works"/>
+                <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+            </xsl:call-template>
+        </xsl:for-each>
         <xsl:text>. </xsl:text>
     </xsl:template>
     <!--  
@@ -3623,6 +3623,10 @@
         </xsl:for-each>
     </xsl:template>
     <!--  
+        DoRefWorkPrep
+    -->
+    <xsl:template name="DoRefWorkPrep"/>
+    <!--  
         DoRefUrlEtc
     -->
     <xsl:template name="DoRefUrlEtc">
@@ -3677,6 +3681,7 @@
     -->
     <xsl:template name="DoRefWork">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:param name="bDoTarget" select="'Y'"/>
         <p style="text-indent:-0.25in;margin-bottom:0in;margin-top:0in">
             <xsl:choose>
@@ -3714,6 +3719,7 @@
                     </xsl:if>
                     <xsl:call-template name="DoDate">
                         <xsl:with-param name="works" select="$works"/>
+                        <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
@@ -4234,8 +4240,7 @@
     <!--  
         DoRefWorks
     -->
-    <xsl:template name="DoRefWorks">
-        <xsl:param name="citations" select="$citations"/>
+<!--    <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works"
             select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
@@ -4245,7 +4250,7 @@
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
-    <!--  
+-->    <!--  
         DoType
     -->
     <xsl:template name="DoType">

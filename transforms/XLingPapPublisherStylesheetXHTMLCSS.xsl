@@ -2100,6 +2100,8 @@ li.lower-roman {
         TEMPLATE DUMMIES
         =========================================================== -->
     <xsl:template name="DoAnnotation"/>
+    <xsl:template name="DoRefWorkPrep"/>
+    <xsl:template name="DoRefWork"/>
     <xsl:template name="DoRefWorks"/>
     <xsl:template name="HandleLiteralLabelLayoutInfo"/>
     <xsl:template name="LinkAttributesBegin"/>

@@ -1753,7 +1753,7 @@
     <!--  
         DoRefWorks
     -->
-    <xsl:template name="DoRefWorks">
+<!--    <xsl:template name="DoRefWorks">
         <xsl:variable name="thisAuthor" select="."/>
         <xsl:variable name="works" select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
         <xsl:for-each select="$works">
@@ -1783,17 +1783,17 @@
                     </xsl:apply-templates>
                 </xsl:if>
                 <xsl:text>. </xsl:text>
-                <!--
+                <!-\-
                     book
-                -->
+                -\->
                 <xsl:if test="book">
                     <xsl:call-template name="DoBook">
                         <xsl:with-param name="book" select="book"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     collection
-                -->
+                -\->
                 <xsl:if test="collection">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -1842,10 +1842,10 @@
                                     <xsl:value-of select="normalize-space(collection/collPages)"/>
                                     <xsl:text>. </xsl:text>
                                 </xsl:when>
-                                <!--                                        <xsl:otherwise>
+                                <!-\-                                        <xsl:otherwise>
                                     <xsl:text>.</xsl:text>
                                     </xsl:otherwise>
-                                -->
+                                -\->
                             </xsl:choose>
                             <xsl:if test="collection/seriesEd">
                                 <xsl:call-template name="DoEdPlural">
@@ -1886,9 +1886,9 @@
                         <xsl:with-param name="path" select="collection"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     dissertation
-                -->
+                -\->
                 <xsl:if test="dissertation">
                     <i>
                         <xsl:apply-templates select="refTitle"/>
@@ -1928,9 +1928,9 @@
                         <xsl:with-param name="path" select="dissertation"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     journal article
-                -->
+                -\->
                 <xsl:if test="article">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -1962,9 +1962,9 @@
                         <xsl:with-param name="path" select="article"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     field notes
-                -->
+                -\->
                 <xsl:if test="fieldNotes">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -1982,9 +1982,9 @@
                         <xsl:with-param name="path" select="fieldNotes"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     ms (manuscript)
-                -->
+                -\->
                 <xsl:if test="ms">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -2002,9 +2002,9 @@
                         <xsl:with-param name="path" select="ms"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     paper
-                -->
+                -\->
                 <xsl:if test="paper">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -2021,9 +2021,9 @@
                         <xsl:with-param name="path" select="paper"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     proceedings
-                -->
+                -\->
                 <xsl:if test="proceedings">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -2092,9 +2092,9 @@
                         <xsl:with-param name="path" select="proceedings"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     thesis
-                -->
+                -\->
                 <xsl:if test="thesis">
                     <i>
                         <xsl:apply-templates select="refTitle"/>
@@ -2134,9 +2134,9 @@
                         <xsl:with-param name="path" select="thesis"/>
                     </xsl:call-template>
                 </xsl:if>
-                <!--
+                <!-\-
                     webPage
-                -->
+                -\->
                 <xsl:if test="webPage">
                     <xsl:value-of select="$sLdquo"/>
                     <xsl:apply-templates select="refTitle"/>
@@ -2171,7 +2171,7 @@
             </p>
         </xsl:for-each>
     </xsl:template>
-    <!--  
+-->    <!--  
         DoInterlinearRefCitation
     -->
     <xsl:template name="DoInterlinearRefCitation">

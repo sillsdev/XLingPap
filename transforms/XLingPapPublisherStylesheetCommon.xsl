@@ -555,7 +555,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="refAuthorInitials"/>
-<!--                <xsl:value-of select="normalize-space(refAuthorInitials)"/>-->
+                <!--                <xsl:value-of select="normalize-space(refAuthorInitials)"/>-->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -564,15 +564,13 @@
     -->
     <xsl:template match="refDate">
         <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <xsl:variable name="date" select="."/>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="../../@showAuthorName!='no'">
-            <xsl:if test="count($works[refDate=$date])>1">
-                <xsl:apply-templates select="." mode="dateLetter">
-                    <xsl:with-param name="date" select="$date"/>
-                </xsl:apply-templates>
-            </xsl:if>
-        </xsl:if>
+        <xsl:call-template name="OutputRefDateValue">
+            <xsl:with-param name="date" select="$date"/>
+            <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+            <xsl:with-param name="works" select="$works"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         refTitle

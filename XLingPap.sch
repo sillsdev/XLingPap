@@ -34,6 +34,7 @@
         <active pattern="abbrRef"/>
         <active pattern="endnoteInSecTitle"/>
         <active pattern="indexRangeInSecTitle"/>
+        <active pattern="deprecatedethnCode"/>
     </phase>
     <pattern id="line">
         <title>
@@ -427,6 +428,14 @@
         <title><dir value="ltr">Check for index range items in secTitle</dir></title>
         <rule context="secTitle">
             <report test="indexedRangeBegin | indexedRangeEnd">Using an indexedRangeBegin and/or indexedRangeEnd element within a secTitle element may fail to create the page in the index portion of the PDF output.  Put the indexedRangeBegin element at the beginning of the first paragraph of the chapter/section/appendix, not inside the secTitle element.</report>
+        </rule>
+    </pattern>
+    <pattern id="deprecatedethnCode">
+        <title>
+            <dir value="ltr">Check for use of ethnCode</dir>
+        </title>
+        <rule context="/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/languages/language">
+            <report test="string-length(normalize-space(@ethnCode)) &gt; 0">Warning: using an ethnCode is now deprecated.  Please use ISO639-3Code instead.</report>
         </rule>
     </pattern>
 </schema>

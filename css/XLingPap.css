@@ -3106,6 +3106,15 @@ ms
 	display:inline;
 }
 
+msVersion
+{
+	display:inline;
+}
+msVersion:after
+{
+	content: ". ";
+}
+
 multivolumeWork
 {
 	display:inline;
@@ -8590,6 +8599,30 @@ msLayouts
 	property-group: referencesLayouts();
 }
 
+msVersionItem[color]
+{
+	color:concatenate(attr(color));
+}
+msVersionItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+msVersionItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+msVersionItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+msVersionItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+msVersionItem
+{
+	property-group: referencesItem("Version 0.6");
+}
 multivolumeWorkItem[color]
 {
 	color:concatenate(attr(color));
@@ -8737,6 +8770,29 @@ paperAuthor
 {
 	display:inline;
 }
+paperLabelItem[color]
+{
+	color:concatenate(attr(color));
+}
+paperLabelItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+paperLabelItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+paperLabelItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+paperLabelItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+paperLabelItem
+{
+	property-group: referencesItem(label(xpath,"if(string-length(normalize-space(@label))>0,@label,/xlingpaper/lingPaper/backMatter/references[string-length(normalize-space(@labelPaper))>0],/xlingpaper/lingPaper/backMatter/references/@labelPaper, ' Paper presented at the ')"));}
 paperLayout:before
 {
 	property-group: referencesItemLayoutBefore();

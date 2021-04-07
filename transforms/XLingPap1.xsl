@@ -3992,6 +3992,10 @@
                     <xsl:text>).  </xsl:text>
                 </xsl:if>
                 <xsl:apply-templates select="ms/institution"/>
+                <xsl:if test="ms/msVersion">
+                    <xsl:apply-templates select="ms/msVersion"/>
+                    <xsl:text>.  </xsl:text>
+                </xsl:if>
                 <xsl:text> Manuscript.</xsl:text>
                 <xsl:call-template name="DoRefUrlEtc">
                     <xsl:with-param name="path" select="ms"/>
@@ -4011,7 +4015,7 @@
                         <xsl:with-param name="works" select="$works"/>
                     </xsl:call-template>
                 </xsl:if>
-                <xsl:text>  Paper presented at the </xsl:text>
+                <xsl:call-template name="OutputPaperLabel"/>
                 <xsl:value-of select="normalize-space(paper/conference)"/>
                 <xsl:if test="paper/location">
                     <xsl:text>, </xsl:text>

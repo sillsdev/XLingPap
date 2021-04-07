@@ -83,6 +83,7 @@
         <xsl:call-template name="GetCollOrProcVolumesToInclude"/>
     </xsl:variable>
     <xsl:variable name="sMAThesisDefaultLabel" select="'M.A. thesis'"/>
+    <xsl:variable name="sPaperDefaultLabel" select="'  Paper presented at the '"/>
     <xsl:variable name="sPhDDissertationDefaultLabel" select="'Ph.D. dissertation'"/>
     <xsl:variable name="sAbstractID" select="'rXLingPapAbstract'"/>
     <xsl:variable name="sAcknowledgementsID" select="'rXLingPapAcknowledgements'"/>

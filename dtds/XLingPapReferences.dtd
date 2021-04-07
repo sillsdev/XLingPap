@@ -10,6 +10,7 @@
     XeLaTeXSpecial CDATA #IMPLIED
     label CDATA #IMPLIED
     labelDissertation CDATA #IMPLIED
+    labelPaper CDATA #IMPLIED
     labelThesis CDATA #IMPLIED
     version CDATA #IMPLIED
     authorformtoshowineditor (full | initials | both) "full"
@@ -186,10 +187,14 @@
 <!-- field notes -->
 <!ELEMENT fieldNotes (location?, institution, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
 <!-- ms (manuscript) -->
-<!ELEMENT ms (((location?, institution) | empty), url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT ms (((location?, institution, msVersion?) | msVersion | empty), url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ELEMENT msVersion (#PCDATA | %embedded;)*>
 <!ELEMENT empty EMPTY>
 <!-- paper presented at a conference -->
 <!ELEMENT paper (conference, location?, url?, dateAccessed?, doi?, iso639-3code*, comment?, annotations?, keywords?)>
+<!ATTLIST paper
+    labelPaper CDATA #IMPLIED
+>
 <!ELEMENT conference (#PCDATA)>
 <!ATTLIST conference
     xml:lang CDATA #IMPLIED

@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->25 March 2021</date
+>7 April 2021</date
 ><version
 contentType="ctVersion5.3"
->2.38.7</version
+>2.38.8</version
 ><version
 contentType="ctVersion7Plus"
->3.8.7</version
+>3.8.8</version
 ><contents
 showLevel="6"
 ></contents
@@ -1859,7 +1859,7 @@ type="tElement"
 > element (that is, for the even page). The rule will appear for both odd and even pages for the default <object
 type="tXeTeX"
 ></object
-> way of producing PDF.  For the <object
+> way of producing PDF. For the <object
 type="tRenderX"
 ></object
 > way of producing PDF, you will need to set these for both even and odd pages.</p
@@ -6922,6 +6922,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iMsVersionItem"
+></indexedItem
+><object
+type="tElement"
+>msVersionItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>msVersion</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>Version 0.6</td
+></tr
+><tr
+><td
+><indexedItem
 term="iDateAccessed"
 ></indexedItem
 ><indexedItem
@@ -7095,6 +7118,44 @@ type="tAttrValue"
 ></td
 ><td
 >Title of the Work</td
+></tr
+><tr
+><td
+><indexedItem
+term="iPaperLabel"
+></indexedItem
+><object
+type="tElement"
+>paperLabelItem</object
+></td
+><td
+>How the paper label is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>label</object
+></td
+><td
+>(User control) What the content of the label should be. If this attribute is missing, then “Paper presented at the ” is used.</td
+></tr
+></table
+></td
+><td
+>Paper presented at the </td
 ></tr
 ><tr
 ><td
@@ -21000,6 +21061,11 @@ id="iMissing"
 >Missing (used in some patterns to indicate the lack of a match)</term
 ></indexTerm
 ><indexTerm
+id="iMsVersionItem"
+><term
+>Ms version, the version information in a manuscript referenced work</term
+></indexTerm
+><indexTerm
 id="iMultivolumeWork"
 ><term
 >Volume in a multivolume work of a referenced work</term
@@ -21139,6 +21205,11 @@ id="iPartTitleLayout"
 id="iDissertationLabel"
 ><term
 >Ph.D. Dissertation, label in a referenced work</term
+></indexTerm
+><indexTerm
+id="iPaperLabel"
+><term
+>Paper label ("Paper presented at the ") in a referenced work</term
 ></indexTerm
 ><indexTerm
 id="iPosterSessionPaper"

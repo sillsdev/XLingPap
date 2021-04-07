@@ -3566,7 +3566,7 @@ references[titleformtoshowineditor="both"] refTitle:after
 	content: ". ";
 }
 
-refTitle
+references[showrefTitleInBoldInEditor="yes"] refTitle
 {
 	font-weight: bold;
 }
@@ -3604,6 +3604,86 @@ references[titleformtoshowineditor="both"] refTitleLowerCase:after
 	property-group: lowerCaseTitleAfter();
 }
 
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(article):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-journalArticle.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(book):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-book.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(collection):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-encyclopediaArticle.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(dissertation):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-thesis.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(fieldNotes):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-interview.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(ms):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-manuscript.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(paper):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-conferencePaper.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(proceedings):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-presentation.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(thesis):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-thesis.png))
+ 	;
+}
+references[showrefWorkIconsInEditor="yes"] refWork:contains-element(webPage):before
+{
+	content: text-field(attribute, id, columns 10, 
+	                    background-color, citation-background-color(), 
+	                    font-size, small)
+	                    icon(url(resources/treeitem-webpage.png))
+ 	;
+}
 refWork:before
 {
 	content: text-field(attribute, id, columns 10, 

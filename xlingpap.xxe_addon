@@ -42,6 +42,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Deprecate use of a language element's ethnCode attribute. Use ISO639-3Code instead.</li
 ><li
+>Make reference titles appear in bold within XXE.</li
+><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul
 ></li

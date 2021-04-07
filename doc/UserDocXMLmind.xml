@@ -5120,13 +5120,19 @@ lang="lMeaning"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->﻿authorformtoshowineditor</langData
+><object
+type="tAttribute"
+>﻿authorformtoshowineditor</object
+></langData
 ></td
 ><td
 type="tAttrValue"
 ><langData
 lang="lValue"
->both</langData
+><object
+type="tAttrValue"
+>both</object
+></langData
 ></td
 ><td
 ><langData
@@ -5148,7 +5154,10 @@ lang="lAttribute"
 type="tAttrValue"
 ><langData
 lang="lValue"
->full</langData
+><object
+type="tAttrValue"
+>full</object
+></langData
 ></td
 ><td
 ><langData
@@ -5170,7 +5179,10 @@ lang="lAttribute"
 type="tAttrValue"
 ><langData
 lang="lValue"
->initials</langData
+><object
+type="tAttrValue"
+>initials</object
+></langData
 ></td
 ><td
 ><langData
@@ -5186,7 +5198,10 @@ type="tXMLmindXMLEditor"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->label</langData
+><object
+type="tAttribute"
+>label</object
+></langData
 ></td
 ><td
 type="tAttrValue"
@@ -5205,7 +5220,10 @@ lang="lMeaning"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->labelDissertation</langData
+><object
+type="tAttribute"
+>labelDissertation</object
+></langData
 ></td
 ><td
 type="tAttrValue"
@@ -5224,7 +5242,32 @@ lang="lMeaning"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->labelThesis</langData
+><object
+type="tAttribute"
+>labelPaper</object
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+>(user control)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>the label to use when formatting a paper. The default is “Paper presented at the ”.</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+><object
+type="tAttribute"
+>labelThesis</object
+></langData
 ></td
 ><td
 type="tAttrValue"
@@ -5243,7 +5286,10 @@ lang="lMeaning"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->pageRangeSeparator</langData
+><object
+type="tAttribute"
+>pageRangeSeparator</object
+></langData
 ></td
 ><td
 type="tAttrValue"
@@ -5271,13 +5317,110 @@ type="tAttrValue"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->titleformtoshowineditor</langData
+><object
+type="tAttribute"
+>showrefTitleInBoldInEditor</object
+></langData
 ></td
 ><td
 type="tAttrValue"
 ><langData
 lang="lValue"
->both</langData
+><object
+type="tAttrValue"
+>yes</object
+> or <langData
+lang="lVernacular"
+><object
+type="tAttrValue"
+>no</object
+></langData
+> (default is <object
+type="tAttrValue"
+>no</object
+>)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show the content of all <object
+type="tElement"
+>refTitle</object
+> elements in bold</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+><object
+type="tAttribute"
+>showrefWorkIconsInEditor</object
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
+>yes</object
+> or <langData
+lang="lVernacular"
+><object
+type="tAttrValue"
+>no</object
+></langData
+> (default is <object
+type="tAttrValue"
+>no</object
+>)</langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show an icon to indicate the kind of work this is<endnote
+id="nRefWorkIcon"
+><p
+>Apparently due to a bug in the <object
+type="tXMLmindXMLEditor"
+></object
+>, no icons are shown for <object
+type="tElement"
+>fieldNotes</object
+> or <object
+type="tElement"
+>webPage</object
+> elements.</p
+></endnote
+></langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+><object
+type="tAttribute"
+>titleformtoshowineditor</object
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
+>both</object
+></langData
 ></td
 ><td
 ><langData
@@ -5299,7 +5442,10 @@ lang="lAttribute"
 type="tAttrValue"
 ><langData
 lang="lValue"
->lowercase</langData
+><object
+type="tAttrValue"
+>lowercase</object
+></langData
 ></td
 ><td
 ><langData
@@ -5321,7 +5467,10 @@ lang="lAttribute"
 type="tAttrValue"
 ><langData
 lang="lValue"
->uppercase</langData
+><object
+type="tAttrValue"
+>uppercase</object
+></langData
 ></td
 ><td
 ><langData
@@ -5337,7 +5486,10 @@ type="tXMLmindXMLEditor"
 type="tAttribute"
 ><langData
 lang="lAttribute"
->version</langData
+><object
+type="tAttribute"
+>version</object
+></langData
 ></td
 ><td
 type="tAttrValue"
@@ -37681,11 +37833,11 @@ id="ctVersion7Plus"
 ></contentTypes
 ><contentControlChoices
 ><contentControlChoice
-active="yes"
+active="no"
 exclude="ctVersion7Plus"
 >Version 5.3</contentControlChoice
 ><contentControlChoice
-active="no"
+active="yes"
 exclude="ctVersion5.3"
 >Version 7+</contentControlChoice
 ></contentControlChoices

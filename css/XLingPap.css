@@ -3618,7 +3618,7 @@ references[titleformtoshowineditor="both"] refTitle:after
 	content: ". ";
 }
 
-refTitle
+references[showrefTitleInBoldInEditor="yes"] refTitle
 {
 	font-weight: bold;
 }

@@ -287,4 +287,22 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--  
+        OutputPaperLabel
+    -->
+    <xsl:template name="OutputPaperLabel">
+        <xsl:call-template name="OutputLabel">
+            <xsl:with-param name="sDefault" select="$sPaperDefaultLabel"/>
+            <xsl:with-param name="pLabel">
+                <xsl:choose>
+                    <xsl:when test="string-length(normalize-space(paper/@labelPaper)) &gt; 0">
+                        <xsl:value-of select="paper/@labelPaper"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="//references/@labelPaper"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
 </xsl:stylesheet>

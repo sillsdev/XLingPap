@@ -87,9 +87,9 @@ References Layouts
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT fieldNotesLayout (refTitleItem | locationItem |  institutionItem | 
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | 
+<!ELEMENT msLayout (refTitleItem | locationItem |  institutionItem | emptyItem | msVersionItem |
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT paperLayout (refTitleItem | conferenceItem |  locationItem | 
+<!ELEMENT paperLayout (refTitleItem | paperLabelItem | conferenceItem |  locationItem | 
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT proceedingsLayout (refTitleItem | procEdItem |  procTitleItem |  procVolItem |  procPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  procCitationItem | authorRoleItem |
                                                 locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
@@ -118,6 +118,10 @@ References Layouts
 <!ATTLIST dissertationLabelItem 
   label CDATA #IMPLIED
   %formatinfo;>
+<!ELEMENT paperLabelItem EMPTY >
+<!ATTLIST paperLabelItem 
+  label CDATA #IMPLIED
+  %formatinfo;>
 <!ELEMENT thesisLabelItem EMPTY >
 <!ATTLIST thesisLabelItem 
   label CDATA #IMPLIED
@@ -132,6 +136,8 @@ References Layouts
 <!ATTLIST editionItem %formatinfo;>
 <!ELEMENT institutionItem EMPTY >
 <!ATTLIST institutionItem %formatinfo;>
+<!ELEMENT msVersionItem EMPTY >
+<!ATTLIST msVersionItem %formatinfo;>
 <!ELEMENT dateAccessedItem EMPTY >
 <!ATTLIST dateAccessedItem %formatinfo;>
 

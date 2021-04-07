@@ -3566,6 +3566,10 @@ references[titleformtoshowineditor="both"] refTitle:after
 	content: ". ";
 }
 
+refTitle
+{
+	font-weight: bold;
+}
 refTitle:after
 {
 	content: ". ";

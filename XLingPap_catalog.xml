@@ -14,5 +14,8 @@
 
   <system systemId="XLingPap.dtd" uri="dtds/XLingPap.dtd"/>
 
+  <public publicId="-//XMLmind//DTD XLingPapHyphenationExceptions//EN"
+    uri="dtds/XLingPapHyphenationExceptions.dtd"/>
+
 </group>
 </catalog>

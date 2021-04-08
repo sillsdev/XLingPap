@@ -25699,7 +25699,10 @@ type="tXeTeX"
 letter="xHyphenationExceptions"
 num="xHyphenationExceptions"
 ></exampleRef
->.</p
+>.  (You can use menu item <object
+type="tInstruction"
+>File / New</object
+> and choose “Hyphenation exceptions file” under “Subsidiary Files” to create such a file.)</p
 ><example
 num="xHyphenationExceptions"
 ><chart
@@ -25722,7 +25725,7 @@ num="xHyphenationExceptions"
 letter="xHyphenationExceptionsWFC"
 num="xHyphenationExceptionsWFC"
 ></exampleRef
->.</p
+>.  Note that the word forming items must come before any word items.</p
 ><example
 num="xHyphenationExceptionsWFC"
 ><chart

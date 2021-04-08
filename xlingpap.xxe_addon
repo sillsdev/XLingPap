@@ -56,6 +56,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Allow annotationRef elements to be in examples.</li
 ><li
+>Add a way to create a hyphenation exceptions file within XXE.</li
+><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul
 ></li

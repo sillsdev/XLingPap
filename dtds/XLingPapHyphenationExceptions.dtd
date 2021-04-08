@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hyphenation exceptions file.
+-->
+<!-- exceptions can have word forming characters and must have at least one wordd.
+-->
+<!ELEMENT exceptions (wordformingcharacter*, word+) >
+<!ELEMENT wordformingcharacter (#PCDATA) >
+<!ELEMENT word (#PCDATA) >

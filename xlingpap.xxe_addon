@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-07</a:date
+>2021-04-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.8 7 April 2021<ul
+>3.8.8 8 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -53,6 +53,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Make reference titles appear in bold within XXE via a showrefTitleInBoldInEditor attribute on the references element.</li
 ><li
 >Show an icon within XXE to indicate what kind of reference a work is via a showrefWorkIconsInEditor attribute on the references element.</li
+><li
+>Allow annotationRef elements to be in examples.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

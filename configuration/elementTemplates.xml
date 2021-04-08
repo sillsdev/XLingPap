@@ -1367,18 +1367,31 @@ num="x"
   </cfg:elementTemplate
 >
   <cfg:elementTemplate
-name="chart"
->
+    name="annotatinRef"
+    >
     <example
-num="x"
->
-      <chart
-></chart
->
+      num="x"
+      >
+      <annotationRef
+        ></annotationRef
+      >
     </example
->
+    >
   </cfg:elementTemplate
->
+  >
+  <cfg:elementTemplate
+    name="chart"
+    >
+    <example
+      num="x"
+      >
+      <chart
+        ></chart
+      >
+    </example
+    >
+  </cfg:elementTemplate
+  >
   <cfg:elementTemplate
 name="chart_with_image"
 >

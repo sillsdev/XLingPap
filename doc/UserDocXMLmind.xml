@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 April 2021</date
+>8 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -5329,12 +5329,9 @@ lang="lValue"
 ><object
 type="tAttrValue"
 >yes</object
-> or <langData
-lang="lVernacular"
-><object
+> or <object
 type="tAttrValue"
 >no</object
-></langData
 > (default is <object
 type="tAttrValue"
 >no</object
@@ -5369,12 +5366,9 @@ lang="lValue"
 ><object
 type="tAttrValue"
 >yes</object
-> or <langData
-lang="lVernacular"
-><object
+> or <object
 type="tAttrValue"
 >no</object
-></langData
 > (default is <object
 type="tAttrValue"
 >no</object
@@ -12637,6 +12631,22 @@ note="nExampleNumLetter"
 ></endnoteRef
 ></p
 ></section3
+></section2
+><section2
+id="sExAnnotationRefs"
+><secTitle
+>Annotations</secTitle
+><p
+><indexedItem
+term="iExampleAnnotation"
+></indexedItem
+>Annotation examples consist of one or more <object
+type="tElement"
+>annotationRef</object
+> elements. (See section <sectionRef
+sec="sExamples"
+></sectionRef
+> for how to insert an example.)</p
 ></section2
 ><section2
 id="sExampleHeading"
@@ -35835,6 +35845,11 @@ id="iExamples"
 ><term
 >Examples</term
 ><indexTerms
+><indexTerm
+id="iExampleAnnotation"
+><term
+>Annotation</term
+></indexTerm
 ><indexTerm
 id="iExampleChart"
 see="iChart"

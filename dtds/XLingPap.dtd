@@ -503,7 +503,7 @@
 
      If one includes the num attribute, then one can reference the example by number.
 -->
-    <!ELEMENT example (exampleHeading?, (word | listWord+ | single | listSingle+ | interlinear | interlinearRef | listInterlinear+ | tree | chart | table | definition | listDefinition+))>
+    <!ELEMENT example (exampleHeading?, (word | listWord+ | single | listSingle+ | interlinear | interlinearRef | listInterlinear+ | tree | chart | table | definition | listDefinition+ | annotationRef+))>
 <!ATTLIST example
     num ID #IMPLIED
     %special;

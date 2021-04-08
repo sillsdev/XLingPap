@@ -11326,6 +11326,37 @@
                 <xsl:text>+ 2.75em</xsl:text>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="//example/annotationRef">
+            <tex:cmd name="newlength" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperannoinexampleindent" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="setlength" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperannoinexampleindent" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <tex:cmd name="XLingPaperlistinexampleindent" gr="0" nl2="0"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="addtolength" nl1="1">
+                <tex:parm>
+                    <tex:cmd name="XLingPaperannoinexampleindent" gr="0" nl2="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:variable name="sStartIndent" select="normalize-space($annotationLayoutInfo/@start-indent)"/>
+                    <xsl:choose>
+                        <xsl:when test="string-length($sStartIndent) &gt; 0">
+                            <xsl:value-of select="$sStartIndent"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>.25in</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
         <tex:cmd name="newlength" nl1="1">
             <tex:parm>
                 <tex:cmd name="XLingPaperlistitemindent" gr="0" nl2="0"/>

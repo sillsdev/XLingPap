@@ -3806,6 +3806,9 @@
             <tex:spec cat="esc"/>
             <xsl:text>leftskip</xsl:text>
             <xsl:choose>
+                <xsl:when test="parent::example">
+                    <tex:cmd name="XLingPaperannoinexampleindent" gr="0" nl2="0"/>
+                </xsl:when>
                 <xsl:when test="string-length($sStartIndent) &gt; 0">
                     <xsl:value-of select="$sStartIndent"/>
                 </xsl:when>

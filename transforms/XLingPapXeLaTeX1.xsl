@@ -57,6 +57,7 @@
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
     <xsl:variable name="chapterBeforePart" select="//chapterBeforePart"/>
+    <xsl:variable name="annotationLayoutInfo" select="annotationLayout"/>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->
@@ -1402,9 +1403,11 @@
         <xsl:if test="contains(@XeLaTeXSpecial,'pagebreak')">
             <tex:cmd name="pagebreak" gr="0" nl2="0"/>
         </xsl:if>
-        <tex:spec cat="esc"/>
-        <xsl:text>leftskip0in</xsl:text>
-        <tex:cmd name="relax" gr="0" nl2="1"/>
+        <xsl:if test="not(parent::example)">
+            <tex:spec cat="esc"/>
+            <xsl:text>leftskip0in</xsl:text>
+            <tex:cmd name="relax" gr="0" nl2="1"/>
+        </xsl:if>
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <xsl:text>hangindent.25in</xsl:text>
@@ -1420,7 +1423,13 @@
             </xsl:call-template>
         </xsl:for-each>
         <tex:spec cat="esc"/>
-        <xsl:text>leftskip.25in</xsl:text>
+        <xsl:text>leftskip</xsl:text>
+        <xsl:choose>
+            <xsl:when test="parent::example">
+                <tex:cmd name="XLingPaperannoinexampleindent" gr="0" nl2="0"/>
+            </xsl:when>
+            <xsl:otherwise>.25in</xsl:otherwise>
+        </xsl:choose>
         <tex:cmd name="relax" gr="0" nl2="1"/>
         <tex:spec cat="eg"/>
         <xsl:call-template name="DoNestedAnnotations">

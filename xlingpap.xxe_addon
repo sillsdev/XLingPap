@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-07</a:date
+>2021-04-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.8 7 April 2021<ul
+>2.38.8 8 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -43,6 +43,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Deprecate use of a language element's ethnCode attribute. Use ISO639-3Code instead.</li
 ><li
 >Make reference titles appear in bold within XXE via a showrefTitleInBoldInEditor attribute on the references element.</li
+><li
+>Allow annotationRef elements to be in examples.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

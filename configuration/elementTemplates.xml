@@ -518,6 +518,11 @@ examples
   <cfg:elementTemplate name="num" selectable="override">
     <exampleRef letter="x" num="x"/>
   </cfg:elementTemplate>
+  <cfg:elementTemplate name="annotationRef">
+    <example num="x">
+      <annotationRef/>
+    </example>
+  </cfg:elementTemplate>
   <cfg:elementTemplate name="chart">
     <example num="x">
       <chart/>

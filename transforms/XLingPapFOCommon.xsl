@@ -227,6 +227,11 @@
             <xsl:attribute name="border-width">.5pt</xsl:attribute>
             <xsl:attribute name="border-style">solid</xsl:attribute>
             <xsl:attribute name="border-color">black</xsl:attribute>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceframedunits='yes'">
+                <xsl:attribute name="line-height">
+                    <xsl:value-of select="$sSinglespacingLineHeight"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>

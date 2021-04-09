@@ -3617,7 +3617,7 @@ references[showrefWorkIconsInEditor="yes"] refWork:contains-element(book):before
 	content: text-field(attribute, id, columns 10, 
 	                    background-color, citation-background-color(), 
 	                    font-size, small)
-	                    icon(url(resources/treeitem-book.png))
+	                    icon(url(resources/treeitem-bookSection.png))
  	;
 }
 references[showrefWorkIconsInEditor="yes"] refWork:contains-element(collection):before
@@ -3657,7 +3657,7 @@ references[showrefWorkIconsInEditor="yes"] refWork:contains-element(paper):befor
 	content: text-field(attribute, id, columns 10, 
 	                    background-color, citation-background-color(), 
 	                    font-size, small)
-	                    icon(url(resources/treeitem-conferencePaper.png))
+	                    icon(url(resources/treeitem-presentation.png))
  	;
 }
 references[showrefWorkIconsInEditor="yes"] refWork:contains-element(proceedings):before
@@ -3665,7 +3665,7 @@ references[showrefWorkIconsInEditor="yes"] refWork:contains-element(proceedings)
 	content: text-field(attribute, id, columns 10, 
 	                    background-color, citation-background-color(), 
 	                    font-size, small)
-	                    icon(url(resources/treeitem-presentation.png))
+	                    icon(url(resources/treeitem-conferencePaper.png))
  	;
 }
 references[showrefWorkIconsInEditor="yes"] refWork:contains-element(thesis):before

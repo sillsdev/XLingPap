@@ -113,6 +113,7 @@ Page Layout
         singlespacecontents (yes | no) "yes"
         singlespaceendnotes (yes | no) "yes"
         singlespaceexamples (yes | no) "yes"
+        singlespaceframedunits (yes | no) "yes"
         singlespacetables (yes | no) "yes"
         singlespacereferences (yes | no) "yes"
         singlespacereferencesbetween (yes | no) "yes"

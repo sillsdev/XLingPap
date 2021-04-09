@@ -612,6 +612,9 @@ li.lower-roman {
         <xsl:text>{
         </xsl:text>
         <xsl:variable name="framedtype" select="."/>
+        <xsl:call-template name="DoSingleSpacing">
+            <xsl:with-param name="useSingleSpacing" select="$lineSpacing/@singlespaceframedunits"/>
+        </xsl:call-template>
         <xsl:text>background-color:</xsl:text>
         <xsl:call-template name="SetFramedTypeItem">
             <xsl:with-param name="sAttributeValue" select="normalize-space($framedtype/@backgroundcolor)"/>

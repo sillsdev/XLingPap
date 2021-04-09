@@ -8404,6 +8404,12 @@ lineSpacing::attribute(singlespaceexamples)
 		check-box(attribute, singlespaceexamples, label, "Examples are single spaced", unchecked-value, "no", checked-value, "yes");
 	show-attribute: always;
 }
+lineSpacing::attribute(singlespaceframedunits)
+{
+	attribute-content-middle:
+		check-box(attribute, singlespaceframedunits, label, "Framed units are single spaced", unchecked-value, "no", checked-value, "yes");
+	show-attribute: always;
+}
 lineSpacing::attribute(singlespacetables)
 {
 	attribute-content-middle:

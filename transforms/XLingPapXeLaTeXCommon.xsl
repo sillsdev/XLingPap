@@ -2804,7 +2804,29 @@
                     <xsl:with-param name="sDefaultValue">left</xsl:with-param>
                 </xsl:call-template>
             </tex:opt>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceframedunits='yes'">
+                <tex:spec cat="bg"/>
+                <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+                <tex:cmd name="vspace">
+                    <tex:parm>
+                        <!-- I do not know why these values are needed, but they are... -->
+                        <xsl:choose>
+                            <xsl:when test="$sLineSpacing='double'">
+                                <xsl:text>-1.3</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-1.75</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>baselineskip</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:if>
             <xsl:apply-templates/>
+            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceframedunits='yes'">
+                <tex:spec cat="eg"/>
+            </xsl:if>
         </tex:env>
     </xsl:template>
     <!-- ===========================================================

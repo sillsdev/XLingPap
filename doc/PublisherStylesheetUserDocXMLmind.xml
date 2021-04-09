@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 April 2021</date
+>9 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -379,6 +379,7 @@ num="xLineSpacing"
 num="xLineSpacing"
 ><chart
 ><img
+cssSpecial="height:2.5in;"
 src="resources/LineSpacing.png"
 ></img
 ></chart

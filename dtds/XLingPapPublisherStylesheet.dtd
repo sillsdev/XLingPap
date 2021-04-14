@@ -520,6 +520,7 @@ Body Layout
     <!ATTLIST chapterLayout
          firstParagraphHasIndent (yes | no) 'yes' 
          resetEndnoteNumbering (yes | no) 'yes'
+         numeralFormat (arabic | lowerroman | upperroman) "arabic"
      >
     <!ELEMENT  chapterTitleLayout EMPTY >
     <!ATTLIST chapterTitleLayout 

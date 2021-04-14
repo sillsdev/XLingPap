@@ -3497,6 +3497,27 @@ type="tAttrValue"
 ><td
 ><object
 type="tAttribute"
+>numeralFormat</object
+></td
+><td
+><object
+type="tAttrValue"
+>arabic</object
+>, <object
+type="tAttrValue"
+>lowerroman</object
+> or <object
+type="tAttrValue"
+>upperroman</object
+>. This indicates how the chapter number should be formatted.  The default value is <object
+type="tAttrValue"
+>arabic</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
 >resetEndnoteNumbering</object
 ></td
 ><td

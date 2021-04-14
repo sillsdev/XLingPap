@@ -74,6 +74,8 @@
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <xsl:variable name="pageLayoutInfo"/>
     <xsl:variable name="documentLayoutInfo"/>
+    <xsl:variable name="sLineSpacing"/>
+    <xsl:variable name="lineSpacing"/>
     <!-- ===========================================================
       Attribute sets
       =========================================================== -->

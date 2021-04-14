@@ -4447,8 +4447,8 @@
         </xsl:if>
     </xsl:template>
     <!--  
-                  DoDebugExamples
--->
+        DoDebugExamples
+    -->
     <xsl:template name="DoDebugExamples">
         <xsl:if test="$bDoDebug='y'">
             <xsl:attribute name="border">solid 1pt gray</xsl:attribute>
@@ -4456,8 +4456,8 @@
         </xsl:if>
     </xsl:template>
     <!--  
-                  DoDebugFooter
--->
+        DoDebugFooter
+    -->
     <xsl:template name="DoDebugFooter">
         <xsl:if test="$bDoDebug='y'">
             <xsl:attribute name="border">
@@ -4466,8 +4466,8 @@
         </xsl:if>
     </xsl:template>
     <!--  
-                  DoDebugFrontMatterBody
--->
+        DoDebugFrontMatterBody
+    -->
     <xsl:template name="DoDebugFrontMatterBody">
         <xsl:if test="$bDoDebug='y'">
             <xsl:attribute name="border">
@@ -4476,8 +4476,8 @@
         </xsl:if>
     </xsl:template>
     <!--  
-                  DoDebugHeader
--->
+        DoDebugHeader
+    -->
     <xsl:template name="DoDebugHeader">
         <xsl:if test="$bDoDebug='y'">
             <xsl:attribute name="border">
@@ -4486,7 +4486,7 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        DoEndnotes
+        DoEndnote
     -->
     <xsl:template name="DoEndnote">
         <xsl:param name="sTeXFootnoteKind"/>
@@ -4515,112 +4515,26 @@
                     <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 </xsl:if>
                 <xsl:choose>
-                    <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
-                        <tex:cmd name="footnotemark">
-                            <xsl:if test="not(ancestor::interlinear-text)">
-                                <tex:opt>
-                                    <xsl:call-template name="DoFootnoteNumberInText">
-                                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                                    </xsl:call-template>
-                                </tex:opt>
-                            </xsl:if>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:when test="count(ancestor::table) &gt; 1 and $sTeXFootnoteKind!='footnotetext' ">
-                        <tex:cmd name="footnotemark" gr="0"/>
-                        <xsl:call-template name="SetLaTeXFootnoteCounter">
-                            <xsl:with-param name="originalContext" select="$originalContext"/>
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:when test="ancestor::example[ancestor::table] and $sTeXFootnoteKind!='footnotetext' ">
-                        <tex:cmd name="footnotemark" gr="0"/>
-                    </xsl:when>
-                    <xsl:when test="ancestor::caption and $sTeXFootnoteKind!='footnotetext' ">
-                        <tex:cmd name="footnotemark"/>
-                    </xsl:when>
-                    <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
-                        <xsl:if test="$originalContext">
-                            <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
-                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                        <tex:cmd name="footnotemark">
-                            <xsl:if test="not(ancestor::interlinear-text)">
-                                <tex:opt>
-                                    <xsl:call-template name="DoFootnoteNumberInText">
-                                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                                    </xsl:call-template>
-                                </tex:opt>
-                            </xsl:if>
-                        </tex:cmd>
-                    </xsl:when>
-                    <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext' or ancestor::literal and $sTeXFootnoteKind!='footnotetext'">
-                        <xsl:if test="$originalContext">
-                            <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
-                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:call-template>
-                        </xsl:if>
-                        <tex:cmd name="footnotemark">
-                            <xsl:if test="not(ancestor::interlinear-text)">
-                                <tex:opt>
-                                    <xsl:call-template name="DoFootnoteNumberInText">
-                                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                                    </xsl:call-template>
-                                </tex:opt>
-                            </xsl:if>
+                        <xsl:when test="$documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+                        <tex:cmd name="hyperlink">
+                            <tex:parm>
+                                <xsl:value-of select="@id"/>
+                            </tex:parm>
+                            <tex:parm>
+                                <xsl:call-template name="DoEndnoteContent">
+                                    <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                    <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                                </xsl:call-template>
+                            </tex:parm>
                         </tex:cmd>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!--                        <xsl:if test="$originalContext and $sTeXFootnoteKind!='footnotetext'">-->
-                        <xsl:if test="$originalContext">
-                            <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
-                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                                <xsl:with-param name="iAdjust">
-                                    <xsl:choose>
-                                        <xsl:when test="$sTeXFootnoteKind='footnotetext'">1</xsl:when>
-                                        <xsl:otherwise>0</xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:with-param>
-                            </xsl:call-template>
-                        </xsl:if>
-                        <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->
-                        <tex:cmd name="protect" gr="0"/>
-                        <tex:cmd name="{$sTeXFootnoteKind}">
-                            <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
-                                <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
-                                <xsl:if test="not(ancestor::interlinear-text) and not(ancestor::listDefinition) and not(ancestor::listSingle)">
-                                    <tex:opt>
-                                        <xsl:call-template name="DoFootnoteNumberInText">
-                                            <xsl:with-param name="originalContext" select="$originalContext"/>
-                                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
-                                        </xsl:call-template>
-                                    </tex:opt>
-                                </xsl:if>
-                                <xsl:if test="ancestor::interlinear-text and following-sibling::endnote">
-                                    <xsl:if test="ancestor::free or ancestor::literal">
-                                        <tex:opt>
-                                            <xsl:call-template name="DoFootnoteNumberInText">
-                                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                                                <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
-                                            </xsl:call-template>
-                                        </tex:opt>
-                                    </xsl:if>
-                                </xsl:if>
-                            </xsl:if>
-                            <tex:parm>
-                                <tex:group>
-                                    <tex:spec cat="esc"/>
-                                    <xsl:text>leftskip0pt</xsl:text>
-                                    <tex:spec cat="esc"/>
-                                    <xsl:text>parindent1em</xsl:text>
-                                    <xsl:call-template name="DoInternalTargetBegin">
-                                        <xsl:with-param name="sName" select="@id"/>
-                                    </xsl:call-template>
-                                    <xsl:call-template name="DoInternalTargetEnd"/>
-                                    <xsl:apply-templates/>
-                                </tex:group>
-                            </tex:parm>
-                        </tex:cmd>
+                        <xsl:call-template name="DoEndnoteContent">
+                            <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
@@ -4629,6 +4543,123 @@
             <!-- an endnote ends the initial text in a blockquote; need to insert a \par -->
             <tex:cmd name="par"/>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        DoEndnoteContent
+    -->
+    <xsl:template name="DoEndnoteContent">
+        <xsl:param name="sTeXFootnoteKind"/>
+        <xsl:param name="originalContext"/>
+        <xsl:param name="sPrecalculatedNumber"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::td[@rowspan &gt; 0] and $sTeXFootnoteKind!='footnotetext'">
+                <tex:cmd name="footnotemark">
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:call-template name="DoFootnoteNumberInText">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </tex:opt>
+                    </xsl:if>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="count(ancestor::table) &gt; 1 and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark" gr="0"/>
+                <xsl:call-template name="SetLaTeXFootnoteCounter">
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="ancestor::example[ancestor::table] and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark" gr="0"/>
+            </xsl:when>
+            <xsl:when test="ancestor::caption and $sTeXFootnoteKind!='footnotetext' ">
+                <tex:cmd name="footnotemark"/>
+            </xsl:when>
+            <xsl:when test="ancestor::lineGroup and $sTeXFootnoteKind!='footnotetext'">
+                <xsl:if test="$originalContext">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <tex:cmd name="footnotemark">
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:call-template name="DoFootnoteNumberInText">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </tex:opt>
+                    </xsl:if>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="ancestor::free and $sTeXFootnoteKind!='footnotetext' or ancestor::literal and $sTeXFootnoteKind!='footnotetext'">
+                <xsl:if test="$originalContext">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <tex:cmd name="footnotemark">
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:call-template name="DoFootnoteNumberInText">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </tex:opt>
+                    </xsl:if>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--                        <xsl:if test="$originalContext and $sTeXFootnoteKind!='footnotetext'">-->
+                <xsl:if test="$originalContext">
+                    <xsl:call-template name="AdjustFootnoteNumberPerInterlinearRefs">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="iAdjust">
+                            <xsl:choose>
+                                <xsl:when test="$sTeXFootnoteKind='footnotetext'">1</xsl:when>
+                                <xsl:otherwise>0</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+                <!-- in some contexts, \footnote needs to be \protected; we do it always since it is not easy to determine such contexts-->
+                <tex:cmd name="protect" gr="0"/>
+                <tex:cmd name="{$sTeXFootnoteKind}">
+                    <xsl:if test="$sTeXFootnoteKind='footnotetext' or not(ancestor::table)">
+                        <!-- longtable will not handle the forced footnote number if the column has a 'p' columns spec, so we punt and just use plain \footnote -->
+                        <xsl:if test="not(ancestor::interlinear-text) and not(ancestor::listDefinition) and not(ancestor::listSingle)">
+                            <tex:opt>
+                                <xsl:call-template name="DoFootnoteNumberInText">
+                                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                                    <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                                </xsl:call-template>
+                            </tex:opt>
+                        </xsl:if>
+                        <xsl:if test="ancestor::interlinear-text and following-sibling::endnote">
+                            <xsl:if test="ancestor::free or ancestor::literal">
+                                <tex:opt>
+                                    <xsl:call-template name="DoFootnoteNumberInText">
+                                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                                        <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                                    </xsl:call-template>
+                                </tex:opt>
+                            </xsl:if>
+                        </xsl:if>
+                    </xsl:if>
+                    <tex:parm>
+                        <tex:group>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>leftskip0pt</xsl:text>
+                            <tex:spec cat="esc"/>
+                            <xsl:text>parindent1em</xsl:text>
+                            <xsl:call-template name="DoInternalTargetBegin">
+                                <xsl:with-param name="sName" select="@id"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="DoInternalTargetEnd"/>
+                            <xsl:apply-templates/>
+                        </tex:group>
+                    </tex:parm>
+                </tex:cmd>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
       DoEndnotes

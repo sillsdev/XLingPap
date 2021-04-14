@@ -4561,11 +4561,9 @@ not using
         <xsl:param name="originalContext"/>
         <xsl:param name="iTablenumberedAdjust" select="0"/>
         <fo:block xsl:use-attribute-sets="FootnoteBody">
-            <xsl:if test="$backMatterLayoutInfo/useEndNotesLayout">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@id"/>
-                </xsl:attribute>
-            </xsl:if>
+            <xsl:attribute name="id">
+                <xsl:value-of select="@id"/>
+            </xsl:attribute>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single'">
                 <xsl:attribute name="line-height">
                     <xsl:choose>
@@ -4621,18 +4619,41 @@ not using
                 </fo:basic-link>
             </xsl:when>
             <xsl:otherwise>
-                <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="@id"/>
-                    </xsl:attribute>
-                    <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
-                    <xsl:call-template name="DoFootnoteNumberInTextValue">
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
-                    </xsl:call-template>
-                </fo:inline>
+                <xsl:choose>
+                    <xsl:when test="$documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+                        <fo:basic-link>
+                            <xsl:attribute name="internal-destination">
+                                <xsl:value-of select="$link"/>
+                            </xsl:attribute>
+                            <xsl:call-template name="DoFootnoteNumberInTextContent">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                            </xsl:call-template>
+                        </fo:basic-link>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoFootnoteNumberInTextContent">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoFootnoteNumberInTextContent
+    -->
+    <xsl:template name="DoFootnoteNumberInTextContent">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="iTablenumberedAdjust"/>
+        <fo:inline baseline-shift="super" xsl:use-attribute-sets="FootnoteMarker">
+            <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotes"/>
+            <xsl:call-template name="DoFootnoteNumberInTextValue">
+                <xsl:with-param name="originalContext" select="$originalContext"/>
+                <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
+            </xsl:call-template>
+        </fo:inline>
     </xsl:template>
     <!--  
       DoFootnoteNumberInTextValue

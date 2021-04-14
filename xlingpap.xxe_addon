@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-09</a:date
+>2021-04-14</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.8 8 April 2021<ul
+>3.8.8 14 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -59,6 +59,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add a way to create a hyphenation exceptions file within XXE.</li
 ><li
 >In a publisher style sheet, add control for single spacing the content of framedUnit elements when the document is space-and-a-half or double spaced.</li
+><li
+>In a publisher style sheet, add ability to create a hyperlink between a footnote number in the text and footnote content at the bottom of the page. See the publisher style sheet documentation on footnoteLayout.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

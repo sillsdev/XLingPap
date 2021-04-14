@@ -5,7 +5,7 @@
 ><publisherStyleSheetName
 >Sample Paper Publisher Style Sheet</publisherStyleSheetName
 ><comment
->Showing all possible elements;  N.B.: To use footnotes instead of endnotes, remove the Use Endnotes item in the back matter section.</comment
+>Showing all possible elements; N.B.: To use footnotes instead of endnotes, remove the Use Endnotes item in the back matter section.</comment
 ><publisherStyleSheetVersion
 >1.0.0</publisherStyleSheetVersion
 ><pageLayout
@@ -2208,7 +2208,7 @@ textbeforeafterusesfontinfo="no"
 ></freeLayout
 ><literalLayout
 ><literalLabelLayout
->Lit. </literalLabelLayout
+>Lit.</literalLabelLayout
 ><literalContentLayout
 ></literalContentLayout
 ></literalLayout
@@ -2260,6 +2260,8 @@ start-indent="12pt"
 ></annotationLayout
 ><definitionListLayout
 ></definitionListLayout
+><footnoteLayout
+></footnoteLayout
 ></contentLayout
 ></publisherStyleSheet
 >

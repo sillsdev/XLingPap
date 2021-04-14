@@ -624,7 +624,7 @@ Content Layout
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
                                                       glossaryTermsInDefinitionListLayout?, glossaryTermsInTableLayout?, iso639-3CodesInTableLayout?, prose-textTextLayout?, quoteLayout?, blockQuoteLayout?,
-                                                      annotationLayout?, definitionListLayout?) >
+                                                      annotationLayout?, definitionListLayout?, footnoteLayout?) >
    <!ELEMENT paragraphLayout EMPTY >
    <!ATTLIST paragraphLayout
      spaceafter CDATA #IMPLIED
@@ -917,6 +917,10 @@ Content Layout
 <!ELEMENT definitionListLayout EMPTY>
 <!ATTLIST definitionListLayout 
      useRaggedRight (yes | no) "no"
+>
+<!ELEMENT footnoteLayout EMPTY>
+<!ATTLIST footnoteLayout 
+     linkNumberToText (yes | no) "no"
 >
    <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-09</a:date
+>2021-04-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.8 9 April 2021<ul
+>2.38.8 14 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -49,6 +49,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Add a way to create a hyphenation exceptions file within XXE.</li
 ><li
 >In a publisher style sheet, add control for single spacing the content of framedUnit elements when the document is space-and-a-half or double spaced.</li
+><li
+>In a publisher style sheet, add ability to create a hyperlink between a footnote number in the text and footnote content at the bottom of the page. See the publisher style sheet documentation on footnoteLayout.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

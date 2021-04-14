@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 April 2021</date
+>14 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -15938,6 +15938,34 @@ type="tAttrValue"
 >no</object
 >. The other output formats already treat these as ragged right.</p
 ></section2
+><section2
+id="sFootnotes"
+><secTitle
+>Controlling the Display of Footnotes</secTitle
+><p
+><indexedItem
+term="iFootnoteLink"
+></indexedItem
+>For the <object
+type="tXeTeX"
+></object
+> and <object
+type="tRenderX"
+></object
+> ways of producing PDF, there is no link between the footnote number in the text and the footnote content at the bottom of the page. If you want there to be such a link, then use the <object
+type="tElement"
+>footnoteLayout</object
+> element and set its <object
+type="tAttribute"
+>linkNumberToText</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>. The default value is <object
+type="tAttrValue"
+>no</object
+>.</p
+></section2
 ></section1
 ><section1
 id="sCommonSetsOfAttributes"
@@ -18119,6 +18147,15 @@ type="tElement"
 ><td
 >definition list</td
 ></tr
+><tr
+><td
+><object
+type="tElement"
+>footnoteLayout</object
+></td
+><td
+>footnote number-to-text link</td
+></tr
 ></table
 ></appendix
 ><appendix
@@ -18696,6 +18733,23 @@ type="tAttribute"
 ><object
 type="tAttrValue"
 >figure </object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>footnoteLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>linkNumberToText</object
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
 ></td
 ></tr
 ><tr
@@ -20655,6 +20709,11 @@ id="iFootnotesAtBottom"
 id="iFootnoteIndentr"
 ><term
 >Indent</term
+></indexTerm
+><indexTerm
+id="iFootnoteLink"
+><term
+>Link from number to text</term
 ></indexTerm
 ><indexTerm
 id="iFootnoteSpaceAfterNumber"

@@ -6775,6 +6775,10 @@ footnoteIndent
 {
 	property-group: layoutParameter(.67ex);
 }
+footnoteLayout
+{
+	property-group: titledItem("footnote number-to-text link");
+}
 footnoteLine:before
 {
 	property-group:layoutParameterLabel( "footnote line separator attributes" );

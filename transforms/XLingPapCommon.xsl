@@ -119,6 +119,7 @@
     <xsl:variable name="contentLayoutInfo" select="//publisherStyleSheet[1]/contentLayout"/>
     <xsl:variable name="backMatterLayoutInfo" select="//publisherStyleSheet[1]/backMatterLayout"/>
     <xsl:variable name="frontMatterLayoutInfo" select="//publisherStyleSheet[1]/frontMatterLayout"/>
+    <xsl:variable name="chapterNumberFormat" select="$bodyLayoutInfo/chapterLayout/@numeralFormat"/>
     <xsl:variable name="sContentBetweenMultipleFootnoteNumbersInText" select="//publisherStyleSheet[1]/pageLayout/@contentBetweenMultipleFootnoteNumbersInText"/>
     <!-- Now we convert all of these to points -->
     <xsl:variable name="iPageWidth">
@@ -384,7 +385,17 @@
         chapter
     -->
     <xsl:template mode="numberChapter" match="*">
-        <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
+        <xsl:choose>
+            <xsl:when test="$chapterNumberFormat='lowerroman'">
+                <xsl:number level="any" count="chapter | chapterInCollection" format="i"/>
+            </xsl:when>
+            <xsl:when test="$chapterNumberFormat='upperroman'">
+                <xsl:number level="any" count="chapter | chapterInCollection" format="I"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:number level="any" count="chapter | chapterInCollection" format="1"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         part

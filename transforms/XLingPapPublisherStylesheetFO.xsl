@@ -3434,6 +3434,7 @@ not using
       =========================================================== -->
     <xsl:template match="gloss">
         <xsl:param name="originalContext"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sGlossContext">
             <xsl:call-template name="GetContextOfItem"/>
@@ -3455,9 +3456,18 @@ not using
                     <xsl:with-param name="glossLayout" select="$glossLayout"/>
                     <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
                 </xsl:call-template>
-                <xsl:apply-templates>
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="$fInContents='Y'">
+                        <xsl:apply-templates mode="contents">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:call-template name="HandleGlossTextAfterInside">
                     <xsl:with-param name="glossLayout" select="$glossLayout"/>
                     <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
@@ -3580,6 +3590,7 @@ not using
       =========================================================== -->
     <xsl:template match="langData">
         <xsl:param name="originalContext"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:variable name="sLangDataContext">
             <xsl:call-template name="GetContextOfItem"/>
@@ -3603,9 +3614,18 @@ not using
                     <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
                 </xsl:call-template>
-                <xsl:apply-templates>
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="$fInContents='Y'">
+                        <xsl:apply-templates mode="contents">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:call-template name="HandleLangDataTextAfterInside">
                     <xsl:with-param name="langDataLayout" select="$langDataLayout/*"/>
                     <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
@@ -8068,7 +8088,7 @@ not using
    -->
     <xsl:template name="OutputSectionTitleInContents">
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
-        <xsl:apply-templates select="secTitle" mode="InMarker"/>
+        <xsl:apply-templates select="secTitle" mode="contents"/>
     </xsl:template>
     <!--  
                   OutputTable

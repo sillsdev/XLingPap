@@ -711,6 +711,7 @@
     -->
     <xsl:template name="OutputPartLabelNumberAndTitle">
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <xsl:call-template name="OutputPartLabel"/>
         <xsl:choose>
             <xsl:when test="$contentsLayoutToUse/@partContentBetweenLabelAndNumber">
@@ -729,7 +730,14 @@
                 <xsl:text>&#160;</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates select="secTitle"/>
+        <xsl:choose>
+            <xsl:when test="$fInContents='Y'">
+                <xsl:apply-templates select="secTitle" mode="contents"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="secTitle"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         OutputPrefaceTOCLine

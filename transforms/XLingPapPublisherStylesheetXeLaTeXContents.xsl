@@ -134,6 +134,7 @@
         </xsl:if>
         <xsl:call-template name="OutputPartLabelNumberAndTitle">
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="fInContents" select="'Y'"/>
         </xsl:call-template>
         <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <tex:spec cat="eg"/>

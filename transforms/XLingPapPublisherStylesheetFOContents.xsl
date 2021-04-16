@@ -57,6 +57,7 @@
                             <xsl:with-param name="sLabel">
                                 <xsl:call-template name="OutputPartLabelNumberAndTitle">
                                     <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                    <xsl:with-param name="fInContents" select="'Y'"/>
                                 </xsl:call-template>
                             </xsl:with-param>
                             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
@@ -68,6 +69,7 @@
                             <xsl:with-param name="sLabel">
                                 <xsl:call-template name="OutputPartLabelNumberAndTitle">
                                     <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                    <xsl:with-param name="fInContents" select="'Y'"/>
                                 </xsl:call-template>
                             </xsl:with-param>
                             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>

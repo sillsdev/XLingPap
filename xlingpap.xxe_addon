@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-14</a:date
+>2021-04-16</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.8 14 April 2021<ul
+>3.8.8 16 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -63,6 +63,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >In a publisher style sheet, add ability to create a hyperlink between a footnote number in the text and footnote content at the bottom of the page. See the publisher style sheet documentation on footnoteLayout.</li
 ><li
 >In a publisher style sheet, add ability to have chapter numbers be in lower or upper roman numerals. See the publisher style sheet documentation on chapterLayout.</li
+><li
+>Fix bug: if a langData or gloss is normally italic, appears in a section title, and the section title is italic so one used an object inside the langData or gloss to make it regular, then when the table of contents includes this section title, the text is regular and the langData or gloss is also regular when they should be italic.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ></ul

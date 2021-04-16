@@ -288,6 +288,12 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <!-- nothing to do here -->
+    </xsl:template>
+    <!--  
         OutputCSSForSectionTOC
     -->
     <xsl:template name="OutputCSSForSectionTOC">

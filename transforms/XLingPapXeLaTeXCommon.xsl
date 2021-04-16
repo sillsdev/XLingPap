@@ -215,6 +215,9 @@
     <xsl:template match="genericRef" mode="InMarker">
         <xsl:call-template name="OutputGenericRef"/>
     </xsl:template>
+    <xsl:template match="genericRef" mode="contents" priority="100">
+        <xsl:call-template name="OutputGenericRef"/>
+    </xsl:template>
     <!--
         genericTarget
     -->
@@ -6502,6 +6505,16 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <tex:spec cat="esc"/>
+        <xsl:text>textit</xsl:text>
+        <tex:spec cat="bg"/>
+        <xsl:value-of select="."/>
+        <tex:spec cat="eg"/>
+    </xsl:template>
+    <!--  
         FormatTDContent
     -->
     <xsl:template name="FormatTDContent">
@@ -7939,6 +7952,7 @@
         <xsl:param name="bReversing"/>
         <xsl:param name="originalContext"/>
         <xsl:param name="bInMarker" select="'N'"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <xsl:variable name="bReverseWrdContent">
             <xsl:choose>
                 <xsl:when test="ancestor-or-self::wrd">
@@ -7993,10 +8007,20 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates>
-                    <xsl:with-param name="originalContext" select="$originalContext"/>
-                    <xsl:with-param name="bInMarker" select="$bInMarker"/>
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="$fInContents='Y'">
+                        <xsl:apply-templates mode="contents">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="bInMarker" select="$bInMarker"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="bInMarker" select="$bInMarker"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

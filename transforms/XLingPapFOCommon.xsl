@@ -440,6 +440,14 @@
             <xsl:apply-templates/>
         </fo:list-block>
     </xsl:template>
+    <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <fo:inline font-style="italic">
+            <xsl:value-of select="."/>
+        </fo:inline>
+    </xsl:template>
     <!--
         HandleColumnWidth
     -->

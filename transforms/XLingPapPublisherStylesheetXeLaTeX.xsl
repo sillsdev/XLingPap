@@ -2730,6 +2730,7 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
         <xsl:param name="bInMarker" select="'N'"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <xsl:variable name="language" select="key('LanguageID',@lang)"/>
         <xsl:choose>
             <xsl:when test="$language/@rtl='yes'">
@@ -2765,6 +2766,7 @@
             <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
             <xsl:with-param name="bInMarker" select="$bInMarker"/>
+            <xsl:with-param name="fInContents" select="$fInContents"/>
         </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
@@ -2801,6 +2803,7 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="bReversing" select="'N'"/>
         <xsl:param name="bInMarker" select="'N'"/>
+        <xsl:param name="fInContents" select="'N'"/>
         <!-- if we are using \mbox{} to deal with unwanted hyphenation, and the langData begins with a space, we need to insert a space here -->
         <xsl:if test="substring(.,1,1)=' ' and string-length(normalize-space(//lingPaper/@xml:lang))&gt;0">
             <xsl:if test="ancestor::p or ancestor::pc or ancestor::hangingIndent">
@@ -2836,6 +2839,7 @@
             <xsl:with-param name="bReversing" select="$bReversing"/>
             <xsl:with-param name="originalContext" select="$originalContext"/>
             <xsl:with-param name="bInMarker" select="$bInMarker"/>
+            <xsl:with-param name="fInContents" select="$fInContents"/>
         </xsl:call-template>
         <xsl:call-template name="DoEmbeddedBrEnd">
             <xsl:with-param name="iCountBr" select="$iCountBr"/>
@@ -8756,7 +8760,7 @@
    -->
     <xsl:template name="OutputSectionTitleInContents">
         <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
-        <xsl:apply-templates select="secTitle" mode="InMarker"/>
+        <xsl:apply-templates select="secTitle" mode="contents"/>
     </xsl:template>
     <!--  
         OutputTableNumberedLabel

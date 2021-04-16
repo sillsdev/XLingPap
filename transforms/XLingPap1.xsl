@@ -4345,6 +4345,14 @@
             <xsl:with-param name="pages" select="$citation/@page"/>
         </xsl:call-template>
     </xsl:template>
+    <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <span style="font-style:italic;">
+            <xsl:value-of select="."/>
+        </span>
+    </xsl:template>
     <!--
         HandleColumnWidth
     -->

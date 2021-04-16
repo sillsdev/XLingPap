@@ -263,7 +263,9 @@
         gloss (contents) 
     -->
     <xsl:template match="gloss" mode="contents">
-        <xsl:apply-templates select="self::*"/>
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="fInContents" select="'Y'"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!-- 
         glossary terms
@@ -333,7 +335,9 @@
         langData (contents) 
     -->
     <xsl:template match="langData" mode="contents">
-        <xsl:apply-templates select="self::*"/>
+        <xsl:apply-templates select="self::*">
+            <xsl:with-param name="fInContents" select="'Y'"/>
+        </xsl:apply-templates>
     </xsl:template>
     <!--
         labelContent  (ignore it)
@@ -343,7 +347,55 @@
         object (contents) 
     -->
     <xsl:template match="object" mode="contents">
-        <xsl:apply-templates select="self::*"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::secTitle and key('TypeID',@type)/@font-style='normal'">
+                <xsl:choose>
+                    <xsl:when test="ancestor::langData or ancestor::gloss">
+                        <xsl:choose>
+                            <xsl:when test="ancestor::appendix and $backMatterLayoutInfo/appendixLayout/appendixTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::chapter and $bodyLayoutInfo/chapterLayout/chapterTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::chapterBeforePart and $bodyLayoutInfo/chapterLayout/chapterTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::chapterInCollection and $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::part and $bodyLayoutInfo/partLayout/partTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section1 and $bodyLayoutInfo/section1Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section2 and $bodyLayoutInfo/section2Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section3 and $bodyLayoutInfo/section3Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section4 and $bodyLayoutInfo/section4Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section5 and $bodyLayoutInfo/section5Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                            <xsl:when test="ancestor::section6 and $bodyLayoutInfo/section6Layout/sectionTitleLayout/@font-style='italic'">
+                                <xsl:call-template name="ForceItalicsInContentsTitle"/>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="self::*"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="self::*"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- 
         sectionRef (contents) 

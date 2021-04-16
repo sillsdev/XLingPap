@@ -31,6 +31,7 @@
                         <xsl:with-param name="sLabel">
                             <xsl:call-template name="OutputPartLabelNumberAndTitle">
                                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                <xsl:with-param name="fInContents" select="'Y'"/>
                             </xsl:call-template>
                         </xsl:with-param>
                     </xsl:call-template>
@@ -72,6 +73,14 @@
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
             </xsl:apply-templates>
         </xsl:if>
+    </xsl:template>
+    <!--  
+        ForceItalicsInContentsTitle
+    -->
+    <xsl:template name="ForceItalicsInContentsTitle">
+        <span style="font-style:italic;">
+            <xsl:value-of select="."/>
+        </span>
     </xsl:template>
     <!--  
         OutputSectionTOC

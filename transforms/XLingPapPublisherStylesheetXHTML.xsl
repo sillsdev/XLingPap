@@ -770,17 +770,8 @@
       Chapter or appendix (in book with chapters)
       -->
     <xsl:template match="chapter | appendix[//chapter]  | chapterBeforePart | chapterInCollection | appendix[//chapterInCollection]">
-        <xsl:choose>
-            <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
-                <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="OutputChapterStaticContent">
-                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/headerFooterPageStyles"/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
         <xsl:if test="not(name()='appendix' and ancestor::chapterInCollection and name($bodyLayoutInfo/chapterInCollectionBackMatterLayout/appendixLayout/*[1])='appendixTitleLayout')">
+            <xsl:if test="name()='chapter' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterInCollection' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='appendix' and $backMatterLayoutInfo/appendixLayout/numberLayout">
             <div id="{@id}">
                 <xsl:choose>
                     <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
@@ -842,6 +833,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </div>
+            </xsl:if>
         </xsl:if>
         <div>
             <xsl:choose>
@@ -859,6 +851,11 @@
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="name()='appendix' and not(ancestor::chapterInCollection)">
+                    <xsl:if test="not($backMatterLayoutInfo/appendixLayout/numberLayout)">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@id"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="class">
                         <xsl:call-template name="GetLayoutClassNameToUse">
                             <xsl:with-param name="sType" select="'appendixTitle'"/>
@@ -866,6 +863,11 @@
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:if test="not(name()='chapter' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterInCollection' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout)">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@id"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="class">
                         <xsl:call-template name="GetLayoutClassNameToUse">
                             <xsl:with-param name="sType" select="'chapterTitle'"/>
@@ -875,6 +877,19 @@
                         </xsl:if>
                     </xsl:attribute>
                 </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="name()='appendix' and not($backMatterLayoutInfo/appendixLayout/numberLayout)">
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fIgnoreTextAfterLetter" select="'N'"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="not(name()='chapter' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterLayout/numberLayout or name()='chapterInCollection' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout or name()='chapterBeforePart' and $bodyLayoutInfo/chapterInCollectionLayout/numberLayout)">
+                    <xsl:call-template name="OutputChapterNumber">
+                        <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                        <xsl:with-param name="appLayout" select="$bodyLayoutInfo/chapterLayout/chapterTitleLayout"/>
+                    </xsl:call-template>
+                </xsl:when>
             </xsl:choose>
             <xsl:if test="$bEBook='Y'">
                 <span style="display:none">
@@ -1875,7 +1890,6 @@
         <xsl:if test="$endnotesToShow or $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
             <xsl:choose>
                 <xsl:when test="$bIsBook">
-                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
                     <xsl:call-template name="DoEndnotes"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -1970,7 +1984,6 @@
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:choose>
             <xsl:when test="$bIsBook">
-                <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
                 <xsl:call-template name="DoReferences">
                     <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
                 </xsl:call-template>
@@ -3437,7 +3450,6 @@
         <xsl:param name="iLayoutPosition"/>
         <xsl:choose>
             <xsl:when test="$bIsBook">
-                <xsl:call-template name="OutputChapterStaticContentForBackMatter"/>
                 <xsl:call-template name="DoGlossary">
                     <xsl:with-param name="iPos" select="$iPos"/>
                     <xsl:with-param name="glossaryLayout" select="$glossaryLayout"/>
@@ -4829,12 +4841,19 @@
         <xsl:param name="fIgnoreTextAfterLetter" select="'N'"/>
         <xsl:param name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:variable name="sTextAfterNumber">
+            <xsl:if test="$appLayout/@textafternumber">
+                <xsl:value-of select="$appLayout/@textafternumber"/>
+            </xsl:if>
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="name()='chapter' or name()='chapterInCollection'">
                 <xsl:apply-templates select="." mode="numberChapter"/>
+                <xsl:value-of select="$sTextAfterNumber"/>
             </xsl:when>
             <xsl:when test="name()='chapterBeforePart'">
                 <xsl:text>0</xsl:text>
+                <xsl:value-of select="$sTextAfterNumber"/>
             </xsl:when>
             <xsl:when test="name()='part'">
                 <xsl:apply-templates select="." mode="numberPart"/>
@@ -4859,52 +4878,6 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    <!--  
-                  OutputChapterStaticContent
--->
-    <xsl:template name="OutputChapterStaticContent">
-        <xsl:param name="layoutInfo"/>
-        <!--        <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterFirstPage"/>
-            <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sFlowName" select="'ChapterFirstPage'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterPage"/>
-            <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sFlowName" select="'ChapterRegularPage'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterEvenPage"/>
-            <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sFlowName" select="'ChapterEvenPage'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoHeaderAndFooter">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo/headerFooterOddEvenPages/headerFooterOddPage"/>
-            <xsl:with-param name="layoutInfoParentWithFontInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sFlowName" select="'ChapterOddPage'"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoFootnoteSeparatorStaticContent"/>
--->
-    </xsl:template>
-    <!--  
-      OutputChapterStaticContentForBackMatter
-   -->
-    <xsl:template name="OutputChapterStaticContentForBackMatter">
-        <!--        <xsl:choose>
-            <xsl:when test="$backMatterLayoutInfo/headerFooterPageStyles">
-                <xsl:call-template name="OutputChapterStaticContent">
-                    <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/headerFooterPageStyles"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="OutputChapterStaticContent">
-                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/headerFooterPageStyles"/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
--->
     </xsl:template>
     <!--  
                   OutputChapTitle

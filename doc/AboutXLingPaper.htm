@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.8.8</span></p>
-      <p align="center">Date: 2021-04-16</p>
+      <p align="center">Date: 2021-04-20</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,7 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.8.8 16 April 2021
+               <li>3.8.8 20 April 2021
                   <ul>
                      <li>Add msVersion element to ms element (some manuscripts need version information).</li>
                      <li>Add ability to control the label for a paper (given at a conference) reference.</li>
@@ -62,6 +62,11 @@
                         text is regular and the langData or gloss is also regular when they should be italic.
                      </li>
                      <li>Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li>
+                     <li>Converting Zotero references file to XLingPaper format:
+                        <ul>
+                           <li>Fix bug: when the MODS input file had an abstract or note, an appropriate annotation was created, but no annotatedBibliographyTypes.</li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>3.8.7 25 March 2021

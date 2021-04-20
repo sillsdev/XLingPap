@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-16</a:date
+>2021-04-20</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.8 16 April 2021<ul
+>2.38.8 20 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -57,6 +57,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: if a langData or gloss is normally italic, appears in a section title, and the section title is italic so one used an object inside the langData or gloss to make it regular, then when the table of contents includes this section title, the text is regular and the langData or gloss is also regular when they should be italic.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
+><li
+>Converting Zotero references file to XLingPaper format:<ul
+><li
+>Fix bug: when the MODS input file had an abstract or note, an appropriate annotation was created, but no annotatedBibliographyTypes.</li
+></ul
+></li
 ></ul
 ></li
 ><li

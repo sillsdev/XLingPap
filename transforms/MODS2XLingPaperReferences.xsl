@@ -14,6 +14,12 @@
                     select="concat(m:name[1][m:role/m:roleTerm='aut' or m:role/m:roleTerm='ctb']/m:namePart[@type='family'], ' ', m:name[1][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[2][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[3][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[4][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[5][m:role/m:roleTerm='aut']/m:namePart[@type='given'], m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='family'], ' ', m:name[6][m:role/m:roleTerm='aut']/m:namePart[@type='given'])"
                 />
             </xsl:apply-templates>
+            <xsl:if test="//m:abstract or //m:note">
+                <annotatedBibliographyTypes>
+                    <annotatedBibliographyType id="atAbstract"/>
+                    <annotatedBibliographyType id="atNote"/>
+                </annotatedBibliographyTypes>
+            </xsl:if>
         </references>
     </xsl:template>
     <!-- 

@@ -58,6 +58,12 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ><li
+>For the producing web page output via a style sheet:<ul
+><li
+>Fix bug: if a chapter or appendix layout in the style sheet did not have a numberLayout, a stray number or letter could appear.</li
+></ul
+></li
+><li
 >Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Fix bug: when the MODS input file had an abstract or note, an appropriate annotation was created, but no annotatedBibliographyTypes.</li

@@ -128,11 +128,7 @@
             <head>
                 <xsl:if test="string-length(//title)!=0">
                     <title>
-                        <xsl:for-each select="//title/node()">
-                            <xsl:if test="name()!='endnote'">
-                                <xsl:value-of select="."/>
-                            </xsl:if>
-                        </xsl:for-each>
+                        <xsl:apply-templates select="$lingPaper/frontMatter/title/child::node()[name()!='endnote' and name()!='comment']" mode="contentOnly"/>
                     </title>
                 </xsl:if>
                 <xsl:variable name="sEBook">

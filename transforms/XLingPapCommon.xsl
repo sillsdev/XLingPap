@@ -168,7 +168,13 @@
     <xsl:variable name="sTextAfterTerm" select="$backMatterLayoutInfo/indexLayout/@textafterterm"/>
     <xsl:variable name="sTextBeforeSeeAlso" select="$backMatterLayoutInfo/indexLayout/@textBeforeSeeAlso"/>
     <xsl:variable name="sStripFromUrl" select="'&#x200b;&#x200d;'"/>
-    
+
+    <!-- 
+        abbrRef 
+    -->
+    <xsl:template match="abbrRef" mode="contentOnly">
+        <xsl:apply-templates select="id(@abbr)/abbrInLang[1]/abbrTerm" mode="contentOnly"/>
+    </xsl:template>
     <!-- 
         afterTerm 
     -->
@@ -193,6 +199,9 @@
         br (contents) 
     -->
     <xsl:template match="br" mode="contents">
+        <xsl:text>&#x20;</xsl:text>
+    </xsl:template>
+    <xsl:template match="br" mode="contentOnly">
         <xsl:text>&#x20;</xsl:text>
     </xsl:template>
     <!-- 
@@ -267,6 +276,11 @@
             <xsl:with-param name="fInContents" select="'Y'"/>
         </xsl:apply-templates>
     </xsl:template>
+    <xsl:template match="gloss" mode="contentOnly">
+        <xsl:value-of select="key('LanguageID',@type)/@textbefore"/>
+        <xsl:apply-templates select="child::node()" mode="contentOnly"/>
+        <xsl:value-of select="key('LanguageID',@type)/@textafter"/>
+    </xsl:template>
     <!-- 
         glossary terms
     -->
@@ -339,6 +353,11 @@
             <xsl:with-param name="fInContents" select="'Y'"/>
         </xsl:apply-templates>
     </xsl:template>
+    <xsl:template match="langData" mode="contentOnly">
+        <xsl:value-of select="key('LanguageID',@type)/@textbefore"/>
+        <xsl:value-of select="."/>
+        <xsl:value-of select="key('LanguageID',@type)/@textafter"/>
+    </xsl:template>
     <!--
         labelContent  (ignore it)
     -->
@@ -396,6 +415,11 @@
                 <xsl:apply-templates select="self::*"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="object" mode="contentOnly">
+        <xsl:value-of select="key('TypeID',@type)/@before"/>
+        <xsl:value-of select="."/>
+        <xsl:value-of select="key('TypeID',@type)/@after"/>
     </xsl:template>
     <!-- 
         sectionRef (contents) 
@@ -2518,7 +2542,7 @@
     -->
     <xsl:template name="SetMetadataAuthor">
         <xsl:for-each select="$lingPaper/frontMatter/author">
-            <xsl:apply-templates select="child::node()[name()!='endnote']" mode="contentOnly"/>
+            <xsl:apply-templates select="child::node()[name()!='endnote' and name()!='comment']" mode="contentOnly"/>
             <xsl:if test="position()!=last()">
                 <xsl:text>, </xsl:text>
             </xsl:if>
@@ -2547,10 +2571,10 @@
         SetMetadataTitle
     -->
     <xsl:template name="SetMetadataTitle">
-        <xsl:apply-templates select="$lingPaper/frontMatter/title/child::node()[name()!='br' and name()!='endnote']" mode="contentOnly"/>
+        <xsl:apply-templates select="$lingPaper/frontMatter/title/child::node()[name()!='endnote' and name()!='comment']" mode="contentOnly"/>
         <xsl:if test="$lingPaper/frontMatter/subtitle != ''">
             <xsl:text>: </xsl:text>
-            <xsl:value-of select="$lingPaper/frontMatter/subtitle"/>
+            <xsl:value-of select="$lingPaper/frontMatter/subtitle/child::node()[name()!='endnote' and name()!='comment']"/>
         </xsl:if>
     </xsl:template>
     <!--

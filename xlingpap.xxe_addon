@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-21</a:date
+>2021-04-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.8 21 April 2021<ul
+>2.38.8 22 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -59,6 +59,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: comments were being included in meta data for both PDF and web page output.</li
 ><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a book publisher style sheet had both front matter and body use the same page formatting and the body did not restart page counting, the PDF would fail to be produced.</li
+></ul
+></li
 ><li
 >For the producing web page output via a style sheet:<ul
 ><li

@@ -9252,6 +9252,9 @@
         <xsl:variable name="pageNumber" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]"/>
         <xsl:variable name="sPageNumberFrontMatter" select="normalize-space($frontMatterLayoutInfo/headerFooterPageStyles/descendant::pageNumber[1]/@format)"/>
         <xsl:choose>
+            <xsl:when test="$pageNumber/@format=$sPageNumberFrontMatter and $pageNumber/@restartCount!='yes'">
+                <!-- nothing to do -->
+            </xsl:when>
             <xsl:when test="$pageNumber and $sPageNumberFrontMatter">
                 <xsl:if test="$pageNumber/@restartCount!='yes'">
                     <!-- save current page number -->

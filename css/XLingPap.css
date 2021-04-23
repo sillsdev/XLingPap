@@ -615,6 +615,30 @@ appendixRef[showTitle='full']
 	content: drop-down-setReference(appendix-background-color())
 	label(xpath, "if(string-length(id(@app)/secTitle)>0,concat('',id(@app)/secTitle,''),'unnamed')",background-color,appendix-background-color());
 }
+appendixRef[textBefore="capitalizedPlural"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedPluralLabel, 'Appendixes ')");
+}
+appendixRef[textBefore="capitalizedSingular"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedSingularLabel, 'Appendix ')");
+}
+appendixRef[textBefore="plural"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefPluralLabel, 'appendixes ')");
+}
+appendixRef[textBefore="singular"]:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[string-length(normalize-space(@appendixRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefSingularLabel, 'appendix ')");
+}
+appendixRef[textBefore="none"]:before
+{
+	content:"";
+}
+appendixRef:before
+{
+	content: label(xpath,"if((/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='singular'][string-length(normalize-space(@appendixRefSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='singular'][string-length(normalize-space(@appendixRefSingularLabel))=0], 'appendix ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='plural'][string-length(normalize-space(@appendixRefPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='plural'][string-length(normalize-space(@appendixRefPluralLabel))=0], 'appendixes ',(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedSingular'][string-length(normalize-space(@appendixRefCapitalizedSingularLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedSingularLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedSingular'][string-length(normalize-space(@appendixRefCapitalizedSingularLabel))=0], 'Appendix ', (/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedPlural'][string-length(normalize-space(@appendixRefCapitalizedPluralLabel))>0],(/xlingpaper/styledPaper/lingPaper|/lingPaper)/@appendixRefCapitalizedPluralLabel,(/xlingpaper/styledPaper/lingPaper|/lingPaper)[@appendixRefDefault='capitalizedPlural'][string-length(normalize-space(@appendixRefCapitalizedPluralLabel))=0], 'Appendixes ','')");
+}
 appendixRef
 {
 	content: drop-down-setReference(appendix-background-color())
@@ -5038,6 +5062,32 @@ appendixLayout
 {
 	display:block;
 }
+appendixRefLayout[color]
+{
+	color:concatenate(attr(color));
+}
+appendixRefLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+appendixRefLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+appendixRefLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+appendixRefLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+appendixRefLayout
+{
+	property-group: titledItem("appendix reference");
+	margin-bottom:12pt;
+	margin-top:12pt;
+}
 appendixRefLinkLayout[showmarking='no']
 {
 	color:Gray;
@@ -5069,6 +5119,32 @@ appendixRefLinkLayout
 	property-group:linkLayoutParameter("appendixRef");
 	color: gray;
 	text-decoration:none;
+}
+appendixRefTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+appendixRefTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+appendixRefTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+appendixRefTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+appendixRefTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+appendixRefTitleLayout
+{
+	property-group: titledItem("appendix reference title");
+	margin-bottom:12pt;
+	margin-top:12pt;
 }
 appendixTitleLayout[color]
 {

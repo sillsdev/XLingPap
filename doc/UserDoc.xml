@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->6 April 2021</date
+>23 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -10980,6 +10980,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixRefLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element</dd
+><dt
+><object
+type="tElement"
 >appendixRefLinkLayout</object
 ></dt
 ><dd
@@ -10987,6 +10994,13 @@ type="tElement"
 type="tElement"
 >appendixRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>appendixRefTitleLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element that outputs the appendix title</dd
 ><dt
 ><object
 type="tElement"

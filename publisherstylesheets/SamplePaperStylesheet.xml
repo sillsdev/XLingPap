@@ -7,7 +7,7 @@
 ><comment
 >Showing all possible elements; N.B.: To use footnotes instead of endnotes, remove the Use Endnotes item in the back matter section.</comment
 ><publisherStyleSheetVersion
->1.0.0</publisherStyleSheetVersion
+>1.1.0</publisherStyleSheetVersion
 ><pageLayout
 ><pageWidth
 >8.5in</pageWidth
@@ -2115,6 +2115,10 @@ indent-before=".5in"
 ><sectionRefTitleLayout
 font-style="italic"
 ></sectionRefTitleLayout
+><appendixRefLayout
+></appendixRefLayout
+><appendixRefTitleLayout
+></appendixRefTitleLayout
 ><interlinearSourceStyle
 ></interlinearSourceStyle
 ><interlinearRefCitationTitleLayout

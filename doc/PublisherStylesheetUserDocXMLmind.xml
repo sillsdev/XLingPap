@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 April 2021</date
+>23 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -10675,13 +10675,334 @@ type="tElement"
 sec="sFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->, except that none of these attributes show in the <object
+>.</p
+></section3
+></section2
+><section2
+id="sAppendixRefLayout"
+><secTitle
+>Controlling the Display of Appendix References</secTitle
+><p
+><indexedItem
+term="iAppendixRefLayout"
+></indexedItem
+>There are two elements that control how appendix reference letters/numbers and appendix reference titles are displayed.</p
+><section3
+id="sAppendixRefNumberLayout"
+><secTitle
+>Appendix Reference Number Layout</secTitle
+><p
+><indexedItem
+term="iAppendixRefNumber"
+></indexedItem
+>The <object
+type="tElement"
+>appendixRefLayout</object
+> element determines how appendix reference letters/numbers are to be displayed. The attributes involved are given in example <exampleRef
+letter="xAppendixRefNumberLayoutAttributes"
+num="xAppendixRefNumberLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xAppendixRefNumberLayoutAttributes"
+><table
+border="1"
+><caption
+>Appendix reference letter/number Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
 type="tXMLmindXMLEditor"
 ></object
-> for the <object
+></th
+></tr
+><tr
+><td
+>All attributes in section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+></td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+><td
+> </td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAppendixRefPeriodAfter"
+></indexedItem
+><object
+type="tAttribute"
+>AddPeriodAfterFinalDigit</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+>, or <object
+type="tAttrValue"
+>no</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates whether or not to insert a period after the final digit of the appendix letter/number. </langData
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iAppendixRefTextBefore"
+></indexedItem
+><object
+type="tAttribute"
+>textBeforeSingularOverride</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The text to show before the appendix letter/number when the <object
+type="tAttribute"
+>textBefore</object
+> attribute of an <object
 type="tElement"
->sectionRefTitleLayout</object
-> element.</p
+>appendixRef</object
+> element is set to <object
+type="tAttrValue"
+>singular</object
+>. This overrides any similar value in the <object
+type="tAttribute"
+>appendixRefSingularLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element of the document.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>app.</object
+></td
+></tr
+><tr
+><td
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>textBeforePluralOverride</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The text to show before the appendix letter/number when the <object
+type="tAttribute"
+>textBefore</object
+> attribute of an <object
+type="tElement"
+>appendixRef</object
+> element is set to <object
+type="tAttrValue"
+>plural</object
+>. This overrides any similar value in the <object
+type="tAttribute"
+>appendixRefPluralLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element of the document.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>appendixes</object
+></td
+></tr
+><tr
+><td
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>textBeforeCapitalizedSingularOverride</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The text to show before the appendix letter/number when the <object
+type="tAttribute"
+>textBefore</object
+> attribute of an <object
+type="tElement"
+>appendixRef</object
+> element is set to <object
+type="tAttrValue"
+>capitalizedSingular</object
+>. This overrides any similar value in the <object
+type="tAttribute"
+>appendixRefCapitalizedSingularLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element of the document.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>App.</object
+></td
+></tr
+><tr
+><td
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>textBeforeCapitalizedPluralOverride</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The text to show before the appendix letter/number when the <object
+type="tAttribute"
+>textBefore</object
+> attribute of an <object
+type="tElement"
+>appendixRef</object
+> element is set to <object
+type="tAttrValue"
+>capitalizedPlural</object
+>. This overrides any similar value in the <object
+type="tAttribute"
+>appendixRefCapitalizedPluralLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element of the document.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>Appendixes</object
+></td
+></tr
+><tr
+><td
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+></table
+></example
+></section3
+><section3
+id="sAppendixRefTitleLayout"
+><secTitle
+>Appendix Reference Title Layout</secTitle
+><p
+><indexedItem
+term="iAppendixRefTitle"
+></indexedItem
+>The <object
+type="tElement"
+>appendixRefTitleLayout</object
+> element determines how appendix reference titles are to be displayed. All of its attributes are described in section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</p
 ></section3
 ></section2
 ><section2
@@ -17902,6 +18223,24 @@ type="tElement"
 ><td
 ><object
 type="tElement"
+>appendixRefLayout</object
+></td
+><td
+>appendix reference</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>appendixRefTitleLayout</object
+></td
+><td
+>appendix reference title</td
+></tr
+><tr
+><td
+><object
+type="tElement"
 >interlinearSourceStyle</object
 ></td
 ><td
@@ -18335,6 +18674,84 @@ type="tAttribute"
 ><object
 type="tAttrValue"
 >.25in</object
+></td
+></tr
+><tr
+><td
+rowspan="5"
+valign="top"
+><object
+type="tElement"
+>appendixRefLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>AddPeriodAfterFinalDigit</object
+></td
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBeforeCapitalizedPluralOverride</object
+></td
+><td
+><object
+type="tAttrValue"
+>Appendices </object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBeforeCapitalizedSingularOverride</object
+></td
+><td
+><object
+type="tAttrValue"
+>Appendix </object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBeforePluralOverride</object
+></td
+><td
+><object
+type="tAttrValue"
+>appendices </object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textBeforeSingularOverride</object
+></td
+><td
+><object
+type="tAttrValue"
+>appendix </object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>appendixRefTitleLayout</object
+></td
+><td
+>no attributes have defaults</td
+><td
 ></td
 ></tr
 ><tr
@@ -19982,6 +20399,33 @@ id="iAppendixLayoutAppendixWord"
 id="iAppendixLayoutPeriodAfterLetter"
 ><term
 >Include a period after the appendix letter</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
+id="iAppendixRefLayout"
+><term
+>Appendix reference layout</term
+><indexTerms
+><indexTerm
+id="iAppendixRefPeriodAfter"
+><term
+>Period after the letter/number</term
+></indexTerm
+><indexTerm
+id="iAppendixRefNumber"
+><term
+>Appendix reference letter/number</term
+></indexTerm
+><indexTerm
+id="iAppendixRefTitle"
+><term
+>Appendix reference title</term
+></indexTerm
+><indexTerm
+id="iAppendixRefTextBefore"
+><term
+>Text before appendix reference letter/number/title</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

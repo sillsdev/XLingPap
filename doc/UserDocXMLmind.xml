@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 April 2021</date
+>23 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -2543,7 +2543,10 @@ type="tInstruction"
 > key or click on the black drop-down arrow or right-click, <object
 type="tInstruction"
 > Set Reference F11</object
-> as described above. This time the dialog box will only list the titles and identifiers for the appendices.</p
+> as described above. This time the dialog box will only list the titles and identifiers for the appendices. See section <sectionRef
+sec="sBMAppendix"
+></sectionRef
+> for more.</p
 ><section3
 id="sSectionReferenceTextBefore"
 ><secTitle
@@ -3282,6 +3285,575 @@ type="tRenderX"
 > way of producing PDF.</p
 ></endnote
 ></p
+><p
+><indexedItem
+term="iAppendixReference"
+></indexedItem
+>Note that if you wish to refer to an appendix, you should use the <object
+type="tElement"
+>appendixRef</object
+> element and set its content via the <object
+type="tInstruction"
+>F11</object
+> key or click on the black drop-down arrow or right-click, <object
+type="tInstruction"
+> Set Reference F11</object
+> as described above. The dialog box will only list the letters, titles and identifiers for the appendices.</p
+><section3
+id="sBMAppendixReferenceTextBefore"
+><secTitle
+>Controlling Text before an Appendix Reference</secTitle
+><p
+><indexedItem
+term="iAppendixReferenceControlText"
+></indexedItem
+>One can also control what text precedes an appendix reference, if one so chooses. Some people like to use a word such as “appendix,” whereas others prefer to not have anything. One challenge with actually keying or not keying such words is that some publishers may want the author to do it one way or the other.</p
+><p
+>In an effort to minimize an author's effort in dealing with this situation, <object
+type="tXLingPap"
+></object
+> provides you with the option of never keying such words, but rather to have them be inserted automatically when the paper (or book) is formatted. That is, if you so choose, you can never key words such as “appendix” before an <object
+type="tElement"
+>appendixRef</object
+> element. Which word or symbol will appear before them, if any, is controlled by setting various attributes of the <object
+type="tElement"
+>appendixRef</object
+> element and the <object
+type="tElement"
+>lingPaper</object
+> element. Please note that the default situation is for <object
+type="tXLingPap"
+></object
+> to not automatically insert these words; but if you wish, you can have <object
+type="tXLingPap"
+></object
+> insert them for you.</p
+><p
+>Example <exampleRef
+letter="xLingPaperAttributesForAppendixRef"
+num="xLingPaperAttributesForAppendixRef"
+></exampleRef
+> lists the attributes of the <object
+type="tElement"
+>lingPaper</object
+> element that are relevant to this discussion. To modify them, click on “lingPaper” in the node path bar.<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> Then change them using the Attributes Tool.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> Note that the key attribute is <object
+type="tAttribute"
+>appendixRefDefault</object
+>. The other four are there so you can change the default text to what you need. There are four cases for whether the text needs to be capitalized or not and for whether there is only one reference or several. The default is to use the English words “appendix,” “appendices,” “Appendix,” and “Appendices” as appropriate. The “label” attributes are there so if you are writing in a non-English language, you can use the appropriate terms for that language.</p
+><example
+num="xLingPaperAttributesForAppendixRef"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><genericTarget
+id="gAppendixRefCapitalizedPluralLabel"
+></genericTarget
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>appendixRefCapitalizedPluralLabel</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is the text to use before a plural <object
+type="tElement"
+>appendixRef</object
+> element when the inserted text needs to be capitalized. If it is empty and the <object
+type="tElement"
+>appendixRef</object
+> element is tagged for using capitalizedPlural (or capitalizedPlural is the default), then the word “Appendices” will be inserted before the appendix reference in the output.</td
+></tr
+><tr
+><td
+><genericTarget
+id="gAppendixRefCapitalizedSingularLabel"
+></genericTarget
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>appendixRefCapitalizedSingularLabel</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is the text to use before a single <object
+type="tElement"
+>appendixRef</object
+> element when the inserted text needs to be capitalized. If it is empty and the <object
+type="tElement"
+>appendixRef</object
+> element is tagged for using capitalizedSingular (or capitalizedSingular is the default), then the word “Appendix” will be inserted before the appendix reference in the output.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <genericTarget
+id="gAppendixRefDefault"
+></genericTarget
+> <object
+type="tAttribute"
+>appendixRefDefault</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>none</object
+>, <object
+type="tAttrValue"
+>capitalizedPlural</object
+>, <object
+type="tAttrValue"
+>capitalizedSingular</object
+>, <object
+type="tAttrValue"
+>plural</object
+>, or <object
+type="tAttrValue"
+>singular</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets the default behavior for inserting text before an <object
+type="tElement"
+>appendixRef</object
+> element. The normal value for this is <object
+type="tAttrValue"
+>none</object
+> which means that no text will be inserted. If you set it to, say, <object
+type="tAttrValue"
+>singular</object
+>, then whenever the <object
+type="tAttribute"
+>textBefore</object
+> attribute of the <object
+type="tElement"
+>appendixRef</object
+> element is set to <object
+type="tAttrValue"
+>useDefault</object
+>, the text for the “singular” label will be used. See <genericRef
+gref="gAppendixRefSingularLabel"
+>appendixRefSingularLabel</genericRef
+>.</langData
+></td
+></tr
+><tr
+><td
+><genericTarget
+id="gAppendixRefPluralLabel"
+></genericTarget
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>appendixRefPluralLabel</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is the text to use before a plural <object
+type="tElement"
+>appendixRef</object
+> element. If it is empty and the <object
+type="tElement"
+>appendixRef</object
+> element is tagged for using plural (or plural is the default), then the word “appendices” will be inserted before the appendix reference in the output.</td
+></tr
+><tr
+><td
+><genericTarget
+id="gAppendixRefSingularLabel"
+></genericTarget
+> <langData
+lang="lEng"
+> <object
+type="tAttribute"
+>appendixRefSingularLabel</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is the text to use before a single <object
+type="tElement"
+>appendixRef</object
+> element. If it is empty and the <object
+type="tElement"
+>appendixRef</object
+> element is tagged for using singular (or singular is the default), then the word “appendix” will be inserted before the appendix reference in the output.</td
+></tr
+></table
+></example
+><p
+>The attribute for controlling this text via a <object
+type="tElement"
+>appendixRef</object
+> element is given in example <exampleRef
+letter="xAppendixRefTextBeforeAttribute"
+num="xAppendixRefTextBeforeAttribute"
+></exampleRef
+>.</p
+><example
+num="xAppendixRefTextBeforeAttribute"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>textBefore</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>none</object
+>, <object
+type="tAttrValue"
+>capitalizedPlural</object
+>, <object
+type="tAttrValue"
+>capitalizedSingular</object
+>, <object
+type="tAttrValue"
+>plural</object
+>, <object
+type="tAttrValue"
+>singular</object
+>, or <object
+type="tAttrValue"
+>useDefault</object
+>.</langData
+></td
+><td
+><table
+><tr
+><td
+colspan="2"
+><langData
+lang="lEng"
+>This indicates what text, if any, should be inserted in the output before the appendix reference. The normal value for this is <object
+type="tAttrValue"
+>useDefault</object
+> which means that what text is inserted depends on the value of the <object
+type="tElement"
+>appendixRefDefault</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. See <genericRef
+gref="gAppendixRefDefault"
+>appendixRefDefault</genericRef
+>. All of the other values override this default. Each one is listed below.</langData
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>none</object
+></td
+><td
+>No text will be inserted. This is useful for when you have a list of appendix references and you do not want to insert any text before the second, third, etc., references.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>capitalizedPlural</object
+></td
+><td
+>The word “Appendices” will be inserted before the section reference unless you have keyed text in the <object
+type="tAttribute"
+>appendixRefCapitalizedPluralLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. In this case that text will be used instead of “Appendices” (see <genericRef
+gref="gAppendixRefCapitalizedPluralLabel"
+>appendixRefCapitalizedPluralLabel</genericRef
+>). This is useful for when you have a list of appendix references and the first one begins a sentence. Mark the first <object
+type="tElement"
+>appendixRef</object
+> with <object
+type="tAttrValue"
+>capitalizedPlural</object
+> and then mark all the other <object
+type="tElement"
+>appendixRef</object
+> elements in the list with <object
+type="tAttrValue"
+>none</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>capitalizedSingular</object
+></td
+><td
+>The word “Appendix” will be inserted before the appendix reference unless you have keyed text in the <object
+type="tAttribute"
+>appendixRefCapitalizedSingularLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. In this case that text will be used instead of “Appendix” (see <genericRef
+gref="gAppendixRefCapitalizedSingularLabel"
+>appendixRefCapitalizedSingularLabel</genericRef
+>). This is useful for when you have an appendix reference that begins a sentence.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>plural</object
+></td
+><td
+>The word “appendices” will be inserted before the appendix reference unless you have keyed text in the <object
+type="tAttribute"
+>appendixRefPluralLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. In this case that text will be used instead of “appendices” (see <genericRef
+gref="gAppendixRefPluralLabel"
+>appendixRefPluralLabel</genericRef
+>). This is useful for when you have a list of appendix references and the first one is in the middle of a sentence. Mark the first <object
+type="tElement"
+>appendixRef</object
+> with <object
+type="tAttrValue"
+>plural</object
+> and then mark all the other <object
+type="tElement"
+>appendixRef</object
+> elements in the list with <object
+type="tAttrValue"
+>none</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>singular</object
+></td
+><td
+>The word “appendix” will be inserted before the appendix reference unless you have keyed text in the <object
+type="tAttribute"
+>appendixRefSingularLabel</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element. In this case that text will be used instead of “appendix” (see <genericRef
+gref="gAppendixRefSingularLabel"
+>appendixRefSingularLabel</genericRef
+>). If you have set the <object
+type="tAttribute"
+>appendixRefDefault</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element to <object
+type="tAttrValue"
+>singular</object
+>, then you should not need to ever set this value. This is normally only useful for when you have set the <object
+type="tAttribute"
+>appendixRefDefault</object
+> attribute to something other than <object
+type="tAttrValue"
+>singular</object
+>.</td
+></tr
+></table
+></td
+></tr
+></table
+></example
+></section3
+><section3
+id="sBMAppendixReferenceTitle"
+><secTitle
+>Showing the Title of an Appendix</secTitle
+><p
+><indexedItem
+term="iAppendixReferenceShowTitle"
+></indexedItem
+>It is also possible to show just the title or the short title of an appendix. One uses the <object
+type="tAttribute"
+>showTitle</object
+> attribute of the <object
+type="tElement"
+>appendixRef</object
+> element to control this as explained in example <exampleRef
+letter="xAppendixRefShowTitle"
+num="xAppendixRefShowTitle"
+></exampleRef
+>.</p
+><example
+num="xAppendixRefShowTitle"
+><table
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>showTitle</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>numberOnly</object
+>, <object
+type="tAttrValue"
+>full</object
+>, <object
+type="tAttrValue"
+>short</object
+>.</langData
+></td
+><td
+><table
+><tr
+><td
+colspan="2"
+><langData
+lang="lEng"
+>This indicates whether the title of the target appendix should be output or just the letter/number. The normal value for this is <object
+type="tAttrValue"
+>numberOnly</object
+> which means that only the letter/number will be output.. All of the other values override this default. Each one is listed below.</langData
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>numberOnly</object
+></td
+><td
+>The appendix letter/number will be output. This is the default value.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>full</object
+></td
+><td
+>Instead of the appendix letter/number, the full title of the appendix will be output. The full title is in the <object
+type="tElement"
+>secTitle</object
+> element.</td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>short</object
+></td
+><td
+>Instead of the appendix letter/number, the short title of the appendix will be output. The short title is in the <object
+type="tElement"
+>shortTitle</object
+> element. If there is no short title, the full title will be used.</td
+></tr
+></table
+></td
+></tr
+></table
+></example
+></section3
 ></section2
 ><section2
 id="sBMGlossary"
@@ -31840,6 +32412,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>appendixRefLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element</dd
+><dt
+><object
+type="tElement"
 >appendixRefLinkLayout</object
 ></dt
 ><dd
@@ -31847,6 +32426,13 @@ type="tElement"
 type="tElement"
 >appendixRef</object
 > hyperlinks</dd
+><dt
+><object
+type="tElement"
+>appendixRefTitleLayout</object
+></dt
+><dd
+>Layout info for an appendix reference element that outputs the appendix title</dd
 ><dt
 ><object
 type="tElement"
@@ -35323,6 +35909,18 @@ id="iAppendixLandscapeMode"
 id="iAppendixReference"
 ><term
 >Reference</term
+><indexTerms
+><indexTerm
+id="iAppendixReferenceControlText"
+><term
+>Controlling the text that appears before</term
+></indexTerm
+><indexTerm
+id="iAppendixReferenceShowTitle"
+><term
+>Show title instead of letter/number</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ></indexTerms
 ></indexTerm

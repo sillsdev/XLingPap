@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-22</a:date
+>2021-04-23</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.38.8 22 April 2021<ul
+>2.38.8 23 April 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -47,6 +47,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Allow annotationRef elements to be in examples.</li
 ><li
 >Add a way to create a hyphenation exceptions file within XXE.</li
+><li
+>Add "text before" capability for appendixRef like there is for sectionRef, figureRef, and tablenumberedRef.</li
 ><li
 >In a publisher style sheet, add control for single spacing the content of framedUnit elements when the document is space-and-a-half or double spaced.</li
 ><li

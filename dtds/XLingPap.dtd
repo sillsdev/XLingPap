@@ -90,11 +90,16 @@
     xml:lang CDATA #IMPLIED
     sortRefsAbbrsByDocumentLanguage (yes | no) "no"
     version CDATA #IMPLIED
+    appendixRefSingularLabel CDATA #IMPLIED
+    appendixRefPluralLabel CDATA #IMPLIED
+    appendixRefCapitalizedSingularLabel CDATA #IMPLIED
+    appendixRefCapitalizedPluralLabel CDATA #IMPLIED
+    appendixRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     sectionRefSingularLabel CDATA #IMPLIED
     sectionRefPluralLabel CDATA #IMPLIED
     sectionRefCapitalizedSingularLabel CDATA #IMPLIED
     sectionRefCapitalizedPluralLabel CDATA #IMPLIED
-    sectionRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    sectionRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     showcommentinoutput (yes | no) "no"
     showindexeditemsineditor (yes | no) "yes"
     showiso639-3codeininterlinear (yes | no) "no"
@@ -108,14 +113,14 @@
     figureRefPluralLabel CDATA #IMPLIED
     figureRefCapitalizedSingularLabel CDATA #IMPLIED
     figureRefCapitalizedPluralLabel CDATA #IMPLIED
-    figureRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    figureRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     tablenumberedLabel CDATA #IMPLIED
     tablenumberedLabelAndCaptionLocation (before|after) "before"
     tablenumberedRefSingularLabel CDATA #IMPLIED
     tablenumberedRefPluralLabel CDATA #IMPLIED
     tablenumberedRefCapitalizedSingularLabel CDATA #IMPLIED
     tablenumberedRefCapitalizedPluralLabel CDATA #IMPLIED
-    tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none" 
+    tablenumberedRefDefault (none | singular | plural | capitalizedSingular | capitalizedPlural ) "none"
     automaticallywrapinterlinears (no | yes) "no"
     literalLabel CDATA #IMPLIED
     defaultGlossLanguage IDREF #IMPLIED
@@ -341,6 +346,7 @@
 <!ELEMENT appendixRef EMPTY>
 <!ATTLIST appendixRef
     app IDREF #REQUIRED
+    textBefore (none | singular | plural | capitalizedSingular | capitalizedPlural | useDefault ) "useDefault"
     showTitle (short | full | numberOnly) "numberOnly"
     contentType IDREF #IMPLIED
 >

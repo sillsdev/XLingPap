@@ -2044,6 +2044,25 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        DoItemRefLabel
+    -->
+    <xsl:template name="DoItemRefLabel">
+        <xsl:param name="sLabel"/>
+        <xsl:param name="sDefault"/>
+        <xsl:param name="sOverride"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sOverride) &gt; 0">
+                <xsl:value-of select="$sOverride"/>
+            </xsl:when>
+            <xsl:when test="string-length($sLabel) &gt; 0">
+                <xsl:value-of select="$sLabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$sDefault"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoLocationPublisherLayout
     -->
     <xsl:template name="DoLocationPublisherLayout">
@@ -5180,6 +5199,159 @@
                 </xsl:call-template>
             </xsl:for-each>
         </xsl:for-each>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeRef">
+        <!-- output any canned text before a reference -->
+        <xsl:param name="ssingular" select="'section '"/>
+        <xsl:param name="splural" select="'sections '"/>
+        <xsl:param name="sSingular" select="'Section '"/>
+        <xsl:param name="sPlural" select="'Sections '"/>
+        <xsl:param name="default" select="$lingPaper/@sectionRefDefault"/>
+        <xsl:param name="singularLabel" select="$lingPaper/@sectionRefSingularLabel"/>
+        <xsl:param name="SingularLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+        <xsl:param name="pluralLabel" select="$lingPaper/@sectionRefPluralLabel"/>
+        <xsl:param name="PluralLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+        <xsl:param name="refLayout" select="$contentLayoutInfo/sectionRefLayout"/>
+        <xsl:variable name="singularOverride" select="$refLayout/@textBeforeSingularOverride"/>
+        <xsl:variable name="pluralOverride" select="$refLayout/@textBeforePluralOverride"/>
+        <xsl:variable name="capitalizedSingularOverride" select="$refLayout/@textBeforeCapitalizedSingularOverride"/>
+        <xsl:variable name="capitalizedPluralOverride" select="$refLayout/@textBeforeCapitalizedPluralOverride"/>
+        <xsl:choose>
+            <xsl:when test="@textBefore='useDefault'">
+                <xsl:choose>
+                    <xsl:when test="$default='none'">
+                        <!-- do nothing -->
+                    </xsl:when>
+                    <xsl:when test="$default='singular'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$singularLabel"/>
+                            <xsl:with-param name="sDefault" select="$ssingular"/>
+                            <xsl:with-param name="sOverride" select="$singularOverride"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='capitalizedSingular'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$SingularLabel"/>
+                            <xsl:with-param name="sDefault" select="$sSingular"/>
+                            <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='plural'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$pluralLabel"/>
+                            <xsl:with-param name="sDefault" select="$splural"/>
+                            <xsl:with-param name="sOverride" select="$pluralOverride"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$default='capitalizedPlural'">
+                        <xsl:call-template name="DoItemRefLabel">
+                            <xsl:with-param name="sLabel" select="$PluralLabel"/>
+                            <xsl:with-param name="sDefault" select="$sPlural"/>
+                            <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="@textBefore='singular'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$singularLabel"/>
+                    <xsl:with-param name="sDefault" select="$ssingular"/>
+                    <xsl:with-param name="sOverride" select="$singularOverride"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='capitalizedSingular'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$SingularLabel"/>
+                    <xsl:with-param name="sDefault" select="$sSingular"/>
+                    <xsl:with-param name="sOverride" select="$capitalizedSingularOverride"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='plural'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$pluralLabel"/>
+                    <xsl:with-param name="sDefault" select="$splural"/>
+                    <xsl:with-param name="sOverride" select="$pluralOverride"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="@textBefore='capitalizedPlural'">
+                <xsl:call-template name="DoItemRefLabel">
+                    <xsl:with-param name="sLabel" select="$PluralLabel"/>
+                    <xsl:with-param name="sDefault" select="$sPlural"/>
+                    <xsl:with-param name="sOverride" select="$capitalizedPluralOverride"/>
+                </xsl:call-template>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeAppendixRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeAppendixRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'appendix '"/>
+            <xsl:with-param name="splural" select="'appendices '"/>
+            <xsl:with-param name="sSingular" select="'Appendix '"/>
+            <xsl:with-param name="sPlural" select="'Appendices '"/>
+            <xsl:with-param name="default" select="$lingPaper/@appendixRefDefault"/>
+            <xsl:with-param name="refLayout" select="$contentLayoutInfo/appendixRefLayout"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@appendixRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@appendixRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@appendixRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@appendixRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeFigureRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeFigureRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'figure '"/>
+            <xsl:with-param name="splural" select="'figures '"/>
+            <xsl:with-param name="sSingular" select="'Figure '"/>
+            <xsl:with-param name="sPlural" select="'Figures '"/>
+            <xsl:with-param name="default" select="$lingPaper/@figureRefDefault"/>
+            <xsl:with-param name="refLayout" select="$contentLayoutInfo/figureRefLayout"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@figureRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@figureRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@figureRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@figureRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeSectionRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeSectionRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'section '"/>
+            <xsl:with-param name="splural" select="'sections '"/>
+            <xsl:with-param name="sSingular" select="'Section '"/>
+            <xsl:with-param name="sPlural" select="'Sections '"/>
+            <xsl:with-param name="default" select="$lingPaper/@sectionRefDefault"/>
+            <xsl:with-param name="refLayout" select="$contentLayoutInfo/sectionRefLayout"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@sectionRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@sectionRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@sectionRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@sectionRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!--
+        OutputAnyTextBeforeSectionRef
+    -->
+    <xsl:template name="OutputAnyTextBeforeTablenumberedRef">
+        <xsl:call-template name="OutputAnyTextBeforeRef">
+            <xsl:with-param name="ssingular" select="'table '"/>
+            <xsl:with-param name="splural" select="'tables '"/>
+            <xsl:with-param name="sSingular" select="'Table '"/>
+            <xsl:with-param name="sPlural" select="'Tables '"/>
+            <xsl:with-param name="default" select="$lingPaper/@tablenumberedRefDefault"/>
+            <xsl:with-param name="refLayout" select="$contentLayoutInfo/tablenumberedRefLayout"/>
+            <xsl:with-param name="singularLabel" select="$lingPaper/@tablenumberedRefSingularLabel"/>
+            <xsl:with-param name="SingularLabel" select="$lingPaper/@tablenumberedRefCapitalizedSingularLabel"/>
+            <xsl:with-param name="pluralLabel" select="$lingPaper/@tablenumberedRefPluralLabel"/>
+            <xsl:with-param name="PluralLabel" select="$lingPaper/@tablenumberedRefCapitalizedPluralLabel"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         OutputAppendiciesLabel

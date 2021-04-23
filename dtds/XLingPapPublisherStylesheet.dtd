@@ -620,7 +620,7 @@ Back Matter Layout
 Content Layout
   ===================================================
   -->
-   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
+   <!ELEMENT contentLayout (comment?, paragraphLayout?, exampleLayout, listLayout?, sectionRefLayout?, sectionRefTitleLayout?, appendixRefLayout?, appendixRefTitleLayout?, interlinearSourceStyle?, interlinearRefCitationTitleLayout?, 
                                                       interlinearAlignedWordSpacing?, interlinearMultipleLineGroupLayout?, interlinearTextLayout?,
                                                       endnoteRefLayout?, figureLayout?, figureRefLayout?, figureRefCaptionLayout?, tablenumberedLayout?, tablenumberedRefLayout?, tablenumberedRefCaptionLayout?, 
                                                       tableCaptionLayout?, magnificationFactor?, langDataLayout*, glossLayout?, freeLayout?, literalLayout?, citationLayout?, abbreviationsInFootnoteLayout?, abbreviationsInTableLayout?,
@@ -661,6 +661,19 @@ Content Layout
     >
     <!ELEMENT sectionRefTitleLayout EMPTY >
     <!ATTLIST sectionRefTitleLayout
+        %formatinfo;
+    >
+    <!ELEMENT appendixRefLayout EMPTY >
+    <!ATTLIST appendixRefLayout
+       AddPeriodAfterFinalDigit (no | yes) 'no'
+        textBeforeSingularOverride CDATA #IMPLIED
+        textBeforePluralOverride CDATA #IMPLIED
+        textBeforeCapitalizedSingularOverride CDATA #IMPLIED
+        textBeforeCapitalizedPluralOverride CDATA #IMPLIED
+        %fontinfo;
+    >
+    <!ELEMENT appendixRefTitleLayout EMPTY >
+    <!ATTLIST appendixRefTitleLayout
         %formatinfo;
     >
    <!ELEMENT interlinearSourceStyle EMPTY  >

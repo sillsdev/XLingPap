@@ -2279,7 +2279,7 @@
             <xsl:with-param name="sName" select="@ref"/>
         </xsl:call-template>
         <xsl:call-template name="AddAnyLinkAttributes"/>
-        <xsl:call-template name="OutputCitationContents">
+        <xsl:call-template name="DoOutputCitationContents">
             <xsl:with-param name="refer" select="$refer"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>

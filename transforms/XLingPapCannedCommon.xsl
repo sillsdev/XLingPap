@@ -379,6 +379,7 @@
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
         <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
             <xsl:text>(</xsl:text>
         </xsl:if>

@@ -62,6 +62,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Fix bug: comments were being included in meta data for both PDF and web page output.</li
 ><li
+>Fix bug: can get a letter on a citation date when should not in a chapters in collection document.</li
+><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul

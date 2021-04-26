@@ -1851,6 +1851,24 @@
                                     <xsl:when test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
                                         <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
                                     </xsl:when>
+                                    <xsl:when test="parent::abstract and $frontMatterLayoutInfo/abstractLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::preface and $frontMatterLayoutInfo/prefaceLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::acknowledgements and $frontMatterLayoutInfo/acknowledgementsLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::acknowledgements and $backMatterLayoutInfo/acknowledgementsLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::glossary and $backMatterLayoutInfo/glossaryLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
+                                    <xsl:when test="parent::index and $backMatterLayoutInfo/indexLayout/@firstParagraphHasIndent='no'">
+                                        <tex:cmd name="noindent" gr="0" nl2="0" sp="1"/>
+                                    </xsl:when>
                                     <xsl:otherwise>
                                         <tex:cmd name="indent" gr="0" nl2="0" sp="1"/>
                                     </xsl:otherwise>

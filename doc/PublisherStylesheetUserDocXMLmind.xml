@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->23 April 2021</date
+>26 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -2960,7 +2960,34 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the acknowledgements has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -2981,7 +3008,34 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the preface has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -3009,6 +3063,24 @@ border="1"
 >Attribute</th
 ><th
 >Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the abstract has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
 ></tr
 ><tr
 ><td
@@ -4006,13 +4078,43 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->. In addition this element has a <object
+>. It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
 type="tAttribute"
->showAsFootnoteAtEndOfAbstract</object
-> attribute which has two values: <object
+>firstParagraphHasIndent</object
+></td
+><td
+><object
 type="tAttrValue"
 >yes</object
-> and <object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the acknowledgements has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>showAsFootnoteAtEndOfAbstract</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
 type="tAttrValue"
 >no</object
 >. The default value is <object
@@ -4022,6 +4124,9 @@ type="tAttrValue"
 type="tAttrValue"
 >yes</object
 >, then the contents of the acknowledgements will be shown as a footnote at the end of the abstract. The footnote “number” used will be an asterisk.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -4087,7 +4192,34 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the glossary has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -4309,6 +4441,24 @@ type="tAttribute"
 type="tAttrValue"
 >no</object
 >.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>firstParagraphHasIndent</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not the first paragraph of the index has a normal paragraph indent. If the value is <object
+type="tAttrValue"
+>no</object
+>, then the first paragraph will not have any indent.</td
 ></tr
 ><tr
 ><td

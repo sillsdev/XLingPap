@@ -484,16 +484,19 @@ Front MatterLayout
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
      %titleformatinfo;
+     firstParagraphHasIndent (yes | no) 'yes'
      showAsFootnoteAtEndOfAbstract (yes | no) "no"
     >
 <!ELEMENT prefaceLayout EMPTY >
 <!ATTLIST prefaceLayout
      %titleformatinfo;
+     firstParagraphHasIndent (yes | no) 'yes'
     >
 <!ELEMENT abstractLayout EMPTY >
 <!ATTLIST abstractLayout
      %titleformatinfo;
      useLabel (yes | no) 'yes'
+     firstParagraphHasIndent (yes | no) 'yes'
     >
 <!ELEMENT abstractTextFontInfo EMPTY>
 <!ATTLIST abstractTextFontInfo
@@ -596,6 +599,7 @@ Back Matter Layout
 <!ELEMENT glossaryLayout EMPTY >
 <!ATTLIST glossaryLayout
      %titleformatinfo;
+     firstParagraphHasIndent (yes | no) 'yes'
     >
     <!-- if useEndNotesLayout is present, then all endnotes appear in the back matter; otherwise, they are footnotes. -->
 <!ELEMENT useEndNotesLayout EMPTY >
@@ -605,6 +609,7 @@ Back Matter Layout
 <!ELEMENT indexLayout EMPTY >
 <!ATTLIST indexLayout
      %titleformatinfo;
+     firstParagraphHasIndent (yes | no) 'yes'
      defaultfontize CDATA #IMPLIED
      useDoubleColumns (yes | no) "no"
      doubleColumnSeparation CDATA #IMPLIED

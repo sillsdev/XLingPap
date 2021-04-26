@@ -2422,7 +2422,7 @@
                 <xsl:text>#</xsl:text>
                 <xsl:value-of select="@ref"/>
             </xsl:attribute>
-            <xsl:call-template name="OutputCitationContents">
+            <xsl:call-template name="DoOutputCitationContents">
                 <xsl:with-param name="refer" select="$refer"/>
             </xsl:call-template>
         </xsl:element>

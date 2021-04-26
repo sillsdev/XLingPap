@@ -5396,6 +5396,7 @@
     -->
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
         <xsl:if test="@paren='citationBoth' or @paren='citationInitial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
@@ -5415,7 +5416,7 @@
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
         </xsl:if>
-        <xsl:variable name="works" select="//refWork[../@name=$refer/../@name and @id=//citation/@ref]"/>
+        <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>
             <xsl:choose>

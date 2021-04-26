@@ -2598,11 +2598,11 @@ not using
         </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
-      CITATIONS, Glossary, Indexes and REFERENCES 
-      =========================================================== -->
+        CITATIONS, Glossary, Indexes and REFERENCES 
+        =========================================================== -->
     <!--
-      citation
-      -->
+        citation
+    -->
     <xsl:template match="citation" mode="contents">
         <xsl:call-template name="OutputCitationContents">
             <xsl:with-param name="refer" select="id(@ref)"/>
@@ -2612,7 +2612,7 @@ not using
         <xsl:variable name="refer" select="id(@ref)"/>
         <fo:basic-link internal-destination="{@ref}">
             <xsl:call-template name="AddAnyLinkAttributes"/>
-            <xsl:call-template name="OutputCitationContents">
+            <xsl:call-template name="DoOutputCitationContents">
                 <xsl:with-param name="refer" select="$refer"/>
             </xsl:call-template>
         </fo:basic-link>

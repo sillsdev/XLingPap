@@ -920,6 +920,25 @@
         </xsl:if>
     </xsl:template>
     <!--  
+        DoOutputCitationContents
+    -->
+    <xsl:template name="DoOutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection/descendant::references">
+                <xsl:call-template name="OutputCitationContents">
+                    <xsl:with-param name="refer" select="$refer"/>
+                    <xsl:with-param name="refWorks" select="ancestor::chapterInCollection/descendant::references/refWork"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputCitationContents">
+                    <xsl:with-param name="refer" select="$refer"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         DoQuoteTextAfter
     -->
     <xsl:template name="DoQuoteTextAfter">

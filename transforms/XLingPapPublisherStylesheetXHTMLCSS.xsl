@@ -1974,6 +1974,13 @@ li.lower-roman {
     -->
     <xsl:template name="OutputAbbreviationsInTable"/>    
     <!--
+        OutputAbbreviationsInTable (not needed here, but called from common)
+    -->
+    <xsl:template name="OutputCitationContents">
+        <xsl:param name="refer"/>
+        <xsl:param name="refWorks" select="$refWorks"/>
+    </xsl:template>
+    <!--
         OutputInterlinearTextReference (not needed here, but called from common)
     -->
     <xsl:template name="OutputInterlinearTextReference"/>

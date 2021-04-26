@@ -3257,7 +3257,7 @@
         <xsl:call-template name="LinkAttributesBegin">
             <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
         </xsl:call-template>
-        <xsl:call-template name="OutputCitationContents">
+        <xsl:call-template name="DoOutputCitationContents">
             <xsl:with-param name="refer" select="$refer"/>
         </xsl:call-template>
         <xsl:call-template name="LinkAttributesEnd">

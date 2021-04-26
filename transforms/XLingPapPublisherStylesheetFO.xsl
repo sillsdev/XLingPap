@@ -1446,6 +1446,24 @@
                         <xsl:when test="parent::section6 and $bodyLayoutInfo/section6Layout/@firstParagraphHasIndent='no'">
                             <!-- do nothing to force no indent -->
                         </xsl:when>
+                        <xsl:when test="parent::abstract and $frontMatterLayoutInfo/abstractLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::preface and $frontMatterLayoutInfo/prefaceLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::acknowledgements and $frontMatterLayoutInfo/acknowledgementsLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::acknowledgements and $backMatterLayoutInfo/acknowledgementsLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::glossary and $backMatterLayoutInfo/glossaryLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
+                        <xsl:when test="parent::index and $backMatterLayoutInfo/indexLayout/@firstParagraphHasIndent='no'">
+                            <!-- do nothing to force no indent -->
+                        </xsl:when>
                         <xsl:otherwise>
                             <xsl:attribute name="text-indent">
                                 <xsl:value-of select="$sParagraphIndent"/>

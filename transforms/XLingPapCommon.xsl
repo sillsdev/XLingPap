@@ -1886,7 +1886,7 @@
     -->
     <xsl:template name="OutputAbbreviationsInCommaSeparatedList">
         <xsl:param name="abbreviations" select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
-        <xsl:param name="abbrRefs" select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]"/>
+        <xsl:param name="abbrRefs" select="//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]"/>
         <xsl:choose>
             <xsl:when test="$lingPaper/@sortRefsAbbrsByDocumentLanguage='yes'">
                 <xsl:variable name="sLang">

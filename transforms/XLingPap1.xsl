@@ -4485,7 +4485,7 @@
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:param name="abbrsUsed"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <table>
                 <xsl:call-template name="SortAbbreviationsInTable">

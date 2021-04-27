@@ -8497,7 +8497,7 @@
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:param name="abbrsUsed"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <xsl:if test="count($abbrsUsed) &gt; 0">
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacetables='yes' and $contentLayoutInfo/abbreviationsInTableLayout/@useSingleSpacing!='no'">
                 <tex:spec cat="bg"/>

@@ -631,7 +631,7 @@
     -->
     <xsl:template name="OutputAbbreviationsInTable">
         <xsl:param name="abbrsUsed"
-            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations)]/@abbr=@id]"/>
+            select="//abbreviation[not(ancestor::chapterInCollection/backMatter/abbreviations)][//abbrRef[not(ancestor::chapterInCollection/backMatter/abbreviations) and not(ancestor::comment)]/@abbr=@id]"/>
         <fo:block>
             <xsl:call-template name="OutputFontAttributes">
                 <xsl:with-param name="language" select="$contentLayoutInfo/abbreviationsInTableLayout"/>

@@ -3358,7 +3358,7 @@ not using
                     <xsl:call-template name="DoInitialPageNumberAttribute">
                         <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
                     </xsl:call-template>
-                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"> </xsl:call-template>
+                    <xsl:call-template name="OutputChapterStaticContentForBackMatter"/> 
                     <fo:flow flow-name="xsl-region-body">
                         <xsl:attribute name="font-family">
                             <xsl:value-of select="$sDefaultFontFamily"/>
@@ -6186,6 +6186,58 @@ not using
         <xsl:variable name="work" select="."/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
+        <xsl:choose>
+            <xsl:when test="$referencesLayoutInfo/@useAuthorOverDateStyle='yes'">
+                <fo:table>
+                    <xsl:if test="position()!=1">
+                        <xsl:if test="string-length($sSpaceBetweenDates)&gt;0">
+                            <xsl:attribute name="space-before">
+                                <xsl:value-of select="$sSpaceBetweenDates"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </xsl:if>
+                    <xsl:if test="position()=last()">
+                        <xsl:if test="string-length($sSpaceBetweenEntryAndAuthor)&gt;0">
+                            <xsl:attribute name="space-after">
+                                <xsl:value-of select="$sSpaceBetweenEntryAndAuthor"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </xsl:if>
+                    <fo:table-column column-number="1" column-width="{$referencesLayoutInfo/@dateIndentAuthorOverDateStyle}"/>
+                    <fo:table-column column-number="2" column-width="{$sSpaceForDateInAuthorOverDateStyle}"/>
+                    <fo:table-body>
+                        <xsl:call-template name="DoRefWorkInTable">
+                            <xsl:with-param name="bDoTarget" select="$bDoTarget"/>
+                            <xsl:with-param name="work" select="$work"/>
+                            <xsl:with-param name="works" select="$works"/>
+                            <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                            <xsl:with-param name="fDoAuthor">
+                                <xsl:if test="position()=1">
+                                    <xsl:text>Y</xsl:text>
+                                </xsl:if>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </fo:table-body>
+                </fo:table>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoRefWorkInBlock">
+                    <xsl:with-param name="bDoTarget" select="$bDoTarget"/>
+                    <xsl:with-param name="work" select="$work"/>
+                    <xsl:with-param name="works" select="$works"/>
+                    <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoRefWorkInBlock
+    -->
+    <xsl:template name="DoRefWorkInBlock">
+        <xsl:param name="bDoTarget"/>
+        <xsl:param name="work"/>
+        <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
         <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}">
             <xsl:if test="$bDoTarget='Y'">
                 <xsl:attribute name="id">
@@ -6236,19 +6288,79 @@ not using
         </xsl:if>
     </xsl:template>
     <!--  
-        DoRefWorks
+        DoRefWorkInTable
     -->
-<!--    <xsl:template name="DoRefWorks">
-        <xsl:variable name="thisAuthor" select="."/>
-        <xsl:variable name="works"
-            select="refWork[@id=$citations[not(ancestor::comment) and not(ancestor::annotation)][not(ancestor::refWork) or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref] | $refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id][parent::refAuthor=$thisAuthor] | refWork[@id=$citationsInAnnotationsReferredTo[not(ancestor::comment)]/@ref]"/>
-        <xsl:for-each select="$works">
-            <xsl:call-template name="DoRefWork">
-                <xsl:with-param name="works" select="$works"/>
-            </xsl:call-template>
-        </xsl:for-each>
+    <xsl:template name="DoRefWorkInTable">
+        <xsl:param name="bDoTarget"/>
+        <xsl:param name="work"/>
+        <xsl:param name="works"/>
+        <xsl:param name="sortedWorks"/>
+        <xsl:param name="fDoAuthor" select="'N'"/>
+        <xsl:if test="$fDoAuthor='Y'">
+            <fo:table-row>
+                <fo:table-cell number-columns-spanned="3">
+                    <fo:block text-indent="-{$referencesLayoutInfo/@hangingindentsize}" start-indent="{$referencesLayoutInfo/@hangingindentsize}">
+                        <xsl:call-template name="DoAuthorLayout">
+                            <xsl:with-param name="referencesLayoutInfo" select="$referencesLayoutInfo"/>
+                            <xsl:with-param name="work" select="$work"/>
+                            <xsl:with-param name="works" select="$works"/>
+                            <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                            <xsl:with-param name="iPos" select="position()"/>
+                        </xsl:call-template>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </xsl:if>
+        <fo:table-row>
+            <xsl:if test="$bDoTarget='Y'">
+                <xsl:if test="$referencesLayoutInfo/@defaultfontsize">
+                    <xsl:attribute name="font-size">
+                        <xsl:call-template name="AdjustFontSizePerMagnification">
+                            <xsl:with-param name="sFontSize" select="$referencesLayoutInfo/@defaultfontsize"/>
+                        </xsl:call-template>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:if>
+            <fo:table-cell>
+                <xsl:if test="$bDoTarget='Y'">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="@id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <fo:block>
+                    <xsl:text>&#xa0;</xsl:text>
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <xsl:call-template name="DoDateLayout">
+                    <xsl:with-param name="refDateItem" select="."/>
+                    <xsl:with-param name="work" select="$work"/>
+                    <xsl:with-param name="works" select="$works"/>
+                    <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                </xsl:call-template>
+            </fo:table-cell>
+            <fo:table-cell>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferencesbetween='no'">
+                    <xsl:attribute name="space-after">
+                        <xsl:variable name="sExtraSpace">
+                            <xsl:choose>
+                                <xsl:when test="$sLineSpacing='double'">
+                                    <xsl:value-of select="$sBasicPointSize"/>
+                                </xsl:when>
+                                <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                                    <xsl:value-of select=" number($sBasicPointSize div 2)"/>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <xsl:value-of select="$sExtraSpace"/>
+                        <xsl:text>pt</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:apply-templates select="book | collection | dissertation | article | fieldNotes | ms | paper | proceedings | thesis | webPage"/>
+            </fo:table-cell>
+        </fo:table-row>
     </xsl:template>
--->    <!--  
+    <!--  
         DoSecNumberRunningHeader
     -->
     <xsl:template name="DoSecNumberRunningHeader">

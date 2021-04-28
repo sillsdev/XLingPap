@@ -78,12 +78,14 @@
                                     </span>
                                 </xsl:when>
                                 <xsl:when test="name(.)='refDateItem'">
-                                    <xsl:call-template name="DoDateLayout">
-                                        <xsl:with-param name="refDateItem" select="."/>
-                                        <xsl:with-param name="work" select="$work"/>
-                                        <xsl:with-param name="works" select="$works"/>
-                                        <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
-                                    </xsl:call-template>
+                                    <xsl:if test="$referencesLayoutInfo/@useAuthorOverDateStyle!='yes'">
+                                        <xsl:call-template name="DoDateLayout">
+                                            <xsl:with-param name="refDateItem" select="."/>
+                                            <xsl:with-param name="work" select="$work"/>
+                                            <xsl:with-param name="works" select="$works"/>
+                                            <xsl:with-param name="sortedWorks" select="$sortedWorks"/>
+                                        </xsl:call-template>
+                                        </xsl:if>
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>

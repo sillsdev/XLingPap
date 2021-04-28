@@ -70,6 +70,18 @@
     </xsl:variable>
     <xsl:variable name="sEtAl" select="'et al.'"/>
     <xsl:variable name="sEtAlSpaces" select="' et al. '"/>
+    <xsl:variable name="sSpaceBetweenDates" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntriesAuthorOverDateStyle)"/>
+    <xsl:variable name="sSpaceBetweenEntryAndAuthor" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntryAndAuthorInAuthorOverDateStyle)"/>
+    <xsl:variable name="sSpaceForDateInAuthorOverDateStyle">
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space($referencesLayoutInfo/@dateToEntrySpaceAuthorOverDateStyle)) &gt; 0">
+                <xsl:value-of select="normalize-space($referencesLayoutInfo/@dateToEntrySpaceAuthorOverDateStyle)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>2.5em</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ===========================================================
         NUMBERING PROCESSING 
         =========================================================== -->

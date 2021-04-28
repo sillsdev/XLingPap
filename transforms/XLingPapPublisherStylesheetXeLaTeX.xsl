@@ -96,8 +96,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="sSpaceBetweenDates" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntriesAuthorOverDateStyle)"/>
-    <xsl:variable name="sSpaceBetweenEntryAndAuthor" select="normalize-space($referencesLayoutInfo/@spaceBetweenEntryAndAuthorInAuthorOverDateStyle)"/>
     <xsl:variable name="sGraphiteForFontName" select="'Graphite'"/>
     <!-- ===========================================================
       Variables

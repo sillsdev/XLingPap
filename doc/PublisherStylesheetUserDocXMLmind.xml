@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->26 April 2021</date
+>28 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -2960,7 +2960,7 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  It also has<table
+>. It also has<table
 border="1"
 ><tr
 ><th
@@ -3008,7 +3008,7 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  It also has<table
+>. It also has<table
 border="1"
 ><tr
 ><th
@@ -4192,7 +4192,7 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  It also has<table
+>. It also has<table
 border="1"
 ><tr
 ><th
@@ -9338,6 +9338,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iAuthorOverDateStyle"
+></indexedItem
 ><object
 type="tAttribute"
 >dateIndentAuthorOverDateStyle</object
@@ -9373,6 +9376,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iAuthorOverDateStyle"
+></indexedItem
 ><object
 type="tAttribute"
 >dateToEntrySpaceAuthorOverDateStyle</object
@@ -9380,13 +9386,16 @@ type="tAttribute"
 ><td
 >(user control)</td
 ><td
->This sets the amount of space to insert between the date and the entry in an "Author over date" references style when the space used by the date is too long to fit. It is only used when the <object
+>This sets the amount of space to use for the date in an "Author over date" references style. It is only used when the <object
 type="tAttribute"
 >useAuthorOverDateStyle</object
 > attribute is set to <object
 type="tAttrValue"
 >yes</object
->. (Not implemented yet.)</td
+>. (Applies for the <object
+type="tRenderX"
+></object
+> way of producing PDF and web page output.)</td
 ><td
 ><table
 ><tr
@@ -9598,6 +9607,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iAuthorOverDateStyle"
+></indexedItem
 ><object
 type="tAttribute"
 >spaceBetweenEntryAndAuthorInAuthorOverDateStyle</object
@@ -9633,6 +9645,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iAuthorOverDateStyle"
+></indexedItem
 ><object
 type="tAttribute"
 >spaceBetweenEntriesAuthorOverDateStyle</object
@@ -9730,6 +9745,10 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+main="yes"
+term="iAuthorOverDateStyle"
+></indexedItem
 ><object
 type="tAttribute"
 >useAuthorOverDateStyle</object
@@ -9746,24 +9765,10 @@ type="tAttrValue"
 >When this is set to <object
 type="tAttrValue"
 >yes</object
-> , then the formatting of the references section will put the author on one line followed by the date and the entry. If there are more than one entries for an author, the author name is not repeated. The default value is <object
+> , then the formatting of the references section will put the author on one line followed by the date and the entry. If there is more than one entry for an author, the author name is not repeated. The default value is <object
 type="tAttrValue"
 >no</object
->. This is only implemented for the <object
-type="tXeTeX"
-></object
-> way of producing PDF.<endnote
-id="nAuthorOverDateXeLaTeXOnly"
-><p
->It is only implemented for <object
-type="tXeTeX"
-></object
-> because <object
-type="tXeTeX"
-></object
-> is only output that lets us know how much horizontal space is used by the content of the date. We use this to figure out how much space to insert after the date to get the beginning of the entry to line up properly.</p
-></endnote
-></td
+>.</td
 ><td
 ><table
 ><tr
@@ -21957,6 +21962,11 @@ id="iReferences"
 ><term
 >References</term
 ><indexTerms
+><indexTerm
+id="iAuthorOverDateStyle"
+><term
+>Author over date style</term
+></indexTerm
 ><indexTerm
 id="iBoolTotalPages3"
 see="iBookTotalPages"

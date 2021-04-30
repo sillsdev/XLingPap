@@ -561,7 +561,10 @@
                         <xsl:apply-templates select="refAuthorName"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="normalize-space(@name)"/>
+                        <xsl:call-template name="DoAuthorNameChange">
+                            <xsl:with-param name="sName" select="@name"/>
+                            <xsl:with-param name="fNormalizeSpace" select="'Y'"/>
+                        </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -604,6 +607,7 @@
         Elements to ignore
     -->
     <xsl:template match="literalLabelLayout"/>
+    <xsl:template match="refAuthorNameChange"/>
     <!--  
         AdjustPageNumbers
     -->
@@ -909,6 +913,35 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
+    </xsl:template>
+    <!--  
+        DoAuthorNameChange
+    -->
+    <xsl:template name="DoAuthorNameChange">
+        <xsl:param name="sName"/>
+        <xsl:param name="fNormalizeSpace" select="'N'"/>
+        <xsl:choose>
+            <xsl:when test="$referencesLayoutInfo/refAuthorNameChange and contains($sName,$referencesLayoutInfo/refAuthorNameChange/@from)">
+                <xsl:variable name="sNameChange">
+                    <xsl:for-each select="$referencesLayoutInfo/refAuthorNameChange">
+                        <xsl:value-of select="substring-before($sName,@from)"/>
+                        <xsl:value-of select="@to"/>
+                        <xsl:value-of select="substring-after($sName,@from)"/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:value-of select="$sNameChange"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$fNormalizeSpace='Y'">
+                        <xsl:value-of select="normalize-space($sName)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$sName"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoAuthorRelatedElementsPerSingleSetOfLayouts
@@ -5501,14 +5534,20 @@
         <xsl:variable name="sNameWithSpaces" select="concat(' ',$citeName,' ')"/>
         <xsl:choose>
             <xsl:when test="$citationLayout/@italicizeetal='yes' and contains($sNameWithSpaces,$sEtAlSpaces)">
-                <xsl:value-of select="substring-before($citeName, $sEtAl)"/>
+                <xsl:call-template name="DoAuthorNameChange">
+                    <xsl:with-param name="sName" select="substring-before($citeName, $sEtAl)"/>
+                </xsl:call-template>
                 <xsl:call-template name="ItalicizeString">
                     <xsl:with-param name="contents" select="$sEtAl"/>
                 </xsl:call-template>
-                <xsl:value-of select="substring-after($citeName,$sEtAl)"/>
+                <xsl:call-template name="DoAuthorNameChange">
+                    <xsl:with-param name="sName" select="substring-after($citeName,$sEtAl)"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$citeName"/>
+                <xsl:call-template name="DoAuthorNameChange">
+                    <xsl:with-param name="sName" select="$citeName"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

@@ -22,7 +22,7 @@ References Layouts
 <!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, publisherStyleSheetReferencesVersion?, refAuthorLayouts,  
                                                          articleLayouts, bookLayouts, collectionLayouts, dissertationLayouts, 
                                                          fieldNotesLayouts, msLayouts, paperLayouts, proceedingsLayouts, thesisLayouts, 
-                                                         webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?)>
+                                                         webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?, refAuthorNameChange?)>
 <!ATTLIST  referencesLayout 
    hangingindentsize CDATA #REQUIRED
    defaultfontsize CDATA #IMPLIED
@@ -228,6 +228,11 @@ References Layouts
 
 
 <!ELEMENT  iso639-3codeItemRef EMPTY >
+<!ELEMENT refAuthorNameChange EMPTY >
+<!ATTLIST refAuthorNameChange
+ from CDATA #REQUIRED
+ to CDATA #REQUIRED
+>
 <!-- REVISION HISTORY
 1.0.0 31-Aug-2007 Andy Black  Initial draft.
 

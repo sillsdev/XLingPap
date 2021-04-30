@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 April 2021</date
+>30 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -9242,6 +9242,65 @@ type="tAttrValue"
 ></tr
 ></table
 ></example
+></section3
+><section3
+id="sRefAuthorNameChange"
+><secTitle
+>Change in Authors' names</secTitle
+><p
+><indexedItem
+term="iChangeAuthorName"
+></indexedItem
+>When there are two or more authors in a cited work, sometimes a publisher will want you to use "and" before the last author and sometimes they will want you to use "&amp;". <object
+type="tXLingPap"
+></object
+> now has a way for you to key these one way and change them on a per publisher style sheet basis. You do this by inserting a <object
+type="tElement"
+>refAuthorNameChange</object
+> element at the end of the “References Layout” portion of the publisher style sheet. The <object
+type="tElement"
+>refAuthorNameChange</object
+> element has two attributes:  <object
+type="tAttribute"
+>from</object
+> and <object
+type="tAttribute"
+>to</object
+>. Key the material to match in the <object
+type="tAttribute"
+>from</object
+> attribute and then key the replacement in the <object
+type="tAttribute"
+>to</object
+> attribute</p
+><p
+>You should add a space before and after the values to make sure there are no unintentional changes.</p
+><p
+>Further, this only works for the <object
+type="tAttribute"
+>name</object
+> and <object
+type="tAttribute"
+>citename </object
+>attributes of a <object
+type="tElement"
+>refAuthor</object
+> element.  For other instances such as for editor related elements, we suggest you create a new <object
+type="tElement"
+>type</object
+> element for this and set its <object
+type="tAttribute"
+>before</object
+> attribute to the value you usually use.  Then replace all instances in editor-related elements to use an <object
+type="tElement"
+>object</object
+> element set to this type.  When it needs to change, modify the <object
+type="tAttribute"
+>before</object
+> attribute of this <object
+type="tElement"
+>type</object
+> element to be what you need.</p
 ></section3
 ><section3
 id="sRefRefLayoutAttributes"
@@ -21978,6 +22037,11 @@ id="iRefBookVolumeNumber"
 see="iVolumeNumber"
 ><term
 >Book volume number in a referenced work</term
+></indexTerm
+><indexTerm
+id="iChangeAuthorName"
+><term
+>Change in authors' names</term
 ></indexTerm
 ><indexTerm
 id="iRefCollCitation3"

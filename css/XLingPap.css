@@ -9619,6 +9619,20 @@ refAuthorLayouts
 {
 	property-group: referencesLayouts();
 }
+refAuthorNameChange:before
+{
+	content:"Change in author name from '"
+	text-field(attribute,from,columns,6)
+	"' to '"
+	text-field(attribute,to,columns,6)
+	"'"
+	;
+}
+refAuthorNameChange
+{
+	display:block;
+	margin-left:.125in;
+}
 refDateItem[color]
 {
 	color:concatenate(attr(color));

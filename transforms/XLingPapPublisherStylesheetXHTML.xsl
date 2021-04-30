@@ -4108,10 +4108,6 @@
     -->
     <xsl:template name="DoRefWorkInDiv">
         <xsl:param name="bDoTarget"/>
-        <xsl:param name="sLineSpacing"/>
-        <xsl:param name="lineSpacing"/>
-        <xsl:param name="sBasicPointSize"/>
-        <xsl:param name="referencesLayoutInfo"/>
         <xsl:param name="work"/>
         <xsl:param name="works"/>
         <xsl:param name="sortedWorks"/>

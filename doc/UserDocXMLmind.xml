@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->23 April 2021</date
+>30 April 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.38.8</version
@@ -33823,6 +33823,13 @@ type="tElement"
 ></dt
 ><dd
 >Collection of author layouts</dd
+><dt
+><object
+type="tElement"
+>refAuthorNameChange</object
+></dt
+><dd
+>Change needed for author name and citation name</dd
 ><dt
 ><object
 type="tElement"

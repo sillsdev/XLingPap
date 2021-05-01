@@ -9619,9 +9619,9 @@ refAuthorLayouts
 refAuthorNameChange:before
 {
 	content:"Change in author name from '"
-	text-field(attribute,from,columns,6)
+	label(attribute,from)
 	"' to '"
-	text-field(attribute,to,columns,6)
+	label(attribute,to)
 	"'"
 	;
 }

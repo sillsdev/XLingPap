@@ -157,6 +157,8 @@
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                        <!-- while this is not technically in the contents, we still want just the number to show, not also any textafter the number -->
+                        <xsl:with-param name="fDoingContents" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetFigureNumberLayout/@textbetweenchapterandnumber"/>
@@ -177,6 +179,8 @@
                 <xsl:for-each select="ancestor::chapter | ancestor::appendix | ancestor::chapterBeforePart | ancestor::chapterInCollection">
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fIgnoreTextAfterLetter" select="'Y'"/>
+                        <!-- while this is not technically in the contents, we still want just the number to show, not also any textafter the number -->
+                        <xsl:with-param name="fDoingContents" select="'Y'"/>
                     </xsl:call-template>
                 </xsl:for-each>
                 <xsl:value-of select="$styleSheetTableNumberedNumberLayout/@textbetweenchapterandnumber"/>

@@ -6662,10 +6662,17 @@
                         <!-- cannot have two \\ in a row, so need to insert something; we'll use a non-breaking space -->
                         <xsl:text>&#xa0;</xsl:text>
                     </xsl:if>
-                    <!-- may need to protect the following with MakeUppercase, etc. so we just always do it-->
-                    <tex:cmd name="protect" gr="0"/>
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="esc"/>
+                    <xsl:choose>
+                        <xsl:when test="ancestor-or-self::abstract and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and $contentForThisElement/tex:cmd[@name='renewcommand'] and $contentForThisElement/tex:cmd[@name='footnote']">
+                            <!-- do nothing because the \\ will block XeLaTeX in this unusual case -->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- may need to protect the following with MakeUppercase, etc. so we just always do it-->
+                            <tex:cmd name="protect" gr="0"/>
+                            <tex:spec cat="esc"/>
+                            <tex:spec cat="esc"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise/>

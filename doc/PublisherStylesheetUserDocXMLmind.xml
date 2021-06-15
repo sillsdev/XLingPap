@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->30 April 2021</date
+>3 May 2021</date
 ><version
 contentType="ctVersion5.3"
->2.38.8</version
+>2.39.0</version
 ><version
 contentType="ctVersion7Plus"
->3.8.8</version
+>3.9.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -9260,7 +9260,7 @@ type="tElement"
 > element at the end of the “References Layout” portion of the publisher style sheet. The <object
 type="tElement"
 >refAuthorNameChange</object
-> element has two attributes:  <object
+> element has two attributes: <object
 type="tAttribute"
 >from</object
 > and <object
@@ -9285,16 +9285,16 @@ type="tAttribute"
 >attributes of a <object
 type="tElement"
 >refAuthor</object
-> element.  For other instances such as for editor related elements, we suggest you create a new <object
+> element. For other instances such as for editor related elements, we suggest you create a new <object
 type="tElement"
 >type</object
 > element for this and set its <object
 type="tAttribute"
 >before</object
-> attribute to the value you usually use.  Then replace all instances in editor-related elements to use an <object
+> attribute to the value you usually use. Then replace all instances in editor-related elements to use an <object
 type="tElement"
 >object</object
-> element set to this type.  When it needs to change, modify the <object
+> element set to this type. When it needs to change, modify the <object
 type="tAttribute"
 >before</object
 > attribute of this <object

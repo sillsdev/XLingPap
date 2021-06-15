@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.8.0-xxe-8.2.0.zip"
+location="XLingPap-3.9.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.8.8</a:version
+>3.9.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-04-30</a:date
+>2021-05-04</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,21 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.8.8 30 April 2021<ul
+>3.9.1 4 May 2021<ul
+><li
+>Fix bug: iso69-3codes formated via a publisher style sheet failed to use the textafter value.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: using the showAsFootnoteAtEndOfAbstract attribute of an acknowledgementsLayout element could cause the PDF to fail to be produced.</li
+><li
+></li
+></ul
+></li
+></ul
+></li
+><li
+>3.9.0 3 May 2021<ul
 ><li
 >Add msVersion element to ms element (some manuscripts need version information).</li
 ><li
@@ -72,6 +86,38 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Enable "author over date" reference style for RenderX PDF and web page outputs. (Word and Writer outputs need some hand editing.)</li
 ><li
+>Enable showing rules in headers and footers. See the end of section 2.10 of the publisher style sheet documentation.</li
+><li
+>Fix three typos in user documentation.</li
+><li
+>Improve hanging indent portion of the publisher style sheet documentation.</li
+><li
+>Fix typo in thesis section of user documentation.</li
+><li
+>Add index items for footnotes in tables to the user documentation.</li
+><li
+>Add the pageRangeSeparator attribute to the references element so a user can specify what to use between starting and ending page numbers.</li
+><li
+>Add a book-level editor to references and editorItem to references portion of a style sheet.</li
+><li
+>Allow a proceedings reference element to have series and volume.</li
+><li
+>For URLs, remove any zero width joiner characters when showing the URL.</li
+><li
+>Add drop-down arrow processing for annotationRef elements.</li
+><li
+>Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li
+><li
+>Fix bug: When an annotationRef element referred to an annotation that contains a citation element, that citation might not appear in the references.</li
+><li
+>Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li
+><li
+>Fix bug: when a publisher style sheet had acknowledgments in both front matter and back matter, the front matter one had the showAsFootnoteAtEndOfAbstract attribute set to 'yes,' and there was an acknowledgements element in the back matter of the document, the acknowledgments element in the back matter was not processed.</li
+><li
+>Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter could show in XXE.</li
+><li
+>Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly attribute. Also, this attribute was not mentioned in the user documentation.</li
+><li
 >Fix bug: if a langData or gloss is normally italic, appears in a section title, and the section title is italic so one used an object inside the langData or gloss to make it regular, then when the table of contents includes this section title, the text is regular and the langData or gloss is also regular when they should be italic.</li
 ><li
 >Fix bug: comments were being included in meta data for both PDF and web page output.</li
@@ -80,11 +126,31 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Fix bug: When an abbreviation element contains an abbrRef within a comment, that abbrRef is always shown in list of used abbreviations.</li
 ><li
+>Fix bug: zip creation could fail when an img element's src attribute began with ".."</li
+><li
 >Improve user documentation: changing an abbrRef for version 7 versus version 8 of XXE.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
+>Add ability to control whether or not footnotes should be forced to appear at the bottom of their page. See the forcefootnotestobottomofpage attribute of the footnoteLine element of the publisher style sheet.</li
+><li
+>Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to be produced.</li
+><li
 >Fix bug: when a book publisher style sheet had both front matter and body use the same page formatting and the body did not restart page counting, the PDF would fail to be produced.</li
+><li
+>Fix bug: default indent for hanging indent should be 1em.</li
+><li
+>Fix bug: using lower case hex letters could cause a color code to make the PDF fail to be produced.</li
+><li
+>Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li
+><li
+>Fix bug: endnote numbers within a framedUnit were not reset at the beginning of each framedUnit; endnote numbers after framedUnits that had endnotes included the endnotes in framedUnits and should not have.</li
+><li
+>Fix bug: If forcing footnotes to the bottom of the page and using single-spacing, any footnote indent value was ignored.</li
+><li
+>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one is using the "After first line" interlinear source method, the second interlinear would be indented.</li
+><li
+>Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one is using the "Under free translation" interlinear source method, the interlinear source would not appear.</li
 ></ul
 ></li
 ><li
@@ -94,85 +160,23 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></ul
 ></li
 ><li
->producingConverting Zotero references file to XLingPaper format:<ul
+>Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Fix bug: when the MODS input file had an abstract or note, an appropriate annotation was created, but no annotatedBibliographyTypes.</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.7 25 March 2021<ul
-><li
->Enable showing rules in headers and footers. See the end of section 2.10 of the publisher style sheet documentation.</li
-><li
->Fix three typos in user documentation.</li
-><li
->Fix bug in display: if using more than one langDataLayout element in a style sheet, then the wrong textbefore or textafter could show in XXE.</li
-><li
->Fix bug in endnoteRef handling for both PDF output formats: an endnoteRef in an endnote did not pay attention to the showNumberOnly attribute. Also, this attribute was not mentioned in the user documentation.</li
-></ul
-></li
-><li
->3.8.6 12 February 2021<ul
-><li
->Fix bug: zip creation could fail when an img element's src attribute began with ".."</li
-><li
->Improve hanging indent portion of the publisher style sheet documentation.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Add to publisher style sheet documentation: when using graphite and font-features on the defaultFontFamily element, one must have the exact same font family and XeLaTeXSpecial values in some language or type element. Otherwise the PDF will fail to be produced.</li
-><li
->Fix bug: default indent for hanging indent should be 1em.</li
-></ul
-></li
-><li
->Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Fix bug: when the MODS input file had a translator or contributor listed before an author, the author name and cite name began with an "and".</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.5 27 January 2021<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: using lower case hex letters could cause a color code to make the PDF fail to be produced.</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.4 26 January 2021<ul
-><li
->Fix typo in thesis section of user documentation.</li
-><li
->Add index items for footnotes in tables to the user documentation.</li
-><li
->Add the pageRangeSeparator attribute to the references element so a user can specify what to use between starting and ending page numbers.</li
-><li
->Fix bug: an img element in a header or footer item could cause both PDF forms to fail to be produced.</li
-><li
->Fix bug: when a publisher style sheet had acknowledgments in both front matter and back matter, the front matter one had the showAsFootnoteAtEndOfAbstract attribute set to 'yes,' and there was an acknowledgements element in the back matter of the document, the acknowledgments element in the back matter was not processed.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: If a tablenumbered element had its location attribute set and the basic font size in a style sheet is non-standard, then the content of the table could be rendered in the wrong font size.</li
-><li
->Fix bug: endnote numbers within a framedUnit were not reset at the beginning of each framedUnit; endnote numbers after framedUnits that had endnotes included the endnotes in framedUnits and should not have.</li
-></ul
-></li
-><li
->Converting Zotero references file to XLingPaper format:<ul
 ><li
 >Set labelThesis attribute of thesis element when available.</li
 ><li
 >Fix bug: when no author but there is an editor, use the editor as the author.</li
 ><li
 >Fix bug: when the pages have a list, the pages came out empty.</li
+><li
+>Find editor content in a book when there are also authors.</li
+><li
+>Treat a film as a web page.</li
+><li
+>Fix bug: remove backslash from IDs.</li
 ></ul
 ></li
 ><li
@@ -183,60 +187,6 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add tertiary titles to refTitle.</li
 ><li
 >Remove superscript numbers from IDs</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.3 23 November 2020<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: If forcing footnotes to the bottom of the page and using single-spacing, any footnote indent value was ignored.</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.2 19 November 2020<ul
-><li
->Add a book-level editor to references and editorItem to references portion of a style sheet.</li
-><li
->Allow a proceedings reference element to have series and volume.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Add ability to control whether or not footnotes should be forced to appear at the bottom of their page. See the forcefootnotestobottomofpage attribute of the footnoteLine element of the publisher style sheet.</li
-></ul
-></li
-><li
->Converting Zotero references file to XLingPaper format:<ul
-><li
->Find editor content in a book when there are also authors.</li
-><li
->Treat a film as a web page.</li
-><li
->Fix bug: remove backslash from IDs.</li
-></ul
-></li
-></ul
-></li
-><li
->3.8.1 13 November 2020<ul
-><li
->For URLs, remove any zero width joiner characters when showing the URL.</li
-><li
->Add drop-down arrow processing for annotationRef elements.</li
-><li
->Add a missing collection pattern to SIL-UNDThesisReferencesStylesheet.xml.</li
-><li
->Fix bug: When an annotationRef element referred to an annotation that contains a citation element, that citation might not appear in the references.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one is using the "After first line" interlinear source method, the second interlinear would be indented.</li
-><li
->Fix bug: when there are at least two free translations in an interlinear referred to by an interlinearRef element and one is using the "Under free translation" interlinear source method, the interlinear source would not appear.</li
 ></ul
 ></li
 ></ul

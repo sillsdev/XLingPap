@@ -12,8 +12,8 @@
       <center><i>H. Andrew Black</i></center>
       <center><i>Matthew Lee</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>30 April 2021</small></center>
-      <center><small>Version: 3.8.8</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>3 May 2021</small></center>
+      <center><small>Version: 3.9.0</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -3641,10 +3641,10 @@
       </h3>
       <p><a name="rXLingPapIndexedItem.iChangeAuthorName.d0e6492"></a>When there are two or more authors in a cited work, sometimes a publisher will want you to use "and" before the last author
          and sometimes they will want you to use "&amp;". <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> now has a way for you to key these one way and change them on a per publisher style sheet basis. You do this by inserting
-         a <span style="font-family:Courier New; color:maroon; ">refAuthorNameChange</span> element at the end of the &#8220;References Layout&#8221; portion of the publisher style sheet. The <span style="font-family:Courier New; color:maroon; ">refAuthorNameChange</span> element has two attributes:  <span style="font-family:Courier New; color:purple; ">from</span> and <span style="font-family:Courier New; color:purple; ">to</span>. Key the material to match in the <span style="font-family:Courier New; color:purple; ">from</span> attribute and then key the replacement in the <span style="font-family:Courier New; color:purple; ">to</span> attribute
+         a <span style="font-family:Courier New; color:maroon; ">refAuthorNameChange</span> element at the end of the &#8220;References Layout&#8221; portion of the publisher style sheet. The <span style="font-family:Courier New; color:maroon; ">refAuthorNameChange</span> element has two attributes: <span style="font-family:Courier New; color:purple; ">from</span> and <span style="font-family:Courier New; color:purple; ">to</span>. Key the material to match in the <span style="font-family:Courier New; color:purple; ">from</span> attribute and then key the replacement in the <span style="font-family:Courier New; color:purple; ">to</span> attribute
       </p>
       <p>You should add a space before and after the values to make sure there are no unintentional changes.</p>
-      <p>Further, this only works for the <span style="font-family:Courier New; color:purple; ">name</span> and <span style="font-family:Courier New; color:purple; ">citename </span>attributes of a <span style="font-family:Courier New; color:maroon; ">refAuthor</span> element.  For other instances such as for editor related elements, we suggest you create a new <span style="font-family:Courier New; color:maroon; ">type</span> element for this and set its <span style="font-family:Courier New; color:purple; ">before</span> attribute to the value you usually use.  Then replace all instances in editor-related elements to use an <span style="font-family:Courier New; color:maroon; ">object</span> element set to this type.  When it needs to change, modify the <span style="font-family:Courier New; color:purple; ">before</span> attribute of this <span style="font-family:Courier New; color:maroon; ">type</span> element to be what you need.
+      <p>Further, this only works for the <span style="font-family:Courier New; color:purple; ">name</span> and <span style="font-family:Courier New; color:purple; ">citename </span>attributes of a <span style="font-family:Courier New; color:maroon; ">refAuthor</span> element. For other instances such as for editor related elements, we suggest you create a new <span style="font-family:Courier New; color:maroon; ">type</span> element for this and set its <span style="font-family:Courier New; color:purple; ">before</span> attribute to the value you usually use. Then replace all instances in editor-related elements to use an <span style="font-family:Courier New; color:maroon; ">object</span> element set to this type. When it needs to change, modify the <span style="font-family:Courier New; color:purple; ">before</span> attribute of this <span style="font-family:Courier New; color:maroon; ">type</span> element to be what you need.
       </p>
       <h3 style=""><a name="sRefRefLayoutAttributes"></a>5.3.17&nbsp;Attributes on the <span style="font-family:Courier New; color:maroon; ">referencesLayout</span> element
       </h3>

@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.9.1</a:version
+>3.9.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-05-04</a:date
+>2021-06-15</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,6 +40,12 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.9.2 15 June 2021<ul
+><li
+>Fix bug: when using a chapter number for figure numbers and numbered tables, the textafternumber attribute of the chapterTitleLayout element would also show when it should not.</li
+></ul
+></li
+><li
 >3.9.1 4 May 2021<ul
 ><li
 >Fix bug: iso69-3codes formated via a publisher style sheet failed to use the textafter value.</li
@@ -47,8 +53,6 @@ xmlns="http://www.w3.org/1999/xhtml"
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: using the showAsFootnoteAtEndOfAbstract attribute of an acknowledgementsLayout element could cause the PDF to fail to be produced.</li
-><li
-></li
 ></ul
 ></li
 ></ul

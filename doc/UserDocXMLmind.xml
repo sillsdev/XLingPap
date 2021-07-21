@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 May 2021</date
+>21 July 2021</date
 ><version
 contentType="ctVersion5.3"
->2.39.0</version
+>2.39.2</version
 ><version
 contentType="ctVersion7Plus"
->3.9.0</version
+>3.9.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -26811,6 +26811,24 @@ align="center"
 ><td
 align="center"
 > </td
+></tr
+><tr
+><td
+>PDFtk</td
+><td
+><link
+href="https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/"
+>https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/</link
+></td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
+><td
+align="center"
+>X</td
 ></tr
 ><tr
 ><td

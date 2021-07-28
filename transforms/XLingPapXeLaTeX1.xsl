@@ -5428,6 +5428,20 @@
     <xsl:template name="OutputTableNumberedLabelAndCaption">
         <xsl:param name="bDoBold" select="'Y'"/>
         <xsl:param name="bDoStyles" select="'Y'"/>
+        <xsl:choose>
+            <xsl:when test="table/@align='center'">
+                <tex:spec cat="esc"/>
+                <xsl:text>centering </xsl:text>
+            </xsl:when>
+            <xsl:when test="table/@align='right'">
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedleft </xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <tex:spec cat="esc"/>
+                <xsl:text>raggedright </xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="$bDoBold='Y'">
             <tex:spec cat="bg"/>
             <tex:spec cat="esc"/>
@@ -5447,7 +5461,7 @@
         <xsl:choose>
             <xsl:when test="$bDoStyles='Y'">
                 <xsl:apply-templates select="table/caption | table/endCaption | caption" mode="show">
-                    <xsl:with-param name="bDoLineBreak" select="'Y'"/>
+                    <xsl:with-param name="bDoLineBreak" select="'N'"/>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>

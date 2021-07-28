@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.9.2</span></p>
-      <p align="center">Date: 2021-07-21</p>
+      <p align="center">Date: 2021-07-29</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,12 +34,19 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.9.2 21 July 2021
+               <li>3.9.2 29 July 2021
                   <ul>
                      <li>Fix bug: when using a chapter number for figure numbers and numbered tables, the textafternumber attribute of the chapterTitleLayout
                         element would also show when it should not.
                      </li>
                      <li>In section 11.44 of the user documentation,add PDFtk as another tool to use.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when not using a style sheet and centering or forcing a table to the right, any caption with it was still to the
+                              left.
+                           </li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>3.9.1 4 May 2021

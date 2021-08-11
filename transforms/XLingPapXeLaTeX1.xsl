@@ -3474,7 +3474,9 @@
     -->
     <xsl:template name="DoReferences">
         <xsl:param name="bIsBook" select="'N'"/>
-        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
+        <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+        <xsl:variable name="otherAuthors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
+        <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
         <xsl:if test="$authors">
             <xsl:if test="@showinlandscapemode='yes'">
                 <tex:cmd name="landscape" gr="0" nl2="1"/>

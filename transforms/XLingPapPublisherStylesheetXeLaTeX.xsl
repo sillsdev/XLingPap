@@ -5842,9 +5842,10 @@
     <xsl:template name="DoReferences">
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
         <xsl:variable name="refAuthors" select="refAuthor"/>
-        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
+        <xsl:variable name="gtAuthors" select="$refAuthors[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
         <xsl:variable name="directlyCitedAuthorsAnno" select="$refAuthors[refWork/@id=//citation[ancestor::annotation[@id=//annotationRef/@annotation]]/@ref]"/>
-        <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno">
+        <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno or $gtAuthors">
             <xsl:if test="@showinlandscapemode='yes'">
                 <tex:cmd name="landscape" gr="0" nl2="1"/>
             </xsl:if>
@@ -6662,10 +6663,17 @@
                         <!-- cannot have two \\ in a row, so need to insert something; we'll use a non-breaking space -->
                         <xsl:text>&#xa0;</xsl:text>
                     </xsl:if>
-                    <!-- may need to protect the following with MakeUppercase, etc. so we just always do it-->
-                    <tex:cmd name="protect" gr="0"/>
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="esc"/>
+                    <xsl:choose>
+                        <xsl:when test="ancestor-or-self::abstract and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and $contentForThisElement/tex:cmd[@name='renewcommand'] and $contentForThisElement/tex:cmd[@name='footnote']">
+                            <!-- do nothing because the \\ will block XeLaTeX in this unusual case -->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- may need to protect the following with MakeUppercase, etc. so we just always do it-->
+                            <tex:cmd name="protect" gr="0"/>
+                            <tex:spec cat="esc"/>
+                            <tex:spec cat="esc"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise/>

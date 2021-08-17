@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->21 July 2021</date
+>17 August 2021</date
 ><version
 contentType="ctVersion5.3"
->2.39.2</version
+>2.39.3</version
 ><version
 contentType="ctVersion7Plus"
->3.9.2</version
+>3.9.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -27642,7 +27642,18 @@ type="tMathML"
 > files (with an extension of .mml). If you need mathematical formulas or matrices, using <object
 type="tMathML"
 ></object
-> can be helpful. <object
+> can be helpful. In addition, <object
+type="tTool"
+>LibreOffice</object
+> has a way to create math formulas and save them as <object
+type="tMathML"
+></object
+> (be sure to use the MathMl 2.0” format).  <indexedItem
+term="iPhraseStructureRules"
+></indexedItem
+>Some have used this to produce phrase structure rules.</p
+><p
+><object
 type="tXLingPap"
 ></object
 > now allows you to insert an <object
@@ -37654,6 +37665,11 @@ id="iPhDDissertation"
 see="iDissertation"
 ><term
 >Ph.D. Dissertation</term
+></indexTerm
+><indexTerm
+id="iPhraseStructureRules"
+><term
+>Phrase structure rules</term
 ></indexTerm
 ><indexTerm
 id="iPNG"

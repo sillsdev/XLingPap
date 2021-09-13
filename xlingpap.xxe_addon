@@ -40,9 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.9.3 17 August 2021<ul
+>3.9.3 13 September 2021<ul
 ><li
->Add ability to use LibreOffice to produce MathML files in user documentation.  Also add note that some have used this for phrase structure rules.</li
+>Add ability to use LibreOffice to produce MathML files in user documentation. Also add note that some have used this for phrase structure rules.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order.</li
+></ul
+></li
 ></ul
 ></li
 ><li

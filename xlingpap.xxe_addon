@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.39.2</a:version
+>2.39.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-08-11</a:date
+>2021-09-13</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,16 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History2.</b
 ></p
 ><ul
+><li
+>2.39.3 1 September 2021<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.39.2 11 August 2021<ul
 ><li

@@ -4527,9 +4527,11 @@
                         <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>
                     <xsl:call-template name="DoLiteralLabel"/>
-                    <xsl:apply-templates>
+                    <xsl:call-template name="HandleLanguageContent">
+                        <xsl:with-param name="language" select="$language"/>
+                        <xsl:with-param name="bReversing" select="'N'"/>
                         <xsl:with-param name="originalContext" select="$originalContext"/>
-                    </xsl:apply-templates>
+                    </xsl:call-template>
                     <xsl:call-template name="OutputFontAttributesEnd">
                         <xsl:with-param name="language" select="$language"/>
                     </xsl:call-template>

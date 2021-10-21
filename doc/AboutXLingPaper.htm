@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.39.3</span></p>
-      <p align="center">Date: 2021-09-13</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.39.4</span></p>
+      <p align="center">Date: 2021-10-21</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,11 +34,24 @@
             <hr></hr>
             <p><b>Revision History2.</b></p>
             <ul>
+               <li>2.39.4 21 October 2021
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
+                              when using a publisher style sheet.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>2.39.3 1 September 2021
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
-                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order.</li>
+                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
+                              when not using a publisher style sheet.
+                           </li>
                         </ul>
                      </li>
                   </ul>

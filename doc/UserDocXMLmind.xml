@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->17 August 2021</date
+>9 November 2021</date
 ><version
 contentType="ctVersion5.3"
->2.39.3</version
+>2.39.5</version
 ><version
 contentType="ctVersion7Plus"
->3.9.3</version
+>3.9.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -3934,6 +3934,35 @@ type="tXLingPap"
 ></object
 > Publisher Style Sheet User Documentation</link
 > file.</p
+><p
+>When you do need endnotes to appear, <object
+type="tXLingPap"
+></object
+> will use a title of "Endnotes" for them. <indexedItem
+term="iEndnotesLabel"
+></indexedItem
+>If you wish to use some other title, set the <object
+type="tAttribute"
+>label</object
+> attribute of the <object
+type="tElement"
+>endnotes</object
+> element to the title you want to use.<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> <indexedItem
+term="iEndnotesChapterLabel"
+></indexedItem
+>If you are creating a book, then each chapter containing an endnote will have the chapter number preceding the endnotes for that chapter.  The default label for these chapters is “Chapter.”  To change it to something else, click on the <object
+type="tElement"
+>lingPaper</object
+> element in the node path bar<endnoteRef
+note="nNodePathBarReminder"
+></endnoteRef
+> and change the <object
+type="tAttribute"
+>chapterLabel</object
+> attribute to be what you need.</p
 ><p
 >One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the <q
 >endnote number</q
@@ -27648,7 +27677,7 @@ type="tTool"
 > has a way to create math formulas and save them as <object
 type="tMathML"
 ></object
-> (be sure to use the MathMl 2.0” format).  <indexedItem
+> (be sure to use the MathMl 2.0” format). <indexedItem
 term="iPhraseStructureRules"
 ></indexedItem
 >Some have used this to produce phrase structure rules.</p
@@ -36445,6 +36474,11 @@ id="iEndnotes"
 >Endnotes</term
 ><indexTerms
 ><indexTerm
+id="iEndnotesChapterLabel"
+><term
+>Chapter label in</term
+></indexTerm
+><indexTerm
 id="iConvertSelectedToEndnote"
 ><term
 >Convert selected material to <object
@@ -36459,6 +36493,11 @@ id="iEndnotesElement"
 type="tElement"
 >endnotes</object
 > element</term
+></indexTerm
+><indexTerm
+id="iEndnotesLabel"
+><term
+>Label</term
 ></indexTerm
 ><indexTerm
 id="iEndnoteInTh"

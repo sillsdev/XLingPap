@@ -58,6 +58,36 @@
     <!--    <xsl:variable name="frontMatterLayoutInfo" select="$publisherStyleSheet/frontMatterLayout"/>-->
     <xsl:variable name="chapterBeforePart" select="//chapterBeforePart"/>
     <xsl:variable name="annotationLayoutInfo" select="annotationLayout"/>
+    <xsl:variable name="iExampleNumberWidthInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="concat($iNumberWidth,'em')"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleIndentBeforeInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="$sExampleIndentBefore"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleIndentAfterInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="$sExampleIndentAfter"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleAdjustment">
+        <xsl:value-of select="number($iExampleIndentBeforeInPoints + $iExampleNumberWidthInPoints + $iExampleIndentAfterInPoints)"/>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleInLandscapeWidth">
+        <xsl:value-of select="number($iTableInLandscapeWidth - $iTableExampleAdjustment)"/>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleWidth">
+        <xsl:value-of select="number($iTableInPortraitWidth - $iTableExampleAdjustment)"/>
+    </xsl:variable>
     <!-- ===========================================================
         MAIN BODY
         =========================================================== -->

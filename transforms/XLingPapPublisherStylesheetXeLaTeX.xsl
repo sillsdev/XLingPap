@@ -97,6 +97,36 @@
         </xsl:choose>
     </xsl:variable>
     <xsl:variable name="sGraphiteForFontName" select="'Graphite'"/>
+    <xsl:variable name="iExampleNumberWidthInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="concat($iNumberWidth,'em')"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleIndentBeforeInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-before"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iExampleIndentAfterInPoints">
+        <xsl:call-template name="ConvertUnitOfMeasureToPoints">
+            <xsl:with-param name="sUnitOfMeasure">
+                <xsl:value-of select="$contentLayoutInfo/exampleLayout/@indent-after"/>
+            </xsl:with-param>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleAdjustment">
+        <xsl:value-of select="number($iExampleIndentBeforeInPoints + $iExampleNumberWidthInPoints + $iExampleIndentAfterInPoints)"/>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleInLandscapeWidth">
+        <xsl:value-of select="number($iTableInLandscapeWidth - $iTableExampleAdjustment)"/>
+    </xsl:variable>
+    <xsl:variable name="iTableExampleWidth">
+        <xsl:value-of select="number($iTableInPortraitWidth - $iTableExampleAdjustment)"/>
+    </xsl:variable>
     <!-- ===========================================================
       Variables
       =========================================================== -->

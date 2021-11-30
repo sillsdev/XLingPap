@@ -185,6 +185,9 @@
     <xsl:variable name="sAdjustIndentOfNonInitialFreeLineBy" select="normalize-space($contentLayoutInfo/freeLayout/@adjustIndentOfNonInitialLineBy)"/>
     <xsl:variable name="fFooterUsesDots" select="//headerFooterPageStyles[descendant::footer/@ruleabovepattern='dots']"/>
     <xsl:variable name="fHeaderUsesDots" select="//headerFooterPageStyles[descendant::header/@rulebelowpattern='dots']"/>
+    <!-- not sure why we need to adjust the values with the arbitrary 50, but it does seem to work -->
+    <xsl:variable name="iTableInLandscapeWidth" select="number($iPageHeight - $iPageBottomMargin - $iPageTopMargin - $iHeaderMargin - $iFooterMargin - 50)"/>
+    <xsl:variable name="iTableInPortraitWidth" select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)"/>
     <!--
         citation (bookmarks)
     -->
@@ -3719,6 +3722,33 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--  
+        ConvertUnitOfMeasureToPoints
+    -->
+    <xsl:template name="ConvertUnitOfMeasureToPoints">
+        <xsl:param name="sUnitOfMeasure"/>
+        <xsl:variable name="sUnit" select="substring($sUnitOfMeasure,string-length($sUnitOfMeasure)-1,2)"/>
+        <xsl:variable name="amount" select="substring-before($sUnitOfMeasure,$sUnit)"/>
+        <xsl:choose>
+            <xsl:when test="$sUnit='in'">
+                <xsl:value-of select="number($amount) * 72.27"/>
+            </xsl:when>
+            <xsl:when test="$sUnit='cm'">
+                <xsl:value-of select="number($amount) * 28.45275"/>
+            </xsl:when>
+            <xsl:when test="$sUnit='mm'">
+                <xsl:value-of select="number($amount) * 2.845275"/>
+            </xsl:when>
+            <xsl:when test="$sUnit='em'">
+                <!-- value is from https://www.convertunits.com/from/em/to/point+[TeX] on 2021.11.30 10:34am -->
+                <xsl:value-of select="number($amount) * 12"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- we assume the default is points -->
+                <xsl:value-of select="$amount"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- 
         CountPreviousRowspansInMyRow
     -->
@@ -6857,11 +6887,17 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
+                        <xsl:when test="ancestor::example and ancestor::landscape">
+                            <xsl:value-of select="($iTableExampleInLandscapeWidth*$iPercentage) div 100"/>
+                        </xsl:when>
                         <xsl:when test="ancestor::example">
-                            <xsl:value-of select="$iExampleWidth*$iPercentage div 100"/>
+                            <xsl:value-of select="($iTableExampleWidth*$iPercentage) div 100"/>
+                        </xsl:when>
+                        <xsl:when test="ancestor::landscape">
+                            <xsl:value-of select="($iTableInLandscapeWidth*$iPercentage) div 100"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="number($iPageWidth - $iPageOutsideMargin - $iPageInsideMargin)*$iPercentage div 100"/>
+                            <xsl:value-of select="($iTableInPortraitWidth*$iPercentage) div 100"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-11-08</a:date
+>2021-11-30</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,17 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.39.5 November 2021<ol
+>2.39.5 30 November 2021<ol
 ><li
 >Add endnotes label information to user documentation.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: a table using percentages for column widths when shown in landscape mode, used a width that was for portrait mode.</li
+><li
+>Fix bug: a table using percentages for column widths when in an example, used a width that was too wide.</li
+></ul
+></li
 ></ol
 ></li
 ><li

@@ -1092,7 +1092,7 @@
         GetAuthorsAsCommaSeparatedList
     -->
     <xsl:template name="GetAuthorsAsCommaSeparatedList">
-        <xsl:for-each select="frontMatter/author/child::node()[name()!='endnote']">
+        <xsl:for-each select="frontMatter/author/child::node()[name()!='endnote' and name()!='xxe-sn']">
             <xsl:value-of select="."/>
             <xsl:if test="position()!=last()">
                 <xsl:text>, </xsl:text>

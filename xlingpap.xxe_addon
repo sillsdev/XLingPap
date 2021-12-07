@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.39.5</a:version
+>2.39.6</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-11-30</a:date
+>2021-12-07</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History2.</b
 ></p
 ><ul
+><li
+>2.39.6 7 December 2021<ul
+><li
+>Fix bug: when using XXE's revision mechanism on a collection volume, author names in the contents could include strange letters (from the revision mechanism).</li
+></ul
+></li
 ><li
 >2.39.5 30 November 2021<ol
 ><li

@@ -912,6 +912,16 @@
                 <xsl:when test="name(.)='appendix' and not(ancestor::chapterInCollection)">
                     <xsl:call-template name="DoTitleFormatInfo">
                         <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
+                        <xsl:with-param name="bIgnoreTextBefore">
+                            <xsl:choose>
+                                <xsl:when test="not($backMatterLayoutInfo/appendixLayout/numberLayout)">
+                                    <xsl:text>Y</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>N</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="name(.)='appendix' and ancestor::chapterInCollection">
@@ -4418,14 +4428,17 @@
     <xsl:template name="DoTitleFormatInfo">
         <xsl:param name="layoutInfo"/>
         <xsl:param name="bCheckPageBreakFormatInfo" select="'N'"/>
+        <xsl:param name="bIgnoreTextBefore" select="'N'"/>
         <xsl:if test="$bCheckPageBreakFormatInfo='Y'">
             <xsl:call-template name="DoPageBreakFormatInfo">
                 <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:call-template name="DoFrontMatterFormatInfo">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-        </xsl:call-template>
+        <xsl:if test="$bIgnoreTextBefore='N'">
+            <xsl:call-template name="DoFrontMatterFormatInfo">
+                <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--  
         GetAbstractLayoutClassNumber
@@ -4713,6 +4726,7 @@
         <xsl:param name="fIgnoreTextAfterLetter" select="'N'"/>
         <xsl:param name="appLayout" select="$backMatterLayoutInfo/appendixLayout/appendixTitleLayout"/>
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
+        <xsl:param name="bDoingContents" select="'N'"/>
         <xsl:variable name="sTextAfterNumber">
             <xsl:if test="$appLayout/@textafternumber">
                 <xsl:value-of select="$appLayout/@textafternumber"/>
@@ -4732,6 +4746,9 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$appLayout/@showletter!='no'">
+                    <xsl:if test="name()='appendix' and not($backMatterLayoutInfo/appendixLayout/numberLayout) and $bDoingContents='N'">
+                        <xsl:value-of select="$appLayout/@textbefore"/>
+                    </xsl:if>
                     <xsl:apply-templates select="." mode="numberAppendix"/>
                     <xsl:choose>
                         <xsl:when test="$fIgnoreTextAfterLetter='Y'">

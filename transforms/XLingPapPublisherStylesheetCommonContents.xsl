@@ -100,6 +100,7 @@
                     <xsl:call-template name="OutputChapterNumber">
                         <xsl:with-param name="fDoTextAfterLetter" select="'N'"/>
                         <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        <xsl:with-param name="bDoingContents" select="'Y'"/>
                     </xsl:call-template>
                     <xsl:apply-templates select="secTitle" mode="contents">
                         <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>

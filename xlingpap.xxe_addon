@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-12-07</a:date
+>2021-12-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.9.6 7 December 2021<ul
+>3.9.6 8 December 2021<ul
 ><li
 >Fix bug: when using XXE's revision mechanism on a collection volume, author names in the contents could include strange letters (from the revision mechanism).</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when using a style sheet in a book and not using a numberLayout element, if one used a text transform and left justified the title, the chapter title would still be indented and would have extra space after it.</li
+></ul
+></li
 ></ul
 ></li
 ><li

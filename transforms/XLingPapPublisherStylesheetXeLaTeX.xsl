@@ -1263,7 +1263,17 @@
             <xsl:otherwise>
                 <tex:group>
                     <xsl:variable name="sTextTransform" select="$titleLayoutToUse/descendant-or-self::*/@text-transform"/>
-                    <xsl:if test="$sTextTransform='uppercase' or $sTextTransform='lowercase'">
+                    <xsl:variable name="fNoNumberLayout">
+                        <xsl:choose>
+                            <xsl:when test="string-length($numberLayoutToUse/@linebefore)=0">
+                                <xsl:text>Y</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>N</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <xsl:if test="$sTextTransform='uppercase' and $fNoNumberLayout='N' or $sTextTransform='lowercase' and $fNoNumberLayout='N'">
                         <xsl:call-template name="DoBookMark"/>
                         <xsl:call-template name="DoInternalTargetBegin">
                             <xsl:with-param name="sName" select="@id"/>
@@ -1276,7 +1286,7 @@
                         -->
                         <xsl:with-param name="fDoPageBreakFormatInfo" select="'N'"/>
                     </xsl:call-template>
-                    <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase')">
+                    <xsl:if test="string-length($sTextTransform)=0 or not($sTextTransform='uppercase' or $sTextTransform='lowercase') or $fNoNumberLayout='Y'">
                         <xsl:call-template name="DoInternalTargetBegin">
                             <xsl:with-param name="sName" select="@id"/>
                         </xsl:call-template>
@@ -1302,6 +1312,12 @@
                         <xsl:with-param name="layoutInfo" select="$titleLayoutToUse/descendant-or-self::*"/>
                         <xsl:with-param name="contentOfThisElement" select="$contentForThisElement2"/>
                     </xsl:call-template>
+                    <xsl:if test="string-length($sTextTransform) &gt; 0 and $fNoNumberLayout='Y'">
+                        <xsl:call-template name="DoInternalTargetBegin">
+                            <xsl:with-param name="sName" select="@id"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="DoInternalTargetEnd"/>
+                    </xsl:if>
                 </tex:group>
             </xsl:otherwise>
         </xsl:choose>

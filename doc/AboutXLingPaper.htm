@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.39.6</span></p>
-      <p align="center">Date: 2021-12-09</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.40.0</span></p>
+      <p align="center">Date: 2021-12-13</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,13 +34,36 @@
             <hr></hr>
             <p><b>Revision History2.</b></p>
             <ul>
-               <li>2.39.6 9 December 2021
+               <li>2.40.0 13 December 2021
                   <ul>
+                     <li>In section 11.44 of the user documentation,add PDFtk as another tool to use.</li>
+                     <li>Add ability to use LibreOffice to produce MathML files in user documentation. Also add note that some have used this for phrase
+                        structure rules.
+                     </li>
+                     <li>Add endnotes label information to user documentation.</li>
+                     <li>Fix bug: iso69-3codes formated via a publisher style sheet failed to use the textafter value.</li>
+                     <li>Fix bug: when using a chapter number for figure numbers and numbered tables, the textafternumber attribute of the chapterTitleLayout
+                        element would also show when it should not.
+                     </li>
+                     <li>Fix bug: when using glossary terms, if a term definition contained a citation, that cited reference appeared in the references
+                        even when that glossary term was never used in the document and that citation was also never used in the document.
+                     </li>
                      <li>Fix bug: when using XXE's revision mechanism on a collection volume, author names in the contents could include strange letters
                         (from the revision mechanism).
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Fix bug: using the showAsFootnoteAtEndOfAbstract attribute of an acknowledgementsLayout element could cause the PDF to fail
+                              to be produced.
+                           </li>
+                           <li>Fix bug: when not using a style sheet and centering or forcing a table to the right, any caption with it was still to the
+                              left.
+                           </li>
+                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
+                              when using a publisher style sheet.
+                           </li>
+                           <li>Fix bug: a table using percentages for column widths when shown in landscape mode, used a width that was for portrait mode.</li>
+                           <li>Fix bug: a table using percentages for column widths when in an example, used a width that was too wide.</li>
                            <li>Fix bug: when using a style sheet in a book and not using a numberLayout element, if one used a text transform and left justified
                               the title, the chapter title would still be indented and would have extra space after it.
                            </li>
@@ -50,57 +73,6 @@
                         <ul>
                            <li>Fix bug: when using a style sheet where an appendix has no numberLayout and there is textbefore, the textbefore value occurred
                               after the appendix letter instead of before it.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.39.5 30 November 2021
-                  <ol>
-                     <li>Add endnotes label information to user documentation.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: a table using percentages for column widths when shown in landscape mode, used a width that was for portrait mode.</li>
-                           <li>Fix bug: a table using percentages for column widths when in an example, used a width that was too wide.</li>
-                        </ul>
-                     </li>
-                  </ol>
-               </li>
-               <li>2.39.4 21 October 2021
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
-                              when using a publisher style sheet.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.39.3 1 September 2021
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: a free element whose lang attribute refers to a language element with rtl set to 'yes', had the wrong word order
-                              when not using a publisher style sheet.
-                           </li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.39.2 11 August 2021
-                  <ul>
-                     <li>Fix bug: when using a chapter number for figure numbers and numbered tables, the textafternumber attribute of the chapterTitleLayout
-                        element would also show when it should not.
-                     </li>
-                     <li>Fix bug: when using glossary terms, if a term definition contained a citation, that cited reference appeared in the references
-                        even when that glossary term was never used in the document and that citation was also never used in the document.
-                     </li>
-                     <li>In section 11.44 of the user documentation,add PDFtk as another tool to use.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when not using a style sheet and centering or forcing a table to the right, any caption with it was still to the
-                              left.
                            </li>
                         </ul>
                      </li>

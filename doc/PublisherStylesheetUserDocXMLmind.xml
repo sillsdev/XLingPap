@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 December 2021</date
+>17 December 2021</date
 ><version
 contentType="ctVersion5.3"
 >2.40.1</version
 ><version
 contentType="ctVersion7Plus"
->3.10.0</version
+>3.10.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -17725,7 +17725,7 @@ type="tAttrValue"
 >. This only works with the <object
 type="tXeTeX"
 ></object
-> way of producing PDF.</langData
+> way of producing PDF.  Also note that for this to work well, you will need to add it to every frontmatter, chapter and backmatter item that starts on an odd page.</langData
 ></td
 ><td
 ><object

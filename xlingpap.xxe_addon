@@ -32,6 +32,12 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
+>2.40.1 17 December 2021<ul
+><li
+>Clarify how to effectively use the useblankextrapage attribute on frontmatter, chapter, and backmatter items in the publisher style sheet documentation.</li
+></ul
+></li
+><li
 >2.40.0 13 December 2021<ul
 ><li
 >In section 11.44 of the user documentation,add PDFtk as another tool to use.</li

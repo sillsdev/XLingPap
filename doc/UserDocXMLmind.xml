@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 November 2021</date
+>13 December 2021</date
 ><version
 contentType="ctVersion5.3"
->2.39.5</version
+>2.40.0</version
 ><version
 contentType="ctVersion7Plus"
->3.9.5</version
+>3.10.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -3953,7 +3953,7 @@ note="nAttributesToolReminder"
 > <indexedItem
 term="iEndnotesChapterLabel"
 ></indexedItem
->If you are creating a book, then each chapter containing an endnote will have the chapter number preceding the endnotes for that chapter.  The default label for these chapters is “Chapter.”  To change it to something else, click on the <object
+>If you are creating a book, then each chapter containing an endnote will have the chapter number preceding the endnotes for that chapter. The default label for these chapters is “Chapter.” To change it to something else, click on the <object
 type="tElement"
 >lingPaper</object
 > element in the node path bar<endnoteRef

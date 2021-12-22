@@ -148,7 +148,6 @@
                 <xsl:apply-templates select="$work/.."/>
             </xsl:when>
             <xsl:otherwise>
-<!--                <xsl:value-of select="$sAuthorName"/>-->
                 <xsl:copy-of select="$sAuthorName"/>
             </xsl:otherwise>
         </xsl:choose>

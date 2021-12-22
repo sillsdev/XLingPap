@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.40.0</a:version
+>2.40.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-12-13</a:date
+>2021-12-22</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,9 +32,11 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.1 17 December 2021<ul
+>2.40.1 22 December 2021<ul
 ><li
 >Clarify how to effectively use the useblankextrapage attribute on frontmatter, chapter, and backmatter items in the publisher style sheet documentation.</li
+><li
+>Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li
 ></ul
 ></li
 ><li

@@ -51,7 +51,7 @@
                                                 <xsl:apply-templates select="$work/.."/>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="$sAuthorName"/>        
+                                                <xsl:copy-of select="$sAuthorName"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                         <xsl:call-template name="DoFormatLayoutInfoTextAfter">
@@ -219,6 +219,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="$iso639-3codeItem/@text"/>
+            <xsl:value-of select="$iso639-3codeItem/@textafter"/>
             <xsl:if test="position() != last()">
                 <xsl:value-of select="$iso639-3codeItem/@textbetween"/>
             </xsl:if>

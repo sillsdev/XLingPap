@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-12-22</a:date
+>2021-12-24</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,11 +32,17 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.1 22 December 2021<ul
+>2.40.1 24 December 2021<ul
 ><li
 >Clarify how to effectively use the useblankextrapage attribute on frontmatter, chapter, and backmatter items in the publisher style sheet documentation.</li
 ><li
 >Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a p element followed a framedUnit, the p would not be indented.</li
+></ul
+></li
 ></ul
 ></li
 ><li

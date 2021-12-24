@@ -2834,6 +2834,9 @@
                 <tex:spec cat="eg"/>
             </xsl:if>
         </tex:env>
+        <xsl:if test="name(following-sibling::*[1])='p'">
+            <tex:cmd name="par"/>
+        </xsl:if>
     </xsl:template>
     <!-- ===========================================================
         LANDSCAPE

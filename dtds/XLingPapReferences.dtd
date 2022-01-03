@@ -272,6 +272,7 @@
     page CDATA #IMPLIED
     timestamp CDATA #IMPLIED
     author (yes | no) "yes"
+    date (yes | no) "yes"
     paren (both | none | initial | final | citationBoth | citationInitial) #IMPLIED
 >
 <!ENTITY % XLingPapCharacterEntities SYSTEM  "XLingPapCharacterEntities.dtd">

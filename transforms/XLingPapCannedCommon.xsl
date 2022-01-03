@@ -385,7 +385,9 @@
         </xsl:if>
         <xsl:if test="@author='yes'">
             <xsl:value-of select="$refer/../@citename"/>
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:if test="@date='yes'">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
             <xsl:text>(</xsl:text>
@@ -403,13 +405,17 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:if test="@author='yes' and not(not(@paren) or @paren='both' or @paren='initial')">
-            <xsl:text>&#x20;</xsl:text>
+            <xsl:if test="@date='yes'">
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
         </xsl:if>
-        <xsl:value-of select="$date"/>
-        <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
-            <xsl:apply-templates select="$refer" mode="dateLetter">
-                <xsl:with-param name="date" select="$date"/>
-            </xsl:apply-templates>
+        <xsl:if test="@date!='no'">
+            <xsl:value-of select="$date"/>
+            <xsl:if test="count($works[refDate=$date or refDate/@citedate=$date])>1">
+                <xsl:apply-templates select="$refer" mode="dateLetter">
+                    <xsl:with-param name="date" select="$date"/>
+                </xsl:apply-templates>
+           </xsl:if>
         </xsl:if>
         <xsl:variable name="sPage" select="normalize-space(@page)"/>
         <xsl:if test="string-length($sPage) &gt; 0">

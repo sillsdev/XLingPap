@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2021-12-24</a:date
+>2022-01-03</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.10.1 24 December 2021<ul
+>3.10.1 3 January 2022<ul
+><li
+>Allow citations to not have a date (per historical linguistics convention).</li
 ><li
 >Clarify how to effectively use the useblankextrapage attribute on frontmatter, chapter, and backmatter items in the publisher style sheet documentation.</li
 ><li

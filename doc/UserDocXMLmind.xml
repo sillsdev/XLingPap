@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 December 2021</date
+>3 January 2022</date
 ><version
 contentType="ctVersion5.3"
->2.40.0</version
+>2.40.1</version
 ><version
 contentType="ctVersion7Plus"
->3.10.0</version
+>3.10.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -18957,6 +18957,23 @@ type="tCitationLabel"
 >forthcoming</object
 > as the date.</p
 ><p
+><indexedItem
+term="iCitationsDateNone"
+></indexedItem
+>In some cases (such as for some documents on historical linguistics), a date is not required or even desired. For these, set the <object
+type="tAttribute"
+>date</object
+> attribute of the <object
+type="tElement"
+>citation</object
+> element to <object
+type="tAttrValue"
+>no</object
+>. While the date will not show in the output, it is still shown in the <object
+type="tXMLmindXMLEditor"
+></object
+> so that you can more easily know which reference is being cited.</p
+><p
 >The placement of the parentheses around the date in the citation within the text can be controlled by the user. The default option is to enclose the date in parentheses. In <exampleRef
 num="xCitationExample"
 ></exampleRef
@@ -36192,6 +36209,13 @@ id="iCitationsAuthor"
 id="iCitationsDate"
 ><term
 >Controlling date</term
+><indexTerms
+><indexTerm
+id="iCitationsDateNone"
+><term
+>Show no date</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iCitationsPageNumber"

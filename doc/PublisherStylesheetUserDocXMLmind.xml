@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->17 December 2021</date
+>3 January 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.40.1</version
@@ -574,6 +574,8 @@ letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
 > or ems. Do not put any spaces between the number and the unit.</p
+><p
+>Please note that this only works for footnotes. It does not work when you use endnotes.</p
 ></section2
 ><section2
 id="sFootnoteLineSeparator"

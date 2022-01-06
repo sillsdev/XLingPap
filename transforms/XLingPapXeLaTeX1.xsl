@@ -4574,7 +4574,6 @@
     -->
     <xsl:template name="HandleFreeNoLanguageFontInfo">
         <xsl:param name="originalContext"/>
-        <xsl:call-template name="DoLiteralLabel"/>
         <xsl:variable name="sFreeTextContent" select="normalize-space(.)"/>
         <xsl:choose>
             <xsl:when test="string-length($sFreeTextContent)=0 and following-sibling::free">

@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-01-03</a:date
+>2022-01-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.1 3 January 2022<ul
+>2.40.1 6 January 2022<ul
 ><li
 >Improve information on footnote indents in publisher style sheet documentation.</li
 ><li
@@ -43,6 +43,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: using a literal would output two copies of "Lit." when there is no style sheet.</li
 ><li
 >Fix bug: when a p element followed a framedUnit, the p would not be indented.</li
 ></ul

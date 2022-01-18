@@ -2273,10 +2273,33 @@
         </xsl:call-template>
         <xsl:if test="string-length(normalize-space(@width)) &gt; 0">
             <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
-                force ragged right
+                force ragged right s a deafult
             -->
-            <tex:spec cat="esc"/>
-            <xsl:text>raggedright</xsl:text>
+            <xsl:choose>
+                <xsl:when test="@align='right'">
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedleft </xsl:text>
+                </xsl:when>
+                <xsl:when test="@align='center'">
+                    <xsl:if test="not(@colspan) or @colspan=1 or @width">
+                        <tex:cmd name="vspace">
+                            <tex:parm>
+                                <xsl:text>-1.7</xsl:text>
+                                <tex:cmd name="baselineskip" gr="0"/>
+                            </tex:parm>
+                        </tex:cmd>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>center </xsl:text>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="@align='justify'">
+                    <!-- do nothing -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>raggedright </xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:call-template name="FormatTHContent"/>
         <xsl:call-template name="DoCellAttributesEnd"/>
@@ -2378,8 +2401,10 @@
         <xsl:variable name="colSpansInTable" select="$parentTablesFirstRow/td[@colspan] | $parentTablesFirstRow/th[@colspan]"/>
         <xsl:variable name="rowSpansInTable" select="$parentTablesFirstRow/td[@rowspan] | $parentTablesFirstRow/th[@rowspan]"/>
         <xsl:variable name="widthsInFirstRowOfTable" select="$parentTablesFirstRow/td[@width] | $parentTablesFirstRow/th[@width]"/>
-        <xsl:if test="string-length(normalize-space(@width)) &gt; 0 or not(count($colSpansInTable) &gt; 0 or count($rowSpansInTable) &gt; 0 or count($widthsInFirstRowOfTable) = 0)">
-            <!-- the user has specifed a width, so chances are that justification of the header will look stretched out; 
+        <xsl:variable name="iPosition" select="count(preceding-sibling::td) + count(preceding-sibling::th) + 1"/>
+        <xsl:variable name="widthForThisCell" select="$parentTablesFirstRow/*[position()=$iPosition]/@width"/>
+        <xsl:if test="string-length(normalize-space(@width)) &gt; 0 or string-length(normalize-space($widthForThisCell)) &gt; 0">
+                <!-- the user has specifed a width, so chances are that justification of the header will look stretched out;
                 force ragged right as default
             -->
             <xsl:choose>

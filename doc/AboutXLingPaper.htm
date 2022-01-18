@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.10.1</span></p>
-      <p align="center">Date: 2022-01-06</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.10.2</span></p>
+      <p align="center">Date: 2022-01-18</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,6 +34,15 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.10.2 18 January 2022
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: setting a width for a table column could cause the PDF to fail to be produced.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.10.1 6 January 2022
                   <ul>
                      <li>Improve information on footnote indents in publisher style sheet documentation.</li>
@@ -44,7 +53,7 @@
                      <li>Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
-                           <li>Fix bug: using a literal would output two copies of  "Lit." when there is no style sheet.</li>
+                           <li>Fix bug: using a literal would output two copies of "Lit." when there is no style sheet.</li>
                            <li>Fix bug: when a p element followed a framedUnit, the p would not be indented.</li>
                         </ul>
                      </li>

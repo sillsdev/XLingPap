@@ -300,8 +300,10 @@ public class XLingPaperFontInfoChooserDialog extends javax.swing.JDialog {
 
 	pack();
 	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-	setSize(new java.awt.Dimension(443, 429));
-	setLocation((screenSize.width - 443) / 2, (screenSize.height - 429) / 2);
+	setSize(new java.awt.Dimension(screenSize.width / 3, screenSize.height / 3));
+	setLocation(screenSize.width / 2, screenSize.height / 4);
+//	setSize(new java.awt.Dimension(443, 429));
+//	setLocation((screenSize.width - 443) / 2, (screenSize.height - 429) / 2);
     }// GEN-END:initComponents
 
     private void initPercentagePointRadioGroup(LocalizeString ls) {

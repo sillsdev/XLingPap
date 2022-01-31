@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 January 2022</date
+>31 January 2022</date
 ><version
 contentType="ctVersion5.3"
->2.40.1</version
+>2.40.2</version
 ><version
 contentType="ctVersion7Plus"
->3.10.1</version
+>3.10.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -23242,7 +23242,19 @@ type="tElement"
 >table</object
 > within another table, then you will probably get overlapping material. Also, the percentage is of the total width of the table (not, say, how much larger or smaller you want the column to be).</p
 ></endnote
-> Given how <object
+> For example, if you want a column width to be .75 inches, set the <object
+type="tAttribute"
+>width</object
+> attribute of the <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element to <object
+type="tAttrValue"
+>.75in</object
+>. Note that there are no spaces and no quotes and no equals sign. Given how <object
 type="tXeTeX"
 ></object
 > works, however, you may have to play with the values some to get things to come out just the way you want.<br
@@ -28135,6 +28147,19 @@ note="nNodePathBarReminder"
 note="nAttributesToolReminder"
 ></endnoteRef
 > Note that if your document is large, it may take a while before the attribute value finishing changing.</p
+></section2
+><section2
+id="sUseShortDocumentWhenLongTakesALongTime"
+><secTitle
+>Use a Shorter Document When it Takes a Long Time on a Long Document</secTitle
+><p
+><indexedItem
+term="iInterlinearTextProcessFaster"
+></indexedItem
+><indexedItem
+term="iTableProcessFaster"
+></indexedItem
+>There are times when you are writing a long document and glossing an interlinear text, say, or working on a complicated table. To save some time, you can put the text or table in a new, small document, copy (or refer to) the language, type, abbreviation and publisher style sheet elements, and work in the small document until you get things to work correctly. Then you can copy it to the large document.</p
 ></section2
 ></section1
 ><section1
@@ -37325,6 +37350,11 @@ id="iInterlinearTextIncludeLines"
 ><term
 >Include only some lines</term
 ></indexTerm
+><indexTerm
+id="iInterlinearTextProcessFaster"
+><term
+>Process faster</term
+></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
@@ -38282,6 +38312,11 @@ id="iTableXeLaTeXPDFborder-right"
 >Vertical line to the right of a table cell</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iTableProcessFaster"
+><term
+>Process faster</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

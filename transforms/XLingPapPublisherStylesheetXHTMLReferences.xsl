@@ -149,9 +149,16 @@
                     <xsl:call-template name="AddAnyLinkAttributes">
                         <xsl:with-param name="override" select="$pageLayoutInfo/linkLayout/citationLinkLayout"/>
                     </xsl:call-template>
-                    <xsl:call-template name="OutputCitationName">
-                        <xsl:with-param name="citeName" select="$refer/../@citename"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputCitationName">
+                                <xsl:with-param name="citeName" select="$refer/../@citename"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </a>
             </span>
         </xsl:for-each>

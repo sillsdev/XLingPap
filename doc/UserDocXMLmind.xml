@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->31 January 2022</date
+>18 February 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.40.2</version
@@ -4142,7 +4142,28 @@ type="tAttribute"
 > attribute is how you want the author's name to be shown in a citation within the body of the paper.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-></p
+> If you find that you need some custom formatting for the citation name, you can insert a <object
+type="tElement"
+>citeName</object
+> element, key the name, and use <object
+type="tElement"
+>object</object
+> elements to do the custom formatting. To insert a <object
+type="tElement"
+>citeName</object
+> element, click on the first <object
+type="tElement"
+>refWork</object
+> element of this author and then do an insert before operation. Please note that if you use a <object
+type="tElement"
+>citeName</object
+> element, then any automatic author rearranging <object
+type="tXLingPap"
+></object
+> might do will *not* be done. See the last paragraph in section <sectionRef
+sec="sBMRefCollectionCitationOverview"
+></sectionRef
+> below.</p
 ><p
 ><indexedItem
 term="iAuthorReferencesName"
@@ -30821,6 +30842,13 @@ type="tElement"
 ></dt
 ><dd
 >A citation to a reference</dd
+><dt
+><object
+type="tElement"
+>citeName</object
+></dt
+><dd
+>A way to create custom formatting of a citation name for a reference.</dd
 ><dt
 ><object
 type="tElement"

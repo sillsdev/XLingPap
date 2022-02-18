@@ -5450,9 +5450,23 @@
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
-            <xsl:call-template name="OutputCitationName">
-                <xsl:with-param name="citeName" select="$refer/../@citename"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$refer/../citeName">
+                    <xsl:apply-templates select="$refer/../citeName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="OutputCitationName">
+                                <xsl:with-param name="citeName" select="$refer/../@citename"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:choose>
                 <xsl:when test="@date!='yes'">
                     <!-- do nothing -->

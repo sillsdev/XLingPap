@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-01-31</a:date
+>2022-02-18</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.2 31 January 2022<ul
+>2.40.2 18 February 2022<ul
+><li
+>Allow formatting in citation names.</li
 ><li
 >Add section 12.12 to user documentation on how to work faster when editing a text or complicated table within a long document.</li
 ><li

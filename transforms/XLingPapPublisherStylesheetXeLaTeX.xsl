@@ -1087,7 +1087,7 @@
                     <!-- an appendix in a chapter in a collection is treated like a section, as far as the header is concerned -->
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="$bodyLayoutInfo/headerFooterPageStyles/*[descendant::chapterTitle and descendant::sectionTitle]">
@@ -1098,7 +1098,7 @@
                 <xsl:otherwise>
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1427,13 +1427,13 @@
                 <tex:parm>
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </tex:parm>
                 <tex:parm>
                     <xsl:call-template name="DoSecTitleRunningHeader">
                         <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                     </xsl:call-template>
                 </tex:parm>
             </tex:cmd>
@@ -1467,13 +1467,13 @@
                     <tex:parm>
                         <xsl:call-template name="DoSecTitleRunningHeader">
                             <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                         </xsl:call-template>
                     </tex:parm>
                     <tex:parm>
                         <xsl:call-template name="DoSecTitleRunningHeader">
                             <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"> </xsl:with-param>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
                         </xsl:call-template>
                     </tex:parm>
                 </tex:cmd>

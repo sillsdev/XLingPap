@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->31 January 2022</date
+>18 February 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.40.2</version
@@ -4142,7 +4142,28 @@ type="tAttribute"
 > attribute is how you want the author's name to be shown in a citation within the body of the paper.<endnoteRef
 note="nAttributesToolReminder"
 ></endnoteRef
-></p
+> If you find that you need some custom formatting for the citation name, you can insert a <object
+type="tElement"
+>citeName</object
+> element, key the name, and use <object
+type="tElement"
+>object</object
+> elements to do the custom formatting. To insert a <object
+type="tElement"
+>citeName</object
+> element, click on the first <object
+type="tElement"
+>refWork</object
+> element of this author and then do an insert before operation.  Please note that if you use a <object
+type="tElement"
+>citeName</object
+> element, then any automatic author rearranging <object
+type="tXLingPap"
+></object
+> might do will *not* be done.  See the last paragraph in section <sectionRef
+sec="sBMRefCollectionCitationOverview"
+></sectionRef
+> below.</p
 ><p
 ><indexedItem
 term="iAuthorReferencesName"
@@ -23242,7 +23263,7 @@ type="tElement"
 >table</object
 > within another table, then you will probably get overlapping material. Also, the percentage is of the total width of the table (not, say, how much larger or smaller you want the column to be).</p
 ></endnote
->  For example, if you want a column width to be .75 inches, set the <object
+> For example, if you want a column width to be .75 inches, set the <object
 type="tAttribute"
 >width</object
 > attribute of the <object
@@ -23254,7 +23275,7 @@ type="tElement"
 > element to <object
 type="tAttrValue"
 >.75in</object
->.  Note that there are no spaces and no quotes and no equals sign. Given how <object
+>. Note that there are no spaces and no quotes and no equals sign. Given how <object
 type="tXeTeX"
 ></object
 > works, however, you may have to play with the values some to get things to come out just the way you want.<br
@@ -28159,7 +28180,7 @@ term="iInterlinearTextProcessFaster"
 ><indexedItem
 term="iTableProcessFaster"
 ></indexedItem
->There are times when you are writing a long document and glossing an interlinear text, say, or working on a complicated table.  To save some time, you can put the text or table in a new, small document, copy (or refer to) the language, type, abbreviation and publisher style sheet elements, and work in the small document until you get things to work correctly.  Then you can copy it to the large document.</p
+>There are times when you are writing a long document and glossing an interlinear text, say, or working on a complicated table. To save some time, you can put the text or table in a new, small document, copy (or refer to) the language, type, abbreviation and publisher style sheet elements, and work in the small document until you get things to work correctly. Then you can copy it to the large document.</p
 ></section2
 ></section1
 ><section1
@@ -30821,6 +30842,13 @@ type="tElement"
 ></dt
 ><dd
 >A citation to a reference</dd
+><dt
+><object
+type="tElement"
+>citeName</object
+></dt
+><dd
+>A way to create custom formatting of a citation name for a reference.</dd
 ><dt
 ><object
 type="tElement"

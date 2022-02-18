@@ -3568,7 +3568,14 @@
             <xsl:call-template name="DoInternalHyperlinkBegin">
                 <xsl:with-param name="sName" select="@refToBook"/>
             </xsl:call-template>
-            <xsl:value-of select="$refer/../@citename"/>
+            <xsl:choose>
+                <xsl:when test="$refer/../citeName">
+                    <xsl:apply-templates select="$refer/../citeName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$refer/../@citename"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:text>,&#x20;</xsl:text>
             <xsl:value-of select="$refer/authorRole"/>
             <xsl:text>, </xsl:text>

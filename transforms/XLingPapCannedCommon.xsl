@@ -384,7 +384,21 @@
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
-            <xsl:value-of select="$refer/../@citename"/>
+            <xsl:choose>
+                <xsl:when test="$refer/../citeName">
+                    <xsl:apply-templates select="$refer/../citeName"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$refer/../citeName">
+                            <xsl:apply-templates select="$refer/../citeName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$refer/../@citename"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:if test="@date='yes'">
                 <xsl:text>&#x20;</xsl:text>
             </xsl:if>

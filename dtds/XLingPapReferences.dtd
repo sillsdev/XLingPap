@@ -22,7 +22,7 @@
     pageRangeSeparator CDATA #IMPLIED
 >
 <!-- the citename is the string to use in a citation within the text body -->
-<!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, refWork+)>
+<!ELEMENT refAuthor (refAuthorInitials?, refAuthorName?, citeName?, refWork+)>
 <!ATTLIST refAuthor
     name CDATA #REQUIRED
     citename CDATA #REQUIRED
@@ -37,6 +37,7 @@
 <!ELEMENT  refAuthorInitials (#PCDATA | %embedded;)* >
 <!ELEMENT  refAuthorName (#PCDATA | refAuthorLastName)* >
 <!ELEMENT  refAuthorLastName (#PCDATA) >     
+<!ELEMENT  citeName (#PCDATA | %embedded;)* >
 <!ELEMENT refWork (authorRole?, refDate, refTitle, refTitleLowerCase?, (article | book | collection | dissertation | fieldNotes | ms | paper | proceedings | thesis | webPage), url?, dateAccessed?, iso639-3code*, comment?, annotations?, keywords?)>
 <!ATTLIST refWork
     id ID #REQUIRED

@@ -1125,6 +1125,22 @@ col {
     padding: 2;
 }
 */
+citeName:before
+{
+	content:" (Custom citation name(s): "
+	;
+	font-size: smaller;
+}
+citeName
+{
+	display:inline;
+}
+citeName:after
+{
+	content:") "
+	;
+	font-size:smaller;
+}
 collCitation:before
 {
 	content: " In ";

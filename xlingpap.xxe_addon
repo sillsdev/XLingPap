@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-02-18</a:date
+>2022-03-24</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.10.2 18 February 2022<ul
+>3.10.2 24 March 2022<ul
 ><li
 >Allow formatting in citation names.</li
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add section 12.12 to user documentation on how to work faster when editing a text or complicated table within a long document.</li
 ><li
 >Fix bug in Windows installer: resetvars.bat referred to wrong directory.</li
+><li
+>Improve publisher style sheet documentation on the useblankextrapage attribute for title formats.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

@@ -27,6 +27,7 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
     final String sHref = "href=\"";
     final String sSrc = "src=\"";
     final String sHyphenationExceptionsFile = "hyphenationExceptionsFile=\"";
+    boolean fLanguagesInIncludedFile = false;
     String[] asFileNames = new String[kMaxFiles];
 
     public boolean prepare(DocumentView docView, String parameter, int x, int y) {
@@ -151,14 +152,18 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 		    }
 		}
 		if (line.contains("<language") && !line.contains("<languages")) {
+			fLanguagesInIncludedFile = true;
 		    if (line.contains(sHyphenationExceptionsFile)) {
 			iCount = getFileName(iCount, line, sHyphenationExceptionsFile,
 				sDocumentPath, docView);
 		    } else {
 			line = br.readLine();
-			if (line != null && line.contains(sHyphenationExceptionsFile)) {
-			    iCount = getFileName(iCount, line, sHyphenationExceptionsFile,
-				    sDocumentPath, docView);
+			while (line != null && !line.contains("</language")) {
+				if (line != null && line.contains(sHyphenationExceptionsFile)) {
+				    iCount = getFileName(iCount, line, sHyphenationExceptionsFile,
+					    sDocumentPath, docView);
+				}
+				line = br.readLine();
 			}
 		    }
 		}
@@ -172,15 +177,15 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 
     private int getFileName(int iCount, String line, String sFileRefAttribute,
 	    String sDocumentPath, DocumentView docView) {
-	// showAlert(docView, "line = '" + line + "'");
+	 showAlert(docView, "line = '" + line + "'");
 	int iBegin = line.indexOf(sFileRefAttribute) + sFileRefAttribute.length();
 	int iEnd = line.substring(iBegin).indexOf('"') + sFileRefAttribute.length();
-	// showAlert(docView, "iBegin = " + iBegin + " and iEnd = " + iEnd);
+	 showAlert(docView, "iBegin = " + iBegin + " and iEnd = " + iEnd);
 	String sFilePath = line.substring(iBegin, iEnd);
-	// showAlert(docView, "sFilePath = '" + sFilePath + "'");
+	 showAlert(docView, "sFilePath = '" + sFilePath + "'");
 	asFileNames[iCount++] = sDocumentPath + File.separator
 		+ fixupImageFile(sDocumentPath, sFilePath);
-	// showAlert(docView, "asFileNames[iCount] = '" + asFileNames[iCount-1] + "'");
+	 showAlert(docView, "asFileNames[iCount] = '" + asFileNames[iCount-1] + "'");
 	return iCount;
     }
 
@@ -277,6 +282,10 @@ public class GetXIncludesAndImageFiles extends RecordableCommand {
 
     private int findAnyHyphenationExceptionFiles(DocumentView docView, int iCount,
 	    String sDocumentPath) throws ParseException, EvalException {
+    	if (fLanguagesInIncludedFile) {
+    		// Already looked for them
+    		return iCount;
+    	}
 	Document doc = docView.getDocument();
 	String sXpath = "//language/@hyphenationExceptionsFile";
 	XNode[] results = XPathUtil.evalAsNodeSet(sXpath, doc);

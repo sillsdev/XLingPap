@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 February 2022</date
+>6 April 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.40.2</version
@@ -4154,13 +4154,13 @@ type="tElement"
 > element, click on the first <object
 type="tElement"
 >refWork</object
-> element of this author and then do an insert before operation.  Please note that if you use a <object
+> element of this author and then do an insert before operation. Please note that if you use a <object
 type="tElement"
 >citeName</object
 > element, then any automatic author rearranging <object
 type="tXLingPap"
 ></object
-> might do will *not* be done.  See the last paragraph in section <sectionRef
+> might do will *not* be done. See the last paragraph in section <sectionRef
 sec="sBMRefCollectionCitationOverview"
 ></sectionRef
 > below.</p
@@ -26428,7 +26428,16 @@ id="nHyphenationExceptionFilePath"
 ><p
 >On Windows operating systems, be sure and replace any backslash (\) characters with forward slashes (/). The “Browse Files...” button will automatically do this for ypu.</p
 ></endnote
-></p
+>  If you put your <object
+type="tElement"
+>languages</object
+> element in a referenced file and that file is not in the same directory as the main document, please note that you will have to set the <object
+type="tAttribute"
+>hyphenationExceptionsFile</object
+> attribute to refer to where it is located with respect to the main document; otherwise, <object
+type="tXeTeX"
+></object
+> will not know about the exceptions and they will not be used when hyphenating.</p
 ></section2
 ><section2
 id="sFAQSentenceSpacing"

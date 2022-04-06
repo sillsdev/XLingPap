@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.10.2 24 March 2022<ul
+>3.10.2 6 April 2022<ul
 ><li
 >Allow formatting in citation names.</li
 ><li
@@ -49,6 +49,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Add section 12.12 to user documentation on how to work faster when editing a text or complicated table within a long document.</li
 ><li
 >Fix bug in Windows installer: resetvars.bat referred to wrong directory.</li
+><li
+>Fix bugs in CreateZip command: a hyphenation exceptions file could be missed or located in the wrong place.</li
 ><li
 >Improve publisher style sheet documentation on the useblankextrapage attribute for title formats.</li
 ><li

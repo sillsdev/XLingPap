@@ -436,9 +436,14 @@
                 <xsl:call-template name="OutputTypeAttributesEnd">
                     <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
                 </xsl:call-template>
-                <xsl:if test="count(child::*)=1 and child::*[1][name()='langData' or name()='gloss' or name()='object']">
-                    <tex:cmd name="par"/>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="count(child::*)=1 and child::*[1][name()='langData' or name()='gloss' or name()='object' or name()='q']">
+                        <tex:cmd name="par"/>
+                    </xsl:when>
+                    <xsl:when test="count(child::*)&gt;1 and child::*[name()='langData' or name()='gloss' or name()='object' or name()='q']">
+                        <tex:cmd name="par"/>
+                    </xsl:when>
+                </xsl:choose>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
                     <tex:spec cat="eg"/>
                 </xsl:if>

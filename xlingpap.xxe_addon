@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-03-24</a:date
+>2022-04-14</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,7 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.2 24 March 2022<ul
+>2.40.2 14 April 2022<ul
 ><li
 >Allow formatting in citation names.</li
 ><li
@@ -45,6 +45,8 @@ href="mailto::xlingpaper_support@sil.org"
 >Try to make documentation on setting a table column width value clearer.</li
 ><li
 >Fix bug: setting a width for a table column could cause the PDF to fail to be produced.</li
+><li
+>Fix bug: a blockquote with two or more q elements did not format correctly.</li
 ></ul
 ></li
 ></ul

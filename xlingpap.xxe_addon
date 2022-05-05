@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.10.2</a:version
+>3.10.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-04-14</a:date
+>2022-05-05</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.10.3 5 May 2022<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add new XeLaTeXSpecial attribute value for table cells when the table has row spans and the output puts a cell in the wrong column.  Use "extra-columns-before='2'"or however many columns are needed to put the cell in the correct column.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.10.2 14 April 2022<ul
 ><li

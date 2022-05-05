@@ -2268,8 +2268,8 @@
             <xsl:call-template name="DetermineIfInARowSpan"/>
         </xsl:variable>
         <xsl:if test="contains($bInARowSpan,'Y')">
-            <xsl:call-template name="DoRowSpanAdjust">
-                <xsl:with-param name="sList" select="$bInARowSpan"/>
+            <xsl:call-template name="HandleRowspans">
+                <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="DoCellAttributes">
@@ -2380,8 +2380,8 @@
         </xsl:variable>
         <xsl:if test="contains($bInARowSpan,'Y')">
             <xsl:call-template name="HandleFootnotesInTableHeader"/>
-            <xsl:call-template name="DoRowSpanAdjust">
-                <xsl:with-param name="sList" select="$bInARowSpan"/>
+            <xsl:call-template name="HandleRowspans">
+                <xsl:with-param name="bInARowSpan" select="$bInARowSpan"/>
             </xsl:call-template>
         </xsl:if>
         <xsl:call-template name="DoCellAttributes">
@@ -7490,7 +7490,7 @@
                 <xsl:call-template name="CountPreviousRowspansInMyRow">
                     <xsl:with-param name="previousCellsWithRowspansSpanningMyRow"
                         select="../preceding-sibling::tr/th[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan] | ../preceding-sibling::tr/td[@rowspan][($iRowNumberOfCell - (count(../preceding-sibling::tr) + 1)) + 1 &lt;= @rowspan]"/>
-                    <xsl:with-param name="iPosition">1</xsl:with-param>
+                    <xsl:with-param name="iPosition" select="'1'"/>
                     <xsl:with-param name="iMyInSituColumnNumber" select="$iInSituColumnNumberOfPreviousCellWithRowspan"/>
                 </xsl:call-template>
             </xsl:variable>
@@ -8291,6 +8291,35 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:apply-templates/>
+    </xsl:template>
+    <!--  
+        HandleRowspans
+    -->
+    <xsl:template name="HandleRowspans">
+        <xsl:param name="bInARowSpan"/>
+        <xsl:choose>
+            <xsl:when test="contains(@XeLaTeXSpecial,'extra-columns-before=')">
+                <xsl:variable name="iColumnNumber">
+                    <xsl:call-template name="HandleXeLaTeXSpecialCommand">
+                        <xsl:with-param name="sPattern" select="'extra-columns-before='"/>
+                        <xsl:with-param name="default" select="0"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:if test="$iColumnNumber &gt; 0">
+                    <xsl:call-template name="DoRowSpanAdjust">
+                        <xsl:with-param name="sList" select="substring($sYs,1,$iColumnNumber)"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="preceding-sibling::td[contains(@XeLaTeXSpecial,'extra-columns-before=')]">
+                <!-- do nothing -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoRowSpanAdjust">
+                    <xsl:with-param name="sList" select="$bInARowSpan"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         HandleSmallCapsBegin

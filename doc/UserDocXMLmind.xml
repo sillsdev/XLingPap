@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 February 2022</date
+>5 May 2022</date
 ><version
 contentType="ctVersion5.3"
->2.40.2</version
+>2.40.3</version
 ><version
 contentType="ctVersion7Plus"
->3.10.2</version
+>3.10.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -15168,7 +15168,7 @@ id="sTCTTablesPDF"
 >When using the default way of producing PDF (via <object
 type="tXeTeX"
 ></object
->), there are some special cases you may run into. See the first five bullet points in section <sectionRef
+>), there are some special cases you may run into. See the first five ordered list items in section <sectionRef
 sec="sXeTeXLimitations"
 ></sectionRef
 >.</p
@@ -15181,6 +15181,11 @@ type="tAttribute"
 >XeLaTeXSpecial</object
 > attribute is found.</p
 ><ul
+><li
+><genericRef
+gref="gXeLaTeXextracolumnsbefore"
+>Adjust the column position of a table cell's content when there are row spans in the table and a cell shows too far to the left.</genericRef
+></li
 ><li
 ><genericRef
 gref="gXeLaTeXvalign-fixup"
@@ -23341,7 +23346,22 @@ href="http://gnomecoder.wordpress.com/screenruler/"
 ></table
 ></li
 ><li
->If you have column and row spans in a table, you may find that the positioning that comes out is not quite ideal. Please send an email to <link
+>If you have column and row spans in a table, you may find that the positioning that comes out is not quite ideal. If you have row spans, then you can try using the <object
+type="tAttrValue"
+>extra-columns-before</object
+> value of the <object
+type="tAttribute"
+>XeLaTeXSpecial</object
+> attribute of the <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element that is in the wrong location. See appendix <appendixRef
+app="aXeLaTeXSpecial"
+></appendixRef
+>. If that does not help, please send an email to <link
 href="mailto:xlingpaper_support@sil.org"
 >xlingpaper_support@sil.org</link
 > and we'll work on a solution for you.</li
@@ -23364,7 +23384,7 @@ type="tElement"
 >Sometimes when you have a <object
 type="tElement"
 >link</object
-> element in a paragraph and the URL it contains is rather long, the URL will end up sticking out into the margin. We suggest you insert zero width spaces at appropriate (e.g. punctuation character) places in the URL. See section <sectionRef
+> element in a paragraph and the URL it contains is rather long, the URL will end up sticking out into the margin. We suggest you insert zero width spaces at appropriate (e.g., punctuation character) places in the URL. See section <sectionRef
 sec="sFAQBreakLongURLs"
 ></sectionRef
 > for more on this.</li
@@ -26428,7 +26448,16 @@ id="nHyphenationExceptionFilePath"
 ><p
 >On Windows operating systems, be sure and replace any backslash (\) characters with forward slashes (/). The “Browse Files...” button will automatically do this for ypu.</p
 ></endnote
-></p
+> If you put your <object
+type="tElement"
+>languages</object
+> element in a referenced file and that file is not in the same directory as the main document, please note that you will have to set the <object
+type="tAttribute"
+>hyphenationExceptionsFile</object
+> attribute to refer to where it is located with respect to the main document; otherwise, <object
+type="tXeTeX"
+></object
+> will not know about the exceptions and they will not be used when hyphenating.</p
 ></section2
 ><section2
 id="sFAQSentenceSpacing"
@@ -34976,6 +35005,45 @@ type="tItalic"
 ><tr
 ><td
 ><indexedItem
+main="yes"
+term="iTableXeLaTeXPDFextra-columns-before"
+></indexedItem
+><genericTarget
+id="gXeLaTeXextracolumnsbefore"
+></genericTarget
+>extra-columns-before</td
+><td
+>a numerical value</td
+><td
+>In the rare case where a table has row spans and a table cell shows too far to the left, use this value in the <object
+type="tElement"
+>td</object
+> or <object
+type="tElement"
+>th</object
+> element. The value to use is the number of extra columns the cell should have before it. For example, if a cell should be in column four, but shows in column three and there are no other cells before it, use <object
+type="tAttrValue"
+>extra-columns-before='3'</object
+>. If the cell is in column six and there is a cell in column four of this same row (and column five is empty because a row span takes its place), use <object
+type="tAttrValue"
+>extra-columns-before='1'</object
+>.</td
+><td
+><table
+><tr
+><td
+>extra-columns-before='3'</td
+></tr
+><tr
+><td
+>extra-columns-before='1'</td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
 term="ifix-final-landscape"
 ></indexedItem
 >fix-final-landscape</td
@@ -38304,6 +38372,11 @@ type="tXeTeX"
 ></object
 > special features</term
 ><indexTerms
+><indexTerm
+id="iTableXeLaTeXPDFextra-columns-before"
+><term
+>Adjust the horizontal (column) position of a cell's content when there are row spans in the table and a cell shows too far to the left</term
+></indexTerm
 ><indexTerm
 id="iTableXeLaTeXPDFvertical-fixup"
 ><term

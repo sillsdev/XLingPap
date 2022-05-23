@@ -14059,7 +14059,8 @@ What might go in a TeX package file
                 </tex:cmd>
                 <tex:cmd name="ifdim" gr="0" nl1="1"/>
                 <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0" nl2="0"/>
-                <xsl:text>=0sp</xsl:text>
+                <tex:spec cat="lt"/>
+                <xsl:text>0.002pt</xsl:text>
                 <tex:cmd name="XLingPapertablemaxwidthminusminwidth" gr="0" nl1="1"/>
                 <xsl:text>=10000sp</xsl:text>
                 <tex:cmd name="fi" gr="0" nl1="1"/>

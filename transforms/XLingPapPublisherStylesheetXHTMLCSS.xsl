@@ -163,6 +163,15 @@ text-indent:</xsl:text>
 .dt {
         font-weight:bold;
 }
+.itxwrap {
+    display: -moz-inline-box;
+    display: inline-block;
+    vertical-align: top;
+}
+.itxitem {
+    padding-left: .25em;
+    vertical-align: top;
+}
 li.disc {
     list-style-type:disc;
 }

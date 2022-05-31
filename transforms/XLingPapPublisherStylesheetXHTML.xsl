@@ -1418,6 +1418,11 @@
     -->
     <xsl:template match="interlinearRef">
         <xsl:variable name="originalContext" select="."/>
+        <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+            <xsl:attribute name="style">
+                <xsl:text> padding-left:0.25in; text-indent:-.25in;</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
             <xsl:apply-templates>
                 <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -3818,6 +3823,20 @@
             </xsl:choose>
             <xsl:variable name="language" select="key('LanguageID',@lang)"/>
             <tr>
+                <xsl:if test="$bAutomaticallyWrapInterlinears='yes'">
+                    <xsl:attribute name="style">
+                        <xsl:text>margin-left:0.25in; text-indent:</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="ancestor::interlinear-text and not($originalContext)">
+                                <xsl:text>-.125</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>-.25</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:text>in</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
                 <td>
                     <xsl:choose>
                         <xsl:when test="name()='free'">
@@ -4490,6 +4509,32 @@
                 <xsl:text/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--  
+        HandleGlossTextAfterAndFontOverrides
+    -->
+    <xsl:template name="HandleGlossTextAfterAndFontOverrides">
+        <xsl:param name="glossLayout"/>
+        <xsl:param name="sGlossContext"/>
+        <xsl:if test="$glossLayout">
+            <xsl:call-template name="HandleGlossTextAfterInside">
+                <xsl:with-param name="glossLayout" select="$glossLayout"/>
+                <xsl:with-param name="sGlossContext" select="$sGlossContext"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleLangDataTextAfterAndFontOverrides
+    -->
+    <xsl:template name="HandleLangDataTextAfterAndFontOverrides">
+        <xsl:param name="langDataLayout"/>
+        <xsl:param name="sLangDataContext"/>
+        <xsl:if test="$langDataLayout">
+            <xsl:call-template name="HandleLangDataTextAfterInside">
+                <xsl:with-param name="langDataLayout" select="$langDataLayout"/>
+                <xsl:with-param name="sLangDataContext" select="$sLangDataContext"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleSectionNumberOutput

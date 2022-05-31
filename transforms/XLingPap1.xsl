@@ -16,6 +16,7 @@
       Global variables
       =========================================================== -->
     <xsl:variable name="sExampleCellPadding">padding-left: .25em</xsl:variable>
+    <xsl:variable name="bAutomaticallyWrapInterlinears" select="//lingPaper/@automaticallywrapinterlinears"/>
     <xsl:variable name="sLdquo">&#8220;</xsl:variable>
     <xsl:variable name="sRdquo">&#8221;</xsl:variable>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>

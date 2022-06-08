@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-2.40.0-xxe-5.3.0.zip"
+location="XLingPap-2.41.0-xxe-5.3.0.zip"
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:ns="http://www.w3.org/1999/xhtml"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.40.4</a:version
+>2.41.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-05-23</a:date
+>2022-06-01</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,47 +32,15 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.40.4 23 May 2022<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: In rare cases, automatically calculating table column widths could cause the PDF to not be produced.</li
-></ul
-></li
-></ul
-></li
-><li
->2.40.3 5 May 2022<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Add new XeLaTeXSpecial attribute value for table cells when the table has row spans and the output puts a cell in the wrong column. Use "extra-columns-before='2'"or however many columns are needed to put the cell in the correct column.</li
-></ul
-></li
-></ul
-></li
-><li
->2.40.2 14 April 2022<ul
+>2.43.0 1 June 2022<ul
 ><li
 >Allow formatting in citation names.</li
+><li
+>Improve the size of the choose font dialog.</li
 ><li
 >Add section 12.12 to user documentation on how to work faster when editing a text or complicated table within a long document.</li
 ><li
 >Improve publisher style sheet documentation on the useblankextrapage attribute for title formats.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Try to make documentation on setting a table column width value clearer.</li
-><li
->Fix bug: setting a width for a table column could cause the PDF to fail to be produced.</li
-><li
->Fix bug: a blockquote with two or more q elements did not format correctly.</li
-></ul
-></li
-></ul
-></li
-><li
->2.40.1 6 January 2022<ul
 ><li
 >Improve information on footnote indents in publisher style sheet documentation.</li
 ><li
@@ -82,7 +50,21 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Fix bug: refAuthorInitials did not always format correctly for web page and FO style sheet outputs.</li
 ><li
+>Fix bug in Windows installer: resetvars.bat referred to wrong directory.</li
+><li
+>Fix bugs in CreateZip command: a hyphenation exceptions file could be missed or located in the wrong place.</li
+><li
 >For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add new XeLaTeXSpecial attribute value for table cells when the table has row spans and the output puts a cell in the wrong column. Use "extra-columns-before='2'"or however many columns are needed to put the cell in the correct column.</li
+><li
+>Try to make documentation on setting a table column width value clearer.</li
+><li
+>Fix bug: setting a width for a table column could cause the PDF to fail to be produced.</li
+><li
+>Fix bug: a blockquote with two or more q elements did not format correctly.</li
+><li
+>Fix bug: In rare cases, automatically calculating table column widths could cause the PDF to not be produced.</li
 ><li
 >Fix bug: using a literal would output two copies of "Lit." when there is no style sheet.</li
 ><li

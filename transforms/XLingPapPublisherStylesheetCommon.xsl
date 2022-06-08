@@ -3225,7 +3225,7 @@
     <xsl:template name="GetBestHangingIndentInitialIndent">
         <xsl:param name="sThisHangingIndent"/>
         <xsl:param name="sThisInitialIndent"/>
-        <xsl:variable name="sValue" select="substring($sThisInitialIndent,1,string-length($sThisHangingIndent)-2)"/>
+        <xsl:variable name="sValue" select="substring($sThisInitialIndent,1,string-length($sThisInitialIndent)-2)"/>
         <xsl:choose>
             <xsl:when test="$sValue=0">
                 <xsl:call-template name="GetHangingIndentNormalIndent">

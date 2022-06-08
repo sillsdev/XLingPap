@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.41.0</a:version
+>2.41.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-06-01</a:date
+>2022-06-08</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,17 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.43.0 1 June 2022<ul
+>2.41.1 8 June 2022<ul
+><li
+>For web page output:<ul
+><li
+>Fix bug: when a style sheet had the initial indent of a hanging indent set to 0, the hanging indent paragraph did not have an indent.</li
+></ul
+></li
+></ul
+></li
+><li
+>2.41.0 1 June 2022<ul
 ><li
 >Allow formatting in citation names.</li
 ><li

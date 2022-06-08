@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.11.0</a:version
+>3.11.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-06-01</a:date
+>2022-06-08</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.11.1 8 June 2022<ul
+><li
+>For web page output:<ul
+><li
+>Fix bug: when a style sheet had the initial indent of a hanging indent set to 0, the hanging indent paragraph did not have an indent.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.11.0 1 June 2022<ul
 ><li
@@ -114,7 +124,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></ul
 ></li
 ><li
->For the webpage output:<ul
+>For the web page output:<ul
 ><li
 >Fix bug: when using a style sheet where an appendix has no numberLayout and there is textbefore, the textbefore value occurred after the appendix letter instead of before it.</li
 ></ul

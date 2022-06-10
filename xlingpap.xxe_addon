@@ -47,6 +47,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >For web page output:<ul
 ><li
 >Fix bug: when a style sheet had the initial indent of a hanging indent set to 0, the hanging indent paragraph did not have an indent.</li
+><li
+>Fix bug: when using a style sheet, if a front matter text item contained just a comment, all the following material could end up be centered.</li
 ></ul
 ></li
 ></ul

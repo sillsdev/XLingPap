@@ -277,7 +277,7 @@
       -->
     <xsl:template match="author">
         <xsl:param name="authorLayoutToUse"/>
-        <xsl:if test="string-length(.) &gt; 0">
+        <xsl:if test="string-length(text()) &gt; 0">
             <xsl:variable name="sClassName">
                 <xsl:call-template name="GetAuthorLayoutClassNameToUse"/>
             </xsl:variable>
@@ -308,46 +308,50 @@
       -->
     <xsl:template match="affiliation">
         <xsl:param name="affiliationLayoutToUse"/>
-        <div>
-            <xsl:attribute name="class">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sAffiliation"/>
+        <xsl:if test="string-length(text()) &gt; 0">
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sAffiliation"/>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <xsl:call-template name="DoFrontMatterFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
                 </xsl:call-template>
-            </xsl:attribute>
-            <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
-            </xsl:call-template>
-        </div>
+                <xsl:apply-templates/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$affiliationLayoutToUse"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
         emailAddress
     -->
     <xsl:template match="emailAddress">
         <xsl:param name="emailAddressLayoutToUse"/>
-        <div>
-            <xsl:attribute name="class">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sEmailAddress"/>
+        <xsl:if test="string-length(text()) &gt; 0">
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sEmailAddress"/>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <xsl:call-template name="DoFrontMatterFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
                 </xsl:call-template>
-            </xsl:attribute>
-            <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
-            </xsl:call-template>
-        </div>
+                <xsl:apply-templates/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$emailAddressLayoutToUse"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
         date
     -->
     <xsl:template match="date">
-        <xsl:if test="string-length(.) &gt; 0">
+        <xsl:if test="string-length(text()) &gt; 0">
             <div>
                 <xsl:attribute name="class">
                     <xsl:call-template name="GetLayoutClassNameToUse">
@@ -387,20 +391,22 @@
       version
       -->
     <xsl:template match="version">
-        <div>
-            <xsl:attribute name="class">
-                <xsl:call-template name="GetLayoutClassNameToUse">
-                    <xsl:with-param name="sType" select="$sVersionCSS"/>
+        <xsl:if test="string-length(text()) &gt; 0">
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:call-template name="GetLayoutClassNameToUse">
+                        <xsl:with-param name="sType" select="$sVersionCSS"/>
+                    </xsl:call-template>
+                </xsl:attribute>
+                <xsl:call-template name="DoFrontMatterFormatInfo">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
                 </xsl:call-template>
-            </xsl:attribute>
-            <xsl:call-template name="DoFrontMatterFormatInfo">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="DoFormatLayoutInfoTextAfter">
-                <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
-            </xsl:call-template>
-        </div>
+                <xsl:apply-templates/>
+                <xsl:call-template name="DoFormatLayoutInfoTextAfter">
+                    <xsl:with-param name="layoutInfo" select="$frontMatterLayoutInfo/versionLayout"/>
+                </xsl:call-template>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
         publishingBlurb

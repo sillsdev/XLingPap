@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-06-08</a:date
+>2022-06-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -33,6 +33,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><ul
 ><li
 >2.41.1 8 June 2022<ul
+><li
+>Improve interlinear line spacing in sample book and paper publisher style sheets.</li
 ><li
 >For web page output:<ul
 ><li

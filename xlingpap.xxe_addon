@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-06-10</a:date
+>2022-06-15</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,9 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.11.1 10 June 2022<ul
+>3.11.1 15 June 2022<ul
 ><li
 >Improve interlinear line spacing in sample book and paper publisher style sheets.</li
+><li
+>Fix bug: the references title was shown even when there were no references cited in XSL-FO-based output and for non-style sheet web page output.</li
 ><li
 >For web page output:<ul
 ><li

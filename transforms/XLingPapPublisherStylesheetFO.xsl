@@ -6141,36 +6141,42 @@ not using
     -->
     <xsl:template name="DoReferences">
         <xsl:param name="backMatterLayout" select="$backMatterLayoutInfo"/>
-        <xsl:call-template name="OutputBackMatterItemTitle">
-            <xsl:with-param name="sId">
-                <xsl:call-template name="GetIdToUse">
-                    <xsl:with-param name="sBaseId" select="$sReferencesID"/>
-                </xsl:call-template>
-            </xsl:with-param>
-            <xsl:with-param name="sLabel">
-                <xsl:call-template name="OutputReferencesLabel"/>
-            </xsl:with-param>
-            <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
-            <xsl:with-param name="sRunningHeader">
-                <xsl:call-template name="OutputReferencesLabel">
-                    <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
-                </xsl:call-template>
-            </xsl:with-param>
-        </xsl:call-template>
-        <!-- insert a new line so we don't get everything all on one line -->
-        <xsl:text>&#xa;</xsl:text>
-        <fo:block>
-            <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
-                <xsl:attribute name="line-height">
-                    <xsl:value-of select="$sSinglespacingLineHeight"/>
-                </xsl:attribute>
-            </xsl:if>
-            <!--            <xsl:for-each select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]">
-                <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
-                <xsl:for-each select="$works">
-            -->
-            <xsl:call-template name="HandleRefAuthors"/>
-        </fo:block>
+        <xsl:variable name="refAuthors" select="//refAuthor"/>
+        <xsl:variable name="gtAuthors" select="$refAuthors[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthors" select="$refAuthors[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation)]/@ref]"/>
+        <xsl:variable name="directlyCitedAuthorsAnno" select="$refAuthors[refWork/@id=//citation[ancestor::annotation[@id=//annotationRef/@annotation]]/@ref]"/>
+        <xsl:if test="$directlyCitedAuthors or $directlyCitedAuthorsAnno or $gtAuthors">
+            <xsl:call-template name="OutputBackMatterItemTitle">
+                <xsl:with-param name="sId">
+                    <xsl:call-template name="GetIdToUse">
+                        <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+                <xsl:with-param name="sLabel">
+                    <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
+                <xsl:with-param name="layoutInfo" select="$backMatterLayout/referencesTitleLayout"/>
+                <xsl:with-param name="sRunningHeader">
+                    <xsl:call-template name="OutputReferencesLabel">
+                        <xsl:with-param name="fUseShortTitleIfExists" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:with-param>
+            </xsl:call-template>
+            <!-- insert a new line so we don't get everything all on one line -->
+            <xsl:text>&#xa;</xsl:text>
+            <fo:block>
+                <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacereferences='yes'">
+                    <xsl:attribute name="line-height">
+                        <xsl:value-of select="$sSinglespacingLineHeight"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <!--            <xsl:for-each select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]">
+                    <xsl:variable name="works" select="refWork[@id=//citation[not(ancestor::comment)]/@ref]"/>
+                    <xsl:for-each select="$works">
+                -->
+                <xsl:call-template name="HandleRefAuthors"/>
+            </fo:block>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoRefWorkPrep

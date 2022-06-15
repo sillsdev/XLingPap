@@ -2431,23 +2431,28 @@
         references
     -->
     <xsl:template match="references">
-        <xsl:if test="not(ancestor::chapterInCollection)">
+        <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
+        <xsl:variable name="otherAuthors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
+        <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
+        <xsl:if test="$authors">
+            <xsl:if test="not(ancestor::chapterInCollection)">
             <hr size="3"/>
-        </xsl:if>
-        <xsl:variable name="sId">
-            <xsl:call-template name="GetIdToUse">
-                <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+            </xsl:if>
+            <xsl:variable name="sId">
+                <xsl:call-template name="GetIdToUse">
+                    <xsl:with-param name="sBaseId" select="$sReferencesID"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <a name="{$sId}"/>
+            <xsl:call-template name="OutputChapTitle">
+                <xsl:with-param name="sTitle">
+                    <xsl:call-template name="OutputReferencesLabel"/>
+                </xsl:with-param>
             </xsl:call-template>
-        </xsl:variable>
-        <a name="{$sId}"/>
-        <xsl:call-template name="OutputChapTitle">
-            <xsl:with-param name="sTitle">
-                <xsl:call-template name="OutputReferencesLabel"/>
-            </xsl:with-param>
-        </xsl:call-template>
-        <div style="margin-left:0.25in">
-            <xsl:call-template name="HandleRefAuthors"/>
-        </div>
+            <div style="margin-left:0.25in">
+                <xsl:call-template name="HandleRefAuthors"/>
+            </div>
+        </xsl:if>
     </xsl:template>
     <!--
       refTitle

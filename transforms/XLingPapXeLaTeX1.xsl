@@ -195,7 +195,7 @@
                     </xsl:if>
                     <xsl:choose>
                         <xsl:when test="$chapters">
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates select="*[name() !='publishingInfo']"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates select="frontMatter"/>
@@ -645,6 +645,9 @@
     <xsl:template match="publishingInfo/publishingBlurb">
         <tex:env name="flushleft">
             <tex:env name="footnotesize">
+                <xsl:if test="node()[1][name()='br']">
+                    <tex:cmd name="noindent"/>
+                </xsl:if>
                 <xsl:apply-templates/>
             </tex:env>
         </tex:env>
@@ -3130,7 +3133,9 @@
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="//references[not(ancestor::chapterInCollection)] and //citation[not(ancestor::chapterInCollection/backMatter/references)]">
-            <xsl:for-each select="$lingPaper/backMatter/references">
+            <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
+            <xsl:if test="$authors">
+                <xsl:for-each select="$lingPaper/backMatter/references">
                 <xsl:call-template name="OutputTOCLine">
                     <xsl:with-param name="sLink" select="$sReferencesID"/>
                     <xsl:with-param name="sLabel">
@@ -3139,7 +3144,8 @@
                         </xsl:for-each>
                     </xsl:with-param>
                 </xsl:call-template>
-            </xsl:for-each>
+                </xsl:for-each>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
             <xsl:for-each select="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
@@ -3504,8 +3510,6 @@
     -->
     <xsl:template name="DoReferences">
         <xsl:param name="bIsBook" select="'N'"/>
-        <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
-        <xsl:variable name="otherAuthors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
         <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
         <xsl:if test="$authors">
             <xsl:if test="@showinlandscapemode='yes'">

@@ -3666,6 +3666,8 @@ not using
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="//references[not(ancestor::chapterInCollection)]">
+            <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
+            <xsl:if test="$authors">
             <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
                 <xsl:call-template name="OutputTOCLine">
                     <xsl:with-param name="sLink" select="$sReferencesID"/>
@@ -3674,6 +3676,7 @@ not using
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:for-each>
+             </xsl:if>
         </xsl:if>
         <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
             <xsl:call-template name="OutputTOCLine">
@@ -4123,8 +4126,6 @@ not using
         DoReferences
     -->
     <xsl:template name="DoReferences">
-        <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
-        <xsl:variable name="otherAuthors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
         <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
         <xsl:if test="$authors">
             <xsl:call-template name="OutputBackMatterItemTitle">

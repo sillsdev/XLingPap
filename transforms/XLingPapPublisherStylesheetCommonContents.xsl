@@ -497,7 +497,9 @@
     <xsl:template match="references" mode="contents">
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse"/>
-        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>
+<!--        <xsl:variable name="authors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment)]/@ref]"/>-->
+        <xsl:variable name="authors"
+            select="//refAuthor[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <xsl:if test="$authors">
             <xsl:call-template name="OutputTOCLine">
                 <xsl:with-param name="sLink">

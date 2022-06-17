@@ -43,7 +43,8 @@
                 <xsl:call-template name="SetMetadata"/>
             </head>
             <body>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="frontMatter"/>
+                <xsl:apply-templates select="*[name()!='frontMatter' and name()!='publishingInfo']"/>
             </body>
         </html>
     </xsl:template>
@@ -51,6 +52,13 @@
       FRONTMATTER
       =========================================================== -->
     <!--
+        frontMatter
+    -->
+    <xsl:template match="frontMatter">
+        <xsl:apply-templates select="title | subtitle | author | affiliation | emailAddress | presentedAt | date | version | ../publishingInfo/publishingBlurb"/>
+        <xsl:apply-templates select="authorContactInfo | contents | acknowledgements | abstract | keywordsShownHere | preface"/>
+    </xsl:template>
+        <!--
       title
     -->
     <xsl:template match="title[ancestor::chapterInCollection]" mode="showChapterInCollectionTitle">
@@ -370,11 +378,14 @@
                     </li>
                 </xsl:if>
                 <xsl:for-each select="//references[not(ancestor::chapterInCollection)]">
-                    <li>
+                    <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
+                    <xsl:if test="$authors">
+                        <li>
                         <a href="#{$sReferencesID}">
                             <xsl:call-template name="OutputReferencesLabel"/>
                         </a>
                     </li>
+                    </xsl:if>
                 </xsl:for-each>
                 <xsl:if test="//keywordsShownHere[@showincontents='yes' and parent::backMatter and not(ancestor::chapterInCollection)]">
                     <li>
@@ -2431,8 +2442,6 @@
         references
     -->
     <xsl:template match="references">
-        <xsl:variable name="gtAuthors" select="//refAuthor[refWork/@id=//citation[ancestor::glossaryTerm[key('GlossaryTermRefs',@id)]]/@ref]"/>
-        <xsl:variable name="otherAuthors" select="//refAuthor[refWork/@id=//citation[not(ancestor::comment) and not(ancestor::annotation) and not(ancestor::glossaryTerm)]/@ref]"/>
         <xsl:variable name="authors" select="$otherAuthors | $gtAuthors"/>
         <xsl:if test="$authors">
             <xsl:if test="not(ancestor::chapterInCollection)">

@@ -4,6 +4,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no" doctype-public="-//XMLmind//DTD XLingPap//EN" doctype-system="XLingPap.dtd"/>
 
+   <xsl:key name="InterlinearRef" match="//interlinearRef" use="@textref"/>
+
    <xsl:variable name="chosenContentControl" select="//contentControlChoices/contentControlChoice[@active='yes']"/>
    <xsl:variable name="chosenContentTypes" select="id($chosenContentControl/@exclude)"/>
 
@@ -102,6 +104,9 @@
    </xsl:template>
    <xsl:template match="index">
       <xsl:call-template name="IgnoreOrCopyElement"/>
+   </xsl:template>
+   <xsl:template match="interlinear[ancestor::referencedInterlinearText][not(key('InterlinearRef',@text))]">
+      <!-- Skip interlinear elements in referenced interlinear texts when there is no reference to them. -->
    </xsl:template>
    <xsl:template match="interlinear-text">
       <xsl:call-template name="IgnoreOrCopyElement"/>

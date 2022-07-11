@@ -23,7 +23,7 @@
     <!-- ===========================================================
         Version of this stylesheet
         =========================================================== -->
-    <xsl:variable name="sVersion">3.7.4</xsl:variable>
+    <xsl:variable name="sVersion">3.10.0</xsl:variable>
     <xsl:variable name="lingPaper" select="//lingPaper"/>
     <xsl:variable name="documentLang" select="normalize-space($lingPaper/@xml:lang)"/>
     <xsl:variable name="abbrLang">
@@ -111,6 +111,8 @@
     <xsl:variable name="parts" select="//part"/>
     <xsl:variable name="chapters" select="//chapter | //chapterInCollection"/>
     <xsl:variable name="bIsBook" select="$chapters"/>
+    <xsl:variable name="publishingInfo" select="//publishingInfo"/>
+    <xsl:variable name="volumes" select="//volume"/>
     <xsl:variable name="sYs" select="'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'"/>
     <xsl:variable name="sLiteralLabel" select="$lingPaper/@literalLabel"/>
     <xsl:variable name="literalLabelLayoutInfo" select="//publisherStyleSheet[1]/contentLayout/literalLayout/literalLabelLayout"/>
@@ -2557,6 +2559,17 @@
         <xsl:if test="string-length($sTextAfterTerm) &gt; 0">
             <xsl:value-of select="$sTextAfterTerm"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        OutputVolumeLabel
+    -->
+    <xsl:template name="OutputVolumeLabel">
+        <xsl:choose>
+            <xsl:when test="@label">
+                <xsl:value-of select="@label"/>
+            </xsl:when>
+            <xsl:otherwise>Volume</xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
         SetMetadataAuthor

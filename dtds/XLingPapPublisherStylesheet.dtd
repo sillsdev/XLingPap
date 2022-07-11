@@ -369,7 +369,7 @@ Front MatterLayout
 -->
 <!ELEMENT frontMatterLayout (comment?, titleHeaderFooterPageStyles?, subtitleLayout?, titleLayout, subtitleLayout?, copyrightPageLayout?, headerFooterPageStyles?, (authorLayout | affiliationLayout | 
                                                        emailAddressLayout  | authorContactInfoLayout | publishingBlurbLayout |
-                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | (contentsLayout, authorLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
+                                                       presentedAtLayout | dateLayout | keywordsLayout | versionLayout | (contentsLayout, authorLayout?, volumeLayout?) | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT chapterInCollectionFrontMatterLayout (comment?, subtitleLayout?, (authorLayout | affiliationLayout | emailAddressLayout  | authorContactInfoLayout | 
                                                        presentedAtLayout | dateLayout | keywordsLayout | versionLayout | contentsLayout | acknowledgementsLayout | prefaceLayout | (abstractLayout, abstractTextFontInfo?))*) >    
 <!ELEMENT titleLayout EMPTY >
@@ -481,6 +481,14 @@ Front MatterLayout
      partSpaceBefore CDATA #IMPLIED
      contentType IDREF #IMPLIED
     >
+<!ELEMENT volumeLayout EMPTY >
+<!ATTLIST volumeLayout
+     contentBetweenLabelAndNumber CDATA #IMPLIED
+     spaceafter CDATA #IMPLIED
+     spacebefore CDATA #IMPLIED
+     textalign (start | left | center | end | right) 'start'
+     %fontinfo;
+>
 <!ELEMENT acknowledgementsLayout EMPTY >
 <!ATTLIST acknowledgementsLayout
      %titleformatinfo;
@@ -577,7 +585,7 @@ Back Matter Layout
   In a book, if headerFooterPageStyles is missing, it uses the bodyLayout headerFooterPageStyles info (and,if tthat is empty, it uses the front matter one)
 -->
 <!ELEMENT backMatterLayout (comment?, headerFooterPageStyles?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout| glossaryLayout | useEndNotesLayout | 
-                                                        (referencesTitleLayout, referencesLayout) | (contentsLayout, authorLayout?) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
+                                                        (referencesTitleLayout, referencesLayout) | (contentsLayout, authorLayout?, volumeLayout?) | keywordsLayout | indexLayout | authorContactInfoLayout)*) >    
 
 <!ELEMENT chapterInCollectionBackMatterLayout (comment?, (acknowledgementsLayout | appendicesTitlePageLayout  | appendixLayout | glossaryLayout | contentsLayout | useEndNotesLayout | 
                                                         referencesTitleLayout | keywordsLayout | authorContactInfoLayout)*) >    

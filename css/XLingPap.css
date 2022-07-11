@@ -4614,6 +4614,29 @@ version
     margin-bottom: .67ex;
 }
 
+volume[label]:before
+{
+    content:text-field(attribute,label,columns,10)
+	    " "
+	    text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume:before
+{
+    content: " Volume "
+	     text-field(attribute,number,columns,5);
+	font-weight: bold;
+	font-size:large;
+	text-align:center;
+}
+volume
+{
+	display:block;
+	text-align:center;
+}
+
 webpage
 {
 	display:inline;
@@ -10971,6 +10994,42 @@ volumeAuthorRef:before
 }
 volumeAuthorRef
 {
+}
+volumeLayout[color]
+{
+	color:concatenate(attr(color));
+}
+volumeLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+volumeLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+volumeLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+volumeLayout[font-weight]
+{
+    font-weight:concatenate(attr(font-weight));
+}
+volumeLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+volumeLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+volumeLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+volumeLayout
+{
+	property-group: titledItem("Volume in contents");
 }
 volumeTitle:before
 {

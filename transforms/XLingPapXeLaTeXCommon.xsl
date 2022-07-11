@@ -10321,6 +10321,20 @@
         </tex:cmd>
     </xsl:template>
     <!--  
+        OutputSpaceBeforeOrAfter
+    -->
+    <xsl:template name="OutputSpaceBeforeOrAfter">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <tex:cmd name="vspace">
+                <tex:parm>
+                    <xsl:value-of select="$sSpacing"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         OutputTable
     -->
     <xsl:template name="OutputTable">

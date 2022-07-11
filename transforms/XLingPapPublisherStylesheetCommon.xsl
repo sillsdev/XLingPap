@@ -28,7 +28,6 @@
     <xsl:variable name="sContentBetweenFootnoteNumberAndFootnoteContent" select="$pageLayoutInfo/@contentBetweenFootnoteNumberAndFootnoteContent"/>
     <xsl:variable name="citationLayout" select="$contentLayoutInfo/citationLayout"/>
     <xsl:variable name="sTextBetweenAuthorAndDate" select="$citationLayout/@textbetweenauthoranddate"/>
-    <!--    <xsl:variable name="contentsLayout" select="$frontMatterLayoutInfo/contentsLayout"/>-->
     <xsl:variable name="contentsLayout">
         <xsl:choose>
             <xsl:when test="$backMatterLayoutInfo/contentsLayout">
@@ -39,6 +38,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="volumeLayout" select="$frontMatterLayoutInfo/volumeLayout"/>
     <!--    <xsl:variable name="sChapterLineIndent" select="normalize-space(saxon:node-set($contentsLayout)/contentsLayout/@chapterlineindent)"/>-->
     <!--    <xsl:variable name="authorInContentsLayoutInfo" select="$frontMatterLayoutInfo/authorLayout[preceding-sibling::*[1][name()='contentsLayout']]"/>-->
     <xsl:variable name="authorInContentsLayoutInfo">

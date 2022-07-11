@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->1 June 2022</date
+>11 July 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.0</version
+>2.41.2</version
 ><version
 contentType="ctVersion7Plus"
->3.11.0</version
+>3.11.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -2495,7 +2495,7 @@ type="tElement"
 >contentsLayout</object
 ></td
 ><td
->How the table of contents are to be formatted. For books which are collections of papers (i.e., use <object
+>How the table of contents are to be formatted. For books which are collections of papers (i.e., ones which use <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -2510,7 +2510,19 @@ type="tElement"
 > element. This <object
 type="tElement"
 >authorLayout</object
-> element specifies how author names are to be formatted on a line immediately below the chapter (i.e. paper) title in the table of contents.</td
+> element specifies how author names are to be formatted on a line immediately below the chapter (i.e., paper) title in the table of contents. If the document is a multi-volume work, you can also insert a <object
+type="tElement"
+>volumeLayout</object
+> element immediately after the <object
+type="tElement"
+>contentsLayout</object
+> if the document is not a collection of papers or immediately after the <object
+type="tElement"
+>authorLayout</object
+> element if it is. See the information on <genericRef
+gref="gVolumeLayout"
+> volumeLayout</genericRef
+> below.</td
 ><td
 >See section <sectionRef
 sec="sTitleFormatInfoAttributes"
@@ -2946,6 +2958,98 @@ type="tAttrValue"
 ><tr
 ><td
 ><indexedItem
+term="iVolumeLayout"
+></indexedItem
+><genericTarget
+id="gVolumeLayout"
+></genericTarget
+><object
+type="tElement"
+>volumeLayout</object
+></td
+><td
+>How to format a volume label in the table of contents.</td
+><td
+>See section <sectionRef
+sec="sFontInfoAttributes"
+showTitle="short"
+></sectionRef
+>. It also has <table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>contentBetweenLabelAndNumber</object
+></td
+><td
+>(User control) Indicates what should appear between the volume label and the volume number.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spaceafter</object
+></td
+><td
+>(User control) Indicates the amount of vertical space to use in the table of contents after a volume label. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>spacebefore</object
+></td
+><td
+>(User control) Indicates the amount of vertical space to use in the table of contents before a volume label. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>textalign</object
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>right</object
+>, <object
+type="tAttrValue"
+>start</object
+>, <object
+type="tAttrValue"
+>end</object
+>, or <object
+type="tAttrValue"
+>center</object
+>.</langData
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
+><indexedItem
 term="iAcknowledgementsLayout"
 ></indexedItem
 ><object
@@ -3112,7 +3216,7 @@ type="tElement"
 >abstractTextFontInfo</object
 ></td
 ><td
->How to format the contents of (i.e text within) an abstract..</td
+>How to format the contents of (i.e text within) an abstract.</td
 ><td
 >See section <sectionRef
 sec="sFontInfoAttributes"
@@ -20981,6 +21085,12 @@ id="iContentsPartsSpaceBefore"
 ></indexTerm
 ></indexTerms
 ></indexTerm
+><indexTerm
+id="iContentsVolume"
+see="iVolumeLayout"
+><term
+>Volume label</term
+></indexTerm
 ></indexTerms
 ></indexTerm
 ><indexTerm
@@ -22701,6 +22811,14 @@ id="iVerticalFillBeforeAttribute"
 id="iVolumeAuthorRef"
 ><term
 >Volume author ref</term
+></indexTerm
+><indexTerm
+id="iVolumeLayout"
+><term
+>Volume layout in a table of contents in a multi-volume <object
+type="tXLingPap"
+></object
+> document</term
 ></indexTerm
 ><indexTerm
 id="iVolumeNumber"

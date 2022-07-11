@@ -16,13 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->1 June 2022</date
+>11 July 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.0</version
+>2.41.2</version
 ><version
 contentType="ctVersion7Plus"
->3.11.0</version
+>3.11.2</version
 ><contents
 showLevel="3"
 ></contents
@@ -10872,6 +10872,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>volume</object
+></dt
+><dd
+>Indicates the beginning of a volume in a multi-volume book</dd
+><dt
+><object
+type="tElement"
 >webPage</object
 ></dt
 ><dd
@@ -12759,6 +12766,13 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the author(s) of the volume in a header or footer</dd
+><dt
+><object
+type="tElement"
+>volumeLayout</object
+></dt
+><dd
+>Layout info for a volume element in the table of contents</dd
 ><dt
 ><object
 type="tElement"

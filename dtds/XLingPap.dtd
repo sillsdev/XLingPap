@@ -82,7 +82,7 @@
      When the xml:lang attribute is set, it is the default xml:lang for the document.
      The version attribute is the version of XLingPap the document is for.
   -->
-<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*) | chapter* | chapterInCollection* | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
+<!ELEMENT lingPaper (comment*, frontMatter?, ((chapterBeforePart?, part*, (volume, part*)*) | ((volume?, chapter*)*) | ((volume?, chapterInCollection*)*) | section1*), backMatter?, referencedInterlinearTexts?, languages?, types?, framedTypes?, indexTerms*, comment*, publishingInfo?, contentControl?, validation?)>
 <!ATTLIST lingPaper
     partlabel CDATA #IMPLIED
     chapterlabel CDATA #IMPLIED
@@ -150,7 +150,7 @@
 >
 <!-- Front matter -->
 <!-- We allow more than one abstract and more than one contents for cases where one needs the abstract or contents to be in more than one language. -->
-<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version*, keywordsShownHere?, contents?, acknowledgements?, abstract*, preface*)>
+<!ELEMENT frontMatter (title, shortTitle?, subtitle?, ((author, affiliation*, emailAddress*) | authorContactInfo)+, shortAuthor?, presentedAt?, date?, version*, keywordsShownHere?, volume?, contents?, acknowledgements?, abstract*, preface*)>
 <!ELEMENT title (#PCDATA | %embedded; | titleContentChoices)*>
 <!ATTLIST title
     xml:lang CDATA #IMPLIED
@@ -259,6 +259,12 @@
 >
 
 <!-- Main content -->
+<!ELEMENT volume (part* | (chapter* | chapterInCollection*))>
+<!ATTLIST volume
+    XeLaTeXSpecial CDATA #IMPLIED
+    label CDATA #IMPLIED
+    number CDATA #IMPLIED
+>
 <!ELEMENT part (secTitle, shortTitle?,(%chunk; | landscape | framedUnit)*, (chapter* | chapterInCollection*))>
 <!ATTLIST part
     XeLaTeXSpecial CDATA #IMPLIED
@@ -1055,6 +1061,8 @@ Can have more than one (for names, languages, and subjects, e.g.).
  startingPageNumber CDATA #IMPLIED
  startingPageNumberInBook CDATA #IMPLIED
  version CDATA #IMPLIED
+ showVolumeInContents (yes | no) "no"
+ whichVolumeToShowInContents (all | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10) "all"
  >
 <!ELEMENT publishingBlurb (#PCDATA | %embedded;)* >
 

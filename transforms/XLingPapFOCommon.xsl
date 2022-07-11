@@ -665,6 +665,12 @@
     -->
     <xsl:template name="OutputAllChapterTOC">
         <xsl:param name="nLevel" select="3"/>
+        <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+        <xsl:if test="$precedingVolume">
+            <xsl:call-template name="OutputVolumeInContents">
+                <xsl:with-param name="volume" select="$precedingVolume"/>
+            </xsl:call-template>
+        </xsl:if>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -1355,6 +1361,30 @@
                     </fo:block>
                 </fo:table-cell>
             </xsl:if>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceAfter
+    -->
+    <xsl:template name="OutputSpaceAfter">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-after">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        OutputSpaceBefore
+    -->
+    <xsl:template name="OutputSpaceBefore">
+        <xsl:param name="spacing"/>
+        <xsl:variable name="sSpacing" select="normalize-space($spacing)"/>
+        <xsl:if test="string-length($sSpacing)&gt; 2">
+            <xsl:attribute name="space-before">
+                <xsl:value-of select="$sSpacing"/>
+            </xsl:attribute>
         </xsl:if>
     </xsl:template>
     <!-- 

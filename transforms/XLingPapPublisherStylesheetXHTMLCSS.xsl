@@ -76,6 +76,7 @@
     <xsl:variable name="styleSheetTableNumberedNumberLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedNumberLayout"/>
     <xsl:variable name="styleSheetTableNumberedCaptionLayout" select="$contentLayoutInfo/tablenumberedLayout/tablenumberedCaptionLayout"/>
     <xsl:variable name="sSpaceBetweenTableAndCaption" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@spaceBetweenTableAndCaption)"/>
+    <xsl:variable name="volumeLayout" select="$frontMatterLayoutInfo/volumeLayout"/>
     <!-- ===========================================================
       Variables
       =========================================================== -->
@@ -431,6 +432,9 @@ li.lower-roman {
                 </xsl:if>
             </xsl:with-param>
         </xsl:call-template>
+        <xsl:if test="$volumes">
+            <xsl:apply-templates select="$volumes[1]" mode="contents"/>
+        </xsl:if>
         <xsl:if test="$parts">
         <xsl:text>.partContents</xsl:text>
         <xsl:if test="ancestor-or-self::backMatterLayout">
@@ -1779,6 +1783,7 @@ li.lower-roman {
     <xsl:template match="@captionLocation"/>
     <xsl:template match="@chapterlabel"/>
     <xsl:template match="@chapterlineindent"/>
+    <xsl:template match="@contentBetweenLabelAndNumber"/>
     <xsl:template match="@dateIndentAuthorOverDateStyle"/>
     <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
     <xsl:template match="@doubleColumnSeparation"/>
@@ -2126,10 +2131,5 @@ li.lower-roman {
         TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCSSContents.xsl"/>
-    <!--    <xsl:include href="XLingPapPublisherStylesheetCommon.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOBookmarks.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOContents.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetFOReferences.xsl"/>
--->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
 </xsl:stylesheet>

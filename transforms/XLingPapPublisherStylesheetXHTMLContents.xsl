@@ -3,47 +3,6 @@
     xmlns:xfc="http://www.xmlmind.com/foconverter/xsl/extensions" exclude-result-prefixes="fo xfc saxon" xmlns:saxon="http://icl.com/saxon">
     <xsl:include href="XLingPapPublisherStylesheetCommonContents.xsl"/>
     <!-- 
-        part (contents) 
-    -->
-    <xsl:template match="part" mode="contents">
-        <xsl:param name="nLevel" select="$nLevel"/>
-        <xsl:param name="contentsLayoutToUse"/>
-        <xsl:if test="position()=1">
-            <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
-                <xsl:apply-templates select="." mode="contents">
-                    <xsl:with-param name="nLevel" select="$nLevel"/>
-                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                </xsl:apply-templates>
-            </xsl:for-each>
-        </xsl:if>
-        <div>
-            <div>
-                <xsl:attribute name="class">
-                    <xsl:text>partContents</xsl:text>
-                    <xsl:if test="$contentsLayoutToUse[ancestor::backMatterLayout]">
-                        <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
-                    </xsl:if>
-                </xsl:attribute>
-                <a href="#{@id}" class="contentsLinkLayout">
-                    <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
-                    <xsl:call-template name="OutputTOCTitle">
-                        <xsl:with-param name="linkLayout" select="$linkLayout"/>
-                        <xsl:with-param name="sLabel">
-                            <xsl:call-template name="OutputPartLabelNumberAndTitle">
-                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                                <xsl:with-param name="fInContents" select="'Y'"/>
-                            </xsl:call-template>
-                        </xsl:with-param>
-                    </xsl:call-template>
-                </a>
-            </div>
-            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
-        </div>
-    </xsl:template>
-    <!-- 
         section1 (contents) 
     -->
     <xsl:template match="section1" mode="contents">
@@ -81,6 +40,47 @@
         <span style="font-style:italic;">
             <xsl:value-of select="."/>
         </span>
+    </xsl:template>
+    <!--  
+        OutputContentsPart
+    -->
+    <xsl:template name="OutputContentsPart">
+        <xsl:param name="contentsLayoutToUse"/>
+        <xsl:param name="nLevel"/>
+            <xsl:if test="position()=1">
+                <xsl:for-each select="preceding-sibling::*[name()='chapterBeforePart']">
+                    <xsl:apply-templates select="." mode="contents">
+                        <xsl:with-param name="nLevel" select="$nLevel"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:if>
+        <div>
+            <div>
+                <xsl:attribute name="class">
+                    <xsl:text>partContents</xsl:text>
+                    <xsl:if test="$contentsLayoutToUse[ancestor::backMatterLayout]">
+                        <xsl:value-of select="$sBackMatterContentsIdAddOn"/>
+                    </xsl:if>
+                </xsl:attribute>
+                <a href="#{@id}" class="contentsLinkLayout">
+                    <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
+                    <xsl:call-template name="OutputTOCTitle">
+                        <xsl:with-param name="linkLayout" select="$linkLayout"/>
+                        <xsl:with-param name="sLabel">
+                            <xsl:call-template name="OutputPartLabelNumberAndTitle">
+                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                <xsl:with-param name="fInContents" select="'Y'"/>
+                            </xsl:call-template>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </a>
+            </div>
+            <xsl:apply-templates select="child::*[contains(name(),'chapter')]" mode="contents">
+                <xsl:with-param name="nLevel" select="$nLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:apply-templates>
+        </div>
     </xsl:template>
     <!--  
         OutputSectionTOC
@@ -268,5 +268,41 @@
             </xsl:if>
             <xsl:copy-of select="$sLabel"/>
         </span>
+    </xsl:template>
+    <!--
+        OutputVolumeTOCLine
+    -->
+    <xsl:template name="OutputTOCVolumeLine">
+        <xsl:param name="volume"/>
+        <!-- insert a new line so we don't get everything all on one line -->
+        <xsl:text>&#xa;</xsl:text>
+        <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $frontMatterLayoutInfo/contentsLayout/@singlespaceeachcontentline='yes'">
+            <fo:block>
+                <xsl:attribute name="line-height">
+                    <xsl:choose>
+                        <xsl:when test="$sLineSpacing='double'">
+                            <xsl:text>1.2</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="$sLineSpacing='spaceAndAHalf'">
+                            <xsl:text>.9</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:text>&#xa0;</xsl:text>
+            </fo:block>
+        </xsl:if>
+        <div class="volumeContents">
+            <xsl:call-template name="OutputVolumeLabel"/>
+            <xsl:variable name="sContentBetween" select="$volumeLayout/@contentBetweenLabelAndNumber"/>
+            <xsl:choose>
+                <xsl:when test="string-length($sContentBetween) &gt; 0">
+                    <xsl:value-of select="$sContentBetween"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>&#x20;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="$volume/@number"/>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

@@ -479,4 +479,42 @@
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
+    <!--  
+        OutputVolumeInContents
+    -->
+    <xsl:template name="OutputVolumeInContents">
+        <xsl:param name="volume"/>
+        <xsl:if test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+            <xsl:variable name="iPreceds" select="count($volume[parent::lingPaper]/preceding-sibling::volume)"/>
+            <xsl:choose>
+                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="$volume[parent::lingPaper] and $publishingInfo/@whichVolumeToShowInContents=count($volume/preceding-sibling::volume[parent::lingPaper])+2">
+                    <xsl:for-each select="$volume">
+                        <xsl:call-template name="OutputTOCVolumeLine">
+                            <xsl:with-param name="sSpaceBefore" select="'10'"/>
+                            <xsl:with-param name="sLabel">
+                                <xsl:call-template name="OutputVolumeLabel"/>
+                                <xsl:text>&#x20;</xsl:text>
+                                <xsl:value-of select="@number"/>
+                            </xsl:with-param>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- do nothing -->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
+    </xsl:template>
 </xsl:stylesheet>

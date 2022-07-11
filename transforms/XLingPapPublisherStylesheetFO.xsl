@@ -4407,11 +4407,31 @@ not using
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
                 </xsl:attribute>
             </xsl:if>
-            <xsl:call-template name="DoFrontMatterContentsPerLayout">
-                <xsl:with-param name="frontMatter" select=".."/>
-                <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
-                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+                    <xsl:variable name="precedingVolume" select="preceding-sibling::*[1][name()='volume']"/>
+                    <xsl:if test="$precedingVolume">
+                        <xsl:call-template name="OutputVolumeInContents">
+                            <xsl:with-param name="volume" select="$precedingVolume"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                        <xsl:call-template name="DoFrontMatterContentsPerLayout">
+                            <xsl:with-param name="frontMatter" select=".."/>
+                            <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoFrontMatterContentsPerLayout">
+                        <xsl:with-param name="frontMatter" select=".."/>
+                        <xsl:with-param name="frontMatterLayout" select="$frontMatterLayout"/>
+                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:variable name="nLevelToUse">
                 <xsl:call-template name="GetContentsLevelToUse">
                     <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
@@ -4447,10 +4467,30 @@ not using
                         <xsl:with-param name="nLevel" select="$nLevelToUse"/>
                         <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:apply-templates>
-                    <xsl:call-template name="DoBackMatterContentsPerLayout">
-                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
-                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">
+                            <xsl:choose>
+                                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents='all'">
+                                    <xsl:call-template name="DoBackMatterContentsPerLayout">
+                                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                    </xsl:call-template>
+                                </xsl:when>
+                                <xsl:when test="$publishingInfo/@whichVolumeToShowInContents=count($volumes)">
+                                    <xsl:call-template name="DoBackMatterContentsPerLayout">
+                                        <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                                    </xsl:call-template>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="DoBackMatterContentsPerLayout">
+                                <xsl:with-param name="nLevel" select="$nLevelToUse"/>
+                                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </fo:block>

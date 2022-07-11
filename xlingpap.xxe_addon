@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.11.1</a:version
+>3.11.2</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-06-28</a:date
+>2022-07-11</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
+>3.11.2 11 July 2022<ul
+><li
+>Add volume element for books. It can be used to indicate where a volume begins in the table of contents.</li
+></ul
+></li
+><li
 >3.11.1 18 June 2022<ul
 ><li
 >Improve interlinear line spacing in sample book and paper publisher style sheets.</li
 ><li
->Fix bug: when using referenced interlinear texts, some citations from endnotes in an interlinear in a referenced text that was never referenced in the main body could be included in the references even though it was not cited elsewhere.  Also improved the speed of processing a document containing referenced interlinear texts.</li
+>Fix bug: when using referenced interlinear texts, some citations from endnotes in an interlinear in a referenced text that was never referenced in the main body could be included in the references even though it was not cited elsewhere. Also improved the speed of processing a document containing referenced interlinear texts.</li
 ><li
 >Fix bug: the references title was shown even when there were no references cited in XSL-FO-based output and for non-style sheet web page output.</li
 ><li

@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->1 June 2022</date
+>11 July 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.0</version
+>2.41.2</version
 ><version
 contentType="ctVersion7Plus"
->3.11.0</version
+>3.11.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -28278,6 +28278,32 @@ lang="lEng"
 ><td
 ><langData
 lang="lEng"
+> <object
+type="tAttribute"
+>showVolumeInContents</object
+></langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>; the default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>Whether or not to include volume information in the table of contents. See section <sectionRef
+sec="sMultivolumeBook"
+></sectionRef
+>.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
 > <indexedItem
 term="iStartingPageNumber"
 ></indexedItem
@@ -28339,6 +28365,59 @@ lang="lEng"
 ></td
 ><td
 >This is to notate what version this paper is in. It is not output.</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>whichVolumeToShowInContents</object
+></langData
+></td
+><td
+><object
+type="tAttrValue"
+>all</object
+>, <object
+type="tAttrValue"
+>1</object
+>, <object
+type="tAttrValue"
+>2</object
+>, <object
+type="tAttrValue"
+>3</object
+>, <object
+type="tAttrValue"
+>4</object
+>, <object
+type="tAttrValue"
+>5</object
+>, <object
+type="tAttrValue"
+>6</object
+>, <object
+type="tAttrValue"
+>7</object
+>, <object
+type="tAttrValue"
+>8</object
+>, <object
+type="tAttrValue"
+>9</object
+>, <object
+type="tAttrValue"
+>10</object
+>; the default value is <object
+type="tAttrValue"
+>all</object
+>.</td
+><td
+>This indicates which volume(s) to include in the table of contents when producing output. See section <sectionRef
+sec="sMultivolumeBook"
+></sectionRef
+>.</td
 ></tr
 ></table
 ></example
@@ -30582,6 +30661,101 @@ type="tElement"
 > element, type in its label in its language, and then set its content type to its language.</p
 ></section2
 ></section1
+><section1
+id="sMultivolumeBook"
+><secTitle
+>Multi-volume Book</secTitle
+><p
+><indexedItem
+term="iMultivolumeBook"
+></indexedItem
+>When you have a book that is too long to be printed as a single volume, one can follow the following process. The idea is that the table of contents for the first volume will include everything in the entire document, including labels for where each volume begins. The table of contents for the last volume will only have the volume label for that last volume and all content in that volume, including all the back matter. If there are any middle volumes, each one's table of contents will only have the volume label for that volume and the content for that volume.</p
+><p
+>In order to ensure that all material is present, you will need to produce a separate (PDF) output for each volume that includes all of the document with the exception of the table of contents portion. That is, when you produce volume 2, say, the output will have everything in the entire document in it, but the table of contents will only have what needs to be in volume 2.</p
+><p
+>After producing these PDF files, you then will need to manually create the PDF that will be used to print each volume. See section <sectionRef
+sec="sFAQHandleBookFrontMatter"
+></sectionRef
+> for ideas on this. You will need to use a PDF editing tool to copy the volume one portions into the volume one output file, the volume two portions into the volume two output file, etc.</p
+><p
+>The following sections provide some more details.</p
+><section2
+id="MultivolumeBookColume"
+><secTitle
+>Insert <object
+type="tElement"
+>volume</object
+> Elements</secTitle
+><p
+>In your document, insert <object
+type="tElement"
+>volume</object
+> elements before the <object
+type="tElement"
+>contents</object
+> element and before the <object
+type="tElement"
+>part</object
+>, <object
+type="tElement"
+>chapter</object
+>, or <object
+type="tElement"
+>chapterICollection</object
+> element that begins the next volume. <indexedItem
+term="iMultivolumeBookVolumeNumber"
+></indexedItem
+>For each <object
+type="tElement"
+>volume</object
+> element, set its <object
+type="tAttribute"
+>number</object
+> attribute. Unlike other elements, we leave it up to you to choose how you want to represent the number (e.g., digit, roman numeral, the number word in the language of the document, etc.). <indexedItem
+term="iMultivolumeBookVolumeLabel"
+></indexedItem
+>If “Volume” is the incorrect label, change its <object
+type="tAttribute"
+>label</object
+> attribute.</p
+></section2
+><section2
+id="sMultivolumeBookPublishingInfo"
+><secTitle
+>Adjust the <object
+type="tElement"
+>publishingInfo</object
+> Element</secTitle
+><p
+>You will need to produce the PDF separately for each volume. You control which volumes show in the table of contents by setting the following two attributes in the <object
+type="tElement"
+>publishingInfo</object
+> element:</p
+><ol
+><li
+>Set the <object
+type="tAttribute"
+>showVolumeInContents</object
+> attribute to <object
+type="tAttribute"
+></object
+><object
+type="tAttrValue"
+>yes</object
+>.</li
+><li
+>Set the <object
+type="tAttribute"
+>whichVolumeToShowInContents</object
+> attribute to <object
+type="tAttrValue"
+>all</object
+> for the first volume; set it to the number of the volume for each other volume.</li
+></ol
+><p
+>Then produce the output. Check the table of contents to make sure each is correct. When it is, use a PDF editing tool to produce your volume's final PDF file.</p
+></section2
+></section1
 ><backMatter
 ><appendix
 id="aElements"
@@ -32442,6 +32616,13 @@ type="tElement"
 ></dt
 ><dd
 >The version number of the paper</dd
+><dt
+><object
+type="tElement"
+>volume</object
+></dt
+><dd
+>Indicates the beginning of a volume in a multi-volume book</dd
 ><dt
 ><object
 type="tElement"
@@ -34321,6 +34502,13 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the author(s) of the volume in a header or footer</dd
+><dt
+><object
+type="tElement"
+>volumeLayout</object
+></dt
+><dd
+>Layout info for a volume element in the table of contents</dd
 ><dt
 ><object
 type="tElement"
@@ -37709,6 +37897,23 @@ id="iMultilingualDoc"
 >Multilingual document</term
 ></indexTerm
 ><indexTerm
+id="iMultivolumeBook"
+><term
+>Mulitvolume book, producing</term
+><indexTerms
+><indexTerm
+id="iMultivolumeBookVolumeLabel"
+><term
+>Volume label</term
+></indexTerm
+><indexTerm
+id="iMultivolumeBookVolumeNumber"
+><term
+>Volume number</term
+></indexTerm
+></indexTerms
+></indexTerm
+><indexTerm
 id="iMultivoumeWork"
 ><term
 >Volume in a multivolume work in a reference entry</term
@@ -38575,6 +38780,12 @@ id="iValidityTool"
 id="iVersion"
 ><term
 >Version</term
+></indexTerm
+><indexTerm
+id="iVolumeMultiProduce"
+see="iMultivolumeBook"
+><term
+>Volume in a multivolume document, producing</term
 ></indexTerm
 ><indexTerm
 id="iVolumeOfPapers"

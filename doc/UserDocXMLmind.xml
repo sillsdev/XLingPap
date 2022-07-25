@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 July 2022</date
+>25 July 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.2</version
+>2.41.3</version
 ><version
 contentType="ctVersion7Plus"
->3.11.2</version
+>3.11.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -4663,12 +4663,15 @@ type="tElement"
 >an optional <object
 type="tElement"
 >series</object
-> (series title that the volume is in) element,</li
+> (series title and number that the volume is in) element,</li
 ><li
 >an optional <object
 type="tElement"
 >bVol</object
-> (volume number of the series that the volume is in) element,</li
+> (volume number of the series that the volume is in) element - only use this is if you need to format the series number differently from the series title; otherwise put the series number in the <object
+type="tElement"
+>series</object
+> element,</li
 ><li
 ><indexedItem
 term="iMultivoumeWork"
@@ -5461,12 +5464,15 @@ type="tElement"
 >an optional <object
 type="tElement"
 >series</object
-> (series title that the volume is in) element,</li
+> (series title and number that the volume is in) element,</li
 ><li
 >an optional <object
 type="tElement"
 >bVol</object
-> (volume number of the series that the volume is in) element,</li
+> (volume number of the series that the volume is in) element - only use this is if you need to format the series number differently from the series title; otherwise put the series number in the <object
+type="tElement"
+>series</object
+> element,</li
 ><li
 ><indexedItem
 term="iMultivoumeWork"

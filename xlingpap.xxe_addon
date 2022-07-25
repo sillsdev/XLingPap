@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.41.2</a:version
+>2.41.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-07-11</a:date
+>2022-07-25</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,12 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History2.</b
 ></p
 ><ul
+><li
+>2.41.3 25 July 2022<ul
+><li
+>In the documentation, clarify the usage of a bVol element when there is a series for a paper in a collection and for a proceedings volume.</li
+></ul
+></li
 ><li
 >2.41.2 11 July 2022<ul
 ><li

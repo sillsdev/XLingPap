@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-07-25</a:date
+>2022-08-01</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.11.3 25 July 2022<ul
+>3.11.3 1 August 2022<ul
+><li
+>Enable a td element to contain an interlinearRef element.</li
 ><li
 >In the documentation, clarify the usage of a bVol element when there is a series for a paper in a collection and for a proceedings volume.</li
 ></ul

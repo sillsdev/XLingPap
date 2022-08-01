@@ -1531,19 +1531,34 @@
         <xsl:variable name="originalContext" select="."/>
         <xsl:for-each select="key('InterlinearReferenceID',@textref)[1]">
             <xsl:choose>
-                <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
-                    <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
-                        <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
-                        <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                    </xsl:call-template>
+                <xsl:when test="$originalContext[parent::td]">
+                    <!-- when we are in a table, any attempt to insert a new row for a free translation 
+                        causes a Missing \endgroup message. By embedding the interlinear within
+                        a tabular, we avoid that problem (although, the interlinear may be indented a
+                        bit more than we'd like). -->
+                    <tex:env name="tabular">
+                        <tex:opt>t</tex:opt>
+                        <tex:spec cat="bg"/>
+                        <xsl:text>@</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="eg"/>
+                        <xsl:text>l@</xsl:text>
+                        <tex:spec cat="bg"/>
+                        <tex:spec cat="eg"/>
+                        <tex:spec cat="eg"/>
+                        <xsl:call-template name="DoInterlinearRefContents">
+                            <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                            <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </tex:env>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates>
+                    <xsl:call-template name="DoInterlinearRefContents">
                         <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
-                        <xsl:with-param name="originalContext" select="$originalContext"/>
                         <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
-                    </xsl:apply-templates>
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                    </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
@@ -5271,6 +5286,9 @@
                         <tex:spec cat="esc"/>
                         <xsl:text>*</xsl:text>
                     </xsl:when>
+                    <xsl:when test="$originalContext and $originalContext[ancestor::td]">
+                        <!-- do nothing when have an interlinearRef in a table cell -->
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:if test="not(endnote) or not(contains(@XeLaTeXSpecial,'fix-free-literal-footnote-placement'))">
                             <!-- endnotes get put on next page if we try and use \vskip and it is near the bottom of the page -->
@@ -5346,6 +5364,13 @@
                     </tex:cmd>
                     <tex:cmd name="newline"/>
                 </xsl:when>
+                <xsl:when test="ancestor::td or $originalContext and $originalContext[ancestor::td]">
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="lsb"/>
+                    <xsl:call-template name="GetCurrentPointSize"/>
+                    <tex:spec cat="rsb"/>
+                </xsl:when>
                 <xsl:when test="../following-sibling::*[1][name()='interlinear']">
                     <xsl:choose>
                         <xsl:when test="count(ancestor::interlinear) &gt; 1">
@@ -5360,13 +5385,6 @@
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
-                </xsl:when>
-                <xsl:when test="ancestor::td">
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="esc"/>
-                    <tex:spec cat="lsb"/>
-                    <xsl:call-template name="GetCurrentPointSize"/>
-                    <tex:spec cat="rsb"/>
                 </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
@@ -5707,6 +5725,30 @@
         <xsl:call-template name="DoFootnoteTextAtEndOfInLineGroup">
             <xsl:with-param name="originalContext" select="$originalContext"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoInterlinearRefContents
+    -->
+    <xsl:template name="DoInterlinearRefContents">
+        <xsl:param name="bHasExampleHeading"/>
+        <xsl:param name="bListsShareSameCode"/>
+        <xsl:param name="originalContext"/>
+        <xsl:choose>
+            <xsl:when test="$bAutomaticallyWrapInterlinears='yes' and $sInterlinearSourceStyle='AfterFirstLine'">
+                <xsl:call-template name="DoInterlinearWrappedWithSourceAfterFirstLine">
+                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates>
+                    <xsl:with-param name="bHasExampleHeading" select="$bHasExampleHeading"/>
+                    <xsl:with-param name="originalContext" select="$originalContext"/>
+                    <xsl:with-param name="bListsShareSameCode" select="$bListsShareSameCode"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--  
         DoInterlinearTabularMainPattern
@@ -6479,7 +6521,7 @@
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
             </xsl:when>
-            <xsl:when test="ancestor::td">
+            <xsl:when test="ancestor::td or $originalContext and $originalContext[ancestor::td]">
                 <tex:spec cat="esc"/>
                 <tex:spec cat="esc"/>
                 <tex:spec cat="lsb"/>

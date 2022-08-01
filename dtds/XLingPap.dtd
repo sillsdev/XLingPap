@@ -769,7 +769,7 @@
     direction (ltr | rtl | inherit) #IMPLIED
     xml:lang CDATA #IMPLIED
 >
-<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | example | counter)*>
+<!ELEMENT td (#PCDATA | %embedded; | table | interlinear | interlinearRef | example | counter)*>
 <!ATTLIST td
     align (left | center | right | justify) "left"
     backgroundcolor CDATA #IMPLIED

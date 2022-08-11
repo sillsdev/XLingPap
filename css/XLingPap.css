@@ -4354,6 +4354,15 @@ subtitle {
     margin-bottom: .67ex;
 }
 
+table[contentType] {
+    display:concatenate(xpath("if(not((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor) or (/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/@showOnlyChosenItemsInEditor='no','table',contains((/xlingpaper/styledPaper/lingPaper|/lingPaper)/contentControl/contentControlChoices/contentControlChoice[@active='yes']/@exclude,@contentType),'none','table')"));
+    border-style: solid;
+    border-width: concatenate(attr(border));
+    margin-top: 1.33ex;
+    margin-bottom: 1.33ex;
+    counter-reset:row-counter;
+}
+
 table { 
     display: table;
     border-style: solid;

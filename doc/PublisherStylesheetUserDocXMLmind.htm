@@ -12,8 +12,8 @@
       <center><i>H. Andrew Black</i></center>
       <center><i>Matthew Lee</i></center>
       <center><i>SIL International</i></center>
-      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>11 July 2022</small></center>
-      <center><small>Version: 3.11.2</small></center>
+      <center><i>xlingpaper_support@sil.org</i></center><br><center><small>11 August 2022</small></center>
+      <center><small>Version: 3.11.4</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -188,7 +188,7 @@
       <h1 style=""><a name="sIntro"></a>1&nbsp;Introduction
       </h1>
       <p>One of the nice features of <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is that since it requires one to mark-up the document data, that data is then &#8220;actionable&#8221; (<a href="#rSimonsAndBlackSFLF">Simons and Black  2009</a>, <a href="#rXlingPapSFLF">Black  2009)</a>. Perhaps the easiest way to see how such data is &#8220;actionable&#8221; is via the use of <span style="">publisher style sheet</span>s. Each <span style="">publisher style sheet</span> dictates how an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material,
-         etc., etc. can be determined by a <span style="">publisher style sheet</span>.
+         etc., etc., can be determined by a <span style="">publisher style sheet</span>.
       </p>
       <p>Thus, one can write one's document and then associate it with a <span style="">publisher style sheet</span> to get it to format the way that publisher wants it. If at any point you decide to use a different publisher, you merely
          associate your document to the <span style="">publisher style sheet</span> for that publisher (assuming one exists). The result is that an author has a lot less work to do when changing publishers.
@@ -227,7 +227,7 @@
             </tr>
          </table>
       </div>
-      <p>Note that for the Web Page output, you can have the output ignore the page width by clicking on the <span style="font-family:Courier New; color:maroon; ">pageLayout</span> element and setting its <span style="font-family:Courier New; color:purple; ">ignorePageWidthForWebPageOutput</span> attribute to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">yes</span>. In this case, there will be no fixed page width in the web page output (i.e. it &#8220;fills&#8221; the width like the web page output
+      <p>Note that for the Web Page output, you can have the output ignore the page width by clicking on the <span style="font-family:Courier New; color:maroon; ">pageLayout</span> element and setting its <span style="font-family:Courier New; color:purple; ">ignorePageWidthForWebPageOutput</span> attribute to <span style="font-family:Courier New; font-style:italic; color:steelblue; ">yes</span>. In this case, there will be no fixed page width in the web page output (i.e., it &#8220;fills&#8221; the width like the web page output
          does when there is no associated publisher style sheet). The <span style="font-family:Courier New; color:purple; ">ignorePageWidthForWebPageOutput</span> attribute is ignored by both the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> and the <span style="font-family:Courier New; font-weight:bold; color:navy; ">RenderX XEP</span> ways of producing PDF.
       </p>
       <p>Click in the black text to change a value. <a name="rXLingPapIndexedItem.iUnitsOfMeasure.d0e162"></a>You may use any of the units of measure given in <a href="#xUnitsOfMeasure">(2)</a>.
@@ -773,7 +773,7 @@
                                                 </tr>
                                                 <tr style="">
                                                    <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:Courier New; font-style:italic; color:steelblue; ">a</span></td>
-                                                   <td align="left" valign="top" style="padding-left:.2em">for a,b,c...aa,ab, etc.(Causes the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF to fail if there are more than 26 pages.)
+                                                   <td align="left" valign="top" style="padding-left:.2em">for a,b,c...aa,ab, etc. (Causes the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XeLaTeX</span> way of producing PDF to fail if there are more than 26 pages.)
                                                    </td>
                                                 </tr>
                                                 <tr style="">
@@ -808,7 +808,7 @@
                            <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iPaperPublishingBlurb.d0e1107"></a><span style="font-family:Courier New; color:maroon; ">paperPublishingBlurb</span></td>
                            <td align="left" valign="top" style="padding-left:.2em">Uses what is in the <span style="font-family:Courier New; color:maroon; ">publishingBlurb</span> element
                            </td>
-                           <td align="left" valign="top" style="padding-left:.2em">See section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;. In addition, <span style="font-family:Courier New; color:purple; ">verticalAdjustment</span> can be set to a measurement value (e.g. <span style="font-family:Courier New; font-style:italic; color:steelblue; ">-12pt</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">1ex</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">.125in</span>, etc.) in order to adjust the vertical positioning of the blurb contents.<span style="font-size:65%; vertical-align:super">[<a href="#nFOVerticalAdjustment">4</a>]</span></td>
+                           <td align="left" valign="top" style="padding-left:.2em">See section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;. In addition, <span style="font-family:Courier New; color:purple; ">verticalAdjustment</span> can be set to a measurement value (e.g., <span style="font-family:Courier New; font-style:italic; color:steelblue; ">-12pt</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">1ex</span>, <span style="font-family:Courier New; font-style:italic; color:steelblue; ">.125in</span>, etc.) in order to adjust the vertical positioning of the blurb contents.<span style="font-size:65%; vertical-align:super">[<a href="#nFOVerticalAdjustment">4</a>]</span></td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iPaperTitle.d0e1138"></a><span style="font-family:Courier New; color:maroon; ">paperTitle</span></td>
@@ -1071,7 +1071,7 @@
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><a name="rXLingPapIndexedItem.iContentsLayout.d0e1703"></a><a name="gContentsLayout"></a><span style="font-family:Courier New; color:maroon; ">contentsLayout</span></td>
                            <td align="left" valign="top" style="padding-left:.2em">How the table of contents are to be formatted. For books which are collections of papers (i.e., ones which use <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), the <span style="font-family:Courier New; color:maroon; ">contentsLayout</span> may be immediately followed by an <span style="font-family:Courier New; color:maroon; ">authorLayout</span> element. This <span style="font-family:Courier New; color:maroon; ">authorLayout</span> element specifies how author names are to be formatted on a line immediately below the chapter (i.e., paper) title in the
-                              table of contents.  If the document is a multi-volume work, you can also insert a <span style="font-family:Courier New; color:maroon; ">volumeLayout</span> element immediately after the <span style="font-family:Courier New; color:maroon; ">contentsLayout</span> if the document is not a collection of papers or immediately after the <span style="font-family:Courier New; color:maroon; ">authorLayout</span> element if it is.  See the information on <a href="#gVolumeLayout"> volumeLayout</a> below.
+                              table of contents. If the document is a multi-volume work, you can also insert a <span style="font-family:Courier New; color:maroon; ">volumeLayout</span> element immediately after the <span style="font-family:Courier New; color:maroon; ">contentsLayout</span> if the document is not a collection of papers or immediately after the <span style="font-family:Courier New; color:maroon; ">authorLayout</span> element if it is. See the information on <a href="#gVolumeLayout"> volumeLayout</a> below.
                            </td>
                            <td align="left" valign="top" style="padding-left:.2em">See section &#8220;<a href="#sTitleFormatInfoAttributes">Title Format Information Attributes</a>&#8221;. It also has 
                               <div align="left">
@@ -1429,7 +1429,7 @@
          (unless you overtly give other header and footer style information in the back matter section). Then you can define how to
          format parts, chapters, and the six section levels.
       </p>
-      <p>For the special case of a book which is a collection of papers (i.e. it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can also describe how to format front matter and back matter embedded within each chapter. These often have
+      <p>For the special case of a book which is a collection of papers (i.e., it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can also describe how to format front matter and back matter embedded within each chapter. These often have
          different formatting than the front matter and back matter for the entire book.
       </p>
       <p>All of the kinds of layouts in the body portion of a document are numbered (except, of course, for any embedded front matter
@@ -1443,7 +1443,7 @@
       </p>
       <h2 style=""><a name="sChapterInCollectionFrontMatterLayout"></a>4.2&nbsp;Embedded Front Matter in a Chapter in a Collection
       </h2>
-      <p><a name="rXLingPapIndexedItem.iiChapterInCollectionFrontMatterLayout.d0e2476"></a>For the special case of a book which is a collection of papers (i.e. it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can use the <span style="font-family:Courier New; color:maroon; ">chapterInCollectionFrontMatterLayout</span> element. It contains instances of the normal front matter layout elements described in section <a href="#sOtherFrontMatterLayoutElements">3.2</a>. These layout elements define how any front matter items embedded within the chapter are to be formatted.
+      <p><a name="rXLingPapIndexedItem.iiChapterInCollectionFrontMatterLayout.d0e2476"></a>For the special case of a book which is a collection of papers (i.e., it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can use the <span style="font-family:Courier New; color:maroon; ">chapterInCollectionFrontMatterLayout</span> element. It contains instances of the normal front matter layout elements described in section <a href="#sOtherFrontMatterLayoutElements">3.2</a>. These layout elements define how any front matter items embedded within the chapter are to be formatted.
       </p>
       <h2 style=""><a name="sPartLayout"></a>4.3&nbsp;Part Layout
       </h2>
@@ -1548,7 +1548,7 @@
       </h2>
       <p><a name="rXLingPapIndexedItem.iSection1Layout.d0e2687"></a><a name="rXLingPapIndexedItem.iSection2Layout.d0e2688"></a><a name="rXLingPapIndexedItem.iSection3Layout.d0e2689"></a><a name="rXLingPapIndexedItem.iSection4Layout.d0e2690"></a><a name="rXLingPapIndexedItem.iSection5Layout.d0e2691"></a><a name="rXLingPapIndexedItem.iSection6Layout.d0e2692"></a><a name="rXLingPapIndexedItem.iSectionTitleLayout.d0e2693"></a><a name="rXLingPapIndexedItem.iNumberLayout.d0e2694"></a>For sections, each level has its own section layout element. Within this layout element, one has a <span style="font-family:Courier New; color:maroon; ">sectionTitleLayout</span> and an optional <span style="font-family:Courier New; color:maroon; ">numberLayout</span>. The <span style="font-family:Courier New; color:maroon; "> sectionTitleLayout</span> element indicates how the title is to be formatted while the <span style="font-family:Courier New; color:maroon; ">numberLayout</span> element indicates how the number of the section is to be formatted.
       </p>
-      <p>The attributes for the main section layout elements (i.e. <span style="font-family:Courier New; color:maroon; ">section1Layout</span>, <span style="font-family:Courier New; color:maroon; ">section2Layout</span>, <span style="font-family:Courier New; color:maroon; ">section3Layout</span>, <span style="font-family:Courier New; color:maroon; ">section4Layout</span>, <span style="font-family:Courier New; color:maroon; ">section5Layout</span>, and <span style="font-family:Courier New; color:maroon; ">section6Layout</span>) are shown in example <a href="#xSectionFormatInfoAttribute">(24)</a>.
+      <p>The attributes for the main section layout elements (i.e., <span style="font-family:Courier New; color:maroon; ">section1Layout</span>, <span style="font-family:Courier New; color:maroon; ">section2Layout</span>, <span style="font-family:Courier New; color:maroon; ">section3Layout</span>, <span style="font-family:Courier New; color:maroon; ">section4Layout</span>, <span style="font-family:Courier New; color:maroon; ">section5Layout</span>, and <span style="font-family:Courier New; color:maroon; ">section6Layout</span>) are shown in example <a href="#xSectionFormatInfoAttribute">(24)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -1598,7 +1598,7 @@
       </p>
       <h2 style=""><a name="sChapterInCollectionBackMatterLayout"></a>4.7&nbsp;Embedded Back Matter in a Chapter in a Collection
       </h2>
-      <p><a name="rXLingPapIndexedItem.iChapterInCollectionBackMatterLayout.d0e2874"></a>For the special case of a book which is a collection of papers (i.e. it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can use the <span style="font-family:Courier New; color:maroon; ">chapterInCollectionBackMatterLayout</span> element. It contains instances of many of the normal back matter layout elements described in section <a href="#sBackMatterLayout">5</a>. These layout elements define how any back matter items embedded within the chapter are to be formatted. Note that there
+      <p><a name="rXLingPapIndexedItem.iChapterInCollectionBackMatterLayout.d0e2874"></a>For the special case of a book which is a collection of papers (i.e., it uses <span style="font-family:Courier New; color:maroon; ">chapterInCollection</span> elements instead of <span style="font-family:Courier New; color:maroon; ">chapter</span> elements), one can use the <span style="font-family:Courier New; color:maroon; ">chapterInCollectionBackMatterLayout</span> element. It contains instances of many of the normal back matter layout elements described in section <a href="#sBackMatterLayout">5</a>. These layout elements define how any back matter items embedded within the chapter are to be formatted. Note that there
          is no instance of <span style="font-family:Courier New; color:maroon; ">headerFooterPageStyles</span> since the paging used will be that of the body. In addition, for references, one only uses the <span style="font-family:Courier New; color:maroon; ">referencesTitleLayout</span> element. The formatting of the reference material itself uses the reference formatting of the entire volume (this guarantees
          consistency throughout the volume).
       </p>
@@ -4403,7 +4403,7 @@
       </p>
       <h2 style=""><a name="sInterlinearSourceStyleLayout"></a>6.6&nbsp;Controlling the Display of Interlinear Source Style
       </h2>
-      <p><a name="rXLingPapIndexedItem.iInterlinearSourceStyle.d0e7964"></a>How an interlinear source reference (i.e. the <span style="font-family:Courier New; color:maroon; ">interlinearSource</span> element in an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document) is to be displayed is controlled by the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. Its attributes are given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. What does show is given in example <a href="#xInterlinearSourceStyle">(48)</a>.
+      <p><a name="rXLingPapIndexedItem.iInterlinearSourceStyle.d0e7964"></a>How an interlinear source reference (i.e., the <span style="font-family:Courier New; color:maroon; ">interlinearSource</span> element in an <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document) is to be displayed is controlled by the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. Its attributes are given in section &#8220;<a href="#sFormatInfoAttributes">Format Information Attributes</a>&#8221;, except that none of these attributes show in the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> for the <span style="font-family:Courier New; color:maroon; ">interlinearSourceStyle</span> element. What does show is given in example <a href="#xInterlinearSourceStyle">(48)</a>.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
          <table>
@@ -4434,7 +4434,7 @@
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em">After first line</td>
-                           <td align="left" valign="top" style="padding-left:.2em">After the first line of the interlinear (i.e. on the same line as the first line, but off to the right).</td>
+                           <td align="left" valign="top" style="padding-left:.2em">After the first line of the interlinear (i.e., on the same line as the first line, but off to the right).</td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em">After free translation</td>
@@ -5330,7 +5330,7 @@
       <h2 style=""><a name="sMagnificationFactor"></a>6.15&nbsp;Magnification Factor
       </h2>
       <p><a name="rXLingPapIndexedItem.iMagnificationFactor.d0e9518"></a>When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining
-         the same page size. This is what the <span style="font-family:Courier New; color:maroon; ">magnificationFactor</span> element is for. Enter the factor you want (e.g. <span style="font-family:Courier New; font-weight:bold; ">1.5</span> or <span style="font-family:Courier New; font-weight:bold; ">2</span>). The factor should be a number.
+         the same page size. This is what the <span style="font-family:Courier New; color:maroon; ">magnificationFactor</span> element is for. Enter the factor you want (e.g., <span style="font-family:Courier New; font-weight:bold; ">1.5</span> or <span style="font-family:Courier New; font-weight:bold; ">2</span>). The factor should be a number.
       </p>
       <h2 style=""><a name="sLangDataOverrides"></a>6.16&nbsp;Special Overrides for <span style="font-family:Courier New; color:maroon; ">langData</span> Elements
       </h2>

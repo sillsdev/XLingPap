@@ -11,8 +11,8 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>11 July 2022</small></center>
-      <center><small>Version: 3.11.2</small></center>
+      <center><i>SIL International</i></center><br><center><small>11 August 2022</small></center>
+      <center><small>Version: 3.11.4</small></center>
       <hr>
       <div>
          <center><big><big><b>Contents</b></big></big></center>
@@ -184,7 +184,7 @@
          actually cited in the given paper will appear in the list of abbreviations. By the way, <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> also creates a hyperlink between the abbreviation in the text and the abbreviation in the list of abbreviations. Thus, a
          reader can click on the abbreviation and see what it means.
       </p>
-      <p>In addition, in some formatting systems such as HTML, headers (i.e. <span style="font-family:fixed; color:maroon; ">h1</span>, <span style="font-family:fixed; color:maroon; ">h2</span>, etc.) are not automatically numbered. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number all parts, chapters, and sections. Furthermore, one may create references to parts, chapters, or
+      <p>In addition, in some formatting systems such as HTML, headers (i.e., <span style="font-family:fixed; color:maroon; ">h1</span>, <span style="font-family:fixed; color:maroon; ">h2</span>, etc.) are not automatically numbered. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number all parts, chapters, and sections. Furthermore, one may create references to parts, chapters, or
          sections and these will display as hyperlinks to them, using the appropriate number.
       </p>
       <p>Since <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is in XML, it also can serve as an archiving format.
@@ -207,30 +207,30 @@
       </h2>
       <p>Besides the main text of the paper, one may also define the languages used within the paper. One can then tag individual data
          items as belonging to one of these languages. Each language definition has font-related information associated with it, so
-         one can set the font, size, color, etc. for each language. When the paper is formatted, each data item tagged with a given
+         one can set the font, size, color, etc., for each language. When the paper is formatted, each data item tagged with a given
          language will consistently be shown in the specified way.
       </p>
       <h2 style=""><a name="sIntroUsing"></a>1.3&nbsp;Using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span></h2>
       <p>This section describes how to use <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span>. There are two basic steps involved.
       </p>
       <p>The first consists of entering the appropriate element tags into an XML document. That is, the writer needs to key the correct
-         tags in the file(s) to enable <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> to recognize them. To do this, one may use a plain text editor (e.g. <span style="font-family:Courier New; font-weight:bold; color:navy; ">Notepad</span> or even <span style="font-family:Courier New; font-weight:bold; color:navy; ">Word</span>), but it is extremely error-prone and hard to use. One could also use some (free) XML-aware editor, but our personal preference
+         tags in the file(s) to enable <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> to recognize them. To do this, one may use a plain text editor (e.g., <span style="font-family:Courier New; font-weight:bold; color:navy; ">Notepad</span> or even <span style="font-family:Courier New; font-weight:bold; color:navy; ">Word</span>), but it is extremely error-prone and hard to use. One could also use some (free) XML-aware editor, but our personal preference
          is to use the freely available <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>. See section <a href="#sXMLmindXMLEditor">12</a> for a description of the many advantages it offers and also information on how to get it. Let me emphasize that you will
          be much better off using the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> than any other method.
       </p>
       <p>The second step in using <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> is to process the document file(s) to show the output in some form. Currently there are ways to produce these kinds of outputs:
       </p>
       <ul>
-         <li>Webpages (i.e. HTML) which can be loaded into a web browser (e.g. <span style="font-family:Courier New; font-weight:bold; color:navy; ">Internet Explorer</span> version 5.5 or later).
+         <li>Webpages (i.e., HTML) which can be loaded into a web browser (e.g., <span style="font-family:Courier New; font-weight:bold; color:navy; ">Internet Explorer</span> version 5.5 or later).
          </li>
-         <li>PDF file which can be read with a PDF Reader (e.g. <span style="font-family:Courier New; font-weight:bold; color:navy; ">Adobe Reader</span> 7.0)
+         <li>PDF file which can be read with a PDF Reader (e.g., <span style="font-family:Courier New; font-weight:bold; color:navy; ">Adobe Reader</span> 7.0)
          </li>
          <li><span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> format
          </li>
       </ul>
       <p class="pc">Another reason we prefer to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span> is that it makes it easier to produce these outputs, too.
       </p>
-      <p>If you need to key the XML itself (i.e. you are not going to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>), you'll need to create the elements in a particular way. The syntax of the element tags follows the syntax of the XML elements.
+      <p>If you need to key the XML itself (i.e., you are not going to use the <span style="font-family:Courier New; font-weight:bold; color:navy; ">XMLmind XML Editor</span>), you'll need to create the elements in a particular way. The syntax of the element tags follows the syntax of the XML elements.
          The basic syntax for an XML element is given in <a href="#xXMLElement">(1)</a>, where parentheses delimit optional elements.
       </p>
       <div style="margin-left: 0.25in; margin-right: 0.25in">
@@ -326,8 +326,8 @@
       </h2>
       <p>One may optionally include a table of contents by merely including the <span style="font-family:fixed; color:maroon; ">contents</span> element. Including this tag will instruct <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> to automatically generate a table of contents.
       </p>
-      <p>The default situation is for the table of contents to include sections up to three levels deep (i.e. it will include the titles
-         for all of the following: <span style="font-family:fixed; color:maroon; ">part</span>, <span style="font-family:fixed; color:maroon; ">chapter</span>, <span style="font-family:fixed; color:maroon; ">appendix</span>, <span style="font-family:fixed; color:maroon; ">section1</span>, <span style="font-family:fixed; color:maroon; ">section2</span>, and <span style="font-family:fixed; color:maroon; ">section3</span>). You can control how many section levels will be included in the table of contents by changing the value of the <span style="font-family:fixed; color:purple; ">showLevel</span> attribute. Its value can be any of the integer numbers between "1" and "6".
+      <p>The default situation is for the table of contents to include sections up to three levels deep (i.e., it will include the
+         titles for all of the following: <span style="font-family:fixed; color:maroon; ">part</span>, <span style="font-family:fixed; color:maroon; ">chapter</span>, <span style="font-family:fixed; color:maroon; ">appendix</span>, <span style="font-family:fixed; color:maroon; ">section1</span>, <span style="font-family:fixed; color:maroon; ">section2</span>, and <span style="font-family:fixed; color:maroon; ">section3</span>). You can control how many section levels will be included in the table of contents by changing the value of the <span style="font-family:fixed; color:purple; ">showLevel</span> attribute. Its value can be any of the integer numbers between "1" and "6".
       </p>
       <p>The table of contents will also include acknowledgements (if any), the abstract (if present), endnotes, and references.</p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will use a title of "Table of Contents" for the contents. If you wish to use some other title, set the <span style="font-family:fixed; color:purple; ">label</span> attribute to the title you want to use.
@@ -555,7 +555,7 @@
       <p>HTML does not readily allow for footnotes, since the entire paper may be rendered on one HTML page. Therefore we use endnotes
          instead of footnotes. It is now possible for some outputs like PDF or <span style="font-family:Courier New; font-weight:bold; color:navy; ">Microsoft Word 2003</span> to use footnotes. Nonetheless, we still use <span style="font-family:fixed; color:maroon; ">endnote</span> elements for this. That is, use an <span style="font-family:fixed; color:maroon; ">endnote</span> element whether or not you plan to have endnotes or footnotes. The process that converts <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> from XML to HTML or one of the other formats will take care of whether these elements show up as endnotes or as footnotes.
       </p>
-      <p>One keys an endnote in the text at the point where the reference to the endnote should go (i.e. the "endnote number", usually rendered in superscript). Create the <span style="font-family:fixed; color:maroon; ">endnote</span> element, give it its required <span style="font-family:fixed; color:purple; ">id</span> attribute, type the content of the endnote, and then give the <span style="font-family:fixed; color:maroon; ">/endnote</span> closing tag. The content of the endnote normally begins with a paragraph tag <span style="font-family:fixed; color:maroon; ">p</span>, although one may use a sequence of any "chunk" elements.<span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span></p>
+      <p>One keys an endnote in the text at the point where the reference to the endnote should go (i.e., the "endnote number", usually rendered in superscript). Create the <span style="font-family:fixed; color:maroon; ">endnote</span> element, give it its required <span style="font-family:fixed; color:purple; ">id</span> attribute, type the content of the endnote, and then give the <span style="font-family:fixed; color:maroon; ">/endnote</span> closing tag. The content of the endnote normally begins with a paragraph tag <span style="font-family:fixed; color:maroon; ">p</span>, although one may use a sequence of any "chunk" elements.<span style="font-size:65%; vertical-align:super">[<a href="#nChunk">3</a>]</span></p>
       <p>Note that an <span style="font-family:fixed; color:maroon; ">endnotes/</span> element is required in the back matter section in order to get endnotes to come out properly.
       </p>
       <h2 style=""><a name="sBMReferences"></a>4.5&nbsp;References
@@ -563,11 +563,11 @@
       <p>The references section begins by using the <span style="font-family:fixed; color:maroon; ">references</span> element. One then creates a sequence of <span style="font-family:fixed; color:maroon; ">refAuthor</span> elements within it. The <span style="font-family:fixed; color:maroon; ">refAuthor</span> elements should be ordered alphabetically by the author's last name. Note that <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> has you group the references by author, not by work.
       </p>
       <p>Each <span style="font-family:fixed; color:maroon; ">refAuthor</span> element has two required attributes: <span style="font-family:fixed; color:purple; ">name</span> and <span style="font-family:fixed; color:purple; ">citename</span>. The <span style="font-family:fixed; color:purple; ">name</span> attribute is how you want the author's name to appear in the references (usually last name first for single authors; see
-         the examples below <a href="#sBMExample">4.8</a>). You may also include a <span style="font-family:fixed; color:maroon; ">refAuthorInitials</span> element for those cases where you need to use initials for the author(s) first, etc.names. The <span style="font-family:fixed; color:purple; ">citename</span> attribute is how you want the author's name to be shown in a citation within the body of the paper.
+         the examples below <a href="#sBMExample">4.8</a>). You may also include a <span style="font-family:fixed; color:maroon; ">refAuthorInitials</span> element for those cases where you need to use initials for the author(s) first, etc., names. The <span style="font-family:fixed; color:purple; ">citename</span> attribute is how you want the author's name to be shown in a citation within the body of the paper.
       </p>
       <p>Within each <span style="font-family:fixed; color:maroon; ">refAuthor</span> element, one lists one or more <span style="font-family:fixed; color:maroon; ">refWork</span> elements, each of which describes a work by that author. They should be ordered by date, oldest first. Each <span style="font-family:fixed; color:maroon; ">refWork</span> element has a required <span style="font-family:fixed; color:purple; ">id</span> attribute which can be referred to by <span style="font-family:fixed; color:maroon; ">citation</span> elements within the body of the paper.
       </p>
-      <p>Every <span style="font-family:fixed; color:maroon; ">refWork</span> element has both a <span style="font-family:fixed; color:maroon; ">refDate</span> element and a <span style="font-family:fixed; color:maroon; ">refTitle</span> element. The <span style="font-family:fixed; color:maroon; ">refDate</span> element contains the date (i.e. year) of the work. If there is more than one work by the same author within a given year,
+      <p>Every <span style="font-family:fixed; color:maroon; ">refWork</span> element has both a <span style="font-family:fixed; color:maroon; ">refDate</span> element and a <span style="font-family:fixed; color:maroon; ">refTitle</span> element. The <span style="font-family:fixed; color:maroon; ">refDate</span> element contains the date (i.e., year) of the work. If there is more than one work by the same author within a given year,
          merely list the year for each such work. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically append a letter after the year as appropriate. The <span style="font-family:fixed; color:maroon; ">refWork</span> element may also optionally end with a <span style="font-family:fixed; color:maroon; ">url</span> element (for indicating the address of a page on the World Wide Web if the work happens to be stored on the World Wide Web).
       </p>
       <p>The <span style="font-family:fixed; color:maroon; ">refTitle</span> element contains the title of the work. The title should not include any formatting (such as surrounding quotes) as these
@@ -748,7 +748,7 @@
          <li>Creating the set of terms to be included in the index, including their relative hierarchical structure and any cross-referencing.
             This set of terms is what will show in the index section(s) in the output.
          </li>
-         <li>Marking the document body for indexed items (i.e. tagging the places in the text that correspond to one of the index terms
+         <li>Marking the document body for indexed items (i.e., tagging the places in the text that correspond to one of the index terms
             in the set of terms). If the indexed item covers a range of the document, then the beginning and ending points need to be
             marked.
          </li>
@@ -777,7 +777,7 @@
       <p>As implied in the last point, it is possible to create some kind of a master set of index terms and then use that master set
          in more than one <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> document.
       </p>
-      <p>The top-level <span style="font-family:fixed; color:maroon; ">indexTerms</span> element goes as the last top-level element in the file (i.e. just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element). You may have more than one of them (in order to include the master set and any document-specific ones). <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will sort them appropriately when producing the output.<span style="font-size:65%; vertical-align:super">[<a href="#nIndexTerms">7</a>]</span></p>
+      <p>The top-level <span style="font-family:fixed; color:maroon; ">indexTerms</span> element goes as the last top-level element in the file (i.e., just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element). You may have more than one of them (in order to include the master set and any document-specific ones). <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will sort them appropriately when producing the output.<span style="font-size:65%; vertical-align:super">[<a href="#nIndexTerms">7</a>]</span></p>
       <p><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will only output those index terms which are actually tagged within the document. So one may define more index terms than
          are actually used in a given document. This is similar to how <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> handles the references section.
       </p>
@@ -819,7 +819,7 @@
             </tr>
          </table>
       </div>
-      <p>A <span style="font-family:fixed; color:maroon; ">term</span> element has an optional <span style="font-family:fixed; color:purple; ">lang</span> attribute which refers to a <span style="font-family:fixed; color:maroon; ">language</span> element. This is a way to tag the term as being for a particular language (e.g. English or Spanish or French). The <span style="font-family:fixed; color:maroon; ">index</span> element also has a <span style="font-family:fixed; color:purple; ">lang</span> attribute one can use to indicate which <span style="font-family:fixed; color:maroon; ">term</span> elements to use.
+      <p>A <span style="font-family:fixed; color:maroon; ">term</span> element has an optional <span style="font-family:fixed; color:purple; ">lang</span> attribute which refers to a <span style="font-family:fixed; color:maroon; ">language</span> element. This is a way to tag the term as being for a particular language (e.g., English or Spanish or French). The <span style="font-family:fixed; color:maroon; ">index</span> element also has a <span style="font-family:fixed; color:purple; ">lang</span> attribute one can use to indicate which <span style="font-family:fixed; color:maroon; ">term</span> elements to use.
       </p>
       <h3 style=""><a name="sBMIndexIndexedItems"></a>4.6.2&nbsp;Tagging the Document for Indexed Items
       </h3>
@@ -2100,7 +2100,7 @@
       <h2 style=""><a name="sTCTTrees"></a>6.3&nbsp;Trees
       </h2>
       <p>One can also create tree diagrams. You can type plain text to try and format the tree (by using a lot of non-breaking spaces,
-         for example) or you can use some tool to produce a tree image file (e.g. <a href="https://sdev.sil.org/sdev/ls/dev/project/carla/software/LingTree">LingTree</a>). The following tree uses the latter.
+         for example) or you can use some tool to produce a tree image file (e.g., <a href="https://sdev.sil.org/sdev/ls/dev/project/carla/software/LingTree">LingTree</a>). The following tree uses the latter.
       </p>
       <p>Trees may be included as numbered examples. The input in <a href="#xSampleTree">(51)</a> might produce what is in <a href="#xSampleTreeHTML">(52)</a>.
       </p>
@@ -2153,7 +2153,7 @@
       <h3 style=""><a name="sTCTFloatsFigures"></a>6.4.1&nbsp;Figures
       </h3>
       <p>Figures consist of a required <span style="font-family:fixed; color:maroon; ">chart</span> element and an optional <span style="font-family:fixed; color:maroon; ">caption</span> element. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number the figures in your document. (Figures are numbered independently of numbered tables.) For papers,
-         each figure is numbered consecutively. For books (i.e. documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for figures starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the figure number.
+         each figure is numbered consecutively. For books (i.e., documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for figures starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the figure number.
       </p>
       <p>Whether the caption appears before or after the chart is determined by the <span style="font-family:fixed; color:purple; ">figureLabelAndCaptionLocation</span> attribute of the <span style="font-family:fixed; color:maroon; ">lingPaper</span> element. The default is set to <span style="font-family:fixed; font-style:italic; color:steelblue; ">after</span>.
       </p>
@@ -2358,7 +2358,7 @@
                                     <tr style="">
                                        <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:fixed; font-style:italic; color:steelblue; ">none</span></td>
                                        <td align="left" valign="top" style="padding-left:.2em">No text will be inserted. This is useful for when you have a list of figure references and you do not want to insert any text
-                                          before the second, third, etc. references.
+                                          before the second, third, etc., references.
                                        </td>
                                     </tr>
                                     <tr style="">
@@ -2395,7 +2395,7 @@
       <h3 style=""><a name="sTCTFloatsNumberedTables"></a>6.4.3&nbsp;Numbered Tables
       </h3>
       <p>Numbered tables consist of a required <span style="font-family:fixed; color:maroon; ">tablenumbered</span> element<span style="font-size:65%; vertical-align:super">[<a href="#nTablenumbered">18</a>]</span> and a required <span style="font-family:fixed; color:maroon; ">table</span> element. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will automatically number the tables in your document. (These tables are numbered independently of figures.) For papers,
-         each numbered table is numbered consecutively. For books (i.e. documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for numbered tables starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the table number.
+         each numbered table is numbered consecutively. For books (i.e., documents containing <span style="font-family:fixed; color:maroon; ">chapter</span> elements), the numbering for numbered tables starts over with each <span style="font-family:fixed; color:maroon; ">chapter</span> and <span style="font-family:fixed; color:maroon; ">appendix</span>. The chapter number and appendix letter are prepended to the table number.
       </p>
       <p>Like other elements which can be referred to, numbered tables have an <span style="font-family:fixed; color:purple; ">id</span> attribute. I suggest that you begin all numbered table id attributes with the letters "nt."<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span> The patches are for where you key your caption.
       </p>
@@ -2610,7 +2610,7 @@
                                     <tr style="">
                                        <td align="left" valign="top" style="padding-left:.2em"><span style="font-family:fixed; font-style:italic; color:steelblue; ">none</span></td>
                                        <td align="left" valign="top" style="padding-left:.2em">No text will be inserted. This is useful for when you have a list of numbered table references and you do not want to insert
-                                          any text before the second, third, etc. references.
+                                          any text before the second, third, etc., references.
                                        </td>
                                     </tr>
                                     <tr style="">
@@ -2846,7 +2846,7 @@
             </tr>
          </table>
       </div>
-      <p>If only the second such entry is cited in the text (i.e. via a <span style="font-family:fixed; color:maroon; ">citation</span> element), then the date should be produced as <span style="font-family:fixed; font-weight:bold; ">1985</span>, not as <span style="font-family:fixed; font-weight:bold; ">1985b</span> or even as <span style="font-family:fixed; font-weight:bold; ">1985a</span>. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> formats this correctly. It adjusts the value of the letter in the date for such entries to correspond to the appropriate
+      <p>If only the second such entry is cited in the text (i.e., via a <span style="font-family:fixed; color:maroon; ">citation</span> element), then the date should be produced as <span style="font-family:fixed; font-weight:bold; ">1985</span>, not as <span style="font-family:fixed; font-weight:bold; ">1985b</span> or even as <span style="font-family:fixed; font-weight:bold; ">1985a</span>. <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> formats this correctly. It adjusts the value of the letter in the date for such entries to correspond to the appropriate
          value. If there were three dates (such as <span style="font-family:fixed; font-weight:bold; ">1985a</span>, <span style="font-family:fixed; font-weight:bold; ">1985b</span>, and <span style="font-family:fixed; font-weight:bold; ">1985c</span>) and only two were cited (such as <span style="font-family:fixed; font-weight:bold; ">1985b</span> and <span style="font-family:fixed; font-weight:bold; ">1985c</span>), then <span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> will output these as <span style="font-family:fixed; font-weight:bold; ">1985a</span> and <span style="font-family:fixed; font-weight:bold; ">1985b</span>, respectively.
       </p>
       <p>The content of the <span style="font-family:fixed; color:maroon; ">refDate</span> element can be any text, so one can also use strings such as <span style="font-family:fixed; font-weight:bold; ">in prep.</span>, <span style="font-family:fixed; font-weight:bold; ">to appear</span>, or <span style="font-family:fixed; font-weight:bold; ">forthcoming</span> as the date.
@@ -3131,7 +3131,7 @@
       </p>
       <p>If you wish to produce some special effect for any non-language data item, follow these steps.</p>
       <ol style="list-style-type:decimal; ">
-         <li>Unless you already have one, create a <span style="font-family:fixed; color:maroon; ">types</span> element as the last top-level element in the file (i.e. just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element).<span style="font-size:65%; vertical-align:super">[<a href="#nTypeAsLastElement">24</a>]</span></li>
+         <li>Unless you already have one, create a <span style="font-family:fixed; color:maroon; ">types</span> element as the last top-level element in the file (i.e., just before the closing <span style="font-family:fixed; color:maroon; ">/lingPaper</span> element).<span style="font-size:65%; vertical-align:super">[<a href="#nTypeAsLastElement">24</a>]</span></li>
          <li>Define a <span style="font-family:fixed; color:maroon; ">type</span> element within this <span style="font-family:fixed; color:maroon; ">types</span> element. Give it a unique <span style="font-family:fixed; color:purple; ">id</span> attribute.<span style="font-size:65%; vertical-align:super">[<a href="#nInitialIDLetter">5</a>]</span> Set its attributes to perform the special effects you want.
          </li>
          <li>In your text, use an <span style="font-family:fixed; color:maroon; ">object</span> element.
@@ -3171,7 +3171,7 @@
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:fixed; color:purple; ">font-family</span> </span></td>
                            <td align="left" valign="top" style="padding-left:.2em"><span style="">(user control)</span></td>
-                           <td align="left" valign="top" style="padding-left:.2em"><span style="">This is the font name to use (e.g. <span style="font-family:fixed; font-style:italic; color:steelblue; ">Times New Roman</span> or <span style="font-family:fixed; font-style:italic; color:steelblue; ">Courier New</span>).</span></td>
+                           <td align="left" valign="top" style="padding-left:.2em"><span style="">This is the font name to use (e.g., <span style="font-family:fixed; font-style:italic; color:steelblue; ">Times New Roman</span> or <span style="font-family:fixed; font-style:italic; color:steelblue; ">Courier New</span>).</span></td>
                         </tr>
                         <tr style="">
                            <td align="left" valign="top" style="padding-left:.2em"><span style=""> <span style="font-family:fixed; color:purple; ">font-size</span> </span></td>
@@ -3300,7 +3300,7 @@
          <li>There are templates which make it easy to start a new document and also to easily create various kinds of examples, lists,
             tables, etc.
          </li>
-         <li>As a structured editor, one can only insert elements (e.g. citations, examples, lists) when it is appropriate to do so.</li>
+         <li>As a structured editor, one can only insert elements (e.g., citations, examples, lists) when it is appropriate to do so.</li>
          <li>There are ways to easily set references to examples, sections, etc.</li>
          <li>One can maintain a master file of references that one can then reuse for multiple papers.</li>
          <li>It has a nice find and replace capability.</li>
@@ -3406,7 +3406,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">authorContacts</span></dt>
          <dd>A list of author contact information</dd>
          <dt><span style="font-family:fixed; color:maroon; ">authorRole</span></dt>
-         <dd>The role of the author in the paper (e.g. editor, illustrator, etc.)</dd>
+         <dd>The role of the author in the paper (e.g., editor, illustrator, etc.)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">backMatter</span></dt>
          <dd>The back matter section of the paper (it includes appendices, endnotes, and references)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">beforeTerm</span></dt>
@@ -3528,7 +3528,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">example</span></dt>
          <dd>An example, which may be numbered or unnumbered</dd>
          <dt><span style="font-family:fixed; color:maroon; ">exampleHeading</span></dt>
-         <dd>A &#8220;heading&#8221; in an example; this is a way to label or tag what is being shown in an example; e.g. a language or a construction</dd>
+         <dd>A &#8220;heading&#8221; in an example; this is a way to label or tag what is being shown in an example; e.g., a language or a construction</dd>
          <dt><span style="font-family:fixed; color:maroon; ">exampleRef</span></dt>
          <dd>A reference to an example</dd>
          <dt><span style="font-family:fixed; color:maroon; ">fieldNotes</span></dt>
@@ -3792,7 +3792,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">section1</span></dt>
          <dd>A level one section of the paper</dd>
          <dt><span style="font-family:fixed; color:maroon; ">section2</span></dt>
-         <dd>A level two section of the paper (i.e. a sub-section)</dd>
+         <dd>A level two section of the paper (i.e., a sub-section)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">section3</span></dt>
          <dd>A level three section of the paper</dd>
          <dt><span style="font-family:fixed; color:maroon; ">section4</span></dt>
@@ -3838,7 +3838,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">single</span></dt>
          <dd>A single line example</dd>
          <dt><span style="font-family:fixed; color:maroon; ">source</span></dt>
-         <dd>The source information of an interlinear text (e.g. who gave the textl, where, when, etc.)</dd>
+         <dd>The source information of an interlinear text (e.g., who gave the text, where, when, etc.)</dd>
          <dt><span style="font-family:fixed; color:maroon; ">styles</span></dt>
          <dd>Embedded Cascading Style Sheet</dd>
          <dt><span style="font-family:fixed; color:maroon; ">table</span></dt>
@@ -4096,7 +4096,7 @@
          <dd>Layout info for <span style="font-family:fixed; color:maroon; ">gloss</span> elements which are in <span style="font-family:fixed; color:maroon; ">listWord</span> or <span style="font-family:fixed; color:maroon; ">word</span> elements
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">glossInProseLayout</span></dt>
-         <dd>Layout info for <span style="font-family:fixed; color:maroon; ">gloss</span> elements which are in prose (i.e. non-<span style="font-family:fixed; color:maroon; ">example</span> and non-<span style="font-family:fixed; color:maroon; ">table</span> elements
+         <dd>Layout info for <span style="font-family:fixed; color:maroon; ">gloss</span> elements which are in prose (i.e., non-<span style="font-family:fixed; color:maroon; ">example</span> and non-<span style="font-family:fixed; color:maroon; ">table</span> elements
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">glossInTableLayout</span></dt>
          <dd>Layout info for <span style="font-family:fixed; color:maroon; ">gloss</span> elements which are in <span style="font-family:fixed; color:maroon; ">table</span> elements
@@ -4184,7 +4184,7 @@
          <dd>Layout info for <span style="font-family:fixed; color:maroon; ">langData</span> elements which are in <span style="font-family:fixed; color:maroon; ">example</span> elements
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">langDataInProseLayout</span></dt>
-         <dd>Layout info for <span style="font-family:fixed; color:maroon; ">langData</span> elements which are in prose (i.e. non-<span style="font-family:fixed; color:maroon; ">example</span> and non-<span style="font-family:fixed; color:maroon; ">table</span> elements
+         <dd>Layout info for <span style="font-family:fixed; color:maroon; ">langData</span> elements which are in prose (i.e., non-<span style="font-family:fixed; color:maroon; ">example</span> and non-<span style="font-family:fixed; color:maroon; ">table</span> elements
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">langDataInTableLayout</span></dt>
          <dd>Layout info for <span style="font-family:fixed; color:maroon; ">langData</span> elements which are in <span style="font-family:fixed; color:maroon; ">table</span> elements

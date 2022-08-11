@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 July 2022</date
+>11 August 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.2</version
+>2.41.4</version
 ><version
 contentType="ctVersion7Plus"
->3.11.2</version
+>3.11.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -79,7 +79,7 @@ type="tPublisherStyleSheet"
 > dictates how an <object
 type="tXLingPap"
 ></object
-> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material, etc., etc. can be determined by a <object
+> document is to be formatted. The page size and margins, order of front matter and back matter, layout of reference material, etc., etc., can be determined by a <object
 type="tPublisherStyleSheet"
 ></object
 >.</p
@@ -227,7 +227,7 @@ type="tAttribute"
 > attribute to <object
 type="tAttrValue"
 >yes</object
->. In this case, there will be no fixed page width in the web page output (i.e. it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
+>. In this case, there will be no fixed page width in the web page output (i.e., it “fills” the width like the web page output does when there is no associated publisher style sheet). The <object
 type="tAttribute"
 >ignorePageWidthForWebPageOutput</object
 > attribute is ignored by both the <object
@@ -1572,7 +1572,7 @@ type="tAttrValue"
 >a</object
 ></td
 ><td
->for a,b,c...aa,ab, etc.(Causes the <object
+>for a,b,c...aa,ab, etc. (Causes the <object
 type="tXeTeX"
 ></object
 > way of producing PDF to fail if there are more than 26 pages.)</td
@@ -1665,7 +1665,7 @@ showTitle="short"
 >. In addition, <object
 type="tAttribute"
 >verticalAdjustment</object
-> can be set to a measurement value (e.g. <object
+> can be set to a measurement value (e.g., <object
 type="tAttrValue"
 >-12pt</object
 >, <object
@@ -2510,7 +2510,7 @@ type="tElement"
 > element. This <object
 type="tElement"
 >authorLayout</object
-> element specifies how author names are to be formatted on a line immediately below the chapter (i.e., paper) title in the table of contents.  If the document is a multi-volume work, you can also insert a <object
+> element specifies how author names are to be formatted on a line immediately below the chapter (i.e., paper) title in the table of contents. If the document is a multi-volume work, you can also insert a <object
 type="tElement"
 >volumeLayout</object
 > element immediately after the <object
@@ -2519,7 +2519,7 @@ type="tElement"
 > if the document is not a collection of papers or immediately after the <object
 type="tElement"
 >authorLayout</object
-> element if it is.  See the information on <genericRef
+> element if it is. See the information on <genericRef
 gref="gVolumeLayout"
 > volumeLayout</genericRef
 > below.</td
@@ -3520,7 +3520,7 @@ term="iFooterHeaderLayout"
 ></indexedItem
 >For books, you may normally want to first describe the header and footer styles for pages in the body and the back matter (unless you overtly give other header and footer style information in the back matter section). Then you can define how to format parts, chapters, and the six section levels.</p
 ><p
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -3565,7 +3565,7 @@ id="sChapterInCollectionFrontMatterLayout"
 ><indexedItem
 term="iiChapterInCollectionFrontMatterLayout"
 ></indexedItem
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -3889,7 +3889,7 @@ type="tElement"
 >numberLayout</object
 > element indicates how the number of the section is to be formatted.</p
 ><p
->The attributes for the main section layout elements (i.e. <object
+>The attributes for the main section layout elements (i.e., <object
 type="tElement"
 >section1Layout</object
 >, <object
@@ -4090,7 +4090,7 @@ id="sChapterInCollectionBackMatterLayout"
 ><indexedItem
 term="iChapterInCollectionBackMatterLayout"
 ></indexedItem
->For the special case of a book which is a collection of papers (i.e. it uses <object
+>For the special case of a book which is a collection of papers (i.e., it uses <object
 type="tElement"
 >chapterInCollection</object
 > elements instead of <object
@@ -11333,7 +11333,7 @@ id="sInterlinearSourceStyleLayout"
 ><indexedItem
 term="iInterlinearSourceStyle"
 ></indexedItem
->How an interlinear source reference (i.e. the <object
+>How an interlinear source reference (i.e., the <object
 type="tElement"
 >interlinearSource</object
 > element in an <object
@@ -11385,7 +11385,7 @@ border="1"
 ><td
 >After first line</td
 ><td
->After the first line of the interlinear (i.e. on the same line as the first line, but off to the right).</td
+>After the first line of the interlinear (i.e., on the same line as the first line, but off to the right).</td
 ></tr
 ><tr
 ><td
@@ -13608,7 +13608,7 @@ term="iMagnificationFactor"
 >When one is producing a paper for a poster session, sometimes one wants to enlarge the text of the document while maintaining the same page size. This is what the <object
 type="tElement"
 >magnificationFactor</object
-> element is for. Enter the factor you want (e.g. <object
+> element is for. Enter the factor you want (e.g., <object
 type="tInTextExample"
 >1.5</object
 > or <object

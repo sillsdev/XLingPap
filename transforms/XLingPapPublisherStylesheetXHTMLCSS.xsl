@@ -27,6 +27,17 @@
     <xsl:variable name="sFooterMargin" select="string($pageLayoutInfo/footerMargin)"/>
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
+    <xsl:variable name="sBlockQuoteRightIndent">
+        <xsl:variable name="sRightIndent" select="normalize-space($pageLayoutInfo/blockQuoteIndent/@rightIndent)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sRightIndent) &gt; 0">
+                <xsl:value-of select="$sRightIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pageLayoutInfo/blockQuoteIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
@@ -1148,10 +1159,10 @@ li.lower-roman {
 }
 .blockquote {
         margin-left:</xsl:text>
-        <xsl:value-of select="blockQuoteIndent"/>
+        <xsl:value-of select="$sBlockQuoteIndent"/>
         <xsl:text>;
         margin-right:</xsl:text>
-        <xsl:value-of select="blockQuoteIndent"/>
+        <xsl:value-of select="$sBlockQuoteRightIndent"/>
         <xsl:text>;
 </xsl:text>
         <xsl:call-template name="DoSingleSpacing">

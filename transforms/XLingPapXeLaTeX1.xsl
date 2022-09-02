@@ -12,6 +12,7 @@
     <xsl:param name="sSection6PointSize" select="'10'"/>
     <xsl:param name="sBackMatterItemTitlePointSize" select="'12'"/>
     <xsl:param name="sBlockQuoteIndent" select="'.125in'"/>
+    <xsl:param name="sBlockQuoteRightIndent" select="'.125in'"/>
     <xsl:param name="sDefaultFontFamily" select="'Times New Roman'"/>
     <!--        <xsl:param name="sDefaultFontFamily" select="'Charis SIL'"/> -->
     <xsl:param name="sFooterMargin" select="'.25in'"/>

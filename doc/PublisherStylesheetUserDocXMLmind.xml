@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 August 2022</date
+>2 September 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.41.4</version
@@ -303,7 +303,13 @@ term="iBlockQuoteIndent"
 letter="xParagraphIndents"
 num="xParagraphIndents"
 ></exampleRef
->.</p
+>. If you need to have different values for the left and right indents of a block quote, set the <object
+type="tAttribute"
+>rightIndent</object
+> attribute of the <object
+type="tElement"
+>blockQuoteIndent</object
+> element to the value for the right indent.</p
 ><example
 num="xParagraphIndents"
 ><chart

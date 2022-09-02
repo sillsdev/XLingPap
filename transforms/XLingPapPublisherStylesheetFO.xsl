@@ -27,6 +27,17 @@
     <xsl:variable name="sFooterMargin" select="string($pageLayoutInfo/footerMargin)"/>
     <xsl:variable name="sParagraphIndent" select="string($pageLayoutInfo/paragraphIndent)"/>
     <xsl:variable name="sBlockQuoteIndent" select="string($pageLayoutInfo/blockQuoteIndent)"/>
+    <xsl:variable name="sBlockQuoteRightIndent">
+        <xsl:variable name="sRightIndent" select="normalize-space($pageLayoutInfo/blockQuoteIndent/@rightIndent)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sRightIndent) &gt; 0">
+                <xsl:value-of select="$sRightIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pageLayoutInfo/blockQuoteIndent"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sDefaultFontFamily" select="string($pageLayoutInfo/defaultFontFamily)"/>
     <xsl:variable name="sBasicPointSize" select="string($pageLayoutInfo/basicPointSize * $iMagnificationFactor)"/>
     <xsl:variable name="sFootnotePointSize" select="string($pageLayoutInfo/footnotePointSize * $iMagnificationFactor)"/>
@@ -1592,10 +1603,10 @@
                 </xsl:choose>
             </xsl:attribute>
             <xsl:attribute name="end-indent">
-                <xsl:value-of select="$sBlockQuoteIndent"/>
+                <xsl:value-of select="$sBlockQuoteRightIndent"/>
             </xsl:attribute>
-            <xsl:attribute name="font-size">
-                <xsl:value-of select="$sBasicPointSize - 1"/>pt</xsl:attribute>
+<!-- Not correct:           <xsl:attribute name="font-size">
+                <xsl:value-of select="$sBasicPointSize - 1"/>pt</xsl:attribute>-->
             <xsl:attribute name="space-before">
                 <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
                 <xsl:choose>
@@ -1674,7 +1685,7 @@
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                     </xsl:attribute>
                     <xsl:attribute name="end-indent">
-                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <xsl:value-of select="$sBlockQuoteRightIndent"/>
                     </xsl:attribute>
                     <xsl:call-template name="OutputFontAttributes">
                         <xsl:with-param name="language" select="key('LanguageID',@lang)"/>
@@ -2529,7 +2540,7 @@
                     </xsl:attribute>
                     <xsl:attribute name="end-indent">
                         <xsl:call-template name="HandleFramedUnitEndIndent"/>
-                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <xsl:value-of select="$sBlockQuoteRightIndent"/>
                     </xsl:attribute>
                 </xsl:when>
                 <xsl:when test="ancestor::li">

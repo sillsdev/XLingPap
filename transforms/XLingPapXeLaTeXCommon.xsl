@@ -406,7 +406,7 @@
                 </xsl:choose>
             </tex:parm>
             <tex:parm>
-                <xsl:value-of select="$sBlockQuoteIndent"/>
+                <xsl:value-of select="$sBlockQuoteRightIndent"/>
             </tex:parm>
             <tex:parm>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceblockquotes='yes'">
@@ -4414,7 +4414,7 @@
                         <xsl:value-of select="$sBlockQuoteIndent"/>
                         <tex:cmd name="rightmargin" gr="0"/>
                         <xsl:text>=</xsl:text>
-                        <xsl:value-of select="$sBlockQuoteIndent"/>
+                        <xsl:value-of select="$sBlockQuoteRightIndent"/>
                     </tex:parm>
                 </tex:cmd>
                 <tex:cmd name="item">

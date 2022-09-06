@@ -875,6 +875,7 @@ Content Layout
       textbeforetimestamp CDATA #IMPLIED
       textbetweenauthoranddate CDATA #IMPLIED
       italicizeetal (no | yes) 'no'
+      defaultparenvalue (citationBoth | both) 'both'
     >
     <!ELEMENT abbreviationsInFootnoteLayout  EMPTY>
     <!ATTLIST abbreviationsInFootnoteLayout

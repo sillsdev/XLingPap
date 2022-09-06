@@ -39,6 +39,7 @@ References Layouts
    spaceBetweenEntriesAuthorOverDateStyle CDATA #IMPLIED
    spaceafter CDATA #IMPLIED
    spacebefore CDATA #IMPLIED
+   ignoreLocations (no | yes) "no"
    >
 
 <!-- Name and version of this references stylesheet -->

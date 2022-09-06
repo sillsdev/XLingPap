@@ -2516,7 +2516,9 @@
         </xsl:if>
         <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
             <tex:cmd name="noindent"/>
-            <xsl:call-template name="OutputFigureLabel"/>
+            <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureHeader='yes'">
+                <xsl:call-template name="OutputFigureLabel"/>
+            </xsl:if>
             <tex:cmd name="hfill"/>
             <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/figureLayout/@pageLabelInListOfFigures)"/>
             <xsl:choose>
@@ -2720,7 +2722,9 @@
         </xsl:if>
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
             <tex:cmd name="noindent"/>
-            <xsl:call-template name="OutputTableNumberedLabel"/>
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableHeader='yes'">
+                <xsl:call-template name="OutputTableNumberedLabel"/>
+            </xsl:if>
             <tex:cmd name="hfill"/>
             <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@pageLabelInListOfTables)"/>
             <xsl:choose>
@@ -4469,6 +4473,13 @@
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
             <tex:spec cat="bg"/>
             <tex:cmd name="{$sSingleSpacingCommand}" gr="0" nl2="1"/>
+        </xsl:if>
+        <xsl:if test="$contentsLayoutToUse/@usePageHeader='yes'">
+            <tex:cmd name="hfill"/>
+            <xsl:variable name="sLabel" select="normalize-space($contentsLayoutToUse/@usePageHeaderLabel)"/>
+            <xsl:call-template name="OutputContentsPageHeaderLabel">
+                <xsl:with-param name="sLabel" select="$sLabel"/>
+            </xsl:call-template>
         </xsl:if>
         <xsl:choose>
             <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">

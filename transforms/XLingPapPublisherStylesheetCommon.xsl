@@ -5600,6 +5600,20 @@
     <!--  
         OutputISO639-3CodeCase
     -->
+    <xsl:template name="OutputContentsPageHeaderLabel">
+        <xsl:param name="sLabel"/>
+        <xsl:choose>
+            <xsl:when test="string-length($sLabel) &gt; 0">
+                <xsl:value-of select="$sLabel"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Page</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        OutputISO639-3CodeCase
+    -->
     <xsl:template name="OutputISO639-3CodeCase">
         <xsl:param name="iso639-3codeItem"/>
         <xsl:choose>

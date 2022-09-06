@@ -1819,6 +1819,8 @@ li.lower-roman {
     <xsl:template match="@linkpagenumber"/>
     <xsl:template match="@linktitle"/>
     <xsl:template match="@listItemsHaveParenInsteadOfPeriod"/>
+    <xsl:template match="@listOfFiguresUsesFigureHeader"/>
+    <xsl:template match="@listOfTablesUsesTableHeader"/>
     <xsl:template match="@name"/>
     <xsl:template match="@numberProperAddPeriodAfterFinalDigit"/>
     <xsl:template match="@numberProperUseParens"/>
@@ -1830,6 +1832,7 @@ li.lower-roman {
     <xsl:template match="@partSpaceAfter"/>
     <xsl:template match="@partSpaceBefore"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
+    <xsl:template match="@rightIndent"/>
     <xsl:template match="@rtl"/>
     <xsl:template match="@ruleabovelength"/>
     <xsl:template match="@ruleabovepattern"/>
@@ -1883,6 +1886,8 @@ li.lower-roman {
     <xsl:template match="@useFootnoteSymbols"/>
     <xsl:template match="@useImageWidthSetToWidthOfExampleFigureOrChart"/>
     <xsl:template match="@useLabel"/>
+    <xsl:template match="@usePageHeader"/>
+    <xsl:template match="@usePageHeaderLabel"/>
     <xsl:template match="@uselineforrepeatedauthor"/>
     <xsl:template match="@useperiodafterappendixletter"/>
     <xsl:template match="@useperiodafterchapternumber"/>

@@ -1684,9 +1684,11 @@
     -->
     <xsl:template match="listOfFiguresShownHere">
         <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
-            <div>
+            <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureHeader='yes'">
+                <div>
                 <xsl:call-template name="OutputFigureLabel"/>
-            </div>
+                </div>
+            </xsl:if>
         </xsl:if>
         <xsl:for-each select="//figure[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:choose>
@@ -1752,9 +1754,11 @@
     -->
     <xsl:template match="listOfTablesShownHere">
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
-            <div>
-                <xsl:call-template name="OutputTableNumberedLabel"/>
-            </div>
+            <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableHeader='yes'">
+                <div>
+                    <xsl:call-template name="OutputTableNumberedLabel"/>
+                </div>
+            </xsl:if>
         </xsl:if>
         <xsl:for-each select="//tablenumbered[not(ancestor::endnote or ancestor::framedUnit)]">
             <xsl:choose>

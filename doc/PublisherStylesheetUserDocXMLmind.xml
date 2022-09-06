@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->2 September 2022</date
+>6 September 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.41.4</version
@@ -303,7 +303,7 @@ term="iBlockQuoteIndent"
 letter="xParagraphIndents"
 num="xParagraphIndents"
 ></exampleRef
->.  If you need to have different values for the left and right indents of a block quote, set the <object
+>. If you need to have different values for the left and right indents of a block quote, set the <object
 type="tAttribute"
 >rightIndent</object
 > attribute of the <object
@@ -2489,6 +2489,7 @@ showTitle="short"
 ></tr
 ><tr
 ><td
+valign="top"
 ><indexedItem
 main="yes"
 term="iContentsLayout"
@@ -2882,6 +2883,39 @@ type="tAttrValue"
 type="tAttrValue"
 >no</object
 >.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>usePageHeader</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not to insert a “Page” header above the page number in the table of contents. The default is <object
+type="tAttrValue"
+>no</object
+>.</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>usePageHeaderLabel</object
+></td
+><td
+>(User control) Only used when <object
+type="tAttribute"
+>usePageHeader</object
+> is <object
+type="tAttrValue"
+>yes</object
+>. Use it to override the default “Page” value.</td
 ></tr
 ><tr
 ><td
@@ -11745,6 +11779,54 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iFigureListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfFiguresUsesFigureHeader</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default value is <object
+type="tAttrValue"
+>yes</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is only used when the <object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>. Whether or not the automatically generated list of figures uses a "Figure" heading. If set to <object
+type="tAttrValue"
+>no</object
+>, then the “Figure” header label will not appear.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iFigureHeadingPage"
 ></indexedItem
 ><object
@@ -12680,6 +12762,54 @@ lang="lEng"
 type="tAttrValue"
 >yes</object
 >, then the “Table” label will not appear before the table number in each row of the listing.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedListHasHeading"
+></indexedItem
+><object
+type="tAttribute"
+>listOfTablesUsesTableHeader</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. The default value is <object
+type="tAttrValue"
+>yes</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This is only used when the <object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>yes</object
+>. Whether or not the automatically generated list of figures uses a "Table" heading. If set to <object
+type="tAttrValue"
+>no</object
+>, then the “Table” header label will not appear.</langData
 ></td
 ><td
 ><object

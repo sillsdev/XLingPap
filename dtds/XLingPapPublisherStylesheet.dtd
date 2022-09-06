@@ -483,6 +483,8 @@ Front MatterLayout
      partSpaceAfter CDATA #IMPLIED
      partSpaceBefore CDATA #IMPLIED
      contentType IDREF #IMPLIED
+     usePageHeader (no | yes) "no"
+     usePageHeaderLabel CDATA #IMPLIED
     >
 <!ELEMENT volumeLayout EMPTY >
 <!ATTLIST volumeLayout
@@ -726,6 +728,7 @@ Content Layout
         captionLocation (before|after) "after"
         spaceBetweenFigureAndCaption CDATA #IMPLIED
         listOfFiguresUsesFigureAndPageHeaders (no | yes) "no"
+        listOfFiguresUsesFigureHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"
         pageLabelInListOfFigures CDATA #IMPLIED
 >
@@ -763,6 +766,7 @@ Content Layout
         captionLocation (before|after) "after"
         spaceBetweenTableAndCaption CDATA #IMPLIED
         listOfTablesUsesTableAndPageHeaders (no | yes) "no"
+        listOfTablesUsesTableHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"
         pageLabelInListOfTables CDATA #IMPLIED
 >

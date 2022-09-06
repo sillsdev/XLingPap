@@ -2821,7 +2821,9 @@ not using
     <xsl:template match="listOfFiguresShownHere">
         <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureAndPageHeaders='yes'">
             <fo:block start-indent="0pt" end-indent="0pt" text-align-last="justify">
-                <xsl:call-template name="OutputFigureLabel"/>
+                <xsl:if test="$contentLayoutInfo/figureLayout/@listOfFiguresUsesFigureHeader='yes'">
+                    <xsl:call-template name="OutputFigureLabel"/>
+                </xsl:if>
                 <fo:leader leader-pattern="space"/>
                 <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/figureLayout/@pageLabelInListOfFigures)"/>
                 <xsl:choose>
@@ -2930,7 +2932,9 @@ not using
     <xsl:template match="listOfTablesShownHere">
         <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableAndPageHeaders='yes'">
             <fo:block start-indent="0pt" end-indent="0pt" text-align-last="justify">
-                <xsl:call-template name="OutputTableNumberedLabel"/>
+                <xsl:if test="$contentLayoutInfo/tablenumberedLayout/@listOfTablesUsesTableHeader='yes'">
+                    <xsl:call-template name="OutputTableNumberedLabel"/>
+                </xsl:if>
                 <fo:leader leader-pattern="space"/>
                 <xsl:variable name="sLabel" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@pageLabelInListOfTables)"/>
                 <xsl:choose>
@@ -4412,6 +4416,15 @@ not using
                 <xsl:with-param name="layoutInfo" select="$contentsLayoutToUse"/>
             </xsl:call-template>
         </fo:block>
+        <xsl:if test="$contentsLayoutToUse/@usePageHeader='yes'">
+            <fo:block text-align-last="justify">
+                <fo:leader leader-pattern="space"/>
+                <xsl:variable name="sLabel" select="normalize-space($contentsLayoutToUse/@usePageHeaderLabel)"/>
+                <xsl:call-template name="OutputContentsPageHeaderLabel">
+                    <xsl:with-param name="sLabel" select="$sLabel"/>
+                </xsl:call-template>
+            </fo:block>
+        </xsl:if>
         <fo:block>
             <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents='yes'">
                 <xsl:attribute name="line-height">

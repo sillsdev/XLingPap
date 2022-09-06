@@ -9687,6 +9687,53 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iRefIgnoreLocations"
+></indexedItem
+><object
+type="tAttribute"
+>ignoreLocations</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+>If this is set to <object
+type="tAttrValue"
+>yes</object
+> , then every <object
+type="tElement"
+>location</object
+> element will be ignored in the output. The default value is <object
+type="tAttrValue"
+>no</object
+>.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
+></td
+></tr
+><tr
+><td
 ><object
 type="tAttribute"
 >removecommonhundredsdigitsinpages</object
@@ -22421,6 +22468,11 @@ id="iRefSeriesEd"
 see="iSeriesEd"
 ><term
 >Editor of a series (part of a referenced work)</term
+></indexTerm
+><indexTerm
+id="iRefIgnoreLocations"
+><term
+>Ignore locations</term
 ></indexTerm
 ><indexTerm
 id="iRefInstitution"

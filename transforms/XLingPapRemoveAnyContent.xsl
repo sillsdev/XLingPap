@@ -8,6 +8,7 @@
 
    <xsl:variable name="chosenContentControl" select="//contentControlChoices/contentControlChoice[@active='yes']"/>
    <xsl:variable name="chosenContentTypes" select="id($chosenContentControl/@exclude)"/>
+   <xsl:variable name="ignoreLocations" select="//referencesLayout/@ignoreLocations"/>
 
    <!-- 
       Main copy template
@@ -124,6 +125,19 @@
          </xsl:when>
          <xsl:otherwise>
             <xsl:call-template name="IgnoreOrCopyElement"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="location[ancestor::refWork]">
+      <xsl:choose>
+         <xsl:when test="$ignoreLocations and $ignoreLocations='yes'">
+            <!-- ignore this one -->
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:copy>
+               <xsl:apply-templates select="@*"/>
+               <xsl:apply-templates/>
+            </xsl:copy>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>

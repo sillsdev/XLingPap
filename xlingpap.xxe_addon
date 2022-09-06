@@ -44,6 +44,8 @@ href="mailto::xlingpaper_support@sil.org"
 ><li
 >Enable control of using a figure column header for the list of figures via a publisher style sheet.</li
 ><li
+>Enable default opening parenthesis location for citation elements (before the name or before the date) via a publisher style sheet.</li
+><li
 >Improve use of some abbreviations in user documentation.</li
 ><li
 >Add reference publisher style sheets for:<ul

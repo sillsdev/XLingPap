@@ -14740,6 +14740,51 @@ type="tXMLmindXMLEditor"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iDefaultParenValue"
+></indexedItem
+><object
+type="tAttribute"
+>defaultparenvalue</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>citationBoth</object
+>, or <object
+type="tAttrValue"
+>both</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This indicates what the default output format should be for the "paren” value if a <object
+type="tElement"
+>citation</object
+> element has nothing set for its <object
+type="tAttribute"
+>paren</object
+> attribute. The default is <object
+type="tAttrValue"
+>both</object
+>.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>citationBoth</object
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iItalicizeEtAl."
 ></indexedItem
 ><object
@@ -21041,6 +21086,11 @@ id="iCitationOverrides"
 ><term
 >Citation special formatting</term
 ><indexTerms
+><indexTerm
+id="iDefaultParenValue"
+><term
+>Default “paren” value</term
+></indexTerm
 ><indexTerm
 id="iItalicizeEtAl."
 ><term

@@ -6588,9 +6588,16 @@
         <xsl:param name="layoutInfo"/>
         <xsl:choose>
             <xsl:when test="$layoutInfo/@verticalfillafter!='0'">
+                <xsl:if test="contains(name($layoutInfo), 'TitleLayout')">
+                    <xsl:text>&#xa0;</xsl:text>
+                    <tex:cmd name="par" gr="0"/>
+                </xsl:if>
                 <xsl:call-template name="DoVerticalFill">
                     <xsl:with-param name="iLevel" select="$layoutInfo/@verticalfillafter"/>
                 </xsl:call-template>
+                <xsl:if test="contains(name($layoutInfo), 'TitleLayout')">
+                    <tex:cmd name="pagebreak" gr="1"/>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="string-length(normalize-space($layoutInfo/@spaceafter)) &gt; 0">
@@ -6610,6 +6617,10 @@
         <xsl:param name="layoutInfo"/>
         <xsl:choose>
             <xsl:when test="$layoutInfo/@verticalfillbefore!='0'">
+                <xsl:if test="name($layoutInfo)='numberLayout'">
+                    <xsl:text>&#xa0;</xsl:text>
+                    <tex:cmd name="par" gr="0"/>
+                </xsl:if>
                 <xsl:call-template name="DoVerticalFill">
                     <xsl:with-param name="iLevel" select="$layoutInfo/@verticalfillbefore"/>
                 </xsl:call-template>

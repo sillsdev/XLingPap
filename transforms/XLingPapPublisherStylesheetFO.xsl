@@ -3722,11 +3722,8 @@ not using
     <xsl:template match="pageTopMargin"/>
     <xsl:template match="pageWidth"/>
     <xsl:template match="paragraphIndent"/>
-    <xsl:template match="publisherStyleSheetName"/>
-    <xsl:template match="publisherStyleSheetPublisher"/>
     <xsl:template match="publisherStyleSheetReferencesName"/>
     <xsl:template match="publisherStyleSheetReferencesVersion"/>
-    <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="referencedInterlinearTexts"/>
     <xsl:template match="abstract/shortTitle"/>
     <xsl:template match="acknowledgements/shortTitle"/>

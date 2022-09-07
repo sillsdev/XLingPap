@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 August 2022</date
+>7 September 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.41.4</version
@@ -34090,6 +34090,23 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>publisherStyleSheetDate</object
+></dt
+><dd
+>A date for the style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></dt
+><dd
+>The date when the url was accessed (see <object
+type="tElement"
+>publisherStyleSheetUrl</object
+> below)</dd
+><dt
+><object
+type="tElement"
 >publisherStyleSheetName</object
 ></dt
 ><dd
@@ -34115,6 +34132,13 @@ type="tElement"
 ></dt
 ><dd
 >The name of the publisher for which this is a style sheet</dd
+><dt
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></dt
+><dd
+>A URL indicating where the style sheet information came from</dd
 ><dt
 ><object
 type="tElement"

@@ -9490,6 +9490,30 @@ publisherStyleSheet
 	display:block;
 	property-group: isCollapsible( no, 1);
 }
+publisherStyleSheetDate:before
+{
+   content:"Date: ";
+}
+publisherStyleSheetDate
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+}
+publisherStyleSheetDateAccessed:before
+{
+   content:"Date Accessed: ";
+}
+publisherStyleSheetDateAccessed
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
+}
 publisherStyleSheetName:before
 {
 	display: block;
@@ -9513,6 +9537,7 @@ publisherStyleSheetPublisher:before
 {
    content:"Publisher: ";
    font-size:12pt;
+   font-weight:normal;
 }
 publisherStyleSheetPublisher
 {
@@ -9522,6 +9547,19 @@ publisherStyleSheetPublisher
     margin-top: .37ex;
     margin-bottom: .37ex;
     font-size:larger;
+   font-weight:bold;
+}
+publisherStyleSheetUrl:before
+{
+   content:"URL: ";
+}
+publisherStyleSheetUrl
+{
+    display:block;
+    text-align: center;
+    color: black;
+    margin-top: .37ex;
+    margin-bottom: .37ex;
 }
 publisherStyleSheetVersion
 {

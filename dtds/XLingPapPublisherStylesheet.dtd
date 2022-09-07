@@ -5,7 +5,7 @@
      Version 2.28.0
      (Revision history is at the end.)
   -->
-<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
+<!ELEMENT publisherStyleSheet (publisherStyleSheetName?, comment?, publisherStyleSheetVersion?, publisherStyleSheetPublisher?, publisherStyleSheetDate?, publisherStyleSheetUrl?, publisherStyleSheetDateAccessed?, pageLayout, frontMatterLayout, bodyLayout, backMatterLayout, contentLayout) >
 <!ATTLIST publisherStyleSheet
  version CDATA #IMPLIED
  contentType IDREF #IMPLIED
@@ -34,6 +34,9 @@
 <!ELEMENT  publisherStyleSheetName (#PCDATA)>
 <!ELEMENT  publisherStyleSheetVersion (#PCDATA)>
 <!ELEMENT  publisherStyleSheetPublisher  (#PCDATA)>
+<!ELEMENT  publisherStyleSheetDate (#PCDATA)>
+<!ELEMENT  publisherStyleSheetUrl (#PCDATA)>
+<!ELEMENT  publisherStyleSheetDateAccessed (#PCDATA)>
 
 <!-- 
   ===================================================

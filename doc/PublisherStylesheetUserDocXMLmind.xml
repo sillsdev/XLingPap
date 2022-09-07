@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->6 September 2022</date
+>7 September 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.41.4</version
@@ -87,10 +87,10 @@ type="tPublisherStyleSheet"
 >Thus, one can write one's document and then associate it with a <object
 type="tPublisherStyleSheet"
 ></object
-> to get it to format the way that publisher wants it. If at any point you decide to use a different publisher, you merely associate your document to the <object
+> to get it to format the way that a given publisher wants it. If at any point you decide to use a different publisher, you merely associate your document to the <object
 type="tPublisherStyleSheet"
 ></object
-> for that publisher (assuming one exists). The result is that an author has a lot less work to do when changing publishers.</p
+> for that other publisher (assuming one exists). The result is that an author has a lot less work to do when changing publishers.</p
 ><p
 >This document describes how to edit an <object
 type="tXLingPap"
@@ -133,6 +133,108 @@ type="tXLingPap"
 type="tXLingPap"
 ></object
 > document does not happen to have an element that the publisher style sheet describes, that is not a problem. That part of the publisher style sheet is ignored. Thus, the publisher style sheet is a kind of template with many optional components.</p
+><p
+>There are several elements at the beginning of a <object
+type="tPublisherStyleSheet"
+></object
+>. They are all optional. Example <exampleRef
+letter="xTopElements"
+num="xTopElements"
+></exampleRef
+> lists them in the order in which they occur and what they are for. None of them are ever used in any output.</p
+><example
+num="xTopElements"
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Purpose</th
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetName</object
+></td
+><td
+>The name or description of the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>comment</object
+></td
+><td
+>A comment about the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetVersion</object
+></td
+><td
+>The version number of the <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetPublisher</object
+></td
+><td
+>The name of the publisher for this <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDate</object
+></td
+><td
+>The date this <object
+type="tPublisherStyleSheet"
+></object
+> was last changed</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></td
+><td
+>A URL for where the information for this <object
+type="tPublisherStyleSheet"
+></object
+> was found</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></td
+><td
+>The date that URL was last accessed</td
+></tr
+></table
+></example
 ><p
 >This document is organized as follows. The basic page layout information that can be controlled via a <object
 type="tPublisherStyleSheet"
@@ -4832,7 +4934,109 @@ id="sReferences"
 ><secTitle
 >References Layout</secTitle
 ><p
->This section outlines how to control the way reference material is to be formatted in a references section of a document. The key idea to keep in mind when creating reference layout information in an <object
+>This section outlines how to control the way reference material is to be formatted in a references section of a document. Since this portion of a <object
+type="tPublisherStyleSheet"
+></object
+> can be in an independent file, it has several top level elements as shown in example <exampleRef
+letter="xReferenceTopElements"
+num="xReferenceTopElements"
+></exampleRef
+>. They are all optional. None of them are ever used in any output.</p
+><example
+num="xReferenceTopElements"
+><table
+border="1"
+><tr
+><th
+>Element</th
+><th
+>Purpose</th
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetName</object
+></td
+><td
+>The name or description of this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>comment</object
+></td
+><td
+>A comment about this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetVersion</object
+></td
+><td
+>The version number of this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetPublisher</object
+></td
+><td
+>The name of the publisher for this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+></td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDate</object
+></td
+><td
+>The date this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+> was last changed</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetUrl</object
+></td
+><td
+>A URL for where the information for this references portion of a <object
+type="tPublisherStyleSheet"
+></object
+> was found</td
+></tr
+><tr
+><td
+><object
+type="tElement"
+>publisherStyleSheetDateAccessed</object
+></td
+><td
+>The date that URL was last accessed</td
+></tr
+></table
+></example
+><p
+>The key idea to keep in mind when creating reference layout information in an <object
 type="tXLingPap"
 ></object
 > publisher style sheet is that the layout elements are used to define patterns. When a given referenced work is to be output, <object

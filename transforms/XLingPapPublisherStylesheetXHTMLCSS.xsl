@@ -2111,8 +2111,11 @@ li.lower-roman {
     <xsl:template match="dd"/>
     <xsl:template match="fixedText"/>
     <xsl:template match="magnificationFactor"/>
+    <xsl:template match="publisherStyleSheetDate"/>
+    <xsl:template match="publisherStyleSheetDateAccessed"/>
     <xsl:template match="publisherStyleSheetName"/>
     <xsl:template match="publisherStyleSheetPublisher"/>
+    <xsl:template match="publisherStyleSheetUrl"/>
     <xsl:template match="publisherStyleSheetVersion"/>
     <xsl:template match="section1/shortTitle"/>
     <xsl:template match="section2/shortTitle"/>

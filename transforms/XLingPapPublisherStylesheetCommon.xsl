@@ -611,6 +611,12 @@
         Elements to ignore
     -->
     <xsl:template match="literalLabelLayout"/>
+    <xsl:template match="publisherStyleSheetDate"/>
+    <xsl:template match="publisherStyleSheetDateAccessed"/>
+    <xsl:template match="publisherStyleSheetPublisher"/>
+    <xsl:template match="publisherStyleSheetName"/>
+    <xsl:template match="publisherStyleSheetVersion"/>
+    <xsl:template match="publisherStyleSheetUrl"/>
     <xsl:template match="refAuthorNameChange"/>
     <!--  
         AdjustPageNumbers

@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-09-06</a:date
+>2022-09-07</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.11.4 6 September 2022<ul
+>3.11.4 7 September 2022<ul
 ><li
 >When using content control, an excluded table could be displayed incorrectly in XXE.</li
 ><li
@@ -55,6 +55,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Enable default opening parenthesis location for citation elements (before the name or before the date) via a publisher style sheet.</li
 ><li
 >Enable ignoring all location elements in references via a publisher style sheet.</li
+><li
+>Add date, url, and date accessed items for publisher style sheets and references style sheets.</li
 ><li
 >Improve use of some abbreviations in user documentation.</li
 ><li

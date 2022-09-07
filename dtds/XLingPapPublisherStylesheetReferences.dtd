@@ -19,7 +19,8 @@ References Layouts
     usecitationformatwhennumbereofsharedpaperis = number of shared papers required before using the citation format in 
          collections and proceedings; a value of 0 means do not use the citation format
 -->
-<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, publisherStyleSheetReferencesVersion?, refAuthorLayouts,  
+<!ELEMENT referencesLayout ( publisherStyleSheetReferencesName?, comment?, publisherStyleSheetReferencesVersion?, publisherStyleSheetPublisher?, publisherStyleSheetDate?, publisherStyleSheetUrl?, publisherStyleSheetDateAccessed?,
+                                                         refAuthorLayouts,
                                                          articleLayouts, bookLayouts, collectionLayouts, dissertationLayouts, 
                                                          fieldNotesLayouts, msLayouts, paperLayouts, proceedingsLayouts, thesisLayouts, 
                                                          webPageLayouts, publishedLayout, locationPublisherLayouts, urlDateAccessedLayouts?, iso639-3codeItem?, refAuthorNameChange?)>

@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 September 2022</date
+>14 September 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.4</version
+>2.41.5</version
 ><version
 contentType="ctVersion7Plus"
->3.11.4</version
+>3.11.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -25271,6 +25271,11 @@ type="tKey"
 type="tXMLmindXMLEditor"
 ></object
 > will look just like it does when you first open the file).</p
+><p
+>For more on language data, see section <sectionRef
+sec="sIntroLang"
+></sectionRef
+>.</p
 ></section2
 ><section2
 id="sFAQChangeDefaultLangIDs"

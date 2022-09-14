@@ -32,6 +32,12 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
+>2.41.5 14 September 2022<ul
+><li
+>Improve section 11.27 of the user documentation to refer to section 1.3 which talks about setting up language data.</li
+></ul
+></li
+><li
 >2.41.4 7 September 2022<ul
 ><li
 >When using content control, an excluded table could be displayed incorrectly in XXE.</li

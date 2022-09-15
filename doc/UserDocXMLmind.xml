@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->14 September 2022</date
+>15 September 2022</date
 ><version
 contentType="ctVersion5.3"
 >2.41.5</version
@@ -8053,7 +8053,12 @@ term="iGlossaryTerm"
 >If you wish, you can create a list of glossary terms used throughout your document. Just like references and citations, the idea here is that while the list of glossary terms can be large, <object
 type="tXLingPap"
 ></object
-> will only show those that are actually used somewhere within the document. You can thus maintain a file that is just the list of glossary terms (and their definitions), include it in your document, and then, while writing, make a reference to a glossary term in the list. Besides only including glossary terms actually used somewhere in the document, <object
+> will only show those that are actually used somewhere within the document.<endnote
+id="nGlossaryTerms"
+><p
+>If the definition of a cited glossary term refers to another term that is not cited, that referred to term will also be included in the output.</p
+></endnote
+> You can thus maintain a file that is just the list of glossary terms (and their definitions), include it in your document, and then, while writing, make a reference to a glossary term in the list. Besides only including glossary terms actually used somewhere in the document, <object
 type="tXLingPap"
 ></object
 > will also create a hyperlink between the glossary term in the text and the actual glossary term in the list of glossary terms. Of course, the list will also include the definition of the glossary term.</p

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tex="http://getfo.sourceforge.net/texml/ns1" xmlns:saxon="http://icl.com/saxon" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-    version="1.0" exclude-result-prefixes="saxon xhtml">
+    version="1.1" exclude-result-prefixes="saxon xhtml">
     <!-- 
         XLingPapCommon.xsl
         Contains common global variables and common templates common to many of the XLingPaper output transforms.
@@ -10,6 +10,7 @@
         =========================================================== -->
     <xsl:key name="AnnotationID" match="//annotation" use="@id"/>
     <xsl:key name="EndnoteID" match="//endnote" use="@id"/>
+    <xsl:key name="GlossaryTerms" match="//glossaryTerm" use="@id"/>
     <xsl:key name="GlossaryTermRefs" match="//glossaryTermRef" use="@glossaryTerm"/>
     <xsl:key name="IndexTermID" match="//indexTerm" use="@id"/>
     <xsl:key name="InterlinearReferenceID" match="//interlinear | //interlinear-text" use="@text"/>
@@ -1288,6 +1289,26 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--  
+        GetEmbeddedGlossaryTermsFromDefinition
+    -->
+    <xsl:template name="GetEmbeddedGlossaryTermsFromDefinition">
+        <xsl:param name="gtReferencedInBody"/>
+        <xsl:variable name="gtEmbeddedRefs" select="descendant::glossaryTermRef"/>
+        <xsl:for-each select="$gtEmbeddedRefs">
+            <xsl:variable name="refId" select="@glossaryTerm"/>
+            <xsl:variable name="gtRefAlreadyReferenced" select="$gtReferencedInBody[@id=$refId]"/>
+            <xsl:if test="not($gtRefAlreadyReferenced)">
+                <xsl:variable name="gtToAdd" select="key('GlossaryTerms',$refId)"/>
+                <xsl:for-each select="$gtToAdd">
+                    <xsl:copy-of select="$gtToAdd"/>
+                    <xsl:call-template name="GetEmbeddedGlossaryTermsFromDefinition">
+                        <xsl:with-param name="gtReferencedInBody" select="$gtReferencedInBody"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
     <!--
         GetExampleNumber
     -->
@@ -1469,6 +1490,59 @@
             </xsl:when>
             <xsl:otherwise>en</xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <!--
+        GetGlossaryTermsToUse
+    -->
+    <xsl:template name="GetGlossaryTermsToUse">
+        <xsl:choose>
+            <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
+                <xsl:call-template name="GetGlossaryTermsToUseFromChapterInCollection"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="GetGlossaryTermsToUseFromBody"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        GetGlossaryTermsToUseFromBody
+    -->
+    <xsl:template name="GetGlossaryTermsToUseFromBody">
+        <xsl:variable name="gtReferencedInBody" select="//glossaryTerm[//glossaryTermRef[not(ancestor::chapterInCollection/backMatter/glossaryTerms)][not(ancestor::glossaryTermDefinition)]/@glossaryTerm=@id]"/>
+        <xsl:variable name="gtEmbeddedButNotInBody">
+            <xsl:for-each select="$gtReferencedInBody">
+                <xsl:call-template name="GetEmbeddedGlossaryTermsFromDefinition">
+                    <xsl:with-param name="gtReferencedInBody" select="$gtReferencedInBody"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="glossaryTermsToUsePossiblyWithDuplicates" select="$gtReferencedInBody | $gtEmbeddedButNotInBody/*"/>
+        <xsl:for-each select="$glossaryTermsToUsePossiblyWithDuplicates">
+            <xsl:variable name="thisId" select="@id"/>
+            <xsl:if test="not(preceding-sibling::*[@id=$thisId])">
+                <xsl:copy-of select="."/>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    <!--
+        GetGlossaryTermsToUseFromChapterInCollection
+    -->
+    <xsl:template name="GetGlossaryTermsToUseFromChapterInCollection">
+        <xsl:variable name="gtReferencedInChapterInCollection" select="*[ancestor::chapterInCollection//glossaryTermRef[ancestor::chapterInCollection/backMatter/glossaryTerms][not(ancestor::glossaryTermDefinition)]/@glossaryTerm=@id]"/>
+        <xsl:variable name="gtEmbeddedButNotInChapterInCollection">
+            <xsl:for-each select="$gtReferencedInChapterInCollection">
+                <xsl:call-template name="GetEmbeddedGlossaryTermsFromDefinition">
+                    <xsl:with-param name="gtReferencedInBody" select="$gtReferencedInChapterInCollection"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="glossaryTermsToUsePossiblyWithDuplicates" select="$gtReferencedInChapterInCollection | $gtEmbeddedButNotInChapterInCollection/*"/>
+        <xsl:for-each select="$glossaryTermsToUsePossiblyWithDuplicates">
+            <xsl:variable name="thisId" select="@id"/>
+            <xsl:if test="not(preceding-sibling::*[@id=$thisId])">
+                <xsl:copy-of select="."/>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
     <!--
         GetIdToUse
@@ -1763,33 +1837,24 @@
         HandleGlossaryTermsAsDefinitionList
     -->
     <xsl:template name="HandleGlossaryTermsAsDefinitionList">
-        <xsl:choose>
-            <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
-                <xsl:call-template name="OutputGlossaryTermsAsDefinitionList">
-                    <xsl:with-param name="glossaryTermsUsed"
-                        select="ancestor::chapterInCollection/backMatter/glossaryTerms/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="OutputGlossaryTermsAsDefinitionList"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="glossaryTermsToUse">
+            <xsl:call-template name="GetGlossaryTermsToUse"/>
+        </xsl:variable>
+        <xsl:call-template name="OutputGlossaryTermsAsDefinitionList">
+            <xsl:with-param name="glossaryTermsUsed"
+                select="$glossaryTermsToUse/*"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         HandleGlossaryTermsInTable
     -->
     <xsl:template name="HandleGlossaryTermsInTable">
-        <xsl:choose>
-            <xsl:when test="ancestor::chapterInCollection/backMatter/glossaryTerms">
-                <xsl:call-template name="OutputGlossaryTermsInTable">
-                    <xsl:with-param name="glossaryTermsUsed"
-                        select="ancestor::chapterInCollection/backMatter/glossaryTerms/glossaryTerm[ancestor::chapterInCollection/descendant::glossaryTermRef/@glossaryTerm=@id]"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="OutputGlossaryTermsInTable"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="glossaryTermsToUse">
+            <xsl:call-template name="GetGlossaryTermsToUse"/>
+        </xsl:variable>
+        <xsl:call-template name="OutputGlossaryTermsInTable">
+            <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsToUse/*"/>
+        </xsl:call-template>
     </xsl:template>
     <!--
         HandleISO639-3CodesInCommaSeparatedList
@@ -2681,16 +2746,22 @@
                 </xsl:variable>
                 <xsl:for-each select="$glossaryTermsUsed">
                     <xsl:sort lang="{$sLang}" select="glossaryTermInLang[@lang=$sLang or position()=1 and not (following-sibling::glossaryTermInLang[@lang=$sLang])]/glossaryTermTerm"/>
-                    <xsl:call-template name="OutputGlossaryTermInDefinitionList">
-                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                    </xsl:call-template>
+                    <xsl:variable name="thisId" select="@id"/>
+                    <xsl:for-each select="$lingPaper/descendant::glossaryTerm[@id=$thisId]">
+                        <xsl:call-template name="OutputGlossaryTermInDefinitionList">
+                            <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="$glossaryTermsUsed">
-                    <xsl:call-template name="OutputGlossaryTermInDefinitionList">
-                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                    </xsl:call-template>
+                    <xsl:variable name="thisId" select="@id"/>
+                    <xsl:for-each select="$lingPaper/descendant::glossaryTerm[@id=$thisId]">
+                        <xsl:call-template name="OutputGlossaryTermInDefinitionList">
+                            <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
@@ -2709,22 +2780,25 @@
                 </xsl:variable>
                 <xsl:for-each select="$glossaryTermsUsed">
                     <xsl:sort lang="{$sLang}" select="glossaryTermInLang[@lang=$sLang or position()=1 and not (following-sibling::glossaryTermInLang[@lang=$sLang])]/glossaryTermTerm"/>
-                    <xsl:choose>
-                        <xsl:when test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
-                            <xsl:if test="position() &lt;= $iHalfwayPoint">
-                                <xsl:variable name="iPos" select="position()"/>
+                    <xsl:variable name="thisId" select="@id"/>
+                    <xsl:for-each select="$lingPaper/descendant::glossaryTerm[@id=$thisId]">
+                        <xsl:choose>
+                            <xsl:when test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
+                                <xsl:if test="position() &lt;= $iHalfwayPoint">
+                                    <xsl:variable name="iPos" select="position()"/>
+                                    <xsl:call-template name="OutputGlossaryTermInTable">
+                                        <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                                        <xsl:with-param name="glossaryTermInSecondColumn" select="$glossaryTermsUsed[$iPos + $iHalfwayPoint]"/>
+                                    </xsl:call-template>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:otherwise>
                                 <xsl:call-template name="OutputGlossaryTermInTable">
                                     <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                                    <xsl:with-param name="glossaryTermInSecondColumn" select="$glossaryTermsUsed[$iPos + $iHalfwayPoint]"/>
                                 </xsl:call-template>
-                            </xsl:if>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="OutputGlossaryTermInTable">
-                                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
@@ -2732,17 +2806,23 @@
                     <xsl:when test="$contentLayoutInfo/glossaryTermsInTableLayout/@useDoubleColumns='yes'">
                         <xsl:for-each select="$glossaryTermsUsed[position() &lt;= $iHalfwayPoint]">
                             <xsl:variable name="iPos" select="position()"/>
-                            <xsl:call-template name="OutputGlossaryTermInTable">
-                                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                                <xsl:with-param name="glossaryTermInSecondColumn" select="$glossaryTermsUsed[$iPos + $iHalfwayPoint]"/>
-                            </xsl:call-template>
+                            <xsl:variable name="thisId" select="@id"/>
+                            <xsl:for-each select="$lingPaper/descendant::glossaryTerm[@id=$thisId]">
+                                <xsl:call-template name="OutputGlossaryTermInTable">
+                                    <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                                    <xsl:with-param name="glossaryTermInSecondColumn" select="$glossaryTermsUsed[$iPos + $iHalfwayPoint]"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
                         </xsl:for-each>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:for-each select="$glossaryTermsUsed">
-                            <xsl:call-template name="OutputGlossaryTermInTable">
-                                <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
-                            </xsl:call-template>
+                            <xsl:variable name="thisId" select="@id"/>
+                            <xsl:for-each select="$lingPaper/descendant::glossaryTerm[@id=$thisId]">
+                                <xsl:call-template name="OutputGlossaryTermInTable">
+                                    <xsl:with-param name="glossaryTermsShownHere" select="$glossaryTermsShownHere"/>
+                                </xsl:call-template>
+                            </xsl:for-each>
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>

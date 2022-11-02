@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.41.4</span></p>
-      <p align="center">Date: 2022-09-15</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">2.42.0</span></p>
+      <p align="center">Date: 2022-11-03</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic papers or books using XML.</p>
       <hr>
@@ -34,16 +34,12 @@
             <hr></hr>
             <p><b>Revision History2.</b></p>
             <ul>
-               <li>2.41.5 15 September 2022
+               <li>2.42.0 3 November 2022
                   <ul>
                      <li>Fix bug in glossary terms output: it included any glossary term that was referenced in a term definition even if that term
                         was never cited in the main document. We now also include all terms referred to in definitions that were cited.
                      </li>
                      <li>Improve section 11.27 of the user documentation to refer to section 1.3 which talks about setting up language data.</li>
-                  </ul>
-               </li>
-               <li>2.41.4 7 September 2022
-                  <ul>
                      <li>When using content control, an excluded table could be displayed incorrectly in XXE.</li>
                      <li>Enable control of the right indent of a block quote via a publisher style sheet.</li>
                      <li>Enable control of adding a page column header for the table of contents via a publisher style sheet.</li>
@@ -65,29 +61,12 @@
                      </li>
                      <li>Improve SIL-UND references publisher style sheet.</li>
                      <li>Make Sample Paper and Sample Book publisher style sheets use the LSA references publisher style sheet.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: vertically centering a publisher style sheet part, chapter, or appendix failed to work.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>2.41.3 25 July 2022
-                  <ul>
                      <li>Enable a td element to contain an interlinearRef element.</li>
                      <li>Improve sample book and paper style sheets.</li>
                      <li>In the documentation, clarify the usage of a bVol element when there is a series for a paper in a collection and for a proceedings
                         volume.
                      </li>
-                  </ul>
-               </li>
-               <li>2.41.2 11 July 2022
-                  <ul>
                      <li>Add volume element for books. It can be used to indicate where a volume begins in the table of contents.</li>
-                  </ul>
-               </li>
-               <li>2.41.1 17 June 2022
-                  <ul>
                      <li>Improve interlinear line spacing in sample book and paper publisher style sheets.</li>
                      <li>Fix bug: when using referenced interlinear texts, some citations from endnotes in an interlinear in a referenced text that
                         was never referenced in the main body could be included in the references even though it was not cited elsewhere. Also improved
@@ -105,6 +84,7 @@
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Fix bug: for the non-style sheet output, if a publishingBlurb began with a br element, the PDF would fail to be produced.</li>
+                           <li>Fix bug: vertically centering a publisher style sheet part, chapter, or appendix failed to work.</li>
                         </ul>
                      </li>
                      <li>For web page output:

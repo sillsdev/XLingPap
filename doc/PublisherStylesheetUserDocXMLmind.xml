@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 September 2022</date
+>3 November 2022</date
 ><version
 contentType="ctVersion5.3"
->2.41.4</version
+>2.42.0</version
 ><version
 contentType="ctVersion7Plus"
->3.11.4</version
+>3.12.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -137,11 +137,11 @@ type="tXLingPap"
 >There are several elements at the beginning of a <object
 type="tPublisherStyleSheet"
 ></object
->.  They are all optional.  Example <exampleRef
+>. They are all optional. Example <exampleRef
 letter="xTopElements"
 num="xTopElements"
 ></exampleRef
-> lists them in the order in which they occur and what they are for.  None of them are ever used in any output.</p
+> lists them in the order in which they occur and what they are for. None of them are ever used in any output.</p
 ><example
 num="xTopElements"
 ><table
@@ -4934,14 +4934,14 @@ id="sReferences"
 ><secTitle
 >References Layout</secTitle
 ><p
->This section outlines how to control the way reference material is to be formatted in a references section of a document.  Since this portion of a <object
+>This section outlines how to control the way reference material is to be formatted in a references section of a document. Since this portion of a <object
 type="tPublisherStyleSheet"
 ></object
 > can be in an independent file, it has several top level elements as shown in example <exampleRef
 letter="xReferenceTopElements"
 num="xReferenceTopElements"
 ></exampleRef
->.  They are all optional.  None of them are ever used in any output.</p
+>. They are all optional. None of them are ever used in any output.</p
 ><example
 num="xReferenceTopElements"
 ><table
@@ -4959,7 +4959,7 @@ type="tElement"
 >publisherStyleSheetName</object
 ></td
 ><td
->The name or description of this references portion of a  <object
+>The name or description of this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 ></td
@@ -4971,7 +4971,7 @@ type="tElement"
 >comment</object
 ></td
 ><td
->A comment about this references portion of a  <object
+>A comment about this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 ></td
@@ -4983,7 +4983,7 @@ type="tElement"
 >publisherStyleSheetVersion</object
 ></td
 ><td
->The version number of this references portion of a  <object
+>The version number of this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 ></td
@@ -4995,7 +4995,7 @@ type="tElement"
 >publisherStyleSheetPublisher</object
 ></td
 ><td
->The name of the publisher for this references portion of a  <object
+>The name of the publisher for this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 ></td
@@ -5007,7 +5007,7 @@ type="tElement"
 >publisherStyleSheetDate</object
 ></td
 ><td
->The date this references portion of a  <object
+>The date this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 > was last changed</td
@@ -5019,7 +5019,7 @@ type="tElement"
 >publisherStyleSheetUrl</object
 ></td
 ><td
->A URL for where the information for this references portion of a  <object
+>A URL for where the information for this references portion of a <object
 type="tPublisherStyleSheet"
 ></object
 > was found</td
@@ -5036,7 +5036,7 @@ type="tElement"
 ></table
 ></example
 ><p
-> The key idea to keep in mind when creating reference layout information in an <object
+>The key idea to keep in mind when creating reference layout information in an <object
 type="tXLingPap"
 ></object
 > publisher style sheet is that the layout elements are used to define patterns. When a given referenced work is to be output, <object

@@ -1294,7 +1294,8 @@
     -->
     <xsl:template name="GetEmbeddedGlossaryTermsFromDefinition">
         <xsl:param name="gtReferencedInBody"/>
-        <xsl:variable name="gtEmbeddedRefs" select="descendant::glossaryTermRef"/>
+        <xsl:variable name="thisId" select="@id"/>
+        <xsl:variable name="gtEmbeddedRefs" select="descendant::glossaryTermRef[@glossaryTerm!=$thisId]"/>
         <xsl:for-each select="$gtEmbeddedRefs">
             <xsl:variable name="refId" select="@glossaryTerm"/>
             <xsl:variable name="gtRefAlreadyReferenced" select="$gtReferencedInBody[@id=$refId]"/>

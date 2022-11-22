@@ -35,6 +35,7 @@
         <active pattern="endnoteInSecTitle"/>
         <active pattern="indexRangeInSecTitle"/>
         <active pattern="deprecatedethnCode"/>
+        <active pattern="glossaryTermRefersToItself"/>
     </phase>
     <pattern id="line">
         <title>
@@ -436,6 +437,14 @@
         </title>
         <rule context="/lingPaper/languages/language | /xlingpaper/styledPaper/lingPaper/languages/language">
             <report test="string-length(normalize-space(@ethnCode)) &gt; 0">Warning: using an ethnCode is now deprecated.  Please use ISO639-3Code instead.</report>
+        </rule>
+    </pattern>
+    <pattern id="glossaryTermRefersToItself">
+        <title>
+            <dir value="ltr">Check for a gloosaryTerm referring to itself</dir>
+        </title>
+        <rule context="glossaryTermRef">
+            <report test="@glossaryTerm=ancestor::glossaryTerm/@id">Warning: This glossary term definition refers to itself. Only refer to other glossary terms.</report>
         </rule>
     </pattern>
 </schema>

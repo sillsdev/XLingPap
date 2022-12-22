@@ -2029,7 +2029,7 @@
         <xsl:if test="not(parent::acknowledgements and count(preceding-sibling::p)=0 and $frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes')">
             <!-- some chunk items come with space before them already so we do not want to add the extra space after a p/pc -->
             <xsl:variable name="nextChunkItem" select="following-sibling::*[1]"/>
-            <xsl:if test="$nextChunkItem[name()!='blockquote' and name()!='ol' and name()!='ul' and name()!='dl']">
+            <xsl:if test="$nextChunkItem[name()!='blockquote' and name()!='ol' and name()!='ul' and name()!='dl' and not(starts-with(name(),'section'))]">
                 <xsl:choose>
                     <xsl:when test="$nextChunkItem[name()='example' or name()='tablenumbered' or name()='figure']">
                         <!-- do nothing -->

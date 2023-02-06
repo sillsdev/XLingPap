@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.42.2</a:version
+>2.42.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2022-12-22</a:date
+>2023-02-06</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History2.</b
 ></p
 ><ul
+><li
+>2.42.3 6 February 2023<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when an example had listDefinition elements and those had a list embedded in them, the alignment of the beginning of the list over-wrote the definition it was in.</li
+></ul
+></li
+><li
+>Fix bug in web page output: listDefintion elements were not shown in example elements if there was an exampleHeading.</li
+></ul
+></li
 ><li
 >2.42.2 22 December 2022<ul
 ><li

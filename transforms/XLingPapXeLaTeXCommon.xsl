@@ -654,6 +654,9 @@
                                 </xsl:with-param>
                                 <xsl:with-param name="sListItemIndent">
                                     <xsl:choose>
+                                        <xsl:when test="ancestor::listDefinition">
+                                            <xsl:value-of select="'0.0em'"/>
+                                        </xsl:when>
                                         <xsl:when test="ancestor::example">
                                             <tex:spec cat="esc"/>
                                             <xsl:text>XLingPaperlistinexampleindent</xsl:text>
@@ -978,6 +981,9 @@
                             <xsl:apply-templates>
                                 <xsl:with-param name="sListItemIndent">
                                     <xsl:choose>
+                                        <xsl:when test="ancestor::listDefinition">
+                                            <xsl:value-of select="'0.0em'"/>
+                                        </xsl:when>
                                         <xsl:when test="ancestor::example">
                                             <tex:spec cat="esc"/>
                                             <xsl:text>XLingPaperlistinexampleindent</xsl:text>
@@ -1023,7 +1029,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template name="VerticalSkipAroundList">
-        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example'][1]"/>
+        <xsl:variable name="nearestRelevantElement" select="ancestor::*[name()='endnote' or name()='example' or name()='listDefinition'][1]"/>
         <xsl:if test="name($nearestRelevantElement)='example'">
             <xsl:text>-</xsl:text>
         </xsl:if>

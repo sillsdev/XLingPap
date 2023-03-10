@@ -11,14 +11,14 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->2.42.3</a:version
+>2.42.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-02-06</a:date
+>2023-03-10</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -31,6 +31,18 @@ href="mailto::xlingpaper_support@sil.org"
 >Revision History2.</b
 ></p
 ><ul
+><li
+>2.42.4 10 March 2023<ul
+><li
+>Improve publisher style sheet documentation on literal override.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when an interlinear in a table had two free lines and the interlinear source was set to after the first line, the PDF would not be produced.</li
+></ul
+></li
+></ul
+></li
 ><li
 >2.42.3 6 February 2023<ul
 ><li

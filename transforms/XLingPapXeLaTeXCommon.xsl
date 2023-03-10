@@ -5341,7 +5341,7 @@
                 <xsl:choose>
                     <xsl:when test="not(ancestor::td) and count(following-sibling::*) =0 and not(../following-sibling::interlinear and ancestor::example) or following-sibling::*[1][name()!='interlinear' and name()!='lineGroup']">
                         <xsl:choose>
-                            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] and $sInterlinearSourceStyle='AfterFirstLine'">
+                            <xsl:when test="following-sibling::*[1][name()='free' or name()='literal'] and $sInterlinearSourceStyle='AfterFirstLine' and not(ancestor::table)">
                                 <!-- do nothing because already done above -->
                             </xsl:when>
                             <xsl:otherwise>

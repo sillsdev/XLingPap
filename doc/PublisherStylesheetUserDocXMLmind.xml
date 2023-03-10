@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 November 2022</date
+>10 March 2023</date
 ><version
 contentType="ctVersion5.3"
->2.42.0</version
+>2.42.4</version
 ><version
 contentType="ctVersion7Plus"
->3.12.0</version
+>3.12.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -14728,7 +14728,19 @@ type="tElement"
 sec="sFontInfoAttributes"
 showTitle="short"
 ></sectionRef
->. You can use these attributes to format the label as needed.</p
+>. You can use these attributes to format the label as needed. Example <exampleRef
+letter="xLitLabel"
+num="xLitLabel"
+></exampleRef
+> shows the content of the label. Notice that the red cursor is at the end of the label.</p
+><example
+num="xLitLabel"
+><chart
+><img
+src="resources/LitLabel.png"
+></img
+></chart
+></example
 ><p
 >The second element, <object
 type="tElement"

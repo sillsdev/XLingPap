@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.12.4</a:version
+>3.12.5</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-03-27</a:date
+>2023-03-30</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.12.5 30 March 2023<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a chart contained just text and was followed by a section level element, more vertical space was needed after the chart.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.12.4 27 March 2023<ul
 ><li

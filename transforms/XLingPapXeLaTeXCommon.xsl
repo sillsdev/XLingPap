@@ -2115,6 +2115,11 @@
                 <xsl:otherwise>
                     <tex:spec cat="esc"/>
                     <tex:spec cat="esc"/>
+                    <xsl:if test="not(child::ul) and not(child::ol) and following-sibling::*[1][starts-with(name(),'section')] and ancestor::styledPaper">
+                        <!-- rare case where chart just has text and is followed by a section level element -->
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                    </xsl:if>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>

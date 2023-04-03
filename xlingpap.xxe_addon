@@ -18,7 +18,7 @@ href="mailto::xlingpaper_support@sil.org"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-03-30</a:date
+>2023-04-03</a:date
 ><a:abstract
 >A way to author and archive linguistic papers or books using XML.</a:abstract
 ><a:documentation
@@ -32,7 +32,9 @@ href="mailto::xlingpaper_support@sil.org"
 ></p
 ><ul
 ><li
->2.42.5 30 March 2023<ul
+>2.42.5 3 April 2023<ul
+><li
+>Fix bug: when an example contained a copied interlinear from an interlinear-text, the short name of the text did not show in its link.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

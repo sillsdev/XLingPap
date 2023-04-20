@@ -733,36 +733,46 @@
                 </xsl:call-template>
                 <xsl:if test="section2 and $nLevel>=2">
                     <xsl:for-each select="section2">
-                        <xsl:call-template name="OutputSectionTOC">
-                            <xsl:with-param name="sLevel" select="'2'"/>
-                        </xsl:call-template>
-                        <xsl:if test="section3 and $nLevel>=3">
-                            <xsl:for-each select="section3">
-                                <xsl:call-template name="OutputSectionTOC">
-                                    <xsl:with-param name="sLevel" select="'3'"/>
-                                </xsl:call-template>
-                                <xsl:if test="section4 and $nLevel>=4">
-                                    <xsl:for-each select="section4">
+                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                            <xsl:call-template name="OutputSectionTOC">
+                                <xsl:with-param name="sLevel" select="'2'"/>
+                            </xsl:call-template>
+                            <xsl:if test="section3 and $nLevel>=3">
+                                <xsl:for-each select="section3">
+                                    <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
                                         <xsl:call-template name="OutputSectionTOC">
-                                            <xsl:with-param name="sLevel" select="'4'"/>
+                                            <xsl:with-param name="sLevel" select="'3'"/>
                                         </xsl:call-template>
-                                        <xsl:if test="section5 and $nLevel>=5">
-                                            <xsl:for-each select="section5">
-                                                <xsl:call-template name="OutputSectionTOC">
-                                                    <xsl:with-param name="sLevel" select="'5'"/>
-                                                </xsl:call-template>
-                                                <xsl:if test="section6 and $nLevel>=6">
-                                                    <xsl:for-each select="section6">
-                                                        <xsl:call-template name="OutputSectionTOC">
-                                                            <xsl:with-param name="sLevel" select="'6'"/>
-                                                        </xsl:call-template>
-                                                    </xsl:for-each>
+                                        <xsl:if test="section4 and $nLevel>=4">
+                                            <xsl:for-each select="section4">
+                                                <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                    <xsl:call-template name="OutputSectionTOC">
+                                                        <xsl:with-param name="sLevel" select="'4'"/>
+                                                    </xsl:call-template>
+                                                    <xsl:if test="section5 and $nLevel>=5">
+                                                        <xsl:for-each select="section5">
+                                                            <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                <xsl:call-template name="OutputSectionTOC">
+                                                                    <xsl:with-param name="sLevel" select="'5'"/>
+                                                                </xsl:call-template>
+                                                                <xsl:if test="section6 and $nLevel>=6">
+                                                                    <xsl:for-each select="section6">
+                                                                        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+                                                                            <xsl:call-template name="OutputSectionTOC">
+                                                                                <xsl:with-param name="sLevel" select="'6'"/>
+                                                                            </xsl:call-template>
+                                                                        </xsl:if>
+                                                                    </xsl:for-each>
+                                                                </xsl:if>
+                                                            </xsl:if>
+                                                        </xsl:for-each>
+                                                    </xsl:if>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:if>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:if>

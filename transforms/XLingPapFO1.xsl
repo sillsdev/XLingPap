@@ -1094,11 +1094,11 @@
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
     </xsl:template>
     <xsl:template match="section2">
-        <fo:block id="{@id}" font-weight="bold" text-align="left" keep-with-next.within-page="always">
-            <xsl:attribute name="font-size">
-                <xsl:value-of select="$sSection2PointSize"/>
-                <xsl:text>pt</xsl:text>
-            </xsl:attribute>
+        <fo:block id="{@id}" text-align="left" keep-with-next.within-page="always">
+            <xsl:call-template name="HandleSectionLevelAttributes">
+                <xsl:with-param name="sSectionPointSize" select="$sSection2PointSize"/>
+                <xsl:with-param name="font-weight" select="'bold'"/>
+            </xsl:call-template>
             <xsl:attribute name="space-before">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="space-after">
@@ -1108,11 +1108,12 @@
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
     </xsl:template>
     <xsl:template match="section3">
-        <fo:block id="{@id}" font-weight="bold" font-style="italic" text-align="left" keep-with-next.within-page="always">
-            <xsl:attribute name="font-size">
-                <xsl:value-of select="$sSection3PointSize"/>
-                <xsl:text>pt</xsl:text>
-            </xsl:attribute>
+        <fo:block id="{@id}" text-align="left" keep-with-next.within-page="always">
+            <xsl:call-template name="HandleSectionLevelAttributes">
+                <xsl:with-param name="sSectionPointSize" select="$sSection3PointSize"/>
+                <xsl:with-param name="font-style" select="'italic'"/>
+                <xsl:with-param name="font-weight" select="'bold'"/>
+            </xsl:call-template>
             <xsl:attribute name="space-before">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="space-after">
@@ -1122,11 +1123,11 @@
         <xsl:apply-templates select="child::node()[name()!='secTitle']"/>
     </xsl:template>
     <xsl:template match="section4 | section5 | section6">
-        <fo:block id="{@id}" font-style="italic" text-align="left" keep-with-next.within-page="always">
-            <xsl:attribute name="font-size">
-                <xsl:value-of select="$sSection4PointSize"/>
-                <xsl:text>pt</xsl:text>
-            </xsl:attribute>
+        <fo:block id="{@id}" text-align="left" keep-with-next.within-page="always">
+            <xsl:call-template name="HandleSectionLevelAttributes">
+                <xsl:with-param name="sSectionPointSize" select="$sSection4PointSize"/>
+                <xsl:with-param name="font-style" select="'italic'"/>
+            </xsl:call-template>
             <xsl:attribute name="space-before">
                 <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
             <xsl:attribute name="space-after">
@@ -4848,6 +4849,41 @@ not using
         </xsl:choose>
     </xsl:template>
     <!--  
+        HandleSectionLevelAttributes
+    -->
+    <xsl:template name="HandleSectionLevelAttributes">
+        <xsl:param name="sSectionPointSize"/>
+        <xsl:param name="font-style"/>
+        <xsl:param name="font-weight"/>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:attribute name="font-size">
+                    <xsl:value-of select="$sBasicPointSize"/>
+                    <xsl:text>pt</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="font-weight">
+                    <xsl:text>bold</xsl:text>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:attribute name="font-size">
+                    <xsl:value-of select="$sSectionPointSize"/>
+                    <xsl:text>pt</xsl:text>
+                </xsl:attribute>
+                <xsl:if test="string-length($font-weight) &gt; 0">
+                    <xsl:attribute name="font-weight">
+                        <xsl:value-of select="$font-weight"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="string-length($font-style) &gt; 0">
+                    <xsl:attribute name="font-style">
+                        <xsl:value-of select="$font-style"/>
+                    </xsl:attribute>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
       HandleSmallCaps
    -->
     <xsl:template name="HandleSmallCaps">
@@ -5783,10 +5819,17 @@ not using
         <xsl:call-template name="DoType"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
-        <!-- put title in marker so it can show up in running header -->
-        <fo:marker marker-class-name="section-title">
-            <xsl:call-template name="DoSecTitleRunningHeader"/>
-        </fo:marker>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <!-- skip adding it to the running header -->
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- put title in marker so it can show up in running header -->
+                <fo:marker marker-class-name="section-title">
+                    <xsl:call-template name="DoSecTitleRunningHeader"/>
+                </fo:marker>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="OutputSectionNumberAndTitle"/>
     </xsl:template>
     <!--  
@@ -5802,12 +5845,16 @@ not using
         <xsl:choose>
             <xsl:when test="$bAppendix='Y'">
                 <xsl:apply-templates select="." mode="numberAppendix"/>
+                <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
+            </xsl:when>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <!-- no number wanted -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="." mode="number"/>
+                <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:text disable-output-escaping="yes">&#x20;</xsl:text>
         <xsl:choose>
             <xsl:when test="$bInContents='Y'">
                 <xsl:apply-templates select="secTitle/child::node()[name()!='endnote']" mode="contents"/>

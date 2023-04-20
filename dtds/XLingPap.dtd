@@ -300,35 +300,45 @@
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section2 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section3*)>
 <!ATTLIST section2
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section3 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section4*)>
 <!ATTLIST section3
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section4 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section5*)>
 <!ATTLIST section4
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section5 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section6*)>
 <!ATTLIST section5
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
     contentType IDREF #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
     showinlandscapemode (yes | no) "no"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT section6 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*)>
 <!ATTLIST section6

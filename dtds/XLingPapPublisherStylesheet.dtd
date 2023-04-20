@@ -529,7 +529,7 @@ Body Layout
   In a book, if headerFooterPageStyles is missing, it uses the frontMatterLayout headerFooterPageStyles info.
 -->
 <!ELEMENT bodyLayout (comment?, headerFooterPageStyles?, partLayout?, chapterLayout?, chapterInCollectionLayout?, chapterInCollectionFrontMatterLayout?, 
-				section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout, chapterInCollectionBackMatterLayout?) >    
+				section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout, shortSubsectionLayout?, chapterInCollectionBackMatterLayout?) >
 <!ELEMENT partLayout (partTitleLayout | numberLayout)+ >
 <!ELEMENT partTitleLayout EMPTY >
 <!ATTLIST partTitleLayout
@@ -567,23 +567,27 @@ Body Layout
        >
     <!ELEMENT section2Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section2Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section3Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section3Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section4Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section4Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section5Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section5Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
     >
     <!ELEMENT section6Layout (sectionTitleLayout | numberLayout)+ >
     <!ATTLIST section6Layout
-     %sectionformatinfo; 
+     %sectionformatinfo;
+    >
+    <!ELEMENT shortSubsectionLayout (sectionTitleLayout | numberLayout)+ >
+    <!ATTLIST shortSubsectionLayout
+     %sectionformatinfo;
     >
 <!-- 
   ===================================================

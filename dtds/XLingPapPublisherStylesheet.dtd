@@ -585,9 +585,22 @@ Body Layout
     <!ATTLIST section6Layout
      %sectionformatinfo;
     >
-    <!ELEMENT shortSubsectionLayout (sectionTitleLayout | numberLayout)+ >
+    <!ELEMENT shortSubsectionLayout (shortSectionTitleLayout) >
     <!ATTLIST shortSubsectionLayout
-     %sectionformatinfo;
+     beginsparagraph (yes | no) 'no'
+     ignore (yes | no) 'no'
+     showNumber (no) 'no'
+     firstParagraphHasIndent (yes | no) 'no'
+     showInHeader (yes | no) 'no'
+    >
+    <!ELEMENT shortSectionTitleLayout EMPTY >
+    <!ATTLIST shortSectionTitleLayout
+     usetitleinheader (yes | no) 'no'
+     useemptyheaderfooter (yes | no) 'no'
+     linebefore (yes | no) 'no'
+     linebefore-weight CDATA #IMPLIED
+     %pagebreakformatinfo;
+     %frontmatterformatinfo;
     >
 <!-- 
   ===================================================

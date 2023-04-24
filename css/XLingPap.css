@@ -10465,6 +10465,61 @@ seriesItem
 	property-group: referencesItem("Occasional Publications in Academic Computing No. 16");
 }
 
+shortSectionTitleLayout[color]
+{
+	color:concatenate(attr(color));
+}
+shortSectionTitleLayout[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+shortSectionTitleLayout[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+shortSectionTitleLayout[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+shortSectionTitleLayout[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+shortSectionTitleLayout[pagebreakbefore='no']
+{
+    property-group: pagebreakBeforeIsNo();
+}
+shortSectionTitleLayout[pagebreakbefore='yes']
+{
+    property-group: pagebreakBeforeIsYes();
+}
+shortSectionTitleLayout[spacebefore]
+{
+	padding-top:concatenate(attr(spacebefore));
+}
+shortSectionTitleLayout[spaceafter]
+{
+	padding-bottom:concatenate(attr(spaceafter));
+}
+shortSectionTitleLayout[textalign]
+{
+	text-align:concatenate(attr(textalign));
+}
+
+shortSubsectionLayout shortSectionTitleLayout
+{
+	property-group: titledItem("Short subsection");
+}
+shortSubsectionLayout[ignore='yes']
+{
+	display:block;
+	color:Gray;
+}
+shortSubsectionLayout
+{
+	display:block;
+}
+
 subtitleLayout[color]
 {
 	color:concatenate(attr(color));

@@ -520,15 +520,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section3" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes' or name()='appendix']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=3 and $bodyLayoutInfo/section3Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section3" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -540,15 +542,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="1 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section4" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=4 and $bodyLayoutInfo/section4Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section4" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -560,15 +564,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="2 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section5" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=5 and $bodyLayoutInfo/section5Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section5" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -580,15 +586,17 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="3 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
-        <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
-            <xsl:apply-templates select="section6" mode="contents">
-                <xsl:with-param name="nLevel" select="$nLevel"/>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
                 <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-            </xsl:apply-templates>
+            </xsl:call-template>
+            <xsl:if test="$nLevel>=6 and $bodyLayoutInfo/section6Layout/@ignore!='yes'">
+                <xsl:apply-templates select="section6" mode="contents">
+                    <xsl:with-param name="nLevel" select="$nLevel"/>
+                    <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                </xsl:apply-templates>
+            </xsl:if>
         </xsl:if>
     </xsl:template>
     <!-- 
@@ -600,10 +608,12 @@
         <xsl:variable name="iLevel">
             <xsl:value-of select="4 + count(ancestor::section1) + count(ancestor::chapter | ancestor::chapterInCollection) + count(ancestor::chapterBeforePart) + count(ancestor::appendix)"/>
         </xsl:variable>
-        <xsl:call-template name="OutputSectionTOC">
-            <xsl:with-param name="sLevel" select="$iLevel"/>
-            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-        </xsl:call-template>
+        <xsl:if test="parent::*[@subsectionsAreShort!='yes' or @excludeShortSubsectionsFromContents!='yes']">
+            <xsl:call-template name="OutputSectionTOC">
+                <xsl:with-param name="sLevel" select="$iLevel"/>
+                <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     <!-- 
         shortTitle (contents) 

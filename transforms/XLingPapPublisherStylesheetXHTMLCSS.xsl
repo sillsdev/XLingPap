@@ -1346,6 +1346,14 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        shortSectionTitleLayout
+    -->
+    <xsl:template match="shortSectionTitleLayout">
+        <xsl:call-template name="OutputTitleFormatInfo">
+            <xsl:with-param name="name" select="'sectionTitlesubsection'"/>
+        </xsl:call-template>
+    </xsl:template>
+    <!-- 
         subtitleLayout
     -->
     <xsl:template match="subtitleLayout">

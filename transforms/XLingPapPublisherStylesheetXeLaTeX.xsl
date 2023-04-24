@@ -1393,29 +1393,74 @@
         </xsl:call-template>
     </xsl:template>
     <xsl:template match="section2">
-        <xsl:call-template name="DoSection">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section2Layout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/shortSubsectionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section2Layout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="section3">
-        <xsl:call-template name="DoSection">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section3Layout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/shortSubsectionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section3Layout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="section4">
-        <xsl:call-template name="DoSection">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section4Layout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/shortSubsectionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section4Layout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="section5">
-        <xsl:call-template name="DoSection">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section5Layout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/shortSubsectionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section5Layout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="section6">
-        <xsl:call-template name="DoSection">
-            <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section6Layout"/>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/shortSubsectionLayout"/>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSection">
+                    <xsl:with-param name="layoutInfo" select="$bodyLayoutInfo/section6Layout"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!--
       Appendix
@@ -6210,10 +6255,17 @@
                     <xsl:with-param name="sName" select="@id"/>
                 </xsl:call-template>
 <!--            </xsl:if>-->
-            <xsl:call-template name="OutputSectionNumber">
-                <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
-                <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                    <!-- no number should show -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="OutputSectionNumber">
+                        <xsl:with-param name="layoutInfo" select="$numberLayoutInfo"/>
+                        <xsl:with-param name="sContentsPeriod" select="$sContentsPeriod"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:call-template name="OutputSectionTitle"/>
             <xsl:call-template name="DoFormatLayoutInfoTextAfter">
                 <xsl:with-param name="layoutInfo" select="$formatTitleLayoutInfo"/>
@@ -8648,14 +8700,21 @@
     <xsl:template name="OutputSectionNumberAndTitleInContents">
         <xsl:param name="contentsLayoutToUse" select="$contentsLayout/contentsLayout"/>
         <xsl:param name="layoutInfo"/>
-        <xsl:call-template name="OutputSectionNumber">
-            <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
-            <xsl:with-param name="sContentsPeriod">
-                <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodaftersectionnumber='yes'">
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
-            </xsl:with-param>
-        </xsl:call-template>
+        <xsl:choose>
+            <xsl:when test="parent::*[@subsectionsAreShort='yes']">
+                <!-- no number should show -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="OutputSectionNumber">
+                    <xsl:with-param name="layoutInfo" select="$layoutInfo"/>
+                    <xsl:with-param name="sContentsPeriod">
+                        <xsl:if test="saxon:node-set($contentsLayoutToUse)/@useperiodaftersectionnumber='yes'">
+                            <xsl:text>.</xsl:text>
+                        </xsl:if>
+                    </xsl:with-param>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="OutputSectionTitleInContents"/>
     </xsl:template>
     <!--  

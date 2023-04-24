@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 March 2023</date
+>24 April 2023</date
 ><version
 contentType="ctVersion5.3"
->2.42.4</version
+>2.42.6</version
 ><version
 contentType="ctVersion7Plus"
->3.12.4</version
+>3.12.6</version
 ><contents
 showLevel="6"
 ></contents
@@ -4222,6 +4222,49 @@ type="tAttribute"
 > to <object
 type="tAttrValue"
 >yes</object
+>.</p
+></section2
+><section2
+id="sShortSubsectionsLayout"
+><secTitle
+>Short Subsections Layout</secTitle
+><p
+>If your document needs to format short subsections, you can insert a <object
+type="tElement"
+>shortSubsectionLayout</object
+> element after the <object
+type="tElement"
+>section6Layout</object
+> element. It has one element within it <object
+type="tElement"
+>(shortSectionTitleLayout)</object
+> which indicates how the title of any and all short subsections should be formatted.<endnote
+id="nShortSubsection"
+><p
+>Every short subsection title will be formatted this way no matter what level it is a subsection of.</p
+></endnote
+> This has the the same set of attributes as a <object
+type="tElement"
+>sectionTitleLayout</object
+> element except the <object
+type="tAttribute"
+>useperiodafternumber</object
+> attribute is not present.  See section <sectionRef
+sec="sTitleFormatInfoAttributes"
+></sectionRef
+>.  In addition, the <object
+type="tElement"
+>shortSubsectionLayout</object
+> element has all of the attributes given in example <exampleRef
+letter="xSectionFormatInfoAttribute"
+num="xSectionFormatInfoAttribute"
+></exampleRef
+> except that the <object
+type="tAttribute"
+>showNumber</object
+> attribute's value is always set to <object
+type="tAttrValue"
+>no</object
 >.</p
 ></section2
 ><section2

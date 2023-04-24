@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->3 November 2022</date
+>24 April 2023</date
 ><version
 contentType="ctVersion5.3"
->2.42.0</version
+>2.42.6</version
 ><version
 contentType="ctVersion7Plus"
->3.12.0</version
+>3.12.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -3192,6 +3192,36 @@ type="tElement"
 type="tInstruction"
 >File / New</object
 >), choose the option for “Multi-part book (part-oriented) ”.</p
+></section2
+><section2
+id="sSectionShort"
+><secTitle
+>Short Subsections</secTitle
+><p
+><indexedItem
+term="iSectionShortSubsections"
+></indexedItem
+>Sometimes you have a series of very short subsections in a document and you want to have them format differently than normal subsections do. In particular, you want just the section title in bold at the left edge; no number is needed. To get this effect, in the parent section level element, use the Attributes tool<endnoteRef
+note="nAttributesToolReminder"
+></endnoteRef
+> and set the <object
+type="tAttribute"
+>subsectionsAreShort</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+>.</p
+><p
+>By default, <object
+type="tXLingPap"
+></object
+> will not show these short subsections in the table of contents, even if their section level would normally appear in the contents. If you do want them to appear in the table of contents, then in the parent section level element, use the Attributes tool to set the <object
+type="tAttribute"
+>excludeShortSubsectionsFromContents</object
+> attribute to <object
+type="tAttrValue"
+>no</object
+>.</p
 ></section2
 ></section1
 ><section1
@@ -34368,7 +34398,14 @@ type="tElement"
 >seriesItem</object
 ></dt
 ><dd
->Layout info for a series item (withiin references)</dd
+>Layout info for a series item (within references)</dd
+><dt
+><object
+type="tElement"
+>shortSubsectionLayout</object
+></dt
+><dd
+>Layout info for a short subsection</dd
 ><dt
 ><object
 type="tElement"
@@ -38391,6 +38428,11 @@ id="iSectionReferenceShowTitle"
 >Show title instead of number</term
 ></indexTerm
 ></indexTerms
+></indexTerm
+><indexTerm
+id="iSectionShortSubsections"
+><term
+>Short subsections</term
 ></indexTerm
 ><indexTerm
 id="iSectionTitle"

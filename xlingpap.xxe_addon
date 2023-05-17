@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.12.0-xxe-8.2.0.zip"
+location="XLingPap-3.13.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.12.5</a:version
+>3.13.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-04-24</a:date
+>2023-05-18</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,65 +40,33 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.12.6 24 April 2023<ul
+>3.13.0 18 May 2023<ul
 ><li
 >Allow formatting of short subsection level elements on a case-by-case basis.</li
-></ul
-></li
 ><li
->3.12.5 3 April 2023<ul
+>Improve publisher style sheet documentation on literal override.</li
+><li
+>Add check for a glossaryTermRef referring to the glossaryTerm it is in.</li
 ><li
 >Fix bug: when an example contained a copied interlinear from an interlinear-text, the short name of the text did not show in its link.</li
+><li
+>Fix bug: an interlinearRefCitation element could fail to show the short title.</li
+><li
+>Fix bug in web page output: listDefintion elements were not shown in example elements if there was an exampleHeading.</li
+><li
+>Fix bug: a glossaryTermRef referring to the glossaryTerm it is in could cause any output to fail.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when a chart contained just text and was followed by a section level element, more vertical space was needed after the chart.</li
-></ul
-></li
-></ul
-></li
-><li
->3.12.4 27 March 2023<ul
-><li
->Improve publisher style sheet documentation on literal override.</li
-><li
->Fix bug: an interlinearRefCitation element could fail to show the short title.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when an interlinear in a table had two free lines and the interlinear source was set to after the first line, the PDF would not be produced.</li
-></ul
-></li
-></ul
-></li
-><li
->3.12.3 6 February 2023<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when an example had listDefinition elements and those had a list embedded in them, the alignment of the beginning of the list over-wrote the definition it was in.</li
-></ul
-></li
-><li
->Fix bug in web page output: listDefintion elements were not shown in example elements if there was an exampleHeading.</li
-></ul
-></li
-><li
->3.12.2 22 December 2022<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Fix bug: when a style sheet had a section layout with a space before, that space could be doubled in certain situations.</li
 ></ul
 ></li
-></ul
-></li
-><li
->3.12.1 22 November 2022<ul
-><li
->Add check for a glossaryTermRef referring to the glossaryTerm it is in.</li
-><li
->Fix bug: a glossaryTermRef referring to the glossaryTerm it is in could cause any output to fail.</li
 ></ul
 ></li
 ><li

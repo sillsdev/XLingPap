@@ -59,6 +59,7 @@ Page Layout
                         blockQuoteIndent?,
                         hangingIndentInitialIndent?,
                         hangingIndentNormalIndent?,
+                        paragraphAlignment?,
                         lineSpacing?,
                         defaultFontFamily?,
                         basicPointSize?,
@@ -99,6 +100,10 @@ Page Layout
     <!ELEMENT footnoteIndent (#PCDATA) >
     <!ELEMENT hangingIndentInitialIndent (#PCDATA) >
     <!ELEMENT hangingIndentNormalIndent (#PCDATA) >
+    <!ELEMENT paragraphAlignment EMPTY>
+    <!ATTLIST paragraphAlignment
+      textalign (justify | left) "justify"
+    >
     <!ELEMENT headerMargin (#PCDATA) >
     <!ELEMENT footerMargin (#PCDATA) >
     <!ELEMENT pageWidth (#PCDATA) >

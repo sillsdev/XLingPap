@@ -9047,6 +9047,15 @@ paperTitle
 	content:"";
 	display:inline;
 }
+paragraphAlignment:before
+{
+	property-group:layoutParameterLabel( "paragraph alignment attribute" );
+/*	color:Blue; */
+}
+paragraphAlignment
+{
+	property-group: layoutParameter(.67ex);
+}
 paragraphIndent:before
 {
 	property-group:layoutParameterLabel( "paragraph indent" );

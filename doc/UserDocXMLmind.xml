@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 May 2023</date
+>16 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
 ><version
 contentType="ctVersion7Plus"
->3.13.0</version
+>3.13.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -33991,6 +33991,13 @@ type="tElement"
 ></dt
 ><dd
 >Indicates to use the title of the paper in a header or footer</dd
+><dt
+><object
+type="tElement"
+>paragraphAlignment</object
+></dt
+><dd
+>Alignment to use for paragraphs</dd
 ><dt
 ><object
 type="tElement"

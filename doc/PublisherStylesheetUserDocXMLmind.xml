@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 May 2023</date
+>16 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
 ><version
 contentType="ctVersion7Plus"
->3.13.0</version
+>3.13.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -460,6 +460,23 @@ src="resources/HangingIndentStyleSheet.png"
 ></example
 ><p
 >These use the same units of measure as the paragraph and block quote indents do.</p
+><p
+><indexedItem
+term="iParagraphLayoutAlignment"
+></indexedItem
+>The default <object
+type="tXeTeX"
+></object
+> way of producing PDF normally justifies text.  To get left-justified (or ragged right) output, you can insert a <object
+type="tElement"
+>paragraphAlignment</object
+> element after the above elements and set its <object
+type="tAttribute"
+>textalign</object
+> attribute to <object
+type="tAttrValue"
+>left</object
+>.</p
 ></section2
 ><section2
 id="sLineSpacing"
@@ -22298,6 +22315,12 @@ id="iLangDataOverrides"
 >Language data special formatting in prose, tables, or examples</term
 ></indexTerm
 ><indexTerm
+id="iLeftJustification"
+see="iParagraphLayoutAlignment"
+><term
+>Left justified output</term
+></indexTerm
+><indexTerm
 id="iLineBeforeAttribute"
 ><term
 >Line before Attribute</term
@@ -22525,6 +22548,11 @@ id="iParagraphLayout"
 >Paragraph layout</term
 ><indexTerms
 ><indexTerm
+id="iParagraphLayoutAlignment"
+><term
+>Paragraph alignment (e.g., justified, left-justified)</term
+></indexTerm
+><indexTerm
 id="iParagraphLayoutSpaceBetween"
 ><term
 >Space between paragraphs</term
@@ -22616,6 +22644,12 @@ id="iPublishingBlurbLayout"
 id="iQuote"
 ><term
 >Quote quotation marks</term
+></indexTerm
+><indexTerm
+id="iRaggedRight"
+see="iParagraphLayoutAlignment"
+><term
+>Ragged right output</term
 ></indexTerm
 ><indexTerm
 id="iReferences"

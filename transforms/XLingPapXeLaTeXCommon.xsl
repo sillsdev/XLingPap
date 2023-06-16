@@ -11984,22 +11984,6 @@
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="SetStartingPageNumber"/>
-        <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
-        <xsl:if test="string-length($sFootnoteIndent)&gt;0">
-            <tex:cmd name="makeatletter" gr="0" nl2="1"/>
-            <tex:cmd name="renewcommand" gr="0"/>
-            <tex:cmd name="@makefntext">
-                <tex:opt>1</tex:opt>
-                <tex:parm>
-                    <tex:cmd name="hskip" gr="0"/>
-                    <xsl:value-of select="$sFootnoteIndent"/>
-                    <tex:cmd name="@makefnmark" gr="0"/>
-                    <tex:spec cat="parm"/>
-                    <xsl:text>1</xsl:text>
-                </tex:parm>
-            </tex:cmd>
-            <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
-        </xsl:if>
         <xsl:if test="contains(@XeLaTeXSpecial,'overfullhbox')">
             <xsl:variable name="sValue">
                 <xsl:call-template name="GetXeLaTeXSpecialCommand">
@@ -13610,6 +13594,9 @@ What might go in a TeX package file
                         <xsl:text>-</xsl:text>
                         <tex:cmd name="parindent" gr="0" nl2="0"/>
                         <tex:spec cat="bg"/>
+                        <xsl:if test="$pageLayoutInfo/paragraphAlignment/@textalign='left'">
+                            <tex:cmd name="iraggedright"/>
+                        </xsl:if>
                         <tex:spec cat="parm"/>
                         <xsl:text>3</xsl:text>
                         <tex:spec cat="eg"/>

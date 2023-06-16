@@ -180,6 +180,25 @@
             <xsl:call-template name="SetSpecialTextSymbols"/>
             <xsl:call-template name="SetUsePackages"/>
             <xsl:call-template name="SetHeaderFooter"/>
+            <xsl:variable name="sFootnoteIndent" select="normalize-space($pageLayoutInfo/footnoteIndent)"/>
+            <xsl:if test="string-length($sFootnoteIndent)&gt;0">
+                <tex:cmd name="makeatletter" gr="0" nl2="1"/>
+                <tex:cmd name="renewcommand" gr="0"/>
+                <tex:cmd name="@makefntext">
+                    <tex:opt>1</tex:opt>
+                    <tex:parm>
+                        <xsl:if test="$pageLayoutInfo/paragraphAlignment/@textalign='left'">
+                            <tex:cmd name="iraggedright" gr="0"/>
+                        </xsl:if>
+                        <tex:cmd name="hskip" gr="0"/>
+                        <xsl:value-of select="$sFootnoteIndent"/>
+                        <tex:cmd name="@makefnmark" gr="0"/>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
+            </xsl:if>
             <xsl:call-template name="SetFonts"/>
             <xsl:call-template name="SetFramedTypes"/>
             <xsl:call-template name="SetFootnoteRule"/>
@@ -215,7 +234,29 @@
                     </tex:parm>
                 </tex:cmd>
             </xsl:if>
+            <xsl:if test="$pageLayoutInfo/paragraphAlignment/@textalign='left'">
+                <tex:cmd name="makeatletter" gr="0" nl1="1" nl2="1"/>
+                <tex:cmd name="newcommand" gr="0"/>
+                <tex:cmd name="iraggedright">
+                    <tex:parm>
+                        <tex:cmd name="let" gr="0"/>
+                        <tex:spec cat="esc"/>
+                        <tex:spec cat="esc"/>
+                        <tex:cmd name="@centercr" gr="0"/>
+                        <tex:cmd name="@rightskip" gr="0"/>
+                        <tex:cmd name="@flushglue " gr="0"/>
+                        <tex:cmd name="rightskip" gr="0"/>
+                        <tex:cmd name="@rightskip" gr="0" nl2="1"/>
+<!--                        <tex:cmd name="leftskip" gr="0"/>
+                        <tex:cmd name="z@skip" gr="0"/>-->
+                    </tex:parm>
+                </tex:cmd>
+                <tex:cmd name="makeatother" gr="0" nl1="1" nl2="1"/>
+            </xsl:if>
             <tex:env name="document">
+                <xsl:if test="$pageLayoutInfo/paragraphAlignment/@textalign='left'">
+                    <tex:cmd name="iraggedright" gr="0" nl2="1"/>
+                </xsl:if>
                 <xsl:if test="$pageLayoutInfo/@showLineNumbers='yes'">
                     <tex:cmd name="linenumbers" gr="0" nl2="1"/>
                 </xsl:if>

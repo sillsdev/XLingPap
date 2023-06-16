@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.13.0</a:version
+>3.13.1</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-05-18</a:date
+>2023-06-16</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.13.1 16 June 2023<ul
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Add a way to get ragged right (left justified) output: Added the paragraphAlignment (before the lineSpacing element) in a publisher style sheet.  It has one attribute, textalign, which defaults to 'justify' but can be set to 'left'.</li
+></ul
+></li
+></ul
+></li
 ><li
 >3.13.0 18 May 2023<ul
 ><li

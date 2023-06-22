@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 June 2023</date
+>22 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -15526,6 +15526,20 @@ type="tXMLmindXMLEditor"
 type="tXLingPap"
 ></object
 > output formats.</p
+><p
+><indexedItem
+term="iBorderAroundGraphic"
+></indexedItem
+>If you want a border around the image file, then set the <object
+type="tAttribute"
+>borderaround</object
+> attribute to <object
+type="tAttrValue"
+>yes</object
+> (the default is <object
+type="tAttrValue"
+>no</object
+>).</p
 ><p
 ><indexedItem
 term="iCenterGraphic"
@@ -33561,6 +33575,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>imageBorderLayout</object
+></dt
+><dd
+>Layout for a border on an image</dd
+><dt
+><object
+type="tElement"
 >indexLayout</object
 ></dt
 ><dd
@@ -37470,6 +37491,11 @@ id="iImageFiles"
 ><term
 >Image files</term
 ><indexTerms
+><indexTerm
+id="iBorderAroundGraphic"
+><term
+>Border around an image</term
+></indexTerm
 ><indexTerm
 id="iCenterGraphic"
 ><term

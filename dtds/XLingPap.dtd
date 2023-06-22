@@ -858,6 +858,7 @@
     description CDATA #IMPLIED
     width CDATA #IMPLIED
     height CDATA #IMPLIED
+    borderaround (no | yes ) 'no'
     %special;
 >
 <!ELEMENT mediaObject EMPTY >

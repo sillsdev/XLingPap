@@ -439,6 +439,11 @@
                     <xsl:call-template name="DoImgDescription">
                         <xsl:with-param name="sDescription" select="$sDescription"/>
                     </xsl:call-template>
+                    <xsl:if test="@borderaround='yes'">
+                        <xsl:attribute name="class">
+                            <xsl:text>borderaround</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>

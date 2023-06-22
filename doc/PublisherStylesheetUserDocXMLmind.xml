@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->16 June 2023</date
+>22 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -467,7 +467,7 @@ term="iParagraphLayoutAlignment"
 >The default <object
 type="tXeTeX"
 ></object
-> way of producing PDF normally justifies text.  To get left-justified (or ragged right) output, you can insert a <object
+> way of producing PDF normally justifies text. To get left-justified (or ragged right) output, you can insert a <object
 type="tElement"
 >paragraphAlignment</object
 > element after the above elements and set its <object
@@ -17132,6 +17132,137 @@ type="tAttrValue"
 >no</object
 >.</p
 ></section2
+><section2
+id="sBorderAroundIMage"
+><secTitle
+>Controlling a Border Around Images</secTitle
+><p
+><indexedItem
+term="iImgBorder"
+></indexedItem
+>If you need to control the width of a border around an image and/or control the space between the border and an image, add the <object
+type="tElement"
+>imageBorderLayout</object
+> element. It has two attributes as described in <exampleRef
+letter="xBorderAroundImagesLayoutAttributes"
+num="xBorderAroundImagesLayoutAttributes"
+></exampleRef
+>.</p
+><example
+num="xBorderAroundImagesLayoutAttributes"
+><table
+border="1"
+><caption
+>Border Around an Image Attributes</caption
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Examples</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>separation</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The amount of space to insert between the border and the image. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>0.5pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>1pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>width</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>The width of the border. Use a number followed by one of the units of measure given in example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>; there should be no space between the number and the unit of measure.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>1pt</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>2pt</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+></table
+></example
+></section2
 ></section1
 ><section1
 id="sCommonSetsOfAttributes"
@@ -19337,6 +19468,15 @@ type="tElement"
 ><td
 >footnote number-to-text link</td
 ></tr
+><tr
+><td
+><object
+type="tElement"
+>imageBorderLayout</object
+></td
+><td
+>border around images layout</td
+></tr
 ></table
 ></appendix
 ><appendix
@@ -20275,6 +20415,31 @@ type="tElement"
 >no attributes have defaults</td
 ><td
 ></td
+></tr
+><tr
+><td
+rowspan="2"
+valign="top"
+><object
+type="tElement"
+>imageBorderLayout</object
+></td
+><td
+><object
+type="tAttribute"
+>separation</object
+></td
+><td
+>0pt</td
+></tr
+><tr
+><td
+><object
+type="tAttribute"
+>width</object
+></td
+><td
+>1pt</td
 ></tr
 ><tr
 ><td
@@ -21320,6 +21485,12 @@ see="iVolumeNumber"
 >Book volume number of a referenced work</term
 ></indexTerm
 ><indexTerm
+id="iBorderAroundImage"
+see="iImgBorder"
+><term
+>Border around an image</term
+></indexTerm
+><indexTerm
 id="iCaption"
 ><term
 >Caption</term
@@ -21863,6 +22034,12 @@ id="iFigure"
 >Figure</term
 ><indexTerms
 ><indexTerm
+id="iFigureBorderAround"
+see="iImgBorder"
+><term
+>Border around image</term
+></indexTerm
+><indexTerm
 id="iFigureCaption"
 ><term
 >Caption before or after the figure</term
@@ -22154,6 +22331,13 @@ id="iHeaderRule"
 id="iImg"
 ><term
 >img</term
+><indexTerms
+><indexTerm
+id="iImgBorder"
+><term
+>Border around</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iIndent"

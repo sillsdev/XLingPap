@@ -227,6 +227,17 @@ li.lower-roman {
 }
 
 </xsl:text>
+        <xsl:if test="//img[@borderaround='yes']">
+            <xsl:text>.borderaround {
+        border:</xsl:text>
+        <xsl:call-template name="GetBorderAroundImageWidth"/>
+        <xsl:text> solid;
+        padding:</xsl:text>
+        <xsl:call-template name="GetBorderAroundImageSeparation"/>
+        <xsl:text>;
+}
+</xsl:text>
+        </xsl:if>
         <xsl:apply-templates select="styledPaper/lingPaper | styledPaper/publisherStyleSheet[1]"/>
         <!--  We are not using CSS classes for the contents information because there are any number of
          section1, etc. items which can be embeded under appendix/nothing, etc. and it gets complicated quickly.

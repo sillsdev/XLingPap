@@ -73,7 +73,8 @@
     </xsl:variable>
     <xsl:variable name="sListInitialHorizontalOffset">0pt</xsl:variable>
     <xsl:variable name="pageLayoutInfo"/>
-    <xsl:variable name="documentLayoutInfo"/>
+    <xsl:variable name="publisherStyleSheet" select="//publisherStyleSheet[1]"/>
+    <xsl:variable name="documentLayoutInfo" select="$publisherStyleSheet/contentLayout"/>
     <xsl:variable name="sLineSpacing"/>
     <xsl:variable name="lineSpacing"/>
     <!-- ===========================================================

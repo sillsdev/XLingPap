@@ -8888,6 +8888,7 @@
         ProcessDocument
     -->
     <xsl:template name="ProcessDocument">
+        <xsl:call-template name="HandleImageBorders"/>
         <xsl:if test="$sBasicPointSize!=$sLaTeXBasicPointSize">
             <xsl:call-template name="HandleFontSize">
                 <xsl:with-param name="sSize">

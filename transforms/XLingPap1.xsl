@@ -2706,6 +2706,11 @@
                             <xsl:value-of select="@description"/>
                         </xsl:attribute>
                     </xsl:if>
+                    <xsl:if test="@borderaround='yes'">
+                        <xsl:attribute name="border">
+                            <xsl:text>1pt solid;</xsl:text>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:value-of select="."/>
                 </xsl:element>
             </xsl:otherwise>

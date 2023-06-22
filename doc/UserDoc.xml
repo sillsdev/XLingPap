@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->16 June 2023</date
+>22 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -11738,7 +11738,7 @@ type="tElement"
 >headerFooterPage</object
 ></dt
 ><dd
->Layout info for a header or footer for all pages within a document (unless a <object
+>Layout info for a header or footer for all pages within a document (unless a  <object
 type="tElement"
 >headerFooterFirstPage</object
 > element is present in which case it is the header or footer layout for all non-initial pages)</dd
@@ -11756,6 +11756,13 @@ type="tElement"
 ></dt
 ><dd
 >Margin to use for the header</dd
+><dt
+><object
+type="tElement"
+>imageBorderLayout</object
+></dt
+><dd
+>Layout for a border on an image</dd
 ><dt
 ><object
 type="tElement"
@@ -12195,7 +12202,7 @@ type="tElement"
 >paragraphAlignment</object
 ></dt
 ><dd
->Alignment to use for  paragraphs</dd
+>Alignment to use for paragraphs</dd
 ><dt
 ><object
 type="tElement"

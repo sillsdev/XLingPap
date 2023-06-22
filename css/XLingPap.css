@@ -7683,6 +7683,10 @@ headerMargin
 {
 	property-group: layoutParameter(.67ex);
 }
+imageBorderLayout
+{
+	property-group: titledItem("Image border");
+}
 indexLayout[color]
 {
 	color:concatenate(attr(color));

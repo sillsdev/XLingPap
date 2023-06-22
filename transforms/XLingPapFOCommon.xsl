@@ -15,6 +15,12 @@
         <xsl:value-of select="$iExampleWidth"/>
         <xsl:text>pt</xsl:text>
     </xsl:variable>
+    <xsl:variable name="imgBorderSeparation">
+        <xsl:call-template name="GetBorderAroundImageSeparation"/>
+    </xsl:variable>
+    <xsl:variable name="imgBorderWidth">
+        <xsl:call-template name="GetBorderAroundImageWidth"/>
+    </xsl:variable>
     <!-- ===========================================================
         IMG
         =========================================================== -->
@@ -517,6 +523,9 @@
                 </xsl:choose>
                 <xsl:text>)</xsl:text>
             </xsl:attribute>
+            <xsl:if test="@borderaround='yes'">
+                <xsl:call-template name="InsertImageBorderAttributes"/>
+            </xsl:if>
         </fo:external-graphic>
     </xsl:template>
     <!--  
@@ -555,6 +564,47 @@
             </xsl:choose>
             <xsl:text> is missing here.  You will need to add it manually.</xsl:text>
         </fo:inline>
+    </xsl:template>
+    <!--  
+        InsertImageBorderAttributes
+    -->
+    <xsl:template name="InsertImageBorderAttributes">
+        <xsl:attribute name="border-left-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-style">
+            <xsl:text>solid</xsl:text>
+        </xsl:attribute>
+        <xsl:attribute name="padding-left">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-top">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-right">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="padding-bottom">
+            <xsl:value-of select="$imgBorderSeparation"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-left-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-top-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-right-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
+        <xsl:attribute name="border-bottom-width">
+            <xsl:value-of select="$imgBorderWidth"/>
+        </xsl:attribute>
     </xsl:template>
     <!--
         OutputAbbreviationInTable

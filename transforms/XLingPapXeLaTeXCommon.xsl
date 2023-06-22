@@ -7904,11 +7904,39 @@
         <xsl:text>&#x0a;</xsl:text>
     </xsl:template>
     <!--  
+        HandleImageBorders
+    -->
+    <xsl:template name="HandleImageBorders">
+        <xsl:if test="//img/@borderaround='yes'">
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="fboxsep" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetBorderAroundImageSeparation"/>
+                </tex:parm>
+            </tex:cmd>
+            <tex:cmd name="setlength">
+                <tex:parm>
+                    <tex:cmd name="fboxrule" gr="0"/>
+                </tex:parm>
+                <tex:parm>
+                    <xsl:call-template name="GetBorderAroundImageWidth"/>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
+    </xsl:template>
+    <!--  
         HandleImg
     -->
     <xsl:template name="HandleImg">
         <xsl:variable name="sImgFile" select="normalize-space(translate(@src,'\','/'))"/>
         <xsl:variable name="sExtension" select="substring($sImgFile,string-length($sImgFile)-3,4)"/>
+        <xsl:if test="@borderaround='yes'">
+            <tex:spec cat="esc"/>
+            <xsl:text>fbox</xsl:text>
+            <tex:spec cat="bg"/>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="translate($sExtension,'GIF','gif')='.gif'">
                 <xsl:if test="not(ancestor::example)">
@@ -7978,6 +8006,9 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="@borderaround='yes'">
+            <tex:spec cat="eg"/>
+        </xsl:if>
     </xsl:template>
     <!--  
         HandleISO639-3CodesInTableColumnSpecColumns

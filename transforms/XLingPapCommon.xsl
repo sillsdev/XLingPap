@@ -1103,6 +1103,34 @@
         </xsl:for-each>
     </xsl:template>
     <!--
+        GetBorderAroundImageSeparation
+    -->
+    <xsl:template name="GetBorderAroundImageSeparation">
+        <xsl:variable name="separation" select="$documentLayoutInfo/imageBorderLayout/@separation"/>
+        <xsl:choose>
+            <xsl:when test="string-length($separation) &gt; 0">
+                <xsl:value-of select="$separation"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        GetBorderAroundImageWidth
+    -->
+    <xsl:template name="GetBorderAroundImageWidth">
+        <xsl:variable name="width" select="$documentLayoutInfo/imageBorderLayout/@width"/>
+        <xsl:choose>
+            <xsl:when test="string-length($width) &gt; 0">
+                <xsl:value-of select="$width"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>1pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--
         GetCollOrProcVolumesToInclude
     -->
     <xsl:template name="GetCollOrProcVolumesToInclude">

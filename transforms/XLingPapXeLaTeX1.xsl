@@ -191,6 +191,7 @@
                 <xsl:call-template name="HandleHyphenationExceptionsFile"/>
                 <tex:cmd name="raggedbottom" gr="0" nl2="1"/>
                 <tex:env name="MainFont">
+                    <xsl:call-template name="HandleImageBorders"/>
                     <xsl:if test="contains($sXeLaTeXVersion,'2020') or $lingPaper/@useImageWidthSetToWidthOfExampleFigureOrChart='yes'">
                         <xsl:call-template name="SetImgWidths"/>
                     </xsl:if>

@@ -1804,6 +1804,8 @@ li.lower-roman {
         =========================================================== -->
     <xsl:template match="@AddPeriodAfterFinalDigit"/>
     <xsl:template match="@after"/>
+    <xsl:template match="@align"/>
+    <xsl:template match="@alignoverride"/>
     <xsl:template match="@authorform"/>
     <xsl:template match="@backmatterlabel"/>
     <xsl:template match="@backmattershowLevel"/>

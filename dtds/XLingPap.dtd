@@ -692,6 +692,7 @@
 >
 <!ELEMENT tablenumbered (shortCaption?, (table | (caption?, img)))>
 <!ATTLIST tablenumbered
+    alignoverride (left | center | right | none) "none"
     location (here | topOfPage | bottomOfPage) "here"
     id ID #REQUIRED
     type IDREF #IMPLIED
@@ -804,6 +805,7 @@
 <!ATTLIST figure
     location (here | topOfPage | bottomOfPage) "here"
     align (left | center | right | justify) "left"
+    alignoverride (left | center | right | none) "none"
     id ID #REQUIRED
     type IDREF #IMPLIED
     %special;

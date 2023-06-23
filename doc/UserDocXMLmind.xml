@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 June 2023</date
+>23 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -16278,6 +16278,50 @@ lang="lEng"
 lang="lEng"
 > <object
 type="tAttribute"
+>alignoverride</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>none</object
+> (the default is <object
+type="tAttrValue"
+>none</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Use this to override any value set by the <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>figureLayout</object
+> element in a <object
+type="tPublisherStyleSheet"
+></object
+> for a given figure.</langData
+></td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
 >cssSpecial</object
 > </langData
 ></td
@@ -17359,6 +17403,50 @@ lang="lEng"
 lang="lEng"
 >Meaning</langData
 ></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttribute"
+>alignoverride</object
+></langData
+></td
+><td
+><langData
+lang="lEng"
+> <object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>none</object
+> (the default is <object
+type="tAttrValue"
+>none</object
+>)</langData
+></td
+><td
+><langData
+lang="lEng"
+>Use this to override any value set by the <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>tablenumberedLayout</object
+> element in a <object
+type="tPublisherStyleSheet"
+></object
+> for a given figure.</langData
+></td
 ></tr
 ><tr
 ><td

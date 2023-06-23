@@ -10606,7 +10606,9 @@
                 <xsl:choose>
                     <xsl:when test="parent::example or ancestor::table">t</xsl:when>
                     <xsl:otherwise>
-                        <xsl:variable name="sAlign" select="normalize-space(@align)"/>
+                        <xsl:variable name="sAlign">
+                            <xsl:call-template name="GetTableAlignment"/>
+                        </xsl:variable>
                         <xsl:choose>
                             <xsl:when test="string-length($sAlign) &gt; 0">
                                 <xsl:choose>

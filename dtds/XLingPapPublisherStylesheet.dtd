@@ -750,6 +750,7 @@ Content Layout
     >
     <!ELEMENT figureLayout (figureLabelLayout, figureNumberLayout, figureCaptionLayout) >
     <!ATTLIST figureLayout
+        align (left | center | right | useAlignOfFigure) "useAlignOfFigure"
         captionLocation (before|after) "after"
         spaceBetweenFigureAndCaption CDATA #IMPLIED
         listOfFiguresUsesFigureAndPageHeaders (no | yes) "no"
@@ -788,6 +789,7 @@ Content Layout
 
     <!ELEMENT tablenumberedLayout (tablenumberedLabelLayout, tablenumberedNumberLayout, tablenumberedCaptionLayout) >
     <!ATTLIST tablenumberedLayout
+        align (left | center | right | useAlignOfTable) "useAlignOfTable"
         captionLocation (before|after) "after"
         spaceBetweenTableAndCaption CDATA #IMPLIED
         listOfTablesUsesTableAndPageHeaders (no | yes) "no"

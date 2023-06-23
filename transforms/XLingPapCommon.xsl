@@ -1792,6 +1792,30 @@
         <xsl:text>.</xsl:text>
     </xsl:template>
     <!--  
+        GetTableAlignment
+    -->
+    <xsl:template name="GetTableAlignment">
+        <xsl:choose>
+            <xsl:when test="parent::tablenumbered">
+                <xsl:variable name="sStyleSheetAlign" select="$documentLayoutInfo/tablenumberedLayout/@align"/>
+                <xsl:choose>
+                    <xsl:when test="../@alignoverride!='none'">
+                        <xsl:value-of select="../@alignoverride"/>
+                    </xsl:when>
+                    <xsl:when test="$sStyleSheetAlign!='useAlignOfTable' and $sStyleSheetAlign!='useAlignOfFigure'">
+                        <xsl:value-of select="$sStyleSheetAlign"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@align"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@align"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetTableNumberedNumber
     -->
     <xsl:template name="GetTableNumberedNumber">

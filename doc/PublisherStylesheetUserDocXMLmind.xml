@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->22 June 2023</date
+>23 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -11963,6 +11963,99 @@ src="resources/FigureLayout.png"
 ></chart
 ></example
 ><p
+>The <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>figureLayout</object
+> element can be set to define the default alignment of all figures in the document as shown in example <exampleRef
+letter="xFigureLayoutAlign"
+num="xFigureLayoutAlign"
+></exampleRef
+>.</p
+><example
+num="xFigureLayoutAlign"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iFigureAlignment"
+></indexedItem
+><object
+type="tAttribute"
+>align</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+><object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>,  or <object
+type="tAttrValue"
+>useAlignOfFigure</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets how the caption and the figure will be aligned horizontally throughout the document.  The default is <object
+type="tAttrValue"
+>useAlignOfFigure</object
+> which means that whatever the <object
+type="tAttribute"
+>align</object
+> attrribute of the <object
+type="tElement"
+>figure</object
+> element has will be used.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>useAlignOfFigure</object
+></td
+><td
+>No</td
+></tr
+></table
+></example
+><p
 >There are actually four parts here.</p
 ><section4
 id="sFiguresCaption"
@@ -12958,6 +13051,99 @@ num="xTableNumberedLayout"
 src="resources/TableNumberedLayout.png"
 ></img
 ></chart
+></example
+><p
+>The <object
+type="tAttribute"
+>align</object
+> attribute of the <object
+type="tElement"
+>tablenumberedLayout</object
+> element can be set to define the default alignment of all numbered tables in the document as shown in example <exampleRef
+letter="xTableNumberedLayoutAlign"
+num="xTableNumberedLayoutAlign"
+></exampleRef
+>.</p
+><example
+num="xTableNumberedLayoutAlign"
+><table
+border="1"
+><tr
+><th
+><langData
+lang="lEng"
+>Attribute</langData
+></th
+><th
+><langData
+lang="lEng"
+>Possible Values</langData
+></th
+><th
+><langData
+lang="lEng"
+>Meaning</langData
+></th
+><th
+>Default</th
+><th
+>Shows in the <object
+type="tXMLmindXMLEditor"
+></object
+></th
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedAlignment"
+></indexedItem
+><object
+type="tAttribute"
+>align</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+><object
+type="tAttrValue"
+>left</object
+>, <object
+type="tAttrValue"
+>center</object
+>, <object
+type="tAttrValue"
+>right</object
+>, or <object
+type="tAttrValue"
+>useAlignOfTable</object
+>.</langData
+></td
+><td
+><langData
+lang="lEng"
+>This sets how the caption and the (main) table will be aligned horizontally throughout the document. The default is <object
+type="tAttrValue"
+>useAlignOfTable</object
+> which means that whatever the <object
+type="tAttribute"
+>align</object
+> attrribute of the <object
+type="tElement"
+>table</object
+> element has will be used.</langData
+></td
+><td
+><object
+type="tAttrValue"
+>useAlignOfTable</object
+></td
+><td
+>No</td
+></tr
+></table
 ></example
 ><p
 >There are actually four parts here.</p
@@ -22034,6 +22220,11 @@ id="iFigure"
 >Figure</term
 ><indexTerms
 ><indexTerm
+id="iFigureAlignment"
+><term
+>Alignment</term
+></indexTerm
+><indexTerm
 id="iFigureBorderAround"
 see="iImgBorder"
 ><term
@@ -23310,6 +23501,11 @@ id="iTableNumbered"
 ><term
 >Table, numbered</term
 ><indexTerms
+><indexTerm
+id="iTableNumberedAlignment"
+><term
+>Alignment</term
+></indexTerm
 ><indexTerm
 id="iTableNumberedCaption"
 ><term

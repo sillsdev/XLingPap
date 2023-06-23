@@ -5084,12 +5084,17 @@
         <tex:spec cat="bg"/>
         <tex:spec cat="esc"/>
         <xsl:text>protect</xsl:text>
+        <xsl:variable name="sAlign">
+            <xsl:call-template name="GetFloatAlignment">
+                <xsl:with-param name="layout" select="$documentLayoutInfo/figureLayout/@align"/>
+            </xsl:call-template>
+        </xsl:variable>
         <xsl:choose>
-            <xsl:when test="@align='center'">
+            <xsl:when test="$sAlign='center'">
                 <tex:spec cat="esc"/>
                 <xsl:text>centering </xsl:text>
             </xsl:when>
-            <xsl:when test="@align='right'">
+            <xsl:when test="$sAlign='right'">
                 <tex:spec cat="esc"/>
                 <xsl:text>raggedleft</xsl:text>
             </xsl:when>
@@ -8804,12 +8809,18 @@
         <xsl:if test="$bDoStyles='Y'">
             <tex:spec cat="esc"/>
             <xsl:text>protect</xsl:text>
+            <xsl:variable name="sAlign">
+                <xsl:call-template name="GetFloatAlignment">
+                    <xsl:with-param name="layout" select="$documentLayoutInfo/tablenumberedLayout/@align"/>
+                    <xsl:with-param name="itemAlign" select="table/@align"/>
+                </xsl:call-template>
+            </xsl:variable>
             <xsl:choose>
-                <xsl:when test="table/@align='center'">
+                <xsl:when test="$sAlign='center'">
                     <tex:spec cat="esc"/>
                     <xsl:text>centering </xsl:text>
                 </xsl:when>
-                <xsl:when test="table/@align='right'">
+                <xsl:when test="$sAlign='right'">
                     <tex:spec cat="esc"/>
                     <xsl:text>raggedleft</xsl:text>
                 </xsl:when>

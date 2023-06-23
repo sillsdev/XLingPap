@@ -3132,7 +3132,7 @@
         <!-- We may want this if we use Prince
             <xsl:for-each select="//endnote">
             <xsl:call-template name="DoFootnoteContent"/>
-        </xsl:for-each>-->
+            </xsl:for-each>-->
     </xsl:template>
     <!--  
         DoFigure
@@ -3140,12 +3140,17 @@
     <xsl:template name="DoFigure">
         <div id="{@id}">
             <xsl:attribute name="class">
+                <xsl:variable name="sAlign">
+                    <xsl:call-template name="GetFloatAlignment">
+                        <xsl:with-param name="layout" select="$documentLayoutInfo/figureLayout/@align"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:text>figureAlign</xsl:text>
                 <xsl:choose>
-                    <xsl:when test="@align='center'">
+                    <xsl:when test="$sAlign='center'">
                         <xsl:text>Center</xsl:text>
                     </xsl:when>
-                    <xsl:when test="@align='right'">
+                    <xsl:when test="$sAlign='right'">
                         <xsl:text>Right</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>

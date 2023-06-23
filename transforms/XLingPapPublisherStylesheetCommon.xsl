@@ -3945,6 +3945,24 @@
         <xsl:value-of select="substring-before($sPosition,';')"/>
     </xsl:template>
     <!--  
+        GetFloatAlignment
+    -->
+    <xsl:template name="GetFloatAlignment">
+        <xsl:param name="layoutAlign" select="$documentLayoutInfo/figureLayout/@align"/>
+        <xsl:param name="itemAlign" select="@align"/>
+        <xsl:choose>
+            <xsl:when test="@alignoverride!='none'">
+                <xsl:value-of select="@alignoverride"/>
+            </xsl:when>
+            <xsl:when test="$layoutAlign!='useAlignOfTable' and $layoutAlign!='useAlignOfFigure'">
+                <xsl:value-of select="$layoutAlign"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$itemAlign"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
         GetFormattedPageNumbers
     -->
     <xsl:template name="GetFormattedPageNumbers">

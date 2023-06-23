@@ -4643,7 +4643,12 @@ not using
         DoFigure
     -->
     <xsl:template name="DoFigure">
-        <fo:block text-align="{@align}" id="{@id}" space-before="{$sBasicPointSize}pt">
+        <xsl:variable name="sAlign">
+            <xsl:call-template name="GetFloatAlignment">
+                <xsl:with-param name="layout" select="$documentLayoutInfo/figureLayout/@align"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <fo:block text-align="{$sAlign}" id="{@id}" space-before="{$sBasicPointSize}pt">
             <xsl:attribute name="space-after">
                 <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>
@@ -6683,7 +6688,12 @@ not using
         DoTableNumbered
     -->
     <xsl:template name="DoTableNumbered">
-        <fo:block text-align="{table/@align}" id="{@id}" space-before="{$sBasicPointSize}pt">
+        <xsl:variable name="sAlign">
+            <xsl:for-each select="table[1]">
+                <xsl:call-template name="GetTableAlignment"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <fo:block text-align="{$sAlign}" id="{@id}" space-before="{$sBasicPointSize}pt">
             <xsl:attribute name="space-after">
                 <xsl:value-of select="$sBasicPointSize"/>
                 <xsl:text>pt</xsl:text>

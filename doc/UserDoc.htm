@@ -11,7 +11,7 @@
       <center><b><big><big><big><span style="font-family:Courier New; font-weight:bold; color:navy; ">XLingPaper</span> User Documentation</big></big></big></b></center>
       <center><i>H. Andrew Black</i></center>
       <center><i>Cheryl A. Black</i></center>
-      <center><i>SIL International</i></center><br><center><small>22 June 2023</small></center>
+      <center><i>SIL International</i></center><br><center><small>28 June 2023</small></center>
       <center><small>Version: 3.13.1</small></center>
       <hr>
       <div>
@@ -3445,6 +3445,10 @@
          <dd>Reference information for an editor of a collection of papers volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">collEdInitials</span></dt>
          <dd>Reference information for an editor of a collection of papers volume; using initials instead of author's first (etc.) name(s)</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">collEdSurnameGivenName</span></dt>
+         <dd>Reference information for an editor of a collection of papers volume, using the "surname, given name" form for all author
+            names
+         </dd>
          <dt><span style="font-family:fixed; color:maroon; ">collPages</span></dt>
          <dd>Reference information for page numbers in a paper that is part of a collection volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">collTitle</span></dt>
@@ -3513,6 +3517,10 @@
          <dd>The edition of the book or webpage</dd>
          <dt><span style="font-family:fixed; color:maroon; ">editor</span></dt>
          <dd>The editor of a book that has authors and is not a collection</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">editorInitials</span></dt>
+         <dd>The editor of a book that has authors and is not a collection, using initials instead of author's first (etc.) name(s)</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">editorSurnameGivenName</span></dt>
+         <dd>The editor of a book that has authors and is not a collection, using the "surname, given name" form for all author names</dd>
          <dt><span style="font-family:fixed; color:maroon; ">emailAddress</span></dt>
          <dd>The email address of an author</dd>
          <dt><span style="font-family:fixed; color:maroon; ">empty</span></dt>
@@ -3740,7 +3748,9 @@
          <dt><span style="font-family:fixed; color:maroon; ">procEd</span></dt>
          <dd>Reference information for the editor(s) of a proceedings volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">procEdInitials</span></dt>
-         <dd>Reference information for the editor(s) of a proceedings volume; using initials instead of author's first (etc.) name(s)</dd>
+         <dd>Reference information for the editor(s) of a proceedings volume, using initials instead of author's first (etc.) name(s)</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">procEdSurnameGivenName</span></dt>
+         <dd>Reference information for the editor(s) of a proceedings volume, using the "surname, given name" form for all author names</dd>
          <dt><span style="font-family:fixed; color:maroon; ">procPages</span></dt>
          <dd>Reference information for the pages of an article in a proceedings volume</dd>
          <dt><span style="font-family:fixed; color:maroon; ">procTitle</span></dt>
@@ -3775,6 +3785,8 @@
          <dd>An author's last name</dd>
          <dt><span style="font-family:fixed; color:maroon; ">refAuthorName</span></dt>
          <dd>An author's name</dd>
+         <dt><span style="font-family:fixed; color:maroon; ">refAuthorSurnameGivenName</span></dt>
+         <dd>Reference information for an author, using the "surname, given name" form for all author names</dd>
          <dt><span style="font-family:fixed; color:maroon; ">refDate</span></dt>
          <dd>Reference information for the date of a publication or manuscript</dd>
          <dt><span style="font-family:fixed; color:maroon; ">refTitle</span></dt>
@@ -3820,6 +3832,10 @@
          <dt><span style="font-family:fixed; color:maroon; ">seriesEdInitials</span></dt>
          <dd>Reference information for the editor(s) (using just the initials for editor first names) of a book that is published within
             a series
+         </dd>
+         <dt><span style="font-family:fixed; color:maroon; ">seriesEdSurnameGivenName</span></dt>
+         <dd>Reference information for the editor(s) (using the "surname, given name" form for all author names) of a book that is published
+            within a series
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">secTitle</span></dt>
          <dd>The title of a section within the paper</dd>
@@ -4132,7 +4148,7 @@
          <dt><span style="font-family:fixed; color:maroon; ">headerFooterOddPage</span></dt>
          <dd>Layout info for a header or footer on an odd page within a document</dd>
          <dt><span style="font-family:fixed; color:maroon; ">headerFooterPage</span></dt>
-         <dd>Layout info for a header or footer for all pages within a document (unless a  <span style="font-family:fixed; color:maroon; ">headerFooterFirstPage</span> element is present in which case it is the header or footer layout for all non-initial pages)
+         <dd>Layout info for a header or footer for all pages within a document (unless a <span style="font-family:fixed; color:maroon; ">headerFooterFirstPage</span> element is present in which case it is the header or footer layout for all non-initial pages)
          </dd>
          <dt><span style="font-family:fixed; color:maroon; ">headerFooterPageStyles</span></dt>
          <dd>Collection of header and footer layouts for the document</dd>

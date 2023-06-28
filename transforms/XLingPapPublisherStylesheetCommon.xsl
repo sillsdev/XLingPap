@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:saxon="http://icl.com/saxon">
     <!-- global variables -->
+    <xsl:variable name="authorForm" select="//publisherStyleSheet[1]/backMatterLayout/referencesLayout/@authorform"/>
     <xsl:variable name="locationPublisherLayouts" select="$referencesLayoutInfo/locationPublisherLayouts"/>
     <xsl:variable name="urlDateAccessedLayouts" select="$referencesLayoutInfo/urlDateAccessedLayouts"/>
     <xsl:variable name="chapterNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::chapterNumber"/>
@@ -559,7 +560,7 @@
     -->
     <xsl:template match="refAuthor">
         <xsl:choose>
-            <xsl:when test="$authorForm='full' or not(refAuthorInitials)">
+            <xsl:when test="$authorForm='full' or not(refAuthorInitials or refAuthorSurnameGivenName)">
                 <xsl:choose>
                     <xsl:when test="$referencesLayoutInfo/refAuthorLayouts/refAuthorLastNameLayout and string-length(refAuthorName) &gt;0">
                         <xsl:apply-templates select="refAuthorName"/>
@@ -572,9 +573,11 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="$authorForm='initials'">
                 <xsl:apply-templates select="refAuthorInitials"/>
-                <!--                <xsl:value-of select="normalize-space(refAuthorInitials)"/>-->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="refAuthorSurnameGivenName"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1211,7 +1214,7 @@
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="name(.)='editorItem'">
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$book/editor"/>
                                 </xsl:call-template>
                             </xsl:when>
@@ -1227,7 +1230,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$book/seriesEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$book/seriesEd"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -1392,7 +1395,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$book/seriesEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -1654,7 +1657,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='collEdItem'">
                                 <xsl:variable name="item" select="$collection/collEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -1703,7 +1706,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$collection/seriesEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -2578,7 +2581,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='procEdItem'">
                                 <xsl:variable name="item" select="$proceedings/procEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -2622,7 +2625,7 @@
                             </xsl:when>
                             <xsl:when test="name(.)='seriesEdItem'">
                                 <xsl:variable name="item" select="$proceedings/seriesEd"/>
-                                <xsl:call-template name="OutputReferenceItem">
+                                <xsl:call-template name="OutputReferenceEditorItem">
                                     <xsl:with-param name="item" select="$item"/>
                                 </xsl:call-template>
                                 <xsl:if test="@appendEdAbbreviation != 'no'">
@@ -5652,6 +5655,27 @@
         </xsl:choose>
     </xsl:template>
     <!--  
+        OutputReferencedEditorNode
+    -->
+    <xsl:template name="OutputReferencedEditorNode">
+        <xsl:param name="item"/>
+        <xsl:for-each select="$item">
+        <xsl:variable name="initials" select="following-sibling::*[name()=concat(name($item),'Initials')]"/>
+        <xsl:variable name="surnamegivenname" select="following-sibling::*[name()=concat(name($item),'SurnameGivenName')]"/>
+        <xsl:choose>
+            <xsl:when test="$referencesLayoutInfo/@authorform='initials' and $initials">
+                <xsl:apply-templates select="saxon:node-set($initials)"/>
+            </xsl:when>
+            <xsl:when test="$referencesLayoutInfo/@authorform='surnamegivenname' and $surnamegivenname">
+                <xsl:apply-templates select="saxon:node-set($surnamegivenname)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="saxon:node-set($item)"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+    <!--  
         OutputSectionNumberProper
     -->
     <xsl:template name="OutputSectionNumberProper">
@@ -5689,7 +5713,7 @@
     -->
     <xsl:template name="ReportPattern">
         <xsl:variable name="followingSiblings" select="following-sibling::*[name()!='comment']"/>
-        <xsl:variable name="children" select="./*"/>
+        <xsl:variable name="children" select="./*[not(contains(name(),'Initials')) and not(contains(name(),'SurnameGivenName'))]"/>
         <xsl:text>  It is a </xsl:text>
         <xsl:value-of select="name(.)"/>
         <xsl:text>   pattern that contains these elements: </xsl:text>

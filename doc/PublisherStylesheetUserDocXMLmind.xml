@@ -18,7 +18,7 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->23 June 2023</date
+>28 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -9759,12 +9759,15 @@ type="tAttribute"
 ><object
 type="tAttrValue"
 >full</object
-> or <object
+>, <object
 type="tAttrValue"
 >initials</object
+>, or <object
+type="tAttrValue"
+>surnamegivenname</object
 >.</td
 ><td
->This indicates whether the author name(s) should use initials or be shown in full. The default is <object
+>This indicates whether the author name(s) should use initials, use the "surname, given name" form or be shown in full. The default is <object
 type="tAttrValue"
 >full</object
 >. Note that if this attribute is set to <object
@@ -9776,6 +9779,24 @@ type="tXLingPap"
 > will use the contents of the <object
 type="tElement"
 >refAuthorInitials</object
+> element in the <object
+type="tElement"
+>refAuthor</object
+> element, if it exists. If it does not exist, it will use the content of the <object
+type="tAttribute"
+>name</object
+> attribute of the <object
+type="tElement"
+>refAuthor</object
+> element.  Similarly, if this attribute is set to <object
+type="tAttrValue"
+>surnamegivenname</object
+>, then <object
+type="tXLingPap"
+></object
+> will use the contents of the <object
+type="tElement"
+>refAuthorSurnameGivenName</object
 > element in the <object
 type="tElement"
 >refAuthor</object
@@ -12026,7 +12047,7 @@ type="tAttrValue"
 >, <object
 type="tAttrValue"
 >right</object
->,  or <object
+>, or <object
 type="tAttrValue"
 >useAlignOfFigure</object
 >.</langData
@@ -12034,7 +12055,7 @@ type="tAttrValue"
 ><td
 ><langData
 lang="lEng"
->This sets how the caption and the figure will be aligned horizontally throughout the document.  The default is <object
+>This sets how the caption and the figure will be aligned horizontally throughout the document. The default is <object
 type="tAttrValue"
 >useAlignOfFigure</object
 > which means that whatever the <object

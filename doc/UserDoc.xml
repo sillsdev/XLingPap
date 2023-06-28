@@ -16,7 +16,7 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->22 June 2023</date
+>28 June 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
@@ -9368,6 +9368,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>collEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for an editor of a collection of papers volume, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >collPages</object
 ></dt
 ><dd
@@ -9595,6 +9602,20 @@ type="tElement"
 ></dt
 ><dd
 >The editor of a book that has authors and is not a collection</dd
+><dt
+><object
+type="tElement"
+>editorInitials</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>editorSurnameGivenName</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -10387,7 +10408,14 @@ type="tElement"
 >procEdInitials</object
 ></dt
 ><dd
->Reference information for the editor(s) of a proceedings volume; using initials instead of author's first (etc.) name(s)</dd
+>Reference information for the editor(s) of a proceedings volume, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>procEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) of a proceedings volume, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -10500,6 +10528,13 @@ type="tElement"
 ></dt
 ><dd
 >An author's name</dd
+><dt
+><object
+type="tElement"
+>refAuthorSurnameGivenName</object
+></dt
+><dd
+>Reference information for an author, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -10657,6 +10692,13 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for the editor(s) (using just the initials for editor first names) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) (using the "surname, given name" form for all author names) of a book that is published within a series</dd
 ><dt
 ><object
 type="tElement"
@@ -11738,7 +11780,7 @@ type="tElement"
 >headerFooterPage</object
 ></dt
 ><dd
->Layout info for a header or footer for all pages within a document (unless a  <object
+>Layout info for a header or footer for all pages within a document (unless a <object
 type="tElement"
 >headerFooterFirstPage</object
 > element is present in which case it is the header or footer layout for all non-initial pages)</dd

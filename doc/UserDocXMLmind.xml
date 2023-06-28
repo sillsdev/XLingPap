@@ -4577,28 +4577,60 @@ type="tElement"
 >book</object
 ></secTitle
 ><p
->This is for a book. Besides the date and the title, a book also has optional <object
+>This is for a book. Besides the date and the title, a book also has</p
+><ol
+><li
+>an optional <object
 type="tElement"
 >translatedBy</object
->, <object
+> element,</li
+><li
+>an optional <object
 type="tElement"
 >editor</object
->, <object
+> element,</li
+><li
+>an optional <object
+type="tElement"
+>editorInitials</object
+> element, </li
+><li
+>an optional <object
+type="tElement"
+>editorSurnameGivenName</object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >edition</object
->, <object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >seriesEd</object
->, <object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >seriesEdInitials</object
->, <object
+> element, </li
+><li
+>an optional <object
+type="tElement"
+>seriesEdSurnameGivenName</object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >series</object
->, <object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >bVol</object
-> (book volume), <indexedItem
+> (book volume) element, </li
+><li
+>an optional <indexedItem
 term="iMultivoumeWork"
 ></indexedItem
 ><object
@@ -4612,28 +4644,43 @@ type="tItalic"
 >Chicago Manual of Style</object
 > or see sections 14.124 and 14.131 of the 16th edtion.</p
 ></endnote
->), and <object
+>) element, </li
+><li
+>an optional <object
 type="tElement"
 >reprintInfo</object
-> elements, a recommended <object
+> element, </li
+><li
+>a recommended <object
 type="tElement"
 >location</object
-> element and a recommended <object
+> element, </li
+><li
+>an recommended <object
 type="tElement"
 >publisher</object
-> element. It can optionally include <object
+> element,  </li
+><li
+>an optional <object
 type="tElement"
 >url</object
->, <object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >dateAccessed</object
->, <object
+> element, </li
+><li
+>an optional <object
 type="tElement"
 >iso639-3code</object
->, and/or <object
+> element,  and</li
+><li
+>an optional <object
 type="tElement"
 >doi</object
-> elements.</p
+> element.</li
+></ol
 ></section3
 ><section3
 id="sBMRefCollection"
@@ -4659,6 +4706,11 @@ type="tElement"
 type="tElement"
 >collEdInitials</object
 > (collection volume editor(s), using initials instead of first name, etc.) element,</li
+><li
+>an optional <object
+type="tElement"
+>collEdSurnameGivenName</object
+> (collection volume editor(s), using a "surname, given name" form for all editors) element,</li
 ><li
 >a required <object
 type="tElement"
@@ -4689,6 +4741,11 @@ type="tElement"
 type="tElement"
 >seriesEdInitials</object
 > (series editor(s) of the series that the volume is in, using initials instead of first name, etc.) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEdSurnameGivenName</object
+> (series editor(s) of the series that the volume is in, using a "surname, given name" form for all editors) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -5466,6 +5523,11 @@ type="tElement"
 >procEdInitials</object
 > (proceedings volume editor(s), using initials instead of first name, etc.) element,</li
 ><li
+>an optional <object
+type="tElement"
+>procEdSurnameGivenName</object
+> (proceedings volume editor(s), using a "surname, given name" form for all editors) element,</li
+><li
 >a required <object
 type="tElement"
 >procTitle</object
@@ -5490,6 +5552,11 @@ type="tElement"
 type="tElement"
 >seriesEdInitials</object
 > (series editor(s) of the series that the volume is in, using initials instead of first name, etc.) element,</li
+><li
+>an optional <object
+type="tElement"
+>seriesEdSurnameGivenName</object
+> (series editor(s) of the series that the volume is in, using a "surname, given name" form for all editors) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -5789,6 +5856,28 @@ type="tAttrValue"
 lang="lValue"
 ><object
 type="tAttrValue"
+>all</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show all the possible versions of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
 >both</object
 ></langData
 ></td
@@ -5839,6 +5928,31 @@ type="tAttrValue"
 lang="lValue"
 ><object
 type="tAttrValue"
+>fullsurnamegivenname</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show just the full and "surname, given name" versions of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
 >initials</object
 ></langData
 ></td
@@ -5849,6 +5963,31 @@ lang="lMeaning"
 type="tXMLmindXMLEditor"
 ></object
 >, show just the initials-only version of the author(s) name(s)</langData
+></td
+></tr
+><tr
+><td
+type="tAttribute"
+><langData
+lang="lAttribute"
+></langData
+></td
+><td
+type="tAttrValue"
+><langData
+lang="lValue"
+><object
+type="tAttrValue"
+>surnamegivenname</object
+></langData
+></td
+><td
+><langData
+lang="lMeaning"
+>In the <object
+type="tXMLmindXMLEditor"
+></object
+>, show just the "surname, given name" version of the author(s) name(s)</langData
 ></td
 ></tr
 ><tr
@@ -31234,6 +31373,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>collEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for an editor of a collection of papers volume, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >collPages</object
 ></dt
 ><dd
@@ -31461,6 +31607,20 @@ type="tElement"
 ></dt
 ><dd
 >The editor of a book that has authors and is not a collection</dd
+><dt
+><object
+type="tElement"
+>editorInitials</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using initials instead of author's first (etc.) name(s)</dd
+><dt
+><object
+type="tElement"
+>editorSurnameGivenName</object
+></dt
+><dd
+>The editor of a book that has authors and is not a collection, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -32264,6 +32424,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>procEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) of a proceedings volume, using the "surname, given name" form for all author names</dd
+><dt
+><object
+type="tElement"
 >procPages</object
 ></dt
 ><dd
@@ -32373,6 +32540,13 @@ type="tElement"
 ></dt
 ><dd
 >An author's name</dd
+><dt
+><object
+type="tElement"
+>refAuthorSurnameGivenName</object
+></dt
+><dd
+>Reference information for an author, using the "surname, given name" form for all author names</dd
 ><dt
 ><object
 type="tElement"
@@ -32550,6 +32724,13 @@ type="tElement"
 ></dt
 ><dd
 >Reference information for the editor(s) (using just the initials for editor first names) of a book that is published within a series</dd
+><dt
+><object
+type="tElement"
+>seriesEdSurnameGivenName</object
+></dt
+><dd
+>Reference information for the editor(s) (using the "surname, given name" form for all author names) of a book that is published within a series</dd
 ><dt
 ><object
 type="tElement"

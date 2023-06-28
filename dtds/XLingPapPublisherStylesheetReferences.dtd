@@ -27,7 +27,7 @@ References Layouts
 <!ATTLIST  referencesLayout 
    hangingindentsize CDATA #REQUIRED
    defaultfontsize CDATA #IMPLIED
-   authorform (full | initials) "full"
+   authorform (full | initials | surnamegivenname) "full"
    titleform (uppercase | lowercase) "uppercase"
    uselineforrepeatedauthor (no | yes) "no"
    removecommonhundredsdigitsinpages (yes | no) "no"

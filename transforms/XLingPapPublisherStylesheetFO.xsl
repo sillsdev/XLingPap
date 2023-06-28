@@ -4771,6 +4771,7 @@ not using
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="$documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+                        <fo:inline>
                         <fo:basic-link>
                             <xsl:attribute name="internal-destination">
                                 <xsl:value-of select="$link"/>
@@ -4780,6 +4781,7 @@ not using
                                 <xsl:with-param name="iTablenumberedAdjust" select="$iTablenumberedAdjust"/>
                             </xsl:call-template>
                         </fo:basic-link>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="DoFootnoteNumberInTextContent">

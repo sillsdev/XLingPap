@@ -84,6 +84,22 @@
 	;
 	font-size:smaller;
 } 
+@property-group authorSurnameGivennameBefore( )
+{
+	content:" (Name(s) surname, given name: "
+	;
+	font-size: smaller;
+} 
+@property-group authorSurnameGivenname( )
+{
+	display:inline;
+} 
+@property-group authorSurnameGivennameAfter( )
+{
+	content:") "
+	;
+	font-size:smaller;
+} 
 @property-group chapterBeforePartBefore( )
 {	
     content: collapser(collapsed-icon, icon(url(resources/plus-box-chapter.png)), expanded-icon, icon(url(resources/minus-box-chapter.png))) 
@@ -1189,6 +1205,19 @@ collEdInitials:after
 	property-group: authorInitialsAfter();
 }
 
+collEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+collEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+collEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+
 collPages
 {
 	display:inline;
@@ -1605,6 +1634,18 @@ editorInitials
 editorInitials:after
 {
 	property-group: authorInitialsAfter();
+}
+editorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+editorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+editorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 
 emailAddress { 
@@ -3364,6 +3405,19 @@ procEdInitials:after
 	property-group: authorInitialsAfter();
 }
 
+procEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+procEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+procEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+
 procPages
 {
 	display:inline;
@@ -3549,29 +3603,157 @@ refAuthorName
 	padding-left: .5in;
 }
 
+references[authorformtoshowineditor="all"] refAuthorInitials:before
+{
+	property-group: authorInitialsBefore();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:before
 {
 	property-group: authorInitialsBefore();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials:before
 {
 	content:" name (initials): ";
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:before
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials
+{
+	property-group: authorInitials();
+	padding-left: .25in;
 }
 references[authorformtoshowineditor="both"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="full"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
 references[authorformtoshowineditor="initials"] refAuthorInitials
 {
 	property-group: authorInitials();
 	padding-left: .25in;
 }
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials
+{
+	display:none;
+}
+references[authorformtoshowineditor="all"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
 references[authorformtoshowineditor="both"] refAuthorInitials:after
 {
 	property-group: authorInitialsAfter();
 }
+references[authorformtoshowineditor="full"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="initials"] refAuthorInitials:after
+{
+	property-group: authorInitialsAfter();
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorInitials:after
+{
+	display:none;
+}
 
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName:before
+{
+    display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="initials"] refAuthorSurnameGivenName
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+	padding-left: .25in;
+}
+references[authorformtoshowineditor="all"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="both"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="full"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="fullsurnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
+references[authorformtoshowineditor="initial"] refAuthorSurnameGivenName:after
+{
+	display:none;
+}
+references[authorformtoshowineditor="surnamegivenname"] refAuthorSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
+}
 refDate:before
 {
 	content: " ";
@@ -4292,6 +4474,18 @@ seriesEdInitials
 seriesEdInitials:after
 {
 	property-group: authorInitialsAfter();
+}
+seriesEdSurnameGivenName:before
+{
+	property-group: authorSurnameGivennameBefore();
+}
+seriesEdSurnameGivenName
+{
+	property-group: authorSurnameGivenname();
+}
+seriesEdSurnameGivenName:after
+{
+	property-group: authorSurnameGivennameAfter();
 }
 shortAuthor:before
 {

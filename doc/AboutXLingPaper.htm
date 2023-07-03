@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.13.1</span></p>
-      <p align="center">Date: 2023-06-28</p>
+      <p align="center">Date: 2023-07-03</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,10 +34,10 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.13.1 28 June 2023
+               <li>3.13.1 3 July 2023
                   <ul>
-                     <li>Add ability to have an additional author field under references for using a "surname, given name" format of authors.  The
-                        element is refAuthorSurnameGivenName.
+                     <li>Add ability to have an additional author field under references for using a "surname, given name" format of authors. The element
+                        is refAuthorSurnameGivenName.
                      </li>
                      <li>Add an ability to set the horizontal alignment of figures and numbered tables via a publisher style sheet. See the align attribute
                         in sections 6.12.1 "Figures" and 6.13.1 "Numbered Tables" in the publisher style sheet documentation and the alignoverride
@@ -46,11 +46,20 @@
                      <li>Add a borderaround attribute to img elements and add an imageBorderLayout element to publisher style sheets to control the
                         width of the border and the space between the border and the image.
                      </li>
+                     <li>Fix bug: any headerFooterPageStyles in a back matter layout portion of a publisher style sheet that contained a chapterNumber
+                        element would fail to show the contents of that element in the header/footer in the output.
+                     </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Add a way to get ragged right (left justified) output: Added the paragraphAlignment (before the lineSpacing element) in a
                               publisher style sheet. It has one attribute, textalign, which defaults to 'justify' but can be set to 'left'.
                            </li>
+                        </ul>
+                     </li>
+                     <li>For the RenderXt way of producing PDF:
+                        <ul>
+                           <li>Fix bug: Having a publishing blurb could cause the PDF to fail to be produced.</li>
+                           <li>Fix bug: Including an authorContactInfoLayout element in a publisher style sheet could cause the PDF to fail to be produced.</li>
                         </ul>
                      </li>
                   </ul>

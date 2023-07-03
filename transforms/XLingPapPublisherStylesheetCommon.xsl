@@ -15,6 +15,17 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="appendixLetterInHeaderLayout" select="//publisherStyleSheet[1]/backMatterLayout/headerFooterPageStyles/descendant::chapterNumber"/>
+    <xsl:variable name="bAppendixLetterIsBeforeTitle">
+        <xsl:choose>
+            <xsl:when test="$appendixLetterInHeaderLayout[following-sibling::chapterTitle]">
+                <xsl:text>Y</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>N</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="sectionNumberInHeaderLayout" select="$bodyLayoutInfo/headerFooterPageStyles/descendant::sectionNumber | $pageLayoutInfo/headerFooterPageStyles/descendant::sectionNumber"/>
     <xsl:variable name="bSectionNumberIsBeforeTitle">
         <xsl:choose>
@@ -1316,6 +1327,35 @@
                         </xsl:choose>
                     </xsl:for-each>
                 </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!--  
+        DoChapterOrAppendixRunningHeader
+    -->
+    <xsl:template name="DoChapterOrAppendixRunningHeader">
+        <xsl:choose>
+            <xsl:when test="$appendixLetterInHeaderLayout">
+                <xsl:choose>
+                    <xsl:when test="name()='appendix'">
+                        <xsl:call-template name="DoSecTitleRunningHeader">
+                            <xsl:with-param name="number" select="$appendixLetterInHeaderLayout"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bAppendixLetterIsBeforeTitle"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoSecTitleRunningHeader">
+                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="DoSecTitleRunningHeader">
+                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
+                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

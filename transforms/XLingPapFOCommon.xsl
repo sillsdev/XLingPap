@@ -1154,11 +1154,9 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="count($glossaryTermsUsed) &gt; 0">
-                <fo:list-block>
-                    <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
-                        <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
-                    </xsl:call-template>
-                </fo:list-block>
+                <xsl:call-template name="SortGlossaryTermsAsDefinitionList">
+                    <xsl:with-param name="glossaryTermsUsed" select="$glossaryTermsUsed"/>
+                </xsl:call-template>
             </xsl:if>
         </fo:block>
     </xsl:template>

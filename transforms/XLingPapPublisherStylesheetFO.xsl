@@ -243,7 +243,7 @@
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="$bIsBook">
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates select="child::node()[name()!='publishingInfo']"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- insert a new line so we don't get everything all on one line -->
@@ -934,10 +934,7 @@
                     <xsl:value-of select="$sBasicPointSize"/>pt</xsl:attribute>
                 <!-- put title in marker so it can show up in running header -->
                 <fo:marker marker-class-name="chap-title">
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </fo:marker>
                 <fo:block id="{@id}" span="all">
                     <xsl:call-template name="DoTitleFormatInfo">
@@ -1034,10 +1031,7 @@
                 <xsl:if test="$bodyLayoutInfo/chapterLayout/chapterTitleLayout/@usetitleinheader!='no' or $bodyLayoutInfo/chapterInCollectionLayout/chapterTitleLayout/@usetitleinheader!='no'">
                     <!-- put title in marker so it can show up in running header -->
                     <fo:marker marker-class-name="chap-title">
-                        <xsl:call-template name="DoSecTitleRunningHeader">
-                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                        </xsl:call-template>
+                        <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                     </fo:marker>
                 </xsl:if>
                 <xsl:if test="$bodyLayoutInfo/headerFooterPageStyles/descendant::chapterInCollectionAuthor">
@@ -1279,10 +1273,7 @@
         <fo:block>
             <!-- put title in marker so it can show up in running header -->
             <fo:marker marker-class-name="section-title">
-                <xsl:call-template name="DoSecTitleRunningHeader">
-                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                </xsl:call-template>
+                <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
             </fo:marker>
         </fo:block>
         <fo:block id="{@id}" keep-with-next.within-page="always">
@@ -4253,7 +4244,7 @@ not using
                         <xsl:with-param name="backMatterLayout" select="$backMatterLayout"/>
                     </xsl:apply-templates>
                 </xsl:when>
-                <xsl:when test="name(.)='authorContactInfoLayout'">
+                <xsl:when test="name(.)='authorContactInfoLayout' and $backMatter/authorContactInfo">
                     <fo:block keep-together.within-page="1">
                         <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
                         <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>

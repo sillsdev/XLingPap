@@ -1137,10 +1137,7 @@
             <xsl:choose>
                 <xsl:when test="ancestor::chapterInCollection and name()='appendix'">
                     <!-- an appendix in a chapter in a collection is treated like a section, as far as the header is concerned -->
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </xsl:when>
                 <xsl:when test="$bodyLayoutInfo/headerFooterPageStyles/*[descendant::chapterTitle and descendant::sectionTitle]">
                     <!-- some header or a footer has both the chapter title and the section title; 
@@ -1148,10 +1145,7 @@
                         so that we do not get the chapter title repeated twice in the header/footer -->
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -1522,16 +1516,10 @@
             <!-- put title in marker so it can show up in running header -->
             <tex:cmd name="markboth" nl2="1">
                 <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </tex:parm>
                 <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </tex:parm>
             </tex:cmd>
             <xsl:call-template name="CreateAddToContents">
@@ -1562,16 +1550,10 @@
                 <!-- put title in marker so it can show up in running header -->
                 <tex:cmd name="markboth" nl2="1">
                     <tex:parm>
-                        <xsl:call-template name="DoSecTitleRunningHeader">
-                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                        </xsl:call-template>
+                        <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                     </tex:parm>
                     <tex:parm>
-                        <xsl:call-template name="DoSecTitleRunningHeader">
-                            <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                            <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                        </xsl:call-template>
+                        <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                     </tex:parm>
                 </tex:cmd>
                 <xsl:call-template name="CreateAddToContents">
@@ -6508,10 +6490,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:for-each select="ancestor::appendix">
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </xsl:for-each>
             </xsl:otherwise>
         </xsl:choose>
@@ -6541,30 +6520,6 @@
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
-
-                <!--<xsl:for-each select="ancestor-or-self::*[starts-with(name(),'chapter') or name()='appendix']">
-                    <tex:cmd name="markboth" nl2="1">
-                        <xsl:if test="$chapterTitleOnOddPage">
-                            <tex:parm>
-                                <xsl:call-template name="DoSecTitleRunningHeader">
-                                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </xsl:if>
-                        <tex:parm>
-                            <xsl:apply-templates select="$sHeader"/>
-                        </tex:parm>
-                        <xsl:if test="not($chapterTitleOnOddPage)">
-                            <tex:parm>
-                                <xsl:call-template name="DoSecTitleRunningHeader">
-                                    <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                                    <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                                </xsl:call-template>
-                            </tex:parm>
-                        </xsl:if>
-                    </tex:cmd>
-                </xsl:for-each>-->
             </xsl:when>
             <xsl:otherwise>
                 <tex:cmd name="markboth">
@@ -6591,21 +6546,15 @@
         <tex:cmd name="markboth" nl2="1">
             <xsl:if test="$chapterTitleOnOddPage">
                 <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </tex:parm>
             </xsl:if>
             <tex:parm>
-                <xsl:apply-templates select="$sHeader"/>
+                <xsl:copy-of select="$sHeader"/>
             </tex:parm>
             <xsl:if test="not($chapterTitleOnOddPage)">
                 <tex:parm>
-                    <xsl:call-template name="DoSecTitleRunningHeader">
-                        <xsl:with-param name="number" select="$chapterNumberInHeaderLayout"/>
-                        <xsl:with-param name="bNumberIsBeforeTitle" select="$bChapterNumberIsBeforeTitle"/>
-                    </xsl:call-template>
+                    <xsl:call-template name="DoChapterOrAppendixRunningHeader"/>
                 </tex:parm>
             </xsl:if>
         </tex:cmd>

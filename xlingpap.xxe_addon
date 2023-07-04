@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-07-03</a:date
+>2023-07-05</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,13 +40,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.13.1 3 July 2023<ul
+>3.13.1 5 July 2023<ul
 ><li
 >Add ability to have an additional author field under references for using a "surname, given name" format of authors. The element is refAuthorSurnameGivenName.</li
 ><li
 >Add an ability to set the horizontal alignment of figures and numbered tables via a publisher style sheet. See the align attribute in sections 6.12.1 "Figures" and 6.13.1 "Numbered Tables" in the publisher style sheet documentation and the alignoverride attriibute in sections 6.4.1 "Figures" and 6.4.3 "Numbered Tables" in the user documentation.</li
 ><li
 >Add a borderaround attribute to img elements and add an imageBorderLayout element to publisher style sheets to control the width of the border and the space between the border and the image.</li
+><li
+>Fix bug: glossary terms would come out in the wrong order if some terms only occurred in definitions of cited terms.</li
 ><li
 >Fix bug: any headerFooterPageStyles in a back matter layout portion of a publisher style sheet that contained a chapterNumber element would fail to show the contents of that element in the header/footer in the output.</li
 ><li

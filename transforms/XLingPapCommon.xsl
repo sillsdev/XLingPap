@@ -1546,7 +1546,11 @@
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="glossaryTermsToUsePossiblyWithDuplicates" select="$gtReferencedInBody | $gtEmbeddedButNotInBody/*"/>
+        <xsl:variable name="sLang">
+            <xsl:call-template name="GetGlossaryTermLanguageCode"/>
+        </xsl:variable>
         <xsl:for-each select="$glossaryTermsToUsePossiblyWithDuplicates">
+            <xsl:sort lang="{$sLang}" select="glossaryTermInLang[@lang=$sLang or position()=1 and not (following-sibling::glossaryTermInLang[@lang=$sLang])]/glossaryTermTerm"/>
             <xsl:variable name="thisId" select="@id"/>
             <xsl:if test="not(preceding-sibling::*[@id=$thisId])">
                 <xsl:copy-of select="."/>

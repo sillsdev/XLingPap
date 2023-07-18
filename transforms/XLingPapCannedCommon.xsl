@@ -134,6 +134,11 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$sDefault"/>
+                <!-- a plain space is removed here, so we have to overtly add a non-breaking space -->
+                <xsl:variable name="sLastChar" select="substring($sDefault,string-length($sDefault),1)"/>
+                <xsl:if test="$sLastChar != ' ' and $sLastChar != '&#xa0;'">
+                    <xsl:text>&#xa0;</xsl:text>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

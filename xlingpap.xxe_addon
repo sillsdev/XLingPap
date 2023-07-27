@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.13.2</a:version
+>3.13.3</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"

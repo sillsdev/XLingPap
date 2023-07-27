@@ -2068,7 +2068,7 @@
     <!--
         chart
     -->
-    <xsl:template match="chart">
+    <xsl:template match="chart | tree">
         <xsl:if test="not(ancestor::figure or ancestor::tablenumbered or ancestor::example)">
             <tex:cmd name="vspace" nl1="1">
                 <tex:parm>
@@ -2127,17 +2127,7 @@
     <!--
         tree
     -->
-    <xsl:template match="tree">
-        <xsl:call-template name="DoType"/>
-        <xsl:call-template name="OutputTypeAttributes">
-            <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-        </xsl:call-template>
-        <xsl:apply-templates/>
-        <xsl:call-template name="OutputTypeAttributesEnd">
-            <xsl:with-param name="sList" select="@XeLaTeXSpecial"/>
-        </xsl:call-template>
-        <xsl:call-template name="DoTypeEnd"/>
-    </xsl:template>
+<!--    Moved tree match to chart match -->
     <!--
         table
     -->
@@ -7987,7 +7977,8 @@
                             </tex:parm>
                         </tex:cmd>
                     </xsl:when>
-                    <xsl:when test="parent::chart and not(ancestor::figure)">
+                    <xsl:when test="parent::chart and not(ancestor::figure) or parent::tree and not(ancestor::figure)">
+                        <!-- or parent::tree and not(ancestor::figure) -->
                         <tex:cmd name="hbox">
                             <tex:parm>
                                 <xsl:call-template name="DoImageFile">

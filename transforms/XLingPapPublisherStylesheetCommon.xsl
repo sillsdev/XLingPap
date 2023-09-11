@@ -5513,7 +5513,7 @@
     <xsl:template name="OutputCitationContents">
         <xsl:param name="refer"/>
         <xsl:param name="refWorks" select="$refWorks"/>
-        <xsl:if test="@paren='citationBoth' or @paren='citationInitial' or $citationLayout/@defaultparenvalue='citationBoth'">
+        <xsl:if test="@paren='citationBoth' or @paren='citationInitial' or $citationLayout/@defaultparenvalue='citationBoth' and not(@paren)">
             <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:if test="@author='yes'">
@@ -5546,11 +5546,16 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        <xsl:if test="not(@paren) or @paren='both' or @paren='initial'">
-            <xsl:if test="not($citationLayout/@defaultparenvalue) or $citationLayout/@defaultparenvalue='both'">
+        <xsl:choose>
+            <xsl:when test="not(@paren)">
+                <xsl:if test="not($citationLayout/@defaultparenvalue) or $citationLayout/@defaultparenvalue='both'">
+                    <xsl:text>(</xsl:text>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="@paren='both' or @paren='initial'">
                 <xsl:text>(</xsl:text>
-            </xsl:if>
-        </xsl:if>
+            </xsl:when>
+        </xsl:choose>
         <xsl:variable name="works" select="$refWorks[../@name=$refer/../@name and @id=//citation/@ref]"/>
         <xsl:variable name="date">
             <xsl:variable name="sCiteDate" select="$refer/refDate/@citedate"/>

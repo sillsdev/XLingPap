@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.13.3</a:version
+>3.13.4</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-07-27</a:date
+>2023-09-11</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -39,6 +39,14 @@ xmlns="http://www.w3.org/1999/xhtml"
 ></p
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
+><li
+>3.13.4 11 September 2023<ul
+><li
+>Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt paren attribute value would be ignored.</li
+><li
+></li
+></ul
+></li
 ><li
 >3.13.3 27 July 2023<ul
 ><li

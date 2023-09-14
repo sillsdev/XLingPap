@@ -1466,13 +1466,6 @@
             </xsl:choose>
         </fo:list-item>
     </xsl:template>
-    <xsl:template match="dd" mode="dt">
-        <fo:list-item-body start-indent="body-start()">
-            <fo:block>
-                <xsl:apply-templates/>
-            </fo:block>
-        </fo:list-item-body>
-    </xsl:template>
     <!-- ===========================================================
         EXAMPLES
         =========================================================== -->

@@ -1151,7 +1151,17 @@
     <xsl:template match="dl">
         <xsl:if test="count(dt) &gt; 0">
             <xsl:call-template name="OKToBreakHere"/>
-            <tex:env name="description">
+            <xsl:variable name="sDescription">
+                <xsl:choose>
+                    <xsl:when test="dd/example">
+                        <xsl:text>descriptionwithexample</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>description</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <tex:env name="{$sDescription}">
                 <!-- unsuccessful attempt to get space between embedded lists to be more like the normal spacing
             <xsl:if test="count(ancestor::ul | ancestor::ol) &gt; 0">
             <tex:cmd name="vspace*">
@@ -1161,7 +1171,10 @@
             </tex:parm>
             </tex:cmd>
             </xsl:if>
-         -->
+                -->
+                <xsl:if test="dd/example">
+                    <tex:opt>0em</tex:opt>
+                </xsl:if>
                 <xsl:call-template name="SetListLengths"/>
                 <xsl:call-template name="DoType"/>
                 <xsl:if test="$contentLayoutInfo/definitionListLayout/@useRaggedRight='yes'">
@@ -1208,8 +1221,18 @@
         <xsl:param name="mydt"/>
         <xsl:if test="parent::dl/@showddOnNewLineInPDF='yes'">
             <tex:cmd name="hfill" gr="0"/>
-            <tex:spec cat="esc"/>
-            <tex:spec cat="esc"/>
+            <xsl:choose>
+                <xsl:when test="example">
+                    <!-- 
+                    Do not add yet another line; we do need to adjust the left indent of the example number, though.
+                    That is done in the example processing code.
+                    -->
+                </xsl:when>
+                <xsl:otherwise>
+                    <tex:spec cat="esc"/>
+                    <tex:spec cat="esc"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:apply-templates/>
         <xsl:if test="count(preceding-sibling::dd[preceding-sibling::dt[1]=$mydt])=0">
@@ -12950,6 +12973,36 @@ What might go in a TeX package file
                 </tex:group>
             </tex:parm>
         </tex:cmd>
+        <xsl:if test="//dd/example">
+            <tex:cmd name="newenvironment" nl2="1">
+                <tex:parm>
+                    <xsl:text>descriptionwithexample</xsl:text>
+                </tex:parm>
+                <tex:opt>1</tex:opt>
+                <tex:opt>0pt</tex:opt>
+                <tex:parm>
+                    <tex:cmd name="list"/>
+                    <tex:parm>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>labelwidth=0pt </xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>leftmargin=</xsl:text>
+                        <tex:spec cat="parm"/>
+                        <xsl:text>1</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>let</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>makelabel</xsl:text>
+                        <tex:spec cat="esc"/>
+                        <xsl:text>descriptionlabel</xsl:text>
+                    </tex:parm>
+                </tex:parm>
+                <tex:parm>
+                    <tex:spec cat="esc"/>
+                    <xsl:text>endlist</xsl:text>
+                </tex:parm>
+            </tex:cmd>
+        </xsl:if>
     </xsl:template>
     <!-- 
         \newcommand{\XLingPaperexampleintable}[5]{

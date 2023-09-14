@@ -1006,6 +1006,11 @@
     </xsl:template>
     <xsl:template match="dd">
         <dd>
+            <xsl:if test="example">
+                <xsl:attribute name="style">
+                    <xsl:text>margin-left:0.0pt</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </dd>
     </xsl:template>

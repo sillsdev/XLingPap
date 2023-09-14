@@ -22,6 +22,19 @@
         <xsl:call-template name="GetBorderAroundImageWidth"/>
     </xsl:variable>
     <!-- ===========================================================
+        dd
+        =========================================================== -->
+    <xsl:template match="dd" mode="dt">
+        <fo:list-item-body start-indent="body-start()">
+            <xsl:if test="example">
+                <fo:block>&#xa0;</fo:block>
+            </xsl:if>
+            <fo:block>
+                <xsl:apply-templates/>
+            </fo:block>
+        </fo:list-item-body>
+    </xsl:template>
+    <!-- ===========================================================
         IMG
         =========================================================== -->
     <xsl:template match="img[not(ancestor::headerFooterPageStyles) or parent::fixedText]">

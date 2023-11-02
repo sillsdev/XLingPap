@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-09-14</a:date
+>2023-11-02</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,17 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.13.4 14 September 2023<ul
+>3.13.4 2 November 2023<ul
 ><li
 >Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt paren attribute value would be ignored.</li
 ><li
 >Fix bug: using an example within a dd element did not format correctly.</li
+><li
+>For the default way of producing PDF (via XeLaTeX):<ul
+><li
+>Fix bug: when a percent sign was in a secTitle, PDF would fail to be produced.</li
+></ul
+></li
 ></ul
 ></li
 ><li

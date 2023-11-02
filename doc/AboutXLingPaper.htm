@@ -21,7 +21,7 @@
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
       <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.13.4</span></p>
-      <p align="center">Date: 2023-09-14</p>
+      <p align="center">Date: 2023-11-02</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,12 +34,17 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.13.4 14 September 2023
+               <li>3.13.4 2 November 2023
                   <ul>
                      <li>Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt
                         paren attribute value would be ignored.
                      </li>
                      <li>Fix bug: using an example within a dd element did not format correctly.</li>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when a percent sign was in a secTitle, PDF would fail to be produced.</li>
+                        </ul>
+                     </li>
                   </ul>
                </li>
                <li>3.13.3 27 July 2023

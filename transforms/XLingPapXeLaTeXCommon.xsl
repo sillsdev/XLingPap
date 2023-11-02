@@ -12760,6 +12760,9 @@
             <tex:parm>fontspec</tex:parm>
         </tex:cmd>
         <tex:cmd name="usepackage" nl2="1">
+            <xsl:if test="contains(//secTitle,'%')">
+                <tex:opt>unicode</tex:opt>
+            </xsl:if>
             <tex:parm>hyperref</tex:parm>
         </tex:cmd>
         <xsl:if test="//language[@rtl='yes'] and $lingPaper/@automaticallywrapinterlinears='yes'">

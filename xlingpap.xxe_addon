@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <a:addon
-location="XLingPap-3.13.0-xxe-8.2.0.zip"
+location="XLingPap-3.14.0-xxe-8.2.0.zip"
 xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:category
 ><a:configuration
@@ -9,7 +9,7 @@ xmlns:a="http://www.xmlmind.com/xmleditor/schema/addon"
 ><a:name
 >A configuration for creating XLingPaper documents.</a:name
 ><a:version
->3.13.4</a:version
+>3.14.0</a:version
 ><a:author
 ><a
 href="mailto::xlingpaper_support@sil.org"
@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2023-11-02</a:date
+>2023-11-13</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,55 +40,35 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.13.4 2 November 2023<ul
-><li
->Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt paren attribute value would be ignored.</li
-><li
->Fix bug: using an example within a dd element did not format correctly.</li
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: when a percent sign was in a secTitle, PDF would fail to be produced.</li
-></ul
-></li
-></ul
-></li
-><li
->3.13.3 27 July 2023<ul
-><li
->For the default way of producing PDF (via XeLaTeX):<ul
-><li
->Fix bug: using a tree with image could cause the left margin position to change.</li
-></ul
-></li
-></ul
-></li
-><li
->3.13.2 18 July 2023<ul
-><li
->Fix bug: non-publisher style sheet transforms did not insert a space between textBefore and a reference when using the default textBefore values.</li
-></ul
-></li
-><li
->3.13.1 5 July 2023<ul
+>3.14.0 13 November 2023<ul
 ><li
 >Add ability to have an additional author field under references for using a "surname, given name" format of authors. The element is refAuthorSurnameGivenName.</li
 ><li
->Add an ability to set the horizontal alignment of figures and numbered tables via a publisher style sheet. See the align attribute in sections 6.12.1 "Figures" and 6.13.1 "Numbered Tables" in the publisher style sheet documentation and the alignoverride attriibute in sections 6.4.1 "Figures" and 6.4.3 "Numbered Tables" in the user documentation.</li
+>Add an ability to set the horizontal alignment of figures and numbered tables via a publisher style sheet. See the align attribute in sections 6.12.1 "Figures" and 6.13.1 "Numbered Tables" in the publisher style sheet documentation and the alignoverride attribute in sections 6.4.1 "Figures" and 6.4.3 "Numbered Tables" in the user documentation.</li
 ><li
 >Add a borderaround attribute to img elements and add an imageBorderLayout element to publisher style sheets to control the width of the border and the space between the border and the image.</li
 ><li
 >Fix bug: glossary terms would come out in the wrong order if some terms only occurred in definitions of cited terms.</li
 ><li
+>Fix bug: non-publisher style sheet transforms did not insert a space between textBefore and a reference when using the default textBefore values.</li
+><li
 >Fix bug: any headerFooterPageStyles in a back matter layout portion of a publisher style sheet that contained a chapterNumber element would fail to show the contents of that element in the header/footer in the output.</li
+><li
+>Fix bug: using an example within a dd element did not format correctly.</li
+><li
+>Fix bug: when the defaultparenvalue attribute in a citationLayout was set to citationBoth, a citation element with an overt paren attribute value would be ignored.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li
 >Add a way to get ragged right (left justified) output: Added the paragraphAlignment (before the lineSpacing element) in a publisher style sheet. It has one attribute, textalign, which defaults to 'justify' but can be set to 'left'.</li
+><li
+>Fix bug: using a tree with image could cause the left margin position to change.</li
+><li
+>Fix bug: when a percent sign was in a secTitle, PDF would fail to be produced.</li
 ></ul
 ></li
 ><li
->For the RenderXt way of producing PDF:<ul
+>For the RenderX way of producing PDF:<ul
 ><li
 >Fix bug: Having a publishing blurb could cause the PDF to fail to be produced.</li
 ><li

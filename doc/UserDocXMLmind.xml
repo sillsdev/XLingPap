@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->23 June 2023</date
+>13 November 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
 ><version
 contentType="ctVersion7Plus"
->3.13.1</version
+>3.14.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -4593,42 +4593,42 @@ type="tElement"
 >an optional <object
 type="tElement"
 >editorInitials</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >editorSurnameGivenName</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >edition</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >seriesEd</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >seriesEdInitials</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >seriesEdSurnameGivenName</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >series</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >bVol</object
-> (book volume) element, </li
+> (book volume) element,</li
 ><li
 >an optional <indexedItem
 term="iMultivoumeWork"
@@ -4644,37 +4644,37 @@ type="tItalic"
 >Chicago Manual of Style</object
 > or see sections 14.124 and 14.131 of the 16th edtion.</p
 ></endnote
->) element, </li
+>) element,</li
 ><li
 >an optional <object
 type="tElement"
 >reprintInfo</object
-> element, </li
+> element,</li
 ><li
 >a recommended <object
 type="tElement"
 >location</object
-> element, </li
+> element,</li
 ><li
 >an recommended <object
 type="tElement"
 >publisher</object
-> element,  </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >url</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >dateAccessed</object
-> element, </li
+> element,</li
 ><li
 >an optional <object
 type="tElement"
 >iso639-3code</object
-> element,  and</li
+> element, and</li
 ><li
 >an optional <object
 type="tElement"

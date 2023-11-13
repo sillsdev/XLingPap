@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 June 2023</date
+>13 November 2023</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
 ><version
 contentType="ctVersion7Plus"
->3.13.1</version
+>3.14.0</version
 ><contents
 showLevel="6"
 ></contents
@@ -9788,7 +9788,7 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >refAuthor</object
-> element.  Similarly, if this attribute is set to <object
+> element. Similarly, if this attribute is set to <object
 type="tAttrValue"
 >surnamegivenname</object
 >, then <object

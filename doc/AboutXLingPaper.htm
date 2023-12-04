@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.14.0</span></p>
-      <p align="center">Date: 2023-11-13</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.14.1</span></p>
+      <p align="center">Date: 2023-12-04</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,6 +34,15 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
+               <li>3.14.1 4 December 2023
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: index output could have unneeded blank space at the end of a column or page when an index item had embedded items.</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
                <li>3.14.0 13 November 2023
                   <ul>
                      <li>Add ability to have an additional author field under references for using a "surname, given name" format of authors. The element

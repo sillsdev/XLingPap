@@ -9787,13 +9787,13 @@
                                     </xsl:call-template>
                                 </xsl:if>
                                 <!--                        <tex:cmd name="par" nl2="1"/>-->
-                                <xsl:call-template name="OutputIndexTerms">
-                                    <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
-                                    <xsl:with-param name="lang" select="$lang"/>
-                                    <xsl:with-param name="terms" select="indexTerms"/>
-                                </xsl:call-template>
                             </tex:parm>
                         </tex:cmd>
+                        <xsl:call-template name="OutputIndexTerms">
+                            <xsl:with-param name="sIndexKind" select="$sIndexKind"/>
+                            <xsl:with-param name="lang" select="$lang"/>
+                            <xsl:with-param name="terms" select="indexTerms"/>
+                        </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$bHasSeeAttribute='Y' and contains($bSeeTargetIsCitedOrItsDescendantIsCited, 'Y')">
                         <!-- neither this term nor its decendants are cited, but it has a @see attribute which refers to a term that is cited or for which one of its descendants is cited -->

@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 November 2023</date
+>19 January 2024</date
 ><version
 contentType="ctVersion5.3"
->2.43.0</version
+>2.43.1</version
 ><version
 contentType="ctVersion7Plus"
->3.14.0</version
+>3.14.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -9645,9 +9645,22 @@ type="tElement"
 > element.</langData
 ></td
 ><td
+><table
+><tr
+><td
 ><object
 type="tAttrValue"
->lowercase</object
+>yes</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>no</object
+></td
+></tr
+></table
 ></td
 ></tr
 ></table

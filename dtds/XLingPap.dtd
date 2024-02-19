@@ -273,6 +273,8 @@
     showinlandscapemode (yes | no) "no"
     startingPageNumber CDATA #IMPLIED
 >
+    <!-- N.B. we include excludeShortSubsectionsFromContents and subsectionsAreShort attributes from sections to prevent validity errors
+    after promoting a section1 to a chapter.  They are not used, normally. -->
 <!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
@@ -280,6 +282,8 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
     startingPageNumber CDATA #IMPLIED
+    excludeShortSubsectionsFromContents (yes | no) "yes"
+    subsectionsAreShort (yes | no) "no"
 >
 <!ELEMENT chapterBeforePart (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
 <!ATTLIST chapterBeforePart

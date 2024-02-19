@@ -2262,6 +2262,9 @@
         <xsl:call-template name="DoTypeEnd"/>
         <!--   with new ay of handling examples, trying without this     <xsl:if test="not(parent::example)">-->
         <tex:spec cat="eg"/>
+        <xsl:if test="parent::tablenumbered and $lingPaper/@tablenumberedLabelAndCaptionLocation='before' and not(ancestor::styledPaper)">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <!--        </xsl:if>-->
         <xsl:choose>
             <xsl:when test="not(parent::example) and not(ancestor::table) and not(ancestor::li)">

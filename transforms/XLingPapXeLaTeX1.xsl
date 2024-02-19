@@ -4462,6 +4462,7 @@
         </tex:cmd>
         <xsl:call-template name="DoInternalTargetBegin">
             <xsl:with-param name="sName" select="@id"/>
+            <xsl:with-param name="fDoRaisebox" select="'N'"/>
         </xsl:call-template>
         <xsl:call-template name="DoInternalTargetEnd"/>
         <xsl:call-template name="CreateAddToContents">
@@ -4482,6 +4483,7 @@
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
         <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='before'">
+            <tex:spec cat="bg"/>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
             <tex:spec cat="esc"/>
             <tex:spec cat="esc"/>
@@ -4495,6 +4497,9 @@
         <xsl:call-template name="DoTypeEnd">
             <xsl:with-param name="type" select="@type"/>
         </xsl:call-template>
+        <xsl:if test="img and $lingPaper/@tablenumberedLabelAndCaptionLocation='before' and not(ancestor::styledPaper)">
+            <tex:spec cat="eg"/>
+        </xsl:if>
         <xsl:if test="$lingPaper/@tablenumberedLabelAndCaptionLocation='after'">
             <tex:cmd name="vspace*">
                 <tex:parm>
@@ -4505,8 +4510,10 @@
             <tex:cmd name="vspace">
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
+            <tex:spec cat="bg"/>
             <xsl:call-template name="OutputTableNumberedLabelAndCaption"/>
             <xsl:call-template name="HandleEndnotesTextInCaptionAfterTablenumbered"/>
+            <tex:spec cat="eg"/>
             <tex:cmd name="par"/>
             <tex:cmd name="vspace">
                 <tex:parm>.3em</tex:parm>

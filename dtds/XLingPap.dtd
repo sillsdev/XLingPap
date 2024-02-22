@@ -247,6 +247,7 @@
     backmatterlabel CDATA #IMPLIED
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
+    bookmarksShowLevel (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7) "3"
 >
 <!-- an keywordsShownHere element can be placed in front matter or back matter.
     The list of keywords defined within publishingInfo will be listed one after the other separated by what is in the separationText attribute.

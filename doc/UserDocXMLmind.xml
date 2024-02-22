@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 November 2023</date
+>22 February 2024</date
 ><version
 contentType="ctVersion5.3"
 >2.43.0</version
 ><version
 contentType="ctVersion7Plus"
->3.14.0</version
+>3.14.2</version
 ><contents
 showLevel="4"
 ></contents
@@ -1726,6 +1726,17 @@ type="tElement"
 type="tBold"
 >plus</object
 > the chapter). It can also be set to "0" (zero) if you do not want any sections to show in the table of contents such as you might in a book with chapters.</p
+><p
+>For the <object
+type="tXeTeX"
+></object
+> way of producing PDF output, you can control the number of levels showing in the PDF bookmarks portion by setting the <object
+type="tAttribute"
+>bookmarksShowLevel</object
+> attribute. The number here indicates how many levels including <object
+type="tElement"
+>chapter</object
+> elements if any.  Thus, it can be any integer number between “0” and “7”.  When it is set to “0,” no bookmarks will be shown.</p
 ><p
 >The table of contents will also include acknowledgements (if any), the abstract (if present), endnotes (if needed), any indexes and references.</p
 ><p

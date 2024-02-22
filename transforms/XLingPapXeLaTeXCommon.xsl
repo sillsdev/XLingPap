@@ -12774,6 +12774,11 @@
         <tex:cmd name="hypersetup" nl2="1">
             <tex:parm>
                 <xsl:text>colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=blue, bookmarksopen=true, </xsl:text>
+                <xsl:if test="$contents">
+                    <xsl:text>bookmarksdepth=</xsl:text>
+                    <xsl:value-of select="$contents/@bookmarksShowLevel"/>
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
                 <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespaceendnotes!='yes' and not($backMatterLayoutInfo/useEndNotesLayout)">
                     <xsl:text>hyperfootnotes=false, </xsl:text>
                 </xsl:if>

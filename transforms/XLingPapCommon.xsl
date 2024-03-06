@@ -1178,10 +1178,28 @@
             <xsl:variable name="iPreviousEndnotesPass1">
                 <xsl:choose>
                     <xsl:when test="$bEndnoteRefIsDirectLinkToEndnote='Y'">
-                        <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
+                        <xsl:choose>
+                            <xsl:when test="$frontMatterLayoutInfo/authorLayout[1][@useDigitsForEndnoteNumbering='yes']">
+                                <xsl:number level="any" count="endnote" format="1"/>
+                            </xsl:when>
+                            <!--<xsl:when test="parent::author and $frontMatterLayoutInfo/authorLayout[1][@useDigitsForEndnoteNumbering='yes']">
+                                <xsl:number level="any" count="endnote" format="1"/>
+                            </xsl:when>-->
+                            <xsl:otherwise>
+                                <xsl:number level="any" count="endnote[not(parent::author)]" format="1"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>
+<!--                        <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>-->
+                        <xsl:choose>
+                            <xsl:when test="$frontMatterLayoutInfo/authorLayout[1][@useDigitsForEndnoteNumbering='yes']">
+                                <xsl:number level="any" count="endnote | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:number level="any" count="endnote[not(parent::author)] | endnoteRef[not(ancestor::endnote)][not(@showNumberOnly='yes')]" format="1"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -1435,7 +1453,10 @@
             <xsl:when test="parent::title and $frontMatterLayoutInfo/titleLayout/@useFootnoteSymbols='yes'">
                 <xsl:call-template name="DoAuthorFootnoteNumber"/>
             </xsl:when>
-            <xsl:when test="parent::author">
+            <xsl:when test="parent::author and $frontMatterLayoutInfo/authorLayout[1][@useDigitsForEndnoteNumbering!='yes']">
+                <xsl:call-template name="DoAuthorFootnoteNumber"/>
+            </xsl:when>
+            <xsl:when test="parent::author and /lingPaper">
                 <xsl:call-template name="DoAuthorFootnoteNumber"/>
             </xsl:when>
             <xsl:when test="ancestor::framedUnit">

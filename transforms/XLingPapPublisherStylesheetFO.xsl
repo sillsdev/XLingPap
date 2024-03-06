@@ -426,7 +426,7 @@
                 <xsl:text>, </xsl:text>
             </xsl:when>
         </xsl:choose>
-        <xsl:apply-templates/>
+        <xsl:apply-templates mode="contentOnly"/>
     </xsl:template>
     <!--
       affiliation
@@ -3022,7 +3022,8 @@ not using
       -->
     <!--
       endnote in flow of text
-      -->
+    -->
+    <xsl:template match="endnote" mode="contentOnly"/>
     <xsl:template match="endnote">
         <xsl:param name="originalContext"/>
         <xsl:variable name="iTablenumberedAdjust">
@@ -3546,9 +3547,25 @@ not using
       ABBREVIATION
       =========================================================== -->
     <xsl:template match="abbrRef" mode="bookmarks">
-        <xsl:call-template name="OutputAbbrTerm">
-            <xsl:with-param name="abbr" select="id(@abbr)"/>
-        </xsl:call-template>
+        <xsl:variable name="abbr" select="id(@abbr)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($abbrLang) &gt; 0">
+                <xsl:choose>
+                    <xsl:when test="string-length($abbr//abbrInLang[@lang=$abbrLang]/abbrTerm) &gt; 0">
+                        <xsl:apply-templates select="$abbr/abbrInLang[@lang=$abbrLang]/abbrTerm"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- a language is specified, but this abbreviation does not have anything; try using the default;
+                            this assumes that something is better than nothing -->
+                        <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <!--  no language specified; just use the first one -->
+                <xsl:apply-templates select="$abbr/abbrInLang[1]/abbrTerm"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="abbrRef" mode="contents">
         <xsl:call-template name="OutputAbbrTerm">

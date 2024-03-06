@@ -399,6 +399,7 @@ Front MatterLayout
 <!ELEMENT authorLayout EMPTY >
 <!ATTLIST authorLayout
      %frontmatterformatinfo;
+     useDigitsForEndnoteNumbering (no|yes) "no"
     >
 <!ELEMENT affiliationLayout EMPTY >
 <!ATTLIST affiliationLayout

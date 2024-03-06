@@ -44,6 +44,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><li
 >Enable showing abbreviations as a table in a section1 element and in a chapter element.</li
 ><li
+>Add useDigitsForEndnoteNumbering attribute to authorLayout element so one can have footnotes on authors be numbered like other footnotes.</li
+><li
 >Fix bug: promoting a section1 element to a chapter would cause a validity error about two attributes being invalid.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul

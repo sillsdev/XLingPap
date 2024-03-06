@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 January 2024</date
+>6 March 2024</date
 ><version
 contentType="ctVersion5.3"
->2.43.1</version
+>2.43.2</version
 ><version
 contentType="ctVersion7Plus"
->3.14.1</version
+>3.14.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -2375,7 +2375,46 @@ type="tElement"
 sec="sFrontMatterFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.</td
+>.  It also has<table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><indexedItem
+term="iuseDigitsForEndnoteNumbering"
+></indexedItem
+><object
+type="tAttribute"
+>useDigitsForEndnoteNumbering</object
+></td
+><td
+><object
+type="tAttrValue"
+>yes</object
+> or <object
+type="tAttrValue"
+>no</object
+>. This indicates whether or not any footnotes in <object
+type="tElement"
+>author</object
+> elements should be numbered like other footnotes. The default is <object
+type="tAttrValue"
+>no</object
+>.  If there are more than one <object
+type="tElement"
+>authorLayout</object
+> elements, only the value of this attribute on the first <object
+type="tElement"
+>authorLayout</object
+> element is used.</td
+></tr
+></table
+></td
 ></tr
 ><tr
 ><td
@@ -23726,6 +23765,11 @@ id="iUseEndnotesLayout"
 id="iUseBlankExtraPage"
 ><term
 >Use blank extra page attribute</term
+></indexTerm
+><indexTerm
+id="iuseDigitsForEndnoteNumbering"
+><term
+>Use digits for endnote numbering in author</term
 ></indexTerm
 ><indexTerm
 id="iUseEmptyHeaderFooter"

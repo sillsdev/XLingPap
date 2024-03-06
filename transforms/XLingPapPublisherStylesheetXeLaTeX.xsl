@@ -531,7 +531,7 @@
     <xsl:template match="author">
         <xsl:param name="authorLayoutToUse"/>
         <tex:group>
-            <xsl:if test="descendant::endnote">
+            <xsl:if test="descendant::endnote and $frontMatterLayoutInfo/authorLayout[1][@useDigitsForEndnoteNumbering!='yes']">
                 <xsl:call-template name="UseFootnoteSymbols"/>
             </xsl:if>
             <xsl:call-template name="DoFrontMatterFormatInfoBegin">

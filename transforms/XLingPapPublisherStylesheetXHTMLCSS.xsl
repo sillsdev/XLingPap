@@ -1901,6 +1901,7 @@ li.lower-roman {
     <xsl:template match="@useblankextrapage"/>
     <xsl:template match="@usechapterlabelbeforechapters"/>
     <xsl:template match="@usecitationformatwhennumberofsharedpaperis"/>
+    <xsl:template match="@useDigitsForEndnoteNumbering"/>
     <xsl:template match="@useDoubleColumns"/>
     <xsl:template match="@useemptyheaderfooter"/>
     <xsl:template match="@useEqualSignsColumn"/>

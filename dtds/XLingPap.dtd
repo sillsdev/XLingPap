@@ -276,7 +276,7 @@
 >
     <!-- N.B. we include excludeShortSubsectionsFromContents and subsectionsAreShort attributes from sections to prevent validity errors
     after promoting a section1 to a chapter.  They are not used, normally. -->
-<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section1*)>
+<!ELEMENT chapter (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section1*)>
 <!ATTLIST chapter
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED
@@ -300,7 +300,7 @@
     contentType IDREF #IMPLIED
     showinlandscapemode (yes | no) "no"
 >
-<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit)*, section2*)>
+<!ELEMENT section1 (secTitle, shortTitle?, (%chunk; | landscape | framedUnit | abbreviationsShownHere)*, section2*)>
 <!ATTLIST section1
     id ID #REQUIRED
     XeLaTeXSpecial CDATA #IMPLIED

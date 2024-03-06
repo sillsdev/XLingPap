@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2024-02-22</a:date
+>2024-03-06</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.14.2 22 February 2024<ul
+>3.14.2 6 March 2024<ul
+><li
+>Enable showing abbreviations as a table in a section1 element and in a chapter element.</li
 ><li
 >Fix bug: promoting a section1 element to a chapter would cause a validity error about two attributes being invalid.</li
 ><li

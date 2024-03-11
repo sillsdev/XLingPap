@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->6 March 2024</date
+>11 March 2024</date
 ><version
 contentType="ctVersion5.3"
->2.43.2</version
+>2.43.3</version
 ><version
 contentType="ctVersion7Plus"
->3.14.2</version
+>3.14.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -2375,7 +2375,7 @@ type="tElement"
 sec="sFrontMatterFormatInfoAttributes"
 showTitle="short"
 ></sectionRef
->.  It also has<table
+>. It also has<table
 border="1"
 ><tr
 ><th
@@ -2405,7 +2405,7 @@ type="tElement"
 > elements should be numbered like other footnotes. The default is <object
 type="tAttrValue"
 >no</object
->.  If there are more than one <object
+>. If there are more than one <object
 type="tElement"
 >authorLayout</object
 > elements, only the value of this attribute on the first <object
@@ -3804,6 +3804,51 @@ type="tElement"
 sec="sTitleFormatInfoAttributes"
 ></sectionRef
 > for more on these attributes.</p
+><p
+>In addition the <object
+type="tElement"
+>partLayout</object
+> element itself has one attribute as shown in example <exampleRef
+letter="xPartLayoutAttribute"
+num="xPartLayoutAttribute"
+></exampleRef
+>.</p
+><example
+num="xPartLayoutAttribute"
+><table
+border="1"
+><tr
+><th
+>Attribute</th
+><th
+>Possible Values</th
+></tr
+><tr
+><td
+><indexedItem
+term="iPartNumeralFormat"
+></indexedItem
+><object
+type="tAttribute"
+>numeralFormat</object
+></td
+><td
+><object
+type="tAttrValue"
+>arabic</object
+>, <object
+type="tAttrValue"
+>lowerroman</object
+> or <object
+type="tAttrValue"
+>upperroman</object
+>. This indicates how the part number should be formatted. The default value is <object
+type="tAttrValue"
+>upperroman</object
+>.</td
+></tr
+></table
+></example
 ></section2
 ><section2
 id="sChapterLayout"
@@ -3836,7 +3881,7 @@ sec="sTitleFormatInfoAttributes"
 >In addition the <object
 type="tElement"
 >chapterLayout</object
-> element itself has one attribute as shown in example <exampleRef
+> element itself has three attributes as shown in example <exampleRef
 letter="xChapterLayoutAttribute"
 num="xChapterLayoutAttribute"
 ></exampleRef
@@ -3871,6 +3916,9 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iChapterNumeralFormat"
+></indexedItem
 ><object
 type="tAttribute"
 >numeralFormat</object
@@ -21784,6 +21832,11 @@ id="iChapterNumber"
 >Chapter number</term
 ></indexTerm
 ><indexTerm
+id="iChapterNumeralFormat"
+><term
+>Chapter numeral format</term
+></indexTerm
+><indexTerm
 id="iChapterTitle"
 ><term
 >Chapter title</term
@@ -23011,6 +23064,13 @@ id="iParagraphLayoutSpaceBetween"
 id="iPartLayout"
 ><term
 >Part Layout</term
+><indexTerms
+><indexTerm
+id="iPartNumeralFormat"
+><term
+>Part numeral format</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPartTitleLayout"

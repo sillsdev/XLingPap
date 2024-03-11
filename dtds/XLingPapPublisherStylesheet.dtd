@@ -537,6 +537,9 @@ Body Layout
 <!ELEMENT bodyLayout (comment?, headerFooterPageStyles?, partLayout?, chapterLayout?, chapterInCollectionLayout?, chapterInCollectionFrontMatterLayout?, 
 				section1Layout, section2Layout, section3Layout, section4Layout, section5Layout, section6Layout, shortSubsectionLayout?, chapterInCollectionBackMatterLayout?) >
 <!ELEMENT partLayout (partTitleLayout | numberLayout)+ >
+<!ATTLIST partLayout
+         numeralFormat (arabic | lowerroman | upperroman) "upperroman"
+>
 <!ELEMENT partTitleLayout EMPTY >
 <!ATTLIST partTitleLayout
      %titleformatinfo; 

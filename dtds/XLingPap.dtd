@@ -806,7 +806,7 @@
     %special;
     contentType IDREF #IMPLIED
 >
-<!ELEMENT figure (chart, (caption, shortCaption?)?)>
+<!ELEMENT figure ((chart | framedUnit), (caption, shortCaption?)?)>
 <!ATTLIST figure
     location (here | topOfPage | bottomOfPage) "here"
     align (left | center | right | justify) "left"

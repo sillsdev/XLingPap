@@ -777,6 +777,15 @@ bookTotalPages:after
 	content:".";
 }
 
+bookversion
+{
+	display:inline;
+}
+bookversion:after
+{
+	content: ". ";
+}
+
 bVol
 {
 	display:inline;

@@ -3016,6 +3016,13 @@
                 </xsl:call-template>
                 <xsl:text>&#x20;</xsl:text>
             </xsl:if>
+            <xsl:if test="bookversion">
+                <xsl:apply-templates select="bookversion"/>
+                <xsl:call-template name="OutputPeriodIfNeeded">
+                    <xsl:with-param name="sText" select="bookversion"/>
+                </xsl:call-template>
+                <xsl:text>&#x20;</xsl:text>
+            </xsl:if>
             <xsl:if test="edition">
                 <xsl:apply-templates select="edition"/>
                 <xsl:call-template name="OutputPeriodIfNeeded">
@@ -3721,6 +3728,14 @@
                             <xsl:apply-templates select="collection/collTitle"/>
                         </i>
                         <xsl:text>.</xsl:text>
+                        <xsl:if test="collection/bookversion">
+                            <xsl:text>&#x20;</xsl:text>
+                            <xsl:apply-templates select="collection/bookversion"/>
+                            <xsl:call-template name="OutputPeriodIfNeeded">
+                                <xsl:with-param name="sText" select="collection/bookversion"/>
+                            </xsl:call-template>
+                            <xsl:text>&#x20;</xsl:text>
+                        </xsl:if>
                         <xsl:call-template name="DoCollectionEdition"/>
                         <xsl:choose>
                             <xsl:when test="collection/collVol">

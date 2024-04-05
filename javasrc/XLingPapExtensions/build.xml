@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <project basedir="." default="all">
 
-  <property name="xxe.bin.dir" value="C:/Program Files (x86)/XMLmind_XML_Editor 7/bin" />
+  <property name="xxe.bin.dir" value="C:/Program Files (x86)/XMLmind_XML_Editor 8/bin" />
 	<property name="xlingpaper.config.dir" value=".." />
 
   <path id="cp">

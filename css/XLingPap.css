@@ -5680,6 +5680,30 @@ bookTotalPagesItem
 {
 	property-group: referencesItem("456");
 }
+bookversionItem[color]
+{
+	color:concatenate(attr(color));
+}
+bookversionItem[font-family]
+{
+	font-family:concatenate(attr(font-family));
+}
+bookversionItem[font-size]
+{
+	font-size:concatenate(attr(font-size));
+}
+bookversionItem[font-style]
+{
+	font-style:concatenate(attr(font-style));
+}
+bookversionItem[font-weight]
+{
+	font-weight:concatenate(attr(font-weight));
+}
+bookversionItem
+{
+	property-group: referencesItem("2023.4");
+}
 bVolItem[color]
 {
 	color:concatenate(attr(color));

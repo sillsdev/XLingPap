@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->18 March 2024</date
+>4 April 2024</date
 ><version
 contentType="ctVersion5.3"
 >2.14.4</version
@@ -4613,6 +4613,11 @@ type="tElement"
 ><li
 >an optional <object
 type="tElement"
+>bookversion</object
+> element,</li
+><li
+>an optional <object
+type="tElement"
 >edition</object
 > element,</li
 ><li
@@ -4727,6 +4732,11 @@ type="tElement"
 type="tElement"
 >collTitle</object
 > (collection volume title) element,</li
+><li
+>an optional <object
+type="tElement"
+>bookversion</object
+> (version number of the collection volume) element,</li
 ><li
 >an optional <object
 type="tElement"
@@ -16139,7 +16149,7 @@ type="tElement"
 > element or a required <object
 type="tElement"
 >framedUnit</object
-> element.  They also can have an optional <object
+> element. They also can have an optional <object
 type="tElement"
 >caption</object
 > element. <object
@@ -31293,6 +31303,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>bookversion</object
+></dt
+><dd
+>The version number of a book</dd
+><dt
+><object
+type="tElement"
 >br</object
 ></dt
 ><dd
@@ -33222,6 +33239,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the total pages of a book (within references)</dd
+><dt
+><object
+type="tElement"
+>bookversionItem</object
+></dt
+><dd
+>Layout info for the version number of a book (within references)</dd
 ><dt
 ><object
 type="tElement"

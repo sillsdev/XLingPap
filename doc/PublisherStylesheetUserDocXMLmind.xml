@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->11 March 2024</date
+>4 April 2024</date
 ><version
 contentType="ctVersion5.3"
->2.43.3</version
+>2.43.4</version
 ><version
 contentType="ctVersion7Plus"
->3.14.3</version
+>3.14.4</version
 ><contents
 showLevel="6"
 ></contents
@@ -3940,6 +3940,12 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iChapterResetFootnoteNumbering"
+></indexedItem
+><indexedItem
+term="iResetFootnoteNumberingInChapter"
+></indexedItem
 ><object
 type="tAttribute"
 >resetEndnoteNumbering</object
@@ -5863,6 +5869,29 @@ showTitle="short"
 ><tr
 ><td
 ><indexedItem
+term="iBookVersion"
+></indexedItem
+><object
+type="tElement"
+>bookversionItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>bookversion</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>2023.4</td
+></tr
+><tr
+><td
+><indexedItem
 term="iEdition"
 ></indexedItem
 ><object
@@ -6542,6 +6571,29 @@ showTitle="short"
 >.</td
 ><td
 >IV</td
+></tr
+><tr
+><td
+><indexedItem
+term="iBookVersion"
+></indexedItem
+><object
+type="tElement"
+>bookversionItem</object
+></td
+><td
+>How the <object
+type="tElement"
+>bookversion</object
+> element is to be formatted.</td
+><td
+>See section <sectionRef
+sec="sFormatInfoAttributes"
+showTitle="short"
+></sectionRef
+>.</td
+><td
+>2023.4</td
 ></tr
 ><tr
 ><td
@@ -21852,6 +21904,11 @@ id="iChapterInitialParagraph"
 >Initial paragraph not indented</term
 ></indexTerm
 ><indexTerm
+id="iChapterResetFootnoteNumbering"
+><term
+>Reset footnote numbering</term
+></indexTerm
+><indexTerm
 id="iChapterFigureNumber"
 see="iFigureShowChapterNumber"
 ><term
@@ -22505,6 +22562,11 @@ id="iFootnoteIndentr"
 id="iFootnoteLink"
 ><term
 >Link from number to text</term
+></indexTerm
+><indexTerm
+id="iResetFootnoteNumberingInChapter"
+><term
+>Reset footnote numbering in a chapter</term
 ></indexTerm
 ><indexTerm
 id="iFootnoteSpaceAfterNumber"
@@ -23845,6 +23907,11 @@ id="iUseTitleInHeaderAttribute"
 id="iVersionLayout"
 ><term
 >Version layout</term
+></indexTerm
+><indexTerm
+id="iBookVersion"
+><term
+>Version of a referenced work</term
 ></indexTerm
 ><indexTerm
 id="iVerticalFillAfterAttribute"

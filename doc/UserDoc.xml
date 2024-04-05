@@ -16,13 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->13 November 2023</date
+>4 April 2024</date
 ><version
 contentType="ctVersion5.3"
->2.43.0</version
+>2.43.4</version
 ><version
 contentType="ctVersion7Plus"
->3.14.0</version
+>3.14.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -9267,6 +9267,13 @@ type="tElement"
 ><dt
 ><object
 type="tElement"
+>bookversion</object
+></dt
+><dd
+>The version number of a book</dd
+><dt
+><object
+type="tElement"
 >br</object
 ></dt
 ><dd
@@ -11158,6 +11165,13 @@ type="tElement"
 ></dt
 ><dd
 >Layout info for the total pages of a book (within references)</dd
+><dt
+><object
+type="tElement"
+>bookversionItem</object
+></dt
+><dd
+>Layout info for the version number of a book (within references)</dd
 ><dt
 ><object
 type="tElement"

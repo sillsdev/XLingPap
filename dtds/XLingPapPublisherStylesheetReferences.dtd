@@ -81,9 +81,9 @@ References Layouts
 
 <!ELEMENT articleLayout (refTitleItem | jTitleItem |  jVolItem | jIssueNumberItem |  jPagesItem | jArticleNumberItem |  
                                                 locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT bookLayout (refTitleItem | translatedByItem  | editorItem | bVolItem |  editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
+<!ELEMENT bookLayout (refTitleItem | translatedByItem  | editorItem | bVolItem | bookversionItem | editionItem | seriesEdItem | seriesItem |  multivolumeWorkItem |
                                                bookTotalPagesItem | locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
-<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
+<!ELEMENT collectionLayout (refTitleItem | collEdItem |  collTitleItem | bookversionItem |  editionItem | collVolItem |  collPagesItem | bVolItem | seriesEdItem | seriesItem | multivolumeWorkItem |  collCitationItem | authorRoleItem |
                                                locationPublisherLayoutsRef | reprintInfoItem | urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
 <!ELEMENT dissertationLayout (refTitleItem | dissertationLabelItem | locationItem |  institutionItem |  publishedLayoutRef | reprintInfoItem |
                                                urlDateAccessedLayoutsRef | urlItem | dateAccessedItem | doiItem | iso639-3codeItemRef)+>
@@ -134,6 +134,8 @@ References Layouts
 <!ATTLIST publisherItem %formatinfo;>
 <!ELEMENT editorItem EMPTY >
 <!ATTLIST editorItem %formatinfo;>
+<!ELEMENT bookversionItem EMPTY >
+<!ATTLIST bookversionItem %formatinfo;>
 <!ELEMENT editionItem EMPTY >
 <!ATTLIST editionItem %formatinfo;>
 <!ELEMENT institutionItem EMPTY >

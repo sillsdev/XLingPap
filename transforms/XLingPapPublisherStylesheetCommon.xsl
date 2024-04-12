@@ -475,6 +475,7 @@
     -->
     <xsl:template match="preface" mode="paper">
         <xsl:param name="iLayoutPosition" select="0"/>
+        <xsl:param name="frontMatterLayout" select="$frontMatterLayoutInfo"/>
         <xsl:variable name="iPos" select="count(preceding-sibling::preface) + 1"/>
         <xsl:variable name="fLayoutIsLastOfMany">
             <xsl:choose>
@@ -494,7 +495,7 @@
                 <!-- there's one and only one prefaceLayout; use it -->
                 <xsl:call-template name="DoPrefacePerPaperLayout">
                     <xsl:with-param name="iPos" select="$iPos"/>
-                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayout/prefaceLayout"/>
                     <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
                 </xsl:call-template>
             </xsl:when>
@@ -502,7 +503,7 @@
                 <!-- there are many prefaceLayouts; use the one that matches in position -->
                 <xsl:call-template name="DoPrefacePerPaperLayout">
                     <xsl:with-param name="iPos" select="$iPos"/>
-                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number($iLayoutPosition)]"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayout/prefaceLayout[number($iLayoutPosition)]"/>
                     <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
                 </xsl:call-template>
             </xsl:when>
@@ -510,7 +511,7 @@
                 <!-- there are many prefaceLayouts and there are more preface elements than prefaceLayout elements; use the last layout -->
                 <xsl:call-template name="DoPrefacePerPaperLayout">
                     <xsl:with-param name="iPos" select="$iPos"/>
-                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayoutInfo/prefaceLayout[number(last())]"/>
+                    <xsl:with-param name="prefaceLayout" select="$frontMatterLayout/prefaceLayout[number(last())]"/>
                     <xsl:with-param name="iLayoutPosition" select="$iLayoutPosition"/>
                 </xsl:call-template>
             </xsl:when>

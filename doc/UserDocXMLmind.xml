@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->4 April 2024</date
+>19 April 2024</date
 ><version
 contentType="ctVersion5.3"
->2.14.4</version
+>2.14.5</version
 ><version
 contentType="ctVersion7Plus"
->3.14.4</version
+>3.14.5</version
 ><contents
 showLevel="4"
 ></contents
@@ -21724,16 +21724,30 @@ term="iHypertextLinksWithout"
 >For links to items outside of the document, one can use the <object
 type="tElement"
 >link</object
-> element within text or other constructs to link to a media object (for example, a sound file). The <object
+> element within text or other constructs to link to another document or a media object (for example, a sound file). The <object
 type="tElement"
 >link</object
-> element has one attribute: <object
+> element has an <object
 type="tAttribute"
 >href</object
-> which should be the <indexedItem
+> attribute which should be the <indexedItem
 term="iURI"
 ></indexedItem
->URI of the media object you wish to link to. Type some text or embed an image (via the <object
+>URI of the other document or the media object you wish to link to.  It also has an <object
+type="tAttribute"
+>openInNewTab</object
+> attribute which can be set to <object
+type="tAttrValue"
+>yes</object
+> if you want to force it to be opened in a new tab when viewed with the web page output.  The <object
+type="tAttribute"
+>openInNewTab</object
+> attribute is ignored in other outputs. The default value is <object
+type="tAttrValue"
+>no</object
+>.</p
+><p
+>Type some text or embed an image (via the <object
 type="tElement"
 >img</object
 > element) between the begin <object

@@ -1846,6 +1846,7 @@ li.lower-roman {
     <xsl:template match="@numberProperAddPeriodAfterFinalDigit"/>
     <xsl:template match="@numberProperUseParens"/>
     <xsl:template match="@numeralFormat"/>
+    <xsl:template match="@openInNewTab"/>
     <xsl:template match="@ORCID"/>
     <xsl:template match="@partCentered"/>
     <xsl:template match="@partContentBetweenLabelAndNumber"/>

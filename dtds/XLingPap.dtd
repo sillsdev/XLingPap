@@ -954,6 +954,7 @@
     href CDATA #REQUIRED
     xml:lang CDATA #IMPLIED
     XeLaTeXSpecial CDATA #IMPLIED
+    openInNewTab ( no | yes) "no"
 >
 <!-- backmatter includes appendices, endnotes and references -->
 <!ELEMENT backMatter (acknowledgements?, appendix*, glossary*, abbreviations?, glossaryTerms?, endnotes?, (references, selectedBibliography?)?, keywordsShownHere?, index*, authorContactInfo*)>

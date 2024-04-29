@@ -3420,4 +3420,28 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
+    <cfg:command name="SortReferences">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:pass>
+                    <cfg:command name="selectNode" parameter="self[implicitElement] references"/>
+                </cfg:pass>
+                <cfg:fail>
+                    <cfg:command name="selectNode" parameter="parent[implicitElement] backMatter"/>
+                </cfg:fail>
+                <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','Sorted','.','%{E}')"/>
+                <!--<cfg:get expression="$newFileName"/>
+                    <cfg:command name="alert" parameter="%_"/>-->
+                <cfg:get expression="$newFileName"/>
+                <cfg:command name="SortReferencesTransform" parameter="%_"/>
+                <cfg:get expression="$newFileName"/>
+                <cfg:command name="XXE.open" parameter="%_"/>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="SortReferencesTransform">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ReferencesSort.xsl" to="%*"/>
+        </cfg:process>
+    </cfg:command>
 </cfg:configuration>

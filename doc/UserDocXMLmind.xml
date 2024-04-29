@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 April 2024</date
+>29 April 2024</date
 ><version
 contentType="ctVersion5.3"
->2.14.5</version
+>2.14.6</version
 ><version
 contentType="ctVersion7Plus"
->3.14.5</version
+>3.14.6</version
 ><contents
 showLevel="4"
 ></contents
@@ -21733,13 +21733,13 @@ type="tAttribute"
 > attribute which should be the <indexedItem
 term="iURI"
 ></indexedItem
->URI of the other document or the media object you wish to link to.  It also has an <object
+>URI of the other document or the media object you wish to link to. It also has an <object
 type="tAttribute"
 >openInNewTab</object
 > attribute which can be set to <object
 type="tAttrValue"
 >yes</object
-> if you want to force it to be opened in a new tab when viewed with the web page output.  The <object
+> if you want to force it to be opened in a new tab when viewed with the web page output. The <object
 type="tAttribute"
 >openInNewTab</object
 > attribute is ignored in other outputs. The default value is <object
@@ -22784,6 +22784,11 @@ type="tInstruction"
 >The next time you need to make an addition to the master references document, you can use menu item <object
 type="tInstruction"
 >Edit / Reference / Edit Referenced Document</object
+>.</p
+><p
+>If you find that you need to sort your master references file, see section <sectionRef
+sec="sFAQSortReferences"
+></sectionRef
 >.</p
 ></section2
 ><section2
@@ -28125,6 +28130,71 @@ type="tXLingPap"
 type="tMathML"
 ></object
 > file. The output will then use the SVG or the PDF version as appropriate and the mathematical formula or matrix will show in the output.</p
+></section2
+><section2
+id="sFAQSortReferences"
+><secTitle
+>Sort a master list of references file</secTitle
+><p
+><indexedItem
+term="iReferencesSortMasterFile"
+></indexedItem
+>Sometimes you may find that your master list of references file (see section <sectionRef
+sec="sFAQReferences"
+></sectionRef
+>) is not sorted by author name.  You can sort this by doing the following:<endnote
+id="nSortReferences"
+><p
+>We are indebted to Kent Rasmussen for providing the transform to make this possible.</p
+></endnote
+></p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> master references document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then create a new <object
+type="tXLingPap"
+></object
+> document with the same name as the master references document but with the addition of “Sorted” at the end of the file name proper. This new file will appear in the same directory as your master references document. This new document will also be automatically loaded into the <object
+type="tXMLmindXMLEditor"
+></object
+> for your perusal.</li
+></ol
+><p
+>You can then copy the <object
+type="tElement"
+>references</object
+> element from that new document into your master references file at its <object
+type="tElement"
+>references</object
+> element.</p
 ></section2
 ></section1
 ><section1
@@ -38691,7 +38761,12 @@ id="iReferencesSelectedReferences"
 ><indexTerm
 id="iReferencesSort"
 ><term
->Sort by author name</term
+>Sort by author name on output</term
+></indexTerm
+><indexTerm
+id="iReferencesSortMasterFile"
+><term
+>Sort master references file by author name</term
 ></indexTerm
 ><indexTerm
 id="iReferencesWorksCited"
@@ -38847,7 +38922,13 @@ see="iIndexesSorting"
 id="iSortReferences"
 see="iReferencesSort"
 ><term
->References</term
+>References on output</term
+></indexTerm
+><indexTerm
+id="iSortReferencesMaster"
+see="iReferencesSortMasterFile"
+><term
+>References in master list</term
 ></indexTerm
 ></indexTerms
 ></indexTerm

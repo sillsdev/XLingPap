@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->29 April 2024</date
+>8 May 2024</date
 ><version
 contentType="ctVersion5.3"
 >2.14.6</version
@@ -28142,7 +28142,7 @@ term="iReferencesSortMasterFile"
 >Sometimes you may find that your master list of references file (see section <sectionRef
 sec="sFAQReferences"
 ></sectionRef
->) is not sorted by author name.  You can sort this by doing the following:<endnote
+>) is not sorted by author name. You can sort this by doing the following:<endnote
 id="nSortReferences"
 ><p
 >We are indebted to Kent Rasmussen for providing the transform to make this possible.</p
@@ -28169,7 +28169,7 @@ note="nToolMenuExecuteCommand"
 ></endnoteRef
 ></li
 ><li
->In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you).</li
+>In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you).  Note that there is another command called “SortReferencesUnified” available.  This command will sort your references using the Unified style sheet method.</li
 ><li
 >Press the <object
 type="tKey"
@@ -28195,6 +28195,61 @@ type="tElement"
 type="tElement"
 >references</object
 > element.</p
+></section2
+><section2
+id="sFAQFindDiuplicateAuthors"
+><secTitle
+>Find duplicate <object
+type="tElement"
+>authorRef</object
+> elements</secTitle
+><p
+><indexedItem
+term="iReferencesFindDuplicateAuthors"
+></indexedItem
+>Sometimes you may inadvertently create two or more <object
+type="tElement"
+>authorRef</object
+> elements with the same author name.  There is a special command you can use to find these.  Do the following:</p
+><ol
+><li
+>In <object
+type="tXMLmindXMLEditor"
+></object
+>, open your <object
+type="tXLingPap"
+></object
+> document.</li
+><li
+>Use <object
+type="tInstruction"
+>Tools</object
+> menu item / <object
+type="tInstruction"
+>Execute Command...</object
+>.<endnoteRef
+note="nToolMenuExecuteCommand"
+></endnoteRef
+></li
+><li
+>In the dialog box that comes up, in the “Command” text box, type “Fi” (it should then fill in “FindAnyDuplicateAuthors” for you).</li
+><li
+>Press the <object
+type="tKey"
+>Enter</object
+> key or click on <object
+type="tInstruction"
+>OK</object
+>.</li
+><li
+>This will then check for duplicate author names.  If it finds any, then it will display a dialog box showing the duplicates.  You can click on the number within square brackets and <object
+type="tXLingPap"
+></object
+> will take you to where the duplicate <object
+type="tElement"
+>authorRef</object
+> element is.  If it does not find any duplicates, it will finish without any message.</li
+></ol
 ></section2
 ></section1
 ><section1
@@ -38742,6 +38797,11 @@ see="iEndnoteXML"
 type="tEndnoteXML"
 ></object
 ></term
+></indexTerm
+><indexTerm
+id="iReferencesFindDuplicateAuthors"
+><term
+>Find duplicate authors</term
 ></indexTerm
 ><indexTerm
 id="iJumpToReferences"

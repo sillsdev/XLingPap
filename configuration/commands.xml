@@ -3484,4 +3484,25 @@ NB actually it associates the stylesheet with the original file, not the new han
             </cfg:transform>
         </cfg:process>
     </cfg:command>
+    <cfg:command name="FindAnyDuplicateAuthors">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:command name="FindAnyDuplicateAuthorsCmd" parameter="%{P}"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:test expression="'%_' = 'allClear'"/>
+                        </cfg:pass>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="LocalizeString" parameter="msg.duplicateauthors"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="FindAnyDuplicateAuthorsCmd">
+        <cfg:class>xlingpaper.xxe.FindAnyDuplicateAuthors</cfg:class>
+    </cfg:command>
 </cfg:configuration>

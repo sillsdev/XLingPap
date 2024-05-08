@@ -2065,14 +2065,15 @@ What we want is to load IE independently and to do a refresh so it will show the
                                     <cfg:command name="LocalizeString" parameter="msg.deletePDFFile"/>
                                     <cfg:set variable="msg" plainString="true" expression="%_"/>
                                     <cfg:get expression="replace($msg,'\{0\}',$pdffile)"/>
-                                    <cfg:command name="alert" parameter="%_"/>
+                                    <cfg:command name="confirm" parameter="%_"/>
+                                    <!--<cfg:command name="alert" parameter="%_"/>-->
                                 </cfg:sequence>
                                 <cfg:sequence>
                                     <!--                                    <cfg:command name="alert" parameter="Please close the %_ window in your Word program or shut down your Word program.  We cannot successfully produce the new file until you do."/>-->
                                     <cfg:command name="LocalizeString" parameter="msg.deleteWordFile"/>
                                     <cfg:set variable="msg" plainString="true" expression="%_"/>
                                     <cfg:get expression="replace($msg,'\{0\}',$pdffile)"/>
-                                    <cfg:command name="alert" parameter="%_"/>
+                                    <cfg:command name="confirm" parameter="%_"/>
                                 </cfg:sequence>
                             </cfg:choice>
                             <cfg:set variable="level" expression="number(%0) + 1"/>

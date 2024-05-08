@@ -2259,7 +2259,7 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="ProducePDFViaXeLaTeXPostProcessing">
         <cfg:process>
             <!--            <cfg:shell command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%{R}.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; &quot;%{R}.aux&quot;" platform="Windows"/>-->
-<!--            <cfg:shell
+            <!--            <cfg:shell
                 command="&quot;%{C}%{S}..%{S}batchfiles%{S}DoTeXPDF.bat&quot; &quot;&quot;\&quot;%1.tex\&quot;&quot;&quot; &quot;%{P}%{S}XLingPaperPDFTemp&quot; &quot;%{C}%{S}..%{S}batchfiles%{S}resetvars.bat&quot; %0 &quot;%{P}%{S}XLingPaperPDFTemp%{S}%1.pdf&quot; &quot;%{P}%{S}%{R}.pdf&quot;"
                 platform="Windows"/>-->
             <cfg:shell
@@ -2406,7 +2406,7 @@ What we want is to load IE independently and to do a refresh so it will show the
             <cfg:invoke method="xlingpaper.xxe.TeXMLLikeCharacterConversion.convert"/>
             <!--            <cfg:copy quiet="true" files="TeXML2.xml" to="%{P}%{S}TeXML2.xml"/>-->
             <cfg:transform file="TeXML2.xml" stylesheet="..%{S}transforms%{S}TeXMLLike.xsl" to="%{P}%{S}XLingPaperPDFTemp%{S}%1.tex"/>
-<!--            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>-->
+            <!--            <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 &quot;%1&quot;"/>-->
             <cfg:subProcess name="ProducePDFViaXeLaTeXPostProcessing" parameter="%0 %1"/>
         </cfg:process>
     </cfg:command>
@@ -3423,25 +3423,65 @@ NB actually it associates the stylesheet with the original file, not the new han
     <cfg:command name="SortReferences">
         <cfg:macro>
             <cfg:sequence>
-                <cfg:pass>
-                    <cfg:command name="selectNode" parameter="self[implicitElement] references"/>
-                </cfg:pass>
-                <cfg:fail>
-                    <cfg:command name="selectNode" parameter="parent[implicitElement] backMatter"/>
-                </cfg:fail>
-                <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','Sorted','.','%{E}')"/>
-                <!--<cfg:get expression="$newFileName"/>
-                    <cfg:command name="alert" parameter="%_"/>-->
-                <cfg:get expression="$newFileName"/>
-                <cfg:command name="SortReferencesTransform" parameter="%_"/>
-                <cfg:get expression="$newFileName"/>
-                <cfg:command name="XXE.open" parameter="%_"/>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitElement] references"/>
+                        </cfg:pass>
+                        <cfg:fail>
+                            <cfg:command name="selectNode" parameter="parent[implicitElement] backMatter"/>
+                        </cfg:fail>
+                        <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','Sorted','.','%{E}')"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="TransformForSortReferences" parameter="%_"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="XXE.open" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="LocalizeString" parameter="msg.sortreferences"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                </cfg:choice>
             </cfg:sequence>
         </cfg:macro>
     </cfg:command>
-    <cfg:command name="SortReferencesTransform">
+    <cfg:command name="SortReferencesUnified">
+        <cfg:macro>
+            <cfg:sequence>
+                <cfg:choice>
+                    <cfg:sequence>
+                        <cfg:pass>
+                            <cfg:command name="selectNode" parameter="self[implicitElement] references"/>
+                        </cfg:pass>
+                        <cfg:fail>
+                            <cfg:command name="selectNode" parameter="parent[implicitElement] backMatter"/>
+                        </cfg:fail>
+                        <cfg:set variable="newFileName" expression="concat('%{P}%{S}%{R}','Sorted','.','%{E}')"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="TransformForSortReferencesUnified" parameter="%_"/>
+                        <cfg:get expression="$newFileName"/>
+                        <cfg:command name="XXE.open" parameter="%_"/>
+                    </cfg:sequence>
+                    <cfg:sequence>
+                        <cfg:command name="LocalizeString" parameter="msg.sortreferences"/>
+                        <cfg:command name="alert" parameter="%_"/>
+                    </cfg:sequence>
+                </cfg:choice>
+            </cfg:sequence>
+        </cfg:macro>
+    </cfg:command>
+    <cfg:command name="TransformForSortReferences">
         <cfg:process showProgress="false">
-            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ReferencesSort.xsl" to="%*"/>
+            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ReferencesSort.xsl" to="%*">
+                <cfg:parameter name="useUnifiedStyleSheet">N</cfg:parameter>
+            </cfg:transform>
+        </cfg:process>
+    </cfg:command>
+    <cfg:command name="TransformForSortReferencesUnified">
+        <cfg:process showProgress="false">
+            <cfg:transform cacheStylesheet="true" file="%{D}" stylesheet="../transforms/ReferencesSort.xsl" to="%*">
+                <cfg:parameter name="useUnifiedStyleSheet">Y</cfg:parameter>
+            </cfg:transform>
         </cfg:process>
     </cfg:command>
 </cfg:configuration>

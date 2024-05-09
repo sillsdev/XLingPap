@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->8 May 2024</date
+>9 May 2024</date
 ><version
 contentType="ctVersion5.3"
->2.14.6</version
+>2.15.0</version
 ><version
 contentType="ctVersion7Plus"
->3.14.6</version
+>3.15.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -28169,7 +28169,7 @@ note="nToolMenuExecuteCommand"
 ></endnoteRef
 ></li
 ><li
->In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you).  Note that there is another command called “SortReferencesUnified” available.  This command will sort your references using the Unified style sheet method.</li
+>In the dialog box that comes up, in the “Command” text box, type “So” (it should then fill in “SortReferences” for you). Note that there is another command called “SortReferencesUnified” available. This command will sort your references using the Unified style sheet method.</li
 ><li
 >Press the <object
 type="tKey"
@@ -28210,7 +28210,7 @@ term="iReferencesFindDuplicateAuthors"
 >Sometimes you may inadvertently create two or more <object
 type="tElement"
 >authorRef</object
-> elements with the same author name.  There is a special command you can use to find these.  Do the following:</p
+> elements with the same author name. There is a special command you can use to find these. Do the following:</p
 ><ol
 ><li
 >In <object
@@ -28242,13 +28242,13 @@ type="tInstruction"
 >OK</object
 >.</li
 ><li
->This will then check for duplicate author names.  If it finds any, then it will display a dialog box showing the duplicates.  You can click on the number within square brackets and <object
+>This will then check for duplicate author names. If it finds any, then it will display a dialog box showing the duplicates. You can click on the number within square brackets and <object
 type="tXLingPap"
 ></object
 > will take you to where the duplicate <object
 type="tElement"
 >authorRef</object
-> element is.  If it does not find any duplicates, it will finish without any message.</li
+> element is. If it does not find any duplicates, it will give a message saying so.</li
 ></ol
 ></section2
 ></section1

@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.14.6</span></p>
-      <p align="center">Date: 2024-05-08</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.15.0</span></p>
+      <p align="center">Date: 2024-05-09</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,50 +34,27 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.14.6 8 May 2024
+               <li>3.15.0 9 May 2024
                   <ul>
                      <li>Add the SortReferences command to sort a references master list file.</li>
-                  </ul>
-               </li>
-               <li>3.14.5 19 April 2024
-                  <ul>
+                     <li>Add the FindAnyDuplicateAuthors command to find any duplicate authorRef elements.</li>
                      <li>Enable links in web page output to open in a new tab.</li>
-                  </ul>
-               </li>
-               <li>3.14.4 12 April 2024
-                  <ul>
                      <li>Add bookversion to book and collection reference elements.</li>
                      <li>Allow framedUnit in a figure element.</li>
-                     <li>Fix bug: in a chapters in collection document, the preface style sheet information of the main front matter was always used.</li>
-                  </ul>
-               </li>
-               <li>3.14.3 11 March 2024
-                  <ul>
                      <li>Add numeralFormat attribute to partLayout in publisher style sheet to control numeral formatting of parts.</li>
-                  </ul>
-               </li>
-               <li>3.14.2 6 March 2024
-                  <ul>
                      <li>Enable showing abbreviations as a table in a section1 element and in a chapter element.</li>
                      <li>Add useDigitsForEndnoteNumbering attribute to authorLayout element so one can have footnotes on authors be numbered like other
                         footnotes.
                      </li>
+                     <li>Fix bug: in a chapters in collection document, the preface style sheet information of the main front matter was always used.</li>
                      <li>Fix bug: promoting a section1 element to a chapter would cause a validity error about two attributes being invalid.</li>
+                     <li>Fix typo in section 5.3.15 of the publisher style sheet documentation.</li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
                            <li>Add ability to control the number of PDF bookmark levels to show by adding the bookmarksShowLevel attribute to the contents
                               element.
                            </li>
                            <li>Fix bug: for the non-style sheet output, paragraphs after a numbered table would not be indented properly.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.14.1 19 January 2024
-                  <ul>
-                     <li>Fix typo in section 5.3.15 of the publisher style sheet documentation.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
                            <li>Fix bug: index output could have unneeded blank space at the end of a column or page when an index item had embedded items.</li>
                         </ul>
                      </li>

@@ -3494,6 +3494,8 @@ NB actually it associates the stylesheet with the original file, not the new han
                         <cfg:pass>
                             <cfg:test expression="'%_' = 'allClear'"/>
                         </cfg:pass>
+                        <cfg:command name="LocalizeString" parameter="msg.noduplicateauthors"/>
+                        <cfg:command name="alert" parameter="%_"/>
                     </cfg:sequence>
                     <cfg:sequence>
                         <cfg:command name="LocalizeString" parameter="msg.duplicateauthors"/>

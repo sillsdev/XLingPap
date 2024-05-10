@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2024-05-09</a:date
+>2024-05-10</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,11 +40,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.15.0 9 May 2024<ul
+>3.15.0 10 May 2024<ul
 ><li
 >Add the SortReferences command to sort a references master list file.</li
 ><li
->Add the FindAnyDuplicateAuthors command to find any duplicate authorRef elements.</li
+>Add the FindAnyDuplicateAuthors command to find any duplicate refAuthor elements.</li
 ><li
 >Enable links in web page output to open in a new tab.</li
 ><li

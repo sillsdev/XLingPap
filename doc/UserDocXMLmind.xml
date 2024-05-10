@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->9 May 2024</date
+>10 May 2024</date
 ><version
 contentType="ctVersion5.3"
 >2.15.0</version
@@ -28201,7 +28201,7 @@ id="sFAQFindDiuplicateAuthors"
 ><secTitle
 >Find duplicate <object
 type="tElement"
->authorRef</object
+>refAuthor</object
 > elements</secTitle
 ><p
 ><indexedItem
@@ -28209,7 +28209,7 @@ term="iReferencesFindDuplicateAuthors"
 ></indexedItem
 >Sometimes you may inadvertently create two or more <object
 type="tElement"
->authorRef</object
+>refAuthor</object
 > elements with the same author name. There is a special command you can use to find these. Do the following:</p
 ><ol
 ><li
@@ -28247,7 +28247,7 @@ type="tXLingPap"
 ></object
 > will take you to where the duplicate <object
 type="tElement"
->authorRef</object
+>refAuthor</object
 > element is. If it does not find any duplicates, it will give a message saying so.</li
 ></ol
 ></section2

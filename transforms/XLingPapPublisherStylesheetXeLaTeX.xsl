@@ -4738,6 +4738,9 @@
                                 <xsl:value-of select="@id"/>
                             </tex:parm>
                             <tex:parm>
+                                <!--  use footnotemark/number here for the number;
+                                      handled in DoEndnoteContent
+                                -->
                                 <xsl:call-template name="DoEndnoteContent">
                                     <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
                                     <xsl:with-param name="originalContext" select="$originalContext"/>
@@ -4745,7 +4748,13 @@
                                 </xsl:call-template>
                             </tex:parm>
                         </tex:cmd>
-                    </xsl:when>
+                            <!-- use footnotetext here for the content -->
+                            <xsl:call-template name="DoEndnoteContent">
+                                <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                                <xsl:with-param name="sPrecalculatedNumber" select="$sPrecalculatedNumber"/>
+                            </xsl:call-template>
+                        </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="DoEndnoteContent">
                             <xsl:with-param name="sTeXFootnoteKind" select="$sTeXFootnoteKind"/>
@@ -4815,6 +4824,18 @@
                     </xsl:call-template>
                 </xsl:if>
                 <tex:cmd name="footnotemark">
+                    <xsl:if test="not(ancestor::interlinear-text)">
+                        <tex:opt>
+                            <xsl:call-template name="DoFootnoteNumberInText">
+                                <xsl:with-param name="originalContext" select="$originalContext"/>
+                            </xsl:call-template>
+                        </tex:opt>
+                    </xsl:if>
+                </tex:cmd>
+            </xsl:when>
+            <xsl:when test="$sTeXFootnoteKind='footnote' and $documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+                <tex:cmd name="footnotemark">
+                    <!-- put the mark stuff here -->
                     <xsl:if test="not(ancestor::interlinear-text)">
                         <tex:opt>
                             <xsl:call-template name="DoFootnoteNumberInText">

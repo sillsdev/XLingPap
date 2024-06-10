@@ -17,7 +17,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 >Andy Black</a
 ></a:author
 ><a:date
->2024-05-17</a:date
+>2024-06-10</a:date
 ><a:abstract
 >A way to author and archive linguistic documents using XML.</a:abstract
 ><a:documentation
@@ -40,7 +40,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 ><ul
 xmlns="http://www.w3.org/1999/xhtml"
 ><li
->3.15.1 17 May 2024<ul
+>3.15.1 10 June 2024<ul
+><li
+>Add index entry for lines to include of an interlinear text to the user documentation.</li
 ><li
 >For the default way of producing PDF (via XeLaTeX):<ul
 ><li

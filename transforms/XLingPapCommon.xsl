@@ -986,7 +986,7 @@
     -->
     <xsl:template name="DoRefAuthors">
         <xsl:param name="refAuthors" select="//refAuthor[not(ancestor::chapterInCollection/backMatter/references)]"/>
-        <xsl:param name="citations" select="//citation[not(ancestor::chapterInCollection/backMatter/references) and not(ancestor::abbrDefinition)]"/>
+        <xsl:param name="citations" select="//citation[not(ancestor::chapterInCollection/backMatter/references) and not(ancestor::abbrDefinition) and not(ancestor::referencedInterlinearText)]"/>
         <xsl:variable name="directlyCitedAuthors"
             select="$refAuthors[refWork[@id=$citations[not(ancestor::comment) and not(ancestor::referencedInterlinearText) and not(ancestor::glossaryTerm) and not(ancestor::abbrDefinition)][not(ancestor::refWork) or ancestor::annotation[@id=//annotationRef/@annotation] or ancestor::refWork[@id=$citations[not(ancestor::refWork)]/@ref]]/@ref]]"/>
         <xsl:variable name="impliedAuthors" select="$refWorks[@id=saxon:node-set($collOrProcVolumesToInclude)/refWork/@id]/parent::refAuthor"/>

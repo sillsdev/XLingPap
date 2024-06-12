@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->10 June 2024</date
+>12 June 2024</date
 ><version
 contentType="ctVersion5.3"
 >2.15.1</version
@@ -20464,12 +20464,15 @@ src="resources/ReferencedInterlinearTexts2.png"
 ></chart
 ></example
 ><p
->Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the (relative) location of the file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output.</p
+>Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the location of the <object
+type="tXLingPap"
+></object
+> file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output.  This location can be relative to where the current document is.  For example, if the file is named “MyText.xml” and is in a subdirectory called “Texts,” use “Texts/MyText” as the url.  If the file is located on the Internet, then use its full URL value minus the final file extension. An example might be “https://mexico.sil.org/sites/mexico/files/zorra_atrapada” for a file on the Internet.</p
 ><p
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->. Note, however, that the interlinear text itself will not appear in the output.</p
+>. Note, however, that the interlinear text itself will not appear in the output.  The output will, however, have a source reference for the line in the interlinear and this reference will be a hyperlink to the line in the text file located via the value you gave in the “url” field.  When you click on this hyperlink, it will open up the file and show the line of the text.</p
 ><p
 >While using the <object
 type="tXMLmindXMLEditor"

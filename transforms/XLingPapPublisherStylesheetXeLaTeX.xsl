@@ -4545,6 +4545,9 @@
             <xsl:call-template name="OutputContentsPageHeaderLabel">
                 <xsl:with-param name="sLabel" select="$sLabel"/>
             </xsl:call-template>
+            <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline!='yes'">
+                <tex:cmd name="par"/>
+            </xsl:if>
         </xsl:if>
         <xsl:choose>
             <xsl:when test="$volumes and $publishingInfo/@showVolumeInContents='yes'">

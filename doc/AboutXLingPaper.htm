@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.15.2</span></p>
-      <p align="center">Date: 2024-07-01</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.15.3</span></p>
+      <p align="center">Date: 2024-09-16</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,7 +34,18 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.156.2 1 July 2024
+               <li>3.15.3 16 September 2024
+                  <ul>
+                     <li>For the default way of producing PDF (via XeLaTeX):
+                        <ul>
+                           <li>Fix bug: when an endnote was in a framedUnit and @linkNumberToText was set to 'yes,' the text used an Arabic numeral while
+                              the footnote proper used a lowercase letter.
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>3.15.2 1 July 2024
                   <ul>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>

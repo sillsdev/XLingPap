@@ -4735,7 +4735,7 @@
                     <xsl:call-template name="InsertCommaBetweenConsecutiveEndnotesUsingSuperscript"/>
                 </xsl:if>
                 <xsl:choose>
-                        <xsl:when test="$documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+                        <xsl:when test="$documentLayoutInfo/footnoteLayout/@linkNumberToText='yes' and not(ancestor::framedUnit)">
                         <tex:cmd name="hyperlink">
                             <tex:parm>
                                 <xsl:value-of select="@id"/>
@@ -4836,7 +4836,7 @@
                     </xsl:if>
                 </tex:cmd>
             </xsl:when>
-            <xsl:when test="$sTeXFootnoteKind='footnote' and $documentLayoutInfo/footnoteLayout/@linkNumberToText='yes'">
+            <xsl:when test="$sTeXFootnoteKind='footnote' and $documentLayoutInfo/footnoteLayout/@linkNumberToText='yes' and not(ancestor::framedUnit)">
                 <tex:cmd name="footnotemark">
                     <!-- put the mark stuff here -->
                     <xsl:if test="not(ancestor::interlinear-text)">

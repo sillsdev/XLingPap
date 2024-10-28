@@ -974,6 +974,7 @@
 <!ELEMENT endnote (%chunk; | abbreviationsShownHere | iso639-3codesShownHere)*>
 <!ATTLIST endnote
     id ID #REQUIRED
+    symbolOverride ( none | asterisk | dagger | doubledagger | sectionsign | pilcrowsign | fullstop | twoasterisks | twodaggers | twodoubledaggers  ) "none"
 >
 <!ELEMENT endnoteRef EMPTY>
 <!ATTLIST endnoteRef

@@ -1114,6 +1114,48 @@
         </xsl:for-each>
     </xsl:template>
     <!--
+        GetAuthorFootnoteNumber
+    -->
+    <xsl:template name="GetAuthorFootnoteNumber">
+        <xsl:param name="iTitleEndnote" select="0"/>
+        <xsl:choose>
+            <xsl:when test="@symbolOverride!='none'">
+                <xsl:choose>
+                    <xsl:when test="@symbolOverride='asterisk'">
+                        <xsl:value-of select="1"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='dagger'">
+                        <xsl:value-of select="2"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='doubledagger'">
+                        <xsl:value-of select="3"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='sectionsign'">
+                        <xsl:value-of select="4"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='pilcrowsign'">
+                        <xsl:value-of select="5"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='fullstop'">
+                        <xsl:value-of select="6"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='twoasterisks'">
+                        <xsl:value-of select="7"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='twodaggers'">
+                        <xsl:value-of select="8"/>
+                    </xsl:when>
+                    <xsl:when test="@symbolOverride='twodoubledaggers'">
+                        <xsl:value-of select="9"/>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="count(parent::author/preceding-sibling::author[endnote]) + $iTitleEndnote + 1"/>
+            </xsl:otherwise>
+         </xsl:choose>
+    </xsl:template>
+    <!--
         GetBorderAroundImageSeparation
     -->
     <xsl:template name="GetBorderAroundImageSeparation">

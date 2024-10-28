@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->12 June 2024</date
+>28 October 2024</date
 ><version
 contentType="ctVersion5.3"
->2.15.1</version
+>2.15.3</version
 ><version
 contentType="ctVersion7Plus"
->3.15.1</version
+>3.15.3</version
 ><contents
 showLevel="4"
 ></contents
@@ -1502,6 +1502,115 @@ type="tAttribute"
 href="http://about.orcid.org/"
 >http://about.orcid.org/</link
 >.</p
+><p
+>You can insert an <object
+type="tElement"
+>endnote</object
+> element within the <object
+type="tElement"
+>author</object
+> element.  By default, the endnote/footnote symbol used will be what is shown in example <exampleRef
+letter="xEndnoteInAuthorSymbol"
+num="xEndnoteInAuthorSymbol"
+></exampleRef
+>.  Note that the symbol shown depends on how many <object
+type="tElement"
+>author</object
+> elements with an <object
+type="tElement"
+>endnote</object
+> element precede it.</p
+><example
+num="xEndnoteInAuthorSymbol"
+><table
+border="1"
+><tr
+><th
+>Number of preceding <object
+type="tElement"
+>author</object
+> elements with an <object
+type="tElement"
+>endnote</object
+> element</th
+><th
+>Symbol shown</th
+></tr
+><tr
+><td
+>0</td
+><td
+>* (asterisk)</td
+></tr
+><tr
+><td
+>1</td
+><td
+>† (dagger)</td
+></tr
+><tr
+><td
+>2</td
+><td
+>‡ (double dagger)</td
+></tr
+><tr
+><td
+>3</td
+><td
+>§ (section sign)</td
+></tr
+><tr
+><td
+>4</td
+><td
+>¶ (pilcrow sign)</td
+></tr
+><tr
+><td
+>5</td
+><td
+>ǁ (full stop)<endnote
+id="nFullStopSymbol"
+><p
+>This is used for the default way of producing PDF.  Other output methods will use a raised period.</p
+></endnote
+></td
+></tr
+><tr
+><td
+>6</td
+><td
+>** (two asterisks)</td
+></tr
+><tr
+><td
+>7</td
+><td
+>†† (two daggers)</td
+></tr
+><tr
+><td
+>8</td
+><td
+>‡‡ (two double daggers)</td
+></tr
+><tr
+><td
+>9 and higher</td
+><td
+>uses the same symbol as for 0, 1, etc.</td
+></tr
+></table
+></example
+><p
+>If you need a different symbol to show, you can set the <object
+type="tAttribute"
+>symbolOverride</object
+> attribute of the <object
+type="tElement"
+>endnote</object
+> element to be the symbol you need.</p
 ></section2
 ><section2
 id="sFMAuthorContactInfo"
@@ -20467,12 +20576,12 @@ src="resources/ReferencedInterlinearTexts2.png"
 >Click on "Interlinear text:" and do a paste. This will link in the interlinear text from your other document. Now click on where it says "url" and type in the location of the <object
 type="tXLingPap"
 ></object
-> file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output.  This location can be relative to where the current document is.  For example, if the file is named “MyText.xml” and is in a subdirectory called “Texts,” use “Texts/MyText” as the url.  If the file is located on the Internet, then use its full URL value minus the final file extension. An example might be “https://mexico.sil.org/sites/mexico/files/zorra_atrapada” for a file on the Internet.</p
+> file containing the interlinear text. Do not include any file extension. The extension will be supplied automatically by the output. This location can be relative to where the current document is. For example, if the file is named “MyText.xml” and is in a subdirectory called “Texts,” use “Texts/MyText” as the url. If the file is located on the Internet, then use its full URL value minus the final file extension. An example might be “https://mexico.sil.org/sites/mexico/files/zorra_atrapada” for a file on the Internet.</p
 ><p
 >You can now refer to any interlinear within the interlinear text by following the steps outlined in section <sectionRef
 sec="sExInterlinearSourceIncluded"
 ></sectionRef
->. Note, however, that the interlinear text itself will not appear in the output.  The output will, however, have a source reference for the line in the interlinear and this reference will be a hyperlink to the line in the text file located via the value you gave in the “url” field.  When you click on this hyperlink, it will open up the file and show the line of the text.</p
+>. Note, however, that the interlinear text itself will not appear in the output. The output will, however, have a source reference for the line in the interlinear and this reference will be a hyperlink to the line in the text file located via the value you gave in the “url” field. When you click on this hyperlink, it will open up the file and show the line of the text.</p
 ><p
 >While using the <object
 type="tXMLmindXMLEditor"

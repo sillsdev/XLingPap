@@ -4534,6 +4534,7 @@
                 <tex:parm>.3em</tex:parm>
             </tex:cmd>
         </xsl:if>
+        <xsl:call-template name="HandleEndnotesTextInCaptionTablenumberedImg"/>
     </xsl:template>
     <!--  
         HandleFreeLanguageFontInfo

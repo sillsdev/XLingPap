@@ -7676,7 +7676,7 @@
         </xsl:if>
     </xsl:template>
     <!--  
-        HandleEndnoteTextInExampleInTable
+        HandleEndnotesTextInCaptionAfterTablenumbered
     -->
     <xsl:template name="HandleEndnotesTextInCaptionAfterTablenumbered">
         <xsl:if test="not($backMatterLayoutInfo/useEndNotesLayout)">
@@ -7693,6 +7693,24 @@
                         <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne + $iEndnotesInTable"/>
                     </xsl:apply-templates>
                 </xsl:for-each>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    <!--  
+        HandleEndnotesTextInCaptionTablenumberedImg
+    -->
+    <xsl:template name="HandleEndnotesTextInCaptionTablenumberedImg">
+        <xsl:if test="./caption[descendant-or-self::endnote] and ./img">
+            <xsl:for-each select="descendant-or-self::endnote">
+                <xsl:variable name="sFootnoteNumberOffOne">
+                    <xsl:call-template name="CalculateFootnoteNumber">
+                        <xsl:with-param name="bInTableNumbered" select="'Y'"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="sTeXFootnoteKind" select="'footnotetext'"/>
+                    <xsl:with-param name="sPrecalculatedNumber" select="$sFootnoteNumberOffOne"/>
+                </xsl:apply-templates>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>

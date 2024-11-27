@@ -20,8 +20,8 @@
    <body>
       <h1 align="center"><img src="resources/XLingPaper.ico" alt="icon">&nbsp;&nbsp;XLingPaper&nbsp;&nbsp;<img src="resources/XLingPaper.ico" alt="icon"></h1>
       <h3 align="center">for use with the XMLmind XML Editor</h3>
-      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.15.3</span></p>
-      <p align="center">Date: 2024-10-29</p>
+      <p align="center">Version: <span style="font-size:larger; font-weight:bold">3.16.0</span></p>
+      <p align="center">Date: 2024-11-27</p>
       <p align="center">A configuration for creating XLingPaper documents.</p>
       <p align="center" style="font-style:italic;">A way to author and archive linguistic documents using XML.</p>
       <hr>
@@ -34,37 +34,21 @@
             <hr xmlns="http://www.w3.org/1999/xhtml"></hr>
             <p xmlns="http://www.w3.org/1999/xhtml"><b>Revision History</b></p>
             <ul xmlns="http://www.w3.org/1999/xhtml">
-               <li>3.15.3 29 October 2024
+               <li>3.16.0 27 November 2024
                   <ul>
                      <li>Add ability to control which footnote symbols are used for authors using the new symbolOverride attribute on endnote elements.</li>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when an endnote was in a framedUnit and @linkNumberToText was set to 'yes,' the text used an Arabic numeral while
-                              the footnote proper used a lowercase letter.
-                           </li>
-                           <li>Fix bug: when a caption in a tablenumbered using an img element has a footnote, the footnote text did not show.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.15.2 1 July 2024
-                  <ul>
-                     <li>For the default way of producing PDF (via XeLaTeX):
-                        <ul>
-                           <li>Fix bug: when showing the Page label in contents, the label could overwrite the page number of the first line of the contents.</li>
-                        </ul>
-                     </li>
-                  </ul>
-               </li>
-               <li>3.15.1 12 June 2024
-                  <ul>
-                     <li>Add index entry for lines to include of an interlinear text to the user documentation.</li>
+                     <li>Add index entry for "lines to include of an interlinear text" to the user documentation.</li>
                      <li>Improve explanation of the url attribute of a referencedInterlinearText element in the user documentation.</li>
                      <li>Fix bug: When including referenced texts where one had an endnote with a citation to a refWork by the same author as a cited
                         work in the main document, that refWork would incorrectly appear in the output even if it was never cited elsewhere.
                      </li>
                      <li>For the default way of producing PDF (via XeLaTeX):
                         <ul>
+                           <li>Fix bug: when an endnote was in a framedUnit and @linkNumberToText was set to 'yes,' the text used an Arabic numeral while
+                              the footnote proper used a lowercase letter.
+                           </li>
+                           <li>Fix bug: when a caption in a tablenumbered using an img element has a footnote, the footnote text did not show.</li>
+                           <li>Fix bug: when showing the Page label in contents, the label could overwrite the page number of the first line of the contents.</li>
                            <li>Fix bug: when using linkNumberToText for footnotes, PDF would fail to be produced if there were two p elements in the footnote
                               body.
                            </li>

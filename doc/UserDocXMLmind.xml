@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->28 October 2024</date
+>27 November 2024</date
 ><version
 contentType="ctVersion5.3"
->2.15.3</version
+>2.16.0</version
 ><version
 contentType="ctVersion7Plus"
->3.15.3</version
+>3.16.0</version
 ><contents
 showLevel="4"
 ></contents
@@ -1509,11 +1509,11 @@ type="tElement"
 > element within the <object
 type="tElement"
 >author</object
-> element.  By default, the endnote/footnote symbol used will be what is shown in example <exampleRef
+> element. By default, the endnote/footnote symbol used will be what is shown in example <exampleRef
 letter="xEndnoteInAuthorSymbol"
 num="xEndnoteInAuthorSymbol"
 ></exampleRef
->.  Note that the symbol shown depends on how many <object
+>. Note that the symbol shown depends on how many <object
 type="tElement"
 >author</object
 > elements with an <object
@@ -1573,7 +1573,7 @@ type="tElement"
 >ǁ (full stop)<endnote
 id="nFullStopSymbol"
 ><p
->This is used for the default way of producing PDF.  Other output methods will use a raised period.</p
+>This is used for the default way of producing PDF. Other output methods will use a raised period.</p
 ></endnote
 ></td
 ></tr

@@ -594,6 +594,27 @@ li.lower-roman {
         </xsl:call-template>
     </xsl:template>
     <!-- 
+        listOfFiguresHangingIndent
+    -->
+    <xsl:template match="figureLayout">
+        <xsl:variable name="hangingIndentSize" select="normalize-space(@listOfFiguresHangingIndent)"/>
+            <xsl:text>.listOfFigures {
+</xsl:text>
+        <xsl:if test="string-length($hangingIndentSize) &gt; 0">
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+            </xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates select="*"/>
+    </xsl:template>
+    <!-- 
         figureNumberLayout
     -->
     <xsl:template match="figureNumberLayout">
@@ -1398,6 +1419,27 @@ li.lower-roman {
         <xsl:call-template name="OutputTitleFormatInfo">
             <xsl:with-param name="name" select="'tablenumberedLabelLayout'"/>
         </xsl:call-template>
+    </xsl:template>
+    <!-- 
+        listOfTablesHangingIndent
+    -->
+    <xsl:template match="tablenumberedLayout">
+        <xsl:variable name="hangingIndentSize" select="normalize-space(@listOfTablesHangingIndent)"/>
+            <xsl:text>.listOfTables {
+</xsl:text>
+        <xsl:if test="string-length($hangingIndentSize) &gt; 0">
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$hangingIndentSize"/>
+            <xsl:text>;
+</xsl:text>
+        </xsl:if>
+        <xsl:text>}
+</xsl:text>
+        <xsl:apply-templates select="*"/>
     </xsl:template>
     <!-- 
         tablenumberedNumberLayout

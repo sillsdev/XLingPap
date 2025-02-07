@@ -113,7 +113,7 @@
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="sListInitialHorizontalOffset">
         <xsl:choose>
-            <xsl:when test="$contentLayoutInfo/listLayout">
+            <xsl:when test="$contentLayoutInfo/listLayout and string-length(normalize-space($contentLayoutInfo/listLayout/@indent-before)) &gt; 0">
                 <xsl:value-of select="$contentLayoutInfo/listLayout/@indent-before"/>
             </xsl:when>
             <xsl:otherwise>
@@ -7961,6 +7961,7 @@ not using
         OutputListOfFiguresTOCLine
     -->
     <xsl:template name="OutputListOfFiguresTOCLine">
+        <xsl:variable name="hanging" select="normalize-space($contentLayoutInfo/figureLayout/@listOfFiguresHangingIndent)"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -7986,12 +7987,14 @@ not using
             </xsl:with-param>
             <xsl:with-param name="sIndent" select="'1em'"/>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
+            <xsl:with-param name="hangindent" select="$hanging"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
         OutputListOfTablenumberedTOCLine
     -->
     <xsl:template name="OutputListOfTablenumberedTOCLine">
+        <xsl:variable name="hanging" select="normalize-space($contentLayoutInfo/tablenumberedLayout/@listOfTablesHangingIndent)"/>
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -8017,6 +8020,7 @@ not using
             </xsl:with-param>
             <xsl:with-param name="sIndent" select="'1em'"/>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
+            <xsl:with-param name="hangindent" select="$hanging"/>
         </xsl:call-template>
     </xsl:template>
     <!--  

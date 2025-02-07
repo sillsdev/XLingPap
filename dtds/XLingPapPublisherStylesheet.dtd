@@ -757,6 +757,7 @@ Content Layout
         align (left | center | right | useAlignOfFigure) "useAlignOfFigure"
         captionLocation (before|after) "after"
         spaceBetweenFigureAndCaption CDATA #IMPLIED
+        listOfFiguresHangingIndent CDATA #IMPLIED
         listOfFiguresUsesFigureAndPageHeaders (no | yes) "no"
         listOfFiguresUsesFigureHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"
@@ -796,6 +797,7 @@ Content Layout
         align (left | center | right | useAlignOfTable) "useAlignOfTable"
         captionLocation (before|after) "after"
         spaceBetweenTableAndCaption CDATA #IMPLIED
+        listOfTablesHangingIndent CDATA #IMPLIED
         listOfTablesUsesTableAndPageHeaders (no | yes) "no"
         listOfTablesUsesTableHeader (no | yes) "yes"
         useSingleSpacingForLongCaptions (no | yes) "no"

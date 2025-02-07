@@ -232,6 +232,7 @@
         <xsl:param name="fUseHalfSpacing"/>
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
+        <xsl:param name="hangingIndent" select="'0pt'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
@@ -251,6 +252,8 @@
         <xsl:call-template name="DoInternalHyperlinkBegin">
             <xsl:with-param name="sName" select="$sLink"/>
         </xsl:call-template>
+        <xsl:variable name="stocline">
+        </xsl:variable>
         <tex:cmd name="XLingPaperdottedtocline" nl2="1">
             <tex:parm>
                 <xsl:copy-of select="$sIndent"/>
@@ -273,6 +276,9 @@
                         <xsl:with-param name="sLink" select="$sLink"/>
                     </xsl:call-template>
                 </xsl:if>
+            </tex:parm>
+            <tex:parm>
+                <xsl:value-of select="$hangingIndent"/>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>

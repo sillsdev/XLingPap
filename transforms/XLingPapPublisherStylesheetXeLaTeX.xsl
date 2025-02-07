@@ -2653,7 +2653,17 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:with-param>
-            </xsl:call-template>
+                <xsl:with-param name="hangingIndent">
+                    <xsl:choose>
+                        <xsl:when test="string-length($documentLayoutInfo/figureLayout/@listOfFiguresHangingIndent) &gt; 0">
+                            <xsl:value-of select="$documentLayoutInfo/figureLayout/@listOfFiguresHangingIndent"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                 </xsl:call-template>
             <xsl:if test="$contentLayoutInfo/figureLayout/@useSingleSpacingForLongCaptions='yes' and $sLineSpacing and $sLineSpacing!='single' and $lineSpacing/@singlespacecontents!='yes'">
                 <tex:spec cat="eg"/>
             </xsl:if>
@@ -2853,6 +2863,16 @@
                                     <tex:cmd name="XLingPapertripledigitlistofwidth"/>
                                 </xsl:otherwise>
                             </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>0pt</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:with-param>
+                <xsl:with-param name="hangingIndent">
+                    <xsl:choose>
+                        <xsl:when test="string-length($documentLayoutInfo/tablenumberedLayout/@listOfTablesHangingIndent) &gt; 0">
+                            <xsl:value-of select="$documentLayoutInfo/tablenumberedLayout/@listOfTablesHangingIndent"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>0pt</xsl:text>

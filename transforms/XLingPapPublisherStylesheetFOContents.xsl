@@ -166,6 +166,7 @@
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:param name="fInListOfItems" select="'no'"/>
+        <xsl:param name="hangindent" select="'0pt'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>
@@ -238,6 +239,15 @@
             <xsl:if test="$contentsLayoutToUse/@singlespaceeachcontentline='yes'">
                 <xsl:attribute name="line-height">
                     <xsl:value-of select="$sSinglespacingLineHeight"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="string-length($hangindent) &gt; 0 and $hangindent!='0pt'">
+                <xsl:attribute name="start-indent">
+                    <xsl:value-of select="$hangindent"/>
+                </xsl:attribute>
+                <xsl:attribute name="text-indent">
+                    <xsl:text>-</xsl:text>
+                    <xsl:value-of select="$hangindent"/>
                 </xsl:attribute>
             </xsl:if>
             <fo:basic-link internal-destination="{$sLink}">

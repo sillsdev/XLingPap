@@ -5708,6 +5708,7 @@
         OutputListOfFiguresTOCLine
     -->
     <xsl:template name="OutputListOfFiguresTOCLine">
+        <div class="listOfFigures">
         <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
@@ -5743,12 +5744,14 @@
             </xsl:with-param>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
         </xsl:call-template>
+        </div>
     </xsl:template>
     <!--  
         OutputListOfTablenumberedTOCLine
     -->
     <xsl:template name="OutputListOfTablenumberedTOCLine">
-        <xsl:call-template name="OutputTOCLine">
+        <div class="listOfTables">
+            <xsl:call-template name="OutputTOCLine">
             <xsl:with-param name="sLink" select="@id"/>
             <xsl:with-param name="sLabel">
                 <xsl:choose>
@@ -5782,7 +5785,8 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
-        </xsl:call-template>
+            </xsl:call-template>
+            </div>
     </xsl:template>
     <!--  
         OutputListProper

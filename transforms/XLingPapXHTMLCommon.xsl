@@ -438,6 +438,11 @@
             <xsl:otherwise>
                 <xsl:element name="img">
                     <xsl:call-template name="OutputCssSpecial"/>
+                    <xsl:if test="string-length(@alt) &gt; 0">
+                        <xsl:attribute name="alt">
+                            <xsl:value-of select="@alt"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="src">
                         <xsl:value-of select="@src"/>
                     </xsl:attribute>
@@ -1454,6 +1459,7 @@
     -->
     <xsl:template name="DoImgDescription">
         <xsl:param name="sDescription"/>
+        <xsl:if test="string-length(normalize-space(@alt))=0">
         <xsl:attribute name="alt">
             <xsl:choose>
                 <xsl:when test="string-length($sDescription) &gt; 0">
@@ -1465,6 +1471,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
+        </xsl:if>
     </xsl:template>
     <!--  
         DoInterlinearLineGroup

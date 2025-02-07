@@ -5687,6 +5687,7 @@
         <xsl:param name="sSpaceBefore" select="'0'"/>
         <xsl:param name="sIndent" select="'0pt'"/>
         <xsl:param name="sNumWidth" select="'0pt'"/>
+        <xsl:param name="hangingIndent" select="'0pt'"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">
                 <tex:parm>
@@ -5722,6 +5723,9 @@
                     </xsl:when>
                     <xsl:otherwise>??</xsl:otherwise>
                 </xsl:choose>
+            </tex:parm>
+            <tex:parm>
+                <xsl:value-of select="$hangingIndent"/>
             </tex:parm>
         </tex:cmd>
         <xsl:call-template name="DoInternalHyperlinkEnd"/>

@@ -13422,7 +13422,7 @@ What might go in a TeX package file
             <tex:parm>
                 <tex:cmd name="XLingPaperdottedtocline" gr="0" nl2="0"/>
             </tex:parm>
-            <tex:opt>4</tex:opt>
+            <tex:opt>5</tex:opt>
             <tex:parm>
                 <xsl:if test="contains($sXeLaTeXVersion,'2020')">
                     <!-- following vspace* command needed for TeX Live 2020 hyperlink command; not sure why  -->
@@ -13473,6 +13473,9 @@ What might go in a TeX package file
                     <tex:cmd name="hskip" gr="0" nl2="0"/>
                     <xsl:text>-</xsl:text>
                     <tex:cmd name="leftskip" gr="0" nl2="0"/>
+                    <tex:cmd name="hangindent" gr="0" nl2="0"/>
+                    <tex:spec cat="parm"/>
+                    <xsl:text>5</xsl:text>
                     <tex:spec cat="bg"/>
                     <tex:spec cat="parm"/>
                     <xsl:text>3</xsl:text>

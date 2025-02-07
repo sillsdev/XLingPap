@@ -2708,6 +2708,11 @@
             <xsl:otherwise>
                 <xsl:element name="img">
                     <xsl:call-template name="OutputCssSpecial"/>
+                    <xsl:if test="string-length(@alt) &gt; 0">
+                        <xsl:attribute name="alt">
+                            <xsl:value-of select="@alt"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:attribute name="src">
                         <xsl:value-of select="@src"/>
                     </xsl:attribute>

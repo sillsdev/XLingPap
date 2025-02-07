@@ -861,6 +861,7 @@
 >
 <!ELEMENT img EMPTY>
 <!ATTLIST img
+    alt CDATA #IMPLIED
     src CDATA #REQUIRED
     description CDATA #IMPLIED
     width CDATA #IMPLIED

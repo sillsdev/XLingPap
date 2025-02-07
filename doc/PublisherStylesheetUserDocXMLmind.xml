@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->27 November 2024</date
+>7 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.46.0</version
+>2.46.1</version
 ><version
 contentType="ctVersion7Plus"
->3.16.0</version
+>3.16.1</version
 ><contents
 showLevel="6"
 ></contents
@@ -12314,6 +12314,52 @@ type="tAttrValue"
 ><langData
 lang="lEng"
 > <indexedItem
+term="iFigureHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>listOfFiguresHangingIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfFiguresUsesFigureAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>no</object
+>. It determines the hanging indent to use for figure captions in the automatically generated list of figures.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>2.5em</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>4em</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
 term="iFigureListHasHeading"
 ></indexedItem
 ><object
@@ -13398,6 +13444,52 @@ type="tAttrValue"
 ></td
 ><td
 >Yes</td
+></tr
+><tr
+><td
+><langData
+lang="lEng"
+> <indexedItem
+term="iTableNumberedHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>listOfTablesHangingIndent</object
+> </langData
+></td
+><td
+><langData
+lang="lEng"
+>(user control)</langData
+></td
+><td
+>This is only used when the <object
+type="tAttribute"
+>listOfTablesUsesTableAndPageHeaders</object
+> attribute is set to <object
+type="tAttrValue"
+>no</object
+>. It determines the hanging indent to use for table captions in the automatically generated list of tables.</td
+><td
+><table
+><tr
+><td
+><object
+type="tAttrValue"
+>2.5em</object
+></td
+></tr
+><tr
+><td
+><object
+type="tAttrValue"
+>4em</object
+></td
+></tr
+></table
+></td
+><td
+>No</td
 ></tr
 ><tr
 ><td
@@ -22424,6 +22516,11 @@ id="iFigureFormatOfNumber"
 >Format of figure number</term
 ></indexTerm
 ><indexTerm
+id="iFigureHangingIndent"
+><term
+>Hanging indent in list of figures</term
+></indexTerm
+><indexTerm
 id="iFigureLabel"
 ><term
 >Label for figures</term
@@ -23710,6 +23807,11 @@ id="iTableNumberedCaption"
 id="iTableNumberedFormatOfNumber"
 ><term
 >Format of the number of a numbered table</term
+></indexTerm
+><indexTerm
+id="iTableNumberedHangingIndent"
+><term
+>Hanging indent in list of tables</term
 ></indexTerm
 ><indexTerm
 id="iTableNumberedListHasHeading"

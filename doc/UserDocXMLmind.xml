@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->27 November 2024</date
+>7 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.16.0</version
+>2.16.1</version
 ><version
 contentType="ctVersion7Plus"
->3.16.0</version
+>3.16.1</version
 ><contents
 showLevel="4"
 ></contents
@@ -15733,6 +15733,14 @@ type="tKey"
 type="tXMLmindXMLEditor"
 ></object
 > itself.</p
+><p
+><indexedItem
+term="iAlt"
+></indexedItem
+>In addition, you can set the <object
+type="tAttribute"
+>alt</object
+> attribute to a value which an audio file reader can use (for web page output).</p
 ><p
 >For example, if the image is in a file called ParseC.gif, then if we key things as shown in <exampleRef
 num="xSampleChartGif"
@@ -38059,6 +38067,11 @@ id="iImageFiles"
 ><term
 >Image files</term
 ><indexTerms
+><indexTerm
+id="iAlt"
+><term
+>Alternate description</term
+></indexTerm
 ><indexTerm
 id="iBorderAroundGraphic"
 ><term

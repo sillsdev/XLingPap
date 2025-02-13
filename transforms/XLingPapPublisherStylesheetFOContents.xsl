@@ -166,7 +166,7 @@
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
         <xsl:param name="fInListOfItems" select="'no'"/>
-        <xsl:param name="hangindent" select="'0pt'"/>
+        <xsl:param name="hangindent" select="$tocHangingIndent"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <!-- insert a new line so we don't get everything all on one line -->
         <xsl:text>&#xa;</xsl:text>

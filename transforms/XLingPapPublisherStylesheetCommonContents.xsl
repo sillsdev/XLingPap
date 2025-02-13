@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon">
+    <xsl:variable name="tocHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@hangingindent)"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!--
         abstract  (contents)
     -->

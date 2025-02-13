@@ -120,6 +120,12 @@
     </xsl:variable>
     <xsl:variable name="iAbbreviationCount" select="count(//abbrRef)"/>
     <xsl:variable name="bEndnoteRefIsDirectLinkToEndnote" select="'Y'"/>
+    <xsl:variable name="tocHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@hangingindent)"/>
+           <xsl:if test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:if>
+    </xsl:variable>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -496,6 +502,20 @@ li.lower-roman {
         <xsl:text>
 }
 </xsl:text>
+        </xsl:if>
+        <xsl:if test="string-length($tocHangingIndent) &gt; 0">
+            <xsl:text>.tocHangingIndent {
+            </xsl:text>
+            <xsl:text>        text-indent:-</xsl:text>
+            <xsl:value-of select="$tocHangingIndent"/>
+            <xsl:text>;
+            </xsl:text>
+            <xsl:text>        padding-left:</xsl:text>
+            <xsl:value-of select="$tocHangingIndent"/>
+            <xsl:text>;
+            </xsl:text>
+            <xsl:text>}
+            </xsl:text>
         </xsl:if>
     </xsl:template>
     <!--
@@ -1857,6 +1877,7 @@ li.lower-roman {
     <xsl:template match="@captionLocation"/>
     <xsl:template match="@chapterlabel"/>
     <xsl:template match="@chapterlineindent"/>
+    <xsl:template match="@hangingindent"/>
     <xsl:template match="@contentBetweenLabelAndNumber"/>
     <xsl:template match="@dateIndentAuthorOverDateStyle"/>
     <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
@@ -2216,5 +2237,5 @@ li.lower-roman {
         TRANSFORMS TO INCLUDE
         =========================================================== -->
     <xsl:include href="XLingPapPublisherStylesheetXHTMLCSSContents.xsl"/>
-    <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
+        <xsl:include href="XLingPapPublisherStylesheetXHTMLCommon.xsl"/>
 </xsl:stylesheet>

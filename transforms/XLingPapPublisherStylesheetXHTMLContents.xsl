@@ -135,6 +135,7 @@
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:param name="fInListOfItems" select="'no'"/>
+        <xsl:param name="fIgnoreHangingIndent" select="'N'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <div>
@@ -166,6 +167,11 @@
             </div>
         </xsl:if>
         <div>
+            <xsl:if test="$fIgnoreHangingIndent='N' and string-length($tocHangingIndent) &gt; 0 and $tocHangingIndent != '0pt'">
+                <xsl:attribute name="class">
+                    <xsl:text>tocHangingIndent</xsl:text>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="$sIndent!='0' and $sIndent!='0pt'">
                     <xsl:attribute name="style">

@@ -5743,6 +5743,7 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
+            <xsl:with-param name="fIgnoreHangingIndent" select="'Y'"/>
         </xsl:call-template>
         </div>
     </xsl:template>
@@ -5785,6 +5786,7 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
+                <xsl:with-param name="fIgnoreHangingIndent" select="'Y'"/>
             </xsl:call-template>
             </div>
     </xsl:template>

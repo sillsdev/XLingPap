@@ -232,7 +232,7 @@
         <xsl:param name="fUseHalfSpacing"/>
         <xsl:param name="text-transform"/>
         <xsl:param name="contentsLayoutToUse" select="saxon:node-set($contentsLayout)/contentsLayout"/>
-        <xsl:param name="hangingIndent" select="'0pt'"/>
+        <xsl:param name="hangingIndent" select="$tocHangingIndent"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="number($sSpaceBefore)>0">
             <tex:cmd name="vspace">

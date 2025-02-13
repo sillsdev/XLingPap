@@ -479,6 +479,7 @@ Front MatterLayout
      usechapterlabelbeforechapters (yes | no) 'no'
      chapterlabel CDATA #IMPLIED
      chapterlineindent CDATA #IMPLIED
+     hangingindent CDATA #IMPLIED
      singlespaceeachcontentline (yes | no) 'no'
      useappendixlabelbeforeappendixletter (yes | no) 'no'
      useperiodafterappendixletter (yes | no) 'no'

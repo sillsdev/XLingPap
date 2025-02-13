@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->7 February 2025</date
+>13 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.46.1</version
+>2.46.2</version
 ><version
 contentType="ctVersion7Plus"
->3.16.1</version
+>3.16.2</version
 ><contents
 showLevel="6"
 ></contents
@@ -2768,6 +2768,22 @@ type="tAttribute"
 type="tAttrValue"
 >yes</object
 >. Use it to indicate the amount to indent each chapter line. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line will use if the line is long. Use a number and a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
@@ -22173,6 +22189,11 @@ id="iContentsLayout"
 id="iContentsLayoutDefaultValues"
 ><term
 >Default values</term
+></indexTerm
+><indexTerm
+id="iContentsHangingIndent"
+><term
+>Hanging indent to use for lines that overlap</term
 ></indexTerm
 ><indexTerm
 id="iContentsLayoutAppendixWord"

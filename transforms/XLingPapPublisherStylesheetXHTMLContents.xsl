@@ -120,6 +120,31 @@
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent">
+                <xsl:call-template name="SetSectionTocHangingIndent"/>
+            </xsl:with-param>
+            <xsl:with-param name="sHangingIndentClass">
+                <xsl:choose>
+                    <xsl:when test="$sLevel='1'">
+                        <xsl:text>tocSection1HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='2'">
+                        <xsl:text>tocSection2HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='3'">
+                        <xsl:text>tocSection3HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='4'">
+                        <xsl:text>tocSection4HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='5'">
+                        <xsl:text>tocSection5HangingIndent</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="$sLevel='6'">
+                        <xsl:text>tocSection6HangingIndent</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -136,6 +161,8 @@
         <xsl:param name="contentsLayoutToUse" select="$frontMatterLayoutInfo/contentsLayout"/>
         <xsl:param name="fInListOfItems" select="'no'"/>
         <xsl:param name="fIgnoreHangingIndent" select="'N'"/>
+        <xsl:param name="hangingIndent" select="$tocHangingIndent"/>
+        <xsl:param name="sHangingIndentClass" select="'tocHangingIndent'"/>
         <xsl:variable name="linkLayout" select="$pageLayoutInfo/linkLayout/contentsLinkLayout"/>
         <xsl:if test="$sLineSpacing and $sLineSpacing!='single' and $contentsLayoutToUse/@singlespaceeachcontentline='yes'">
             <div>
@@ -167,9 +194,9 @@
             </div>
         </xsl:if>
         <div>
-            <xsl:if test="$fIgnoreHangingIndent='N' and string-length($tocHangingIndent) &gt; 0 and $tocHangingIndent != '0pt'">
+            <xsl:if test="$fIgnoreHangingIndent='N' and string-length($hangingIndent) &gt; 0 and $hangingIndent != '0pt'">
                 <xsl:attribute name="class">
-                    <xsl:text>tocHangingIndent</xsl:text>
+                    <xsl:value-of select="$sHangingIndentClass"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:choose>

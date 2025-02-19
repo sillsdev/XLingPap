@@ -2741,6 +2741,28 @@ type="tAttrValue"
 ></tr
 ><tr
 ><td
+><indexedItem
+term="iContentsChapterHangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>chapterhangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>chapter</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
 ><object
 type="tAttribute"
 >chapterlabel</object
@@ -2783,7 +2805,28 @@ type="tAttribute"
 >hangingindent</object
 ></td
 ><td
->(User control) Use this to indicate the amount of a hanging indent each line will use if the line is long. Use a number and a unit of measure (see example <exampleRef
+>(User control) Use this to indicate the amount of a hanging indent each line will use if the line is long. This is overridden by any value set in any of the following attributes: <object
+type="tAttribute"
+>chapterhangingindent</object
+>, <object
+type="tAttribute"
+>section1hangingindent</object
+>, <object
+type="tAttribute"
+>section2hangingindent</object
+>, <object
+type="tAttribute"
+>section3hangingindent</object
+>, <object
+type="tAttribute"
+>section4hangingindent</object
+>, <object
+type="tAttribute"
+>section5hangingindent</object
+>, <object
+type="tAttribute"
+>section6hangingindent</object
+>. Use a number and a unit of measure (see example <exampleRef
 letter="xUnitsOfMeasure"
 num="xUnitsOfMeasure"
 ></exampleRef
@@ -2905,6 +2948,138 @@ type="tAttribute"
 ></td
 ><td
 >(User control) How many points of vertical space to use before the part line. Do not include 'pt'.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection1HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section1hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section1</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute.  Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection2HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section2hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section2</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection3HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section3hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section3</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection4HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section4hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section4</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection5HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section5hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section5</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
+></tr
+><tr
+><td
+><indexedItem
+term="iContentsSection6HangingIndent"
+></indexedItem
+><object
+type="tAttribute"
+>section6hangingindent</object
+></td
+><td
+>(User control) Use this to indicate the amount of a hanging indent each line in a <object
+type="tElement"
+>section6</object
+> title will use if the line is long. This will override any value set in the <object
+type="tAttribute"
+>hangingindent</object
+> attribute. Use a number and a unit of measure (see example <exampleRef
+letter="xUnitsOfMeasure"
+num="xUnitsOfMeasure"
+></exampleRef
+>); no space between the number and the unit of measure.</td
 ></tr
 ><tr
 ><td
@@ -22168,9 +22343,44 @@ id="iContentsLayoutDefaultValues"
 >Default values</term
 ></indexTerm
 ><indexTerm
+id="iContentsChapterHangingIndent"
+><term
+>Hanging indent to use for lines in a chapter title that overlap</term
+></indexTerm
+><indexTerm
 id="iContentsHangingIndent"
 ><term
 >Hanging indent to use for lines that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection1HangingIndent"
+><term
+>Hanging indent to use for lines in a section1 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection2HangingIndent"
+><term
+>Hanging indent to use for lines in a section2 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection3HangingIndent"
+><term
+>Hanging indent to use for lines in a section3 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection4HangingIndent"
+><term
+>Hanging indent to use for lines in a section4 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection5HangingIndent"
+><term
+>Hanging indent to use for lines in a section5 title that overlap</term
+></indexTerm
+><indexTerm
+id="iContentsSection6HangingIndent"
+><term
+>Hanging indent to use for lines in a section6 title that overlap</term
 ></indexTerm
 ><indexTerm
 id="iContentsLayoutAppendixWord"

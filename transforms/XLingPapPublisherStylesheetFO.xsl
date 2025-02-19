@@ -7987,7 +7987,7 @@ not using
             </xsl:with-param>
             <xsl:with-param name="sIndent" select="'1em'"/>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
-            <xsl:with-param name="hangindent" select="$hanging"/>
+            <xsl:with-param name="hangingIndent" select="$hanging"/>
         </xsl:call-template>
     </xsl:template>
     <!--  
@@ -8020,7 +8020,7 @@ not using
             </xsl:with-param>
             <xsl:with-param name="sIndent" select="'1em'"/>
             <xsl:with-param name="fInListOfItems" select="'yes'"/>
-            <xsl:with-param name="hangindent" select="$hanging"/>
+            <xsl:with-param name="hangingIndent" select="$hanging"/>
         </xsl:call-template>
     </xsl:template>
     <!--  

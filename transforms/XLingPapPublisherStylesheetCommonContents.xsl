@@ -11,6 +11,48 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="tocChapterHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterhangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection1HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section1hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection2HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section2hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection3HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section3hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection4HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section4hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection5HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section5hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection6HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section6hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
     <!--
         abstract  (contents)
     -->
@@ -736,6 +778,7 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent" select="$tocChapterHangingIndent"/>
         </xsl:call-template>
         <xsl:apply-templates select="shortTitle" mode="contents"/>
         <xsl:if test="$nLevel!=0">
@@ -799,6 +842,7 @@
                 </xsl:choose>
             </xsl:with-param>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent" select="$tocChapterHangingIndent"/>
         </xsl:call-template>
         <xsl:call-template name="DoAuthorOfChapterInCollectionInContents"/>
         <xsl:if test="$nLevel!=0">
@@ -946,5 +990,47 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+    </xsl:template>
+    <!--
+        SetSectionTocHangingIndent
+    -->
+    <xsl:template name="SetSectionTocHangingIndent">
+        <xsl:choose>
+            <xsl:when test="name()='section1'">
+                <xsl:value-of select="$tocSection1HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section2'">
+                <xsl:value-of select="$tocSection2HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section3'">
+                <xsl:value-of select="$tocSection3HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section4'">
+                <xsl:value-of select="$tocSection4HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section5'">
+                <xsl:value-of select="$tocSection5HangingIndent"/>
+            </xsl:when>
+            <xsl:when test="name()='section6'">
+                <xsl:value-of select="$tocSection6HangingIndent"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    <!--
+        SetTocHangingIndent
+    -->
+    <xsl:template name="SetTocHangingIndent">
+        <xsl:param name="value"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:when test="string-length($tocHangingIndent) &gt; 0">
+                <xsl:value-of select="$tocHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

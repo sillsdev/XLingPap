@@ -480,6 +480,13 @@ Front MatterLayout
      chapterlabel CDATA #IMPLIED
      chapterlineindent CDATA #IMPLIED
      hangingindent CDATA #IMPLIED
+     chapterhangingindent CDATA #IMPLIED
+     section1hangingindent CDATA #IMPLIED
+     section2hangingindent CDATA #IMPLIED
+     section3hangingindent CDATA #IMPLIED
+     section4hangingindent CDATA #IMPLIED
+     section5hangingindent CDATA #IMPLIED
+     section6hangingindent CDATA #IMPLIED
      singlespaceeachcontentline (yes | no) 'no'
      useappendixlabelbeforeappendixletter (yes | no) 'no'
      useperiodafterappendixletter (yes | no) 'no'

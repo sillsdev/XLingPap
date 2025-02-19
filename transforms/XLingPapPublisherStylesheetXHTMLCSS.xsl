@@ -126,6 +126,48 @@
                 <xsl:value-of select="$value"/>
             </xsl:if>
     </xsl:variable>
+    <xsl:variable name="tocChapterHangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@chapterhangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection1HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section1hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection2HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section2hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection3HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section3hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection4HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section4hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection5HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section5hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="tocSection6HangingIndent">
+        <xsl:variable name="value" select="normalize-space($frontMatterLayoutInfo/contentsLayout/@section6hangingindent)"/>
+        <xsl:call-template name="SetTocHangingIndent">
+            <xsl:with-param name="value" select="$value"/>
+        </xsl:call-template>
+    </xsl:variable>
     <!-- ===========================================================
       MAIN BODY
       =========================================================== -->
@@ -504,18 +546,72 @@ li.lower-roman {
 </xsl:text>
         </xsl:if>
         <xsl:if test="string-length($tocHangingIndent) &gt; 0">
-            <xsl:text>.tocHangingIndent {
-            </xsl:text>
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocHangingIndent'"/>
+                <xsl:with-param name="value" select="$tocHangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocChapterHangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocChapterHangingIndent'"/>
+                <xsl:with-param name="value" select="$tocChapterHangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection1HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection1HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection1HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection2HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection2HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection2HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection3HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection3HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection3HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection4HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection4HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection4HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection5HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection5HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection5HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="string-length($tocSection6HangingIndent) &gt; 0">
+            <xsl:call-template name="SetTocHangingIndentClass">
+                <xsl:with-param name="sClassName" select="'tocSection6HangingIndent'"/>
+                <xsl:with-param name="value" select="$tocSection6HangingIndent"/>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template name="SetTocHangingIndentClass">
+        <xsl:param name="sClassName"/>
+        <xsl:param name="value"/>
+        <xsl:if test="$value!='0pt'">
+            <xsl:text>.</xsl:text>
+            <xsl:value-of select="$sClassName"/>
+            <xsl:text> {
+</xsl:text>
             <xsl:text>        text-indent:-</xsl:text>
-            <xsl:value-of select="$tocHangingIndent"/>
+            <xsl:value-of select="$value"/>
             <xsl:text>;
-            </xsl:text>
+</xsl:text>
             <xsl:text>        padding-left:</xsl:text>
-            <xsl:value-of select="$tocHangingIndent"/>
+            <xsl:value-of select="$value"/>
             <xsl:text>;
-            </xsl:text>
+</xsl:text>
             <xsl:text>}
-            </xsl:text>
+</xsl:text>
         </xsl:if>
     </xsl:template>
     <!--
@@ -1878,6 +1974,13 @@ li.lower-roman {
     <xsl:template match="@chapterlabel"/>
     <xsl:template match="@chapterlineindent"/>
     <xsl:template match="@hangingindent"/>
+    <xsl:template match="@chapterhangingindent"/>
+    <xsl:template match="@section1hangingindent"/>
+    <xsl:template match="@section2hangingindent"/>
+    <xsl:template match="@section3hangingindent"/>
+    <xsl:template match="@section4hangingindent"/>
+    <xsl:template match="@section5hangingindent"/>
+    <xsl:template match="@section6hangingindent"/>
     <xsl:template match="@contentBetweenLabelAndNumber"/>
     <xsl:template match="@dateIndentAuthorOverDateStyle"/>
     <xsl:template match="@dateToEntrySpaceAuthorOverDateStyle"/>
@@ -2183,6 +2286,23 @@ li.lower-roman {
         <xsl:if test="string-length($sLanguage) &gt; 0">
             <xsl:value-of select="$sLanguage"/>
         </xsl:if>
+    </xsl:template>
+    <!--
+        SetTocHangingIndent
+    -->
+    <xsl:template name="SetTocHangingIndent">
+        <xsl:param name="value"/>
+        <xsl:choose>
+            <xsl:when test="string-length($value) &gt; 0">
+                <xsl:value-of select="$value"/>
+            </xsl:when>
+            <xsl:when test="string-length($tocHangingIndent) &gt; 0">
+                <xsl:value-of select="$tocHangingIndent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>0pt</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- ===========================================================
       ELEMENTS TO IGNORE

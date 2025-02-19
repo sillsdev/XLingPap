@@ -217,6 +217,9 @@
             </xsl:with-param>
             <xsl:with-param name="sSpaceBefore" select="$sSpaceBefore"/>
             <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+            <xsl:with-param name="hangingIndent">
+                <xsl:call-template name="SetSectionTocHangingIndent"/>
+            </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
     <!--  

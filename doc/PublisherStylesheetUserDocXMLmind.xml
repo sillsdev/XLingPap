@@ -18,13 +18,13 @@ type="tXLingPap"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->13 February 2025</date
+>19 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.46.2</version
+>2.46.3</version
 ><version
 contentType="ctVersion7Plus"
->3.16.2</version
+>3.16.3</version
 ><contents
 showLevel="6"
 ></contents
@@ -6276,29 +6276,6 @@ type="tElement"
 id="sRefCollectionLayouts"
 ><secTitle
 >Paper in a Collection Layouts</secTitle
-><p
->The <object
-type="tElement"
->collectionLayouts</object
-> element has one attribute: <object
-type="tAttribute"
->flipFirstAuthorName</object
-> which can have one of two values: <object
-type="tAttrValue"
->yes</object
-> or <object
-type="tAttrValue"
->no</object
->. The default is <object
-type="tAttrValue"
->yes</object
->. If the value is <object
-type="tAttrValue"
->no</object
->, then collection editors' names are not reversed, but will appear in the order they occur in the corresponding <object
-type="tElement"
->refAuthor</object
-> element.</p
 ><p
 >The <object
 type="tElement"

@@ -16,13 +16,13 @@ type="tXLingPap"
 ><affiliation
 >SIL International</affiliation
 ><date
->27 November 2024</date
+>20 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.46.0</version
+>2.46.4</version
 ><version
 contentType="ctVersion7Plus"
->3.16.0</version
+>3.16.4</version
 ><contents
 showLevel="3"
 ></contents
@@ -10268,7 +10268,10 @@ type="tElement"
 >mediaObject</object
 ></dt
 ><dd
->Used to embed a sound or movie file. Only works with the <object
+>Used to embed a sound or movie file. Only works with the default <object
+type="tXeTeX"
+></object
+> way of producing PDF and the <object
 type="tRenderX"
 ></object
 > way of producing PDF.</dd
@@ -12971,97 +12974,11 @@ id="lMeaning"
 name="Value"
 ></language
 ></languages
-><types
-><type
-color="purple"
-font-family="fixed"
-id="tAttribute"
-></type
-><type
-color="steelblue"
-font-family="fixed"
-font-style="italic"
-id="tAttrValue"
-></type
-><type
-font-weight="bold"
-id="tBold"
-></type
-><type
-font-family="fixed"
-font-weight="bold"
-id="tCitationLabel"
-></type
-><type
-color="maroon"
-font-family="fixed"
-id="tElement"
-></type
-><type
-color="black"
-cssSpecial="background-color:wheat;"
-font-family="fixed"
-id="tElementExample"
-></type
-><type
-cssSpecial="background-color:linen; margin-left:10pt; margin-right:5pt; margin-top:5pt; margin-bottom:5pt; padding-left:10pt; padding-right:10pt; padding-top:10pt; padding-bottom:10pt; border-left-width:1pt; border-right-width:1pt; border-top-width:1pt; border-bottom-width:1pt; border-right-style:dashed; border-left-style:dashed; border-top-style:dashed; border-bottom-style:dashed;"
-id="tHtmlOutput"
-></type
-><type
-color="maroon"
-id="tInstruction"
-></type
-><type
-font-family="fixed"
-font-weight="bold"
-id="tInTextExample"
-></type
-><type
-font-style="italic"
-id="tItalic"
-></type
-><type
-font-family="Courier New"
-id="tKey"
-></type
-><type
-font-family="Courier New"
-font-weight="bold"
-id="tKeyTerm"
-></type
-><type
-after="RenderX XEP"
-id="tRenderX"
-types="tTool"
-></type
-><type
-cssSpecial="vertical-align:sub;"
-font-size="65%"
-id="tSubscript"
-xsl-foSpecial="baseline-shift='sub'"
-></type
-><type
-cssSpecial="margin-left:.5in;"
-id="tTableCSS"
-></type
-><type
-color="navy"
-font-family="Courier New"
-font-weight="bold"
-id="tTool"
-></type
-><type
-after="XLingPaper"
-before=""
-id="tXLingPap"
-types="tTool"
-></type
-><type
-after="XMLmind XML Editor"
-id="tXMLmindXMLEditor"
-types="tTool"
-></type
-></types
+><xi:include
+href="Types.xml"
+xpointer="element(/1)"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+></xi:include
 ><contentControl
 ><contentTypes
 ><contentType

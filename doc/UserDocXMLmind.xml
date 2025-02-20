@@ -34,13 +34,13 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->19 February 2025</date
+>20 February 2025</date
 ><version
 contentType="ctVersion5.3"
->2.16.3</version
+>2.16.4</version
 ><version
 contentType="ctVersion7Plus"
->3.16.3</version
+>3.16.4</version
 ><contents
 showLevel="4"
 ></contents
@@ -32566,7 +32566,10 @@ type="tElement"
 >mediaObject</object
 ></dt
 ><dd
->Used to embed a sound or movie file. Only works with the <object
+>Used to embed a sound or movie file. Only works with the default <object
+type="tXeTeX"
+></object
+> way of producing PDF and the <object
 type="tRenderX"
 ></object
 > way of producing PDF.</dd

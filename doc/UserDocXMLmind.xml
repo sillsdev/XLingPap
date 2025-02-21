@@ -34,7 +34,7 @@ type="tXMLmindXMLEditor"
 ><emailAddress
 >xlingpaper_support@sil.org</emailAddress
 ><date
->20 February 2025</date
+>21 February 2025</date
 ><version
 contentType="ctVersion5.3"
 >2.16.4</version
@@ -26893,7 +26893,34 @@ type="tAttribute"
 > attribute of the <object
 type="tElement"
 >lingPaper</object
-> element. Then set the <object
+> element. For example, if the <object
+type="tAttribute"
+>xml:lang</object
+> attribute of the <object
+type="tElement"
+>lingPaper</object
+> element is set to <object
+type="tAttrValue"
+>de</object
+> or <object
+type="tAttrValue"
+>en</object
+>, then you may need to create a new <object
+type="tElement"
+>language</object
+> element whose <object
+type="tAttribute"
+>id</object
+> attribute is set to <object
+type="tAttrValue"
+>de</object
+> or <object
+type="tAttrValue"
+>en</object
+>. Recall that the <object
+type="tElement"
+>language</object
+> elements are created in the "Languages" section of the XML editor, which is typically below the "Reference" section. Then set the <object
 type="tAttribute"
 >hyphenationExceptionsFile</object
 > attribute of that <object

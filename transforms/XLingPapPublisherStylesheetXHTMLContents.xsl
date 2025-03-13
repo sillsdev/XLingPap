@@ -250,7 +250,7 @@
                 <xsl:call-template name="AddAnyLinkAttributes">
                     <xsl:with-param name="override" select="$linkLayout"/>
                 </xsl:call-template>
-                <span>
+<!--                <span>-->
                     <xsl:call-template name="OutputTOCTitle">
                         <xsl:with-param name="linkLayout" select="$linkLayout"/>
                         <xsl:with-param name="sLabel" select="$sLabel"/>
@@ -258,7 +258,7 @@
                         <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
                     </xsl:call-template>
                     <xsl:text>&#xa0;</xsl:text>
-                </span>
+<!--                </span>-->
             </a>
         </div>
     </xsl:template>

@@ -1872,6 +1872,15 @@ li.lower-roman {
     -->
     </xsl:template>
     <!-- 
+        @rtl
+    -->
+    <xsl:template match="@rtl">
+        <xsl:if test=".='yes'">
+            <xsl:text>        direction:rtl;
+</xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <!-- 
         @spaceafter
     -->
     <xsl:template match="@spaceafter">
@@ -2022,7 +2031,6 @@ li.lower-roman {
     <xsl:template match="@partSpaceBefore"/>
     <xsl:template match="@removecommonhundredsdigitsinpages"/>
     <xsl:template match="@rightIndent"/>
-    <xsl:template match="@rtl"/>
     <xsl:template match="@ruleabovelength"/>
     <xsl:template match="@ruleabovepattern"/>
     <xsl:template match="@ruleabovewidth"/>

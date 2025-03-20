@@ -172,17 +172,18 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createCssFile(DocumentView docView, String parameter) throws IOException {
+		final String kStyleSheetName = "stylesheet.css";
 		String sCssFile = parameter.trim();
 		int extensionIndex = sCssFile.lastIndexOf(".");
 		sCssFile = sCssFile.substring(0, extensionIndex) + ".css";
 		File fCssFile = new File(sCssFile);
-		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + "styles.css");
+		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
 		Node styleSheetLink;
 		try {
 			styleSheetLink = (Node) xPath.compile("/html/head/link[@rel=\"stylesheet\"]").evaluate(document, XPathConstants.NODE);
 			Node href = styleSheetLink.getAttributes().getNamedItem("href");
-			href.setNodeValue("../Styles/styles.css");
+			href.setNodeValue("../Styles/" + kStyleSheetName);
 		} catch (XPathExpressionException e) {
 			reportException(docView, e);
 		}

@@ -84,6 +84,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			xPath = XPathFactory.newInstance().newXPath();
 
 			createDirectoryStructure();
+			createMimetypeFile();
+
 			createCssFile(docView, parameter);
 			createImageFiles(docView, fHtmFile);
 			createTextFile(parameter);
@@ -93,6 +95,14 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void createMimetypeFile() throws FileNotFoundException, IOException {
+		String sMimeTypeFile = pOebpsPath + File.separator + "mimetype";
+		OutputStreamWriter writer =
+		         new OutputStreamWriter(new FileOutputStream(sMimeTypeFile), StandardCharsets.UTF_8);
+		writer.write("application/epub+zip");
+		writer.close();
 	}
 
 	protected void createTextFile(String parameter) throws FileNotFoundException, IOException {

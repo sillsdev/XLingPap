@@ -1,6 +1,7 @@
 package xlingpaper.xxe;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -77,7 +78,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				return setMessage("FileIsADirectory");
 			}
 
-
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			document = builder.parse(fHtmFile);
@@ -86,43 +86,25 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createDirectoryStructure();
 			createCssFile(docView, parameter);
 			createImageFiles(docView, fHtmFile);
-			
-			
-			String sHtmFile = parameter.trim();
-//			String sHtmContent = new String(Files.readAllBytes(fHtmFile.toPath()));
-			String sHtmContent = documentToString(document);
-			
-//			Alert.showError(docView.getPanel(), "before replace");
-//			sHtmContent = sHtmContent.replace("<link rel=\"stylesheet\" href=\"Paper.css\"", "<link rel=\"stylesheet\" href=\"../Styles/styles.css\"");
-//			sHtmContent = sHtmContent.replace("<img src=\"Images/", "<img src=\"../Images/");
-//			sHtmContent = sHtmContent.replace("<embed src=\"Images/", "<embed src=\"../Images/");
-			
-//			Alert.showError(docView.getPanel(), "before file name");
-			int iSeparator = sHtmFile.lastIndexOf(File.separator);
-			String sFileName = sHtmFile.substring(iSeparator);
-
-			
-//			Alert.showError(docView.getPanel(), "before path");
-			Path pHtmFile = Paths.get(pOebpsTextPath.toString() + File.separator + sFileName);
-//			Alert.showError(docView.getPanel(), "before write");
-//			Files.write(pHtmFile, sHtmContent.getBytes(), StandardOpenOption.CREATE);
-			
-			OutputStreamWriter writer =
-		             new OutputStreamWriter(new FileOutputStream(pHtmFile.toString()), StandardCharsets.UTF_8);
-			writer.write(sHtmContent);
-			writer.close();
-		    // do stuff
-		
-			
-//			Files.copy(fHtmFile.toPath(), pHtmFile, StandardCopyOption.REPLACE_EXISTING);
-//			Alert.showError(docView.getPanel(), "after write");
-			
+			createTextFile(parameter);
 
 			return "success";
 
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void createTextFile(String parameter) throws FileNotFoundException, IOException {
+		String sHtmFile = parameter.trim();
+		String sHtmContent = documentToString(document);
+		int iSeparator = sHtmFile.lastIndexOf(File.separator);
+		String sFileName = sHtmFile.substring(iSeparator);
+		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sFileName;
+		OutputStreamWriter writer =
+		         new OutputStreamWriter(new FileOutputStream(sFileInOepbs), StandardCharsets.UTF_8);
+		writer.write(sHtmContent);
+		writer.close();
 	}
 
 	protected void createImageFiles(DocumentView docView, File fHtmFile) {
@@ -223,6 +205,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+	        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "");
 	        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"");
 	        transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
 

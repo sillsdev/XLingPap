@@ -1,11 +1,14 @@
 package xlingpaper.xxe;
 
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -13,6 +16,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -31,6 +39,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+
+
+
+
+
+
+
+
+
+import sun.font.Font2D;
+import sun.font.FontManager;
+import sun.font.PhysicalFont;
+
 import com.xmlmind.guiutil.Alert;
 import com.xmlmind.util.FileUtil;
 import com.xmlmind.xml.doc.Element;
@@ -39,11 +60,12 @@ import com.xmlmind.xmledit.cmd.RecordableCommand;
 import com.xmlmind.xmledit.edit.MarkManager;
 
 public class ProduceEpubFromXhtml extends RecordableCommand {
-	final String kContainerXml = "<?xml version=\"1.0\"?>\n"
-			+ "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">\n"
-			+ "<rootfiles>\n"
-			+ "<rootfile full-path=\"content.opf\" media-type=\"application/oebps-package+xml\"/>\n"
-			+ "</rootfiles>\n"
+	final String kContainerXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+			+ "<container xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\" version=\"1.0\">\n"
+			+ "  <rootfiles>\n"
+			+ "      <rootfile full-path=\"OEBPS/content.opf\"\n"
+			+ "                media-type=\"application/oebps-package+xml\"/>\n"
+			+ "   </rootfiles>\n"
 			+ "</container>\n";
 	Path pOebpsPath;
 	Path pOebpsFontsPath;
@@ -52,6 +74,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	Path pOebpsTextPath;
 	Document document;
 	XPath xPath;
+	String sCssContent = "";
 
 	public boolean prepare(DocumentView docView, String parameter, int x, int y) {
 		MarkManager markManager = docView.getMarkManager();
@@ -85,8 +108,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 			createDirectoryStructure();
 			createMimetypeFile();
-
 			createCssFile(docView, parameter);
+			createFontFiles(docView);
 			createImageFiles(docView, fHtmFile);
 			createTextFile(parameter);
 
@@ -95,6 +118,88 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void createFontFiles(DocumentView docView) throws NoSuchFieldException,
+			IllegalAccessException, IOException {
+		HashSet<String> fontFiles = collectFontFiles(docView, sCssContent);
+		for (String ff : fontFiles) {
+			Path pSrc = Paths.get(ff);
+			int iLastSeparator = ff.lastIndexOf(File.separator);
+			String sFileName = ff.substring(iLastSeparator + 1);
+			Path pImage = Paths.get(pOebpsFontsPath.toString() + File.separator + sFileName);
+			Files.copy(pSrc, pImage, StandardCopyOption.REPLACE_EXISTING);
+		}
+	}
+
+	protected HashSet<String> collectFontFiles(DocumentView docView, String sHere)
+			throws NoSuchFieldException, IllegalAccessException {
+		HashSet<String> fontFiles = new HashSet<String>();
+		final String kFontFamily = "font-family:";
+		final String kFontStyle = "font-style:";
+		final String kFontWeight = "font-weight:";
+		int index = sHere.indexOf(kFontFamily);
+		while (index > -1) {
+			index += kFontFamily.length();
+			sHere = sHere.substring(index);
+//			Alert.showError(docView.getPanel(), "sHere = '" + sHere + "'");
+			int indexEOL = sHere.indexOf(";");
+//				Alert.showError(docView.getPanel(), "indexEOL = '" + indexEOL + "'");
+			if (indexEOL > -1) {
+				String sFontFamilyName = sHere.substring(0, indexEOL).trim();
+//					Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'");
+				sFontFamilyName = sFontFamilyName.replaceAll("\"", "");
+//					Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'");
+				int indexEndOfDefinition = sHere.indexOf("}");
+				String sRestOfDefinition = sHere.substring(indexEOL + 1, indexEndOfDefinition);
+				String sStyle = "normal";
+//				Alert.showError(docView.getPanel(), "sRestOfDefiniton = '" + sRestOfDefinition + "'");
+				int indexStyle = sRestOfDefinition.indexOf(kFontStyle);
+				if (indexStyle > -1) {
+					int indexStyleEOL = sRestOfDefinition.indexOf(";");
+//						Alert.showError(docView.getPanel(), "indexStyle = " + indexStyle + "; indexStyleEOL = " + indexStyleEOL);
+					sStyle = sRestOfDefinition.substring(indexStyle + kFontStyle.length(), indexStyleEOL).trim();
+//					Alert.showError(docView.getPanel(), "sStyle = '" + sStyle + "'");
+					sRestOfDefinition = sRestOfDefinition.substring(indexStyleEOL + 1);
+				}
+				String sWeight = "normal";
+				int indexWeight = sRestOfDefinition.indexOf(kFontWeight);
+				if (indexWeight > -1) {
+					int indexWeightEOL = sRestOfDefinition.indexOf(";");
+					sWeight = sRestOfDefinition.substring(indexWeight + kFontWeight.length(), indexWeightEOL).trim();
+//					Alert.showError(docView.getPanel(), "sWeight = '" + sWeight + "'");
+				}
+				int iStyleWeight = Font.PLAIN;
+				if (sStyle.equals("italic")) {
+					iStyleWeight += Font.ITALIC;
+				}
+				if (sWeight.equals("bold")) {
+					iStyleWeight += Font.BOLD;
+				}
+//				Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'; iStyleWeight = " + iStyleWeight);
+				Font font = new Font(sFontFamilyName, iStyleWeight, 10);
+				String sFontPath = findFontFilePath(docView, font);
+				fontFiles.add(sFontPath);
+//				Alert.showError(docView.getPanel(), "font path ='" + sFontPath + "'");
+			}
+			index = sHere.indexOf(kFontFamily);
+		}
+		return fontFiles;
+	}
+
+	protected String findFontFilePath(DocumentView docView, Font font) throws NoSuchFieldException,
+			IllegalAccessException {
+		// Following is from https://stackoverflow.com/questions/2019249/get-font-file-as-a-file-object-or-get-its-path
+		// Note that this uses sun.font which may go away in a later version of Java.
+		// use reflection on Font2D (<B>PhysicalFont.platName</B>) e.g.
+//		Alert.showError(docView.getPanel(), "findFontFilePath: font = '" + font.getFontName() + "'");
+
+		Font2D f2d = sun.font.FontUtilities.getFont2D(font);
+		Field platName = PhysicalFont.class.getDeclaredField("platName");
+		platName.setAccessible(true);
+		String fontPath = (String)platName.get(f2d);
+		platName.setAccessible(false);
+		return fontPath;
 	}
 
 	protected void createMimetypeFile() throws FileNotFoundException, IOException {
@@ -118,7 +223,6 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createImageFiles(DocumentView docView, File fHtmFile) {
-		
 		NodeList graphics;
 		try {
 			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(document, XPathConstants.NODESET);
@@ -179,9 +283,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		File fCssFile = new File(sCssFile);
 		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
-		Node styleSheetLink;
+		// Get and keep CSS content for processing later
+		sCssContent = new String(Files.readAllBytes(fCssFile.toPath()), StandardCharsets.UTF_8);
 		try {
-			styleSheetLink = (Node) xPath.compile("/html/head/link[@rel=\"stylesheet\"]").evaluate(document, XPathConstants.NODE);
+			Node styleSheetLink = (Node) xPath.compile("/html/head/link[@rel=\"stylesheet\"]").evaluate(document, XPathConstants.NODE);
 			Node href = styleSheetLink.getAttributes().getNamedItem("href");
 			href.setNodeValue("../Styles/" + kStyleSheetName);
 		} catch (XPathExpressionException e) {

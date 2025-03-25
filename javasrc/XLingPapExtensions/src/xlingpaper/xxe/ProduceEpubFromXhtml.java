@@ -48,6 +48,7 @@ import org.w3c.dom.NodeList;
 
 
 
+
 import sun.font.Font2D;
 import sun.font.FontManager;
 import sun.font.PhysicalFont;
@@ -67,6 +68,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			+ "                media-type=\"application/oebps-package+xml\"/>\n"
 			+ "   </rootfiles>\n"
 			+ "</container>\n";
+	final String kNormal = "normal";
 	Path pOebpsPath;
 	Path pOebpsFontsPath;
 	Path pOebpsImagesPath;
@@ -122,7 +124,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createFontFiles(DocumentView docView) throws NoSuchFieldException,
 			IllegalAccessException, IOException {
-		HashSet<String> fontFiles = collectFontFiles(docView, sCssContent);
+		HashSet<String> fontFiles = collectFontFilesFromCss(docView, sCssContent);
+		collectFontFilesFromHtm(docView, fontFiles);
 		for (String ff : fontFiles) {
 			Path pSrc = Paths.get(ff);
 			int iLastSeparator = ff.lastIndexOf(File.separator);
@@ -132,7 +135,64 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected HashSet<String> collectFontFiles(DocumentView docView, String sHere)
+	protected void collectFontFilesFromHtm(DocumentView docView, HashSet<String> fontFiles)
+			throws NoSuchFieldException, IllegalAccessException {
+		try {
+			final String kFontStyle = "font-style";
+			final String kFontWeight = "font-weight";
+			NodeList fontFamilies = (NodeList) xPath.compile("@font-family").evaluate(document, XPathConstants.NODESET);
+			for (int i = 0; i < fontFamilies.getLength(); i++) {
+				Node fontFamily = fontFamilies.item(i);
+				String sFontFamilyName = fontFamily.getNodeValue();
+				String sStyle = kNormal;
+				String sWeight = kNormal;
+				boolean fStyleFound = false;
+				boolean fWeightFound = false;
+				// find last style and weight sibling
+				Node sibling = fontFamily.getNextSibling();
+				while (sibling != null) {
+					if (sibling.getLocalName().equals(kFontStyle)) {
+						sStyle = sibling.getNodeValue();
+						fStyleFound = true;
+					}
+					if (sibling.getLocalName().equals(kFontWeight)) {
+						sWeight = sibling.getNodeValue();
+						fWeightFound = true;
+					}
+					sibling = sibling.getNextSibling();
+				}
+				// if did not find any following style sibling, get first preceding style sibling
+				if (!fStyleFound) {
+					sibling = fontFamily.getPreviousSibling();
+					while (sibling != null) {
+						if (sibling.getLocalName().equals(kFontStyle)) {
+							sStyle = sibling.getNodeValue();
+							break;
+						}
+						sibling = sibling.getPreviousSibling();
+					}
+				}
+				// if did not find any following weight sibling, get first preceding weight sibling
+				if (!fWeightFound) {
+					sibling = fontFamily.getPreviousSibling();
+					while (sibling != null) {
+						if (sibling.getLocalName().equals(kFontWeight)) {
+							sWeight = sibling.getNodeValue();
+							break;
+						}
+						sibling = sibling.getPreviousSibling();
+					}
+				}
+				Font font = createFont(sFontFamilyName, sStyle, sWeight);
+				String sFontPath = findFontFilePath(docView, font);
+				fontFiles.add(sFontPath);
+			}
+		} catch (XPathExpressionException e) {
+			reportException(docView, e);
+		}
+	}
+
+	protected HashSet<String> collectFontFilesFromCss(DocumentView docView, String sHere)
 			throws NoSuchFieldException, IllegalAccessException {
 		HashSet<String> fontFiles = new HashSet<String>();
 		final String kFontFamily = "font-family:";
@@ -144,40 +204,36 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			sHere = sHere.substring(index);
 //			Alert.showError(docView.getPanel(), "sHere = '" + sHere + "'");
 			int indexEOL = sHere.indexOf(";");
-//				Alert.showError(docView.getPanel(), "indexEOL = '" + indexEOL + "'");
+//			Alert.showError(docView.getPanel(), "indexEOL = '" + indexEOL + "'");
 			if (indexEOL > -1) {
 				String sFontFamilyName = sHere.substring(0, indexEOL).trim();
 //					Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'");
 				sFontFamilyName = sFontFamilyName.replaceAll("\"", "");
-//					Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'");
+//				Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'");
 				int indexEndOfDefinition = sHere.indexOf("}");
 				String sRestOfDefinition = sHere.substring(indexEOL + 1, indexEndOfDefinition);
-				String sStyle = "normal";
+				String sStyle = kNormal;
 //				Alert.showError(docView.getPanel(), "sRestOfDefiniton = '" + sRestOfDefinition + "'");
 				int indexStyle = sRestOfDefinition.indexOf(kFontStyle);
 				if (indexStyle > -1) {
+					indexStyle += kFontStyle.length();
+					sRestOfDefinition = sRestOfDefinition.substring(indexStyle);
 					int indexStyleEOL = sRestOfDefinition.indexOf(";");
-//						Alert.showError(docView.getPanel(), "indexStyle = " + indexStyle + "; indexStyleEOL = " + indexStyleEOL);
-					sStyle = sRestOfDefinition.substring(indexStyle + kFontStyle.length(), indexStyleEOL).trim();
+//					Alert.showError(docView.getPanel(), "indexStyle = " + indexStyle + "; indexStyleEOL = " + indexStyleEOL);
+					sStyle = sRestOfDefinition.substring(0, indexStyleEOL).trim();
 //					Alert.showError(docView.getPanel(), "sStyle = '" + sStyle + "'");
 					sRestOfDefinition = sRestOfDefinition.substring(indexStyleEOL + 1);
 				}
-				String sWeight = "normal";
+				String sWeight = kNormal;
 				int indexWeight = sRestOfDefinition.indexOf(kFontWeight);
 				if (indexWeight > -1) {
+					indexWeight += kFontWeight.length();
+					sRestOfDefinition = sRestOfDefinition.substring(indexWeight);
 					int indexWeightEOL = sRestOfDefinition.indexOf(";");
-					sWeight = sRestOfDefinition.substring(indexWeight + kFontWeight.length(), indexWeightEOL).trim();
+					sWeight = sRestOfDefinition.substring(0, indexWeightEOL).trim();
 //					Alert.showError(docView.getPanel(), "sWeight = '" + sWeight + "'");
 				}
-				int iStyleWeight = Font.PLAIN;
-				if (sStyle.equals("italic")) {
-					iStyleWeight += Font.ITALIC;
-				}
-				if (sWeight.equals("bold")) {
-					iStyleWeight += Font.BOLD;
-				}
-//				Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'; iStyleWeight = " + iStyleWeight);
-				Font font = new Font(sFontFamilyName, iStyleWeight, 10);
+				Font font = createFont(sFontFamilyName, sStyle, sWeight);
 				String sFontPath = findFontFilePath(docView, font);
 				fontFiles.add(sFontPath);
 //				Alert.showError(docView.getPanel(), "font path ='" + sFontPath + "'");
@@ -185,6 +241,19 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			index = sHere.indexOf(kFontFamily);
 		}
 		return fontFiles;
+	}
+
+	protected Font createFont(String sFontFamilyName, String sStyle, String sWeight) {
+		int iStyleWeight = Font.PLAIN;
+		if (sStyle.equals("italic")) {
+			iStyleWeight += Font.ITALIC;
+		}
+		if (sWeight.equals("bold")) {
+			iStyleWeight += Font.BOLD;
+		}
+//				Alert.showError(docView.getPanel(), "sFontFamilyName = '" + sFontFamilyName + "'; iStyleWeight = " + iStyleWeight);
+		Font font = new Font(sFontFamilyName, iStyleWeight, 10);
+		return font;
 	}
 
 	protected String findFontFilePath(DocumentView docView, Font font) throws NoSuchFieldException,

@@ -53,6 +53,7 @@ import org.w3c.dom.NodeList;
 
 
 
+
 import sun.font.Font2D;
 import sun.font.FontManager;
 import sun.font.PhysicalFont;
@@ -86,6 +87,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	String sDocTitle = "";
 	String sHtmFileName = "";
 	String sCssContent = "";
+	String sCoverJpg = "";
 	String sGuid = "";
 	com.xmlmind.xml.doc.Document xmlDoc;
 
@@ -102,8 +104,17 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			int y) {
 		try {
 			// Alert.showError(docView.getPanel(), "parameter ='" + parameter + "'");
+			String[] asFilenames = parameter.split("'\\|'");
+			if (asFilenames.length < 2) {
+				Alert.showError(docView.getPanel(),
+						"ProduceEpubFromXhtml: parameter needs at least two lines.");
+			}
 			// A File object to represent the filename
-			File fHtmFile = new File(parameter.trim());
+			String sParameterFileName = asFilenames[0].trim();
+			File fHtmFile = new File(sParameterFileName);
+
+			// Cover.jpg for cover
+			sCoverJpg = asFilenames[1].trim();
 
 			// Make sure the file or directory exists and isn't write protected
 			if (!fHtmFile.exists()) {
@@ -124,10 +135,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 			createDirectoryStructure();
 			createMimetypeFile();
-			createCssFiles(docView, parameter);
+			createCssFiles(docView, sParameterFileName);
 			createFontFiles(docView);
 			createImageFiles(docView, fHtmFile);
-			createTextFiles(parameter);
+			createTextFiles(sParameterFileName);
 			createTocNcxFile(docView);
 
 			return "success";
@@ -367,6 +378,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createCoverXhtmlFile() throws FileNotFoundException, IOException {
+		// XHTML (mostly) taken with gratitude from https://electricbookworks.github.io/ebw-training/making-ebooks/text/7-covers.html
+		// on 2025.03.25
 		final String sCoverXhtml1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html\n"
 				+ "  PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
@@ -457,6 +470,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
 		createCoverCss(docView);
+		Path pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.jpg");
+		Files.copy(Paths.get(sCoverJpg), pImage, StandardCopyOption.REPLACE_EXISTING);
 		// Get and keep CSS content for font file processing later
 		sCssContent = new String(Files.readAllBytes(fCssFile.toPath()), StandardCharsets.UTF_8);
 		try {
@@ -470,6 +485,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createCoverCss(DocumentView docView) {
 		try {
+			// CSS taken with gratitude from https://electricbookworks.github.io/ebw-training/making-ebooks/text/7-covers.html
+			// on 2025.03.25
 			final String kCoverCss = "/* Styles for cover.xhtml */\n"
 					+ "body.cover {\n"
 					+ "	margin: 0;\n"

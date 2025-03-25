@@ -1592,7 +1592,7 @@ What we want is to load IE independently and to do a refresh so it will show the
     <cfg:command name="ProduceEpubFromXhtml">
         <cfg:macro trace="false">
             <cfg:sequence>
-                <cfg:command name="ProduceEpubFromXhtmlCmd" parameter="%{P}%{S}%{R}.htm"/>
+                <cfg:command name="ProduceEpubFromXhtmlCmd" parameter="%{P}%{S}%{R}.htm'|'%{C}%{S}Cover.jpg"/>
                 <cfg:command name="status" parameter="Finished EPUB work"/>
             </cfg:sequence>
         </cfg:macro>

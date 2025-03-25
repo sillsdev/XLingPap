@@ -19,6 +19,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -49,6 +50,9 @@ import org.w3c.dom.NodeList;
 
 
 
+
+
+
 import sun.font.Font2D;
 import sun.font.FontManager;
 import sun.font.PhysicalFont;
@@ -56,6 +60,9 @@ import sun.font.PhysicalFont;
 import com.xmlmind.guiutil.Alert;
 import com.xmlmind.util.FileUtil;
 import com.xmlmind.xml.doc.Element;
+import com.xmlmind.xml.xpath.EvalException;
+import com.xmlmind.xml.xpath.ParseException;
+import com.xmlmind.xml.xpath.XPathUtil;
 import com.xmlmind.xmledit.view.DocumentView;
 import com.xmlmind.xmledit.cmd.RecordableCommand;
 import com.xmlmind.xmledit.edit.MarkManager;
@@ -74,9 +81,13 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	Path pOebpsImagesPath;
 	Path pOebpsStylesPath;
 	Path pOebpsTextPath;
-	Document document;
+	Document htmDoc;
 	XPath xPath;
+	String sDocTitle = "";
+	String sHtmFileName = "";
 	String sCssContent = "";
+	String sGuid = "";
+	com.xmlmind.xml.doc.Document xmlDoc;
 
 	public boolean prepare(DocumentView docView, String parameter, int x, int y) {
 		MarkManager markManager = docView.getMarkManager();
@@ -102,24 +113,86 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (fHtmFile.isDirectory()) {
 				return setMessage("FileIsADirectory");
 			}
+			xmlDoc = docView.getDocument();
+			sDocTitle = XPathUtil.evalAsString("//frontMatter/title", xmlDoc);
+			sGuid = UUID.randomUUID().toString();
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			document = builder.parse(fHtmFile);
+			htmDoc = builder.parse(fHtmFile);
 			xPath = XPathFactory.newInstance().newXPath();
 
 			createDirectoryStructure();
 			createMimetypeFile();
-			createCssFile(docView, parameter);
+			createCssFiles(docView, parameter);
 			createFontFiles(docView);
 			createImageFiles(docView, fHtmFile);
-			createTextFile(parameter);
+			createTextFiles(parameter);
+			createTocNcxFile(docView);
 
 			return "success";
 
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void createTocNcxFile(DocumentView docView) throws ParseException, EvalException {
+		StringBuilder sb = new StringBuilder();
+		sb = createTocNcxPreamble(sb);
+		sb.append("<navMap>\n");
+		int iNavPoint = 1;
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml"));
+		
+		sb.append("</navMap>\n</ncx>\n");
+		try {
+			Path tocNcxPath = Paths.get(pOebpsPath.toString() + File.separator + "toc.ncx");
+			Files.write(tocNcxPath, sb.toString().getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			reportException(docView, e);
+		}
+	}
+
+	protected String createTocNcxNavPoint(int id, String sText, String sSrc) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<navPoint id=\"");
+		sb.append(id);
+		sb.append("\">\n");
+		sb.append("<navLabel>\n");
+		sb.append("<text>");
+		sb.append(sText);
+		sb.append("</text>\n");
+		sb.append("</navLabel>\n");
+		sb.append("<content src=\"");
+		sb.append(sSrc);
+		sb.append("\"/>\n");
+		sb.append("</navPoint>\n");
+		return sb.toString();
+	}
+	protected StringBuilder createTocNcxPreamble(StringBuilder sb) throws ParseException, EvalException {
+		final String sPreamble1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				+ "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\">\n"
+				+ "   <head>\n"
+				+ "      <meta name=\"dtb:uid\" content=\"";
+		final String sPreamble2 = "\"/>\n"
+				+ "      <meta name=\"dtb:depth\" content=\"";
+		final String sPreamble3 = "\"/>\n"
+				+ "      <meta name=\"dtb:totalPageCount\" content=\"0\"/>\n"
+				+ "      <meta name=\"dtb:maxPageNumber\" content=\"0\"/>\n"
+				+ "   </head>\n";
+		String sContentLevel = XPathUtil.evalAsString("//frontMatter/contents/@showLevel", xmlDoc);
+		if (sContentLevel.equals("")) {
+			sContentLevel = "3";
+		}
+		sb.append(sPreamble1);
+		sb.append(sGuid);
+		sb.append(sPreamble2);
+		sb.append(sContentLevel);
+		sb.append(sPreamble3);
+		sb.append("<docTitle>\n<text>");
+		sb.append(sDocTitle);
+		sb.append("</text>\n</docTitle>\n");
+		return sb;
 	}
 
 	protected void createFontFiles(DocumentView docView) throws NoSuchFieldException,
@@ -140,7 +213,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		try {
 			final String kFontStyle = "font-style";
 			final String kFontWeight = "font-weight";
-			NodeList fontFamilies = (NodeList) xPath.compile("@font-family").evaluate(document, XPathConstants.NODESET);
+			NodeList fontFamilies = (NodeList) xPath.compile("@font-family").evaluate(htmDoc, XPathConstants.NODESET);
 			for (int i = 0; i < fontFamilies.getLength(); i++) {
 				Node fontFamily = fontFamilies.item(i);
 				String sFontFamilyName = fontFamily.getNodeValue();
@@ -279,22 +352,53 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		writer.close();
 	}
 
-	protected void createTextFile(String parameter) throws FileNotFoundException, IOException {
+	protected void createTextFiles(String parameter) throws FileNotFoundException, IOException {
+		createHtmFile(parameter);
+		createCoverXhtmlFile();
+	}
+
+	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
 		String sHtmFile = parameter.trim();
-		String sHtmContent = documentToString(document);
+		String sHtmContent = documentToString(htmDoc);
 		int iSeparator = sHtmFile.lastIndexOf(File.separator);
-		String sFileName = sHtmFile.substring(iSeparator);
-		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sFileName;
-		OutputStreamWriter writer =
+		sHtmFileName = sHtmFile.substring(iSeparator);
+		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
+		writeContentToFile(sHtmContent, sFileInOepbs);
+	}
+
+	protected void createCoverXhtmlFile() throws FileNotFoundException, IOException {
+		final String sCoverXhtml1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				+ "<!DOCTYPE html\n"
+				+ "  PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
+				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n"
+				+ "<head>\n"
+				+ "	<title>Cover</title>\n"
+				+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"../Styles/cover.css\" />\n"
+				+ "</head>\n"
+				+ "<body class=\"cover\">\n"
+				+ "	<div class=\"cover\">\n"
+				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/cover.jpg\" />\n"
+				+ "   <div class=\"centered\">";
+		final String sCoverXhtml2 = "</div>\n"
+				+ "	</div>\n"
+				+ "</body>\n"
+				+ "</html>\n";
+		String sCoverXhtml = sCoverXhtml1 + sDocTitle + sCoverXhtml2;
+		writeContentToFile(sCoverXhtml, pOebpsTextPath.toString() + File.separator + "cover.xhtml");
+	}
+
+	protected void writeContentToFile(String sHtmContent, String sFileInOepbs)
+			throws FileNotFoundException, IOException {
+		OutputStreamWriter htmWriter =
 		         new OutputStreamWriter(new FileOutputStream(sFileInOepbs), StandardCharsets.UTF_8);
-		writer.write(sHtmContent);
-		writer.close();
+		htmWriter.write(sHtmContent);
+		htmWriter.close();
 	}
 
 	protected void createImageFiles(DocumentView docView, File fHtmFile) {
 		NodeList graphics;
 		try {
-			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(document, XPathConstants.NODESET);
+			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(htmDoc, XPathConstants.NODESET);
 			int iImageCount = 1;
 			for (int i = 0; i < graphics.getLength(); i++) {
 				Node node = graphics.item(i);
@@ -344,7 +448,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected void createCssFile(DocumentView docView, String parameter) throws IOException {
+	protected void createCssFiles(DocumentView docView, String parameter) throws IOException {
 		final String kStyleSheetName = "stylesheet.css";
 		String sCssFile = parameter.trim();
 		int extensionIndex = sCssFile.lastIndexOf(".");
@@ -352,16 +456,48 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		File fCssFile = new File(sCssFile);
 		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
-		// Get and keep CSS content for processing later
+		createCoverCss(docView);
+		// Get and keep CSS content for font file processing later
 		sCssContent = new String(Files.readAllBytes(fCssFile.toPath()), StandardCharsets.UTF_8);
 		try {
-			Node styleSheetLink = (Node) xPath.compile("/html/head/link[@rel=\"stylesheet\"]").evaluate(document, XPathConstants.NODE);
+			Node styleSheetLink = (Node) xPath.compile("/html/head/link[@rel=\"stylesheet\"]").evaluate(htmDoc, XPathConstants.NODE);
 			Node href = styleSheetLink.getAttributes().getNamedItem("href");
 			href.setNodeValue("../Styles/" + kStyleSheetName);
 		} catch (XPathExpressionException e) {
 			reportException(docView, e);
 		}
+	}
 
+	protected void createCoverCss(DocumentView docView) {
+		try {
+			final String kCoverCss = "/* Styles for cover.xhtml */\n"
+					+ "body.cover {\n"
+					+ "	margin: 0;\n"
+					+ "	padding: 0;\n"
+					+ "	text-align: center;\n"
+					+ "}\n"
+					+ "p.cover {\n"
+					+ "	margin: 0;\n"
+					+ "	padding: 0;\n"
+					+ "	text-align: center;\n"
+					+ "}\n"
+					+ "img.cover {\n"
+					+ "	height: 100%;\n"
+					+ "	margin: 0;\n"
+					+ "	padding: 0;\n"
+					+ "}\n"
+					+ ".centered {\n"
+					+ "  position: absolute;\n"
+					+ "  top: 25%;\n"
+					+ "  left: 50%;\n"
+					+ "  font-size:300%;\n"
+					+ "  transform: translate(-50%, -50%);\n"
+					+ "}\n";
+			Path coverCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "cover.css");
+			Files.write(coverCssPath, kCoverCss.getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			reportException(docView, e);
+		}
 	}
 
 	protected void createDirectoryStructure() throws IOException {

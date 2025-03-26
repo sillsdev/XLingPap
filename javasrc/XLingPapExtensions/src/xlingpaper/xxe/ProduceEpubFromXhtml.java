@@ -154,7 +154,25 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("<navMap>\n");
 		int iNavPoint = 1;
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml"));
-		
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml"));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "/#rXLingPapContents"));
+		try {
+			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
+			Node tocDivs = contents.item(0);
+			Node tocDivsNext = tocDivs.getNextSibling();
+			NodeList tocItems0 = tocDivsNext.getChildNodes();
+			for (int i0 = 0; i0 < tocItems0.getLength(); i0++) {
+				Node div0 = tocItems0.item(i0);
+				Node a0 = div0.getChildNodes().item(0);
+				// need to replace non-breaking spaces with regular spaces
+				String sContent0 = a0.getTextContent().replace("\u00a0", " ").trim();
+				String sId0 = a0.getAttributes().getNamedItem("href").getNodeValue();
+				sb.append(createTocNcxNavPoint(iNavPoint++, sContent0, "Text/" + sHtmFileName + "/" + sId0));
+				// TODO: repeat up to the proper level or until there are no nested items
+			}
+		} catch (XPathExpressionException e1) {
+			reportException(docView, e1);
+		}
 		sb.append("</navMap>\n</ncx>\n");
 		try {
 			Path tocNcxPath = Paths.get(pOebpsPath.toString() + File.separator + "toc.ncx");
@@ -166,7 +184,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected String createTocNcxNavPoint(int id, String sText, String sSrc) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<navPoint id=\"");
+		sb.append("<navPoint id=\"navPoint");
 		sb.append(id);
 		sb.append("\">\n");
 		sb.append("<navLabel>\n");
@@ -201,7 +219,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append(sContentLevel);
 		sb.append(sPreamble3);
 		sb.append("<docTitle>\n<text>");
-		sb.append(sDocTitle);
+		String sAuthor = XPathUtil.evalAsString("//frontMatter/author", xmlDoc);
+		sb.append(sAuthor);
 		sb.append("</text>\n</docTitle>\n");
 		return sb;
 	}
@@ -366,15 +385,44 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createTextFiles(String parameter) throws FileNotFoundException, IOException {
 		createHtmFile(parameter);
 		createCoverXhtmlFile();
+		createTitlePageXhtmlFile();
 	}
 
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
 		String sHtmFile = parameter.trim();
 		String sHtmContent = documentToString(htmDoc);
-		int iSeparator = sHtmFile.lastIndexOf(File.separator);
+		int iSeparator = sHtmFile.lastIndexOf(File.separator) + 1;
 		sHtmFileName = sHtmFile.substring(iSeparator);
 		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
+	}
+
+	protected void createTitlePageXhtmlFile() throws FileNotFoundException, IOException {
+		// TODO: will need to set the language to es or fr sometimes...
+		final String kTitlePage1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				+ "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
+				+ "   <head>\n"
+				+ "      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
+				+ "      <title>Title Page</title>\n"
+				+ "      <link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
+				+ "   </head>\n" + "   <body>\n" + "      <section id=\"titlepage\">\n";
+		final String kTitlePage2 = "      </section>\n"
+				+ "  </body>\n"
+				+ "</html>\n";
+		StringBuilder sb = new StringBuilder();
+		// TODO: figure out how to get the order right for all possibilities of
+		// title, subtitle, authors, etc.
+		// Can we use what's in the htm file?
+		sb.append(kTitlePage1);
+		sb.append("<p class=\"title\">");
+		sb.append(sDocTitle);
+		sb.append("</p>\n");
+		sb.append("<p class=\"author\">");
+		sb.append(sDocTitle);
+		sb.append("</p>\n");
+		sb.append(kTitlePage2);
+		writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
+				+ "titlepage.xhtml");
 	}
 
 	protected void createCoverXhtmlFile() throws FileNotFoundException, IOException {

@@ -16,9 +16,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -39,20 +45,6 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import sun.font.Font2D;
 import sun.font.FontManager;
@@ -84,12 +76,16 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	Path pOebpsTextPath;
 	Document htmDoc;
 	XPath xPath;
+	String sAuthor = "";
 	String sDocTitle = "";
+	String sDocSubtitle = "";
 	String sHtmFileName = "";
 	String sCssContent = "";
 	String sCoverJpg = "";
 	String sGuid = "";
 	com.xmlmind.xml.doc.Document xmlDoc;
+	HashSet<String> fontFiles;
+	List<String> imageFiles = new ArrayList<String>();
 
 	public boolean prepare(DocumentView docView, String parameter, int x, int y) {
 		MarkManager markManager = docView.getMarkManager();
@@ -140,12 +136,244 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createImageFiles(docView, fHtmFile);
 			createTextFiles(sParameterFileName);
 			createTocNcxFile(docView);
+			createContentOpfFile(docView);
 
 			return "success";
 
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void createContentOpfFile(DocumentView docView) {
+		// TODO: Removed these two lines after <?xml...:
+		// <!--file:///D%3A%2FAll-SIL-Publishing%2F_xrunner2_projects%2F_GPS%2FGPS-ES%2FEXGSUM64JN1-ver2%2Foutput%2FJohn_1-9%2FOEBPS%2FText%2Fcover.xhtml-->
+		//	<!--relative%2Fpath%2Ffile.ext-->
+		// Why are they there?  What good do they do for the final product?
+		// Do we need the Calibre metadata when we're not using Calibre?
+		// What about the isbn items?
+		StringBuilder sb = new StringBuilder();
+		createContentOpfPreamble(sb);
+		createContentOpfManifest(sb);
+		createContentOpfSpine(sb);
+		createContentOpfGuide(sb);
+		sb.append("</package>\n");
+		try {
+			Path contentOpfPath = Paths.get(pOebpsPath.toString() + File.separator + "content.opf");
+			Files.write(contentOpfPath, sb.toString().getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			reportException(docView, e);
+		}
+
+	}
+
+	protected void createContentOpfGuide(StringBuilder sb) {
+		sb.append("   <guide>\n");
+		
+		sb.append("   </guide>\n");
+	}
+
+	protected void createContentOpfSpine(StringBuilder sb) {
+		sb.append("   <spine>\n");
+		
+		sb.append("   </spine>\n");
+	}
+
+	protected void createContentOpfManifest(StringBuilder sb) {
+		sb.append("   <manifest>\n");
+		createContentOpfCssStyles(sb);
+		createContentOpfTexts(sb);
+		createContentOpfFonts(sb);
+		createContentOpfImages(sb);
+
+		sb.append("      <item id=\"ncx\" href=\"toc.ncx\" media-type=\"application/x-dtbncx+xml\"/>\n");
+		sb.append("   </manifest>\n");
+	}
+
+	protected void createContentOpfImages(StringBuilder sb) {
+		for (String sImage : imageFiles) {
+			createContentOpfImage(sb, sImage, "");
+		}
+		createContentOpfImage(sb, "Cover.jpg", "cover-image");
+	}
+
+	protected void createContentOpfImage(StringBuilder sb, String sImageFile, String sProperties) {
+		final String kImage1 = "      <item id=\"";
+		final String kImage2 = "\" href=\"Images/";
+		final String kImage3 = "\" media-type=\"image/";
+		final String kImage4 = "\" properties=\"";
+		sb.append(kImage1);
+		sb.append(sImageFile);
+		sb.append(kImage2);
+		sb.append(sImageFile);
+		sb.append(kImage3);
+		int iPeriod = sImageFile.lastIndexOf(".");
+		String sType = sImageFile.substring(iPeriod +1);
+		sb.append(sType.toLowerCase());
+		if (sProperties.length() > 0) {
+			sb.append(kImage4);
+			sb.append(sProperties);
+		}
+		sb.append("\"/>\n");
+	}
+
+	protected void createContentOpfFonts(StringBuilder sb) {
+		for (String ff : fontFiles) {
+			int iLastSeparator = ff.lastIndexOf(File.separator);
+			String sFileName = ff.substring(iLastSeparator + 1);
+			createContentOpfFont(sb, sFileName);
+		}
+	}
+
+	protected void createContentOpfFont(StringBuilder sb, String sFontFile) {
+		final String kFont1 = "      <item id=\"";
+		final String kFont2 = "\" href=\"Fonts/";
+		final String kFont3 = "\" media-type=\"font/";
+		sb.append(kFont1);
+		sb.append(sFontFile);
+		sb.append(kFont2);
+		sb.append(sFontFile);
+		sb.append(kFont3);
+		int iPeriod = sFontFile.lastIndexOf(".");
+		String sType = sFontFile.substring(iPeriod +1);
+		sb.append(sType.toLowerCase());
+		sb.append("\"/>\n");
+	}
+
+	protected void createContentOpfTexts(StringBuilder sb) {
+		createContentOpfText(sb, "coverText", "cover.xhtml", "svg");
+		createContentOpfText(sb, "titlepageText", "titlepage.xhtml", "");
+		createContentOpfText(sb, "thedocumentText", sHtmFileName, "");
+	}
+
+	protected void createContentOpfText(StringBuilder sb, String sId, String sTextFile, String sProperties) {
+		final String kText1 = "      <item id=\"";
+		final String kText2 = "\" href=\"Text/";
+		final String kText3 = "\" media-type=\"application/xhtml+xml\"";
+		final String kText4 = " properties=\"";
+		sb.append(kText1);
+		sb.append(sId);
+		sb.append(kText2);
+		sb.append(sTextFile);
+		sb.append(kText3);
+		if (sProperties.length() > 0) {
+			sb.append(kText4);
+			sb.append(sProperties);
+			sb.append("\"");
+		}
+		sb.append("/>\n");
+	}
+
+	protected void createContentOpfCssStyles(StringBuilder sb) {
+		createContentOpfCssStyle(sb, "coverCss", "cover.css");
+		createContentOpfCssStyle(sb, "stylesheetCss", "stylesheet.css");
+	}
+
+	protected void createContentOpfCssStyle(StringBuilder sb, String sId, String sCssFile) {
+		final String kCss1 = "      <item id=\"";
+		final String kCss2 = "\" href=\"Styles/";
+		final String kCss3 = "\" media-type=\"text/css\"/>\n";
+		sb.append(kCss1);
+		sb.append(sId);
+		sb.append(kCss2);
+		sb.append(sCssFile);
+		sb.append(kCss3);
+	}
+
+	protected void createContentOpfPreamble(StringBuilder sb) {
+		final String kPreamble1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				+ "<package xmlns=\"http://www.idpf.org/2007/opf\"\n"
+				+ "         version=\"3.0\"\n"
+				+ "         unique-identifier=\"isbn\"\n"
+				+ "         xml:lang=\"en\">\n"
+				+ "   <metadata xmlns:calibre=\"https://calibre-ebook.com/\"\n"
+				+ "             xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
+				+ "             xmlns:dcterms=\"http://purl.org/dc/terms/\"\n"
+				+ "             xmlns:opf=\"http://www.idpf.org/2007/opf\">\n"
+				+ "      <dc:identifier id=\"isbn\">isbn:???1</dc:identifier>\n"
+				+ "      <dc:identifier id=\"isbn2\">???1</dc:identifier>\n"
+				+ "      <meta refines=\"#isbn2\" property=\"identifier-type\" scheme=\"onix:codelist5\">15</meta>\n"
+				+ "      <dc:source id=\"isbn-pbk\">urn:isbn:???2</dc:source>\n"
+				+ "      <meta refines=\"#isbn-pbk\" property=\"dcterms:format\">paperback</meta>\n"
+				+ "      <dc:language>en</dc:language>\n"
+				+ "      <dc:title>";
+		final String kPreamble2 = "</dc:title>\n"
+				+ "      <dc:source id=\"pg-src\">???2</dc:source>\n"
+				+ "      <dc:subject>";
+		// TODO: How does the creator and it id work with multiple authors here and in kPreamble4 and 5?
+		final String kPreamble3 = "</dc:subject>\n"
+				+ "      <dc:creator id=\"id-1\">";
+		final String kPreamble4 = "</dc:creator>\n"
+				+ "      <meta property=\"file-as\" refines=\"#id-1\">";
+		final String kPreamble5 = "</meta>\n"
+				+ "      <meta property=\"role\" refines=\"#id-1\" scheme=\"marc:relators\">aut</meta>\n"
+				+ "      <dc:date>";
+		final String kPreamble6 = "</dc:date>\n"
+				+ "      <meta property=\"dcterms:modified\">";
+		final String kPreamble7 = "</meta>\n"
+				+ "      <meta property=\"a11y:certifiedBy\">???</meta>\n"
+				+ "      <meta property=\"dcterms:conformsTo\" id=\"conf\">EPUB Accessibility 1.1 - WCAG 2.2 Level AAA</meta>\n"
+				+ "      <dc:description>";
+		final String kPreamble8 = "</dc:description>\n"
+				+ "      <dc:rights>All rights reserved  |  No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or by any means electronic, mechanical, photocopy, recording, or otherwise without the express permission of SIL International. However, short passages, generally understood to be within the limits of fair use, may be quoted without written permission.</dc:rights>\n"
+				+ "      <dc:title id=\"title\">";
+		final String kPreamble9 = "</dc:title>\n";
+		final String kSubtitle1 = "      <meta property=\"file-as\" refines=\"#title\">";
+		final String kSubtitle2 = "</meta>\n";
+		final String kPreamble10 = "      <meta property=\"title-type\" refines=\"#title\">main</meta>\n"
+				+ "      <meta property=\"schema:accessMode\">textual</meta>\n"
+				+ "      <meta property=\"schema:accessModeSufficient\">textual</meta>\n"
+				+ "      <meta property=\"schema:accessibilityFeature\">structuralNavigation</meta>\n"
+				+ "      <meta property=\"schema:accessibilityAPI\">ARIA</meta>\n"
+				+ "      <meta property=\"schema:accessibilityFeature\">displayTransformability</meta>\n"
+				+ "      <meta property=\"schema:accessibilityFeature\">readingOrder</meta>\n"
+				+ "      <meta property=\"schema:accessibilityFeature\">tableOfContents</meta>\n"
+				+ "      <meta property=\"schema:accessibilityHazard\">noMotionSimulationHazard</meta>\n"
+				+ "      <meta property=\"schema:accessibilityHazard\">noFlashingHazard</meta>\n"
+				+ "      <meta property=\"schema:accessibilityHazard\">noSoundHazard</meta>\n"
+				+ "      <meta property=\"schema:accessibilitySummary\">In addition to meeting accessibility standards.</meta>\n"
+				+ "      <meta name=\"schema:accessibilitySummary\"\n"
+				+ "            content=\"This publication meets the EPUB Accessibility requirements and it also meets the Web Content Accessibility Guidelines (WCAG) at the double AA level. This book contains various accessibility features such as table of content, reading order and semantic structure.\"/>\n"
+				+ "      <meta name=\"SIL XLingPaper\" content=\"3.16.5\"/>\n"
+				+ "   </metadata>\n";
+		sb.append(kPreamble1);
+		sb.append(sDocTitle);
+		sb.append(kPreamble2);
+		sb.append("keywords go here");
+		sb.append(kPreamble3);
+		sb.append(sAuthor);
+		sb.append(kPreamble4);
+		sb.append(sAuthor);
+		String sIso8601Stamp = getISO8601DateTimeStamp(); 
+		sb.append(kPreamble5);
+		sb.append(sIso8601Stamp);
+		sb.append(kPreamble6);
+		sb.append(sIso8601Stamp);
+		sb.append(kPreamble7);
+		sb.append("description goes here; maybee use the content of the abstract?");
+		sb.append(kPreamble8);
+		sb.append(sDocTitle);
+		sb.append(kPreamble9);
+		if (sDocSubtitle.length() > 0) {
+			sb.append(kSubtitle1);
+			sb.append(sDocSubtitle);
+			sb.append(kSubtitle2);
+		}
+		sb.append(kPreamble10);
+	}
+
+	protected String getISO8601DateTimeStamp() {
+		LocalDateTime localDateTime = LocalDateTime.now();
+//		LocalDate localDate = 
+		final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss", Locale.ROOT);
+		String formattedDate = localDateTime.atOffset(ZoneOffset.UTC).format(PARSER); 
+//		ZoneId zone = ZoneId.of("America/Chicago");
+//	    
+//	    String dateString = "2021-09-27 16:32:36";
+//	    
+//	    ZonedDateTime dateTime = LocalDateTime.parse(dateString, PARSER).atZone(zone);
+//	    String isoZuluString = dateTime.withZoneSameInstant(ZoneOffset.UTC).toString();
+		return formattedDate;
 	}
 
 	protected void createTocNcxFile(DocumentView docView) throws ParseException, EvalException {
@@ -219,7 +447,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append(sContentLevel);
 		sb.append(sPreamble3);
 		sb.append("<docTitle>\n<text>");
-		String sAuthor = XPathUtil.evalAsString("//frontMatter/author", xmlDoc);
+		sAuthor = XPathUtil.evalAsString("//frontMatter/author", xmlDoc);
 		sb.append(sAuthor);
 		sb.append("</text>\n</docTitle>\n");
 		return sb;
@@ -227,7 +455,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createFontFiles(DocumentView docView) throws NoSuchFieldException,
 			IllegalAccessException, IOException {
-		HashSet<String> fontFiles = collectFontFilesFromCss(docView, sCssContent);
+		fontFiles = collectFontFilesFromCss(docView, sCssContent);
 		collectFontFilesFromHtm(docView, fontFiles);
 		for (String ff : fontFiles) {
 			Path pSrc = Paths.get(ff);
@@ -487,15 +715,15 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			String sFileName = sSrc.substring(iLastSeparator + 1);
 //			Alert.showError(docView.getPanel(), "sFileName ='" + sFileName + "'");
 			src.setNodeValue("../Images/" + "image" + iImageCount + sExtension);
+			imageFiles.add("image" + iImageCount + sExtension);
 			Node newSrc = node.getAttributes().getNamedItem("src");
 //			Alert.showError(docView.getPanel(), "new src ='" + newSrc.getNodeValue() + "'");
 //			src.setTextContent("../Images/" + sFileName);
-
-		
 		} else {
 			int iLastSeparator = sSrc.lastIndexOf(File.separator);
 //			Alert.showError(docView.getPanel(), "iLastSeparator =" + iLastSeparator);
 			String sFileName = sSrc.substring(iLastSeparator + 1);
+			imageFiles.add(sFileName);
 //			Alert.showError(docView.getPanel(), "sFileName ='" + sFileName + "'");
 			pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + sFileName);
 			src.setTextContent("../Images/" + sFileName);

@@ -8,27 +8,20 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,12 +40,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import sun.font.Font2D;
-import sun.font.FontManager;
 import sun.font.PhysicalFont;
 
 import com.xmlmind.guiutil.Alert;
-import com.xmlmind.util.FileUtil;
-import com.xmlmind.xml.doc.Element;
 import com.xmlmind.xml.xpath.EvalException;
 import com.xmlmind.xml.xpath.ParseException;
 import com.xmlmind.xml.xpath.XPathUtil;
@@ -174,9 +164,17 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createContentOpfSpine(StringBuilder sb) {
-		sb.append("   <spine>\n");
-		
+		sb.append("   <spine toc=\"ncx\">\n");
+		createContentOpfSpineItem(sb, "coverText");
+		createContentOpfSpineItem(sb, "titlepageText");
+		createContentOpfSpineItem(sb, "thedocumentText");
 		sb.append("   </spine>\n");
+	}
+
+	protected void createContentOpfSpineItem(StringBuilder sb, String sId) {
+		sb.append("      <itemref idref=\"");
+		sb.append(sId);
+		sb.append("\"/>\n");
 	}
 
 	protected void createContentOpfManifest(StringBuilder sb) {
@@ -363,16 +361,9 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected String getISO8601DateTimeStamp() {
-		LocalDateTime localDateTime = LocalDateTime.now();
-//		LocalDate localDate = 
-		final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss", Locale.ROOT);
-		String formattedDate = localDateTime.atOffset(ZoneOffset.UTC).format(PARSER); 
-//		ZoneId zone = ZoneId.of("America/Chicago");
-//	    
-//	    String dateString = "2021-09-27 16:32:36";
-//	    
-//	    ZonedDateTime dateTime = LocalDateTime.parse(dateString, PARSER).atZone(zone);
-//	    String isoZuluString = dateTime.withZoneSameInstant(ZoneOffset.UTC).toString();
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("UTC"));
+		final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ROOT);
+		String formattedDate = localDateTime.format(PARSER);
 		return formattedDate;
 	}
 
@@ -702,34 +693,21 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createImageFile(DocumentView docView, File fHtmFile, int iImageCount, Node node, boolean changeName) {
 		Node src = node.getAttributes().getNamedItem("src");
 		Path pSrc = Paths.get(fHtmFile.getParent() + File.separator + src.getNodeValue());
-//		Alert.showError(docView.getPanel(), "image path = '" + pSrc.toString() + "'");
 		String sSrc = pSrc.toString();
 		Path pImage;
 		if (changeName) {
 			int iExtension = sSrc.lastIndexOf(".");
 			String sExtension = sSrc.substring(iExtension);
 			pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "image" + iImageCount + sExtension);
-
-			int iLastSeparator = sSrc.lastIndexOf(File.separator);
-//			Alert.showError(docView.getPanel(), "iLastSeparator =" + iLastSeparator);
-			String sFileName = sSrc.substring(iLastSeparator + 1);
-//			Alert.showError(docView.getPanel(), "sFileName ='" + sFileName + "'");
 			src.setNodeValue("../Images/" + "image" + iImageCount + sExtension);
 			imageFiles.add("image" + iImageCount + sExtension);
-			Node newSrc = node.getAttributes().getNamedItem("src");
-//			Alert.showError(docView.getPanel(), "new src ='" + newSrc.getNodeValue() + "'");
-//			src.setTextContent("../Images/" + sFileName);
 		} else {
 			int iLastSeparator = sSrc.lastIndexOf(File.separator);
-//			Alert.showError(docView.getPanel(), "iLastSeparator =" + iLastSeparator);
 			String sFileName = sSrc.substring(iLastSeparator + 1);
 			imageFiles.add(sFileName);
-//			Alert.showError(docView.getPanel(), "sFileName ='" + sFileName + "'");
 			pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + sFileName);
 			src.setTextContent("../Images/" + sFileName);
-//			Alert.showError(docView.getPanel(), "after setting src");
 		}
-//		Alert.showError(docView.getPanel(), "image path = '" + pImage.toString() + "'");
 		try {
 			Files.copy(pSrc, pImage, StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {

@@ -64,6 +64,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			+ "</container>\n";
 	final String kContainerXmlFileName = "container.xml";
 	final String kNormal = "normal";
+	File archive;
 	Path pMetaPath;
 	Path pEpubTempPath;
 	Path pOebpsPath;
@@ -137,11 +138,19 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createContentOpfFile(docView);
 			createEpubZip(docView);
 
+			copyEpubToMainDirectory(sParameterFileName);
 			return "success";
 
 		} catch (Exception e) {
 			return reportException(docView, e);
 		}
+	}
+
+	protected void copyEpubToMainDirectory(String sParameterFileName) throws IOException {
+		int iPeriod = sParameterFileName.lastIndexOf(".");
+		String sZipFileName = sParameterFileName.substring(0, iPeriod) + ".epub";
+		File result = new File(sZipFileName);
+		Files.copy(archive.toPath(), result.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
 
 	protected List<String> getAllFileNamesForZip(String sEpubTempDir) {
@@ -173,19 +182,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		String sEpubTempDir = pEpubTempPath.toString();
 		int iSeparator = sHtmFileName.lastIndexOf(".");
 		String sZipFile = sHtmFileName.substring(0, iSeparator + 1) + "epub";
-		File archive = new File(sEpubTempDir + File.separator + sZipFile);
-//		Alert.showError(docView.getPanel(),	"archive= '" + archive.getAbsolutePath() + "'");
+		archive = new File(sEpubTempDir + File.separator + sZipFile);
 		File baseDir = new File(sEpubTempDir);
 		try {
 			List<String> fileNames = getAllFileNamesForZip(sEpubTempDir);
-
-			StringBuilder sb = new StringBuilder();
-			for (String sf : fileNames) {
-				sb.append(sf);
-				sb.append("\n");
-			}
-			Alert.showError(docView.getPanel(),	"sForCreateZip = '" + sb.toString() + "'");
-
 			HashSet<String> filesAddedToZip = new HashSet<String>();
 			ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(archive));
 			Zip.Archive za = new Zip.Archive(zos);

@@ -22,6 +22,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.zip.ZipOutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,6 +46,7 @@ import sun.font.Font2D;
 import sun.font.PhysicalFont;
 
 import com.xmlmind.guiutil.Alert;
+import com.xmlmind.util.Zip;
 import com.xmlmind.xml.xpath.EvalException;
 import com.xmlmind.xml.xpath.ParseException;
 import com.xmlmind.xml.xpath.XPathUtil;
@@ -58,7 +62,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			+ "                media-type=\"application/oebps-package+xml\"/>\n"
 			+ "   </rootfiles>\n"
 			+ "</container>\n";
+	final String kContainerXmlFileName = "container.xml";
 	final String kNormal = "normal";
+	Path pMetaPath;
+	Path pEpubTempPath;
 	Path pOebpsPath;
 	Path pOebpsFontsPath;
 	Path pOebpsImagesPath;
@@ -73,6 +80,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	String sCssContent = "";
 	String sCoverJpg = "";
 	String sGuid = "";
+	final String kMimetype = "mimetype";
 	com.xmlmind.xml.doc.Document xmlDoc;
 	HashSet<String> fontFiles;
 	List<String> imageFiles = new ArrayList<String>();
@@ -127,11 +135,90 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createTextFiles(sParameterFileName);
 			createTocNcxFile(docView);
 			createContentOpfFile(docView);
+			createEpubZip(docView);
 
 			return "success";
 
 		} catch (Exception e) {
 			return reportException(docView, e);
+		}
+	}
+
+	protected List<String> getAllFileNamesForZip(String sEpubTempDir) {
+		List<String> fileNames = Stream.of(new File(sEpubTempDir).listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList());
+		fileNames.addAll(Stream.of(pOebpsPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		fileNames.addAll(Stream.of(pMetaPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		fileNames.addAll(Stream.of(pOebpsFontsPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		fileNames.addAll(Stream.of(pOebpsImagesPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		fileNames.addAll(Stream.of(pOebpsStylesPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		fileNames.addAll(Stream.of(pOebpsTextPath.toFile().listFiles())
+				.filter(f -> !f.isDirectory()).map(File::getAbsolutePath)
+				.collect(Collectors.toList()));
+		return fileNames;
+	}
+
+	protected void createEpubZip(DocumentView docView) {
+		String sEpubTempDir = pEpubTempPath.toString();
+		int iSeparator = sHtmFileName.lastIndexOf(".");
+		String sZipFile = sHtmFileName.substring(0, iSeparator + 1) + "epub";
+		File archive = new File(sEpubTempDir + File.separator + sZipFile);
+//		Alert.showError(docView.getPanel(),	"archive= '" + archive.getAbsolutePath() + "'");
+		File baseDir = new File(sEpubTempDir);
+		try {
+			List<String> fileNames = getAllFileNamesForZip(sEpubTempDir);
+
+			StringBuilder sb = new StringBuilder();
+			for (String sf : fileNames) {
+				sb.append(sf);
+				sb.append("\n");
+			}
+			Alert.showError(docView.getPanel(),	"sForCreateZip = '" + sb.toString() + "'");
+
+			HashSet<String> filesAddedToZip = new HashSet<String>();
+			ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(archive));
+			Zip.Archive za = new Zip.Archive(zos);
+			for (String sFile : fileNames) {
+				String sCurrentFileName = sFile;
+				File f = new File(sFile);
+				// convert to canonical path so we get the true directory, not
+				// one with ..
+				String sCanonicalPath = f.getCanonicalPath();
+				if (!filesAddedToZip.contains(sCanonicalPath)) {
+					// avoid adding the same file when the non-canonical paths
+					// are different
+					sCurrentFileName = sCanonicalPath;
+					f = new File(sCanonicalPath);
+					if (f.exists()) {
+						filesAddedToZip.add(sCanonicalPath);
+						za.add(f, baseDir);
+					} else {
+						Alert.showError(
+								docView.getPanel(),
+								"This file name as it is in the document cannot be found on the file system: "
+										+ sCurrentFileName
+										+ ".  Please rename it not using any special characters.  It will not be included in the zip file!");
+					}
+				}
+			}
+			za.close();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -159,8 +246,20 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createContentOpfGuide(StringBuilder sb) {
 		sb.append("   <guide>\n");
-		
+		createContentOpfGuideItem(sb, "cover", "Cover", "cover.xhtml");
+		createContentOpfGuideItem(sb, "titlepage", "Title Page", "titlepage.xhtml");
+		createContentOpfGuideItem(sb, "section", sDocTitle, sHtmFileName);
 		sb.append("   </guide>\n");
+	}
+
+	protected void createContentOpfGuideItem(StringBuilder sb, String sType, String sTitle, String sTextFile) {
+		sb.append("      <reference type=\"");
+		sb.append(sType);
+		sb.append("\" title=\"");
+		sb.append(sTitle);
+		sb.append("\" href=\"Text/");
+		sb.append(sTextFile);
+		sb.append("\"/>\n");
 	}
 
 	protected void createContentOpfSpine(StringBuilder sb) {
@@ -448,6 +547,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			IllegalAccessException, IOException {
 		fontFiles = collectFontFilesFromCss(docView, sCssContent);
 		collectFontFilesFromHtm(docView, fontFiles);
+		// TODO: if the .woff form of the fonts are present, use them; otherwise use what's there
 		for (String ff : fontFiles) {
 			Path pSrc = Paths.get(ff);
 			int iLastSeparator = ff.lastIndexOf(File.separator);
@@ -594,7 +694,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createMimetypeFile() throws FileNotFoundException, IOException {
-		String sMimeTypeFile = pOebpsPath + File.separator + "mimetype";
+		String sMimeTypeFile = pOebpsPath + File.separator + ".." + File.separator + kMimetype;
 		OutputStreamWriter writer =
 		         new OutputStreamWriter(new FileOutputStream(sMimeTypeFile), StandardCharsets.UTF_8);
 		writer.write("application/epub+zip");
@@ -772,12 +872,12 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createDirectoryStructure() throws IOException {
-		Path pEepubTempPath = Files.createTempDirectory("XLingPaperEpub");
-		Path pMetaPath = Paths.get(pEepubTempPath.toString() + File.separator + "META-INF");
+		pEpubTempPath = Files.createTempDirectory("XLingPaperEpub");
+		pMetaPath = Paths.get(pEpubTempPath.toString() + File.separator + "META-INF");
 		Files.createDirectory(pMetaPath);
-		Path containerXmlPath = Paths.get(pMetaPath.toString() + File.separator + "container.xml");
+		Path containerXmlPath = Paths.get(pMetaPath.toString() + File.separator + kContainerXmlFileName);
 		Files.write(containerXmlPath, kContainerXml.getBytes(), StandardOpenOption.CREATE);
-		pOebpsPath = Paths.get(pEepubTempPath.toString() + File.separator + "OEBPS");
+		pOebpsPath = Paths.get(pEpubTempPath.toString() + File.separator + "OEBPS");
 		Files.createDirectory(pOebpsPath);
 		pOebpsFontsPath = Paths.get(pOebpsPath.toString() + File.separator + "Fonts");
 		Files.createDirectory(pOebpsFontsPath);

@@ -85,6 +85,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	com.xmlmind.xml.doc.Document xmlDoc;
 	HashSet<String> fontFiles;
 	List<String> imageFiles = new ArrayList<String>();
+	DocumentView docView;
 
 	public boolean prepare(DocumentView docView, String parameter, int x, int y) {
 		MarkManager markManager = docView.getMarkManager();
@@ -119,6 +120,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (fHtmFile.isDirectory()) {
 				return setMessage("FileIsADirectory");
 			}
+			this.docView = docView;
 			xmlDoc = docView.getDocument();
 			sDocTitle = XPathUtil.evalAsString("//frontMatter/title", xmlDoc);
 			sGuid = UUID.randomUUID().toString();
@@ -130,13 +132,13 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 			createDirectoryStructure();
 			createMimetypeFile();
-			createCssFiles(docView, sParameterFileName);
-			createFontFiles(docView);
-			createImageFiles(docView, fHtmFile);
+			createCssFiles(sParameterFileName);
+			createFontFiles();
+			createImageFiles(fHtmFile);
 			createTextFiles(sParameterFileName);
-			createTocNcxFile(docView);
-			createContentOpfFile(docView);
-			createEpubZip(docView);
+			createTocNcxFile();
+			createContentOpfFile();
+			createEpubZip();
 
 			copyEpubToMainDirectory(sParameterFileName);
 			return "success";
@@ -178,7 +180,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		return fileNames;
 	}
 
-	protected void createEpubZip(DocumentView docView) {
+	protected void createEpubZip() {
 		String sEpubTempDir = pEpubTempPath.toString();
 		int iSeparator = sHtmFileName.lastIndexOf(".");
 		String sZipFile = sHtmFileName.substring(0, iSeparator + 1) + "epub";
@@ -222,7 +224,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected void createContentOpfFile(DocumentView docView) {
+	protected void createContentOpfFile() {
 		// TODO: Removed these two lines after <?xml...:
 		// <!--file:///D%3A%2FAll-SIL-Publishing%2F_xrunner2_projects%2F_GPS%2FGPS-ES%2FEXGSUM64JN1-ver2%2Foutput%2FJohn_1-9%2FOEBPS%2FText%2Fcover.xhtml-->
 		//	<!--relative%2Fpath%2Ffile.ext-->
@@ -466,7 +468,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		return formattedDate;
 	}
 
-	protected void createTocNcxFile(DocumentView docView) throws ParseException, EvalException {
+	protected void createTocNcxFile() throws ParseException, EvalException {
 		StringBuilder sb = new StringBuilder();
 		sb = createTocNcxPreamble(sb);
 		sb.append("<navMap>\n");
@@ -478,16 +480,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
 			Node tocDivsNext = tocDivs.getNextSibling();
-			NodeList tocItems0 = tocDivsNext.getChildNodes();
-			for (int i0 = 0; i0 < tocItems0.getLength(); i0++) {
-				Node div0 = tocItems0.item(i0);
-				Node a0 = div0.getChildNodes().item(0);
-				// need to replace non-breaking spaces with regular spaces
-				String sContent0 = a0.getTextContent().replace("\u00a0", " ").trim();
-				String sId0 = a0.getAttributes().getNamedItem("href").getNodeValue();
-				sb.append(createTocNcxNavPoint(iNavPoint++, sContent0, "Text/" + sHtmFileName + "/" + sId0));
-				// TODO: repeat up to the proper level or until there are no nested items
-			}
+			iNavPoint = processTocDivs(sb, iNavPoint, tocDivsNext);
 		} catch (XPathExpressionException e1) {
 			reportException(docView, e1);
 		}
@@ -498,6 +491,20 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		} catch (IOException e) {
 			reportException(docView, e);
 		}
+	}
+
+	protected int processTocDivs(StringBuilder sb, int iNavPoint, Node tocDiv) {
+		NodeList tocItems = tocDiv.getChildNodes();
+		for (int i = 0; i < tocItems.getLength(); i++) {
+			Node div = tocItems.item(i);
+			Node a = div.getChildNodes().item(0);
+			// need to replace non-breaking spaces with regular spaces
+			String sContent0 = a.getTextContent().replace("\u00a0", " ").trim();
+			Node href = a.getAttributes().getNamedItem("href");
+			String sId0 = href.getNodeValue();
+			sb.append(createTocNcxNavPoint(iNavPoint++, sContent0, "Text/" + sHtmFileName + "/" + sId0));
+		}
+		return iNavPoint;
 	}
 
 	protected String createTocNcxNavPoint(int id, String sText, String sSrc) {
@@ -543,10 +550,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		return sb;
 	}
 
-	protected void createFontFiles(DocumentView docView) throws NoSuchFieldException,
+	protected void createFontFiles() throws NoSuchFieldException,
 			IllegalAccessException, IOException {
-		fontFiles = collectFontFilesFromCss(docView, sCssContent);
-		collectFontFilesFromHtm(docView, fontFiles);
+		fontFiles = collectFontFilesFromCss(sCssContent);
+		collectFontFilesFromHtm(fontFiles);
 		// TODO: if the .woff form of the fonts are present, use them; otherwise use what's there
 		for (String ff : fontFiles) {
 			Path pSrc = Paths.get(ff);
@@ -557,7 +564,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected void collectFontFilesFromHtm(DocumentView docView, HashSet<String> fontFiles)
+	protected void collectFontFilesFromHtm(HashSet<String> fontFiles)
 			throws NoSuchFieldException, IllegalAccessException {
 		try {
 			final String kFontStyle = "font-style";
@@ -606,7 +613,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					}
 				}
 				Font font = createFont(sFontFamilyName, sStyle, sWeight);
-				String sFontPath = findFontFilePath(docView, font);
+				String sFontPath = findFontFilePath(font);
 				fontFiles.add(sFontPath);
 			}
 		} catch (XPathExpressionException e) {
@@ -614,7 +621,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected HashSet<String> collectFontFilesFromCss(DocumentView docView, String sHere)
+	protected HashSet<String> collectFontFilesFromCss(String sHere)
 			throws NoSuchFieldException, IllegalAccessException {
 		HashSet<String> fontFiles = new HashSet<String>();
 		final String kFontFamily = "font-family:";
@@ -656,7 +663,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 //					Alert.showError(docView.getPanel(), "sWeight = '" + sWeight + "'");
 				}
 				Font font = createFont(sFontFamilyName, sStyle, sWeight);
-				String sFontPath = findFontFilePath(docView, font);
+				String sFontPath = findFontFilePath(font);
 				fontFiles.add(sFontPath);
 //				Alert.showError(docView.getPanel(), "font path ='" + sFontPath + "'");
 			}
@@ -678,7 +685,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		return font;
 	}
 
-	protected String findFontFilePath(DocumentView docView, Font font) throws NoSuchFieldException,
+	protected String findFontFilePath(Font font) throws NoSuchFieldException,
 			IllegalAccessException {
 		// Following is from https://stackoverflow.com/questions/2019249/get-font-file-as-a-file-object-or-get-its-path
 		// Note that this uses sun.font which may go away in a later version of Java.
@@ -775,14 +782,14 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		htmWriter.close();
 	}
 
-	protected void createImageFiles(DocumentView docView, File fHtmFile) {
+	protected void createImageFiles(File fHtmFile) {
 		NodeList graphics;
 		try {
 			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(htmDoc, XPathConstants.NODESET);
 			int iImageCount = 1;
 			for (int i = 0; i < graphics.getLength(); i++) {
 				Node node = graphics.item(i);
-				createImageFile(docView, fHtmFile, iImageCount, node, true);
+				createImageFile(fHtmFile, iImageCount, node, true);
 				iImageCount++;
 			}
 		} catch (XPathExpressionException e) {
@@ -790,7 +797,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			}
 	}
 
-	protected void createImageFile(DocumentView docView, File fHtmFile, int iImageCount, Node node, boolean changeName) {
+	protected void createImageFile(File fHtmFile, int iImageCount, Node node, boolean changeName) {
 		Node src = node.getAttributes().getNamedItem("src");
 		Path pSrc = Paths.get(fHtmFile.getParent() + File.separator + src.getNodeValue());
 		String sSrc = pSrc.toString();
@@ -815,7 +822,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected void createCssFiles(DocumentView docView, String parameter) throws IOException {
+	protected void createCssFiles(String parameter) throws IOException {
 		final String kStyleSheetName = "stylesheet.css";
 		String sCssFile = parameter.trim();
 		int extensionIndex = sCssFile.lastIndexOf(".");
@@ -823,7 +830,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		File fCssFile = new File(sCssFile);
 		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
-		createCoverCss(docView);
+		createCoverCss();
 		Path pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.jpg");
 		Files.copy(Paths.get(sCoverJpg), pImage, StandardCopyOption.REPLACE_EXISTING);
 		// Get and keep CSS content for font file processing later
@@ -837,7 +844,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected void createCoverCss(DocumentView docView) {
+	protected void createCoverCss() {
 		try {
 			// CSS taken with gratitude from https://electricbookworks.github.io/ebw-training/making-ebooks/text/7-covers.html
 			// on 2025.03.25

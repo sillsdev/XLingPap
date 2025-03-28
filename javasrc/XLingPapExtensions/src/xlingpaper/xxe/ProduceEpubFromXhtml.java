@@ -498,11 +498,14 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		for (int i = 0; i < tocItems.getLength(); i++) {
 			Node div = tocItems.item(i);
 			Node a = div.getChildNodes().item(0);
+			if (a.getNodeType() == Node.TEXT_NODE) {
+				continue;
+			}
 			// need to replace non-breaking spaces with regular spaces
-			String sContent0 = a.getTextContent().replace("\u00a0", " ").trim();
+			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
 			Node href = a.getAttributes().getNamedItem("href");
-			String sId0 = href.getNodeValue();
-			sb.append(createTocNcxNavPoint(iNavPoint++, sContent0, "Text/" + sHtmFileName + "/" + sId0));
+			String sId = href.getNodeValue();
+			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + "/" + sId));
 		}
 		return iNavPoint;
 	}

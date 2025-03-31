@@ -2783,23 +2783,25 @@
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="name(.)='authorContactInfoLayout'">
-                    <div>
-                        <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
-                        <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
-                        <xsl:if test="string-length($sSpaceBefore) &gt; 0">
-                            <xsl:attribute name="style">
-                                <xsl:text>padding-right:</xsl:text>
-                                <xsl:value-of select="$sSpaceBefore"/>
-                            </xsl:attribute>
-                        </xsl:if>
-                        <table>
-                            <tr valign="top">
-                                <xsl:apply-templates select="$backMatter/authorContactInfo">
-                                    <xsl:with-param name="layoutInfo" select="$backMatterLayout/authorContactInfoLayout"/>
-                                </xsl:apply-templates>
-                            </tr>
-                        </table>
-                    </div>
+                    <xsl:if test="$backMatter/authorContactInfo">
+                        <div>
+                            <xsl:variable name="firstLayoutItem" select="*[position()=1]"/>
+                            <xsl:variable name="sSpaceBefore" select="normalize-space($firstLayoutItem/@spacebefore)"/>
+                            <xsl:if test="string-length($sSpaceBefore) &gt; 0">
+                                <xsl:attribute name="style">
+                                    <xsl:text>padding-right:</xsl:text>
+                                    <xsl:value-of select="$sSpaceBefore"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <table>
+                                <tr valign="top">
+                                    <xsl:apply-templates select="$backMatter/authorContactInfo">
+                                        <xsl:with-param name="layoutInfo" select="$backMatterLayout/authorContactInfoLayout"/>
+                                    </xsl:apply-templates>
+                                </tr>
+                            </table>
+                        </div>
+                    </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
                     <xsl:apply-templates select="$backMatter/endnotes">
@@ -3106,8 +3108,8 @@
         <xsl:text>]</xsl:text>
     </xsl:template>
     <!--  
-      DoEndnotes
-   -->
+        DoEndnotes
+    -->
     <xsl:template name="DoEndnotes">
         <xsl:if test="contains($endnotesToShow,'X')">
             <xsl:call-template name="OutputBackMatterItemTitle">
@@ -3118,26 +3120,42 @@
                 <xsl:with-param name="layoutInfo" select="$backMatterLayoutInfo/useEndNotesLayout"/>
             </xsl:call-template>
             <table class="footnote">
-                <xsl:if test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
-                    <tr>
-                        <td style="vertical-align:top">
-                            <xsl:element name="a">
-                                <xsl:attribute name="name">
-                                    <xsl:value-of select="$sAcknowledgementsID"/>
-                                </xsl:attribute>[*]</xsl:element>
-                        </td>
-                        <td style="vertical-align:top">
-                            <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
-                        </td>
-                    </tr>
-                </xsl:if>
-                <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //interlinearRef" mode="backMatter"/>
+                <xsl:choose>
+                    <xsl:when test="$bEBook='Y'">
+                        <tbody>
+                            <xsl:call-template name="DoEndnotesItems"/>
+                        </tbody>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoEndnotesItems"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </table>
         </xsl:if>
         <!-- We may want this if we use Prince
             <xsl:for-each select="//endnote">
             <xsl:call-template name="DoFootnoteContent"/>
             </xsl:for-each>-->
+    </xsl:template>
+    <!--  
+        DoEndnotesItems
+    -->
+    <xsl:template name="DoEndnotesItems">
+        <xsl:param name="lingPaper"/>
+        <xsl:if test="$frontMatterLayoutInfo/acknowledgementsLayout/@showAsFootnoteAtEndOfAbstract='yes' and //acknowledgements and //abstract">
+            <tr>
+                <td style="vertical-align:top">
+                    <xsl:element name="a">
+                        <xsl:attribute name="name">
+                            <xsl:value-of select="$sAcknowledgementsID"/>
+                        </xsl:attribute>[*]</xsl:element>
+                </td>
+                <td style="vertical-align:top">
+                    <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
+                </td>
+            </tr>
+        </xsl:if>
+        <xsl:apply-templates select="//endnote[not(ancestor::referencedInterlinearText)] | //interlinearRef" mode="backMatter"/>
     </xsl:template>
     <!--  
         DoFigure
@@ -3897,9 +3915,6 @@
         <xsl:param name="originalContext"/>
         <xsl:param name="mode"/>
         <table>
-            <!--<xsl:if test="following-sibling::interlinearSource and $sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal)">
-                <xsl:attribute name="text-align-last">justify</xsl:attribute>
-            </xsl:if>-->
             <!-- add extra indent for when have an embedded interlinear; 
             be sure to allow for the case of when a listInterlinear begins with an interlinear -->
             <xsl:variable name="parent" select=".."/>
@@ -3930,48 +3945,51 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:variable name="language" select="key('LanguageID',@lang)"/>
-            <tr>
-                <td>
-                    <xsl:choose>
-                        <xsl:when test="name()='free'">
-                            <xsl:call-template name="DoInterlinearFreeContent">
-                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
-                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="DoLiteralLabel"/>
-                            <xsl:call-template name="DoInterlinearFreeContent">
-                                <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
-                                <xsl:with-param name="originalContext" select="$originalContext"/>
-                            </xsl:call-template>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </td>
-                <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
-                    <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
-                        <td>
-                            <xsl:call-template name="OutputInterlinearTextReference">
-                                <xsl:with-param name="sRef" select="../@textref"/>
-                                <xsl:with-param name="sSource" select="../interlinearSource"/>
-                            </xsl:call-template>
-                        </td>
-                    </xsl:if>
-                </xsl:if>
-            </tr>
+            <xsl:choose>
+                <xsl:when test="$bEBook='Y'">
+                    <tbody>
+                        <xsl:call-template name="DoInterlinearFreeRow">
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                            <xsl:with-param name="mode" select="$mode"/>
+                        </xsl:call-template>
+                    </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="DoInterlinearFreeRow">
+                        <xsl:with-param name="originalContext" select="$originalContext"/>
+                        <xsl:with-param name="mode" select="$mode"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
         </table>
         <xsl:if test="$sInterlinearSourceStyle='UnderFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
             <xsl:if test="name(../..)='example' or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
                 <xsl:if test="../interlinearSource or string-length(normalize-space(../@textref)) &gt; 0">
                     <table>
-                        <tr>
-                            <td>
-                                <xsl:call-template name="OutputInterlinearTextReference">
-                                    <xsl:with-param name="sRef" select="../@textref"/>
-                                    <xsl:with-param name="sSource" select="../interlinearSource"/>
-                                </xsl:call-template>
-                            </td>
-                        </tr>
+                        <xsl:choose>
+                            <xsl:when test="$bEBook='Y'">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <xsl:call-template name="OutputInterlinearTextReference">
+                                                <xsl:with-param name="sRef" select="../@textref"/>
+                                                <xsl:with-param name="sSource" select="../interlinearSource"/>
+                                            </xsl:call-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <tr>
+                                    <td>
+                                        <xsl:call-template name="OutputInterlinearTextReference">
+                                            <xsl:with-param name="sRef" select="../@textref"/>
+                                            <xsl:with-param name="sSource" select="../interlinearSource"/>
+                                        </xsl:call-template>
+                                    </td>
+                                </tr>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </table>
                 </xsl:if>
             </xsl:if>
@@ -4018,6 +4036,42 @@
         <xsl:call-template name="HandleFreeTextAfterOutside">
             <xsl:with-param name="freeLayout" select="$freeLayout"/>
         </xsl:call-template>
+    </xsl:template>
+    <!--  
+        DoInterlinearFreeRow
+    -->
+    <xsl:template name="DoInterlinearFreeRow">
+        <xsl:param name="originalContext"/>
+        <xsl:param name="mode"/>
+        <tr>
+            <td>
+                <xsl:choose>
+                    <xsl:when test="name()='free'">
+                        <xsl:call-template name="DoInterlinearFreeContent">
+                            <xsl:with-param name="freeLayout" select="$contentLayoutInfo/freeLayout"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="DoLiteralLabel"/>
+                        <xsl:call-template name="DoInterlinearFreeContent">
+                            <xsl:with-param name="freeLayout" select="$contentLayoutInfo/literalLayout/literalContentLayout"/>
+                            <xsl:with-param name="originalContext" select="$originalContext"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </td>
+            <xsl:if test="$sInterlinearSourceStyle='AfterFree' and not(following-sibling::free or following-sibling::literal) and $mode!='NoTextRef'">
+                <xsl:if test="name(../..)='example'  or name(../..)='listInterlinear' or ancestor::interlinear[@textref]">
+                    <td>
+                        <xsl:call-template name="OutputInterlinearTextReference">
+                            <xsl:with-param name="sRef" select="../@textref"/>
+                            <xsl:with-param name="sSource" select="../interlinearSource"/>
+                        </xsl:call-template>
+                    </td>
+                </xsl:if>
+            </xsl:if>
+        </tr>
     </xsl:template>
     <!--  
         DoInterlinearRefCitation

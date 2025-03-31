@@ -909,7 +909,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 	        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "");
-	        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"");
+	        // Sigil complains with the following but is happy with a blank system doctype
+//	        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"");
 	        transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
 
 	        transformer.transform(new DOMSource(doc), new StreamResult(sw));

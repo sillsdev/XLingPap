@@ -475,7 +475,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		int iNavPoint = 1;
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml"));
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml"));
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "/#rXLingPapContents"));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "#rXLingPapContents"));
 		try {
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
@@ -505,7 +505,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
 			Node href = a.getAttributes().getNamedItem("href");
 			String sId = href.getNodeValue();
-			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + "/" + sId));
+			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + sId));
 		}
 		return iNavPoint;
 	}
@@ -787,6 +787,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createImageFiles(File fHtmFile) {
 		NodeList graphics;
+		imageFiles.clear();
 		try {
 			graphics = (NodeList) xPath.compile("//img | //embed").evaluate(htmDoc, XPathConstants.NODESET);
 			int iImageCount = 1;

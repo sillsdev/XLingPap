@@ -2678,10 +2678,12 @@
                     </xsl:if>
                 </xsl:when>
                 <xsl:when test="name(.)='useEndNotesLayout'">
-                    <xsl:apply-templates select="$backMatter/endnotes" mode="contents">
-                        <xsl:with-param name="text-transform" select="@text-transform"/>
-                        <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
-                    </xsl:apply-templates>
+                    <xsl:if test="count(//endnote) &gt; 0">
+                        <xsl:apply-templates select="$backMatter/endnotes" mode="contents">
+                            <xsl:with-param name="text-transform" select="@text-transform"/>
+                            <xsl:with-param name="contentsLayoutToUse" select="$contentsLayoutToUse"/>
+                        </xsl:apply-templates>
+                    </xsl:if>
                 </xsl:when>
             </xsl:choose>
         </xsl:for-each>
@@ -3151,7 +3153,7 @@
                         </xsl:attribute>[*]</xsl:element>
                 </td>
                 <td style="vertical-align:top">
-                    <xsl:apply-templates select="$lingPaper/frontMatter/acknowledgements/*"/>
+                    <xsl:apply-templates select="//acknowledgements/*"/>
                 </td>
             </tr>
         </xsl:if>

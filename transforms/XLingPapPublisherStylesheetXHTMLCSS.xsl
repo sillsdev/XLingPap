@@ -1318,7 +1318,7 @@ li.lower-roman {
         </xsl:call-template>
         <xsl:variable name="sSpaceBefore" select="normalize-space($documentLayoutInfo/blockQuoteLayout/@spacebefore)"/>
         <xsl:if test="string-length($sSpaceBefore)&gt;0">
-            <xsl:text>;
+            <xsl:text>
                 padding-top:</xsl:text>                
             <xsl:value-of select="$sSpaceBefore"/>
         </xsl:if>

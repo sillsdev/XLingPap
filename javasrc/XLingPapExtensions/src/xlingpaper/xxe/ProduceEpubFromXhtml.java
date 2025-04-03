@@ -39,6 +39,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -80,8 +81,9 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	String sHtmFileName = "";
 	String sCssContent = "";
 	String sCoverJpg = "";
+	String sCoverPng = "";
 	String sGuid = "";
-	final String kMimetype = "mimetype";
+	String sTableOfContentsTitle = "";
 	com.xmlmind.xml.doc.Document xmlDoc;
 	HashSet<String> fontFiles;
 	List<String> imageFiles = new ArrayList<String>();
@@ -111,6 +113,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 			// Cover.jpg for cover
 			sCoverJpg = asFilenames[1].trim();
+			int iLastPeriod = sCoverJpg.lastIndexOf(".");
+			sCoverPng = sCoverJpg.substring(0, iLastPeriod +1) + "png";
 
 			// Make sure the file or directory exists and isn't write protected
 			if (!fHtmFile.exists()) {
@@ -250,6 +254,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("   <guide>\n");
 		createContentOpfGuideItem(sb, "cover", "Cover", "cover.xhtml");
 		createContentOpfGuideItem(sb, "titlepage", "Title Page", "titlepage.xhtml");
+		createContentOpfGuideItem(sb, "toc", sTableOfContentsTitle, "nav.xhtml");
 		createContentOpfGuideItem(sb, "section", sDocTitle, sHtmFileName);
 		sb.append("   </guide>\n");
 	}
@@ -268,6 +273,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("   <spine toc=\"ncx\">\n");
 		createContentOpfSpineItem(sb, "coverText");
 		createContentOpfSpineItem(sb, "titlepageText");
+		createContentOpfSpineItem(sb, "nav");
 		createContentOpfSpineItem(sb, "thedocumentText");
 		sb.append("   </spine>\n");
 	}
@@ -291,16 +297,18 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createContentOpfImages(StringBuilder sb) {
 		for (String sImage : imageFiles) {
-			createContentOpfImage(sb, sImage, "");
+			createContentOpfImage(sb, sImage, "", "");
 		}
-		createContentOpfImage(sb, "Cover.jpg", "cover-image");
+		createContentOpfImage(sb, "Cover.jpg", "cover-image", "Cover.png");
+		createContentOpfImage(sb, "Cover.png", "", "");
 	}
 
-	protected void createContentOpfImage(StringBuilder sb, String sImageFile, String sProperties) {
+	protected void createContentOpfImage(StringBuilder sb, String sImageFile, String sProperties, String sFallback) {
 		final String kImage1 = "      <item id=\"";
 		final String kImage2 = "\" href=\"Images/";
 		final String kImage3 = "\" media-type=\"image/";
 		final String kImage4 = "\" properties=\"";
+		final String kImage5 = "\" fallback=\"";
 		sb.append(kImage1);
 		sb.append(sImageFile);
 		sb.append(kImage2);
@@ -312,6 +320,10 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		if (sProperties.length() > 0) {
 			sb.append(kImage4);
 			sb.append(sProperties);
+		}
+		if (sFallback.length() > 0) {
+			sb.append(kImage5);
+			sb.append(sFallback);
 		}
 		sb.append("\"/>\n");
 	}
@@ -340,8 +352,9 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createContentOpfTexts(StringBuilder sb) {
-		createContentOpfText(sb, "coverText", "cover.xhtml", "svg");
+		createContentOpfText(sb, "coverText", "cover.xhtml", "");
 		createContentOpfText(sb, "titlepageText", "titlepage.xhtml", "");
+		createContentOpfText(sb, "nav", "nav.xhtml", "nav");
 		createContentOpfText(sb, "thedocumentText", sHtmFileName, "");
 	}
 
@@ -365,6 +378,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 
 	protected void createContentOpfCssStyles(StringBuilder sb) {
 		createContentOpfCssStyle(sb, "coverCss", "cover.css");
+		createContentOpfCssStyle(sb, "navCss", "nav.css");
 		createContentOpfCssStyle(sb, "stylesheetCss", "stylesheet.css");
 	}
 
@@ -389,7 +403,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "             xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
 				+ "             xmlns:dcterms=\"http://purl.org/dc/terms/\"\n"
 				+ "             xmlns:opf=\"http://www.idpf.org/2007/opf\">\n"
-				+ "      <dc:identifier id=\"isbn\">isbn:???1</dc:identifier>\n"
+				+ "      <dc:identifier id=\"isbn\">isbn:xyz1</dc:identifier>\n"
 				+ "      <dc:identifier id=\"isbn2\">???1</dc:identifier>\n"
 				+ "      <meta refines=\"#isbn2\" property=\"identifier-type\" scheme=\"onix:codelist5\">15</meta>\n"
 				+ "      <dc:source id=\"isbn-pbk\">urn:isbn:???2</dc:source>\n"
@@ -435,7 +449,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "            content=\"This publication meets the EPUB Accessibility requirements and it also meets the Web Content Accessibility Guidelines (WCAG) at the double AA level. This book contains various accessibility features such as table of content, reading order and semantic structure.\"/>\n"
 				+ "      <meta name=\"SIL XLingPaper\" content=\"3.16.5\"/>\n"
 				+ "   </metadata>\n";
-		sb.append(kPreamble1);
+		sb.append(kPreamble1.replaceFirst("isbn:xyz1", sGuid));
 		sb.append(sDocTitle);
 		sb.append(kPreamble2);
 		sb.append("keywords go here");
@@ -526,6 +540,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("</navPoint>\n");
 		return sb.toString();
 	}
+
 	protected StringBuilder createTocNcxPreamble(StringBuilder sb) throws ParseException, EvalException {
 		final String sPreamble1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<ncx xmlns=\"http://www.daisy.org/z3986/2005/ncx/\" version=\"2005-1\">\n"
@@ -704,7 +719,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createMimetypeFile() throws FileNotFoundException, IOException {
-		String sMimeTypeFile = pOebpsPath + File.separator + ".." + File.separator + kMimetype;
+		String sMimeTypeFile = pOebpsPath + File.separator + ".." + File.separator + "mimetype";
 		OutputStreamWriter writer =
 		         new OutputStreamWriter(new FileOutputStream(sMimeTypeFile), StandardCharsets.UTF_8);
 		writer.write("application/epub+zip");
@@ -714,22 +729,145 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createTextFiles(String parameter) throws FileNotFoundException, IOException {
 		createHtmFile(parameter);
 		createCoverXhtmlFile();
+		createNavXhtmlFile();
 		createTitlePageXhtmlFile();
 	}
 
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
 		String sHtmFile = parameter.trim();
 		String sHtmContent = documentToString(htmDoc);
+		sHtmContent = sHtmContent.replaceFirst("\n  SYSTEM \"\">", ">");
 		int iSeparator = sHtmFile.lastIndexOf(File.separator) + 1;
 		sHtmFileName = sHtmFile.substring(iSeparator);
 		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
 	}
 
+	protected void createNavXhtmlFile() throws FileNotFoundException, IOException {
+		// TODO: will need to set the language to es or fr sometimes...
+		final String kNav1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				+ "<!DOCTYPE html>\n"
+				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
+				+ "   <head>\n"
+				+ "      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
+				+ "      <title>Contents</title>\n"
+				+ "      <link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
+				+ "      <link href=\"../Styles/nav.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
+				+ "   </head>\n" + "   <body>\n" + "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
+		final String kNav2 = "      </nav>\n"
+				+ "  </body>\n"
+				+ "</html>\n";
+		StringBuilder sb = new StringBuilder();
+		try {
+			// TODO: figure out how to get the order right for all possibilities of
+			// title, subtitle, authors, etc.
+			// Can we use what's in the htm file?
+			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
+			Node tocDivs = contents.item(0);
+			sTableOfContentsTitle = tocDivs.getTextContent();
+			sb.append(kNav1);
+			sb.append("<h1>");
+			sb.append(sTableOfContentsTitle);
+			sb.append("</h1>\n");
+			Node tocDivsNext = tocDivs.getNextSibling();
+			int iLevel = 0;
+			iLevel = processXhtmlTocDivs(sb, iLevel, tocDivsNext);
+			if (iLevel > 0) {
+				sb.append("</li>\n");
+				sb.append("</ol>\n");
+			}
+			sb.append(kNav2);
+			writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
+					+ "nav.xhtml");
+		} catch (XPathExpressionException e1) {
+			reportException(docView, e1);
+		}
+	}
+
+	protected int processXhtmlTocDivs(StringBuilder sb, int iPreviousLevel, Node tocDiv) {
+		NodeList tocItems = tocDiv.getChildNodes();
+		for (int i = 0; i < tocItems.getLength(); i++) {
+			Node div = tocItems.item(i);
+			Node a = div.getChildNodes().item(0);
+			if (a.getNodeType() == Node.TEXT_NODE) {
+				continue;
+			}
+			int iThisLevel = findTocLevel(div);
+			if (iThisLevel == iPreviousLevel) {
+				sb.append("</li>\n");
+			} else if (iThisLevel > iPreviousLevel) {
+				sb.append("<ol>\n");
+			} else {
+				while (iThisLevel < iPreviousLevel) {
+					sb.append("</li>\n");
+					sb.append("</ol>\n");
+					iPreviousLevel--;
+				}
+				sb.append("</li>\n");
+			}
+			// need to replace non-breaking spaces with regular spaces
+			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
+			Node href = a.getAttributes().getNamedItem("href");
+			String sId = href.getNodeValue();
+			sb.append(createXhtmlTocLi(sContent, sHtmFileName + sId));
+			iPreviousLevel = iThisLevel;
+		}
+		return iPreviousLevel;
+	}
+
+	protected int findTocLevel(Node tocDiv) {
+		final String kPaddingLeft = "padding-left:";
+		int iLevel = 1;
+		NamedNodeMap attrs = tocDiv.getAttributes();
+		if (attrs != null) {
+			Node style = attrs.getNamedItem("style");
+			if (style != null) {
+				String sStyle = style.getNodeValue();
+				int iPaddingLeft = sStyle.indexOf(kPaddingLeft);
+				if (iPaddingLeft > -1) {
+					String sPaddingLeftValue = sStyle.substring(iPaddingLeft + kPaddingLeft.length());
+					int iEm = sPaddingLeftValue.indexOf("em");
+					if (iEm > -1) {
+						String sValue = sPaddingLeftValue.substring(0, iEm);
+						switch (sValue) {
+						case "3":
+							iLevel = 2;
+							break;
+						case "4.5":
+							iLevel = 3;
+							break;
+						case "6":
+							iLevel = 4;
+							break;
+						case "7.5":
+							iLevel = 5;
+							break;
+						case "9":
+							iLevel = 6;
+							break;
+						}
+					}
+				}
+			}
+		}
+		return iLevel;
+	}
+
+	protected String createXhtmlTocLi(String sText, String sSrc) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<li><a href=\"");
+		sb.append(sSrc);
+		sb.append("\">");
+		sb.append(sText);
+		sb.append("</a>\n");
+		return sb.toString();
+	}
+
 	protected void createTitlePageXhtmlFile() throws FileNotFoundException, IOException {
 		// TODO: will need to set the language to es or fr sometimes...
 		final String kTitlePage1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				+ "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
+				+ "<!DOCTYPE html>\n"
+				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\" lang=\"en\" xml:lang=\"en\">\n"
 				+ "   <head>\n"
 				+ "      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
 				+ "      <title>Title Page</title>\n"
@@ -758,8 +896,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		// XHTML (mostly) taken with gratitude from https://electricbookworks.github.io/ebw-training/making-ebooks/text/7-covers.html
 		// on 2025.03.25
 		final String sCoverXhtml1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				+ "<!DOCTYPE html\n"
-				+ "  PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
+				+ "<!DOCTYPE html>\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n"
 				+ "<head>\n"
 				+ "	<title>Cover</title>\n"
@@ -767,7 +904,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "</head>\n"
 				+ "<body class=\"cover\">\n"
 				+ "	<div class=\"cover\">\n"
-				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/cover.jpg\" />\n"
+				+ "		<img class=\"cover\" alt=\"Cover\" src=\"../Images/Cover.jpg\" />\n"
 				+ "   <div class=\"centered\">";
 		final String sCoverXhtml2 = "</div>\n"
 				+ "	</div>\n"
@@ -835,8 +972,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		Path pCss = Paths.get(pOebpsStylesPath.toString() + File.separator + kStyleSheetName);
 		Files.copy(fCssFile.toPath(), pCss, StandardCopyOption.REPLACE_EXISTING);
 		createCoverCss();
+		createNavCss();
 		Path pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.jpg");
 		Files.copy(Paths.get(sCoverJpg), pImage, StandardCopyOption.REPLACE_EXISTING);
+		pImage = Paths.get(pOebpsImagesPath.toString() + File.separator + "Cover.png");
+		Files.copy(Paths.get(sCoverPng), pImage, StandardCopyOption.REPLACE_EXISTING);
 		// Get and keep CSS content for font file processing later
 		sCssContent = new String(Files.readAllBytes(fCssFile.toPath()), StandardCharsets.UTF_8);
 		try {
@@ -877,6 +1017,17 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 					+ "}\n";
 			Path coverCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "cover.css");
 			Files.write(coverCssPath, kCoverCss.getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			reportException(docView, e);
+		}
+	}
+
+	protected void createNavCss() {
+		try {
+			final String kNavCss = ".navnotcontent {display:none;}\n"
+					+ "#toc ol li ol li {display:inline-block; padding:0 1em 0 0;}\n";
+			Path navCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "nav.css");
+			Files.write(navCssPath, kNavCss.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			reportException(docView, e);
 		}

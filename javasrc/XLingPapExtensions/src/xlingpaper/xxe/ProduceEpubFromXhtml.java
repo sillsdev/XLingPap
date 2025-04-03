@@ -753,9 +753,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void removeContentsFromHtmFile() {
-		NodeList contents;
 		try {
-			contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
+			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
 			Node tocDivsNext = tocDivs.getNextSibling();
 			Node parent = tocDivs.getParentNode();
@@ -769,6 +768,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
 		String sHtmContent = documentToString(htmDoc);
 		sHtmContent = sHtmContent.replaceFirst("\n  SYSTEM \"\">", ">");
+		sHtmContent = sHtmContent.replaceAll(" shape=\"rect\">", ">");
 		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
 	}
@@ -821,7 +821,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				sb.append("</ol>\n");
 			}
 			sb.append(kNav2);
-			//add other landmark qitems here
+			//add other landmark items here
 			sb.append(kNav3);
 			writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
 					+ "nav.xhtml");

@@ -791,6 +791,14 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "      <link href=\"../Styles/nav.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
 				+ "   </head>\n" + "   <body>\n" + "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
 		final String kNav2 = "      </nav>\n"
+				+ "      <nav id=\"landmarks\" hidden=\"\">\n"
+				+ "<h1 class=\"contents\">Landmarks</h1>\n"
+				+ "<ol>\n"
+				+ "<li><a href=\"cover.xhtml\">Cover</a></li>\n"
+				+ "<li><a href=\"titlepage.xhtml\">Title Page</a></li>\n"
+				+ "<li><a href=\"nav.xhtml\">Table of Contents</a></li>\n";
+		final String kNav3 = "      </ol>\n"
+				+ "      </nav>\n"
 				+ "  </body>\n"
 				+ "</html>\n";
 		StringBuilder sb = new StringBuilder();
@@ -813,6 +821,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				sb.append("</ol>\n");
 			}
 			sb.append(kNav2);
+			//add other landmark qitems here
+			sb.append(kNav3);
 			writeContentToFile(sb.toString(), pOebpsTextPath.toString() + File.separator
 					+ "nav.xhtml");
 		} catch (XPathExpressionException e1) {

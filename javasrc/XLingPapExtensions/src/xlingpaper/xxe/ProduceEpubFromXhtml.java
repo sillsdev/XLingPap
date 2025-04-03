@@ -124,6 +124,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (fHtmFile.isDirectory()) {
 				return setMessage("FileIsADirectory");
 			}
+			getHtmFileName(sParameterFileName);
 			this.docView = docView;
 			xmlDoc = docView.getDocument();
 			sDocTitle = XPathUtil.evalAsString("//frontMatter/title", xmlDoc);
@@ -139,8 +140,8 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			createCssFiles(sParameterFileName);
 			createFontFiles();
 			createImageFiles(fHtmFile);
-			createTextFiles(sParameterFileName);
 			createTocNcxFile();
+			createTextFiles(sParameterFileName);
 			createContentOpfFile();
 			createEpubZip();
 
@@ -489,7 +490,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		int iNavPoint = 1;
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml", true));
 		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml", true));
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "#rXLingPapContents", true));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/nav.xhtml", true));
 		try {
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
@@ -744,20 +745,38 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	}
 
 	protected void createTextFiles(String parameter) throws FileNotFoundException, IOException {
-		createHtmFile(parameter);
 		createCoverXhtmlFile();
-		createNavXhtmlFile();
 		createTitlePageXhtmlFile();
+		createNavXhtmlFile();
+		removeContentsFromHtmFile();
+		createHtmFile(parameter);
+	}
+
+	protected void removeContentsFromHtmFile() {
+		NodeList contents;
+		try {
+			contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
+			Node tocDivs = contents.item(0);
+			Node tocDivsNext = tocDivs.getNextSibling();
+			Node parent = tocDivs.getParentNode();
+			parent.removeChild(tocDivs);
+			parent.removeChild(tocDivsNext);
+		} catch (XPathExpressionException e) {
+			reportException(docView, e);
+		}
 	}
 
 	protected void createHtmFile(String parameter) throws FileNotFoundException, IOException {
-		String sHtmFile = parameter.trim();
 		String sHtmContent = documentToString(htmDoc);
 		sHtmContent = sHtmContent.replaceFirst("\n  SYSTEM \"\">", ">");
-		int iSeparator = sHtmFile.lastIndexOf(File.separator) + 1;
-		sHtmFileName = sHtmFile.substring(iSeparator);
 		String sFileInOepbs = pOebpsTextPath.toString() + File.separator + sHtmFileName;
 		writeContentToFile(sHtmContent, sFileInOepbs);
+	}
+
+	protected void getHtmFileName(String parameter) {
+		String sHtmFile = parameter.trim();
+		int iSeparator = sHtmFile.lastIndexOf(File.separator) + 1;
+		sHtmFileName = sHtmFile.substring(iSeparator);
 	}
 
 	protected void createNavXhtmlFile() throws FileNotFoundException, IOException {
@@ -783,7 +802,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			Node tocDivs = contents.item(0);
 			sTableOfContentsTitle = tocDivs.getTextContent();
 			sb.append(kNav1);
-			sb.append("<h1>");
+			sb.append("<h1 class=\"contents\">");
 			sb.append(sTableOfContentsTitle);
 			sb.append("</h1>\n");
 			Node tocDivsNext = tocDivs.getNextSibling();
@@ -1042,7 +1061,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 	protected void createNavCss() {
 		try {
 			final String kNavCss = ".navnotcontent {display:none;}\n"
-					+ "#toc ol li ol li {display:inline-block; padding:0 1em 0 0;}\n";
+					+ "li {list-style-type:none;}\n";
 			Path navCssPath = Paths.get(pOebpsStylesPath.toString() + File.separator + "nav.css");
 			Files.write(navCssPath, kNavCss.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {

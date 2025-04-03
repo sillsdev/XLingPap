@@ -487,14 +487,18 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb = createTocNcxPreamble(sb);
 		sb.append("<navMap>\n");
 		int iNavPoint = 1;
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml"));
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml"));
-		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "#rXLingPapContents"));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Cover", "Text/cover.xhtml", true));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Title Page", "Text/titlepage.xhtml", true));
+		sb.append(createTocNcxNavPoint(iNavPoint++, "Contents", "Text/" + sHtmFileName + "#rXLingPapContents", true));
 		try {
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
 			Node tocDivs = contents.item(0);
 			Node tocDivsNext = tocDivs.getNextSibling();
-			iNavPoint = processTocDivs(sb, iNavPoint, tocDivsNext);
+			int iLevel = 0;
+			iLevel = processTocDivs(sb, iNavPoint, iLevel, tocDivsNext);
+			if (iLevel > 0) {
+				sb.append("</navPoint>\n");
+			}
 		} catch (XPathExpressionException e1) {
 			reportException(docView, e1);
 		}
@@ -507,7 +511,7 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected int processTocDivs(StringBuilder sb, int iNavPoint, Node tocDiv) {
+	protected int processTocDivs(StringBuilder sb, int iNavPoint, int iPreviousLevel, Node tocDiv) {
 		NodeList tocItems = tocDiv.getChildNodes();
 		for (int i = 0; i < tocItems.getLength(); i++) {
 			Node div = tocItems.item(i);
@@ -515,16 +519,27 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			if (a.getNodeType() == Node.TEXT_NODE) {
 				continue;
 			}
+			int iThisLevel = findTocLevel(div);
+			if (iThisLevel == iPreviousLevel) {
+				sb.append("</navPoint>\n");
+			} else if (iThisLevel < iPreviousLevel) {
+				while (iThisLevel < iPreviousLevel) {
+					sb.append("</navPoint>\n");
+					iPreviousLevel--;
+				}
+				sb.append("</navPoint>\n");
+			}
 			// need to replace non-breaking spaces with regular spaces
 			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
 			Node href = a.getAttributes().getNamedItem("href");
 			String sId = href.getNodeValue();
-			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + sId));
+			sb.append(createTocNcxNavPoint(iNavPoint++, sContent, "Text/" + sHtmFileName + sId, false));
+			iPreviousLevel = iThisLevel;
 		}
 		return iNavPoint;
 	}
 
-	protected String createTocNcxNavPoint(int id, String sText, String sSrc) {
+	protected String createTocNcxNavPoint(int id, String sText, String sSrc, boolean bAppendClosingNavPoint) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<navPoint id=\"navPoint");
 		sb.append(id);
@@ -537,7 +552,9 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		sb.append("<content src=\"");
 		sb.append(sSrc);
 		sb.append("\"/>\n");
-		sb.append("</navPoint>\n");
+		if (bAppendClosingNavPoint) {
+			sb.append("</navPoint>\n");
+		}
 		return sb.toString();
 	}
 

@@ -789,9 +789,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 				+ "      <title>Contents</title>\n"
 				+ "      <link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
 				+ "      <link href=\"../Styles/nav.css\" type=\"text/css\" rel=\"stylesheet\" />\n"
-				+ "   </head>\n" + "   <body>\n" + "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n";
-		final String kNav2 = "      </nav>\n"
-				+ "      <nav id=\"landmarks\" hidden=\"\">\n"
+				+ "   </head>\n" + "   <body>\n"
+				+ "      <nav id=\"toc\" role=\"doc-toc\" epub:type=\"toc\">\n"
+				+ " <ol><li><a><span>\u00a0</span></a></li></ol></nav>\n";
+		// Note: we're trying to fake the <nav id="toc"...> element in order to use the <div>s produced by XLingPaper
+		final String kNav2 = "      <nav id=\"landmarks\" hidden=\"\">\n"
 				+ "<h1 class=\"contents\">Landmarks</h1>\n"
 				+ "<ol>\n"
 				+ "<li><a href=\"cover.xhtml\">Cover</a></li>\n"
@@ -807,19 +809,11 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 			// title, subtitle, authors, etc.
 			// Can we use what's in the htm file?
 			NodeList contents = (NodeList) xPath.compile("//div[contains(@id,'rXLingPapContents')]").evaluate(htmDoc, XPathConstants.NODESET);
-			Node tocDivs = contents.item(0);
-			sTableOfContentsTitle = tocDivs.getTextContent();
 			sb.append(kNav1);
-			sb.append("<h1 class=\"contents\">");
-			sb.append(sTableOfContentsTitle);
-			sb.append("</h1>\n");
+			Node tocDivs = contents.item(0);
+			convertNodeToString(tocDivs, sb);
 			Node tocDivsNext = tocDivs.getNextSibling();
-			int iLevel = 0;
-			iLevel = processXhtmlTocDivs(sb, iLevel, tocDivsNext);
-			if (iLevel > 0) {
-				sb.append("</li>\n");
-				sb.append("</ol>\n");
-			}
+			convertNodeToString(tocDivsNext, sb);
 			sb.append(kNav2);
 			//add other landmark items here
 			sb.append(kNav3);
@@ -830,35 +824,45 @@ public class ProduceEpubFromXhtml extends RecordableCommand {
 		}
 	}
 
-	protected int processXhtmlTocDivs(StringBuilder sb, int iPreviousLevel, Node tocDiv) {
-		NodeList tocItems = tocDiv.getChildNodes();
-		for (int i = 0; i < tocItems.getLength(); i++) {
-			Node div = tocItems.item(i);
-			Node a = div.getChildNodes().item(0);
-			if (a.getNodeType() == Node.TEXT_NODE) {
-				continue;
-			}
-			int iThisLevel = findTocLevel(div);
-			if (iThisLevel == iPreviousLevel) {
-				sb.append("</li>\n");
-			} else if (iThisLevel > iPreviousLevel) {
-				sb.append("<ol>\n");
-			} else {
-				while (iThisLevel < iPreviousLevel) {
-					sb.append("</li>\n");
-					sb.append("</ol>\n");
-					iPreviousLevel--;
-				}
-				sb.append("</li>\n");
-			}
-			// need to replace non-breaking spaces with regular spaces
-			String sContent = a.getTextContent().replace("\u00a0", " ").trim();
-			Node href = a.getAttributes().getNamedItem("href");
-			String sId = href.getNodeValue();
-			sb.append(createXhtmlTocLi(sContent, sHtmFileName + sId));
-			iPreviousLevel = iThisLevel;
+	protected void convertNodeToString(Node n, StringBuilder sb) {
+		String name = n.getNodeName();
+		short type = n.getNodeType();
+		if (Node.CDATA_SECTION_NODE == type) {
+			sb.append("<![CDATA[" + n.getNodeValue() + "]]&gt;");
+			return;
 		}
-		return iPreviousLevel;
+		if (type == Node.TEXT_NODE) {
+			sb.append(n.getTextContent());
+			return;
+		}
+		sb.append('<').append(name);
+		NamedNodeMap attrs = n.getAttributes();
+		if (attrs != null) {
+			for (int i = 0; i < attrs.getLength(); i++) {
+				Node attr = attrs.item(i);
+				String attrName = attr.getNodeName();
+				if (attrName.equals("shape")) {
+					continue;
+				}
+				sb.append(' ').append(attrName).append("=\"");
+				if (attrName.equals("href")) {
+					sb.append(sHtmFileName);
+				}
+				sb.append(attr.getNodeValue()).append("\"");
+			}
+		}
+		NodeList children = n.getChildNodes();
+		if (children.getLength() == 0) {
+			sb.append(n.getTextContent());
+			sb.append("/>\n");
+		} else {
+			sb.append(">");
+			for (int i = 0; i < children.getLength(); i++) {
+				Node child = children.item(i);
+				convertNodeToString(child, sb);
+			}
+			sb.append("</").append(name).append('>');
+		}
 	}
 
 	protected int findTocLevel(Node tocDiv) {
